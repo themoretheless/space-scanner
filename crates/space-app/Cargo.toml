@@ -1,0 +1,20 @@
+[package]
+name = "space-app"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Disk space scanner with radial, treemap, sunburst and cascade views"
+
+[[bin]]
+name = "space-scanner"
+path = "src/main.rs"
+
+[dependencies]
+space-core = { workspace = true }
+eframe = { workspace = true }
+egui = { workspace = true }
+rfd = { workspace = true }
+crossbeam-channel = { workspace = true }
+humansize = { workspace = true }
+sysinfo = { workspace = true }
+trash = { workspace = true }

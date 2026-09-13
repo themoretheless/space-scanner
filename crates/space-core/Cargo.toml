@@ -1,0 +1,27 @@
+[package]
+name = "space-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Fast filesystem space indexing and cache"
+
+[dependencies]
+serde = { workspace = true }
+bincode = { workspace = true }
+blake3 = { workspace = true }
+directories = { workspace = true }
+thiserror = { workspace = true }
+crossbeam-channel = { workspace = true }
+crossbeam-deque = { workspace = true }
+crossbeam-utils = { workspace = true }
+humansize = { workspace = true }
+unicode-normalization = { workspace = true }
+zstd = { workspace = true }
+
+[dev-dependencies]
+airbug.workspace = true
+airbug-bench.workspace = true
+
+[[bench]]
+name = "scan"
+harness = false
