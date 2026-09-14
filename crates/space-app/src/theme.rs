@@ -73,13 +73,24 @@ fn install_fonts(ctx: &egui::Context) {
     ctx.set_fonts(fonts);
 }
 
-/// Well-spaced folder hues (no two neighbors in this list are close).
+/// Well-spaced folder hues — brighter, clearer (charcoal map + amber family).
 const DIR_HUES: &[f32] = &[
-    18.0, 48.0, 78.0, 112.0, 148.0, 178.0, 205.0, 232.0, 262.0, 310.0, 338.0, 8.0,
+    28.0,  // amber
+    195.0, // teal
+    340.0, // rose
+    145.0, // green
+    250.0, // violet
+    45.0,  // gold
+    210.0, // sky
+    12.0,  // coral
+    165.0, // mint
+    280.0, // purple
+    85.0,  // chartreuse
+    320.0, // magenta
 ];
 
 /// Minimum squared RGB distance so adjacent wedges read as different.
-const MIN_COLOR_DIST2: i32 = 48 * 48;
+const MIN_COLOR_DIST2: i32 = 55 * 55;
 
 /// Files by extension; folders get stable distinct hues (not flat gray).
 pub fn color_for(name: &str, is_dir: bool) -> Color32 {
@@ -107,6 +118,24 @@ pub fn color_for_adjacent(
     pick_dir_color(name, sibling_index.wrapping_add(3), avoid)
 }
 
+/// Child ring: related to parent, but siblings still clearly distinct.
+pub fn color_child_of(parent: Color32, sibling_index: usize, avoid: &[Color32]) -> Color32 {
+    let (h, s0, v0) = rgb_to_hsv(parent);
+    // Step around the wheel so neighbors don't melt together.
+    let step = 38.0;
+    for offset in 0..10 {
+        let i = sibling_index + offset;
+        let h2 = (h + (i as f32) * step - step * 0.35).rem_euclid(360.0);
+        let s = (s0 * 0.75 + 0.18 + (i % 3) as f32 * 0.06).clamp(0.40, 0.78);
+        let v = (v0 * 0.85 + 0.12 + (i % 4) as f32 * 0.04).clamp(0.45, 0.80);
+        let c = hsv(h2, s, v);
+        if avoid.iter().all(|a| color_dist2(c, *a) >= MIN_COLOR_DIST2) {
+            return c;
+        }
+    }
+    hsv((h + 95.0 + sibling_index as f32 * 47.0).rem_euclid(360.0), 0.58, 0.66)
+}
+
 fn color_for_dir(name: &str) -> Color32 {
     pick_dir_color(name, 0, &[])
 }
@@ -116,22 +145,20 @@ fn pick_dir_color(name: &str, sibling_index: usize, avoid: &[Color32]) -> Color3
     let n = DIR_HUES.len();
     for offset in 0..n {
         let slot = (preferred + offset) % n;
-        // Alternate value slightly so even distant palette reuse stays readable.
-        let v = 0.50 + ((sibling_index + offset) % 4) as f32 * 0.035;
-        let s = 0.40 + ((sibling_index + slot) % 3) as f32 * 0.04;
-        let c = hsv(DIR_HUES[slot], s, v);
+        let v = 0.58 + ((sibling_index + offset) % 4) as f32 * 0.04;
+        let s = 0.52 + ((sibling_index + slot) % 3) as f32 * 0.05;
+        let c = hsv(DIR_HUES[slot], s.clamp(0.45, 0.72), v.clamp(0.48, 0.78));
         if avoid.iter().all(|a| color_dist2(c, *a) >= MIN_COLOR_DIST2) {
             return c;
         }
     }
-    // Last resort: force a hue halfway from the strongest conflict.
     let conflict = avoid.last().copied().unwrap_or(DIR);
     let h = (fnv1a(name) % 360) as f32;
-    let forced = hsv((h + 140.0 + sibling_index as f32 * 37.0) % 360.0, 0.48, 0.58);
+    let forced = hsv((h + 140.0 + sibling_index as f32 * 37.0) % 360.0, 0.58, 0.65);
     if color_dist2(forced, conflict) >= MIN_COLOR_DIST2 / 2 {
         forced
     } else {
-        hsv((h + 200.0) % 360.0, 0.50, 0.60)
+        hsv((h + 200.0) % 360.0, 0.60, 0.68)
     }
 }
 
@@ -224,4 +251,25 @@ fn hsv(h: f32, s: f32, v: f32) -> Color32 {
         ((g + m) * 255.0) as u8,
         ((b + m) * 255.0) as u8,
     )
+}
+
+fn rgb_to_hsv(c: Color32) -> (f32, f32, f32) {
+    let r = c.r() as f32 / 255.0;
+    let g = c.g() as f32 / 255.0;
+    let b = c.b() as f32 / 255.0;
+    let max = r.max(g).max(b);
+    let min = r.min(g).min(b);
+    let d = max - min;
+    let v = max;
+    let s = if max <= 1e-6 { 0.0 } else { d / max };
+    let h = if d <= 1e-6 {
+        0.0
+    } else if (max - r).abs() < 1e-6 {
+        60.0 * ((g - b) / d).rem_euclid(6.0)
+    } else if (max - g).abs() < 1e-6 {
+        60.0 * (((b - r) / d) + 2.0)
+    } else {
+        60.0 * (((r - g) / d) + 4.0)
+    };
+    (h.rem_euclid(360.0), s, v)
 }

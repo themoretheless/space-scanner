@@ -7,13 +7,18 @@ use egui::{
 };
 use space_core::{format_bytes, NodeId};
 
-use crate::theme::{self, ACCENT, MUTED, TEXT};
+use crate::theme::{self, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, GeomCache, GeomKey, ViewAction};
 
 const MAX_DEPTH: usize = 2;
-const MIN_SWEEP: f32 = 0.02;
-const MAX_ARCS: usize = 160;
-const MAX_TOP: usize = 28;
+/// ~8px at outer ring — hairline wedges become "Other".
+const MIN_SWEEP_PX: f32 = 8.0;
+const MAX_ARCS: usize = 120;
+const MAX_TOP: usize = 18;
+/// Gap between rings (px).
+const RING_GAP: f32 = 3.0;
+/// Angular gap between siblings (radians).
+const SIBLING_GAP: f32 = 0.012;
 /// ~3px chord length target for smooth outer edges.
 const PX_PER_STEP: f32 = 3.0;
 
@@ -57,6 +62,8 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     if need_rebuild {
         let mut mesh = Mesh::default();
         let mut hits: Vec<ArcHit> = Vec::with_capacity(MAX_ARCS);
+        let mid_r = hole + ring_w * 0.5;
+        let min_sweep = (MIN_SWEEP_PX / mid_r.max(1.0)).max(0.035);
 
         let kids = child_ids(ctx, focus);
         let top = kids.iter().copied().take(MAX_TOP).collect::<Vec<_>>();
@@ -71,7 +78,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         for &id in &top {
             let size = tree.node(id).size(ctx.mode);
             let sweep = (size as f32 / total as f32) * std::f32::consts::TAU;
-            if sweep < MIN_SWEEP {
+            if sweep < min_sweep {
                 other += sweep;
             } else {
                 visible.push((id, sweep));
@@ -85,6 +92,8 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         );
 
         let mut angle = -std::f32::consts::FRAC_PI_2;
+        let n_vis = visible.len().max(1);
+        let gap = if n_vis > 1 { SIBLING_GAP } else { 0.0 };
         for (i, &(id, sweep)) in visible.iter().enumerate() {
             if hits.len() >= MAX_ARCS {
                 break;
@@ -93,31 +102,36 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 let n = tree.node(id);
                 theme::color_for(&n.name, n.is_dir)
             });
-            paint_subtree(
-                ctx,
-                id,
-                0,
-                angle,
-                angle + sweep,
-                hole,
-                ring_w,
-                center,
-                color,
-                &mut mesh,
-                &mut hits,
-            );
+            let a0 = angle + gap * 0.5;
+            let a1 = angle + sweep - gap * 0.5;
+            if a1 > a0 {
+                paint_subtree(
+                    ctx,
+                    id,
+                    0,
+                    a0,
+                    a1,
+                    hole,
+                    ring_w,
+                    center,
+                    color,
+                    min_sweep,
+                    &mut mesh,
+                    &mut hits,
+                );
+            }
             angle += sweep;
         }
-        if other >= MIN_SWEEP && hits.len() < MAX_ARCS {
+        if other >= min_sweep && hits.len() < MAX_ARCS {
             push_segment(
                 &mut mesh,
                 &mut hits,
                 center,
                 hole,
-                hole + ring_w - 1.5,
+                hole + ring_w - RING_GAP,
                 angle,
                 angle + other,
-                Color32::from_rgb(70, 74, 80),
+                Color32::from_rgb(52, 56, 62),
                 None,
             );
         }
@@ -156,32 +170,77 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         for hit in hits.iter().rev() {
             if point_in_arc(pos, center, hit) {
                 hover_id = hit.id;
-                stroke_wedge(&painter, center, hit, Stroke::new(1.6_f32, ACCENT));
                 break;
             }
         }
     }
-    if let Some(sel) = ctx.selected {
-        if let Some(hit) = hits.iter().find(|h| h.id == Some(sel)) {
-            stroke_wedge(&painter, center, hit, Stroke::new(2.2_f32, ACCENT));
+
+    // Soft animated highlight — stroke only (fill overlay was a broken shard).
+    for (hi, hit) in hits.iter().enumerate() {
+        let is_hov = match (hover_id, hit.id) {
+            (Some(h), Some(id)) => h == id,
+            _ => false,
+        };
+        let is_sel = hit.id.is_some_and(|id| ctx.selected == Some(id));
+        let hov_t = ui.ctx().animate_bool_with_time(ui.id().with(("sb_hov", hi)), is_hov, 0.14);
+        let sel_t = ui.ctx().animate_bool_with_time(ui.id().with(("sb_sel", hi)), is_sel, 0.18);
+        if hov_t > 0.01 {
+            // Proper annular wash (same tessellation as wedges).
+            let mut overlay = Mesh::default();
+            push_segment_mesh(
+                &mut overlay,
+                center,
+                hit.inner,
+                hit.outer,
+                hit.a0,
+                hit.a1,
+                Color32::from_rgba_unmultiplied(255, 210, 120, (hov_t * 70.0) as u8),
+            );
+            painter.add(Shape::Mesh(Arc::new(overlay)));
+            stroke_wedge(
+                &painter,
+                center,
+                hit,
+                Stroke::new(
+                    1.4 + hov_t,
+                    Color32::from_rgba_unmultiplied(255, 200, 100, (hov_t * 230.0) as u8),
+                ),
+            );
+        } else if sel_t > 0.01 {
+            stroke_wedge(
+                &painter,
+                center,
+                hit,
+                Stroke::new(
+                    1.8 + sel_t * 0.6,
+                    Color32::from_rgba_unmultiplied(232, 168, 72, (sel_t * 240.0) as u8),
+                ),
+            );
         }
     }
 
     let focus_node = tree.node(focus);
     painter.circle_filled(center, hole - 2.0, theme::BG);
+    // Fade-in hub label when focus changes (id-keyed animation resets).
+    let name_alpha = ui.ctx().animate_bool_with_time(
+        ui.id().with(("sb_focus", focus.0)),
+        true,
+        0.32,
+    );
+    let label_a = (0.4 + 0.6 * name_alpha).clamp(0.0, 1.0);
     painter.text(
         center + Vec2::new(0.0, -10.0),
         Align2::CENTER_CENTER,
         truncate(&focus_node.name, 18),
         FontId::proportional(15.0),
-        TEXT,
+        Color32::from_rgba_unmultiplied(TEXT.r(), TEXT.g(), TEXT.b(), (label_a * 255.0) as u8),
     );
     painter.text(
         center + Vec2::new(0.0, 10.0),
         Align2::CENTER_CENTER,
         format_bytes(focus_node.size(ctx.mode)),
         FontId::proportional(12.0),
-        MUTED,
+        Color32::from_rgba_unmultiplied(MUTED.r(), MUTED.g(), MUTED.b(), (label_a * 220.0) as u8),
     );
 
     if response.clicked() {
@@ -213,39 +272,55 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     }
 
     action.hover = hover_id;
+    let label_t = ui.ctx().animate_bool_with_time(
+        ui.id().with("sb_label"),
+        hover_id.is_some(),
+        0.18,
+    );
     if let Some(id) = hover_id {
-        let n = tree.node(id);
-        let parent_size = n
-            .parent
-            .map(|p| tree.node(p).size(ctx.mode).max(1))
-            .unwrap_or(1);
-        let pct = (n.size(ctx.mode) as f32 / parent_size as f32) * 100.0;
-        let label = format!(
-            "{}  ·  {}  ·  {pct:.0}%",
-            truncate(&n.name, 28),
-            format_bytes(n.size(ctx.mode)),
-        );
-        // Light overlay under the map — avoids a heavy tooltip covering the sunburst.
-        let bar = egui::Rect::from_min_size(
-            egui::pos2(rect.left() + 12.0, rect.bottom() - 28.0),
-            egui::vec2(rect.width() - 24.0, 22.0),
-        );
-        painter.rect_filled(bar, 4.0, theme::PANEL_2);
-        painter.text(
-            bar.left_center() + Vec2::new(10.0, 0.0),
-            Align2::LEFT_CENTER,
-            label,
-            FontId::proportional(13.0),
-            TEXT,
-        );
-        if n.is_dir {
-            painter.text(
-                bar.right_center() - Vec2::new(10.0, 0.0),
-                Align2::RIGHT_CENTER,
-                format!("{} files", n.file_count),
-                FontId::proportional(11.0),
-                MUTED,
+        if label_t > 0.02 {
+            let n = tree.node(id);
+            let parent_size = n
+                .parent
+                .map(|p| tree.node(p).size(ctx.mode).max(1))
+                .unwrap_or(1);
+            let pct = (n.size(ctx.mode) as f32 / parent_size as f32) * 100.0;
+            let label = format!(
+                "{}  ·  {}  ·  {pct:.0}%",
+                truncate(&n.name, 28),
+                format_bytes(n.size(ctx.mode)),
             );
+            let bar = egui::Rect::from_min_size(
+                egui::pos2(rect.left() + 12.0, rect.bottom() - 28.0),
+                egui::vec2(rect.width() - 24.0, 22.0),
+            );
+            let a = (label_t * 230.0) as u8;
+            painter.rect_filled(
+                bar,
+                4.0,
+                Color32::from_rgba_unmultiplied(
+                    theme::PANEL_2.r(),
+                    theme::PANEL_2.g(),
+                    theme::PANEL_2.b(),
+                    a,
+                ),
+            );
+            painter.text(
+                bar.left_center() + Vec2::new(10.0, 0.0),
+                Align2::LEFT_CENTER,
+                label,
+                FontId::proportional(13.0),
+                Color32::from_rgba_unmultiplied(TEXT.r(), TEXT.g(), TEXT.b(), a),
+            );
+            if n.is_dir {
+                painter.text(
+                    bar.right_center() - Vec2::new(10.0, 0.0),
+                    Align2::RIGHT_CENTER,
+                    format!("{} files", n.file_count),
+                    FontId::proportional(11.0),
+                    Color32::from_rgba_unmultiplied(MUTED.r(), MUTED.g(), MUTED.b(), a),
+                );
+            }
         }
     }
 
@@ -291,25 +366,27 @@ fn sibling_colors(
     for (i, &id) in ids.iter().enumerate() {
         let n = ctx.tree.node(id);
         let mut avoid: Vec<Color32> = Vec::with_capacity(3);
-        if let Some(p) = parent {
-            avoid.push(p);
-        }
         if let Some(&prev) = out.last() {
             avoid.push(prev);
         }
-        out.push(theme::color_for_adjacent(&n.name, n.is_dir, i, &avoid));
+        let c = if let Some(p) = parent {
+            // Outer ring: stay in the parent's hue family.
+            theme::color_child_of(p, i, &avoid)
+        } else if n.is_dir {
+            avoid.extend(out.iter().copied().take(2));
+            theme::color_for_adjacent(&n.name, true, i, &avoid)
+        } else {
+            theme::color_for_adjacent(&n.name, false, i, &avoid)
+        };
+        out.push(c);
     }
-    if circular && out.len() >= 2 {
+    if circular && parent.is_none() && out.len() >= 2 {
         let first = out[0];
         let prev = out[out.len() - 2];
         let last_i = out.len() - 1;
         let last_id = ids[last_i];
         let n = ctx.tree.node(last_id);
-        let mut avoid = vec![prev, first];
-        if let Some(p) = parent {
-            avoid.push(p);
-        }
-        out[last_i] = theme::color_for_adjacent(&n.name, n.is_dir, last_i, &avoid);
+        out[last_i] = theme::color_for_adjacent(&n.name, n.is_dir, last_i, &[prev, first]);
     }
     out
 }
@@ -324,18 +401,20 @@ fn paint_subtree(
     ring_w: f32,
     center: Pos2,
     color: Color32,
+    min_sweep: f32,
     mesh: &mut Mesh,
     hits: &mut Vec<ArcHit>,
 ) {
-    if depth >= MAX_DEPTH || (a1 - a0) < MIN_SWEEP || hits.len() >= MAX_ARCS {
+    if depth >= MAX_DEPTH || (a1 - a0) < min_sweep * 0.5 || hits.len() >= MAX_ARCS {
         return;
     }
 
     let tree = ctx.tree;
     let node = tree.node(id);
     let inner = hole + depth as f32 * ring_w;
-    let outer = inner + ring_w - 1.5;
-    let shade = 1.0 - depth as f32 * 0.08;
+    let outer = inner + ring_w - RING_GAP;
+    // Outer ring slightly darker so rings stack with depth, not mud.
+    let shade = if depth == 0 { 1.0 } else { 0.88 };
     let color = Color32::from_rgb(
         (color.r() as f32 * shade) as u8,
         (color.g() as f32 * shade) as u8,
@@ -352,63 +431,73 @@ fn paint_subtree(
     if kids.is_empty() {
         return;
     }
-    let take = kids.iter().copied().take(20).collect::<Vec<_>>();
+    let take = kids.iter().copied().take(16).collect::<Vec<_>>();
     let span = a1 - a0;
     let total = take
         .iter()
         .map(|c| tree.node(*c).size(ctx.mode))
         .sum::<u64>()
         .max(1);
+    let child_min = (min_sweep * (hole + ring_w * 1.5) / (hole + ring_w * 0.5).max(1.0)).max(min_sweep);
     let mut visible: Vec<(NodeId, f32)> = Vec::new();
     let mut other = 0.0_f32;
     for &cid in &take {
         let cs = tree.node(cid).size(ctx.mode);
         let sweep = (cs as f32 / total as f32) * span;
-        if sweep < MIN_SWEEP {
+        if sweep < child_min {
             other += sweep;
         } else {
             visible.push((cid, sweep));
         }
     }
-    let circular = span > std::f32::consts::TAU * 0.92;
     let child_colors = sibling_colors(
         ctx,
         &visible.iter().map(|(id, _)| *id).collect::<Vec<_>>(),
         Some(color),
-        circular,
+        false,
     );
     let mut a = a0;
+    let gap = if visible.len() > 1 {
+        SIBLING_GAP * 0.6
+    } else {
+        0.0
+    };
     for (i, &(cid, sweep)) in visible.iter().enumerate() {
         if hits.len() >= MAX_ARCS {
             break;
         }
         let ccol = child_colors.get(i).copied().unwrap_or(color);
-        paint_subtree(
-            ctx,
-            cid,
-            depth + 1,
-            a,
-            a + sweep,
-            hole,
-            ring_w,
-            center,
-            ccol,
-            mesh,
-            hits,
-        );
+        let ca0 = a + gap * 0.5;
+        let ca1 = a + sweep - gap * 0.5;
+        if ca1 > ca0 {
+            paint_subtree(
+                ctx,
+                cid,
+                depth + 1,
+                ca0,
+                ca1,
+                hole,
+                ring_w,
+                center,
+                ccol,
+                min_sweep,
+                mesh,
+                hits,
+            );
+        }
         a += sweep;
     }
-    if other >= MIN_SWEEP && hits.len() < MAX_ARCS {
+    if other >= child_min && hits.len() < MAX_ARCS {
         let inner = hole + (depth + 1) as f32 * ring_w;
         push_segment(
             mesh,
             hits,
             center,
             inner,
-            inner + ring_w - 1.5,
+            inner + ring_w - RING_GAP,
             a,
             a + other,
-            Color32::from_rgb(70, 74, 80),
+            Color32::from_rgb(48, 52, 58),
             None,
         );
     }
@@ -425,8 +514,26 @@ fn push_segment(
     color: Color32,
     id: Option<NodeId>,
 ) {
+    push_segment_mesh(mesh, center, inner, outer, a0, a1, color);
+    hits.push(ArcHit {
+        id,
+        inner,
+        outer,
+        a0,
+        a1,
+    });
+}
+
+fn push_segment_mesh(
+    mesh: &mut Mesh,
+    center: Pos2,
+    inner: f32,
+    outer: f32,
+    a0: f32,
+    a1: f32,
+    color: Color32,
+) {
     let sweep = (a1 - a0).abs();
-    // Tessellate by outer arc length so large wedges stay round (old cap of 10 made them polygonal).
     let steps = ((sweep * outer / PX_PER_STEP).ceil() as usize).clamp(4, 72);
 
     for i in 0..steps {
@@ -446,14 +553,6 @@ fn push_segment(
         mesh.add_triangle(idx, idx + 1, idx + 2);
         mesh.add_triangle(idx, idx + 2, idx + 3);
     }
-
-    hits.push(ArcHit {
-        id,
-        inner,
-        outer,
-        a0,
-        a1,
-    });
 }
 
 fn point_in_arc(pos: Pos2, center: Pos2, hit: &ArcHit) -> bool {

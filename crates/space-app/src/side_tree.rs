@@ -304,7 +304,7 @@ pub fn draw_rows(
         let live = ui.ctx().animate_bool_with_time(
             ui.id().with(("dim", row.id.0)),
             active,
-            0.22,
+            0.28,
         );
         let fade = |c: Color32| {
             Color32::from_rgba_unmultiplied(
@@ -322,19 +322,52 @@ pub fn draw_rows(
 
             if row.is_dir && row.has_kids {
                 let open = side.expanded.contains(&row.id);
-                let t = ui
-                    .ctx()
-                    .animate_bool(ui.id().with(("chev", row.id.0)), open);
-                let chev = if t > 0.5 { "▾" } else { "▸" };
-                let chev_resp = ui.add(
-                    egui::Label::new(
-                        RichText::new(chev)
-                            .color(fade(MUTED))
-                            .monospace()
-                            .size(11.0),
-                    )
-                    .sense(Sense::click()),
+                let t = ui.ctx().animate_bool_with_time(
+                    ui.id().with(("chev", row.id.0)),
+                    open,
+                    0.18,
                 );
+                // Rotate ▸ toward ▾ via opacity blend of two glyphs.
+                let chev_resp = ui
+                    .allocate_ui(egui::vec2(12.0, 14.0), |ui| {
+                        let (rect, resp) = ui.allocate_exact_size(
+                            egui::vec2(12.0, 14.0),
+                            Sense::click(),
+                        );
+                        let painter = ui.painter();
+                        let closed_a = ((1.0 - t) * 255.0) as u8;
+                        let open_a = (t * 255.0) as u8;
+                        if closed_a > 8 {
+                            painter.text(
+                                rect.center(),
+                                egui::Align2::CENTER_CENTER,
+                                "▸",
+                                egui::FontId::monospace(11.0),
+                                Color32::from_rgba_unmultiplied(
+                                    MUTED.r(),
+                                    MUTED.g(),
+                                    MUTED.b(),
+                                    ((closed_a as f32) * (26.0 + 229.0 * live) / 255.0) as u8,
+                                ),
+                            );
+                        }
+                        if open_a > 8 {
+                            painter.text(
+                                rect.center(),
+                                egui::Align2::CENTER_CENTER,
+                                "▾",
+                                egui::FontId::monospace(11.0),
+                                Color32::from_rgba_unmultiplied(
+                                    MUTED.r(),
+                                    MUTED.g(),
+                                    MUTED.b(),
+                                    ((open_a as f32) * (26.0 + 229.0 * live) / 255.0) as u8,
+                                ),
+                            );
+                        }
+                        resp
+                    })
+                    .inner;
                 if chev_resp.clicked() {
                     if open {
                         side.expanded.remove(&row.id);

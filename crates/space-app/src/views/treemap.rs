@@ -133,17 +133,36 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         } else {
             theme::color_for(&node.name, node.is_dir)
         };
-        let is_sel = ctx.selected == Some(id)
-            || ctx.hovered == Some(id)
-            || ctx.review.contains(&id);
+        let is_hov = ctx.hovered == Some(id);
+        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let hov_t = ui.ctx().animate_bool_with_time(
+            ui.id().with(("tm_hov", id.0, depth)),
+            is_hov,
+            0.14,
+        );
+        let sel_t = ui.ctx().animate_bool_with_time(
+            ui.id().with(("tm_sel", id.0, depth)),
+            is_sel,
+            0.18,
+        );
         let shrink = if node.is_dir { 1.5 } else { 0.8 };
-        painter.rect_filled(rect.shrink(shrink), 2.0, color);
+        let draw = rect.shrink(shrink);
+        // Soft grow on hover.
+        let grow = hov_t * 1.2;
+        let draw = egui::Rect::from_center_size(draw.center(), draw.size() + egui::vec2(grow, grow));
+        painter.rect_filled(draw, 2.0, color);
+        let stroke_w = 0.6 + sel_t * 1.4 + hov_t * 1.0;
+        let stroke_a = (90.0 + sel_t * 150.0 + hov_t * 100.0).min(255.0) as u8;
         painter.rect_stroke(
-            rect.shrink(shrink),
+            draw,
             2.0,
             Stroke::new(
-                if is_sel { 2.0_f32 } else { 0.6_f32 },
-                if is_sel { ACCENT } else { theme::BG },
+                stroke_w,
+                if sel_t > 0.05 || hov_t > 0.05 {
+                    egui::Color32::from_rgba_unmultiplied(232, 168, 72, stroke_a)
+                } else {
+                    theme::BG
+                },
             ),
             egui::StrokeKind::Inside,
         );

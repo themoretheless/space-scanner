@@ -3,7 +3,7 @@
 use egui::{pos2, Align2, FontId, Rect, Sense, Stroke, Ui, Vec2};
 use space_core::{format_bytes, NodeId};
 
-use crate::theme::{self, ACCENT, MUTED, TEXT};
+use crate::theme::{self, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, ViewAction};
 
 struct Band {
@@ -53,16 +53,42 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         } else {
             band.color.gamma_multiply(1.0 - band.depth as f32 * 0.08)
         };
-        let is_sel = ctx.selected == Some(band.id)
-            || ctx.hovered == Some(band.id)
-            || ctx.review.contains(&band.id);
-        painter.rect_filled(band.rect.shrink(1.0), 3.0, color);
+        let is_hov = ctx.hovered == Some(band.id);
+        let is_sel = ctx.selected == Some(band.id) || ctx.review.contains(&band.id);
+        let hov_t = ui.ctx().animate_bool_with_time(
+            ui.id().with(("cas_hov", band.id.0)),
+            is_hov,
+            0.14,
+        );
+        let sel_t = ui.ctx().animate_bool_with_time(
+            ui.id().with(("cas_sel", band.id.0)),
+            is_sel,
+            0.18,
+        );
+        let draw = band.rect.shrink(1.0);
+        painter.rect_filled(draw, 3.0, color);
+        if hov_t > 0.01 {
+            painter.rect_filled(
+                draw,
+                3.0,
+                egui::Color32::from_rgba_unmultiplied(232, 168, 72, (hov_t * 36.0) as u8),
+            );
+        }
         painter.rect_stroke(
-            band.rect.shrink(1.0),
+            draw,
             3.0,
             Stroke::new(
-                if is_sel { 2.0_f32 } else { 1.0_f32 },
-                if is_sel { ACCENT } else { theme::BG },
+                1.0 + sel_t + hov_t * 0.8,
+                if sel_t > 0.05 || hov_t > 0.05 {
+                    egui::Color32::from_rgba_unmultiplied(
+                        232,
+                        168,
+                        72,
+                        (70.0 + sel_t * 170.0 + hov_t * 120.0) as u8,
+                    )
+                } else {
+                    theme::BG
+                },
             ),
             egui::StrokeKind::Inside,
         );

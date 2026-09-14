@@ -1900,7 +1900,12 @@ impl eframe::App for SpaceApp {
 
             let files_open = self.settings.flags.show_files_under_map;
             let files_bar_h = 28.0;
-            let files_list_h = if files_open { 148.0 } else { 0.0 };
+            let files_open_t = ctx.animate_bool_with_time(
+                egui::Id::new("files_panel_open"),
+                files_open,
+                0.28,
+            );
+            let files_list_h = 148.0 * crate::anim::ease_out_cubic(files_open_t);
             let bottom_h = files_bar_h + files_list_h;
 
             let full = ui.available_rect_before_wrap();
@@ -2022,7 +2027,8 @@ impl eframe::App for SpaceApp {
                     });
                 });
 
-                if files_open {
+                if files_open_t > 0.02 {
+                    ui.set_opacity(files_open_t);
                     if file_rows.is_empty() {
                         ui.add_space(4.0);
                         ui.label(
@@ -2036,7 +2042,7 @@ impl eframe::App for SpaceApp {
                         let mut open_file = None;
                         egui::ScrollArea::vertical()
                             .id_salt("map_folder_files")
-                            .max_height(files_list_h - 4.0)
+                            .max_height((files_list_h - 4.0).max(0.0))
                             .auto_shrink([false, false])
                             .show(ui, |ui| {
                                 for &(id, sz) in &file_rows {
@@ -2088,6 +2094,7 @@ impl eframe::App for SpaceApp {
                             self.reveal_selected();
                         }
                     }
+                    ui.set_opacity(1.0);
                 }
             });
         });

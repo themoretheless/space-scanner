@@ -21,8 +21,8 @@ pub struct Transition {
 impl Transition {
     pub fn start(kind: TransKind) -> Self {
         let duration = match kind {
-            TransKind::ZoomIn | TransKind::ZoomOut => Duration::from_millis(280),
-            TransKind::ViewSwitch => Duration::from_millis(180),
+            TransKind::ZoomIn | TransKind::ZoomOut => Duration::from_millis(420),
+            TransKind::ViewSwitch => Duration::from_millis(260),
         };
         Self {
             kind,
@@ -35,10 +35,9 @@ impl Transition {
         (self.started.elapsed().as_secs_f32() / self.duration.as_secs_f32()).clamp(0.0, 1.0)
     }
 
-    /// Smoothstep ease.
+    /// Cubic ease-out — snappy start, soft landing.
     pub fn ease(&self) -> f32 {
-        let t = self.linear();
-        t * t * (3.0 - 2.0 * t)
+        ease_out_cubic(self.linear())
     }
 
     pub fn done(&self) -> bool {
@@ -49,24 +48,53 @@ impl Transition {
         let e = self.ease();
         match self.kind {
             TransKind::ViewSwitch => {
-                // dip then rise
-                if e < 0.5 {
-                    1.0 - e * 1.4
+                // Soft dip then rise — never fully blank.
+                let dip = if e < 0.45 {
+                    1.0 - ease_in_out(e / 0.45) * 0.55
                 } else {
-                    (e - 0.5) * 2.0
-                }
-                .clamp(0.15, 1.0)
+                    0.45 + ease_out_cubic((e - 0.45) / 0.55) * 0.55
+                };
+                dip.clamp(0.35, 1.0)
             }
-            TransKind::ZoomIn | TransKind::ZoomOut => (0.35 + 0.65 * e).clamp(0.2, 1.0),
+            TransKind::ZoomIn | TransKind::ZoomOut => (0.55 + 0.45 * e).clamp(0.4, 1.0),
         }
     }
 
     pub fn scale(&self) -> f32 {
         let e = self.ease();
         match self.kind {
-            TransKind::ZoomIn => 0.82 + 0.18 * e,
-            TransKind::ZoomOut => 1.12 - 0.12 * e,
-            TransKind::ViewSwitch => 0.96 + 0.04 * e,
+            // Slight overshoot then settle for depth.
+            TransKind::ZoomIn => lerp(0.78, 1.0, ease_out_back(e)),
+            TransKind::ZoomOut => lerp(1.16, 1.0, ease_out_cubic(e)),
+            TransKind::ViewSwitch => lerp(0.94, 1.0, e),
         }
     }
+}
+
+#[inline]
+pub fn lerp(a: f32, b: f32, t: f32) -> f32 {
+    a + (b - a) * t
+}
+
+#[inline]
+pub fn ease_out_cubic(t: f32) -> f32 {
+    let u = 1.0 - t;
+    1.0 - u * u * u
+}
+
+#[inline]
+pub fn ease_in_out(t: f32) -> f32 {
+    if t < 0.5 {
+        4.0 * t * t * t
+    } else {
+        1.0 - (-2.0 * t + 2.0).powi(3) / 2.0
+    }
+}
+
+/// Soft overshoot for zoom-in settle.
+#[inline]
+pub fn ease_out_back(t: f32) -> f32 {
+    let c1 = 1.70158;
+    let c3 = c1 + 1.0;
+    1.0 + c3 * (t - 1.0).powi(3) + c1 * (t - 1.0).powi(2)
 }

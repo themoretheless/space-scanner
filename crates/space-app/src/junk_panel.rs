@@ -220,7 +220,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                                         );
                                     });
                                 });
-                                // Size bar
+                                // Size bar — animate fill when category appears.
                                 let bar_w = ui.available_width().max(40.0);
                                 let bar = egui::Rect::from_min_size(
                                     ui.cursor().min,
@@ -228,9 +228,15 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                                 );
                                 ui.allocate_rect(bar, Sense::hover());
                                 ui.painter().rect_filled(bar, 2.0, theme::BORDER);
+                                let grow = ui.ctx().animate_bool_with_time(
+                                    ui.id().with(("junk_bar", cat.name.as_str())),
+                                    true,
+                                    0.45,
+                                );
+                                let fill_w = bar_w * frac.clamp(0.04, 1.0) * grow;
                                 let fill = egui::Rect::from_min_size(
                                     bar.min,
-                                    egui::vec2(bar_w * frac.clamp(0.04, 1.0), 4.0),
+                                    egui::vec2(fill_w, 4.0),
                                 );
                                 ui.painter().rect_filled(fill, 2.0, ACCENT);
                                 ui.add_space(2.0);

@@ -92,16 +92,35 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         let pos = center + Vec2::angled(angle) * dist;
 
         let color = colors.get(i).copied().unwrap_or(parent_color);
-        let is_sel = ctx.selected == Some(id)
-            || ctx.hovered == Some(id)
-            || ctx.review.contains(&id);
+        let is_hov = ctx.hovered == Some(id);
+        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let hov_t = ui.ctx().animate_bool_with_time(
+            ui.id().with(("rad_hov", id.0)),
+            is_hov,
+            0.16,
+        );
+        let sel_t = ui.ctx().animate_bool_with_time(
+            ui.id().with(("rad_sel", id.0)),
+            is_sel,
+            0.2,
+        );
+        let r = r * (1.0 + hov_t * 0.12);
         painter.circle_filled(pos, r, color);
         painter.circle_stroke(
             pos,
             r,
             Stroke::new(
-                if is_sel { 2.5_f32 } else { 1.0_f32 },
-                if is_sel { ACCENT } else { theme::BORDER },
+                1.0 + sel_t * 1.5 + hov_t,
+                if sel_t > 0.05 || hov_t > 0.05 {
+                    egui::Color32::from_rgba_unmultiplied(
+                        232,
+                        168,
+                        72,
+                        (80.0 + sel_t * 160.0 + hov_t * 120.0) as u8,
+                    )
+                } else {
+                    theme::BORDER
+                },
             ),
         );
 
