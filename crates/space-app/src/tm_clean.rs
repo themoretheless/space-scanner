@@ -51,10 +51,19 @@ pub struct CleanReport {
 pub fn list_local_snapshots() -> Vec<LocalSnapshot> {
     #[cfg(target_os = "macos")]
     {
-        let mut snaps = list_via_diskutil();
-        if snaps.is_empty() {
-            snaps = list_via_tmutil();
+        // tmutil is the complete list; diskutil often returns a subset (or fails
+        // inside a translocated .app) and used to hide ~15 snapshots.
+        let mut by_name = std::collections::BTreeMap::<String, LocalSnapshot>::new();
+        for snap in list_via_tmutil() {
+            by_name.insert(snap.name.clone(), snap);
         }
+        for snap in list_via_diskutil() {
+            by_name
+                .entry(snap.name.clone())
+                .and_modify(|s| s.purgeable = s.purgeable || snap.purgeable)
+                .or_insert(snap);
+        }
+        let mut snaps: Vec<_> = by_name.into_values().collect();
         snaps.sort_by(|a, b| {
             a.date
                 .as_deref()
@@ -134,7 +143,7 @@ fn list_via_tmutil() -> Vec<LocalSnapshot> {
         if line.is_empty() || line.starts_with("Snapshots for") {
             continue;
         }
-        if line.contains('.') {
+        if line.starts_with("com.apple.") {
             snaps.push(classify_snapshot(line.to_string(), true));
         }
     }
@@ -207,6 +216,7 @@ fn short_name(name: &str) -> String {
 }
 
 /// Delete oldest TM local snapshots, keeping the `keep_newest` most recent.
+/// `keep_newest == 0` deletes every local Time Machine snapshot.
 pub fn delete_old_tm_locals(keep_newest: usize) -> CleanReport {
     let snaps = list_tm_locals();
     let before = snaps.len() as u32;

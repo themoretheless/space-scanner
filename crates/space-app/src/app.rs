@@ -916,9 +916,7 @@ impl SpaceApp {
 
     fn open_tm_panel(&mut self) {
         self.show_tm_panel = true;
-        if self.tm_snapshots.is_empty() && !self.tm_loading {
-            self.refresh_snapshots();
-        }
+        self.refresh_snapshots();
     }
 
     fn apply_tm_clean(&mut self) {
@@ -928,10 +926,15 @@ impl SpaceApp {
         self.busy = true;
         self.status = "Deleting old Time Machine snapshots…".into();
         let tx = self.bg_tx.clone();
+        let keep = if self.tm_snapshots.iter().filter(|s| s.is_tm()).count() > 1 {
+            1usize
+        } else {
+            0usize
+        };
         thread::Builder::new()
             .name("space-tm-clean".into())
             .spawn(move || {
-                let report = tm_clean::delete_old_tm_locals(2);
+                let report = tm_clean::delete_old_tm_locals(keep);
                 let _ = tx.send(BgMsg::TmCleanDone(report));
             })
             .ok();
@@ -1094,15 +1097,26 @@ impl eframe::App for SpaceApp {
                             self.show_tm_panel = false;
                             self.confirm_tm_clean = false;
                         }
-                        let can_clean = tm_n > 2 && !self.busy && !self.tm_loading;
+                        let keep = if tm_n > 1 { 1 } else { 0 };
+                        let remove = tm_n.saturating_sub(keep);
+                        let can_clean = remove > 0 && !self.busy && !self.tm_loading;
+                        let hint = if self.tm_loading {
+                            "Loading snapshots…"
+                        } else if tm_n == 0 {
+                            "No Time Machine snapshots found"
+                        } else if tm_n == 1 {
+                            "Delete this local Time Machine snapshot"
+                        } else {
+                            "Delete older snapshots, keep the newest"
+                        };
                         if ui
                             .add_enabled(
                                 can_clean,
                                 egui::Button::new(
-                                    RichText::new("Delete old TM…").color(ACCENT),
+                                    RichText::new("Delete old TM").color(ACCENT),
                                 ),
                             )
-                            .on_hover_text("Keep the 2 newest Time Machine snapshots")
+                            .on_hover_text(hint)
                             .clicked()
                         {
                             self.confirm_tm_clean = true;
@@ -1111,10 +1125,15 @@ impl eframe::App for SpaceApp {
 
                     if self.confirm_tm_clean {
                         ui.separator();
-                        let remove = tm_n.saturating_sub(2);
-                        ui.label(format!(
-                            "Delete {remove} oldest Time Machine snapshot(s), keep 2 newest?"
-                        ));
+                        let keep = if tm_n > 1 { 1 } else { 0 };
+                        let remove = tm_n.saturating_sub(keep);
+                        ui.label(if keep == 0 {
+                            format!("Delete this Time Machine snapshot?")
+                        } else {
+                            format!(
+                                "Delete {remove} oldest Time Machine snapshot(s), keep the newest?"
+                            )
+                        });
                         ui.label(
                             RichText::new("OS update snapshots are left alone.")
                                 .small()
@@ -1167,6 +1186,30 @@ impl eframe::App for SpaceApp {
                         if let Some(s) = &self.scan {
                             s.cancel();
                         }
+                    }
+
+                    let snap_n = if self.tm_snapshots.is_empty() {
+                        self.volumes
+                            .iter()
+                            .map(|v| v.snapshot_count)
+                            .max()
+                            .unwrap_or(0)
+                    } else {
+                        self.tm_snapshots.len() as u32
+                    };
+                    let tm_label = if self.tm_loading {
+                        "Clean TM…".to_string()
+                    } else if snap_n > 0 {
+                        format!("Clean TM ({snap_n})")
+                    } else {
+                        "Clean TM".to_string()
+                    };
+                    if ui
+                        .button(RichText::new(tm_label).color(ACCENT))
+                        .on_hover_text("Local Time Machine snapshots — list and delete old ones")
+                        .clicked()
+                    {
+                        self.open_tm_panel();
                     }
 
                     ui.separator();
@@ -1305,25 +1348,6 @@ impl eframe::App for SpaceApp {
                                         .strong(),
                                     );
                                 }
-                                let snap_n = if !self.tm_snapshots.is_empty() {
-                                    self.tm_snapshots.len()
-                                } else {
-                                    vol.snapshot_count as usize
-                                };
-                                if snap_n > 0 || self.tm_loading {
-                                    let label = if self.tm_loading {
-                                        "Snapshots…".to_string()
-                                    } else {
-                                        format!("Snapshots ({snap_n})")
-                                    };
-                                    if ui
-                                        .small_button(RichText::new(label).color(ACCENT))
-                                        .on_hover_text("Show local Time Machine / APFS snapshots")
-                                        .clicked()
-                                    {
-                                        self.open_tm_panel();
-                                    }
-                                }
                             }
                         }
                     } else if let Some(p) = &self.progress {
@@ -1351,6 +1375,27 @@ impl eframe::App for SpaceApp {
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.add_space(12.0);
+                        let snap_n = if !self.tm_snapshots.is_empty() {
+                            self.tm_snapshots.len()
+                        } else {
+                            self.volumes
+                                .iter()
+                                .map(|v| v.snapshot_count as usize)
+                                .max()
+                                .unwrap_or(0)
+                        };
+                        let tm_label = if snap_n > 0 {
+                            format!("Clean TM ({snap_n})")
+                        } else {
+                            "Clean TM".to_string()
+                        };
+                        if ui
+                            .button(RichText::new(tm_label).color(ACCENT))
+                            .on_hover_text("Local Time Machine snapshots")
+                            .clicked()
+                        {
+                            self.open_tm_panel();
+                        }
                         let can_review = !self.review.is_empty() && self.scan.is_none();
                         if ui
                             .add_enabled(
