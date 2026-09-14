@@ -22,10 +22,12 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Hover tooltips + sidebar highlight/scroll; path + % of parent
 - Keyboard nav (arrows, Enter, Esc, ⌘1–4 views, ⌘⇧C copy path) — press **?**
 - Review queue + **Move to Trash** (right-click to queue)
+- **Junk cleaner** (ppduster rule packs): caches / logs / temp → Trash (`space junk`)
+- Local Time Machine snapshots list + delete old
 - Cancelable scan with progress vs previous index
 - Incremental **Rescan folder** (rebuilds index for current root path)
 - Persisted settings (`~/Library/Application Support/…/settings.json`)
-- CLI: `space scan|ls|du`
+- CLI: `space scan|ls|du|junk|rules|categories`
 
 ## Roadmap
 
@@ -68,5 +70,17 @@ cargo bench -p space-core --bench scan -- --profile normal
 ## Crates
 
 - `space-core` — scan, tree, cache (`CACHE_VERSION` bump on schema change)
+- `space-clean` — junk cleaner (ppduster rules/scan/clean/safety) + `rules/*.yaml`
 - `space-app` — egui UI (`space-scanner`)
 - `space-cli` — `space` binary
+
+### Junk cleaner (from ppduster)
+
+```bash
+cargo run -p space-cli --release -- rules
+cargo run -p space-cli --release -- categories
+cargo run -p space-cli --release -- junk -c caches,logs
+cargo run -p space-cli --release -- junk -c caches --clean --yes   # → Trash
+```
+
+In the app: bottom **Junk** or menu `⋯` → Junk cleaner.

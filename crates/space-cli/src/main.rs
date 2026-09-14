@@ -2,12 +2,13 @@ use std::path::PathBuf;
 use std::time::Duration;
 
 use clap::{Parser, Subcommand};
+use space_clean::{clean, load_default_pack, scan, ScanOptions};
 use space_core::{
     format_bytes, scan_path, CacheStore, NodeId, ScanEvent, SizeMode, SpaceTree,
 };
 
 #[derive(Parser)]
-#[command(name = "space", about = "Space Scanner CLI (duc-style index)")]
+#[command(name = "space", about = "Space Scanner CLI (index + junk cleaner)")]
 struct Cli {
     #[command(subcommand)]
     cmd: Cmd,
@@ -30,6 +31,31 @@ enum Cmd {
         path: PathBuf,
         #[arg(long)]
         apparent: bool,
+    },
+    /// List junk-cleaner rules (from ppduster-style YAML packs)
+    Rules {
+        #[arg(long)]
+        all: bool,
+    },
+    /// List junk categories
+    Categories {
+        #[arg(long)]
+        all: bool,
+    },
+    /// Scan regenerable junk (caches, logs, temp, …)
+    Junk {
+        /// Categories or rule ids (comma-separated). Empty = all enabled.
+        #[arg(short = 'c', long = "category", value_delimiter = ',')]
+        categories: Vec<String>,
+        #[arg(long)]
+        all: bool,
+        #[arg(long)]
+        min_age: Option<u64>,
+        /// Actually move findings to Trash (default is dry-run report)
+        #[arg(long)]
+        clean: bool,
+        #[arg(long)]
+        yes: bool,
     },
 }
 
@@ -78,6 +104,83 @@ fn main() {
                 n.file_count,
                 tree.root_path
             );
+        }
+        Cmd::Rules { all } => {
+            let pack = load_default_pack().expect("load rules");
+            for r in &pack.rules {
+                if !r.platform.matches_host() {
+                    continue;
+                }
+                if !all && !r.default_enabled {
+                    continue;
+                }
+                let flag = if r.default_enabled { "on " } else { "off" };
+                let ro = if r.report_only { " report" } else { "" };
+                println!(
+                    "[{flag}] {:>28}  {:<14}  {}{ro}",
+                    r.id, r.category, r.name
+                );
+            }
+        }
+        Cmd::Categories { all } => {
+            let pack = load_default_pack().expect("load rules");
+            for (cat, n) in pack.categories(all) {
+                println!("{cat}\t{n}");
+            }
+        }
+        Cmd::Junk {
+            categories,
+            all,
+            min_age,
+            clean: do_clean,
+            yes,
+        } => {
+            let pack = load_default_pack().expect("load rules");
+            let opts = ScanOptions {
+                categories,
+                include_disabled: all,
+                min_age_override: min_age,
+            };
+            let report = scan(&pack, &opts).expect("junk scan");
+            println!(
+                "Junk scan · {} · {} findings · {} rules matched / {} scanned",
+                format_bytes(report.total_bytes),
+                report.findings.len(),
+                report.rules_matched,
+                report.rules_scanned
+            );
+            let mut shown = 0usize;
+            for f in &report.findings {
+                if shown >= 40 {
+                    println!("… {} more", report.findings.len() - shown);
+                    break;
+                }
+                let tag = if f.report_only { "report" } else { "clean" };
+                println!(
+                    "  [{tag}] {:>10}  {}  ({})",
+                    format_bytes(f.bytes),
+                    f.path.display(),
+                    f.rule_id
+                );
+                shown += 1;
+            }
+            if do_clean {
+                if !yes {
+                    eprintln!("Dry-run only. Pass --yes to move deletable findings to Trash.");
+                    return;
+                }
+                let result = clean(&report, false).expect("clean");
+                println!(
+                    "Moved {} items to Trash · {} · {} errors · {} report-only skipped",
+                    result.deleted.len(),
+                    format_bytes(result.freed_bytes),
+                    result.errors.len(),
+                    result.skipped_report_only
+                );
+                for e in result.errors.iter().take(10) {
+                    eprintln!("  ! {e}");
+                }
+            }
         }
     }
 }

@@ -1,43 +1,53 @@
-//! Visual language: deep charcoal + amber accent, no purple glassmorphism.
+//! Visual language: deep charcoal + amber accent — map-first, quiet chrome.
 
 use std::sync::Arc;
 
-use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Stroke, Visuals};
+use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
 
-pub const BG: Color32 = Color32::from_rgb(14, 16, 18);
-pub const PANEL: Color32 = Color32::from_rgb(22, 25, 28);
-pub const PANEL_2: Color32 = Color32::from_rgb(28, 32, 36);
-pub const BORDER: Color32 = Color32::from_rgb(48, 54, 60);
-pub const TEXT: Color32 = Color32::from_rgb(232, 230, 224);
-pub const MUTED: Color32 = Color32::from_rgb(140, 146, 152);
+pub const BG: Color32 = Color32::from_rgb(12, 13, 15);
+pub const PANEL: Color32 = Color32::from_rgb(18, 20, 23);
+pub const PANEL_2: Color32 = Color32::from_rgb(24, 27, 31);
+pub const BORDER: Color32 = Color32::from_rgb(40, 44, 50);
+pub const TEXT: Color32 = Color32::from_rgb(228, 226, 220);
+pub const MUTED: Color32 = Color32::from_rgb(120, 126, 134);
 pub const ACCENT: Color32 = Color32::from_rgb(232, 168, 72);
-pub const DIR: Color32 = Color32::from_rgb(52, 58, 66);
+pub const DIR: Color32 = Color32::from_rgb(48, 52, 58);
+pub const DANGER: Color32 = Color32::from_rgb(210, 90, 80);
 
 pub fn apply(ctx: &egui::Context) {
     install_fonts(ctx);
 
     let mut visuals = Visuals::dark();
-    visuals.window_fill = BG;
+    visuals.window_fill = PANEL;
     visuals.panel_fill = PANEL;
     visuals.extreme_bg_color = PANEL_2;
     visuals.override_text_color = Some(TEXT);
     visuals.widgets.noninteractive.bg_fill = PANEL;
     visuals.widgets.inactive.bg_fill = PANEL_2;
-    visuals.widgets.hovered.bg_fill = Color32::from_rgb(36, 40, 46);
-    visuals.widgets.active.bg_fill = Color32::from_rgb(42, 48, 54);
-    visuals.selection.bg_fill = Color32::from_rgba_unmultiplied(232, 168, 72, 60);
+    visuals.widgets.hovered.bg_fill = Color32::from_rgb(32, 36, 42);
+    visuals.widgets.active.bg_fill = Color32::from_rgb(38, 42, 48);
+    visuals.selection.bg_fill = Color32::from_rgba_unmultiplied(232, 168, 72, 48);
     visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED);
     visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT);
     visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT);
     visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, ACCENT);
+    visuals.widgets.inactive.weak_bg_fill = PANEL_2;
+    visuals.widgets.hovered.weak_bg_fill = Color32::from_rgb(32, 36, 42);
     visuals.window_stroke = Stroke::new(1.0_f32, BORDER);
-    visuals.window_corner_radius = CornerRadius::same(8);
-    visuals.menu_corner_radius = CornerRadius::same(6);
+    visuals.window_corner_radius = CornerRadius::same(10);
+    visuals.menu_corner_radius = CornerRadius::same(8);
+    visuals.widgets.noninteractive.corner_radius = CornerRadius::same(6);
+    visuals.widgets.inactive.corner_radius = CornerRadius::same(6);
+    visuals.widgets.hovered.corner_radius = CornerRadius::same(6);
+    visuals.widgets.active.corner_radius = CornerRadius::same(6);
     ctx.set_visuals(visuals);
 
     let mut style = (*ctx.style()).clone();
-    style.spacing.item_spacing = egui::vec2(10.0, 8.0);
-    style.spacing.button_padding = egui::vec2(12.0, 6.0);
+    style.spacing.item_spacing = egui::vec2(8.0, 6.0);
+    style.spacing.button_padding = egui::vec2(10.0, 5.0);
+    style.spacing.window_margin = Margin::same(14);
+    style.spacing.indent = 12.0;
+    style.interaction.show_tooltips_only_when_still = true;
     ctx.set_style(style);
 }
 

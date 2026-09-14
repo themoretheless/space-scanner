@@ -1,5 +1,6 @@
 mod anim;
 mod app;
+mod junk_panel;
 mod review;
 mod settings;
 mod side_tree;

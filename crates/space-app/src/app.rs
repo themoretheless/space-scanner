@@ -11,6 +11,7 @@ use space_core::{
 };
 
 use crate::anim::{TransKind, Transition};
+use crate::junk_panel::{self, JunkAction, JunkPanelState};
 use crate::review;
 use crate::settings::AppSettings;
 use crate::side_tree::SideTree;
@@ -32,6 +33,8 @@ enum BgMsg {
     RescanDone(Result<Arc<SpaceTree>, String>),
     DeleteDone(Result<(Arc<SpaceTree>, usize), String>),
     TmCleanDone(CleanReport),
+    JunkScanDone(Result<space_clean::ScanReport, String>),
+    JunkCleanDone(Result<space_clean::CleanResult, String>),
     Largest {
         focus: NodeId,
         mode: SizeMode,
@@ -66,6 +69,7 @@ pub struct SpaceApp {
     confirm_tm_clean: bool,
     tm_snapshots: Vec<LocalSnapshot>,
     tm_loading: bool,
+    junk: JunkPanelState,
     bg_rx: Receiver<BgMsg>,
     bg_tx: crossbeam_channel::Sender<BgMsg>,
     /// True while cache load / rescan / delete runs off-thread.
@@ -152,6 +156,7 @@ impl SpaceApp {
             confirm_tm_clean: false,
             tm_snapshots: Vec::new(),
             tm_loading: true,
+            junk: JunkPanelState::default(),
             bg_rx,
             bg_tx,
             busy: false,
@@ -291,14 +296,15 @@ impl SpaceApp {
                     self.confirm_tm_clean = false;
                     if report.deleted == 0 && report.errors.is_empty() {
                         self.status = format!(
-                            "TM snapshots: nothing to remove ({}/{} kept)",
+                            "TM: nothing to remove ({}/{} kept)",
                             report.kept, report.before
                         );
                     } else if report.errors.is_empty() {
                         self.status = format!(
-                            "Deleted {} of {} old TM snapshot(s), kept {}",
-                            report.deleted, report.before, report.kept
+                            "Removed {} snapshot(s), kept {} · reclaiming APFS space…",
+                            report.deleted, report.kept
                         );
+                        self.show_tm_panel = false;
                     } else {
                         self.status = format!(
                             "TM clean: deleted {} of {}, {} error(s)",
@@ -309,6 +315,43 @@ impl SpaceApp {
                     }
                     self.refresh_volumes();
                     self.refresh_snapshots();
+                }
+                BgMsg::JunkScanDone(Ok(report)) => {
+                    self.junk.set_report(report);
+                    self.status = format!(
+                        "Junk · {} · {} items",
+                        format_bytes(
+                            self.junk
+                                .report
+                                .as_ref()
+                                .map(|r| r.total_bytes)
+                                .unwrap_or(0)
+                        ),
+                        self.junk
+                            .report
+                            .as_ref()
+                            .map(|r| r.findings.len())
+                            .unwrap_or(0)
+                    );
+                }
+                BgMsg::JunkScanDone(Err(e)) => {
+                    self.junk.loading = false;
+                    self.junk.error = Some(e.clone());
+                    self.status = format!("Junk scan failed: {e}");
+                }
+                BgMsg::JunkCleanDone(Ok(result)) => {
+                    self.busy = false;
+                    self.status = format!(
+                        "Junk · moved {} to Trash · {}",
+                        result.deleted.len(),
+                        format_bytes(result.freed_bytes)
+                    );
+                    self.junk.selected.clear();
+                    self.start_junk_scan();
+                }
+                BgMsg::JunkCleanDone(Err(e)) => {
+                    self.busy = false;
+                    self.status = format!("Junk clean failed: {e}");
                 }
                 BgMsg::Largest { focus, mode, rows } => {
                     self.largest_loading = false;
@@ -719,7 +762,9 @@ impl SpaceApp {
             if key_f {
                 self.focus_filter = true;
             }
-            if key_r {
+            if key_r && mods.shift {
+                self.incremental_rescan_focus();
+            } else if key_r {
                 self.rescan_current();
             }
             if key_o {
@@ -939,6 +984,60 @@ impl SpaceApp {
             })
             .ok();
     }
+
+    fn open_junk_panel(&mut self) {
+        self.junk.open_and_scan();
+        self.start_junk_scan();
+    }
+
+    fn start_junk_scan(&mut self) {
+        self.junk.loading = true;
+        self.junk.error = None;
+        let tx = self.bg_tx.clone();
+        thread::Builder::new()
+            .name("space-junk-scan".into())
+            .spawn(move || {
+                let result = (|| {
+                    let pack = space_clean::load_default_pack()?;
+                    let opts = space_clean::ScanOptions {
+                        categories: Vec::new(),
+                        include_disabled: false,
+                        min_age_override: None,
+                    };
+                    space_clean::scan(&pack, &opts)
+                })()
+                .map_err(|e| e.to_string());
+                let _ = tx.send(BgMsg::JunkScanDone(result));
+            })
+            .ok();
+    }
+
+    fn apply_junk_clean(&mut self) {
+        if self.busy {
+            return;
+        }
+        let findings = self.junk.selected_findings();
+        if findings.is_empty() {
+            return;
+        }
+        self.busy = true;
+        self.status = "Moving junk to Trash…".into();
+        let tx = self.bg_tx.clone();
+        thread::Builder::new()
+            .name("space-junk-clean".into())
+            .spawn(move || {
+                let report = space_clean::ScanReport {
+                    findings,
+                    total_bytes: 0,
+                    rules_matched: 0,
+                    rules_scanned: 0,
+                    skipped_roots: Vec::new(),
+                };
+                let result = space_clean::clean(&report, false).map_err(|e| e.to_string());
+                let _ = tx.send(BgMsg::JunkCleanDone(result));
+            })
+            .ok();
+    }
 }
 
 impl eframe::App for SpaceApp {
@@ -975,8 +1074,8 @@ impl eframe::App for SpaceApp {
                     ui.label("← →  history · ↑ Esc  up · Enter  open");
                     ui.label("Home  root · End/↓  select largest child");
                     ui.label("/ or ⌘F  filter · Esc  clear filter");
-                    ui.label("⌘1–4  views · ⌘⇧C  copy path · ⌘O  open · ⌘R  rescan");
-                    ui.label("?  toggle this help");
+                    ui.label("⌘1–4  views · ⌘⇧C  copy path · ⌘O  open · ⌘R  rescan · ⌘⇧R  rescan folder");
+                    ui.label("?  toggle this help · click Unaccounted for Time Machine snapshots");
                     if ui.button("Close").clicked() {
                         self.show_shortcuts = false;
                     }
@@ -1014,148 +1113,202 @@ impl eframe::App for SpaceApp {
         }
 
         if self.show_tm_panel {
-            egui::Window::new("Local snapshots")
+            egui::Window::new("Time Machine")
                 .collapsible(false)
                 .resizable(true)
-                .default_size([420.0, 380.0])
+                .default_size([420.0, 420.0])
                 .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
                 .show(ctx, |ui| {
                     let tm_n = self.tm_snapshots.iter().filter(|s| s.is_tm()).count();
                     let other_n = self.tm_snapshots.len().saturating_sub(tm_n);
+
+                    ui.label(RichText::new("Local snapshots").size(18.0).strong().color(TEXT));
+                    ui.label(
+                        RichText::new("Hold APFS space outside the file tree (Unaccounted).")
+                            .size(12.0)
+                            .color(MUTED),
+                    );
+                    ui.add_space(8.0);
                     ui.horizontal(|ui| {
                         ui.label(
-                            RichText::new(format!(
-                                "{} TM · {} other",
-                                tm_n, other_n
-                            ))
-                            .strong()
-                            .color(ACCENT),
+                            RichText::new(format!("{tm_n}"))
+                                .size(22.0)
+                                .strong()
+                                .color(ACCENT),
                         );
+                        ui.label(RichText::new("Time Machine").color(TEXT));
+                        if other_n > 0 {
+                            ui.separator();
+                            ui.label(
+                                RichText::new(format!("{other_n} OS / other"))
+                                    .color(MUTED),
+                            );
+                        }
                         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                             if ui
-                                .add_enabled(!self.tm_loading && !self.busy, egui::Button::new("Refresh"))
+                                .add_enabled(
+                                    !self.tm_loading && !self.busy,
+                                    egui::Button::new("Refresh"),
+                                )
                                 .clicked()
                             {
                                 self.refresh_snapshots();
                             }
                         });
                     });
-                    ui.label(
-                        RichText::new(
-                            "These hold APFS space outside the file tree (Unaccounted).",
-                        )
-                        .small()
-                        .color(MUTED),
-                    );
-                    ui.add_space(6.0);
+                    ui.add_space(8.0);
 
                     if self.tm_loading {
-                        ui.label(RichText::new("Loading snapshots…").color(MUTED));
+                        ui.horizontal(|ui| {
+                            ui.spinner();
+                            ui.label(RichText::new("Loading…").color(MUTED));
+                        });
                     } else if self.tm_snapshots.is_empty() {
-                        ui.label(RichText::new("No local snapshots found.").color(MUTED));
+                        ui.label(RichText::new("No local snapshots.").color(MUTED));
                     } else {
                         egui::ScrollArea::vertical()
-                            .max_height(260.0)
+                            .max_height(240.0)
                             .show(ui, |ui| {
-                                egui::Grid::new("tm_snap_grid")
-                                    .num_columns(3)
-                                    .spacing([12.0, 6.0])
-                                    .striped(true)
-                                    .show(ui, |ui| {
-                                        ui.label(RichText::new("When").small().color(MUTED));
-                                        ui.label(RichText::new("Kind").small().color(MUTED));
-                                        ui.label(RichText::new("").small());
-                                        ui.end_row();
-                                        for snap in &self.tm_snapshots {
-                                            ui.label(RichText::new(snap.label()).color(TEXT));
-                                            ui.label(
-                                                RichText::new(snap.kind_label()).color(MUTED),
-                                            );
-                                            let badge = if snap.purgeable {
-                                                "purgeable"
-                                            } else {
-                                                "kept"
-                                            };
-                                            ui.label(
-                                                RichText::new(badge)
-                                                    .small()
-                                                    .color(if snap.purgeable {
-                                                        ACCENT
-                                                    } else {
-                                                        MUTED
-                                                    }),
-                                            );
-                                            ui.end_row();
-                                        }
-                                    });
+                                for snap in &self.tm_snapshots {
+                                    egui::Frame::new()
+                                        .fill(theme::PANEL_2)
+                                        .corner_radius(6.0)
+                                        .inner_margin(egui::Margin::symmetric(10, 8))
+                                        .show(ui, |ui| {
+                                            ui.horizontal(|ui| {
+                                                ui.vertical(|ui| {
+                                                    ui.label(
+                                                        RichText::new(snap.label())
+                                                            .color(TEXT)
+                                                            .strong(),
+                                                    );
+                                                    ui.label(
+                                                        RichText::new(snap.kind_label())
+                                                            .small()
+                                                            .color(MUTED),
+                                                    );
+                                                });
+                                                ui.with_layout(
+                                                    Layout::right_to_left(Align::Center),
+                                                    |ui| {
+                                                        let badge = if !snap.is_tm() {
+                                                            "system"
+                                                        } else if snap.purgeable {
+                                                            "purgeable"
+                                                        } else {
+                                                            "local"
+                                                        };
+                                                        ui.label(
+                                                            RichText::new(badge)
+                                                                .small()
+                                                                .color(if snap.is_tm() {
+                                                                    ACCENT
+                                                                } else {
+                                                                    MUTED
+                                                                }),
+                                                        );
+                                                    },
+                                                );
+                                            });
+                                        });
+                                    ui.add_space(4.0);
+                                }
                             });
                     }
 
                     ui.add_space(10.0);
+                    ui.separator();
+                    ui.add_space(6.0);
                     ui.horizontal(|ui| {
                         if ui.button("Close").clicked() {
                             self.show_tm_panel = false;
                             self.confirm_tm_clean = false;
                         }
-                        let keep = if tm_n > 1 { 1 } else { 0 };
-                        let remove = tm_n.saturating_sub(keep);
-                        let can_clean = remove > 0 && !self.busy && !self.tm_loading;
-                        let hint = if self.tm_loading {
-                            "Loading snapshots…"
-                        } else if tm_n == 0 {
-                            "No Time Machine snapshots found"
-                        } else if tm_n == 1 {
-                            "Delete this local Time Machine snapshot"
-                        } else {
-                            "Delete older snapshots, keep the newest"
-                        };
-                        if ui
-                            .add_enabled(
-                                can_clean,
-                                egui::Button::new(
-                                    RichText::new("Delete old TM").color(ACCENT),
-                                ),
-                            )
-                            .on_hover_text(hint)
-                            .clicked()
-                        {
-                            self.confirm_tm_clean = true;
-                        }
+                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                            let keep = if tm_n > 1 { 1 } else { 0 };
+                            let remove = tm_n.saturating_sub(keep);
+                            let can_clean = remove > 0 && !self.busy && !self.tm_loading;
+                            if ui
+                                .add_enabled(
+                                    can_clean,
+                                    egui::Button::new(
+                                        RichText::new(if tm_n <= 1 {
+                                            "Delete snapshot".into()
+                                        } else {
+                                            format!("Delete {remove} old")
+                                        })
+                                        .color(ACCENT),
+                                    ),
+                                )
+                                .clicked()
+                            {
+                                self.confirm_tm_clean = true;
+                            }
+                        });
                     });
 
                     if self.confirm_tm_clean {
-                        ui.separator();
-                        let keep = if tm_n > 1 { 1 } else { 0 };
-                        let remove = tm_n.saturating_sub(keep);
-                        ui.label(if keep == 0 {
-                            format!("Delete this Time Machine snapshot?")
-                        } else {
-                            format!(
-                                "Delete {remove} oldest Time Machine snapshot(s), keep the newest?"
-                            )
-                        });
-                        ui.label(
-                            RichText::new("OS update snapshots are left alone.")
-                                .small()
-                                .color(MUTED),
-                        );
-                        ui.horizontal(|ui| {
-                            if ui.button("Cancel").clicked() {
-                                self.confirm_tm_clean = false;
-                            }
-                            if ui
-                                .button(RichText::new("Delete").color(ACCENT))
-                                .clicked()
-                            {
-                                self.apply_tm_clean();
-                            }
-                        });
+                        ui.add_space(8.0);
+                        egui::Frame::new()
+                            .fill(theme::PANEL_2)
+                            .corner_radius(8.0)
+                            .inner_margin(egui::Margin::same(12))
+                            .show(ui, |ui| {
+                                let keep = if tm_n > 1 { 1 } else { 0 };
+                                let remove = tm_n.saturating_sub(keep);
+                                ui.label(
+                                    RichText::new(if keep == 0 {
+                                        "Delete this Time Machine snapshot?".into()
+                                    } else {
+                                        format!(
+                                            "Delete {remove} oldest, keep the newest?"
+                                        )
+                                    })
+                                    .strong(),
+                                );
+                                ui.label(
+                                    RichText::new("OS update snapshots are left alone.")
+                                        .small()
+                                        .color(MUTED),
+                                );
+                                ui.add_space(6.0);
+                                ui.horizontal(|ui| {
+                                    if ui.button("Cancel").clicked() {
+                                        self.confirm_tm_clean = false;
+                                    }
+                                    if ui
+                                        .button(RichText::new("Delete").color(ACCENT).strong())
+                                        .clicked()
+                                    {
+                                        self.apply_tm_clean();
+                                    }
+                                });
+                            });
+                    }
+                });
+        }
+
+        if self.junk.open {
+            egui::Window::new("Clean junk")
+                .collapsible(false)
+                .resizable(true)
+                .default_size([560.0, 520.0])
+                .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
+                .show(ctx, |ui| {
+                    match junk_panel::draw(ui, &mut self.junk) {
+                        JunkAction::Rescan => self.start_junk_scan(),
+                        JunkAction::Clean => self.apply_junk_clean(),
+                        JunkAction::Close => {
+                            self.junk.open = false;
+                            self.junk.confirm = false;
+                        }
+                        JunkAction::None => {}
                     }
                 });
         }
 
         egui::TopBottomPanel::top("top")
-            .exact_height(48.0)
+            .exact_height(40.0)
             .show(ctx, |ui| {
                 ui.horizontal_centered(|ui| {
                     ui.add_space(8.0);
@@ -1169,47 +1322,15 @@ impl eframe::App for SpaceApp {
                             self.tree.is_some() && self.scan.is_none() && !self.busy,
                             egui::Button::new("Rescan"),
                         )
+                        .on_hover_text("Rescan root · ⌘R  ·  folder ⌘⇧R")
                         .clicked()
                     {
                         self.rescan_current();
-                    }
-                    if ui
-                        .add_enabled(
-                            self.tree.is_some() && self.scan.is_none() && !self.busy,
-                            egui::Button::new("Rescan folder"),
-                        )
-                        .clicked()
-                    {
-                        self.incremental_rescan_focus();
                     }
                     if self.scan.is_some() && ui.button("Cancel").clicked() {
                         if let Some(s) = &self.scan {
                             s.cancel();
                         }
-                    }
-
-                    let snap_n = if self.tm_snapshots.is_empty() {
-                        self.volumes
-                            .iter()
-                            .map(|v| v.snapshot_count)
-                            .max()
-                            .unwrap_or(0)
-                    } else {
-                        self.tm_snapshots.len() as u32
-                    };
-                    let tm_label = if self.tm_loading {
-                        "Clean TM…".to_string()
-                    } else if snap_n > 0 {
-                        format!("Clean TM ({snap_n})")
-                    } else {
-                        "Clean TM".to_string()
-                    };
-                    if ui
-                        .button(RichText::new(tm_label).color(ACCENT))
-                        .on_hover_text("Local Time Machine snapshots — list and delete old ones")
-                        .clicked()
-                    {
-                        self.open_tm_panel();
                     }
 
                     ui.separator();
@@ -1237,60 +1358,91 @@ impl eframe::App for SpaceApp {
                         self.go_up();
                     }
 
-                    ui.separator();
-                    ui.label(RichText::new("Space Scanner").strong().color(ACCENT));
                     if self.cache_stale {
-                        ui.label(RichText::new("STALE").small().color(theme::ACCENT));
+                        ui.label(RichText::new("STALE").small().color(ACCENT));
                     }
 
-                    ui.separator();
                     if let Some(tree) = &self.tree {
+                        ui.separator();
                         let crumbs = tree.breadcrumb_names(self.focus);
                         let chain = tree.path_to(self.focus);
                         let mut nav_to = None;
+                        // Keep breadcrumbs short: last 3 segments.
+                        let start = crumbs.len().saturating_sub(3);
                         ui.horizontal(|ui| {
-                            for (i, name) in crumbs.iter().enumerate() {
-                                if i > 0 {
+                            if start > 0 {
+                                ui.label(RichText::new("…").color(MUTED));
+                                ui.label(RichText::new("/").color(MUTED));
+                            }
+                            for (i, name) in crumbs.iter().enumerate().skip(start) {
+                                if i > start {
                                     ui.label(RichText::new("/").color(MUTED));
                                 }
                                 if ui
-                        .add(
-                            egui::Label::new(RichText::new(name).color(TEXT)).sense(Sense::click()),
-                        )
-                        .on_hover_text("Go here")
-                        .clicked()
-                    {
-                        nav_to = Some(chain[i]);
-                    }
+                                    .add(
+                                        egui::Label::new(RichText::new(name).color(TEXT))
+                                            .sense(Sense::click()),
+                                    )
+                                    .on_hover_text("Go here")
+                                    .clicked()
+                                {
+                                    nav_to = Some(chain[i]);
+                                }
                             }
                         });
-                        if ui.small_button("Copy path").clicked() {
-                            self.copy_focus_path();
-                        }
-                        if ui.small_button("?").on_hover_text("Shortcuts").clicked() {
-                            self.show_shortcuts = true;
-                        }
                         if let Some(id) = nav_to {
                             self.navigate(id, true);
                         }
-                    } else if self.settings.flags.show_shortcuts_hint {
-                        ui.label(RichText::new("Press ? for shortcuts").small().color(MUTED));
                     }
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.add_space(8.0);
-                        for mode in ViewMode::ALL.iter().rev() {
-                            let selected = self.view == *mode;
-                            if ui.selectable_label(selected, mode.label()).clicked() {
-                                self.set_view(*mode);
-                            }
+                        egui::ComboBox::from_id_salt("overflow_menu")
+                            .selected_text("⋯")
+                            .width(28.0)
+                            .show_ui(ui, |ui| {
+                                if ui
+                                    .add_enabled(
+                                        self.tree.is_some() && self.scan.is_none() && !self.busy,
+                                        egui::Button::new("Rescan folder"),
+                                    )
+                                    .clicked()
+                                {
+                                    self.incremental_rescan_focus();
+                                }
+                                if ui.button("Copy path").clicked() {
+                                    self.copy_focus_path();
+                                }
+                                if ui
+                                    .add_enabled(
+                                        self.selected.is_some() || self.tree.is_some(),
+                                        egui::Button::new("Reveal in Finder"),
+                                    )
+                                    .clicked()
+                                {
+                                    self.reveal_selected();
+                                }
+                                if ui.button("Keyboard shortcuts").clicked() {
+                                    self.show_shortcuts = true;
+                                }
+                            });
+                        if ui
+                            .button(RichText::new("Junk").color(ACCENT))
+                            .on_hover_text("Clean caches, logs, temp")
+                            .clicked()
+                        {
+                            self.open_junk_panel();
                         }
                         ui.separator();
                         let label = match self.size_mode {
-                            SizeMode::OnDisk => "On disk",
+                            SizeMode::OnDisk => "Disk",
                             SizeMode::Apparent => "Apparent",
                         };
-                        if ui.button(label).clicked() {
+                        if ui
+                            .selectable_label(false, label)
+                            .on_hover_text("Toggle on-disk vs apparent size")
+                            .clicked()
+                        {
                             self.size_mode = match self.size_mode {
                                 SizeMode::OnDisk => SizeMode::Apparent,
                                 SizeMode::Apparent => SizeMode::OnDisk,
@@ -1298,56 +1450,96 @@ impl eframe::App for SpaceApp {
                             self.invalidate_largest();
                             self.schedule_largest();
                         }
+                        ui.separator();
+                        for mode in ViewMode::ALL.iter().rev() {
+                            let selected = self.view == *mode;
+                            let short = match mode {
+                                ViewMode::Sunburst => "Sun",
+                                ViewMode::Container => "Map",
+                                ViewMode::Radial => "Orb",
+                                ViewMode::Cascade => "Ice",
+                            };
+                            if ui
+                                .selectable_label(selected, short)
+                                .on_hover_text(mode.label())
+                                .clicked()
+                            {
+                                self.set_view(*mode);
+                            }
+                        }
                     });
                 });
             });
 
         egui::TopBottomPanel::bottom("bottom")
-            .exact_height(52.0)
+            .exact_height(36.0)
             .show(ctx, |ui| {
                 ui.horizontal_centered(|ui| {
-                    ui.add_space(12.0);
+                    ui.add_space(10.0);
                     if let Some(tree) = &self.tree {
                         let indexed = tree.total_size_mode(self.size_mode);
-                        ui.label(format!(
-                            "Indexed {} · {} items{}",
-                            format_bytes(indexed),
-                            tree.item_count,
-                            if self.from_cache { " · cache" } else { "" }
-                        ));
+                        ui.label(
+                            RichText::new(format!(
+                                "Indexed {} · {}{}",
+                                format_bytes(indexed),
+                                tree.item_count,
+                                if self.from_cache { " · cache" } else { "" }
+                            ))
+                            .color(MUTED),
+                        );
+
+                        let snap_n = if !self.tm_snapshots.is_empty() {
+                            self.tm_snapshots.len() as u32
+                        } else {
+                            volumes::match_volume(&self.volumes, &tree.root_path)
+                                .map(|v| v.snapshot_count)
+                                .or_else(|| {
+                                    self.volumes.iter().map(|v| v.snapshot_count).max()
+                                })
+                                .unwrap_or(0)
+                        };
+
+                        let mut gap: Option<u64> = None;
                         if let Some(vol) = volumes::match_volume(&self.volumes, &tree.root_path) {
                             let vol_used = vol.used();
-                            if vol_used > 0 {
-                                ui.separator();
-                                ui.label(
-                                    RichText::new(format!(
-                                        "Volume {} / {}",
-                                        format_bytes(vol_used),
-                                        format_bytes(vol.total.max(vol_used))
-                                    ))
-                                    .color(MUTED),
-                                );
-                                if vol_used > indexed.saturating_add(64 << 20) {
-                                    let gap = vol_used.saturating_sub(indexed);
-                                    let snap_n = if !self.tm_snapshots.is_empty() {
-                                        self.tm_snapshots.len() as u32
-                                    } else {
-                                        vol.snapshot_count
-                                    };
-                                    let snap = if snap_n > 0 {
-                                        format!(" · {snap_n} snapshots")
-                                    } else {
-                                        String::new()
-                                    };
-                                    ui.label(
-                                        RichText::new(format!(
-                                            "Unaccounted {}{snap}",
-                                            format_bytes(gap)
-                                        ))
-                                        .color(ACCENT)
-                                        .strong(),
-                                    );
-                                }
+                            if vol_used > indexed.saturating_add(64 << 20) {
+                                gap = Some(vol_used.saturating_sub(indexed));
+                            }
+                        }
+
+                        if let Some(gap) = gap {
+                            ui.separator();
+                            let label = if snap_n > 0 {
+                                format!("Unaccounted {} · {snap_n} snaps", format_bytes(gap))
+                            } else {
+                                format!("Unaccounted {}", format_bytes(gap))
+                            };
+                            if ui
+                                .add(
+                                    egui::Button::new(RichText::new(label).color(ACCENT).strong())
+                                        .frame(false),
+                                )
+                                .on_hover_text("Open local Time Machine snapshots")
+                                .clicked()
+                            {
+                                self.open_tm_panel();
+                            }
+                        } else if snap_n > 0 || self.tm_loading {
+                            ui.separator();
+                            let label = if self.tm_loading {
+                                "TM…".to_string()
+                            } else {
+                                format!("TM · {snap_n}")
+                            };
+                            if ui
+                                .add(
+                                    egui::Button::new(RichText::new(label).color(ACCENT))
+                                        .frame(false),
+                                )
+                                .on_hover_text("Local Time Machine snapshots")
+                                .clicked()
+                            {
+                                self.open_tm_panel();
                             }
                         }
                     } else if let Some(p) = &self.progress {
@@ -1365,147 +1557,130 @@ impl eframe::App for SpaceApp {
                             });
                         ui.add(
                             egui::ProgressBar::new(frac)
-                                .desired_width(160.0)
+                                .desired_width(140.0)
                                 .fill(ACCENT),
                         );
                     }
 
+                    let status = if self.status.chars().count() > 48 {
+                        let t: String = self.status.chars().take(47).collect();
+                        format!("{t}…")
+                    } else {
+                        self.status.clone()
+                    };
                     ui.separator();
-                    ui.label(RichText::new(&self.status).color(MUTED));
+                    ui.label(RichText::new(status).color(MUTED).small());
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                        ui.add_space(12.0);
-                        let snap_n = if !self.tm_snapshots.is_empty() {
-                            self.tm_snapshots.len()
-                        } else {
-                            self.volumes
-                                .iter()
-                                .map(|v| v.snapshot_count as usize)
-                                .max()
-                                .unwrap_or(0)
-                        };
-                        let tm_label = if snap_n > 0 {
-                            format!("Clean TM ({snap_n})")
-                        } else {
-                            "Clean TM".to_string()
-                        };
-                        if ui
-                            .button(RichText::new(tm_label).color(ACCENT))
-                            .on_hover_text("Local Time Machine snapshots")
-                            .clicked()
-                        {
-                            self.open_tm_panel();
-                        }
+                        ui.add_space(10.0);
                         let can_review = !self.review.is_empty() && self.scan.is_none();
                         if ui
                             .add_enabled(
                                 can_review,
                                 egui::Button::new(
-                                    RichText::new("Review and Remove").color(ACCENT),
+                                    RichText::new("Review").color(ACCENT),
                                 ),
                             )
+                            .on_hover_text("Review and Remove")
                             .clicked()
                         {
                             self.confirm_delete = true;
                         }
                         if ui
-                            .add_enabled(self.selected.is_some() || self.tree.is_some(), egui::Button::new("Reveal"))
+                            .add_enabled(
+                                self.selected.is_some() || self.tree.is_some(),
+                                egui::Button::new("Reveal"),
+                            )
                             .clicked()
                         {
                             self.reveal_selected();
                         }
-                        if let (Some(tree), Some(sel)) = (&self.tree, self.selected) {
-                            let n = tree.node(sel);
-                            ui.label(format!(
-                                "{} · {} · {} files",
-                                n.name,
-                                format_bytes(n.size(self.size_mode)),
-                                n.file_count
-                            ));
-                        } else if !self.review.is_empty() {
+                        if !self.review.is_empty() {
                             let bytes = self
                                 .tree
                                 .as_ref()
                                 .map(|t| review::queue_bytes(t, &self.review, self.size_mode))
                                 .unwrap_or(0);
-                            ui.label(format!(
-                                "Queue {} · {}",
-                                self.review.len(),
-                                format_bytes(bytes)
-                            ));
-                        } else {
-                            ui.label(RichText::new("No selection").color(MUTED));
+                            ui.label(
+                                RichText::new(format!(
+                                    "Queue {} · {}",
+                                    self.review.len(),
+                                    format_bytes(bytes)
+                                ))
+                                .small()
+                                .color(MUTED),
+                            );
+                        } else if let (Some(tree), Some(sel)) = (&self.tree, self.selected) {
+                            let n = tree.node(sel);
+                            ui.label(
+                                RichText::new(format!(
+                                    "{} · {}",
+                                    n.name,
+                                    format_bytes(n.size(self.size_mode))
+                                ))
+                                .small()
+                                .color(MUTED),
+                            );
                         }
                     });
                 });
             });
 
         egui::SidePanel::left("sidebar")
-            .default_width(300.0)
-            .min_width(240.0)
+            .default_width(200.0)
+            .min_width(160.0)
             .show(ctx, |ui| {
                 ui.add_space(4.0);
-                ui.label(RichText::new("Volumes").strong());
-                egui::ScrollArea::vertical()
-                    .id_salt("vols")
-                    .max_height(120.0)
-                    .show(ui, |ui| {
-                        let mut scan_mount = None;
-                        for vol in &self.volumes {
-                            let text = if vol.total == 0 {
-                                vol.name.clone()
-                            } else {
-                                vol.label()
-                            };
-                            if ui
-                                .add_enabled(!self.busy && self.scan.is_none(), egui::Button::new(text))
-                                .clicked()
-                            {
-                                scan_mount = Some(vol.mount.clone());
+                ui.collapsing(RichText::new("Volumes").small().strong().color(MUTED), |ui| {
+                    egui::ScrollArea::vertical()
+                        .id_salt("vols")
+                        .max_height(96.0)
+                        .show(ui, |ui| {
+                            let mut scan_mount = None;
+                            for vol in &self.volumes {
+                                let text = if vol.total == 0 {
+                                    vol.name.clone()
+                                } else {
+                                    vol.label()
+                                };
+                                if ui
+                                    .add_enabled(
+                                        !self.busy && self.scan.is_none(),
+                                        egui::Button::new(RichText::new(text).size(12.0)),
+                                    )
+                                    .clicked()
+                                {
+                                    scan_mount = Some(vol.mount.clone());
+                                }
                             }
-                        }
-                        if let Some(mount) = scan_mount {
-                            self.start_scan(mount, false);
-                        }
-                        if self.volumes_loading {
-                            ui.spinner();
-                            ui.label(RichText::new("disk stats…").small().color(MUTED));
-                        }
-                        if ui.small_button("Refresh volumes").clicked() {
-                            self.refresh_volumes_async();
-                        }
-                    });
-                ui.separator();
-
-                ui.horizontal(|ui| {
-                    ui.label("Filter");
-                    let edit = ui.add(
-                        egui::TextEdit::singleline(&mut self.filter_draft)
-                            .desired_width(140.0)
-                            .hint_text("name…"),
-                    );
-                    if self.focus_filter {
-                        edit.request_focus();
-                        self.focus_filter = false;
-                    }
-                    if edit.changed() {
-                        self.filter_edited_at = Some(Instant::now());
-                        ctx.request_repaint_after(Duration::from_millis(
-                            self.settings.flags.debounce_filter_ms + 10,
-                        ));
-                    }
-                    let badge = self.filter.active_count();
-                    if badge > 0 {
-                        ui.label(RichText::new(format!("({badge})")).color(ACCENT).small());
-                    }
-                    if ui.small_button("Clear").clicked() {
-                        self.filter.clear();
-                        self.filter_draft.clear();
-                        self.filter_edited_at = None;
-                        self.side_tree.invalidate();
-                        self.geom = None;
-                    }
+                            if let Some(mount) = scan_mount {
+                                self.start_scan(mount, false);
+                            }
+                            if self.volumes_loading {
+                                ui.spinner();
+                            }
+                            if ui.small_button("Refresh").clicked() {
+                                self.refresh_volumes_async();
+                            }
+                        });
                 });
+                ui.add_space(4.0);
+
+                let edit = ui.add(
+                    egui::TextEdit::singleline(&mut self.filter_draft)
+                        .desired_width(f32::INFINITY)
+                        .hint_text("Filter…"),
+                );
+                if self.focus_filter {
+                    edit.request_focus();
+                    self.focus_filter = false;
+                }
+                if edit.changed() {
+                    self.filter_edited_at = Some(Instant::now());
+                    ctx.request_repaint_after(Duration::from_millis(
+                        self.settings.flags.debounce_filter_ms + 10,
+                    ));
+                }
                 ui.horizontal(|ui| {
                     let kind = self.filter.kind;
                     if ui
@@ -1532,9 +1707,21 @@ impl eframe::App for SpaceApp {
                         self.side_tree.invalidate();
                         self.geom = None;
                     }
+                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                        let badge = self.filter.active_count();
+                        if badge > 0 || !self.filter_draft.is_empty() {
+                            if ui.small_button("Clear").clicked() {
+                                self.filter.clear();
+                                self.filter_draft.clear();
+                                self.filter_edited_at = None;
+                                self.side_tree.invalidate();
+                                self.geom = None;
+                            }
+                        }
+                    });
                 });
                 ui.horizontal(|ui| {
-                    ui.label(RichText::new("min").small().color(MUTED));
+                    ui.label(RichText::new("≥").small().color(MUTED));
                     for (label, bytes) in [
                         ("0", 0u64),
                         ("1M", 1 << 20),
@@ -1553,10 +1740,12 @@ impl eframe::App for SpaceApp {
                     }
                 });
                 if let Some(ext) = &self.filter.ext {
-                    ui.label(RichText::new(format!("ext: .{ext}")).color(ACCENT));
+                    ui.label(RichText::new(format!(".{ext}")).small().color(ACCENT));
                 }
 
+                ui.add_space(6.0);
                 ui.separator();
+                ui.add_space(4.0);
 
                 if self.tree.is_some() {
                     self.ensure_side_tree();
@@ -1572,40 +1761,32 @@ impl eframe::App for SpaceApp {
                         .map(|t| t.node(focus).size(self.size_mode))
                         .unwrap_or(0);
 
-                    ui.label(RichText::new("Tree").strong().color(ACCENT));
                     ui.label(
-                        RichText::new(format!("focus: {title} · {}", format_bytes(size)))
-                            .small()
-                            .color(MUTED),
+                        RichText::new(format!("{title}  ·  {}", format_bytes(size)))
+                            .size(12.0)
+                            .strong()
+                            .color(TEXT),
                     );
                     ui.add_space(4.0);
 
-                    // Live hover / selection info
                     if let (Some(tree), Some(hid)) =
                         (self.tree.as_ref(), self.hovered.or(self.selected))
                     {
                         if let Some(n) = tree.try_node(hid) {
                             let pct = self
                                 .percent_of_parent(hid)
-                                .map(|p| format!("  ·  {p:.1}% of parent"))
+                                .map(|p| format!(" · {p:.0}%"))
                                 .unwrap_or_default();
-                            let path = tree.path_string(hid);
                             ui.label(
                                 RichText::new(format!(
-                                    "{}  ·  {}{}{}",
+                                    "{} · {}{}",
                                     n.name,
                                     format_bytes(n.size(self.size_mode)),
-                                    if n.is_dir {
-                                        format!("  ·  {} files", n.file_count)
-                                    } else {
-                                        String::new()
-                                    },
                                     pct
                                 ))
                                 .color(ACCENT)
-                                .size(12.0),
+                                .size(11.0),
                             );
-                            ui.label(RichText::new(path).small().color(MUTED));
                         }
                     }
 

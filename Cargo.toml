@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["crates/space-core", "crates/space-app", "crates/space-cli"]
+members = ["crates/space-core", "crates/space-app", "crates/space-cli", "crates/space-clean"]
 default-members = ["crates/space-app"]
 
 [workspace.package]
@@ -10,6 +10,7 @@ license = "MIT"
 
 [workspace.dependencies]
 space-core = { path = "crates/space-core" }
+space-clean = { path = "crates/space-clean" }
 serde = { version = "1", features = ["derive"] }
 bincode = "1.3"
 blake3 = "1"

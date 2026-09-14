@@ -220,16 +220,33 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             .map(|p| tree.node(p).size(ctx.mode).max(1))
             .unwrap_or(1);
         let pct = (n.size(ctx.mode) as f32 / parent_size as f32) * 100.0;
-        response.clone().on_hover_ui(|ui| {
-            ui.label(egui::RichText::new(&n.name).strong());
-            ui.label(format!(
-                "{} · {} files{} · {pct:.1}% of parent",
-                format_bytes(n.size(ctx.mode)),
-                n.file_count,
-                if n.is_dir { " · folder" } else { "" }
-            ));
-            ui.label(egui::RichText::new(tree.path_string(id)).small().color(MUTED));
-        });
+        let label = format!(
+            "{}  ·  {}  ·  {pct:.0}%",
+            truncate(&n.name, 28),
+            format_bytes(n.size(ctx.mode)),
+        );
+        // Light overlay under the map — avoids a heavy tooltip covering the sunburst.
+        let bar = egui::Rect::from_min_size(
+            egui::pos2(rect.left() + 12.0, rect.bottom() - 28.0),
+            egui::vec2(rect.width() - 24.0, 22.0),
+        );
+        painter.rect_filled(bar, 4.0, theme::PANEL_2);
+        painter.text(
+            bar.left_center() + Vec2::new(10.0, 0.0),
+            Align2::LEFT_CENTER,
+            label,
+            FontId::proportional(13.0),
+            TEXT,
+        );
+        if n.is_dir {
+            painter.text(
+                bar.right_center() - Vec2::new(10.0, 0.0),
+                Align2::RIGHT_CENTER,
+                format!("{} files", n.file_count),
+                FontId::proportional(11.0),
+                MUTED,
+            );
+        }
     }
 
     action
