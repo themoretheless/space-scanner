@@ -5,7 +5,7 @@ mod format;
 mod scan;
 mod tree;
 
-pub use cache::{CacheLoad, CacheMeta, CacheStore};
+pub use cache::{CacheLoad, CacheMeta, CacheStore, CACHE_VERSION};
 pub use format::format_bytes;
 pub use scan::{
     rescan_subtree, scan_path, scan_path_with_expect, ScanEvent, ScanHandle, ScanProgress,

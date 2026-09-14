@@ -33,8 +33,8 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         mode: ctx.mode,
         filter: ctx.filter_hash,
         selected: None,
-        w: map_rect.width() as u16,
-        h: map_rect.height() as u16,
+        w: ((map_rect.width() / 8.0).round() as u16).saturating_mul(8),
+        h: ((map_rect.height() / 8.0).round() as u16).saturating_mul(8),
         review_sig: 0,
     };
 
@@ -133,7 +133,9 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         } else {
             theme::color_for(&node.name, node.is_dir)
         };
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let is_sel = ctx.selected == Some(id)
+            || ctx.hovered == Some(id)
+            || ctx.review.contains(&id);
         let shrink = if node.is_dir { 1.5 } else { 0.8 };
         painter.rect_filled(rect.shrink(shrink), 2.0, color);
         painter.rect_stroke(
@@ -176,7 +178,17 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             action.toggle_review = Some(id);
         }
         if resp.hovered() {
+            action.hover = Some(id);
             ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
+            resp.on_hover_ui(|ui| {
+                ui.label(egui::RichText::new(&node.name).strong());
+                ui.label(format!(
+                    "{} · {} files{}",
+                    format_bytes(node.size(ctx.mode)),
+                    node.file_count,
+                    if node.is_dir { " · folder" } else { "" }
+                ));
+            });
         }
     }
 

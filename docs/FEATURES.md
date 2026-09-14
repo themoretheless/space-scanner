@@ -1,0 +1,1209 @@
+# Space Scanner — feature catalog (~1000)
+
+IDs are stable. Priority: `P0` (top-200 candidates), `P1`, `P2`.
+
+Status in this file is backlog-only; execution tracking is [ROADMAP-200.md](ROADMAP-200.md).
+
+## Scan
+
+- `F0001` [P0] parallel work-stealing walk
+- `F0002` [P0] same-volume device filter
+- `F0003` [P0] skip Spotlight
+- `F0004` [P0] skip Trash
+- `F0005` [P0] cancelable scan
+- `F0006` [P0] progress files/bytes/path
+- `F0007` [P0] hardlink inode dedup
+- `F0008` [P0] apparent vs on-disk size
+- `F0009` [P1] small-file rollup
+- `F0010` [P1] thread count setting
+- `F0011` [P1] scan pause/resume
+- `F0012` [P1] profile Quick/Full/Deep
+- `F0013` [P1] exclude path prefixes
+- `F0014` [P1] exclude globs
+- `F0015` [P1] cloud placeholder skip
+- `F0016` [P1] no-follow symlinks
+- `F0017` [P1] permission-denied nodes
+- `F0018` [P1] ETA from prior index
+- `F0019` [P1] expected items from cache
+- `F0020` [P1] NFC name normalize
+- `F0021` [P2] skip .git option
+- `F0022` [P2] skip node_modules option
+- `F0023` [P2] FSEvents-triggered rescan
+- `F0024` [P2] items/sec meter
+- `F0025` [P2] MB/s meter
+- `F0026` [P2] checkpoint resume
+- `F0027` [P2] depth-limited scan
+- `F0028` [P2] Home/Downloads shortcuts
+- `F0029` [P2] APFS clone note
+- `F0030` [P2] thermal throttle
+- `F0031` [P2] Scan enhancement 001
+- `F0032` [P2] Scan enhancement 002
+- `F0033` [P2] Scan enhancement 003
+- `F0034` [P2] Scan enhancement 004
+- `F0035` [P2] Scan enhancement 005
+- `F0036` [P2] Scan enhancement 006
+- `F0037` [P2] Scan enhancement 007
+- `F0038` [P2] Scan enhancement 008
+- `F0039` [P2] Scan enhancement 009
+- `F0040` [P2] Scan enhancement 010
+- `F0041` [P2] Scan enhancement 011
+- `F0042` [P2] Scan enhancement 012
+- `F0043` [P2] Scan enhancement 013
+- `F0044` [P2] Scan enhancement 014
+- `F0045` [P2] Scan enhancement 015
+- `F0046` [P2] Scan enhancement 016
+- `F0047` [P2] Scan enhancement 017
+- `F0048` [P2] Scan enhancement 018
+- `F0049` [P2] Scan enhancement 019
+- `F0050` [P2] Scan enhancement 020
+- `F0051` [P2] Scan enhancement 021
+- `F0052` [P2] Scan enhancement 022
+- `F0053` [P2] Scan enhancement 023
+- `F0054` [P2] Scan enhancement 024
+- `F0055` [P2] Scan enhancement 025
+- `F0056` [P2] Scan enhancement 026
+- `F0057` [P2] Scan enhancement 027
+- `F0058` [P2] Scan enhancement 028
+- `F0059` [P2] Scan enhancement 029
+- `F0060` [P2] Scan enhancement 030
+- `F0061` [P2] Scan enhancement 031
+- `F0062` [P2] Scan enhancement 032
+- `F0063` [P2] Scan enhancement 033
+- `F0064` [P2] Scan enhancement 034
+- `F0065` [P2] Scan enhancement 035
+- `F0066` [P2] Scan enhancement 036
+- `F0067` [P2] Scan enhancement 037
+- `F0068` [P2] Scan enhancement 038
+- `F0069` [P2] Scan enhancement 039
+- `F0070` [P2] Scan enhancement 040
+- `F0071` [P2] Scan enhancement 041
+- `F0072` [P2] Scan enhancement 042
+- `F0073` [P2] Scan enhancement 043
+- `F0074` [P2] Scan enhancement 044
+- `F0075` [P2] Scan enhancement 045
+- `F0076` [P2] Scan enhancement 046
+- `F0077` [P2] Scan enhancement 047
+- `F0078` [P2] Scan enhancement 048
+- `F0079` [P2] Scan enhancement 049
+- `F0080` [P2] Scan enhancement 050
+- `F0081` [P2] Scan enhancement 051
+- `F0082` [P2] Scan enhancement 052
+- `F0083` [P2] Scan enhancement 053
+- `F0084` [P2] Scan enhancement 054
+- `F0085` [P2] Scan enhancement 055
+- `F0086` [P2] Scan enhancement 056
+- `F0087` [P2] Scan enhancement 057
+- `F0088` [P2] Scan enhancement 058
+- `F0089` [P2] Scan enhancement 059
+- `F0090` [P2] Scan enhancement 060
+- `F0091` [P2] Scan enhancement 061
+- `F0092` [P2] Scan enhancement 062
+- `F0093` [P2] Scan enhancement 063
+- `F0094` [P2] Scan enhancement 064
+- `F0095` [P2] Scan enhancement 065
+- `F0096` [P2] Scan enhancement 066
+- `F0097` [P2] Scan enhancement 067
+- `F0098` [P2] Scan enhancement 068
+- `F0099` [P2] Scan enhancement 069
+- `F0100` [P2] Scan enhancement 070
+- `F0101` [P2] Scan enhancement 071
+- `F0102` [P2] Scan enhancement 072
+- `F0103` [P2] Scan enhancement 073
+- `F0104` [P2] Scan enhancement 074
+- `F0105` [P2] Scan enhancement 075
+- `F0106` [P2] Scan enhancement 076
+- `F0107` [P2] Scan enhancement 077
+- `F0108` [P2] Scan enhancement 078
+- `F0109` [P2] Scan enhancement 079
+- `F0110` [P2] Scan enhancement 080
+
+## Cache
+
+- `F0111` [P0] zstd+bincode cache
+- `F0112` [P0] magic+version header
+- `F0113` [P0] stale-by-mtime badge
+- `F0114` [P0] async load/save
+- `F0115` [P0] list recent
+- `F0116` [P0] wipe one/all
+- `F0117` [P0] TTL days
+- `F0118` [P0] LRU eviction
+- `F0119` [P1] atomic temp+rename
+- `F0120` [P1] cache dir open
+- `F0121` [P1] CLI cache ls/rm
+- `F0122` [P1] force rescan ignores cache
+- `F0123` [P1] corrupt auto-delete
+- `F0124` [P1] per-volume key
+- `F0125` [P1] show age+disk bytes
+- `F0126` [P1] pin entry
+- `F0127` [P1] offline open
+- `F0128` [P1] compress level
+- `F0129` [P1] autosave on quit
+- `F0130` [P1] schema fingerprint
+- `F0131` [P2] Cache enhancement 001
+- `F0132` [P2] Cache enhancement 002
+- `F0133` [P2] Cache enhancement 003
+- `F0134` [P2] Cache enhancement 004
+- `F0135` [P2] Cache enhancement 005
+- `F0136` [P2] Cache enhancement 006
+- `F0137` [P2] Cache enhancement 007
+- `F0138` [P2] Cache enhancement 008
+- `F0139` [P2] Cache enhancement 009
+- `F0140` [P2] Cache enhancement 010
+- `F0141` [P2] Cache enhancement 011
+- `F0142` [P2] Cache enhancement 012
+- `F0143` [P2] Cache enhancement 013
+- `F0144` [P2] Cache enhancement 014
+- `F0145` [P2] Cache enhancement 015
+- `F0146` [P2] Cache enhancement 016
+- `F0147` [P2] Cache enhancement 017
+- `F0148` [P2] Cache enhancement 018
+- `F0149` [P2] Cache enhancement 019
+- `F0150` [P2] Cache enhancement 020
+- `F0151` [P2] Cache enhancement 021
+- `F0152` [P2] Cache enhancement 022
+- `F0153` [P2] Cache enhancement 023
+- `F0154` [P2] Cache enhancement 024
+- `F0155` [P2] Cache enhancement 025
+- `F0156` [P2] Cache enhancement 026
+- `F0157` [P2] Cache enhancement 027
+- `F0158` [P2] Cache enhancement 028
+- `F0159` [P2] Cache enhancement 029
+- `F0160` [P2] Cache enhancement 030
+- `F0161` [P2] Cache enhancement 031
+- `F0162` [P2] Cache enhancement 032
+- `F0163` [P2] Cache enhancement 033
+- `F0164` [P2] Cache enhancement 034
+- `F0165` [P2] Cache enhancement 035
+- `F0166` [P2] Cache enhancement 036
+- `F0167` [P2] Cache enhancement 037
+- `F0168` [P2] Cache enhancement 038
+- `F0169` [P2] Cache enhancement 039
+- `F0170` [P2] Cache enhancement 040
+- `F0171` [P2] Cache enhancement 041
+- `F0172` [P2] Cache enhancement 042
+- `F0173` [P2] Cache enhancement 043
+- `F0174` [P2] Cache enhancement 044
+- `F0175` [P2] Cache enhancement 045
+- `F0176` [P2] Cache enhancement 046
+- `F0177` [P2] Cache enhancement 047
+- `F0178` [P2] Cache enhancement 048
+- `F0179` [P2] Cache enhancement 049
+- `F0180` [P2] Cache enhancement 050
+
+## Tree
+
+- `F0181` [P0] NodeId stable
+- `F0182` [P0] parent links
+- `F0183` [P0] pre-sorted children
+- `F0184` [P0] Arc sharing to UI
+- `F0185` [P0] file_count rollup
+- `F0186` [P0] allocated_size
+- `F0187` [P0] apparent_size
+- `F0188` [P0] path_string helper
+- `F0189` [P1] breadcrumb_names
+- `F0190` [P1] largest_files bounded
+- `F0191` [P1] try_node safe
+- `F0192` [P1] children borrowed slice
+- `F0193` [P1] mutate for rescan
+- `F0194` [P1] NFC normalize_unicode_names
+- `F0195` [P1] optional mtime field
+- `F0196` [P1] optional birthtime
+- `F0197` [P1] ext index side table
+- `F0198` [P1] dir vs file flag
+- `F0199` [P1] rollup small bucket node
+- `F0200` [P1] root_path stored
+- `F0201` [P2] Tree enhancement 001
+- `F0202` [P2] Tree enhancement 002
+- `F0203` [P2] Tree enhancement 003
+- `F0204` [P2] Tree enhancement 004
+- `F0205` [P2] Tree enhancement 005
+- `F0206` [P2] Tree enhancement 006
+- `F0207` [P2] Tree enhancement 007
+- `F0208` [P2] Tree enhancement 008
+- `F0209` [P2] Tree enhancement 009
+- `F0210` [P2] Tree enhancement 010
+- `F0211` [P2] Tree enhancement 011
+- `F0212` [P2] Tree enhancement 012
+- `F0213` [P2] Tree enhancement 013
+- `F0214` [P2] Tree enhancement 014
+- `F0215` [P2] Tree enhancement 015
+- `F0216` [P2] Tree enhancement 016
+- `F0217` [P2] Tree enhancement 017
+- `F0218` [P2] Tree enhancement 018
+- `F0219` [P2] Tree enhancement 019
+- `F0220` [P2] Tree enhancement 020
+- `F0221` [P2] Tree enhancement 021
+- `F0222` [P2] Tree enhancement 022
+- `F0223` [P2] Tree enhancement 023
+- `F0224` [P2] Tree enhancement 024
+- `F0225` [P2] Tree enhancement 025
+- `F0226` [P2] Tree enhancement 026
+- `F0227` [P2] Tree enhancement 027
+- `F0228` [P2] Tree enhancement 028
+- `F0229` [P2] Tree enhancement 029
+- `F0230` [P2] Tree enhancement 030
+- `F0231` [P2] Tree enhancement 031
+- `F0232` [P2] Tree enhancement 032
+- `F0233` [P2] Tree enhancement 033
+- `F0234` [P2] Tree enhancement 034
+- `F0235` [P2] Tree enhancement 035
+- `F0236` [P2] Tree enhancement 036
+- `F0237` [P2] Tree enhancement 037
+- `F0238` [P2] Tree enhancement 038
+- `F0239` [P2] Tree enhancement 039
+- `F0240` [P2] Tree enhancement 040
+
+## Sunburst
+
+- `F0241` [P0] 2-ring default
+- `F0242` [P0] depth slider 1-4
+- `F0243` [P0] mesh geom cache
+- `F0244` [P0] quantized size key
+- `F0245` [P0] smooth tessellation
+- `F0246` [P0] hover wedge stroke
+- `F0247` [P0] tooltip on hover
+- `F0248` [P0] center click up
+- `F0249` [P1] click zoom dir
+- `F0250` [P1] other wedge
+- `F0251` [P1] labels on large arcs
+- `F0252` [P1] color by ext
+- `F0253` [P1] color by dir hash
+- `F0254` [P1] color by age
+- `F0255` [P1] % of parent in tip
+- `F0256` [P1] keyboard ring nav
+- `F0257` [P1] LOD min sweep
+- `F0258` [P1] max arcs cap
+- `F0259` [P1] max top children
+- `F0260` [P1] selection overlay
+- `F0261` [P2] Sunburst enhancement 001
+- `F0262` [P2] Sunburst enhancement 002
+- `F0263` [P2] Sunburst enhancement 003
+- `F0264` [P2] Sunburst enhancement 004
+- `F0265` [P2] Sunburst enhancement 005
+- `F0266` [P2] Sunburst enhancement 006
+- `F0267` [P2] Sunburst enhancement 007
+- `F0268` [P2] Sunburst enhancement 008
+- `F0269` [P2] Sunburst enhancement 009
+- `F0270` [P2] Sunburst enhancement 010
+- `F0271` [P2] Sunburst enhancement 011
+- `F0272` [P2] Sunburst enhancement 012
+- `F0273` [P2] Sunburst enhancement 013
+- `F0274` [P2] Sunburst enhancement 014
+- `F0275` [P2] Sunburst enhancement 015
+- `F0276` [P2] Sunburst enhancement 016
+- `F0277` [P2] Sunburst enhancement 017
+- `F0278` [P2] Sunburst enhancement 018
+- `F0279` [P2] Sunburst enhancement 019
+- `F0280` [P2] Sunburst enhancement 020
+- `F0281` [P2] Sunburst enhancement 021
+- `F0282` [P2] Sunburst enhancement 022
+- `F0283` [P2] Sunburst enhancement 023
+- `F0284` [P2] Sunburst enhancement 024
+- `F0285` [P2] Sunburst enhancement 025
+- `F0286` [P2] Sunburst enhancement 026
+- `F0287` [P2] Sunburst enhancement 027
+- `F0288` [P2] Sunburst enhancement 028
+- `F0289` [P2] Sunburst enhancement 029
+- `F0290` [P2] Sunburst enhancement 030
+
+## Treemap
+
+- `F0291` [P0] squarified layout
+- `F0292` [P0] strip layout option
+- `F0293` [P0] nest depth slider
+- `F0294` [P0] ext legend chips
+- `F0295` [P0] legend filter toggle
+- `F0296` [P0] hover highlight
+- `F0297` [P0] tile labels
+- `F0298` [P0] min px cull
+- `F0299` [P1] max tiles cap
+- `F0300` [P1] color by ext
+- `F0301` [P1] dir muted option
+- `F0302` [P1] double-click zoom
+- `F0303` [P1] right-click review
+- `F0304` [P1] shared geom cache
+- `F0305` [P1] aspect ratio metric
+- `F0306` [P1] padding gaps
+- `F0307` [P1] animation fade
+- `F0308` [P1] empty filtered state
+- `F0309` [P1] nesting borders
+- `F0310` [P1] selection stroke
+- `F0311` [P2] Treemap enhancement 001
+- `F0312` [P2] Treemap enhancement 002
+- `F0313` [P2] Treemap enhancement 003
+- `F0314` [P2] Treemap enhancement 004
+- `F0315` [P2] Treemap enhancement 005
+- `F0316` [P2] Treemap enhancement 006
+- `F0317` [P2] Treemap enhancement 007
+- `F0318` [P2] Treemap enhancement 008
+- `F0319` [P2] Treemap enhancement 009
+- `F0320` [P2] Treemap enhancement 010
+- `F0321` [P2] Treemap enhancement 011
+- `F0322` [P2] Treemap enhancement 012
+- `F0323` [P2] Treemap enhancement 013
+- `F0324` [P2] Treemap enhancement 014
+- `F0325` [P2] Treemap enhancement 015
+- `F0326` [P2] Treemap enhancement 016
+- `F0327` [P2] Treemap enhancement 017
+- `F0328` [P2] Treemap enhancement 018
+- `F0329` [P2] Treemap enhancement 019
+- `F0330` [P2] Treemap enhancement 020
+- `F0331` [P2] Treemap enhancement 021
+- `F0332` [P2] Treemap enhancement 022
+- `F0333` [P2] Treemap enhancement 023
+- `F0334` [P2] Treemap enhancement 024
+- `F0335` [P2] Treemap enhancement 025
+
+## Radial
+
+- `F0336` [P0] focus center bubble
+- `F0337` [P0] orbital children
+- `F0338` [P0] size-proportional radius
+- `F0339` [P0] max nodes LOD
+- `F0340` [P0] orbit rings decor
+- `F0341` [P0] hover hand cursor
+- `F0342` [P0] double-click zoom
+- `F0343` [P0] center double-click up
+- `F0344` [P1] labels under bubbles
+- `F0345` [P1] selection stroke
+- `F0346` [P1] review mark
+- `F0347` [P1] angle sort by size
+- `F0348` [P1] collision avoid simple
+- `F0349` [P1] zoom anim
+- `F0350` [P1] empty kids state
+- `F0351` [P1] Radial enhancement 001
+- `F0352` [P1] Radial enhancement 002
+- `F0353` [P1] Radial enhancement 003
+- `F0354` [P1] Radial enhancement 004
+- `F0355` [P1] Radial enhancement 005
+- `F0356` [P2] Radial enhancement 006
+- `F0357` [P2] Radial enhancement 007
+- `F0358` [P2] Radial enhancement 008
+- `F0359` [P2] Radial enhancement 009
+- `F0360` [P2] Radial enhancement 010
+- `F0361` [P2] Radial enhancement 011
+- `F0362` [P2] Radial enhancement 012
+- `F0363` [P2] Radial enhancement 013
+- `F0364` [P2] Radial enhancement 014
+- `F0365` [P2] Radial enhancement 015
+- `F0366` [P2] Radial enhancement 016
+- `F0367` [P2] Radial enhancement 017
+- `F0368` [P2] Radial enhancement 018
+- `F0369` [P2] Radial enhancement 019
+- `F0370` [P2] Radial enhancement 020
+
+## Cascade
+
+- `F0371` [P0] icicle bands
+- `F0372` [P0] depth rows
+- `F0373` [P0] width-proportional size
+- `F0374` [P0] hover tip
+- `F0375` [P0] click select
+- `F0376` [P0] double-click zoom
+- `F0377` [P0] max depth control
+- `F0378` [P0] row height scale
+- `F0379` [P1] label truncate
+- `F0380` [P1] muted sizes
+- `F0381` [P1] selection stroke
+- `F0382` [P1] layout children recursive
+- `F0383` [P1] take top 64
+- `F0384` [P1] min width cull
+- `F0385` [P1] Cascade enhancement 001
+- `F0386` [P1] Cascade enhancement 002
+- `F0387` [P1] Cascade enhancement 003
+- `F0388` [P1] Cascade enhancement 004
+- `F0389` [P1] Cascade enhancement 005
+- `F0390` [P1] Cascade enhancement 006
+- `F0391` [P2] Cascade enhancement 007
+- `F0392` [P2] Cascade enhancement 008
+- `F0393` [P2] Cascade enhancement 009
+- `F0394` [P2] Cascade enhancement 010
+- `F0395` [P2] Cascade enhancement 011
+- `F0396` [P2] Cascade enhancement 012
+- `F0397` [P2] Cascade enhancement 013
+- `F0398` [P2] Cascade enhancement 014
+- `F0399` [P2] Cascade enhancement 015
+- `F0400` [P2] Cascade enhancement 016
+- `F0401` [P2] Cascade enhancement 017
+- `F0402` [P2] Cascade enhancement 018
+- `F0403` [P2] Cascade enhancement 019
+- `F0404` [P2] Cascade enhancement 020
+- `F0405` [P2] Cascade enhancement 021
+
+## Sidebar
+
+- `F0406` [P0] volumes list
+- `F0407` [P0] refresh volumes
+- `F0408` [P0] filter box
+- `F0409` [P0] children list capped
+- `F0410` [P0] largest files list
+- `F0411` [P0] hover sync highlight
+- `F0412` [P0] scroll-to hover
+- `F0413` [P0] info strip
+- `F0414` [P1] reveal button
+- `F0415` [P1] review queue summary
+- `F0416` [P1] density compact
+- `F0417` [P1] % of parent column
+- `F0418` [P1] mtime column
+- `F0419` [P1] ext column
+- `F0420` [P1] copy path button
+- `F0421` [P1] open Terminal
+- `F0422` [P1] Quick Look
+- `F0423` [P1] recent scans
+- `F0424` [P1] stale badge
+- `F0425` [P1] spinner busy
+- `F0426` [P2] Sidebar enhancement 001
+- `F0427` [P2] Sidebar enhancement 002
+- `F0428` [P2] Sidebar enhancement 003
+- `F0429` [P2] Sidebar enhancement 004
+- `F0430` [P2] Sidebar enhancement 005
+- `F0431` [P2] Sidebar enhancement 006
+- `F0432` [P2] Sidebar enhancement 007
+- `F0433` [P2] Sidebar enhancement 008
+- `F0434` [P2] Sidebar enhancement 009
+- `F0435` [P2] Sidebar enhancement 010
+- `F0436` [P2] Sidebar enhancement 011
+- `F0437` [P2] Sidebar enhancement 012
+- `F0438` [P2] Sidebar enhancement 013
+- `F0439` [P2] Sidebar enhancement 014
+- `F0440` [P2] Sidebar enhancement 015
+- `F0441` [P2] Sidebar enhancement 016
+- `F0442` [P2] Sidebar enhancement 017
+- `F0443` [P2] Sidebar enhancement 018
+- `F0444` [P2] Sidebar enhancement 019
+- `F0445` [P2] Sidebar enhancement 020
+- `F0446` [P2] Sidebar enhancement 021
+- `F0447` [P2] Sidebar enhancement 022
+- `F0448` [P2] Sidebar enhancement 023
+- `F0449` [P2] Sidebar enhancement 024
+- `F0450` [P2] Sidebar enhancement 025
+
+## Navigation
+
+- `F0451` [P0] back history
+- `F0452` [P0] forward history
+- `F0453` [P0] up to parent
+- `F0454` [P0] breadcrumb bar
+- `F0455` [P0] click crumb
+- `F0456` [P0] copy path
+- `F0457` [P0] keyboard arrows
+- `F0458` [P0] Enter open
+- `F0459` [P1] Esc up
+- `F0460` [P1] Home root
+- `F0461` [P1] End largest child
+- `F0462` [P1] Cmd+[ back
+- `F0463` [P1] Cmd+] forward
+- `F0464` [P1] remember per volume
+- `F0465` [P1] deep link path
+- `F0466` [P1] jump to path paste
+- `F0467` [P1] zoom animation
+- `F0468` [P1] status focus name
+- `F0469` [P1] path in title
+- `F0470` [P1] select parent
+- `F0471` [P2] Navigation enhancement 001
+- `F0472` [P2] Navigation enhancement 002
+- `F0473` [P2] Navigation enhancement 003
+- `F0474` [P2] Navigation enhancement 004
+- `F0475` [P2] Navigation enhancement 005
+- `F0476` [P2] Navigation enhancement 006
+- `F0477` [P2] Navigation enhancement 007
+- `F0478` [P2] Navigation enhancement 008
+- `F0479` [P2] Navigation enhancement 009
+- `F0480` [P2] Navigation enhancement 010
+- `F0481` [P2] Navigation enhancement 011
+- `F0482` [P2] Navigation enhancement 012
+- `F0483` [P2] Navigation enhancement 013
+- `F0484` [P2] Navigation enhancement 014
+- `F0485` [P2] Navigation enhancement 015
+- `F0486` [P2] Navigation enhancement 016
+- `F0487` [P2] Navigation enhancement 017
+- `F0488` [P2] Navigation enhancement 018
+- `F0489` [P2] Navigation enhancement 019
+- `F0490` [P2] Navigation enhancement 020
+- `F0491` [P2] Navigation enhancement 021
+- `F0492` [P2] Navigation enhancement 022
+- `F0493` [P2] Navigation enhancement 023
+- `F0494` [P2] Navigation enhancement 024
+- `F0495` [P2] Navigation enhancement 025
+- `F0496` [P2] Navigation enhancement 026
+- `F0497` [P2] Navigation enhancement 027
+- `F0498` [P2] Navigation enhancement 028
+- `F0499` [P2] Navigation enhancement 029
+- `F0500` [P2] Navigation enhancement 030
+
+## Filter
+
+- `F0501` [P0] substring query
+- `F0502` [P0] case-insensitive
+- `F0503` [P0] debounce 150ms
+- `F0504` [P0] regex toggle
+- `F0505` [P0] ext chip multi
+- `F0506` [P0] min size
+- `F0507` [P0] max size
+- `F0508` [P0] only dirs
+- `F0509` [P1] only files
+- `F0510` [P1] clear all
+- `F0511` [P1] active badge count
+- `F0512` [P1] jump next match
+- `F0513` [P1] jump prev match
+- `F0514` [P1] filter persists
+- `F0515` [P1] query history
+- `F0516` [P1] saved presets
+- `F0517` [P1] exclude matching
+- `F0518` [P1] invert filter
+- `F0519` [P1] size presets
+- `F0520` [P1] ext from legend
+- `F0521` [P2] Filter enhancement 001
+- `F0522` [P2] Filter enhancement 002
+- `F0523` [P2] Filter enhancement 003
+- `F0524` [P2] Filter enhancement 004
+- `F0525` [P2] Filter enhancement 005
+- `F0526` [P2] Filter enhancement 006
+- `F0527` [P2] Filter enhancement 007
+- `F0528` [P2] Filter enhancement 008
+- `F0529` [P2] Filter enhancement 009
+- `F0530` [P2] Filter enhancement 010
+- `F0531` [P2] Filter enhancement 011
+- `F0532` [P2] Filter enhancement 012
+- `F0533` [P2] Filter enhancement 013
+- `F0534` [P2] Filter enhancement 014
+- `F0535` [P2] Filter enhancement 015
+- `F0536` [P2] Filter enhancement 016
+- `F0537` [P2] Filter enhancement 017
+- `F0538` [P2] Filter enhancement 018
+- `F0539` [P2] Filter enhancement 019
+- `F0540` [P2] Filter enhancement 020
+- `F0541` [P2] Filter enhancement 021
+- `F0542` [P2] Filter enhancement 022
+- `F0543` [P2] Filter enhancement 023
+- `F0544` [P2] Filter enhancement 024
+- `F0545` [P2] Filter enhancement 025
+- `F0546` [P2] Filter enhancement 026
+- `F0547` [P2] Filter enhancement 027
+- `F0548` [P2] Filter enhancement 028
+- `F0549` [P2] Filter enhancement 029
+- `F0550` [P2] Filter enhancement 030
+- `F0551` [P2] Filter enhancement 031
+- `F0552` [P2] Filter enhancement 032
+- `F0553` [P2] Filter enhancement 033
+- `F0554` [P2] Filter enhancement 034
+- `F0555` [P2] Filter enhancement 035
+
+## HoverSelect
+
+- `F0556` [P0] hover id action
+- `F0557` [P0] tooltip name/size/files
+- `F0558` [P0] sidebar row map ancestor
+- `F0559` [P0] hover underline
+- `F0560` [P0] sticky select on click
+- `F0561` [P0] hover≠select
+- `F0562` [P0] multi-select shift
+- `F0563` [P0] range select
+- `F0564` [P1] select all visible
+- `F0565` [P1] deselect
+- `F0566` [P1] marquee treemap
+- `F0567` [P1] keyboard move selection
+- `F0568` [P1] show path on hover
+- `F0569` [P1] % parent on hover
+- `F0570` [P1] open with default
+- `F0571` [P1] get info panel
+- `F0572` [P1] HoverSelect enhancement 001
+- `F0573` [P1] HoverSelect enhancement 002
+- `F0574` [P1] HoverSelect enhancement 003
+- `F0575` [P1] HoverSelect enhancement 004
+- `F0576` [P2] HoverSelect enhancement 005
+- `F0577` [P2] HoverSelect enhancement 006
+- `F0578` [P2] HoverSelect enhancement 007
+- `F0579` [P2] HoverSelect enhancement 008
+- `F0580` [P2] HoverSelect enhancement 009
+- `F0581` [P2] HoverSelect enhancement 010
+- `F0582` [P2] HoverSelect enhancement 011
+- `F0583` [P2] HoverSelect enhancement 012
+- `F0584` [P2] HoverSelect enhancement 013
+- `F0585` [P2] HoverSelect enhancement 014
+- `F0586` [P2] HoverSelect enhancement 015
+- `F0587` [P2] HoverSelect enhancement 016
+- `F0588` [P2] HoverSelect enhancement 017
+- `F0589` [P2] HoverSelect enhancement 018
+- `F0590` [P2] HoverSelect enhancement 019
+- `F0591` [P2] HoverSelect enhancement 020
+- `F0592` [P2] HoverSelect enhancement 021
+- `F0593` [P2] HoverSelect enhancement 022
+- `F0594` [P2] HoverSelect enhancement 023
+- `F0595` [P2] HoverSelect enhancement 024
+
+## ReviewTrash
+
+- `F0596` [P0] right-click toggle review
+- `F0597` [P0] review count badge
+- `F0598` [P0] queue bytes sum
+- `F0599` [P0] confirm delete modal
+- `F0600` [P0] trash crate move
+- `F0601` [P0] reveal in Trash
+- `F0602` [P0] clear queue
+- `F0603` [P0] export queue list
+- `F0604` [P1] add all filtered
+- `F0605` [P1] add similar ext
+- `F0606` [P1] add folder subtree
+- `F0607` [P1] safe delete details
+- `F0608` [P1] undo via Finder
+- `F0609` [P1] skip locked files
+- `F0610` [P1] partial failure report
+- `F0611` [P1] dry-run delete
+- `F0612` [P1] review sort by size
+- `F0613` [P1] review sort by path
+- `F0614` [P1] remove from queue
+- `F0615` [P1] select in view from queue
+- `F0616` [P2] ReviewTrash enhancement 001
+- `F0617` [P2] ReviewTrash enhancement 002
+- `F0618` [P2] ReviewTrash enhancement 003
+- `F0619` [P2] ReviewTrash enhancement 004
+- `F0620` [P2] ReviewTrash enhancement 005
+- `F0621` [P2] ReviewTrash enhancement 006
+- `F0622` [P2] ReviewTrash enhancement 007
+- `F0623` [P2] ReviewTrash enhancement 008
+- `F0624` [P2] ReviewTrash enhancement 009
+- `F0625` [P2] ReviewTrash enhancement 010
+- `F0626` [P2] ReviewTrash enhancement 011
+- `F0627` [P2] ReviewTrash enhancement 012
+- `F0628` [P2] ReviewTrash enhancement 013
+- `F0629` [P2] ReviewTrash enhancement 014
+- `F0630` [P2] ReviewTrash enhancement 015
+- `F0631` [P2] ReviewTrash enhancement 016
+- `F0632` [P2] ReviewTrash enhancement 017
+- `F0633` [P2] ReviewTrash enhancement 018
+- `F0634` [P2] ReviewTrash enhancement 019
+- `F0635` [P2] ReviewTrash enhancement 020
+- `F0636` [P2] ReviewTrash enhancement 021
+- `F0637` [P2] ReviewTrash enhancement 022
+- `F0638` [P2] ReviewTrash enhancement 023
+- `F0639` [P2] ReviewTrash enhancement 024
+- `F0640` [P2] ReviewTrash enhancement 025
+- `F0641` [P2] ReviewTrash enhancement 026
+- `F0642` [P2] ReviewTrash enhancement 027
+- `F0643` [P2] ReviewTrash enhancement 028
+- `F0644` [P2] ReviewTrash enhancement 029
+- `F0645` [P2] ReviewTrash enhancement 030
+
+## LargestDup
+
+- `F0646` [P0] largest files async
+- `F0647` [P0] largest folders
+- `F0648` [P0] oldest large files
+- `F0649` [P0] name+size duplicates
+- `F0650` [P0] group by ext totals
+- `F0651` [P0] export CSV top
+- `F0652` [P0] limit N setting
+- `F0653` [P0] bounded walk 8k
+- `F0654` [P1] reload on focus
+- `F0655` [P1] empty state
+- `F0656` [P1] open item
+- `F0657` [P1] add to review
+- `F0658` [P1] dedupe soft link warn
+- `F0659` [P1] hash later stub
+- `F0660` [P1] size histogram
+- `F0661` [P1] ext pie list
+- `F0662` [P1] consumers table
+- `F0663` [P1] refresh button
+- `F0664` [P1] min size gate
+- `F0665` [P1] same-folder dups only
+- `F0666` [P2] LargestDup enhancement 001
+- `F0667` [P2] LargestDup enhancement 002
+- `F0668` [P2] LargestDup enhancement 003
+- `F0669` [P2] LargestDup enhancement 004
+- `F0670` [P2] LargestDup enhancement 005
+- `F0671` [P2] LargestDup enhancement 006
+- `F0672` [P2] LargestDup enhancement 007
+- `F0673` [P2] LargestDup enhancement 008
+- `F0674` [P2] LargestDup enhancement 009
+- `F0675` [P2] LargestDup enhancement 010
+- `F0676` [P2] LargestDup enhancement 011
+- `F0677` [P2] LargestDup enhancement 012
+- `F0678` [P2] LargestDup enhancement 013
+- `F0679` [P2] LargestDup enhancement 014
+- `F0680` [P2] LargestDup enhancement 015
+- `F0681` [P2] LargestDup enhancement 016
+- `F0682` [P2] LargestDup enhancement 017
+- `F0683` [P2] LargestDup enhancement 018
+- `F0684` [P2] LargestDup enhancement 019
+- `F0685` [P2] LargestDup enhancement 020
+- `F0686` [P2] LargestDup enhancement 021
+- `F0687` [P2] LargestDup enhancement 022
+- `F0688` [P2] LargestDup enhancement 023
+- `F0689` [P2] LargestDup enhancement 024
+- `F0690` [P2] LargestDup enhancement 025
+
+## Volumes
+
+- `F0691` [P0] fast list root and Volumes
+- `F0692` [P0] full sysinfo refresh
+- `F0693` [P0] dedupe APFS root+Data
+- `F0694` [P0] prefer Data mount
+- `F0695` [P0] skip Preboot/VM
+- `F0696` [P0] Home shortcut row
+- `F0697` [P0] used/total label
+- `F0698` [P0] refresh button
+- `F0699` [P1] eject warn
+- `F0700` [P1] offline grey
+- `F0701` [P1] external badge
+- `F0702` [P1] network badge
+- `F0703` [P1] free space bar
+- `F0704` [P1] click to scan
+- `F0705` [P1] last scanned age
+- `F0706` [P1] capacity sort
+- `F0707` [P1] name sort
+- `F0708` [P1] hide system synthetics
+- `F0709` [P1] boot volume mark
+- `F0710` [P1] volumes loading spinner
+- `F0711` [P2] Volumes enhancement 001
+- `F0712` [P2] Volumes enhancement 002
+- `F0713` [P2] Volumes enhancement 003
+- `F0714` [P2] Volumes enhancement 004
+- `F0715` [P2] Volumes enhancement 005
+- `F0716` [P2] Volumes enhancement 006
+- `F0717` [P2] Volumes enhancement 007
+- `F0718` [P2] Volumes enhancement 008
+- `F0719` [P2] Volumes enhancement 009
+- `F0720` [P2] Volumes enhancement 010
+- `F0721` [P2] Volumes enhancement 011
+- `F0722` [P2] Volumes enhancement 012
+- `F0723` [P2] Volumes enhancement 013
+- `F0724` [P2] Volumes enhancement 014
+- `F0725` [P2] Volumes enhancement 015
+- `F0726` [P2] Volumes enhancement 016
+- `F0727` [P2] Volumes enhancement 017
+- `F0728` [P2] Volumes enhancement 018
+- `F0729` [P2] Volumes enhancement 019
+- `F0730` [P2] Volumes enhancement 020
+
+## CLI
+
+- `F0731` [P0] space scan
+- `F0732` [P0] space ls
+- `F0733` [P0] space du
+- `F0734` [P0] space find
+- `F0735` [P0] space largest
+- `F0736` [P0] space export json
+- `F0737` [P0] space export csv
+- `F0738` [P0] space cache ls
+- `F0739` [P1] space cache rm
+- `F0740` [P1] progress TTY
+- `F0741` [P1] --profile quick
+- `F0742` [P1] --profile full
+- `F0743` [P1] --json
+- `F0744` [P1] --apparent
+- `F0745` [P1] --on-disk
+- `F0746` [P1] --depth
+- `F0747` [P1] --threads
+- `F0748` [P1] exit codes
+- `F0749` [P1] man-like --help
+- `F0750` [P1] color TTY
+- `F0751` [P2] CLI enhancement 001
+- `F0752` [P2] CLI enhancement 002
+- `F0753` [P2] CLI enhancement 003
+- `F0754` [P2] CLI enhancement 004
+- `F0755` [P2] CLI enhancement 005
+- `F0756` [P2] CLI enhancement 006
+- `F0757` [P2] CLI enhancement 007
+- `F0758` [P2] CLI enhancement 008
+- `F0759` [P2] CLI enhancement 009
+- `F0760` [P2] CLI enhancement 010
+- `F0761` [P2] CLI enhancement 011
+- `F0762` [P2] CLI enhancement 012
+- `F0763` [P2] CLI enhancement 013
+- `F0764` [P2] CLI enhancement 014
+- `F0765` [P2] CLI enhancement 015
+- `F0766` [P2] CLI enhancement 016
+- `F0767` [P2] CLI enhancement 017
+- `F0768` [P2] CLI enhancement 018
+- `F0769` [P2] CLI enhancement 019
+- `F0770` [P2] CLI enhancement 020
+- `F0771` [P2] CLI enhancement 021
+- `F0772` [P2] CLI enhancement 022
+- `F0773` [P2] CLI enhancement 023
+- `F0774` [P2] CLI enhancement 024
+- `F0775` [P2] CLI enhancement 025
+
+## Shortcuts
+
+- `F0776` [P0] ? shortcuts sheet
+- `F0777` [P0] Cmd+O open
+- `F0778` [P0] Cmd+R rescan
+- `F0779` [P0] Cmd+, settings
+- `F0780` [P0] Cmd+F focus filter
+- `F0781` [P0] Cmd+L focus path
+- `F0782` [P0] Space Quick Look
+- `F0783` [P0] Delete review
+- `F0784` [P1] Cmd+Backspace trash
+- `F0785` [P1] Cmd+1..4 views
+- `F0786` [P1] Cmd+Z undo nav
+- `F0787` [P1] Cmd+Shift+C copy path
+- `F0788` [P1] Cmd+Shift+R reveal
+- `F0789` [P1] F5 refresh vols
+- `F0790` [P1] / focus filter
+- `F0791` [P1] Esc clear
+- `F0792` [P1] Tab cycle panels
+- `F0793` [P1] Shift+Tab reverse
+- `F0794` [P1] arrow nav view
+- `F0795` [P1] enter zoom
+- `F0796` [P2] Shortcuts enhancement 001
+- `F0797` [P2] Shortcuts enhancement 002
+- `F0798` [P2] Shortcuts enhancement 003
+- `F0799` [P2] Shortcuts enhancement 004
+- `F0800` [P2] Shortcuts enhancement 005
+- `F0801` [P2] Shortcuts enhancement 006
+- `F0802` [P2] Shortcuts enhancement 007
+- `F0803` [P2] Shortcuts enhancement 008
+- `F0804` [P2] Shortcuts enhancement 009
+- `F0805` [P2] Shortcuts enhancement 010
+- `F0806` [P2] Shortcuts enhancement 011
+- `F0807` [P2] Shortcuts enhancement 012
+- `F0808` [P2] Shortcuts enhancement 013
+- `F0809` [P2] Shortcuts enhancement 014
+- `F0810` [P2] Shortcuts enhancement 015
+- `F0811` [P2] Shortcuts enhancement 016
+- `F0812` [P2] Shortcuts enhancement 017
+- `F0813` [P2] Shortcuts enhancement 018
+- `F0814` [P2] Shortcuts enhancement 019
+- `F0815` [P2] Shortcuts enhancement 020
+
+## A11y
+
+- `F0816` [P0] VoiceOver labels
+- `F0817` [P0] high contrast option
+- `F0818` [P0] focus rings
+- `F0819` [P0] keyboard-only
+- `F0820` [P0] reduce motion
+- `F0821` [P0] min contrast text
+- `F0822` [P0] tooltip delay
+- `F0823` [P0] hit target 24px
+- `F0824` [P1] screen reader path
+- `F0825` [P1] announce selection
+- `F0826` [P1] announce scan done
+- `F0827` [P1] large text density
+- `F0828` [P1] colorblind palettes
+- `F0829` [P1] no color-only state
+- `F0830` [P1] aria-like egui ids
+- `F0831` [P1] A11y enhancement 001
+- `F0832` [P1] A11y enhancement 002
+- `F0833` [P1] A11y enhancement 003
+- `F0834` [P1] A11y enhancement 004
+- `F0835` [P1] A11y enhancement 005
+- `F0836` [P2] A11y enhancement 006
+- `F0837` [P2] A11y enhancement 007
+- `F0838` [P2] A11y enhancement 008
+- `F0839` [P2] A11y enhancement 009
+- `F0840` [P2] A11y enhancement 010
+- `F0841` [P2] A11y enhancement 011
+- `F0842` [P2] A11y enhancement 012
+- `F0843` [P2] A11y enhancement 013
+- `F0844` [P2] A11y enhancement 014
+- `F0845` [P2] A11y enhancement 015
+
+## i18n
+
+- `F0846` [P0] EN strings
+- `F0847` [P0] RU strings
+- `F0848` [P0] string table
+- `F0849` [P0] plural rules
+- `F0850` [P0] locale sizes Si/IEC
+- `F0851` [P0] date format locale
+- `F0852` [P0] RTL ready stubs
+- `F0853` [P0] language setting
+- `F0854` [P1] fallback EN
+- `F0855` [P1] scan status localized
+- `F0856` [P1] i18n enhancement 001
+- `F0857` [P1] i18n enhancement 002
+- `F0858` [P1] i18n enhancement 003
+- `F0859` [P1] i18n enhancement 004
+- `F0860` [P1] i18n enhancement 005
+- `F0861` [P1] i18n enhancement 006
+- `F0862` [P1] i18n enhancement 007
+- `F0863` [P1] i18n enhancement 008
+- `F0864` [P1] i18n enhancement 009
+- `F0865` [P1] i18n enhancement 010
+- `F0866` [P2] i18n enhancement 011
+- `F0867` [P2] i18n enhancement 012
+- `F0868` [P2] i18n enhancement 013
+- `F0869` [P2] i18n enhancement 014
+- `F0870` [P2] i18n enhancement 015
+
+## Export
+
+- `F0871` [P0] PNG screenshot view
+- `F0872` [P0] SVG sunburst export
+- `F0873` [P0] CSV children
+- `F0874` [P0] CSV largest
+- `F0875` [P0] JSON tree shallow
+- `F0876` [P0] JSON tree full
+- `F0877` [P0] clipboard TSV
+- `F0878` [P0] share sheet macOS
+- `F0879` [P1] report HTML
+- `F0880` [P1] email body stub
+- `F0881` [P1] AirDrop file
+- `F0882` [P1] export selection only
+- `F0883` [P1] export review queue
+- `F0884` [P1] include hidden meta
+- `F0885` [P1] pretty JSON
+- `F0886` [P1] gzip JSON
+- `F0887` [P1] schema version in export
+- `F0888` [P1] Export enhancement 001
+- `F0889` [P1] Export enhancement 002
+- `F0890` [P1] Export enhancement 003
+- `F0891` [P2] Export enhancement 004
+- `F0892` [P2] Export enhancement 005
+- `F0893` [P2] Export enhancement 006
+- `F0894` [P2] Export enhancement 007
+- `F0895` [P2] Export enhancement 008
+- `F0896` [P2] Export enhancement 009
+- `F0897` [P2] Export enhancement 010
+- `F0898` [P2] Export enhancement 011
+- `F0899` [P2] Export enhancement 012
+- `F0900` [P2] Export enhancement 013
+- `F0901` [P2] Export enhancement 014
+- `F0902` [P2] Export enhancement 015
+- `F0903` [P2] Export enhancement 016
+- `F0904` [P2] Export enhancement 017
+- `F0905` [P2] Export enhancement 018
+
+## Settings
+
+- `F0906` [P0] settings window
+- `F0907` [P0] persist via json
+- `F0908` [P0] size mode default
+- `F0909` [P0] view default
+- `F0910` [P0] small-file threshold
+- `F0911` [P0] scan threads
+- `F0912` [P0] cache TTL
+- `F0913` [P0] exclude list editor
+- `F0914` [P1] skiplist editor
+- `F0915` [P1] color mode
+- `F0916` [P1] density
+- `F0917` [P1] font size
+- `F0918` [P1] start on login stub
+- `F0919` [P1] check updates stub
+- `F0920` [P1] telemetry off
+- `F0921` [P1] reset defaults
+- `F0922` [P1] import settings
+- `F0923` [P1] export settings
+- `F0924` [P1] keybinding editor
+- `F0925` [P1] feature flags struct
+- `F0926` [P2] Settings enhancement 001
+- `F0927` [P2] Settings enhancement 002
+- `F0928` [P2] Settings enhancement 003
+- `F0929` [P2] Settings enhancement 004
+- `F0930` [P2] Settings enhancement 005
+- `F0931` [P2] Settings enhancement 006
+- `F0932` [P2] Settings enhancement 007
+- `F0933` [P2] Settings enhancement 008
+- `F0934` [P2] Settings enhancement 009
+- `F0935` [P2] Settings enhancement 010
+- `F0936` [P2] Settings enhancement 011
+- `F0937` [P2] Settings enhancement 012
+- `F0938` [P2] Settings enhancement 013
+- `F0939` [P2] Settings enhancement 014
+- `F0940` [P2] Settings enhancement 015
+- `F0941` [P2] Settings enhancement 016
+- `F0942` [P2] Settings enhancement 017
+- `F0943` [P2] Settings enhancement 018
+- `F0944` [P2] Settings enhancement 019
+- `F0945` [P2] Settings enhancement 020
+
+## Perf
+
+- `F0946` [P0] geom cache sunburst
+- `F0947` [P0] geom cache treemap
+- `F0948` [P0] no to_vec idle kids
+- `F0949` [P0] sidebar row cache
+- `F0950` [P0] quantize geom key
+- `F0951` [P0] repaint 100/250ms
+- `F0952` [P0] Arial font light
+- `F0953` [P0] mesh Arc share
+- `F0954` [P1] largest walk bound
+- `F0955` [P1] cap sidebar 120
+- `F0956` [P1] cap arcs 160
+- `F0957` [P1] cap tiles 180
+- `F0958` [P1] pre-sorted children
+- `F0959` [P1] Arc SpaceTree
+- `F0960` [P1] string-less hits
+- `F0961` [P1] batch mesh tris
+- `F0962` [P1] avoid per-frame format
+- `F0963` [P1] filter hash key
+- `F0964` [P1] airbug benches
+- `F0965` [P1] docs PERF.md
+- `F0966` [P2] Perf enhancement 001
+- `F0967` [P2] Perf enhancement 002
+- `F0968` [P2] Perf enhancement 003
+- `F0969` [P2] Perf enhancement 004
+- `F0970` [P2] Perf enhancement 005
+- `F0971` [P2] Perf enhancement 006
+- `F0972` [P2] Perf enhancement 007
+- `F0973` [P2] Perf enhancement 008
+- `F0974` [P2] Perf enhancement 009
+- `F0975` [P2] Perf enhancement 010
+- `F0976` [P2] Perf enhancement 011
+- `F0977` [P2] Perf enhancement 012
+- `F0978` [P2] Perf enhancement 013
+- `F0979` [P2] Perf enhancement 014
+- `F0980` [P2] Perf enhancement 015
+- `F0981` [P2] Perf enhancement 016
+- `F0982` [P2] Perf enhancement 017
+- `F0983` [P2] Perf enhancement 018
+- `F0984` [P2] Perf enhancement 019
+- `F0985` [P2] Perf enhancement 020
+- `F0986` [P2] Perf enhancement 021
+- `F0987` [P2] Perf enhancement 022
+- `F0988` [P2] Perf enhancement 023
+- `F0989` [P2] Perf enhancement 024
+- `F0990` [P2] Perf enhancement 025
+
+## Robustness
+
+- `F0991` [P0] panic hook /tmp log
+- `F0992` [P0] try_node guards
+- `F0993` [P0] channel try_recv
+- `F0994` [P0] busy flags
+- `F0995` [P0] confirm destructive
+- `F0996` [P0] offline volume
+- `F0997` [P0] ejected mid-scan
+- `F0998` [P0] corrupt cache recover
+- `F0999` [P1] UTF-8 lossy paths
+- `F1000` [P1] window size remember
+- `F1001` [P1] crash on GPU recover
+- `F1002` [P1] error toast
+- `F1003` [P1] status error color
+- `F1004` [P1] retry button
+- `F1005` [P1] cancel everywhere
+- `F1006` [P1] timeout volumes list
+- `F1007` [P1] empty tree state
+- `F1008` [P1] permission copy first-run
+- `F1009` [P1] jetsam-safe fonts
+- `F1010` [P1] no unbounded Vec grow
+- `F1011` [P2] Robustness enhancement 001
+- `F1012` [P2] Robustness enhancement 002
+- `F1013` [P2] Robustness enhancement 003
+- `F1014` [P2] Robustness enhancement 004
+- `F1015` [P2] Robustness enhancement 005
+- `F1016` [P2] Robustness enhancement 006
+- `F1017` [P2] Robustness enhancement 007
+- `F1018` [P2] Robustness enhancement 008
+- `F1019` [P2] Robustness enhancement 009
+- `F1020` [P2] Robustness enhancement 010
+- `F1021` [P2] Robustness enhancement 011
+- `F1022` [P2] Robustness enhancement 012
+- `F1023` [P2] Robustness enhancement 013
+- `F1024` [P2] Robustness enhancement 014
+- `F1025` [P2] Robustness enhancement 015
+- `F1026` [P2] Robustness enhancement 016
+- `F1027` [P2] Robustness enhancement 017
+- `F1028` [P2] Robustness enhancement 018
+- `F1029` [P2] Robustness enhancement 019
+- `F1030` [P2] Robustness enhancement 020
+
+## macOS
+
+- `F1031` [P0] Reveal in Finder
+- `F1032` [P0] Quick Look
+- `F1033` [P0] open Terminal here
+- `F1034` [P0] Dock name Space Scanner
+- `F1035` [P0] .app bundle script
+- `F1036` [P0] Info.plist
+- `F1037` [P0] Retina capable
+- `F1038` [P0] APFS Data prefer
+- `F1039` [P1] Trash integration
+- `F1040` [P1] bookmark-free paths
+- `F1041` [P1] security-scoped later
+- `F1042` [P1] notary stub
+- `F1043` [P1] Sparkle-less version
+- `F1044` [P1] menu bar extras stub
+- `F1045` [P1] Services menu stub
+- `F1046` [P1] drag folder onto app
+- `F1047` [P1] Handoff stub
+- `F1048` [P1] Touch Bar stub
+- `F1049` [P1] stage manager size
+- `F1050` [P1] fullscreen support
+- `F1051` [P2] macOS enhancement 001
+- `F1052` [P2] macOS enhancement 002
+- `F1053` [P2] macOS enhancement 003
+- `F1054` [P2] macOS enhancement 004
+- `F1055` [P2] macOS enhancement 005
+- `F1056` [P2] macOS enhancement 006
+- `F1057` [P2] macOS enhancement 007
+- `F1058` [P2] macOS enhancement 008
+- `F1059` [P2] macOS enhancement 009
+- `F1060` [P2] macOS enhancement 010
+- `F1061` [P2] macOS enhancement 011
+- `F1062` [P2] macOS enhancement 012
+- `F1063` [P2] macOS enhancement 013
+- `F1064` [P2] macOS enhancement 014
+- `F1065` [P2] macOS enhancement 015
+- `F1066` [P2] macOS enhancement 016
+- `F1067` [P2] macOS enhancement 017
+- `F1068` [P2] macOS enhancement 018
+- `F1069` [P2] macOS enhancement 019
+- `F1070` [P2] macOS enhancement 020
+
+## Testing
+
+- `F1071` [P0] unit tree path
+- `F1072` [P0] unit filter match
+- `F1073` [P0] unit volume dedupe
+- `F1074` [P0] scan fixture tmp
+- `F1075` [P0] bench quick profile
+- `F1076` [P0] bench normal
+- `F1077` [P0] cli smoke
+- `F1078` [P0] ui smoke manual
+- `F1079` [P1] cache roundtrip
+- `F1080` [P1] NFC roundtrip
+- `F1081` [P1] geom key stable
+- `F1082` [P1] review toggle
+- `F1083` [P1] format_bytes
+- `F1084` [P1] largest bounded
+- `F1085` [P1] dedupe volumes test
+- `F1086` [P1] skiplist unit
+- `F1087` [P1] size mode unit
+- `F1088` [P1] export csv unit
+- `F1089` [P1] settings serde
+- `F1090` [P1] roadmap DONE checks
+- `F1091` [P2] Testing enhancement 001
+- `F1092` [P2] Testing enhancement 002
+- `F1093` [P2] Testing enhancement 003
+- `F1094` [P2] Testing enhancement 004
+- `F1095` [P2] Testing enhancement 005
+- `F1096` [P2] Testing enhancement 006
+- `F1097` [P2] Testing enhancement 007
+- `F1098` [P2] Testing enhancement 008
+- `F1099` [P2] Testing enhancement 009
+- `F1100` [P2] Testing enhancement 010
+
+## Packaging
+
+- `F1101` [P0] scripts/run-app.sh
+- `F1102` [P0] dist SpaceScanner.app
+- `F1103` [P0] cargo release profile
+- `F1104` [P0] README run section
+- `F1105` [P0] LICENSE MIT
+- `F1106` [P0] gitignore target
+- `F1107` [P0] ci build stub
+- `F1108` [P0] version in about
+- `F1109` [P1] dmg stub
+- `F1110` [P1] brew cask stub
+- `F1111` [P1] appcast stub
+- `F1112` [P1] codesign script
+- `F1113` [P1] notarize script
+- `F1114` [P1] icon .icns stub
+- `F1115` [P1] screenshots folder
+- `F1116` [P1] Packaging enhancement 001
+- `F1117` [P1] Packaging enhancement 002
+- `F1118` [P1] Packaging enhancement 003
+- `F1119` [P1] Packaging enhancement 004
+- `F1120` [P1] Packaging enhancement 005
+- `F1121` [P2] Packaging enhancement 006
+- `F1122` [P2] Packaging enhancement 007
+- `F1123` [P2] Packaging enhancement 008
+- `F1124` [P2] Packaging enhancement 009
+- `F1125` [P2] Packaging enhancement 010
+
+---
+
+**Total: 1125 features** across 25 categories.

@@ -1,21 +1,27 @@
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::thread;
+use std::time::{Duration, Instant};
 
 use crossbeam_channel::{unbounded, Receiver};
-use eframe::egui::{self, Align, Layout, RichText, Sense};
+use eframe::egui::{self, Align, Key, Layout, RichText, Sense};
 use space_core::{
     format_bytes, rescan_subtree, scan_path_with_expect, CacheMeta, CacheStore, NodeId, ScanEvent,
-    ScanHandle, ScanProgress, SizeMode, SpaceTree,
+    ScanHandle, ScanProgress, SizeMode, SpaceTree, CACHE_VERSION,
 };
 
+use crate::anim::{TransKind, Transition};
 use crate::review;
+use crate::settings::AppSettings;
+use crate::side_tree::SideTree;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
-use crate::views::{self, DrawCtx, GeomCache, ViewFilter, ViewMode};
+use crate::tm_clean::{self, CleanReport, LocalSnapshot};
+use crate::views::{self, DrawCtx, EntryKindFilter, GeomCache, ViewFilter, ViewMode};
 use crate::volumes::{self, VolumeInfo};
 
 enum BgMsg {
     Volumes(Vec<VolumeInfo>),
+    Snapshots(Vec<LocalSnapshot>),
     Recent(Vec<CacheMeta>),
     /// Cache hit (or forced miss path will scan).
     CacheResult {
@@ -25,6 +31,7 @@ enum BgMsg {
     CacheSaved(Vec<CacheMeta>),
     RescanDone(Result<Arc<SpaceTree>, String>),
     DeleteDone(Result<(Arc<SpaceTree>, usize), String>),
+    TmCleanDone(CleanReport),
     Largest {
         focus: NodeId,
         mode: SizeMode,
@@ -36,6 +43,8 @@ pub struct SpaceApp {
     tree: Option<Arc<SpaceTree>>,
     focus: NodeId,
     selected: Option<NodeId>,
+    /// Live hover from the central view (tooltip + sidebar highlight).
+    hovered: Option<NodeId>,
     view: ViewMode,
     size_mode: SizeMode,
     scan: Option<ScanHandle>,
@@ -53,6 +62,10 @@ pub struct SpaceApp {
     volumes_loading: bool,
     review: Vec<NodeId>,
     confirm_delete: bool,
+    show_tm_panel: bool,
+    confirm_tm_clean: bool,
+    tm_snapshots: Vec<LocalSnapshot>,
+    tm_loading: bool,
     bg_rx: Receiver<BgMsg>,
     bg_tx: crossbeam_channel::Sender<BgMsg>,
     /// True while cache load / rescan / delete runs off-thread.
@@ -60,18 +73,22 @@ pub struct SpaceApp {
     largest_key: Option<(NodeId, SizeMode)>,
     largest_rows: Vec<(NodeId, String, u64)>,
     largest_loading: bool,
-    /// Cached sidebar child rows for current focus/filter/mode.
-    side_rows: Vec<(NodeId, u64, bool)>,
-    side_key: Option<(NodeId, SizeMode, u64 /*filter hash*/)>,
+    /// Hierarchical sidebar tree (smooth expand).
+    side_tree: SideTree,
     /// Cached view geometry (sunburst mesh / treemap tiles).
     geom: Option<GeomCache>,
+    settings: AppSettings,
+    filter_draft: String,
+    filter_edited_at: Option<Instant>,
+    show_shortcuts: bool,
+    focus_filter: bool,
+    transition: Option<Transition>,
 }
 
 impl SpaceApp {
-    pub fn new(cc: &eframe::CreationContext<'_>) -> Self {
+    pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
         theme::apply(&cc.egui_ctx);
 
-        // Open cache dir only (cheap). List recent + full volume stats off UI thread.
         let cache = CacheStore::open().ok();
         let (bg_tx, bg_rx) = unbounded();
 
@@ -81,6 +98,15 @@ impl SpaceApp {
                 .name("space-vols".into())
                 .spawn(move || {
                     let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
+                })
+                .ok();
+        }
+        {
+            let tx = bg_tx.clone();
+            thread::Builder::new()
+                .name("space-snaps".into())
+                .spawn(move || {
+                    let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
                 })
                 .ok();
         }
@@ -95,16 +121,22 @@ impl SpaceApp {
                 .ok();
         }
 
+        let view = settings.default_view;
+        let size_mode = settings.default_size_mode;
+
         Self {
             tree: None,
             focus: NodeId(0),
             selected: None,
-            view: ViewMode::Sunburst,
-            size_mode: SizeMode::OnDisk,
+            hovered: None,
+            view,
+            size_mode,
             scan: None,
             progress: None,
             expected_items: None,
-            status: "Open a folder or pick a volume.".into(),
+            status: format!(
+                "Open a folder or pick a volume. · cache v{CACHE_VERSION}"
+            ),
             cache,
             recent: Vec::new(),
             from_cache: false,
@@ -116,54 +148,44 @@ impl SpaceApp {
             volumes_loading: true,
             review: Vec::new(),
             confirm_delete: false,
+            show_tm_panel: false,
+            confirm_tm_clean: false,
+            tm_snapshots: Vec::new(),
+            tm_loading: true,
             bg_rx,
             bg_tx,
             busy: false,
             largest_key: None,
             largest_rows: Vec::new(),
             largest_loading: false,
-            side_rows: Vec::new(),
-            side_key: None,
+            side_tree: SideTree::default(),
             geom: None,
+            settings,
+            filter_draft: String::new(),
+            filter_edited_at: None,
+            show_shortcuts: false,
+            focus_filter: false,
+            transition: None,
         }
     }
 
-    fn ensure_side_rows(&mut self) {
+    fn ensure_side_tree(&mut self) {
         let Some(tree) = self.tree.clone() else {
-            self.side_rows.clear();
-            self.side_key = None;
+            self.side_tree.clear();
             return;
         };
+        // Drill-in path stays open; hover shows that circle's peers and collapses extras.
+        self.side_tree.ensure_path_expanded(&tree, self.focus);
+        self.side_tree
+            .sync_for_hover(&tree, self.focus, self.hovered);
         let fhash = self.filter.hash64();
-        let key = (self.focus, self.size_mode, fhash);
-        if self.side_key == Some(key) {
-            return;
-        }
-        let mut geom = None;
-        let kids = views::child_ids(
-            &DrawCtx {
-                tree: &tree,
-                focus: self.focus,
-                selected: self.selected,
-                review: &self.review,
-                mode: self.size_mode,
-                filter: &self.filter,
-                filter_hash: fhash,
-                review_sig: 0,
-                geom: &mut geom,
-            },
-            self.focus,
+        self.side_tree.rebuild_if_needed(
+            &tree,
+            tree.root,
+            self.size_mode,
+            &self.filter,
+            fhash,
         );
-        const MAX_ROWS: usize = 120;
-        self.side_rows = kids
-            .iter()
-            .take(MAX_ROWS)
-            .map(|&id| {
-                let n = tree.node(id);
-                (id, n.size(self.size_mode), n.is_dir)
-            })
-            .collect();
-        self.side_key = Some(key);
     }
 
     fn refresh_volumes_async(&mut self) {
@@ -186,6 +208,10 @@ impl SpaceApp {
                 BgMsg::Volumes(v) => {
                     self.volumes = v;
                     self.volumes_loading = false;
+                }
+                BgMsg::Snapshots(s) => {
+                    self.tm_snapshots = s;
+                    self.tm_loading = false;
                 }
                 BgMsg::Recent(r) => self.recent = r,
                 BgMsg::CacheResult { path, loaded } => {
@@ -260,6 +286,30 @@ impl SpaceApp {
                     self.confirm_delete = false;
                     self.status = format!("Trash failed: {e}");
                 }
+                BgMsg::TmCleanDone(report) => {
+                    self.busy = false;
+                    self.confirm_tm_clean = false;
+                    if report.deleted == 0 && report.errors.is_empty() {
+                        self.status = format!(
+                            "TM snapshots: nothing to remove ({}/{} kept)",
+                            report.kept, report.before
+                        );
+                    } else if report.errors.is_empty() {
+                        self.status = format!(
+                            "Deleted {} of {} old TM snapshot(s), kept {}",
+                            report.deleted, report.before, report.kept
+                        );
+                    } else {
+                        self.status = format!(
+                            "TM clean: deleted {} of {}, {} error(s)",
+                            report.deleted,
+                            report.before,
+                            report.errors.len()
+                        );
+                    }
+                    self.refresh_volumes();
+                    self.refresh_snapshots();
+                }
                 BgMsg::Largest { focus, mode, rows } => {
                     self.largest_loading = false;
                     if self.focus == focus && self.size_mode == mode {
@@ -272,8 +322,11 @@ impl SpaceApp {
         if let Some(path) = start_scan_path {
             self.begin_filesystem_scan(path);
         }
-        if self.volumes_loading || self.busy || self.scan.is_some() || self.largest_loading {
-            ctx.request_repaint_after(std::time::Duration::from_millis(50));
+        if self.volumes_loading || self.tm_loading || self.busy || self.scan.is_some() {
+            ctx.request_repaint_after(std::time::Duration::from_millis(100));
+        } else if self.largest_loading {
+            // Don't spin the UI at 20fps while a background walk finishes.
+            ctx.request_repaint_after(std::time::Duration::from_millis(250));
         } else if got {
             ctx.request_repaint();
         }
@@ -283,8 +336,7 @@ impl SpaceApp {
         self.largest_key = None;
         self.largest_rows.clear();
         self.largest_loading = false;
-        self.side_key = None;
-        self.side_rows.clear();
+        self.side_tree.invalidate();
         self.geom = None;
     }
 
@@ -300,7 +352,7 @@ impl SpaceApp {
         thread::Builder::new()
             .name("space-largest".into())
             .spawn(move || {
-                let ids = tree.largest_files_bounded(focus, mode, 12, 20_000);
+                let ids = tree.largest_files_bounded(focus, mode, 12, 8_000);
                 let rows: Vec<(NodeId, String, u64)> = ids
                     .into_iter()
                     .map(|id| {
@@ -507,16 +559,248 @@ impl SpaceApp {
     fn navigate(&mut self, id: NodeId, push_history: bool) {
         let Some(tree) = &self.tree else { return };
         if tree.try_node(id).is_some_and(|n| n.is_dir) {
-            if push_history && id != self.focus {
+            if id == self.focus {
+                return;
+            }
+            let zoom_in = tree
+                .path_to(id)
+                .iter()
+                .any(|&p| p == self.focus)
+                && id != self.focus;
+            // Child of current focus → zoom in; otherwise zoom out / sideways.
+            let kind = if zoom_in
+                || tree
+                    .node(id)
+                    .parent
+                    .is_some_and(|p| p == self.focus)
+            {
+                TransKind::ZoomIn
+            } else {
+                TransKind::ZoomOut
+            };
+            if push_history {
                 self.history_back.push(self.focus);
                 self.history_fwd.clear();
             }
             self.focus = id;
             self.selected = None;
+            self.hovered = None;
+            self.transition = Some(Transition::start(kind));
             self.invalidate_largest();
             self.schedule_largest();
         }
     }
+
+    fn set_view(&mut self, mode: ViewMode) {
+        if self.view != mode {
+            self.view = mode;
+            self.geom = None;
+            self.transition = Some(Transition::start(TransKind::ViewSwitch));
+        }
+    }
+
+    fn copy_focus_path(&mut self) {
+        let Some(tree) = &self.tree else { return };
+        let id = self.hovered.or(self.selected).unwrap_or(self.focus);
+        let path = tree.path_string(id);
+        self.status = format!("Copied {path}");
+        self.clipboard_set(&path);
+    }
+
+    fn clipboard_set(&self, text: &str) {
+        // egui context clipboard is set from update; stash via arboard-less cmd on macOS.
+        #[cfg(target_os = "macos")]
+        {
+            let _ = std::process::Command::new("pbcopy")
+                .stdin(std::process::Stdio::piped())
+                .spawn()
+                .and_then(|mut c| {
+                    use std::io::Write;
+                    if let Some(mut stdin) = c.stdin.take() {
+                        stdin.write_all(text.as_bytes())?;
+                    }
+                    c.wait()?;
+                    Ok(())
+                });
+        }
+        #[cfg(not(target_os = "macos"))]
+        {
+            let _ = text;
+        }
+    }
+
+    fn percent_of_parent(&self, id: NodeId) -> Option<f32> {
+        let tree = self.tree.as_ref()?;
+        let node = tree.try_node(id)?;
+        let parent = node.parent?;
+        let psize = tree.node(parent).size(self.size_mode).max(1);
+        Some((node.size(self.size_mode) as f32 / psize as f32) * 100.0)
+    }
+
+    fn apply_filter_debounce(&mut self) {
+        let ms = self.settings.flags.debounce_filter_ms;
+        if let Some(at) = self.filter_edited_at {
+            if at.elapsed() >= Duration::from_millis(ms) {
+                if self.filter.query != self.filter_draft {
+                    self.filter.query = self.filter_draft.clone();
+                    self.side_tree.invalidate();
+                    self.geom = None;
+                }
+                self.filter_edited_at = None;
+            }
+        }
+    }
+
+    fn handle_keys(&mut self, ctx: &egui::Context) {
+        let input = ctx.input(|i| {
+            (
+                i.key_pressed(Key::ArrowUp),
+                i.key_pressed(Key::ArrowDown),
+                i.key_pressed(Key::ArrowLeft),
+                i.key_pressed(Key::ArrowRight),
+                i.key_pressed(Key::Enter),
+                i.key_pressed(Key::Escape),
+                i.key_pressed(Key::Home),
+                i.key_pressed(Key::End),
+                i.key_pressed(Key::Slash),
+                i.key_pressed(Key::Questionmark),
+                i.modifiers,
+                i.key_pressed(Key::Num1),
+                i.key_pressed(Key::Num2),
+                i.key_pressed(Key::Num3),
+                i.key_pressed(Key::Num4),
+                i.key_pressed(Key::C),
+                i.key_pressed(Key::F),
+                i.key_pressed(Key::R),
+                i.key_pressed(Key::O),
+            )
+        });
+        let (
+            up,
+            down,
+            left,
+            right,
+            enter,
+            esc,
+            home,
+            end,
+            slash,
+            question,
+            mods,
+            n1,
+            n2,
+            n3,
+            n4,
+            key_c,
+            key_f,
+            key_r,
+            key_o,
+        ) = input;
+
+        if question || (mods.shift && slash) {
+            self.show_shortcuts = !self.show_shortcuts;
+        }
+        if mods.command || mods.ctrl {
+            if n1 {
+                self.set_view(ViewMode::Sunburst);
+            }
+            if n2 {
+                self.set_view(ViewMode::Container);
+            }
+            if n3 {
+                self.set_view(ViewMode::Radial);
+            }
+            if n4 {
+                self.set_view(ViewMode::Cascade);
+            }
+            if key_c && mods.shift {
+                self.copy_focus_path();
+            }
+            if key_f {
+                self.focus_filter = true;
+            }
+            if key_r {
+                self.rescan_current();
+            }
+            if key_o {
+                if let Some(path) = rfd::FileDialog::new().pick_folder() {
+                    self.start_scan(path, false);
+                }
+            }
+            if left {
+                self.go_back();
+            }
+            if right {
+                self.go_forward();
+            }
+            return;
+        }
+
+        if slash {
+            self.focus_filter = true;
+        }
+        if esc {
+            if self.show_shortcuts {
+                self.show_shortcuts = false;
+            } else if self.filter.is_active() || !self.filter_draft.is_empty() {
+                self.filter.clear();
+                self.filter_draft.clear();
+                self.side_tree.invalidate();
+                self.geom = None;
+            } else {
+                self.go_up();
+            }
+        }
+        if left {
+            self.go_back();
+        }
+        if right {
+            self.go_forward();
+        }
+        if up {
+            self.go_up();
+        }
+        if home {
+            if let Some(tree) = &self.tree {
+                self.navigate(tree.root, true);
+            }
+        }
+        if end || down {
+            // Select / focus largest child
+            if let Some(tree) = &self.tree {
+                if let Some(&first) = tree.children(self.focus).first() {
+                    self.selected = Some(first);
+                    if down && tree.node(first).is_dir && enter {
+                        // no-op; enter handles open
+                    }
+                }
+            }
+        }
+        if enter {
+            let id = self.selected.or(self.hovered);
+            if let Some(id) = id {
+                if self
+                    .tree
+                    .as_ref()
+                    .is_some_and(|t| t.try_node(id).is_some_and(|n| n.is_dir))
+                {
+                    self.navigate(id, true);
+                }
+            }
+        }
+    }
+
+    fn persist_settings_from_viewport(&mut self, ctx: &egui::Context) {
+        ctx.input(|i| {
+            if let Some(rect) = i.viewport().inner_rect {
+                self.settings.window_width = rect.width();
+                self.settings.window_height = rect.height();
+            }
+        });
+        self.settings.default_view = self.view;
+        self.settings.default_size_mode = self.size_mode;
+    }
+
 
     fn go_up(&mut self) {
         if let Some(tree) = &self.tree {
@@ -607,12 +891,94 @@ impl SpaceApp {
             })
             .ok();
     }
+
+    fn refresh_volumes(&mut self) {
+        self.volumes_loading = true;
+        let tx = self.bg_tx.clone();
+        thread::Builder::new()
+            .name("space-vols".into())
+            .spawn(move || {
+                let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
+            })
+            .ok();
+    }
+
+    fn refresh_snapshots(&mut self) {
+        self.tm_loading = true;
+        let tx = self.bg_tx.clone();
+        thread::Builder::new()
+            .name("space-snaps".into())
+            .spawn(move || {
+                let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
+            })
+            .ok();
+    }
+
+    fn open_tm_panel(&mut self) {
+        self.show_tm_panel = true;
+        if self.tm_snapshots.is_empty() && !self.tm_loading {
+            self.refresh_snapshots();
+        }
+    }
+
+    fn apply_tm_clean(&mut self) {
+        if self.busy {
+            return;
+        }
+        self.busy = true;
+        self.status = "Deleting old Time Machine snapshots…".into();
+        let tx = self.bg_tx.clone();
+        thread::Builder::new()
+            .name("space-tm-clean".into())
+            .spawn(move || {
+                let report = tm_clean::delete_old_tm_locals(2);
+                let _ = tx.send(BgMsg::TmCleanDone(report));
+            })
+            .ok();
+    }
 }
 
 impl eframe::App for SpaceApp {
+    fn save(&mut self, _storage: &mut dyn eframe::Storage) {
+        self.settings.default_view = self.view;
+        self.settings.default_size_mode = self.size_mode;
+        self.settings.save();
+    }
+
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         self.poll_bg(ctx);
         self.poll_scan(ctx);
+        self.apply_filter_debounce();
+        self.handle_keys(ctx);
+        self.persist_settings_from_viewport(ctx);
+
+        if let Some(tree) = &self.tree {
+            let path = tree.path_string(self.focus);
+            ctx.send_viewport_cmd(egui::ViewportCommand::Title(format!(
+                "Space Scanner — {path}"
+            )));
+        } else {
+            ctx.send_viewport_cmd(egui::ViewportCommand::Title(
+                "Space Scanner".into(),
+            ));
+        }
+
+        if self.show_shortcuts {
+            egui::Window::new("Keyboard shortcuts")
+                .collapsible(false)
+                .resizable(false)
+                .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
+                .show(ctx, |ui| {
+                    ui.label("← →  history · ↑ Esc  up · Enter  open");
+                    ui.label("Home  root · End/↓  select largest child");
+                    ui.label("/ or ⌘F  filter · Esc  clear filter");
+                    ui.label("⌘1–4  views · ⌘⇧C  copy path · ⌘O  open · ⌘R  rescan");
+                    ui.label("?  toggle this help");
+                    if ui.button("Close").clicked() {
+                        self.show_shortcuts = false;
+                    }
+                });
+        }
 
         if self.confirm_delete {
             egui::Window::new("Review and Remove")
@@ -641,6 +1007,131 @@ impl eframe::App for SpaceApp {
                             self.apply_delete();
                         }
                     });
+                });
+        }
+
+        if self.show_tm_panel {
+            egui::Window::new("Local snapshots")
+                .collapsible(false)
+                .resizable(true)
+                .default_size([420.0, 380.0])
+                .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
+                .show(ctx, |ui| {
+                    let tm_n = self.tm_snapshots.iter().filter(|s| s.is_tm()).count();
+                    let other_n = self.tm_snapshots.len().saturating_sub(tm_n);
+                    ui.horizontal(|ui| {
+                        ui.label(
+                            RichText::new(format!(
+                                "{} TM · {} other",
+                                tm_n, other_n
+                            ))
+                            .strong()
+                            .color(ACCENT),
+                        );
+                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                            if ui
+                                .add_enabled(!self.tm_loading && !self.busy, egui::Button::new("Refresh"))
+                                .clicked()
+                            {
+                                self.refresh_snapshots();
+                            }
+                        });
+                    });
+                    ui.label(
+                        RichText::new(
+                            "These hold APFS space outside the file tree (Unaccounted).",
+                        )
+                        .small()
+                        .color(MUTED),
+                    );
+                    ui.add_space(6.0);
+
+                    if self.tm_loading {
+                        ui.label(RichText::new("Loading snapshots…").color(MUTED));
+                    } else if self.tm_snapshots.is_empty() {
+                        ui.label(RichText::new("No local snapshots found.").color(MUTED));
+                    } else {
+                        egui::ScrollArea::vertical()
+                            .max_height(260.0)
+                            .show(ui, |ui| {
+                                egui::Grid::new("tm_snap_grid")
+                                    .num_columns(3)
+                                    .spacing([12.0, 6.0])
+                                    .striped(true)
+                                    .show(ui, |ui| {
+                                        ui.label(RichText::new("When").small().color(MUTED));
+                                        ui.label(RichText::new("Kind").small().color(MUTED));
+                                        ui.label(RichText::new("").small());
+                                        ui.end_row();
+                                        for snap in &self.tm_snapshots {
+                                            ui.label(RichText::new(snap.label()).color(TEXT));
+                                            ui.label(
+                                                RichText::new(snap.kind_label()).color(MUTED),
+                                            );
+                                            let badge = if snap.purgeable {
+                                                "purgeable"
+                                            } else {
+                                                "kept"
+                                            };
+                                            ui.label(
+                                                RichText::new(badge)
+                                                    .small()
+                                                    .color(if snap.purgeable {
+                                                        ACCENT
+                                                    } else {
+                                                        MUTED
+                                                    }),
+                                            );
+                                            ui.end_row();
+                                        }
+                                    });
+                            });
+                    }
+
+                    ui.add_space(10.0);
+                    ui.horizontal(|ui| {
+                        if ui.button("Close").clicked() {
+                            self.show_tm_panel = false;
+                            self.confirm_tm_clean = false;
+                        }
+                        let can_clean = tm_n > 2 && !self.busy && !self.tm_loading;
+                        if ui
+                            .add_enabled(
+                                can_clean,
+                                egui::Button::new(
+                                    RichText::new("Delete old TM…").color(ACCENT),
+                                ),
+                            )
+                            .on_hover_text("Keep the 2 newest Time Machine snapshots")
+                            .clicked()
+                        {
+                            self.confirm_tm_clean = true;
+                        }
+                    });
+
+                    if self.confirm_tm_clean {
+                        ui.separator();
+                        let remove = tm_n.saturating_sub(2);
+                        ui.label(format!(
+                            "Delete {remove} oldest Time Machine snapshot(s), keep 2 newest?"
+                        ));
+                        ui.label(
+                            RichText::new("OS update snapshots are left alone.")
+                                .small()
+                                .color(MUTED),
+                        );
+                        ui.horizontal(|ui| {
+                            if ui.button("Cancel").clicked() {
+                                self.confirm_tm_clean = false;
+                            }
+                            if ui
+                                .button(RichText::new("Delete").color(ACCENT))
+                                .clicked()
+                            {
+                                self.apply_tm_clean();
+                            }
+                        });
+                    }
                 });
         }
 
@@ -720,19 +1211,27 @@ impl eframe::App for SpaceApp {
                                     ui.label(RichText::new("/").color(MUTED));
                                 }
                                 if ui
-                                    .add(
-                                        egui::Label::new(RichText::new(name).color(TEXT))
-                                            .sense(Sense::click()),
-                                    )
-                                    .clicked()
-                                {
-                                    nav_to = Some(chain[i]);
-                                }
+                        .add(
+                            egui::Label::new(RichText::new(name).color(TEXT)).sense(Sense::click()),
+                        )
+                        .on_hover_text("Go here")
+                        .clicked()
+                    {
+                        nav_to = Some(chain[i]);
+                    }
                             }
                         });
+                        if ui.small_button("Copy path").clicked() {
+                            self.copy_focus_path();
+                        }
+                        if ui.small_button("?").on_hover_text("Shortcuts").clicked() {
+                            self.show_shortcuts = true;
+                        }
                         if let Some(id) = nav_to {
                             self.navigate(id, true);
                         }
+                    } else if self.settings.flags.show_shortcuts_hint {
+                        ui.label(RichText::new("Press ? for shortcuts").small().color(MUTED));
                     }
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
@@ -740,8 +1239,7 @@ impl eframe::App for SpaceApp {
                         for mode in ViewMode::ALL.iter().rev() {
                             let selected = self.view == *mode;
                             if ui.selectable_label(selected, mode.label()).clicked() {
-                                self.view = *mode;
-                                self.geom = None;
+                                self.set_view(*mode);
                             }
                         }
                         ui.separator();
@@ -762,18 +1260,72 @@ impl eframe::App for SpaceApp {
             });
 
         egui::TopBottomPanel::bottom("bottom")
-            .exact_height(44.0)
+            .exact_height(52.0)
             .show(ctx, |ui| {
                 ui.horizontal_centered(|ui| {
                     ui.add_space(12.0);
                     if let Some(tree) = &self.tree {
-                        let used = tree.total_size_mode(self.size_mode);
+                        let indexed = tree.total_size_mode(self.size_mode);
                         ui.label(format!(
-                            "{} · {} items{}",
-                            format_bytes(used),
+                            "Indexed {} · {} items{}",
+                            format_bytes(indexed),
                             tree.item_count,
                             if self.from_cache { " · cache" } else { "" }
                         ));
+                        if let Some(vol) = volumes::match_volume(&self.volumes, &tree.root_path) {
+                            let vol_used = vol.used();
+                            if vol_used > 0 {
+                                ui.separator();
+                                ui.label(
+                                    RichText::new(format!(
+                                        "Volume {} / {}",
+                                        format_bytes(vol_used),
+                                        format_bytes(vol.total.max(vol_used))
+                                    ))
+                                    .color(MUTED),
+                                );
+                                if vol_used > indexed.saturating_add(64 << 20) {
+                                    let gap = vol_used.saturating_sub(indexed);
+                                    let snap_n = if !self.tm_snapshots.is_empty() {
+                                        self.tm_snapshots.len() as u32
+                                    } else {
+                                        vol.snapshot_count
+                                    };
+                                    let snap = if snap_n > 0 {
+                                        format!(" · {snap_n} snapshots")
+                                    } else {
+                                        String::new()
+                                    };
+                                    ui.label(
+                                        RichText::new(format!(
+                                            "Unaccounted {}{snap}",
+                                            format_bytes(gap)
+                                        ))
+                                        .color(ACCENT)
+                                        .strong(),
+                                    );
+                                }
+                                let snap_n = if !self.tm_snapshots.is_empty() {
+                                    self.tm_snapshots.len()
+                                } else {
+                                    vol.snapshot_count as usize
+                                };
+                                if snap_n > 0 || self.tm_loading {
+                                    let label = if self.tm_loading {
+                                        "Snapshots…".to_string()
+                                    } else {
+                                        format!("Snapshots ({snap_n})")
+                                    };
+                                    if ui
+                                        .small_button(RichText::new(label).color(ACCENT))
+                                        .on_hover_text("Show local Time Machine / APFS snapshots")
+                                        .clicked()
+                                    {
+                                        self.open_tm_panel();
+                                    }
+                                }
+                            }
+                        }
                     } else if let Some(p) = &self.progress {
                         ui.label(format!(
                             "{} files · {}",
@@ -882,9 +1434,77 @@ impl eframe::App for SpaceApp {
 
                 ui.horizontal(|ui| {
                     ui.label("Filter");
-                    ui.text_edit_singleline(&mut self.filter.query);
-                    if ui.small_button("×").clicked() {
-                        self.filter = ViewFilter::default();
+                    let edit = ui.add(
+                        egui::TextEdit::singleline(&mut self.filter_draft)
+                            .desired_width(140.0)
+                            .hint_text("name…"),
+                    );
+                    if self.focus_filter {
+                        edit.request_focus();
+                        self.focus_filter = false;
+                    }
+                    if edit.changed() {
+                        self.filter_edited_at = Some(Instant::now());
+                        ctx.request_repaint_after(Duration::from_millis(
+                            self.settings.flags.debounce_filter_ms + 10,
+                        ));
+                    }
+                    let badge = self.filter.active_count();
+                    if badge > 0 {
+                        ui.label(RichText::new(format!("({badge})")).color(ACCENT).small());
+                    }
+                    if ui.small_button("Clear").clicked() {
+                        self.filter.clear();
+                        self.filter_draft.clear();
+                        self.filter_edited_at = None;
+                        self.side_tree.invalidate();
+                        self.geom = None;
+                    }
+                });
+                ui.horizontal(|ui| {
+                    let kind = self.filter.kind;
+                    if ui
+                        .selectable_label(kind == EntryKindFilter::All, "All")
+                        .clicked()
+                    {
+                        self.filter.kind = EntryKindFilter::All;
+                        self.side_tree.invalidate();
+                        self.geom = None;
+                    }
+                    if ui
+                        .selectable_label(kind == EntryKindFilter::DirsOnly, "Dirs")
+                        .clicked()
+                    {
+                        self.filter.kind = EntryKindFilter::DirsOnly;
+                        self.side_tree.invalidate();
+                        self.geom = None;
+                    }
+                    if ui
+                        .selectable_label(kind == EntryKindFilter::FilesOnly, "Files")
+                        .clicked()
+                    {
+                        self.filter.kind = EntryKindFilter::FilesOnly;
+                        self.side_tree.invalidate();
+                        self.geom = None;
+                    }
+                });
+                ui.horizontal(|ui| {
+                    ui.label(RichText::new("min").small().color(MUTED));
+                    for (label, bytes) in [
+                        ("0", 0u64),
+                        ("1M", 1 << 20),
+                        ("10M", 10 << 20),
+                        ("100M", 100 << 20),
+                        ("1G", 1 << 30),
+                    ] {
+                        if ui
+                            .selectable_label(self.filter.min_size == bytes, label)
+                            .clicked()
+                        {
+                            self.filter.min_size = bytes;
+                            self.side_tree.invalidate();
+                            self.geom = None;
+                        }
                     }
                 });
                 if let Some(ext) = &self.filter.ext {
@@ -894,7 +1514,7 @@ impl eframe::App for SpaceApp {
                 ui.separator();
 
                 if self.tree.is_some() {
-                    self.ensure_side_rows();
+                    self.ensure_side_tree();
                     let focus = self.focus;
                     let title = self
                         .tree
@@ -906,102 +1526,80 @@ impl eframe::App for SpaceApp {
                         .as_ref()
                         .map(|t| t.node(focus).size(self.size_mode))
                         .unwrap_or(0);
-                    let child_count = self
-                        .tree
-                        .as_ref()
-                        .map(|t| t.node(focus).children.len())
-                        .unwrap_or(0);
-                    let truncated = child_count > self.side_rows.len();
-                    let row_count = self.side_rows.len();
 
-                    ui.label(RichText::new(title).strong().size(16.0));
+                    ui.label(RichText::new("Tree").strong().color(ACCENT));
                     ui.label(
-                        RichText::new(format!(
-                            "{} · {} children{}",
-                            format_bytes(size),
-                            child_count,
-                            if truncated {
-                                " (showing first 120)"
-                            } else {
-                                ""
-                            }
-                        ))
-                        .color(MUTED),
+                        RichText::new(format!("focus: {title} · {}", format_bytes(size)))
+                            .small()
+                            .color(MUTED),
                     );
                     ui.add_space(4.0);
 
-                    let mut select_to = None;
-                    let mut nav_to = None;
-                    let mut toggle_rev = None;
-                    egui::ScrollArea::vertical()
-                        .id_salt("kids")
-                        .max_height(ui.available_height() * 0.45)
-                        .show(ui, |ui| {
-                            for i in 0..row_count {
-                                let (id, child_size, is_dir) = self.side_rows[i];
-                                let name = self
-                                    .tree
-                                    .as_ref()
-                                    .map(|t| t.node(id).name.as_str())
-                                    .unwrap_or("");
-                                let selected = self.selected == Some(id);
-                                let in_q = self.review.contains(&id);
-                                ui.horizontal(|ui| {
-                                    let mark = if is_dir { "▸" } else { "·" };
-                                    let prefix = if in_q { "✓ " } else { "" };
-                                    let text = format!("{prefix}{mark} {name}");
-                                    let resp = ui.selectable_label(selected, text);
-                                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                        ui.label(
-                                            RichText::new(format_bytes(child_size))
-                                                .color(MUTED)
-                                                .monospace(),
-                                        );
-                                    });
-                                    if resp.clicked() {
-                                        select_to = Some(id);
-                                    }
-                                    if resp.double_clicked() && is_dir {
-                                        nav_to = Some(id);
-                                    }
-                                    if resp.secondary_clicked() {
-                                        toggle_rev = Some(id);
-                                    }
-                                });
-                            }
-                        });
-                    if let Some(id) = select_to {
-                        self.selected = Some(id);
-                    }
-                    if let Some(id) = nav_to {
-                        self.navigate(id, true);
-                    }
-                    if let Some(id) = toggle_rev {
-                        review::toggle(&mut self.review, id);
+                    // Live hover / selection info
+                    if let (Some(tree), Some(hid)) =
+                        (self.tree.as_ref(), self.hovered.or(self.selected))
+                    {
+                        if let Some(n) = tree.try_node(hid) {
+                            let pct = self
+                                .percent_of_parent(hid)
+                                .map(|p| format!("  ·  {p:.1}% of parent"))
+                                .unwrap_or_default();
+                            let path = tree.path_string(hid);
+                            ui.label(
+                                RichText::new(format!(
+                                    "{}  ·  {}{}{}",
+                                    n.name,
+                                    format_bytes(n.size(self.size_mode)),
+                                    if n.is_dir {
+                                        format!("  ·  {} files", n.file_count)
+                                    } else {
+                                        String::new()
+                                    },
+                                    pct
+                                ))
+                                .color(ACCENT)
+                                .size(12.0),
+                            );
+                            ui.label(RichText::new(path).small().color(MUTED));
+                        }
                     }
 
-                    ui.separator();
-                    ui.label(RichText::new("Largest files").strong());
-                    if self.largest_loading {
-                        ui.spinner();
+                    let tree = self.tree.clone().unwrap();
+                    let show_pct = self.settings.flags.show_percent_parent;
+                    let mode = self.size_mode;
+                    let selected = self.selected;
+                    let hovered = self.hovered;
+                    let focus = self.focus;
+                    let tree_action = {
+                        egui::ScrollArea::vertical()
+                            .id_salt("side_tree_wrap")
+                            .auto_shrink([false, false])
+                            .show(ui, |ui| {
+                                crate::side_tree::draw_rows(
+                                    ui,
+                                    &tree,
+                                    &mut self.side_tree,
+                                    selected,
+                                    hovered,
+                                    &self.review,
+                                    focus,
+                                    show_pct,
+                                    mode,
+                                )
+                            })
+                            .inner
+                    };
+                    if tree_action.toggled_expand {
+                        self.ensure_side_tree();
                     }
-                    let largest_n = self.largest_rows.len();
-                    egui::ScrollArea::vertical()
-                        .id_salt("large")
-                        .show(ui, |ui| {
-                            for i in 0..largest_n {
-                                let (id, ref name, sz) = self.largest_rows[i];
-                                if ui
-                                    .button(format!("{}  {}", name, format_bytes(sz)))
-                                    .clicked()
-                                {
-                                    self.selected = Some(id);
-                                }
-                            }
-                        });
-                    if self.largest_key != Some((self.focus, self.size_mode)) && !self.largest_loading
-                    {
-                        self.schedule_largest();
+                    if let Some(id) = tree_action.select {
+                        self.selected = Some(id);
+                    }
+                    if let Some(id) = tree_action.navigate {
+                        self.navigate(id, true);
+                    }
+                    if let Some(id) = tree_action.toggle_review {
+                        review::toggle(&mut self.review, id);
                     }
                 } else {
                     ui.label(RichText::new("Recent scans").strong());
@@ -1043,7 +1641,7 @@ impl eframe::App for SpaceApp {
                         );
                         ui.label(
                             RichText::new(
-                                "Sunburst · Container · Radial · Cascade\nIndex once, browse from cache",
+                                "Sunburst · Container · Radial · Cascade\nIndex once, browse from cache\n\nOpen a folder, pick a volume, or press ⌘O\nPress ? for keyboard shortcuts",
                             )
                             .color(MUTED),
                         );
@@ -1060,21 +1658,69 @@ impl eframe::App for SpaceApp {
 
             let fhash = self.filter.hash64();
             let review_sig = views::review_sig(&self.review);
-            let action = views::draw(
-                ui,
-                self.view,
-                &mut DrawCtx {
-                    tree: &tree,
-                    focus: self.focus,
-                    selected: self.selected,
-                    review: &self.review,
-                    mode: self.size_mode,
-                    filter: &self.filter,
-                    filter_hash: fhash,
-                    review_sig,
-                    geom: &mut self.geom,
-                },
+
+            if let Some(tr) = &self.transition {
+                if tr.done() {
+                    self.transition = None;
+                } else {
+                    ctx.request_repaint();
+                }
+            }
+            let (opacity, scale) = self
+                .transition
+                .as_ref()
+                .map(|t| (t.opacity(), t.scale()))
+                .unwrap_or((1.0, 1.0));
+
+            let files_open = self.settings.flags.show_files_under_map;
+            let files_bar_h = 28.0;
+            let files_list_h = if files_open { 148.0 } else { 0.0 };
+            let bottom_h = files_bar_h + files_list_h;
+
+            let full = ui.available_rect_before_wrap();
+            let map_area = egui::Rect::from_min_max(
+                full.min,
+                egui::pos2(full.max.x, (full.max.y - bottom_h).max(full.min.y + 80.0)),
             );
+            let files_area = egui::Rect::from_min_max(
+                egui::pos2(full.min.x, map_area.max.y),
+                full.max,
+            );
+
+            let draw_rect = {
+                let c = map_area.center();
+                let sz = map_area.size() * scale;
+                egui::Rect::from_center_size(c, sz)
+            };
+            ui.set_opacity(opacity);
+            let action = ui
+                .allocate_new_ui(egui::UiBuilder::new().max_rect(draw_rect), |ui| {
+                    views::draw(
+                        ui,
+                        self.view,
+                        &mut DrawCtx {
+                            tree: &tree,
+                            focus: self.focus,
+                            selected: self.selected,
+                            hovered: self.hovered,
+                            review: &self.review,
+                            mode: self.size_mode,
+                            filter: &self.filter,
+                            filter_hash: fhash,
+                            review_sig,
+                            geom: &mut self.geom,
+                        },
+                    )
+                })
+                .inner;
+            ui.set_opacity(1.0);
+
+            if self.hovered != action.hover {
+                self.hovered = action.hover;
+                ctx.request_repaint();
+            } else {
+                self.hovered = action.hover;
+            }
             if let Some(id) = action.select {
                 self.selected = Some(id);
             }
@@ -1091,6 +1737,133 @@ impl eframe::App for SpaceApp {
                     self.filter.ext = Some(ext);
                 }
             }
+
+            // Files strip under the diagram (collapsible)
+            let files_dir = self
+                .selected
+                .filter(|&id| tree.try_node(id).is_some_and(|n| n.is_dir))
+                .or_else(|| {
+                    self.selected
+                        .and_then(|id| tree.try_node(id).and_then(|n| n.parent))
+                })
+                .unwrap_or(self.focus);
+            let files_label = tree
+                .try_node(files_dir)
+                .map(|n| n.name.clone())
+                .unwrap_or_else(|| "Files".into());
+            let file_rows =
+                crate::side_tree::folder_files(&tree, files_dir, self.size_mode, &self.filter, 100);
+
+            ui.scope_builder(egui::UiBuilder::new().max_rect(files_area), |ui| {
+                ui.painter()
+                    .rect_filled(files_area, 0.0, theme::PANEL);
+                ui.painter().hline(
+                    files_area.x_range(),
+                    files_area.top(),
+                    egui::Stroke::new(1.0_f32, theme::BORDER),
+                );
+
+                ui.horizontal(|ui| {
+                    ui.add_space(10.0);
+                    let chev = if files_open { "▾" } else { "▸" };
+                    let title = format!(
+                        "{chev}  Files in {files_label}  ·  {}",
+                        file_rows.len()
+                    );
+                    if ui
+                        .add(egui::Button::new(RichText::new(title).color(ACCENT)).frame(false))
+                        .on_hover_text(if files_open {
+                            "Hide file list"
+                        } else {
+                            "Show file list under diagram"
+                        })
+                        .clicked()
+                    {
+                        self.settings.flags.show_files_under_map = !files_open;
+                        self.settings.save();
+                    }
+                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                        ui.add_space(10.0);
+                        if !file_rows.is_empty() {
+                            ui.label(
+                                RichText::new(format_bytes(
+                                    file_rows.iter().map(|(_, s)| *s).sum::<u64>(),
+                                ))
+                                .small()
+                                .color(MUTED),
+                            );
+                        }
+                    });
+                });
+
+                if files_open {
+                    if file_rows.is_empty() {
+                        ui.add_space(4.0);
+                        ui.label(
+                            RichText::new("  No files in this folder")
+                                .small()
+                                .color(MUTED),
+                        );
+                    } else {
+                        let mut select_file = None;
+                        let mut toggle_file = None;
+                        let mut open_file = None;
+                        egui::ScrollArea::vertical()
+                            .id_salt("map_folder_files")
+                            .max_height(files_list_h - 4.0)
+                            .auto_shrink([false, false])
+                            .show(ui, |ui| {
+                                for &(id, sz) in &file_rows {
+                                    let name = tree.node(id).name.clone();
+                                    let selected = self.selected == Some(id);
+                                    let in_q = self.review.contains(&id);
+                                    let hovered = self.hovered == Some(id);
+                                    ui.horizontal(|ui| {
+                                        ui.add_space(8.0);
+                                        let prefix = if in_q { "✓ " } else { "· " };
+                                        let text = RichText::new(format!("{prefix}{name}"))
+                                            .color(if hovered { ACCENT } else { TEXT });
+                                        let resp = ui.selectable_label(selected || hovered, text);
+                                        ui.with_layout(
+                                            Layout::right_to_left(Align::Center),
+                                            |ui| {
+                                                ui.add_space(12.0);
+                                                ui.label(
+                                                    RichText::new(format_bytes(sz))
+                                                        .color(MUTED)
+                                                        .monospace()
+                                                        .small(),
+                                                );
+                                            },
+                                        );
+                                        if resp.hovered() {
+                                            self.hovered = Some(id);
+                                        }
+                                        if resp.clicked() {
+                                            select_file = Some(id);
+                                        }
+                                        if resp.double_clicked() {
+                                            open_file = Some(id);
+                                        }
+                                        if resp.secondary_clicked() {
+                                            toggle_file = Some(id);
+                                        }
+                                    });
+                                }
+                            });
+                        if let Some(id) = select_file {
+                            self.selected = Some(id);
+                        }
+                        if let Some(id) = toggle_file {
+                            review::toggle(&mut self.review, id);
+                        }
+                        if let Some(id) = open_file {
+                            self.selected = Some(id);
+                            self.reveal_selected();
+                        }
+                    }
+                }
+            });
         });
     }
 }

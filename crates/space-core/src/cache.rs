@@ -9,7 +9,8 @@ use thiserror::Error;
 use crate::tree::SpaceTree;
 
 const CACHE_MAGIC: &[u8; 8] = b"SPSCACHE";
-const CACHE_VERSION: u32 = 3;
+/// Bump when `SpaceTree` / `Node` on-disk schema changes.
+pub const CACHE_VERSION: u32 = 3;
 
 #[derive(Debug, Error)]
 pub enum CacheError {

@@ -56,8 +56,32 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
 
     let show = kids.len().min(MAX_NODES);
     let n = show.max(1) as f32;
+    let parent_color = theme::PANEL_2;
+    let ring_ids: Vec<_> = kids.iter().copied().take(show).collect();
+    let mut colors = Vec::with_capacity(ring_ids.len());
+    for (i, &id) in ring_ids.iter().enumerate() {
+        let node = tree.node(id);
+        let mut avoid = vec![parent_color];
+        if let Some(&prev) = colors.last() {
+            avoid.push(prev);
+        }
+        colors.push(theme::color_for_adjacent(&node.name, node.is_dir, i, &avoid));
+    }
+    if colors.len() >= 2 {
+        let first = colors[0];
+        let prev = colors[colors.len() - 2];
+        let last_i = colors.len() - 1;
+        let last_id = ring_ids[last_i];
+        let nlast = tree.node(last_id);
+        colors[last_i] = theme::color_for_adjacent(
+            &nlast.name,
+            nlast.is_dir,
+            last_i,
+            &[parent_color, prev, first],
+        );
+    }
 
-    for (i, &id) in kids.iter().take(show).enumerate() {
+    for (i, &id) in ring_ids.iter().enumerate() {
         let node = tree.node(id);
         let angle = (i as f32 / n) * std::f32::consts::TAU - std::f32::consts::FRAC_PI_2;
         let ratio = (node.size(ctx.mode) as f32 / max_size as f32)
@@ -67,8 +91,10 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         let dist = orbit_r + (1.0 - ratio) * 28.0;
         let pos = center + Vec2::angled(angle) * dist;
 
-        let color = theme::color_for(&node.name, node.is_dir);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let color = colors.get(i).copied().unwrap_or(parent_color);
+        let is_sel = ctx.selected == Some(id)
+            || ctx.hovered == Some(id)
+            || ctx.review.contains(&id);
         painter.circle_filled(pos, r, color);
         painter.circle_stroke(
             pos,
@@ -101,7 +127,17 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             action.toggle_review = Some(id);
         }
         if resp.hovered() {
+            action.hover = Some(id);
             ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
+            resp.on_hover_ui(|ui| {
+                ui.label(egui::RichText::new(&node.name).strong());
+                ui.label(format!(
+                    "{} · {} files{}",
+                    format_bytes(node.size(ctx.mode)),
+                    node.file_count,
+                    if node.is_dir { " · folder" } else { "" }
+                ));
+            });
         }
     }
 

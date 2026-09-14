@@ -10,6 +10,7 @@ struct Band {
     id: NodeId,
     rect: Rect,
     depth: usize,
+    color: egui::Color32,
 }
 
 pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
@@ -31,19 +32,30 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         id: ctx.focus,
         rect: focus_rect,
         depth: 0,
+        color: theme::PANEL_2,
     });
 
-    layout_children(ctx, ctx.focus, focus_rect, 1, max_depth, row_h, &mut bands);
+    layout_children(
+        ctx,
+        ctx.focus,
+        focus_rect,
+        theme::PANEL_2,
+        1,
+        max_depth,
+        row_h,
+        &mut bands,
+    );
 
     for band in &bands {
         let node = tree.node(band.id);
         let color = if band.depth == 0 {
             theme::PANEL_2
         } else {
-            theme::color_for(&node.name, node.is_dir)
-                .gamma_multiply(1.0 - band.depth as f32 * 0.08)
+            band.color.gamma_multiply(1.0 - band.depth as f32 * 0.08)
         };
-        let is_sel = ctx.selected == Some(band.id) || ctx.review.contains(&band.id);
+        let is_sel = ctx.selected == Some(band.id)
+            || ctx.hovered == Some(band.id)
+            || ctx.review.contains(&band.id);
         painter.rect_filled(band.rect.shrink(1.0), 3.0, color);
         painter.rect_stroke(
             band.rect.shrink(1.0),
@@ -83,7 +95,17 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             action.toggle_review = Some(band.id);
         }
         if resp.hovered() {
+            action.hover = Some(band.id);
             ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
+            resp.on_hover_ui(|ui| {
+                ui.label(egui::RichText::new(&node.name).strong());
+                ui.label(format!(
+                    "{} · {} files{}",
+                    format_bytes(node.size(ctx.mode)),
+                    node.file_count,
+                    if node.is_dir { " · folder" } else { "" }
+                ));
+            });
         }
     }
 
@@ -94,6 +116,7 @@ fn layout_children(
     ctx: &DrawCtx<'_>,
     parent: NodeId,
     parent_rect: Rect,
+    parent_color: egui::Color32,
     depth: usize,
     max_depth: usize,
     row_h: f32,
@@ -115,17 +138,26 @@ fn layout_children(
     let mut x = parent_rect.left();
     let width = parent_rect.width();
 
-    for &id in kids.iter().take(64) {
+    let mut prev_color: Option<egui::Color32> = None;
+    for (i, &id) in kids.iter().take(64).enumerate() {
         let frac = ctx.tree.node(id).size(ctx.mode) as f32 / total as f32;
         let w = (width * frac).max(2.0);
         let r = Rect::from_min_size(pos2(x, y), Vec2::new(w - 2.0, row_h - 4.0));
+        let node = ctx.tree.node(id);
+        let mut avoid = vec![parent_color];
+        if let Some(p) = prev_color {
+            avoid.push(p);
+        }
+        let color = theme::color_for_adjacent(&node.name, node.is_dir, i, &avoid);
+        prev_color = Some(color);
         out.push(Band {
             id,
             rect: r,
             depth,
+            color,
         });
-        if ctx.tree.node(id).is_dir && w > 24.0 {
-            layout_children(ctx, id, r, depth + 1, max_depth, row_h, out);
+        if node.is_dir && w > 24.0 {
+            layout_children(ctx, id, r, color, depth + 1, max_depth, row_h, out);
         }
         x += w;
         if x > parent_rect.right() {

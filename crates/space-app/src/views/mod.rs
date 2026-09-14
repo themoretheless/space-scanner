@@ -41,17 +41,62 @@ impl ViewMode {
     ];
 }
 
+/// Serialize view mode for settings.
+impl serde::Serialize for ViewMode {
+    fn serialize<S: serde::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(match self {
+            Self::Radial => "radial",
+            Self::Container => "container",
+            Self::Sunburst => "sunburst",
+            Self::Cascade => "cascade",
+        })
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for ViewMode {
+    fn deserialize<D: serde::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        let s = <String as serde::Deserialize>::deserialize(deserializer)?;
+        Ok(match s.as_str() {
+            "radial" => Self::Radial,
+            "container" => Self::Container,
+            "cascade" => Self::Cascade,
+            _ => Self::Sunburst,
+        })
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+#[repr(u8)]
+pub enum EntryKindFilter {
+    #[default]
+    All,
+    DirsOnly,
+    FilesOnly,
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct ViewFilter {
     pub query: String,
     pub ext: Option<String>,
     pub min_size: u64,
+    pub max_size: Option<u64>,
+    pub kind: EntryKindFilter,
 }
 
 impl ViewFilter {
     pub fn matches(&self, name: &str, is_dir: bool, size: u64) -> bool {
+        match self.kind {
+            EntryKindFilter::DirsOnly if !is_dir => return false,
+            EntryKindFilter::FilesOnly if is_dir => return false,
+            _ => {}
+        }
         if size < self.min_size {
             return false;
+        }
+        if let Some(max) = self.max_size {
+            if size > max {
+                return false;
+            }
         }
         if let Some(ext) = &self.ext {
             if is_dir {
@@ -72,7 +117,35 @@ impl ViewFilter {
     }
 
     pub fn is_active(&self) -> bool {
-        !self.query.is_empty() || self.ext.is_some() || self.min_size > 0
+        !self.query.is_empty()
+            || self.ext.is_some()
+            || self.min_size > 0
+            || self.max_size.is_some()
+            || self.kind != EntryKindFilter::All
+    }
+
+    pub fn active_count(&self) -> u32 {
+        let mut n = 0;
+        if !self.query.is_empty() {
+            n += 1;
+        }
+        if self.ext.is_some() {
+            n += 1;
+        }
+        if self.min_size > 0 {
+            n += 1;
+        }
+        if self.max_size.is_some() {
+            n += 1;
+        }
+        if self.kind != EntryKindFilter::All {
+            n += 1;
+        }
+        n
+    }
+
+    pub fn clear(&mut self) {
+        *self = Self::default();
     }
 
     pub fn hash64(&self) -> u64 {
@@ -80,6 +153,8 @@ impl ViewFilter {
         self.query.hash(&mut h);
         self.ext.hash(&mut h);
         self.min_size.hash(&mut h);
+        self.max_size.hash(&mut h);
+        (self.kind as u8).hash(&mut h);
         h.finish()
     }
 }
@@ -87,6 +162,7 @@ impl ViewFilter {
 pub struct ViewAction {
     pub navigate: Option<NodeId>,
     pub select: Option<NodeId>,
+    pub hover: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
     pub filter_ext: Option<String>,
 }
@@ -96,6 +172,7 @@ impl ViewAction {
         Self {
             navigate: None,
             select: None,
+            hover: None,
             toggle_review: None,
             filter_ext: None,
         }
@@ -133,6 +210,7 @@ pub struct DrawCtx<'a> {
     pub tree: &'a SpaceTree,
     pub focus: NodeId,
     pub selected: Option<NodeId>,
+    pub hovered: Option<NodeId>,
     pub review: &'a [NodeId],
     pub mode: SizeMode,
     pub filter: &'a ViewFilter,
@@ -149,6 +227,28 @@ pub fn draw(ui: &mut Ui, view: ViewMode, ctx: &mut DrawCtx<'_>) -> ViewAction {
         ViewMode::Sunburst => sunburst::draw(ui, ctx),
         ViewMode::Cascade => cascade::draw(ui, ctx),
     }
+}
+
+/// Tree highlight for sunburst hover: the wedge, ancestors up to focus,
+/// and every peer folder on that same circle (same parent).
+pub fn hover_related(tree: &SpaceTree, hover: NodeId, focus: NodeId, id: NodeId) -> bool {
+    if id == hover {
+        return true;
+    }
+    let hover_parent = tree.node(hover).parent;
+    // Ancestors of the wedge (inner rings it belongs to).
+    let mut cur = hover_parent;
+    while let Some(p) = cur {
+        if p == id {
+            return true;
+        }
+        if p == focus {
+            break;
+        }
+        cur = tree.node(p).parent;
+    }
+    // All folders on this circle share the same parent.
+    tree.node(id).parent == hover_parent
 }
 
 /// Prefer borrowed children when filter is idle (no alloc).

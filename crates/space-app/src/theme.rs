@@ -41,40 +41,35 @@ pub fn apply(ctx: &egui::Context) {
     ctx.set_style(style);
 }
 
-/// System fonts so Cyrillic / CJK / symbols (·) render instead of tofu.
+/// System fonts so Cyrillic / symbols render — keep small to avoid atlas/OOM kills.
 fn install_fonts(ctx: &egui::Context) {
     let mut fonts = FontDefinitions::default();
 
-    let candidates: &[(&str, &str)] = &[
-        ("sf_pro", "/System/Library/Fonts/SFNS.ttf"),
-        ("arial", "/System/Library/Fonts/Supplemental/Arial.ttf"),
-    ];
-
-    let mut loaded: Vec<String> = Vec::new();
-    for (name, path) in candidates {
-        if let Ok(bytes) = std::fs::read(path) {
-            fonts
-                .font_data
-                .insert((*name).to_owned(), Arc::new(FontData::from_owned(bytes)));
-            loaded.push((*name).to_owned());
-        }
-    }
-
-    if loaded.is_empty() {
+    // Arial (~0.7MB) covers Cyrillic without loading SFNS (7.5MB) which can jetsam the process.
+    let path = "/System/Library/Fonts/Supplemental/Arial.ttf";
+    let Ok(bytes) = std::fs::read(path) else {
         return;
-    }
+    };
+    fonts
+        .font_data
+        .insert("arial".to_owned(), Arc::new(FontData::from_owned(bytes)));
 
-    // Prefer SF Pro, then Arial as glyph fallbacks (Cyrillic, ·, etc.).
     for family in [FontFamily::Proportional, FontFamily::Monospace] {
         if let Some(list) = fonts.families.get_mut(&family) {
-            for name in loaded.iter().rev() {
-                list.insert(0, name.clone());
-            }
+            list.insert(0, "arial".to_owned());
         }
     }
 
     ctx.set_fonts(fonts);
 }
+
+/// Well-spaced folder hues (no two neighbors in this list are close).
+const DIR_HUES: &[f32] = &[
+    18.0, 48.0, 78.0, 112.0, 148.0, 178.0, 205.0, 232.0, 262.0, 310.0, 338.0, 8.0,
+];
+
+/// Minimum squared RGB distance so adjacent wedges read as different.
+const MIN_COLOR_DIST2: i32 = 48 * 48;
 
 /// Files by extension; folders get stable distinct hues (not flat gray).
 pub fn color_for(name: &str, is_dir: bool) -> Color32 {
@@ -84,14 +79,66 @@ pub fn color_for(name: &str, is_dir: bool) -> Color32 {
     color_for_ext(extension_of(name))
 }
 
+/// Color for a sibling among neighbors — never matches `avoid` (parent / prev / wrap).
+pub fn color_for_adjacent(
+    name: &str,
+    is_dir: bool,
+    sibling_index: usize,
+    avoid: &[Color32],
+) -> Color32 {
+    if is_dir {
+        return pick_dir_color(name, sibling_index, avoid);
+    }
+    let base = color_for_ext(extension_of(name));
+    if avoid.iter().all(|c| color_dist2(base, *c) >= MIN_COLOR_DIST2) {
+        return base;
+    }
+    // Same extension as neighbor — nudge hue so wedges still separate.
+    pick_dir_color(name, sibling_index.wrapping_add(3), avoid)
+}
+
 fn color_for_dir(name: &str) -> Color32 {
+    pick_dir_color(name, 0, &[])
+}
+
+fn pick_dir_color(name: &str, sibling_index: usize, avoid: &[Color32]) -> Color32 {
+    let preferred = (fnv1a(name) as usize).wrapping_add(sibling_index.wrapping_mul(3));
+    let n = DIR_HUES.len();
+    for offset in 0..n {
+        let slot = (preferred + offset) % n;
+        // Alternate value slightly so even distant palette reuse stays readable.
+        let v = 0.50 + ((sibling_index + offset) % 4) as f32 * 0.035;
+        let s = 0.40 + ((sibling_index + slot) % 3) as f32 * 0.04;
+        let c = hsv(DIR_HUES[slot], s, v);
+        if avoid.iter().all(|a| color_dist2(c, *a) >= MIN_COLOR_DIST2) {
+            return c;
+        }
+    }
+    // Last resort: force a hue halfway from the strongest conflict.
+    let conflict = avoid.last().copied().unwrap_or(DIR);
+    let h = (fnv1a(name) % 360) as f32;
+    let forced = hsv((h + 140.0 + sibling_index as f32 * 37.0) % 360.0, 0.48, 0.58);
+    if color_dist2(forced, conflict) >= MIN_COLOR_DIST2 / 2 {
+        forced
+    } else {
+        hsv((h + 200.0) % 360.0, 0.50, 0.60)
+    }
+}
+
+fn fnv1a(name: &str) -> u32 {
     let mut h: u32 = 2166136261;
     for b in name.as_bytes() {
         h ^= u32::from(*b);
         h = h.wrapping_mul(16777619);
     }
-    // Distinct but calm — readable on charcoal.
-    hsv((h % 360) as f32, 0.38, 0.55)
+    h
+}
+
+fn color_dist2(a: Color32, b: Color32) -> i32 {
+    let dr = a.r() as i32 - b.r() as i32;
+    let dg = a.g() as i32 - b.g() as i32;
+    let db = a.b() as i32 - b.b() as i32;
+    dr * dr + dg * dg + db * db
 }
 
 pub fn extension_of(name: &str) -> &str {
