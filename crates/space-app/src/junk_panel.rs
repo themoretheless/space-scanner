@@ -90,6 +90,7 @@ pub enum JunkAction {
     Rescan,
     Clean,
     Close,
+    OpenRules,
 }
 
 struct CatAgg {
@@ -115,6 +116,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                 .clicked()
             {
                 action = JunkAction::Rescan;
+            }
+            if ui
+                .button("Rules…")
+                .on_hover_text("Open rule manager")
+                .clicked()
+            {
+                action = JunkAction::OpenRules;
             }
         });
     });
@@ -408,6 +416,21 @@ fn cat_title(cat: &str) -> String {
         "package-cache" => "Package caches".into(),
         "browser-cache" => "Browser caches".into(),
         "app-cache" => "App caches".into(),
+        "media-cache" => "Media caches".into(),
+        "ml-cache" => "ML caches".into(),
+        "ml-models" => "ML models".into(),
+        "vm-cache" => "VM caches".into(),
+        "vm-disk" => "VM disks".into(),
+        "game-cache" => "Game caches".into(),
+        "game-downloads" => "Game downloads".into(),
+        "shader-cache" => "Shader caches".into(),
+        "wine-cache" => "Wine caches".into(),
+        "databases" => "Databases".into(),
+        "app-data" => "App data".into(),
+        "system" => "System".into(),
+        "report" => "Report only".into(),
+        "media-library" => "Media libraries".into(),
+        "sample-library" => "Sample libraries".into(),
         other => {
             let mut s = other.replace('-', " ");
             if let Some(c) = s.get_mut(0..1) {

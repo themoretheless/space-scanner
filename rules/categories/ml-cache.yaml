@@ -1,0 +1,401 @@
+---
+pack: ml-cache
+description: 'Category pack: ml-cache (26 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: ml-apple-python-cache
+  name: Apple/system Python framework caches (user)
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.python"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-chroma-vector-cache
+  name: ChromaDB and local vector store caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/chroma"
+  - "$HOME/.chroma"
+  - "$HOME/Library/Caches/chroma"
+  - "$XDG_CACHE_HOME/chroma"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-dask-cache
+  name: Dask configuration spill and cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.dask"
+  - "$HOME/.cache/dask"
+  - "$XDG_CACHE_HOME/dask"
+  - "$TMPDIR/dask-worker-space"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-duckdb-polars-temp
+  name: DuckDB and Polars temp/cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.duckdb"
+  - "$HOME/.cache/duckdb"
+  - "$HOME/.cache/polars"
+  - "$HOME/Library/Caches/polars"
+  - "$XDG_CACHE_HOME/duckdb"
+  - "$XDG_CACHE_HOME/polars"
+  - "$TMPDIR/duckdb_temp"
+  - "$TMPDIR/polars_*"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-dvc-cache-report
+  name: DVC cache (report-only)
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.dvc/cache"
+  - "$HOME/Library/Caches/dvc"
+  - "$XDG_CACHE_HOME/dvc"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: ml-huggingface-datasets
+  name: Hugging Face datasets cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/huggingface/datasets"
+  - "$XDG_CACHE_HOME/huggingface/datasets"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-huggingface-modules-xet-assets
+  name: Hugging Face modules, xet, and assets caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/huggingface/modules"
+  - "$HOME/.cache/huggingface/xet"
+  - "$HOME/.cache/huggingface/assets"
+  - "$HOME/.cache/huggingface/evaluate"
+  - "$HOME/.cache/huggingface/metrics"
+  - "$XDG_CACHE_HOME/huggingface/modules"
+  - "$XDG_CACHE_HOME/huggingface/xet"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-ipython-cache
+  name: IPython logs, pid, and cache dirs
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.ipython/profile_default/log"
+  - "$HOME/.ipython/profile_default/pid"
+  - "$HOME/.ipython/profile_default/db"
+  - "$HOME/.ipython/profile_default/security"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-jupyter-runtime-cache
+  name: Jupyter runtime and kernel caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Jupyter/runtime"
+  - "$HOME/Library/Jupyter/kernels"
+  - "$HOME/.jupyter/runtime"
+  - "$HOME/Library/Caches/Jupyter"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-kaggle-cache
+  name: Kaggle API datasets cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/kaggle"
+  - "$HOME/Library/Caches/kaggle"
+  - "$XDG_CACHE_HOME/kaggle"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-langchain-llama-index
+  name: LangChain / LlamaIndex caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/langchain"
+  - "$HOME/.cache/llama_index"
+  - "$HOME/.llamaindex"
+  - "$XDG_CACHE_HOME/langchain"
+  - "$XDG_CACHE_HOME/llama_index"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-lmstudio-cache
+  name: LM Studio caches and working data
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.lmstudio/.internal"
+  - "$HOME/Library/Caches/LM Studio"
+  - "$HOME/Library/Application Support/LM Studio/gpu-config"
+  - "$HOME/Library/Logs/LM Studio"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-matplotlib-cache
+  name: Matplotlib font and cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.matplotlib"
+  - "$HOME/.cache/matplotlib"
+  - "$HOME/Library/Caches/matplotlib"
+  - "$XDG_CACHE_HOME/matplotlib"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-nltk-gensim-spacy
+  name: NLTK, Gensim, spaCy data caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/nltk_data"
+  - "$HOME/.nltk_data"
+  - "$HOME/gensim-data"
+  - "$HOME/.gensim-data"
+  - "$HOME/.cache/spacy"
+  - "$HOME/Library/Caches/spacy"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-numba-cache
+  name: Numba compiled function cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.numba_cache"
+  - "$HOME/.cache/numba"
+  - "$XDG_CACHE_HOME/numba"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-ollama-logs-cache
+  name: Ollama logs and app cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.ollama/logs"
+  - "$HOME/Library/Caches/ollama"
+  - "$HOME/Library/Caches/com.electron.ollama"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-parquet-arrow-temp
+  name: Parquet/Arrow temp and cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/parquet"
+  - "$HOME/.cache/pyarrow"
+  - "$HOME/.cache/arrow"
+  - "$XDG_CACHE_HOME/pyarrow"
+  - "$TMPDIR/parquet_*"
+  - "$TMPDIR/pyarrow_*"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-ray-cache
+  name: Ray session and results
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$TMPDIR/ray"
+  - "$HOME/ray_results"
+  - "$HOME/.cache/ray"
+  - "$HOME/Library/Caches/ray"
+  - "/tmp/ray"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-scikit-learn-data
+  name: scikit-learn data and joblib cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/scikit_learn_data"
+  - "$HOME/.cache/scikit-learn"
+  - "$HOME/Library/Caches/scikit-learn"
+  - "$HOME/.cache/joblib"
+  - "$XDG_CACHE_HOME/scikit-learn"
+  - "$XDG_CACHE_HOME/joblib"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-seaborn-plotly-cache
+  name: Seaborn and Plotly caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/seaborn"
+  - "$HOME/Library/Caches/seaborn"
+  - "$HOME/.plotly"
+  - "$HOME/Library/Caches/plotly"
+  - "$HOME/.cache/plotly"
+  - "$XDG_CACHE_HOME/seaborn"
+  - "$XDG_CACHE_HOME/plotly"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-spark-local
+  name: Spark local warehouse and Ivy cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/spark-warehouse"
+  - "$HOME/.ivy2/cache"
+  - "$HOME/.ivy2/jars"
+  - "$HOME/.spark"
+  - "$TMPDIR/spark-*"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-tensorflow-datasets
+  name: TensorFlow Datasets download cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/tensorflow_datasets"
+  - "$HOME/.cache/tensorflow_datasets"
+  - "$XDG_CACHE_HOME/tensorflow_datasets"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-torch-extensions-inductor
+  name: PyTorch extensions and inductor/compile caches
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/torch_extensions"
+  - "$HOME/.cache/torch/kernels"
+  - "$HOME/.cache/torch/inductor"
+  - "$XDG_CACHE_HOME/torch_extensions"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-triton-cache
+  name: Triton compiler cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.triton"
+  - "$HOME/.cache/triton"
+  - "$XDG_CACHE_HOME/triton"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-vllm-cache
+  name: vLLM cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/vllm"
+  - "$XDG_CACHE_HOME/vllm"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-wandb-cache
+  name: Weights & Biases cache
+  description: ''
+  category: ml-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/wandb"
+  - "$HOME/Library/Caches/wandb"
+  - "$XDG_CACHE_HOME/wandb"
+  delete_mode: contents
+  max_depth: 6

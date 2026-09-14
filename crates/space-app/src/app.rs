@@ -13,6 +13,7 @@ use space_core::{
 use crate::anim::{TransKind, Transition};
 use crate::junk_panel::{self, JunkAction, JunkPanelState};
 use crate::review;
+use crate::rules_panel::{self, RulesAction, RulesPanelState};
 use crate::settings::AppSettings;
 use crate::side_tree::SideTree;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
@@ -70,6 +71,8 @@ pub struct SpaceApp {
     tm_snapshots: Vec<LocalSnapshot>,
     tm_loading: bool,
     junk: JunkPanelState,
+    rules: RulesPanelState,
+    rule_mgr: Option<space_clean::RuleManager>,
     bg_rx: Receiver<BgMsg>,
     bg_tx: crossbeam_channel::Sender<BgMsg>,
     /// True while cache load / rescan / delete runs off-thread.
@@ -157,6 +160,8 @@ impl SpaceApp {
             tm_snapshots: Vec::new(),
             tm_loading: true,
             junk: JunkPanelState::default(),
+            rules: RulesPanelState::default(),
+            rule_mgr: None,
             bg_rx,
             bg_tx,
             busy: false,
@@ -985,6 +990,29 @@ impl SpaceApp {
             .ok();
     }
 
+    fn ensure_rule_mgr(&mut self) -> Result<&mut space_clean::RuleManager, String> {
+        if self.rule_mgr.is_none() {
+            match space_clean::RuleManager::load_default() {
+                Ok(m) => self.rule_mgr = Some(m),
+                Err(e) => return Err(e.to_string()),
+            }
+        }
+        Ok(self.rule_mgr.as_mut().expect("rule_mgr"))
+    }
+
+    fn open_rules_panel(&mut self) {
+        match self.ensure_rule_mgr() {
+            Ok(_) => {
+                self.rules.open = true;
+                self.rules.error = None;
+            }
+            Err(e) => {
+                self.rules.open = true;
+                self.rules.error = Some(e);
+            }
+        }
+    }
+
     fn open_junk_panel(&mut self) {
         self.junk.open_and_scan();
         self.start_junk_scan();
@@ -993,18 +1021,26 @@ impl SpaceApp {
     fn start_junk_scan(&mut self) {
         self.junk.loading = true;
         self.junk.error = None;
+        let prefs = self
+            .rule_mgr
+            .as_ref()
+            .map(|m| m.prefs.clone())
+            .unwrap_or_else(space_clean::RulePrefs::load);
         let tx = self.bg_tx.clone();
         thread::Builder::new()
             .name("space-junk-scan".into())
             .spawn(move || {
                 let result = (|| {
                     let pack = space_clean::load_default_pack()?;
+                    let mgr = space_clean::RuleManager { pack, prefs };
                     let opts = space_clean::ScanOptions {
                         categories: Vec::new(),
                         include_disabled: false,
                         min_age_override: None,
+                        prefs_min_age: mgr.prefs.min_age.clone(),
                     };
-                    space_clean::scan(&pack, &opts)
+                    let rules = mgr.scan_rules(&[]);
+                    space_clean::scan_rules(rules, &opts)
                 })()
                 .map_err(|e| e.to_string());
                 let _ = tx.send(BgMsg::JunkScanDone(result));
@@ -1302,7 +1338,39 @@ impl eframe::App for SpaceApp {
                             self.junk.open = false;
                             self.junk.confirm = false;
                         }
+                        JunkAction::OpenRules => self.open_rules_panel(),
                         JunkAction::None => {}
+                    }
+                });
+        }
+
+        if self.rules.open {
+            egui::Window::new("Rule manager")
+                .collapsible(false)
+                .resizable(true)
+                .default_size([820.0, 560.0])
+                .anchor(egui::Align2::CENTER_CENTER, [0.0, 12.0])
+                .show(ctx, |ui| {
+                    if self.rule_mgr.is_none() && self.rules.error.is_none() {
+                        if let Err(e) = self.ensure_rule_mgr() {
+                            self.rules.error = Some(e);
+                        }
+                    }
+                    if let Some(mgr) = self.rule_mgr.as_mut() {
+                        match rules_panel::draw(ui, &mut self.rules, mgr) {
+                            RulesAction::Close => self.rules.open = false,
+                            RulesAction::PrefsChanged => {
+                                if self.junk.open {
+                                    self.start_junk_scan();
+                                }
+                            }
+                            RulesAction::None => {}
+                        }
+                    } else if let Some(err) = &self.rules.error {
+                        ui.colored_label(egui::Color32::from_rgb(220, 90, 90), err);
+                        if ui.button("Close").clicked() {
+                            self.rules.open = false;
+                        }
                     }
                 });
         }
@@ -1432,6 +1500,13 @@ impl eframe::App for SpaceApp {
                             .clicked()
                         {
                             self.open_junk_panel();
+                        }
+                        if ui
+                            .button("Rules")
+                            .on_hover_text("Rule manager — enable / disable / search")
+                            .clicked()
+                        {
+                            self.open_rules_panel();
                         }
                         ui.separator();
                         let label = match self.size_mode {

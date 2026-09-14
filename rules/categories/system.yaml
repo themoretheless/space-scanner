@@ -1,0 +1,405 @@
+---
+pack: system
+description: 'Category pack: system (25 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: backup-destinations-never-report
+  name: Backup destinations and SafetyNet (report-only guard)
+  description: Explicit report-only markers so scanners never treat common destination
+    patterns as cleanable junk.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/Volumes"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/_CCC SafetyNet/**"
+  - "**/_CCC Archives/**"
+  - "**/Backups.backupdb/**"
+  - "**/.SparseBundle/**"
+  - "**/*.sparsebundle/**"
+  - "**/*.backupbundle/**"
+  report_only: true
+- id: backup-timemachine-destination-report
+  name: Time Machine destination and MobileBackups (report-only)
+  description: Legacy MobileBackups and TM-related local hold areas; inventory only.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/Volumes/MobileBackups"
+  - "/.MobileBackups"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: db-cli-history-report
+  name: SQL/Redis CLI history files (report-only)
+  description: mysql, psql, sqlite, litecli, mycli, redis-cli interactive histories.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.mysql_history"
+  - "$HOME/.psql_history"
+  - "$HOME/.sqlite_history"
+  - "$HOME/.litecli-history"
+  - "$HOME/.mycli-history"
+  - "$HOME/.rediscli_history"
+  - "$HOME/.python_history"
+  - "$HOME/.config/litecli"
+  - "$HOME/.config/mycli"
+  - "$HOME/.config/pgcli"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: icons-launchservices-user-residual-report
+  name: LaunchServices user residual (report-only)
+  description: Per-user LaunchServices databases and quarantine events under Preferences.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Preferences/com.apple.LaunchServices"
+  - "$HOME/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist"
+  - "$HOME/Library/Preferences/com.apple.LaunchServices/com.apple.LaunchServices.plist"
+  - "$HOME/Library/Preferences/com.apple.LaunchServices/com.apple.LaunchServices.SettingsStore.sql"
+  - "$HOME/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV2"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: macos-fileprovider-cache-careful
+  name: FileProvider domain caches (careful)
+  description: ''
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/FileProvider"
+  - "$HOME/Library/Caches/com.apple.FileProviderDaemon.AppStoreService"
+  - "$HOME/Library/Group Containers/group.com.apple.FileProvider.DomainCaching"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Caches/**"
+  - "**/tmp/**"
+  - "**/*.log"
+- id: macos-icloud-offline-files-report
+  name: iCloud local offline / evictable files (report-only)
+  description: ''
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/CloudDocs"
+  - "$HOME/Library/Caches/CloudKit"
+  - "$HOME/Library/Caches/com.apple.bird"
+  - "$HOME/Library/Group Containers/com.apple.bird"
+  - "$HOME/Library/Group Containers/group.com.apple.CloudDocs"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: macos-language-modeling-assets
+  name: Language modeling and input assets
+  description: ''
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/LanguageModeling"
+  - "$HOME/Library/Spelling"
+  - "$HOME/Library/Dictionaries"
+  - "$HOME/Library/Translation"
+  - "$HOME/Library/KeyboardServices"
+  - "$HOME/Library/ResponseKit"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-ms-office-licensing-report
+  name: Office licensing residual (report-only)
+  description: Volume/retail license plists and licensing helper; activation-critical,
+    never auto-delete.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Preferences/com.microsoft.office.licensingV2.plist"
+  - "$HOME/Library/Group Containers/UBF8T346G9.Office/License Information"
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+- id: macos-optimized-storage-hints
+  name: Optimized Storage related caches (careful)
+  description: ''
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/com.apple.clouddocs"
+  - "$HOME/Library/Caches/com.apple.iCloudHelper"
+  - "$HOME/Library/Caches/com.apple.icloudmailagent"
+  - "$HOME/Library/Caches/com.apple.icloudwebd"
+  - "$HOME/Library/Caches/com.apple.iCloudNotificationAgent"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-siri-tts-assets-report
+  name: Siri/TTS and trial assets (report-only)
+  description: ''
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Caches/com.apple.sirittsd"
+  - "$HOME/Library/Logs/SiriTTSService"
+  - "$HOME/Library/Trial"
+  - "$HOME/Library/UnifiedAssetFramework"
+  - "$HOME/Library/IntelligencePlatform"
+  - "$HOME/Library/Group Containers/group.com.apple.SiriTTS"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: macos-spotlight-metadata-report
+  name: Spotlight / CoreSpotlight user metadata (report-only)
+  description: ''
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Metadata/CoreSpotlight"
+  - "$HOME/Library/Spotlight"
+  - "$HOME/Library/Caches/com.apple.Spotlight"
+  - "$HOME/Library/Suggestions"
+  - "$HOME/Library/Biome"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: mdm-enrollment-profiles-report
+  name: Enrollment profile residual (report-only)
+  description: User-level enrollment/profile install leftovers and profile tool caches;
+    not system enrollment DB.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Preferences/com.apple.ManagedClient.plist"
+  - "$HOME/Library/Preferences/com.apple.mdmclient.plist"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: mdm-managed-preferences-user-report
+  name: User Managed Preferences / profile payload residual (report-only)
+  description: Per-user Managed Preferences and ConfigurationProfiles residual reflecting
+    MDM payloads.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Managed Preferences"
+  - "$HOME/Library/ConfigurationProfiles"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: net-mitmproxy-certs-report
+  name: mitmproxy CA and config inventory (report-only)
+  description: Report size of mitmproxy home including certs; never auto-delete.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.mitmproxy"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: net-proxy-certs-license-never
+  name: Proxy MITM certs and licenses inventory (report-only never-wipe)
+  description: Explicit report-only list of known CA/license locations so cleaners
+    do not target them.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.mitmproxy"
+  - "$HOME/Library/Application Support/com.proxyman.NSProxy/app-data"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/License"
+  - "$HOME/Library/Preferences/com.xk72.charles.config"
+  - "$HOME/.WhistleAppData/certs"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: web-caddy-config-autosave-report
+  name: Caddy config autosave (report-only)
+  description: Last active Caddy config (autosave.json) and config dir for --resume.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/caddy"
+  - "$XDG_CONFIG_HOME/caddy"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: web-caddy-data-report
+  name: Caddy data directory (certs, report-only)
+  description: Caddy storage for TLS certs, keys, OCSP staples. Not a cache.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Caddy"
+  - "$HOME/.local/share/caddy"
+  - "$XDG_DATA_HOME/caddy"
+  - "$HOME/.caddy"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: web-ddev-traefik-certs-report
+  name: DDEV Traefik/mkcert router certs (report-only)
+  description: Router certificates under global DDEV traefik certs (mkcert-generated).
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.ddev/traefik/certs"
+  - "$HOME/.config/ddev/traefik/certs"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: web-minio-certs-report
+  name: MinIO TLS certs dir (report-only)
+  description: Default MinIO certs under ~/.minio/certs.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.minio/certs"
+  - "$HOME/.minio"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/certs/**"
+  - "**/certs"
+  report_only: true
+- id: web-mkcert-caroot-report
+  name: mkcert CAROOT (report-only, never delete)
+  description: mkcert local CA and issued certs. Explicitly not for deletion.
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/mkcert"
+  - "$HOME/.local/share/mkcert"
+  - "$XDG_DATA_HOME/mkcert"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: web-telepresence-config-report
+  name: Telepresence config (report-only)
+  description: Telepresence user configuration and connection state.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/telepresence"
+  - "$XDG_CONFIG_HOME/telepresence"
+  - "$HOME/Library/Application Support/telepresence"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: web-traefik-acme-report
+  name: Traefik ACME/certs storage (report-only)
+  description: Local Traefik acme.json and certificate storage under user config homes.
+  category: system
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.traefik"
+  - "$HOME/.config/traefik"
+  - "$XDG_CONFIG_HOME/traefik"
+  - "$HOME/Library/Application Support/traefik"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: web-valet-certs-report
+  name: Laravel Valet TLS certificates (report-only)
+  description: Per-site certificates generated by valet secure (mkcert-backed).
+  category: system
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/valet/Certificates"
+  - "$HOME/.valet/Certificates"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: windows-old-report
+  name: Windows.old (report-only)
+  description: Previous Windows installation; use Disk Cleanup / storage settings
+  category: system
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - C:/Windows.old
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: windows-prefetch-report
+  name: Prefetch (report-only)
+  description: Prefetch can affect boot/app launch analysis; never auto-delete
+  category: system
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - C:/Windows/Prefetch
+  delete_mode: contents
+  max_depth: 1
+  report_only: true

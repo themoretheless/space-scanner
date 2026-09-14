@@ -1,0 +1,61 @@
+---
+pack: games-downloads
+description: 'Category pack: games-downloads (4 rules). Add sibling YAML files under
+  rules/categories/ to extend.'
+rules:
+- id: mac-gog-downloads-report
+  name: GOG Galaxy download staging (report only)
+  description: In-progress or leftover GOG download staging. Report only.
+  category: games-downloads
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/GOG.com/Galaxy/downloading"
+  - "$HOME/Library/Application Support/GOG.com/Galaxy/games-tmp"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: mac-heroic-downloads-report
+  name: Heroic/Legendary download staging (report only)
+  description: Large incomplete Heroic/Epic downloads via legendary.
+  category: games-downloads
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/heroic/tools"
+  - "$HOME/Games/Heroic/Downloads"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: mac-itch-downloads-report
+  name: itch.io downloads cache (report only)
+  description: Installer/download cache can hold full game archives. Report only.
+  category: games-downloads
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/itch/downloads"
+  - "$HOME/Library/Application Support/itch/broth"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: mac-steam-downloading-report
+  name: Steam incomplete downloads (report only)
+  description: Partial game downloads. Report size only; never auto-delete in-progress
+    installs.
+  category: games-downloads
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Steam/steamapps/downloading"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true

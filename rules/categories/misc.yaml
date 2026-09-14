@@ -1,0 +1,26 @@
+---
+pack: misc
+description: 'Category pack: misc (1 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: macos-bluetooth-identity-misc
+  name: Bluetooth user services and identity caches
+  description: Bluetooth cloud services, identity services, studentd, homeenergyd
+    user folders.
+  category: misc
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/com.apple.bluetooth.services.cloud"
+  - "$HOME/Library/com.apple.bluetoothuser"
+  - "$HOME/Library/IdentityServices"
+  - "$HOME/Library/studentd"
+  - "$HOME/Library/homeenergyd"
+  - "$HOME/Library/PPM"
+  - "$HOME/Library/LockdownMode"
+  - "$HOME/Library/PrivateCloudCompute"
+  - "$HOME/Library/com.apple.internal.ck"
+  delete_mode: contents
+  max_depth: 5

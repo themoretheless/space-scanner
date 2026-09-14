@@ -144,17 +144,7 @@ impl RulePack {
             if !dir.is_dir() {
                 continue;
             }
-            let mut files: Vec<PathBuf> = fs::read_dir(dir)
-                .with_context(|| format!("read rules dir {}", dir.display()))?
-                .filter_map(|e| e.ok())
-                .map(|e| e.path())
-                .filter(|p| {
-                    p.extension()
-                        .and_then(|x| x.to_str())
-                        .map(|x| x == "yaml" || x == "yml")
-                        .unwrap_or(false)
-                })
-                .collect();
+            let mut files = collect_rule_files(dir)?;
             files.sort();
             for file in files {
                 let text = fs::read_to_string(&file)
@@ -214,6 +204,39 @@ impl RulePack {
     pub fn get(&self, id: &str) -> Option<&Rule> {
         self.rules.iter().find(|r| r.id == id)
     }
+}
+
+/// Recursively collect `*.yaml` / `*.yml` under a rules root (skips `_*.yaml` drafts).
+fn collect_rule_files(dir: &Path) -> Result<Vec<PathBuf>> {
+    let mut files = Vec::new();
+    for entry in walkdir::WalkDir::new(dir)
+        .follow_links(false)
+        .into_iter()
+        .filter_map(|e| e.ok())
+    {
+        let path = entry.path();
+        if !path.is_file() {
+            continue;
+        }
+        let ext = path
+            .extension()
+            .and_then(|x| x.to_str())
+            .map(|x| x.eq_ignore_ascii_case("yaml") || x.eq_ignore_ascii_case("yml"))
+            .unwrap_or(false);
+        if !ext {
+            continue;
+        }
+        if path
+            .file_name()
+            .and_then(|n| n.to_str())
+            .map(|n| n.starts_with('_') || n.eq_ignore_ascii_case("README.yaml"))
+            .unwrap_or(false)
+        {
+            continue;
+        }
+        files.push(path.to_path_buf());
+    }
+    Ok(files)
 }
 
 fn validate_rule(rule: &Rule, source: &Path) -> Result<()> {

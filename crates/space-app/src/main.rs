@@ -2,6 +2,7 @@ mod anim;
 mod app;
 mod junk_panel;
 mod review;
+mod rules_panel;
 mod settings;
 mod side_tree;
 mod theme;

@@ -1,0 +1,148 @@
+---
+pack: app-data
+description: 'Category pack: app-data (10 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: design-iconjar-libraries-report
+  name: IconJar libraries (report-only)
+  description: IconJar set storage; user icon collections.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/IconJar"
+  - "/Users/Shared/IconJar"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: design-lunacy-data-report
+  name: Lunacy full Icons8 data tree (report-only)
+  description: Entire Lunacy user data root may mix caches with local documents.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.local/share/Icons8/Lunacy"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: design-nucleo-library-report
+  name: Nucleo Application Support library (report-only)
+  description: Full Nucleo App Support may hold downloaded icon sets.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Nucleo"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: edu-kindle-content-report
+  name: Kindle ebook content folders (report-only)
+  description: Possible Kindle library roots for size reporting only.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Kindle"
+  - "$HOME/Library/Containers/com.amazon.Kindle/Data/Library/Application Support/Kindle"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: fonts-fontcollections-report
+  name: Font Book collections (report-only)
+  description: User Font Collections metadata (not caches).
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Font Collections"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: fonts-suitcase-vault-report
+  name: Suitcase / Extensis font vault (report-only)
+  description: Font vault/library storage for Suitcase Fusion. May be only copy of
+    fonts.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Extensis/Suitcase Fusion/Suitcase Fusion.fontvault"
+  - "$HOME/Library/Application Support/Extensis/Suitcase Fusion/Font Library"
+  - "$HOME/Library/Application Support/Extensis/Suitcase Fusion/Vault"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: fonts-user-fonts-folder-report
+  name: User Fonts folder (report-only)
+  description: Installed user fonts and disabled-fonts residual. Never default delete.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Fonts Disabled"
+  - "$HOME/Library/Fonts (Disabled)"
+  - "$HOME/Library/Fonts (disabled)"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: macos-ms-office-outlook-profile-report
+  name: Outlook mail profile store (report-only)
+  description: Outlook for Mac offline mail/attachment store under Group Containers;
+    do not auto-delete.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/UBF8T346G9.Office/Outlook"
+  - "$HOME/Library/Group Containers/UBF8T346G9.Office/Outlook/Outlook 15 Profiles"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: macos-ms-onedrive-group-sync-report
+  name: OneDrive Group Container sync cache (report-only)
+  description: Files On-Demand / standalone suite replica trees; may hold pinned offline
+    copies.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/UBF8T346G9.OneDriveStandaloneSuite"
+  - "$HOME/Library/Group Containers/UBF8T346G9.OneDriveSyncClientSuite"
+  - "$HOME/Library/Group Containers/UBF8T346G9.OfficeOneDriveSyncIntegration"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: macos-ms-powerbi-powerautomate-sharepoint-note
+  name: Power BI / Power Automate / SharePoint native availability (report-only)
+  description: No first-party Power BI Desktop or Power Automate Desktop residual
+    trees on macOS; SharePoint sync is OneDrive.
+  category: app-data
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/UBF8T346G9.Office/SolutionPackages"
+  delete_mode: contents
+  max_depth: 2
+  report_only: true

@@ -18,9 +18,10 @@ pkill -x space-scanner 2>/dev/null || true
 sleep 0.2
 
 rm -rf "$APP"
-mkdir -p "$APP/Contents/MacOS"
+mkdir -p "$APP/Contents/MacOS" "$APP/Contents/rules"
 cp "$BIN" "$APP/Contents/MacOS/SpaceScanner"
 chmod +x "$APP/Contents/MacOS/SpaceScanner"
+cp -R "$ROOT/rules/." "$APP/Contents/rules/"
 
 cat > "$APP/Contents/Info.plist" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>

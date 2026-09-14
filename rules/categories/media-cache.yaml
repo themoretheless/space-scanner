@@ -1,0 +1,270 @@
+---
+pack: media-cache
+description: 'Category pack: media-cache (15 rules). Add sibling YAML files under
+  rules/categories/ to extend.'
+rules:
+- id: mac-apple-music-tv-cache
+  name: Apple Music and TV app caches
+  description: AMP/Music/TV regenerable caches. Never Music Library.musiclibrary or
+    Media.localized song/video files.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.Music"
+  - "$HOME/Library/Caches/com.apple.TV"
+  - "$HOME/Library/Caches/com.apple.iTunes"
+  - "$HOME/Library/Caches/com.apple.AMPLibraryAgent"
+  - "$HOME/Library/Caches/com.apple.AMPDevicesAgent"
+  - "$HOME/Library/Caches/com.apple.itunescloudd"
+  - "$HOME/Library/Caches/com.apple.AppleMediaServices"
+  - "$HOME/Library/Containers/com.apple.Music/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.TV/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-iina-vlc-cache
+  name: IINA and VLC caches and logs
+  description: IINA/VLC watch-later is user preference; only clear Caches and Logs,
+    not watch_later or configs if marked exclude.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.colliderli.iina"
+  - "$HOME/Library/Logs/com.colliderli.iina"
+  - "$HOME/Library/Application Support/com.colliderli.iina/logs"
+  - "$HOME/Library/Caches/org.videolan.vlc"
+  - "$HOME/Library/Application Support/org.videolan.vlc/cache"
+  - "$HOME/Library/Logs/vlc"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/watch_later/**"
+  - "**/ml.xspf"
+- id: mac-infuse-cache
+  name: Infuse caches and logs
+  description: Infuse metadata/artwork caches. Not user media files.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.firecore.infuse"
+  - "$HOME/Library/Application Support/Infuse/Caches"
+  - "$HOME/Library/Logs/Infuse"
+  - "$HOME/Library/Containers/com.firecore.infuse/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-jellyfin-cache
+  name: Jellyfin server/client caches and logs
+  description: Jellyfin media server cache/transcodes/logs under Application Support.
+    Not media libraries.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/jellyfin/log"
+  - "$HOME/Library/Application Support/jellyfin/cache"
+  - "$HOME/Library/Application Support/jellyfin/data/transcodes"
+  - "$HOME/Library/Application Support/Jellyfin Media Player/Cache"
+  - "$HOME/Library/Application Support/Jellyfin Media Player/Code Cache"
+  - "$HOME/Library/Application Support/Jellyfin Media Player/GPUCache"
+  - "$HOME/Library/Caches/org.jellyfin.Jellyfin"
+  - "$HOME/Library/Logs/jellyfin"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-netflix-desktop
+  name: Netflix desktop / PWA caches if present
+  description: No long-lived first-party Netflix Mac desktop; cover Electron wrappers
+    / web app caches if installed.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Netflix/Cache"
+  - "$HOME/Library/Caches/com.netflix.Netflix"
+  - "$HOME/Library/Caches/Netflix"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-plex-cache
+  name: Plex Media Server and Plex app caches
+  description: Plex transcoder/PhotoTranscoder, plugin HTTP caches. Not media library
+    files on disk.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/PlexMediaServer"
+  - "$HOME/Library/Caches/tv.plex.desktop"
+  - "$HOME/Library/Application Support/Plex Media Server/Cache"
+  - "$HOME/Library/Application Support/Plex Media Server/Cache/PhotoTranscoder"
+  - "$HOME/Library/Application Support/Plex Media Server/Cache/Transcode"
+  - "$HOME/Library/Application Support/Plex Media Server/Logs"
+  - "$HOME/Library/Application Support/Plex Media Server/Plug-in Support/Caches"
+  - "$HOME/Library/Logs/Plex Media Server"
+  - "$HOME/Library/Logs/Plex"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-spotify-deep
+  name: Spotify deep caches
+  description: Spotify client Data/Storage/PersistentCache and browser-like caches.
+    Offline music redownloads.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.spotify.client/Data"
+  - "$HOME/Library/Caches/com.spotify.client/Storage"
+  - "$HOME/Library/Application Support/Spotify/PersistentCache/Storage"
+  - "$HOME/Library/Application Support/Spotify/Browser"
+  - "$HOME/Library/Application Support/Spotify/Component Crashes"
+  - "$HOME/Library/Logs/Spotify"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-twitch-cache
+  name: Twitch desktop caches
+  description: Twitch desktop Electron caches and logs.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/Twitch/Cache"
+  - "$HOME/Library/Application Support/Twitch/Code Cache"
+  - "$HOME/Library/Application Support/Twitch/GPUCache"
+  - "$HOME/Library/Caches/com.twitch.desktop"
+  - "$HOME/Library/Logs/Twitch"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-youtube-music
+  name: YouTube Music desktop caches
+  description: YouTube Music Electron/unofficial desktop wrappers and browser helper
+    caches.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/YouTube Music/Cache"
+  - "$HOME/Library/Application Support/YouTube Music/Code Cache"
+  - "$HOME/Library/Application Support/YouTube Music/GPUCache"
+  - "$HOME/Library/Application Support/youtube-music/Cache"
+  - "$HOME/Library/Caches/com.github.th-ch.youtube-music"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-audio-plugins-cache-report
+  name: User Audio plug-in caches (report-only)
+  description: ''
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Audio/Plug-Ins"
+  - "$HOME/Library/Caches/AudioUnitCache"
+  - "$HOME/Library/Caches/com.apple.audiounits.cache"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: macos-books-caches
+  name: Apple Books caches (not purchased books library)
+  description: ''
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.iBooksX/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.iBooksX.BooksThumbnail/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.iBooksX.DiskSpaceEfficiency/Data/Library/Caches"
+  - "$HOME/Library/Caches/com.apple.iBooksX"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-garageband-loops-report
+  name: GarageBand / Apple Loops (report-only)
+  description: ''
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Audio/Apple Loops"
+  - "$HOME/Library/Audio/Impulse Responses"
+  - "$HOME/Library/Application Support/GarageBand"
+  - "$HOME/Library/Application Support/Logic"
+  - "$HOME/Library/GarageBand"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: macos-music-tv-cache-extensions
+  name: Music/TV cache extensions
+  description: ''
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.Music.MusicCacheExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.Music.MusicStorageExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.TV.TVCacheExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.TV.TVStorageExtension/Data/Library/Caches"
+  - "$HOME/Library/Caches/com.apple.Music"
+  - "$HOME/Library/Caches/com.apple.TV"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-podcasts-downloads-cache
+  name: Podcasts downloads and caches
+  description: ''
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.podcasts/Data/Library/Caches"
+  - "$HOME/Library/Group Containers/243LU875E5.groups.com.apple.podcasts/Library/Caches"
+  - "$HOME/Library/Group Containers/243LU875E5.groups.com.apple.podcasts"
+  - "$HOME/Library/Caches/com.apple.podcasts"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Caches/**"
+  - "**/PodcastContentService/**"
+  - "**/Downloads/**"
+  exclude_globs:
+  - "**/Documents/**"
+  - "**/Preferences/**"
+- id: personal-finalcut
+  name: Final Cut Pro / Motion / ProApps personal caches
+  description: Live-discovered regenerable cache/log paths for Final Cut Pro / Motion
+    / ProApps on this Mac.
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Final Cut Pro"
+  - "$HOME/Library/Application Support/Motion"
+  - "$HOME/Library/Application Support/ProApps"
+  delete_mode: contents
+  max_depth: 4

@@ -1,0 +1,238 @@
+---
+pack: temp
+description: 'Category pack: temp (15 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: cad-blender-temp-logs
+  name: Blender temp and crash logs residual
+  description: Blender crash logs under temp and Application Support log leftovers.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Blender/5.0/logs"
+  - "$HOME/Library/Application Support/Blender/5.1/logs"
+  - "$HOME/Library/Application Support/Blender/5.2/logs"
+  - "$HOME/Library/Logs/Blender"
+  - "$TMPDIR/blender"
+  - "$HOME/Library/Application Support/Blender Foundation/Blender/Temp"
+  delete_mode: contents
+  max_depth: 4
+- id: cad-fusion-neutron-temp
+  name: Fusion Neutron Platform temp/cache
+  description: Neutron Platform runtime temp and non-pref caches used by Fusion.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Autodesk/Neutron Platform/Options"
+  - "$HOME/Library/Application Support/Autodesk/Neutron/Server/Production/Cache"
+  - "$HOME/Library/Application Support/Autodesk/Neutron/Server/Staging/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: cad-grasshopper-temp
+  name: Grasshopper temp and cache
+  description: Grasshopper component temp/cache under McNeel Application Support.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/McNeel/Rhinoceros/Grasshopper/Temp"
+  - "$HOME/Library/Application Support/McNeel/Rhinoceros/Grasshopper/Cache"
+  - "$HOME/Library/Application Support/Grasshopper/Temp"
+  - "$HOME/Library/Application Support/Grasshopper/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: hb-deep-stale-locks
+  name: Homebrew stale formula/cask lock files
+  description: Aged lock files under prefix var/homebrew/locks left after interrupted
+    brew operations.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 2
+  paths:
+  - "/opt/homebrew/var/homebrew/locks"
+  delete_mode: contents
+  max_depth: 2
+- id: hb-deep-temp-cellar-bottles
+  name: Homebrew bottle temp cellar and prefix tmp
+  description: Temporary bottle extract staging under prefix var/homebrew/tmp (.cellar)
+    and build temp.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 1
+  paths:
+  - "/opt/homebrew/var/homebrew/tmp"
+  - "/opt/homebrew/var/homebrew/tmp/.cellar"
+  delete_mode: contents
+  max_depth: 5
+- id: linux-tmp
+  name: User and system temp
+  description: Temporary files (age-filtered).
+  category: temp
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 2
+  paths:
+  - "$TMPDIR"
+  - "$HOME/.local/share/Trash/files"
+  delete_mode: contents
+  max_depth: 4
+- id: mac-steam-temp
+  name: Steam steamapps temp
+  description: Steam temporary extract/update files under steamapps/temp.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 2
+  paths:
+  - "$HOME/Library/Application Support/Steam/steamapps/temp"
+  - "$HOME/Library/Application Support/Steam/steamapps/steamclean"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-aiml-biome-instrumentation
+  name: AIML instrumentation and Biome temp
+  description: Apple Intelligence / AIML instrumentation staging and Biome temporary
+    streams.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/com.apple.aiml.instrumentation"
+  - "$HOME/Library/Biome/tmp"
+  - "$HOME/Library/Biome/compute"
+  delete_mode: contents
+  max_depth: 8
+- id: macos-archive-utility-and-unarchivers
+  name: Archive Utility, The Unarchiver, Keka, BetterZip temps/caches
+  description: Built-in Archive Utility and third-party unarchiver caches/temps.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 2
+  paths:
+  - "$HOME/Library/Caches/com.apple.archiveutility"
+  - "$HOME/Library/Group Containers/group.com.apple.ArchiveUtility.PKSignedContainer"
+  - "$HOME/Library/Caches/cx.c3.theunarchiver"
+  - "$HOME/Library/Caches/com.macpaw.site.theunarchiver"
+  - "$HOME/Library/Caches/com.aone.keka"
+  - "$HOME/Library/Caches/com.aone.keka.helper"
+  - "$HOME/Library/Caches/com.aone.keka.xpc"
+  - "$HOME/Library/Caches/com.macitbetter.betterzip"
+  - "$HOME/Library/Caches/com.macitbetter.betterzip.Finder-Extension"
+  - "$HOME/Library/Logs/Keka"
+  - "$HOME/Library/Logs/The Unarchiver"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - com.apple.archiveutility/**
+  - Keka*/**
+  - The Unarchiver*/**
+  - BetterZip*/**
+  - Unarchiver*/**
+- id: macos-dmg-mount-residuals
+  name: Disk image agent caches and TMP dmg residuals
+  description: DiskImages agent caches and temporary dmg extract residuals under user
+    TMPDIR.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 2
+  paths:
+  - "$HOME/Library/Caches/com.apple.DiskImages.DiskImageAgent"
+  - "$HOME/Library/Logs/DiskImages"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - dmg.*
+  - dmg.*/**
+  - "*.dmg.**"
+  - com.apple.DiskImages*/**
+  - TemporaryItems/**/*.dmg
+- id: macos-private-tmp-aged
+  name: Shared /private/tmp aged files
+  description: ''
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "/private/tmp"
+  - "/tmp"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-tmp
+  name: User temp (TMPDIR)
+  description: Files in the user temporary directory older than min age.
+  category: temp
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 2
+  paths:
+  - "$TMPDIR"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-var-tmp-user-accessible
+  name: User-accessible /var/tmp leftovers
+  description: ''
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/var/tmp"
+  - "/private/var/tmp"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/sysdiagnose*"
+  - "**/*sysdiagnose*"
+  - "**/TemporaryItems/**"
+- id: syslogs-diagnosticextensionsd-tmpdir
+  name: diagnosticextensionsd TMPDIR residual
+  description: diagnosticextensionsd working directory under user TMPDIR.
+  category: temp
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$TMPDIR/diagnosticextensionsd"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/diagnosticextensionsd/**"
+  - "**/diagnosticextensionsd*"
+  - "**/*DiagnosticExtension*"
+- id: windows-temp-user
+  name: User TEMP
+  description: User TEMP and LocalAppData Temp files
+  category: temp
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 2
+  paths:
+  - "$TEMP"
+  - "%LOCALAPPDATA%/Temp"
+  delete_mode: contents
+  max_depth: 6

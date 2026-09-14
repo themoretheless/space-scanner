@@ -11,6 +11,19 @@ pub struct ScanOptions {
     pub categories: Vec<String>,
     pub include_disabled: bool,
     pub min_age_override: Option<u64>,
+    /// Optional per-rule min_age from [`crate::manager::RulePrefs`].
+    pub prefs_min_age: std::collections::BTreeMap<String, u64>,
+}
+
+impl Default for ScanOptions {
+    fn default() -> Self {
+        Self {
+            categories: Vec::new(),
+            include_disabled: false,
+            min_age_override: None,
+            prefs_min_age: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -35,13 +48,25 @@ pub struct ScanReport {
 
 pub fn scan(pack: &RulePack, opts: &ScanOptions) -> Result<ScanReport> {
     let rules = pack.active_rules(&opts.categories, opts.include_disabled);
+    scan_rules(rules, opts)
+}
+
+/// Scan an explicit rule list (e.g. from [`crate::manager::RuleManager::scan_rules`]).
+pub fn scan_rules<'a>(
+    rules: impl IntoIterator<Item = &'a Rule>,
+    opts: &ScanOptions,
+) -> Result<ScanReport> {
+    let rules: Vec<&Rule> = rules.into_iter().collect();
     let rules_scanned = rules.len();
     let mut findings = Vec::new();
     let mut skipped_roots = Vec::new();
     let mut matched_rules = std::collections::BTreeSet::new();
 
     for rule in rules {
-        let min_age = opts.min_age_override.unwrap_or(rule.min_age_days);
+        let min_age = opts
+            .min_age_override
+            .or(opts.prefs_min_age.get(&rule.id).copied())
+            .unwrap_or(rule.min_age_days);
         let include = build_globset(&rule.include_globs, true)?;
         let exclude = build_globset(&rule.exclude_globs, false)?;
 
@@ -81,12 +106,9 @@ pub fn scan(pack: &RulePack, opts: &ScanOptions) -> Result<ScanReport> {
         }
     }
 
-    // De-dupe by path (keep first / larger rule specificity: first wins)
     findings.sort_by(|a, b| a.path.cmp(&b.path));
     findings.dedup_by(|a, b| a.path == b.path);
 
-    // Prefer not listing parents when children are also listed? Keep both for honesty of sizes;
-    // clean() will delete deepest-first.
     let total_bytes = findings.iter().map(|f| f.bytes).sum();
     Ok(ScanReport {
         findings,

@@ -1,0 +1,445 @@
+---
+pack: game-cache
+description: 'Category pack: game-cache (24 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: mac-battlenet-cache
+  name: Battle.net caches and logs ($HOME only)
+  description: Battle.net client caches under user Library. Shared Agent under /Users/Shared
+    is out of $HOME scope.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/Battle.net/Cache"
+  - "$HOME/Library/Application Support/Battle.net/Logs"
+  - "$HOME/Library/Application Support/Battle.net/Errors"
+  - "$HOME/Library/Caches/com.blizzard.Battle.net"
+  - "$HOME/Library/Caches/com.blizzard.Battle.net.BrowserHelper"
+  - "$HOME/Library/Logs/Battle.net"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-epic-launcher-cache
+  name: Epic Games Launcher caches
+  description: Official Epic launcher webcache and related caches. Not installed games.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Caches/com.epicgames.EpicGamesLauncher"
+  - "$HOME/Library/Caches/com.epicgames.EpicGamesLauncher/webcache"
+  - "$HOME/Library/Caches/com.epicgames.Portal"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Data/EMS"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Data/Cli"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Intermediate"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-epic-webcache-saved
+  name: Epic Saved webcache folders
+  description: webcache* folders under EpicGamesLauncher Saved (versioned webcache
+    dirs).
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/webcache"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/webcache_4147"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/webcache_4430"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/webcache_4430_1"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-game-center-cache
+  name: Game Center / GameKit caches
+  description: Apple Game Center client caches. Regenerable; not iCloud game saves.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/GameKit"
+  - "$HOME/Library/Caches/com.apple.gamed"
+  - "$HOME/Library/Caches/com.apple.gamecenter"
+  - "$HOME/Library/Application Support/GameKit"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-gog-galaxy-cache
+  name: GOG Galaxy caches and logs
+  description: GOG Galaxy client cache/logs; not galaxy-library game installs.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/GOG.com/Galaxy/cache"
+  - "$HOME/Library/Application Support/GOG.com/Galaxy/logs"
+  - "$HOME/Library/Application Support/GOG.com/Galaxy/crashdumps"
+  - "$HOME/Library/Caches/com.gog.galaxy"
+  - "$HOME/Library/Caches/com.gog.galaxy.GalaxySupport"
+  - "$HOME/Library/Logs/GOG.com"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-heroic-cache
+  name: Heroic Games Launcher caches and logs
+  description: Heroic Electron caches, legendary helper cache, game logs. Not installed
+    game folders.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/heroic/Cache"
+  - "$HOME/Library/Application Support/heroic/Code Cache"
+  - "$HOME/Library/Application Support/heroic/GPUCache"
+  - "$HOME/Library/Application Support/heroic/store"
+  - "$HOME/Library/Application Support/heroic/logs"
+  - "$HOME/Library/Caches/heroic"
+  - "$HOME/.cache/heroic"
+  - "$HOME/.config/heroic/Cache"
+  - "$HOME/.config/heroic/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-itch-cache
+  name: itch.io app caches and logs
+  description: itch desktop app caches/logs. Not apps/ game install library.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/itch/Cache"
+  - "$HOME/Library/Application Support/itch/Code Cache"
+  - "$HOME/Library/Application Support/itch/GPUCache"
+  - "$HOME/Library/Application Support/itch/logs"
+  - "$HOME/Library/Caches/itch"
+  - "$HOME/Library/Logs/itch"
+  - "$HOME/Library/Application Support/itch-setup"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-logitech-ghub
+  name: Logitech G HUB game peripheral caches
+  description: G HUB crash dumps and cache (common with gaming setups).
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/LGHUB/cache"
+  - "$HOME/Library/Application Support/LGHUB/logs"
+  - "$HOME/Library/Application Support/LGHUB/crashpad"
+  - "$HOME/Library/Caches/com.logitech.Logi-Options"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-lunar-client
+  name: Lunar Client caches and logs
+  description: Lunar Client (Minecraft) game/launcher caches and logs.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.lunarclient/game-cache"
+  - "$HOME/.lunarclient/launcher-cache"
+  - "$HOME/.lunarclient/logs"
+  - "$HOME/.lunarclient/offline"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/logs/**"
+  - "**/game-cache/**"
+  - "**/launcher-cache/**"
+- id: mac-minecraft-cache-logs
+  name: Minecraft logs and web caches
+  description: Minecraft launcher logs, crash reports, webcache. Never saves/ or versions/
+    installs.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/minecraft/logs"
+  - "$HOME/Library/Application Support/minecraft/crash-reports"
+  - "$HOME/Library/Application Support/minecraft/webcache"
+  - "$HOME/Library/Application Support/minecraft/webcache2"
+  - "$HOME/Library/Application Support/minecraft/.mixin.out"
+  - "$HOME/Library/Caches/com.mojang"
+  - "$HOME/Library/Caches/net.minecraft"
+  - "$HOME/Library/Logs/minecraft"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/saves/**"
+  - "**/versions/**"
+  - "**/resourcepacks/**"
+  - "**/shaderpacks/**"
+- id: mac-openemu-cache
+  name: OpenEmu caches and logs
+  description: OpenEmu app caches/logs. Never Game Library, Battery Saves, or Screenshots.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/org.openemu.OpenEmu"
+  - "$HOME/Library/Caches/OpenEmu"
+  - "$HOME/Library/Application Support/OpenEmu/Core Video Cache"
+  - "$HOME/Library/Logs/OpenEmu"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/Game Library/**"
+  - "**/Battery Saves/**"
+  - "**/Save States/**"
+- id: mac-playcover-cache
+  name: PlayCover caches and logs
+  description: PlayCover IPA runner caches/logs. Do not delete Apps/ container installs.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Caches/io.playcover.PlayCover"
+  - "$HOME/Library/Logs/io.playcover.PlayCover"
+  - "$HOME/Library/Application Support/io.playcover.PlayCover/Log"
+  - "$HOME/Library/HTTPStorages/io.playcover.PlayCover"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-riot-client-cache
+  name: Riot Client caches and logs ($HOME only)
+  description: Riot Client user Library caches/logs. League installs often under /Users/Shared
+    (out of scope). Valorant not native on Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/Riot Games/Riot Client/Logs"
+  - "$HOME/Library/Application Support/Riot Games/Riot Client/Crashes"
+  - "$HOME/Library/Application Support/Riot Games/Metadata"
+  - "$HOME/Library/Caches/com.riotgames.LeagueofLegends.LeagueClient"
+  - "$HOME/Library/Caches/com.riotgames.LeagueofLegends.GameClient"
+  - "$HOME/Library/Caches/com.riotgames.RiotGames.RiotClient"
+  - "$HOME/Library/Logs/Riot Client"
+  - "$HOME/Library/Logs/League of Legends"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-roblox-cache
+  name: Roblox caches and logs
+  description: Roblox Player/Studio caches and logs. Not place files the user authored.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Caches/com.roblox.RobloxPlayer"
+  - "$HOME/Library/Caches/com.roblox.RobloxStudio"
+  - "$HOME/Library/Caches/com.roblox.roblox"
+  - "$HOME/Library/Caches/Roblox"
+  - "$HOME/Library/Logs/Roblox"
+  - "$HOME/Library/Logs/com.roblox.RobloxPlayer"
+  - "$HOME/Library/Application Support/Roblox/logs"
+  - "$HOME/Library/Application Support/Roblox/crashes"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-steam-appcache
+  name: Steam appcache (HTTP/library metadata)
+  description: Regenerable Steam client appinfo, HTTP cache, library artwork cache.
+    Not game installs.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Steam/appcache/httpcache"
+  - "$HOME/Library/Application Support/Steam/appcache/librarycache"
+  - "$HOME/Library/Application Support/Steam/appcache/stats"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-steam-depotcache
+  name: Steam depotcache
+  description: Downloaded depot chunk/metadata cache used by Steam updates. Safe to
+    clear; redownloads as needed.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Steam/depotcache"
+  delete_mode: contents
+  max_depth: 4
+- id: mac-steam-htmlcache
+  name: Steam HTML/CEF cache variants
+  description: Steam store/client Chromium htmlcache locations used on some Mac builds.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Application Support/Steam/config/htmlcache"
+  - "$HOME/Library/Application Support/Steam/htmlcache"
+  - "$HOME/Library/Application Support/Steam/gpu_cache"
+  delete_mode: contents
+  max_depth: 5
+- id: mac-steam-library-caches
+  name: Steam Library/Caches and dump leftovers
+  description: User Library Caches/Steam and crash dumps only.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Steam"
+  - "$HOME/Library/Application Support/Steam/dumps"
+  - "$HOME/Library/Application Support/Steam/bin/cef/cef.macosx/debug.log"
+  delete_mode: contents
+  max_depth: 5
+- id: personal-asymmetric-games
+  name: Asymmetric / Loathing games personal caches
+  description: Live-discovered regenerable cache/log paths for Asymmetric / Loathing
+    games on this Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Asymmetric Games, LLC"
+  - "$HOME/Library/Logs/Asymmetric Software"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-cdpr
+  name: CD Projekt Red personal caches
+  description: Live-discovered regenerable cache/log paths for CD Projekt Red on this
+    Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/CD Projekt Red"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-daedalic
+  name: Daedalic Entertainment personal caches
+  description: Live-discovered regenerable cache/log paths for Daedalic Entertainment
+    on this Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Daedalic Entertainment GmbH"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-lugus
+  name: LuGus Studios personal caches
+  description: Live-discovered regenerable cache/log paths for LuGus Studios on this
+    Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/LuGus Studios"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-steam
+  name: Steam personal caches
+  description: Live-discovered regenerable cache/log paths for Steam on this Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Steam/config/htmlcache"
+  - "$HOME/Library/Application Support/Steam/logs"
+  - "$HOME/Library/Application Support/Steam/logs/steamui.txt"
+  - "$HOME/Library/Application Support/Steam/logs/bootstrap_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/cloud_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/timedtrial_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_system.txt"
+  - "$HOME/Library/Application Support/Steam/logs/transport_steamui.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamsysinfo.txt"
+  - "$HOME/Library/Application Support/Steam/logs/systemdisplaymanager.txt"
+  - "$HOME/Library/Application Support/Steam/logs/text_filter_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/stats_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/cef_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/webhelper_js.txt"
+  - "$HOME/Library/Application Support/Steam/logs/controller.txt"
+  - "$HOME/Library/Application Support/Steam/logs/appinfo_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_update.txt"
+  - "$HOME/Library/Application Support/Steam/logs/webhelper.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_audio.txt"
+  - "$HOME/Library/Application Support/Steam/logs/systemaudiomanager.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_html.txt"
+  - "$HOME/Library/Application Support/Steam/logs/remote_connections.txt"
+  - "$HOME/Library/Application Support/Steam/logs/gameprocess_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/connection_log.previous.txt"
+  - "$HOME/Library/Application Support/Steam/logs/sitelicense_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_librarycache.txt"
+  - "$HOME/Library/Application Support/Steam/logs/cloud_log.previous.txt"
+  - "$HOME/Library/Application Support/Steam/logs/console_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/connection_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/systemdockmanager.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_login.txt"
+  - "$HOME/Library/Application Support/Steam/logs/systemperfmanager.txt"
+  - "$HOME/Library/Application Support/Steam/logs/transport_client.txt"
+  - "$HOME/Library/Application Support/Steam/logs/shader_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/configstore_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/steamui_login.previous.txt"
+  - "$HOME/Library/Application Support/Steam/logs/content_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/systemmanager.txt"
+  - "$HOME/Library/Application Support/Steam/logs/webhelper_gpu.txt"
+  - "$HOME/Library/Application Support/Steam/logs/systemperfreporting.txt"
+  - "$HOME/Library/Application Support/Steam/logs/workshop_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/parental_log.txt"
+  - "$HOME/Library/Application Support/Steam/logs/streaming_log.txt"
+  - "$HOME/Library/Application Support/Steam/steamapps/temp"
+  - "$HOME/Library/Application Support/Steam/depotcache"
+  - "$HOME/Library/Application Support/Steam/appcache"
+  - "$HOME/Library/Caches/Steam/config/htmlcache"
+  - "$HOME/Library/Caches/Steam"
+  delete_mode: contents
+  max_depth: 4
+  exclude_globs:
+  - "**/steamapps/common/**"
+  - "**/userdata/**"
+- id: personal-vampire-survivors
+  name: Vampire Survivors personal caches
+  description: Live-discovered regenerable cache/log paths for Vampire Survivors on
+    this Mac.
+  category: game-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Vampire_Survivors"
+  - "$HOME/Library/Application Support/Vampire_Survivors_131410565"
+  - "$HOME/Library/Application Support/Vampire_Survivors_Data"
+  delete_mode: contents
+  max_depth: 4

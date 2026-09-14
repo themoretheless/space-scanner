@@ -76,11 +76,25 @@ cargo bench -p space-core --bench scan -- --profile normal
 
 ### Junk cleaner (from ppduster)
 
+Rules live in [`rules/categories/`](rules/categories/) — **3000** rules in **24** category packs (extensible: drop more `*.yaml` under `rules/`). See [`rules/README.md`](rules/README.md).
+
+**Rule manager** (prefs overlay, does not edit YAML):
+- App: **Rules** button → search / toggle rules & categories / Enable all / Reset
+- Prefs file: `~/Library/Application Support/com.themoretheless.SpaceScanner/rule-prefs.json` (macOS)
+- Junk scan respects effective on/off from prefs
+
 ```bash
-cargo run -p space-cli --release -- rules
-cargo run -p space-cli --release -- categories
+cargo run -p space-cli --release -- rules status
+cargo run -p space-cli --release -- rules list -q chrome --disabled
+cargo run -p space-cli --release -- rules enable gen-browser-chrome
+cargo run -p space-cli --release -- rules category on app-cache
+cargo run -p space-cli --release -- rules reset --all
+cargo run -p space-cli --release -- categories --all
 cargo run -p space-cli --release -- junk -c caches,logs
+cargo run -p space-cli --release -- junk --all     # every host rule (ignore prefs defaults)
 cargo run -p space-cli --release -- junk -c caches --clean --yes   # → Trash
 ```
 
-In the app: bottom **Junk** or menu `⋯` → Junk cleaner.
+Reorganize / expand packs: `RULES_TARGET=3000 ruby scripts/reorg_and_expand_rules.rb`
+
+In the app: **Junk** (clean) · **Rules** (manager).

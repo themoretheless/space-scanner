@@ -1,0 +1,96 @@
+---
+pack: sample-library
+description: 'Category pack: sample-library (6 rules). Add sibling YAML files under
+  rules/categories/ to extend.'
+rules:
+- id: daw-ableton-packs-library-report
+  name: Ableton Packs and User Library (report-only)
+  description: Installed Packs and User Library content. Large re-downloads; user
+    presets live here. Report size only.
+  category: sample-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Ableton/Factory Packs"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: daw-arturia-content-report
+  name: Arturia instrument content (report-only)
+  description: User-scoped Arturia content if present. Factory content often system
+    /Library/Arturia. Report only.
+  category: sample-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Arturia"
+  - "$HOME/Library/Application Support/Arturia/Content"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: daw-ni-komplete-content-report
+  name: Native Instruments Komplete content (report-only)
+  description: Large Komplete/Kontakt library content roots commonly under user Library
+    or custom drives. Report only.
+  category: sample-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Native Instruments/Komplete"
+  - "$HOME/Native Instruments"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: daw-output-arcade-content-report
+  name: Output Arcade content (report-only)
+  description: Arcade packs/content folders. Large streaming library offline cache/content.
+    Report only.
+  category: sample-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Output/Arcade"
+  - "$HOME/Library/Application Support/Output/ARCADE"
+  - "$HOME/Library/Application Support/Output/Arcade/ARCADE Content"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: daw-spitfire-content-report
+  name: Spitfire library content (report-only)
+  description: Installed Spitfire/LABS library content. Multi-GB; reinstall via Spitfire
+    app. Report only.
+  category: sample-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Spitfire Audio/Libraries"
+  - "$HOME/Library/Application Support/Spitfire/Libraries"
+  - "$HOME/Spitfire Audio"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: daw-steinberg-vst-sound-content-report
+  name: Steinberg VST Sound content (report-only)
+  description: Installed VST Sound / media content. Large libraries; re-download via
+    Library Manager. Report only.
+  category: sample-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Steinberg/Content"
+  - "$HOME/Library/Application Support/Steinberg/Media"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true

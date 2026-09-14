@@ -1,0 +1,143 @@
+---
+pack: databases
+description: 'Category pack: databases (8 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: db-docker-volumes-report
+  name: Docker Desktop volume and VM disk store (report-only)
+  description: Host paths backing Docker volumes and the Docker.raw sparse disk (all
+    images/volumes).
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Containers/com.docker.docker/Data/docker.raw"
+  - "$HOME/.docker/volumes"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: db-elasticsearch-data-report
+  name: Elasticsearch local data dirs (report-only)
+  description: Homebrew Elasticsearch/OpenSearch index data directories.
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/opt/homebrew/var/lib/elasticsearch"
+  - "/opt/homebrew/var/elasticsearch"
+  - "/opt/homebrew/var/lib/opensearch"
+  - "$HOME/Library/Application Support/Elastic"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: db-homebrew-server-data-report
+  name: Homebrew DB server data dirs (report-only)
+  description: postgresql@N, mysql, mariadb, mongodb-community data under Homebrew
+    var.
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/opt/homebrew/var/postgresql@14"
+  - "/opt/homebrew/var/postgresql@15"
+  - "/opt/homebrew/var/postgresql@16"
+  - "/opt/homebrew/var/postgresql@17"
+  - "/opt/homebrew/var/postgresql@18"
+  - "/opt/homebrew/var/postgres"
+  - "/opt/homebrew/var/mysql"
+  - "/opt/homebrew/var/mariadb"
+  - "/opt/homebrew/var/mongodb"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: db-neo4j-desktop-data-report
+  name: Neo4j Desktop data directories (report-only)
+  description: Neo4j Desktop projects, DBMS installs, and graph store data.
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Neo4j Desktop"
+  - "$HOME/Library/Application Support/neo4j-desktop"
+  - "$HOME/Library/Application Support/neo4j-desktop/Application"
+  - "$HOME/Library/Application Support/Neo4j Desktop/Application"
+  - "$HOME/.neo4j"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: db-postgresapp-data-report
+  name: Postgres.app data directories (report-only)
+  description: Default Postgres.app cluster data dirs (var-XX). Live databases; inventory
+    only.
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Postgres"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: db-redis-dump-report
+  name: Redis RDB dumps (report-only)
+  description: dump.rdb and appendonly persistence files in common local locations.
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/dump.rdb"
+  - "$HOME/appendonly.aof"
+  - "/opt/homebrew/var/db/redis"
+  - "/opt/homebrew/var/redis"
+  - "$HOME/Library/Application Support/redis"
+  delete_mode: path
+  max_depth: 4
+  include_globs:
+  - "**/dump.rdb"
+  - "**/appendonly.aof"
+  - "**/appendonly.aof.*"
+  report_only: true
+- id: obs-prometheus-tsdb-report
+  name: Prometheus local TSDB (report-only)
+  description: ''
+  category: databases
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/opt/homebrew/var/prometheus"
+  - "/opt/homebrew/var/lib/prometheus"
+  - "$HOME/prometheus/data"
+  - "$HOME/.prometheus/data"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: web-minio-data-report
+  name: MinIO object data (report-only)
+  description: Common local MinIO data directories and default config home. Object
+    storage is user data.
+  category: databases
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/minio/data"
+  - "$HOME/.minio/data"
+  - "$HOME/data/minio"
+  - "$HOME/Library/Application Support/minio"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true

@@ -1,0 +1,1916 @@
+---
+pack: caches
+description: 'Category pack: caches (112 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: cont-callservicesd-caches
+  name: callservicesd residual caches (medium careful)
+  description: telephonyutilities callservicesd and callintelligenced regenerable
+    caches only, not CallHistoryDB.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.telephonyutilities.callservicesd/Library/Caches"
+  - "$HOME/Library/Application Support/com.apple.callintelligenced"
+  - "$HOME/Library/Caches/com.apple.callservicesd"
+  - "$HOME/Library/Containers/com.apple.calls.PhoneAppIntentsExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.calls.PhoneAppIntentsExtension/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+- id: cont-handoff-useractivityd-caches
+  name: Handoff useractivityd group caches
+  description: Regenerable Caches/Application Support under useractivityd group (Handoff
+    activity metadata), not the shared-pasteboard tree.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.coreservices.useractivityd/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.coreservices.useractivityd/Library/Application
+    Support"
+  - "$HOME/Library/Containers/com.apple.AirDrop-Handoff-Settings.extension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.AirDrop-Handoff-Settings.extension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.settings-intents.AirDropHandoffIntents/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.settings-intents.AirDropHandoffIntents/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/shared-pasteboard/**"
+- id: cont-icloud-photos-agent-residual
+  name: iCloud Photos agent caches (not library)
+  description: photolibraryd, mstreamd, moments, CloudPhotosConfiguration agent caches
+    only. Never Photos Library.photoslibrary or File Provider Storage originals.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.photolibraryd/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.mediastream.mstreamd/Data/Library/HTTPStorages"
+  - "$HOME/Library/Containers/com.apple.mediastream.mstreamd/Data/Library/MediaStream"
+  - "$HOME/Library/Containers/com.apple.CloudPhotosConfiguration/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.CloudPhotosConfiguration/Data/tmp"
+  - "$HOME/Library/Group Containers/group.com.apple.photolibraryd.private/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.moments/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.moments/tmp"
+  - "$HOME/Library/Caches/CloudKit/com.apple.cloudphotod"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/*.photoslibrary/**"
+  - "**/File Provider Storage/**"
+  - "**/moments.sqlite*"
+  - "**/Photos.sqlite*"
+- id: cont-pasteboard-spotlight-history
+  name: CoreSpotlight PasteboardHistory residual
+  description: Spotlight PasteboardHistory metadata residual related to clipboard
+    indexing.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Metadata/CoreSpotlight/PasteboardHistory"
+  delete_mode: contents
+  max_depth: 4
+- id: cont-proactive-duet-residual
+  name: Proactive and Duet residual streams/metrics
+  description: DuetExpertCenter residual subtrees (streams, metrics, feedback, caches)
+    and proactive reporting residual. Parent DuetExpertCenter already cleanable in
+    apple-extended; this documents residual depth and medium privacy stance.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/DuetExpertCenter/streams"
+  - "$HOME/Library/DuetExpertCenter/metrics"
+  - "$HOME/Library/DuetExpertCenter/feedback"
+  - "$HOME/Library/DuetExpertCenter/caches"
+  - "$HOME/Library/Containers/com.apple.proactive.AppleIntelligenceReportingSELFIngestor/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.proactive.AppleIntelligenceReportingSELFIngestor/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DEC.AppPredictionInternal.DiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DEC.AppPredictionInternal.DiagnosticExtension/Data/tmp"
+  delete_mode: contents
+  max_depth: 6
+- id: cont-push-usernotifications-residual
+  name: Push and UserNotifications residual caches
+  description: UserNotifications group caches, Notification Center UI residual, AOSPushRelay
+    HTTPStorages.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.UserNotifications/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.notificationcenterui/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.notificationcenterui/Data/tmp"
+  - "$HOME/Library/HTTPStorages/com.apple.AOSPushRelay"
+  - "$HOME/Library/Caches/com.apple.UserNotifications"
+  - "$HOME/Library/Caches/com.apple.apsd"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/*.binarycookies"
+- id: cont-sharingd-rapport-residual
+  name: sharingd and rapportd Continuity residual caches
+  description: Nearby Continuity transport residual under sharingd and rapportd group
+    Library/Caches only.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.sharingd/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.rapportd/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.rapportd/Library/Application Support"
+  - "$HOME/Library/Caches/com.apple.sharingd"
+  - "$HOME/Library/Caches/com.apple.rapportd"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/AirDropIDMSDB/**"
+  - "**/RPIdentitySyncCache.plist"
+- id: cont-sidecar-screen-continuity
+  name: Sidecar and Screen Continuity caches
+  description: Screen Continuity / Sidecar / iPhone Mirroring related container and
+    group caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.ScreenContinuity/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.ScreenContinuity/Data/tmp"
+  - "$HOME/Library/Group Containers/group.com.apple.ScreenContinuityServices/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.ScreenContinuityServices/Library/Application
+    Support"
+  - "$HOME/Library/Group Containers/group.com.apple.replicatord/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.replicatord/Library/Application
+    Support"
+  - "$HOME/Library/Caches/com.apple.ScreenContinuity"
+  - "$HOME/Library/Caches/com.apple.sidecar"
+  delete_mode: contents
+  max_depth: 6
+- id: cont-siri-suggestions-residual
+  name: Siri suggestions residual caches
+  description: Siri suggestions group Library/Caches residual and related suggestion
+    container leaves. Full Suggestions tree remains report-only in apple-extended.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.siri.sirisuggestions/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.siri.userfeedbacklearning/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.siri.userfeedbacklearning/Segment"
+  - "$HOME/Library/Containers/com.apple.siri.SiriSuggestionsLightHousePlugin/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.siri.SiriSuggestionsLightHousePlugin/Data/tmp"
+  - "$HOME/Library/Caches/com.apple.siri.suggestions"
+  - "$HOME/Library/Caches/com.apple.suggestd"
+  delete_mode: contents
+  max_depth: 5
+- id: cont-universal-clipboard-pasteboard
+  name: Universal Clipboard shared-pasteboard staging
+  description: Handoff/Universal Clipboard staged pasteboard archives and items under
+    useractivityd group. Known large reclaim surface.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.coreservices.useractivityd/shared-pasteboard"
+  - "$HOME/Library/Group Containers/group.com.apple.coreservices.useractivityd/shared-pasteboard/archives"
+  - "$HOME/Library/Group Containers/group.com.apple.coreservices.useractivityd/shared-pasteboard/items"
+  delete_mode: contents
+  max_depth: 6
+- id: containers-httpstorages-host-residual
+  name: Host HTTPStorages for utility bundle IDs
+  description: User Library/HTTPStorages residual for common utility bundle IDs.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/HTTPStorages/com.apple.calculator"
+  - "$HOME/Library/HTTPStorages/com.apple.weather"
+  - "$HOME/Library/HTTPStorages/com.apple.stocks"
+  - "$HOME/Library/HTTPStorages/com.apple.news"
+  - "$HOME/Library/HTTPStorages/com.apple.freeform"
+  - "$HOME/Library/HTTPStorages/com.apple.journal"
+  - "$HOME/Library/HTTPStorages/com.apple.Passwords"
+  - "$HOME/Library/HTTPStorages/com.apple.shortcuts"
+  - "$HOME/Library/HTTPStorages/com.apple.Preview"
+  - "$HOME/Library/HTTPStorages/com.apple.QuickTimePlayerX"
+  - "$HOME/Library/HTTPStorages/com.apple.TextEdit"
+  - "$HOME/Library/HTTPStorages/com.apple.Home"
+  - "$HOME/Library/HTTPStorages/com.apple.VoiceMemos"
+  - "$HOME/Library/HTTPStorages/com.apple.clock"
+  - "$HOME/Library/HTTPStorages/com.apple.FontBook"
+  - "$HOME/Library/HTTPStorages/com.apple.Terminal"
+  - "$HOME/Library/HTTPStorages/com.googlecode.iterm2"
+  - "$HOME/Library/HTTPStorages/dev.warp.Warp-Stable"
+  delete_mode: contents
+  max_depth: 4
+- id: containers-webkit-host-residual-utils
+  name: Host WebKit residual for utility apps
+  description: Library/WebKit process dirs for utility bundle IDs if present.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/WebKit/com.apple.news"
+  - "$HOME/Library/WebKit/com.apple.stocks"
+  - "$HOME/Library/WebKit/com.apple.weather"
+  - "$HOME/Library/WebKit/com.apple.freeform"
+  - "$HOME/Library/WebKit/com.apple.journal"
+  - "$HOME/Library/WebKit/com.apple.Home"
+  - "$HOME/Library/WebKit/com.apple.Preview"
+  - "$HOME/Library/WebKit/com.apple.shortcuts"
+  - "$HOME/Library/WebKit/com.apple.Passwords"
+  delete_mode: contents
+  max_depth: 5
+- id: emoji-memoji-avatar-caches
+  name: Emoji, Memoji, stickers, AvatarKit caches
+  description: Emoji function row, Memoji picker, stickers, and AvatarKit regenerable
+    caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.inputmethod.EmojiFunctionRowItem/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.AvatarUI.AvatarPickerMemojiEditor/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.AvatarUI.AvatarPickerMemojiPicker/Data/Library/Caches"
+  - "$TMPDIR/../C/com.apple.stickersd"
+  - "$HOME/Library/Caches/com.apple.stickersd"
+  delete_mode: contents
+  max_depth: 6
+- id: fonts-ats-user-cache
+  name: ATS user font cache
+  description: Apple Type Services per-user font cache under Library/Caches. Not font
+    files.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.ATSServer"
+  delete_mode: contents
+  max_depth: 6
+- id: fonts-fontd-coretext-caches
+  name: fontd and CoreText related caches
+  description: fontd, CoreText, CTFontManager, and related Apple font pipeline caches
+    under user Caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.CoreText"
+  - "$HOME/Library/Caches/com.apple.CTFontManager"
+  - "$HOME/Library/Caches/com.apple.FontBook"
+  - "$HOME/Library/Caches/com.apple.FontValidationService"
+  delete_mode: contents
+  max_depth: 6
+- id: fonts-fontregistry-user-cache
+  name: FontRegistry user cache
+  description: com.apple.FontRegistry user cache (Library/Caches and Darwin C residual).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$TMPDIR/../C/com.apple.FontRegistry"
+  delete_mode: contents
+  max_depth: 6
+- id: group-containers-pattern-caches-logs
+  name: Group Containers Caches and Logs pattern
+  description: Library/Caches and Library/Logs under app groups only.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Group Containers"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "*/Library/Caches/**"
+  - "*/Library/Logs/**"
+  exclude_globs:
+  - com.apple.messages
+  - com.apple.messages/**
+  - group.com.apple.mail
+  - group.com.apple.mail/**
+  - group.com.apple.calendar
+  - group.com.apple.calendar/**
+  - group.com.apple.notes
+  - group.com.apple.notes/**
+  - com.apple.MailPersonaStorage
+  - com.apple.MailPersonaStorage/**
+  - group.com.apple.Photos*
+  - group.com.apple.Photos*/**
+  - com.apple.bird
+  - com.apple.bird/**
+  - group.com.apple.CloudDocs
+  - group.com.apple.CloudDocs/**
+  - group.com.apple.VoiceMemos.shared
+  - group.com.apple.VoiceMemos.shared/**
+  - group.com.apple.freeform
+  - group.com.apple.freeform/**
+  - group.com.apple.Journal
+  - group.com.apple.Journal/**
+- id: hb-deep-mas-appstore-caches
+  name: mas / Mac App Store user caches
+  description: User Library caches used by Mac App Store and related agents (mas CLI
+    drives MAS installs; no large private mas cache).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.appstore"
+  - "$HOME/Library/Caches/com.apple.AppStore"
+  delete_mode: contents
+  max_depth: 5
+- id: icons-dock-iconcache
+  name: Dock icon cache residual
+  description: Dock icon cache under Darwin user C and legacy Library/Caches locations.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$TMPDIR/../C/com.apple.dock.iconcache"
+  - "$HOME/Library/Caches/com.apple.dock.iconcache"
+  - "$HOME/Library/Caches/com.apple.dock"
+  - "$TMPDIR/../C/com.apple.dock"
+  delete_mode: contents
+  max_depth: 5
+- id: icons-iconservices-user-residual
+  name: Icon Services user residual (Darwin C)
+  description: Per-user Icon Services cache under Darwin user cache dir (sibling of
+    $TMPDIR).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$TMPDIR/../C/com.apple.iconservices"
+  - "$TMPDIR/../C/com.apple.iconservicesagent"
+  - "$TMPDIR/com.apple.IconServices"
+  - "$HOME/Library/Caches/com.apple.iconservicesagent"
+  - "$HOME/Library/Caches/com.apple.IconServices"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-thumbnails
+  name: Thumbnail cache
+  description: Freedesktop thumbnail cache.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/thumbnails"
+  - "$HOME/.thumbnails"
+  delete_mode: contents
+  max_depth: 4
+- id: linux-xdg-cache
+  name: XDG user cache
+  description: Files under $XDG_CACHE_HOME / ~/.cache.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$XDG_CACHE_HOME"
+  - "$HOME/.cache"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - mesa_shader_cache/**
+  - nvidia/**
+- id: macos-account-ams-caches
+  name: Account, AMS, AuthKit agent caches
+  description: Apple Media Services accounts, AuthKit (akd), ad privacy, and related
+    agent caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.amsaccountsd"
+  - "$HOME/Library/Caches/com.apple.amsengagementd"
+  - "$HOME/Library/Caches/com.apple.akd"
+  - "$HOME/Library/Caches/com.apple.ap.adprivacyd"
+  - "$HOME/Library/Caches/com.apple.AuthenticationServicesCore.AuthenticationServicesAgent"
+  - "$HOME/Library/Caches/com.apple.askpermissiond"
+  - "$HOME/Library/Caches/com.apple.FeatureAccessAgent"
+  - "$HOME/Library/AppleMediaServices"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-ams-media-caches
+  name: Apple Media Services caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.AppleMediaServices"
+  - "$HOME/Library/Caches/com.apple.AMPLibraryAgent"
+  - "$HOME/Library/Caches/com.apple.AMPDevicesAgent"
+  - "$HOME/Library/Caches/com.apple.itunescloudd"
+  - "$HOME/Library/Caches/com.apple.nbagent"
+  - "$HOME/Library/Caches/PassKit"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-colorsync-user-caches
+  name: ColorSync user caches
+  description: ColorSync display/profile caches under user Caches (not custom ICC
+    profile libraries).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.ColorSync"
+  - "$HOME/Library/Caches/com.apple.colorsync.displayservices"
+  - "$HOME/Library/Caches/com.apple.ColorSyncUtils"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-container-manager-meta
+  name: ContainerManager system metadata caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/ContainerManager"
+  - "$HOME/Library/Caches/com.apple.containermanagerd"
+  - "$HOME/Library/Daemon Containers"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-containers-caches-pattern
+  name: Sandboxed app container caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "*/Data/Library/Caches/**"
+  - "*/Data/tmp/**"
+  - "*/Data/Library/Logs/**"
+  exclude_globs:
+  - com.apple.mail
+  - com.apple.mail/**
+  - com.apple.MobileSMS
+  - com.apple.MobileSMS/**
+  - com.apple.Notes
+  - com.apple.Notes/**
+  - com.apple.Safari
+  - com.apple.Safari/**
+  - com.apple.stocks
+  - com.apple.stocks/**
+  - com.apple.Keynote
+  - com.apple.Keynote/**
+  - com.apple.iWork.*
+  - com.apple.iWork.*/**
+- id: macos-diskimages-support
+  name: DiskImages Application Support cache
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/DiskImages"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-e5rt-media-analysis-caches
+  name: Media analysis and e5rt bundle caches
+  description: mediaanalysisd/photoanalysisd container caches and e5rt model bundle
+    cache (known disk hogs).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.apple.e5rt.e5bundlecache"
+  - "$HOME/Library/Containers/com.apple.mediaanalysisd/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.photoanalysisd/Data/Library/Caches"
+  - "$HOME/Library/MediaAnalysis"
+  delete_mode: contents
+  max_depth: 8
+- id: macos-fontd-cache
+  name: Font daemon cache
+  description: macOS font rendering caches; rebuilt automatically.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.FontRegistry.user"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-gamekit-passkit-caches
+  name: GameKit, PassKit, and Wallet agent caches
+  description: Game Center and PassKit image/metadata caches (not passes themselves).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/GameKit"
+  - "$HOME/Library/Caches/com.apple.gamed"
+  - "$HOME/Library/Caches/PassKit"
+  - "$HOME/Library/Caches/com.apple.passd"
+  - "$HOME/Library/GameKit"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-gamekit-passkit-misc
+  name: GameKit and related Apple caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/GameKit"
+  - "$HOME/Library/Caches/com.apple.gamed"
+  - "$HOME/Library/Caches/com.apple.AvatarKit"
+  - "$HOME/Library/Caches/com.apple.VideoConference"
+  - "$HOME/Library/Caches/com.apple.DictionaryServices"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-geoservices-cache
+  name: GeoServices cache
+  description: Maps and location services tile cache.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/GeoServices"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-geoservices-cache-ext
+  name: Maps / GeoServices tile and resource cache
+  description: Offline map tiles, regional resources, and geo analytics cache.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/GeoServices"
+  - "$HOME/Library/Caches/com.apple.geoanalyticsd"
+  - "$HOME/Library/Containers/com.apple.Maps/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - CloudKit
+  - CloudKit/**
+- id: macos-geoservices-geod-cache-report
+  name: GeoServices / Maps tile cache
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/GeoServices"
+  - "$HOME/Library/Caches/com.apple.geod"
+  - "$HOME/Library/Caches/com.apple.geoanalyticsd"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-group-containers-caches
+  name: Group Containers caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Group Containers"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "*/Library/Caches/**"
+  - "*/Library/Logs/**"
+  exclude_globs:
+  - com.apple.messages
+  - com.apple.messages/**
+  - group.com.apple.calendar
+  - group.com.apple.calendar/**
+  - group.com.apple.notes
+  - group.com.apple.notes/**
+  - com.apple.MailPersonaStorage
+  - com.apple.MailPersonaStorage/**
+  - group.com.apple.Photos*
+  - group.com.apple.Photos*/**
+  - com.apple.bird
+  - com.apple.bird/**
+  - group.com.apple.CloudDocs
+  - group.com.apple.CloudDocs/**
+- id: macos-helpd-cache
+  name: Help daemon cache
+  description: macOS Help Viewer content cache.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/com.apple.helpd"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-helpd-cache-ext
+  name: Help Viewer and dictionary caches
+  description: com.apple.helpd index and DictionaryServices lookup cache.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.helpd"
+  - "$HOME/Library/Caches/com.apple.DictionaryServices"
+  - "$HOME/Library/Group Containers/group.com.apple.helpviewer.content"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-helpd-python-pref-caches
+  name: Help, Python, preference pane caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.helpd"
+  - "$HOME/Library/Caches/com.apple.python"
+  - "$HOME/Library/Caches/com.apple.preferencepanes.usercache"
+  - "$HOME/Library/Caches/com.apple.systemsettings.menucache"
+  - "$HOME/Library/Caches/com.apple.tiswitcher.cache"
+  - "$HOME/Library/Caches/com.apple.chrono"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-httpstorages-apple
+  name: Apple HTTPStorages network caches
+  description: NSURL-style HTTP response caches for Apple system daemons under HTTPStorages.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/HTTPStorages/com.apple.AMPDevicesAgent"
+  - "$HOME/Library/HTTPStorages/com.apple.AMPLibraryAgent"
+  - "$HOME/Library/HTTPStorages/com.apple.Music"
+  - "$HOME/Library/HTTPStorages/com.apple.appstoreagent"
+  - "$HOME/Library/HTTPStorages/com.apple.appstorecomponentsd"
+  - "$HOME/Library/HTTPStorages/com.apple.storekitagent"
+  - "$HOME/Library/HTTPStorages/com.apple.itunescloudd"
+  - "$HOME/Library/HTTPStorages/com.apple.helpd"
+  - "$HOME/Library/HTTPStorages/com.apple.tipsd"
+  - "$HOME/Library/HTTPStorages/com.apple.translationd"
+  - "$HOME/Library/HTTPStorages/com.apple.siriknowledged"
+  - "$HOME/Library/HTTPStorages/com.apple.assistant_service"
+  - "$HOME/Library/HTTPStorages/com.apple.SoftwareUpdateNotificationManager"
+  - "$HOME/Library/HTTPStorages/softwareupdate"
+  delete_mode: contents
+  max_depth: 4
+  exclude_globs:
+  - "**/*.binarycookies"
+- id: macos-httpstorages-cache
+  name: HTTPStorages URL cache
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/HTTPStorages"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-icloud-agent-caches
+  name: iCloud agent and bird caches
+  description: bird, iCloud notification/mail/web agents, and related non-document
+    caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.bird"
+  - "$HOME/Library/Caches/com.apple.iCloudNotificationAgent"
+  - "$HOME/Library/Caches/com.apple.icloudmailagent"
+  - "$HOME/Library/Caches/com.apple.icloudwebd"
+  - "$HOME/Library/Caches/com.apple.appleaccountd"
+  - "$HOME/Library/Caches/com.apple.CloudTelemetry"
+  - "$HOME/Library/Logs/com.apple.CloudTelemetry"
+  - "$HOME/Library/com.apple.appleaccountd"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-knowledge-diffprivacy
+  name: Knowledge and DifferentialPrivacy stores
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/Knowledge"
+  - "$HOME/Library/Application Support/DifferentialPrivacy"
+  - "$HOME/Library/DuetExpertCenter"
+  - "$HOME/Library/Caches/com.apple.duetexpertd"
+  - "$HOME/Library/Caches/com.apple.proactive.eventtracker"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-metal-cache
+  name: Metal shader cache
+  description: macOS Metal pre-compiled shader cache; safe to remove.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.metal"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-network-session-caches
+  name: URLSession, container manager, cache_delete caches
+  description: nsurlsessiond, containermanagerd, cache_delete, and python framework
+    caches under Apple prefixes.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 5
+  paths:
+  - "$HOME/Library/Caches/com.apple.nsurlsessiond"
+  - "$HOME/Library/Caches/com.apple.containermanagerd"
+  - "$HOME/Library/Caches/com.apple.cache_delete"
+  - "$HOME/Library/Caches/com.apple.python"
+  - "$HOME/Library/Caches/com.apple.VideoConference"
+  - "$HOME/Library/Caches/com.apple.feedbacklogger"
+  - "$HOME/Library/Caches/com.apple.betaenrollmentagent"
+  - "$HOME/Library/Caches/com.apple.businessservicesd"
+  - "$HOME/Library/Caches/com.apple.dataaccess.dataaccessd"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-new-device-outreach
+  name: New Device Outreach / tips caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/com.apple.NewDeviceOutreach"
+  - "$HOME/Library/Caches/com.apple.tipsd"
+  - "$HOME/Library/Caches/com.apple.betaenrollmentagent"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-newdevice-spotlight-support-caches
+  name: New Device Outreach and Spotlight support caches
+  description: NewDeviceOutreach caches, Spotlight submitted reports, TCC adhoc signature
+    cache.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/com.apple.NewDeviceOutreach/caches"
+  - "$HOME/Library/Application Support/com.apple.spotlight/SubmittedReports"
+  - "$HOME/Library/Application Support/com.apple.TCC/AdhocSignatureCache"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-nsurl-session-cache
+  name: NSURLSession daemon cache
+  description: Background URL session download cache files.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.nsurlsessiond"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-proactive-duet-caches
+  name: Proactive, Duet, and category service caches
+  description: duetexpertd, proactive event tracker, ct categories, nbagent, remindd
+    caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.duetexpertd"
+  - "$HOME/Library/Caches/com.apple.proactive.eventtracker"
+  - "$HOME/Library/Caches/com.apple.ctcategories.service"
+  - "$HOME/Library/Caches/com.apple.nbagent"
+  - "$HOME/Library/Caches/com.apple.remindd"
+  - "$HOME/Library/Caches/com.apple.homed"
+  - "$HOME/Library/Caches/familycircled"
+  - "$HOME/Library/DuetExpertCenter"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-quicklook-cache
+  name: Quick Look thumbnails cache
+  description: qlmanage thumbnail cache if present.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.QuickLook.thumbnailcache"
+  - "$HOME/Library/Caches/CloudKit/com.apple.QuickLook.thumbnailcache"
+  delete_mode: path
+  max_depth: 2
+- id: macos-shrink-storage-user-cache-roots
+  name: High-value shrink-storage user cache roots
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.nsurlsessiond"
+  - "$HOME/Library/Caches/CloudKit/com.apple.Safari"
+  - "$HOME/Library/Caches/com.apple.parsecd"
+  - "$HOME/Library/Caches/com.apple.e5rt.e5bundlecache"
+  - "$HOME/Library/Caches/com.apple.feedbacklogger"
+  - "$HOME/Library/Caches/com.apple.assistantd"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-siri-assistant-caches
+  name: Siri, Assistant, and Parsec caches
+  description: assistantd, parsecd, Siri TTS, tipsd, and Assistant LLM cache.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.assistantd"
+  - "$HOME/Library/Caches/com.apple.parsecd"
+  - "$HOME/Library/Caches/com.apple.sirittsd"
+  - "$HOME/Library/Caches/com.apple.tipsd"
+  - "$HOME/Library/Caches/com.apple.Spotlight"
+  - "$HOME/Library/Assistant/LLMCache"
+  - "$HOME/Library/Logs/Assistant"
+  - "$HOME/Library/Logs/SiriTTSService"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-spotlight-corespotlight
+  name: CoreSpotlight user metadata index
+  description: Per-user Spotlight/CoreSpotlight index data that can grow multi-GB
+    (especially Sequoia+).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Metadata/CoreSpotlight"
+  delete_mode: contents
+  max_depth: 8
+- id: macos-spotlight-knowledge-events
+  name: Spotlight Knowledge Events / Intelligent Suggestions
+  description: Spotlight Knowledge journals and Intelligent Suggestions metadata (known
+    space hogs on Sequoia).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Metadata/SpotlightKnowledgeEvents"
+  - "$HOME/Library/Metadata/com.apple.IntelligentSuggestions"
+  - "$HOME/Library/Metadata/Assets"
+  delete_mode: contents
+  max_depth: 8
+- id: macos-translation-caches
+  name: Translation and language asset caches
+  description: translationd cache and user Translation assets that redownload.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.translationd"
+  - "$HOME/Library/Translation"
+  - "$HOME/Library/Group Containers/group.com.apple.private.translation"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-trial-unified-assets
+  name: Trial treatments and UnifiedAssetFramework
+  description: A/B Trial namespace data and UnifiedAssetFramework downloads.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Trial"
+  - "$HOME/Library/UnifiedAssetFramework"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-ui-system-settings-caches
+  name: System Settings and UI menu caches
+  description: Preference panes user cache, System Settings menu cache, TI switcher,
+    AvatarKit.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.apple.preferencepanes.usercache"
+  - "$HOME/Library/Caches/com.apple.systemsettings.menucache"
+  - "$HOME/Library/Caches/com.apple.tiswitcher.cache"
+  - "$HOME/Library/Caches/com.apple.AvatarKit"
+  - "$HOME/Library/Caches/com.apple.chrono"
+  - "$HOME/Library/Group Containers/com.apple.systempreferences.cache"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-updater-caches
+  name: App updater download caches
+  description: Old updater downloads for various apps (ShipIt, cron, etc.).
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.microsoft.VSCode.ShipIt"
+  - "$HOME/Library/Caches/com.microsoft.VSCodeInsiders.ShipIt"
+  - "$HOME/Library/Caches/cron-updater"
+  - "$HOME/Library/Caches/com.todesktop.210203cqatirggu"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-user-caches
+  name: User Library Caches
+  description: Non-essential app caches under ~/Library/Caches (excludes some Apple
+    services).
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - CloudKit
+  - CloudKit/**
+  - com.apple.Safari
+  - com.apple.Safari/**
+  - com.apple.HomeKit
+  - com.apple.HomeKit/**
+  - FamilyCircle
+  - FamilyCircle/**
+  - com.apple.findmy*
+  - com.apple.findmy*/**
+  - JetBrains
+  - JetBrains/**
+  - Google
+  - Google/**
+  - Firefox
+  - Firefox/**
+  - Homebrew
+  - Homebrew/**
+- id: macos-user-font-caches
+  name: User font caches (not font files)
+  description: ATS/FontRegistry/iWork font caches under user Caches; never ~/Library/Fonts.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.FontRegistry"
+  - "$HOME/Library/Caches/com.apple.ATS"
+  - "$HOME/Library/Caches/com.apple.iwork.fonts"
+  - "$HOME/Library/Caches/com.apple.amsengagementd.fonts"
+  - "$HOME/Library/Caches/com.apple.fontd"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-wallpaper-aerial-caches
+  name: Wallpaper aerial and store caches
+  description: Dynamic wallpaper aerial video cache and wallpaper store (redownloads).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/com.apple.wallpaper/aerials"
+  - "$HOME/Library/Application Support/com.apple.wallpaper/Store"
+  - "$HOME/Library/Application Support/com.apple.mobileAssetDesktop"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-webkit-website-data-cache
+  name: WebKit process caches (user)
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/WebKit"
+  - "$HOME/Library/Caches/com.apple.WebKit.Networking"
+  - "$HOME/Library/Caches/com.apple.WebKit.WebContent"
+  - "$HOME/Library/Caches/WebKit"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/WebsiteData/Cached*/**"
+  - "**/CacheStorage/**"
+  - "**/WebKitCache/**"
+- id: mdm-jamf-selfservice-saved-state
+  name: Jamf Self Service saved application state
+  description: Window restoration state for Jamf Self Service.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Saved Application State/com.jamfsoftware.selfservice.mac.savedState"
+  - "$HOME/Library/Saved Application State/com.jamf.selfservice.savedState"
+  delete_mode: contents
+  max_depth: 4
+- id: mdm-workspace-one-hub-saved-state
+  name: Workspace ONE Hub saved state
+  description: Saved application state for Intelligent Hub / AirWatch agent UI.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Saved Application State/com.vmware.hub.mac.savedState"
+  - "$HOME/Library/Saved Application State/com.air-watch.mac.agent.savedState"
+  delete_mode: contents
+  max_depth: 4
+- id: mobile-android-dot-android-caches
+  name: mobile-android-dot-android-caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.android/cache"
+  - "$HOME/.android/build-cache"
+  - "$HOME/.android/metrics"
+  - "$HOME/.android/studio"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-eas-cli
+  name: mobile-eas-cli
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/.eas"
+  - "$HOME/.eas-cli"
+  - "$HOME/Library/Caches/eas-cli"
+  - "$HOME/Library/Caches/eas-cli-nodejs"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-expo-caches
+  name: mobile-expo-caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.expo"
+  - "$HOME/.expo/cache"
+  - "$HOME/.expo/ios-simulator-app-cache"
+  - "$HOME/.expo/android-apk-cache"
+  - "$HOME/.expo/native-modules-cache"
+  - "$HOME/.expo/versions-cache"
+  - "$HOME/.expo/template-cache"
+  - "$HOME/Library/Caches/Expo"
+  - "$HOME/Library/Caches/com.expo.exporter"
+  - "$HOME/Library/Caches/com.exponent.Exponent"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-flipper-reactotron
+  name: mobile-flipper-reactotron
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/Flipper"
+  - "$HOME/Library/Caches/Flipper"
+  - "$HOME/Library/Caches/facebook-flipper"
+  - "$HOME/Library/Application Support/Reactotron"
+  - "$HOME/Library/Caches/Reactotron"
+  - "$HOME/Library/Logs/Flipper"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-metro-rn-temp-caches
+  name: mobile-metro-rn-temp-caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.facebook.react.packager"
+  - "$HOME/Library/Caches/metro-cache"
+  - "$HOME/.metro"
+  - "$HOME/.rncache"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - metro-cache/**
+  - metro-*/**
+  - haste-map-*/**
+  - react-native-packager-cache-*/**
+  - react-*/**
+- id: mobile-react-native-firebase-caches
+  name: mobile-react-native-firebase-caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/Firebase"
+  - "$HOME/Library/Caches/com.google.firebase"
+  - "$HOME/Library/Caches/Google/Firebase"
+  - "$HOME/Library/Caches/cn.jiguang"
+  - "$HOME/Library/Caches/io.sentry"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-scrcpy
+  name: mobile-scrcpy
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/scrcpy"
+  - "$HOME/.config/scrcpy"
+  - "$HOME/.cache/scrcpy"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-watchman-flow
+  name: mobile-watchman-flow
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.watchman"
+  - "$TMPDIR/watchman-*"
+  - "$HOME/Library/Caches/com.github.facebook.watchman"
+  - "$HOME/.flow-typed"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-xcode-app-caches
+  name: mobile-xcode-app-caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.dt.Xcode"
+  - "$HOME/Library/Caches/com.apple.dt.xcodebuild"
+  - "$HOME/Library/Caches/com.apple.dt.Instruments"
+  - "$HOME/Library/Caches/com.apple.dt.IDECacheDeleteAppExtension"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-xcode-gpu-metal
+  name: mobile-xcode-gpu-metal
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Developer/Xcode/GPUToolsAgent.caches"
+  - "$HOME/Library/Caches/com.apple.gpu"
+  - "$HOME/Library/Developer/Xcode/UserData/IB Support/Simulator Devices"
+  delete_mode: contents
+  max_depth: 6
+- id: obs-datadog-agent-run-cache
+  name: Datadog Agent run and install temp
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/datadog-agent/run"
+  - "/tmp/dd_agent.log"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-datadog-user-sdk-cache
+  name: Datadog user Library cache (SDK/agent UI)
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.datadoghq"
+  - "$HOME/Library/Logs/Datadog"
+  - "$HOME/Library/Logs/com.datadoghq.agent"
+  delete_mode: contents
+  max_depth: 6
+- id: obs-elastic-beats-data
+  name: Elastic Beats path.data (registry)
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/opt/homebrew/var/lib/filebeat"
+  - "/opt/homebrew/var/lib/metricbeat"
+  - "/opt/homebrew/var/lib/packetbeat"
+  - "/opt/homebrew/var/lib/heartbeat"
+  - "/opt/homebrew/var/lib/auditbeat"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-grafana-alloy-data
+  name: Grafana Alloy/Agent data and positions
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/opt/homebrew/var/lib/alloy"
+  - "/opt/homebrew/var/lib/grafana-agent"
+  - "/opt/homebrew/var/lib/grafana-agent-flow"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-grafana-desktop-user
+  name: Grafana desktop / user logs and caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Grafana"
+  - "$HOME/Library/Caches/com.grafana.Grafana"
+  - "$HOME/Library/Caches/grafana"
+  - "$HOME/Library/Application Support/Grafana/log"
+  - "$HOME/Library/Application Support/Grafana/logs"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-honeycomb-local
+  name: Honeycomb CLI/agent local cache and logs
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.honeycomb"
+  - "$HOME/.config/honeycomb"
+  - "$HOME/Library/Caches/honeycomb"
+  - "$HOME/Library/Logs/honeycomb"
+  - "/opt/homebrew/var/log/refinery"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-istat-menus-caches
+  name: iStat Menus caches and logs
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.bjango.istatmenus"
+  - "$HOME/Library/Caches/com.bjango.istatmenus.status"
+  - "$HOME/Library/Caches/com.bjango.istatmenus.agent"
+  - "$HOME/Library/Caches/com.bjango.istatmenus.menubar"
+  - "$HOME/Library/Caches/com.bjango.istatmenus.helpers"
+  - "$HOME/Library/Logs/iStat Menus"
+  - "$HOME/Library/Logs/com.bjango.istatmenus"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-jaeger-local-storage
+  name: Jaeger local/badger storage and logs
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.jaeger"
+  - "$HOME/Library/Caches/jaeger"
+  - "/opt/homebrew/var/jaeger"
+  - "/opt/homebrew/var/lib/jaeger"
+  - "$HOME/Library/Logs/jaeger"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-lightstep-local
+  name: Lightstep / OpenTelemetry Lightstep local
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.lightstep"
+  - "$HOME/Library/Caches/lightstep"
+  - "$HOME/Library/Logs/lightstep"
+  - "/opt/homebrew/var/log/lightstep"
+  - "/var/log/lightstep"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-netdata-cache-logs
+  name: Netdata cache and logs
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/cache/netdata"
+  - "/opt/homebrew/var/log/netdata"
+  - "$HOME/.netdata"
+  delete_mode: contents
+  max_depth: 5
+- id: obs-newrelic-infra-agent-dir
+  name: New Relic infrastructure agent data dir
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/opt/homebrew/var/db/newrelic-infra"
+  - "/var/db/newrelic-infra"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/data/**"
+  - "**/tmp/**"
+  - "**/cache/**"
+  - "**/*.log"
+  - "**/*.log.*"
+- id: obs-newrelic-user-caches
+  name: New Relic user caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.newrelic.NewRelic"
+  - "$HOME/Library/Caches/com.newrelic"
+  - "$HOME/Library/Caches/New Relic"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-sentry-cli-config-report
+  name: Sentry CLI config dir (report-only)
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.sentry"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: obs-sentry-sdk-caches
+  name: Sentry SDK and SentryCrash caches
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/SentryCrash"
+  - "$HOME/Library/Caches/io.sentry.Sentry"
+  - "$HOME/Library/Caches/Sentry"
+  - "$HOME/Library/Logs/Sentry"
+  delete_mode: contents
+  max_depth: 5
+- id: obs-stats-app-caches
+  name: Stats.app (exelban) caches and logs
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/eu.exelban.Stats"
+  - "$HOME/Library/Logs/Stats"
+  - "$HOME/Library/Logs/eu.exelban.Stats"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-zipkin-local
+  name: Zipkin local data and logs
+  description: ''
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.zipkin"
+  - "$HOME/Library/Caches/zipkin"
+  - "/opt/homebrew/var/zipkin"
+  - "$HOME/Library/Logs/zipkin"
+  delete_mode: contents
+  max_depth: 4
+- id: ql-thumbnail-darwin-c-residual
+  name: Quick Look Darwin C residual
+  description: Per-user Quick Look / thumbnail service residuals under Darwin C next
+    to $TMPDIR.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$TMPDIR/../C/com.apple.quicklook.ThumbnailsAgent"
+  - "$TMPDIR/../C/com.apple.quicklook.qlmanage"
+  - "$TMPDIR/../C/com.apple.quicklook.quicklookd"
+  - "$TMPDIR/../C/com.apple.quicklook.satellite.general"
+  - "$TMPDIR/../C/com.apple.quicklook.ui.helper"
+  - "$TMPDIR/../C/com.apple.quicklook.QuickLookUIService"
+  - "$TMPDIR/../C/com.apple.QuickLook.thumbnailcache"
+  delete_mode: contents
+  max_depth: 6
+- id: ql-thumbnail-extension-caches
+  name: Quick Look thumbnail extension container caches
+  description: Caches inside Apple Quick Look thumbnail extension containers (contents
+    only).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.quicklook.thumbnail.ImageExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.quicklook.thumbnail.TextExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.quicklook.thumbnail.FontExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.quicklook.thumbnail.WebExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.quicklook.thumbnail.PackageExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.quicklook.QuickLookUIService/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.QuickLookUIFramework.QLPreviewGenerationExtension/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+- id: ql-thumbnail-user-caches
+  name: Quick Look and thumbnail user caches
+  description: Quick Look thumbnailcache, ThumbnailsAgent, and related user caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.quicklook.ThumbnailsAgent"
+  - "$HOME/Library/Caches/com.apple.QuickLookUIService"
+  delete_mode: contents
+  max_depth: 6
+- id: syslogs-bluetooth-residual
+  name: Bluetooth user residual and diagnostic caches
+  description: Bluetooth user service folders, CloudKit bluetoothuserd cache, Bluetooth
+    DE and settings container residual.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/CloudKit/com.apple.bluetoothuserd"
+  - "$HOME/Library/Caches/com.apple.bluetoothuserd"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.BluetoothDiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.BluetoothDiagnosticExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.BluetoothDiagnosticExtension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.BluetoothHeadset/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.BluetoothHeadset/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.BluetoothHeadset/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.BluetoothSettings/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.BluetoothSettings/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.BluetoothSettings/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.AppleBtcDiagnosis/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.AppleBtcDiagnosis/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.AppleBtcDiagnosis/Data/tmp"
+  delete_mode: contents
+  max_depth: 6
+- id: syslogs-control-center-caches
+  name: Control Center residual caches
+  description: Control Center application support residual and group-container caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/com.apple.controlcenter"
+  - "$HOME/Library/Group Containers/group.com.apple.controlcenter/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.controlcenter/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.ControlCenter-Settings.extension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.ControlCenter-Settings.extension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.ControlCenter-Settings.extension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.controlcenter.ControlCenterSettingsIntents/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.controlcenter.ControlCenterSettingsIntents/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.controlcenter.ControlCenterSettingsIntents/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.controlcenter.ringlighthelper/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.controlcenter.ringlighthelper/Data/tmp"
+  - "$HOME/Library/Group Containers/group.com.apple.secure-control-center-preferences/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+- id: syslogs-dock-residual
+  name: Dock residual caches and logs
+  description: Dock controls container residual and dock-related CrashReporter state
+    (not dock.plist layout).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.dock.controls/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.dock.controls/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.dock.controls/Data/tmp"
+  - "$HOME/Library/Application Support/CrashReporter"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/com.apple.dock*"
+  - "**/*dock*"
+- id: syslogs-notification-center-caches-medium
+  name: Notification Center caches only (medium)
+  description: NC and notifications settings caches without touching the main UserNotifications
+    DB root.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.UserNotifications/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.notificationcenterui/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.Notifications-Settings.extension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.Notifications-Settings.extension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.notifications.NotificationsSettingsIntents/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.notifications.NotificationsSettingsIntents/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+- id: syslogs-softwareupdate-user-caches
+  name: softwareupdated user HTTPStorages and related caches
+  description: User-scoped Software Update network caches and notification manager
+    HTTP storage.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.SoftwareUpdateNotificationManager"
+  - "$HOME/Library/Containers/com.apple.SoftwareUpdate.SoftwareUpdateSettingsWidget/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.SoftwareUpdate.SoftwareUpdateSettingsWidget/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.SoftwareUpdate.SoftwareUpdateSettingsWidget/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/*.binarycookies"
+- id: syslogs-system-settings-residual
+  name: System Settings residual caches
+  description: System Settings / System Preferences menu cache, preference panes user
+    cache, and container caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.Family-Settings.extension"
+  - "$HOME/Library/Containers/com.apple.systempreferences/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.systempreferences/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.systempreferences/Data/tmp"
+  - "$HOME/Library/Group Containers/com.apple.systempreferences.cache/Library/Caches"
+  - "$HOME/Library/Group Containers/com.apple.systempreferences.cache/com.apple.systemsettings.usercache"
+  - "$HOME/Library/Containers/com.apple.SystemProfiler.AboutExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.SystemProfiler.AboutExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.SystemProfiler.AboutExtension/Data/tmp"
+  - "$HOME/Library/HTTPStorages/com.apple.SystemProfiler.AboutExtension"
+  delete_mode: contents
+  max_depth: 5
+- id: web-caddy-http-cache
+  name: Caddy HTTP/asset cache dirs
+  description: Optional user-level Caddy or reverse-proxy disk caches outside the
+    official data store.
+  category: caches
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Caddy"
+  - "$HOME/Library/Caches/caddy"
+  - "$HOME/.cache/caddy"
+  - "$XDG_CACHE_HOME/caddy"
+  delete_mode: contents
+  max_depth: 5
+- id: web-ddev-global-cache-logs
+  name: DDEV global test/cache leftovers
+  description: Regenerable global DDEV cache-like trees excluding config and project
+    list.
+  category: caches
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.ddev/.testcache"
+  - "$HOME/.ddev/testcache"
+  - "$HOME/.ddev/.cache"
+  - "$HOME/.ddev/cache"
+  - "$HOME/.cache/ddev"
+  - "$XDG_CACHE_HOME/ddev"
+  - "$HOME/Library/Caches/ddev"
+  delete_mode: contents
+  max_depth: 5
+- id: web-ddev-mutagen-data
+  name: DDEV Mutagen sync data directory
+  description: Global Mutagen data for DDEV file sync on macOS.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.ddev_mutagen_data_directory"
+  delete_mode: contents
+  max_depth: 6
+- id: web-docksal-cache-logs
+  name: Docksal cache and logs
+  description: Docksal global home cache/logs under ~/.docksal.
+  category: caches
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.docksal/cache"
+  - "$HOME/.docksal/logs"
+  - "$HOME/.docksal/.cache"
+  - "$HOME/Library/Caches/docksal"
+  - "$HOME/Library/Logs/docksal"
+  delete_mode: contents
+  max_depth: 5
+- id: web-herd-caches
+  name: Laravel Herd caches and temp
+  description: Herd-related caches under Library/Caches and Application Support temp
+    trees.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Herd"
+  - "$HOME/Library/Caches/de.beyondco.herd"
+  - "$HOME/Library/Application Support/Herd/Cache"
+  delete_mode: contents
+  max_depth: 5
+- id: web-istioctl-local
+  name: istioctl local install leftovers
+  description: istioctl client install tree and local debug dumps under home.
+  category: caches
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/.istioctl"
+  - "$HOME/Library/Caches/istioctl"
+  - "$HOME/.cache/istioctl"
+  - "$XDG_CACHE_HOME/istioctl"
+  - "$HOME/Library/Logs/istio"
+  - "$HOME/Library/Logs/istioctl"
+  delete_mode: contents
+  max_depth: 5
+- id: web-lando-cache
+  name: Lando cache and logs
+  description: Lando userConfRoot cache, logs, and plugin install cache under ~/.lando.
+  category: caches
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.lando/cache"
+  - "$HOME/.lando/logs"
+  - "$HOME/.lando/.cache"
+  - "$HOME/Library/Caches/lando"
+  - "$HOME/Library/Logs/lando"
+  delete_mode: contents
+  max_depth: 6
+- id: web-localwp-run-temps
+  name: Local WP run nginx temps and aged logs
+  description: Router/run tree temps and log files under Local/run (not mysql data
+    or sockets).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Local/run"
+  - "$HOME/Library/Application Support/Local by Flywheel/run"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/logs/**"
+  - "**/*_temp/**"
+  - "**/client_body_temp/**"
+  - "**/proxy_temp/**"
+  - "**/fastcgi_temp/**"
+  - "**/*.log"
+  exclude_globs:
+  - "**/mysql/**"
+  - "**/*.sock"
+  - "**/mysqld.sock"
+  - "**/php-fpm.socket"
+- id: web-mamp-tmp-cache
+  name: MAMP tmp and cache
+  description: MAMP temp, opcache, and Application Support caches (not databases).
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/MAMP"
+  - "$HOME/Library/Caches/de.appsolute.mamppro"
+  - "$HOME/Library/Application Support/appsolute/MAMP PRO/tmp"
+  delete_mode: contents
+  max_depth: 5
+- id: web-nginx-homebrew-temp-cache
+  name: Nginx proxy/client temp and cache dirs
+  description: proxy_temp, client_body_temp, fastcgi_temp, scgi_temp, uwsgi_temp and
+    optional proxy_cache_path under Homebrew var or user cache.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "/opt/homebrew/var/run/nginx"
+  - "/opt/homebrew/var/cache/nginx"
+  - "$HOME/Library/Caches/nginx"
+  - "$HOME/.cache/nginx"
+  delete_mode: contents
+  max_depth: 4
+- id: web-skaffold-cache
+  name: Skaffold build and remote cache
+  description: Default Skaffold artifact cache file dir and remote dependency cache.
+  category: caches
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.skaffold/cache"
+  - "$HOME/.skaffold/remote-cache"
+  - "$HOME/.skaffold"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/cache/**"
+  - "**/remote-cache/**"
+  - "**/cache"
+  - "**/remote-cache"
+- id: web-tilt-caches
+  name: Tilt dev caches and modules cache
+  description: Tilt analytics, certs cache, and cached extension modules under macOS
+    Application Support / Caches.
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tilt-dev"
+  - "$HOME/.cache/tilt-dev"
+  - "$XDG_CACHE_HOME/tilt-dev"
+  - "$HOME/.tilt-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: windows-localappdata-cache
+  name: LocalAppData caches
+  description: Common application cache folders under LocalAppData
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Temp"
+  - "%LOCALAPPDATA%/Microsoft/Windows/INetCache"
+  - "%LOCALAPPDATA%/Microsoft/Windows/Explorer"
+  delete_mode: contents
+  max_depth: 5

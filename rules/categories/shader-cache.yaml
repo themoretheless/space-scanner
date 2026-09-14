@@ -1,0 +1,46 @@
+---
+pack: shader-cache
+description: 'Category pack: shader-cache (3 rules). Add sibling YAML files under
+  rules/categories/ to extend.'
+rules:
+- id: mac-gptk-d3dmetal-shaders
+  name: D3DMetal / GPTK shader caches
+  description: Apple Game Porting Toolkit D3DMetal shaders.cache under user cache
+    dir.
+  category: shader-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/d3dm"
+  - "$HOME/Library/Caches/GamePortingToolkit"
+  - "$HOME/Library/Caches/com.apple.game-porting-toolkit"
+  delete_mode: contents
+  max_depth: 8
+- id: mac-metal-game-shader-caches
+  name: Metal / game GPU shader caches
+  description: User-space Metal and common game engine shader caches.
+  category: shader-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.metal"
+  - "$HOME/Library/Caches/org.libsdl.SDL2/metal"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-steam-shadercache
+  name: Steam shader cache
+  description: Per-app shader pre-cache under steamapps. Regenerates on next launch
+    (can cause stutter).
+  category: shader-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Steam/steamapps/shadercache"
+  delete_mode: contents
+  max_depth: 5

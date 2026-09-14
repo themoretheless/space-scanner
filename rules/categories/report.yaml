@@ -1,0 +1,234 @@
+---
+pack: report
+description: 'Category pack: report (13 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: cont-biome-residual-report
+  name: Biome residual databases/streams/sync (report-only)
+  description: Biome personalization residual beyond tmp/compute already cleanable
+    in apple-extended.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Biome/databases"
+  - "$HOME/Library/Biome/streams"
+  - "$HOME/Library/Biome/sync"
+  - "$HOME/Library/Biome/sets"
+  - "$HOME/Library/Containers/com.apple.lighthouse.BiomeSELFIngestor/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.lighthouse.BiomeSELFIngestor/Data/tmp"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: cont-bird-clouddocs-residual-report
+  name: iCloud Drive bird/CloudDocs residual (report-only careful)
+  description: bird/CloudDocs/iCloudDrive group Library/Caches and CloudDocs Application
+    Support telemetry residual. Report-only; never File Provider Storage or Mobile
+    Documents.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/com.apple.bird/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.CloudDocs/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.iCloudDrive/Library/Caches"
+  - "$HOME/Library/Application Support/CloudDocs/session"
+  - "$HOME/Library/Application Support/CloudDocs/device-tracking"
+  - "$HOME/Library/Containers/com.apple.CloudDocs.iCloudDriveFileProvider/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.CloudDocsDaemon.StorageManagement/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.iCloudDriveCore.diagnostic/Data/Library/Caches"
+  - "$HOME/Library/Caches/CloudKit/com.apple.bird"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: cont-callhistory-db-report
+  name: CallHistory DB residual (report-only careful)
+  description: Call history store and transactions. Privacy-sensitive; report-only.
+    Also lists CloudKit callhistory sync residual.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/CallHistoryDB"
+  - "$HOME/Library/Application Support/CallHistoryTransactions"
+  - "$HOME/Library/Caches/CloudKit/com.apple.callhistory.sync-helper"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: cont-cloudkit-residual-user-report
+  name: CloudKit residual user agent leaves (report-only)
+  description: Selected CloudKit agent cache leaves for Continuity/iMessage/FaceTime/knowledge
+    residual. Report sizes; do not bulk-wipe entire CloudKit root.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Caches/CloudKit/com.apple.facetimemessagestored"
+  - "$HOME/Library/Caches/CloudKit/com.apple.imagent"
+  - "$HOME/Library/Caches/CloudKit/com.apple.knowledge-agent"
+  - "$HOME/Library/Caches/CloudKit/com.apple.biomesyncd"
+  - "$HOME/Library/Caches/CloudKit/com.apple.suggestd"
+  - "$HOME/Library/Caches/CloudKit/com.apple.callhistory.sync-helper"
+  - "$HOME/Library/Caches/CloudKit/com.apple.identityservicesd"
+  - "$HOME/Library/Caches/CloudKit/com.apple.siriknowledged"
+  - "$HOME/Library/Caches/CloudKit/CloudKitMetadata"
+  - "$HOME/Library/Caches/CloudKit/cloudd_db"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: cont-intelligenceplatform-residual-report
+  name: IntelligencePlatform residual Artifacts (report-only)
+  description: IntelligencePlatform Artifacts and on-device knowledge residual. Full
+    tree is report-only in apple-extended; documents residual Artifacts explicitly
+    for Continuity/AI overlap.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/IntelligencePlatform/Artifacts"
+  - "$HOME/Library/Containers/com.apple.intelligenceplatform.IntelligencePlatform.DiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.intelligenceplatform.IntelligencePlatform.DiagnosticExtension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.intelligenceflow.IntelligenceFlowRuntime.IntelligenceFlowDiagnostics/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.intelligenceflow.IntelligenceFlowRuntime.IntelligenceFlowDiagnostics/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: cont-knowledgec-report
+  name: KnowledgeC store (report-only)
+  description: CoreDuet knowledgeC.db under Application Support/Knowledge. Privacy-sensitive
+    activity knowledge graph.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Knowledge"
+  - "$HOME/Library/Application Support/Knowledge/knowledgeC.db"
+  - "$HOME/Library/Application Support/Knowledge/knowledgeC.db-shm"
+  - "$HOME/Library/Application Support/Knowledge/knowledgeC.db-wal"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: cont-messages-regenerable-cache-report
+  name: Messages regenerable caches (report-only)
+  description: Explicit regenerable Messages cache leaves only. Messages content (chat.db,
+    Attachments) is never-touch.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/com.apple.messages/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.MobileSMS/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.MobileSMS/Data/tmp"
+  delete_mode: contents
+  max_depth: 4
+  exclude_globs:
+  - "**/chat.db*"
+  - "**/Attachments/**"
+  - "**/Drafts/**"
+  report_only: true
+- id: cont-siri-remembers-inference-report
+  name: Siri Remembers and inference residual (report-only)
+  description: Privacy-adjacent Siri Remembers and inference stores. Report-only.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/group.com.apple.siri.remembers"
+  - "$HOME/Library/Group Containers/group.com.apple.siri.inference"
+  - "$HOME/Library/Application Support/com.apple.siri.inference"
+  - "$HOME/Library/Application Support/com.apple.appleintelligencereporting.processing"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: cont-watch-autounlock-report
+  name: Apple Watch AutoUnlock residual (report-only)
+  description: Sharing/AutoUnlock holds Watch unlock pairing material. Report size
+    only; never auto-delete pairing records.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Sharing/AutoUnlock"
+  - "$HOME/Library/Sharing/AutoUnlock/pairing-records.plist"
+  - "$HOME/Library/Sharing/AutoUnlock/ltk.plist"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: group-containers-inventory-report
+  name: Group Containers inventory (report-only)
+  description: Inventory Group Containers sizes. Document/shared-data groups are not
+    wipe targets.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers"
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+- id: macos-docker-desktop-disk-report
+  name: Docker Desktop VM disk images (report-only)
+  description: Docker.raw / Docker.qcow2 host disk images. Inventory only.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.raw"
+  - "$HOME/Library/Containers/com.docker.docker/Data/vms/0/data/Docker.qcow2"
+  - "$HOME/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.raw"
+  - "$HOME/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/Docker.qcow2"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: macos-transmission-incomplete-report
+  name: Transmission incomplete downloads (report-only)
+  description: 'Transmission incomplete download directory: may contain wanted partial
+    torrents.'
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/Transmission/Incomplete"
+  - "$HOME/Library/Application Support/Transmission/incomplete"
+  - "$HOME/Library/Caches/org.m0k.transmission"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: syslogs-system-library-logs-report
+  name: System DiagnosticReports size (report-only)
+  description: Inventory note for /Library/Logs/DiagnosticReports which is not user-writable
+    by default.
+  category: report
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/private/var/log"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true

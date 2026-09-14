@@ -1,0 +1,78 @@
+---
+pack: wine-cache
+description: 'Category pack: wine-cache (4 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: mac-crossover-cache
+  name: CrossOver caches, logs, bottle temps
+  description: CrossOver host cache/logs and bottle temp trees. Not bottle install
+    roots as wholes.
+  category: wine-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.codeweavers.CrossOver"
+  - "$HOME/Library/Application Support/CrossOver/Cache"
+  - "$HOME/Library/Logs/CrossOver"
+  - "$HOME/Library/Application Support/CrossOver/Bottles"
+  delete_mode: contents
+  max_depth: 12
+  include_globs:
+  - "**/Cache/**"
+  - "**/drive_c/windows/temp/**"
+  - "**/drive_c/users/*/Temp/**"
+  - "**/drive_c/users/*/AppData/Local/Temp/**"
+- id: mac-portingkit-wine-like
+  name: Porting Kit / Wineskin style caches
+  description: 'Community Wine wrappers similar to Lutris on Linux: host caches only.'
+  category: wine-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Porting Kit/tmp"
+  - "$HOME/Library/Application Support/Porting Kit/logs"
+  - "$HOME/Library/Caches/com.paulthetall.portingkit"
+  - "$HOME/Library/Logs/Porting Kit"
+  - "$HOME/Library/Application Support/Wineskin/Wrapper Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-whisky-bottle-temp
+  name: Whisky bottle Temp/cache (not bottles)
+  description: Windows Temp and local cache inside bottles only. Never delete Bottles
+    root.
+  category: wine-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.isaacmarovitz.Whisky/Bottles"
+  delete_mode: contents
+  max_depth: 12
+  include_globs:
+  - "**/drive_c/windows/temp/**"
+  - "**/drive_c/users/*/Temp/**"
+  - "**/drive_c/users/*/AppData/Local/Temp/**"
+  - "**/drive_c/users/*/AppData/Local/Steam/htmlcache/**"
+  - "**/drive_c/Program Files (x86)/Steam/appcache/**"
+  - "**/drive_c/Program Files (x86)/Steam/depotcache/**"
+  - "**/drive_c/Program Files (x86)/Steam/logs/**"
+  - "**/drive_c/Program Files (x86)/Steam/steamapps/shadercache/**"
+- id: mac-whisky-logs-cache
+  name: Whisky host logs and Wine libraries cache
+  description: Whisky app logs. Libraries/GPTK are large regenerable toolchains (medium).
+  category: wine-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/com.isaacmarovitz.Whisky"
+  - "$HOME/Library/Caches/com.isaacmarovitz.Whisky"
+  - "$HOME/Library/HTTPStorages/com.isaacmarovitz.Whisky"
+  delete_mode: contents
+  max_depth: 4

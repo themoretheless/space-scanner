@@ -1,0 +1,1703 @@
+---
+pack: dev
+description: 'Category pack: dev (108 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: app-node-gyp-cache
+  name: node-gyp cache
+  description: node-gyp downloaded headers and build cache.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/node-gyp"
+  - "$HOME/.cache/node-gyp"
+  - "%LOCALAPPDATA%/node-gyp"
+  delete_mode: contents
+  max_depth: 4
+- id: app-playwright-browsers
+  name: Playwright browser cache (report-only)
+  description: Playwright-downloaded browser binaries; can be re-fetched with npx
+    playwright install.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/ms-playwright"
+  - "$HOME/.cache/ms-playwright"
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+- id: dev-android-avd-report
+  name: Android AVDs (report-only)
+  description: User AVD definitions and data; never auto-delete.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.android/avd"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-android-ndk-report
+  name: Android NDK (report-only)
+  description: Installed NDK trees; large and versioned, report only.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Android/sdk/ndk"
+  - "$HOME/Library/Android/sdk/ndk-bundle"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-android-system-images-report
+  name: Android emulator system images (report-only)
+  description: AVD system images under SDK; report size only.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Android/sdk/system-images"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: dev-asdf-installs-report
+  name: asdf installed toolchains (report-only)
+  description: asdf installs tree; report size only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.asdf/installs"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-clangd-cache
+  name: clangd index cache
+  description: clangd language server index caches.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/clangd"
+  - "$HOME/Library/Caches/clangd"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-cocoapods-repos-report
+  name: CocoaPods Specs repos (report-only)
+  description: CocoaPods Specs git checkouts under ~/.cocoapods; report only.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.cocoapods/repos"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-colima-lima-store-report
+  name: Colima/Lima instance store (report-only)
+  description: Colima _lima/_store and default instance disks; report only.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.colima/_lima"
+  - "$HOME/.colima/_store"
+  - "$HOME/.colima/default"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-conda-envs-report
+  name: Conda environments (report-only)
+  description: Conda envs directories; report only, never auto-delete environments.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.conda/envs"
+  - "$HOME/miniconda3/envs"
+  - "$HOME/anaconda3/envs"
+  - "$HOME/miniforge3/envs"
+  - "$HOME/mambaforge/envs"
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+- id: dev-cursor-caches
+  name: Cursor IDE caches
+  description: Cursor Cache, CachedData, extension VSIX, Code/GPU caches.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Cursor/Cache"
+  - "$HOME/Library/Application Support/Cursor/CachedData"
+  - "$HOME/Library/Application Support/Cursor/CachedExtensionVSIXs"
+  - "$HOME/Library/Application Support/Cursor/Code Cache"
+  - "$HOME/Library/Application Support/Cursor/GPUCache"
+  - "$HOME/Library/Application Support/Cursor/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-docker-build-cache-report
+  name: Docker build cache (report-only)
+  description: Docker layer and build cache; use docker system prune to manage.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Containers/com.docker.docker/Data/vms"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: dev-docker-buildx-report
+  name: Docker buildx cache (report-only)
+  description: Docker buildx local state under ~/.docker/buildx; report only (prefer
+    docker buildx prune).
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.docker/buildx"
+  - "$HOME/Library/Caches/com.docker.docker"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: dev-dotnet-sdk-report
+  name: dotnet user SDK install (report-only)
+  description: User-level .NET SDK/runtime install under ~/.dotnet; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.dotnet"
+  delete_mode: path
+  max_depth: 3
+  exclude_globs:
+  - "**/DataProtection-Keys/**"
+  report_only: true
+- id: dev-fvm-versions-report
+  name: FVM Flutter SDKs (report-only)
+  description: Flutter Version Management installed SDKs; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/fvm/versions"
+  - "$HOME/.fvm"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-gh-cli-cache
+  name: gh CLI cache
+  description: GitHub CLI cached data.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gh"
+  - "$HOME/Library/Caches/gh"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-gradle-build-cache
+  name: Gradle build output cache
+  description: Gradle local build cache separate from downloaded dependencies.
+  category: dev
+  platform: any
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/.gradle/build-cache"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-helm-cache
+  name: Helm chart repository cache
+  description: Helm downloaded chart index and chart archives.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/helm"
+  - "$HOME/Library/Caches/helm"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-jetbrains-caches
+  name: JetBrains IDE caches
+  description: IntelliJ / WebStorm system caches under Library or .cache.
+  category: dev
+  platform: any
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains"
+  - "$HOME/.cache/JetBrains"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-k9s-cache
+  name: k9s Kubernetes dashboard cache
+  description: k9s downloaded schema and cache files.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/k9s"
+  - "$HOME/Library/Caches/k9s"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-kind-state
+  name: kind cluster state
+  description: kind local cluster metadata under ~/.kind.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.kind"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-lima-cache
+  name: Lima cache and instances report
+  description: Standalone Lima cache plus report-only instances root.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.lima"
+  - "$HOME/Library/Caches/lima"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-minikube-machines-report
+  name: minikube machines (report-only)
+  description: minikube VM disks; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.minikube/machines"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-nvm-versions-report
+  name: nvm Node versions (report-only)
+  description: Installed Node versions managed by nvm; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.nvm/versions"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-nx-cache
+  name: Nx workspace cache
+  description: Nx monorepo local computation cache.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.nx/cache"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-orbstack-report
+  name: OrbStack data (report-only)
+  description: OrbStack VMs and Linux distros; report only.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.orbstack"
+  - "$HOME/Library/Application Support/OrbStack"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-podman-machine-report
+  name: Podman machine state (report-only)
+  description: Podman machine and storage under home; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.local/share/containers"
+  - "$HOME/.config/containers/storage"
+  - "$HOME/.podman"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-pycache-home
+  name: Python __pycache__ under home caches
+  description: Only under known cache trees, not full $HOME walk.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache"
+  - "$XDG_CACHE_HOME"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/__pycache__/**"
+  - "**/*.pyc"
+- id: dev-rustup-toolchains-report
+  name: rustup toolchains (report-only)
+  description: Installed Rust toolchains; report size only, do not auto-delete.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.rustup/toolchains"
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+- id: dev-sdkman-candidates-report
+  name: SDKMAN candidates (report-only)
+  description: Installed JDKs and candidates; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.sdkman/candidates"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: dev-terraform-plugin-cache
+  name: Terraform plugin cache
+  description: Terraform downloaded provider plugins cache.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+  - "$HOME/Library/Caches/terraform"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-turbo-cache
+  name: Turborepo local task cache
+  description: Turborepo local build task cache entries.
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.turbo/cache"
+  - "$HOME/Library/Caches/turbo"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-vite-cache
+  name: Vite dependency pre-bundle cache
+  description: Vite node_modules/.vite pre-bundled dep cache (per project; only in
+    known dirs).
+  category: dev
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/vite"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-vscode-caches
+  name: VS Code caches and CachedData
+  description: VS Code Cache, CachedData, GPU/Code Cache, extension VSIX cache.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Code/Cache"
+  - "$HOME/Library/Application Support/Code/CachedData"
+  - "$HOME/Library/Application Support/Code/CachedExtensions"
+  - "$HOME/Library/Application Support/Code/CachedExtensionVSIXs"
+  - "$HOME/Library/Application Support/Code/Code Cache"
+  - "$HOME/Library/Application Support/Code/GPUCache"
+  - "$HOME/Library/Caches/com.microsoft.VSCode"
+  - "$HOME/Library/Caches/com.microsoft.VSCode.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-vscode-insiders-caches
+  name: VS Code Insiders caches
+  description: VS Code Insiders Cache and CachedData trees.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Code - Insiders/Cache"
+  - "$HOME/Library/Application Support/Code - Insiders/CachedData"
+  - "$HOME/Library/Application Support/Code - Insiders/CachedExtensionVSIXs"
+  - "$HOME/Library/Application Support/Code - Insiders/Code Cache"
+  - "$HOME/Library/Application Support/Code - Insiders/GPUCache"
+  - "$HOME/Library/Caches/com.microsoft.VSCodeInsiders"
+  - "$HOME/Library/Caches/com.microsoft.VSCodeInsiders.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-xcode-misc-caches
+  name: Xcode products, docs, and IDE caches
+  description: Extra Xcode regenerable trees not covered by DerivedData/DeviceSupport/Archives/CoreSimulator
+    rules.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/Xcode/Products"
+  - "$HOME/Library/Developer/Xcode/DocumentationCache"
+  - "$HOME/Library/Developer/Xcode/iOS Device Logs"
+  - "$HOME/Library/Caches/com.apple.dt.Xcode"
+  - "$HOME/Library/Caches/com.apple.dt.xcodebuild"
+  - "$HOME/Library/Caches/com.apple.dt.Xcode.sourcecontrol.Git"
+  delete_mode: contents
+  max_depth: 4
+- id: dev-zed-caches
+  name: Zed editor caches
+  description: Zed application and Library caches.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Zed"
+  - "$HOME/Library/Application Support/Zed/cache"
+  delete_mode: contents
+  max_depth: 5
+- id: jb-android-studio-residual
+  name: Android Studio residual caches and logs
+  description: 'Android Studio JetBrains-based system caches/logs beyond batch-08
+    mobile coverage: versioned Google and plain layouts, JetBrains/AndroidStudio system
+    dirs.'
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/AndroidStudio*/caches"
+  - "$HOME/Library/Caches/JetBrains/AndroidStudio*/index"
+  - "$HOME/Library/Caches/JetBrains/AndroidStudio*/tmp"
+  - "$HOME/Library/Logs/JetBrains/AndroidStudio*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/options/**"
+  - "**/keymaps/**"
+  - "**/plugins/**"
+  - "**/codestyles/**"
+- id: jb-appcode-system-caches
+  name: AppCode system caches and index
+  description: AppCode (discontinued but residual) system caches on macOS.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/JetBrains/AppCode*"
+  - "$HOME/Library/Caches/JetBrains/AppCode*/caches"
+  - "$HOME/Library/Caches/JetBrains/AppCode*/index"
+  - "$HOME/Library/Caches/AppCode*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-clion-system-caches
+  name: CLion system caches and index
+  description: CLion C/C++ IDE system caches and indexes.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/CLion*"
+  - "$HOME/Library/Caches/JetBrains/CLion*/caches"
+  - "$HOME/Library/Caches/JetBrains/CLion*/index"
+  - "$HOME/Library/Caches/JetBrains/CLion*/tmp"
+  - "$HOME/Library/Caches/CLion*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-datagrip-system-caches
+  name: DataGrip system caches and index
+  description: DataGrip system caches/index/tmp.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/DataGrip*"
+  - "$HOME/Library/Caches/JetBrains/DataGrip*/caches"
+  - "$HOME/Library/Caches/JetBrains/DataGrip*/index"
+  - "$HOME/Library/Caches/JetBrains/DataGrip*/tmp"
+  - "$HOME/Library/Caches/DataGrip*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-fleet-caches-logs
+  name: Fleet caches and logs
+  description: JetBrains Fleet editor system cache and logs (known large cache consumers).
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/JetBrains/Fleet*"
+  - "$HOME/Library/Caches/JetBrains/Fleet"
+  - "$HOME/Library/Caches/Fleet"
+  - "$HOME/Library/Logs/JetBrains/Fleet*"
+  - "$HOME/Library/Logs/JetBrains/Fleet"
+  - "$HOME/Library/Logs/Fleet"
+  delete_mode: contents
+  max_depth: 8
+- id: jb-goland-system-caches
+  name: GoLand system caches and index
+  description: GoLand system directory caches/index/tmp/jcef.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/GoLand*"
+  - "$HOME/Library/Caches/JetBrains/GoLand*/caches"
+  - "$HOME/Library/Caches/JetBrains/GoLand*/index"
+  - "$HOME/Library/Caches/JetBrains/GoLand*/tmp"
+  - "$HOME/Library/Caches/GoLand*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-intellij-system-caches
+  name: IntelliJ IDEA system caches and index
+  description: 'Ultimate/Community idea.system.path: regenerable caches, indexes,
+    tmp, JCEF under Caches/JetBrains.'
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/IntelliJIdea*/caches"
+  - "$HOME/Library/Caches/JetBrains/IntelliJIdea*/index"
+  - "$HOME/Library/Caches/JetBrains/IntelliJIdea*/tmp"
+  - "$HOME/Library/Caches/JetBrains/IntelliJIdea*/jcef_cache"
+  - "$HOME/Library/Caches/JetBrains/IdeaIC*/caches"
+  - "$HOME/Library/Caches/JetBrains/IdeaIC*/index"
+  - "$HOME/Library/Caches/JetBrains/IdeaIC*/tmp"
+  - "$HOME/Library/Caches/IntelliJIdea*"
+  - "$HOME/Library/Caches/IdeaIC*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-legacy-app-support-system
+  name: Legacy Application Support system/caches residuals
+  description: Older JetBrains layouts kept system caches under Application Support
+    .../system or .../caches. Contents-only; never sibling options/plugins.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/JetBrains/IntelliJIdea*/system"
+  - "$HOME/Library/Application Support/JetBrains/IntelliJIdea*/caches"
+  - "$HOME/Library/Application Support/JetBrains/IdeaIC*/system"
+  - "$HOME/Library/Application Support/JetBrains/WebStorm*/system"
+  - "$HOME/Library/Application Support/JetBrains/WebStorm*/caches"
+  - "$HOME/Library/Application Support/JetBrains/PyCharm*/system"
+  - "$HOME/Library/Application Support/JetBrains/PyCharmCE*/system"
+  - "$HOME/Library/Application Support/JetBrains/GoLand*/system"
+  - "$HOME/Library/Application Support/JetBrains/CLion*/system"
+  - "$HOME/Library/Application Support/JetBrains/Rider*/system"
+  - "$HOME/Library/Application Support/JetBrains/RubyMine*/system"
+  - "$HOME/Library/Application Support/JetBrains/PhpStorm*/system"
+  - "$HOME/Library/Application Support/JetBrains/DataGrip*/system"
+  - "$HOME/Library/Application Support/JetBrains/AppCode*/system"
+  - "$HOME/Library/Application Support/JetBrains/MPS*/system"
+  delete_mode: contents
+  max_depth: 8
+- id: jb-localhistory-report
+  name: IDE LocalHistory and fileHistory (report-only)
+  description: Local edit history under system dirs. Inventory only; wiping loses
+    per-file local history for that IDE version.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Caches/JetBrains/*/LocalHistory"
+  - "$HOME/Library/Caches/JetBrains/*/fileHistory"
+  - "$HOME/Library/Application Support/JetBrains/*/LocalHistory"
+  - "$HOME/Library/Application Support/JetBrains/*/localHistory"
+  - "$HOME/Library/Application Support/AndroidStudio*/localHistory"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: jb-mps-system-caches
+  name: MPS system caches and logs
+  description: JetBrains MPS (Meta Programming System) caches, index, logs.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/MPS*"
+  - "$HOME/Library/Caches/JetBrains/MPS*/caches"
+  - "$HOME/Library/Caches/JetBrains/MPS*/index"
+  - "$HOME/Library/Caches/JetBrains/MPS*/tmp"
+  - "$HOME/Library/Caches/MPS*"
+  - "$HOME/Library/Logs/JetBrains/MPS*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-phpstorm-system-caches
+  name: PhpStorm system caches and index
+  description: PhpStorm system caches/index/tmp (historically very large content caches).
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/PhpStorm*"
+  - "$HOME/Library/Caches/JetBrains/PhpStorm*/caches"
+  - "$HOME/Library/Caches/JetBrains/PhpStorm*/index"
+  - "$HOME/Library/Caches/JetBrains/PhpStorm*/tmp"
+  - "$HOME/Library/Caches/PhpStorm*"
+  - "$HOME/Library/Caches/WebIde*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-pycharm-system-caches
+  name: PyCharm system caches and index
+  description: PyCharm Professional and Community system caches/index/tmp.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/PyCharm*"
+  - "$HOME/Library/Caches/JetBrains/PyCharmCE*"
+  - "$HOME/Library/Caches/JetBrains/PyCharm*/caches"
+  - "$HOME/Library/Caches/JetBrains/PyCharm*/index"
+  - "$HOME/Library/Caches/JetBrains/PyCharm*/tmp"
+  - "$HOME/Library/Caches/JetBrains/PyCharmCE*/caches"
+  - "$HOME/Library/Caches/JetBrains/PyCharmCE*/index"
+  - "$HOME/Library/Caches/PyCharm*"
+  - "$HOME/Library/Caches/PyCharmCE*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-rider-system-caches
+  name: Rider system caches and index
+  description: Rider system caches including index, resharper-host artifacts, tmp,
+    jcef.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/Rider*"
+  - "$HOME/Library/Caches/JetBrains/Rider*/caches"
+  - "$HOME/Library/Caches/JetBrains/Rider*/index"
+  - "$HOME/Library/Caches/JetBrains/Rider*/tmp"
+  - "$HOME/Library/Caches/JetBrains/Rider*/jcef_cache"
+  - "$HOME/Library/Caches/JetBrains/Rider*/resharper-host"
+  - "$HOME/Library/Caches/JetBrains/Rider*/plugins"
+  - "$HOME/Library/Caches/Rider*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-rubymine-system-caches
+  name: RubyMine system caches and index
+  description: RubyMine system caches/index/tmp.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/RubyMine*"
+  - "$HOME/Library/Caches/JetBrains/RubyMine*/caches"
+  - "$HOME/Library/Caches/JetBrains/RubyMine*/index"
+  - "$HOME/Library/Caches/JetBrains/RubyMine*/tmp"
+  - "$HOME/Library/Caches/RubyMine*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-rustrover-dataspell-residual
+  name: RustRover and DataSpell residual caches/logs
+  description: Adjacent JetBrains IDEs often installed via Toolbox; same system/logs
+    layout.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/RustRover*"
+  - "$HOME/Library/Caches/JetBrains/RustRover*/caches"
+  - "$HOME/Library/Caches/JetBrains/RustRover*/index"
+  - "$HOME/Library/Caches/JetBrains/DataSpell*"
+  - "$HOME/Library/Caches/JetBrains/DataSpell*/caches"
+  - "$HOME/Library/Caches/JetBrains/DataSpell*/index"
+  - "$HOME/Library/Logs/JetBrains/RustRover*"
+  - "$HOME/Library/Logs/JetBrains/DataSpell*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: jb-shared-daemon-xdg
+  name: JetBrains shared Daemon and XDG cache residuals
+  description: Shared JetBrains Daemon/acp-agents under Caches and Linux-style ~/.cache/JetBrains
+    on macOS.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/Daemon"
+  - "$HOME/Library/Caches/JetBrains/acp-agents"
+  - "$HOME/Library/Logs/JetBrains/Daemon"
+  - "$XDG_CACHE_HOME/JetBrains"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-webstorm-system-caches
+  name: WebStorm system caches and index
+  description: WebStorm system directory under Library/Caches.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/WebStorm*"
+  - "$HOME/Library/Caches/JetBrains/WebStorm*/caches"
+  - "$HOME/Library/Caches/JetBrains/WebStorm*/index"
+  - "$HOME/Library/Caches/JetBrains/WebStorm*/tmp"
+  - "$HOME/Library/Caches/JetBrains/WebStorm*/jcef_cache"
+  - "$HOME/Library/Caches/WebStorm*"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - "**/LocalHistory/**"
+  - "**/fileHistory/**"
+- id: js-bun-global-packages-report
+  name: Bun global packages (report-only)
+  description: Globally installed Bun packages under install/global; report size only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.bun/install/global"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: js-volta-tools-report
+  name: Volta installed tools (report-only)
+  description: Volta-managed Node/Yarn/npm tool installs; report only.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.volta/tools"
+  - "$HOME/.volta/bin"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: mac-unity-hub-cache
+  name: Unity Hub and UPM caches
+  description: Unity Hub Electron caches, logs, Package Manager global cache. Not
+    project Assets or installed Editors under /Applications.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Unity"
+  - "$HOME/Library/Caches/Unity/upm"
+  - "$HOME/Library/Caches/com.unity3d.UnityEditor"
+  - "$HOME/Library/Caches/com.unity3d.unityhub"
+  - "$HOME/Library/Application Support/UnityHub/Cache"
+  - "$HOME/Library/Application Support/UnityHub/Code Cache"
+  - "$HOME/Library/Application Support/UnityHub/GPUCache"
+  - "$HOME/Library/Application Support/UnityHub/logs"
+  - "$HOME/Library/Logs/Unity"
+  - "$HOME/Library/Logs/UnityHub"
+  - "$HOME/Library/Unity/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-codex-runtimes-cache
+  name: Codex runtimes cache
+  description: OpenAI Codex downloaded language runtimes under ~/.cache/codex-runtimes.
+  category: dev
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/.cache/codex-runtimes"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-core-simulator-caches
+  name: CoreSimulator caches and logs
+  description: Simulator caches and logs outside device data; safe but can slow next
+    simulator launch.
+  category: dev
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/CoreSimulator/Caches"
+  - "$HOME/Library/Developer/CoreSimulator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-coresimulator-temp
+  name: CoreSimulator temp and caches
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/CoreSimulator/Temp"
+  - "$HOME/Library/Logs/CoreSimulator"
+  - "$HOME/Library/Developer/XCTestDevices"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-ios-device-support
+  name: iOS Device Support (Xcode)
+  description: Old device symbols; large and regenerable via Xcode.
+  category: dev
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/Xcode/iOS DeviceSupport"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-jetbrains-app-support-caches
+  name: JetBrains IDE Application Support caches
+  description: Per-IDE index, caches and logs under Application Support/JetBrains
+    (separate from Library/Caches).
+  category: dev
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Application Support/JetBrains"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "*/log/**"
+  - "*/logs/**"
+- id: macos-jetbrains-old-versions
+  name: JetBrains old IDE versions (report-only)
+  description: Previous major versions of JetBrains IDEs under Application Support;
+    review before deleting.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 60
+  paths:
+  - "$HOME/Library/Application Support/JetBrains"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: macos-mobiledevice-support-report
+  name: MobileDevice symbols / support (report-only careful)
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/MobileSync"
+  - "$HOME/Library/Logs/MobileDevice"
+  - "$HOME/Library/Preferences/com.apple.iPod.plist"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: macos-simulator-old-devices-report
+  name: CoreSimulator old devices (report-only)
+  description: Old simulator device images; review before deleting.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 60
+  paths:
+  - "$HOME/Library/Developer/CoreSimulator/Devices"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: macos-swiftpm-cache
+  name: SwiftPM user cache
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org.swift.swiftpm"
+  - "$HOME/Library/org.swift.swiftpm"
+  - "$HOME/.cache/org.swift.swiftpm"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-xcode-archives
+  name: Xcode Archives
+  description: Report-only archives may be needed for App Store or dSYM.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 90
+  paths:
+  - "$HOME/Library/Developer/Xcode/Archives"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: macos-xcode-derived-data
+  name: Xcode DerivedData
+  description: Build intermediates; will force full rebuilds.
+  category: dev
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Developer/Xcode/DerivedData"
+  delete_mode: contents
+  max_depth: 2
+- id: macos-xcode-dvtdownloads
+  name: Xcode DVTDownloads / documentation cache
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/DVTDownloads"
+  - "$HOME/Library/Developer/Xcode/DocumentationCache"
+  - "$HOME/Library/Developer/Xcode/Products"
+  - "$HOME/Library/Caches/com.apple.dt.Xcode"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-xcode-platforms-unused
+  name: Xcode unused platforms and device support
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/Xcode/watchOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/tvOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/visionOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/macOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/watchOS DeviceSupport Index"
+  - "$HOME/Library/Developer/Xcode/tvOS DeviceSupport Index"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-xcode-symbols-support
+  name: Xcode / symbolication support caches
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 60
+  paths:
+  - "$HOME/Library/Application Support/Xcode"
+  - "$HOME/Library/Application Support/Symbols"
+  - "$HOME/Library/Application Support/SymbolSourceSymbols"
+  - "$HOME/Library/Application Support/RefSrcSymbols"
+  delete_mode: contents
+  max_depth: 5
+- id: ml-jupyter-checkpoints-careful
+  name: Jupyter notebook checkpoints (careful)
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/.ipynb_checkpoints"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/.ipynb_checkpoints/**"
+- id: mobile-android-avd-snapshots
+  name: mobile-android-avd-snapshots
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/.android/avd"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/*.avd/snapshots/**"
+  - "**/*.avd/*.qcow2"
+  - "**/*.avd/cache.img"
+  - "**/*.avd/cache.img.qcow2"
+  - "**/*.avd/tmpdir/**"
+  - "**/*.avd/*.log"
+- id: mobile-android-avd-tree-report
+  name: mobile-android-avd-tree-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.android/avd"
+  delete_mode: path
+  max_depth: 6
+  report_only: true
+- id: mobile-android-sdk-system-images-report
+  name: mobile-android-sdk-system-images-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Android/sdk/system-images"
+  - "$HOME/Library/Android/sdk/ndk"
+  - "$HOME/Library/Android/sdk/ndk-bundle"
+  - "$HOME/Library/Android/sdk/build-tools"
+  - "$HOME/Library/Android/sdk/platforms"
+  - "$HOME/Android/Sdk/system-images"
+  - "$HOME/Android/Sdk/ndk"
+  - "$HOME/Android/Sdk/build-tools"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: mobile-android-sdk-temps
+  name: mobile-android-sdk-temps
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Android/sdk/.temp"
+  - "$HOME/Library/Android/sdk/.downloadIntermediates"
+  - "$HOME/Library/Android/sdk/temp"
+  - "$HOME/Library/Android/sdk/emulator/qemu"
+  - "$HOME/Android/Sdk/.temp"
+  - "$HOME/Android/Sdk/.downloadIntermediates"
+  - "$ANDROID_HOME/.temp"
+  - "$ANDROID_SDK_ROOT/.temp"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-android-studio-caches
+  name: mobile-android-studio-caches
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/Google/AndroidStudio*"
+  - "$HOME/Library/Caches/AndroidStudio*"
+  - "$HOME/Library/Logs/Google/AndroidStudio*"
+  - "$HOME/Library/Logs/AndroidStudio*"
+  - "$HOME/Library/Application Support/Google/AndroidStudio*/caches"
+  - "$HOME/Library/Application Support/Google/AndroidStudio*/system"
+  - "$HOME/Library/Application Support/Google/AndroidStudio*/localHistory"
+  - "$HOME/Library/Application Support/AndroidStudio*/caches"
+  - "$HOME/Library/Application Support/AndroidStudio*/system"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-appium
+  name: mobile-appium
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/.appium"
+  - "$HOME/.appium/node_modules"
+  - "$HOME/Library/Caches/appium"
+  - "$HOME/.cache/appium"
+  - "$HOME/Library/Logs/Appium"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-apple-configurator
+  name: mobile-apple-configurator
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/com.apple.configurator.ui"
+  - "$HOME/Library/Caches/com.apple.configurator.xpc.DeviceService"
+  - "$HOME/Library/Logs/Apple Configurator"
+  - "$HOME/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator"
+  - "$HOME/Library/Application Support/com.apple.configurator"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-coresimulator-devices-report
+  name: mobile-coresimulator-devices-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/CoreSimulator/Devices"
+  - "$HOME/Library/Developer/CoreSimulator/Temp"
+  - "$HOME/Library/Developer/XCTestDevices"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: mobile-detox
+  name: mobile-detox
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Detox"
+  - "$HOME/Library/Detox"
+  - "$HOME/.detox-artifacts"
+  - "$TMPDIR/detox"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-documentation-cache
+  name: mobile-documentation-cache
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/Shared/Documentation"
+  - "$HOME/Library/Developer/Xcode/DocumentationIndex"
+  - "$HOME/Library/Developer/Xcode/DocumentationCache"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-dsyms-archives-report
+  name: mobile-dsyms-archives-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 90
+  paths:
+  - "$HOME/Library/Caches/com.apple.dt.Xcode/Downloads"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: mobile-dvt-downloads-runtimes
+  name: mobile-dvt-downloads-runtimes
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/DVTDownloads"
+  - "$HOME/Library/Developer/CoreSimulator/Images"
+  - "$HOME/Library/Developer/CoreSimulator/Cryptex"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-fastlane
+  name: mobile-fastlane
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/fastlane"
+  - "$HOME/Library/Logs/fastlane"
+  - "$HOME/.fastlane/spaceship"
+  - "$HOME/.fastlane"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-flutter-sdk-cache-report
+  name: mobile-flutter-sdk-cache-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/flutter/bin/cache"
+  - "$HOME/development/flutter/bin/cache"
+  - "$HOME/fvm/versions"
+  - "$HOME/fvm/cache"
+  - "$HOME/.fvm"
+  - "$HOME/Library/Application Support/fvm"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: mobile-instruments-traces
+  name: mobile-instruments-traces
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/Xcode/Instruments"
+  - "$HOME/Library/Application Support/Instruments"
+  - "$HOME/Library/Caches/com.apple.dt.Instruments"
+  - "$HOME/Library/Logs/Instruments"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-intellij-android-caches
+  name: mobile-intellij-android-caches
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Caches/JetBrains/IntelliJIdea*"
+  - "$HOME/Library/Caches/JetBrains/IdeaIC*"
+  - "$HOME/Library/Logs/JetBrains/IntelliJIdea*"
+  - "$HOME/Library/Logs/JetBrains/IdeaIC*"
+  - "$HOME/Library/Caches/JetBrains/AndroidStudio*"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-ios-deploy-libimobiledevice
+  name: mobile-ios-deploy-libimobiledevice
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Logs/ios-deploy"
+  - "$HOME/.config/libimobiledevice"
+  - "$HOME/Library/Caches/libimobiledevice"
+  - "$HOME/Library/Logs/libimobiledevice"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-lockdown-pairing-report
+  name: mobile-lockdown-pairing-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/var/db/lockdown"
+  - "/var/db/lockdown-development"
+  delete_mode: path
+  max_depth: 6
+  report_only: true
+- id: mobile-maestro
+  name: mobile-maestro
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.maestro"
+  - "$HOME/.maestro/tests"
+  - "$HOME/.maestro/tests/**"
+  - "$HOME/Library/Caches/maestro"
+  - "$HOME/Library/Caches/Maestro"
+  - "$HOME/.cache/maestro"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-provisioning-profiles-report
+  name: mobile-provisioning-profiles-report
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 90
+  paths:
+  - "$HOME/Library/MobileDevice/Provisioning Profiles"
+  - "$HOME/Library/Developer/Xcode/UserData/Provisioning Profiles"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: mobile-watchos-tvos-visionos-device-support
+  name: mobile-watchos-tvos-visionos-device-support
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Developer/Xcode/watchOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/tvOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/visionOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/macOS DeviceSupport"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-xcode-module-symbol-caches
+  name: mobile-xcode-module-symbol-caches
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Developer/Xcode/DerivedData/ModuleCache.noindex"
+  - "$HOME/Library/Developer/Xcode/DerivedData/SymbolCache.noindex"
+  - "$HOME/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex"
+  - "$HOME/Library/Developer/Xcode/DerivedData/CompilationCache.noindex"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-xcode-products
+  name: mobile-xcode-products
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/Xcode/Products"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-xcode-userdata-ib-previews
+  name: mobile-xcode-userdata-ib-previews
+  description: ''
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Developer/Xcode/UserData/IB Support"
+  - "$HOME/Library/Developer/Xcode/UserData/Previews"
+  - "$HOME/Library/Developer/Xcode/UserData/IDEEditorInteractivityHistory"
+  - "$HOME/Library/Developer/Xcode/UserData/XcodeCloud"
+  delete_mode: contents
+  max_depth: 6
+- id: personal-colima
+  name: Colima cache personal caches
+  description: Live-discovered regenerable cache/log paths for Colima cache on this
+    Mac.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/colima/caches"
+  - "$HOME/Library/Caches/colima"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-dotnet
+  name: dotnet / csdevkit personal caches
+  description: Live-discovered regenerable cache/log paths for dotnet / csdevkit on
+    this Mac.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/dotnet"
+  - "$HOME/Library/Application Support/csdevkit"
+  - "$HOME/Library/Application Support/Microsoft DevDiv"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-gitkraken-cli
+  name: GitKraken CLI personal caches
+  description: Live-discovered regenerable cache/log paths for GitKraken CLI on this
+    Mac.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/GitKrakenCLI"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-jetbrains
+  name: JetBrains IDEs personal caches
+  description: Live-discovered regenerable cache/log paths for JetBrains IDEs on this
+    Mac.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/JetBrains/Rider2026.2/tmp"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.2/caches"
+  - "$HOME/Library/Caches/JetBrains/DataGrip2026.2/tmp"
+  - "$HOME/Library/Caches/JetBrains/DataGrip2026.2/caches"
+  - "$HOME/Library/Caches/JetBrains/Daemon/remDev/tmp"
+  - "$HOME/Library/Caches/JetBrains/Toolbox/temp"
+  - "$HOME/Library/Caches/JetBrains/RustRover2026.2/tmp"
+  - "$HOME/Library/Caches/JetBrains/RustRover2026.2/caches"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/event-log-data/logs"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/GrShaderCache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/ShaderCache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/blob_storage"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/DawnGraphiteCache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/GPUCache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/Cache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/Shared Dictionary"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/DawnWebGPUCache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/Default/Code Cache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/jcef_cache/GraphiteDawnCache"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/resharper-host/temp"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/tmp"
+  - "$HOME/Library/Caches/JetBrains/Rider2026.1/caches"
+  - "$HOME/Library/Caches/JetBrains"
+  - "$HOME/Library/Logs/JetBrains"
+  - "$HOME/Library/Application Support/JetBrains/Rider2026.1/resharper-host/event-log-data/logs"
+  - "$HOME/Library/Application Support/JetBrains/Rider2026.1/resharper-host/Cache"
+  delete_mode: contents
+  max_depth: 4
+  exclude_globs:
+  - "**/User/**"
+  - "**/options/**"
+  - "**/plugins/**"
+  - "**/keymaps/**"
+  - "**/LocalHistory/**"
+- id: personal-k9s
+  name: k9s personal caches
+  description: Live-discovered regenerable cache/log paths for k9s on this Mac.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/k9s"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-xcode-symbols
+  name: Xcode symbols residual personal caches
+  description: Live-discovered regenerable cache/log paths for Xcode symbols residual
+    on this Mac.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/Xcode"
+  - "$HOME/Library/Application Support/Symbols"
+  - "$HOME/Library/Application Support/SymbolSourceSymbols"
+  - "$HOME/Library/Application Support/RefSrcSymbols"
+  delete_mode: contents
+  max_depth: 4
+- id: virt-k3d-state-caches
+  name: k3d state and caches
+  description: k3d config/state directories when present. Clusters are Docker containers;
+    host metadata only here.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.k3d"
+  - "$HOME/.config/k3d"
+  - "$HOME/Library/Caches/k3d"
+  - "$HOME/.cache/k3d"
+  delete_mode: contents
+  max_depth: 5
+- id: virt-kind-state
+  name: kind cluster state
+  description: kind local cluster metadata under ~/.kind. Node images live in container
+    runtime.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.local/share/kind"
+  delete_mode: contents
+  max_depth: 5
+- id: web-ddev-bin-report
+  name: DDEV private binaries (report-only)
+  description: Private mutagen/docker-buildx binaries under ~/.ddev/bin.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.ddev/bin"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: web-herd-bin-report
+  name: Laravel Herd binaries (report-only)
+  description: Downloaded PHP versions and tool binaries shipped with Herd.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Herd/bin"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: web-lando-plugins-report
+  name: Lando global plugins (report-only)
+  description: Globally installed Lando plugins under ~/.lando/plugins.
+  category: dev
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.lando/plugins"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: web-localwp-lightning-report
+  name: Local WP lightning-services runtimes (report-only)
+  description: Bundled PHP/MySQL/nginx service builds for Local sites.
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Local/lightning-services"
+  - "$HOME/Library/Application Support/Local by Flywheel/lightning-services"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true

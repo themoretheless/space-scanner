@@ -1,0 +1,201 @@
+---
+pack: vm-disk
+description: 'Category pack: vm-disk (13 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: virt-lima-instances-disks-report
+  name: Lima instances and additional disks (report-only)
+  description: Full Lima home including instance disks and _disk datadisks; report
+    only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.lima/_disk"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-minikube-machines-report
+  name: minikube machines and profiles (report-only)
+  description: minikube VM disks and profile state; report only.
+  category: vm-disk
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.minikube/profiles"
+  - "$HOME/.minikube"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-multipass-data-report
+  name: Multipass instance data (report-only)
+  description: Multipass vault/instance disks under multipassd data; report only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/multipass"
+  - "$HOME/Library/Application Support/multipassd"
+  - "/private/var/root/Library/Application Support/multipassd"
+  - "/var/root/Library/Application Support/multipassd"
+  - "$HOME/.multipass"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: virt-orbstack-disks-report
+  name: OrbStack data and disks (report-only)
+  description: OrbStack VM/container data store including large data.img; report only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/OrbStack"
+  - "$HOME/Library/Group Containers/HUAQ24HBR6.dev.orbstack"
+  - "$HOME/Library/Group Containers/HUAQ24HBR6.dev.orbstack/data"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: virt-parallels-vms-report
+  name: Parallels VM directories (report-only)
+  description: Default Parallels VM store locations; report only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Parallels"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-podman-machine-report
+  name: Podman machine and container storage (report-only)
+  description: Podman machine images, storage, and container graph under home; report
+    only.
+  category: vm-disk
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/containers"
+  - "$HOME/.local/share/containers/podman/machine"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: virt-qemu-disk-images-report
+  name: Common QEMU disk image locations (report-only)
+  description: Inventory-only common user folders that may hold qcow2/raw; never default
+    wipe extensions.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/QEMU"
+  - "$HOME/VMs"
+  - "$HOME/.local/share/libvirt/images"
+  delete_mode: path
+  max_depth: 4
+  include_globs:
+  - "**/*.qcow2"
+  - "**/*.raw"
+  - "**/*.img"
+  report_only: true
+- id: virt-rancher-desktop-data-report
+  name: Rancher Desktop data and Lima VM (report-only)
+  description: Rancher Desktop application support, snapshots, and lima-backed VM
+    state; report only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/rancher-desktop"
+  - "$HOME/Library/Application Support/Rancher Desktop"
+  - "$HOME/Library/State/rancher-desktop"
+  - "$HOME/.rd"
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+- id: virt-tart-vms-report
+  name: Tart local VMs (report-only)
+  description: Local Tart VM images under ~/.tart/vms; report only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.tart/vms"
+  - "$HOME/.tart"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-utm-vms-report
+  name: UTM VM documents (report-only)
+  description: Sandboxed UTM Documents tree with .utm VM packages; report only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Containers/com.utmapp.UTM/Data/Documents"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-vagrant-boxes-report
+  name: Vagrant boxes (report-only)
+  description: Downloaded Vagrant boxes under ~/.vagrant.d/boxes; large and user-managed.
+  category: vm-disk
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.vagrant.d/boxes"
+  - "$HOME/.vagrant.d"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-virtualbox-vms-report
+  name: VirtualBox VMs and hard disks (report-only)
+  description: Default VM folder and HardDisks registry; report size only, never default
+    wipe.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/VirtualBox VMs"
+  - "$HOME/Library/VirtualBox/HardDisks"
+  - "$HOME/Library/VirtualBox/Machines"
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+- id: virt-vmware-fusion-vms-report
+  name: VMware Fusion VM locations (report-only)
+  description: Common default/custom locations for .vmwarevm packages; inventory only.
+  category: vm-disk
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Virtual Machines.localized"
+  - "$HOME/VMware Fusion VMs"
+  delete_mode: path
+  max_depth: 3
+  report_only: true

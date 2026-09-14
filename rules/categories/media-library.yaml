@@ -1,0 +1,107 @@
+---
+pack: media-library
+description: 'Category pack: media-library (7 rules). Add sibling YAML files under
+  rules/categories/ to extend.'
+rules:
+- id: stream-camtasia-projects-report
+  name: Camtasia projects and shared media (report-only)
+  description: Camtasia project/media trees including /Users/Shared/TechSmith. Report
+    only.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/Users/Shared/TechSmith/Camtasia"
+  - "$HOME/Library/Application Support/TechSmith/Camtasia 2024/Media"
+  - "$HOME/Library/Application Support/TechSmith/Camtasia 2025/Media"
+  - "$HOME/Library/Application Support/TechSmith/Camtasia 2026/Media"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: stream-capcut-drafts-report
+  name: CapCut drafts and group container media (report-only)
+  description: CapCut drafts/projects in group container or Movies. Report only.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Group Containers/22MMUN2RN5.lv"
+  - "$HOME/Library/Containers/com.lemon.lvoverseas/Data/Documents"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: stream-descript-media-report
+  name: Descript project media (report-only)
+  description: Descript project/media storage can be large. Report only; never default
+    wipe.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Descript/Media"
+  - "$HOME/Library/Application Support/Descript/Projects"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: stream-loom-recordings-report
+  name: Loom local recordings (report-only)
+  description: Possible local Loom recording/export staging. Report only.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Loom/Videos"
+  - "$HOME/Library/Application Support/Loom/Recordings"
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+- id: stream-riverside-media-report
+  name: Riverside local media (report-only)
+  description: Local recording/export staging for Riverside. Never auto-delete.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Riverside/Recordings"
+  - "$HOME/Library/Application Support/Riverside/Media"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: stream-screenflow-media-report
+  name: ScreenFlow Global Library and media (report-only)
+  description: ScreenFlow Global Library duplicates media into Application Support.
+    User project media; report only.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/ScreenFlow/Global Library"
+  - "$HOME/Library/Application Support/ScreenFlow/Media"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+- id: stream-snagit-library-report
+  name: Snagit Library and autosaved captures (report-only)
+  description: User capture library and Autosaved Captures. Never auto-delete.
+  category: media-library
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Snagit"
+  delete_mode: contents
+  max_depth: 5
+  report_only: true

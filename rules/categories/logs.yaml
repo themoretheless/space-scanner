@@ -1,0 +1,6945 @@
+---
+pack: logs
+description: 'Category pack: logs (491 rules). Add sibling YAML files under rules/categories/
+  to extend.'
+rules:
+- id: app-1password-logs
+  name: 1Password logs only
+  description: 1Password diagnostic logs. Never vaults, keychain, or .op data.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/1Password"
+  - "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/Library/Logs"
+  - "$HOME/Library/Containers/com.1password.1password/Data/Library/Logs"
+  - "$HOME/Library/Containers/2BUA8C4S2C.com.1password.browser-helper/Data/Library/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: app-1password-logs-ext
+  name: 1Password logs only
+  description: 1Password diagnostic logs. Never vaults, keychain, or .op data.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/2BUA8C4S2C.com.1password/Library/Logs"
+  - "$HOME/Library/Containers/com.1password.1password-launcher/Data/Library/Logs"
+  - "$HOME/Library/Application Support/CrashReporter/1Password*"
+  delete_mode: contents
+  max_depth: 6
+- id: app-anydesk-cache-logs
+  name: AnyDesk cache and logs
+  description: AnyDesk connection logs and cache; not address book if stored separately.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/AnyDesk"
+  - "$HOME/Library/Application Support/AnyDesk/cache"
+  - "$HOME/Library/Application Support/AnyDesk"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/*.trace"
+  - "**/cache/**"
+  - "**/*.log"
+  - "**/logs/**"
+- id: app-citrix-logs-cache
+  name: Citrix Workspace/Receiver logs and cache
+  description: Citrix client logs and local cache (not ICA profiles secrets).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Citrix Workspace"
+  - "$HOME/Library/Logs/Citrix Receiver"
+  - "$HOME/Library/Logs/Citrix Online Plugin"
+  - "$HOME/Library/Logs/Citrix"
+  - "$HOME/Library/Application Support/Citrix Receiver/Cache"
+  - "$HOME/Library/Application Support/Citrix Workspace/Cache"
+  - "$HOME/Library/Caches/com.citrix.receiver.nomas"
+  - "$HOME/Library/Caches/com.citrix.receiver.helper"
+  - "$HOME/Library/Caches/com.citrix.receiver.icaviewer.mac"
+  delete_mode: contents
+  max_depth: 6
+- id: app-copilot-agents-logs
+  name: GitHub Copilot Agents logs
+  description: Agents Insiders log files.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Agents - Insiders/Logs"
+  delete_mode: contents
+  max_depth: 5
+- id: app-google-drivefs-logs-cache
+  name: Google Drive for Desktop logs and metadata cache
+  description: DriveFS logs and non-content caches. Content cache is separate medium
+    rule.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google/DriveFS/Logs"
+  - "$HOME/Library/Logs/GoogleDrive"
+  - "$HOME/Library/Logs/com.google.drivefs"
+  - "$HOME/Library/Caches/com.google.drivefs"
+  - "$HOME/Library/Caches/com.google.GoogleDrive"
+  delete_mode: contents
+  max_depth: 6
+- id: app-little-flocker-logs-cache
+  name: Little Flocker leftover logs and cache
+  description: Legacy Little Flocker (discontinued) user logs/cache leftovers if present.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Caches/com.zdziarski.LittleFlocker"
+  - "$HOME/Library/Caches/com.zdziarski.littelflocker"
+  - "$HOME/Library/Logs/Little Flocker"
+  - "$HOME/Library/Application Support/Little Flocker/Logs"
+  - "$HOME/Library/Application Support/Little Flocker/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: app-little-snitch-logs-cache
+  name: Little Snitch logs and caches
+  description: Little Snitch agent/helper/network-monitor logs and software caches.
+    Not rules database.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Little Snitch Agent.log"
+  - "$HOME/Library/Logs/Little Snitch Helper.log"
+  - "$HOME/Library/Logs/Little Snitch Installer.log"
+  - "$HOME/Library/Logs/Little Snitch Network Monitor.log"
+  - "$HOME/Library/Caches/at.obdev.LittleSnitchAgent"
+  - "$HOME/Library/Caches/at.obdev.LittleSnitchConfiguration"
+  - "$HOME/Library/Caches/at.obdev.LittleSnitchHelper"
+  - "$HOME/Library/Caches/at.obdev.LittleSnitchSoftwareUpdate"
+  - "$HOME/Library/Caches/at.obdev.LittleSnitchNetworkMonitor"
+  - "$HOME/Library/Application Support/Little Snitch/Logs"
+  - "$HOME/Library/Application Support/Little Snitch/logs"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/*Rules*"
+  - "**/*Configuration*"
+  - "**/*.lsrules"
+- id: app-mullvad-vpn-logs-cache
+  name: Mullvad VPN logs and cache
+  description: Mullvad VPN user logs and optional app cache. Not account token or
+    settings.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Mullvad VPN"
+  - "$HOME/Library/Caches/net.mullvad.vpn"
+  - "$HOME/Library/Application Support/Mullvad VPN/logs"
+  - "$HOME/Library/Application Support/Mullvad VPN/cache"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/account*"
+  - "**/settings*"
+  - "**/device*"
+- id: app-objective-see-shared-logs
+  name: Objective-See shared product logs
+  description: Shared Objective-See Application Support log folders used by LuLu/BlockBlock/KnockKnock
+    suite leftovers.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Application Support/Objective-See/Logs"
+  - "$HOME/Library/Logs/Objective-See"
+  - "$HOME/Library/Caches/com.objective-see.support"
+  delete_mode: contents
+  max_depth: 5
+  exclude_globs:
+  - "**/*rules*"
+  - "**/*Rules*"
+- id: app-openvpn-connect-logs-cache
+  name: OpenVPN Connect logs and cache
+  description: OpenVPN Connect client diagnostic logs and cache. Not connection profiles
+    or openvpn.keychain-db.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/OpenVPN Connect"
+  - "$HOME/Library/Caches/org.openvpn.client.app"
+  - "$HOME/Library/Application Support/OpenVPN Connect/logs"
+  - "$HOME/Library/Application Support/OpenVPN Connect/log"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/*.ovpn"
+  - "**/*.conf"
+  - "**/*.p12"
+  - "**/*.pem"
+  - "**/*.crt"
+  - "**/*.key"
+  - "**/profiles/**"
+  - "**/Profiles/**"
+- id: app-teamviewer-logs
+  name: TeamViewer logs and caches
+  description: TeamViewer log directory and app caches under user Library.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/TeamViewer"
+  - "$HOME/Library/Caches/com.teamviewer.TeamViewer"
+  - "$HOME/Library/Caches/com.teamviewer.TeamViewer.Desktop"
+  - "$HOME/Library/Application Support/TeamViewer/Cache"
+  - "$HOME/Library/Application Support/TeamViewer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: app-viscosity-cache-logs
+  name: Viscosity OpenVPN client cache and logs
+  description: Viscosity user caches and connection logs. Not connection configs or
+    certs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.viscosityvpn.Viscosity"
+  - "$HOME/Library/Logs/Viscosity"
+  - "$HOME/Library/Application Support/Viscosity/Log"
+  - "$HOME/Library/Application Support/Viscosity/Logs"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/*.ovpn"
+  - "**/*.crt"
+  - "**/*.key"
+  - "**/*.pem"
+  - "**/*.p12"
+  - "**/OpenVPN/**"
+- id: app-vscode-insiders-logs
+  name: VSCode Insiders logs
+  description: VSCode Insiders log files.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Code - Insiders/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: app-vscode-logs
+  name: VSCode logs
+  description: VSCode log files.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Code/logs"
+  - "$HOME/.config/Code/logs"
+  - "%APPDATA%/Code/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: app-zerotier-cache-logs
+  name: ZeroTier One caches and logs
+  description: ZeroTier mesh VPN user cache and log paths under $HOME.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.zerotier.ZeroTier-One"
+  - "$HOME/Library/Logs/ZeroTier"
+  - "$HOME/Library/Logs/ZeroTier One"
+  - "$HOME/Library/Application Support/ZeroTier/One/logs"
+  - "$HOME/Library/Application Support/ZeroTier/One/log"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/identity.*"
+  - "**/networks.d/**"
+  - "**/*.secret"
+- id: app-zoom-plugins-logs
+  name: Zoom auxiliary logs and WebView2 cache
+  description: Zoom installer/aomhost/CptHost logs and Webview2 cache under user Library.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/zoomusinstall.log"
+  - "$HOME/Library/Logs/aomhostapp.log"
+  - "$HOME/Library/Logs/CptHost"
+  - "$HOME/Library/Application Support/zoom.us/data/Webview2Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: backup-arq-logs
+  name: Arq agent and app logs
+  description: ArqAgent and Arq UI log directories only.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Arq"
+  - "$HOME/Library/Logs/ArqAgent"
+  - "$HOME/Library/Logs/com.haystacksoftware.Arq"
+  - "$HOME/Library/Logs/com.haystacksoftware.ArqAgent"
+  delete_mode: contents
+  max_depth: 4
+- id: backup-backblaze-logs
+  name: Backblaze client logs
+  description: Backblaze bzlogs (known multi-GB growth). Safe to clear log files;
+    not backup queues of user data.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Backblaze"
+  - "$HOME/Library/Logs/com.backblaze"
+  - "$HOME/Library/Logs/com.backblaze.BackblazeDownloader"
+  delete_mode: contents
+  max_depth: 6
+- id: backup-ccc-logs-cache
+  name: Carbon Copy Cloner logs and caches
+  description: CCC task logs and app caches. Not clone destinations or _CCC SafetyNet
+    folders.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/ccc.log"
+  - "$HOME/Library/Logs/com.bombich.ccc"
+  - "$HOME/Library/Logs/com.bombich.ccc.useragent"
+  - "$HOME/Library/Caches/com.bombich.ccc"
+  - "$HOME/Library/Caches/com.bombich.ccc.useragent"
+  - "$HOME/Library/Caches/com.bombich.ccc.helper"
+  delete_mode: contents
+  max_depth: 5
+- id: backup-ccc-task-history-logs
+  name: Carbon Copy Cloner Application Support logs
+  description: User-scoped CCC Application Support log/task history text only via
+    globs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Application Support/com.bombich.ccc"
+  - "$HOME/Library/Application Support/CCC"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Logs/**"
+  - "**/*.log"
+  - "**/*log*"
+  exclude_globs:
+  - "**/Scripts/**"
+  - "**/Tasks/**"
+  - "**/*.plist"
+- id: backup-crashplan-logs
+  name: CrashPlan app logs
+  description: CrashPlan UI and service logs (version-dependent locations).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/CrashPlan"
+  - "$HOME/Library/Application Support/CrashPlan/log"
+  delete_mode: contents
+  max_depth: 5
+- id: backup-cyberduck-logs
+  name: Cyberduck logs
+  description: Cyberduck log directories.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Cyberduck"
+  - "$HOME/Library/Logs/ch.sudo.cyberduck"
+  - "$HOME/Library/Group Containers/G69SCX94XU.duck/Library/Logs"
+  delete_mode: contents
+  max_depth: 5
+- id: backup-kopia-logs
+  name: Kopia UI and CLI logs
+  description: Kopia logs under Library/Logs and Application Support.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/kopia"
+  - "$HOME/Library/Logs/kopia-ui"
+  - "$HOME/Library/Application Support/kopia/logs"
+  - "$HOME/Library/Application Support/kopia-ui/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: backup-mountainduck-logs
+  name: Mountain Duck logs
+  description: Mountain Duck log trees.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Mountain Duck"
+  - "$HOME/Library/Logs/io.mountainduck"
+  - "$HOME/Library/Group Containers/G69SCX94XU.duck/Library/Logs"
+  - "$HOME/Library/Application Support/Mountain Duck/Logs"
+  delete_mode: contents
+  max_depth: 5
+- id: backup-rclone-logs
+  name: rclone log leftovers under common paths
+  description: Common rclone log drop locations when users redirect --log-file under
+    Library/Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/rclone"
+  - "$HOME/Library/Logs/rclone.log"
+  delete_mode: contents
+  max_depth: 3
+  include_globs:
+  - "**/*.log"
+  - "**/*rclone*"
+- id: backup-resilio-logs
+  name: Resilio Sync logs
+  description: Resilio Sync debug/sync log files inside Application Support storage
+    folder.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Resilio Sync"
+  - "$HOME/Library/Application Support/BitTorrent Sync"
+  - "$HOME/Library/Logs/Resilio Sync"
+  - "$HOME/Library/Logs/com.resilio.Sync"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/sync.log*"
+  - "**/*.log"
+  - "**/*.log.*.zip"
+  - "**/Logs/**"
+  exclude_globs:
+  - "**/sync.dat"
+  - "**/settings.dat"
+  - "**/*.db"
+  - "**/storage/**"
+- id: backup-superduper-logs
+  name: SuperDuper! copy logs
+  description: Scheduled Copies and Saved Settings log trees under SuperDuper Application
+    Support.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Application Support/SuperDuper!"
+  - "$HOME/Library/Logs/SuperDuper!"
+  - "$HOME/Library/Logs/com.blacey.SuperDuper"
+  delete_mode: contents
+  max_depth: 10
+  include_globs:
+  - "**/Logs/**"
+  - "**/*.sdlog"
+  - "**/*.log"
+  exclude_globs:
+  - "**/*.sdsp"
+  - "**/Copy Scripts/**"
+- id: backup-syncthing-logs
+  name: Syncthing logs
+  description: Syncthing macOS app and daemon log files.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Syncthing"
+  - "$HOME/Library/Logs/Syncthing"
+  - "$HOME/Library/Logs/syncthing.log"
+  - "$HOME/.local/state/syncthing"
+  - "$HOME/.config/syncthing"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/syncthing.log*"
+  - "**/audit-*.log"
+  - "**/*.log"
+  exclude_globs:
+  - "**/config.xml"
+  - "**/cert.pem"
+  - "**/key.pem"
+  - "**/https-*.pem"
+  - "**/index-v*.db*"
+  - "**/csrftokens.txt"
+- id: backup-transmit-logs
+  name: Panic Transmit logs
+  description: Transmit log directories.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Transmit"
+  - "$HOME/Library/Logs/com.panic.Transmit"
+  delete_mode: contents
+  max_depth: 4
+- id: backup-vorta-logs-cache
+  name: Vorta (borg GUI) logs and caches
+  description: Vorta macOS app logs/caches wrapping borg.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/borg.vorta"
+  - "$HOME/Library/Caches/com.borgbase.client.macos"
+  - "$HOME/Library/Logs/Vorta"
+  - "$HOME/Library/Logs/borg.vorta"
+  - "$HOME/Library/Application Support/Vorta/logs"
+  - "$HOME/Library/Application Support/Vorta/Logs"
+  delete_mode: contents
+  max_depth: 5
+- id: cad-autocad-logs
+  name: AutoCAD for Mac logs
+  description: AutoCAD crash and session logs under Autodesk logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Autodesk/AutoCAD"
+  - "$HOME/Library/Application Support/Autodesk/AutoCAD 2024/R24.3/logs"
+  - "$HOME/Library/Application Support/Autodesk/AutoCAD 2025/R25.0/logs"
+  - "$HOME/Library/Application Support/Autodesk/AutoCAD 2026/R26.0/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: cad-cura-logs
+  name: Ultimaker Cura logs
+  description: cura.log and related Ultimaker Cura logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/cura"
+  - "$HOME/Library/Logs/Cura"
+  - "$HOME/Library/Logs/Ultimaker"
+  - "$HOME/Library/Application Support/cura/log"
+  - "$HOME/Library/Application Support/Cura/log"
+  delete_mode: contents
+  max_depth: 4
+- id: cad-freecad-log-file
+  name: FreeCAD main log file
+  description: Primary FreeCAD.log written under Application Support/FreeCAD.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/FreeCAD"
+  delete_mode: contents
+  max_depth: 2
+- id: cad-fusion-logs
+  name: Autodesk Fusion logs
+  description: Fusion installer/streamer and runtime logs under Library/Logs and Application
+    Support.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Autodesk/webdeploy"
+  - "$HOME/Library/Application Support/Autodesk/webdeploy/logs"
+  - "$HOME/Library/Application Support/Autodesk/Neutron Platform/Logs"
+  - "$HOME/Library/Application Support/Autodesk/Autodesk Fusion 360/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: cad-prusaslicer-logs
+  name: PrusaSlicer logs
+  description: PrusaSlicer log files under Application Support and Library/Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/PrusaSlicer/log"
+  - "$HOME/Library/Application Support/PrusaSlicer/logs"
+  - "$HOME/Library/Logs/PrusaSlicer"
+  - "$HOME/Library/Logs/com.prusa3d.slic3r"
+  delete_mode: contents
+  max_depth: 4
+- id: cad-rhino-logs
+  name: Rhino and Grasshopper logs
+  description: Rhino for Mac and Grasshopper diagnostic logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/McNeel"
+  - "$HOME/Library/Logs/Rhino"
+  - "$HOME/Library/Application Support/McNeel/Rhinoceros/7.0/logs"
+  - "$HOME/Library/Application Support/McNeel/Rhinoceros/8.0/logs"
+  - "$HOME/Library/Application Support/McNeel/Rhinoceros/Grasshopper/Logs"
+  delete_mode: contents
+  max_depth: 5
+- id: cad-shared-autodesk-logs-misc
+  name: Shared Autodesk installer leftovers logs
+  description: Additional Autodesk shared log/temp under user Library for CAD installers.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Autodesk/InstallerLogs"
+  - "$HOME/Library/Application Support/Autodesk/ODIS/Log"
+  - "$HOME/Library/Application Support/Autodesk/ODIS/cache"
+  - "$HOME/Library/Logs/Autodesk.Fusion360.Installer"
+  - "$HOME/Library/Logs/Autodesk Fusion 360"
+  delete_mode: contents
+  max_depth: 5
+- id: cad-sketchup-logs
+  name: SketchUp and LayOut logs
+  description: SketchUp/LayOut crash and diagnostic logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/SketchUp"
+  - "$HOME/Library/Logs/LayOut"
+  - "$HOME/Library/Application Support/SketchUp 2024/SketchUp/Logs"
+  - "$HOME/Library/Application Support/SketchUp 2025/SketchUp/Logs"
+  - "$HOME/Library/Application Support/SketchUp 2026/SketchUp/Logs"
+  delete_mode: contents
+  max_depth: 4
+- id: cis-cryptopro-residual-logs
+  name: CryptoPro residual logs and tmp only (careful)
+  description: CryptoPro CSP residual log and tmp scratch only. NEVER key containers,
+    user stores, or config. High caution; default off.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Logs/CryptoPro"
+  - "$HOME/Library/Logs/Crypto-Pro"
+  - "$HOME/Library/Logs/cprocsp"
+  - "$HOME/Library/Caches/ru.cryptopro"
+  - "$HOME/Library/Caches/com.cryptopro.csp"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/*.log"
+  - "**/*.LOG"
+  - "**/logs/**"
+  - "**/tmp/**"
+  exclude_globs:
+  - "**/keys/**"
+  - "**/users/**"
+  - "**/stores/**"
+  - "**/certs/**"
+  - "**/certificates/**"
+  - "**/*.key"
+  - "**/*.cer"
+  - "**/*.crt"
+  - "**/*.pfx"
+  - "**/*.p12"
+  - "**/license*"
+- id: cis-cryptopro-var-tmp-report
+  name: CryptoPro /var/opt/cprocsp/tmp report-only
+  description: 'CryptoPro shared tmp scratch under /var/opt/cprocsp/tmp. Report-only:
+    may hold transient session files adjacent to key infrastructure.'
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "/var/opt/cprocsp/tmp"
+  delete_mode: contents
+  max_depth: 3
+  include_globs:
+  - "**/*.log"
+  - "**/*.tmp"
+  - "**/*.pid"
+  exclude_globs:
+  - "**/keys/**"
+  - "**/users/**"
+  - "**/stores/**"
+  - "**/*key*"
+  - "**/*cert*"
+  report_only: true
+- id: cis-yandex-browser-updater-logs
+  name: Yandex Browser updater and crash residual
+  description: Yandex Browser updater caches, crash dumps residual under Caches/Yandex,
+    and user Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Yandex/YandexBrowser/Crashpad"
+  - "$HOME/Library/Logs/Yandex"
+  - "$HOME/Library/Logs/YandexBrowser"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Crashpad"
+  - "$HOME/.yandex/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: cloud-azure-cli-logs
+  name: Azure CLI logs
+  description: Azure CLI log_dir default under ~/.azure/logs (command logs, not tokens).
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.azure/logs"
+  - "$HOME/.azure/commands"
+  delete_mode: contents
+  max_depth: 4
+- id: cloud-flyctl-logs-cache
+  name: flyctl agent logs and cache state
+  description: Fly.io flyctl agent logs and regenerable state under ~/.fly (not auth
+    config).
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.fly/agent-logs"
+  - "$HOME/.fly/logs"
+  - "$HOME/.fly/cache"
+  - "$HOME/Library/Caches/flyctl"
+  - "$HOME/Library/Caches/fly"
+  delete_mode: contents
+  max_depth: 4
+- id: cloud-gcloud-logs-report
+  name: gcloud CLI logs under config dir (report-only)
+  description: gcloud file logs live under CLOUDSDK_CONFIG/logs (default ~/.config/gcloud/logs).
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/gcloud/logs"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: creative-adobe-logs
+  name: Adobe and Creative Cloud logs
+  description: User-space Adobe/CC logs. Regenerable; not licenses or prefs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Adobe"
+  - "$HOME/Library/Logs/CreativeCloud"
+  - "$HOME/Library/Logs/CSXS"
+  - "$HOME/Library/Logs/AdobeCRLogs"
+  delete_mode: contents
+  max_depth: 8
+- id: creative-proapps-shared-logs
+  name: Apple ProApps shared logs
+  description: Shared Final Cut / Logic / Motion ProApps logging.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/ProApps"
+  - "$HOME/Library/Logs/FSKit"
+  - "$HOME/Library/Application Support/ProApps/Instrument Library/Caches"
+  delete_mode: contents
+  max_depth: 6
+- id: creative-unreal-logs-caches
+  name: Unreal Engine and Epic logs/caches
+  description: Epic Games Launcher and UE logs/caches outside project Saved folders.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Unreal Engine"
+  - "$HOME/Library/Logs/Epic Games Launcher"
+  - "$HOME/Library/Caches/com.epicgames.EpicGamesLauncher"
+  - "$HOME/Library/Caches/com.epicgames.UnrealEngineLauncher"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Data/EMS/EpicGamesLauncher/Logs"
+  delete_mode: contents
+  max_depth: 8
+- id: daw-bitwig-logs
+  name: Bitwig Studio logs
+  description: Bitwig log directories under user Library.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Bitwig"
+  - "$HOME/Library/Logs/Bitwig Studio"
+  - "$HOME/Library/Application Support/Bitwig/Bitwig Studio/log"
+  - "$HOME/Library/Application Support/Bitwig/Bitwig Studio/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: daw-reaper-logs
+  name: REAPER logs
+  description: REAPER and Cockos log folders under user Library.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/REAPER"
+  - "$HOME/Library/Logs/com.cockos.reaper"
+  delete_mode: contents
+  max_depth: 5
+- id: daw-studio-one-plugin-scanner-logs
+  name: Studio One plugin scanner logs
+  description: PlugInScanner and related logs under PreSonus Application Support.
+    Regenerable on next plugin scan.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/PreSonus"
+  - "$HOME/Library/Logs/Studio One"
+  - "$HOME/Library/Application Support/PreSonus/Studio One/x64"
+  - "$HOME/Library/Application Support/PreSonus/Studio One/ARM64"
+  - "$HOME/Library/Application Support/PreSonus/Studio One 7/x64"
+  - "$HOME/Library/Application Support/PreSonus/Studio One 7/ARM64"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/PlugInScanner.log"
+  - "**/PluginScanner.log"
+  - "**/*Scanner*.log"
+  - "**/logs/**"
+  - "**/Logs/**"
+  - "**/cache/**"
+- id: db-dbeaver-workspace-logs
+  name: DBeaver workspace and Eclipse logs
+  description: Workspace .metadata logs and install-data runtime leftovers.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/DBeaverData"
+  - "$HOME/Library/Application Support/DBeaverData"
+  - "$HOME/Library/Caches/dbeaver"
+  - "$HOME/Library/Logs/DBeaver"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/.metadata/.log"
+  - "**/.metadata/.plugins/**/*.log"
+  - "**/logs/**"
+  - "**/*.log"
+  - "**/install-data/**"
+- id: db-elasticsearch-logs
+  name: Elasticsearch local logs
+  description: Homebrew and common local Elasticsearch/OpenSearch log directories.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/elasticsearch"
+  - "/opt/homebrew/var/log/opensearch"
+  - "$HOME/Library/Logs/Elasticsearch"
+  - "$HOME/Library/Logs/elasticsearch"
+  - "$HOME/Library/Logs/opensearch"
+  delete_mode: contents
+  max_depth: 4
+- id: db-homebrew-mysql-mongo-logs
+  name: Homebrew MySQL/MariaDB/MongoDB logs
+  description: Error/slow query logs for brew MySQL family and MongoDB.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/mysql"
+  - "/opt/homebrew/var/log"
+  - "/opt/homebrew/var/log/mongodb"
+  - "$HOME/Library/Logs/MySQL"
+  - "$HOME/Library/Logs/mongodb"
+  delete_mode: contents
+  max_depth: 3
+  include_globs:
+  - "**/*.err"
+  - "**/mysql-*.log"
+  - "**/mariadb*.log"
+  - "**/slow_query.log"
+  - "**/mongod.log"
+  - "**/mongod.log.*"
+- id: db-homebrew-postgres-logs
+  name: Homebrew PostgreSQL logs
+  description: postgresql@N brew formula log directories.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/postgresql@*/*"
+  - "**/postgres*.log"
+  - "**/postgresql.log"
+- id: db-mysql-workbench-logs-cache
+  name: MySQL Workbench logs and cache
+  description: Workbench log directory and regenerable cache under Application Support.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/MySQL/Workbench/log"
+  - "$HOME/Library/Application Support/MySQL/Workbench/cache"
+  - "$HOME/Library/Application Support/Workbench/log"
+  - "$HOME/Library/Caches/com.oracle.workbench.MySQLWorkbench"
+  - "$HOME/Library/Logs/MySQLWorkbench"
+  delete_mode: contents
+  max_depth: 4
+- id: db-postgresapp-logs
+  name: Postgres.app server logs
+  description: PostgreSQL log files under Postgres.app cluster var directories (not
+    the data files themselves).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Postgres"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/log/**"
+  - "**/pg_log/**"
+  - "**/*.log"
+  - "**/postgresql-*.log"
+  - "**/postgresql-*.csv"
+- id: design-canva-logs-crashpad
+  name: Canva logs and Crashpad
+  description: Canva desktop logs and Chromium Crashpad dumps.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Canva"
+  - "$HOME/Library/Application Support/Canva/logs"
+  - "$HOME/Library/Application Support/Canva/Crashpad"
+  delete_mode: contents
+  max_depth: 5
+- id: design-framer-logs-crashpad
+  name: Framer logs and Crashpad
+  description: Framer Electron logs and crash dumps.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Framer"
+  - "$HOME/Library/Application Support/Framer/logs"
+  - "$HOME/Library/Application Support/Framer/Crashpad"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-android-studio-logs
+  name: Android Studio logs
+  description: Android Studio logs under Library/Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Google/AndroidStudio"
+  - "$HOME/Library/Logs/AndroidStudio"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-jetbrains-logs
+  name: JetBrains application logs
+  description: JetBrains IDE logs under Library/Logs (IDE caches already covered).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/JetBrains"
+  delete_mode: contents
+  max_depth: 5
+- id: edr-carbon-black-user-logs
+  name: Carbon Black user residual logs/caches
+  description: User Library residual for Carbon Black / Broadcom sensor UI if present.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/CarbonBlack"
+  - "$HOME/Library/Logs/VMware Carbon Black"
+  - "$HOME/Library/Logs/com.vmware.carbonblack"
+  - "$HOME/Library/Caches/com.vmware.carbonblack.cloud.se-agent"
+  - "$HOME/Library/Caches/com.broadcom.carbonblack.daemon"
+  delete_mode: contents
+  max_depth: 5
+- id: edr-crowdstrike-user-residual
+  name: CrowdStrike Falcon user residual caches/logs
+  description: Rare user-level Falcon helper caches/logs if present.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/CrowdStrike"
+  - "$HOME/Library/Logs/Falcon"
+  - "$HOME/Library/Caches/com.crowdstrike.falcon.Agent"
+  delete_mode: contents
+  max_depth: 5
+- id: edr-fleet-desktop-logs
+  name: Fleet Desktop and orbit user logs
+  description: Fleet Desktop log files and orbit stderr under user Logs (fleetd user-facing
+    agent).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Fleet"
+  - "$HOME/Library/Logs/fleet-desktop"
+  - "$HOME/Library/Logs/Orbit"
+  - "$HOME/Library/Caches/com.fleetdm.orbit"
+  - "$HOME/Library/Caches/com.fleetdm.fleet-desktop"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/*"
+  - "**/fleet-desktop.log"
+  - "**/orbit*.log"
+- id: edr-kolide-user-residual
+  name: Kolide launcher user residual
+  description: User-visible Kolide/1Password device trust residual caches and logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Kolide"
+  - "$HOME/Library/Logs/kolide-launcher"
+  - "$HOME/Library/Caches/com.kolide.launcher"
+  - "$HOME/Library/Caches/com.kolide.agent"
+  delete_mode: contents
+  max_depth: 5
+- id: edr-osquery-user-logs
+  name: osquery user logs and extensions residual
+  description: User-writable osquery logs when configured under home, plus common
+    cache residual.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/osquery"
+  - "$HOME/.osquery"
+  - "$HOME/Library/Caches/io.osquery.agent"
+  - "$HOME/Library/Logs/orbit"
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs:
+  - "**/osquery.db"
+  - "**/osquery.db/**"
+  - "**/secret*"
+  - "**/enroll*"
+- id: edr-sentinelone-user-logs-caches
+  name: SentinelOne user logs and caches
+  description: User-visible SentinelOne helper logs/caches; agent core is system.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/SentinelOne"
+  - "$HOME/Library/Logs/sentinelone"
+  - "$HOME/Library/Caches/com.sentinelone.sentineld-helper"
+  - "$HOME/Library/Caches/com.sentinelone.sentinel-helper"
+  delete_mode: contents
+  max_depth: 5
+- id: epm-cyberark-user-logs-caches
+  name: CyberArk EPM user logs and caches
+  description: CyberArk Endpoint Privilege Manager UI logs and caches; support zips
+    may be user-owned under temp.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/CyberArk"
+  - "$HOME/Library/Logs/CyberArkEPM"
+  - "$HOME/Library/Caches/com.cyberark.CyberArkEPMUI"
+  - "$HOME/Library/HTTPStorages/com.cyberark.CyberArkEPMUI"
+  - "$HOME/Library/Saved Application State/com.cyberark.CyberArkEPMUI.savedState"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-1password
+  name: 1Password logs
+  description: Application logs for 1Password.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.1password.1password"
+  - "$HOME/Library/Logs/1Password"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-acrobat
+  name: Acrobat logs
+  description: Application logs for Acrobat.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.Acrobat.Pro"
+  - "$HOME/Library/Logs/Acrobat"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-activity-monitor
+  name: Activity Monitor logs
+  description: Application logs for Activity Monitor.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.ActivityMonitor"
+  - "$HOME/Library/Logs/Activity Monitor"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-activity-watch
+  name: ActivityWatch logs
+  description: Application logs for ActivityWatch.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.activitywatch.ActivityWatch"
+  - "$HOME/Library/Logs/ActivityWatch"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-adobe-creative-cloud
+  name: Adobe Creative Cloud logs
+  description: Application logs for Adobe Creative Cloud.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.acc.AdobeCreativeCloud"
+  - "$HOME/Library/Logs/Adobe Creative Cloud"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-affinity-designer
+  name: Affinity Designer logs
+  description: Application logs for Affinity Designer.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.seriflabs.affinitydesigner2"
+  - "$HOME/Library/Logs/Affinity Designer"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-affinity-photo
+  name: Affinity Photo logs
+  description: Application logs for Affinity Photo.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.seriflabs.affinityphoto2"
+  - "$HOME/Library/Logs/Affinity Photo"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-affinity-publisher
+  name: Affinity Publisher logs
+  description: Application logs for Affinity Publisher.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.seriflabs.affinitypublisher2"
+  - "$HOME/Library/Logs/Affinity Publisher"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-after-effects
+  name: After Effects logs
+  description: Application logs for After Effects.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.AfterEffects"
+  - "$HOME/Library/Logs/After Effects"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-airmail
+  name: Airmail logs
+  description: Application logs for Airmail.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/it.bloop.airmail2"
+  - "$HOME/Library/Logs/Airmail"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-airport-utility
+  name: AirPort Utility logs
+  description: Application logs for AirPort Utility.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.airport.airportutility"
+  - "$HOME/Library/Logs/AirPort Utility"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-alacritty
+  name: Alacritty logs
+  description: Application logs for Alacritty.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.alacritty"
+  - "$HOME/Library/Logs/Alacritty"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-alfred
+  name: Alfred logs
+  description: Application logs for Alfred.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.runningwithcrayons.Alfred"
+  - "$HOME/Library/Logs/Alfred"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-amazon-music
+  name: Amazon Music logs
+  description: Application logs for Amazon Music.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.amazon.music"
+  - "$HOME/Library/Logs/Amazon Music"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-android-studio
+  name: Android Studio logs
+  description: Application logs for Android Studio.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.google.android.studio"
+  - "$HOME/Library/Logs/Android Studio"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-antigravity
+  name: Antigravity logs
+  description: Application logs for Antigravity.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.google.antigravity"
+  - "$HOME/Library/Logs/Antigravity"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-appcleaner
+  name: AppCleaner logs
+  description: Application logs for AppCleaner.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.freemacsoft.AppCleaner"
+  - "$HOME/Library/Logs/AppCleaner"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-apple-music
+  name: Apple Music logs
+  description: Application logs for Apple Music.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Music"
+  - "$HOME/Library/Logs/Apple Music"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-arc
+  name: Arc logs
+  description: Application logs for Arc.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/company.thebrowser.Browser"
+  - "$HOME/Library/Logs/Arc"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-asana
+  name: Asana logs
+  description: Application logs for Asana.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.asana.AsanaDesktop"
+  - "$HOME/Library/Logs/Asana"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-audio-midi
+  name: Audio MIDI Setup logs
+  description: Application logs for Audio MIDI Setup.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.audio.AudioMIDISetup"
+  - "$HOME/Library/Logs/Audio MIDI Setup"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-automator
+  name: Automator logs
+  description: Application logs for Automator.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Automator"
+  - "$HOME/Library/Logs/Automator"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-bartender
+  name: Bartender logs
+  description: Application logs for Bartender.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.surteesstudios.Bartender"
+  - "$HOME/Library/Logs/Bartender"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-battle-net
+  name: Battle.net logs
+  description: Application logs for Battle.net.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.battle.net"
+  - "$HOME/Library/Logs/Battle.net"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-bear
+  name: Bear logs
+  description: Application logs for Bear.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.shinyfrog.bear"
+  - "$HOME/Library/Logs/Bear"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-bitwarden
+  name: Bitwarden logs
+  description: Application logs for Bitwarden.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.bitwarden.desktop"
+  - "$HOME/Library/Logs/Bitwarden"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-blender
+  name: Blender logs
+  description: Application logs for Blender.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.blenderfoundation.blender"
+  - "$HOME/Library/Logs/Blender"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-blockblock
+  name: BlockBlock logs
+  description: Application logs for BlockBlock.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/objective-see.blockblock"
+  - "$HOME/Library/Logs/BlockBlock"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-bluetooth-file
+  name: Bluetooth File Exchange logs
+  description: Application logs for Bluetooth File Exchange.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.BluetoothFileExchange"
+  - "$HOME/Library/Logs/Bluetooth File Exchange"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-books
+  name: Books logs
+  description: Application logs for Books.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.iBooksX"
+  - "$HOME/Library/Logs/Books"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-boot-camp
+  name: Boot Camp Assistant logs
+  description: Application logs for Boot Camp Assistant.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.bootcampassistant"
+  - "$HOME/Library/Logs/Boot Camp Assistant"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-box
+  name: Box logs
+  description: Application logs for Box.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.box.desktop"
+  - "$HOME/Library/Logs/Box"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-brave
+  name: Brave logs
+  description: Application logs for Brave.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.brave.Browser"
+  - "$HOME/Library/Logs/Brave"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-busycal
+  name: BusyCal logs
+  description: Application logs for BusyCal.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.busymac.busycal3"
+  - "$HOME/Library/Logs/BusyCal"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-calculator
+  name: Calculator logs
+  description: Application logs for Calculator.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.calculator"
+  - "$HOME/Library/Logs/Calculator"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-calendar
+  name: Calendar logs
+  description: Application logs for Calendar.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.iCal"
+  - "$HOME/Library/Logs/Calendar"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-calibre
+  name: Calibre logs
+  description: Application logs for Calibre.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.kovidgoyal.calibre"
+  - "$HOME/Library/Logs/Calibre"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-canary
+  name: Canary Mail logs
+  description: Application logs for Canary Mail.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/io.canarymail.mac"
+  - "$HOME/Library/Logs/Canary Mail"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-cardhop
+  name: Cardhop logs
+  description: Application logs for Cardhop.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.flexibits.cardhop.mac"
+  - "$HOME/Library/Logs/Cardhop"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-chatgpt
+  name: ChatGPT logs
+  description: Application logs for ChatGPT.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.openai.chat"
+  - "$HOME/Library/Logs/ChatGPT"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-chess
+  name: Chess logs
+  description: Application logs for Chess.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Chess"
+  - "$HOME/Library/Logs/Chess"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-chrome
+  name: Google Chrome logs
+  description: Application logs for Google Chrome.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.google.Chrome"
+  - "$HOME/Library/Logs/Google Chrome"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-chrome-canary
+  name: Chrome Canary logs
+  description: Application logs for Chrome Canary.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.google.Chrome.canary"
+  - "$HOME/Library/Logs/Chrome Canary"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-chromium
+  name: Chromium logs
+  description: Application logs for Chromium.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.chromium.Chromium"
+  - "$HOME/Library/Logs/Chromium"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-cinema4d
+  name: Cinema 4D logs
+  description: Application logs for Cinema 4D.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.maxon.cinema4d"
+  - "$HOME/Library/Logs/Cinema 4D"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-claude
+  name: Claude logs
+  description: Application logs for Claude.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.anthropic.claudefordesktop"
+  - "$HOME/Library/Logs/Claude"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-cleanmymac
+  name: CleanMyMac logs
+  description: Application logs for CleanMyMac.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.macpaw.CleanMyMac4"
+  - "$HOME/Library/Logs/CleanMyMac"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-clickup
+  name: ClickUp logs
+  description: Application logs for ClickUp.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.clickup.app"
+  - "$HOME/Library/Logs/ClickUp"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-clock
+  name: Clock logs
+  description: Application logs for Clock.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.clock"
+  - "$HOME/Library/Logs/Clock"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-clockify
+  name: Clockify logs
+  description: Application logs for Clockify.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.clockify.ClockifyDesktop"
+  - "$HOME/Library/Logs/Clockify"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-cocoapods
+  name: CocoaPods logs
+  description: Application logs for CocoaPods.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.cocoapods.CocoaPods"
+  - "$HOME/Library/Logs/CocoaPods"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-color-sync
+  name: ColorSync logs
+  description: Application logs for ColorSync.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.ColorSyncUtility"
+  - "$HOME/Library/Logs/ColorSync"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-commander-one
+  name: Commander One logs
+  description: Application logs for Commander One.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.eltima.cmd1"
+  - "$HOME/Library/Logs/Commander One"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-confluence
+  name: Confluence logs
+  description: Application logs for Confluence.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.atlassian.confluence"
+  - "$HOME/Library/Logs/Confluence"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-console
+  name: Console logs
+  description: Application logs for Console.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Console"
+  - "$HOME/Library/Logs/Console"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-contacts
+  name: Contacts logs
+  description: Application logs for Contacts.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.AddressBook"
+  - "$HOME/Library/Logs/Contacts"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-copilot
+  name: Microsoft Copilot logs
+  description: Application logs for Microsoft Copilot.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.copilot"
+  - "$HOME/Library/Logs/Microsoft Copilot"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-craft
+  name: Craft logs
+  description: Application logs for Craft.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.lukilabs.lukiapp"
+  - "$HOME/Library/Logs/Craft"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-cursor
+  name: Cursor logs
+  description: Application logs for Cursor.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.todesktop.230313mzl4w4u92"
+  - "$HOME/Library/Logs/Cursor"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-cyberduck
+  name: Cyberduck logs
+  description: Application logs for Cyberduck.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/ch.sudo.cyberduck"
+  - "$HOME/Library/Logs/Cyberduck"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-dashlane
+  name: Dashlane logs
+  description: Application logs for Dashlane.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.dashlane.dashlanephonefinal"
+  - "$HOME/Library/Logs/Dashlane"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-davinci-resolve
+  name: DaVinci Resolve logs
+  description: Application logs for DaVinci Resolve.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.blackmagic-design.DaVinciResolve"
+  - "$HOME/Library/Logs/DaVinci Resolve"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-db-browser
+  name: DB Browser logs
+  description: Application logs for DB Browser.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/uk.co.sqlitebrowser"
+  - "$HOME/Library/Logs/DB Browser"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-deezer
+  name: Deezer logs
+  description: Application logs for Deezer.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.deezer.deezer-desktop"
+  - "$HOME/Library/Logs/Deezer"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-dia
+  name: Dia logs
+  description: Application logs for Dia.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/company.thebrowser.dia"
+  - "$HOME/Library/Logs/Dia"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-dictionary
+  name: Dictionary logs
+  description: Application logs for Dictionary.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Dictionary"
+  - "$HOME/Library/Logs/Dictionary"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-digital-color-meter
+  name: Digital Color Meter logs
+  description: Application logs for Digital Color Meter.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.DigitalColorMeter"
+  - "$HOME/Library/Logs/Digital Color Meter"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-discord
+  name: Discord logs
+  description: Application logs for Discord.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.hnc.Discord"
+  - "$HOME/Library/Logs/Discord"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-discord-ptb
+  name: Discord PTB logs
+  description: Application logs for Discord PTB.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.hnc.DiscordPTB"
+  - "$HOME/Library/Logs/Discord PTB"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-disk-utility
+  name: Disk Utility logs
+  description: Application logs for Disk Utility.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.DiskUtility"
+  - "$HOME/Library/Logs/Disk Utility"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-docker-desktop
+  name: Docker Desktop logs
+  description: Application logs for Docker Desktop.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.docker.docker"
+  - "$HOME/Library/Logs/Docker Desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-drawio
+  name: draw.io logs
+  description: Application logs for draw.io.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.jgraph.drawio.desktop"
+  - "$HOME/Library/Logs/draw.io"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-dropbox
+  name: Dropbox logs
+  description: Application logs for Dropbox.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.getdropbox.dropbox"
+  - "$HOME/Library/Logs/Dropbox"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-element
+  name: Element logs
+  description: Application logs for Element.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/im.riot.app"
+  - "$HOME/Library/Logs/Element"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-epic-games
+  name: Epic Games logs
+  description: Application logs for Epic Games.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.epicgames.EpicGamesLauncher"
+  - "$HOME/Library/Logs/Epic Games"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-excalidraw
+  name: Excalidraw logs
+  description: Application logs for Excalidraw.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.excalidraw.Excalidraw"
+  - "$HOME/Library/Logs/Excalidraw"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-expressvpn
+  name: ExpressVPN logs
+  description: Application logs for ExpressVPN.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.expressvpn.ExpressVPN"
+  - "$HOME/Library/Logs/ExpressVPN"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-facetime
+  name: FaceTime logs
+  description: Application logs for FaceTime.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.FaceTime"
+  - "$HOME/Library/Logs/FaceTime"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-fantastical
+  name: Fantastical logs
+  description: Application logs for Fantastical.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.flexibits.fantastical2.mac"
+  - "$HOME/Library/Logs/Fantastical"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-figma
+  name: Figma logs
+  description: Application logs for Figma.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.figma.Desktop"
+  - "$HOME/Library/Logs/Figma"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-final-cut-pro
+  name: Final Cut Pro logs
+  description: Application logs for Final Cut Pro.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.FinalCut"
+  - "$HOME/Library/Logs/Final Cut Pro"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-find-my
+  name: Find My logs
+  description: Application logs for Find My.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.findmy"
+  - "$HOME/Library/Logs/Find My"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-firefox
+  name: Firefox logs
+  description: Application logs for Firefox.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.mozilla.firefox"
+  - "$HOME/Library/Logs/Firefox"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-firefox-developer
+  name: Firefox Developer logs
+  description: Application logs for Firefox Developer.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.mozilla.firefoxdeveloperedition"
+  - "$HOME/Library/Logs/Firefox Developer"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-fitness
+  name: Fitness logs
+  description: Application logs for Fitness.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Fitness"
+  - "$HOME/Library/Logs/Fitness"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-flutter
+  name: Flutter logs
+  description: Application logs for Flutter.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/dev.flutter.flutter-tools"
+  - "$HOME/Library/Logs/Flutter"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-font-book
+  name: Font Book logs
+  description: Application logs for Font Book.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.FontBook"
+  - "$HOME/Library/Logs/Font Book"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-fork
+  name: Fork logs
+  description: Application logs for Fork.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.DanPristupov.Fork"
+  - "$HOME/Library/Logs/Fork"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-forklift
+  name: ForkLift logs
+  description: Application logs for ForkLift.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.binarynights.ForkLift-3"
+  - "$HOME/Library/Logs/ForkLift"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-freeform
+  name: Freeform logs
+  description: Application logs for Freeform.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.freeform"
+  - "$HOME/Library/Logs/Freeform"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-front
+  name: Front logs
+  description: Application logs for Front.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.frontapp.Front"
+  - "$HOME/Library/Logs/Front"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-garageband
+  name: GarageBand logs
+  description: Application logs for GarageBand.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.garageband10"
+  - "$HOME/Library/Logs/GarageBand"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-github-desktop
+  name: GitHub Desktop logs
+  description: Application logs for GitHub Desktop.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.github.GitHubClient"
+  - "$HOME/Library/Logs/GitHub Desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-godot
+  name: Godot logs
+  description: Application logs for Godot.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.godotengine.Godot"
+  - "$HOME/Library/Logs/Godot"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-gog-galaxy
+  name: GOG Galaxy logs
+  description: Application logs for GOG Galaxy.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.gog.galaxy"
+  - "$HOME/Library/Logs/GOG Galaxy"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-goodnotes
+  name: GoodNotes logs
+  description: Application logs for GoodNotes.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.goodnotesapp.x"
+  - "$HOME/Library/Logs/GoodNotes"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-google-drive
+  name: Google Drive logs
+  description: Application logs for Google Drive.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.google.drivefs"
+  - "$HOME/Library/Logs/Google Drive"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-grab
+  name: Grab logs
+  description: Application logs for Grab.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Grab"
+  - "$HOME/Library/Logs/Grab"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-grammarly
+  name: Grammarly logs
+  description: Application logs for Grammarly.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.grammarly.desktop"
+  - "$HOME/Library/Logs/Grammarly"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-grapher
+  name: Grapher logs
+  description: Application logs for Grapher.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.grapher"
+  - "$HOME/Library/Logs/Grapher"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-handbrake
+  name: HandBrake logs
+  description: Application logs for HandBrake.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/fr.handbrake.HandBrake"
+  - "$HOME/Library/Logs/HandBrake"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-home
+  name: Home logs
+  description: Application logs for Home.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Home"
+  - "$HOME/Library/Logs/Home"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-homebrew
+  name: Homebrew logs
+  description: Application logs for Homebrew.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/sh.brew.homebrew"
+  - "$HOME/Library/Logs/Homebrew"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-houdini
+  name: Houdini logs
+  description: Application logs for Houdini.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.sidefx.Houdini"
+  - "$HOME/Library/Logs/Houdini"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-hyper
+  name: Hyper logs
+  description: Application logs for Hyper.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/co.zeit.hyper"
+  - "$HOME/Library/Logs/Hyper"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-ia-writer
+  name: iA Writer logs
+  description: Application logs for iA Writer.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/pro.writer.mac"
+  - "$HOME/Library/Logs/iA Writer"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-iina
+  name: IINA logs
+  description: Application logs for IINA.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.colliderli.iina"
+  - "$HOME/Library/Logs/IINA"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-illustrator
+  name: Illustrator logs
+  description: Application logs for Illustrator.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.Illustrator"
+  - "$HOME/Library/Logs/Illustrator"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-image-capture
+  name: Image Capture logs
+  description: Application logs for Image Capture.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.ImageCaptureApp"
+  - "$HOME/Library/Logs/Image Capture"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-insomnia
+  name: Insomnia logs
+  description: Application logs for Insomnia.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.insomnia.app"
+  - "$HOME/Library/Logs/Insomnia"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-intercom
+  name: Intercom logs
+  description: Application logs for Intercom.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.intercom.Intercom"
+  - "$HOME/Library/Logs/Intercom"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-istat-menus
+  name: iStat Menus logs
+  description: Application logs for iStat Menus.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.bjango.istatmenus"
+  - "$HOME/Library/Logs/iStat Menus"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-iterm2
+  name: iTerm2 logs
+  description: Application logs for iTerm2.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.googlecode.iterm2"
+  - "$HOME/Library/Logs/iTerm2"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-jetbrains-toolbox
+  name: JetBrains Toolbox logs
+  description: Application logs for JetBrains Toolbox.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.jetbrains.toolbox"
+  - "$HOME/Library/Logs/JetBrains Toolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-jira
+  name: Jira logs
+  description: Application logs for Jira.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.atlassian.Jira"
+  - "$HOME/Library/Logs/Jira"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-journal
+  name: Journal logs
+  description: Application logs for Journal.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.journal"
+  - "$HOME/Library/Logs/Journal"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-keeper
+  name: Keeper logs
+  description: Application logs for Keeper.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.callpod.keeper"
+  - "$HOME/Library/Logs/Keeper"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-keka
+  name: Keka logs
+  description: Application logs for Keka.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.aone.keka"
+  - "$HOME/Library/Logs/Keka"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-keychain
+  name: Keychain Access logs
+  description: Application logs for Keychain Access.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.keychainaccess"
+  - "$HOME/Library/Logs/Keychain Access"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-kindle
+  name: Kindle logs
+  description: Application logs for Kindle.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.amazon.Kindle"
+  - "$HOME/Library/Logs/Kindle"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-kitty
+  name: Kitty logs
+  description: Application logs for Kitty.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.kovidgoyal.kitty"
+  - "$HOME/Library/Logs/Kitty"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-knockknock
+  name: KnockKnock logs
+  description: Application logs for KnockKnock.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/objective-see.knockknock"
+  - "$HOME/Library/Logs/KnockKnock"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-lightroom
+  name: Lightroom logs
+  description: Application logs for Lightroom.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.lightroomCC"
+  - "$HOME/Library/Logs/Lightroom"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-linear
+  name: Linear logs
+  description: Application logs for Linear.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.linear"
+  - "$HOME/Library/Logs/Linear"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-little-snitch
+  name: Little Snitch logs
+  description: Application logs for Little Snitch.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/at.obdev.littlesnitch"
+  - "$HOME/Library/Logs/Little Snitch"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-logic-pro
+  name: Logic Pro logs
+  description: Application logs for Logic Pro.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.logic10"
+  - "$HOME/Library/Logs/Logic Pro"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-lucidchart
+  name: Lucidchart logs
+  description: Application logs for Lucidchart.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.lucidchart.Lucidchart"
+  - "$HOME/Library/Logs/Lucidchart"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-lulu
+  name: LuLu logs
+  description: Application logs for LuLu.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/objective-see.lulu"
+  - "$HOME/Library/Logs/LuLu"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-mail
+  name: Mail logs
+  description: Application logs for Mail.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.mail"
+  - "$HOME/Library/Logs/Mail"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-maps
+  name: Maps logs
+  description: Application logs for Maps.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Maps"
+  - "$HOME/Library/Logs/Maps"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-megasync
+  name: MEGA logs
+  description: Application logs for MEGA.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/mega.mac"
+  - "$HOME/Library/Logs/MEGA"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-messages
+  name: Messages logs
+  description: Application logs for Messages.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.MobileSMS"
+  - "$HOME/Library/Logs/Messages"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-microsoft-edge
+  name: Microsoft Edge logs
+  description: Application logs for Microsoft Edge.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.edgemac"
+  - "$HOME/Library/Logs/Microsoft Edge"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-microsoft-excel
+  name: Microsoft Excel logs
+  description: Application logs for Microsoft Excel.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.Excel"
+  - "$HOME/Library/Logs/Microsoft Excel"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-microsoft-onenote
+  name: OneNote logs
+  description: Application logs for OneNote.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.onenote.mac"
+  - "$HOME/Library/Logs/OneNote"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-microsoft-outlook
+  name: Microsoft Outlook logs
+  description: Application logs for Microsoft Outlook.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.Outlook"
+  - "$HOME/Library/Logs/Microsoft Outlook"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-microsoft-powerpoint
+  name: Microsoft PowerPoint logs
+  description: Application logs for Microsoft PowerPoint.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.Powerpoint"
+  - "$HOME/Library/Logs/Microsoft PowerPoint"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-microsoft-word
+  name: Microsoft Word logs
+  description: Application logs for Microsoft Word.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.Word"
+  - "$HOME/Library/Logs/Microsoft Word"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-midi-studio
+  name: MIDI Setup logs
+  description: Application logs for MIDI Setup.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.midi.MIDISetup"
+  - "$HOME/Library/Logs/MIDI Setup"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-migration
+  name: Migration Assistant logs
+  description: Application logs for Migration Assistant.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.MigrateAssistant"
+  - "$HOME/Library/Logs/Migration Assistant"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-mimestream
+  name: Mimestream logs
+  description: Application logs for Mimestream.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.mimestream.Mimestream"
+  - "$HOME/Library/Logs/Mimestream"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-minecraft
+  name: Minecraft logs
+  description: Application logs for Minecraft.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.mojang.minecraft"
+  - "$HOME/Library/Logs/Minecraft"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-miro
+  name: Miro logs
+  description: Application logs for Miro.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.realtimeboard.miro"
+  - "$HOME/Library/Logs/Miro"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-monday
+  name: monday.com logs
+  description: Application logs for monday.com.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.monday.desktop"
+  - "$HOME/Library/Logs/monday.com"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-mullvad
+  name: Mullvad logs
+  description: Application logs for Mullvad.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.mullvad.vpn"
+  - "$HOME/Library/Logs/Mullvad"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-netiquette
+  name: Netiquette logs
+  description: Application logs for Netiquette.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/objective-see.netiquette"
+  - "$HOME/Library/Logs/Netiquette"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-news
+  name: News logs
+  description: Application logs for News.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.news"
+  - "$HOME/Library/Logs/News"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-nextcloud
+  name: Nextcloud logs
+  description: Application logs for Nextcloud.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.nextcloud.desktopclient"
+  - "$HOME/Library/Logs/Nextcloud"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-nordvpn
+  name: NordVPN logs
+  description: Application logs for NordVPN.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.nordvpn.NordVPN"
+  - "$HOME/Library/Logs/NordVPN"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-notability
+  name: Notability logs
+  description: Application logs for Notability.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.gingerlabs.Notability"
+  - "$HOME/Library/Logs/Notability"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-notes
+  name: Notes logs
+  description: Application logs for Notes.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Notes"
+  - "$HOME/Library/Logs/Notes"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-notion
+  name: Notion logs
+  description: Application logs for Notion.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/notion.id"
+  - "$HOME/Library/Logs/Notion"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-notion-calendar
+  name: Notion Calendar logs
+  description: Application logs for Notion Calendar.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.cron.electron"
+  - "$HOME/Library/Logs/Notion Calendar"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-nova
+  name: Nova logs
+  description: Application logs for Nova.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.panic.Nova"
+  - "$HOME/Library/Logs/Nova"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-obs
+  name: OBS logs
+  description: Application logs for OBS.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.obsproject.obs-studio"
+  - "$HOME/Library/Logs/OBS"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-obsidian
+  name: Obsidian logs
+  description: Application logs for Obsidian.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/md.obsidian"
+  - "$HOME/Library/Logs/Obsidian"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-omnifocus
+  name: OmniFocus logs
+  description: Application logs for OmniFocus.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.omnigroup.OmniFocus3"
+  - "$HOME/Library/Logs/OmniFocus"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-onedrive
+  name: OneDrive logs
+  description: Application logs for OneDrive.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.OneDrive"
+  - "$HOME/Library/Logs/OneDrive"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-opera
+  name: Opera logs
+  description: Application logs for Opera.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.operasoftware.Opera"
+  - "$HOME/Library/Logs/Opera"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-orbstack
+  name: OrbStack logs
+  description: Application logs for OrbStack.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/dev.orbstack.OrbStack"
+  - "$HOME/Library/Logs/OrbStack"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-origin
+  name: EA App logs
+  description: Application logs for EA App.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.ea.Origin"
+  - "$HOME/Library/Logs/EA App"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-orion
+  name: Orion logs
+  description: Application logs for Orion.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.kagi.Orion"
+  - "$HOME/Library/Logs/Orion"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-overcast
+  name: Overcast logs
+  description: Application logs for Overcast.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/fm.overcast.overcast"
+  - "$HOME/Library/Logs/Overcast"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-oversight
+  name: OverSight logs
+  description: Application logs for OverSight.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/objective-see.oversight"
+  - "$HOME/Library/Logs/OverSight"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-parallels
+  name: Parallels logs
+  description: Application logs for Parallels.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.parallels.desktop.console"
+  - "$HOME/Library/Logs/Parallels"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-passwords
+  name: Passwords logs
+  description: Application logs for Passwords.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Passwords"
+  - "$HOME/Library/Logs/Passwords"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-path-finder
+  name: Path Finder logs
+  description: Application logs for Path Finder.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.cocoatech.PathFinder"
+  - "$HOME/Library/Logs/Path Finder"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-pdf-expert
+  name: PDF Expert logs
+  description: Application logs for PDF Expert.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.readdle.PDFExpert-Mac"
+  - "$HOME/Library/Logs/PDF Expert"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-perplexity
+  name: Perplexity logs
+  description: Application logs for Perplexity.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/ai.perplexity.mac"
+  - "$HOME/Library/Logs/Perplexity"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-photos
+  name: Photos logs
+  description: Application logs for Photos.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Photos"
+  - "$HOME/Library/Logs/Photos"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-photoshop
+  name: Photoshop logs
+  description: Application logs for Photoshop.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.Photoshop"
+  - "$HOME/Library/Logs/Photoshop"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-pixelmator-pro
+  name: Pixelmator Pro logs
+  description: Application logs for Pixelmator Pro.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.pixelmatorteam.pixelmator.x"
+  - "$HOME/Library/Logs/Pixelmator Pro"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-pocket-casts
+  name: Pocket Casts logs
+  description: Application logs for Pocket Casts.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/au.com.shiftyjelly.pocketcasts"
+  - "$HOME/Library/Logs/Pocket Casts"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-podcasts
+  name: Podcasts logs
+  description: Application logs for Podcasts.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.podcasts"
+  - "$HOME/Library/Logs/Podcasts"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-postman
+  name: Postman logs
+  description: Application logs for Postman.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.postmanlabs.mac"
+  - "$HOME/Library/Logs/Postman"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-premiere
+  name: Premiere Pro logs
+  description: Application logs for Premiere Pro.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.adobe.PremierePro"
+  - "$HOME/Library/Logs/Premiere Pro"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-preview-extras
+  name: Preview logs
+  description: Application logs for Preview.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Preview"
+  - "$HOME/Library/Logs/Preview"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-print-center
+  name: Print Center logs
+  description: Application logs for Print Center.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.printcenter"
+  - "$HOME/Library/Logs/Print Center"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-quicktime
+  name: QuickTime logs
+  description: Application logs for QuickTime.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.QuickTimePlayerX"
+  - "$HOME/Library/Logs/QuickTime"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-raycast
+  name: Raycast logs
+  description: Application logs for Raycast.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.raycast.macos"
+  - "$HOME/Library/Logs/Raycast"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-rectangle
+  name: Rectangle logs
+  description: Application logs for Rectangle.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.knollsoft.Rectangle"
+  - "$HOME/Library/Logs/Rectangle"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-reminders
+  name: Reminders logs
+  description: Application logs for Reminders.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.reminders"
+  - "$HOME/Library/Logs/Reminders"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-remote-desktop
+  name: Remote Desktop logs
+  description: Application logs for Remote Desktop.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.RemoteDesktopAgent"
+  - "$HOME/Library/Logs/Remote Desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-rescuetime
+  name: RescueTime logs
+  description: Application logs for RescueTime.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.rescuetime.RescueTime"
+  - "$HOME/Library/Logs/RescueTime"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-riot-client
+  name: Riot Client logs
+  description: Application logs for Riot Client.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.riotgames.LeagueofLegends.RiotClient"
+  - "$HOME/Library/Logs/Riot Client"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-safari
+  name: Safari logs
+  description: Application logs for Safari.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Safari"
+  - "$HOME/Library/Logs/Safari"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-screen-sharing
+  name: Screen Sharing logs
+  description: Application logs for Screen Sharing.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.ScreenSharing"
+  - "$HOME/Library/Logs/Screen Sharing"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-screenshot
+  name: Screenshot logs
+  description: Application logs for Screenshot.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.screenshot.launcher"
+  - "$HOME/Library/Logs/Screenshot"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-script-editor
+  name: Script Editor logs
+  description: Application logs for Script Editor.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.ScriptEditor2"
+  - "$HOME/Library/Logs/Script Editor"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-sequel-ace
+  name: Sequel Ace logs
+  description: Application logs for Sequel Ace.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.sequel-ace.sequel-ace"
+  - "$HOME/Library/Logs/Sequel Ace"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-setapp
+  name: Setapp logs
+  description: Application logs for Setapp.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.setapp.DesktopClient"
+  - "$HOME/Library/Logs/Setapp"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-shortcuts
+  name: Shortcuts logs
+  description: Application logs for Shortcuts.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.shortcuts"
+  - "$HOME/Library/Logs/Shortcuts"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-sidekick
+  name: Sidekick logs
+  description: Application logs for Sidekick.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.pushplaylabs.sidekick"
+  - "$HOME/Library/Logs/Sidekick"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-sigmaos
+  name: SigmaOS logs
+  description: Application logs for SigmaOS.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.sigmaos.sigmaos.macos"
+  - "$HOME/Library/Logs/SigmaOS"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-signal
+  name: Signal logs
+  description: Application logs for Signal.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.whispersystems.signal-desktop"
+  - "$HOME/Library/Logs/Signal"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-simulator
+  name: Simulator logs
+  description: Application logs for Simulator.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.iphonesimulator"
+  - "$HOME/Library/Logs/Simulator"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-sketch
+  name: Sketch logs
+  description: Application logs for Sketch.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.bohemiancoding.sketch3"
+  - "$HOME/Library/Logs/Sketch"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-skype
+  name: Skype logs
+  description: Application logs for Skype.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.skype.skype"
+  - "$HOME/Library/Logs/Skype"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-slack
+  name: Slack logs
+  description: Application logs for Slack.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.tinyspeck.slackmacgap"
+  - "$HOME/Library/Logs/Slack"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-sourcetree
+  name: SourceTree logs
+  description: Application logs for SourceTree.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.torusknot.SourceTreeNotMAS"
+  - "$HOME/Library/Logs/SourceTree"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-spark
+  name: Spark logs
+  description: Application logs for Spark.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.readdle.smartemail-Mac"
+  - "$HOME/Library/Logs/Spark"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-spotify
+  name: Spotify logs
+  description: Application logs for Spotify.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.spotify.client"
+  - "$HOME/Library/Logs/Spotify"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-stats
+  name: Stats logs
+  description: Application logs for Stats.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/eu.exelban.Stats"
+  - "$HOME/Library/Logs/Stats"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-steam
+  name: Steam logs
+  description: Application logs for Steam.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.valvesoftware.steam"
+  - "$HOME/Library/Logs/Steam"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-stickies
+  name: Stickies logs
+  description: Application logs for Stickies.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Stickies"
+  - "$HOME/Library/Logs/Stickies"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-stocks
+  name: Stocks logs
+  description: Application logs for Stocks.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.stocks"
+  - "$HOME/Library/Logs/Stocks"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-sublime-text
+  name: Sublime Text logs
+  description: Application logs for Sublime Text.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.sublimetext.4"
+  - "$HOME/Library/Logs/Sublime Text"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-superhuman
+  name: Superhuman logs
+  description: Application logs for Superhuman.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.superhuman.electron"
+  - "$HOME/Library/Logs/Superhuman"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-syncthing
+  name: Syncthing logs
+  description: Application logs for Syncthing.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.github.xor-gate.syncthing-macosx"
+  - "$HOME/Library/Logs/Syncthing"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-system-settings
+  name: System Settings logs
+  description: Application logs for System Settings.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.systempreferences"
+  - "$HOME/Library/Logs/System Settings"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tabby
+  name: Tabby logs
+  description: Application logs for Tabby.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.tabby"
+  - "$HOME/Library/Logs/Tabby"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tableplus
+  name: TablePlus logs
+  description: Application logs for TablePlus.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.tinyapp.TablePlus"
+  - "$HOME/Library/Logs/TablePlus"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tailscale
+  name: Tailscale logs
+  description: Application logs for Tailscale.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/io.tailscale.ipn.macsys"
+  - "$HOME/Library/Logs/Tailscale"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-taskexplorer
+  name: TaskExplorer logs
+  description: Application logs for TaskExplorer.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/objective-see.taskexplorer"
+  - "$HOME/Library/Logs/TaskExplorer"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-teams
+  name: Microsoft Teams logs
+  description: Application logs for Microsoft Teams.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.teams2"
+  - "$HOME/Library/Logs/Microsoft Teams"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-telegram
+  name: Telegram logs
+  description: Application logs for Telegram.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/ru.keepcoder.Telegram"
+  - "$HOME/Library/Logs/Telegram"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-terminal
+  name: Terminal logs
+  description: Application logs for Terminal.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.Terminal"
+  - "$HOME/Library/Logs/Terminal"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-termnius
+  name: Termius logs
+  description: Application logs for Termius.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.termius.mac"
+  - "$HOME/Library/Logs/Termius"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-textedit
+  name: TextEdit logs
+  description: Application logs for TextEdit.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.TextEdit"
+  - "$HOME/Library/Logs/TextEdit"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-the-unarchiver
+  name: The Unarchiver logs
+  description: Application logs for The Unarchiver.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.macpaw.site.theunarchiver"
+  - "$HOME/Library/Logs/The Unarchiver"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-things
+  name: Things logs
+  description: Application logs for Things.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.culturedcode.ThingsMac"
+  - "$HOME/Library/Logs/Things"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-ticket-viewer
+  name: Ticket Viewer logs
+  description: Application logs for Ticket Viewer.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.TicketViewer"
+  - "$HOME/Library/Logs/Ticket Viewer"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tidal
+  name: TIDAL logs
+  description: Application logs for TIDAL.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.tidal.desktop"
+  - "$HOME/Library/Logs/TIDAL"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-timing
+  name: Timing logs
+  description: Application logs for Timing.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/info.eurocomp.Timing2"
+  - "$HOME/Library/Logs/Timing"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tips
+  name: Tips logs
+  description: Application logs for Tips.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.tips"
+  - "$HOME/Library/Logs/Tips"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-todoist
+  name: Todoist logs
+  description: Application logs for Todoist.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.todoist.mac"
+  - "$HOME/Library/Logs/Todoist"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-toggl
+  name: Toggl Track logs
+  description: Application logs for Toggl Track.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.toggl.toggldesktop.TogglDesktop"
+  - "$HOME/Library/Logs/Toggl Track"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tor-browser
+  name: Tor Browser logs
+  description: Application logs for Tor Browser.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.torproject.torbrowser"
+  - "$HOME/Library/Logs/Tor Browser"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tower
+  name: Tower logs
+  description: Application logs for Tower.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.fournova.Tower3"
+  - "$HOME/Library/Logs/Tower"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-transmit
+  name: Transmit logs
+  description: Application logs for Transmit.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.panic.Transmit"
+  - "$HOME/Library/Logs/Transmit"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-trello
+  name: Trello logs
+  description: Application logs for Trello.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.trello.mac"
+  - "$HOME/Library/Logs/Trello"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-tv
+  name: TV logs
+  description: Application logs for TV.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.TV"
+  - "$HOME/Library/Logs/TV"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-typora
+  name: Typora logs
+  description: Application logs for Typora.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/abnerworks.Typora"
+  - "$HOME/Library/Logs/Typora"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-ulysses
+  name: Ulysses logs
+  description: Application logs for Ulysses.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.ulyssesapp.mac"
+  - "$HOME/Library/Logs/Ulysses"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-unity-hub
+  name: Unity Hub logs
+  description: Application logs for Unity Hub.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.unity3d.unityhub"
+  - "$HOME/Library/Logs/Unity Hub"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-unreal-editor
+  name: Unreal Editor logs
+  description: Application logs for Unreal Editor.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.epicgames.UE4Editor"
+  - "$HOME/Library/Logs/Unreal Editor"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-utm
+  name: UTM logs
+  description: Application logs for UTM.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.utmapp.UTM"
+  - "$HOME/Library/Logs/UTM"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-vivaldi
+  name: Vivaldi logs
+  description: Application logs for Vivaldi.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.vivaldi.Vivaldi"
+  - "$HOME/Library/Logs/Vivaldi"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-vlc
+  name: VLC logs
+  description: Application logs for VLC.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/org.videolan.vlc"
+  - "$HOME/Library/Logs/VLC"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-vmware-fusion
+  name: VMware Fusion logs
+  description: Application logs for VMware Fusion.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.vmware.fusion"
+  - "$HOME/Library/Logs/VMware Fusion"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-voice-memos
+  name: Voice Memos logs
+  description: Application logs for Voice Memos.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.VoiceMemos"
+  - "$HOME/Library/Logs/Voice Memos"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-voiceover
+  name: VoiceOver Utility logs
+  description: Application logs for VoiceOver Utility.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.VoiceOverUtility"
+  - "$HOME/Library/Logs/VoiceOver Utility"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-vscode
+  name: Visual Studio Code logs
+  description: Application logs for Visual Studio Code.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.microsoft.VSCode"
+  - "$HOME/Library/Logs/Visual Studio Code"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-warp
+  name: Warp logs
+  description: Application logs for Warp.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/dev.warp.Warp"
+  - "$HOME/Library/Logs/Warp"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-weather
+  name: Weather logs
+  description: Application logs for Weather.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.weather"
+  - "$HOME/Library/Logs/Weather"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-webex
+  name: Webex logs
+  description: Application logs for Webex.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Cisco-Systems.Spark"
+  - "$HOME/Library/Logs/Webex"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-wezterm
+  name: WezTerm logs
+  description: Application logs for WezTerm.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.github.wez.wezterm"
+  - "$HOME/Library/Logs/WezTerm"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-whatsapp
+  name: WhatsApp logs
+  description: Application logs for WhatsApp.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/net.whatsapp.WhatsApp"
+  - "$HOME/Library/Logs/WhatsApp"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-whimsical
+  name: Whimsical logs
+  description: Application logs for Whimsical.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.whimsical.desktop"
+  - "$HOME/Library/Logs/Whimsical"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-windsurf
+  name: Windsurf logs
+  description: Application logs for Windsurf.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.exafunction.windsurf"
+  - "$HOME/Library/Logs/Windsurf"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-wireguard
+  name: WireGuard logs
+  description: Application logs for WireGuard.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.wireguard.macos"
+  - "$HOME/Library/Logs/WireGuard"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-xcode
+  name: Xcode logs
+  description: Application logs for Xcode.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.apple.dt.Xcode"
+  - "$HOME/Library/Logs/Xcode"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-yandex
+  name: Yandex Browser logs
+  description: Application logs for Yandex Browser.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/ru.yandex.desktop.yandex-browser"
+  - "$HOME/Library/Logs/Yandex Browser"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-zed
+  name: Zed logs
+  description: Application logs for Zed.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/dev.zed.Zed"
+  - "$HOME/Library/Logs/Zed"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-zendesk
+  name: Zendesk logs
+  description: Application logs for Zendesk.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/com.zendesk.ZendeskSupport"
+  - "$HOME/Library/Logs/Zendesk"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-app-logs-zoom
+  name: Zoom logs
+  description: Application logs for Zoom.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/us.zoom.xos"
+  - "$HOME/Library/Logs/Zoom"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-1password
+  name: 1Password Electron logs
+  description: Logs under Application Support/1Password.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/1Password/logs"
+  - "$HOME/Library/Application Support/1Password/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-adobecreativecloud
+  name: AdobeCreativeCloud Electron logs
+  description: Logs under Application Support/AdobeCreativeCloud.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/AdobeCreativeCloud/logs"
+  - "$HOME/Library/Application Support/AdobeCreativeCloud/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-airmail
+  name: Airmail Electron logs
+  description: Logs under Application Support/Airmail.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Airmail/logs"
+  - "$HOME/Library/Application Support/Airmail/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-arc
+  name: Arc Electron logs
+  description: Logs under Application Support/Arc.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Arc/logs"
+  - "$HOME/Library/Application Support/Arc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-asana
+  name: Asana Electron logs
+  description: Logs under Application Support/Asana.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Asana/logs"
+  - "$HOME/Library/Application Support/Asana/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-authy
+  name: Authy Electron logs
+  description: Logs under Application Support/Authy.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Authy/logs"
+  - "$HOME/Library/Application Support/Authy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-battlenet
+  name: BattleNet Electron logs
+  description: Logs under Application Support/BattleNet.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/BattleNet/logs"
+  - "$HOME/Library/Application Support/BattleNet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-bitwarden
+  name: Bitwarden Electron logs
+  description: Logs under Application Support/Bitwarden.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Bitwarden/logs"
+  - "$HOME/Library/Application Support/Bitwarden/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-brave
+  name: Brave Electron logs
+  description: Logs under Application Support/Brave.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Brave/logs"
+  - "$HOME/Library/Application Support/Brave/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-browser
+  name: Browser Electron logs
+  description: Logs under Application Support/Browser.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Browser/logs"
+  - "$HOME/Library/Application Support/Browser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-canary
+  name: Canary Electron logs
+  description: Logs under Application Support/Canary.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Canary/logs"
+  - "$HOME/Library/Application Support/Canary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-chrome
+  name: Chrome Electron logs
+  description: Logs under Application Support/Chrome.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Chrome/logs"
+  - "$HOME/Library/Application Support/Chrome/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-clickup
+  name: ClickUp Electron logs
+  description: Logs under Application Support/ClickUp.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/ClickUp/logs"
+  - "$HOME/Library/Application Support/ClickUp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-craft
+  name: Craft Electron logs
+  description: Logs under Application Support/Craft.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Craft/logs"
+  - "$HOME/Library/Application Support/Craft/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-dashlane
+  name: Dashlane Electron logs
+  description: Logs under Application Support/Dashlane.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Dashlane/logs"
+  - "$HOME/Library/Application Support/Dashlane/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-discord
+  name: Discord Electron logs
+  description: Logs under Application Support/Discord.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Discord/logs"
+  - "$HOME/Library/Application Support/Discord/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-discordptb
+  name: DiscordPTB Electron logs
+  description: Logs under Application Support/DiscordPTB.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/DiscordPTB/logs"
+  - "$HOME/Library/Application Support/DiscordPTB/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-eaapp
+  name: EAApp Electron logs
+  description: Logs under Application Support/EAApp.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/EAApp/logs"
+  - "$HOME/Library/Application Support/EAApp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-edge
+  name: Edge Electron logs
+  description: Logs under Application Support/Edge.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Edge/logs"
+  - "$HOME/Library/Application Support/Edge/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-element
+  name: Element Electron logs
+  description: Logs under Application Support/Element.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Element/logs"
+  - "$HOME/Library/Application Support/Element/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-epicgames
+  name: EpicGames Electron logs
+  description: Logs under Application Support/EpicGames.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/EpicGames/logs"
+  - "$HOME/Library/Application Support/EpicGames/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-expressvpn
+  name: ExpressVPN Electron logs
+  description: Logs under Application Support/ExpressVPN.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/ExpressVPN/logs"
+  - "$HOME/Library/Application Support/ExpressVPN/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-figma
+  name: Figma Electron logs
+  description: Logs under Application Support/Figma.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Figma/logs"
+  - "$HOME/Library/Application Support/Figma/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-firefox
+  name: Firefox Electron logs
+  description: Logs under Application Support/Firefox.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Firefox/logs"
+  - "$HOME/Library/Application Support/Firefox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-fork
+  name: Fork Electron logs
+  description: Logs under Application Support/Fork.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Fork/logs"
+  - "$HOME/Library/Application Support/Fork/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-front
+  name: Front Electron logs
+  description: Logs under Application Support/Front.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Front/logs"
+  - "$HOME/Library/Application Support/Front/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-githubdesktop
+  name: GitHubDesktop Electron logs
+  description: Logs under Application Support/GitHubDesktop.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/GitHubDesktop/logs"
+  - "$HOME/Library/Application Support/GitHubDesktop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-gitkraken
+  name: GitKraken Electron logs
+  description: Logs under Application Support/GitKraken.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/GitKraken/logs"
+  - "$HOME/Library/Application Support/GitKraken/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-goggalaxy
+  name: GOGGalaxy Electron logs
+  description: Logs under Application Support/GOGGalaxy.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/GOGGalaxy/logs"
+  - "$HOME/Library/Application Support/GOGGalaxy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-insomnia
+  name: Insomnia Electron logs
+  description: Logs under Application Support/Insomnia.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Insomnia/logs"
+  - "$HOME/Library/Application Support/Insomnia/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-keeper
+  name: Keeper Electron logs
+  description: Logs under Application Support/Keeper.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Keeper/logs"
+  - "$HOME/Library/Application Support/Keeper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-launcher
+  name: Launcher Electron logs
+  description: Logs under Application Support/Launcher.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Launcher/logs"
+  - "$HOME/Library/Application Support/Launcher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-linear
+  name: Linear Electron logs
+  description: Logs under Application Support/Linear.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Linear/logs"
+  - "$HOME/Library/Application Support/Linear/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-minecraft
+  name: Minecraft Electron logs
+  description: Logs under Application Support/Minecraft.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Minecraft/logs"
+  - "$HOME/Library/Application Support/Minecraft/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-miro
+  name: Miro Electron logs
+  description: Logs under Application Support/Miro.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Miro/logs"
+  - "$HOME/Library/Application Support/Miro/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-monday
+  name: Monday Electron logs
+  description: Logs under Application Support/Monday.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Monday/logs"
+  - "$HOME/Library/Application Support/Monday/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-mullvad
+  name: Mullvad Electron logs
+  description: Logs under Application Support/Mullvad.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Mullvad/logs"
+  - "$HOME/Library/Application Support/Mullvad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-nordpass
+  name: NordPass Electron logs
+  description: Logs under Application Support/NordPass.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/NordPass/logs"
+  - "$HOME/Library/Application Support/NordPass/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-nordvpn
+  name: NordVPN Electron logs
+  description: Logs under Application Support/NordVPN.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/NordVPN/logs"
+  - "$HOME/Library/Application Support/NordVPN/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-notion
+  name: Notion Electron logs
+  description: Logs under Application Support/Notion.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Notion/logs"
+  - "$HOME/Library/Application Support/Notion/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-notioncalendar
+  name: NotionCalendar Electron logs
+  description: Logs under Application Support/NotionCalendar.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/NotionCalendar/logs"
+  - "$HOME/Library/Application Support/NotionCalendar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-obsidian
+  name: Obsidian Electron logs
+  description: Logs under Application Support/Obsidian.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Obsidian/logs"
+  - "$HOME/Library/Application Support/Obsidian/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-photoshop
+  name: Photoshop Electron logs
+  description: Logs under Application Support/Photoshop.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Photoshop/logs"
+  - "$HOME/Library/Application Support/Photoshop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-postman
+  name: Postman Electron logs
+  description: Logs under Application Support/Postman.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Postman/logs"
+  - "$HOME/Library/Application Support/Postman/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-riotclient
+  name: RiotClient Electron logs
+  description: Logs under Application Support/RiotClient.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/RiotClient/logs"
+  - "$HOME/Library/Application Support/RiotClient/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-signal
+  name: Signal Electron logs
+  description: Logs under Application Support/Signal.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Signal/logs"
+  - "$HOME/Library/Application Support/Signal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-skype
+  name: Skype Electron logs
+  description: Logs under Application Support/Skype.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Skype/logs"
+  - "$HOME/Library/Application Support/Skype/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-slack
+  name: Slack Electron logs
+  description: Logs under Application Support/Slack.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Slack/logs"
+  - "$HOME/Library/Application Support/Slack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-sourcetree
+  name: Sourcetree Electron logs
+  description: Logs under Application Support/Sourcetree.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Sourcetree/logs"
+  - "$HOME/Library/Application Support/Sourcetree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-spark
+  name: Spark Electron logs
+  description: Logs under Application Support/Spark.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Spark/logs"
+  - "$HOME/Library/Application Support/Spark/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-spotify
+  name: Spotify Electron logs
+  description: Logs under Application Support/Spotify.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Spotify/logs"
+  - "$HOME/Library/Application Support/Spotify/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-steam
+  name: Steam Electron logs
+  description: Logs under Application Support/Steam.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Steam/logs"
+  - "$HOME/Library/Application Support/Steam/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-superhuman
+  name: Superhuman Electron logs
+  description: Logs under Application Support/Superhuman.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Superhuman/logs"
+  - "$HOME/Library/Application Support/Superhuman/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-teams
+  name: Teams Electron logs
+  description: Logs under Application Support/Teams.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Teams/logs"
+  - "$HOME/Library/Application Support/Teams/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-telegram
+  name: Telegram Electron logs
+  description: Logs under Application Support/Telegram.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Telegram/logs"
+  - "$HOME/Library/Application Support/Telegram/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-tor
+  name: Tor Electron logs
+  description: Logs under Application Support/Tor.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Tor/logs"
+  - "$HOME/Library/Application Support/Tor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-tower
+  name: Tower Electron logs
+  description: Logs under Application Support/Tower.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Tower/logs"
+  - "$HOME/Library/Application Support/Tower/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-trello
+  name: Trello Electron logs
+  description: Logs under Application Support/Trello.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Trello/logs"
+  - "$HOME/Library/Application Support/Trello/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-vscodium
+  name: VSCodium Electron logs
+  description: Logs under Application Support/VSCodium.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/VSCodium/logs"
+  - "$HOME/Library/Application Support/VSCodium/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-whatsapp
+  name: WhatsApp Electron logs
+  description: Logs under Application Support/WhatsApp.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/WhatsApp/logs"
+  - "$HOME/Library/Application Support/WhatsApp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-whimsical
+  name: Whimsical Electron logs
+  description: Logs under Application Support/Whimsical.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Whimsical/logs"
+  - "$HOME/Library/Application Support/Whimsical/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: gen-electron-logs-zoom
+  name: Zoom Electron logs
+  description: Logs under Application Support/Zoom.
+  category: logs
+  platform: any
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Zoom/logs"
+  - "$HOME/Library/Application Support/Zoom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: hb-deep-logs-deeper
+  name: Homebrew logs deeper and Linux log layout
+  description: Per-formula log directories under Homebrew logs plus Linux XDG log
+    layout variants.
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/Homebrew/Logs"
+  - "$XDG_CACHE_HOME/Homebrew/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: idp-duo-desktop-logs-caches
+  name: Duo Desktop logs and caches
+  description: Duo Desktop (Device Health) diagnostic logs and app caches.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Duo Desktop"
+  - "$HOME/Library/Logs/Duo"
+  - "$HOME/Library/Caches/com.duosecurity.duo-desktop"
+  - "$HOME/Library/Caches/com.duosecurity.Duo-Desktop"
+  - "$HOME/Library/HTTPStorages/com.duosecurity.duo-desktop"
+  - "$HOME/Library/WebKit/com.duosecurity.duo-desktop"
+  - "$HOME/Library/Application Support/Duo Desktop/logs"
+  - "$HOME/Library/Application Support/Duo Desktop/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: idp-okta-verify-logs-caches
+  name: Okta Verify desktop logs and caches
+  description: Okta Verify macOS shared group container logs and app caches.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/B7F62B65BN.group.okta.macverify.shared/Logs"
+  - "$HOME/Library/Logs/Okta"
+  - "$HOME/Library/Logs/Okta Verify"
+  - "$HOME/Library/Caches/com.okta.mobile"
+  - "$HOME/Library/Caches/com.okta.mobile.auth-service-extension"
+  - "$HOME/Library/HTTPStorages/com.okta.mobile"
+  - "$HOME/Library/WebKit/com.okta.mobile"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-appcode-logs
+  name: AppCode logs residual
+  description: AppCode residual logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/JetBrains/AppCode*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-clion-logs
+  name: CLion logs
+  description: CLion product logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/CLion*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-datagrip-logs
+  name: DataGrip logs
+  description: DataGrip product logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/DataGrip*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-goland-logs
+  name: GoLand logs
+  description: GoLand product logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/GoLand*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-phpstorm-logs
+  name: PhpStorm logs
+  description: PhpStorm product logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/PhpStorm*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-pycharm-logs
+  name: PyCharm logs
+  description: PyCharm Pro/CE logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/PyCharm*"
+  - "$HOME/Library/Logs/JetBrains/PyCharmCE*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-rider-logs
+  name: Rider logs
+  description: Rider frontend/backend logs, thread dumps, unit test logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/Rider*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-rubymine-logs
+  name: RubyMine logs
+  description: RubyMine product logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/RubyMine*"
+  delete_mode: contents
+  max_depth: 6
+- id: jb-toolbox-logs
+  name: Toolbox logs
+  description: Toolbox App logs and update logs under Library/Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/Toolbox"
+  delete_mode: contents
+  max_depth: 5
+- id: jb-webstorm-logs
+  name: WebStorm logs
+  description: WebStorm product logs under Library/Logs/JetBrains.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains/WebStorm*"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-journal-report
+  name: systemd journal (report-only)
+  description: Does not vacuum journald; only reports if path exists for awareness.
+  category: logs
+  platform: linux
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "/var/log/journal"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: linux-user-logs
+  name: User log files
+  description: Common user-level log directories.
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.local/share/xorg"
+  - "$HOME/.local/state"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/*.log"
+  - "**/*.old"
+- id: mac-epic-launcher-logs
+  name: Epic Games Launcher logs
+  description: Epic launcher and Unreal Engine editor logs only.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/EpicGamesLauncher"
+  - "$HOME/Library/Logs/Unreal Engine"
+  - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/Logs"
+  - "$HOME/Library/Application Support/Epic/UnrealEngineLauncher/Saved/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: mac-steam-logs
+  name: Steam client logs
+  description: Steam UI, connection, shader, and webhelper logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Steam/logs"
+  - "$HOME/Library/Logs/Steam"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-agent-crash-logs
+  name: Background agent crash logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Baseband"
+  - "$HOME/Library/Logs/CoreSimulator"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-apple-system-logs-extra
+  name: Apple subsystem logs (non-CrashReporter)
+  description: User-level Apple subsystem logs outside the already-covered CrashReporter/DiagnosticReports
+    rules.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/AppAnalytics"
+  - "$HOME/Library/Logs/Baseband"
+  - "$HOME/Library/Logs/PrivacyPreservingMeasurement"
+  - "$HOME/Library/Logs/Sync"
+  - "$HOME/Library/Logs/Time"
+  - "$HOME/Library/Logs/DiscRecording.log"
+  - "$HOME/Library/Logs/fsck_hfs.log"
+  - "$HOME/Library/Logs/PhotosLegacyUpgrade.aapbz"
+  - "$HOME/Library/Logs/PhotosSearch.aapbz"
+  - "$HOME/Library/Logs/PhotosUpgrade.aapbz"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-crash-and-diagnostic-reports
+  name: CrashReporter and DiagnosticReports (user)
+  description: User crash and diagnostic .ips/.crash reports under ~/Library/Logs
+    and Application Support.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/DiagnosticReports/Retired"
+  - "$HOME/Library/Application Support/CrashReporter"
+  - "$HOME/Library/Application Support/DiagnosticReports"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-crash-reporter-user
+  name: User CrashReporter logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/CrashReporter"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-crash-reports-user
+  name: User crash and diagnostic reports
+  description: Per-user crash logs and diagnostic reports that apps regenerate.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/CrashReporter"
+  - "$HOME/Library/Logs/DiagnosticReports"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-crashreporter-app-support
+  name: Application Support CrashReporter plists
+  description: Per-app CrashReporter state plists under Application Support (distinct
+    from Logs/CrashReporter).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/CrashReporter"
+  delete_mode: contents
+  max_depth: 2
+- id: macos-diagnostic-reports-retired
+  name: Retired diagnostic reports
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/DiagnosticReports/Retired"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-finance-electrum-logs-only
+  name: Electrum wallet logs only
+  description: Electrum log directory only under ~/.electrum. Never wallets/ or seed
+    material.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.electrum/logs"
+  - "$HOME/Library/Logs/Electrum"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-finance-exodus-logs-only
+  name: Exodus wallet logs only
+  description: Exodus desktop log files only. Never wallet SECO/seed/key material
+    under Application Support/Exodus.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Exodus/logs"
+  - "$HOME/Library/Logs/Exodus"
+  - "$HOME/Library/Logs/com.electron.exodus"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-finance-ibkr-tws-logs
+  name: Interactive Brokers TWS/Gateway logs under Jts
+  description: TWS and IB Gateway day logs and API message logs under default Mac
+    settings dirs. Not tws.xml or full settings trees.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Jts"
+  - "$HOME/IBJts"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/log.*.txt"
+  - "**/log.*.txt.enc"
+  - "**/api.*.log"
+  - "**/api.*.log.enc"
+  - "**/*.log"
+  - "**/*.log.enc"
+  - "**/log/*"
+  - "**/logs/*"
+  exclude_globs:
+  - "**/tws.xml"
+  - "**/jts.ini"
+  - "**/ibgateway.ini"
+  - "**/*.jar"
+  - "**/*.xml"
+- id: macos-finance-metatrader4-logs-cache
+  name: MetaTrader 4 Wine logs
+  description: MT4 Mac Wine-prefix Logs only (legacy platform).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/net.metaquotes.wine.metatrader4/drive_c/Program
+    Files/MetaTrader 4/logs"
+  - "$HOME/Library/Application Support/net.metaquotes.wine.metatrader4/drive_c/Program
+    Files/MetaTrader 4/MQL4/Logs"
+  - "$HOME/Library/Application Support/MetaTrader 4/Bottles/metatrader4/drive_c/Program
+    Files/MetaTrader 4/logs"
+  - "$HOME/Library/Application Support/MetaTrader 4/Bottles/metatrader4/drive_c/Program
+    Files/MetaTrader 4/MQL4/Logs"
+  - "$HOME/Library/Caches/net.metaquotes.wine.metatrader4"
+  delete_mode: contents
+  max_depth: 8
+- id: macos-finance-wallet-logs-adjacent-report
+  name: Other wallet app log trees (report-only)
+  description: Logs-only inventory for secondary wallet apps. Never wallet data roots.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/atomic"
+  - "$HOME/Library/Application Support/atomic/logs"
+  - "$HOME/Library/Logs/BlueWallet"
+  - "$HOME/.walletwasabi/client/Logs"
+  - "$HOME/Library/Logs/monero-wallet-gui"
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+- id: macos-homebrew-logs
+  name: Homebrew logs
+  description: Build and install logs left by Homebrew under the user Library.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Homebrew"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-ms-defender-logs-diag
+  name: Microsoft Defender for Endpoint diagnostic logs
+  description: wdavdiag diagnostic zips and install.log; not quarantine or live product
+    state.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Microsoft Defender"
+  - "$HOME/Library/Logs/Microsoft/Defender"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-ms-office-container-logs-temps
+  name: Office container logs and Outlook temp
+  description: Per-app Library/Logs and Outlook tmp under sandbox containers.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.microsoft.Word/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.microsoft.Excel/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.microsoft.Powerpoint/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.microsoft.Outlook/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.microsoft.Office365ServiceV2/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.microsoft.errorreporting/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.microsoft.Outlook/Data/tmp"
+  - "$HOME/Library/Containers/com.microsoft.Outlook/Data/tmp/Outlook Temp"
+  - "$HOME/Library/Logs/Microsoft OneNote"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-ms-powershell-residual
+  name: PowerShell residual logs and telemetry caches
+  description: Cross-platform PowerShell module/telemetry caches and history-adjacent
+    regenerable dirs under XDG-style paths; not user scripts.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/powershell"
+  - "$HOME/.local/share/powershell/Telemetry"
+  - "$HOME/.local/share/powershell/ModulesCache"
+  - "$HOME/Library/Caches/powershell"
+  - "$HOME/Library/Caches/com.microsoft.powershell"
+  - "$HOME/Library/Logs/PowerShell"
+  - "/var/log/powershell.log"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-qbittorrent-logs
+  name: qBittorrent logs and cache
+  description: qBittorrent log files and URL cache; not torrent content or .torrent
+    files.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/qBittorrent/logs"
+  - "$HOME/Library/Caches/org.qbittorrent.qBittorrent"
+  - "$HOME/Library/Caches/com.qbittorrent.qBittorrent"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-sysdiagnose-user-library
+  name: sysdiagnose leftovers under user Library
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/DiagnosticReports/Retired"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/sysdiagnose*"
+  - "**/*sysdiagnose*"
+- id: macos-user-logs
+  name: User Library Logs
+  description: Application log files in ~/Library/Logs.
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs"
+  delete_mode: contents
+  max_depth: 8
+  exclude_globs:
+  - Homebrew
+  - Homebrew/**
+- id: mdm-generic-enterprise-agent-logs
+  name: Generic enterprise agent user log folders
+  description: Common catch-all user log directories for MDM/security agents.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Logs/MDM"
+  - "$HOME/Library/Logs/Enterprise"
+  - "$HOME/Library/Logs/Security Agent"
+  delete_mode: contents
+  max_depth: 5
+- id: mdm-intune-user-logs
+  name: Microsoft Intune / Company Portal user logs
+  description: IntuneMDMAgent and Company Portal logs under user Library/Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/Microsoft/Intune"
+  - "$HOME/Library/Logs/Company Portal"
+  - "$HOME/Library/Logs/Microsoft/Company Portal"
+  delete_mode: contents
+  max_depth: 5
+- id: mdm-jamf-selfservice-logs
+  name: Jamf Self Service user logs
+  description: Self Service / Self Service+ debug and app logs under user Library/Logs/JAMF.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/JAMF"
+  - "$HOME/Library/Logs/Jamf"
+  delete_mode: contents
+  max_depth: 5
+- id: mdm-managedclient-user-logs
+  name: ManagedClient / mdmclient user-visible logs
+  description: Any user-copied ManagedClient logs or mdmclient debug exports under
+    user Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Logs/ManagedClient"
+  - "$HOME/Library/Logs/mdmclient"
+  delete_mode: contents
+  max_depth: 4
+- id: ml-comet-neptune
+  name: Comet and Neptune local caches
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cometml"
+  - "$HOME/.comet-ml"
+  - "$HOME/.cache/comet"
+  - "$HOME/.neptune"
+  - "$HOME/.cache/neptune"
+  - "$HOME/Library/Caches/comet"
+  - "$HOME/Library/Caches/neptune"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-lightning-logs
+  name: PyTorch Lightning logs and cache
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/lightning_logs"
+  - "$HOME/.cache/lightning"
+  - "$HOME/.lightning"
+  - "$XDG_CACHE_HOME/lightning"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-mlflow-logs
+  name: MLflow local tracking store
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/mlruns"
+  - "$HOME/.mlflow"
+  - "$HOME/mlartifacts"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-tensorboard-logs
+  name: TensorBoard logs and info
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.tensorboard"
+  - "$TMPDIR/.tensorboard-info"
+  - "$HOME/tensorboard_logs"
+  - "$HOME/runs"
+  delete_mode: contents
+  max_depth: 6
+- id: ml-wandb-runs-medium
+  name: Weights & Biases local run logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/wandb"
+  - "$HOME/.wandb"
+  delete_mode: contents
+  max_depth: 6
+- id: mobile-xcode-device-logs
+  name: mobile-xcode-device-logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/Xcode/iOS Device Logs"
+  - "$HOME/Library/Developer/Xcode/watchOS Device Logs"
+  - "$HOME/Library/Developer/Xcode/tvOS Device Logs"
+  - "$HOME/Library/Developer/Xcode/visionOS Device Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: net-charles-savedstate-logs
+  name: Charles saved state and residual logs
+  description: Charles window restore and log leftovers.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Saved Application State/com.xk72.Charles.savedState"
+  - "$HOME/Library/Logs/Charles"
+  - "$HOME/Library/Caches/com.xk72.Charles"
+  - "$HOME/Library/Caches/com.xk72.charles"
+  delete_mode: contents
+  max_depth: 4
+- id: net-proxyman-logs-savedstate
+  name: Proxyman logs and saved state
+  description: Proxyman resume state and any Logs under Proxyman support trees.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Saved Application State/com.proxyman.NSProxy.savedState"
+  - "$HOME/Library/Logs/Proxyman"
+  - "$HOME/Library/Logs/com.proxyman.NSProxy"
+  delete_mode: contents
+  max_depth: 5
+- id: obs-datadog-agent-logs
+  name: Datadog Agent logs (macOS)
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/datadog-agent/logs"
+  - "/var/log/datadog"
+  delete_mode: contents
+  max_depth: 3
+- id: obs-dynatrace-oneagent-logs
+  name: Dynatrace OneAgent logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/var/log/dynatrace/oneagent"
+  - "/var/log/dynatrace"
+  - "$HOME/Library/Logs/dynatrace"
+  delete_mode: contents
+  max_depth: 5
+- id: obs-elastic-beats-logs
+  name: Elastic Beats path.logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/filebeat"
+  - "/opt/homebrew/var/log/metricbeat"
+  - "/opt/homebrew/var/log/packetbeat"
+  - "/opt/homebrew/var/log/heartbeat"
+  - "/opt/homebrew/var/log/auditbeat"
+  - "$HOME/Library/Logs/filebeat"
+  - "$HOME/Library/Logs/metricbeat"
+  delete_mode: contents
+  max_depth: 3
+- id: obs-glances-cache-logs
+  name: Glances cache and logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glances"
+  - "$HOME/Library/Caches/glances"
+  - "$HOME/Library/Logs/glances"
+  - "$HOME/.local/share/glances"
+  - "$HOME/Library/Application Support/glances"
+  delete_mode: contents
+  max_depth: 3
+- id: obs-grafana-alloy-agent-logs
+  name: Grafana Alloy and Agent Flow logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log"
+  delete_mode: contents
+  max_depth: 2
+  include_globs:
+  - alloy.log
+  - alloy.err.log
+  - alloy*.log
+  - grafana-agent*.log
+  - grafana-agent-flow.log
+  - grafana-agent-flow.err.log
+- id: obs-newrelic-infra-logs
+  name: New Relic infrastructure agent logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/var/log/newrelic-infra"
+  - "/opt/homebrew/var/log/newrelic-infra"
+  - "$HOME/Library/Logs/NewRelic"
+  - "$HOME/Library/Logs/New Relic"
+  delete_mode: contents
+  max_depth: 3
+- id: obs-otel-collector-logs
+  name: OpenTelemetry Collector logs and data
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/otelcol"
+  - "/var/log/otelcol"
+  - "/opt/homebrew/var/lib/otelcol"
+  - "$HOME/.otelcol"
+  - "$HOME/.config/otelcol"
+  - "$HOME/Library/Logs/opentelemetry"
+  - "$HOME/Library/Logs/otelcol"
+  - "$HOME/Library/Caches/opentelemetry"
+  delete_mode: contents
+  max_depth: 4
+- id: obs-statsd-dogstatsd
+  name: StatsD / DogStatsD logs
+  description: ''
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/statsd"
+  - "$HOME/Library/Logs/statsd"
+  - "/tmp/statsd"
+  delete_mode: contents
+  max_depth: 3
+- id: personal-datadog
+  name: Datadog SDK personal caches
+  description: Live-discovered regenerable cache/log paths for Datadog SDK on this
+    Mac.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.datadoghq"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-happ
+  name: Happ VPN personal caches
+  description: Live-discovered regenerable cache/log paths for Happ VPN on this Mac.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Happ/logs"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-sentry
+  name: SentryCrash residual personal caches
+  description: Live-discovered regenerable cache/log paths for SentryCrash residual
+    on this Mac.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/SentryCrash"
+  - "$HOME/Library/Caches/io.sentry"
+  - "$HOME/Library/Caches/com.plausiblelabs.crashreporter.data"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-tunnelblick
+  name: Tunnelblick personal caches
+  description: Live-discovered regenerable cache/log paths for Tunnelblick on this
+    Mac.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/net.tunnelblick.tunnelblick"
+  delete_mode: contents
+  max_depth: 4
+  exclude_globs:
+  - "**/Configurations/**"
+- id: photo-acdsee-logs
+  name: ACDSee logs
+  description: ACDSee Photo Studio diagnostic logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/ACD Systems"
+  - "$HOME/Library/Logs/ACDSee"
+  - "$HOME/Library/Logs/com.acdsystems.ACDSeePhotoStudio"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-aftershot-logs
+  name: AfterShot Pro logs
+  description: Corel AfterShot Pro logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Corel AfterShot Pro"
+  - "$HOME/Library/Logs/AfterShot"
+  - "$HOME/Library/Logs/com.corel.AfterShotPro"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-canon-dpp-logs
+  name: Canon DPP logs
+  description: Digital Photo Professional and EOS utility-adjacent user logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Canon"
+  - "$HOME/Library/Logs/jp.co.canon.dpp"
+  - "$HOME/Library/Logs/com.canon.DigitalPhotoProfessional"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-dxo-photolab-logs
+  name: DxO PhotoLab logs
+  description: DxO PhotoLab and related DxO Labs logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/DxO"
+  - "$HOME/Library/Logs/DxO PhotoLab"
+  - "$HOME/Library/Logs/DxO Labs"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-exposure-x-logs
+  name: Exposure X logs
+  description: Exposure Software logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Exposure Software"
+  - "$HOME/Library/Logs/Alien Skin"
+  - "$HOME/Library/Logs/com.exposuresoftware.ExposureX7"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-fuji-logs
+  name: Fujifilm X Raw Studio logs
+  description: X Raw Studio logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/FUJIFILM"
+  - "$HOME/Library/Logs/Fujifilm"
+  - "$HOME/Library/Logs/com.fujifilm.XRawStudio"
+  - "$HOME/Library/Logs/X Raw Studio"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-luminar-logs
+  name: Luminar / Skylum logs
+  description: Luminar Neo/AI and Skylum diagnostic logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Skylum"
+  - "$HOME/Library/Logs/Luminar Neo"
+  - "$HOME/Library/Logs/Luminar AI"
+  - "$HOME/Library/Logs/com.skylum.luminarNeo"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-nikon-logs
+  name: Nikon imaging software logs
+  description: Nikon NX Studio / Message Center logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Nikon"
+  - "$HOME/Library/Logs/jp.co.nikon.NXStudio"
+  - "$HOME/Library/Logs/jp.co.nikon.NikonMessageCenter2"
+  delete_mode: contents
+  max_depth: 5
+- id: photo-on1-logs
+  name: ON1 logs
+  description: ON1 Photo RAW and related product logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/ON1"
+  - "$HOME/Library/Logs/com.on1.ON1PhotoRAW"
+  - "$HOME/Library/Application Support/ON1/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: photo-sony-imaging-edge-logs
+  name: Sony Imaging Edge logs
+  description: Imaging Edge family logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Sony Corporation"
+  - "$HOME/Library/Logs/Sony"
+  - "$HOME/Library/Logs/com.sony.ImagingEdgeDesktop"
+  delete_mode: contents
+  max_depth: 5
+- id: social-adium-chat-logs
+  name: Adium chat transcript logs
+  description: 'Adium conversation Logs under Application Support/Adium 2.0 Users.
+    Medium: user history.'
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 90
+  paths:
+  - "$HOME/Library/Application Support/Adium 2.0/Users/Default/Logs"
+  - "$HOME/Library/Application Support/Adium 2.0/Users"
+  delete_mode: contents
+  max_depth: 10
+  include_globs:
+  - "**/Logs/**"
+  - "**/*.chatlog/**"
+  - "**/*.xml"
+  - "**/*.html"
+  exclude_globs:
+  - "**/ByAccount/**"
+  - "**/*.plist"
+  - "**/Accounts/**"
+  - "**/Contact Alerts/**"
+- id: social-pidgin-chat-logs
+  name: Pidgin conversation logs
+  description: Pidgin HTML/text chat logs under ~/.purple/logs. User conversation
+    history.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 90
+  paths:
+  - "$HOME/.purple/logs"
+  delete_mode: contents
+  max_depth: 8
+- id: stream-elgato-camera-hub-logs
+  name: Elgato Camera Hub logs and caches
+  description: Camera Hub (Facecam/Prompter) logs and regenerable caches.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/CameraHub"
+  - "$HOME/Library/Logs/ElgatoCameraHub"
+  - "$HOME/Library/Caches/com.elgato.CameraHub"
+  - "$HOME/Library/Application Support/com.elgato.CameraHub/logs"
+  - "$HOME/Library/Application Support/com.elgato.CameraHub/Cache"
+  delete_mode: contents
+  max_depth: 5
+- id: stream-elgato-control-center-logs
+  name: Elgato Control Center logs (streaming lights)
+  description: Control Center logs for Key Light etc. Can grow large; regenerable.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/ElgatoControlCenter"
+  - "$HOME/Library/Logs/ControlCenter"
+  - "$HOME/Library/Logs/com.elgato.ControlCenter"
+  - "$HOME/Library/Caches/com.elgato.ControlCenter"
+  - "$HOME/Library/Application Support/com.elgato.ControlCenter/logs"
+  delete_mode: contents
+  max_depth: 5
+- id: stream-elgato-wavelink-logs-caches
+  name: Elgato Wave Link logs and caches
+  description: Wave Link audio mixer logs and regenerable caches. Not device/mix preferences
+    wipe.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/ElgatoWaveLink"
+  - "$HOME/Library/Logs/WaveLink"
+  - "$HOME/Library/Caches/com.elgato.WaveLink"
+  - "$HOME/Library/Application Support/com.elgato.WaveLink/logs"
+  - "$HOME/Library/Application Support/elgato/Wave Link"
+  - "$HOME/Library/Containers/com.elgato.WaveLink/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.elgato.WaveLink/Data/Library/Logs"
+  delete_mode: contents
+  max_depth: 5
+- id: stream-obs-logs-crashes
+  name: OBS Studio logs and crash dumps
+  description: OBS session logs, crash dumps, and profiler data under Application
+    Support. Regenerable; not scenes or profiles.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/obs-studio/logs"
+  - "$HOME/Library/Application Support/obs-studio/crashes"
+  - "$HOME/Library/Application Support/obs-studio/profiler_data"
+  - "$HOME/Library/Logs/obs-studio"
+  delete_mode: contents
+  max_depth: 4
+- id: stream-streamlabs-logs-crashpad
+  name: Streamlabs Desktop logs and Crashpad
+  description: Streamlabs app logs and Crashpad reports under slobs-client.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/slobs-client/logs"
+  - "$HOME/Library/Application Support/slobs-client/Crashpad"
+  - "$HOME/Library/Logs/Streamlabs Desktop"
+  - "$HOME/Library/Logs/Streamlabs"
+  delete_mode: contents
+  max_depth: 5
+- id: syslogs-crashreporter-app-support-deep
+  name: Application Support CrashReporter and DiagnosticReports residual
+  description: Per-app CrashReporter submission state plists and optional DiagnosticReports
+    under Application Support.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/Library/Application Support/CrashReporter"
+  - "$HOME/Library/Application Support/DiagnosticReports"
+  delete_mode: contents
+  max_depth: 3
+- id: syslogs-crashreporter-diagnosticlogs
+  name: CrashReporter DiagnosticLogs and MobileDevice (user)
+  description: Nested DiagnosticLogs and MobileDevice trees under user CrashReporter
+    (device and spotlight diagnostic leftovers).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/CrashReporter/DiagnosticLogs"
+  - "$HOME/Library/Logs/CrashReporter/MobileDevice"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/*"
+  - "**/sysdiagnose*"
+  - "**/*sysdiagnose*"
+  - "**/*.log"
+  - "**/*.ips"
+  - "**/*.crash"
+- id: syslogs-diagnostic-extensions-sysdiagnose-de
+  name: DiagnosticExtensions.sysdiagnose container residual
+  description: Caches/Logs/tmp under the sysdiagnose diagnostic extension sandbox.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.sysdiagnose/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.sysdiagnose/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.sysdiagnose/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.sysdiagnose/Data/Library/HTTPStorages"
+  delete_mode: contents
+  max_depth: 5
+- id: syslogs-disk-utility-fsck
+  name: Disk Utility and fsck user leftovers
+  description: Disk image fsck residual, DiscRecording and fsck_hfs logs, DiskSpace/Storage
+    diagnostic extension caches.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/DiskImages"
+  - "$HOME/Library/Application Support/DiskImages/com.apple.diskimages.fsck"
+  - "$HOME/Library/Containers/com.apple.DiskSpaceDiagnostics.diagnosticextension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiskSpaceDiagnostics.diagnosticextension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiskSpaceDiagnostics.diagnosticextension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.StorageDESSD/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.StorageDESSD/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.StorageDESSD/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.StorageDESDXC/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.StorageDESDXC/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.StorageDESDXC/Data/tmp"
+  delete_mode: contents
+  max_depth: 4
+- id: syslogs-install-log-user-copies
+  name: install.log user copies and installlog diagnostic extension
+  description: User-accessible install log copies via diagnostic extension container
+    and home Logs globs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.installlog/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.installlog/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.installlog/Data/tmp"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/install.log"
+  - "**/install.log.*"
+  - "**/*install*.log"
+  - "**/com.apple.diagnosticextensions.osx.installlog/**"
+- id: syslogs-logarchive-home-deep
+  name: User home .logarchive bundles (deep)
+  description: Unified logging .logarchive bundles under user Logs and broader Library
+    (Console exports, support dumps).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/*.logarchive"
+  - "**/*.logarchive/**"
+  - "**/system_logs.logarchive"
+  - "**/system_logs.logarchive/**"
+  exclude_globs:
+  - Mobile Documents/**
+  - CloudStorage/**
+  - Messages/**
+  - Mail/**
+  - Keychains/**
+- id: syslogs-osanalytics-feedbacklogger
+  name: OSAnalytics IPS extension and feedbacklogger residual
+  description: osanalytics IPS extension container residual and Apple feedback/telemetry
+    logger caches.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.osanalytics.IPSExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.osanalytics.IPSExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.osanalytics.IPSExtension/Data/tmp"
+  - "$HOME/Library/Group Containers/group.com.apple.feedbacklogger/Library/Caches"
+  - "$HOME/Library/Group Containers/group.com.apple.feedbacklogger/Library/Logs"
+  - "$HOME/Library/Group Containers/group.com.apple.feedbacklogger/com.apple.siri.telemetry"
+  delete_mode: contents
+  max_depth: 6
+- id: syslogs-power-thermal-residual
+  name: Power and thermal user residual
+  description: User-accessible power/thermal residual under PPM, homeenergyd, and
+    HomeEnergy diagnostic extension.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.HomeEnergyDiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.HomeEnergyDiagnosticExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.HomeEnergyDiagnosticExtension/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/power*.log"
+  - "**/Power*.log"
+  - "**/thermal*.log"
+  - "**/Thermal*.log"
+  - "**/powerlog*"
+  - "**/PowerLog*"
+- id: syslogs-softwareupdatecore-var-tmp
+  name: SoftwareUpdateCore user residual under var/tmp
+  description: User-owned Software Update Core event/reporter residual under /private/var/tmp/SoftwareUpdateCore.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/private/var/tmp/SoftwareUpdateCore"
+  - "/var/tmp/SoftwareUpdateCore"
+  delete_mode: contents
+  max_depth: 4
+- id: syslogs-storage-de-and-syslog-de
+  name: Storage and classic osx diagnostic extension residual
+  description: Storage SSD/SDXC DEs plus classic osx filevault/spotlight/syslog/systemprofile/timemachine
+    DE caches.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.syslog/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.syslog/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.syslog/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.spotlight/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.spotlight/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.spotlight/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.filevault/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.filevault/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.filevault/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.systemprofile/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.systemprofile/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.systemprofile/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.timemachine/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.timemachine/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.diagnosticextensions.osx.timemachine/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+- id: syslogs-usb-connectivity-de
+  name: USB and connectivity diagnostic residual
+  description: Connectivity and related hardware diagnostic extension residual (USB/device
+    connectivity class).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.CoreSensingDiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.CoreSensingDiagnosticExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.CoreSensingDiagnosticExtension/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+- id: syslogs-wifi-diagnostic-residual
+  name: WiFi user diagnostic and settings residual
+  description: WiFi diagnostic extensions, WiFiVelocity, wifi-settings-extension caches/logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.WiFi/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.WiFi/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.WiFi/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityWiFiDE/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityWiFiDE/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityWiFiDE/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.WiFiVelocity.DiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.WiFiVelocity.DiagnosticExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.WiFiVelocity.DiagnosticExtension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.wifi-settings-extension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.wifi-settings-extension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.wifi-settings-extension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.wifiqa.NPTKit.NPTWiFiDiagnosticsExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.wifiqa.NPTKit.NPTWiFiDiagnosticsExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.wifiqa.NPTKit.NPTWiFiDiagnosticsExtension/Data/tmp"
+  - "$HOME/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension/Data/Library/Logs"
+  - "$HOME/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension/Data/tmp"
+  delete_mode: contents
+  max_depth: 5
+- id: web-apache-user-prefix-logs
+  name: User-prefix Apache logs under home
+  description: httpd logs for user-built or home-prefixed Apache.
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.httpd/logs"
+  - "$HOME/apache2/logs"
+  - "$HOME/.local/var/log/httpd"
+  - "$HOME/.local/var/log/apache2"
+  delete_mode: contents
+  max_depth: 3
+- id: web-caddy-library-logs
+  name: Caddy process logs under Library/Logs
+  description: Optional Caddy log files when log directive targets user Library/Logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/Caddy"
+  - "$HOME/Library/Logs/caddy"
+  delete_mode: contents
+  max_depth: 3
+- id: web-dnsmasq-homebrew-logs
+  name: dnsmasq Homebrew logs (Valet/Herd adjacent)
+  description: dnsmasq logs when installed via Homebrew for local *.test routing.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/opt/homebrew/var/log/dnsmasq.log"
+  - "$HOME/Library/Logs/dnsmasq.log"
+  - "$HOME/Library/Logs/dnsmasq"
+  delete_mode: contents
+  max_depth: 2
+- id: web-envoy-local-logs
+  name: Envoy local access/admin logs
+  description: User-level Envoy log and hot-restart dirs when run outside containers.
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/envoy"
+  - "$HOME/.cache/envoy"
+  - "$XDG_CACHE_HOME/envoy"
+  - "$HOME/Library/Caches/envoy"
+  - "$HOME/.envoy"
+  delete_mode: contents
+  max_depth: 4
+- id: web-herd-logs
+  name: Laravel Herd nginx/php-fpm/mail logs
+  description: Herd service logs (nginx, php-fpm, optional Herd Pro mail).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Herd/Log"
+  - "$HOME/Library/Logs/Herd"
+  - "$HOME/Library/Logs/herd"
+  delete_mode: contents
+  max_depth: 4
+- id: web-httpd-homebrew-logs
+  name: Apache httpd Homebrew logs
+  description: Homebrew apache2/httpd error and access logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/httpd"
+  - "$HOME/Library/Logs/httpd"
+  - "$HOME/Library/Logs/apache2"
+  delete_mode: contents
+  max_depth: 3
+- id: web-localwp-logs
+  name: Local WP (Flywheel) app logs
+  description: Local by Flywheel / Local WP application and lightning logs.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/local-by-flywheel.log"
+  - "$HOME/Library/Logs/local-lightning.log"
+  - "$HOME/Library/Logs/Local"
+  - "$HOME/Library/Logs/local-wp"
+  - "$HOME/Library/Application Support/Local/logs"
+  - "$HOME/Library/Application Support/Local by Flywheel/logs"
+  delete_mode: contents
+  max_depth: 4
+- id: web-mamp-logs
+  name: MAMP/MAMP PRO logs
+  description: Apache, nginx, MySQL, PHP logs for MAMP stack.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/MAMP"
+  - "$HOME/Library/Logs/appsolute"
+  - "$HOME/Library/Application Support/appsolute/MAMP PRO/logs"
+  delete_mode: contents
+  max_depth: 4
+- id: web-nginx-homebrew-logs
+  name: Nginx Homebrew access/error logs
+  description: Access and error logs for Homebrew nginx (Apple Silicon and Intel prefixes).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/nginx"
+  - "$HOME/Library/Logs/nginx"
+  delete_mode: contents
+  max_depth: 3
+- id: web-nginx-user-prefix-logs
+  name: User-prefix nginx logs under home
+  description: Custom nginx builds or brew --prefix under home exporting logs.
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.nginx/logs"
+  - "$HOME/nginx/logs"
+  - "$HOME/.local/var/log/nginx"
+  - "$HOME/.local/share/nginx/logs"
+  delete_mode: contents
+  max_depth: 3
+- id: web-openresty-homebrew-logs
+  name: OpenResty Homebrew logs
+  description: OpenResty/nginx-style logs under Homebrew var (often shared nginx log
+    path or dedicated openresty).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log/openresty"
+  - "/opt/homebrew/var/run/openresty"
+  delete_mode: contents
+  max_depth: 3
+- id: web-php-fpm-homebrew-logs
+  name: PHP-FPM Homebrew logs
+  description: php-fpm master/pool logs from Homebrew PHP (Valet-compatible paths
+    included).
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/opt/homebrew/var/log"
+  delete_mode: contents
+  max_depth: 3
+  include_globs:
+  - "**/php-fpm*.log"
+  - "**/php-fpm.log"
+  - "**/php@*/*.log"
+- id: web-telepresence-cache-logs
+  name: Telepresence cache and daemon logs
+  description: Telepresence user cache, daemon logs under ~/.cache/telepresence.
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/telepresence"
+  - "$XDG_CACHE_HOME/telepresence"
+  - "$HOME/Library/Caches/telepresence"
+  - "$HOME/Library/Logs/telepresence"
+  delete_mode: contents
+  max_depth: 6
+- id: web-traefik-logs-cache
+  name: Traefik logs and access logs
+  description: Traefik access/error logs when written under user log/cache dirs.
+  category: logs
+  platform: any
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/traefik"
+  - "$HOME/.cache/traefik"
+  - "$XDG_CACHE_HOME/traefik"
+  - "$HOME/Library/Caches/traefik"
+  delete_mode: contents
+  max_depth: 4
+- id: web-valet-logs
+  name: Laravel Valet nginx/php-fpm logs
+  description: Valet user logs for nginx and PHP-FPM under ~/.config/valet/Log.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/valet/Log"
+  - "$HOME/.valet/Log"
+  delete_mode: contents
+  max_depth: 3
+- id: web-xampp-logs-temp
+  name: XAMPP logs and temp
+  description: XAMPP for macOS logs and temp under xamppfiles.
+  category: logs
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/XAMPP"
+  delete_mode: contents
+  max_depth: 4

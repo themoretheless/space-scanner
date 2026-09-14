@@ -1,0 +1,1262 @@
+---
+pack: browser-cache
+description: 'Category pack: browser-cache (54 rules). Add sibling YAML files under
+  rules/categories/ to extend.'
+rules:
+- id: app-chrome-cache
+  name: Chrome cache (not profile)
+  description: Browser disk cache only; cookies/logins untouched.
+  category: browser-cache
+  platform: any
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Google/Chrome"
+  - "$HOME/.cache/google-chrome"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 5
+- id: app-edge-cache
+  name: Microsoft Edge cache
+  description: Edge Code Cache, GPU cache, and shader cache.
+  category: browser-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Cache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Code Cache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/GPUCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/GrShaderCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/ShaderCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/GraphiteDawnCache"
+  - "$HOME/Library/Caches/Microsoft Edge"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 5
+- id: app-firefox-cache
+  name: Firefox cache
+  description: Firefox cache2 only.
+  category: browser-cache
+  platform: any
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Firefox"
+  - "$HOME/.cache/mozilla/firefox"
+  - "%LOCALAPPDATA%/Mozilla/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/cache2/**"
+  - "**/startupCache/**"
+- id: asia-naver-whale-browser-cache
+  name: Naver Whale browser caches
+  description: Whale Chromium caches under Library/Caches and Application Support
+    user data Cache leaves. Not Cookies/Login Data/History.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.naver.Whale"
+  - "$HOME/Library/Caches/Whale"
+  - "$HOME/Library/Application Support/Naver/Whale/Default/Cache"
+  - "$HOME/Library/Application Support/Naver/Whale/Default/Code Cache"
+  - "$HOME/Library/Application Support/Naver/Whale/Default/GPUCache"
+  - "$HOME/Library/Application Support/Naver/Whale/Default/Service Worker"
+  - "$HOME/Library/Application Support/Naver/Whale/ShaderCache"
+  - "$HOME/Library/Application Support/Naver/Whale/GrShaderCache"
+  - "$HOME/Library/Application Support/Naver/Whale/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Whale/Default/Cache"
+  - "$HOME/Library/Application Support/Whale/Default/Code Cache"
+  - "$HOME/Library/Application Support/Whale/Default/GPUCache"
+  - "$HOME/Library/Application Support/Whale/ShaderCache"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/ShaderCache/**"
+  - "**/GrShaderCache/**"
+  - "**/GraphiteDawnCache/**"
+  - "**/Service Worker/CacheStorage/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/History*"
+  - "**/Web Data*"
+  - "**/Bookmarks*"
+  - "**/Preferences"
+- id: cis-yandex-browser-cache-deep
+  name: Yandex Browser Chromium caches (deep leaves)
+  description: Yandex Browser HTTP/GPU/code/media/Dawn/Service Worker caches under
+    Application Support and Library/Caches. Extends base macos-yandex-browser-cache
+    with more leaves and channel roots.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Yandex"
+  - "$HOME/Library/Caches/ru.yandex.desktop.yandex-browser"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/Cache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/Code Cache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/GPUCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/Media Cache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/Service Worker/CacheStorage"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/DawnCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Default/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/ShaderCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/GrShaderCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/component_crx_cache"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser/Crashpad"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/Media Cache/**"
+  - "**/DawnCache/**"
+  - "**/DawnGraphiteCache/**"
+  - "**/DawnWebGPUCache/**"
+  - "**/ShaderCache/**"
+  - "**/GrShaderCache/**"
+  - "**/Service Worker/CacheStorage/**"
+  - "**/component_crx_cache/**"
+  - "**/Crashpad/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/Web Data*"
+  - "**/History*"
+  - "**/Bookmarks*"
+  - "**/Preferences"
+  - "**/Local Storage/**"
+  - "**/IndexedDB/**"
+  - "**/Sessions/**"
+- id: macos-arc-dia-shader-root
+  name: Arc and Dia root Graphite/component caches
+  description: Browser-root GraphiteDawnCache and component caches for Arc and Dia
+    User Data trees.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Arc/User Data/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Arc/User Data/GrShaderCache"
+  - "$HOME/Library/Application Support/Arc/User Data/ShaderCache"
+  - "$HOME/Library/Application Support/Dia/User Data/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Dia/User Data/GrShaderCache"
+  - "$HOME/Library/Application Support/Dia/User Data/ShaderCache"
+  - "$HOME/Library/Application Support/Dia/User Data/component_crx_cache"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-browser-webkit-shared
+  name: Shared WebKit process caches for browsers
+  description: Per-bundle-id WebKit directory caches for browsers that use system
+    WebKit.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/WebKit/com.apple.Safari"
+  - "$HOME/Library/WebKit/com.google.Chrome"
+  - "$HOME/Library/WebKit/com.microsoft.edgemac"
+  - "$HOME/Library/WebKit/com.brave.Browser"
+  - "$HOME/Library/WebKit/com.operasoftware.Opera"
+  - "$HOME/Library/WebKit/company.thebrowser.Browser"
+  - "$HOME/Library/WebKit/company.thebrowser.dia"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-browserosaurus-caches
+  name: Browserosaurus caches and residual state
+  description: Browserosaurus (retired browser prompter) caches and Application Support
+    residual. Preferences plist left alone when only caches targeted.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.browserosaurus"
+  - "$HOME/Library/Caches/Browserosaurus"
+  - "$HOME/Library/Logs/Browserosaurus"
+  - "$HOME/Library/HTTPStorages/com.browserosaurus"
+  - "$HOME/Library/Saved Application State/com.browserosaurus.savedState"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-cef-samples-caches
+  name: CEF sample and user-data caches
+  description: Chromium Embedded Framework default user-data and cefclient/cefsimple
+    sample caches on macOS.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  paths:
+  - "$HOME/Library/Application Support/CEF"
+  - "$HOME/Library/Application Support/CEF/User Data"
+  - "$HOME/Library/Application Support/cef_user_data"
+  - "$HOME/Library/Application Support/cefclient"
+  - "$HOME/Library/Application Support/cefsimple"
+  - "$HOME/Library/Caches/CEF"
+  - "$HOME/Library/Caches/cef_user_data"
+  - "$HOME/Library/Caches/org.cef.cefclient"
+  - "$HOME/Library/Caches/org.cef.cefsimple"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/ShaderCache/**"
+  - "**/GrShaderCache/**"
+  - "**/DawnCache/**"
+  - "**/blob_storage/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/Local Storage/**"
+  - "**/IndexedDB/**"
+- id: macos-choosy-caches
+  name: Choosy caches and HTTP storage
+  description: Choosy browser-picker regenerable caches and HTTPStorages. Does not
+    remove rules/config under Application Support/Choosy.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.choosyosx.Choosy"
+  - "$HOME/Library/HTTPStorages/com.choosyosx.Choosy"
+  - "$HOME/Library/Logs/Choosy"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-chrome-apps-pwa-residuals
+  name: Chrome Apps and installed PWA shortcut residuals
+  description: Legacy Chrome Apps.localized trees and channel-local PWA/app shortcut
+    bundles under user Applications and Application Support. Regenerable after reinstalling
+    PWAs from chrome://apps.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Applications/Chrome Apps.localized"
+  - "$HOME/Library/Application Support/Google/Chrome/Chrome Apps.localized"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/Chrome Apps.localized"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Chrome Apps.localized"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/Chrome Apps.localized"
+  - "$HOME/Library/Application Support/Google/Chrome for Testing/Chrome Apps.localized"
+  - "$HOME/Library/Application Support/Chromium/Chrome Apps.localized"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-chrome-channels-http-cache
+  name: Chrome channel HTTP and code caches (Library/Caches)
+  description: Disk HTTP Cache, Code Cache, Media Cache under Library/Caches for Chrome
+    stable/beta/dev/canary/for-testing.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Google/Chrome Beta"
+  - "$HOME/Library/Caches/Google/Chrome Canary"
+  - "$HOME/Library/Caches/Google/Chrome Dev"
+  - "$HOME/Library/Caches/Google/Chrome for Testing"
+  - "$HOME/Library/Caches/com.google.Chrome"
+  - "$HOME/Library/Caches/com.google.Chrome.beta"
+  - "$HOME/Library/Caches/com.google.Chrome.canary"
+  - "$HOME/Library/Caches/com.google.Chrome.dev"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/Media Cache/**"
+  - "**/Storage/**"
+- id: macos-chrome-channels-profile-disk-cache
+  name: Chrome channel profile HTTP Cache (Application Support)
+  description: Per-profile Cache and Media Cache leaves inside Chrome channel user-data
+    trees when cache lives under Application Support.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome Beta"
+  - "$HOME/Library/Application Support/Google/Chrome Canary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev"
+  - "$HOME/Library/Application Support/Google/Chrome for Testing"
+  - "$HOME/Library/Application Support/Google/ChromeForTesting"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/Cache/**"
+  - "**/Media Cache/**"
+  - "**/Application Cache/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/Web Data*"
+  - "**/History*"
+  - "**/Bookmarks*"
+  - "**/Local Storage/**"
+  - "**/Session Storage/**"
+  - "**/Sessions/**"
+  - "**/IndexedDB/**"
+- id: macos-chrome-disk-and-apps-cache
+  name: Google Chrome disk cache and Chrome Apps media cache
+  description: Chrome browser disk/GPU/shader caches and platform-app related cache
+    trees; not profile cookies/logins.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.google.Chrome"
+  - "$HOME/Library/Caches/com.google.Chrome.helper"
+  - "$HOME/Library/Application Support/Google/Chrome/ShaderCache"
+  - "$HOME/Library/Application Support/Google/Chrome/GrShaderCache"
+  - "$HOME/Library/Application Support/Google/Chrome/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Code Cache"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Service Worker/CacheStorage"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Service Worker/ScriptCache"
+  - "$HOME/Library/Application Support/Google/Chrome/Chrome Apps.localized"
+  - "$HOME/Applications/Chrome Apps.localized"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-chrome-for-testing-channel-cache
+  name: Chrome for Testing channel caches
+  description: Chrome for Testing channel HTTP/code caches used by automation stacks
+    alongside Playwright/Puppeteer downloads.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Google/Chrome for Testing"
+  - "$HOME/Library/Caches/com.google.chrome.for.testing"
+  - "$HOME/Library/Application Support/Google/Chrome for Testing"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/ShaderCache/**"
+  - "**/GrShaderCache/**"
+  - "**/GraphiteDawnCache/**"
+  - "**/Media Cache/**"
+  - "**/component_crx_cache/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/Web Data*"
+  - "**/History*"
+- id: macos-chrome-helper-caches
+  name: Chrome helper and Keystone residual caches
+  description: Google Chrome helper process caches and non-profile Keystone agent
+    caches (not full updater wipe).
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.google.Chrome.helper"
+  - "$HOME/Library/Caches/com.google.Chrome.helper.renderer"
+  - "$HOME/Library/Caches/com.google.Chrome.helper.plugin"
+  - "$HOME/Library/Caches/com.google.Keystone"
+  - "$HOME/Library/Caches/com.google.Keystone.Agent"
+  - "$HOME/Library/Caches/com.google.GoogleUpdater"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-chromium-code-caches
+  name: Chromium-family code and GPU caches
+  description: Per-profile regenerable browser caches such as Code Cache, GPUCache,
+    and Dawn/Shader caches.
+  category: browser-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome"
+  - "$HOME/Library/Application Support/Chromium"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser"
+  - "$HOME/Library/Application Support/Microsoft Edge"
+  - "$HOME/Library/Application Support/Vivaldi"
+  - "$HOME/Library/Application Support/Arc"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/DawnCache/**"
+  - "**/GrShaderCache/**"
+  - "**/GraphiteDawnCache/**"
+  - "**/ShaderCache/**"
+- id: macos-chromium-component-crx-cache
+  name: Chromium Component and extension CRX caches
+  description: component_crx_cache and extensions_crx_cache holding downloaded component/extension
+    package blobs.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/component_crx_cache"
+  - "$HOME/Library/Application Support/Google/Chrome/extensions_crx_cache"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/component_crx_cache"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/component_crx_cache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/component_crx_cache"
+  - "$HOME/Library/Application Support/Chromium/component_crx_cache"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/component_crx_cache"
+  - "$HOME/Library/Application Support/Microsoft Edge/component_crx_cache"
+  - "$HOME/Library/Application Support/Microsoft Edge/extensions_crx_cache"
+  - "$HOME/Library/Application Support/Vivaldi/component_crx_cache"
+  - "$HOME/Library/Application Support/Arc/User Data/component_crx_cache"
+  - "$HOME/Library/Application Support/Dia/User Data/component_crx_cache"
+  - "$HOME/Library/Application Support/com.operasoftware.Opera/component_crx_cache"
+  - "$HOME/Library/Application Support/com.operasoftware.OperaGX/component_crx_cache"
+  - "$HOME/Library/Application Support/Sidekick/component_crx_cache"
+  delete_mode: contents
+  max_depth: 3
+- id: macos-chromium-crashpad
+  name: Chromium-family Crashpad reports
+  description: Crashpad completed/pending crash minidumps for Chromium browsers. Safe
+    to clear.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/Crashpad"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/Crashpad"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/Crashpad"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Crashpad"
+  - "$HOME/Library/Application Support/Chromium/Crashpad"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/Crashpad"
+  - "$HOME/Library/Application Support/Microsoft Edge/Crashpad"
+  - "$HOME/Library/Application Support/Microsoft Edge Beta/Crashpad"
+  - "$HOME/Library/Application Support/Vivaldi/Crashpad"
+  - "$HOME/Library/Application Support/Arc/User Data/Crashpad"
+  - "$HOME/Library/Application Support/Dia/User Data/Crashpad"
+  - "$HOME/Library/Application Support/com.operasoftware.Opera/Crashpad"
+  - "$HOME/Library/Application Support/com.operasoftware.OperaGX/Crashpad"
+  - "$HOME/Library/Application Support/Sidekick/Crashpad"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/completed/**"
+  - "**/pending/**"
+  - "**/new/**"
+  - "**/attachments/**"
+  exclude_globs:
+  - "**/settings.dat"
+  - "**/client_id"
+- id: macos-chromium-dawn-gpu-extra-leaves
+  name: Chromium Dawn/WebGPU/GPUPersistent leaves (stable family)
+  description: 'Additional GPU-related regenerable leaves under main Chromium-family
+    profiles: DawnGraphiteCache, DawnWebGPUCache, GPUPersistentCache.'
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Arc/User Data"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/DawnGraphiteCache/**"
+  - "**/DawnWebGPUCache/**"
+  - "**/GPUPersistentCache/**"
+- id: macos-chromium-extra-channels-code-gpu
+  name: Extra Chromium channels code/GPU/Dawn/Shader caches
+  description: 'Code Cache, GPUCache, Dawn*, GrShader, Shader for channels not fully
+    covered: Chrome Beta/Canary/Dev/for-Testing, Brave Beta/Nightly, Edge Beta/Canary/Dev,
+    Opera, Opera GX, Dia, Sidekick.'
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome Beta"
+  - "$HOME/Library/Application Support/Google/Chrome Canary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev"
+  - "$HOME/Library/Application Support/Google/Chrome for Testing"
+  - "$HOME/Library/Application Support/Google/ChromeForTesting"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser-Beta"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser-Nightly"
+  - "$HOME/Library/Application Support/Microsoft Edge Beta"
+  - "$HOME/Library/Application Support/Microsoft Edge Canary"
+  - "$HOME/Library/Application Support/Microsoft Edge Dev"
+  - "$HOME/Library/Application Support/com.operasoftware.Opera"
+  - "$HOME/Library/Application Support/com.operasoftware.OperaGX"
+  - "$HOME/Library/Application Support/Dia/User Data"
+  - "$HOME/Library/Application Support/Sidekick"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/DawnCache/**"
+  - "**/DawnGraphiteCache/**"
+  - "**/DawnWebGPUCache/**"
+  - "**/GrShaderCache/**"
+  - "**/GraphiteDawnCache/**"
+  - "**/ShaderCache/**"
+  - "**/GPUPersistentCache/**"
+- id: macos-chromium-family-http-cache
+  name: Chromium-family HTTP caches (Library/Caches)
+  description: HTTP/disk caches for Chromium, Brave, Edge, Vivaldi, Opera, Arc, Dia,
+    Sidekick under Library/Caches.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Chromium"
+  - "$HOME/Library/Caches/BraveSoftware/Brave-Browser"
+  - "$HOME/Library/Caches/BraveSoftware/Brave-Browser-Beta"
+  - "$HOME/Library/Caches/BraveSoftware/Brave-Browser-Nightly"
+  - "$HOME/Library/Caches/Microsoft Edge"
+  - "$HOME/Library/Caches/Microsoft Edge Beta"
+  - "$HOME/Library/Caches/Microsoft Edge Canary"
+  - "$HOME/Library/Caches/Microsoft Edge Dev"
+  - "$HOME/Library/Caches/com.microsoft.edgemac"
+  - "$HOME/Library/Caches/com.microsoft.edgemac.beta"
+  - "$HOME/Library/Caches/com.microsoft.edgemac.canary"
+  - "$HOME/Library/Caches/com.microsoft.edgemac.dev"
+  - "$HOME/Library/Caches/Vivaldi"
+  - "$HOME/Library/Caches/com.operasoftware.Opera"
+  - "$HOME/Library/Caches/com.operasoftware.OperaGX"
+  - "$HOME/Library/Caches/com.operasoftware.OperaCrypto"
+  - "$HOME/Library/Caches/Arc"
+  - "$HOME/Library/Caches/company.thebrowser.Browser"
+  - "$HOME/Library/Caches/Dia"
+  - "$HOME/Library/Caches/company.thebrowser.dia"
+  - "$HOME/Library/Caches/Sidekick"
+  - "$HOME/Library/Caches/com.pushplaylabs.sidekick"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/Media Cache/**"
+  - "**/User Data/**/Cache/**"
+  - "**/User Data/**/Code Cache/**"
+- id: macos-chromium-optimization-guide
+  name: Chromium OptimizationGuide model caches
+  description: On-device Optimization Guide model/hint stores used by Chrome and Edge.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Google/Chrome/OptimizationHints"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Microsoft Edge/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Microsoft Edge/OptimizationHints"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Vivaldi/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Arc/User Data/optimization_guide_model_store"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-chromium-optimization-hint-profile
+  name: Chromium per-profile optimization hint cache
+  description: Per-profile optimization_guide_hint_cache_store files under Chromium-family
+    profiles.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Arc/User Data"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "**/optimization_guide_hint_cache_store*"
+  - "**/AutofillAiModelCache/**"
+  - "**/VideoDecodeStats/**"
+- id: macos-chromium-service-worker-cache
+  name: Chromium Service Worker CacheStorage and ScriptCache
+  description: PWA/service-worker script and Cache Storage under profiles. Regenerable
+    but can force offline apps to re-download.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome Beta"
+  - "$HOME/Library/Application Support/Google/Chrome Canary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev"
+  - "$HOME/Library/Application Support/Arc/User Data"
+  - "$HOME/Library/Application Support/Dia/User Data"
+  - "$HOME/Library/Application Support/com.operasoftware.Opera"
+  - "$HOME/Library/Application Support/com.operasoftware.OperaGX"
+  - "$HOME/Library/Application Support/Sidekick"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Service Worker/CacheStorage/**"
+  - "**/Service Worker/ScriptCache/**"
+  exclude_globs:
+  - "**/Service Worker/Database/**"
+- id: macos-default-browser-helper-caches
+  name: Default Browser helper caches
+  description: Sindre Default Browser helper and related default-browser switcher
+    caches.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.sindresorhus.Default-Browser"
+  - "$HOME/Library/Caches/com.sindresorhus.default-browser"
+  - "$HOME/Library/HTTPStorages/com.sindresorhus.Default-Browser"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-duckduckgo-browser-cache
+  name: DuckDuckGo browser cache
+  description: DuckDuckGo macOS browser Caches, WebKit, and container cache.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.duckduckgo.macos.browser"
+  - "$HOME/Library/WebKit/com.duckduckgo.macos.browser"
+  - "$HOME/Library/HTTPStorages/com.duckduckgo.macos.browser"
+  - "$HOME/Library/Containers/com.duckduckgo.macos.browser/Data/Library/Caches"
+  - "$HOME/Library/Application Support/com.duckduckgo.macos.browser/Cache"
+  - "$HOME/Library/Application Support/DuckDuckGo/Cache"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-edge-updater-and-edgemac-cache
+  name: Edge helper and edgemac residual caches
+  description: com.microsoft.edgemac nsurl cache DBs and Edge updater residual caches.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.microsoft.edgemac"
+  - "$HOME/Library/Caches/com.microsoft.EdgeUpdater"
+  - "$HOME/Library/Caches/Microsoft Edge/Default/Cache"
+  - "$HOME/Library/Caches/Microsoft Edge/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-edge-webview-residuals
+  name: Edge WebView / EdgeUpdater residual caches
+  description: Microsoft Edge embedded WebView-style residual folders and EdgeUpdater
+    package caches on macOS. App-scoped EBWebView trees when present under Application
+    Support.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Microsoft Edge WebView"
+  - "$HOME/Library/Application Support/Microsoft/EdgeUpdater"
+  - "$HOME/Library/Application Support/Microsoft Edge/EBWebView"
+  - "$HOME/Library/Application Support/Microsoft Edge Beta/EBWebView"
+  - "$HOME/Library/Application Support/Microsoft Edge Dev/EBWebView"
+  - "$HOME/Library/Application Support/Microsoft Edge Canary/EBWebView"
+  - "$HOME/Library/Application Support/zoom.us/data/Webview2Cache"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/ShaderCache/**"
+  - "**/GrShaderCache/**"
+  - "**/DawnCache/**"
+  - "**/component_crx_cache/**"
+  - "**/*.tmp"
+  - "**/logs/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/Preferences"
+  - "**/Local State"
+- id: macos-firefox-extra-profile-caches
+  name: Firefox OfflineCache, shader-cache, thumbnails
+  description: Extra regenerable Firefox caches beyond cache2/startupCache already
+    shipped.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/org.mozilla.firefox"
+  - "$HOME/Library/Application Support/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 5
+  include_globs:
+  - "*/OfflineCache/**"
+  - "*/shader-cache/**"
+  - "*/startupCache/**"
+  - "*/thumbnails/**"
+  - "*/safebrowsing/**"
+  exclude_globs:
+  - "*/cookies.sqlite*"
+  - "*/logins.json"
+  - "*/key4.db"
+  - "*/places.sqlite*"
+  - "*/permissions.sqlite*"
+  - "*/storage/**"
+- id: macos-firefox-forks-cache
+  name: Firefox-fork browser caches
+  description: cache2/startupCache for Waterfox, LibreWolf, Floorp, Zen Browser, Mullvad
+    Browser.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Waterfox"
+  - "$HOME/Library/Caches/librewolf"
+  - "$HOME/Library/Caches/floorp"
+  - "$HOME/Library/Caches/zen"
+  - "$HOME/Library/Caches/MullvadBrowser"
+  - "$HOME/Library/Caches/org.mozilla.waterfox"
+  - "$HOME/Library/Caches/io.gitlab.librewolf-community"
+  - "$HOME/Library/Application Support/Waterfox"
+  - "$HOME/Library/Application Support/librewolf"
+  - "$HOME/Library/Application Support/Floorp"
+  - "$HOME/Library/Application Support/zen"
+  - "$HOME/Library/Application Support/MullvadBrowser"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/cache2/**"
+  - "**/startupCache/**"
+  - "**/OfflineCache/**"
+  - "**/shader-cache/**"
+  - "**/jumpListCache/**"
+  exclude_globs:
+  - "**/cookies.sqlite*"
+  - "**/logins.json"
+  - "**/key4.db"
+  - "**/places.sqlite*"
+- id: macos-firefox-profile-caches
+  name: Firefox profile caches
+  description: Firefox cache2, startup cache, and jump-list cache under user profiles.
+  category: browser-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "*/cache2/**"
+  - "*/startupCache/**"
+  - "*/jumpListCache/**"
+- id: macos-ms-edge-caches-deep
+  name: Microsoft Edge deeper residual caches
+  description: Edge stable/beta/dev/canary disk caches, WebKit, component/extension
+    crx, Crashpad, optimization models.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Microsoft Edge"
+  - "$HOME/Library/Caches/Microsoft Edge Beta"
+  - "$HOME/Library/Caches/Microsoft Edge Canary"
+  - "$HOME/Library/Caches/Microsoft Edge Dev"
+  - "$HOME/Library/Application Support/Microsoft Edge/component_crx_cache"
+  - "$HOME/Library/Application Support/Microsoft Edge/extensions_crx_cache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Crashpad"
+  - "$HOME/Library/Application Support/Microsoft Edge/ShaderCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/GrShaderCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Microsoft Edge/OptimizationHints"
+  - "$HOME/Library/Application Support/Microsoft Edge Beta/Crashpad"
+  - "$HOME/Library/Application Support/Microsoft Edge WebView"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-openin-caches
+  name: OpenIn caches and HTTP storage
+  description: OpenIn (loshadki) link router caches and HTTPStorages. Containers hold
+    preferences; only caches targeted.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/app.loshadki.OpenIn"
+  - "$HOME/Library/HTTPStorages/app.loshadki.OpenIn"
+  - "$HOME/Library/Logs/OpenIn"
+  - "$HOME/Library/WebKit/app.loshadki.OpenIn"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-orion-webkit-cache
+  name: Orion (Kagi) WebKit and app cache
+  description: Orion browser app cache and WebKit disk cache.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.kagi.kagimacOS"
+  - "$HOME/Library/Caches/com.kagi.kagimacOS.IconService"
+  - "$HOME/Library/WebKit/com.kagi.kagimacOS"
+  - "$HOME/Library/Application Support/Orion/Defaults/Cache"
+  - "$HOME/Library/Application Support/Orion/Defaults/WebKit"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-safari-favicon-cache
+  name: Safari favicon cache
+  description: Safari website icon cache; safe to rebuild.
+  category: browser-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Safari/Favicon Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-safari-preview-cache
+  name: Safari webpage preview cache
+  description: Safari previews and touch icon cache files.
+  category: browser-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Safari"
+  delete_mode: contents
+  max_depth: 4
+  include_globs:
+  - "**/Webpage Previews/**"
+  - "**/Touch Icons Cache/**"
+- id: macos-safari-safebrowsing-cache
+  name: Safari Safe Browsing cache
+  description: Safe Browsing list and Safari SafeBrowsing cache (not browsing history).
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.Safari.SafeBrowsing"
+  - "$HOME/Library/SafariSafeBrowsing"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-safari-safebrowsing-cache-ext
+  name: Safari Safe Browsing cache
+  description: Google/Apple Safe Browsing threat list cache used by Safari.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.apple.Safari.SafeBrowsing"
+  delete_mode: contents
+  max_depth: 4
+- id: macos-safari-technology-preview-caches
+  name: Safari Technology Preview caches
+  description: Safari Technology Preview HTTP/WebKit caches, WebKit data, and container
+    caches. Regenerable; not History/Bookmarks.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.SafariTechnologyPreview"
+  - "$HOME/Library/WebKit/com.apple.SafariTechnologyPreview"
+  - "$HOME/Library/SafariTechnologyPreview"
+  - "$HOME/Library/Containers/com.apple.SafariTechnologyPreview/Data/Library/Caches"
+  - "$HOME/Library/Containers/com.apple.SafariTechnologyPreview/Data/Library/WebKit"
+  - "$HOME/Library/Containers/com.apple.SafariTechnologyPreview.CacheDeleteExtension/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/WebKitCache/**"
+  - "**/fsCachedData/**"
+  - "**/Cache.db*"
+  - "**/Webpage Previews/**"
+  - "**/TabSnapshots/**"
+  - "**/HSTS/**"
+  - "**/*"
+  exclude_globs:
+  - "**/Bookmarks*"
+  - "**/History*"
+  - "**/CloudTabs*"
+  - "**/PerSitePreferences*"
+- id: macos-safari-webkit-disk-cache
+  name: Safari WebKit HTTP disk cache
+  description: Safari/WebKit HTTP and resource disk caches in legacy Caches and sandboxed
+    container. Rebuilds on browse.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.Safari/WebKitCache"
+  - "$HOME/Library/Caches/com.apple.Safari/fsCachedData"
+  - "$HOME/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari/WebKitCache"
+  - "$HOME/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari/fsCachedData"
+  - "$HOME/Library/Containers/com.apple.Safari/Data/Library/Caches/com.apple.Safari/TabSnapshots"
+  - "$HOME/Library/Containers/com.apple.Safari/Data/Library/Caches/WebKit"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-sigmaos-cache
+  name: SigmaOS browser cache
+  description: SigmaOS WebKit/Chromium hybrid app and WebKit caches.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.sigmaos.sigmaos.macos"
+  - "$HOME/Library/Caches/company.sigmaos.sigmaos.macos"
+  - "$HOME/Library/WebKit/com.sigmaos.sigmaos.macos"
+  - "$HOME/Library/Application Support/SigmaOS/Cache"
+  - "$HOME/Library/Application Support/com.sigmaos.sigmaos.macos/Cache"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-tor-browser-cache
+  name: Tor Browser cache
+  description: Tor Browser profile disk caches under TorBrowser-Data (Firefox ESR
+    layout).
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/TorBrowser-Data/Browser"
+  - "$HOME/Library/Caches/TorBrowser-Data"
+  - "$HOME/Library/Caches/org.torproject.torbrowser"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/cache2/**"
+  - "**/startupCache/**"
+  - "**/OfflineCache/**"
+  - "**/shader-cache/**"
+  - "**/thumbnails/**"
+  exclude_globs:
+  - "**/cookies.sqlite*"
+  - "**/places.sqlite*"
+  - "**/logins.json"
+  - "**/key4.db"
+  - "**/prefs.js"
+- id: macos-velja-caches
+  name: Velja caches and HTTP storage
+  description: Velja (Sindre Sorhus browser picker) caches, including team-id-prefixed
+    cache folders when present.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/com.sindresorhus.Velja"
+  - "$HOME/Library/Caches/42f94541.com.sindresorhus.velja"
+  - "$HOME/Library/HTTPStorages/com.sindresorhus.Velja"
+  - "$HOME/Library/Logs/Velja"
+  - "$HOME/Library/WebKit/com.sindresorhus.Velja"
+  delete_mode: contents
+  max_depth: 5
+- id: macos-webkit-nightly-minibrowser-caches
+  name: WebKit nightly MiniBrowser caches
+  description: WebKit nightly / MiniBrowser / WebKitTestRunner style caches under
+    org.webkit.* identifiers.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org.webkit.MiniBrowser"
+  - "$HOME/Library/Caches/org.webkit.WebKitTestRunner"
+  - "$HOME/Library/WebKit/org.webkit.MiniBrowser"
+  - "$HOME/Library/WebKit/org.webkit.WebKitTestRunner"
+  - "$HOME/Library/Application Support/org.webkit.MiniBrowser"
+  - "$HOME/Library/Saved Application State/org.webkit.MiniBrowser.savedState"
+  delete_mode: contents
+  max_depth: 6
+- id: macos-yandex-browser-cache
+  name: Yandex Browser cache
+  description: Yandex Browser Chromium-based HTTP/GPU/code caches.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Yandex/YandexBrowser"
+  - "$HOME/Library/Application Support/Yandex/YandexBrowser"
+  delete_mode: contents
+  max_depth: 6
+  include_globs:
+  - "**/Cache/**"
+  - "**/Code Cache/**"
+  - "**/GPUCache/**"
+  - "**/Media Cache/**"
+  - "**/DawnCache/**"
+  - "**/DawnGraphiteCache/**"
+  - "**/ShaderCache/**"
+  - "**/GrShaderCache/**"
+  - "**/Service Worker/CacheStorage/**"
+  - "**/component_crx_cache/**"
+  exclude_globs:
+  - "**/Cookies*"
+  - "**/Login Data*"
+  - "**/Web Data*"
+  - "**/History*"
+  - "**/Bookmarks*"
+- id: personal-arc
+  name: Arc browser personal caches
+  description: Live-discovered regenerable cache/log paths for Arc browser on this
+    Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Arc"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-brave
+  name: Brave personal caches
+  description: Live-discovered regenerable cache/log paths for Brave on this Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/BraveSoftware"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-chrome-google
+  name: Google Chrome family personal caches
+  description: Live-discovered regenerable cache/log paths for Google Chrome family
+    on this Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Google/Chrome Dev/Profile 1/Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Profile 1/Storage/ext/glic/66A834677761/Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Profile 1/Storage/ext/glic/66A834677761/Code
+    Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Profile 1/Storage/ext/contextual-tasks/5424333CE73F/Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Profile 1/Storage/ext/contextual-tasks/5424333CE73F/Code
+    Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Profile 1/Code Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Default/Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Default/Storage/ext/glic/66A834677761/Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Default/Storage/ext/glic/66A834677761/Code
+    Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Default/Storage/ext/contextual-tasks/5424333CE73F/Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Default/Storage/ext/contextual-tasks/5424333CE73F/Code
+    Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/Default/Code Cache"
+  - "$HOME/Library/Caches/Google/Chrome Dev/System Profile/Code Cache"
+  - "$HOME/Library/Caches/Google"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/GrShaderCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Crashpad"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Web Applications/Temp"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/blob_storage"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/VideoDecodeStats"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Service Worker"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/glic/66A834677761/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/glic/66A834677761/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/glic/66A834677761/Shared
+    Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/glic/66A834677761/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/contextual-tasks/5424333CE73F/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/contextual-tasks/5424333CE73F/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/contextual-tasks/5424333CE73F/Shared
+    Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/contextual-tasks/5424333CE73F/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/Shared Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Profile 1/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/ShaderCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Web Applications/Temp"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/blob_storage"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/VideoDecodeStats"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Service Worker"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/glic/66A834677761/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/glic/66A834677761/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/glic/66A834677761/Shared
+    Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/glic/66A834677761/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/contextual-tasks/5424333CE73F/Shared
+    Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/GPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/Shared
+    Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Storage/ext/nmmhkkegccagdldgiimedpiccmgmieda/def/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/Shared Dictionary"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Default/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/GPUPersistentCache"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/System Profile/blob_storage"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/System Profile/Shared Dictionary"
+  - "$HOME/Library/Application Support/Google/GoogleUpdater/152.0.7933.0/Crashpad"
+  - "$HOME/Library/Caches/com.google.GoogleUpdater"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-chromium
+  name: Chromium residual personal caches
+  description: Live-discovered regenerable cache/log paths for Chromium residual on
+    this Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Chromium"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-edge
+  name: Microsoft Edge personal caches
+  description: Live-discovered regenerable cache/log paths for Microsoft Edge on this
+    Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Microsoft Edge/GrShaderCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Crashpad"
+  - "$HOME/Library/Application Support/Microsoft Edge/ShaderCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Web Applications/Temp"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/blob_storage"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/GPUCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/VideoDecodeStats"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Service Worker"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Workspaces/Logs"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Storage/ext/ihmafllikibpmigkcoadcmckbfhibefp/def/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Storage/ext/ihmafllikibpmigkcoadcmckbfhibefp/def/GPUCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Storage/ext/ihmafllikibpmigkcoadcmckbfhibefp/def/Shared
+    Dictionary"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Storage/ext/ihmafllikibpmigkcoadcmckbfhibefp/def/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Shared Dictionary"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Sync Data/Logs"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Sync Data/Logs/cv_debug.log"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/Sync Data/Logs/sync_diagnostic.log"
+  - "$HOME/Library/Application Support/Microsoft Edge/Default/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Microsoft Edge/GPUPersistentCache"
+  - "$HOME/Library/Caches/Microsoft Edge/Default/Cache"
+  - "$HOME/Library/Caches/Microsoft Edge/Default/Code Cache"
+  - "$HOME/Library/Caches/Microsoft Edge"
+  - "$HOME/Library/Caches/com.microsoft.edgemac"
+  - "$HOME/Library/Caches/com.microsoft.EdgeUpdater"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-firefox
+  name: Firefox/Mozilla personal caches
+  description: Live-discovered regenerable cache/log paths for Firefox/Mozilla on
+    this Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Firefox"
+  - "$HOME/Library/Application Support/Mozilla"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-opera
+  name: Opera personal caches
+  description: Live-discovered regenerable cache/log paths for Opera on this Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/com.operasoftware.Opera"
+  delete_mode: contents
+  max_depth: 4
+- id: personal-vivaldi
+  name: Vivaldi personal caches
+  description: Live-discovered regenerable cache/log paths for Vivaldi on this Mac.
+  category: browser-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Vivaldi"
+  delete_mode: contents
+  max_depth: 4
