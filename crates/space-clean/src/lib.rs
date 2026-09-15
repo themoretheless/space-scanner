@@ -7,15 +7,17 @@ pub mod manager;
 pub mod rules;
 pub mod safety;
 pub mod scan;
+pub mod tags;
 
 pub use clean::{clean, CleanResult, CleanedItem};
 pub use manager::{
-    CategoryPolicy, CategoryRow, ManagerStats, RuleFilter, RuleManager, RulePrefs, RuleRow,
+    CategoryPolicy, CategoryRow, ManagerStats, RuleFilter, RuleManager, RulePrefs, RuleRow, TagRow,
 };
 pub use rules::{
     expand_path_template, host_platform_name, DeleteMode, Platform, Risk, Rule, RulePack,
 };
 pub use scan::{scan, scan_rules, Finding, ScanOptions, ScanReport};
+pub use tags::{effective_tags, enrich_rule_tags, infer_tags, normalize_tag};
 
 use std::path::PathBuf;
 

@@ -4,7 +4,7 @@ use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
 use space_clean::{
-    clean, scan, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions,
+    clean, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions,
 };
 use space_core::{
     format_bytes, scan_path, CacheStore, NodeId, ScanEvent, SizeMode, SpaceTree,
@@ -48,11 +48,21 @@ enum Cmd {
         #[arg(long)]
         all: bool,
     },
+    /// List junk tags (inferred + explicit)
+    Tags {
+        #[arg(long)]
+        all: bool,
+        #[arg(long, default_value_t = 80)]
+        limit: usize,
+    },
     /// Scan regenerable junk (caches, logs, temp, …)
     Junk {
         /// Categories or rule ids (comma-separated). Empty = all enabled.
         #[arg(short = 'c', long = "category", value_delimiter = ',')]
         categories: Vec<String>,
+        /// Require tags (AND, comma-separated)
+        #[arg(short = 't', long = "tag", value_delimiter = ',')]
+        tags: Vec<String>,
         /// Ignore prefs / YAML defaults — scan every host rule
         #[arg(long)]
         all: bool,
@@ -74,6 +84,9 @@ enum RulesCmd {
         query: String,
         #[arg(short = 'c', long = "category")]
         category: Option<String>,
+        /// Require tags (AND, comma-separated)
+        #[arg(short = 't', long = "tag", value_delimiter = ',')]
+        tags: Vec<String>,
         #[arg(long)]
         enabled: bool,
         #[arg(long)]
@@ -104,6 +117,11 @@ enum RulesCmd {
     },
     /// Force a whole category on/off/reset
     Category {
+        action: CatAction,
+        name: String,
+    },
+    /// Force a tag on/off/reset
+    Tag {
         action: CatAction,
         name: String,
     },
@@ -183,6 +201,7 @@ fn main() {
             Some(RulesCmd::List {
                 query,
                 category,
+                tags,
                 enabled,
                 disabled,
                 overridden,
@@ -202,6 +221,7 @@ fn main() {
                 let filter = RuleFilter {
                     query,
                     category,
+                    tags,
                     enabled: en,
                     overridden_only: overridden,
                     host_only: !all,
@@ -212,8 +232,13 @@ fn main() {
                 for r in rows.iter().take(limit) {
                     let flag = if r.effectively_enabled { "on " } else { "off" };
                     let mark = if r.overridden { "*" } else { " " };
+                    let tag_s = if r.tags.is_empty() {
+                        String::new()
+                    } else {
+                        format!("  [{}]", r.tags.iter().take(4).cloned().collect::<Vec<_>>().join(","))
+                    };
                     println!(
-                        "[{flag}]{mark} {:>28}  {:<14}  {}",
+                        "[{flag}]{mark} {:>28}  {:<14}  {}{tag_s}",
                         r.id, r.category, r.name
                     );
                 }
@@ -239,6 +264,7 @@ fn main() {
                 println!("disabled\t{}", s.disabled);
                 println!("overridden\t{}", s.overridden);
                 println!("categories\t{}", s.categories);
+                println!("tags\t{}", s.tags);
                 println!("platform.macos\t{macos}");
                 println!("platform.linux\t{linux}");
                 println!("platform.windows\t{win}");
@@ -300,6 +326,23 @@ fn main() {
                 }
                 println!("category {name} → {label}");
             }
+            Some(RulesCmd::Tag { action, name }) => {
+                let mut mgr = RuleManager::load_default().expect("rules");
+                match action {
+                    CatAction::On => mgr.set_tag_enabled(&name, true).expect("tag"),
+                    CatAction::Off => mgr.set_tag_enabled(&name, false).expect("tag"),
+                    CatAction::Reset => mgr.reset_tag(&name),
+                }
+                let label = match action {
+                    CatAction::On => "on",
+                    CatAction::Off => "off",
+                    CatAction::Reset => "reset",
+                };
+                if let Err(e) = mgr.save_prefs() {
+                    eprintln!("warn: save prefs: {e}");
+                }
+                println!("tag {name} → {label}");
+            }
         },
         Cmd::Categories { all } => {
             let mgr = RuleManager::load_default().expect("rules");
@@ -315,8 +358,25 @@ fn main() {
                 println!("{}\t{}/{}\t{pol}", cat.name, cat.enabled, cat.total);
             }
         }
+        Cmd::Tags { all, limit } => {
+            let mgr = RuleManager::load_default().expect("rules");
+            let tags = mgr.tags(true);
+            println!("{} tags (showing up to {limit})", tags.len());
+            for tag in tags.iter().take(limit) {
+                if !all && tag.enabled == 0 {
+                    continue;
+                }
+                let pol = match tag.policy {
+                    space_clean::CategoryPolicy::Default => "-",
+                    space_clean::CategoryPolicy::ForceOn => "on",
+                    space_clean::CategoryPolicy::ForceOff => "off",
+                };
+                println!("{}\t{}/{}\t{pol}", tag.name, tag.enabled, tag.total);
+            }
+        }
         Cmd::Junk {
             categories,
+            tags,
             all,
             min_age,
             clean: do_clean,
@@ -330,18 +390,34 @@ fn main() {
                 prefs_min_age: mgr.prefs.min_age.clone(),
             };
             let report = if all {
-                scan(
-                    &mgr.pack,
-                    &ScanOptions {
-                        categories: categories.clone(),
-                        include_disabled: true,
-                        min_age_override: min_age,
-                        prefs_min_age: mgr.prefs.min_age.clone(),
-                    },
-                )
-                .expect("junk scan")
+                let rules: Vec<_> = mgr
+                    .pack
+                    .rules
+                    .iter()
+                    .filter(|r| r.platform.matches_host())
+                    .filter(|r| {
+                        if categories.is_empty() {
+                            true
+                        } else {
+                            categories
+                                .iter()
+                                .any(|c| c == &r.category || c == &r.id)
+                        }
+                    })
+                    .filter(|r| {
+                        if tags.is_empty() {
+                            true
+                        } else {
+                            tags.iter().all(|t| {
+                                let n = space_clean::normalize_tag(t);
+                                r.tags.iter().any(|rt| rt == &n)
+                            })
+                        }
+                    })
+                    .collect();
+                scan_rules(rules, &opts).expect("junk scan")
             } else {
-                scan_rules(mgr.scan_rules(&categories), &opts).expect("junk scan")
+                scan_rules(mgr.scan_rules_filtered(&categories, &tags), &opts).expect("junk scan")
             };
             println!(
                 "Junk scan · {} · {} findings · {} rules matched / {} scanned",

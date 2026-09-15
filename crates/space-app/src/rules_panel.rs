@@ -1,4 +1,4 @@
-//! Flexible rule manager UI — browse / search / toggle categories & rules.
+//! Flexible rule manager UI — browse / search / toggle categories, tags & rules.
 
 use eframe::egui::{self, Align, Layout, RichText};
 use space_clean::{CategoryPolicy, RuleFilter, RuleManager, RuleRow};
@@ -13,14 +13,22 @@ pub(crate) enum EnabledFilter {
     Overridden,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(crate) enum SideTab {
+    Categories,
+    Tags,
+}
+
 pub struct RulesPanelState {
     pub open: bool,
     pub query: String,
     pub category: Option<String>,
+    pub tag: Option<String>,
     pub enabled: EnabledFilter,
+    pub side_tab: SideTab,
     pub error: Option<String>,
     pub dirty: bool,
-    /// Cap rows drawn per frame for responsiveness with 3k rules.
+    /// Cap rows drawn per frame for responsiveness with many rules.
     pub page_size: usize,
 }
 
@@ -30,7 +38,9 @@ impl Default for RulesPanelState {
             open: false,
             query: String::new(),
             category: None,
+            tag: None,
             enabled: EnabledFilter::All,
+            side_tab: SideTab::Categories,
             error: None,
             dirty: false,
             page_size: 200,
@@ -52,8 +62,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
     ui.horizontal(|ui| {
         ui.label(
             RichText::new(format!(
-                "{} rules · {} on · {} off · {} overridden · {} cats",
-                stats.host, stats.enabled, stats.disabled, stats.overridden, stats.categories
+                "{} rules · {} on · {} off · {} overridden · {} cats · {} tags",
+                stats.host,
+                stats.enabled,
+                stats.disabled,
+                stats.overridden,
+                stats.categories,
+                stats.tags
             ))
             .size(12.0)
             .color(MUTED),
@@ -72,7 +87,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             let mut all = mgr.prefs.enable_all_by_default;
             if ui
                 .checkbox(&mut all, "Enable all")
-                .on_hover_text("Treat every rule as on, then apply per-rule/category overrides")
+                .on_hover_text("Treat every rule as on, then apply per-rule/category/tag overrides")
                 .changed()
             {
                 mgr.prefs.enable_all_by_default = all;
@@ -93,11 +108,9 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
         let resp = ui.add(
             egui::TextEdit::singleline(&mut state.query)
                 .desired_width(220.0)
-                .hint_text("id, name, category…"),
+                .hint_text("id, name, category, tag…"),
         );
-        if resp.changed() {
-            // filter only
-        }
+        let _ = resp;
         ui.separator();
         for (label, mode) in [
             ("All", EnabledFilter::All),
@@ -123,76 +136,150 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
     ui.add_space(8.0);
 
     let cats = mgr.categories(true);
+    let tags = mgr.tags(true);
     let filter = build_filter(state);
     let rows = mgr.list(&filter);
 
     ui.columns(2, |cols| {
-        // --- categories ---
-        cols[0].label(RichText::new("Categories").strong().color(TEXT));
-        egui::ScrollArea::vertical()
-            .id_salt("rules_cats")
-            .max_height(420.0)
-            .show(&mut cols[0], |ui| {
-                let all_selected = state.category.is_none();
-                let all_resp = ui.selectable_label(
-                    all_selected,
-                    format!("All categories  ({})", stats.host),
-                );
-                if all_resp.clicked() {
-                    state.category = None;
-                }
+        cols[0].horizontal(|ui| {
+            if ui
+                .selectable_label(state.side_tab == SideTab::Categories, "Categories")
+                .clicked()
+            {
+                state.side_tab = SideTab::Categories;
+            }
+            if ui
+                .selectable_label(state.side_tab == SideTab::Tags, "Tags")
+                .clicked()
+            {
+                state.side_tab = SideTab::Tags;
+            }
+        });
 
-                for cat in &cats {
-                    ui.horizontal(|ui| {
-                        let selected = state.category.as_deref() == Some(cat.name.as_str());
-                        let policy_mark = match cat.policy {
-                            CategoryPolicy::Default => "",
-                            CategoryPolicy::ForceOn => " ⊕",
-                            CategoryPolicy::ForceOff => " ⊖",
-                        };
-                        let label = format!(
-                            "{}{}  {}/{}",
-                            cat_title(&cat.name),
-                            policy_mark,
-                            cat.enabled,
-                            cat.total
-                        );
-                        if ui.selectable_label(selected, label).clicked() {
-                            state.category = Some(cat.name.clone());
-                        }
-                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                            if ui
-                                .small_button("∅")
-                                .on_hover_text("Reset category + its rule overrides")
-                                .clicked()
-                            {
-                                mgr.reset_category(&cat.name);
-                                state.dirty = true;
-                                state.error = save(mgr);
-                                action = RulesAction::PrefsChanged;
+        egui::ScrollArea::vertical()
+            .id_salt("rules_side")
+            .max_height(420.0)
+            .show(&mut cols[0], |ui| match state.side_tab {
+                SideTab::Categories => {
+                    let all_selected = state.category.is_none();
+                    let all_resp = ui.selectable_label(
+                        all_selected,
+                        format!("All categories  ({})", stats.host),
+                    );
+                    if all_resp.clicked() {
+                        state.category = None;
+                    }
+
+                    for cat in &cats {
+                        ui.horizontal(|ui| {
+                            let selected = state.category.as_deref() == Some(cat.name.as_str());
+                            let policy_mark = match cat.policy {
+                                CategoryPolicy::Default => "",
+                                CategoryPolicy::ForceOn => " ⊕",
+                                CategoryPolicy::ForceOff => " ⊖",
+                            };
+                            let label = format!(
+                                "{}{}  {}/{}",
+                                cat_title(&cat.name),
+                                policy_mark,
+                                cat.enabled,
+                                cat.total
+                            );
+                            if ui.selectable_label(selected, label).clicked() {
+                                state.category = Some(cat.name.clone());
                             }
-                            if ui
-                                .small_button("Off")
-                                .on_hover_text("Force category off")
-                                .clicked()
-                            {
-                                let _ = mgr.set_category_enabled(&cat.name, false);
-                                state.dirty = true;
-                                state.error = save(mgr);
-                                action = RulesAction::PrefsChanged;
-                            }
-                            if ui
-                                .small_button("On")
-                                .on_hover_text("Force category on")
-                                .clicked()
-                            {
-                                let _ = mgr.set_category_enabled(&cat.name, true);
-                                state.dirty = true;
-                                state.error = save(mgr);
-                                action = RulesAction::PrefsChanged;
-                            }
+                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                                if ui
+                                    .small_button("∅")
+                                    .on_hover_text("Reset category + its rule overrides")
+                                    .clicked()
+                                {
+                                    mgr.reset_category(&cat.name);
+                                    state.dirty = true;
+                                    state.error = save(mgr);
+                                    action = RulesAction::PrefsChanged;
+                                }
+                                if ui
+                                    .small_button("Off")
+                                    .on_hover_text("Force category off")
+                                    .clicked()
+                                {
+                                    let _ = mgr.set_category_enabled(&cat.name, false);
+                                    state.dirty = true;
+                                    state.error = save(mgr);
+                                    action = RulesAction::PrefsChanged;
+                                }
+                                if ui
+                                    .small_button("On")
+                                    .on_hover_text("Force category on")
+                                    .clicked()
+                                {
+                                    let _ = mgr.set_category_enabled(&cat.name, true);
+                                    state.dirty = true;
+                                    state.error = save(mgr);
+                                    action = RulesAction::PrefsChanged;
+                                }
+                            });
                         });
-                    });
+                    }
+                }
+                SideTab::Tags => {
+                    let all_selected = state.tag.is_none();
+                    let all_resp =
+                        ui.selectable_label(all_selected, format!("All tags  ({})", tags.len()));
+                    if all_resp.clicked() {
+                        state.tag = None;
+                    }
+
+                    for tag in &tags {
+                        ui.horizontal(|ui| {
+                            let selected = state.tag.as_deref() == Some(tag.name.as_str());
+                            let policy_mark = match tag.policy {
+                                CategoryPolicy::Default => "",
+                                CategoryPolicy::ForceOn => " ⊕",
+                                CategoryPolicy::ForceOff => " ⊖",
+                            };
+                            let label = format!(
+                                "{}{}  {}/{}",
+                                tag.name, policy_mark, tag.enabled, tag.total
+                            );
+                            if ui.selectable_label(selected, label).clicked() {
+                                state.tag = Some(tag.name.clone());
+                            }
+                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                                if ui
+                                    .small_button("∅")
+                                    .on_hover_text("Clear tag force on/off")
+                                    .clicked()
+                                {
+                                    mgr.reset_tag(&tag.name);
+                                    state.dirty = true;
+                                    state.error = save(mgr);
+                                    action = RulesAction::PrefsChanged;
+                                }
+                                if ui
+                                    .small_button("Off")
+                                    .on_hover_text("Force-disable rules with this tag")
+                                    .clicked()
+                                {
+                                    let _ = mgr.set_tag_enabled(&tag.name, false);
+                                    state.dirty = true;
+                                    state.error = save(mgr);
+                                    action = RulesAction::PrefsChanged;
+                                }
+                                if ui
+                                    .small_button("On")
+                                    .on_hover_text("Force-enable rules with this tag")
+                                    .clicked()
+                                {
+                                    let _ = mgr.set_tag_enabled(&tag.name, true);
+                                    state.dirty = true;
+                                    state.error = save(mgr);
+                                    action = RulesAction::PrefsChanged;
+                                }
+                            });
+                        });
+                    }
                 }
             });
 
@@ -206,6 +293,9 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             );
             if let Some(cat) = &state.category {
                 ui.label(RichText::new(format!("· {cat}")).size(12.0).color(ACCENT));
+            }
+            if let Some(tag) = &state.tag {
+                ui.label(RichText::new(format!("· #{tag}")).size(12.0).color(ACCENT));
             }
         });
         egui::ScrollArea::vertical()
@@ -283,6 +373,9 @@ fn draw_rule_row(
             if !row.description.is_empty() {
                 ui.label(&row.description);
             }
+            if !row.tags.is_empty() {
+                ui.label(RichText::new(format!("tags: {}", row.tags.join(", "))).color(MUTED));
+            }
             for p in row.paths.iter().take(6) {
                 ui.monospace(p);
             }
@@ -323,9 +416,15 @@ fn build_filter(state: &RulesPanelState) -> RuleFilter {
         EnabledFilter::Off => (Some(false), false),
         EnabledFilter::Overridden => (None, true),
     };
+    let tags = state
+        .tag
+        .as_ref()
+        .map(|t| vec![t.clone()])
+        .unwrap_or_default();
     RuleFilter {
         query: state.query.clone(),
         category: state.category.clone(),
+        tags,
         risk: None,
         enabled,
         report_only: None,

@@ -97,6 +97,10 @@ pub struct Rule {
     /// If true, only list; never delete even with --yes (unless --all and future override).
     #[serde(default)]
     pub report_only: bool,
+    /// Free-form labels for filtering / bulk prefs (`browser`, `electron`, `npm`, …).
+    /// Empty in YAML is fine — tags are inferred on load and merged in.
+    #[serde(default)]
+    pub tags: Vec<String>,
 }
 
 fn default_category() -> String {
@@ -157,6 +161,7 @@ impl RulePack {
                     rule.name = rule.name.trim().to_string();
                     rule.category = rule.category.trim().to_string();
                     validate_rule(&rule, &file)?;
+                    crate::tags::enrich_rule_tags(&mut rule);
                     if by_id.contains_key(&rule.id) {
                         bail!("{}: duplicate rule id '{}'", file.display(), rule.id);
                     }
@@ -421,6 +426,7 @@ mod tests {
             max_depth: 12,
             delete_mode: DeleteMode::Contents,
             report_only: false,
+            tags: vec![],
         };
         let err = validate_rule(&rule, &PathBuf::from("rules.yaml")).unwrap_err();
         assert!(err.to_string().contains("missing non-empty id"));

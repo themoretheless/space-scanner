@@ -19,6 +19,12 @@ pub struct RulePrefs {
     /// Categories forced on (all host rules in category, unless per-rule off).
     #[serde(default)]
     pub categories_on: BTreeSet<String>,
+    /// Tags forced off (any matching tag disables the rule, unless per-rule on).
+    #[serde(default)]
+    pub tags_off: BTreeSet<String>,
+    /// Tags forced on (any matching tag enables the rule, unless category/tag off or per-rule off).
+    #[serde(default)]
+    pub tags_on: BTreeSet<String>,
     /// Per-rule min_age_days override.
     #[serde(default)]
     pub min_age: BTreeMap<String, u64>,
@@ -68,10 +74,16 @@ impl RulePrefs {
         if self.categories_off.contains(&rule.category) {
             return false;
         }
+        if rule.tags.iter().any(|t| self.tags_off.contains(t)) {
+            return false;
+        }
         if let Some(&forced) = self.rules.get(&rule.id) {
             return forced;
         }
         if self.categories_on.contains(&rule.category) {
+            return true;
+        }
+        if rule.tags.iter().any(|t| self.tags_on.contains(t)) {
             return true;
         }
         if self.enable_all_by_default {
@@ -84,6 +96,7 @@ impl RulePrefs {
         self.rules.contains_key(&rule.id)
             || self.categories_off.contains(&rule.category)
             || self.categories_on.contains(&rule.category)
+            || rule.tags.iter().any(|t| self.tags_off.contains(t) || self.tags_on.contains(t))
             || self.enable_all_by_default
             || self.min_age.contains_key(&rule.id)
     }
@@ -119,22 +132,59 @@ impl RulePrefs {
         self.categories_off.remove(category);
     }
 
+    pub fn set_tag(&mut self, tag: &str, enabled: bool) {
+        let tag = crate::tags::normalize_tag(tag);
+        if tag.is_empty() {
+            return;
+        }
+        if enabled {
+            self.tags_off.remove(&tag);
+            self.tags_on.insert(tag);
+        } else {
+            self.tags_on.remove(&tag);
+            self.tags_off.insert(tag);
+        }
+    }
+
+    pub fn clear_tag_policy(&mut self, tag: &str) {
+        let tag = crate::tags::normalize_tag(tag);
+        self.tags_on.remove(&tag);
+        self.tags_off.remove(&tag);
+    }
+
     pub fn reset(&mut self) {
         *self = Self::default();
     }
 }
 
 /// Query for listing / managing rules.
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 pub struct RuleFilter {
     pub query: String,
     pub category: Option<String>,
+    /// Require all listed tags (AND). Empty = no tag filter.
+    pub tags: Vec<String>,
     pub risk: Option<Risk>,
     /// `Some(true)` → effectively enabled only; `Some(false)` → disabled only.
     pub enabled: Option<bool>,
     pub report_only: Option<bool>,
     pub host_only: bool,
     pub overridden_only: bool,
+}
+
+impl Default for RuleFilter {
+    fn default() -> Self {
+        Self {
+            query: String::new(),
+            category: None,
+            tags: Vec::new(),
+            risk: None,
+            enabled: None,
+            report_only: None,
+            host_only: true,
+            overridden_only: false,
+        }
+    }
 }
 
 impl RuleFilter {
@@ -144,6 +194,17 @@ impl RuleFilter {
         }
         if let Some(cat) = &self.category {
             if &rule.category != cat && &rule.id != cat {
+                return false;
+            }
+        }
+        if !self.tags.is_empty() {
+            let want: BTreeSet<String> = self
+                .tags
+                .iter()
+                .map(|t| crate::tags::normalize_tag(t))
+                .filter(|t| !t.is_empty())
+                .collect();
+            if !want.iter().all(|t| rule.tags.iter().any(|rt| rt == t)) {
                 return false;
             }
         }
@@ -169,9 +230,10 @@ impl RuleFilter {
         }
         let q = self.query.trim().to_ascii_lowercase();
         if !q.is_empty() {
+            let tag_hay = rule.tags.join(" ");
             let hay = format!(
-                "{} {} {} {}",
-                rule.id, rule.name, rule.category, rule.description
+                "{} {} {} {} {}",
+                rule.id, rule.name, rule.category, rule.description, tag_hay
             )
             .to_ascii_lowercase();
             if !hay.contains(&q) {
@@ -187,6 +249,7 @@ pub struct RuleRow {
     pub id: String,
     pub name: String,
     pub category: String,
+    pub tags: Vec<String>,
     pub risk: String,
     pub platform: String,
     pub default_enabled: bool,
@@ -200,6 +263,14 @@ pub struct RuleRow {
 
 #[derive(Debug, Clone)]
 pub struct CategoryRow {
+    pub name: String,
+    pub total: usize,
+    pub enabled: usize,
+    pub policy: CategoryPolicy,
+}
+
+#[derive(Debug, Clone)]
+pub struct TagRow {
     pub name: String,
     pub total: usize,
     pub enabled: usize,
@@ -245,6 +316,7 @@ impl RuleManager {
                 id: r.id.clone(),
                 name: r.name.clone(),
                 category: r.category.clone(),
+                tags: r.tags.clone(),
                 risk: r.risk.as_str().to_string(),
                 platform: r.platform.as_str().to_string(),
                 default_enabled: r.default_enabled,
@@ -290,6 +362,40 @@ impl RuleManager {
             .collect()
     }
 
+    pub fn tags(&self, host_only: bool) -> Vec<TagRow> {
+        let mut totals: BTreeMap<String, (usize, usize)> = BTreeMap::new();
+        for r in &self.pack.rules {
+            if host_only && !r.platform.matches_host() {
+                continue;
+            }
+            for t in &r.tags {
+                let e = totals.entry(t.clone()).or_insert((0, 0));
+                e.0 += 1;
+                if self.prefs.is_enabled(r) {
+                    e.1 += 1;
+                }
+            }
+        }
+        totals
+            .into_iter()
+            .map(|(name, (total, enabled))| {
+                let policy = if self.prefs.tags_off.contains(&name) {
+                    CategoryPolicy::ForceOff
+                } else if self.prefs.tags_on.contains(&name) {
+                    CategoryPolicy::ForceOn
+                } else {
+                    CategoryPolicy::Default
+                };
+                TagRow {
+                    name,
+                    total,
+                    enabled,
+                    policy,
+                }
+            })
+            .collect()
+    }
+
     pub fn set_rule_enabled(&mut self, id: &str, enabled: bool) -> Result<()> {
         if self.pack.get(id).is_none() {
             anyhow::bail!("unknown rule id '{id}'");
@@ -325,12 +431,38 @@ impl RuleManager {
         }
     }
 
+    pub fn set_tag_enabled(&mut self, tag: &str, enabled: bool) -> Result<()> {
+        let tag = crate::tags::normalize_tag(tag);
+        if tag.is_empty() {
+            anyhow::bail!("empty tag");
+        }
+        let exists = self.pack.rules.iter().any(|r| r.tags.iter().any(|t| t == &tag));
+        if !exists {
+            anyhow::bail!("unknown tag '{tag}'");
+        }
+        self.prefs.set_tag(&tag, enabled);
+        Ok(())
+    }
+
+    pub fn reset_tag(&mut self, tag: &str) {
+        self.prefs.clear_tag_policy(tag);
+    }
+
     pub fn reset_all(&mut self) {
         self.prefs.reset();
     }
 
-    /// Rules that should run in a junk scan under current prefs (+ optional category filter).
+    /// Rules that should run in a junk scan under current prefs (+ optional category/tag filter).
     pub fn scan_rules(&self, categories: &[String]) -> Vec<&Rule> {
+        self.scan_rules_filtered(categories, &[])
+    }
+
+    pub fn scan_rules_filtered(&self, categories: &[String], tags: &[String]) -> Vec<&Rule> {
+        let want_tags: BTreeSet<String> = tags
+            .iter()
+            .map(|t| crate::tags::normalize_tag(t))
+            .filter(|t| !t.is_empty())
+            .collect();
         self.pack
             .rules
             .iter()
@@ -343,6 +475,13 @@ impl RuleManager {
                     categories
                         .iter()
                         .any(|c| c == &r.category || c == &r.id)
+                }
+            })
+            .filter(|r| {
+                if want_tags.is_empty() {
+                    true
+                } else {
+                    want_tags.iter().all(|t| r.tags.iter().any(|rt| rt == t))
                 }
             })
             .collect()
@@ -364,6 +503,7 @@ impl RuleManager {
             disabled: host.len().saturating_sub(enabled),
             overridden,
             categories: self.categories(true).len(),
+            tags: self.tags(true).len(),
         }
     }
 }
@@ -376,4 +516,5 @@ pub struct ManagerStats {
     pub disabled: usize,
     pub overridden: usize,
     pub categories: usize,
+    pub tags: usize,
 }
