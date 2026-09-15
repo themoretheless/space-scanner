@@ -12,6 +12,7 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
             "Pictures",
             "Movies",
             "Music",
+            "Videos",
             "Photos Library.photoslibrary",
             ".ssh",
             ".gnupg",
@@ -24,6 +25,11 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
             "Library/Mobile Documents",
             "Library/CloudStorage",
             "Library/Containers/com.apple.mail",
+            // Windows profile folders (same names under USERPROFILE)
+            "Documents",
+            "OneDrive",
+            "AppData/Roaming/Microsoft/Credentials",
+            "AppData/Local/Microsoft/Credentials",
         ] {
             out.push(home.join(rel));
         }
@@ -59,6 +65,10 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
         "$HOME/Library/Keychains",
         "%USERPROFILE%\\Documents",
         "%USERPROFILE%\\Desktop",
+        "%USERPROFILE%\\Downloads",
+        "%USERPROFILE%\\.ssh",
+        "%APPDATA%\\Microsoft\\Credentials",
+        "%LOCALAPPDATA%\\Microsoft\\Credentials",
     ] {
         if let Some(p) = expand_path_template(t) {
             out.push(p);

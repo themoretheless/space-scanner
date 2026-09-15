@@ -1,0 +1,1081 @@
+---
+pack: linux
+description: Linux junk targets (XDG cache, browsers, apps, package managers). Prefs/manager
+  still apply.
+rules:
+- id: linux-xdg-cache-safe
+  name: XDG cache (selected)
+  description: Common safe subfolders under ~/.cache (not entire tree).
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/thumbnails"
+  - "$HOME/.cache/fontconfig"
+  - "$HOME/.cache/mesa_shader_cache"
+  - "$XDG_CACHE_HOME/thumbnails"
+  - "$XDG_CACHE_HOME/fontconfig"
+  delete_mode: contents
+  max_depth: 5
+- id: linux-trash
+  name: User Trash files
+  description: Freedesktop Trash files/info.
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.local/share/Trash/files"
+  - "$HOME/.local/share/Trash/info"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-var-log-report
+  name: "/var/log (report-only)"
+  description: System logs — report only; needs root to clean.
+  category: logs
+  platform: linux
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "/var/log"
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+- id: linux-apt-archives
+  name: APT package archives
+  description: Downloaded .deb archives (apt clean).
+  category: package-cache
+  platform: linux
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/var/cache/apt/archives"
+  delete_mode: contents
+  max_depth: 2
+- id: linux-pacman-cache
+  name: pacman package cache
+  description: Arch pacman package cache.
+  category: package-cache
+  platform: linux
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/var/cache/pacman/pkg"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-dnf-cache
+  name: DNF/YUM cache
+  description: Fedora/RHEL package manager caches.
+  category: package-cache
+  platform: linux
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/var/cache/dnf"
+  - "/var/cache/yum"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-snap-cache
+  name: Snap user revisions leftover
+  description: Snap user common/cache folders.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/snap"
+  delete_mode: contents
+  max_depth: 8
+  include_globs:
+  - "**/common/.cache/**"
+  - "**/current/.cache/**"
+- id: linux-flatpak-cache
+  name: Flatpak user cache
+  description: Flatpak app caches under ~/.var/app.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.var/app"
+  delete_mode: contents
+  max_depth: 10
+  include_globs:
+  - "**/cache/**"
+  - "**/Cache/**"
+- id: linux-dev-pip
+  name: Linux pip
+  description: Developer/tool cache at ~/.cache/pip.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pip"
+  - "$XDG_CACHE_HOME/pip"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-uv
+  name: Linux uv
+  description: Developer/tool cache at ~/.cache/uv.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/uv"
+  - "$XDG_CACHE_HOME/uv"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-yarn
+  name: Linux yarn
+  description: Developer/tool cache at ~/.cache/yarn.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/yarn"
+  - "$XDG_CACHE_HOME/yarn"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-pnpm
+  name: Linux pnpm
+  description: Developer/tool cache at ~/.cache/pnpm.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pnpm"
+  - "$XDG_CACHE_HOME/pnpm"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-npm
+  name: Linux npm
+  description: Developer/tool cache at ~/.cache/npm.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/npm"
+  - "$XDG_CACHE_HOME/npm"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-npm-cacache
+  name: Linux npm-cacache
+  description: Developer/tool cache at ~/.npm/_cacache.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.npm/_cacache"
+  - "$XDG_CACHE_HOME/.npm/_cacache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-npm-logs
+  name: Linux npm-logs
+  description: Developer/tool cache at ~/.npm/_logs.
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.npm/_logs"
+  - "$XDG_CACHE_HOME/.npm/_logs"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-playwright
+  name: Linux playwright
+  description: Developer/tool cache at ~/.cache/ms-playwright.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/ms-playwright"
+  - "$XDG_CACHE_HOME/ms-playwright"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-puppeteer
+  name: Linux puppeteer
+  description: Developer/tool cache at ~/.cache/puppeteer.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/puppeteer"
+  - "$XDG_CACHE_HOME/puppeteer"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-cypress
+  name: Linux cypress
+  description: Developer/tool cache at ~/.cache/Cypress.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/Cypress"
+  - "$XDG_CACHE_HOME/Cypress"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-electron
+  name: Linux electron
+  description: Developer/tool cache at ~/.cache/electron.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/electron"
+  - "$XDG_CACHE_HOME/electron"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-electron-builder
+  name: Linux electron-builder
+  description: Developer/tool cache at ~/.cache/electron-builder.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/electron-builder"
+  - "$XDG_CACHE_HOME/electron-builder"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-huggingface
+  name: Linux huggingface
+  description: Developer/tool cache at ~/.cache/huggingface.
+  category: ml-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/huggingface"
+  - "$XDG_CACHE_HOME/huggingface"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-torch
+  name: Linux torch
+  description: Developer/tool cache at ~/.cache/torch.
+  category: ml-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/torch"
+  - "$XDG_CACHE_HOME/torch"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-go-build
+  name: Linux go-build
+  description: Developer/tool cache at ~/.cache/go-build.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/go-build"
+  - "$XDG_CACHE_HOME/go-build"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-ccache
+  name: Linux ccache
+  description: Developer/tool cache at ~/.cache/ccache.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/ccache"
+  - "$XDG_CACHE_HOME/ccache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-sccache
+  name: Linux sccache
+  description: Developer/tool cache at ~/.cache/sccache.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/sccache"
+  - "$XDG_CACHE_HOME/sccache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-clangd
+  name: Linux clangd
+  description: Developer/tool cache at ~/.cache/clangd.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/clangd"
+  - "$XDG_CACHE_HOME/clangd"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-pre-commit
+  name: Linux pre-commit
+  description: Developer/tool cache at ~/.cache/pre-commit.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pre-commit"
+  - "$XDG_CACHE_HOME/pre-commit"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-jetbrains
+  name: Linux jetbrains
+  description: Developer/tool cache at ~/.cache/JetBrains.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/JetBrains"
+  - "$XDG_CACHE_HOME/JetBrains"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-mozilla
+  name: Linux mozilla
+  description: Developer/tool cache at ~/.cache/mozilla.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/mozilla"
+  - "$XDG_CACHE_HOME/mozilla"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-chrome
+  name: Linux chrome
+  description: Developer/tool cache at ~/.cache/google-chrome.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/google-chrome"
+  - "$XDG_CACHE_HOME/google-chrome"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-chromium
+  name: Linux chromium
+  description: Developer/tool cache at ~/.cache/chromium.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/chromium"
+  - "$XDG_CACHE_HOME/chromium"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-brave
+  name: Linux brave
+  description: Developer/tool cache at ~/.cache/BraveSoftware.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/BraveSoftware"
+  - "$XDG_CACHE_HOME/BraveSoftware"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-thumbnails
+  name: Linux thumbnails
+  description: Developer/tool cache at ~/.cache/thumbnails.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/thumbnails"
+  - "$XDG_CACHE_HOME/thumbnails"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-mesa
+  name: Linux mesa
+  description: Developer/tool cache at ~/.cache/mesa_shader_cache.
+  category: shader-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/mesa_shader_cache"
+  - "$XDG_CACHE_HOME/mesa_shader_cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-nvidia
+  name: Linux nvidia
+  description: Developer/tool cache at ~/.cache/nvidia.
+  category: shader-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/nvidia"
+  - "$XDG_CACHE_HOME/nvidia"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-fontconfig
+  name: Linux fontconfig
+  description: Developer/tool cache at ~/.cache/fontconfig.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/fontconfig"
+  - "$XDG_CACHE_HOME/fontconfig"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-tracker3
+  name: Linux tracker3
+  description: Developer/tool cache at ~/.cache/tracker3.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/tracker3"
+  - "$XDG_CACHE_HOME/tracker3"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-evolution
+  name: Linux evolution
+  description: Developer/tool cache at ~/.cache/evolution.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/evolution"
+  - "$XDG_CACHE_HOME/evolution"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-flatpak
+  name: Linux flatpak
+  description: Developer/tool cache at ~/.cache/flatpak.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/flatpak"
+  - "$XDG_CACHE_HOME/flatpak"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-snapd-user
+  name: Linux snapd-user
+  description: Developer/tool cache at ~/.cache/snap.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/snap"
+  - "$XDG_CACHE_HOME/snap"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-trash-files
+  name: Linux trash-files
+  description: Developer/tool cache at ~/.local/share/Trash/files.
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.local/share/Trash/files"
+  - "$XDG_CACHE_HOME/.local/share/Trash/files"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-trash-info
+  name: Linux trash-info
+  description: Developer/tool cache at ~/.local/share/Trash/info.
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.local/share/Trash/info"
+  - "$XDG_CACHE_HOME/.local/share/Trash/info"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-xorg
+  name: Linux xorg
+  description: Developer/tool cache at ~/.local/share/xorg.
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.local/share/xorg"
+  - "$XDG_CACHE_HOME/.local/share/xorg"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-cargo-registry
+  name: Linux cargo-registry
+  description: Developer/tool cache at ~/.cargo/registry/cache.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cargo/registry/cache"
+  - "$XDG_CACHE_HOME/.cargo/registry/cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-cargo-git
+  name: Linux cargo-git
+  description: Developer/tool cache at ~/.cargo/git/db.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cargo/git/db"
+  - "$XDG_CACHE_HOME/.cargo/git/db"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-rustup-tmp
+  name: Linux rustup-tmp
+  description: Developer/tool cache at ~/.rustup/tmp.
+  category: temp
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.rustup/tmp"
+  - "$XDG_CACHE_HOME/.rustup/tmp"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-rustup-dl
+  name: Linux rustup-dl
+  description: Developer/tool cache at ~/.rustup/downloads.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.rustup/downloads"
+  - "$XDG_CACHE_HOME/.rustup/downloads"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-gradle
+  name: Linux gradle
+  description: Developer/tool cache at ~/.gradle/caches.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.gradle/caches"
+  - "$XDG_CACHE_HOME/.gradle/caches"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-maven
+  name: Linux maven
+  description: Developer/tool cache at ~/.m2/repository.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.m2/repository"
+  - "$XDG_CACHE_HOME/.m2/repository"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-composer
+  name: Linux composer
+  description: Developer/tool cache at ~/.composer/cache.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.composer/cache"
+  - "$XDG_CACHE_HOME/.composer/cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-composer-xdg
+  name: Linux composer-xdg
+  description: Developer/tool cache at ~/.cache/composer.
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/composer"
+  - "$XDG_CACHE_HOME/composer"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-helm
+  name: Linux helm
+  description: Developer/tool cache at ~/.cache/helm.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/helm"
+  - "$XDG_CACHE_HOME/helm"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-terraform
+  name: Linux terraform
+  description: Developer/tool cache at ~/.cache/terraform.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/terraform"
+  - "$XDG_CACHE_HOME/terraform"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-docker-home
+  name: Linux docker-home
+  description: Developer/tool cache at ~/.docker.
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.docker"
+  - "$XDG_CACHE_HOME/.docker"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-podman
+  name: Linux podman
+  description: Developer/tool cache at ~/.local/share/containers.
+  category: vm-disk
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.local/share/containers"
+  - "$XDG_CACHE_HOME/.local/share/containers"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-vagrant
+  name: Linux vagrant
+  description: Developer/tool cache at ~/.vagrant.d/boxes.
+  category: vm-disk
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.vagrant.d/boxes"
+  - "$XDG_CACHE_HOME/.vagrant.d/boxes"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-minikube
+  name: Linux minikube
+  description: Developer/tool cache at ~/.minikube.
+  category: vm-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.minikube"
+  - "$XDG_CACHE_HOME/.minikube"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-dev-kubectl
+  name: Linux kubectl
+  description: Developer/tool cache at ~/.kube/cache.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.kube/cache"
+  - "$XDG_CACHE_HOME/.kube/cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-spotify
+  name: Linux spotify
+  description: Linux app paths for spotify.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/spotify"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-discord
+  name: Linux discord
+  description: Linux app paths for discord.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/discord/Cache"
+  - "$HOME/.config/discord/Code Cache"
+  - "$HOME/.config/discord/GPUCache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-slack
+  name: Linux slack
+  description: Linux app paths for slack.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/Slack/Cache"
+  - "$HOME/.config/Slack/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-teams
+  name: Linux teams
+  description: Linux app paths for teams.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/Microsoft/Microsoft Teams/Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-zoom
+  name: Linux zoom
+  description: Linux app paths for zoom.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.zoom/logs"
+  - "$HOME/.zoom/data"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-steam
+  name: Linux steam
+  description: Linux app paths for steam.
+  category: game-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.steam/steam/appcache"
+  - "$HOME/.local/share/Steam/appcache"
+  - "$HOME/.local/share/Steam/logs"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-vscode
+  name: Linux vscode
+  description: Linux app paths for vscode.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/Code/Cache"
+  - "$HOME/.config/Code/CachedData"
+  - "$HOME/.config/Code/logs"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-cursor
+  name: Linux cursor
+  description: Linux app paths for cursor.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/Cursor/Cache"
+  - "$HOME/.config/Cursor/CachedData"
+  - "$HOME/.config/Cursor/logs"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-obsidian
+  name: Linux obsidian
+  description: Linux app paths for obsidian.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/obsidian/Cache"
+  - "$HOME/.config/obsidian/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-firefox
+  name: Linux firefox
+  description: Linux app paths for firefox.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.mozilla/firefox"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-chrome
+  name: Linux chrome
+  description: Linux app paths for chrome.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/google-chrome/Default/Cache"
+  - "$HOME/.config/google-chrome/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-chromium
+  name: Linux chromium
+  description: Linux app paths for chromium.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/chromium/Default/Cache"
+  - "$HOME/.config/chromium/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-brave
+  name: Linux brave
+  description: Linux app paths for brave.
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.config/BraveSoftware/Brave-Browser/Default/Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-thunderbird
+  name: Linux thunderbird
+  description: Linux app paths for thunderbird.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.thunderbird"
+  - "$HOME/.cache/thunderbird"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-libreoffice
+  name: Linux libreoffice
+  description: Linux app paths for libreoffice.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/libreoffice"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-gimp
+  name: Linux gimp
+  description: Linux app paths for gimp.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/gimp"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-inkscape
+  name: Linux inkscape
+  description: Linux app paths for inkscape.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/inkscape"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-blender
+  name: Linux blender
+  description: Linux app paths for blender.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/blender"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-lutris
+  name: Linux lutris
+  description: Linux app paths for lutris.
+  category: game-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/lutris"
+  - "$HOME/.local/share/lutris/runners"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-wine
+  name: Linux wine
+  description: Linux app paths for wine.
+  category: game-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/wine"
+  - "$HOME/.cache/winetricks"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-app-bottles
+  name: Linux bottles
+  description: Linux app paths for bottles.
+  category: game-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.local/share/bottles/temp"
+  - "$HOME/.cache/bottles"
+  delete_mode: contents
+  max_depth: 8
+- id: linux-home-rpmbuild
+  name: Home rpmbuild
+  description: Home leftover rpmbuild.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/rpmbuild"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-home--ccache
+  name: Home .ccache
+  description: Home leftover .ccache.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.ccache"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-home--local-share-flatpak
+  name: Home .local/share/flatpak
+  description: Home leftover .local/share/flatpak.
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.local/share/flatpak"
+  delete_mode: contents
+  max_depth: 6
+- id: linux-home--local-share-Trash
+  name: Home .local/share/Trash
+  description: Home leftover .local/share/Trash.
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.local/share/Trash"
+  delete_mode: contents
+  max_depth: 6

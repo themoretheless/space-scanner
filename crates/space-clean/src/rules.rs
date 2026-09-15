@@ -323,6 +323,38 @@ pub fn expand_path_template(template: &str) -> Option<PathBuf> {
         if let Ok(systemdrive) = std::env::var("SystemDrive") {
             v.push(("%SystemDrive%", PathBuf::from(systemdrive)));
         }
+        // Windows env aliases (also useful when cross-compiling paths in YAML).
+        if let Ok(temp) = std::env::var("TEMP").or_else(|_| std::env::var("TMP")) {
+            let t = PathBuf::from(temp);
+            v.push(("%TEMP%", t.clone()));
+            v.push(("%TMP%", t));
+        }
+        if let Ok(pd) = std::env::var("PROGRAMDATA") {
+            v.push(("%PROGRAMDATA%", PathBuf::from(pd)));
+        }
+        if let Ok(pf) = std::env::var("ProgramFiles").or_else(|_| std::env::var("PROGRAMFILES")) {
+            v.push(("%PROGRAMFILES%", PathBuf::from(pf)));
+        }
+        if let Ok(pf86) = std::env::var("ProgramFiles(x86)") {
+            v.push(("%PROGRAMFILES(X86)%", PathBuf::from(pf86)));
+        }
+        // Common Windows defaults when env is missing (path still platform-filtered).
+        #[cfg(windows)]
+        {
+            if std::env::var_os("LOCALAPPDATA").is_none() {
+                if let Some(home) = dirs::home_dir() {
+                    v.push(("%LOCALAPPDATA%", home.join("AppData").join("Local")));
+                    v.push(("%APPDATA%", home.join("AppData").join("Roaming")));
+                }
+            }
+            if std::env::var_os("TEMP").is_none() {
+                if let Some(home) = dirs::home_dir() {
+                    let t = home.join("AppData").join("Local").join("Temp");
+                    v.push(("%TEMP%", t.clone()));
+                    v.push(("%TMP%", t));
+                }
+            }
+        }
         v
     };
 

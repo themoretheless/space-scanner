@@ -204,7 +204,7 @@ fn main() {
                     category,
                     enabled: en,
                     overridden_only: overridden,
-                    host_only: true,
+                    host_only: !all,
                     ..Default::default()
                 };
                 let rows = mgr.list(&filter);
@@ -221,12 +221,28 @@ fn main() {
             Some(RulesCmd::Status) => {
                 let mgr = RuleManager::load_default().expect("rules");
                 let s = mgr.stats();
+                let mut win = 0usize;
+                let mut linux = 0usize;
+                let mut macos = 0usize;
+                let mut any = 0usize;
+                for r in &mgr.pack.rules {
+                    match r.platform {
+                        space_clean::Platform::Windows => win += 1,
+                        space_clean::Platform::Linux => linux += 1,
+                        space_clean::Platform::Macos => macos += 1,
+                        space_clean::Platform::Any => any += 1,
+                    }
+                }
                 println!("total\t{}", s.total);
                 println!("host\t{}", s.host);
                 println!("enabled\t{}", s.enabled);
                 println!("disabled\t{}", s.disabled);
                 println!("overridden\t{}", s.overridden);
                 println!("categories\t{}", s.categories);
+                println!("platform.macos\t{macos}");
+                println!("platform.linux\t{linux}");
+                println!("platform.windows\t{win}");
+                println!("platform.any\t{any}");
                 if let Some(p) = RulePrefs::default_path() {
                     println!("prefs\t{}", p.display());
                 }

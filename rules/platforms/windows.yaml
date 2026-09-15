@@ -1,0 +1,1265 @@
+---
+pack: windows
+description: Windows junk targets (temp, browsers, apps, package managers). Prefs/manager
+  still apply.
+rules:
+- id: win-temp-user
+  name: User TEMP
+  description: User TEMP / LocalAppData\Temp (age-filtered).
+  category: temp
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 2
+  paths:
+  - "%TEMP%"
+  - "%TMP%"
+  - "%LOCALAPPDATA%/Temp"
+  delete_mode: contents
+  max_depth: 6
+- id: win-inet-cache
+  name: Windows INetCache
+  description: IE/Edge legacy Internet cache.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Windows/INetCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-explorer-thumbcache
+  name: Explorer thumbcache
+  description: Explorer thumbnail / icon caches under LocalAppData.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Windows/Explorer"
+  delete_mode: contents
+  max_depth: 2
+  include_globs:
+  - thumbcache_*.db
+  - iconcache_*.db
+  - "*.db"
+- id: win-recent-items
+  name: Recent items shortcuts
+  description: Recent Documents / CustomDestinations (shortcuts only).
+  category: leftovers
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "%APPDATA%/Microsoft/Windows/Recent"
+  - "%APPDATA%/Microsoft/Windows/Recent/AutomaticDestinations"
+  - "%APPDATA%/Microsoft/Windows/Recent/CustomDestinations"
+  delete_mode: contents
+  max_depth: 3
+- id: win-crash-dumps
+  name: User crash dumps
+  description: LocalAppData CrashDumps.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/CrashDumps"
+  delete_mode: contents
+  max_depth: 6
+- id: win-wer-report
+  name: Windows Error Reporting queue (report)
+  description: WER ReportQueue — report-only.
+  category: logs
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Windows/WER/ReportQueue"
+  - "%PROGRAMDATA%/Microsoft/Windows/WER/ReportQueue"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: win-delivery-optimization
+  name: Delivery Optimization cache
+  description: Windows Update Delivery Optimization cache.
+  category: caches
+  platform: windows
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%WINDIR%/SoftwareDistribution/DeliveryOptimization/Cache"
+  - "%LOCALAPPDATA%/Microsoft/Windows/DeliveryOptimization"
+  delete_mode: contents
+  max_depth: 6
+- id: win-software-distribution-download
+  name: Windows Update Download folder
+  description: SoftwareDistribution\Download (may force re-download of updates).
+  category: caches
+  platform: windows
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%WINDIR%/SoftwareDistribution/Download"
+  delete_mode: contents
+  max_depth: 6
+- id: win-prefetch-report
+  name: Prefetch (report-only)
+  description: Prefetch can affect launch analysis; never auto-delete.
+  category: system
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "%WINDIR%/Prefetch"
+  - C:/Windows/Prefetch
+  delete_mode: contents
+  max_depth: 1
+  report_only: true
+- id: win-windows-old-report
+  name: Windows.old (report-only)
+  description: Previous Windows install; use Storage Settings / Disk Cleanup.
+  category: system
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - C:/Windows.old
+  - "%SystemDrive%/Windows.old"
+  delete_mode: path
+  max_depth: 1
+  report_only: true
+- id: win-recycle-bin-report
+  name: Recycle Bin (report-only)
+  description: Does not empty Recycle Bin; awareness only.
+  category: leftovers
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - C:/$Recycle.Bin
+  - "%SystemDrive%/$Recycle.Bin"
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+- id: win-font-cache
+  name: Font cache
+  description: Windows FontCache service files.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Windows/Fonts"
+  - "%WINDIR%/ServiceProfiles/LocalService/AppData/Local/FontCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-directx-shader
+  name: DirectX shader cache
+  description: D3DSCache / DirectX shader caches.
+  category: shader-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/D3DSCache"
+  - "%LOCALAPPDATA%/Microsoft/DirectX Shader Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-temp-internet-files
+  name: Temporary Internet Files
+  description: Legacy Temporary Internet Files folder.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Windows/Temporary Internet Files"
+  - "%USERPROFILE%/Local Settings/Temporary Internet Files"
+  delete_mode: contents
+  max_depth: 6
+- id: win-browser-chrome
+  name: Browser cache chrome
+  description: Windows browser cache paths for chrome.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Code Cache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/GPUCache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-chrome-canary
+  name: Browser cache chrome-canary
+  description: Windows browser cache paths for chrome-canary.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome SxS/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Google/Chrome SxS/User Data/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-edge
+  name: Browser cache edge
+  description: Windows browser cache paths for edge.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Code Cache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/GPUCache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-brave
+  name: Browser cache brave
+  description: Windows browser cache paths for brave.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser/User Data/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-firefox
+  name: Browser cache firefox
+  description: Windows browser cache paths for firefox.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Mozilla/Firefox/Profiles"
+  - "%APPDATA%/Mozilla/Firefox/Crash Reports"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-opera
+  name: Browser cache opera
+  description: Windows browser cache paths for opera.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Opera Software/Opera Stable/Cache"
+  - "%LOCALAPPDATA%/Opera Software/Opera Stable/Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-vivaldi
+  name: Browser cache vivaldi
+  description: Windows browser cache paths for vivaldi.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Vivaldi/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Vivaldi/User Data/Default/Code Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-tor
+  name: Browser cache tor
+  description: Windows browser cache paths for tor.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Tor Browser/Browser/TorBrowser/Data/Browser/Caches"
+  delete_mode: contents
+  max_depth: 8
+- id: win-browser-yandex
+  name: Browser cache yandex
+  description: Windows browser cache paths for yandex.
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Yandex/YandexBrowser/User Data/Default/Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-app-discord
+  name: discord app caches
+  description: Windows app caches for discord.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/discord/Cache"
+  - "%APPDATA%/discord/Code Cache"
+  - "%APPDATA%/discord/GPUCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-slack
+  name: slack app caches
+  description: Windows app caches for slack.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Slack/Cache"
+  - "%APPDATA%/Slack/Code Cache"
+  - "%APPDATA%/Slack/GPUCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-teams
+  name: teams app caches
+  description: Windows app caches for teams.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Microsoft/Teams/Cache"
+  - "%APPDATA%/Microsoft/Teams/blob_storage"
+  - "%APPDATA%/Microsoft/Teams/GPUCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-zoom
+  name: zoom app caches
+  description: Windows app caches for zoom.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Zoom/data"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-zoom
+  name: zoom logs
+  description: Windows app logs for zoom.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Zoom/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-spotify
+  name: spotify app caches
+  description: Windows app caches for spotify.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Spotify/Storage"
+  - "%LOCALAPPDATA%/Spotify/Data"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-steam
+  name: steam app caches
+  description: Windows app caches for steam.
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Steam/htmlcache"
+  - "%PROGRAMFILES(X86)%/Steam/appcache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-steam
+  name: steam logs
+  description: Windows app logs for steam.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%PROGRAMFILES(X86)%/Steam/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-epic
+  name: epic app caches
+  description: Windows app caches for epic.
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/EpicGamesLauncher/Saved/webcache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-epic
+  name: epic logs
+  description: Windows app logs for epic.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/EpicGamesLauncher/Saved/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-vscode
+  name: vscode app caches
+  description: Windows app caches for vscode.
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Code/Cache"
+  - "%APPDATA%/Code/CachedData"
+  - "%APPDATA%/Code/GPUCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-vscode
+  name: vscode logs
+  description: Windows app logs for vscode.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Code/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-cursor
+  name: cursor app caches
+  description: Windows app caches for cursor.
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Cursor/Cache"
+  - "%APPDATA%/Cursor/CachedData"
+  - "%APPDATA%/Cursor/GPUCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-cursor
+  name: cursor logs
+  description: Windows app logs for cursor.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Cursor/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-notion
+  name: notion app caches
+  description: Windows app caches for notion.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Notion/Cache"
+  - "%APPDATA%/Notion/Code Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-figma
+  name: figma app caches
+  description: Windows app caches for figma.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Figma/Desktop/Cache"
+  - "%APPDATA%/Figma/Desktop/Code Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-obsidian
+  name: obsidian app caches
+  description: Windows app caches for obsidian.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/obsidian/Cache"
+  - "%APPDATA%/obsidian/Code Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-postman
+  name: postman app caches
+  description: Windows app caches for postman.
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Postman/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-postman
+  name: postman logs
+  description: Windows app logs for postman.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Postman/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-docker
+  name: docker app caches
+  description: Windows app caches for docker.
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Docker Desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-docker
+  name: docker logs
+  description: Windows app logs for docker.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Docker/log"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-dropbox
+  name: dropbox app caches
+  description: Windows app caches for dropbox.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Dropbox/Crashpad"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-dropbox
+  name: dropbox logs
+  description: Windows app logs for dropbox.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Dropbox/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-onedrive
+  name: onedrive logs
+  description: Windows app logs for onedrive.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/OneDrive/logs"
+  - "%LOCALAPPDATA%/Microsoft/OneDrive/setup/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-adobe-cc
+  name: adobe-cc app caches
+  description: Windows app caches for adobe-cc.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Adobe/OOBE"
+  - "%APPDATA%/Adobe/Adobe Photoshop 2024/AutoRecover"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-telegram
+  name: telegram app caches
+  description: Windows app caches for telegram.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Telegram Desktop/tdata/user_data"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-telegram
+  name: telegram logs
+  description: Windows app logs for telegram.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Telegram Desktop/log.txt"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-whatsapp
+  name: whatsapp app caches
+  description: Windows app caches for whatsapp.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Packages/5319275A.WhatsAppDesktop_cv1g1gvanyjgm/LocalCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-logs-1password
+  name: 1password logs
+  description: Windows app logs for 1password.
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/1Password/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-nvidia
+  name: nvidia app caches
+  description: Windows app caches for nvidia.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/NVIDIA/DXCache"
+  - "%LOCALAPPDATA%/NVIDIA/GLCache"
+  - "%LOCALAPPDATA%/NVIDIA Corporation/NVIDIA App/CefCache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-app-amd
+  name: amd app caches
+  description: Windows app caches for amd.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/AMD/DxCache"
+  - "%LOCALAPPDATA%/AMD/Dx9Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-pkg-npm
+  name: npm package cache
+  description: Windows package/tooling cache for npm.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/npm-cache"
+  - "%LOCALAPPDATA%/npm-cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-yarn
+  name: yarn package cache
+  description: Windows package/tooling cache for yarn.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Yarn/Cache"
+  - "%APPDATA%/Yarn/Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-pnpm
+  name: pnpm package cache
+  description: Windows package/tooling cache for pnpm.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pnpm-store"
+  - "%LOCALAPPDATA%/pnpm/store"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-pip
+  name: pip package cache
+  description: Windows package/tooling cache for pip.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pip/Cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-nuget
+  name: nuget package cache
+  description: Windows package/tooling cache for nuget.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.nuget/packages"
+  - "%LOCALAPPDATA%/NuGet/v3-cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-cargo
+  name: cargo package cache
+  description: Windows package/tooling cache for cargo.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.cargo/registry/cache"
+  - "%USERPROFILE%/.cargo/git/db"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-gradle
+  name: gradle package cache
+  description: Windows package/tooling cache for gradle.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.gradle/caches"
+  - "%USERPROFILE%/.gradle/wrapper/dists"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-maven
+  name: maven package cache
+  description: Windows package/tooling cache for maven.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.m2/repository"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-composer
+  name: composer package cache
+  description: Windows package/tooling cache for composer.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Composer/cache"
+  - "%LOCALAPPDATA%/Composer"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-chocolatey
+  name: chocolatey package cache
+  description: Windows package/tooling cache for chocolatey.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%PROGRAMDATA%/chocolatey/lib"
+  - "%PROGRAMDATA%/chocolatey/logs"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-scoop
+  name: scoop package cache
+  description: Windows package/tooling cache for scoop.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/scoop/cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-winget
+  name: winget package cache
+  description: Windows package/tooling cache for winget.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/WinGet/Packages"
+  - "%LOCALAPPDATA%/Microsoft/WinGet/Downloads"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-dotnet
+  name: dotnet package cache
+  description: Windows package/tooling cache for dotnet.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Temp/MSBuildTemp"
+  - "%USERPROFILE%/.dotnet/TelemetryStorageService"
+  delete_mode: contents
+  max_depth: 8
+- id: win-pkg-go
+  name: go package cache
+  description: Windows package/tooling cache for go.
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/go-build"
+  - "%USERPROFILE%/go/pkg/mod/cache"
+  delete_mode: contents
+  max_depth: 8
+- id: win-electron-discord
+  name: Discord Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Discord.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Discord/Cache"
+  - "%APPDATA%/Discord/Code Cache"
+  - "%APPDATA%/Discord/GPUCache"
+  - "%APPDATA%/Discord/CachedData"
+  - "%LOCALAPPDATA%/Discord/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-slack
+  name: Slack Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Slack.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Slack/Cache"
+  - "%APPDATA%/Slack/Code Cache"
+  - "%APPDATA%/Slack/GPUCache"
+  - "%APPDATA%/Slack/CachedData"
+  - "%LOCALAPPDATA%/Slack/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-spotify
+  name: Spotify Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Spotify.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Spotify/Cache"
+  - "%APPDATA%/Spotify/Code Cache"
+  - "%APPDATA%/Spotify/GPUCache"
+  - "%APPDATA%/Spotify/CachedData"
+  - "%LOCALAPPDATA%/Spotify/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-notion
+  name: Notion Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Notion.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Notion/Cache"
+  - "%APPDATA%/Notion/Code Cache"
+  - "%APPDATA%/Notion/GPUCache"
+  - "%APPDATA%/Notion/CachedData"
+  - "%LOCALAPPDATA%/Notion/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-figma
+  name: Figma Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Figma.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Figma/Cache"
+  - "%APPDATA%/Figma/Code Cache"
+  - "%APPDATA%/Figma/GPUCache"
+  - "%APPDATA%/Figma/CachedData"
+  - "%LOCALAPPDATA%/Figma/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-obsidian
+  name: Obsidian Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Obsidian.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Obsidian/Cache"
+  - "%APPDATA%/Obsidian/Code Cache"
+  - "%APPDATA%/Obsidian/GPUCache"
+  - "%APPDATA%/Obsidian/CachedData"
+  - "%LOCALAPPDATA%/Obsidian/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-postman
+  name: Postman Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Postman.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Postman/Cache"
+  - "%APPDATA%/Postman/Code Cache"
+  - "%APPDATA%/Postman/GPUCache"
+  - "%APPDATA%/Postman/CachedData"
+  - "%LOCALAPPDATA%/Postman/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-insomnia
+  name: Insomnia Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Insomnia.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Insomnia/Cache"
+  - "%APPDATA%/Insomnia/Code Cache"
+  - "%APPDATA%/Insomnia/GPUCache"
+  - "%APPDATA%/Insomnia/CachedData"
+  - "%LOCALAPPDATA%/Insomnia/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-telegram
+  name: Telegram Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Telegram.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Telegram/Cache"
+  - "%APPDATA%/Telegram/Code Cache"
+  - "%APPDATA%/Telegram/GPUCache"
+  - "%APPDATA%/Telegram/CachedData"
+  - "%LOCALAPPDATA%/Telegram/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-signal
+  name: Signal Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Signal.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Signal/Cache"
+  - "%APPDATA%/Signal/Code Cache"
+  - "%APPDATA%/Signal/GPUCache"
+  - "%APPDATA%/Signal/CachedData"
+  - "%LOCALAPPDATA%/Signal/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-element
+  name: Element Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Element.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Element/Cache"
+  - "%APPDATA%/Element/Code Cache"
+  - "%APPDATA%/Element/GPUCache"
+  - "%APPDATA%/Element/CachedData"
+  - "%LOCALAPPDATA%/Element/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-whatsapp
+  name: WhatsApp Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for WhatsApp.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/WhatsApp/Cache"
+  - "%APPDATA%/WhatsApp/Code Cache"
+  - "%APPDATA%/WhatsApp/GPUCache"
+  - "%APPDATA%/WhatsApp/CachedData"
+  - "%LOCALAPPDATA%/WhatsApp/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-zoom
+  name: Zoom Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Zoom.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Zoom/Cache"
+  - "%APPDATA%/Zoom/Code Cache"
+  - "%APPDATA%/Zoom/GPUCache"
+  - "%APPDATA%/Zoom/CachedData"
+  - "%LOCALAPPDATA%/Zoom/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-teams
+  name: Teams Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Teams.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Teams/Cache"
+  - "%APPDATA%/Teams/Code Cache"
+  - "%APPDATA%/Teams/GPUCache"
+  - "%APPDATA%/Teams/CachedData"
+  - "%LOCALAPPDATA%/Teams/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-skype
+  name: Skype Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Skype.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Skype/Cache"
+  - "%APPDATA%/Skype/Code Cache"
+  - "%APPDATA%/Skype/GPUCache"
+  - "%APPDATA%/Skype/CachedData"
+  - "%LOCALAPPDATA%/Skype/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-githubdesktop
+  name: GitHubDesktop Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for GitHubDesktop.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/GitHubDesktop/Cache"
+  - "%APPDATA%/GitHubDesktop/Code Cache"
+  - "%APPDATA%/GitHubDesktop/GPUCache"
+  - "%APPDATA%/GitHubDesktop/CachedData"
+  - "%LOCALAPPDATA%/GitHubDesktop/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-sourcetree
+  name: Sourcetree Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Sourcetree.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Sourcetree/Cache"
+  - "%APPDATA%/Sourcetree/Code Cache"
+  - "%APPDATA%/Sourcetree/GPUCache"
+  - "%APPDATA%/Sourcetree/CachedData"
+  - "%LOCALAPPDATA%/Sourcetree/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-atom
+  name: Atom Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Atom.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Atom/Cache"
+  - "%APPDATA%/Atom/Code Cache"
+  - "%APPDATA%/Atom/GPUCache"
+  - "%APPDATA%/Atom/CachedData"
+  - "%LOCALAPPDATA%/Atom/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-hyper
+  name: Hyper Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Hyper.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Hyper/Cache"
+  - "%APPDATA%/Hyper/Code Cache"
+  - "%APPDATA%/Hyper/GPUCache"
+  - "%APPDATA%/Hyper/CachedData"
+  - "%LOCALAPPDATA%/Hyper/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-termius
+  name: Termius Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Termius.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Termius/Cache"
+  - "%APPDATA%/Termius/Code Cache"
+  - "%APPDATA%/Termius/GPUCache"
+  - "%APPDATA%/Termius/CachedData"
+  - "%LOCALAPPDATA%/Termius/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-powertoys
+  name: PowerToys Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for PowerToys.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/PowerToys/Cache"
+  - "%APPDATA%/PowerToys/Code Cache"
+  - "%APPDATA%/PowerToys/GPUCache"
+  - "%APPDATA%/PowerToys/CachedData"
+  - "%LOCALAPPDATA%/PowerToys/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-everything
+  name: Everything Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Everything.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Everything/Cache"
+  - "%APPDATA%/Everything/Code Cache"
+  - "%APPDATA%/Everything/GPUCache"
+  - "%APPDATA%/Everything/CachedData"
+  - "%LOCALAPPDATA%/Everything/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-sharex
+  name: ShareX Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for ShareX.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/ShareX/Cache"
+  - "%APPDATA%/ShareX/Code Cache"
+  - "%APPDATA%/ShareX/GPUCache"
+  - "%APPDATA%/ShareX/CachedData"
+  - "%LOCALAPPDATA%/ShareX/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: win-electron-greenshot
+  name: Greenshot Electron caches
+  description: AppData Electron Cache/Code Cache/GPUCache for Greenshot.
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Greenshot/Cache"
+  - "%APPDATA%/Greenshot/Code Cache"
+  - "%APPDATA%/Greenshot/GPUCache"
+  - "%APPDATA%/Greenshot/CachedData"
+  - "%LOCALAPPDATA%/Greenshot/Cache"
+  delete_mode: contents
+  max_depth: 6
