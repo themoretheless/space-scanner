@@ -17,20 +17,34 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: virt-minikube-machines-report
-  name: minikube machines and profiles (report-only)
+- name: minikube machines and profiles (report-only)
   description: minikube VM disks and profile state; report only.
   category: vm-disk
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.minikube/profiles"
-  - "$HOME/.minikube"
   delete_mode: path
   max_depth: 3
   report_only: true
+  id: virt-minikube-machines-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.minikube/profiles"
+  - "$HOME/.minikube"
+- name: minikube machines and profiles (report-only)
+  description: minikube VM disks and profile state; report only.
+  category: vm-disk
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: virt-minikube-machines-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.minikube/profiles"
+  - "$HOME/.minikube"
 - id: virt-multipass-data-report
   name: Multipass instance data (report-only)
   description: Multipass vault/instance disks under multipassd data; report only.
@@ -76,21 +90,21 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: virt-podman-machine-report
-  name: Podman machine and container storage (report-only)
+- name: Podman machine and container storage (report-only)
   description: Podman machine images, storage, and container graph under home; report
     only.
   category: vm-disk
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.config/containers"
-  - "$HOME/.local/share/containers/podman/machine"
   delete_mode: path
   max_depth: 4
   report_only: true
+  id: virt-podman-machine-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/containers"
+  - "$HOME/.local/share/containers/podman/machine"
 - id: virt-qemu-disk-images-report
   name: Common QEMU disk image locations (report-only)
   description: Inventory-only common user folders that may hold qcow2/raw; never default
@@ -103,7 +117,6 @@ rules:
   paths:
   - "$HOME/QEMU"
   - "$HOME/VMs"
-  - "$HOME/.local/share/libvirt/images"
   delete_mode: path
   max_depth: 4
   include_globs:
@@ -155,20 +168,34 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: virt-vagrant-boxes-report
-  name: Vagrant boxes (report-only)
+- name: Vagrant boxes (report-only)
   description: Downloaded Vagrant boxes under ~/.vagrant.d/boxes; large and user-managed.
   category: vm-disk
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.vagrant.d/boxes"
-  - "$HOME/.vagrant.d"
   delete_mode: path
   max_depth: 3
   report_only: true
+  id: virt-vagrant-boxes-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.vagrant.d/boxes"
+  - "$HOME/.vagrant.d"
+- name: Vagrant boxes (report-only)
+  description: Downloaded Vagrant boxes under ~/.vagrant.d/boxes; large and user-managed.
+  category: vm-disk
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: virt-vagrant-boxes-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.vagrant.d/boxes"
+  - "$HOME/.vagrant.d"
 - id: virt-virtualbox-vms-report
   name: VirtualBox VMs and hard disks (report-only)
   description: Default VM folder and HardDisks registry; report size only, never default

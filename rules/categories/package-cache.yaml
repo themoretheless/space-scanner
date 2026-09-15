@@ -3,116 +3,222 @@ pack: package-cache
 description: 'Category pack: package-cache (242 rules). Add sibling YAML files under
   rules/categories/ to extend.'
 rules:
-- id: app-uv-cache
-  name: uv Python package manager cache
+- name: uv Python package manager cache
   description: uv downloaded wheel and sdist cache.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: app-uv-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/uv"
   - "$HOME/Library/Caches/uv"
+- name: uv Python package manager cache
+  description: uv downloaded wheel and sdist cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: cloud-argocd-cli-report
-  name: Argo CD CLI config (report-only)
+  id: app-uv-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/uv"
+- name: Argo CD CLI config (report-only)
   description: argocd login stores server auth under ~/.config/argocd.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-argocd-cli-report-macos
+  platform: macos
   paths:
-  - "$HOME/.config/argocd"
   - "$HOME/.argocd"
   - "$HOME/Library/Caches/argocd"
   - "$HOME/.cache/argocd"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: cloud-aws-sso-login-cache-report
-  name: AWS SSO and login token caches (report-only)
-  description: SSO and aws login on-disk token caches; report size only, do not auto-delete.
+- name: Argo CD CLI config (report-only)
+  description: argocd login stores server auth under ~/.config/argocd.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-argocd-cli-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/argocd"
+  - "$HOME/.argocd"
+  - "$HOME/.cache/argocd"
+- name: AWS SSO and login token caches (report-only)
+  description: SSO and aws login on-disk token caches; report size only, do not auto-delete.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-aws-sso-login-cache-report-macos
+  platform: macos
   paths:
   - "$HOME/.aws/sso/cache"
   - "$HOME/.aws/login/cache"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: cloud-aws-vault-report
-  name: aws-vault sessions and file backend (report-only)
-  description: aws-vault encrypted credential store and session metadata. Keychain
-    backend has no bulk path wipe.
+- name: AWS SSO and login token caches (report-only)
+  description: SSO and aws login on-disk token caches; report size only, do not auto-delete.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.awsvault"
-  - "$HOME/Library/Caches/aws-vault"
   delete_mode: contents
   max_depth: 3
   report_only: true
-- id: cloud-azure-cli-extensions
-  name: Azure CLI installed extensions
+  id: cloud-aws-sso-login-cache-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.aws/sso/cache"
+  - "$HOME/.aws/login/cache"
+- name: aws-vault sessions and file backend (report-only)
+  description: aws-vault encrypted credential store and session metadata. Keychain
+    backend has no bulk path wipe.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-aws-vault-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.awsvault"
+  - "$HOME/Library/Caches/aws-vault"
+- name: aws-vault sessions and file backend (report-only)
+  description: aws-vault encrypted credential store and session metadata. Keychain
+    backend has no bulk path wipe.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-aws-vault-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.awsvault"
+- name: Azure CLI installed extensions
   description: Dynamically installed az extensions under cliextensions (reinstallable).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.azure/cliextensions"
   delete_mode: contents
   max_depth: 4
-- id: cloud-azure-cli-msal-http-cache
-  name: Azure CLI MSAL HTTP cache (not token cache)
+  id: cloud-azure-cli-extensions-macos
+  platform: macos
+  paths:
+  - "$HOME/.azure/cliextensions"
+- name: Azure CLI installed extensions
+  description: Dynamically installed az extensions under cliextensions (reinstallable).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: cloud-azure-cli-extensions-linux
+  platform: linux
+  paths:
+  - "$HOME/.azure/cliextensions"
+- name: Azure CLI MSAL HTTP cache (not token cache)
   description: MSAL HTTP response cache files (not msal_token_cache credentials).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.azure/msal_http_cache.bin"
   delete_mode: path
   max_depth: 1
-- id: cloud-azure-cli-telemetry-version
-  name: Azure CLI telemetry and version-check junk
-  description: Telemetry events and version check artifacts under ~/.azure.
+  id: cloud-azure-cli-msal-http-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.azure/msal_http_cache.bin"
+- name: Azure CLI MSAL HTTP cache (not token cache)
+  description: MSAL HTTP response cache files (not msal_token_cache credentials).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: path
+  max_depth: 1
+  id: cloud-azure-cli-msal-http-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.azure/msal_http_cache.bin"
+- name: Azure CLI telemetry and version-check junk
+  description: Telemetry events and version check artifacts under ~/.azure.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 3
+  id: cloud-azure-cli-telemetry-version-macos
+  platform: macos
   paths:
   - "$HOME/.azure/telemetry"
   - "$HOME/.azure/versionCheck.json"
   - "$HOME/.azure/commandIndex.json"
   - "$HOME/.azure/az.sess"
-  delete_mode: contents
-  max_depth: 3
-- id: cloud-crossplane-cli-cache
-  name: Crossplane CLI schema cache
-  description: crossplane CLI --cache-dir default ~/.crossplane/cache.
+- name: Azure CLI telemetry and version-check junk
+  description: Telemetry events and version check artifacts under ~/.azure.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 3
+  id: cloud-azure-cli-telemetry-version-linux
+  platform: linux
+  paths:
+  - "$HOME/.azure/telemetry"
+  - "$HOME/.azure/versionCheck.json"
+  - "$HOME/.azure/commandIndex.json"
+  - "$HOME/.azure/az.sess"
+- name: Crossplane CLI schema cache
+  description: crossplane CLI --cache-dir default ~/.crossplane/cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-crossplane-cli-cache-macos
+  platform: macos
   paths:
   - "$HOME/.crossplane/cache"
   - "$HOME/.crossplane"
+- name: Crossplane CLI schema cache
+  description: crossplane CLI --cache-dir default ~/.crossplane/cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
+  id: cloud-crossplane-cli-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.crossplane/cache"
+  - "$HOME/.crossplane"
 - id: cloud-doctl-cache
   name: doctl DigitalOcean CLI cache and support dirs
   description: doctl cache/support paths on macOS (config with tokens stays report-only).
@@ -137,98 +243,160 @@ rules:
   min_age_days: 0
   paths:
   - "$HOME/Library/Application Support/doctl"
-  - "$HOME/.config/doctl"
   delete_mode: contents
   max_depth: 3
   report_only: true
-- id: cloud-flux-cli
-  name: Flux CLI cache and config leftovers
+- name: Flux CLI cache and config leftovers
   description: flux CLI local cache/check directories when present under home.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: cloud-flux-cli-macos
+  platform: macos
   paths:
   - "$HOME/.flux"
   - "$HOME/.cache/flux"
   - "$HOME/Library/Caches/flux"
   - "$HOME/.cache/fluxcd"
   - "$HOME/Library/Caches/fluxcd"
-  delete_mode: contents
-  max_depth: 4
-- id: cloud-flyctl-bin-report
-  name: flyctl self-installed binaries (report-only)
-  description: flyctl install script places binaries under ~/.fly/bin.
+- name: Flux CLI cache and config leftovers
+  description: flux CLI local cache/check directories when present under home.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "$HOME/.fly/bin"
-  delete_mode: contents
-  max_depth: 2
-  report_only: true
-- id: cloud-gcloud-cache
-  name: gcloud CLI user cache
-  description: gcloud / Cloud SDK cache under XDG/Library cache roots (not CLOUDSDK_CONFIG
-    secrets).
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: cloud-flux-cli-linux
+  platform: linux
+  paths:
+  - "$HOME/.flux"
+  - "$HOME/.cache/flux"
+  - "$HOME/.cache/fluxcd"
+- name: flyctl self-installed binaries (report-only)
+  description: flyctl install script places binaries under ~/.fly/bin.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+  id: cloud-flyctl-bin-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.fly/bin"
+- name: flyctl self-installed binaries (report-only)
+  description: flyctl install script places binaries under ~/.fly/bin.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+  id: cloud-flyctl-bin-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.fly/bin"
+- name: gcloud CLI user cache
+  description: gcloud / Cloud SDK cache under XDG/Library cache roots (not CLOUDSDK_CONFIG
+    secrets).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-gcloud-cache
+  platform: macos
   paths:
   - "$HOME/Library/Caches/gcloud"
   - "$HOME/Library/Caches/google-cloud-sdk"
   - "$HOME/Library/Caches/Google/Cloud SDK"
-  delete_mode: contents
-  max_depth: 5
-- id: cloud-helm-deeper
-  name: Helm repository and registry caches (deeper)
+- name: Helm repository and registry caches (deeper)
   description: Helm chart repo indexes and OCI registry caches under HELM_CACHE_HOME.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: cloud-helm-deeper-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/helm/repository"
   - "$HOME/Library/Caches/helm/registry"
   - "$HOME/.cache/helm/repository"
   - "$HOME/.cache/helm/registry"
-  - "$HOME/.local/share/helm/plugins"
-  delete_mode: contents
-  max_depth: 6
-- id: cloud-heroku-cli-cache
-  name: Heroku CLI caches
-  description: Heroku CLI cache dirs (Library/Caches on macOS, XDG on Linux).
+- name: Helm repository and registry caches (deeper)
+  description: Helm chart repo indexes and OCI registry caches under HELM_CACHE_HOME.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/Library/Caches/heroku"
-  - "$HOME/.cache/heroku"
-  - "$XDG_CACHE_HOME/heroku"
-  delete_mode: contents
-  max_depth: 5
-- id: cloud-heroku-cli-data
-  name: Heroku CLI client and plugin data
-  description: Self-updating Heroku client tarball and plugins under share/data.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: cloud-helm-deeper-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/helm/repository"
+  - "$HOME/.cache/helm/registry"
+  - "$HOME/.local/share/helm/plugins"
+- name: Heroku CLI caches
+  description: Heroku CLI cache dirs (Library/Caches on macOS, XDG on Linux).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-heroku-cli-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/heroku"
+  - "$HOME/.cache/heroku"
+- name: Heroku CLI caches
+  description: Heroku CLI cache dirs (Library/Caches on macOS, XDG on Linux).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-heroku-cli-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/heroku"
+  - "$XDG_CACHE_HOME/heroku"
+- name: Heroku CLI client and plugin data
+  description: Self-updating Heroku client tarball and plugins under share/data.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-heroku-cli-data-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/heroku"
+- name: Heroku CLI client and plugin data
+  description: Self-updating Heroku client tarball and plugins under share/data.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-heroku-cli-data-linux
+  platform: linux
   paths:
   - "$HOME/.local/share/heroku"
   - "$XDG_DATA_HOME/heroku"
-  - "$HOME/Library/Application Support/heroku"
-  delete_mode: contents
-  max_depth: 5
 - id: cloud-k9s-cache
   name: k9s screen dumps logs and benchmarks
   description: k9s regenerable dumps/logs/benchmarks (config skins stay).
@@ -247,67 +415,122 @@ rules:
   include_globs:
   - "**/k9s-screens-*"
   - "**/k9s*.log"
-- id: cloud-krew
-  name: krew kubectl plugin index and store
+- name: krew kubectl plugin index and store
   description: 'krew root: index clones and installed plugin versions (not PATH bin
     symlinks only).'
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-krew-macos
+  platform: macos
   paths:
   - "$HOME/.krew/store"
   - "$HOME/.krew/index"
   - "$HOME/.krew/receipts"
   - "$HOME/.krew/download"
+- name: krew kubectl plugin index and store
+  description: 'krew root: index clones and installed plugin versions (not PATH bin
+    symlinks only).'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: cloud-kubectl-cache-deeper
-  name: kubectl discovery and HTTP caches (deeper)
+  id: cloud-krew-linux
+  platform: linux
+  paths:
+  - "$HOME/.krew/store"
+  - "$HOME/.krew/index"
+  - "$HOME/.krew/receipts"
+  - "$HOME/.krew/download"
+- name: kubectl discovery and HTTP caches (deeper)
   description: kubectl --cache-dir default and common subdirs discovery/http.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: cloud-kubectl-cache-deeper-macos
+  platform: macos
   paths:
   - "$HOME/.kube/cache/discovery"
   - "$HOME/.kube/cache/http"
   - "$HOME/.kube/http-cache"
   - "$HOME/Library/Caches/kubectl"
+- name: kubectl discovery and HTTP caches (deeper)
+  description: kubectl --cache-dir default and common subdirs discovery/http.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 6
-- id: cloud-kustomize-cache
-  name: kustomize plugin and cache dirs
+  id: cloud-kubectl-cache-deeper-linux
+  platform: linux
+  paths:
+  - "$HOME/.kube/cache/discovery"
+  - "$HOME/.kube/cache/http"
+  - "$HOME/.kube/http-cache"
+- name: kustomize plugin and cache dirs
   description: kustomize XDG cache/plugin locations when present.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-kustomize-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/kustomize"
   - "$HOME/Library/Caches/kustomize"
-  - "$HOME/.config/kustomize/plugin"
   - "$HOME/Library/Application Support/kustomize"
+- name: kustomize plugin and cache dirs
+  description: kustomize XDG cache/plugin locations when present.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 5
-- id: cloud-neonctl-report
-  name: Neon neonctl config (report-only)
+  id: cloud-kustomize-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/kustomize"
+  - "$HOME/.config/kustomize/plugin"
+- name: Neon neonctl config (report-only)
   description: neonctl credentials.json under ~/.config/neonctl.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.config/neonctl"
-  - "$HOME/Library/Caches/neonctl"
-  - "$HOME/.cache/neonctl"
   delete_mode: contents
   max_depth: 3
   report_only: true
+  id: cloud-neonctl-report-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/neonctl"
+  - "$HOME/.cache/neonctl"
+- name: Neon neonctl config (report-only)
+  description: neonctl credentials.json under ~/.config/neonctl.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-neonctl-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/neonctl"
+  - "$HOME/.cache/neonctl"
 - id: cloud-netlify-cli-report
   name: Netlify CLI config and logs (report-only / logs)
   description: Netlify CLI global config (tokens) plus optional log/cache dirs.
@@ -318,143 +541,264 @@ rules:
   min_age_days: 0
   paths:
   - "$HOME/Library/Preferences/netlify"
-  - "$HOME/.config/netlify"
   - "$HOME/.netlify"
   - "$HOME/Library/Caches/netlify"
   - "$HOME/.cache/netlify"
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: cloud-planetscale-cli-report
-  name: PlanetScale pscale config (report-only)
+- name: PlanetScale pscale config (report-only)
   description: pscale config/token store (~/.config/planetscale).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-planetscale-cli-report-macos
+  platform: macos
   paths:
-  - "$HOME/.config/planetscale"
   - "$HOME/Library/Caches/planetscale"
   - "$HOME/Library/Caches/pscale"
   - "$HOME/.cache/pscale"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: cloud-pulumi-bin-report
-  name: Pulumi CLI bundled bin plugins (report-only)
-  description: Language/policy plugins co-located with Pulumi under ~/.pulumi/bin.
+- name: PlanetScale pscale config (report-only)
+  description: pscale config/token store (~/.config/planetscale).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.pulumi/bin"
   delete_mode: contents
   max_depth: 3
   report_only: true
-- id: cloud-pulumi-deeper
-  name: Pulumi plugins policies templates (deeper)
+  id: cloud-planetscale-cli-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/planetscale"
+  - "$HOME/.cache/pscale"
+- name: Pulumi CLI bundled bin plugins (report-only)
+  description: Language/policy plugins co-located with Pulumi under ~/.pulumi/bin.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-pulumi-bin-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.pulumi/bin"
+- name: Pulumi CLI bundled bin plugins (report-only)
+  description: Language/policy plugins co-located with Pulumi under ~/.pulumi/bin.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-pulumi-bin-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.pulumi/bin"
+- name: Pulumi plugins policies templates (deeper)
   description: Pulumi downloaded plugins plus policies and templates under ~/.pulumi.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-pulumi-deeper-macos
+  platform: macos
   paths:
   - "$HOME/.pulumi/policies"
   - "$HOME/.pulumi/templates"
   - "$HOME/.pulumi/workspaces"
   - "$HOME/Library/Caches/pulumi"
   - "$HOME/.cache/pulumi"
+- name: Pulumi plugins policies templates (deeper)
+  description: Pulumi downloaded plugins plus policies and templates under ~/.pulumi.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: cloud-railway-cli
-  name: Railway CLI install and cache
+  id: cloud-pulumi-deeper-linux
+  platform: linux
+  paths:
+  - "$HOME/.pulumi/policies"
+  - "$HOME/.pulumi/templates"
+  - "$HOME/.pulumi/workspaces"
+  - "$HOME/.cache/pulumi"
+- name: Railway CLI install and cache
   description: Railway CLI home under ~/.railway (bin install + local state).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: cloud-railway-cli-macos
+  platform: macos
   paths:
   - "$HOME/.railway"
   - "$HOME/Library/Caches/railway"
   - "$HOME/.cache/railway"
-  delete_mode: contents
-  max_depth: 4
-- id: cloud-render-cli-report
-  name: Render CLI config (report-only)
-  description: Render CLI stores workspace config at ~/.render/cli.yaml (tokens).
+- name: Railway CLI install and cache
+  description: Railway CLI home under ~/.railway (bin install + local state).
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "$HOME/.render"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: cloud-saml2aws-cache-report
-  name: saml2aws credential cache (report-only)
-  description: saml2aws profile cache under .aws/saml2aws (and optional custom credentials-file).
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "$HOME/.aws/saml2aws"
-  - "$HOME/.saml2aws.cache"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: cloud-stern-config-report
-  name: stern config (report-only)
-  description: stern multi-pod log tailer config (no large cache).
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "$HOME/.config/stern"
-  - "$HOME/Library/Application Support/stern"
-  delete_mode: contents
-  max_depth: 2
-  report_only: true
-- id: cloud-supabase-cli-cache
-  name: Supabase CLI home cache
-  description: Supabase CLI places cache/binaries under ~/.supabase.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: cloud-railway-cli-linux
+  platform: linux
+  paths:
+  - "$HOME/.railway"
+  - "$HOME/.cache/railway"
+- name: Render CLI config (report-only)
+  description: Render CLI stores workspace config at ~/.render/cli.yaml (tokens).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-render-cli-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.render"
+- name: Render CLI config (report-only)
+  description: Render CLI stores workspace config at ~/.render/cli.yaml (tokens).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-render-cli-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.render"
+- name: saml2aws credential cache (report-only)
+  description: saml2aws profile cache under .aws/saml2aws (and optional custom credentials-file).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-saml2aws-cache-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.aws/saml2aws"
+  - "$HOME/.saml2aws.cache"
+- name: saml2aws credential cache (report-only)
+  description: saml2aws profile cache under .aws/saml2aws (and optional custom credentials-file).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: cloud-saml2aws-cache-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.aws/saml2aws"
+  - "$HOME/.saml2aws.cache"
+- name: stern config (report-only)
+  description: stern multi-pod log tailer config (no large cache).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+  id: cloud-stern-config-report-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/stern"
+- name: stern config (report-only)
+  description: stern multi-pod log tailer config (no large cache).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 2
+  report_only: true
+  id: cloud-stern-config-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/stern"
+- name: Supabase CLI home cache
+  description: Supabase CLI places cache/binaries under ~/.supabase.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-supabase-cli-cache-macos
+  platform: macos
   paths:
   - "$HOME/.supabase"
   - "$HOME/Library/Caches/supabase"
   - "$HOME/.cache/supabase"
+- name: Supabase CLI home cache
+  description: Supabase CLI places cache/binaries under ~/.supabase.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 5
-- id: cloud-terraform-deeper
-  name: Terraform plugin cache and checkpoint (deeper)
+  id: cloud-supabase-cli-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.supabase"
+  - "$HOME/.cache/supabase"
+- name: Terraform plugin cache and checkpoint (deeper)
   description: TF plugin-cache, providers, checkpoint cache, and alternate cache roots
     beyond primary batch-03.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 6
+  id: cloud-terraform-deeper-macos
+  platform: macos
   paths:
   - "$HOME/.terraform.d/checkpoint_cache"
   - "$HOME/.terraform.d/checkpoint_signature"
   - "$HOME/.cache/terraform"
   - "$HOME/.cache/opentofu"
+- name: Terraform plugin cache and checkpoint (deeper)
+  description: TF plugin-cache, providers, checkpoint cache, and alternate cache roots
+    beyond primary batch-03.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 6
+  id: cloud-terraform-deeper-linux
+  platform: linux
+  paths:
+  - "$HOME/.terraform.d/checkpoint_cache"
+  - "$HOME/.terraform.d/checkpoint_signature"
+  - "$HOME/.cache/terraform"
+  - "$HOME/.cache/opentofu"
 - id: cloud-turso-cli-report
   name: Turso CLI settings (report-only)
   description: Turso CLI settings.json under Application Support / XDG config.
@@ -465,7 +809,6 @@ rules:
   min_age_days: 0
   paths:
   - "$HOME/Library/Application Support/turso"
-  - "$HOME/.config/turso"
   - "$HOME/Library/Caches/turso"
   - "$HOME/.cache/turso"
   delete_mode: contents
@@ -481,7 +824,6 @@ rules:
   min_age_days: 0
   paths:
   - "$HOME/Library/Application Support/com.vercel.cli"
-  - "$HOME/.local/share/com.vercel.cli"
   delete_mode: contents
   max_depth: 3
   report_only: true
@@ -500,22 +842,36 @@ rules:
   - "$HOME/.cache/com.vercel.cli"
   delete_mode: contents
   max_depth: 4
-- id: cloud-wrangler-cache
-  name: Cloudflare Wrangler caches
+- name: Cloudflare Wrangler caches
   description: Wrangler global/user caches (not project .wrangler/state with local
     D1/KV).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: cloud-wrangler-cache-macos
+  platform: macos
   paths:
   - "$HOME/.wrangler"
   - "$HOME/.cache/wrangler"
   - "$HOME/Library/Caches/wrangler"
   - "$HOME/Library/Caches/com.cloudflare.wrangler"
+- name: Cloudflare Wrangler caches
+  description: Wrangler global/user caches (not project .wrangler/state with local
+    D1/KV).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
+  id: cloud-wrangler-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.wrangler"
+  - "$HOME/.cache/wrangler"
 - id: creative-unity-asset-store-cache
   name: Unity Asset Store download cache
   description: Downloaded Asset Store packages cache. Re-downloadable; medium network
@@ -557,19 +913,31 @@ rules:
   - "$HOME/.android/cache/ddms"
   delete_mode: contents
   max_depth: 4
-- id: dev-android-sdk-cache
-  name: Android SDK download cache
+- name: Android SDK download cache
   description: Android SDK manager cached download archives.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-android-sdk-cache-macos
+  platform: macos
   paths:
   - "$HOME/.android/cache"
   - "$HOME/Library/Android/sdk/.temp"
+- name: Android SDK download cache
+  description: Android SDK manager cached download archives.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 30
   delete_mode: contents
   max_depth: 4
+  id: dev-android-sdk-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.android/cache"
 - id: dev-android-sdk-caches
   name: Android SDK download and build caches
   description: Android SDK intermediate download and build-cache folders (not platforms).
@@ -587,86 +955,161 @@ rules:
   - "$HOME/.android/build-cache"
   delete_mode: contents
   max_depth: 5
-- id: dev-asdf-downloads
-  name: asdf downloads and tmp
+- name: asdf downloads and tmp
   description: asdf plugin download staging (not installed tool versions).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-asdf-downloads-macos
+  platform: macos
+  paths:
+  - "$HOME/.asdf/downloads"
+- name: asdf downloads and tmp
+  description: asdf plugin download staging (not installed tool versions).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-asdf-downloads-linux
+  platform: linux
   paths:
   - "$HOME/.asdf/downloads"
   - "$HOME/.asdf/tmp"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-bazel-cache
-  name: Bazel disk cache
+- name: Bazel disk cache
   description: Bazel output and disk caches under home.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-bazel-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/bazel"
   - "$HOME/Library/Caches/bazel"
   - "$HOME/.bazel"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-bazelisk-cache
-  name: Bazelisk download cache
-  description: Bazelisk downloaded Bazel binaries.
+- name: Bazel disk cache
+  description: Bazel output and disk caches under home.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
-  paths:
-  - "$HOME/Library/Caches/bazelisk"
-  - "$HOME/.cache/bazelisk"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-buck-cache
-  name: Buck/Buck2 cache
-  description: Buck build caches and daemon state.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-bazel-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/bazel"
+  - "$HOME/.bazel"
+- name: Bazelisk download cache
+  description: Bazelisk downloaded Bazel binaries.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-bazelisk-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/bazelisk"
+  - "$HOME/.cache/bazelisk"
+- name: Bazelisk download cache
+  description: Bazelisk downloaded Bazel binaries.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-bazelisk-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/bazelisk"
+- name: Buck/Buck2 cache
+  description: Buck build caches and daemon state.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-buck-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/buck"
   - "$HOME/.buckd"
   - "$HOME/Library/Caches/Buck"
   - "$HOME/.buck2"
+- name: Buck/Buck2 cache
+  description: Buck build caches and daemon state.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 5
-- id: dev-bun-cache
-  name: Bun cache
+  id: dev-buck-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/buck"
+  - "$HOME/.buckd"
+  - "$HOME/.buck2"
+- name: Bun cache
   description: Bun JavaScript runtime package cache.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-bun-cache-macos
+  platform: macos
   paths:
   - "$HOME/.bun/install/cache"
   - "$HOME/Library/Caches/bun"
+- name: Bun cache
+  description: Bun JavaScript runtime package cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-bun-install-cache
-  name: Bun install cache
+  id: dev-bun-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.bun/install/cache"
+- name: Bun install cache
   description: Bun global package install cache (bun install --cache).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.bun/install/cache"
   delete_mode: contents
   max_depth: 5
+  id: dev-bun-install-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.bun/install/cache"
+- name: Bun install cache
+  description: Bun global package install cache (bun install --cache).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-bun-install-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.bun/install/cache"
 - id: dev-bun-library-cache
   name: Bun Library Caches
   description: Optional Bun cache under macOS Library/Caches.
@@ -679,43 +1122,80 @@ rules:
   - "$HOME/Library/Caches/Bun"
   delete_mode: contents
   max_depth: 4
-- id: dev-cargo-git-checkouts
-  name: Cargo git checkouts
+- name: Cargo git checkouts
   description: Working trees of git dependencies (git/db already covered).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.cargo/git/checkouts"
   delete_mode: contents
   max_depth: 4
-- id: dev-cargo-registry-cache
-  name: Cargo registry cache
+  id: dev-cargo-git-checkouts-macos
+  platform: macos
+  paths:
+  - "$HOME/.cargo/git/checkouts"
+- name: Cargo git checkouts
+  description: Working trees of git dependencies (git/db already covered).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-cargo-git-checkouts-linux
+  platform: linux
+  paths:
+  - "$HOME/.cargo/git/checkouts"
+- name: Cargo registry cache
   description: Downloaded crate sources/cache (not target/ build dirs).
   category: package-cache
-  platform: any
   risk: medium
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-cargo-registry-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cargo/registry/cache"
   - "$HOME/.cargo/git/db"
+- name: Cargo registry cache
+  description: Downloaded crate sources/cache (not target/ build dirs).
+  category: package-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 4
-- id: dev-cargo-registry-src
-  name: Cargo registry unpacked sources
+  id: dev-cargo-registry-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cargo/registry/cache"
+  - "$HOME/.cargo/git/db"
+- name: Cargo registry unpacked sources
   description: Unpacked crate sources under registry/src (registry/cache already covered).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.cargo/registry/src"
   delete_mode: contents
   max_depth: 4
+  id: dev-cargo-registry-src-macos
+  platform: macos
+  paths:
+  - "$HOME/.cargo/registry/src"
+- name: Cargo registry unpacked sources
+  description: Unpacked crate sources under registry/src (registry/cache already covered).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-cargo-registry-src-linux
+  platform: linux
+  paths:
+  - "$HOME/.cargo/registry/src"
 - id: dev-cargo-vet-cache
   name: cargo-vet cache
   description: cargo-vet audit cache under Library/Caches.
@@ -741,33 +1221,59 @@ rules:
   - "$HOME/Library/Caches/carthage"
   delete_mode: contents
   max_depth: 5
-- id: dev-ccache
-  name: ccache compiler cache
+- name: ccache compiler cache
   description: ccache object cache (default macOS Library or ~/.ccache).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-ccache-macos
+  platform: macos
   paths:
   - "$HOME/.ccache"
   - "$HOME/Library/Caches/ccache"
   - "$HOME/.cache/ccache"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-cloud-cli-caches
-  name: AWS and gcloud CLI caches
-  description: Cloud CLI HTTP/token-adjacent caches (not credentials files).
+- name: ccache compiler cache
+  description: ccache object cache (default macOS Library or ~/.ccache).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-ccache-linux
+  platform: linux
+  paths:
+  - "$HOME/.ccache"
+  - "$HOME/.cache/ccache"
+- name: AWS and gcloud CLI caches
+  description: Cloud CLI HTTP/token-adjacent caches (not credentials files).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-cloud-cli-caches-macos
+  platform: macos
   paths:
   - "$HOME/.aws/cli/cache"
   - "$HOME/.cache/gcloud"
+- name: AWS and gcloud CLI caches
+  description: Cloud CLI HTTP/token-adjacent caches (not credentials files).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
+  id: dev-cloud-cli-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.aws/cli/cache"
+  - "$HOME/.cache/gcloud"
 - id: dev-cocoapods-cache
   name: CocoaPods cache
   description: CocoaPods downloaded pod sources cache.
@@ -817,28 +1323,43 @@ rules:
   - "$HOME/Library/Caches/colima"
   delete_mode: contents
   max_depth: 5
-- id: dev-composer-cache
-  name: Composer (PHP) cache
+- name: Composer (PHP) cache
   description: PHP Composer package caches.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-composer-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/composer"
   - "$HOME/.composer/cache"
   - "$HOME/.cache/composer"
+- name: Composer (PHP) cache
+  description: PHP Composer package caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-conda-pkgs-cache
-  name: Conda package download cache
+  id: dev-composer-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.composer/cache"
+  - "$HOME/.cache/composer"
+- name: Conda package download cache
   description: Conda pkgs tarball cache (not envs). Forces re-download of packages.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-conda-pkgs-cache-macos
+  platform: macos
   paths:
   - "$HOME/.conda/pkgs"
   - "$HOME/Library/Caches/conda"
@@ -847,254 +1368,520 @@ rules:
   - "$HOME/anaconda3/pkgs"
   - "$HOME/miniforge3/pkgs"
   - "$HOME/mambaforge/pkgs"
+- name: Conda package download cache
+  description: Conda pkgs tarball cache (not envs). Forces re-download of packages.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 4
-- id: dev-deno-cache
-  name: Deno cache
+  id: dev-conda-pkgs-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.conda/pkgs"
+  - "$HOME/.cache/conda"
+  - "$HOME/miniconda3/pkgs"
+  - "$HOME/anaconda3/pkgs"
+  - "$HOME/miniforge3/pkgs"
+  - "$HOME/mambaforge/pkgs"
+- name: Deno cache
   description: Deno remote module and compiled output cache.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-deno-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/deno"
   - "$HOME/Library/Caches/deno"
-  - "%LOCALAPPDATA%/deno"
+- name: Deno cache
+  description: Deno remote module and compiled output cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-deno-cache-ext
-  name: Deno module cache
+  id: dev-deno-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/deno"
+- name: Deno cache
+  description: Deno remote module and compiled output cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-deno-cache-windows
+  platform: windows
+  paths:
+  - "%LOCALAPPDATA%/deno"
+- name: Deno module cache
   description: Deno remote module and npm-compat caches.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-deno-cache-ext-macos
+  platform: macos
   paths:
   - "$HOME/.cache/deno"
   - "$HOME/Library/Caches/deno"
   - "$HOME/.deno/gen"
   - "$HOME/.deno/remote"
+- name: Deno module cache
+  description: Deno remote module and npm-compat caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-dotnet-nuget-cache
-  name: NuGet package cache
+  id: dev-deno-cache-ext-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/deno"
+  - "$HOME/.deno/gen"
+  - "$HOME/.deno/remote"
+- name: NuGet package cache
   description: ".NET NuGet HTTP and global package cache."
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-dotnet-nuget-cache-macos
+  platform: macos
   paths:
   - "$HOME/.nuget/packages"
   - "$HOME/Library/Caches/NuGet"
-  - "%LOCALAPPDATA%/NuGet/Cache"
-  - "%USERPROFILE%/.nuget/packages"
+- name: NuGet package cache
+  description: ".NET NuGet HTTP and global package cache."
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-dotnet-template-and-tool-cache
-  name: dotnet template engine cache
+  id: dev-dotnet-nuget-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.nuget/packages"
+- name: NuGet package cache
+  description: ".NET NuGet HTTP and global package cache."
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-dotnet-nuget-cache-windows
+  platform: windows
+  paths:
+  - "%LOCALAPPDATA%/NuGet/Cache"
+  - "%USERPROFILE%/.nuget/packages"
+- name: dotnet template engine cache
   description: dotnet new template engine cache (not full SDK).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-dotnet-template-and-tool-cache-macos
+  platform: macos
   paths:
   - "$HOME/.templateengine"
   - "$HOME/Library/Caches/dotnet"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-electron-caches
-  name: Electron and electron-builder caches
-  description: Downloaded Electron binaries and electron-builder artifacts.
+- name: dotnet template engine cache
+  description: dotnet new template engine cache (not full SDK).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-dotnet-template-and-tool-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.templateengine"
+- name: Electron and electron-builder caches
+  description: Downloaded Electron binaries and electron-builder artifacts.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-electron-caches-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/electron"
   - "$HOME/.cache/electron"
   - "$HOME/Library/Caches/electron-builder"
   - "$HOME/.cache/electron-builder"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-elm-cache
-  name: Elm package cache
-  description: Elm compiler downloaded packages cache.
+- name: Electron and electron-builder caches
+  description: Downloaded Electron binaries and electron-builder artifacts.
   category: package-cache
-  platform: any
-  risk: low
-  default_enabled: true
-  min_age_days: 30
-  paths:
-  - "$HOME/.elm"
-  delete_mode: contents
-  max_depth: 6
-  include_globs:
-  - "**/packages/**/*.zip"
-- id: dev-esbuild-cache
-  name: esbuild cache
-  description: esbuild binary and transform caches under XDG cache.
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/esbuild"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-flutter-engine-caches
-  name: Flutter engine and tool caches
-  description: Flutter engine artifacts and dart analysis server caches.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-electron-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/electron"
+  - "$HOME/.cache/electron-builder"
+- name: Elm package cache
+  description: Elm compiler downloaded packages cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 6
+  include_globs: &1
+  - "**/packages/**/*.zip"
+  id: dev-elm-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.elm"
+- name: Elm package cache
+  description: Elm compiler downloaded packages cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 6
+  include_globs: *1
+  id: dev-elm-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.elm"
+- name: esbuild cache
+  description: esbuild binary and transform caches under XDG cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-esbuild-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/esbuild"
+- name: esbuild cache
+  description: esbuild binary and transform caches under XDG cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-esbuild-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/esbuild"
+- name: Flutter engine and tool caches
+  description: Flutter engine artifacts and dart analysis server caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-flutter-engine-caches-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/flutter_engine"
   - "$HOME/Library/Caches/Dart"
   - "$HOME/.dartServer"
   - "$HOME/.flutter"
+- name: Flutter engine and tool caches
+  description: Flutter engine artifacts and dart analysis server caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 5
-- id: dev-flutter-pub-cache
-  name: Dart/Flutter pub cache
+  id: dev-flutter-engine-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.dartServer"
+  - "$HOME/.flutter"
+- name: Dart/Flutter pub cache
   description: pub.dev package system cache (~/.pub-cache).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.pub-cache"
   delete_mode: contents
   max_depth: 5
-- id: dev-fnm-cache
-  name: fnm Node version storage
-  description: 'fnm version downloads (medium: removes Node installs).'
+  id: dev-flutter-pub-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.pub-cache"
+- name: Dart/Flutter pub cache
+  description: pub.dev package system cache (~/.pub-cache).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-flutter-pub-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.pub-cache"
+- name: fnm Node version storage
+  description: 'fnm version downloads (medium: removes Node installs).'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-fnm-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.fnm"
+- name: fnm Node version storage
+  description: 'fnm version downloads (medium: removes Node installs).'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-fnm-cache-linux
+  platform: linux
   paths:
   - "$HOME/.local/share/fnm"
   - "$HOME/.fnm"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-gem-home-cache
-  name: User GEM_HOME cache
+- name: User GEM_HOME cache
   description: Per-user gem installation cache directory when GEM_HOME is default.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.gem/ruby"
   delete_mode: contents
   max_depth: 4
-- id: dev-go-mod-cache
-  name: Go module cache
+  id: dev-gem-home-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.gem/ruby"
+- name: User GEM_HOME cache
+  description: Per-user gem installation cache directory when GEM_HOME is default.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gem-home-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.gem/ruby"
+- name: Go module cache
   description: "$GOMODCACHE / default GOPATH pkg/mod."
   category: package-cache
-  platform: any
   risk: medium
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-go-mod-cache-macos
+  platform: macos
   paths:
   - "$HOME/go/pkg/mod/cache"
   - "$HOME/Library/Caches/go-build"
   - "$HOME/.cache/go-build"
+- name: Go module cache
+  description: "$GOMODCACHE / default GOPATH pkg/mod."
+  category: package-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-go-sumdb-and-mod-full
-  name: Go sumdb and full module tree
+  id: dev-go-mod-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/go/pkg/mod/cache"
+  - "$HOME/.cache/go-build"
+- name: Go sumdb and full module tree
   description: Go checksum DB cache and full pkg/mod tree beyond partial mod/cache
     rule.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-go-sumdb-and-mod-full-macos
+  platform: macos
   paths:
   - "$HOME/go/pkg/sumdb"
   - "$HOME/go/pkg/mod"
+- name: Go sumdb and full module tree
+  description: Go checksum DB cache and full pkg/mod tree beyond partial mod/cache
+    rule.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-gradle-build-scans
-  name: Gradle build-scan cache
+  id: dev-go-sumdb-and-mod-full-linux
+  platform: linux
+  paths:
+  - "$HOME/go/pkg/sumdb"
+  - "$HOME/go/pkg/mod"
+- name: Gradle build-scan cache
   description: Gradle Enterprise/build-scan local cache if present.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.gradle/build-scan-data"
   delete_mode: contents
   max_depth: 4
-- id: dev-gradle-caches
-  name: Gradle caches
+  id: dev-gradle-build-scans-macos
+  platform: macos
+  paths:
+  - "$HOME/.gradle/build-scan-data"
+- name: Gradle build-scan cache
+  description: Gradle Enterprise/build-scan local cache if present.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gradle-build-scans-linux
+  platform: linux
+  paths:
+  - "$HOME/.gradle/build-scan-data"
+- name: Gradle caches
   description: "~/.gradle/caches build caches."
   category: package-cache
-  platform: any
   risk: medium
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.gradle/caches"
   delete_mode: contents
   max_depth: 4
-- id: dev-gradle-daemon-wrapper
-  name: Gradle daemon, wrapper, native
+  id: dev-gradle-caches-macos
+  platform: macos
+  paths:
+  - "$HOME/.gradle/caches"
+- name: Gradle caches
+  description: "~/.gradle/caches build caches."
+  category: package-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gradle-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.gradle/caches"
+- name: Gradle daemon, wrapper, native
   description: Gradle daemon logs, wrapper distributions, and native helpers (caches
     root already covered).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-gradle-daemon-wrapper-macos
+  platform: macos
   paths:
   - "$HOME/.gradle/daemon"
   - "$HOME/.gradle/wrapper/dists"
   - "$HOME/.gradle/native"
   - "$HOME/.gradle/kotlin-profile"
   - "$HOME/.gradle/.tmp"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-hatch-cache
-  name: Hatch build cache
-  description: Hatch Python project manager cache.
+- name: Gradle daemon, wrapper, native
+  description: Gradle daemon logs, wrapper distributions, and native helpers (caches
+    root already covered).
   category: package-cache
-  platform: any
-  risk: low
-  default_enabled: true
-  min_age_days: 14
-  paths:
-  - "$HOME/Library/Caches/hatch"
-  - "$HOME/.cache/hatch"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-helm-cache-ext
-  name: Helm chart cache
-  description: Helm repository and chart caches.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-gradle-daemon-wrapper-linux
+  platform: linux
+  paths:
+  - "$HOME/.gradle/daemon"
+  - "$HOME/.gradle/wrapper/dists"
+  - "$HOME/.gradle/native"
+  - "$HOME/.gradle/kotlin-profile"
+  - "$HOME/.gradle/.tmp"
+- name: Hatch build cache
+  description: Hatch Python project manager cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-hatch-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/hatch"
+  - "$HOME/.cache/hatch"
+- name: Hatch build cache
+  description: Hatch Python project manager cache.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-hatch-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/hatch"
+- name: Helm chart cache
+  description: Helm repository and chart caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-helm-cache-ext-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/helm"
   - "$HOME/.cache/helm"
-  - "$HOME/.local/share/helm"
+- name: Helm chart cache
+  description: Helm repository and chart caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 5
+  id: dev-helm-cache-ext-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/helm"
+  - "$HOME/.local/share/helm"
 - id: dev-homebrew-cask-cache-extra
   name: Homebrew Cask downloads subcache
   description: Nested Cask download cache under Homebrew (top-level Homebrew cache
@@ -1109,280 +1896,534 @@ rules:
   - "$HOME/Library/Caches/Homebrew/Cask"
   delete_mode: contents
   max_depth: 4
-- id: dev-ivy-sbt-coursier
-  name: Ivy, sbt, Coursier caches
+- name: Ivy, sbt, Coursier caches
   description: Scala/JVM dependency caches for Ivy, sbt, and Coursier.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-ivy-sbt-coursier-macos
+  platform: macos
   paths:
   - "$HOME/.ivy2/cache"
   - "$HOME/.sbt"
   - "$HOME/Library/Caches/Coursier"
   - "$HOME/.cache/coursier"
   - "$HOME/Library/Caches/sbt"
+- name: Ivy, sbt, Coursier caches
+  description: Scala/JVM dependency caches for Ivy, sbt, and Coursier.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-kotlin-compiler-cache
-  name: Kotlin compiler daemon cache
+  id: dev-ivy-sbt-coursier-linux
+  platform: linux
+  paths:
+  - "$HOME/.ivy2/cache"
+  - "$HOME/.sbt"
+  - "$HOME/.cache/coursier"
+- name: Kotlin compiler daemon cache
   description: Kotlin daemon and compiler caches under ~/.kotlin.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.kotlin"
   delete_mode: contents
   max_depth: 4
-- id: dev-kotlin-native-cache
-  name: Kotlin/Native prebuilt cache
+  id: dev-kotlin-compiler-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.kotlin"
+- name: Kotlin compiler daemon cache
+  description: Kotlin daemon and compiler caches under ~/.kotlin.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-kotlin-compiler-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.kotlin"
+- name: Kotlin/Native prebuilt cache
   description: Kotlin Native compiler downloaded prebuilt libraries.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 60
-  paths:
-  - "$HOME/.konan/cache"
   delete_mode: contents
   max_depth: 4
-- id: dev-kubectl-cache
-  name: kubectl discovery and http cache
+  id: dev-kotlin-native-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.konan/cache"
+- name: Kotlin/Native prebuilt cache
+  description: Kotlin Native compiler downloaded prebuilt libraries.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 60
+  delete_mode: contents
+  max_depth: 4
+  id: dev-kotlin-native-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.konan/cache"
+- name: kubectl discovery and http cache
   description: kubectl client-side discovery and HTTP caches.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: dev-kubectl-cache-macos
+  platform: macos
   paths:
   - "$HOME/.kube/cache"
   - "$HOME/.cache/kubectl"
+- name: kubectl discovery and http cache
+  description: kubectl client-side discovery and HTTP caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
-- id: dev-mamba-pkgs-cache
-  name: Mamba package cache
+  id: dev-kubectl-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.kube/cache"
+  - "$HOME/.cache/kubectl"
+- name: Mamba package cache
   description: Standalone mamba pkgs cache when separate from conda root.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.mamba/pkgs"
   delete_mode: contents
   max_depth: 4
-- id: dev-maven-cache
-  name: Maven local repository cache
+  id: dev-mamba-pkgs-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.mamba/pkgs"
+- name: Mamba package cache
+  description: Standalone mamba pkgs cache when separate from conda root.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-mamba-pkgs-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.mamba/pkgs"
+- name: Maven local repository cache
   description: Maven downloaded JAR artifacts (report-only; large and safe but slow
     to re-fetch).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 60
-  paths:
-  - "$HOME/.m2/repository"
   delete_mode: path
   max_depth: 2
   report_only: true
-- id: dev-maven-local-repo
-  name: Maven local repository
+  id: dev-maven-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.m2/repository"
+- name: Maven local repository cache
+  description: Maven downloaded JAR artifacts (report-only; large and safe but slow
+    to re-fetch).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 60
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: dev-maven-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.m2/repository"
+- name: Maven local repository
   description: Maven ~/.m2/repository dependency cache.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-maven-local-repo-macos
+  platform: macos
   paths:
   - "$HOME/.m2/repository"
   - "$HOME/.m2/wrapper"
+- name: Maven local repository
+  description: Maven ~/.m2/repository dependency cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-minikube-cache
-  name: minikube cache
+  id: dev-maven-local-repo-linux
+  platform: linux
+  paths:
+  - "$HOME/.m2/repository"
+  - "$HOME/.m2/wrapper"
+- name: minikube cache
   description: minikube image and ISO cache (machines remain report-only).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.minikube/cache"
   delete_mode: contents
   max_depth: 5
-- id: dev-mise-cache
-  name: mise (rtx) cache
+  id: dev-minikube-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.minikube/cache"
+- name: minikube cache
+  description: minikube image and ISO cache (machines remain report-only).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-minikube-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.minikube/cache"
+- name: mise (rtx) cache
   description: mise version-manager cache and downloads.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-mise-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/mise"
   - "$HOME/Library/Caches/mise"
-  - "$HOME/.local/share/mise/downloads"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-nextjs-global-cache
-  name: Next.js global cache dirs
-  description: Next.js caches under XDG/Library cache roots only (not project .next).
+- name: mise (rtx) cache
+  description: mise version-manager cache and downloads.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-mise-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/mise"
+  - "$HOME/.local/share/mise/downloads"
+- name: Next.js global cache dirs
+  description: Next.js caches under XDG/Library cache roots only (not project .next).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-nextjs-global-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/next-swc"
   - "$HOME/.cache/next"
   - "$HOME/Library/Caches/next-swc"
   - "$HOME/Library/Caches/next"
+- name: Next.js global cache dirs
+  description: Next.js caches under XDG/Library cache roots only (not project .next).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-node-gyp-cache
-  name: node-gyp cache
+  id: dev-nextjs-global-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/next-swc"
+  - "$HOME/.cache/next"
+- name: node-gyp cache
   description: Compiled native addon headers/objects for node-gyp.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-node-gyp-cache-macos
+  platform: macos
   paths:
   - "$HOME/.node-gyp"
   - "$HOME/Library/Caches/node-gyp"
   - "$HOME/.cache/node-gyp"
+- name: node-gyp cache
+  description: Compiled native addon headers/objects for node-gyp.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 4
-- id: dev-npm-cache
-  name: npm cache
+  id: dev-node-gyp-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.node-gyp"
+  - "$HOME/.cache/node-gyp"
+- name: npm cache
   description: npm cache directory (regenerable).
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-npm-cache-macos
+  platform: macos
   paths:
   - "$HOME/.npm/_cacache"
   - "$HOME/Library/Caches/npm"
+- name: npm cache
+  description: npm cache directory (regenerable).
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-npm-global-cache-alt
-  name: Alternate npm cache path
+  id: dev-npm-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.npm/_cacache"
+- name: Alternate npm cache path
   description: npm cache when configured under ~/.npm-cache-user (DevCacheCleaner
     path).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.npm-cache-user/_cacache"
   delete_mode: contents
   max_depth: 4
-- id: dev-npm-npx-prebuilds
-  name: npm npx and prebuilds
-  description: npm npx package cache and node-gyp prebuilds (not _cacache).
+  id: dev-npm-global-cache-alt-macos
+  platform: macos
+  paths:
+  - "$HOME/.npm-cache-user/_cacache"
+- name: Alternate npm cache path
+  description: npm cache when configured under ~/.npm-cache-user (DevCacheCleaner
+    path).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-npm-global-cache-alt-linux
+  platform: linux
+  paths:
+  - "$HOME/.npm-cache-user/_cacache"
+- name: npm npx and prebuilds
+  description: npm npx package cache and node-gyp prebuilds (not _cacache).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-npm-npx-prebuilds-macos
+  platform: macos
   paths:
   - "$HOME/.npm/_npx"
   - "$HOME/.npm/_prebuilds"
   - "$HOME/.npm/_logs"
+- name: npm npx and prebuilds
+  description: npm npx package cache and node-gyp prebuilds (not _cacache).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-nuget-packages
-  name: NuGet global packages
+  id: dev-npm-npx-prebuilds-linux
+  platform: linux
+  paths:
+  - "$HOME/.npm/_npx"
+  - "$HOME/.npm/_prebuilds"
+  - "$HOME/.npm/_logs"
+- name: NuGet global packages
   description: NuGet global packages folder (dotnet restore re-downloads).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-nuget-packages-macos
+  platform: macos
+  paths:
+  - "$HOME/.nuget/packages"
+- name: NuGet global packages
+  description: NuGet global packages folder (dotnet restore re-downloads).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-nuget-packages-linux
+  platform: linux
   paths:
   - "$HOME/.nuget/packages"
   - "$HOME/.local/share/NuGet/http-cache"
   - "$HOME/.local/share/NuGet/plugin-cache"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-nvm-cache
-  name: nvm cache
+- name: nvm cache
   description: nvm downloaded Node tarballs under .nvm/.cache.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.nvm/.cache"
   delete_mode: contents
   max_depth: 4
-- id: dev-nx-cache-ext
-  name: Nx computation cache
+  id: dev-nvm-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.nvm/.cache"
+- name: nvm cache
+  description: nvm downloaded Node tarballs under .nvm/.cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-nvm-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.nvm/.cache"
+- name: Nx computation cache
   description: Nx global computation cache (not project node_modules).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-nx-cache-ext-macos
+  platform: macos
   paths:
   - "$HOME/.nx/cache"
   - "$HOME/.cache/nx"
+- name: Nx computation cache
+  description: Nx global computation cache (not project node_modules).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-pip-cache
-  name: pip cache
+  id: dev-nx-cache-ext-linux
+  platform: linux
+  paths:
+  - "$HOME/.nx/cache"
+  - "$HOME/.cache/nx"
+- name: pip cache
   description: Python pip HTTP cache.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pip-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/pip"
   - "$HOME/Library/Caches/pip"
-  - "$XDG_CACHE_HOME/pip"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-pip-wheels-cache
-  name: pip wheels cache
-  description: pip locally-built wheel cache under ~/.cache/pip/wheels.
+- name: pip cache
+  description: Python pip HTTP cache.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pip-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/pip"
+  - "$XDG_CACHE_HOME/pip"
+- name: pip wheels cache
+  description: pip locally-built wheel cache under ~/.cache/pip/wheels.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: dev-pip-wheels-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/pip/wheels"
   - "$HOME/Library/Caches/pip/wheels"
+- name: pip wheels cache
+  description: pip locally-built wheel cache under ~/.cache/pip/wheels.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
-- id: dev-pipenv-cache
-  name: Pipenv cache
+  id: dev-pip-wheels-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/pip/wheels"
+- name: Pipenv cache
   description: Pipenv HTTP and wheel caches.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pipenv-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/pipenv"
   - "$HOME/.cache/pipenv"
+- name: Pipenv cache
+  description: Pipenv HTTP and wheel caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-playwright-puppeteer-cypress
-  name: Browser test runner browser downloads
+  id: dev-pipenv-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/pipenv"
+- name: Browser test runner browser downloads
   description: Playwright, Puppeteer, and Cypress browser binary caches.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-playwright-puppeteer-cypress-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/ms-playwright"
   - "$HOME/.cache/ms-playwright"
@@ -1390,121 +2431,232 @@ rules:
   - "$HOME/.cache/puppeteer"
   - "$HOME/Library/Caches/Cypress"
   - "$HOME/Library/Caches/com.electron.playwright"
+- name: Browser test runner browser downloads
+  description: Playwright, Puppeteer, and Cypress browser binary caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-pnpm-metadata-caches
-  name: pnpm metadata and tools caches
+  id: dev-playwright-puppeteer-cypress-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/ms-playwright"
+  - "$HOME/.cache/puppeteer"
+- name: pnpm metadata and tools caches
   description: pnpm side caches outside the shared store (store stays report-only
     elsewhere).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-pnpm-metadata-caches-macos
+  platform: macos
   paths:
   - "$HOME/.pnpm-store"
   - "$HOME/Library/Caches/pnpm"
   - "$HOME/.cache/pnpm"
-  - "$HOME/.local/share/pnpm/.tools"
+- name: pnpm metadata and tools caches
+  description: pnpm side caches outside the shared store (store stays report-only
+    elsewhere).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-pnpm-store-report
-  name: pnpm store (report-only)
+  id: dev-pnpm-metadata-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.pnpm-store"
+  - "$HOME/.cache/pnpm"
+  - "$HOME/.local/share/pnpm/.tools"
+- name: pnpm store (report-only)
   description: Shared store; deleting breaks projects until re-fetch.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/.local/share/pnpm/store"
-  - "$HOME/Library/pnpm/store"
   delete_mode: path
   max_depth: 2
   report_only: true
-- id: dev-poetry-cache
-  name: Poetry package cache
-  description: Poetry downloaded wheel cache.
-  category: package-cache
-  platform: any
-  risk: low
-  default_enabled: true
-  min_age_days: 14
+  id: dev-pnpm-store-report-macos
+  platform: macos
   paths:
-  - "$HOME/Library/Caches/pypoetry"
-  - "$HOME/.cache/pypoetry"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-poetry-cache-ext
-  name: Poetry cache
-  description: Poetry virtualenv and package caches.
+  - "$HOME/Library/pnpm/store"
+- name: pnpm store (report-only)
+  description: Shared store; deleting breaks projects until re-fetch.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/Library/Caches/pypoetry"
-  - "$HOME/.cache/pypoetry"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-prebuild-install-cache
-  name: prebuild-install cache
-  description: Node native module prebuild-install cache.
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 21
-  paths:
-  - "$HOME/.cache/prebuild-install"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-prisma-engines-cache
-  name: Prisma engines cache
-  description: Prisma query engine binaries cache.
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 21
-  paths:
-  - "$HOME/.cache/prisma"
-  - "$HOME/Library/Caches/prisma"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-pulumi-plugins
-  name: Pulumi plugins
-  description: Pulumi downloaded provider plugins.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: dev-pnpm-store-report-linux
+  platform: linux
   paths:
-  - "$HOME/.pulumi/plugins"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-pyenv-cache
-  name: pyenv download cache
-  description: pyenv source/binary download cache (not installed versions).
+  - "$HOME/.local/share/pnpm/store"
+- name: Poetry package cache
+  description: Poetry downloaded wheel cache.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 21
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-poetry-cache-macos
+  platform: macos
   paths:
-  - "$HOME/.pyenv/cache"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-python-tool-caches
-  name: Python tool caches (ruff, mypy, pre-commit, huggingface)
-  description: Common regenerable Python tooling caches under ~/.cache.
+  - "$HOME/Library/Caches/pypoetry"
+  - "$HOME/.cache/pypoetry"
+- name: Poetry package cache
+  description: Poetry downloaded wheel cache.
   category: package-cache
-  platform: any
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-poetry-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/pypoetry"
+- name: Poetry cache
+  description: Poetry virtualenv and package caches.
+  category: package-cache
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-poetry-cache-ext-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/pypoetry"
+  - "$HOME/.cache/pypoetry"
+- name: Poetry cache
+  description: Poetry virtualenv and package caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-poetry-cache-ext-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/pypoetry"
+- name: prebuild-install cache
+  description: Node native module prebuild-install cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-prebuild-install-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/prebuild-install"
+- name: prebuild-install cache
+  description: Node native module prebuild-install cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-prebuild-install-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/prebuild-install"
+- name: Prisma engines cache
+  description: Prisma query engine binaries cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-prisma-engines-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/prisma"
+  - "$HOME/Library/Caches/prisma"
+- name: Prisma engines cache
+  description: Prisma query engine binaries cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-prisma-engines-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/prisma"
+- name: Pulumi plugins
+  description: Pulumi downloaded provider plugins.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pulumi-plugins-macos
+  platform: macos
+  paths:
+  - "$HOME/.pulumi/plugins"
+- name: Pulumi plugins
+  description: Pulumi downloaded provider plugins.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pulumi-plugins-linux
+  platform: linux
+  paths:
+  - "$HOME/.pulumi/plugins"
+- name: pyenv download cache
+  description: pyenv source/binary download cache (not installed versions).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pyenv-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.pyenv/cache"
+- name: pyenv download cache
+  description: pyenv source/binary download cache (not installed versions).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-pyenv-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.pyenv/cache"
+- name: Python tool caches (ruff, mypy, pre-commit, huggingface)
+  description: Common regenerable Python tooling caches under ~/.cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-python-tool-caches-macos
+  platform: macos
   paths:
   - "$HOME/.cache/ruff"
   - "$HOME/.cache/mypy"
@@ -1513,104 +2665,207 @@ rules:
   - "$HOME/.cache/huggingface"
   - "$HOME/.cache/torch"
   - "$HOME/Library/Caches/com.apple.python"
+- name: Python tool caches (ruff, mypy, pre-commit, huggingface)
+  description: Common regenerable Python tooling caches under ~/.cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: dev-rbenv-rvm-caches
-  name: rbenv and RVM download caches
+  id: dev-python-tool-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/ruff"
+  - "$HOME/.cache/mypy"
+  - "$HOME/.cache/pre-commit"
+  - "$HOME/.cache/huggingface"
+  - "$HOME/.cache/torch"
+- name: rbenv and RVM download caches
   description: Ruby version manager download archives and logs (not installed rubies
     as default).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-rbenv-rvm-caches-macos
+  platform: macos
   paths:
   - "$HOME/.rbenv/cache"
   - "$HOME/.rvm/archives"
   - "$HOME/.rvm/log"
+- name: rbenv and RVM download caches
+  description: Ruby version manager download archives and logs (not installed rubies
+    as default).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 4
-- id: dev-ruby-gem-cache
-  name: Ruby gem download cache
+  id: dev-rbenv-rvm-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.rbenv/cache"
+  - "$HOME/.rvm/archives"
+  - "$HOME/.rvm/log"
+- name: Ruby gem download cache
   description: RubyGems and Bundler cached gem downloads.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: dev-ruby-gem-cache-macos
+  platform: macos
   paths:
   - "$HOME/.gem/cache"
   - "$HOME/Library/Caches/gem"
   - "$HOME/.bundle/cache"
+- name: Ruby gem download cache
+  description: RubyGems and Bundler cached gem downloads.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 30
   delete_mode: contents
   max_depth: 4
-- id: dev-rubygems-bundler-cache
-  name: RubyGems and Bundler caches
+  id: dev-ruby-gem-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.gem/cache"
+  - "$HOME/.bundle/cache"
+- name: RubyGems and Bundler caches
   description: gem install and bundler package caches.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-rubygems-bundler-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/RubyGems"
   - "$HOME/.gem/cache"
   - "$HOME/.bundle/cache"
   - "$HOME/Library/Caches/Bundler"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-rustup-downloads
-  name: rustup downloads and tmp
-  description: rustup staging downloads and tmp (not installed toolchains).
+- name: RubyGems and Bundler caches
+  description: gem install and bundler package caches.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/.rustup/downloads"
-  - "$HOME/.rustup/tmp"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-rustup-tmp
-  name: Rustup temp downloads
-  description: Rustup toolchain download temp files.
-  category: package-cache
-  platform: any
-  risk: low
-  default_enabled: true
-  min_age_days: 7
-  paths:
-  - "$HOME/.rustup/tmp"
-  - "$HOME/.rustup/downloads"
-  delete_mode: contents
-  max_depth: 3
-- id: dev-sccache
-  name: sccache compiler cache
-  description: Shared compilation cache for Rust/C++ via sccache.
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/sccache"
-  - "$HOME/Library/Caches/sccache"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-sdkman-archives
-  name: SDKMAN archives and tmp
-  description: SDKMAN downloaded archives and temporary files.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-rubygems-bundler-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.gem/cache"
+  - "$HOME/.bundle/cache"
+- name: rustup downloads and tmp
+  description: rustup staging downloads and tmp (not installed toolchains).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 4
+  id: dev-rustup-downloads-macos
+  platform: macos
+  paths:
+  - "$HOME/.rustup/downloads"
+- name: rustup downloads and tmp
+  description: rustup staging downloads and tmp (not installed toolchains).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 4
+  id: dev-rustup-downloads-linux
+  platform: linux
+  paths:
+  - "$HOME/.rustup/downloads"
+  - "$HOME/.rustup/tmp"
+- name: Rustup temp downloads
+  description: Rustup toolchain download temp files.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 3
+  id: dev-rustup-tmp-macos
+  platform: macos
+  paths:
+  - "$HOME/.rustup/downloads"
+- name: Rustup temp downloads
+  description: Rustup toolchain download temp files.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 3
+  id: dev-rustup-tmp-linux
+  platform: linux
+  paths:
+  - "$HOME/.rustup/tmp"
+  - "$HOME/.rustup/downloads"
+- name: sccache compiler cache
+  description: Shared compilation cache for Rust/C++ via sccache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-sccache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/sccache"
+  - "$HOME/Library/Caches/sccache"
+- name: sccache compiler cache
+  description: Shared compilation cache for Rust/C++ via sccache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-sccache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/sccache"
+- name: SDKMAN archives and tmp
+  description: SDKMAN downloaded archives and temporary files.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-sdkman-archives-macos
+  platform: macos
+  paths:
+  - "$HOME/.sdkman/archives"
+- name: SDKMAN archives and tmp
+  description: SDKMAN downloaded archives and temporary files.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-sdkman-archives-linux
+  platform: linux
   paths:
   - "$HOME/.sdkman/archives"
   - "$HOME/.sdkman/tmp"
-  delete_mode: contents
-  max_depth: 4
 - id: dev-spm-cloned-sources
   name: SwiftPM cloned source packages
   description: SwiftPM SourcePackages-style global clones when present under cache.
@@ -1650,61 +2905,113 @@ rules:
   - "$HOME/.swiftpm/cache"
   delete_mode: contents
   max_depth: 5
-- id: dev-terraform-plugin-cache-ext
-  name: Terraform plugin cache
+- name: Terraform plugin cache
   description: TF_PLUGIN_CACHE_DIR style caches and provider plugins.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-terraform-plugin-cache-ext-macos
+  platform: macos
   paths:
   - "$HOME/.terraform.d/plugin-cache"
   - "$HOME/.terraform.d/providers"
   - "$HOME/Library/Caches/terraform"
+- name: Terraform plugin cache
+  description: TF_PLUGIN_CACHE_DIR style caches and provider plugins.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-testcontainers-cache
-  name: Testcontainers Ryuk/cache leftovers
+  id: dev-terraform-plugin-cache-ext-linux
+  platform: linux
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+  - "$HOME/.terraform.d/providers"
+- name: Testcontainers Ryuk/cache leftovers
   description: Testcontainers properties-adjacent cache dirs when present under home
     cache.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-testcontainers-cache-macos
+  platform: macos
   paths:
   - "$HOME/.testcontainers"
   - "$HOME/.cache/testcontainers"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-turbo-cache-ext
-  name: Turborepo remote/local cache
-  description: Turbo/Turborepo daemon and task caches outside project dirs.
+- name: Testcontainers Ryuk/cache leftovers
+  description: Testcontainers properties-adjacent cache dirs when present under home
+    cache.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-testcontainers-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.testcontainers"
+  - "$HOME/.cache/testcontainers"
+- name: Turborepo remote/local cache
+  description: Turbo/Turborepo daemon and task caches outside project dirs.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-turbo-cache-ext-macos
+  platform: macos
   paths:
   - "$HOME/.turbo"
   - "$HOME/.cache/turbo"
   - "$HOME/Library/Caches/turbo"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-typescript-cache
-  name: TypeScript incremental caches
-  description: Global tsc/tsbuildinfo style caches when stored under known cache roots.
+- name: Turborepo remote/local cache
+  description: Turbo/Turborepo daemon and task caches outside project dirs.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-turbo-cache-ext-linux
+  platform: linux
+  paths:
+  - "$HOME/.turbo"
+  - "$HOME/.cache/turbo"
+- name: TypeScript incremental caches
+  description: Global tsc/tsbuildinfo style caches when stored under known cache roots.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-typescript-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/typescript"
   - "$HOME/.cache/typescript"
+- name: TypeScript incremental caches
+  description: Global tsc/tsbuildinfo style caches when stored under known cache roots.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
+  id: dev-typescript-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/typescript"
 - id: dev-unity-hub-cache
   name: Unity Hub cache
   description: Unity Hub download and ShipIt caches.
@@ -1718,213 +3025,389 @@ rules:
   - "$HOME/Library/Caches/com.unity3d.unityhub.ShipIt"
   delete_mode: contents
   max_depth: 4
-- id: dev-uv-cache
-  name: uv package cache
+- name: uv package cache
   description: Astral uv wheel/sdist caches (regenerable).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: dev-uv-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/uv"
   - "$HOME/.cache/uv"
-  - "$HOME/.local/share/uv/cache"
-  delete_mode: contents
-  max_depth: 6
-- id: dev-virtualenv-cache
-  name: virtualenv seed cache
-  description: virtualenv app-data seed wheels cache.
+- name: uv package cache
+  description: Astral uv wheel/sdist caches (regenerable).
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 21
-  paths:
-  - "$HOME/.local/share/virtualenv"
-  - "$HOME/Library/Application Support/virtualenv"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-vite-webpack-global-caches
-  name: Vite and webpack global caches
-  description: Global vite/webpack caches only under known cache directories (not
-    project .vite).
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: dev-uv-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/uv"
+  - "$HOME/.local/share/uv/cache"
+- name: virtualenv seed cache
+  description: virtualenv app-data seed wheels cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-virtualenv-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/virtualenv"
+- name: virtualenv seed cache
+  description: virtualenv app-data seed wheels cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: dev-virtualenv-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/share/virtualenv"
+- name: Vite and webpack global caches
+  description: Global vite/webpack caches only under known cache directories (not
+    project .vite).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-vite-webpack-global-caches-macos
+  platform: macos
   paths:
   - "$HOME/.cache/vite"
   - "$HOME/Library/Caches/vite"
   - "$HOME/.cache/webpack"
   - "$HOME/Library/Caches/webpack"
+- name: Vite and webpack global caches
+  description: Global vite/webpack caches only under known cache directories (not
+    project .vite).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-volta-cache
-  name: Volta cache and tmp
+  id: dev-vite-webpack-global-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/vite"
+  - "$HOME/.cache/webpack"
+- name: Volta cache and tmp
   description: Volta Node/tool download cache.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-volta-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.volta/cache"
+- name: Volta cache and tmp
+  description: Volta Node/tool download cache.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-volta-cache-linux
+  platform: linux
   paths:
   - "$HOME/.volta/cache"
   - "$HOME/.volta/tmp"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-yarn-berry-cache
-  name: Yarn Berry (Yarn 2+) cache
+- name: Yarn Berry (Yarn 2+) cache
   description: Yarn PnP/berry global cache under ~/.yarn.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-yarn-berry-cache-macos
+  platform: macos
   paths:
   - "$HOME/.yarn/berry/cache"
   - "$HOME/.yarn/cache"
+- name: Yarn Berry (Yarn 2+) cache
+  description: Yarn PnP/berry global cache under ~/.yarn.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-yarn-cache
-  name: Yarn cache
+  id: dev-yarn-berry-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.yarn/berry/cache"
+  - "$HOME/.yarn/cache"
+- name: Yarn cache
   description: Yarn classic/berry cache locations.
   category: package-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-yarn-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/yarn"
   - "$HOME/Library/Caches/Yarn"
-  - "$XDG_CACHE_HOME/yarn"
+- name: Yarn cache
+  description: Yarn classic/berry cache locations.
+  category: package-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: exotic-conda-mamba-envs-report
-  name: Conda/mamba/micromamba environments (report-only)
+  id: dev-yarn-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/yarn"
+  - "$XDG_CACHE_HOME/yarn"
+- name: Conda/mamba/micromamba environments (report-only)
   description: Named environments under common installer roots. Never auto-delete
     envs.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/micromamba/envs"
-  - "$HOME/.local/share/mamba/envs"
   delete_mode: path
   max_depth: 2
   report_only: true
-- id: exotic-easybuild-software-report
-  name: EasyBuild installed software (report-only)
-  description: EasyBuild installpath with built modules and software.
+  id: exotic-conda-mamba-envs-report-macos
+  platform: macos
+  paths:
+  - "$HOME/micromamba/envs"
+- name: Conda/mamba/micromamba environments (report-only)
+  description: Named environments under common installer roots. Never auto-delete
+    envs.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: exotic-conda-mamba-envs-report-linux
+  platform: linux
+  paths:
+  - "$HOME/micromamba/envs"
+  - "$HOME/.local/share/mamba/envs"
+- name: EasyBuild installed software (report-only)
+  description: EasyBuild installpath with built modules and software.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: exotic-easybuild-software-report-macos
+  platform: macos
   paths:
   - "$HOME/.local/easybuild/software"
   - "$HOME/.local/easybuild/modules"
   - "$HOME/easybuild/software"
   - "$HOME/easybuild/modules"
+- name: EasyBuild installed software (report-only)
+  description: EasyBuild installpath with built modules and software.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: exotic-easybuild-sources-build
-  name: EasyBuild sources and build directories
+  id: exotic-easybuild-software-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/easybuild/software"
+  - "$HOME/.local/easybuild/modules"
+  - "$HOME/easybuild/software"
+  - "$HOME/easybuild/modules"
+- name: EasyBuild sources and build directories
   description: EasyBuild downloaded sources and temporary build trees under default
     prefix.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-easybuild-sources-build-macos
+  platform: macos
   paths:
   - "$HOME/.local/easybuild/sources"
   - "$HOME/.local/easybuild/build"
   - "$HOME/easybuild/sources"
   - "$HOME/easybuild/build"
   - "$HOME/.cache/easybuild"
+- name: EasyBuild sources and build directories
+  description: EasyBuild downloaded sources and temporary build trees under default
+    prefix.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
-- id: exotic-guix-store-profiles-report
-  name: Guix store and profiles (report-only)
+  id: exotic-easybuild-sources-build-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/easybuild/sources"
+  - "$HOME/.local/easybuild/build"
+  - "$HOME/easybuild/sources"
+  - "$HOME/easybuild/build"
+  - "$HOME/.cache/easybuild"
+- name: Guix store and profiles (report-only)
   description: Guix store and user profile symlinks; GC via guix tools only.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: exotic-guix-store-profiles-report-macos
+  platform: macos
+  paths:
+  - "/gnu/store"
+  - "$HOME/.guix-profile"
+- name: Guix store and profiles (report-only)
+  description: Guix store and user profile symlinks; GC via guix tools only.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: exotic-guix-store-profiles-report-linux
+  platform: linux
   paths:
   - "/gnu/store"
   - "$HOME/.guix-profile"
   - "$HOME/.config/guix/current"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: exotic-guix-user-caches
-  name: Guix user checkout and client caches
+- name: Guix user checkout and client caches
   description: Guix ~/.cache/guix (channel checkouts and related client cache).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-guix-user-caches-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/guix"
+  - "$HOME/.cache/guix/checkouts"
+- name: Guix user checkout and client caches
+  description: Guix ~/.cache/guix (channel checkouts and related client cache).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-guix-user-caches-linux
+  platform: linux
   paths:
   - "$HOME/.cache/guix"
   - "$HOME/.cache/guix/checkouts"
   - "$XDG_CACHE_HOME/guix"
-  delete_mode: contents
-  max_depth: 6
-- id: exotic-home-manager-state
-  name: home-manager generations and gcroots
+- name: home-manager generations and gcroots
   description: home-manager state, gcroots, and profile generations that pin Nix store
     paths.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-home-manager-state-macos
+  platform: macos
   paths:
   - "$HOME/.local/state/home-manager"
   - "$HOME/.local/state/home-manager/gcroots"
   - "$HOME/.local/state/nix/profiles/home-manager"
   - "$HOME/.cache/home-manager"
+- name: home-manager generations and gcroots
+  description: home-manager state, gcroots, and profile generations that pin Nix store
+    paths.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 6
-- id: exotic-linuxbrew-home
-  name: Linuxbrew / Homebrew under $HOME
+  id: exotic-home-manager-state-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/state/home-manager"
+  - "$HOME/.local/state/home-manager/gcroots"
+  - "$HOME/.local/state/nix/profiles/home-manager"
+  - "$HOME/.cache/home-manager"
+- name: Linuxbrew / Homebrew under $HOME
   description: 'Homebrew-on-Linux (or portable) prefix under ~/.linuxbrew: tmp/cache/var
     only as cleanable; Cellar report-only.'
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-linuxbrew-home-macos
+  platform: macos
+  paths:
+  - "$HOME/.linuxbrew/Homebrew/Library/Homebrew/vendor/portable-ruby/cache"
+- name: Linuxbrew / Homebrew under $HOME
+  description: 'Homebrew-on-Linux (or portable) prefix under ~/.linuxbrew: tmp/cache/var
+    only as cleanable; Cellar report-only.'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-linuxbrew-home-linux
+  platform: linux
   paths:
   - "$HOME/.linuxbrew/var/homebrew/tmp"
   - "$HOME/.linuxbrew/var/homebrew/cache"
   - "$HOME/.linuxbrew/var/cache"
-  - "$HOME/.linuxbrew/Homebrew/Library/Homebrew/vendor/portable-ruby/cache"
-  delete_mode: contents
-  max_depth: 6
-- id: exotic-linuxbrew-prefix-report
-  name: Linuxbrew prefix Cellar (report-only)
+- name: Linuxbrew prefix Cellar (report-only)
   description: Installed formulae under ~/.linuxbrew Cellar/opt.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: exotic-linuxbrew-prefix-report
+  platform: linux
   paths:
   - "$HOME/.linuxbrew/Cellar"
   - "$HOME/.linuxbrew/opt"
   - "$HOME/.linuxbrew"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
 - id: exotic-macports-user-distfiles-logs
   name: MacPorts user distfiles, software archives, logs
   description: User-writable MacPorts distfiles, archived software, build work, and
@@ -1935,98 +3418,146 @@ rules:
   default_enabled: false
   min_age_days: 14
   paths:
-  - "$HOME/macports/var/macports/logs"
-  - "$HOME/macports/var/macports/build"
   - "$HOME/Library/Logs/MacPorts"
   delete_mode: contents
   max_depth: 6
-- id: exotic-mise-cache-downloads
-  name: mise cache and downloads
+- name: mise cache and downloads
   description: mise (ex-rtx) internal cache and plugin download staging.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-mise-cache-downloads
+  platform: linux
   paths:
   - "$XDG_CACHE_HOME/mise"
   - "$XDG_DATA_HOME/mise/downloads"
-  delete_mode: contents
-  max_depth: 6
-- id: exotic-mise-installs-report
-  name: mise installed tool versions (report-only)
+- name: mise installed tool versions (report-only)
   description: mise tool installs under data dir; report only.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.local/share/mise/installs"
-  - "$XDG_DATA_HOME/mise/installs"
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: exotic-nix-store-profiles-report
-  name: Nix store and user profiles (report-only)
+  id: exotic-mise-installs-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/share/mise/installs"
+  - "$XDG_DATA_HOME/mise/installs"
+- name: Nix store and user profiles (report-only)
   description: Nix store, user profile symlinks, and state dirs. Report size only;
     reclaim via nix GC tools.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: exotic-nix-store-profiles-report-macos
+  platform: macos
+  paths:
+  - "/nix/store"
+  - "$HOME/.local/state/nix/profiles"
+  - "$HOME/.nix-defexpr"
+- name: Nix store and user profiles (report-only)
+  description: Nix store, user profile symlinks, and state dirs. Report size only;
+    reclaim via nix GC tools.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: exotic-nix-store-profiles-report-linux
+  platform: linux
   paths:
   - "/nix/store"
   - "$HOME/.local/state/nix/profiles"
   - "$HOME/.local/share/nix"
   - "$HOME/.nix-defexpr"
-  delete_mode: contents
-  max_depth: 4
-  report_only: true
-- id: exotic-nix-user-caches
-  name: Nix user evaluation and fetch caches
+- name: Nix user evaluation and fetch caches
   description: Regenerable Nix client caches under XDG/Library cache (eval, tarball,
     fetcher, binary-cache indexes). Not the Nix store.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-nix-user-caches-macos
+  platform: macos
   paths:
-  - "$XDG_CACHE_HOME/nix"
   - "$HOME/Library/Caches/nix"
   - "$HOME/.cache/nix/eval-cache-v1"
   - "$HOME/.cache/nix/eval-cache-v2"
   - "$HOME/.cache/nix/tarball-cache"
   - "$HOME/.cache/nix/fetcher-cache-v1"
   - "$HOME/.cache/nix/binary-cache-v6"
+- name: Nix user evaluation and fetch caches
+  description: Regenerable Nix client caches under XDG/Library cache (eval, tarball,
+    fetcher, binary-cache indexes). Not the Nix store.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
-- id: exotic-pixi-global-report
-  name: Pixi global home and tools (report-only)
+  id: exotic-nix-user-caches-linux
+  platform: linux
+  paths:
+  - "$XDG_CACHE_HOME/nix"
+  - "$HOME/.cache/nix/eval-cache-v1"
+  - "$HOME/.cache/nix/eval-cache-v2"
+  - "$HOME/.cache/nix/tarball-cache"
+  - "$HOME/.cache/nix/fetcher-cache-v1"
+  - "$HOME/.cache/nix/binary-cache-v6"
+- name: Pixi global home and tools (report-only)
   description: Global pixi install root (~/.pixi) including globally installed tools/envs.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: exotic-pixi-global-report-macos
+  platform: macos
   paths:
   - "$HOME/.pixi"
   - "$HOME/.pixi/envs"
   - "$HOME/.pixi/bin"
+- name: Pixi global home and tools (report-only)
+  description: Global pixi install root (~/.pixi) including globally installed tools/envs.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: exotic-pixi-rattler-deep-cache
-  name: Pixi / rattler deep package cache
+  id: exotic-pixi-global-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.pixi"
+  - "$HOME/.pixi/envs"
+  - "$HOME/.pixi/bin"
+- name: Pixi / rattler deep package cache
   description: prefix.dev pixi shared rattler cache including pkgs, repodata, uv-cache,
     and http-cache subdirs.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 8
+  id: exotic-pixi-rattler-deep-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/rattler/cache"
   - "$HOME/Library/Caches/rattler/cache/pkgs"
@@ -2034,116 +3565,221 @@ rules:
   - "$HOME/Library/Caches/rattler/cache/uv-cache"
   - "$HOME/Library/Caches/rattler/cache/http-cache"
   - "$HOME/.cache/rattler/cache"
-  delete_mode: contents
-  max_depth: 8
-- id: exotic-pkgsrc-user
-  name: pkgsrc unprivileged distfiles and work
-  description: 'pkgsrc bootstrap under home: distfiles, work objects, local package
-    tree caches.'
+- name: Pixi / rattler deep package cache
+  description: prefix.dev pixi shared rattler cache including pkgs, repodata, uv-cache,
+    and http-cache subdirs.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 8
+  id: exotic-pixi-rattler-deep-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/rattler/cache"
+- name: pkgsrc unprivileged distfiles and work
+  description: 'pkgsrc bootstrap under home: distfiles, work objects, local package
+    tree caches.'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-pkgsrc-user-macos
+  platform: macos
+  paths:
+  - "$HOME/pkg/distfiles"
+  - "$HOME/pkgsrc/packages"
+- name: pkgsrc unprivileged distfiles and work
+  description: 'pkgsrc bootstrap under home: distfiles, work objects, local package
+    tree caches.'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-pkgsrc-user-linux
+  platform: linux
   paths:
   - "$HOME/pkg/distfiles"
   - "$HOME/pkg/usr/distfiles"
   - "$HOME/pkg/usr/work"
   - "$HOME/pkgsrc/packages"
-  delete_mode: contents
-  max_depth: 6
-- id: exotic-spack-caches
-  name: Spack source, stage, and misc caches
+- name: Spack source, stage, and misc caches
   description: Spack downloaded sources, build stage, and ~/.spack misc_cache indexes.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-spack-caches-macos
+  platform: macos
+  paths:
+  - "$HOME/.spack/cache"
+  - "$HOME/.spack/stage"
+  - "$HOME/.cache/spack"
+  - "$HOME/Library/Caches/spack"
+- name: Spack source, stage, and misc caches
+  description: Spack downloaded sources, build stage, and ~/.spack misc_cache indexes.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: exotic-spack-caches-linux
+  platform: linux
   paths:
   - "$HOME/.spack/cache"
   - "$HOME/.spack/stage"
   - "$HOME/spack/var/spack/cache"
   - "$HOME/spack/var/spack/stage"
   - "$HOME/.cache/spack"
-  - "$HOME/Library/Caches/spack"
-  delete_mode: contents
-  max_depth: 6
-- id: exotic-spack-install-tree-report
-  name: Spack install tree (report-only)
+- name: Spack install tree (report-only)
   description: Spack installed package tree under user spack checkout.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/spack/opt/spack"
-  - "$HOME/.spack/opt"
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: hb-deep-api-json-cache
-  name: Homebrew formula/cask API JSON cache
+  id: exotic-spack-install-tree-report-macos
+  platform: macos
+  paths:
+  - "$HOME/spack/opt/spack"
+  - "$HOME/.spack/opt"
+- name: Spack install tree (report-only)
+  description: Spack installed package tree under user spack checkout.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: exotic-spack-install-tree-report-linux
+  platform: linux
+  paths:
+  - "$HOME/spack/opt/spack"
+  - "$HOME/.spack/opt"
+- name: Homebrew formula/cask API JSON cache
   description: Cached formula.jws.json, cask.jws.json, names/aliases lists, and internal
     packages envelopes used by API mode.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 3
+  delete_mode: contents
+  max_depth: 5
+  id: hb-deep-api-json-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Homebrew/api"
   - "$HOME/Library/Caches/Homebrew/api/internal"
   - "$HOME/.cache/Homebrew/api"
   - "$HOME/.cache/Homebrew/api/internal"
-  - "$XDG_CACHE_HOME/Homebrew/api"
-  - "$XDG_CACHE_HOME/Homebrew/api/internal"
-  delete_mode: contents
-  max_depth: 5
-- id: hb-deep-api-source-cache
-  name: Homebrew API source formula cache
-  description: api-source tree caching formula.rb and patches fetched via the formulae
-    API.
+- name: Homebrew formula/cask API JSON cache
+  description: Cached formula.jws.json, cask.jws.json, names/aliases lists, and internal
+    packages envelopes used by API mode.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/Library/Caches/Homebrew/api-source"
-  - "$HOME/.cache/Homebrew/api-source"
-  - "$XDG_CACHE_HOME/Homebrew/api-source"
-  delete_mode: contents
-  max_depth: 8
-- id: hb-deep-bootsnap
-  name: Homebrew Bootsnap Ruby compile cache
-  description: Bootsnap cache for Homebrew Ruby when HOMEBREW_BOOTSNAP is enabled.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 3
+  delete_mode: contents
+  max_depth: 5
+  id: hb-deep-api-json-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/Homebrew/api"
+  - "$HOME/.cache/Homebrew/api/internal"
+  - "$XDG_CACHE_HOME/Homebrew/api"
+  - "$XDG_CACHE_HOME/Homebrew/api/internal"
+- name: Homebrew API source formula cache
+  description: api-source tree caching formula.rb and patches fetched via the formulae
+    API.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 8
+  id: hb-deep-api-source-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/Homebrew/api-source"
+  - "$HOME/.cache/Homebrew/api-source"
+- name: Homebrew API source formula cache
+  description: api-source tree caching formula.rb and patches fetched via the formulae
+    API.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 8
+  id: hb-deep-api-source-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/Homebrew/api-source"
+  - "$XDG_CACHE_HOME/Homebrew/api-source"
+- name: Homebrew Bootsnap Ruby compile cache
+  description: Bootsnap cache for Homebrew Ruby when HOMEBREW_BOOTSNAP is enabled.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
+  delete_mode: contents
+  max_depth: 5
+  id: hb-deep-bootsnap-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Homebrew/bootsnap"
   - "$HOME/.cache/Homebrew/bootsnap"
-  - "$XDG_CACHE_HOME/Homebrew/bootsnap"
+- name: Homebrew Bootsnap Ruby compile cache
+  description: Bootsnap cache for Homebrew Ruby when HOMEBREW_BOOTSNAP is enabled.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 3
   delete_mode: contents
   max_depth: 5
-- id: hb-deep-cache-variants
-  name: Homebrew HOMEBREW_CACHE alternate roots
+  id: hb-deep-bootsnap-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/Homebrew/bootsnap"
+  - "$XDG_CACHE_HOME/Homebrew/bootsnap"
+- name: Homebrew HOMEBREW_CACHE alternate roots
   description: Non-default or Linux-style Homebrew download cache roots when HOMEBREW_CACHE
     or XDG layout is used.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: hb-deep-cache-variants-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/Homebrew"
+- name: Homebrew HOMEBREW_CACHE alternate roots
+  description: Non-default or Linux-style Homebrew download cache roots when HOMEBREW_CACHE
+    or XDG layout is used.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: hb-deep-cache-variants-linux
+  platform: linux
   paths:
   - "$HOME/.cache/Homebrew"
   - "$XDG_CACHE_HOME/Homebrew"
-  delete_mode: contents
-  max_depth: 6
 - id: hb-deep-cellar-opt-caskroom-report
   name: Homebrew Cellar opt Caskroom (report-only)
   description: Installed formula kegs, opt symlinks, and Caskroom versions under default
@@ -2157,7 +3793,6 @@ rules:
   - "/opt/homebrew/Cellar"
   - "/opt/homebrew/opt"
   - "/opt/homebrew/Caskroom"
-  - "/opt/homebrew/var/homebrew/linked"
   delete_mode: contents
   max_depth: 3
   report_only: true
@@ -2173,19 +3808,19 @@ rules:
   paths:
   - "$HOME/.cache/Homebrew/downloads"
   - "$HOME/.cache/Homebrew/Cask"
-  - "$XDG_CACHE_HOME/Homebrew/downloads"
-  - "$XDG_CACHE_HOME/Homebrew/Cask"
   delete_mode: contents
   max_depth: 4
-- id: hb-deep-formula-nested-build-caches
-  name: Homebrew nested formula build tool caches
+- name: Homebrew nested formula build tool caches
   description: Per-build caches Homebrew places under HOMEBREW_CACHE for formula builds
     (cargo, go, java, npm, pip, glide, gclient).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: hb-deep-formula-nested-build-caches-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Homebrew/cargo_cache"
   - "$HOME/Library/Caches/Homebrew/go_cache"
@@ -2203,48 +3838,95 @@ rules:
   - "$HOME/.cache/Homebrew/pip_cache"
   - "$HOME/.cache/Homebrew/glide_home"
   - "$HOME/.cache/Homebrew/gclient_cache"
+- name: Homebrew nested formula build tool caches
+  description: Per-build caches Homebrew places under HOMEBREW_CACHE for formula builds
+    (cargo, go, java, npm, pip, glide, gclient).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
-- id: hb-deep-gh-actions-artifact-cache
-  name: Homebrew gh-actions-artifact cache
+  id: hb-deep-formula-nested-build-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/Homebrew/cargo_cache"
+  - "$HOME/.cache/Homebrew/go_cache"
+  - "$HOME/.cache/Homebrew/go_mod_cache"
+  - "$HOME/.cache/Homebrew/java_cache"
+  - "$HOME/.cache/Homebrew/npm_cache"
+  - "$HOME/.cache/Homebrew/pip_cache"
+  - "$HOME/.cache/Homebrew/glide_home"
+  - "$HOME/.cache/Homebrew/gclient_cache"
+- name: Homebrew gh-actions-artifact cache
   description: Cached GitHub Actions artifacts under Homebrew cache (CI bottle/source
     staging).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: hb-deep-gh-actions-artifact-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Homebrew/gh-actions-artifact"
   - "$HOME/.cache/Homebrew/gh-actions-artifact"
-  - "$XDG_CACHE_HOME/Homebrew/gh-actions-artifact"
+- name: Homebrew gh-actions-artifact cache
+  description: Cached GitHub Actions artifacts under Homebrew cache (CI bottle/source
+    staging).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
-- id: hb-deep-linuxbrew-cellar-report
-  name: Linuxbrew home Cellar/opt (report-only)
+  id: hb-deep-gh-actions-artifact-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/Homebrew/gh-actions-artifact"
+  - "$XDG_CACHE_HOME/Homebrew/gh-actions-artifact"
+- name: Linuxbrew home Cellar/opt (report-only)
   description: Installed formulae under user linuxbrew/homebrew prefixes; inventory
     only.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: hb-deep-linuxbrew-cellar-report-macos
+  platform: macos
+  paths:
+  - "$HOME/homebrew/Cellar"
+- name: Linuxbrew home Cellar/opt (report-only)
+  description: Installed formulae under user linuxbrew/homebrew prefixes; inventory
+    only.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: hb-deep-linuxbrew-cellar-report-linux
+  platform: linux
   paths:
   - "$HOME/.linuxbrew/Cellar"
   - "$HOME/.linuxbrew/opt"
   - "$HOME/linuxbrew/.linuxbrew/Cellar"
   - "$HOME/homebrew/Cellar"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true
-- id: hb-deep-linuxbrew-home-cache
-  name: Linuxbrew/Homebrew under $HOME caches
+- name: Linuxbrew/Homebrew under $HOME caches
   description: User-tree Homebrew/Linuxbrew prefix caches and tmp (not Cellar).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: hb-deep-linuxbrew-home-cache
+  platform: linux
   paths:
   - "$HOME/.linuxbrew/var/homebrew/tmp"
   - "$HOME/.linuxbrew/var/homebrew/cache"
@@ -2253,26 +3935,38 @@ rules:
   - "$HOME/homebrew/var/homebrew/cache"
   - "$HOME/linuxbrew/.linuxbrew/var/homebrew/tmp"
   - "$HOME/linuxbrew/.linuxbrew/var/cache"
-  delete_mode: contents
-  max_depth: 6
-- id: hb-deep-portable-ruby-download
-  name: Homebrew portable-ruby download cache
+- name: Homebrew portable-ruby download cache
   description: Downloaded portable-ruby tarballs/directories under HOMEBREW_CACHE
     (not the active vendor install).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.cache/Homebrew"
-  - "$XDG_CACHE_HOME/Homebrew"
   delete_mode: contents
   max_depth: 3
-  include_globs:
+  include_globs: &2
   - portable-ruby*
   - portable-ruby-*/**
   - downloads/*portable-ruby*
+  id: hb-deep-portable-ruby-download-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/Homebrew"
+- name: Homebrew portable-ruby download cache
+  description: Downloaded portable-ruby tarballs/directories under HOMEBREW_CACHE
+    (not the active vendor install).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 3
+  include_globs: *2
+  id: hb-deep-portable-ruby-download-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/Homebrew"
+  - "$XDG_CACHE_HOME/Homebrew"
 - id: hb-deep-portable-ruby-vendor-report
   name: Homebrew portable-ruby vendor install (report-only)
   description: Installed portable-ruby under Homebrew vendor; brew cleanup removes
@@ -2309,446 +4003,803 @@ rules:
   - "**/ipc/**"
   - "**/ports/**"
   - "**/s-*"
-- id: js-biome-rome-cache
-  name: Biome and Rome toolchain caches
+- name: Biome and Rome toolchain caches
   description: Biome (Rome fork) daemon logs/caches under ~/.cache/biome; legacy Rome
     under ~/.cache/rome. Never Apple Library/Biome.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-biome-rome-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/biome"
+  - "$HOME/.cache/rome"
+  - "$HOME/Library/Caches/@biomejs"
+  - "$HOME/Library/Caches/biomejs"
+- name: Biome and Rome toolchain caches
+  description: Biome (Rome fork) daemon logs/caches under ~/.cache/biome; legacy Rome
+    under ~/.cache/rome. Never Apple Library/Biome.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-biome-rome-cache-linux
+  platform: linux
   paths:
   - "$HOME/.cache/biome"
   - "$XDG_CACHE_HOME/biome"
   - "$HOME/.cache/rome"
   - "$XDG_CACHE_HOME/rome"
-  - "$HOME/Library/Caches/@biomejs"
-  - "$HOME/Library/Caches/biomejs"
-  delete_mode: contents
-  max_depth: 5
-- id: js-bun-deeper
-  name: Bun install cache and global residuals
+- name: Bun install cache and global residuals
   description: Bun global module cache and install-side residuals under ~/.bun and
     Library/Caches/Bun.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.bun/install/global/cache"
   delete_mode: contents
   max_depth: 6
-- id: js-changesets-cache
-  name: Changesets tool caches under home
+  id: js-bun-deeper-macos
+  platform: macos
+  paths:
+  - "$HOME/.bun/install/global/cache"
+- name: Bun install cache and global residuals
+  description: Bun global module cache and install-side residuals under ~/.bun and
+    Library/Caches/Bun.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: js-bun-deeper-linux
+  platform: linux
+  paths:
+  - "$HOME/.bun/install/global/cache"
+- name: Changesets tool caches under home
   description: Optional @changesets CLI caches when stored under XDG/Library cache
     roots (not project .changeset).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: js-changesets-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/changesets"
   - "$HOME/Library/Caches/changesets"
-  - "$XDG_CACHE_HOME/changesets"
-  delete_mode: contents
-  max_depth: 4
-- id: js-chromatic-cache
-  name: Chromatic CLI caches
-  description: Chromatic publish/CLI residual caches under home cache directories.
+- name: Changesets tool caches under home
+  description: Optional @changesets CLI caches when stored under XDG/Library cache
+    roots (not project .changeset).
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/chromatic"
-  - "$HOME/Library/Caches/chromatic"
-  - "$XDG_CACHE_HOME/chromatic"
-  delete_mode: contents
-  max_depth: 4
-- id: js-corepack-cache
-  name: Corepack package-manager cache
-  description: Corepack COREPACK_HOME default ~/.cache/node/corepack (and legacy ~/.node/corepack).
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: js-changesets-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/changesets"
+  - "$XDG_CACHE_HOME/changesets"
+- name: Chromatic CLI caches
+  description: Chromatic publish/CLI residual caches under home cache directories.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: js-chromatic-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/chromatic"
+  - "$HOME/Library/Caches/chromatic"
+- name: Chromatic CLI caches
+  description: Chromatic publish/CLI residual caches under home cache directories.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: js-chromatic-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/chromatic"
+  - "$XDG_CACHE_HOME/chromatic"
+- name: Corepack package-manager cache
+  description: Corepack COREPACK_HOME default ~/.cache/node/corepack (and legacy ~/.node/corepack).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: js-corepack-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/node/corepack"
+  - "$HOME/.node/corepack"
+  - "$HOME/Library/Caches/node/corepack"
+- name: Corepack package-manager cache
+  description: Corepack COREPACK_HOME default ~/.cache/node/corepack (and legacy ~/.node/corepack).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: js-corepack-cache-linux
+  platform: linux
   paths:
   - "$HOME/.cache/node/corepack"
   - "$XDG_CACHE_HOME/node/corepack"
   - "$HOME/.node/corepack"
-  - "$HOME/Library/Caches/node/corepack"
-  delete_mode: contents
-  max_depth: 5
-- id: js-cypress-residual
-  name: Cypress binary cache residuals
+- name: Cypress binary cache residuals
   description: Cypress binary cache default macOS ~/Library/Caches/Cypress and Linux-style
     ~/.cache/Cypress.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-cypress-residual-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/Cypress"
+- name: Cypress binary cache residuals
+  description: Cypress binary cache default macOS ~/Library/Caches/Cypress and Linux-style
+    ~/.cache/Cypress.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-cypress-residual-linux
+  platform: linux
   paths:
   - "$HOME/.cache/Cypress"
   - "$XDG_CACHE_HOME/Cypress"
-  delete_mode: contents
-  max_depth: 5
-- id: js-deno-deeper
-  name: Deno DENO_DIR deeper subtrees
+- name: Deno DENO_DIR deeper subtrees
   description: Deno module, npm-compat, gen, and deps caches under Library/Caches/deno
     and ~/.deno residuals.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: js-deno-deeper-macos
+  platform: macos
+  paths:
+  - "$HOME/.deno/npm"
+  - "$HOME/.deno/deps"
+- name: Deno DENO_DIR deeper subtrees
+  description: Deno module, npm-compat, gen, and deps caches under Library/Caches/deno
+    and ~/.deno residuals.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: js-deno-deeper-linux
+  platform: linux
   paths:
   - "$XDG_CACHE_HOME/deno"
   - "$HOME/.deno/npm"
   - "$HOME/.deno/deps"
-  delete_mode: contents
-  max_depth: 6
-- id: js-electron-download-deeper
-  name: Electron download and electron-gyp deeper caches
+- name: Electron download and electron-gyp deeper caches
   description: Electron binary download caches, electron-builder artifacts, and electron-gyp
     native rebuild headers.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: js-electron-download-deeper-macos
+  platform: macos
+  paths:
+  - "$HOME/.electron"
+  - "$HOME/.electron-gyp"
+- name: Electron download and electron-gyp deeper caches
+  description: Electron binary download caches, electron-builder artifacts, and electron-gyp
+    native rebuild headers.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: js-electron-download-deeper-linux
+  platform: linux
   paths:
   - "$HOME/.electron"
   - "$HOME/.electron-gyp"
   - "$XDG_CACHE_HOME/electron"
   - "$XDG_CACHE_HOME/electron-builder"
-  delete_mode: contents
-  max_depth: 6
-- id: js-esbuild-residual
-  name: esbuild binary and residual caches
+- name: esbuild binary and residual caches
   description: esbuild downloaded binary/transform caches under XDG and Library residual
     paths.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/Library/Caches/esbuild"
-  - "$XDG_CACHE_HOME/esbuild"
   delete_mode: contents
   max_depth: 4
-- id: js-fnm-residual
-  name: fnm residual caches
+  id: js-esbuild-residual-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/esbuild"
+- name: esbuild binary and residual caches
+  description: esbuild downloaded binary/transform caches under XDG and Library residual
+    paths.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: js-esbuild-residual-linux
+  platform: linux
+  paths:
+  - "$XDG_CACHE_HOME/esbuild"
+- name: fnm residual caches
   description: fnm residual download/cache trees under home when separate from full
     node-versions store; multi-shell temp not under home.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-fnm-residual-macos
+  platform: macos
   paths:
-  - "$HOME/.local/share/fnm/node-versions"
   - "$HOME/.fnm/node-versions"
   - "$HOME/Library/Caches/fnm"
   - "$HOME/.cache/fnm"
-  delete_mode: contents
-  max_depth: 5
-- id: js-jest-cache-home
-  name: Jest dependency caches under home
-  description: Jest cacheDirectory when relocated under home cache roots or residual
-    jest dirs under Library/Caches (default is often OS temp).
+- name: fnm residual caches
+  description: fnm residual download/cache trees under home when separate from full
+    node-versions store; multi-shell temp not under home.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/.cache/jest"
-  - "$HOME/Library/Caches/jest"
-  - "$XDG_CACHE_HOME/jest"
-  delete_mode: contents
-  max_depth: 5
-- id: js-lerna-home-cache
-  name: Lerna home / Nx-backed caches
-  description: Lerna 6+ computation cache via Nx-style home or dedicated lerna cache
-    dirs under known cache roots.
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/lerna"
-  - "$HOME/Library/Caches/lerna"
-  - "$XDG_CACHE_HOME/lerna"
-  - "$HOME/.lerna"
-  delete_mode: contents
-  max_depth: 5
-- id: js-mochawesome-cache-home
-  name: mochawesome residual under home caches
-  description: Mochawesome report assets/caches only if stored under known home cache
-    roots (not project reports).
-  category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/mochawesome"
-  - "$HOME/Library/Caches/mochawesome"
-  - "$XDG_CACHE_HOME/mochawesome"
-  delete_mode: contents
-  max_depth: 4
-- id: js-n-residual
-  name: n (tj/n) version cache residual
-  description: User-prefix n installs when N_PREFIX=$HOME/.n; cache of downloaded
-    Node versions under versions.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-fnm-residual-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/share/fnm/node-versions"
+  - "$HOME/.fnm/node-versions"
+  - "$HOME/.cache/fnm"
+- name: Jest dependency caches under home
+  description: Jest cacheDirectory when relocated under home cache roots or residual
+    jest dirs under Library/Caches (default is often OS temp).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: js-jest-cache-home-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/jest"
+  - "$HOME/Library/Caches/jest"
+- name: Jest dependency caches under home
+  description: Jest cacheDirectory when relocated under home cache roots or residual
+    jest dirs under Library/Caches (default is often OS temp).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: js-jest-cache-home-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/jest"
+  - "$XDG_CACHE_HOME/jest"
+- name: Lerna home / Nx-backed caches
+  description: Lerna 6+ computation cache via Nx-style home or dedicated lerna cache
+    dirs under known cache roots.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-lerna-home-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/lerna"
+  - "$HOME/Library/Caches/lerna"
+  - "$HOME/.lerna"
+- name: Lerna home / Nx-backed caches
+  description: Lerna 6+ computation cache via Nx-style home or dedicated lerna cache
+    dirs under known cache roots.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-lerna-home-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/lerna"
+  - "$XDG_CACHE_HOME/lerna"
+  - "$HOME/.lerna"
+- name: mochawesome residual under home caches
+  description: Mochawesome report assets/caches only if stored under known home cache
+    roots (not project reports).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: js-mochawesome-cache-home-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/mochawesome"
+  - "$HOME/Library/Caches/mochawesome"
+- name: mochawesome residual under home caches
+  description: Mochawesome report assets/caches only if stored under known home cache
+    roots (not project reports).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: js-mochawesome-cache-home-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/mochawesome"
+  - "$XDG_CACHE_HOME/mochawesome"
+- name: n (tj/n) version cache residual
+  description: User-prefix n installs when N_PREFIX=$HOME/.n; cache of downloaded
+    Node versions under versions.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-n-residual-macos
+  platform: macos
   paths:
   - "$HOME/.n/n/versions"
   - "$HOME/.n/n/cache"
   - "$HOME/.n/cache"
-  delete_mode: contents
-  max_depth: 5
-- id: js-node-gyp-residual
-  name: node-gyp residual headers caches
-  description: node-gyp headers/objects residual under home and Library caches.
+- name: n (tj/n) version cache residual
+  description: User-prefix n installs when N_PREFIX=$HOME/.n; cache of downloaded
+    Node versions under versions.
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 21
-  paths:
-  - "$XDG_CACHE_HOME/node-gyp"
-  delete_mode: contents
-  max_depth: 5
-- id: js-nvs-cache
-  name: nvs Node version residual
-  description: NVS_HOME default ~/.nvs download/cache trees (not shell integration
-    scripts alone).
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-n-residual-linux
+  platform: linux
+  paths:
+  - "$HOME/.n/n/versions"
+  - "$HOME/.n/n/cache"
+  - "$HOME/.n/cache"
+- name: node-gyp residual headers caches
+  description: node-gyp headers/objects residual under home and Library caches.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: js-node-gyp-residual
+  platform: linux
+  paths:
+  - "$XDG_CACHE_HOME/node-gyp"
+- name: nvs Node version residual
+  description: NVS_HOME default ~/.nvs download/cache trees (not shell integration
+    scripts alone).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-nvs-cache-macos
+  platform: macos
   paths:
   - "$HOME/.nvs/cache"
   - "$HOME/.nvs/.cache"
   - "$HOME/.nvs/node"
+- name: nvs Node version residual
+  description: NVS_HOME default ~/.nvs download/cache trees (not shell integration
+    scripts alone).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: js-nx-home-cache-deeper
-  name: Nx home computation and daemon caches
+  id: js-nvs-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.nvs/cache"
+  - "$HOME/.nvs/.cache"
+  - "$HOME/.nvs/node"
+- name: Nx home computation and daemon caches
   description: Nx global home cache, workspace-data, and daemon state when NX_CACHE_DIRECTORY
     / home layout uses ~/.nx (not project .nx).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: js-nx-home-cache-deeper-macos
+  platform: macos
   paths:
   - "$HOME/.nx/workspace-data"
   - "$HOME/.nx"
   - "$HOME/Library/Caches/nx"
-  - "$XDG_CACHE_HOME/nx"
+- name: Nx home computation and daemon caches
+  description: Nx global home cache, workspace-data, and daemon state when NX_CACHE_DIRECTORY
+    / home layout uses ~/.nx (not project .nx).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
-- id: js-parcel-cache-home
-  name: Parcel caches under home
+  id: js-nx-home-cache-deeper-linux
+  platform: linux
+  paths:
+  - "$HOME/.nx/workspace-data"
+  - "$HOME/.nx"
+  - "$XDG_CACHE_HOME/nx"
+- name: Parcel caches under home
   description: Parcel filesystem caches when relocated under home cache roots (default
     project .parcel-cache is out of scope).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-parcel-cache-home-macos
+  platform: macos
   paths:
   - "$HOME/.cache/parcel"
   - "$HOME/Library/Caches/parcel"
-  - "$XDG_CACHE_HOME/parcel"
-  delete_mode: contents
-  max_depth: 5
-- id: js-playwright-residual
-  name: Playwright browser download residuals
-  description: ms-playwright browser binaries and related WebKit/Electron playwright
-    caches under home.
+- name: Parcel caches under home
+  description: Parcel filesystem caches when relocated under home cache roots (default
+    project .parcel-cache is out of scope).
   category: package-cache
-  platform: any
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
-  paths:
-  - "$XDG_CACHE_HOME/ms-playwright"
-  - "$HOME/Library/Caches/ms-playwright-go"
-  delete_mode: contents
-  max_depth: 5
-- id: js-pnpm-side-caches-deeper
-  name: pnpm metadata dlx and state side caches
-  description: pnpm cacheDir (metadata, dlx, verification) and stateDir; not the shared
-    content-addressable store.
-  category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-parcel-cache-home-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/parcel"
+  - "$XDG_CACHE_HOME/parcel"
+- name: Playwright browser download residuals
+  description: ms-playwright browser binaries and related WebKit/Electron playwright
+    caches under home.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-playwright-residual-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/ms-playwright-go"
+- name: Playwright browser download residuals
+  description: ms-playwright browser binaries and related WebKit/Electron playwright
+    caches under home.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-playwright-residual-linux
+  platform: linux
+  paths:
+  - "$XDG_CACHE_HOME/ms-playwright"
+- name: pnpm metadata dlx and state side caches
+  description: pnpm cacheDir (metadata, dlx, verification) and stateDir; not the shared
+    content-addressable store.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: js-pnpm-side-caches-deeper-macos
+  platform: macos
+  paths:
+  - "$HOME/.pnpm-state"
+  - "$HOME/.local/state/pnpm"
+  - "$HOME/Library/pnpm/.tools"
+- name: pnpm metadata dlx and state side caches
+  description: pnpm cacheDir (metadata, dlx, verification) and stateDir; not the shared
+    content-addressable store.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: js-pnpm-side-caches-deeper-linux
+  platform: linux
   paths:
   - "$XDG_CACHE_HOME/pnpm"
   - "$HOME/.pnpm-state"
   - "$HOME/.local/state/pnpm"
   - "$XDG_STATE_HOME/pnpm"
-  - "$HOME/Library/pnpm/.tools"
-  delete_mode: contents
-  max_depth: 6
-- id: js-pnpm-store-report
-  name: pnpm shared store (report-only)
+- name: pnpm shared store (report-only)
   description: Content-addressable store; deleting breaks hardlinked node_modules
     until re-fetch.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$XDG_DATA_HOME/pnpm/store"
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: js-puppeteer-cache-residual
-  name: Puppeteer browser cache residual
+  id: js-pnpm-store-report
+  platform: linux
+  paths:
+  - "$XDG_DATA_HOME/pnpm/store"
+- name: Puppeteer browser cache residual
   description: Puppeteer Chromium download cache under home (companion to Playwright/Cypress).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/Library/Caches/puppeteer"
-  - "$XDG_CACHE_HOME/puppeteer"
   delete_mode: contents
   max_depth: 5
-- id: js-rush-global-folder
-  name: Rush global folder
+  id: js-puppeteer-cache-residual-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/puppeteer"
+- name: Puppeteer browser cache residual
+  description: Puppeteer Chromium download cache under home (companion to Playwright/Cypress).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: js-puppeteer-cache-residual-linux
+  platform: linux
+  paths:
+  - "$XDG_CACHE_HOME/puppeteer"
+- name: Rush global folder
   description: 'Rush RUSH_GLOBAL_FOLDER default ~/.rush: rush-lib engine installs
     and shared package-manager bits (not per-repo common/temp).'
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.rush"
   delete_mode: contents
   max_depth: 5
-- id: js-size-limit-cache
-  name: size-limit caches
+  id: js-rush-global-folder-macos
+  platform: macos
+  paths:
+  - "$HOME/.rush"
+- name: Rush global folder
+  description: 'Rush RUSH_GLOBAL_FOLDER default ~/.rush: rush-lib engine installs
+    and shared package-manager bits (not per-repo common/temp).'
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: js-rush-global-folder-linux
+  platform: linux
+  paths:
+  - "$HOME/.rush"
+- name: size-limit caches
   description: size-limit comparison/build caches under home cache roots.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: js-size-limit-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/size-limit"
   - "$HOME/Library/Caches/size-limit"
-  - "$XDG_CACHE_HOME/size-limit"
+- name: size-limit caches
+  description: size-limit comparison/build caches under home cache roots.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: js-storybook-cache-home
-  name: Storybook caches under home
+  id: js-size-limit-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/size-limit"
+  - "$XDG_CACHE_HOME/size-limit"
+- name: Storybook caches under home
   description: Storybook manager/builder caches when under home cache roots (not project
     node_modules/.cache/storybook walk).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-storybook-cache-home-macos
+  platform: macos
   paths:
   - "$HOME/.cache/storybook"
   - "$HOME/Library/Caches/storybook"
-  - "$XDG_CACHE_HOME/storybook"
+- name: Storybook caches under home
+  description: Storybook manager/builder caches when under home cache roots (not project
+    node_modules/.cache/storybook walk).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: js-swc-cache-home
-  name: SWC plugin and transform caches
+  id: js-storybook-cache-home-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/storybook"
+  - "$XDG_CACHE_HOME/storybook"
+- name: SWC plugin and transform caches
   description: SWC experimental cacheRoot and plugin wasm caches under home cache
     dirs (not project .swc unless under known cache root).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: js-swc-cache-home-macos
+  platform: macos
   paths:
   - "$HOME/.cache/swc"
   - "$HOME/Library/Caches/swc"
-  - "$XDG_CACHE_HOME/swc"
+- name: SWC plugin and transform caches
+  description: SWC experimental cacheRoot and plugin wasm caches under home cache
+    dirs (not project .swc unless under known cache root).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
-- id: js-turbo-deeper
-  name: Turborepo daemon and home task caches
+  id: js-swc-cache-home-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/swc"
+  - "$XDG_CACHE_HOME/swc"
+- name: Turborepo daemon and home task caches
   description: Turbo home daemon sockets/logs and task cache trees outside project
     .turbo.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$XDG_CACHE_HOME/turbo"
   delete_mode: contents
   max_depth: 6
-- id: js-vitest-cache-home
-  name: Vitest caches under home
+  id: js-turbo-deeper
+  platform: linux
+  paths:
+  - "$XDG_CACHE_HOME/turbo"
+- name: Vitest caches under home
   description: Vitest/Vite-related transform caches when stored under home cache directories.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: js-vitest-cache-home-macos
+  platform: macos
   paths:
   - "$HOME/.cache/vitest"
   - "$HOME/Library/Caches/vitest"
-  - "$XDG_CACHE_HOME/vitest"
+- name: Vitest caches under home
+  description: Vitest/Vite-related transform caches when stored under home cache directories.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
-- id: js-volta-residual
-  name: Volta download cache residuals
+  id: js-vitest-cache-home-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/vitest"
+  - "$XDG_CACHE_HOME/vitest"
+- name: Volta download cache residuals
   description: Volta tool download cache and tmp (not bin shims or pinned tools inventory).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.volta/log"
   delete_mode: contents
   max_depth: 5
-- id: js-yarn-berry-global-folder
-  name: Yarn Berry globalFolder residuals
+  id: js-volta-residual-macos
+  platform: macos
+  paths:
+  - "$HOME/.volta/log"
+- name: Volta download cache residuals
+  description: Volta tool download cache and tmp (not bin shims or pinned tools inventory).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 5
+  id: js-volta-residual-linux
+  platform: linux
+  paths:
+  - "$HOME/.volta/log"
+- name: Yarn Berry globalFolder residuals
   description: Yarn 2+ default globalFolder ~/.yarn/berry beyond primary cache (metadata,
     indexes, mirror-style side data).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  exclude_globs: &3
+  - "**/global/**"
+  id: js-yarn-berry-global-folder-macos
+  platform: macos
   paths:
   - "$HOME/.yarn/berry/metadata"
   - "$HOME/.yarn/berry/index"
   - "$HOME/.yarn/berry"
+- name: Yarn Berry globalFolder residuals
+  description: Yarn 2+ default globalFolder ~/.yarn/berry beyond primary cache (metadata,
+    indexes, mirror-style side data).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
-  exclude_globs:
-  - "**/global/**"
+  exclude_globs: *3
+  id: js-yarn-berry-global-folder-linux
+  platform: linux
+  paths:
+  - "$HOME/.yarn/berry/metadata"
+  - "$HOME/.yarn/berry/index"
+  - "$HOME/.yarn/berry"
 - id: macos-appstore-caches
   name: Mac App Store agent caches
   description: ''
@@ -2775,7 +4826,6 @@ rules:
   min_age_days: 14
   paths:
   - "$HOME/.asdf/downloads"
-  - "$HOME/.asdf/tmp"
   - "$HOME/.cache/asdf"
   - "$HOME/Library/Caches/asdf"
   delete_mode: contents
@@ -2974,8 +5024,6 @@ rules:
   min_age_days: 14
   paths:
   - "$HOME/.macports"
-  - "$HOME/macports/var/macports/distfiles"
-  - "$HOME/macports/var/macports/software"
   - "$HOME/Library/Caches/MacPorts"
   delete_mode: contents
   max_depth: 6
@@ -3071,7 +5119,6 @@ rules:
   - "$HOME/Library/Caches/ms-playwright-go"
   - "$HOME/.cache/ms-playwright-go"
   - "$HOME/Library/Caches/playwright"
-  - "$HOME/.local/share/ms-playwright"
   delete_mode: contents
   max_depth: 6
   include_globs:
@@ -3094,7 +5141,6 @@ rules:
   min_age_days: 30
   paths:
   - "$HOME/Library/Caches/puppeteer"
-  - "$HOME/.local/share/puppeteer"
   - "$HOME/Library/Caches/chrome-for-testing"
   - "$HOME/.cache/chrome-for-testing"
   delete_mode: contents
@@ -3241,8 +5287,6 @@ rules:
   - "$HOME/.mamba/pkgs"
   - "$HOME/Library/Caches/mamba"
   - "$HOME/.cache/mamba"
-  - "$HOME/.local/share/mamba/pkgs"
-  - "$XDG_CACHE_HOME/mamba"
   delete_mode: contents
   max_depth: 6
 - id: ml-pixi-rattler-cache
@@ -3258,8 +5302,6 @@ rules:
   - "$HOME/Library/Caches/pixi"
   - "$HOME/.cache/rattler"
   - "$HOME/.cache/pixi"
-  - "$XDG_CACHE_HOME/rattler"
-  - "$XDG_CACHE_HOME/pixi"
   delete_mode: contents
   max_depth: 6
 - id: ml-poetry-cache
@@ -3273,7 +5315,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/pypoetry"
   - "$HOME/.cache/pypoetry"
-  - "$XDG_CACHE_HOME/pypoetry"
   delete_mode: contents
   max_depth: 6
 - id: ml-poetry-virtualenvs-report
@@ -3286,8 +5327,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/Library/Application Support/pypoetry/virtualenvs"
-  - "$HOME/.local/share/virtualenvs"
-  - "$XDG_DATA_HOME/virtualenvs"
   delete_mode: contents
   max_depth: 6
   report_only: true
@@ -3329,10 +5368,8 @@ rules:
   - "$HOME/Library/Caches/org.R-project.R"
   - "$HOME/Library/Caches/R"
   - "$HOME/Library/Caches/renv"
-  - "$HOME/.local/share/renv"
   - "$HOME/Library/Application Support/renv"
   - "$HOME/.cache/R"
-  - "$XDG_CACHE_HOME/R"
   delete_mode: contents
   max_depth: 6
 - id: ml-uv-cache
@@ -3346,25 +5383,8 @@ rules:
   paths:
   - "$HOME/.cache/uv"
   - "$HOME/Library/Caches/uv"
-  - "$XDG_CACHE_HOME/uv"
   delete_mode: contents
   max_depth: 6
-- id: ml-uv-python-tools-report
-  name: uv managed Python and tools (report-only)
-  description: ''
-  category: package-cache
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/.local/share/uv/python"
-  - "$HOME/.local/share/uv/tools"
-  - "$XDG_DATA_HOME/uv/python"
-  - "$XDG_DATA_HOME/uv/tools"
-  delete_mode: contents
-  max_depth: 6
-  report_only: true
 - id: mobile-buck-bazel-mobile
   name: mobile-buck-bazel-mobile
   description: ''
@@ -3442,7 +5462,6 @@ rules:
   - "$HOME/.dart-cli-completion"
   - "$HOME/Library/Caches/flutter_engine"
   - "$HOME/Library/Caches/Dart"
-  - "$HOME/.config/flutter/tool_state"
   delete_mode: contents
   max_depth: 6
 - id: mobile-gradle-android
@@ -3496,7 +5515,6 @@ rules:
   - "$HOME/Library/Caches/com.xamarin.*"
   - "$HOME/Library/Caches/com.microsoft.visual-studio"
   - "$HOME/Library/Developer/Xamarin"
-  - "$HOME/.local/share/Xamarin"
   - "$HOME/.nuget/packages/microsoft.maui.*"
   - "$HOME/.nuget/packages/xamarin.*"
   delete_mode: contents
@@ -3566,40 +5584,67 @@ rules:
   - "$HOME/Library/Caches/org.webkit.Playwright"
   delete_mode: contents
   max_depth: 4
-- id: virt-helm-charts-cache
-  name: Helm chart cache
+- name: Helm chart cache
   description: Helm repository and chart cache commonly paired with local k8s (kind/k3d/minikube/Rancher).
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
-  paths:
-  - "$HOME/.cache/helm/repository"
   delete_mode: contents
   max_depth: 6
-- id: virt-kube-client-caches
-  name: kubectl and related client caches
+  id: virt-helm-charts-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/helm/repository"
+- name: Helm chart cache
+  description: Helm repository and chart cache commonly paired with local k8s (kind/k3d/minikube/Rancher).
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: virt-helm-charts-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/helm/repository"
+- name: kubectl and related client caches
   description: Client-side kubectl discovery/HTTP caches often used with local virt
     k8s stacks.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
-  paths:
-  - "$HOME/.kube/http-cache"
   delete_mode: contents
   max_depth: 5
-- id: virt-minikube-cache-logs
-  name: minikube cache and logs (deeper)
+  id: virt-kube-client-caches-macos
+  platform: macos
+  paths:
+  - "$HOME/.kube/http-cache"
+- name: kubectl and related client caches
+  description: Client-side kubectl discovery/HTTP caches often used with local virt
+    k8s stacks.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: virt-kube-client-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.kube/http-cache"
+- name: minikube cache and logs (deeper)
   description: minikube ISO/image/preload caches and logs. Machines stay report-only
     elsewhere.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 6
+  id: virt-minikube-cache-logs-macos
+  platform: macos
   paths:
   - "$HOME/.minikube/cache/iso"
   - "$HOME/.minikube/cache/images"
@@ -3607,25 +5652,56 @@ rules:
   - "$HOME/.minikube/logs"
   - "$MINIKUBE_HOME/cache"
   - "$MINIKUBE_HOME/logs"
+- name: minikube cache and logs (deeper)
+  description: minikube ISO/image/preload caches and logs. Machines stay report-only
+    elsewhere.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 6
-- id: virt-packer-cache
-  name: Packer ISO and plugin caches
+  id: virt-minikube-cache-logs-linux
+  platform: linux
+  paths:
+  - "$HOME/.minikube/cache/iso"
+  - "$HOME/.minikube/cache/images"
+  - "$HOME/.minikube/cache/preloaded"
+  - "$HOME/.minikube/logs"
+  - "$MINIKUBE_HOME/cache"
+  - "$MINIKUBE_HOME/logs"
+- name: Packer ISO and plugin caches
   description: Common PACKER_CACHE_DIR locations and plugin dir. Default packer_cache
     is cwd-relative and not listed.
   category: package-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 6
+  id: virt-packer-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/packer"
   - "$HOME/Library/Caches/packer"
   - "$HOME/.packer.d/plugins"
-  - "$HOME/.packer.d/tmp"
   - "$PACKER_CACHE_DIR"
+- name: Packer ISO and plugin caches
+  description: Common PACKER_CACHE_DIR locations and plugin dir. Default packer_cache
+    is cwd-relative and not listed.
+  category: package-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 6
+  id: virt-packer-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/packer"
+  - "$HOME/.packer.d/plugins"
+  - "$HOME/.packer.d/tmp"
+  - "$PACKER_CACHE_DIR"
 - id: web-localwp-cached-wordpress
   name: Local WP cached WordPress zips
   description: Downloaded WordPress core archives cached by Local for new sites.

@@ -218,17 +218,3 @@ rules:
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: syslogs-system-library-logs-report
-  name: System DiagnosticReports size (report-only)
-  description: Inventory note for /Library/Logs/DiagnosticReports which is not user-writable
-    by default.
-  category: report
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "/private/var/log"
-  delete_mode: contents
-  max_depth: 3
-  report_only: true

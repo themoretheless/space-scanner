@@ -1230,7 +1230,6 @@ rules:
   min_age_days: 21
   paths:
   - "$HOME/Library/Caches/scrcpy"
-  - "$HOME/.config/scrcpy"
   - "$HOME/.cache/scrcpy"
   delete_mode: contents
   max_depth: 6
@@ -1288,7 +1287,6 @@ rules:
   min_age_days: 7
   paths:
   - "/opt/datadog-agent/run"
-  - "/tmp/dd_agent.log"
   delete_mode: contents
   max_depth: 4
 - id: obs-datadog-user-sdk-cache
@@ -1305,36 +1303,6 @@ rules:
   - "$HOME/Library/Logs/com.datadoghq.agent"
   delete_mode: contents
   max_depth: 6
-- id: obs-elastic-beats-data
-  name: Elastic Beats path.data (registry)
-  description: ''
-  category: caches
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "/opt/homebrew/var/lib/filebeat"
-  - "/opt/homebrew/var/lib/metricbeat"
-  - "/opt/homebrew/var/lib/packetbeat"
-  - "/opt/homebrew/var/lib/heartbeat"
-  - "/opt/homebrew/var/lib/auditbeat"
-  delete_mode: contents
-  max_depth: 4
-- id: obs-grafana-alloy-data
-  name: Grafana Alloy/Agent data and positions
-  description: ''
-  category: caches
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "/opt/homebrew/var/lib/alloy"
-  - "/opt/homebrew/var/lib/grafana-agent"
-  - "/opt/homebrew/var/lib/grafana-agent-flow"
-  delete_mode: contents
-  max_depth: 4
 - id: obs-grafana-desktop-user
   name: Grafana desktop / user logs and caches
   description: ''
@@ -1361,10 +1329,8 @@ rules:
   min_age_days: 14
   paths:
   - "$HOME/.honeycomb"
-  - "$HOME/.config/honeycomb"
   - "$HOME/Library/Caches/honeycomb"
   - "$HOME/Library/Logs/honeycomb"
-  - "/opt/homebrew/var/log/refinery"
   delete_mode: contents
   max_depth: 4
 - id: obs-istat-menus-caches
@@ -1396,8 +1362,6 @@ rules:
   paths:
   - "$HOME/.jaeger"
   - "$HOME/Library/Caches/jaeger"
-  - "/opt/homebrew/var/jaeger"
-  - "/opt/homebrew/var/lib/jaeger"
   - "$HOME/Library/Logs/jaeger"
   delete_mode: contents
   max_depth: 4
@@ -1413,8 +1377,6 @@ rules:
   - "$HOME/.lightstep"
   - "$HOME/Library/Caches/lightstep"
   - "$HOME/Library/Logs/lightstep"
-  - "/opt/homebrew/var/log/lightstep"
-  - "/var/log/lightstep"
   delete_mode: contents
   max_depth: 4
 - id: obs-netdata-cache-logs
@@ -1426,30 +1388,9 @@ rules:
   default_enabled: false
   min_age_days: 7
   paths:
-  - "/opt/homebrew/var/cache/netdata"
-  - "/opt/homebrew/var/log/netdata"
   - "$HOME/.netdata"
   delete_mode: contents
   max_depth: 5
-- id: obs-newrelic-infra-agent-dir
-  name: New Relic infrastructure agent data dir
-  description: ''
-  category: caches
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "/opt/homebrew/var/db/newrelic-infra"
-  - "/var/db/newrelic-infra"
-  delete_mode: contents
-  max_depth: 5
-  include_globs:
-  - "**/data/**"
-  - "**/tmp/**"
-  - "**/cache/**"
-  - "**/*.log"
-  - "**/*.log.*"
 - id: obs-newrelic-user-caches
   name: New Relic user caches
   description: ''
@@ -1517,7 +1458,6 @@ rules:
   paths:
   - "$HOME/.zipkin"
   - "$HOME/Library/Caches/zipkin"
-  - "/opt/homebrew/var/zipkin"
   - "$HOME/Library/Logs/zipkin"
   delete_mode: contents
   max_depth: 4
@@ -1698,31 +1638,64 @@ rules:
   - "$HOME/Library/HTTPStorages/com.apple.SystemProfiler.AboutExtension"
   delete_mode: contents
   max_depth: 5
-- id: web-caddy-http-cache
-  name: Caddy HTTP/asset cache dirs
+- name: Caddy HTTP/asset cache dirs
   description: Optional user-level Caddy or reverse-proxy disk caches outside the
     official data store.
   category: caches
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: web-caddy-http-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Caddy"
   - "$HOME/Library/Caches/caddy"
   - "$HOME/.cache/caddy"
-  - "$XDG_CACHE_HOME/caddy"
+- name: Caddy HTTP/asset cache dirs
+  description: Optional user-level Caddy or reverse-proxy disk caches outside the
+    official data store.
+  category: caches
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
-- id: web-ddev-global-cache-logs
-  name: DDEV global test/cache leftovers
+  id: web-caddy-http-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/caddy"
+  - "$XDG_CACHE_HOME/caddy"
+- name: DDEV global test/cache leftovers
   description: Regenerable global DDEV cache-like trees excluding config and project
     list.
   category: caches
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: web-ddev-global-cache-logs-macos
+  platform: macos
+  paths:
+  - "$HOME/.ddev/.testcache"
+  - "$HOME/.ddev/testcache"
+  - "$HOME/.ddev/.cache"
+  - "$HOME/.ddev/cache"
+  - "$HOME/.cache/ddev"
+  - "$HOME/Library/Caches/ddev"
+- name: DDEV global test/cache leftovers
+  description: Regenerable global DDEV cache-like trees excluding config and project
+    list.
+  category: caches
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: web-ddev-global-cache-logs-linux
+  platform: linux
   paths:
   - "$HOME/.ddev/.testcache"
   - "$HOME/.ddev/testcache"
@@ -1730,9 +1703,6 @@ rules:
   - "$HOME/.ddev/cache"
   - "$HOME/.cache/ddev"
   - "$XDG_CACHE_HOME/ddev"
-  - "$HOME/Library/Caches/ddev"
-  delete_mode: contents
-  max_depth: 5
 - id: web-ddev-mutagen-data
   name: DDEV Mutagen sync data directory
   description: Global Mutagen data for DDEV file sync on macOS.
@@ -1745,22 +1715,36 @@ rules:
   - "$HOME/.ddev_mutagen_data_directory"
   delete_mode: contents
   max_depth: 6
-- id: web-docksal-cache-logs
-  name: Docksal cache and logs
+- name: Docksal cache and logs
   description: Docksal global home cache/logs under ~/.docksal.
   category: caches
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: web-docksal-cache-logs-macos
+  platform: macos
   paths:
   - "$HOME/.docksal/cache"
   - "$HOME/.docksal/logs"
   - "$HOME/.docksal/.cache"
   - "$HOME/Library/Caches/docksal"
   - "$HOME/Library/Logs/docksal"
+- name: Docksal cache and logs
+  description: Docksal global home cache/logs under ~/.docksal.
+  category: caches
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 5
+  id: web-docksal-cache-logs-linux
+  platform: linux
+  paths:
+  - "$HOME/.docksal/cache"
+  - "$HOME/.docksal/logs"
+  - "$HOME/.docksal/.cache"
 - id: web-herd-caches
   name: Laravel Herd caches and temp
   description: Herd-related caches under Library/Caches and Application Support temp
@@ -1776,39 +1760,66 @@ rules:
   - "$HOME/Library/Application Support/Herd/Cache"
   delete_mode: contents
   max_depth: 5
-- id: web-istioctl-local
-  name: istioctl local install leftovers
+- name: istioctl local install leftovers
   description: istioctl client install tree and local debug dumps under home.
   category: caches
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: web-istioctl-local-macos
+  platform: macos
   paths:
   - "$HOME/.istioctl"
   - "$HOME/Library/Caches/istioctl"
   - "$HOME/.cache/istioctl"
-  - "$XDG_CACHE_HOME/istioctl"
   - "$HOME/Library/Logs/istio"
   - "$HOME/Library/Logs/istioctl"
+- name: istioctl local install leftovers
+  description: istioctl client install tree and local debug dumps under home.
+  category: caches
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: web-lando-cache
-  name: Lando cache and logs
+  id: web-istioctl-local-linux
+  platform: linux
+  paths:
+  - "$HOME/.istioctl"
+  - "$HOME/.cache/istioctl"
+  - "$XDG_CACHE_HOME/istioctl"
+- name: Lando cache and logs
   description: Lando userConfRoot cache, logs, and plugin install cache under ~/.lando.
   category: caches
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  id: web-lando-cache-macos
+  platform: macos
   paths:
   - "$HOME/.lando/cache"
   - "$HOME/.lando/logs"
   - "$HOME/.lando/.cache"
   - "$HOME/Library/Caches/lando"
   - "$HOME/Library/Logs/lando"
+- name: Lando cache and logs
+  description: Lando userConfRoot cache, logs, and plugin install cache under ~/.lando.
+  category: caches
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 6
+  id: web-lando-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.lando/cache"
+  - "$HOME/.lando/logs"
+  - "$HOME/.lando/.cache"
 - id: web-localwp-run-temps
   name: Local WP run nginx temps and aged logs
   description: Router/run tree temps and log files under Local/run (not mysql data
@@ -1859,31 +1870,44 @@ rules:
   default_enabled: false
   min_age_days: 3
   paths:
-  - "/opt/homebrew/var/run/nginx"
-  - "/opt/homebrew/var/cache/nginx"
   - "$HOME/Library/Caches/nginx"
   - "$HOME/.cache/nginx"
   delete_mode: contents
   max_depth: 4
-- id: web-skaffold-cache
-  name: Skaffold build and remote cache
+- name: Skaffold build and remote cache
   description: Default Skaffold artifact cache file dir and remote dependency cache.
   category: caches
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.skaffold/cache"
-  - "$HOME/.skaffold/remote-cache"
-  - "$HOME/.skaffold"
   delete_mode: contents
   max_depth: 6
-  include_globs:
+  include_globs: &1
   - "**/cache/**"
   - "**/remote-cache/**"
   - "**/cache"
   - "**/remote-cache"
+  id: web-skaffold-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.skaffold/cache"
+  - "$HOME/.skaffold/remote-cache"
+  - "$HOME/.skaffold"
+- name: Skaffold build and remote cache
+  description: Default Skaffold artifact cache file dir and remote dependency cache.
+  category: caches
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 6
+  include_globs: *1
+  id: web-skaffold-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.skaffold/cache"
+  - "$HOME/.skaffold/remote-cache"
+  - "$HOME/.skaffold"
 - id: web-tilt-caches
   name: Tilt dev caches and modules cache
   description: Tilt analytics, certs cache, and cached extension modules under macOS
@@ -1896,7 +1920,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/tilt-dev"
   - "$HOME/.cache/tilt-dev"
-  - "$XDG_CACHE_HOME/tilt-dev"
   - "$HOME/.tilt-dev"
   delete_mode: contents
   max_depth: 6

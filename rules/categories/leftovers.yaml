@@ -376,20 +376,33 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-java-heap-dumps-home
-  name: Java heap dumps in home
+- name: Java heap dumps in home
   description: JVM .hprof dumps left in $HOME (regenerable crash artifacts).
   category: leftovers
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 7
-  paths:
-  - "$HOME"
   delete_mode: contents
   max_depth: 1
-  include_globs:
+  include_globs: &1
   - "*.hprof"
+  id: dev-java-heap-dumps-home-macos
+  platform: macos
+  paths:
+  - "$HOME"
+- name: Java heap dumps in home
+  description: JVM .hprof dumps left in $HOME (regenerable crash artifacts).
+  category: leftovers
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 1
+  include_globs: *1
+  id: dev-java-heap-dumps-home-linux
+  platform: linux
+  paths:
+  - "$HOME"
 - id: exotic-nix-darwin-user-leftovers
   name: nix-darwin user leftovers
   description: User-visible nix-darwin activation leftovers under $HOME (Nix Apps
@@ -6549,15 +6562,35 @@ rules:
   - "$HOME/Library/Saved Application State/us.zoom.xos.savedState"
   delete_mode: contents
   max_depth: 6
-- id: hb-deep-bundle-dumps-report
-  name: brew bundle Brewfile dumps (report-only)
+- name: brew bundle Brewfile dumps (report-only)
   description: User Brewfile snapshots from brew bundle dump; intentional state, not
     caches.
   category: leftovers
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: hb-deep-bundle-dumps-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.Brewfile"
+  - "$HOME/Brewfile"
+  - "$HOME/Brewfile.lock.json"
+  - "$HOME/.homebrew/Brewfile"
+- name: brew bundle Brewfile dumps (report-only)
+  description: User Brewfile snapshots from brew bundle dump; intentional state, not
+    caches.
+  category: leftovers
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: hb-deep-bundle-dumps-report-linux
+  platform: linux
   paths:
   - "$HOME/.Brewfile"
   - "$HOME/Brewfile"
@@ -6565,9 +6598,6 @@ rules:
   - "$HOME/.homebrew/Brewfile"
   - "$HOME/.config/homebrew/Brewfile"
   - "$XDG_CONFIG_HOME/homebrew/Brewfile"
-  delete_mode: path
-  max_depth: 2
-  report_only: true
 - id: hb-deep-cask-zap-residuals-report
   name: Cask zap residual user patterns (report-only)
   description: Document common user-Library residual roots left after brew uninstall
@@ -7197,7 +7227,6 @@ rules:
   default_enabled: false
   min_age_days: 0
   paths:
-  - "$HOME/.config/qv2ray"
   - "$HOME/Library/Application Support/qv2ray"
   - "$HOME/Library/Application Support/Qv2ray"
   - "$HOME/Library/Application Support/com.github.Qv2ray"

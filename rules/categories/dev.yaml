@@ -3,48 +3,98 @@ pack: dev
 description: 'Category pack: dev (108 rules). Add sibling YAML files under rules/categories/
   to extend.'
 rules:
-- id: app-node-gyp-cache
-  name: node-gyp cache
+- name: node-gyp cache
   description: node-gyp downloaded headers and build cache.
   category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: app-node-gyp-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/node-gyp"
   - "$HOME/.cache/node-gyp"
-  - "%LOCALAPPDATA%/node-gyp"
+- name: node-gyp cache
+  description: node-gyp downloaded headers and build cache.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 30
   delete_mode: contents
   max_depth: 4
-- id: app-playwright-browsers
-  name: Playwright browser cache (report-only)
+  id: app-node-gyp-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/node-gyp"
+- name: node-gyp cache
+  description: node-gyp downloaded headers and build cache.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 30
+  delete_mode: contents
+  max_depth: 4
+  id: app-node-gyp-cache-windows
+  platform: windows
+  paths:
+  - "%LOCALAPPDATA%/node-gyp"
+- name: Playwright browser cache (report-only)
   description: Playwright-downloaded browser binaries; can be re-fetched with npx
     playwright install.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/Library/Caches/ms-playwright"
-  - "$HOME/.cache/ms-playwright"
   delete_mode: path
   max_depth: 2
   report_only: true
-- id: dev-android-avd-report
-  name: Android AVDs (report-only)
+  id: app-playwright-browsers-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/ms-playwright"
+  - "$HOME/.cache/ms-playwright"
+- name: Playwright browser cache (report-only)
+  description: Playwright-downloaded browser binaries; can be re-fetched with npx
+    playwright install.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: app-playwright-browsers-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/ms-playwright"
+- name: Android AVDs (report-only)
   description: User AVD definitions and data; never auto-delete.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.android/avd"
   delete_mode: path
   max_depth: 3
   report_only: true
+  id: dev-android-avd-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.android/avd"
+- name: Android AVDs (report-only)
+  description: User AVD definitions and data; never auto-delete.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-android-avd-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.android/avd"
 - id: dev-android-ndk-report
   name: Android NDK (report-only)
   description: Installed NDK trees; large and versioned, report only.
@@ -72,32 +122,57 @@ rules:
   delete_mode: path
   max_depth: 4
   report_only: true
-- id: dev-asdf-installs-report
-  name: asdf installed toolchains (report-only)
+- name: asdf installed toolchains (report-only)
   description: asdf installs tree; report size only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.asdf/installs"
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-clangd-cache
-  name: clangd index cache
+  id: dev-asdf-installs-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.asdf/installs"
+- name: asdf installed toolchains (report-only)
+  description: asdf installs tree; report size only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-asdf-installs-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.asdf/installs"
+- name: clangd index cache
   description: clangd language server index caches.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-clangd-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/clangd"
   - "$HOME/Library/Caches/clangd"
+- name: clangd index cache
+  description: clangd language server index caches.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
+  id: dev-clangd-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/clangd"
 - id: dev-cocoapods-repos-report
   name: CocoaPods Specs repos (report-only)
   description: CocoaPods Specs git checkouts under ~/.cocoapods; report only.
@@ -126,23 +201,40 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-conda-envs-report
-  name: Conda environments (report-only)
+- name: Conda environments (report-only)
   description: Conda envs directories; report only, never auto-delete environments.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: dev-conda-envs-report-macos
+  platform: macos
   paths:
   - "$HOME/.conda/envs"
   - "$HOME/miniconda3/envs"
   - "$HOME/anaconda3/envs"
   - "$HOME/miniforge3/envs"
   - "$HOME/mambaforge/envs"
+- name: Conda environments (report-only)
+  description: Conda envs directories; report only, never auto-delete environments.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: path
   max_depth: 2
   report_only: true
+  id: dev-conda-envs-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.conda/envs"
+  - "$HOME/miniconda3/envs"
+  - "$HOME/anaconda3/envs"
+  - "$HOME/miniforge3/envs"
+  - "$HOME/mambaforge/envs"
 - id: dev-cursor-caches
   name: Cursor IDE caches
   description: Cursor Cache, CachedData, extension VSIX, Code/GPU caches.
@@ -160,139 +252,253 @@ rules:
   - "$HOME/Library/Application Support/Cursor/logs"
   delete_mode: contents
   max_depth: 5
-- id: dev-docker-build-cache-report
-  name: Docker build cache (report-only)
+- name: Docker build cache (report-only)
   description: Docker layer and build cache; use docker system prune to manage.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 30
-  paths:
-  - "$HOME/Library/Containers/com.docker.docker/Data/vms"
   delete_mode: path
   max_depth: 1
   report_only: true
-- id: dev-docker-buildx-report
-  name: Docker buildx cache (report-only)
+  id: dev-docker-build-cache-report
+  platform: macos
+  paths:
+  - "$HOME/Library/Containers/com.docker.docker/Data/vms"
+- name: Docker buildx cache (report-only)
   description: Docker buildx local state under ~/.docker/buildx; report only (prefer
     docker buildx prune).
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+  id: dev-docker-buildx-report-macos
+  platform: macos
   paths:
   - "$HOME/.docker/buildx"
   - "$HOME/Library/Caches/com.docker.docker"
+- name: Docker buildx cache (report-only)
+  description: Docker buildx local state under ~/.docker/buildx; report only (prefer
+    docker buildx prune).
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: path
   max_depth: 4
   report_only: true
-- id: dev-dotnet-sdk-report
-  name: dotnet user SDK install (report-only)
+  id: dev-docker-buildx-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.docker/buildx"
+- name: dotnet user SDK install (report-only)
   description: User-level .NET SDK/runtime install under ~/.dotnet; report only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.dotnet"
   delete_mode: path
   max_depth: 3
-  exclude_globs:
+  exclude_globs: &1
   - "**/DataProtection-Keys/**"
   report_only: true
-- id: dev-fvm-versions-report
-  name: FVM Flutter SDKs (report-only)
-  description: Flutter Version Management installed SDKs; report only.
+  id: dev-dotnet-sdk-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.dotnet"
+- name: dotnet user SDK install (report-only)
+  description: User-level .NET SDK/runtime install under ~/.dotnet; report only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  exclude_globs: *1
+  report_only: true
+  id: dev-dotnet-sdk-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.dotnet"
+- name: FVM Flutter SDKs (report-only)
+  description: Flutter Version Management installed SDKs; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-fvm-versions-report-macos
+  platform: macos
   paths:
   - "$HOME/fvm/versions"
   - "$HOME/.fvm"
+- name: FVM Flutter SDKs (report-only)
+  description: Flutter Version Management installed SDKs; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-gh-cli-cache
-  name: gh CLI cache
+  id: dev-fvm-versions-report-linux
+  platform: linux
+  paths:
+  - "$HOME/fvm/versions"
+  - "$HOME/.fvm"
+- name: gh CLI cache
   description: GitHub CLI cached data.
   category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gh-cli-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/gh"
   - "$HOME/Library/Caches/gh"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-gradle-build-cache
-  name: Gradle build output cache
-  description: Gradle local build cache separate from downloaded dependencies.
+- name: gh CLI cache
+  description: GitHub CLI cached data.
   category: dev
-  platform: any
-  risk: medium
-  default_enabled: false
-  min_age_days: 21
-  paths:
-  - "$HOME/.gradle/build-cache"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-helm-cache
-  name: Helm chart repository cache
-  description: Helm downloaded chart index and chart archives.
-  category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gh-cli-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/gh"
+- name: Gradle build output cache
+  description: Gradle local build cache separate from downloaded dependencies.
+  category: dev
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gradle-build-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.gradle/build-cache"
+- name: Gradle build output cache
+  description: Gradle local build cache separate from downloaded dependencies.
+  category: dev
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-gradle-build-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.gradle/build-cache"
+- name: Helm chart repository cache
+  description: Helm downloaded chart index and chart archives.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-helm-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/helm"
   - "$HOME/Library/Caches/helm"
-  delete_mode: contents
-  max_depth: 5
-- id: dev-jetbrains-caches
-  name: JetBrains IDE caches
-  description: IntelliJ / WebStorm system caches under Library or .cache.
+- name: Helm chart repository cache
+  description: Helm downloaded chart index and chart archives.
   category: dev
-  platform: any
-  risk: medium
-  default_enabled: false
-  min_age_days: 21
-  paths:
-  - "$HOME/Library/Caches/JetBrains"
-  - "$HOME/.cache/JetBrains"
-  delete_mode: contents
-  max_depth: 4
-- id: dev-k9s-cache
-  name: k9s Kubernetes dashboard cache
-  description: k9s downloaded schema and cache files.
-  category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: dev-helm-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/helm"
+- name: JetBrains IDE caches
+  description: IntelliJ / WebStorm system caches under Library or .cache.
+  category: dev
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-jetbrains-caches-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/JetBrains"
+  - "$HOME/.cache/JetBrains"
+- name: JetBrains IDE caches
+  description: IntelliJ / WebStorm system caches under Library or .cache.
+  category: dev
+  risk: medium
+  default_enabled: false
+  min_age_days: 21
+  delete_mode: contents
+  max_depth: 4
+  id: dev-jetbrains-caches-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/JetBrains"
+- name: k9s Kubernetes dashboard cache
+  description: k9s downloaded schema and cache files.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-k9s-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/k9s"
   - "$HOME/Library/Caches/k9s"
+- name: k9s Kubernetes dashboard cache
+  description: k9s downloaded schema and cache files.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-kind-state
-  name: kind cluster state
+  id: dev-k9s-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/k9s"
+- name: kind cluster state
   description: kind local cluster metadata under ~/.kind.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.kind"
   delete_mode: contents
   max_depth: 4
+  id: dev-kind-state-macos
+  platform: macos
+  paths:
+  - "$HOME/.kind"
+- name: kind cluster state
+  description: kind local cluster metadata under ~/.kind.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-kind-state-linux
+  platform: linux
+  paths:
+  - "$HOME/.kind"
 - id: dev-lima-cache
   name: Lima cache and instances report
   description: Standalone Lima cache plus report-only instances root.
@@ -307,44 +513,82 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-minikube-machines-report
-  name: minikube machines (report-only)
+- name: minikube machines (report-only)
   description: minikube VM disks; report only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-minikube-machines-report-macos
+  platform: macos
   paths:
   - "$HOME/.minikube/machines"
-  delete_mode: path
-  max_depth: 3
-  report_only: true
-- id: dev-nvm-versions-report
-  name: nvm Node versions (report-only)
-  description: Installed Node versions managed by nvm; report only.
+- name: minikube machines (report-only)
+  description: minikube VM disks; report only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.nvm/versions"
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-nx-cache
-  name: Nx workspace cache
+  id: dev-minikube-machines-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.minikube/machines"
+- name: nvm Node versions (report-only)
+  description: Installed Node versions managed by nvm; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-nvm-versions-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.nvm/versions"
+- name: nvm Node versions (report-only)
+  description: Installed Node versions managed by nvm; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-nvm-versions-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.nvm/versions"
+- name: Nx workspace cache
   description: Nx monorepo local computation cache.
   category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
-  paths:
-  - "$HOME/.nx/cache"
   delete_mode: contents
   max_depth: 4
+  id: dev-nx-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.nx/cache"
+- name: Nx workspace cache
+  description: Nx monorepo local computation cache.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-nx-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.nx/cache"
 - id: dev-orbstack-report
   name: OrbStack data (report-only)
   description: OrbStack VMs and Linux distros; report only.
@@ -359,102 +603,191 @@ rules:
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-podman-machine-report
-  name: Podman machine state (report-only)
+- name: Podman machine state (report-only)
   description: Podman machine and storage under home; report only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-podman-machine-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.podman"
+- name: Podman machine state (report-only)
+  description: Podman machine and storage under home; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-podman-machine-report-linux
+  platform: linux
   paths:
   - "$HOME/.local/share/containers"
   - "$HOME/.config/containers/storage"
   - "$HOME/.podman"
-  delete_mode: path
-  max_depth: 3
-  report_only: true
-- id: dev-pycache-home
-  name: Python __pycache__ under home caches
+- name: Python __pycache__ under home caches
   description: Only under known cache trees, not full $HOME walk.
   category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 8
+  include_globs: &2
+  - "**/__pycache__/**"
+  - "**/*.pyc"
+  id: dev-pycache-home-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache"
+- name: Python __pycache__ under home caches
+  description: Only under known cache trees, not full $HOME walk.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 8
+  include_globs: *2
+  id: dev-pycache-home-linux
+  platform: linux
   paths:
   - "$HOME/.cache"
   - "$XDG_CACHE_HOME"
-  delete_mode: contents
-  max_depth: 8
-  include_globs:
-  - "**/__pycache__/**"
-  - "**/*.pyc"
-- id: dev-rustup-toolchains-report
-  name: rustup toolchains (report-only)
+- name: rustup toolchains (report-only)
   description: Installed Rust toolchains; report size only, do not auto-delete.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.rustup/toolchains"
   delete_mode: path
   max_depth: 2
   report_only: true
-- id: dev-sdkman-candidates-report
-  name: SDKMAN candidates (report-only)
-  description: Installed JDKs and candidates; report only.
+  id: dev-rustup-toolchains-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.rustup/toolchains"
+- name: rustup toolchains (report-only)
+  description: Installed Rust toolchains; report size only, do not auto-delete.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 2
+  report_only: true
+  id: dev-rustup-toolchains-report-linux
+  platform: linux
   paths:
-  - "$HOME/.sdkman/candidates"
+  - "$HOME/.rustup/toolchains"
+- name: SDKMAN candidates (report-only)
+  description: Installed JDKs and candidates; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: path
   max_depth: 3
   report_only: true
-- id: dev-terraform-plugin-cache
-  name: Terraform plugin cache
+  id: dev-sdkman-candidates-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.sdkman/candidates"
+- name: SDKMAN candidates (report-only)
+  description: Installed JDKs and candidates; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: dev-sdkman-candidates-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.sdkman/candidates"
+- name: Terraform plugin cache
   description: Terraform downloaded provider plugins cache.
   category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 30
+  delete_mode: contents
+  max_depth: 5
+  id: dev-terraform-plugin-cache-macos
+  platform: macos
   paths:
   - "$HOME/.terraform.d/plugin-cache"
   - "$HOME/Library/Caches/terraform"
+- name: Terraform plugin cache
+  description: Terraform downloaded provider plugins cache.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 30
   delete_mode: contents
   max_depth: 5
-- id: dev-turbo-cache
-  name: Turborepo local task cache
+  id: dev-terraform-plugin-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+- name: Turborepo local task cache
   description: Turborepo local build task cache entries.
   category: dev
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-turbo-cache-macos
+  platform: macos
   paths:
   - "$HOME/.turbo/cache"
   - "$HOME/Library/Caches/turbo"
+- name: Turborepo local task cache
+  description: Turborepo local build task cache entries.
+  category: dev
+  risk: low
+  default_enabled: true
+  min_age_days: 14
   delete_mode: contents
   max_depth: 4
-- id: dev-vite-cache
-  name: Vite dependency pre-bundle cache
+  id: dev-turbo-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.turbo/cache"
+- name: Vite dependency pre-bundle cache
   description: Vite node_modules/.vite pre-bundled dep cache (per project; only in
     known dirs).
   category: dev
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.cache/vite"
   delete_mode: contents
   max_depth: 4
+  id: dev-vite-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/.cache/vite"
+- name: Vite dependency pre-bundle cache
+  description: Vite node_modules/.vite pre-bundled dep cache (per project; only in
+    known dirs).
+  category: dev
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 4
+  id: dev-vite-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/vite"
 - id: dev-vscode-caches
   name: VS Code caches and CachedData
   description: VS Code Cache, CachedData, GPU/Code Cache, extension VSIX cache.
@@ -847,7 +1180,6 @@ rules:
   - "$HOME/Library/Caches/JetBrains/Daemon"
   - "$HOME/Library/Caches/JetBrains/acp-agents"
   - "$HOME/Library/Logs/JetBrains/Daemon"
-  - "$XDG_CACHE_HOME/JetBrains"
   delete_mode: contents
   max_depth: 6
 - id: jb-webstorm-system-caches
@@ -870,33 +1202,60 @@ rules:
   exclude_globs:
   - "**/LocalHistory/**"
   - "**/fileHistory/**"
-- id: js-bun-global-packages-report
-  name: Bun global packages (report-only)
+- name: Bun global packages (report-only)
   description: Globally installed Bun packages under install/global; report size only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.bun/install/global"
   delete_mode: path
   max_depth: 4
   report_only: true
-- id: js-volta-tools-report
-  name: Volta installed tools (report-only)
-  description: Volta-managed Node/Yarn/npm tool installs; report only.
+  id: js-bun-global-packages-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.bun/install/global"
+- name: Bun global packages (report-only)
+  description: Globally installed Bun packages under install/global; report size only.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+  id: js-bun-global-packages-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.bun/install/global"
+- name: Volta installed tools (report-only)
+  description: Volta-managed Node/Yarn/npm tool installs; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 4
+  report_only: true
+  id: js-volta-tools-report-macos
+  platform: macos
   paths:
   - "$HOME/.volta/tools"
   - "$HOME/.volta/bin"
+- name: Volta installed tools (report-only)
+  description: Volta-managed Node/Yarn/npm tool installs; report only.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: path
   max_depth: 4
   report_only: true
+  id: js-volta-tools-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.volta/tools"
+  - "$HOME/.volta/bin"
 - id: mac-unity-hub-cache
   name: Unity Hub and UPM caches
   description: Unity Hub Electron caches, logs, Package Manager global cache. Not
@@ -1398,25 +1757,10 @@ rules:
   min_age_days: 30
   paths:
   - "$HOME/Library/Logs/ios-deploy"
-  - "$HOME/.config/libimobiledevice"
   - "$HOME/Library/Caches/libimobiledevice"
   - "$HOME/Library/Logs/libimobiledevice"
   delete_mode: contents
   max_depth: 6
-- id: mobile-lockdown-pairing-report
-  name: mobile-lockdown-pairing-report
-  description: ''
-  category: dev
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "/var/db/lockdown"
-  - "/var/db/lockdown-development"
-  delete_mode: path
-  max_depth: 6
-  report_only: true
 - id: mobile-maestro
   name: mobile-maestro
   description: ''
@@ -1619,48 +1963,75 @@ rules:
   - "$HOME/Library/Application Support/RefSrcSymbols"
   delete_mode: contents
   max_depth: 4
-- id: virt-k3d-state-caches
-  name: k3d state and caches
+- name: k3d state and caches
   description: k3d config/state directories when present. Clusters are Docker containers;
     host metadata only here.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: virt-k3d-state-caches-macos
+  platform: macos
+  paths:
+  - "$HOME/.k3d"
+  - "$HOME/Library/Caches/k3d"
+  - "$HOME/.cache/k3d"
+- name: k3d state and caches
+  description: k3d config/state directories when present. Clusters are Docker containers;
+    host metadata only here.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: virt-k3d-state-caches-linux
+  platform: linux
   paths:
   - "$HOME/.k3d"
   - "$HOME/.config/k3d"
-  - "$HOME/Library/Caches/k3d"
   - "$HOME/.cache/k3d"
-  delete_mode: contents
-  max_depth: 5
-- id: virt-kind-state
-  name: kind cluster state
+- name: kind cluster state
   description: kind local cluster metadata under ~/.kind. Node images live in container
     runtime.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.local/share/kind"
   delete_mode: contents
   max_depth: 5
-- id: web-ddev-bin-report
-  name: DDEV private binaries (report-only)
+  id: virt-kind-state-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/share/kind"
+- name: DDEV private binaries (report-only)
   description: Private mutagen/docker-buildx binaries under ~/.ddev/bin.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.ddev/bin"
   delete_mode: contents
   max_depth: 3
   report_only: true
+  id: web-ddev-bin-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.ddev/bin"
+- name: DDEV private binaries (report-only)
+  description: Private mutagen/docker-buildx binaries under ~/.ddev/bin.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 3
+  report_only: true
+  id: web-ddev-bin-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.ddev/bin"
 - id: web-herd-bin-report
   name: Laravel Herd binaries (report-only)
   description: Downloaded PHP versions and tool binaries shipped with Herd.
@@ -1674,19 +2045,32 @@ rules:
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: web-lando-plugins-report
-  name: Lando global plugins (report-only)
+- name: Lando global plugins (report-only)
   description: Globally installed Lando plugins under ~/.lando/plugins.
   category: dev
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.lando/plugins"
   delete_mode: contents
   max_depth: 4
   report_only: true
+  id: web-lando-plugins-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.lando/plugins"
+- name: Lando global plugins (report-only)
+  description: Globally installed Lando plugins under ~/.lando/plugins.
+  category: dev
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: web-lando-plugins-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.lando/plugins"
 - id: web-localwp-lightning-report
   name: Local WP lightning-services runtimes (report-only)
   description: Bundled PHP/MySQL/nginx service builds for Local sites.

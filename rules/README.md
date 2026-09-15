@@ -27,7 +27,9 @@ space rules status
 |------|------|
 | `categories/*.yaml` | Shared cleanup categories |
 | `platforms/windows.yaml` / `linux.yaml` | Hand-tuned OS seeds |
-| `generated/*.yaml` | Auto-expanded bulk (macos / windows / linux / any) |
+| `generated/*.yaml` | Auto-expanded bulk (`macos` / `windows` / `linux` only) |
+
+No `platform: any` — shared apps are split per OS (`ruby scripts/split_any_rules.rb`).
 
 ## Extend
 

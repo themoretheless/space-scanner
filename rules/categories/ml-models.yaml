@@ -14,8 +14,6 @@ rules:
   paths:
   - "$HOME/.cache/clip"
   - "$HOME/.cache/open_clip"
-  - "$XDG_CACHE_HOME/clip"
-  - "$XDG_CACHE_HOME/open_clip"
   delete_mode: contents
   max_depth: 6
 - id: ml-detectron-fairseq-paddle
@@ -46,7 +44,6 @@ rules:
   paths:
   - "$HOME/.cache/huggingface/diffusers"
   - "$HOME/.cache/diffusers"
-  - "$XDG_CACHE_HOME/diffusers"
   delete_mode: contents
   max_depth: 6
 - id: ml-fastai-cache
@@ -86,7 +83,6 @@ rules:
   min_age_days: 30
   paths:
   - "$HOME/.cache/huggingface/hub"
-  - "$XDG_CACHE_HOME/huggingface/hub"
   delete_mode: contents
   max_depth: 6
 - id: ml-huggingface-transformers-legacy
@@ -99,7 +95,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/huggingface/transformers"
-  - "$XDG_CACHE_HOME/huggingface/transformers"
   - "$HOME/.cache/torch/transformers"
   delete_mode: contents
   max_depth: 6
@@ -146,7 +141,6 @@ rules:
   - "$HOME/.cache/llamacpp"
   - "$HOME/.cache/ggml"
   - "$HOME/.cache/gguf"
-  - "$XDG_CACHE_HOME/llama.cpp"
   delete_mode: contents
   max_depth: 6
 - id: ml-lmstudio-models-report
@@ -174,7 +168,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/mlx"
-  - "$XDG_CACHE_HOME/mlx"
   - "$HOME/Library/Caches/mlx"
   delete_mode: contents
   max_depth: 6
@@ -203,7 +196,6 @@ rules:
   paths:
   - "$HOME/.cache/sentence-transformers"
   - "$HOME/.cache/torch/sentence_transformers"
-  - "$XDG_CACHE_HOME/sentence-transformers"
   delete_mode: contents
   max_depth: 6
 - id: ml-tfhub-cache
@@ -216,7 +208,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/tfhub_modules"
-  - "$XDG_CACHE_HOME/tfhub_modules"
   - "$TMPDIR/tfhub_modules"
   delete_mode: contents
   max_depth: 6
@@ -232,7 +223,6 @@ rules:
   - "$HOME/.cache/torch/hub"
   - "$HOME/.cache/torch/hub/checkpoints"
   - "$HOME/.cache/torch/checkpoints"
-  - "$XDG_CACHE_HOME/torch/hub"
   - "$HOME/.torch/models"
   delete_mode: contents
   max_depth: 6
@@ -246,7 +236,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/whisper"
-  - "$XDG_CACHE_HOME/whisper"
   - "$HOME/.cache/whisperx"
   - "$HOME/.cache/faster-whisper"
   delete_mode: contents

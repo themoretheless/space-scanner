@@ -49,33 +49,6 @@ rules:
   - "$HOME/Library/Application Support/Grasshopper/Cache"
   delete_mode: contents
   max_depth: 6
-- id: hb-deep-stale-locks
-  name: Homebrew stale formula/cask lock files
-  description: Aged lock files under prefix var/homebrew/locks left after interrupted
-    brew operations.
-  category: temp
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 2
-  paths:
-  - "/opt/homebrew/var/homebrew/locks"
-  delete_mode: contents
-  max_depth: 2
-- id: hb-deep-temp-cellar-bottles
-  name: Homebrew bottle temp cellar and prefix tmp
-  description: Temporary bottle extract staging under prefix var/homebrew/tmp (.cellar)
-    and build temp.
-  category: temp
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 1
-  paths:
-  - "/opt/homebrew/var/homebrew/tmp"
-  - "/opt/homebrew/var/homebrew/tmp/.cellar"
-  delete_mode: contents
-  max_depth: 5
 - id: linux-tmp
   name: User and system temp
   description: Temporary files (age-filtered).
@@ -165,19 +138,6 @@ rules:
   - "*.dmg.**"
   - com.apple.DiskImages*/**
   - TemporaryItems/**/*.dmg
-- id: macos-private-tmp-aged
-  name: Shared /private/tmp aged files
-  description: ''
-  category: temp
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 3
-  paths:
-  - "/private/tmp"
-  - "/tmp"
-  delete_mode: contents
-  max_depth: 3
 - id: macos-tmp
   name: User temp (TMPDIR)
   description: Files in the user temporary directory older than min age.
@@ -190,23 +150,6 @@ rules:
   - "$TMPDIR"
   delete_mode: contents
   max_depth: 4
-- id: macos-var-tmp-user-accessible
-  name: User-accessible /var/tmp leftovers
-  description: ''
-  category: temp
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "/var/tmp"
-  - "/private/var/tmp"
-  delete_mode: contents
-  max_depth: 4
-  include_globs:
-  - "**/sysdiagnose*"
-  - "**/*sysdiagnose*"
-  - "**/TemporaryItems/**"
 - id: syslogs-diagnosticextensionsd-tmpdir
   name: diagnosticextensionsd TMPDIR residual
   description: diagnosticextensionsd working directory under user TMPDIR.
@@ -232,7 +175,6 @@ rules:
   default_enabled: true
   min_age_days: 2
   paths:
-  - "$TEMP"
   - "%LOCALAPPDATA%/Temp"
   delete_mode: contents
   max_depth: 6

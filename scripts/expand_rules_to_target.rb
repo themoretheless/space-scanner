@@ -198,7 +198,7 @@ def generate(existing)
     end
   end
 
-  # Project junk under more roots
+  # Project junk under more roots (macOS + Linux home layouts)
   roots = %w[
     $HOME/Documents $HOME/Projects $HOME/Developer $HOME/src $HOME/Sources
     $HOME/code $HOME/work $HOME/Desktop $HOME/dev $HOME/git $HOME/repos
@@ -212,20 +212,22 @@ def generate(existing)
     .vercel .netlify .angular .ember-cli .webpack .rollup.cache
     target/debug target/tmp CMakeFiles cmake-build-debug cmake-build-release
   ]
-  roots.each do |root|
-    junk.each do |rel|
-      add.call(rule(
-        id: "x10k-proj-#{slug(root)}-#{slug(rel)}",
-        name: "Project #{rel}",
-        description: "Project junk **/#{rel} under #{root}.",
-        category: "dev",
-        platform: "any",
-        paths: [root],
-        include: ["**/#{rel}", "**/#{rel}/**"],
-        risk: "medium",
-        min_age: 14,
-        max_depth: 12
-      ))
+  %w[macos linux].each do |plat|
+    roots.each do |root|
+      junk.each do |rel|
+        add.call(rule(
+          id: "x10k-proj-#{plat}-#{slug(root)}-#{slug(rel)}",
+          name: "Project #{rel}",
+          description: "Project junk **/#{rel} under #{root} (#{plat}).",
+          category: "dev",
+          platform: plat,
+          paths: [root],
+          include: ["**/#{rel}", "**/#{rel}/**"],
+          risk: "medium",
+          min_age: 14,
+          max_depth: 12
+        ))
+      end
     end
   end
 
@@ -378,7 +380,7 @@ def generate(existing)
     end
   end
 
-  # --- any / cross-platform home caches ------------------------------------
+  # --- unix home caches (emit macos + linux, never platform:any) ---------------
   %w[
     .cache .npm .yarn .pnpm-store .local/share/pnpm .cargo .rustup .gradle .m2
     .composer .nuget .bun .deno .cache/huggingface .cache/torch .cache/pip
@@ -386,17 +388,19 @@ def generate(existing)
     .vagrant.d .minikube .kube/cache .colima .lima .orbstack
   ].each do |rel|
     (1..30).each do |n|
-      add.call(rule(
-        id: "x10k-any-#{slug(rel)}-#{n}",
-        name: "Home #{rel} ##{n}",
-        description: "Cross-platform home cache #{rel} slot #{n}.",
-        category: (rel.include?("log") ? "logs" : "package-cache"),
-        platform: "any",
-        paths: ["$HOME/#{rel}"],
-        include: (n == 1 ? nil : ["**/slot_#{n}/**"]),
-        min_age: 14,
-        max_depth: 8
-      ))
+      %w[macos linux].each do |plat|
+        add.call(rule(
+          id: "x10k-#{plat}-#{slug(rel)}-#{n}",
+          name: "Home #{rel} ##{n}",
+          description: "#{plat} home cache #{rel} slot #{n}.",
+          category: (rel.include?("log") ? "logs" : "package-cache"),
+          platform: plat,
+          paths: ["$HOME/#{rel}"],
+          include: (n == 1 ? nil : ["**/slot_#{n}/**"]),
+          min_age: 14,
+          max_depth: 8
+        ))
+      end
     end
   end
 
@@ -450,12 +454,11 @@ puts "need #{need} new rules…"
 candidates = generate(ids)
 puts "generator produced #{candidates.size} candidates"
 
-# Prefer a balanced platform mix among new rules.
+# Prefer a balanced platform mix among new rules (no platform:any).
 quotas = {
-  "windows" => (need * 0.35).to_i,
-  "linux" => (need * 0.35).to_i,
-  "macos" => (need * 0.20).to_i,
-  "any" => (need * 0.10).to_i
+  "windows" => (need * 0.38).to_i,
+  "linux" => (need * 0.32).to_i,
+  "macos" => (need * 0.30).to_i
 }
 # Fix rounding so sum == need
 while quotas.values.sum < need
@@ -470,10 +473,9 @@ candidates.each { |r| by_plat[r["platform"]] << r }
 
 selected = []
 taken = Hash.new(0)
-# Round-robin fill by quota
 loop do
   progressed = false
-  %w[windows linux macos any].each do |plat|
+  %w[windows linux macos].each do |plat|
     next if selected.size >= need
     next if taken[plat] >= quotas[plat]
     r = by_plat[plat].shift
@@ -487,8 +489,7 @@ loop do
   break if selected.size >= need
 end
 
-# Top up from leftovers if quotas exhausted early
-leftovers = %w[windows linux macos any].flat_map { |p| by_plat[p] }
+leftovers = %w[windows linux macos].flat_map { |p| by_plat[p] }
 leftovers.each do |r|
   break if selected.size >= need
   next if ids.include?(r["id"])
@@ -497,7 +498,6 @@ end
 
 puts "selected mix: " + selected.group_by { |r| r["platform"] }.transform_values(&:size).inspect
 
-# Pad if still short
 n = 0
 while ids.size + selected.size < TARGET
   n += 1
@@ -520,4 +520,4 @@ end
 write_split(selected)
 total = ids.size + selected.size
 puts "done: +#{selected.size} → ~#{total} (verify with space rules status)"
-puts "mix windows=#{selected.count{|r|r['platform']=='windows'}} linux=#{selected.count{|r|r['platform']=='linux'}} macos=#{selected.count{|r|r['platform']=='macos'}} any=#{selected.count{|r|r['platform']=='any'}}"
+puts "mix windows=#{selected.count{|r|r['platform']=='windows'}} linux=#{selected.count{|r|r['platform']=='linux'}} macos=#{selected.count{|r|r['platform']=='macos'}}"

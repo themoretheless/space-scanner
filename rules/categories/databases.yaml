@@ -27,34 +27,9 @@ rules:
   default_enabled: false
   min_age_days: 0
   paths:
-  - "/opt/homebrew/var/lib/elasticsearch"
-  - "/opt/homebrew/var/elasticsearch"
-  - "/opt/homebrew/var/lib/opensearch"
   - "$HOME/Library/Application Support/Elastic"
   delete_mode: path
   max_depth: 4
-  report_only: true
-- id: db-homebrew-server-data-report
-  name: Homebrew DB server data dirs (report-only)
-  description: postgresql@N, mysql, mariadb, mongodb-community data under Homebrew
-    var.
-  category: databases
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 0
-  paths:
-  - "/opt/homebrew/var/postgresql@14"
-  - "/opt/homebrew/var/postgresql@15"
-  - "/opt/homebrew/var/postgresql@16"
-  - "/opt/homebrew/var/postgresql@17"
-  - "/opt/homebrew/var/postgresql@18"
-  - "/opt/homebrew/var/postgres"
-  - "/opt/homebrew/var/mysql"
-  - "/opt/homebrew/var/mariadb"
-  - "/opt/homebrew/var/mongodb"
-  delete_mode: path
-  max_depth: 3
   report_only: true
 - id: db-neo4j-desktop-data-report
   name: Neo4j Desktop data directories (report-only)
@@ -98,8 +73,6 @@ rules:
   paths:
   - "$HOME/dump.rdb"
   - "$HOME/appendonly.aof"
-  - "/opt/homebrew/var/db/redis"
-  - "/opt/homebrew/var/redis"
   - "$HOME/Library/Application Support/redis"
   delete_mode: path
   max_depth: 4
@@ -117,27 +90,41 @@ rules:
   default_enabled: false
   min_age_days: 0
   paths:
-  - "/opt/homebrew/var/prometheus"
-  - "/opt/homebrew/var/lib/prometheus"
   - "$HOME/prometheus/data"
   - "$HOME/.prometheus/data"
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: web-minio-data-report
-  name: MinIO object data (report-only)
+- name: MinIO object data (report-only)
   description: Common local MinIO data directories and default config home. Object
     storage is user data.
   category: databases
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: web-minio-data-report-macos
+  platform: macos
   paths:
   - "$HOME/minio/data"
   - "$HOME/.minio/data"
   - "$HOME/data/minio"
   - "$HOME/Library/Application Support/minio"
+- name: MinIO object data (report-only)
+  description: Common local MinIO data directories and default config home. Object
+    storage is user data.
+  category: databases
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   report_only: true
+  id: web-minio-data-report-linux
+  platform: linux
+  paths:
+  - "$HOME/minio/data"
+  - "$HOME/.minio/data"
+  - "$HOME/data/minio"

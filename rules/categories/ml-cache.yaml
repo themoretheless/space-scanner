@@ -27,7 +27,6 @@ rules:
   - "$HOME/.cache/chroma"
   - "$HOME/.chroma"
   - "$HOME/Library/Caches/chroma"
-  - "$XDG_CACHE_HOME/chroma"
   delete_mode: contents
   max_depth: 6
 - id: ml-dask-cache
@@ -41,7 +40,6 @@ rules:
   paths:
   - "$HOME/.dask"
   - "$HOME/.cache/dask"
-  - "$XDG_CACHE_HOME/dask"
   - "$TMPDIR/dask-worker-space"
   delete_mode: contents
   max_depth: 6
@@ -58,8 +56,6 @@ rules:
   - "$HOME/.cache/duckdb"
   - "$HOME/.cache/polars"
   - "$HOME/Library/Caches/polars"
-  - "$XDG_CACHE_HOME/duckdb"
-  - "$XDG_CACHE_HOME/polars"
   - "$TMPDIR/duckdb_temp"
   - "$TMPDIR/polars_*"
   delete_mode: contents
@@ -75,7 +71,6 @@ rules:
   paths:
   - "$HOME/.dvc/cache"
   - "$HOME/Library/Caches/dvc"
-  - "$XDG_CACHE_HOME/dvc"
   delete_mode: contents
   max_depth: 6
   report_only: true
@@ -89,7 +84,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/huggingface/datasets"
-  - "$XDG_CACHE_HOME/huggingface/datasets"
   delete_mode: contents
   max_depth: 6
 - id: ml-huggingface-modules-xet-assets
@@ -106,8 +100,6 @@ rules:
   - "$HOME/.cache/huggingface/assets"
   - "$HOME/.cache/huggingface/evaluate"
   - "$HOME/.cache/huggingface/metrics"
-  - "$XDG_CACHE_HOME/huggingface/modules"
-  - "$XDG_CACHE_HOME/huggingface/xet"
   delete_mode: contents
   max_depth: 6
 - id: ml-ipython-cache
@@ -151,7 +143,6 @@ rules:
   paths:
   - "$HOME/.cache/kaggle"
   - "$HOME/Library/Caches/kaggle"
-  - "$XDG_CACHE_HOME/kaggle"
   delete_mode: contents
   max_depth: 6
 - id: ml-langchain-llama-index
@@ -166,8 +157,6 @@ rules:
   - "$HOME/.cache/langchain"
   - "$HOME/.cache/llama_index"
   - "$HOME/.llamaindex"
-  - "$XDG_CACHE_HOME/langchain"
-  - "$XDG_CACHE_HOME/llama_index"
   delete_mode: contents
   max_depth: 6
 - id: ml-lmstudio-cache
@@ -197,7 +186,6 @@ rules:
   - "$HOME/.matplotlib"
   - "$HOME/.cache/matplotlib"
   - "$HOME/Library/Caches/matplotlib"
-  - "$XDG_CACHE_HOME/matplotlib"
   delete_mode: contents
   max_depth: 6
 - id: ml-nltk-gensim-spacy
@@ -228,7 +216,6 @@ rules:
   paths:
   - "$HOME/.numba_cache"
   - "$HOME/.cache/numba"
-  - "$XDG_CACHE_HOME/numba"
   delete_mode: contents
   max_depth: 6
 - id: ml-ollama-logs-cache
@@ -257,7 +244,6 @@ rules:
   - "$HOME/.cache/parquet"
   - "$HOME/.cache/pyarrow"
   - "$HOME/.cache/arrow"
-  - "$XDG_CACHE_HOME/pyarrow"
   - "$TMPDIR/parquet_*"
   - "$TMPDIR/pyarrow_*"
   delete_mode: contents
@@ -275,7 +261,6 @@ rules:
   - "$HOME/ray_results"
   - "$HOME/.cache/ray"
   - "$HOME/Library/Caches/ray"
-  - "/tmp/ray"
   delete_mode: contents
   max_depth: 6
 - id: ml-scikit-learn-data
@@ -291,8 +276,6 @@ rules:
   - "$HOME/.cache/scikit-learn"
   - "$HOME/Library/Caches/scikit-learn"
   - "$HOME/.cache/joblib"
-  - "$XDG_CACHE_HOME/scikit-learn"
-  - "$XDG_CACHE_HOME/joblib"
   delete_mode: contents
   max_depth: 6
 - id: ml-seaborn-plotly-cache
@@ -309,8 +292,6 @@ rules:
   - "$HOME/.plotly"
   - "$HOME/Library/Caches/plotly"
   - "$HOME/.cache/plotly"
-  - "$XDG_CACHE_HOME/seaborn"
-  - "$XDG_CACHE_HOME/plotly"
   delete_mode: contents
   max_depth: 6
 - id: ml-spark-local
@@ -340,7 +321,6 @@ rules:
   paths:
   - "$HOME/tensorflow_datasets"
   - "$HOME/.cache/tensorflow_datasets"
-  - "$XDG_CACHE_HOME/tensorflow_datasets"
   delete_mode: contents
   max_depth: 6
 - id: ml-torch-extensions-inductor
@@ -355,7 +335,6 @@ rules:
   - "$HOME/.cache/torch_extensions"
   - "$HOME/.cache/torch/kernels"
   - "$HOME/.cache/torch/inductor"
-  - "$XDG_CACHE_HOME/torch_extensions"
   delete_mode: contents
   max_depth: 6
 - id: ml-triton-cache
@@ -369,7 +348,6 @@ rules:
   paths:
   - "$HOME/.triton"
   - "$HOME/.cache/triton"
-  - "$XDG_CACHE_HOME/triton"
   delete_mode: contents
   max_depth: 6
 - id: ml-vllm-cache
@@ -382,7 +360,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/vllm"
-  - "$XDG_CACHE_HOME/vllm"
   delete_mode: contents
   max_depth: 6
 - id: ml-wandb-cache
@@ -396,6 +373,5 @@ rules:
   paths:
   - "$HOME/.cache/wandb"
   - "$HOME/Library/Caches/wandb"
-  - "$XDG_CACHE_HOME/wandb"
   delete_mode: contents
   max_depth: 6

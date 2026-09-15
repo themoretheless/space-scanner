@@ -3,21 +3,44 @@ pack: browser-cache
 description: 'Category pack: browser-cache (54 rules). Add sibling YAML files under
   rules/categories/ to extend.'
 rules:
-- id: app-chrome-cache
-  name: Chrome cache (not profile)
+- name: Chrome cache (not profile)
   description: Browser disk cache only; cookies/logins untouched.
   category: browser-cache
-  platform: any
   risk: medium
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: app-chrome-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Google/Chrome"
   - "$HOME/.cache/google-chrome"
-  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Cache"
-  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Code Cache"
+- name: Chrome cache (not profile)
+  description: Browser disk cache only; cookies/logins untouched.
+  category: browser-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
+  id: app-chrome-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/google-chrome"
+- name: Chrome cache (not profile)
+  description: Browser disk cache only; cookies/logins untouched.
+  category: browser-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: app-chrome-cache-windows
+  platform: windows
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Code Cache"
 - id: app-edge-cache
   name: Microsoft Edge cache
   description: Edge Code Cache, GPU cache, and shader cache.
@@ -34,27 +57,50 @@ rules:
   - "$HOME/Library/Application Support/Microsoft Edge/ShaderCache"
   - "$HOME/Library/Application Support/Microsoft Edge/GraphiteDawnCache"
   - "$HOME/Library/Caches/Microsoft Edge"
-  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Cache"
-  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Code Cache"
   delete_mode: contents
   max_depth: 5
-- id: app-firefox-cache
-  name: Firefox cache
+- name: Firefox cache
   description: Firefox cache2 only.
   category: browser-cache
-  platform: any
   risk: medium
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 8
+  include_globs: &1
+  - "**/cache2/**"
+  - "**/startupCache/**"
+  id: app-firefox-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/Firefox"
   - "$HOME/.cache/mozilla/firefox"
-  - "%LOCALAPPDATA%/Mozilla/Firefox/Profiles"
+- name: Firefox cache
+  description: Firefox cache2 only.
+  category: browser-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
   delete_mode: contents
   max_depth: 8
-  include_globs:
-  - "**/cache2/**"
-  - "**/startupCache/**"
+  include_globs: *1
+  id: app-firefox-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/mozilla/firefox"
+- name: Firefox cache
+  description: Firefox cache2 only.
+  category: browser-cache
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 8
+  include_globs: *1
+  id: app-firefox-cache-windows
+  platform: windows
+  paths:
+  - "%LOCALAPPDATA%/Mozilla/Firefox/Profiles"
 - id: asia-naver-whale-browser-cache
   name: Naver Whale browser caches
   description: Whale Chromium caches under Library/Caches and Application Support

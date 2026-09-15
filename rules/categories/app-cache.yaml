@@ -171,25 +171,36 @@ rules:
   - "$HOME/Library/Logs/Box Sync"
   delete_mode: contents
   max_depth: 6
-- id: app-claude-cache
-  name: Claude desktop cache
+- name: Claude desktop cache
   description: Claude Electron app Code Cache, GPU cache, and HTTP cache (not sessions/data).
   category: app-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 4
+  id: app-claude-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Claude/Cache"
   - "$HOME/Library/Application Support/Claude/Code Cache"
   - "$HOME/Library/Application Support/Claude/GPUCache"
   - "$HOME/Library/Application Support/Claude/DawnWebGPUCache"
   - "$HOME/Library/Application Support/Claude/DawnGraphiteCache"
+- name: Claude desktop cache
+  description: Claude Electron app Code Cache, GPU cache, and HTTP cache (not sessions/data).
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 4
+  id: app-claude-cache-linux
+  platform: linux
+  paths:
   - "$HOME/.config/Claude/Cache"
   - "$HOME/.config/Claude/Code Cache"
   - "$HOME/.config/Claude/GPUCache"
-  delete_mode: contents
-  max_depth: 4
 - id: app-cleanshot-cache
   name: CleanShot X caches and logs
   description: CleanShot temporary caches/logs; not saved screenshots folder.
@@ -318,24 +329,46 @@ rules:
   - "$HOME/Library/Logs/Sequel Ace"
   delete_mode: contents
   max_depth: 6
-- id: app-discord-cache
-  name: Discord cache
+- name: Discord cache
   description: Discord Code Cache / Cache / GPUCache.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 5
+  delete_mode: contents
+  max_depth: 4
+  id: app-discord-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/discord/Cache"
   - "$HOME/Library/Application Support/discord/Code Cache"
   - "$HOME/Library/Application Support/discord/GPUCache"
-  - "$HOME/.config/discord/Cache"
-  - "$HOME/.config/discord/Code Cache"
-  - "%APPDATA%/discord/Cache"
-  - "%APPDATA%/discord/Code Cache"
+- name: Discord cache
+  description: Discord Code Cache / Cache / GPUCache.
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 5
   delete_mode: contents
   max_depth: 4
+  id: app-discord-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/discord/Cache"
+  - "$HOME/.config/discord/Code Cache"
+- name: Discord cache
+  description: Discord Code Cache / Cache / GPUCache.
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 5
+  delete_mode: contents
+  max_depth: 4
+  id: app-discord-cache-windows
+  platform: windows
+  paths:
+  - "%APPDATA%/discord/Cache"
+  - "%APPDATA%/discord/Code Cache"
 - id: app-discord-channels-cache
   name: Discord PTB/Canary/Development caches
   description: Alternate Discord release channels Chromium cache dirs beyond stable
@@ -858,8 +891,6 @@ rules:
   - "$HOME/Library/Application Support/obsidian/Cache"
   - "$HOME/Library/Application Support/obsidian/Code Cache"
   - "$HOME/Library/Application Support/obsidian/GPUCache"
-  - "$HOME/.config/obsidian/Cache"
-  - "$HOME/.config/obsidian/GPUCache"
   delete_mode: contents
   max_depth: 4
 - id: app-obsidian-cache-ext
@@ -1125,22 +1156,44 @@ rules:
   - "$HOME/Library/Application Support/Skype/Content"
   delete_mode: contents
   max_depth: 6
-- id: app-slack-cache
-  name: Slack cache
+- name: Slack cache
   description: Slack desktop cache directories.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 5
+  delete_mode: contents
+  max_depth: 4
+  id: app-slack-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Slack/Cache"
   - "$HOME/Library/Application Support/Slack/Code Cache"
   - "$HOME/Library/Application Support/Slack/GPUCache"
-  - "$HOME/.config/Slack/Cache"
-  - "%APPDATA%/Slack/Cache"
+- name: Slack cache
+  description: Slack desktop cache directories.
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 5
   delete_mode: contents
   max_depth: 4
+  id: app-slack-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/Slack/Cache"
+- name: Slack cache
+  description: Slack desktop cache directories.
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 5
+  delete_mode: contents
+  max_depth: 4
+  id: app-slack-cache-windows
+  platform: windows
+  paths:
+  - "%APPDATA%/Slack/Cache"
 - id: app-slack-extra-cache
   name: Slack extra Chromium caches and logs
   description: Slack Dawn caches, Service Worker, blob_storage, Crashpad, app logs.
@@ -1180,21 +1233,44 @@ rules:
   - "$HOME/Library/Application Support/Spark Desktop/logs"
   delete_mode: contents
   max_depth: 6
-- id: app-spotify-cache
-  name: Spotify cache
+- name: Spotify cache
   description: Local Spotify data cache (music re-downloads as needed).
   category: app-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: app-spotify-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Caches/com.spotify.client"
   - "$HOME/Library/Application Support/Spotify/PersistentCache"
   - "$HOME/.cache/spotify"
-  - "%LOCALAPPDATA%/Spotify/Storage"
+- name: Spotify cache
+  description: Local Spotify data cache (music re-downloads as needed).
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
+  id: app-spotify-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/spotify"
+- name: Spotify cache
+  description: Local Spotify data cache (music re-downloads as needed).
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: app-spotify-cache-windows
+  platform: windows
+  paths:
+  - "%LOCALAPPDATA%/Spotify/Storage"
 - id: app-steam-cache
   name: Steam appcache and logs
   description: Steam HTTP appcache and log files (not steamapps game data).
@@ -1319,20 +1395,42 @@ rules:
   - "$HOME/Library/Group Containers/UBF8T346G9.com.microsoft.teams/Library/Logs"
   delete_mode: contents
   max_depth: 6
-- id: app-telegram-cache
-  name: Telegram cache
+- name: Telegram cache
   description: Telegram Desktop media and blob cache.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/ru.keepcoder.Telegram"
-  - "$HOME/.local/share/TelegramDesktop/tdata/user_data/cache"
-  - "%APPDATA%/Telegram Desktop/tdata/user_data/cache"
   delete_mode: contents
   max_depth: 5
+  id: app-telegram-cache-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Caches/ru.keepcoder.Telegram"
+- name: Telegram cache
+  description: Telegram Desktop media and blob cache.
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: app-telegram-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.local/share/TelegramDesktop/tdata/user_data/cache"
+- name: Telegram cache
+  description: Telegram Desktop media and blob cache.
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 5
+  id: app-telegram-cache-windows
+  platform: windows
+  paths:
+  - "%APPDATA%/Telegram Desktop/tdata/user_data/cache"
 - id: app-telegram-cache-ext
   name: Telegram NSCache and Sparkle caches
   description: Telegram app Cache.db/WebKit/Sparkle under Library/Caches.
@@ -1414,13 +1512,6 @@ rules:
   - "$HOME/Library/Application Support/Code/DawnWebGPUCache"
   - "$HOME/Library/Application Support/Code/DawnGraphiteCache"
   - "$HOME/Library/Application Support/Code/CachedData"
-  - "$HOME/.config/Code/Cache"
-  - "$HOME/.config/Code/Code Cache"
-  - "$HOME/.config/Code/GPUCache"
-  - "%APPDATA%/Code/Cache"
-  - "%APPDATA%/Code/Code Cache"
-  - "%APPDATA%/Code/GPUCache"
-  - "%APPDATA%/Code/CachedExtensionVSIXs"
   delete_mode: contents
   max_depth: 4
 - id: app-vscode-insiders-cache
@@ -1572,21 +1663,44 @@ rules:
   - "$HOME/Library/Logs/Yubico Authenticator"
   delete_mode: contents
   max_depth: 6
-- id: app-zoom-cache
-  name: Zoom cache
+- name: Zoom cache
   description: Zoom logs and cache (not recordings).
   category: app-cache
-  platform: any
   risk: low
   default_enabled: true
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 4
+  id: app-zoom-cache-macos
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/zoom.us/Logs"
   - "$HOME/Library/Caches/us.zoom.xos"
   - "$HOME/.zoom"
-  - "%APPDATA%/Zoom/logs"
+- name: Zoom cache
+  description: Zoom logs and cache (not recordings).
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
   delete_mode: contents
   max_depth: 4
+  id: app-zoom-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.zoom"
+- name: Zoom cache
+  description: Zoom logs and cache (not recordings).
+  category: app-cache
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  delete_mode: contents
+  max_depth: 4
+  id: app-zoom-cache-windows
+  platform: windows
+  paths:
+  - "%APPDATA%/Zoom/logs"
 - id: app-zoom-extra-cache-logs
   name: Zoom extra caches and component logs
   description: Zoom updater caches, CEF/WebView data caches, auxiliary logs. Not meeting
@@ -2680,7 +2794,6 @@ rules:
   - "$HOME/Library/Caches/org.filezilla-project.filezilla"
   - "$HOME/Library/Caches/org.filezilla-project.filezilla.pro"
   - "$HOME/Library/Caches/FileZilla"
-  - "$HOME/.config/filezilla/Cache"
   - "$HOME/.filezilla/Cache"
   - "$HOME/Library/Application Support/FileZilla/Cache"
   - "$HOME/Library/Logs/FileZilla"
@@ -3194,8 +3307,6 @@ rules:
   - "$HOME/open3d_data"
   - "$HOME/.cache/Open3D"
   - "$HOME/.cache/open3d"
-  - "$XDG_CACHE_HOME/Open3D"
-  - "$XDG_CACHE_HOME/open3d"
   - "$HOME/Library/Caches/Open3D"
   delete_mode: contents
   max_depth: 6
@@ -3480,7 +3591,6 @@ rules:
   - "$HOME/.bxd/Cache"
   - "$HOME/.bxd/logs"
   - "$HOME/.bxd/Logs"
-  - "$HOME/.bxd/tmp"
   delete_mode: contents
   max_depth: 6
   exclude_globs:
@@ -5049,7 +5159,6 @@ rules:
   - "$HOME/Library/Application Support/Hydrogen/logs"
   - "$HOME/Library/Logs/Hydrogen"
   - "$HOME/.hydrogen/cache"
-  - "$HOME/.hydrogen/tmp"
   delete_mode: contents
   max_depth: 6
 - id: daw-ilok-pace-caches
@@ -5551,14 +5660,16 @@ rules:
   - "**/logs/**"
   - "**/Sessions/**"
   - "**/blob_storage/**"
-- id: db-pgcli-mycli-cache
-  name: pgcli/mycli/litecli caches
+- name: pgcli/mycli/litecli caches
   description: Completer caches and log files for enhanced SQL CLIs.
   category: app-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 21
+  delete_mode: contents
+  max_depth: 3
+  id: db-pgcli-mycli-cache-macos
+  platform: macos
   paths:
   - "$HOME/.cache/pgcli"
   - "$HOME/.cache/mycli"
@@ -5566,8 +5677,20 @@ rules:
   - "$HOME/Library/Caches/pgcli"
   - "$HOME/Library/Caches/mycli"
   - "$HOME/Library/Caches/litecli"
+- name: pgcli/mycli/litecli caches
+  description: Completer caches and log files for enhanced SQL CLIs.
+  category: app-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 21
   delete_mode: contents
   max_depth: 3
+  id: db-pgcli-mycli-cache-linux
+  platform: linux
+  paths:
+  - "$HOME/.cache/pgcli"
+  - "$HOME/.cache/mycli"
+  - "$HOME/.cache/litecli"
 - id: db-postico-caches-logs
   name: Postico caches and logs
   description: Postico / Postico 2 caches and logs.
@@ -5963,10 +6086,6 @@ rules:
   default_enabled: false
   min_age_days: 14
   paths:
-  - "$HOME/.local/share/Icons8/Lunacy/Cache"
-  - "$HOME/.local/share/Icons8/Lunacy/Caches"
-  - "$HOME/.local/share/Icons8/Lunacy/Temp"
-  - "$HOME/.local/share/Icons8/Lunacy/Logs"
   - "$HOME/Library/Caches/com.icons8.Lunacy"
   - "$HOME/Library/Caches/Lunacy"
   - "$HOME/Library/Application Support/Lunacy/Cache"
@@ -6652,7 +6771,6 @@ rules:
   - "$HOME/Library/Caches/org.octave.OctaveGUI"
   - "$HOME/Library/Caches/org.octave.cli"
   - "$HOME/.cache/octave"
-  - "$HOME/.local/share/octave/packages-cache"
   - "$HOME/Library/Logs/Octave"
   delete_mode: contents
   max_depth: 5
@@ -13656,1014 +13774,1014 @@ rules:
   - "$HOME/Library/WebKit/us.zoom.xos"
   delete_mode: contents
   max_depth: 6
-- id: gen-electron-cache-1password
-  name: 1Password Electron cache
+- name: 1Password Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/1Password.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-1password
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/1Password/Cache"
   - "$HOME/Library/Application Support/1Password/Code Cache"
   - "$HOME/Library/Application Support/1Password/GPUCache"
   - "$HOME/Library/Application Support/1Password/CachedData"
   - "$HOME/Library/Application Support/1Password/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-adobecreativecloud
-  name: AdobeCreativeCloud Electron cache
+- name: AdobeCreativeCloud Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/AdobeCreativeCloud.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-adobecreativecloud
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/AdobeCreativeCloud/Cache"
   - "$HOME/Library/Application Support/AdobeCreativeCloud/Code Cache"
   - "$HOME/Library/Application Support/AdobeCreativeCloud/GPUCache"
   - "$HOME/Library/Application Support/AdobeCreativeCloud/CachedData"
   - "$HOME/Library/Application Support/AdobeCreativeCloud/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-airmail
-  name: Airmail Electron cache
+- name: Airmail Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Airmail.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-airmail
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Airmail/Cache"
   - "$HOME/Library/Application Support/Airmail/Code Cache"
   - "$HOME/Library/Application Support/Airmail/GPUCache"
   - "$HOME/Library/Application Support/Airmail/CachedData"
   - "$HOME/Library/Application Support/Airmail/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-arc
-  name: Arc Electron cache
+- name: Arc Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Arc.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-arc
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Arc/Cache"
   - "$HOME/Library/Application Support/Arc/Code Cache"
   - "$HOME/Library/Application Support/Arc/GPUCache"
   - "$HOME/Library/Application Support/Arc/CachedData"
   - "$HOME/Library/Application Support/Arc/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-asana
-  name: Asana Electron cache
+- name: Asana Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Asana.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-asana
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Asana/Cache"
   - "$HOME/Library/Application Support/Asana/Code Cache"
   - "$HOME/Library/Application Support/Asana/GPUCache"
   - "$HOME/Library/Application Support/Asana/CachedData"
   - "$HOME/Library/Application Support/Asana/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-authy
-  name: Authy Electron cache
+- name: Authy Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Authy.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-authy
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Authy/Cache"
   - "$HOME/Library/Application Support/Authy/Code Cache"
   - "$HOME/Library/Application Support/Authy/GPUCache"
   - "$HOME/Library/Application Support/Authy/CachedData"
   - "$HOME/Library/Application Support/Authy/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-battlenet
-  name: BattleNet Electron cache
+- name: BattleNet Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/BattleNet.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-battlenet
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/BattleNet/Cache"
   - "$HOME/Library/Application Support/BattleNet/Code Cache"
   - "$HOME/Library/Application Support/BattleNet/GPUCache"
   - "$HOME/Library/Application Support/BattleNet/CachedData"
   - "$HOME/Library/Application Support/BattleNet/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-bitwarden
-  name: Bitwarden Electron cache
+- name: Bitwarden Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Bitwarden.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-bitwarden
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Bitwarden/Cache"
   - "$HOME/Library/Application Support/Bitwarden/Code Cache"
   - "$HOME/Library/Application Support/Bitwarden/GPUCache"
   - "$HOME/Library/Application Support/Bitwarden/CachedData"
   - "$HOME/Library/Application Support/Bitwarden/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-brave
-  name: Brave Electron cache
+- name: Brave Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Brave.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-brave
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Brave/Cache"
   - "$HOME/Library/Application Support/Brave/Code Cache"
   - "$HOME/Library/Application Support/Brave/GPUCache"
   - "$HOME/Library/Application Support/Brave/CachedData"
   - "$HOME/Library/Application Support/Brave/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-browser
-  name: Browser Electron cache
+- name: Browser Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Browser.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-browser
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Browser/Cache"
   - "$HOME/Library/Application Support/Browser/Code Cache"
   - "$HOME/Library/Application Support/Browser/GPUCache"
   - "$HOME/Library/Application Support/Browser/CachedData"
   - "$HOME/Library/Application Support/Browser/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-canary
-  name: Canary Electron cache
+- name: Canary Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Canary.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-canary
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Canary/Cache"
   - "$HOME/Library/Application Support/Canary/Code Cache"
   - "$HOME/Library/Application Support/Canary/GPUCache"
   - "$HOME/Library/Application Support/Canary/CachedData"
   - "$HOME/Library/Application Support/Canary/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-chrome
-  name: Chrome Electron cache
+- name: Chrome Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Chrome.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-chrome
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Chrome/Cache"
   - "$HOME/Library/Application Support/Chrome/Code Cache"
   - "$HOME/Library/Application Support/Chrome/GPUCache"
   - "$HOME/Library/Application Support/Chrome/CachedData"
   - "$HOME/Library/Application Support/Chrome/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-clickup
-  name: ClickUp Electron cache
+- name: ClickUp Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/ClickUp.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-clickup
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/ClickUp/Cache"
   - "$HOME/Library/Application Support/ClickUp/Code Cache"
   - "$HOME/Library/Application Support/ClickUp/GPUCache"
   - "$HOME/Library/Application Support/ClickUp/CachedData"
   - "$HOME/Library/Application Support/ClickUp/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-craft
-  name: Craft Electron cache
+- name: Craft Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Craft.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-craft
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Craft/Cache"
   - "$HOME/Library/Application Support/Craft/Code Cache"
   - "$HOME/Library/Application Support/Craft/GPUCache"
   - "$HOME/Library/Application Support/Craft/CachedData"
   - "$HOME/Library/Application Support/Craft/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-dashlane
-  name: Dashlane Electron cache
+- name: Dashlane Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Dashlane.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-dashlane
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Dashlane/Cache"
   - "$HOME/Library/Application Support/Dashlane/Code Cache"
   - "$HOME/Library/Application Support/Dashlane/GPUCache"
   - "$HOME/Library/Application Support/Dashlane/CachedData"
   - "$HOME/Library/Application Support/Dashlane/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-discord
-  name: Discord Electron cache
+- name: Discord Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Discord.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-discord
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Discord/Cache"
   - "$HOME/Library/Application Support/Discord/Code Cache"
   - "$HOME/Library/Application Support/Discord/GPUCache"
   - "$HOME/Library/Application Support/Discord/CachedData"
   - "$HOME/Library/Application Support/Discord/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-discordptb
-  name: DiscordPTB Electron cache
+- name: DiscordPTB Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/DiscordPTB.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-discordptb
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/DiscordPTB/Cache"
   - "$HOME/Library/Application Support/DiscordPTB/Code Cache"
   - "$HOME/Library/Application Support/DiscordPTB/GPUCache"
   - "$HOME/Library/Application Support/DiscordPTB/CachedData"
   - "$HOME/Library/Application Support/DiscordPTB/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-eaapp
-  name: EAApp Electron cache
+- name: EAApp Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/EAApp.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-eaapp
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/EAApp/Cache"
   - "$HOME/Library/Application Support/EAApp/Code Cache"
   - "$HOME/Library/Application Support/EAApp/GPUCache"
   - "$HOME/Library/Application Support/EAApp/CachedData"
   - "$HOME/Library/Application Support/EAApp/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-edge
-  name: Edge Electron cache
+- name: Edge Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Edge.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-edge
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Edge/Cache"
   - "$HOME/Library/Application Support/Edge/Code Cache"
   - "$HOME/Library/Application Support/Edge/GPUCache"
   - "$HOME/Library/Application Support/Edge/CachedData"
   - "$HOME/Library/Application Support/Edge/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-element
-  name: Element Electron cache
+- name: Element Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Element.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-element
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Element/Cache"
   - "$HOME/Library/Application Support/Element/Code Cache"
   - "$HOME/Library/Application Support/Element/GPUCache"
   - "$HOME/Library/Application Support/Element/CachedData"
   - "$HOME/Library/Application Support/Element/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-epicgames
-  name: EpicGames Electron cache
+- name: EpicGames Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/EpicGames.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-epicgames
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/EpicGames/Cache"
   - "$HOME/Library/Application Support/EpicGames/Code Cache"
   - "$HOME/Library/Application Support/EpicGames/GPUCache"
   - "$HOME/Library/Application Support/EpicGames/CachedData"
   - "$HOME/Library/Application Support/EpicGames/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-expressvpn
-  name: ExpressVPN Electron cache
+- name: ExpressVPN Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/ExpressVPN.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-expressvpn
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/ExpressVPN/Cache"
   - "$HOME/Library/Application Support/ExpressVPN/Code Cache"
   - "$HOME/Library/Application Support/ExpressVPN/GPUCache"
   - "$HOME/Library/Application Support/ExpressVPN/CachedData"
   - "$HOME/Library/Application Support/ExpressVPN/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-figma
-  name: Figma Electron cache
+- name: Figma Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Figma.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-figma
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Figma/Cache"
   - "$HOME/Library/Application Support/Figma/Code Cache"
   - "$HOME/Library/Application Support/Figma/GPUCache"
   - "$HOME/Library/Application Support/Figma/CachedData"
   - "$HOME/Library/Application Support/Figma/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-firefox
-  name: Firefox Electron cache
+- name: Firefox Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Firefox.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-firefox
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Firefox/Cache"
   - "$HOME/Library/Application Support/Firefox/Code Cache"
   - "$HOME/Library/Application Support/Firefox/GPUCache"
   - "$HOME/Library/Application Support/Firefox/CachedData"
   - "$HOME/Library/Application Support/Firefox/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-fork
-  name: Fork Electron cache
+- name: Fork Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Fork.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-fork
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Fork/Cache"
   - "$HOME/Library/Application Support/Fork/Code Cache"
   - "$HOME/Library/Application Support/Fork/GPUCache"
   - "$HOME/Library/Application Support/Fork/CachedData"
   - "$HOME/Library/Application Support/Fork/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-front
-  name: Front Electron cache
+- name: Front Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Front.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-front
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Front/Cache"
   - "$HOME/Library/Application Support/Front/Code Cache"
   - "$HOME/Library/Application Support/Front/GPUCache"
   - "$HOME/Library/Application Support/Front/CachedData"
   - "$HOME/Library/Application Support/Front/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-githubdesktop
-  name: GitHubDesktop Electron cache
+- name: GitHubDesktop Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/GitHubDesktop.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-githubdesktop
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/GitHubDesktop/Cache"
   - "$HOME/Library/Application Support/GitHubDesktop/Code Cache"
   - "$HOME/Library/Application Support/GitHubDesktop/GPUCache"
   - "$HOME/Library/Application Support/GitHubDesktop/CachedData"
   - "$HOME/Library/Application Support/GitHubDesktop/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-gitkraken
-  name: GitKraken Electron cache
+- name: GitKraken Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/GitKraken.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-gitkraken
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/GitKraken/Cache"
   - "$HOME/Library/Application Support/GitKraken/Code Cache"
   - "$HOME/Library/Application Support/GitKraken/GPUCache"
   - "$HOME/Library/Application Support/GitKraken/CachedData"
   - "$HOME/Library/Application Support/GitKraken/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-goggalaxy
-  name: GOGGalaxy Electron cache
+- name: GOGGalaxy Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/GOGGalaxy.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-goggalaxy
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/GOGGalaxy/Cache"
   - "$HOME/Library/Application Support/GOGGalaxy/Code Cache"
   - "$HOME/Library/Application Support/GOGGalaxy/GPUCache"
   - "$HOME/Library/Application Support/GOGGalaxy/CachedData"
   - "$HOME/Library/Application Support/GOGGalaxy/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-illustrator
-  name: Illustrator Electron cache
+- name: Illustrator Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Illustrator.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-illustrator
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Illustrator/Cache"
   - "$HOME/Library/Application Support/Illustrator/Code Cache"
   - "$HOME/Library/Application Support/Illustrator/GPUCache"
   - "$HOME/Library/Application Support/Illustrator/CachedData"
   - "$HOME/Library/Application Support/Illustrator/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-insomnia
-  name: Insomnia Electron cache
+- name: Insomnia Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Insomnia.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-insomnia
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Insomnia/Cache"
   - "$HOME/Library/Application Support/Insomnia/Code Cache"
   - "$HOME/Library/Application Support/Insomnia/GPUCache"
   - "$HOME/Library/Application Support/Insomnia/CachedData"
   - "$HOME/Library/Application Support/Insomnia/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-keeper
-  name: Keeper Electron cache
+- name: Keeper Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Keeper.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-keeper
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Keeper/Cache"
   - "$HOME/Library/Application Support/Keeper/Code Cache"
   - "$HOME/Library/Application Support/Keeper/GPUCache"
   - "$HOME/Library/Application Support/Keeper/CachedData"
   - "$HOME/Library/Application Support/Keeper/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-launcher
-  name: Launcher Electron cache
+- name: Launcher Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Launcher.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-launcher
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Launcher/Cache"
   - "$HOME/Library/Application Support/Launcher/Code Cache"
   - "$HOME/Library/Application Support/Launcher/GPUCache"
   - "$HOME/Library/Application Support/Launcher/CachedData"
   - "$HOME/Library/Application Support/Launcher/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-linear
-  name: Linear Electron cache
+- name: Linear Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Linear.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-linear
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Linear/Cache"
   - "$HOME/Library/Application Support/Linear/Code Cache"
   - "$HOME/Library/Application Support/Linear/GPUCache"
   - "$HOME/Library/Application Support/Linear/CachedData"
   - "$HOME/Library/Application Support/Linear/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-minecraft
-  name: Minecraft Electron cache
+- name: Minecraft Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Minecraft.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-minecraft
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Minecraft/Cache"
   - "$HOME/Library/Application Support/Minecraft/Code Cache"
   - "$HOME/Library/Application Support/Minecraft/GPUCache"
   - "$HOME/Library/Application Support/Minecraft/CachedData"
   - "$HOME/Library/Application Support/Minecraft/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-miro
-  name: Miro Electron cache
+- name: Miro Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Miro.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-miro
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Miro/Cache"
   - "$HOME/Library/Application Support/Miro/Code Cache"
   - "$HOME/Library/Application Support/Miro/GPUCache"
   - "$HOME/Library/Application Support/Miro/CachedData"
   - "$HOME/Library/Application Support/Miro/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-monday
-  name: Monday Electron cache
+- name: Monday Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Monday.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-monday
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Monday/Cache"
   - "$HOME/Library/Application Support/Monday/Code Cache"
   - "$HOME/Library/Application Support/Monday/GPUCache"
   - "$HOME/Library/Application Support/Monday/CachedData"
   - "$HOME/Library/Application Support/Monday/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-mullvad
-  name: Mullvad Electron cache
+- name: Mullvad Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Mullvad.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-mullvad
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Mullvad/Cache"
   - "$HOME/Library/Application Support/Mullvad/Code Cache"
   - "$HOME/Library/Application Support/Mullvad/GPUCache"
   - "$HOME/Library/Application Support/Mullvad/CachedData"
   - "$HOME/Library/Application Support/Mullvad/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-nordpass
-  name: NordPass Electron cache
+- name: NordPass Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/NordPass.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-nordpass
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/NordPass/Cache"
   - "$HOME/Library/Application Support/NordPass/Code Cache"
   - "$HOME/Library/Application Support/NordPass/GPUCache"
   - "$HOME/Library/Application Support/NordPass/CachedData"
   - "$HOME/Library/Application Support/NordPass/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-nordvpn
-  name: NordVPN Electron cache
+- name: NordVPN Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/NordVPN.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-nordvpn
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/NordVPN/Cache"
   - "$HOME/Library/Application Support/NordVPN/Code Cache"
   - "$HOME/Library/Application Support/NordVPN/GPUCache"
   - "$HOME/Library/Application Support/NordVPN/CachedData"
   - "$HOME/Library/Application Support/NordVPN/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-notion
-  name: Notion Electron cache
+- name: Notion Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Notion.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-notion
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Notion/Cache"
   - "$HOME/Library/Application Support/Notion/Code Cache"
   - "$HOME/Library/Application Support/Notion/GPUCache"
   - "$HOME/Library/Application Support/Notion/CachedData"
   - "$HOME/Library/Application Support/Notion/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-notioncalendar
-  name: NotionCalendar Electron cache
+- name: NotionCalendar Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/NotionCalendar.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-notioncalendar
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/NotionCalendar/Cache"
   - "$HOME/Library/Application Support/NotionCalendar/Code Cache"
   - "$HOME/Library/Application Support/NotionCalendar/GPUCache"
   - "$HOME/Library/Application Support/NotionCalendar/CachedData"
   - "$HOME/Library/Application Support/NotionCalendar/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-obsidian
-  name: Obsidian Electron cache
+- name: Obsidian Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Obsidian.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-obsidian
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Obsidian/Cache"
   - "$HOME/Library/Application Support/Obsidian/Code Cache"
   - "$HOME/Library/Application Support/Obsidian/GPUCache"
   - "$HOME/Library/Application Support/Obsidian/CachedData"
   - "$HOME/Library/Application Support/Obsidian/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-photoshop
-  name: Photoshop Electron cache
+- name: Photoshop Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Photoshop.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-photoshop
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Photoshop/Cache"
   - "$HOME/Library/Application Support/Photoshop/Code Cache"
   - "$HOME/Library/Application Support/Photoshop/GPUCache"
   - "$HOME/Library/Application Support/Photoshop/CachedData"
   - "$HOME/Library/Application Support/Photoshop/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-postman
-  name: Postman Electron cache
+- name: Postman Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Postman.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-postman
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Postman/Cache"
   - "$HOME/Library/Application Support/Postman/Code Cache"
   - "$HOME/Library/Application Support/Postman/GPUCache"
   - "$HOME/Library/Application Support/Postman/CachedData"
   - "$HOME/Library/Application Support/Postman/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-riotclient
-  name: RiotClient Electron cache
+- name: RiotClient Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/RiotClient.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-riotclient
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/RiotClient/Cache"
   - "$HOME/Library/Application Support/RiotClient/Code Cache"
   - "$HOME/Library/Application Support/RiotClient/GPUCache"
   - "$HOME/Library/Application Support/RiotClient/CachedData"
   - "$HOME/Library/Application Support/RiotClient/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-signal
-  name: Signal Electron cache
+- name: Signal Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Signal.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-signal
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Signal/Cache"
   - "$HOME/Library/Application Support/Signal/Code Cache"
   - "$HOME/Library/Application Support/Signal/GPUCache"
   - "$HOME/Library/Application Support/Signal/CachedData"
   - "$HOME/Library/Application Support/Signal/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-skype
-  name: Skype Electron cache
+- name: Skype Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Skype.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-skype
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Skype/Cache"
   - "$HOME/Library/Application Support/Skype/Code Cache"
   - "$HOME/Library/Application Support/Skype/GPUCache"
   - "$HOME/Library/Application Support/Skype/CachedData"
   - "$HOME/Library/Application Support/Skype/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-slack
-  name: Slack Electron cache
+- name: Slack Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Slack.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-slack
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Slack/Cache"
   - "$HOME/Library/Application Support/Slack/Code Cache"
   - "$HOME/Library/Application Support/Slack/GPUCache"
   - "$HOME/Library/Application Support/Slack/CachedData"
   - "$HOME/Library/Application Support/Slack/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-sourcetree
-  name: Sourcetree Electron cache
+- name: Sourcetree Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Sourcetree.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-sourcetree
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Sourcetree/Cache"
   - "$HOME/Library/Application Support/Sourcetree/Code Cache"
   - "$HOME/Library/Application Support/Sourcetree/GPUCache"
   - "$HOME/Library/Application Support/Sourcetree/CachedData"
   - "$HOME/Library/Application Support/Sourcetree/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-spark
-  name: Spark Electron cache
+- name: Spark Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Spark.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-spark
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Spark/Cache"
   - "$HOME/Library/Application Support/Spark/Code Cache"
   - "$HOME/Library/Application Support/Spark/GPUCache"
   - "$HOME/Library/Application Support/Spark/CachedData"
   - "$HOME/Library/Application Support/Spark/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-spotify
-  name: Spotify Electron cache
+- name: Spotify Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Spotify.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-spotify
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Spotify/Cache"
   - "$HOME/Library/Application Support/Spotify/Code Cache"
   - "$HOME/Library/Application Support/Spotify/GPUCache"
   - "$HOME/Library/Application Support/Spotify/CachedData"
   - "$HOME/Library/Application Support/Spotify/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-steam
-  name: Steam Electron cache
+- name: Steam Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Steam.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-steam
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Steam/Cache"
   - "$HOME/Library/Application Support/Steam/Code Cache"
   - "$HOME/Library/Application Support/Steam/GPUCache"
   - "$HOME/Library/Application Support/Steam/CachedData"
   - "$HOME/Library/Application Support/Steam/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-superhuman
-  name: Superhuman Electron cache
+- name: Superhuman Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Superhuman.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-superhuman
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Superhuman/Cache"
   - "$HOME/Library/Application Support/Superhuman/Code Cache"
   - "$HOME/Library/Application Support/Superhuman/GPUCache"
   - "$HOME/Library/Application Support/Superhuman/CachedData"
   - "$HOME/Library/Application Support/Superhuman/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-teams
-  name: Teams Electron cache
+- name: Teams Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Teams.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-teams
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Teams/Cache"
   - "$HOME/Library/Application Support/Teams/Code Cache"
   - "$HOME/Library/Application Support/Teams/GPUCache"
   - "$HOME/Library/Application Support/Teams/CachedData"
   - "$HOME/Library/Application Support/Teams/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-telegram
-  name: Telegram Electron cache
+- name: Telegram Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Telegram.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-telegram
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Telegram/Cache"
   - "$HOME/Library/Application Support/Telegram/Code Cache"
   - "$HOME/Library/Application Support/Telegram/GPUCache"
   - "$HOME/Library/Application Support/Telegram/CachedData"
   - "$HOME/Library/Application Support/Telegram/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-tor
-  name: Tor Electron cache
+- name: Tor Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Tor.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-tor
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Tor/Cache"
   - "$HOME/Library/Application Support/Tor/Code Cache"
   - "$HOME/Library/Application Support/Tor/GPUCache"
   - "$HOME/Library/Application Support/Tor/CachedData"
   - "$HOME/Library/Application Support/Tor/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-tower
-  name: Tower Electron cache
+- name: Tower Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Tower.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-tower
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Tower/Cache"
   - "$HOME/Library/Application Support/Tower/Code Cache"
   - "$HOME/Library/Application Support/Tower/GPUCache"
   - "$HOME/Library/Application Support/Tower/CachedData"
   - "$HOME/Library/Application Support/Tower/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-trello
-  name: Trello Electron cache
+- name: Trello Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Trello.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-trello
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Trello/Cache"
   - "$HOME/Library/Application Support/Trello/Code Cache"
   - "$HOME/Library/Application Support/Trello/GPUCache"
   - "$HOME/Library/Application Support/Trello/CachedData"
   - "$HOME/Library/Application Support/Trello/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-vscodium
-  name: VSCodium Electron cache
+- name: VSCodium Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/VSCodium.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-vscodium
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/VSCodium/Cache"
   - "$HOME/Library/Application Support/VSCodium/Code Cache"
   - "$HOME/Library/Application Support/VSCodium/GPUCache"
   - "$HOME/Library/Application Support/VSCodium/CachedData"
   - "$HOME/Library/Application Support/VSCodium/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-whatsapp
-  name: WhatsApp Electron cache
+- name: WhatsApp Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/WhatsApp.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-whatsapp
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/WhatsApp/Cache"
   - "$HOME/Library/Application Support/WhatsApp/Code Cache"
   - "$HOME/Library/Application Support/WhatsApp/GPUCache"
   - "$HOME/Library/Application Support/WhatsApp/CachedData"
   - "$HOME/Library/Application Support/WhatsApp/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-whimsical
-  name: Whimsical Electron cache
+- name: Whimsical Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Whimsical.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-whimsical
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Whimsical/Cache"
   - "$HOME/Library/Application Support/Whimsical/Code Cache"
   - "$HOME/Library/Application Support/Whimsical/GPUCache"
   - "$HOME/Library/Application Support/Whimsical/CachedData"
   - "$HOME/Library/Application Support/Whimsical/DawnCache"
-  delete_mode: contents
-  max_depth: 6
-- id: gen-electron-cache-zoom
-  name: Zoom Electron cache
+- name: Zoom Electron cache
   description: Electron Cache / Code Cache / GPUCache under Application Support/Zoom.
   category: app-cache
-  platform: any
   risk: low
   default_enabled: false
   min_age_days: 7
+  delete_mode: contents
+  max_depth: 6
+  id: gen-electron-cache-zoom
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Zoom/Cache"
   - "$HOME/Library/Application Support/Zoom/Code Cache"
   - "$HOME/Library/Application Support/Zoom/GPUCache"
   - "$HOME/Library/Application Support/Zoom/CachedData"
   - "$HOME/Library/Application Support/Zoom/DawnCache"
-  delete_mode: contents
-  max_depth: 6
 - id: hyper-fig-caches-logs
   name: Hyper and Fig residual caches
   description: Hyper Electron caches and Fig/Codex-era Fig residual caches/logs.
@@ -16193,8 +16311,6 @@ rules:
   paths:
   - "$HOME/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev"
   - "$HOME/Library/Application Support/com.clashverge.dev"
-  - "$HOME/.local/share/io.github.clash-verge-rev.clash-verge-rev"
-  - "$HOME/.config/clash-verge"
   delete_mode: contents
   max_depth: 6
   report_only: true
@@ -16229,8 +16345,6 @@ rules:
   paths:
   - "$HOME/Library/Application Support/com.west2online.ClashX"
   - "$HOME/Library/Application Support/com.west2online.ClashXPro"
-  - "$HOME/.config/clash"
-  - "$HOME/.config/clash.meta"
   delete_mode: contents
   max_depth: 6
   report_only: true
@@ -16328,19 +16442,15 @@ rules:
   delete_mode: contents
   max_depth: 6
   report_only: true
-- id: net-mitmproxy-flows-temp
-  name: mitmproxy flow dumps and temp (careful)
+- name: mitmproxy flow dumps and temp (careful)
   description: Aged flow files and temp under ~/.mitmproxy excluding CA keys.
   category: app-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.mitmproxy"
   delete_mode: contents
   max_depth: 3
-  include_globs:
+  include_globs: &1
   - "**/*.flow"
   - "**/*.flows"
   - "**/flows"
@@ -16348,7 +16458,7 @@ rules:
   - "**/*.log"
   - "**/tmp/**"
   - "**/cache/**"
-  exclude_globs:
+  exclude_globs: &2
   - "**/mitmproxy-ca*"
   - "**/mitmproxy-dhparam*"
   - "**/*.pem"
@@ -16356,6 +16466,24 @@ rules:
   - "**/*.p8"
   - "**/config.yaml"
   - "**/keys"
+  id: net-mitmproxy-flows-temp-macos
+  platform: macos
+  paths:
+  - "$HOME/.mitmproxy"
+- name: mitmproxy flow dumps and temp (careful)
+  description: Aged flow files and temp under ~/.mitmproxy excluding CA keys.
+  category: app-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 3
+  include_globs: *1
+  exclude_globs: *2
+  id: net-mitmproxy-flows-temp-linux
+  platform: linux
+  paths:
+  - "$HOME/.mitmproxy"
 - id: net-outline-client-caches
   name: Outline Client caches and logs
   description: Outline VPN client caches/logs (App Store / Cordova layouts).
@@ -16566,17 +16694,13 @@ rules:
   - "$HOME/Library/Caches/whistle-client"
   delete_mode: contents
   max_depth: 6
-- id: net-whistle-logs-cache
-  name: Whistle proxy logs and cache data
+- name: Whistle proxy logs and cache data
   description: Whistle Node proxy crash log and cache under .WhistleAppData excluding
     certs/rules.
   category: app-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
-  paths:
-  - "$HOME/.WhistleAppData"
   delete_mode: contents
   max_depth: 5
   include_globs:
@@ -16594,6 +16718,10 @@ rules:
   - "**/rules"
   - "**/values"
   - "**/properties"
+  id: net-whistle-logs-cache
+  platform: windows
+  paths:
+  - "$HOME/.WhistleAppData"
 - id: net-wireshark-caches
   name: Wireshark caches and HTTP/WebKit storage
   description: Wireshark app caches, cookies store, HTTPStorages, WebKit. Not profiles
@@ -16610,22 +16738,36 @@ rules:
   - "$HOME/Library/Saved Application State/org.wireshark.Wireshark.savedState"
   delete_mode: contents
   max_depth: 5
-- id: net-wireshark-config-report
-  name: Wireshark personal config and profiles (report-only)
+- name: Wireshark personal config and profiles (report-only)
   description: Wireshark personal configuration, colorfilters, profiles. Inventory
     only.
   category: app-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.config/wireshark"
-  - "$HOME/.wireshark"
-  - "$HOME/Library/Application Support/Wireshark"
   delete_mode: contents
   max_depth: 6
   report_only: true
+  id: net-wireshark-config-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.wireshark"
+  - "$HOME/Library/Application Support/Wireshark"
+- name: Wireshark personal config and profiles (report-only)
+  description: Wireshark personal configuration, colorfilters, profiles. Inventory
+    only.
+  category: app-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+  id: net-wireshark-config-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/wireshark"
+  - "$HOME/.wireshark"
 - id: notes-agenda-caches-logs
   name: Agenda notes-calendar caches and logs
   description: Agenda (com.momenta.agenda.macos) Caches/Logs. Never group.com.momenta.agenda
@@ -18658,7 +18800,6 @@ rules:
   min_age_days: 7
   paths:
   - "$HOME/.cache/darktable"
-  - "$XDG_CACHE_HOME/darktable"
   - "$HOME/Library/Caches/org.darktable"
   - "$HOME/Library/Caches/darktable"
   - "$HOME/Library/Application Support/darktable/cache"
@@ -18679,7 +18820,6 @@ rules:
   default_enabled: false
   min_age_days: 3
   paths:
-  - "$HOME/.cache/darktable/tmp"
   - "$HOME/Library/Logs/darktable"
   - "$HOME/Library/Logs/org.darktable"
   delete_mode: contents
@@ -19091,7 +19231,6 @@ rules:
   paths:
   - "$HOME/.cache/RawTherapee"
   - "$HOME/.cache/RawTherapee5"
-  - "$XDG_CACHE_HOME/RawTherapee"
   - "$HOME/Library/Application Support/RawTherapee/cache"
   - "$HOME/Library/Application Support/RawTherapee5/cache"
   - "$HOME/Library/Caches/com.rawtherapee.RawTherapee"

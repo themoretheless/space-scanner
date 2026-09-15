@@ -38,14 +38,36 @@ rules:
   delete_mode: contents
   max_depth: 3
   report_only: true
-- id: db-cli-history-report
-  name: SQL/Redis CLI history files (report-only)
+- name: SQL/Redis CLI history files (report-only)
   description: mysql, psql, sqlite, litecli, mycli, redis-cli interactive histories.
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: db-cli-history-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.mysql_history"
+  - "$HOME/.psql_history"
+  - "$HOME/.sqlite_history"
+  - "$HOME/.litecli-history"
+  - "$HOME/.mycli-history"
+  - "$HOME/.rediscli_history"
+  - "$HOME/.python_history"
+- name: SQL/Redis CLI history files (report-only)
+  description: mysql, psql, sqlite, litecli, mycli, redis-cli interactive histories.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: path
+  max_depth: 3
+  report_only: true
+  id: db-cli-history-report-linux
+  platform: linux
   paths:
   - "$HOME/.mysql_history"
   - "$HOME/.psql_history"
@@ -57,9 +79,6 @@ rules:
   - "$HOME/.config/litecli"
   - "$HOME/.config/mycli"
   - "$HOME/.config/pgcli"
-  delete_mode: path
-  max_depth: 3
-  report_only: true
 - id: icons-launchservices-user-residual-report
   name: LaunchServices user residual (report-only)
   description: Per-user LaunchServices databases and quarantine events under Preferences.
@@ -225,19 +244,32 @@ rules:
   delete_mode: contents
   max_depth: 5
   report_only: true
-- id: net-mitmproxy-certs-report
-  name: mitmproxy CA and config inventory (report-only)
+- name: mitmproxy CA and config inventory (report-only)
   description: Report size of mitmproxy home including certs; never auto-delete.
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.mitmproxy"
   delete_mode: contents
   max_depth: 6
   report_only: true
+  id: net-mitmproxy-certs-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.mitmproxy"
+- name: mitmproxy CA and config inventory (report-only)
+  description: Report size of mitmproxy home including certs; never auto-delete.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+  id: net-mitmproxy-certs-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.mitmproxy"
 - id: net-proxy-certs-license-never
   name: Proxy MITM certs and licenses inventory (report-only never-wipe)
   description: Explicit report-only list of known CA/license locations so cleaners
@@ -252,71 +284,111 @@ rules:
   - "$HOME/Library/Application Support/com.proxyman.NSProxy/app-data"
   - "$HOME/Library/Application Support/Fiddler Everywhere/License"
   - "$HOME/Library/Preferences/com.xk72.charles.config"
-  - "$HOME/.WhistleAppData/certs"
   delete_mode: contents
   max_depth: 6
   report_only: true
-- id: web-caddy-config-autosave-report
-  name: Caddy config autosave (report-only)
+- name: Caddy config autosave (report-only)
   description: Last active Caddy config (autosave.json) and config dir for --resume.
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: web-caddy-config-autosave-report-linux
+  platform: linux
   paths:
   - "$HOME/.config/caddy"
   - "$XDG_CONFIG_HOME/caddy"
-  delete_mode: contents
-  max_depth: 4
-  report_only: true
-- id: web-caddy-data-report
-  name: Caddy data directory (certs, report-only)
+- name: Caddy data directory (certs, report-only)
   description: Caddy storage for TLS certs, keys, OCSP staples. Not a cache.
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+  id: web-caddy-data-report-macos
+  platform: macos
   paths:
   - "$HOME/Library/Application Support/Caddy"
+  - "$HOME/.caddy"
+- name: Caddy data directory (certs, report-only)
+  description: Caddy storage for TLS certs, keys, OCSP staples. Not a cache.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+  id: web-caddy-data-report-linux
+  platform: linux
+  paths:
   - "$HOME/.local/share/caddy"
   - "$XDG_DATA_HOME/caddy"
   - "$HOME/.caddy"
-  delete_mode: contents
-  max_depth: 5
-  report_only: true
-- id: web-ddev-traefik-certs-report
-  name: DDEV Traefik/mkcert router certs (report-only)
+- name: DDEV Traefik/mkcert router certs (report-only)
   description: Router certificates under global DDEV traefik certs (mkcert-generated).
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.ddev/traefik/certs"
-  - "$HOME/.config/ddev/traefik/certs"
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: web-minio-certs-report
-  name: MinIO TLS certs dir (report-only)
-  description: Default MinIO certs under ~/.minio/certs.
+  id: web-ddev-traefik-certs-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.ddev/traefik/certs"
+- name: DDEV Traefik/mkcert router certs (report-only)
+  description: Router certificates under global DDEV traefik certs (mkcert-generated).
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: web-ddev-traefik-certs-report-linux
+  platform: linux
   paths:
-  - "$HOME/.minio/certs"
-  - "$HOME/.minio"
+  - "$HOME/.ddev/traefik/certs"
+  - "$HOME/.config/ddev/traefik/certs"
+- name: MinIO TLS certs dir (report-only)
+  description: Default MinIO certs under ~/.minio/certs.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
   delete_mode: contents
   max_depth: 5
-  include_globs:
+  include_globs: &1
   - "**/certs/**"
   - "**/certs"
   report_only: true
+  id: web-minio-certs-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.minio/certs"
+  - "$HOME/.minio"
+- name: MinIO TLS certs dir (report-only)
+  description: Default MinIO certs under ~/.minio/certs.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 5
+  include_globs: *1
+  report_only: true
+  id: web-minio-certs-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.minio/certs"
+  - "$HOME/.minio"
 - id: web-mkcert-caroot-report
   name: mkcert CAROOT (report-only, never delete)
   description: mkcert local CA and issued certs. Explicitly not for deletion.
@@ -327,42 +399,65 @@ rules:
   min_age_days: 0
   paths:
   - "$HOME/Library/Application Support/mkcert"
-  - "$HOME/.local/share/mkcert"
-  - "$XDG_DATA_HOME/mkcert"
   delete_mode: contents
   max_depth: 3
   report_only: true
-- id: web-telepresence-config-report
-  name: Telepresence config (report-only)
+- name: Telepresence config (report-only)
   description: Telepresence user configuration and connection state.
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
-  paths:
-  - "$HOME/.config/telepresence"
-  - "$XDG_CONFIG_HOME/telepresence"
-  - "$HOME/Library/Application Support/telepresence"
   delete_mode: contents
   max_depth: 4
   report_only: true
-- id: web-traefik-acme-report
-  name: Traefik ACME/certs storage (report-only)
-  description: Local Traefik acme.json and certificate storage under user config homes.
+  id: web-telepresence-config-report-macos
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/telepresence"
+- name: Telepresence config (report-only)
+  description: Telepresence user configuration and connection state.
   category: system
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 0
+  delete_mode: contents
+  max_depth: 4
+  report_only: true
+  id: web-telepresence-config-report-linux
+  platform: linux
+  paths:
+  - "$HOME/.config/telepresence"
+  - "$XDG_CONFIG_HOME/telepresence"
+- name: Traefik ACME/certs storage (report-only)
+  description: Local Traefik acme.json and certificate storage under user config homes.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+  id: web-traefik-acme-report-macos
+  platform: macos
+  paths:
+  - "$HOME/.traefik"
+  - "$HOME/Library/Application Support/traefik"
+- name: Traefik ACME/certs storage (report-only)
+  description: Local Traefik acme.json and certificate storage under user config homes.
+  category: system
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  delete_mode: contents
+  max_depth: 5
+  report_only: true
+  id: web-traefik-acme-report-linux
+  platform: linux
   paths:
   - "$HOME/.traefik"
   - "$HOME/.config/traefik"
   - "$XDG_CONFIG_HOME/traefik"
-  - "$HOME/Library/Application Support/traefik"
-  delete_mode: contents
-  max_depth: 5
-  report_only: true
 - id: web-valet-certs-report
   name: Laravel Valet TLS certificates (report-only)
   description: Per-site certificates generated by valet secure (mkcert-backed).
@@ -372,7 +467,6 @@ rules:
   default_enabled: false
   min_age_days: 0
   paths:
-  - "$HOME/.config/valet/Certificates"
   - "$HOME/.valet/Certificates"
   delete_mode: contents
   max_depth: 3

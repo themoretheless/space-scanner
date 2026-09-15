@@ -103,7 +103,6 @@ rules:
   paths:
   - "$HOME/.wine"
   - "$HOME/Library/Application Support/Wine"
-  - "$HOME/.local/share/wineprefixes"
   delete_mode: contents
   max_depth: 12
   include_globs:
@@ -261,20 +260,33 @@ rules:
   - "$HOME/Library/Containers/com.utmapp.UTM/Data/Library/Logs"
   delete_mode: contents
   max_depth: 6
-- id: virt-vagrant-tmp-logs
-  name: Vagrant tmp and logs
+- name: Vagrant tmp and logs
   description: Vagrant temporary downloads and logs under ~/.vagrant.d. Not boxes.
   category: vm-cache
-  platform: any
   risk: report-only
   default_enabled: false
   min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: virt-vagrant-tmp-logs-macos
+  platform: macos
+  paths:
+  - "$HOME/.vagrant.d/logs"
+  - "$HOME/.vagrant.d/data"
+- name: Vagrant tmp and logs
+  description: Vagrant temporary downloads and logs under ~/.vagrant.d. Not boxes.
+  category: vm-cache
+  risk: report-only
+  default_enabled: false
+  min_age_days: 14
+  delete_mode: contents
+  max_depth: 5
+  id: virt-vagrant-tmp-logs-linux
+  platform: linux
   paths:
   - "$HOME/.vagrant.d/tmp"
   - "$HOME/.vagrant.d/logs"
   - "$HOME/.vagrant.d/data"
-  delete_mode: contents
-  max_depth: 5
 - id: virt-virtualbox-logs-caches
   name: VirtualBox host logs and app caches
   description: VirtualBox service/selector logs and macOS app caches. Regenerable;
@@ -290,7 +302,6 @@ rules:
   - "$HOME/Library/Caches/org.virtualbox.app.VirtualBox"
   - "$HOME/Library/Caches/com.oracle.virtualbox"
   - "$HOME/Library/Caches/VirtualBox"
-  - "$HOME/.config/VirtualBox"
   delete_mode: contents
   max_depth: 5
   include_globs:

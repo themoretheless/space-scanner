@@ -90,7 +90,9 @@ cargo run -p space-cli --release -- rules list --all -q linux-
 cargo run -p space-cli --release -- junk -c caches,logs
 ```
 
-Expand to N rules: `RULES_TARGET=10000 ruby scripts/expand_rules_to_target.rb`  
-OS seed packs: `ruby scripts/gen_win_linux_rules.rb`
+**`any` is not used.** Cross-OS apps are split into `macos` / `linux` / `windows` rules (paths filtered per OS). Re-split: `ruby scripts/split_any_rules.rb`.
+
+Expand: `RULES_TARGET=10000 ruby scripts/expand_rules_to_target.rb`  
+OS seeds: `ruby scripts/gen_win_linux_rules.rb`
 
 In the app: **Junk** (clean) · **Rules** (manager).
