@@ -21,20 +21,11 @@ pub struct TreeRow {
     pub has_kids: bool,
 }
 
+#[derive(Default)]
 pub struct SideTree {
     pub expanded: HashSet<NodeId>,
     rows: Vec<TreeRow>,
     key: Option<(NodeId, SizeMode, u64)>,
-}
-
-impl Default for SideTree {
-    fn default() -> Self {
-        Self {
-            expanded: HashSet::new(),
-            rows: Vec::new(),
-            key: None,
-        }
-    }
 }
 
 impl SideTree {
@@ -60,12 +51,7 @@ impl SideTree {
 
     /// While hovering a ring: show peer folders on that circle (open their parent),
     /// and collapse any other expanded branches. When hover ends, keep only the focus path.
-    pub fn sync_for_hover(
-        &mut self,
-        tree: &SpaceTree,
-        focus: NodeId,
-        hover: Option<NodeId>,
-    ) {
+    pub fn sync_for_hover(&mut self, tree: &SpaceTree, focus: NodeId, hover: Option<NodeId>) {
         let mut keep = HashSet::new();
         let mut cur = Some(focus);
         while let Some(id) = cur {
@@ -111,15 +97,7 @@ impl SideTree {
         }
         self.expanded.insert(root);
         self.rows.clear();
-        flatten(
-            tree,
-            root,
-            0,
-            mode,
-            filter,
-            &self.expanded,
-            &mut self.rows,
-        );
+        flatten(tree, root, 0, mode, filter, &self.expanded, &mut self.rows);
         self.key = Some(key);
     }
 
@@ -147,14 +125,8 @@ fn flatten(
     }
     let node = tree.node(id);
     // Root of panel always shown; deeper nodes must match filter (dirs kept for navigation).
-    if depth > 0 && !filter.matches(&node.name, node.is_dir, node.size(mode)) {
-        if !(node.is_dir && filter.is_active()) {
-            // When filtering, still show matching dirs; skip non-matching files.
-            // For dirs with no matching name, peek children.
-            if !node.is_dir {
-                return;
-            }
-        }
+    if depth > 0 && !node.is_dir && !filter.matches(&node.name, false, node.size(mode)) {
+        return;
     }
 
     let kids: Vec<NodeId> = if node.is_dir {
@@ -228,7 +200,7 @@ pub fn folder_files(
             Some((cid, sz))
         })
         .collect();
-    files.sort_by(|a, b| b.1.cmp(&a.1));
+    files.sort_by_key(|row| std::cmp::Reverse(row.1));
     files.truncate(limit);
     files
 }
@@ -259,6 +231,7 @@ pub struct TreeAction {
     pub select: Option<NodeId>,
     pub navigate: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
+    pub reveal: Option<NodeId>,
     pub toggled_expand: bool,
 }
 
@@ -268,12 +241,14 @@ impl TreeAction {
             select: None,
             navigate: None,
             toggle_review: None,
+            reveal: None,
             toggled_expand: false,
         }
     }
 }
 
 /// Draw tree rows (parent provides ScrollArea for smooth scrolling).
+#[allow(clippy::too_many_arguments)]
 pub fn draw_rows(
     ui: &mut Ui,
     tree: &SpaceTree,
@@ -291,6 +266,18 @@ pub fn draw_rows(
     let old_spacing = ui.spacing().item_spacing;
     ui.spacing_mut().item_spacing = egui::vec2(4.0, 1.0);
 
+    ui.horizontal(|ui| {
+        ui.add_space(6.0);
+        ui.label(RichText::new("Trash").small().color(MUTED));
+        ui.label(RichText::new("Name").small().color(MUTED));
+        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+            if show_pct {
+                ui.label(RichText::new("%").small().color(MUTED).monospace());
+            }
+            ui.label(RichText::new("Size").small().color(MUTED));
+        });
+    });
+
     for row in &rows {
         let node = tree.node(row.id);
         let is_sel = selected == Some(row.id) || row.id == focus;
@@ -301,28 +288,21 @@ pub fn draw_rows(
         };
         let is_hov = active && hovered.is_some();
         let is_exact = hovered == Some(row.id);
-        let live = ui.ctx().animate_bool_with_time(
-            ui.id().with(("dim", row.id.0)),
-            active,
-            0.28,
-        );
+        let live = ui
+            .ctx()
+            .animate_bool_with_time(ui.id().with(("dim", row.id.0)), active, 0.28);
         let fade = |c: Color32| {
-            Color32::from_rgba_unmultiplied(
-                c.r(),
-                c.g(),
-                c.b(),
-                (26.0 + 229.0 * live) as u8,
-            )
+            Color32::from_rgba_unmultiplied(c.r(), c.g(), c.b(), (26.0 + 229.0 * live) as u8)
         };
 
         let indent = 2.0 + row.depth as f32 * 10.0;
         ui.horizontal(|ui| {
-            ui.set_height(18.0);
+            ui.set_height(22.0);
             ui.add_space(indent);
             let mut queued = in_q;
             if ui
-                .add(egui::Checkbox::without_text(&mut queued))
-                .on_hover_text("Include in deletion review")
+                .add_enabled(!node.synthetic, egui::Checkbox::without_text(&mut queued))
+                .on_hover_text("Add to Trash queue")
                 .changed()
             {
                 action.toggle_review = Some(row.id);
@@ -330,18 +310,14 @@ pub fn draw_rows(
 
             if row.is_dir && row.has_kids {
                 let open = side.expanded.contains(&row.id);
-                let t = ui.ctx().animate_bool_with_time(
-                    ui.id().with(("chev", row.id.0)),
-                    open,
-                    0.18,
-                );
+                let t =
+                    ui.ctx()
+                        .animate_bool_with_time(ui.id().with(("chev", row.id.0)), open, 0.18);
                 // Rotate ▸ toward ▾ via opacity blend of two glyphs.
                 let chev_resp = ui
                     .allocate_ui(egui::vec2(12.0, 14.0), |ui| {
-                        let (rect, resp) = ui.allocate_exact_size(
-                            egui::vec2(12.0, 14.0),
-                            Sense::click(),
-                        );
+                        let (rect, resp) =
+                            ui.allocate_exact_size(egui::vec2(12.0, 14.0), Sense::click());
                         let painter = ui.painter();
                         let closed_a = ((1.0 - t) * 255.0) as u8;
                         let open_a = (t * 255.0) as u8;
@@ -394,15 +370,42 @@ pub fn draw_rows(
             }
 
             let name = node.name.clone();
-            let name_color = if is_hov {
-                fade(ACCENT)
-            } else {
-                fade(TEXT)
-            };
+            let name_color = if is_hov { fade(ACCENT) } else { fade(TEXT) };
             let resp = ui.selectable_label(
                 is_sel || is_hov,
-                RichText::new(name).color(name_color).size(12.0),
+                RichText::new(name).color(name_color).size(12.5),
             );
+            resp.clone().on_hover_text(if row.is_dir {
+                "Click to open on the map · ⌘-click Trash queue"
+            } else {
+                "Click to select · ⌘-click Trash queue"
+            });
+
+            resp.context_menu(|ui| {
+                if row.is_dir && ui.button("Open on map").clicked() {
+                    action.navigate = Some(row.id);
+                    ui.close_menu();
+                }
+                if ui.button("Select").clicked() {
+                    action.select = Some(row.id);
+                    ui.close_menu();
+                }
+                if !node.synthetic {
+                    let label = if in_q {
+                        "Remove from Trash queue"
+                    } else {
+                        "Add to Trash queue"
+                    };
+                    if ui.button(label).clicked() {
+                        action.toggle_review = Some(row.id);
+                        ui.close_menu();
+                    }
+                }
+                if ui.button("Show in Finder").clicked() {
+                    action.reveal = Some(row.id);
+                    ui.close_menu();
+                }
+            });
 
             if is_hov && !is_sel {
                 let r = resp.rect;
@@ -412,11 +415,11 @@ pub fn draw_rows(
                     egui::Stroke::new(if is_exact { 1.4_f32 } else { 1.0_f32 }, ACCENT),
                 );
             }
-            if is_exact {
-                resp.scroll_to_me(Some(Align::Center));
-            } else if is_hov && hovered.is_some_and(|h| {
-                tree.try_node(h).and_then(|n| n.parent) == Some(row.id)
-            }) {
+            if is_exact
+                || (is_hov
+                    && hovered
+                        .is_some_and(|h| tree.try_node(h).and_then(|n| n.parent) == Some(row.id)))
+            {
                 resp.scroll_to_me(Some(Align::Center));
             }
 
@@ -442,13 +445,17 @@ pub fn draw_rows(
             });
 
             if resp.clicked() {
-                action.select = Some(row.id);
+                if ui.input(|i| i.modifiers.command || i.modifiers.ctrl) && !node.synthetic {
+                    action.toggle_review = Some(row.id);
+                    action.select = Some(row.id);
+                } else if row.is_dir {
+                    action.navigate = Some(row.id);
+                } else {
+                    action.select = Some(row.id);
+                }
             }
             if resp.double_clicked() && row.is_dir {
                 action.navigate = Some(row.id);
-            }
-            if resp.secondary_clicked() {
-                action.toggle_review = Some(row.id);
             }
         });
     }
@@ -459,6 +466,7 @@ pub fn draw_rows(
 
 /// Convenience: own scroll area (unused when parent scrolls).
 #[allow(dead_code)]
+#[allow(clippy::too_many_arguments)]
 pub fn draw(
     ui: &mut Ui,
     tree: &SpaceTree,

@@ -17,6 +17,10 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     let center = rect.center();
 
     let kids = child_ids(ctx, focus);
+    if kids.is_empty() && ctx.filter.is_active() {
+        super::empty_filter_prompt(ui, rect, &mut action);
+        return action;
+    }
     let focus_node = tree.node(focus);
     let max_size = kids
         .iter()
@@ -49,7 +53,11 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     painter.text(
         center + Vec2::new(0.0, 12.0),
         Align2::CENTER_CENTER,
-        format_bytes(focus_node.size(ctx.mode)),
+        if focus_node.parent.is_some() {
+            format!("{}  ·  ↑", format_bytes(focus_node.size(ctx.mode)))
+        } else {
+            format_bytes(focus_node.size(ctx.mode))
+        },
         FontId::proportional(13.0),
         MUTED,
     );
@@ -65,7 +73,12 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         if let Some(&prev) = colors.last() {
             avoid.push(prev);
         }
-        colors.push(theme::color_for_adjacent(&node.name, node.is_dir, i, &avoid));
+        colors.push(theme::color_for_adjacent(
+            &node.name,
+            node.is_dir,
+            i,
+            &avoid,
+        ));
     }
     if colors.len() >= 2 {
         let first = colors[0];
@@ -94,16 +107,12 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         let color = colors.get(i).copied().unwrap_or(parent_color);
         let is_hov = ctx.hovered == Some(id);
         let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
-        let hov_t = ui.ctx().animate_bool_with_time(
-            ui.id().with(("rad_hov", id.0)),
-            is_hov,
-            0.16,
-        );
-        let sel_t = ui.ctx().animate_bool_with_time(
-            ui.id().with(("rad_sel", id.0)),
-            is_sel,
-            0.2,
-        );
+        let hov_t = ui
+            .ctx()
+            .animate_bool_with_time(ui.id().with(("rad_hov", id.0)), is_hov, 0.16);
+        let sel_t = ui
+            .ctx()
+            .animate_bool_with_time(ui.id().with(("rad_sel", id.0)), is_sel, 0.2);
         let r = r * (1.0 + hov_t * 0.12);
         painter.circle_filled(pos, r, color);
         painter.circle_stroke(
@@ -128,7 +137,11 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             painter.text(
                 pos + Vec2::new(0.0, r + 10.0),
                 Align2::CENTER_CENTER,
-                format!("{} {}", truncate(&node.name, 14), format_bytes(node.size(ctx.mode))),
+                format!(
+                    "{} {}",
+                    truncate(&node.name, 14),
+                    format_bytes(node.size(ctx.mode))
+                ),
                 FontId::proportional(11.0),
                 TEXT,
             );
@@ -137,36 +150,34 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         let hit = egui::Rect::from_center_size(pos, Vec2::splat(r * 2.2));
         let resp = ui.interact(hit, ui.id().with(("radial", id.0)), Sense::click());
         if resp.clicked() {
-            action.select = Some(id);
+            super::click_map_node(
+                tree,
+                id,
+                focus,
+                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                &mut action,
+            );
         }
-        if resp.double_clicked() && node.is_dir {
-            action.navigate = Some(id);
+        if resp.double_clicked() {
+            super::double_click_map_node(tree, id, &mut action);
         }
-        if resp.secondary_clicked() {
-            action.toggle_review = Some(id);
-        }
+        let in_q = ctx.review.contains(&id);
+        super::node_context_menu(&resp, tree, id, in_q, &mut action);
         if resp.hovered() {
             action.hover = Some(id);
             ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
-            resp.on_hover_ui(|ui| {
-                ui.label(egui::RichText::new(&node.name).strong());
-                ui.label(format!(
-                    "{} · {} files{}",
-                    format_bytes(node.size(ctx.mode)),
-                    node.file_count,
-                    if node.is_dir { " · folder" } else { "" }
-                ));
-            });
+            resp.on_hover_ui(|ui| super::node_hover_ui(ui, tree, id, ctx.focus, ctx.mode));
         }
     }
 
     let center_hit = egui::Rect::from_center_size(center, Vec2::splat(center_r * 2.0));
     let center_resp = ui.interact(center_hit, ui.id().with("radial-center"), Sense::click());
-    if center_resp.double_clicked() {
+    if center_resp.clicked() || center_resp.double_clicked() {
         if let Some(parent) = focus_node.parent {
             action.navigate = Some(parent);
         }
     }
+    center_resp.on_hover_text("Click to go up");
 
     action
 }

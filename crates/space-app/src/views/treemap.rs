@@ -21,8 +21,10 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let tree = ctx.tree;
     let full = ui.available_size();
     let legend_h = 28.0;
-    let (map_rect, _) =
-        ui.allocate_exact_size(egui::vec2(full.x, (full.y - legend_h).max(40.0)), Sense::hover());
+    let (map_rect, _) = ui.allocate_exact_size(
+        egui::vec2(full.x, (full.y - legend_h).max(40.0)),
+        Sense::hover(),
+    );
     let (legend_rect, _) = ui.allocate_exact_size(egui::vec2(full.x, legend_h), Sense::hover());
     let painter = ui.painter_at(map_rect);
     painter.rect_filled(map_rect, 4.0, theme::PANEL);
@@ -55,10 +57,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             layout_nested(ctx, &kids, map_rect.shrink(3.0), 0, &mut tiles);
             *ctx.geom = Some(crate::views::GeomCache::Treemap {
                 key,
-                tiles: tiles
-                    .into_iter()
-                    .map(|t| (t.id, t.rect, t.depth))
-                    .collect(),
+                tiles: tiles.into_iter().map(|t| (t.id, t.rect, t.depth)).collect(),
             });
         }
     }
@@ -69,13 +68,17 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     };
 
     if tiles.is_empty() {
-        painter.text(
-            map_rect.center(),
-            Align2::CENTER_CENTER,
-            "Empty / filtered out",
-            FontId::proportional(14.0),
-            MUTED,
-        );
+        if ctx.filter.is_active() {
+            super::empty_filter_prompt(ui, map_rect, &mut action);
+        } else {
+            painter.text(
+                map_rect.center(),
+                Align2::CENTER_CENTER,
+                "This folder has no children to show",
+                FontId::proportional(14.0),
+                MUTED,
+            );
+        }
         return action;
     }
 
@@ -89,11 +92,11 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         ui.painter_at(legend_rect).text(
             egui::pos2(x, y),
             Align2::LEFT_CENTER,
-            "ext",
+            "Types",
             FontId::proportional(11.0),
             MUTED,
         );
-        x += 28.0;
+        x += 44.0;
         for (ext, color) in &legend {
             let chip = egui::Rect::from_min_size(
                 egui::pos2(x, y - 10.0),
@@ -101,6 +104,14 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             );
             let selected = ctx.filter.ext.as_deref() == Some(ext.as_str());
             let resp = ui.interact(chip, ui.id().with(("leg", ext.as_str())), Sense::click());
+            if resp.clicked() {
+                action.filter_ext = Some(ext.clone());
+            }
+            resp.on_hover_text(if selected {
+                "Showing this type — click to show all"
+            } else {
+                "Show only this file type on the map"
+            });
             ui.painter().rect_filled(
                 egui::Rect::from_center_size(egui::pos2(x + 6.0, y), Vec2::splat(10.0)),
                 2.0,
@@ -113,9 +124,6 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 FontId::proportional(11.0),
                 if selected { ACCENT } else { TEXT },
             );
-            if resp.clicked() {
-                action.filter_ext = Some(ext.clone());
-            }
             x += chip.width() + 4.0;
             if x > legend_rect.right() - 40.0 {
                 break;
@@ -135,21 +143,18 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         };
         let is_hov = ctx.hovered == Some(id);
         let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
-        let hov_t = ui.ctx().animate_bool_with_time(
-            ui.id().with(("tm_hov", id.0, depth)),
-            is_hov,
-            0.14,
-        );
-        let sel_t = ui.ctx().animate_bool_with_time(
-            ui.id().with(("tm_sel", id.0, depth)),
-            is_sel,
-            0.18,
-        );
+        let hov_t =
+            ui.ctx()
+                .animate_bool_with_time(ui.id().with(("tm_hov", id.0, depth)), is_hov, 0.14);
+        let sel_t =
+            ui.ctx()
+                .animate_bool_with_time(ui.id().with(("tm_sel", id.0, depth)), is_sel, 0.18);
         let shrink = if node.is_dir { 1.5 } else { 0.8 };
         let draw = rect.shrink(shrink);
         // Soft grow on hover.
         let grow = hov_t * 1.2;
-        let draw = egui::Rect::from_center_size(draw.center(), draw.size() + egui::vec2(grow, grow));
+        let draw =
+            egui::Rect::from_center_size(draw.center(), draw.size() + egui::vec2(grow, grow));
         painter.rect_filled(draw, 2.0, color);
         let stroke_w = 0.6 + sel_t * 1.4 + hov_t * 1.0;
         let stroke_a = (90.0 + sel_t * 150.0 + hov_t * 100.0).min(255.0) as u8;
@@ -188,39 +193,30 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
 
         let resp = ui.interact(rect, ui.id().with(("tm", id.0, depth)), Sense::click());
         if resp.clicked() {
-            action.select = Some(id);
+            super::click_map_node(
+                ctx.tree,
+                id,
+                ctx.focus,
+                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                &mut action,
+            );
         }
-        if resp.double_clicked() && node.is_dir {
-            action.navigate = Some(id);
+        if resp.double_clicked() {
+            super::double_click_map_node(ctx.tree, id, &mut action);
         }
-        if resp.secondary_clicked() {
-            action.toggle_review = Some(id);
-        }
+        let in_q = ctx.review.contains(&id);
+        super::node_context_menu(&resp, ctx.tree, id, in_q, &mut action);
         if resp.hovered() {
             action.hover = Some(id);
             ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
-            resp.on_hover_ui(|ui| {
-                ui.label(egui::RichText::new(&node.name).strong());
-                ui.label(format!(
-                    "{} · {} files{}",
-                    format_bytes(node.size(ctx.mode)),
-                    node.file_count,
-                    if node.is_dir { " · folder" } else { "" }
-                ));
-            });
+            resp.on_hover_ui(|ui| super::node_hover_ui(ui, ctx.tree, id, ctx.focus, ctx.mode));
         }
     }
 
     action
 }
 
-fn layout_nested(
-    ctx: &DrawCtx<'_>,
-    ids: &[NodeId],
-    rect: Rect,
-    depth: usize,
-    out: &mut Vec<Tile>,
-) {
+fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, out: &mut Vec<Tile>) {
     if ids.is_empty() || rect.width() < MIN_PX || rect.height() < MIN_PX || out.len() >= MAX_TILES {
         return;
     }
@@ -303,10 +299,7 @@ fn layout_row(row: &[(NodeId, f64)], remaining: &mut Rect, out: &mut Vec<FlatTil
             });
             x += w;
         }
-        *remaining = Rect::from_min_max(
-            pos2(remaining.left(), remaining.top() + h),
-            remaining.max,
-        );
+        *remaining = Rect::from_min_max(pos2(remaining.left(), remaining.top() + h), remaining.max);
     } else {
         let w = (remaining.width() as f64 * sum) as f32;
         let mut y = remaining.top();
@@ -318,10 +311,7 @@ fn layout_row(row: &[(NodeId, f64)], remaining: &mut Rect, out: &mut Vec<FlatTil
             });
             y += h;
         }
-        *remaining = Rect::from_min_max(
-            pos2(remaining.left() + w, remaining.top()),
-            remaining.max,
-        );
+        *remaining = Rect::from_min_max(pos2(remaining.left() + w, remaining.top()), remaining.max);
     }
 }
 

@@ -9,9 +9,10 @@ use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
 use egui::epaint::Mesh;
-use egui::Pos2;
-use egui::Ui;
-use space_core::{NodeId, SizeMode, SpaceTree};
+use egui::{Pos2, RichText, Ui};
+use space_core::{format_bytes, NodeId, SizeMode, SpaceTree};
+
+use crate::theme::MUTED;
 
 use sunburst::ArcHit;
 
@@ -26,19 +27,23 @@ pub enum ViewMode {
 impl ViewMode {
     pub fn label(self) -> &'static str {
         match self {
-            Self::Radial => "Radial",
-            Self::Container => "Container",
-            Self::Sunburst => "Sunburst",
-            Self::Cascade => "Cascade",
+            Self::Radial => "Circles",
+            Self::Container => "Rectangles",
+            Self::Sunburst => "Rings",
+            Self::Cascade => "Bands",
         }
     }
 
-    pub const ALL: [ViewMode; 4] = [
-        Self::Sunburst,
-        Self::Container,
-        Self::Radial,
-        Self::Cascade,
-    ];
+    pub fn click_hint(self) -> &'static str {
+        match self {
+            Self::Sunburst => "Folder click opens · center goes up · ⌘-click queues Trash",
+            Self::Container | Self::Radial | Self::Cascade => {
+                "Folder click opens · current folder goes up · ⌘-click queues Trash"
+            }
+        }
+    }
+
+    pub const ALL: [ViewMode; 4] = [Self::Sunburst, Self::Container, Self::Radial, Self::Cascade];
 }
 
 /// Serialize view mode for settings.
@@ -165,6 +170,105 @@ pub struct ViewAction {
     pub hover: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
     pub filter_ext: Option<String>,
+    pub reveal: Option<NodeId>,
+    pub clear_filter: bool,
+}
+
+/// Same hover card in every map view so gestures stay discoverable.
+pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, mode: SizeMode) {
+    let n = tree.node(id);
+    ui.label(RichText::new(&n.name).strong());
+    let kind = if n.is_dir { "Folder" } else { "File" };
+    let mut line = format!("{kind} · {}", format_bytes(n.size(mode)));
+    if let Some(parent) = n.parent {
+        let ps = tree.node(parent).size(mode).max(1) as f32;
+        let pct = n.size(mode) as f32 / ps * 100.0;
+        line.push_str(&format!(" · {pct:.0}% of parent"));
+    }
+    ui.label(line);
+    let hint = if n.synthetic {
+        "Grouped leftovers · click to select · right-click to filter by type"
+    } else if n.is_dir && id == focus {
+        "Click to go up · right-click for more · ⌘-click Trash queue"
+    } else if n.is_dir {
+        "Click to open this folder · right-click for more · ⌘-click Trash queue"
+    } else {
+        "Click to select · double-click Finder · ⌘-click Trash queue"
+    };
+    ui.label(RichText::new(hint).small().color(MUTED));
+}
+
+pub fn click_map_node(
+    tree: &SpaceTree,
+    id: NodeId,
+    focus: NodeId,
+    cmd: bool,
+    action: &mut ViewAction,
+) {
+    let n = tree.node(id);
+    if cmd && !n.synthetic {
+        action.toggle_review = Some(id);
+        action.select = Some(id);
+        return;
+    }
+    if n.synthetic {
+        action.select = Some(id);
+        return;
+    }
+    if n.is_dir {
+        if id == focus {
+            if let Some(parent) = n.parent {
+                action.navigate = Some(parent);
+            }
+        } else {
+            action.navigate = Some(id);
+        }
+    } else {
+        action.select = Some(id);
+    }
+}
+
+pub fn double_click_map_node(tree: &SpaceTree, id: NodeId, action: &mut ViewAction) {
+    if tree.node(id).is_dir {
+        action.navigate = Some(id);
+    } else {
+        action.reveal = Some(id);
+    }
+}
+
+pub fn node_context_menu(
+    resp: &egui::Response,
+    tree: &SpaceTree,
+    id: NodeId,
+    in_review: bool,
+    action: &mut ViewAction,
+) {
+    resp.context_menu(|ui| {
+        let n = tree.node(id);
+        if n.is_dir && ui.button("Open on map").clicked() {
+            action.navigate = Some(id);
+            ui.close_menu();
+        }
+        if ui.button("Select").clicked() {
+            action.select = Some(id);
+            ui.close_menu();
+        }
+        if !n.synthetic {
+            let label = if in_review {
+                "Remove from Trash queue"
+            } else {
+                "Add to Trash queue"
+            };
+            if ui.button(label).clicked() {
+                action.toggle_review = Some(id);
+                ui.close_menu();
+            }
+        }
+        if ui.button("Show in Finder").clicked() {
+            action.reveal = Some(id);
+            ui.close_menu();
+        }
+    });
 }
 
 impl ViewAction {
@@ -175,8 +279,29 @@ impl ViewAction {
             hover: None,
             toggle_review: None,
             filter_ext: None,
+            reveal: None,
+            clear_filter: false,
         }
     }
+}
+
+/// Empty map while a filter is on: one click clears it instead of hunting the sidebar.
+pub fn empty_filter_prompt(ui: &mut Ui, rect: egui::Rect, action: &mut ViewAction) {
+    ui.allocate_new_ui(egui::UiBuilder::new().max_rect(rect), |ui| {
+        ui.centered_and_justified(|ui| {
+            ui.vertical_centered(|ui| {
+                ui.label(
+                    RichText::new("Nothing matches this filter")
+                        .size(15.0)
+                        .color(MUTED),
+                );
+                ui.add_space(8.0);
+                if ui.button("Clear filter").clicked() {
+                    action.clear_filter = true;
+                }
+            });
+        });
+    });
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -279,4 +404,107 @@ pub fn review_sig(review: &[NodeId]) -> u64 {
         last.0.hash(&mut h);
     }
     h.finish()
+}
+
+#[cfg(test)]
+mod click_map_tests {
+    use super::*;
+    use space_core::Node;
+
+    fn dir(name: &str, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
+        Node {
+            name: name.into(),
+            apparent_size: 10,
+            allocated_size: 10,
+            file_count: 1,
+            is_dir: true,
+            synthetic: false,
+            children,
+            parent,
+        }
+    }
+
+    fn file(name: &str, parent: NodeId) -> Node {
+        Node {
+            name: name.into(),
+            apparent_size: 3,
+            allocated_size: 3,
+            file_count: 1,
+            is_dir: false,
+            synthetic: false,
+            children: Vec::new(),
+            parent: Some(parent),
+        }
+    }
+
+    fn sample() -> SpaceTree {
+        SpaceTree {
+            root_path: "/tmp".into(),
+            nodes: vec![
+                dir("root", None, vec![NodeId(1)]),
+                dir("child", Some(NodeId(0)), vec![NodeId(2)]),
+                file("a.txt", NodeId(1)),
+            ],
+            root: NodeId(0),
+            scanned_at_unix: 0,
+            item_count: 3,
+            skipped_errors: 0,
+            hardlink_candidates: 0,
+            hardlinks_deduped: 0,
+        }
+    }
+
+    #[test]
+    fn click_child_folder_opens_it() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
+        assert_eq!(action.navigate, Some(NodeId(1)));
+        assert_eq!(action.select, None);
+    }
+
+    #[test]
+    fn click_current_folder_goes_up() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(1), NodeId(1), false, &mut action);
+        assert_eq!(action.navigate, Some(NodeId(0)));
+    }
+
+    #[test]
+    fn click_file_selects() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(2), NodeId(1), false, &mut action);
+        assert_eq!(action.select, Some(NodeId(2)));
+        assert_eq!(action.navigate, None);
+    }
+
+    #[test]
+    fn double_click_file_reveals() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        double_click_map_node(&tree, NodeId(2), &mut action);
+        assert_eq!(action.reveal, Some(NodeId(2)));
+        assert_eq!(action.navigate, None);
+    }
+
+    #[test]
+    fn click_synthetic_does_not_drill_in() {
+        let mut tree = sample();
+        tree.nodes[1].synthetic = true;
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
+        assert_eq!(action.select, Some(NodeId(1)));
+        assert_eq!(action.navigate, None);
+    }
+
+    #[test]
+    fn cmd_click_queues_trash() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(2), NodeId(1), true, &mut action);
+        assert_eq!(action.toggle_review, Some(NodeId(2)));
+        assert_eq!(action.navigate, None);
+    }
 }

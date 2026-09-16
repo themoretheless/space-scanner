@@ -46,6 +46,11 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         &mut bands,
     );
 
+    if bands.len() == 1 && ctx.filter.is_active() {
+        super::empty_filter_prompt(ui, rect, &mut action);
+        return action;
+    }
+
     for band in &bands {
         let node = tree.node(band.id);
         let color = if band.depth == 0 {
@@ -55,16 +60,12 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         };
         let is_hov = ctx.hovered == Some(band.id);
         let is_sel = ctx.selected == Some(band.id) || ctx.review.contains(&band.id);
-        let hov_t = ui.ctx().animate_bool_with_time(
-            ui.id().with(("cas_hov", band.id.0)),
-            is_hov,
-            0.14,
-        );
-        let sel_t = ui.ctx().animate_bool_with_time(
-            ui.id().with(("cas_sel", band.id.0)),
-            is_sel,
-            0.18,
-        );
+        let hov_t =
+            ui.ctx()
+                .animate_bool_with_time(ui.id().with(("cas_hov", band.id.0)), is_hov, 0.14);
+        let sel_t =
+            ui.ctx()
+                .animate_bool_with_time(ui.id().with(("cas_sel", band.id.0)), is_sel, 0.18);
         let draw = band.rect.shrink(1.0);
         painter.rect_filled(draw, 3.0, color);
         if hov_t > 0.01 {
@@ -104,7 +105,11 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             painter.text(
                 band.rect.left_center() + Vec2::new(8.0, 8.0),
                 Align2::LEFT_CENTER,
-                format_bytes(node.size(ctx.mode)),
+                if band.depth == 0 && node.parent.is_some() {
+                    format!("{}  ·  click to go up", format_bytes(node.size(ctx.mode)))
+                } else {
+                    format_bytes(node.size(ctx.mode))
+                },
                 FontId::proportional(11.0),
                 MUTED,
             );
@@ -112,32 +117,30 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
 
         let resp = ui.interact(band.rect, ui.id().with(("cas", band.id.0)), Sense::click());
         if resp.clicked() {
-            action.select = Some(band.id);
+            super::click_map_node(
+                ctx.tree,
+                band.id,
+                ctx.focus,
+                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                &mut action,
+            );
         }
-        if resp.double_clicked() && node.is_dir {
-            action.navigate = Some(band.id);
+        if resp.double_clicked() {
+            super::double_click_map_node(ctx.tree, band.id, &mut action);
         }
-        if resp.secondary_clicked() {
-            action.toggle_review = Some(band.id);
-        }
+        let in_q = ctx.review.contains(&band.id);
+        super::node_context_menu(&resp, ctx.tree, band.id, in_q, &mut action);
         if resp.hovered() {
             action.hover = Some(band.id);
             ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
-            resp.on_hover_ui(|ui| {
-                ui.label(egui::RichText::new(&node.name).strong());
-                ui.label(format!(
-                    "{} · {} files{}",
-                    format_bytes(node.size(ctx.mode)),
-                    node.file_count,
-                    if node.is_dir { " · folder" } else { "" }
-                ));
-            });
+            resp.on_hover_ui(|ui| super::node_hover_ui(ui, ctx.tree, band.id, ctx.focus, ctx.mode));
         }
     }
 
     action
 }
 
+#[allow(clippy::too_many_arguments)]
 fn layout_children(
     ctx: &DrawCtx<'_>,
     parent: NodeId,

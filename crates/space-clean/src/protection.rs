@@ -6,7 +6,7 @@
 use crate::rules::{expand_path_template, Platform};
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
-use std::collections::{BTreeMap, BTreeSet};
+use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::OnceLock;
@@ -95,30 +95,63 @@ impl ProtectionPack {
                 }
             }
         }
-        paths.into_iter().collect()
+        crate::clean::coalesce_nested_paths(paths.into_iter().collect(), PathBuf::as_path)
     }
 }
 
-static HOST_PROTECTED_PATHS: OnceLock<Vec<PathBuf>> = OnceLock::new();
+struct ProtectedIndex {
+    paths: Vec<PathBuf>,
+    exact: HashSet<PathBuf>,
+}
+
+static HOST_PROTECTED_PATHS: OnceLock<Result<ProtectedIndex, String>> = OnceLock::new();
+
+fn protected_index() -> Result<&'static ProtectedIndex, &'static str> {
+    match HOST_PROTECTED_PATHS.get_or_init(|| {
+        ProtectionPack::load_many(&crate::default_rules_dirs())
+            .map(|pack| {
+                let paths = pack.host_paths();
+                let exact = paths.iter().cloned().collect();
+                ProtectedIndex { paths, exact }
+            })
+            .map_err(|error| error.to_string())
+    }) {
+        Ok(index) => Ok(index),
+        Err(error) => Err(error.as_str()),
+    }
+}
 
 /// Paths from the bundled/user protection packs for the current OS.
-pub fn protected_paths() -> &'static [PathBuf] {
-    HOST_PROTECTED_PATHS
-        .get_or_init(|| {
-            ProtectionPack::load_many(&crate::default_rules_dirs())
-                .map(|pack| pack.host_paths())
-                .unwrap_or_default()
-        })
-        .as_slice()
+pub fn protected_paths() -> Result<&'static [PathBuf], &'static str> {
+    protected_index().map(|index| index.paths.as_slice())
 }
 
 pub fn is_protected_by_rule(path: &Path) -> bool {
     let Ok(candidate) = crate::safety::normalize(path) else {
         return true;
     };
-    protected_paths()
-        .iter()
-        .any(|protected| candidate.as_path() == protected || candidate.starts_with(protected))
+    is_protected_normalized(&candidate)
+}
+
+/// Checks both directions: a protected ancestor blocks its descendants, and a
+/// protected descendant blocks deleting an ancestor that would contain it.
+pub(crate) fn is_protected_normalized(candidate: &Path) -> bool {
+    let Ok(index) = protected_index() else {
+        // Hard safety must fail closed if its rule pack cannot be loaded.
+        return true;
+    };
+    intersects_index(candidate, &index.paths, &index.exact)
+}
+
+fn intersects_index(candidate: &Path, paths: &[PathBuf], exact: &HashSet<PathBuf>) -> bool {
+    if candidate
+        .ancestors()
+        .any(|ancestor| exact.contains(ancestor))
+    {
+        return true;
+    }
+    let lower = paths.partition_point(|protected| protected.as_path() < candidate);
+    lower < paths.len() && paths[lower].starts_with(candidate)
 }
 
 #[cfg(test)]
@@ -142,5 +175,21 @@ mod tests {
             .unwrap();
         let root = expand_path_template(&rule.paths[0]).unwrap();
         assert!(is_protected_by_rule(&root.join("important.db")));
+        assert!(is_protected_by_rule(root.parent().unwrap()));
+    }
+
+    #[test]
+    fn host_paths_are_sorted_and_prefix_minimized() {
+        let paths = protected_paths().unwrap();
+        assert!(paths.windows(2).all(|pair| pair[0] < pair[1]));
+        assert!(paths.windows(2).all(|pair| !pair[1].starts_with(&pair[0])));
+    }
+
+    #[test]
+    fn sibling_sort_order_cannot_hide_a_protected_ancestor() {
+        let paths = vec![PathBuf::from("/a"), PathBuf::from("/a-child")];
+        let exact = paths.iter().cloned().collect();
+        assert!(intersects_index(Path::new("/a/nested"), &paths, &exact));
+        assert!(!intersects_index(Path::new("/unrelated"), &paths, &exact));
     }
 }

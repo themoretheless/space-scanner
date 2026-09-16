@@ -25,8 +25,9 @@ fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([settings.window_width, settings.window_height])
-            .with_min_inner_size([900.0, 600.0])
-            .with_title("Space Scanner"),
+            .with_min_inner_size([720.0, 520.0])
+            .with_title("Space Scanner")
+            .with_drag_and_drop(true),
         renderer: eframe::Renderer::Wgpu,
         ..Default::default()
     };

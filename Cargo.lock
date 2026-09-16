@@ -58,14 +58,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "airbug"
-version = "0.6.0"
-source = "git+https://github.com/themoretheless/airbug?branch=release#75b1321b5d7ff2cee983379f539c07726a7d27e5"
-dependencies = [
- "airbug-macros",
-]
-
-[[package]]
 name = "airbug-bench"
 version = "0.6.0"
 source = "git+https://github.com/themoretheless/airbug?branch=release#75b1321b5d7ff2cee983379f539c07726a7d27e5"
@@ -82,17 +74,6 @@ name = "airbug-bench-macros"
 version = "0.6.0"
 source = "git+https://github.com/themoretheless/airbug?branch=release#75b1321b5d7ff2cee983379f539c07726a7d27e5"
 dependencies = [
- "quote",
- "syn 2.0.119",
-]
-
-[[package]]
-name = "airbug-macros"
-version = "0.6.0"
-source = "git+https://github.com/themoretheless/airbug?branch=release#75b1321b5d7ff2cee983379f539c07726a7d27e5"
-dependencies = [
- "proc-macro-crate",
- "proc-macro2",
  "quote",
  "syn 2.0.119",
 ]
@@ -888,16 +869,7 @@ version = "5.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9a49173b84e034382284f27f1af4dcbbd231ffa358c0fe316541a7337f376a35"
 dependencies = [
- "dirs-sys 0.4.1",
-]
-
-[[package]]
-name = "dirs"
-version = "6.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c3e8aa94d75141228480295a7d0e7feb620b1a5ad9f12bc40be62411e38cce4e"
-dependencies = [
- "dirs-sys 0.5.0",
+ "dirs-sys",
 ]
 
 [[package]]
@@ -908,20 +880,8 @@ checksum = "520f05a5cbd335fae5a99ff7a6ab8627577660ee5cfd6a94a6a929b52ff0321c"
 dependencies = [
  "libc",
  "option-ext",
- "redox_users 0.4.6",
+ "redox_users",
  "windows-sys 0.48.0",
-]
-
-[[package]]
-name = "dirs-sys"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e01a3366d27ee9890022452ee61b2b63a67e6f13f58900b651ff5665f0bb1fab"
-dependencies = [
- "libc",
- "option-ext",
- "redox_users 0.5.2",
- "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2795,17 +2755,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "redox_users"
-version = "0.5.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4e608c6638b9c18977b00b475ac1f28d14e84b27d8d42f70e0bf1e3dec127ac"
-dependencies = [
- "getrandom 0.2.17",
- "libredox",
- "thiserror 2.0.20",
-]
-
-[[package]]
 name = "regex-automata"
 version = "0.4.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3167,14 +3116,12 @@ dependencies = [
  "directories",
  "eframe",
  "egui",
- "humansize",
  "rfd",
  "serde",
  "serde_json",
  "space-clean",
  "space-core",
  "sysinfo",
- "trash",
 ]
 
 [[package]]
@@ -3183,7 +3130,6 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "directories",
- "dirs",
  "globset",
  "serde",
  "serde_json",
@@ -3205,7 +3151,6 @@ dependencies = [
 name = "space-core"
 version = "0.1.0"
 dependencies = [
- "airbug",
  "airbug-bench",
  "bincode",
  "blake3",

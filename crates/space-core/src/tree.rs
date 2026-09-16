@@ -20,6 +20,8 @@ pub struct Node {
     /// Descendant file count (dirs count nested files; files are 1).
     pub file_count: u64,
     pub is_dir: bool,
+    /// Aggregated placeholder for small files, not a filesystem path.
+    pub synthetic: bool,
     /// Children pre-sorted by allocated_size desc at scan time.
     pub children: Vec<NodeId>,
     pub parent: Option<NodeId>,
@@ -42,6 +44,9 @@ pub struct SpaceTree {
     pub scanned_at_unix: u64,
     pub item_count: u64,
     pub skipped_errors: u64,
+    /// Files encountered with link count > 1. Used to preserve exact
+    /// allocated-size accounting during incremental subtree rescans.
+    pub hardlink_candidates: u64,
     pub hardlinks_deduped: u64,
 }
 
@@ -172,12 +177,7 @@ impl SpaceTree {
     pub fn remove_node(&mut self, id: NodeId) {
         let (parent, apparent, allocated, file_count) = {
             let n = self.node(id);
-            (
-                n.parent,
-                n.apparent_size,
-                n.allocated_size,
-                n.file_count,
-            )
+            (n.parent, n.apparent_size, n.allocated_size, n.file_count)
         };
         if let Some(pid) = parent {
             self.node_mut(pid).children.retain(|c| *c != id);

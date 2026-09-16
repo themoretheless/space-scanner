@@ -346,6 +346,10 @@ impl RulePack {
             let mut files = collect_rule_files(dir)?;
             files.sort();
             for file in files {
+                let file = file.canonicalize().unwrap_or(file);
+                if sources.iter().any(|seen| seen == &file) {
+                    continue;
+                }
                 let text = fs::read_to_string(&file)
                     .with_context(|| format!("read {}", file.display()))?;
                 let parsed: RuleFile = serde_yaml::from_str(&text)
@@ -494,7 +498,8 @@ fn path_list(dirs: &[PathBuf]) -> String {
 
 /// Expand path templates to concrete absolute paths.
 pub fn expand_path_template(template: &str) -> Option<PathBuf> {
-    let home = dirs::home_dir()?;
+    let base_dirs = directories::BaseDirs::new()?;
+    let home = base_dirs.home_dir().to_path_buf();
     let mut s = template.to_string();
 
     let replacements: Vec<(&str, PathBuf)> = {
@@ -505,23 +510,17 @@ pub fn expand_path_template(template: &str) -> Option<PathBuf> {
             ("$TEMP", std::env::temp_dir()),
             ("$TMP", std::env::temp_dir()),
         ];
-        if let Some(cache) = dirs::cache_dir() {
-            v.push(("$XDG_CACHE_HOME", cache.clone()));
-            v.push(("$CACHE", cache));
-        }
-        if let Some(data) = dirs::data_local_dir() {
-            v.push(("$XDG_DATA_HOME", data.clone()));
-            v.push(("%LOCALAPPDATA%", data.clone()));
-            v.push(("$LOCALAPPDATA", data));
-        }
-        if let Some(data) = dirs::data_dir() {
-            v.push((
-                "$XDG_CONFIG_HOME",
-                dirs::config_dir().unwrap_or(data.clone()),
-            ));
-            v.push(("%APPDATA%", data.clone()));
-            v.push(("$APPDATA", data));
-        }
+        let cache = base_dirs.cache_dir().to_path_buf();
+        v.push(("$XDG_CACHE_HOME", cache.clone()));
+        v.push(("$CACHE", cache));
+        let data_local = base_dirs.data_local_dir().to_path_buf();
+        v.push(("$XDG_DATA_HOME", data_local.clone()));
+        v.push(("%LOCALAPPDATA%", data_local.clone()));
+        v.push(("$LOCALAPPDATA", data_local));
+        let data = base_dirs.data_dir().to_path_buf();
+        v.push(("$XDG_CONFIG_HOME", base_dirs.config_dir().to_path_buf()));
+        v.push(("%APPDATA%", data.clone()));
+        v.push(("$APPDATA", data));
         if let Ok(userprofile) = std::env::var("USERPROFILE") {
             v.push(("%USERPROFILE%", PathBuf::from(userprofile)));
         }
@@ -550,17 +549,13 @@ pub fn expand_path_template(template: &str) -> Option<PathBuf> {
         #[cfg(windows)]
         {
             if std::env::var_os("LOCALAPPDATA").is_none() {
-                if let Some(home) = dirs::home_dir() {
-                    v.push(("%LOCALAPPDATA%", home.join("AppData").join("Local")));
-                    v.push(("%APPDATA%", home.join("AppData").join("Roaming")));
-                }
+                v.push(("%LOCALAPPDATA%", home.join("AppData").join("Local")));
+                v.push(("%APPDATA%", home.join("AppData").join("Roaming")));
             }
             if std::env::var_os("TEMP").is_none() {
-                if let Some(home) = dirs::home_dir() {
-                    let t = home.join("AppData").join("Local").join("Temp");
-                    v.push(("%TEMP%", t.clone()));
-                    v.push(("%TMP%", t));
-                }
+                let t = home.join("AppData").join("Local").join("Temp");
+                v.push(("%TEMP%", t.clone()));
+                v.push(("%TMP%", t));
             }
         }
         v

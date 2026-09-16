@@ -17,6 +17,12 @@ pub struct FeatureFlags {
     /// File list strip under the central diagram.
     #[serde(default = "default_true")]
     pub show_files_under_map: bool,
+    /// Include browser cookie rules in junk scans (off by default; signs you out of sites).
+    #[serde(default)]
+    pub scan_browser_cookies: bool,
+    /// Include browser history rules in junk scans (off by default).
+    #[serde(default)]
+    pub scan_browser_history: bool,
 }
 
 fn default_true() -> bool {
@@ -31,6 +37,26 @@ impl Default for FeatureFlags {
             show_shortcuts_hint: true,
             sunburst_depth: 2,
             show_files_under_map: true,
+            scan_browser_cookies: false,
+            scan_browser_history: false,
+        }
+    }
+}
+
+impl FeatureFlags {
+    /// Master switches for cookies/history: off keeps those tags disabled even if Enable all is on.
+    pub fn apply_to_rule_prefs(&self, prefs: &mut space_clean::RulePrefs) {
+        for (on, tag) in [
+            (self.scan_browser_cookies, "cookies"),
+            (self.scan_browser_history, "history"),
+        ] {
+            prefs.tags_on.remove(tag);
+            prefs.tags_off.remove(tag);
+            if on {
+                prefs.tags_on.insert(tag.into());
+            } else {
+                prefs.tags_off.insert(tag.into());
+            }
         }
     }
 }

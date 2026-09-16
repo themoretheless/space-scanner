@@ -504,12 +504,7 @@ fn main() {
                 report.rules_matched,
                 report.rules_scanned
             );
-            let mut shown = 0usize;
-            for f in &report.findings {
-                if shown >= 40 {
-                    println!("… {} more", report.findings.len() - shown);
-                    break;
-                }
+            for f in report.findings.iter().take(40) {
                 let tag = if f.report_only { "report" } else { "clean" };
                 println!(
                     "  [{tag}] {:>10}  {}  ({})",
@@ -517,7 +512,9 @@ fn main() {
                     f.path.display(),
                     f.rule_id
                 );
-                shown += 1;
+            }
+            if report.findings.len() > 40 {
+                println!("… {} more", report.findings.len() - 40);
             }
             if do_clean {
                 if !yes {
@@ -528,7 +525,7 @@ fn main() {
                 println!(
                     "Moved {} items to Trash · {} · {} errors · {} report-only skipped",
                     result.deleted.len(),
-                    format_bytes(result.freed_bytes),
+                    format_bytes(result.processed_bytes),
                     result.errors.len(),
                     result.skipped_report_only
                 );

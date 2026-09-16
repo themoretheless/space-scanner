@@ -1,0 +1,1906 @@
+---
+pack: community-sources
+description: Curated paths from BleachBit, mac-cleanup-sh, Winapp2.ini, Arch Wiki,
+  Stacer, and common package-manager docs. 138 unique rules (skipped 0 existing ids).
+rules:
+- id: src-mac-steam-transient
+  name: Steam caches logs temp downloads
+  description: 'Steam appcache, depot cache, shader cache, logs, temp and download
+    folders. Not installed games in steamapps/common. Source: mac-cleanup-sh Steam
+    section.'
+  category: game-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Steam/appcache"
+  - "$HOME/Library/Application Support/Steam/depotcache"
+  - "$HOME/Library/Application Support/Steam/logs"
+  - "$HOME/Library/Application Support/Steam/steamapps/shadercache"
+  - "$HOME/Library/Application Support/Steam/steamapps/temp"
+  - "$HOME/Library/Application Support/Steam/steamapps/download"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-minecraft-logs-webcache
+  name: Minecraft logs crash reports webcache
+  description: 'Minecraft launcher logs, crash-reports and webcache. Not worlds or
+    screenshots. Source: mac-cleanup-sh Minecraft section.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/minecraft/logs"
+  - "$HOME/Library/Application Support/minecraft/crash-reports"
+  - "$HOME/Library/Application Support/minecraft/webcache"
+  - "$HOME/Library/Application Support/minecraft/webcache2"
+  - "$HOME/Library/Application Support/minecraft/.mixin.out"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-lunarclient
+  name: Lunar Client caches and logs
+  description: 'Lunar Client game/launcher caches and logs. Not accounts. Source:
+    mac-cleanup-sh Lunar Client.'
+  category: game-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.lunarclient/game-cache"
+  - "$HOME/.lunarclient/launcher-cache"
+  - "$HOME/.lunarclient/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-teams-classic-electron
+  name: Classic Microsoft Teams Electron caches
+  description: 'IndexedDB/Cache/Code Cache/GPU/blob/tmp for classic Teams. Not chat
+    history databases outside Cache. Source: mac-cleanup-sh Microsoft Teams.'
+  category: app-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Microsoft/Teams/IndexedDB"
+  - "$HOME/Library/Application Support/Microsoft/Teams/Cache"
+  - "$HOME/Library/Application Support/Microsoft/Teams/Application Cache"
+  - "$HOME/Library/Application Support/Microsoft/Teams/Code Cache"
+  - "$HOME/Library/Application Support/Microsoft/Teams/blob_storage"
+  - "$HOME/Library/Application Support/Microsoft/Teams/gpucache"
+  - "$HOME/Library/Application Support/Microsoft/Teams/tmp"
+  - "$HOME/Library/Application Support/Microsoft/Teams/watchdog"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-drivefs-content-cache
+  name: Google Drive for desktop content cache
+  description: 'DriveFS content_cache is regenerable streamed file cache, not My Drive
+    originals. Source: mac-cleanup-sh Google Drive File Stream.'
+  category: media-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google/DriveFS"
+  delete_mode: contents
+  max_depth: 5
+- id: src-mac-dropbox-cache
+  name: Dropbox .dropbox.cache
+  description: 'Dropbox client transfer cache. Not synced files. Source: mac-cleanup-sh
+    Dropbox.'
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Dropbox/.dropbox.cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-adobe-media-cache
+  name: Adobe Common Media Cache Files
+  description: 'Premiere/AE/Media Encoder peak/conformed media cache. Rebuilds on
+    next open. Source: mac-cleanup-sh Adobe Cache.'
+  category: media-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Adobe/Common/Media Cache Files"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-chrome-application-cache
+  name: Chrome Application Cache
+  description: 'Legacy Chrome Application Cache under Default profile. Not bookmarks
+    or passwords. Source: mac-cleanup-sh Google Chrome.'
+  category: browser-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Application Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-coresimulator-logs
+  name: CoreSimulator logs
+  description: 'iOS Simulator diagnostic logs. Not device data. Source: mac-cleanup-sh
+    system logs.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/CoreSimulator"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-xcode-ios-device-logs
+  name: Xcode iOS Device Logs
+  description: 'Copied device console logs in Xcode. Regenerable. Source: mac-cleanup-sh
+    Xcode.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Developer/Xcode/iOS Device Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-poetry-cache
+  name: Poetry cache
+  description: 'pypoetry artifact cache. Virtualenvs live elsewhere. Source: mac-cleanup-sh
+    Poetry.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/pypoetry"
+  - "$HOME/.cache/pypoetry"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-android-sdk-cache
+  name: Android SDK user cache
+  description: "~/.android/cache only, not AVDs or SDK platforms. Source: mac-cleanup-sh
+    Android cache."
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.android/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-gradle-caches
+  name: Gradle dependency caches
+  description: "~/.gradle/caches downloaded JARs and transforms. Not gradle.properties.
+    Source: mac-cleanup-sh + StackOverflow Gradle cache."
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.gradle/caches"
+  - "$HOME/.gradle/daemon"
+  - "$HOME/.gradle/native"
+  - "$HOME/.gradle/wrapper/dists"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-composer-cache
+  name: Composer PHP cache
+  description: 'Composer package cache (composer clearcache). Source: mac-cleanup-sh
+    composer.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/composer"
+  - "$HOME/.composer/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-cocoapods-cache
+  name: CocoaPods cache
+  description: 'pod cache clean --all target. Not Podfile.lock. Source: mac-cleanup-sh
+    CocoaPods.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/CocoaPods"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-yarn-cache
+  name: Yarn cache
+  description: 'yarn cache clean target on macOS. Source: mac-cleanup-sh Yarn.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Yarn"
+  - "$HOME/Library/Caches/yarn"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-pnpm-store
+  name: pnpm content-addressable store
+  description: 'pnpm store prune target. Packages re-fetch on next install. Source:
+    mac-cleanup-sh pnpm.'
+  category: package-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.pnpm-store"
+  - "$HOME/Library/pnpm/store"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-npm-cacache
+  name: npm cacache
+  description: 'npm cache clean --force location. Source: mac-cleanup-sh npm.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.npm/_cacache"
+  - "$HOME/.npm/_logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-gopath-mod
+  name: Go module download cache
+  description: 'go clean -modcache default GOPATH pkg/mod. Source: mac-cleanup-sh
+    go clean -modcache.'
+  category: package-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/go/pkg/mod"
+  - "$HOME/go/pkg/sumdb"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-kite-logs
+  name: Kite autocomplete logs
+  description: 'Kite editor plugin logs. Source: mac-cleanup-sh Kite.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.kite/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-cacher-logs
+  name: Cacher app logs
+  description: 'Cacher snippet-app logs. Source: mac-cleanup-sh Cacher.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cacher/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-mail-logs
+  name: Apple Mail container logs
+  description: 'Mail.app diagnostic logs in the container. Not mailboxes. Source:
+    mac-cleanup-sh Mail logs.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Containers/com.apple.mail/Data/Library/Logs/Mail"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-diagnostic-reports
+  name: User DiagnosticReports
+  description: 'Crash reporter .crash/.ips in user Library. Not full sysdiagnose archives
+    needed for support. Source: mac-cleanup-sh DiagnosticReports.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Logs/DiagnosticReports"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-ios-backups-report
+  name: iOS device backups (report-only)
+  description: 'Finder/iTunes MobileSync backups can be huge; never auto-delete. Source:
+    mac-cleanup-sh iOS backups (flagged dangerous there).'
+  category: leftovers
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/MobileSync/Backup"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-mac-itunes-ios-apps-report
+  name: iTunes iOS app IPA cache (report-only)
+  description: 'Downloaded IPAs under iTunes Media/Mobile Applications. Source: mac-cleanup-sh
+    iOS Applications.'
+  category: leftovers
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Music/iTunes/iTunes Media/Mobile Applications"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-mac-jetbrains-logs
+  name: JetBrains IDE logs
+  description: 'IDEA/CLion/etc log directories. Not config or projects. Source: mac-cleanup-sh
+    JetBrains.'
+  category: logs
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Logs/JetBrains"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-homebrew-cache-dir
+  name: Homebrew bottle and cask cache
+  description: 'brew --cache downloads. Formulae stay installed. Source: mac-cleanup-sh
+    brew cleanup / Homebrew docs.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Homebrew"
+  - "/opt/homebrew/var/homebrew/tmp"
+  - "/usr/local/var/homebrew/tmp"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-zoom-xos
+  name: Zoom client caches and logs
+  description: 'us.zoom.xos caches, logs, and crashpad. Not recordings in Documents.
+    Source: BleachBit zoom.xml + Zoom macOS bundle id.'
+  category: app-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/us.zoom.xos"
+  - "$HOME/Library/Logs/us.zoom.xos"
+  - "$HOME/Library/Application Support/zoom.us/data/WebviewCacheE4"
+  - "$HOME/Library/Application Support/zoom.us/data/CrashReports"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-vlc
+  name: VLC media player (linux)
+  description: 'Regenerable cache/logs for VLC media player. Not documents or prefs.
+    Source: BleachBit cleaners/vlc.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/vlc"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bb-vlc
+  name: VLC media player (windows)
+  description: 'Regenerable cache/logs for VLC media player. Not documents or prefs.
+    Source: BleachBit cleaners/vlc.xml.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/vlc"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-transmission
+  name: Transmission torrent (linux)
+  description: 'Regenerable cache/logs for Transmission torrent. Not documents or
+    prefs. Source: BleachBit cleaners/transmission.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/transmission"
+  - "$HOME/.config/transmission/resume"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-bb-transmission
+  name: Transmission torrent (macos)
+  description: 'Regenerable cache/logs for Transmission torrent. Not documents or
+    prefs. Source: BleachBit cleaners/transmission.xml.'
+  category: app-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/org.m0k.transmission"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bb-transmission
+  name: Transmission torrent (windows)
+  description: 'Regenerable cache/logs for Transmission torrent. Not documents or
+    prefs. Source: BleachBit cleaners/transmission.xml.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/transmission"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-filezilla
+  name: FileZilla (linux)
+  description: 'Regenerable cache/logs for FileZilla. Not documents or prefs. Source:
+    BleachBit cleaners/filezilla.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/filezilla"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-thunderbird
+  name: Thunderbird cache (linux)
+  description: 'Regenerable cache/logs for Thunderbird cache. Not documents or prefs.
+    Source: BleachBit cleaners/thunderbird.xml.'
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/thunderbird"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-bb-thunderbird
+  name: Thunderbird cache (macos)
+  description: 'Regenerable cache/logs for Thunderbird cache. Not documents or prefs.
+    Source: BleachBit cleaners/thunderbird.xml.'
+  category: browser-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Thunderbird"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bb-thunderbird
+  name: Thunderbird cache (windows)
+  description: 'Regenerable cache/logs for Thunderbird cache. Not documents or prefs.
+    Source: BleachBit cleaners/thunderbird.xml.'
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Thunderbird/Crash Reports"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-libreoffice
+  name: LibreOffice cache (linux)
+  description: 'Regenerable cache/logs for LibreOffice cache. Not documents or prefs.
+    Source: BleachBit cleaners/libreoffice.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/libreoffice"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-bb-libreoffice
+  name: LibreOffice cache (macos)
+  description: 'Regenerable cache/logs for LibreOffice cache. Not documents or prefs.
+    Source: BleachBit cleaners/libreoffice.xml.'
+  category: app-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/LibreOffice"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-java
+  name: Java deployment cache (linux)
+  description: 'Regenerable cache/logs for Java deployment cache. Not documents or
+    prefs. Source: BleachBit cleaners/java.xml.'
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.java/deployment/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-bb-java
+  name: Java deployment cache (macos)
+  description: 'Regenerable cache/logs for Java deployment cache. Not documents or
+    prefs. Source: BleachBit cleaners/java.xml.'
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Java/cache"
+  - "$HOME/Library/Application Support/Oracle/Java/Deployment/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bb-java
+  name: Java deployment cache (windows)
+  description: 'Regenerable cache/logs for Java deployment cache. Not documents or
+    prefs. Source: BleachBit cleaners/java.xml.'
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Sun/Java/Deployment/cache"
+  - "%USERPROFILE%/AppData/LocalLow/Sun/Java/Deployment/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-flash
+  name: Adobe Flash Player cache leftover (linux)
+  description: 'Regenerable cache/logs for Adobe Flash Player cache leftover. Not
+    documents or prefs. Source: BleachBit cleaners/flash.xml.'
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.macromedia"
+  - "$HOME/.adobe"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-bb-flash
+  name: Adobe Flash Player cache leftover (macos)
+  description: 'Regenerable cache/logs for Adobe Flash Player cache leftover. Not
+    documents or prefs. Source: BleachBit cleaners/flash.xml.'
+  category: leftovers
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Adobe/Flash Player"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bb-flash
+  name: Adobe Flash Player cache leftover (windows)
+  description: 'Regenerable cache/logs for Adobe Flash Player cache leftover. Not
+    documents or prefs. Source: BleachBit cleaners/flash.xml.'
+  category: leftovers
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Adobe/Flash Player"
+  - "%APPDATA%/Macromedia/Flash Player"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-thumbnails
+  name: XDG thumbnails (BleachBit)
+  description: 'Freedesktop thumbnail cache. Regenerated by file managers. Source:
+    BleachBit thumbnails.xml.'
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.thumbnails"
+  - "$HOME/.cache/thumbnails"
+  - "$XDG_CACHE_HOME/thumbnails"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-apt-partial
+  name: APT partial downloads
+  description: 'Incomplete apt package downloads under /var/cache/apt. Source: BleachBit
+    apt.xml + Stacer APT cache.'
+  category: package-cache
+  platform: linux
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/var/cache/apt/archives/partial"
+  - "/var/cache/apt/archives"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-lin-bb-yum-dnf
+  name: YUM/DNF package caches
+  description: 'dnf/yum metadata and package caches. Needs root to delete. Source:
+    BleachBit yum.xml / Unix.py dnf.'
+  category: package-cache
+  platform: linux
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/var/cache/yum"
+  - "/var/cache/dnf"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-lin-bb-pacman-pkg
+  name: Pacman package cache
+  description: 'Downloaded Arch packages. pacman -Sc recommended instead of blind
+    delete of last copies. Source: BleachBit pacman.xml + Arch Wiki Clean the filesystem.'
+  category: package-cache
+  platform: linux
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "/var/cache/pacman/pkg"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-lin-bb-journal-user
+  name: User systemd journal
+  description: 'Per-user journal files. Not /var/log/journal (root). Source: BleachBit
+    journald.xml / systemd user journals.'
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.local/share/systemd/journal"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-snap-user
+  name: Snap user common cache
+  description: 'Per-snap common cache dirs under ~/snap/*/common/.cache. Not snap
+    revisions or ~/snap/*/current. Source: BleachBit snap.xml.'
+  category: caches
+  platform: linux
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/snap"
+  delete_mode: contents
+  max_depth: 5
+- id: src-lin-bb-chromium-sandboxes
+  name: Chromium snap and Flatpak cache
+  description: 'Chromium cache in snap/flatpak sandboxes. Not bookmarks. Source: BleachBit
+    chromium.xml / google_chrome.xml sandbox paths.'
+  category: browser-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/snap/chromium/common/chromium"
+  - "$HOME/.var/app/org.chromium.Chromium/cache"
+  - "$HOME/.var/app/org.chromium.Chromium/config/chromium/Default/Cache"
+  - "$HOME/.var/app/com.google.Chrome/cache"
+  - "$HOME/.var/app/org.mozilla.firefox/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-zoom-home
+  name: Zoom ~/.zoom cache
+  description: 'Zoom Linux logs/cache. Not Documents/Zoom recordings. Source: BleachBit
+    zoom.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.zoom/logs"
+  - "$HOME/.zoom/data/WebviewCacheE4"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bb-zoom
+  name: Zoom Windows cache and logs
+  description: 'Zoom %AppData% cache/bin/logs. Not Documents\Zoom recordings. Source:
+    BleachBit zoom.xml.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Zoom/data"
+  - "%APPDATA%/Zoom/logs"
+  - "%APPDATA%/Zoom/bin"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-arch-xdg-cache-report
+  name: Entire ~/.cache (report-only)
+  description: 'Arch Wiki notes ~/.cache can grow; report size only — apps store mixed
+    data. Source: Arch Wiki System maintenance § Old configuration files.'
+  category: caches
+  platform: linux
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "$HOME/.cache"
+  - "$XDG_CACHE_HOME"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-lin-stacer-crash
+  name: Linux crash reports
+  description: 'Apport/whoopsie crash dumps. Keep current Xorg/apt logs. Source: Stacer
+    System Cleaner crash reports.'
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/var/crash"
+  - "$HOME/.cache/apport"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-var-tmp
+  name: "/var/tmp leftovers"
+  description: 'Persistent temp (survives reboot). Age-gated; some installers use
+    it. Source: FHS / Linux admin practice; Stacer temp.'
+  category: temp
+  platform: linux
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "/var/tmp"
+  delete_mode: contents
+  max_depth: 3
+- id: src-win-nvidia-shader
+  name: NVIDIA shader / DX caches
+  description: 'NVIDIA NV_Cache and DXCache. Games recompile shaders. Source: Winapp2.ini
+    NVIDIA shader cache entries.'
+  category: shader-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/NVIDIA/DXCache"
+  - "%LOCALAPPDATA%/NVIDIA/GLCache"
+  - "%LOCALAPPDATA%/NVIDIA Corporation/NV_Cache"
+  - "%LOCALAPPDATA%/NVIDIA Corporation/GfeSDK"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-amd-shader
+  name: AMD DirectX / OpenGL caches
+  description: 'AMD DXCache/GLCache under LocalAppData. Source: Winapp2.ini AMD cache.'
+  category: shader-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/AMD/DxCache"
+  - "%LOCALAPPDATA%/AMD/GLCache"
+  - "%LOCALAPPDATA%/AMD/VkCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-intel-shader
+  name: Intel GPU shader caches
+  description: 'Intel ShaderCache / DXCache. Source: Winapp2.ini Intel shader.'
+  category: shader-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Intel/ShaderCache"
+  - "%USERPROFILE%/AppData/LocalLow/Intel/ShaderCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-edge-chromium-caches
+  name: Edge Chromium disk caches
+  description: 'Edge User Data Cache/Code Cache/GPUCache/Service Worker/CacheStorage.
+    Not Favorites. Source: Winapp2.ini Chromium Caches * / BleachBit microsoft_edge.xml.'
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Code Cache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/GPUCache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/Service Worker/CacheStorage"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Default/DawnCache"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/ShaderCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-chrome-full-caches
+  name: Chrome Default Cache/GPU/Code/SW
+  description: 'Chrome Default profile caches. Not Login Data. Source: Winapp2.ini
+    / BleachBit google_chrome.xml.'
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Cache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Code Cache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/GPUCache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Default/Service Worker/CacheStorage"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/ShaderCache"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/GrShaderCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-firefox-cache2
+  name: Firefox cache2 and startup cache
+  description: 'cache2 and startupCache under Profiles. Not places.sqlite. Source:
+    BleachBit firefox.xml cache2.'
+  category: browser-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Mozilla/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-defender-scan-history
+  name: Windows Defender scan leftovers
+  description: 'Defender Scans/Support logs. Quarantine is not included. Source: BleachBit
+    windows_defender.xml.'
+  category: logs
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%PROGRAMDATA%/Microsoft/Windows Defender/Support"
+  - "%PROGRAMDATA%/Microsoft/Windows Defender/Scans/History"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-win-prefetch-report
+  name: Windows Prefetch (report-only)
+  description: 'Prefetch can speed launches; report size only. Source: CCleaner/Winapp2
+    system; treat as report-only.'
+  category: system
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%WINDIR%/Prefetch"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-win-recent-automaticdest
+  name: Jump list AutomaticDestinations
+  description: 'Explorer jump-list binaries. Shortcuts only. Source: Winapp2.ini Windows
+    Explorer recent.'
+  category: leftovers
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/Microsoft/Windows/Recent/AutomaticDestinations"
+  - "%APPDATA%/Microsoft/Windows/Recent/CustomDestinations"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-office-cache
+  name: Microsoft Office file caches
+  description: 'Office Document Cache / Office File Cache. Not documents. Source:
+    BleachBit microsoft_office.xml / Winapp2 Office.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Office/16.0/OfficeFileCache"
+  - "%LOCALAPPDATA%/Microsoft/Windows/INetCache/Content.Word"
+  - "%LOCALAPPDATA%/Microsoft/Office/UnsavedFiles"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-onedrive-logs
+  name: OneDrive logs and cache
+  description: 'OneDrive logs and Personal Vault leftovers cache. Not synced files.
+    Source: Winapp2.ini OneDrive.'
+  category: logs
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/OneDrive/logs"
+  - "%LOCALAPPDATA%/Microsoft/OneDrive/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-spotify-data
+  name: Spotify Data cache
+  description: 'Spotify Data Storage cache of streamed tracks. Not playlists in local
+    files you own. Source: Winapp2.ini Spotify.'
+  category: media-cache
+  platform: windows
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Spotify/Storage"
+  - "%APPDATA%/Spotify/Data"
+  - "%APPDATA%/Spotify/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-discord-variants
+  name: Discord Canary/PTB/PTB caches
+  description: 'Electron Cache/Code Cache/GPUCache for Discord channels. Source: Winapp2.ini
+    Discord.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/discordcanary/Cache"
+  - "%APPDATA%/discordcanary/Code Cache"
+  - "%APPDATA%/discordcanary/GPUCache"
+  - "%APPDATA%/discordptb/Cache"
+  - "%APPDATA%/discordptb/Code Cache"
+  - "%APPDATA%/discordptb/GPUCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-slack-service-worker
+  name: Slack Service Worker and GPU
+  description: 'Slack Electron SW cache and GPUCache. Source: Winapp2.ini Slack.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Slack/Service Worker"
+  - "%APPDATA%/Slack/GPUCache"
+  - "%APPDATA%/Slack/DawnCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-teams-new
+  name: New Teams MSTeams cache
+  description: 'Microsoft Teams (new) LocalCache. Not chat cloud data. Source: Winapp2.ini
+    Teams.'
+  category: app-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Packages/MSTeams_8wekyb3d8bbwe/LocalCache"
+  - "%LOCALAPPDATA%/Microsoft/Teams"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-epic-launcher
+  name: Epic Games Launcher webcache
+  description: 'Epic Launcher webcache/Saved/webcache. Not game installs. Source:
+    Winapp2.ini Epic Games.'
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/EpicGamesLauncher/Saved/webcache"
+  - "%LOCALAPPDATA%/EpicGamesLauncher/Saved/webcache_4430"
+  - "%LOCALAPPDATA%/EpicGamesLauncher/Saved/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-steam-shader-depot
+  name: Steam shaderdepot and htmlcache
+  description: 'Steam htmlcache, appcache, shadercache. Not steamapps/common. Source:
+    Winapp2.ini Steam + mac-cleanup Steam analog.'
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%PROGRAMFILES(X86)%/Steam/appcache"
+  - "%PROGRAMFILES(X86)%/Steam/depotcache"
+  - "%PROGRAMFILES(X86)%/Steam/steamapps/shadercache"
+  - "%LOCALAPPDATA%/Steam/htmlcache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-origin-ea
+  name: EA App / Origin cache
+  description: 'Origin/EA Desktop cache and logs. Not games. Source: Winapp2.ini Origin/EA.'
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%PROGRAMDATA%/Origin/Logs"
+  - "%PROGRAMDATA%/EA Desktop/Logs"
+  - "%LOCALAPPDATA%/Origin/Origin/cache"
+  - "%LOCALAPPDATA%/Electronic Arts/EA Desktop/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-ubisoft
+  name: Ubisoft Connect cache
+  description: 'Ubisoft Game Launcher cache/logs. Source: Winapp2.ini Ubisoft.'
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Ubisoft Game Launcher/cache"
+  - "%LOCALAPPDATA%/Ubisoft Game Launcher/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-battle-net
+  name: Battle.net cache
+  description: 'Battle.net Cache and Logs. Not game installs. Source: Winapp2.ini
+    Battle.net.'
+  category: game-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%PROGRAMDATA%/Battle.net/Setup"
+  - "%APPDATA%/Battle.net"
+  - "%LOCALAPPDATA%/Battle.net/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-adobe-media
+  name: Adobe Media Cache Windows
+  description: 'Adobe Common Media Cache. Rebuilds peaks. Source: Winapp2.ini Adobe
+    + mac-cleanup analog.'
+  category: media-cache
+  platform: windows
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Adobe/Common/Media Cache Files"
+  - "%APPDATA%/Adobe/Common/Media Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-unity-gi-cache
+  name: Unity GI and Library caches (user)
+  description: 'Unity editor GI cache and Asset Store cache in AppData. Not project
+    Assets. Source: Winapp2.ini Unity / Unity docs GI cache.'
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Unity/cache"
+  - "%LOCALAPPDATA%/Unity/Editor/Cache"
+  - "%APPDATA%/Unity/Asset Store-5.x"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-vs-componentcache
+  name: Visual Studio ComponentModelCache
+  description: 'VS MEF component cache. Rebuilds on next start. Source: Winapp2.ini
+    Visual Studio.'
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/VisualStudio/17.0/ComponentModelCache"
+  - "%LOCALAPPDATA%/Microsoft/VisualStudio/16.0/ComponentModelCache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-pip-cache
+  name: pip HTTP cache Windows
+  description: 'pip download cache. Source: pip docs + Winapp2.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pip/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-npm-cache
+  name: npm cache Windows
+  description: 'npm _cacache on Windows. Source: npm cache clean --force.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%APPDATA%/npm-cache"
+  - "%LOCALAPPDATA%/npm-cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-yarn-cache
+  name: Yarn cache Windows
+  description: 'Yarn cache folder. Source: yarn cache clean.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Yarn/Cache"
+  - "%LOCALAPPDATA%/Yarn/Berry/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-gradle-caches
+  name: Gradle caches Windows
+  description: "%USERPROFILE%\\.gradle\\caches. Not settings. Source: StackOverflow
+    Gradle cache Windows path."
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.gradle/caches"
+  - "%USERPROFILE%/.gradle/wrapper/dists"
+  - "%USERPROFILE%/.gradle/daemon"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-m2-repository
+  name: Maven local repository (report-only)
+  description: ".m2/repository can be rebuilt but is large; report by default. Source:
+    Maven docs / Gradle+Maven local."
+  category: package-cache
+  platform: windows
+  risk: report-only
+  default_enabled: false
+  min_age_days: 30
+  paths:
+  - "%USERPROFILE%/.m2/repository"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-win-chocolatey-lib-bad
+  name: Chocolatey lib-bad and logs
+  description: 'Failed Chocolatey installs and logs. Not lib of installed packages.
+    Source: Chocolatey troubleshooting / Winapp2.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "%PROGRAMDATA%/chocolatey/lib-bad"
+  - "%PROGRAMDATA%/chocolatey/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-bun-cache
+  name: Bun install cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Bun
+    docs cache.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.bun/install/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bun-cache
+  name: Bun install cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Bun
+    docs cache.'
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.bun/install/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-bun-cache
+  name: Bun install cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Bun
+    docs cache.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.bun/install/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-deno-cache
+  name: Deno remote cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Deno
+    DENO_DIR.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/deno"
+  - "$HOME/.cache/deno"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-deno-cache
+  name: Deno remote cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Deno
+    DENO_DIR.'
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/deno"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-deno-cache
+  name: Deno remote cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Deno
+    DENO_DIR.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/deno"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-pdm-cache
+  name: PDM cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: PDM
+    cache dir.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pdm"
+  - "$HOME/.cache/pdm"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-pdm-cache
+  name: PDM cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: PDM
+    cache dir.'
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pdm"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-conda-pkgs
+  name: Conda pkgs cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Conda
+    pkgs.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conda"
+  - "$HOME/.conda/pkgs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-conda-pkgs
+  name: Conda pkgs cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Conda
+    pkgs.'
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.conda/pkgs"
+  - "$HOME/miniconda3/pkgs"
+  - "$HOME/anaconda3/pkgs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-conda-pkgs
+  name: Conda pkgs cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Conda
+    pkgs.'
+  category: package-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.conda/pkgs"
+  - "%USERPROFILE%/miniconda3/pkgs"
+  - "%USERPROFILE%/anaconda3/pkgs"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-pixi-cache
+  name: Pixi cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Pixi/rattler
+    cache.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rattler"
+  - "$HOME/.pixi"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-pixi-cache
+  name: Pixi cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Pixi/rattler
+    cache.'
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rattler"
+  - "$HOME/.pixi"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-ccache
+  name: ccache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: ccache
+    dir.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.ccache"
+  - "$HOME/Library/Caches/ccache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-sccache
+  name: sccache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: sccache.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Mozilla.sccache"
+  - "$HOME/.cache/sccache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-sccache-extra
+  name: sccache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: sccache.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sccache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-huggingface
+  name: Hugging Face hub cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: HF_HOME
+    / transformers cache.'
+  category: ml-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/huggingface"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-huggingface-hub
+  name: Hugging Face hub cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: HF_HOME.'
+  category: ml-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/huggingface"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-huggingface
+  name: Hugging Face hub cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: HF_HOME.'
+  category: ml-cache
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.cache/huggingface"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-torch
+  name: PyTorch hub cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: TORCH_HOME.'
+  category: ml-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/torch"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-torch-hub
+  name: PyTorch hub cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: TORCH_HOME.'
+  category: ml-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/torch"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-playwright
+  name: Playwright browsers cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: PLAYWRIGHT_BROWSERS_PATH.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ms-playwright"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-playwright-ms
+  name: Playwright browsers cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: PLAYWRIGHT_BROWSERS_PATH.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ms-playwright"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-playwright
+  name: Playwright browsers cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: PLAYWRIGHT_BROWSERS_PATH.'
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/AppData/Local/ms-playwright"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-cypress
+  name: Cypress binary cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Cypress
+    cache.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/Cypress"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-cypress-cache
+  name: Cypress binary cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Cypress
+    cache.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/Cypress"
+  delete_mode: contents
+  max_depth: 6
+- id: src-win-cypress
+  name: Cypress binary cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Cypress
+    cache.'
+  category: dev
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/Cypress/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-electron-builder
+  name: electron-builder cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: electron-builder.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/electron-builder"
+  - "$HOME/Library/Caches/electron"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-electron-builder-cache
+  name: electron-builder cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: electron-builder.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/electron-builder"
+  - "$HOME/.cache/electron"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-turbo
+  name: Turborepo cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: turbo
+    cache.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/turbo"
+  - "$HOME/.turbo"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-turbo
+  name: Turborepo cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: turbo
+    cache.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/turbo"
+  - "$HOME/.turbo"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-nx
+  name: Nx cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Nx
+    cache.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.nx/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-nx
+  name: Nx cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: Nx
+    cache.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.nx/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-pre-commit
+  name: pre-commit cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: pre-commit.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pre-commit"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-pre-commit-cache
+  name: pre-commit cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: pre-commit.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pre-commit"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-helm
+  name: Helm cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: helm
+    cache.'
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/helm"
+  - "$HOME/.cache/helm"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-helm-cache
+  name: Helm cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: helm.'
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/helm"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-terraform
+  name: Terraform plugin cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: TF_PLUGIN_CACHE_DIR.'
+  category: dev
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-terraform-plugins
+  name: Terraform plugin cache
+  description: 'Regenerable tool cache. Config files are not targeted. Source: TF_PLUGIN_CACHE_DIR.'
+  category: dev
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-saved-state-user
+  name: Saved Application State
+  description: 'Window restoration blobs. Apps recreate them. Not documents. Source:
+    Apple discussions / macOS Library cleanup guides.'
+  category: leftovers
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Saved Application State"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-httpstorages
+  name: URLSession HTTPStorages
+  description: 'Per-app HTTP cookie/cache stores under HTTPStorages. Mixed with cookies
+    — report-only. Source: Apple URLSession disk cache layout.'
+  category: caches
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/HTTPStorages"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-mac-quicklook-thumbnails
+  name: Quick Look thumbnails cache
+  description: 'com.apple.QuickLook.thumbnailcache / qlmanage cache. Source: macOS
+    Quick Look cache; community cleanup scripts.'
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.QuickLook.thumbnailcache"
+  - "$HOME/Library/Caches/CloudKit/com.apple.quicklook.QuickLookUIService"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-font-registrations
+  name: User font cache
+  description: 'ATS/font caches. Regenerated. Not ~/Library/Fonts files. Source: Apple
+    font cache troubleshooting.'
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.FontRegistry"
+  - "$HOME/Library/Caches/com.apple.ATS"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-maps-cache
+  name: Maps tile cache
+  description: 'Maps app tile caches. Offline areas may need re-download. Source:
+    Apple Maps cache community reports.'
+  category: caches
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.Maps"
+  - "$HOME/Library/Containers/com.apple.Maps/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-podcasts-cache
+  name: Podcasts media cache
+  description: 'Podcasts app cached episodes in group container cache. Not subscribed
+    show list. Source: macOS Podcasts group container cache.'
+  category: media-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Group Containers/243LU875E5.groups.com.apple.podcasts/Library/Cache"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-tv-cache
+  name: TV app asset cache
+  description: 'TV/iTunes video asset cache. Source: Apple TV cache threads.'
+  category: media-cache
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.TV"
+  - "$HOME/Library/Caches/com.apple.AppleTV"
+  delete_mode: contents
+  max_depth: 6
+- id: src-mac-music-cache
+  name: Music app artwork/stream cache
+  description: 'Music.app caches. Not Apple Music downloads library. Source: Apple
+    Music cache forum reports.'
+  category: media-cache
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.apple.Music"
+  - "$HOME/Library/Caches/com.apple.AMPLibraryAgent"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-mac-xcode-device-support
+  name: Xcode iOS DeviceSupport (report-only)
+  description: 'Symbols for each iOS version; large but useful for debugging. Report
+    only. Source: Xcode DeviceSupport cleanup articles.'
+  category: dev
+  platform: macos
+  risk: report-only
+  default_enabled: false
+  min_age_days: 60
+  paths:
+  - "$HOME/Library/Developer/Xcode/iOS DeviceSupport"
+  - "$HOME/Library/Developer/Xcode/watchOS DeviceSupport"
+  delete_mode: contents
+  max_depth: 6
+  report_only: true
+- id: src-mac-simulator-caches
+  name: CoreSimulator Caches
+  description: 'Simulator Caches directory. Not named device data folders. Source:
+    Xcode simulator cache / mac-cleanup simctl notes.'
+  category: dev
+  platform: macos
+  risk: medium
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Developer/CoreSimulator/Caches"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-audacious
+  name: Linux audacious
+  description: 'BleachBit cleaner leftover for audacious. Not user media libraries.
+    Source: BleachBit audacious.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/audacious"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-rhythmbox
+  name: Linux rhythmbox
+  description: 'BleachBit cleaner leftover for rhythmbox. Not user media libraries.
+    Source: BleachBit rhythmbox.xml.'
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/rhythmbox"
+  delete_mode: contents
+  max_depth: 6
+- id: src-lin-bb-sqlite3
+  name: Linux sqlite3
+  description: 'BleachBit cleaner leftover for sqlite3. Not user media libraries.
+    Source: BleachBit sqlite3.xml.'
+  category: leftovers
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 7
+  paths:
+  - "$HOME/.sqlite_history"
+  delete_mode: contents
+  max_depth: 6

@@ -1,0 +1,4223 @@
+---
+pack: browser-privacy
+description: Cookies and browsing history (Winapp2 + common browser DBs). Disabled
+  unless Settings/Rules Privacy checkboxes are on. Passwords are not included.
+rules:
+- id: priv-history-1browser-download-history
+  name: 1Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/1browser/1browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-1browser-extension-cookies
+  name: 1Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/1browser/1browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-1browser-web-browsing-cookies
+  name: 1Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/1browser/1browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-360-secure-browser-download-history
+  name: 360 Secure Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/360se6/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-360-secure-browser-extension-cookies
+  name: 360 Secure Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/360se6/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-360-secure-browser-web-browsing-cookies
+  name: 360 Secure Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/360se6/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-360-secure-browser-web-browsing-history-backups
+  name: 360 Secure Browser Web Browsing History Backups
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/360se6/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*/HisDailyBackup"
+- id: priv-history-aol-shield-download-history
+  name: AOL Shield Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/AOL/AOL Shield/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-aol-shield-extension-cookies
+  name: AOL Shield Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/AOL/AOL Shield/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-aol-shield-web-browsing-cookies
+  name: AOL Shield Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/AOL/AOL Shield/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-arc-download-history
+  name: Arc Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Packages/TheBrowserCompany.Arc_ttt1ap7aakyb4/LocalCache/Local/Arc/User
+    Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-arc-extension-cookies
+  name: Arc Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Packages/TheBrowserCompany.Arc_ttt1ap7aakyb4/LocalCache/Local/Arc/User
+    Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-arc-web-browsing-cookies
+  name: Arc Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Packages/TheBrowserCompany.Arc_ttt1ap7aakyb4/LocalCache/Local/Arc/User
+    Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-artisbrowser-autocomplete-history
+  name: ArtisBrowser Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/ArtistScope/ArtisBrowser/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-artisbrowser-web-browsing-cookies
+  name: ArtisBrowser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/ArtistScope/ArtisBrowser/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-avast-secure-browser-download-history
+  name: Avast Secure Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Avast Software/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-avast-secure-browser-extension-cookies
+  name: Avast Secure Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Avast Software/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-avast-secure-browser-web-browsing-cookies
+  name: Avast Secure Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Avast Software/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-avg-secure-browser-download-history
+  name: AVG Secure Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/AVG/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-avg-secure-browser-extension-cookies
+  name: AVG Secure Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/AVG/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-avg-secure-browser-web-browsing-cookies
+  name: AVG Secure Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/AVG/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-avira-secure-browser-download-history
+  name: Avira Secure Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Avira/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-avira-secure-browser-extension-cookies
+  name: Avira Secure Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Avira/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-avira-secure-browser-web-browsing-cookies
+  name: Avira Secure Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Avira/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-basilisk-autocomplete-history
+  name: Basilisk Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Basilisk-Dev/Basilisk/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-basilisk-web-browsing-cookies
+  name: Basilisk Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Basilisk-Dev/Basilisk/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-brave-download-history
+  name: Brave Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*"
+  - "*/User Data/*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/User Data/*/shared_proto_db"
+- id: priv-cookies-brave-extension-cookies
+  name: Brave Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*"
+  - "*/User Data/*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-history-brave-origin-download-history
+  name: Brave Origin Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Origin/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-brave-origin-extension-cookies
+  name: Brave Origin Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Origin/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-brave-origin-web-browsing-cookies
+  name: Brave Origin Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Origin/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-cookies-brave-web-browsing-cookies
+  name: Brave Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*/Network"
+  - "*/User Data/*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-briskbard-download-history
+  name: BriskBard Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BriskBard"
+  - "%LOCALAPPDATA%/BriskBard/WebView/UserData/EBWebView"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-briskbard-extension-cookies
+  name: BriskBard Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BriskBard"
+  - "%LOCALAPPDATA%/BriskBard/WebView/UserData/EBWebView"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-briskbard-web-browsing-cookies
+  name: BriskBard Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BriskBard"
+  - "%LOCALAPPDATA%/BriskBard/WebView/UserData/EBWebView"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-browseros-download-history
+  name: BrowserOS Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BrowserOS/BrowserOS/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-browseros-extension-cookies
+  name: BrowserOS Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BrowserOS/BrowserOS/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-browseros-web-browsing-cookies
+  name: BrowserOS Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/BrowserOS/BrowserOS/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-ccleaner-browser-download-history
+  name: CCleaner Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CCleaner Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-ccleaner-browser-extension-cookies
+  name: CCleaner Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CCleaner Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-ccleaner-browser-web-browsing-cookies
+  name: CCleaner Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CCleaner Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-cent-browser-download-history
+  name: Cent Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CentBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-cent-browser-extension-cookies
+  name: Cent Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CentBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-cent-browser-web-browsing-cookies
+  name: Cent Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CentBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-chromium-download-history
+  name: Chromium Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Chromium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-chromium-extension-cookies
+  name: Chromium Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Chromium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-chromium-web-browsing-cookies
+  name: Chromium Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Chromium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-coc-coc-download-history
+  name: Coc Coc Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CocCoc/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-coc-coc-extension-cookies
+  name: Coc Coc Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CocCoc/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-coc-coc-web-browsing-cookies
+  name: Coc Coc Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/CocCoc/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-comet-download-history
+  name: Comet Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Perplexity/Comet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-comet-extension-cookies
+  name: Comet Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Perplexity/Comet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-comet-web-browsing-cookies
+  name: Comet Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Perplexity/Comet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-comodo-dragon-download-history
+  name: Comodo Dragon Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Comodo/Dragon/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-comodo-dragon-extension-cookies
+  name: Comodo Dragon Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Comodo/Dragon/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-comodo-dragon-web-browsing-cookies
+  name: Comodo Dragon Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Comodo/Dragon/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-cromite-download-history
+  name: Cromite Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Cromite/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-cromite-extension-cookies
+  name: Cromite Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Cromite/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-cromite-web-browsing-cookies
+  name: Cromite Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Cromite/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-duckduckgo-download-history
+  name: DuckDuckGo Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Packages"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*"
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*/shared_proto_db"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*/DownloadMetadata"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*/shared_proto_db"
+- id: priv-cookies-duckduckgo-extension-cookies
+  name: DuckDuckGo Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Packages"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*"
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*/Extension Cookies"
+  - "**/Extension Cookies"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*/Extension Cookies"
+- id: priv-cookies-duckduckgo-web-browsing-cookies
+  name: DuckDuckGo Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Packages"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*/Network"
+  - "*DuckDuckGo*Browser*/LocalState/EBWebView/*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*/Network"
+  - "*DuckDuckGo*Browser*/LocalState/internalEnvironment/EBWebView/*/Network/Cookies*;Device
+    Bound Sessions*"
+- id: priv-history-ecosia-browser-download-history
+  name: Ecosia Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/EcosiaBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-ecosia-browser-extension-cookies
+  name: Ecosia Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/EcosiaBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-ecosia-browser-web-browsing-cookies
+  name: Ecosia Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/EcosiaBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-epic-privacy-browser-download-history
+  name: Epic Privacy Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Epic Privacy Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-epic-privacy-browser-extension-cookies
+  name: Epic Privacy Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Epic Privacy Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-epic-privacy-browser-web-browsing-cookies
+  name: Epic Privacy Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Epic Privacy Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-flashpeak-slimjet-download-history
+  name: FlashPeak SlimJet Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Slimjet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-flashpeak-slimjet-extension-cookies
+  name: FlashPeak SlimJet Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Slimjet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-flashpeak-slimjet-web-browsing-cookies
+  name: FlashPeak SlimJet Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Slimjet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-floorp-autocomplete-history
+  name: Floorp Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Floorp/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-floorp-web-browsing-cookies
+  name: Floorp Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Floorp/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-genspark-browser-download-history
+  name: Genspark Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/GensparkSoftware/Genspark-Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-genspark-browser-extension-cookies
+  name: Genspark Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/GensparkSoftware/Genspark-Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-genspark-browser-web-browsing-cookies
+  name: Genspark Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/GensparkSoftware/Genspark-Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-ghost-browser-download-history
+  name: Ghost Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/GhostBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-ghost-browser-extension-cookies
+  name: Ghost Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/GhostBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-ghost-browser-web-browsing-cookies
+  name: Ghost Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/GhostBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-google-chrome-download-history
+  name: Google Chrome Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*"
+  - "*/User Data/*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/User Data/*/shared_proto_db"
+- id: priv-cookies-google-chrome-extension-cookies
+  name: Google Chrome Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*"
+  - "*/User Data/*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-google-chrome-web-browsing-cookies
+  name: Google Chrome Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*/Network"
+  - "*/User Data/*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-helium-download-history
+  name: Helium Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/imput/Helium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-helium-extension-cookies
+  name: Helium Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/imput/Helium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-helium-web-browsing-cookies
+  name: Helium Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/imput/Helium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-historykill
+  name: HistoryKill
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/HistoryKill"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - hk.dat;reseller.txt
+- id: priv-history-icecat-autocomplete-history
+  name: IceCat Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mozilla/icecat/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-icecat-web-browsing-cookies
+  name: IceCat Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mozilla/icecat/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-iridium-download-history
+  name: Iridium Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Iridium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-iridium-extension-cookies
+  name: Iridium Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Iridium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-iridium-web-browsing-cookies
+  name: Iridium Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Iridium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-jatter-download-history
+  name: Jatter Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Jatter/Jatter/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-jatter-extension-cookies
+  name: Jatter Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Jatter/Jatter/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-jatter-web-browsing-cookies
+  name: Jatter Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Jatter/Jatter/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-jitsi-chat-file-history
+  name: Jitsi Chat/File History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Jitsi/History"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+- id: priv-history-librewolf-autocomplete-history
+  name: LibreWolf Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/librewolf/Profiles"
+  - "%LOCALAPPDATA%/Packages/31856maltejur.LibreWolf_ssmwz6s360tct/LocalCache/Roaming/librewolf/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-librewolf-web-browsing-cookies
+  name: LibreWolf Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/librewolf/Profiles"
+  - "%LOCALAPPDATA%/Packages/31856maltejur.LibreWolf_ssmwz6s360tct/LocalCache/Roaming/librewolf/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-cookies-lunascape-phoebe-cookies
+  name: Lunascape Phoebe Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Phoebe/Network"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - cookies*
+- id: priv-history-lunascape-phoebe-web-browsing-history
+  name: Lunascape Phoebe Web Browsing History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Phoebe"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - history.db
+- id: priv-history-maxthon-download-history
+  name: Maxthon Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Maxthon/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-maxthon-extension-cookies
+  name: Maxthon Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Maxthon/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-maxthon-web-browsing-cookies
+  name: Maxthon Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Maxthon/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-mercury-autocomplete-history
+  name: Mercury Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/mercury/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-mercury-web-browsing-cookies
+  name: Mercury Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/mercury/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-microsoft-edge-download-history
+  name: Microsoft Edge Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Edge"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*"
+  - "*/User Data/*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/User Data/*/shared_proto_db"
+- id: priv-cookies-microsoft-edge-extension-cookies
+  name: Microsoft Edge Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Edge"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*"
+  - "*/User Data/*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-microsoft-edge-web-browsing-cookies
+  name: Microsoft Edge Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/Edge"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/User Data/*/Network"
+  - "*/User Data/*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-midori-autocomplete-history
+  name: Midori Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Midori/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-midori-web-browsing-cookies
+  name: Midori Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Midori/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-mozilla-firefox-autocomplete-history
+  name: Mozilla Firefox Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mozilla/Firefox/Profiles"
+  - "%LOCALAPPDATA%/Packages/Mozilla.Firefox_n80bbvh6b1yt2/LocalCache/Roaming/Mozilla/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-mozilla-firefox-web-browsing-cookies
+  name: Mozilla Firefox Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mozilla/Firefox/Profiles"
+  - "%LOCALAPPDATA%/Packages/Mozilla.Firefox_n80bbvh6b1yt2/LocalCache/Roaming/Mozilla/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-mullvad-autocomplete-history
+  name: Mullvad Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mullvad/MullvadBrowser/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-mullvad-web-browsing-cookies
+  name: Mullvad Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mullvad/MullvadBrowser/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-mypal-autocomplete-history
+  name: Mypal Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mypal68/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-mypal-web-browsing-cookies
+  name: Mypal Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mypal68/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-naver-whale-download-history
+  name: NAVER Whale Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Naver/Naver Whale/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-naver-whale-extension-cookies
+  name: NAVER Whale Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Naver/Naver Whale/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-naver-whale-web-browsing-cookies
+  name: NAVER Whale Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Naver/Naver Whale/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-norton-neo-download-history
+  name: Norton Neo Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/NEO/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-norton-neo-extension-cookies
+  name: Norton Neo Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/NEO/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-norton-neo-web-browsing-cookies
+  name: Norton Neo Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/NEO/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-norton-secure-browser-download-history
+  name: Norton Secure Browser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Norton/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-norton-secure-browser-extension-cookies
+  name: Norton Secure Browser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Norton/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-norton-secure-browser-web-browsing-cookies
+  name: Norton Secure Browser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Norton/Browser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-opera-download-history
+  name: Opera Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Opera Software/Opera"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*/*"
+  - "*/*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/*/shared_proto_db"
+- id: priv-cookies-opera-extension-cookies
+  name: Opera Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Opera Software/Opera"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/*"
+  - "*/*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-history-opera-gx-download-history
+  name: Opera GX Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Opera Software/Opera GX"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/_side_profiles/*"
+  - "*/_side_profiles/*/DownloadMetadata"
+  - "*/_side_profiles/*/shared_proto_db"
+  - "*/shared_proto_db"
+- id: priv-cookies-opera-gx-extension-cookies
+  name: Opera GX Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Opera Software/Opera GX"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+  - "*/_side_profiles/*"
+  - "*/_side_profiles/*/Extension Cookies"
+- id: priv-cookies-opera-gx-web-browsing-cookies
+  name: Opera GX Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Opera Software/Opera GX"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/_side_profiles/*/Network"
+  - "*/_side_profiles/*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+- id: priv-cookies-opera-web-browsing-cookies
+  name: Opera Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Opera Software/Opera"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/*/Network"
+  - "*/*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-pale-moon-autocomplete-history
+  name: Pale Moon Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Moonchild Productions/Pale Moon/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-pale-moon-web-browsing-cookies
+  name: Pale Moon Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Moonchild Productions/Pale Moon/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-qqbrowser-download-history
+  name: QQBrowser Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Tencent/QQBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-qqbrowser-extension-cookies
+  name: QQBrowser Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Tencent/QQBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-qqbrowser-web-browsing-cookies
+  name: QQBrowser Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Tencent/QQBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-qutim-chat-history
+  name: qutIM Chat History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/qutIM/history"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+- id: priv-history-samsung-internet-download-history
+  name: Samsung Internet Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Samsung/Internet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-samsung-internet-extension-cookies
+  name: Samsung Internet Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Samsung/Internet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-samsung-internet-web-browsing-cookies
+  name: Samsung Internet Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Samsung/Internet/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-seamonkey-autocomplete-history
+  name: SeaMonkey Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mozilla/SeaMonkey/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-seamonkey-web-browsing-cookies
+  name: SeaMonkey Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Mozilla/SeaMonkey/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-shift-download-history
+  name: Shift Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Shift/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-shift-extension-cookies
+  name: Shift Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Shift/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-shift-web-browsing-cookies
+  name: Shift Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Shift/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-sigma-download-history
+  name: Sigma Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Sigma/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-sigma-extension-cookies
+  name: Sigma Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Sigma/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-sigma-web-browsing-cookies
+  name: Sigma Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Sigma/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-sleipnir-download-history
+  name: Sleipnir Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Fenrir Inc/Sleipnir5/setting/modules/ChromiumViewer"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-sleipnir-extension-cookies
+  name: Sleipnir Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Fenrir Inc/Sleipnir5/setting/modules/ChromiumViewer"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-sleipnir-web-browsing-cookies
+  name: Sleipnir Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Fenrir Inc/Sleipnir5/setting/modules/ChromiumViewer"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-soulseek-chat-history
+  name: Soulseek Chat History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Soulseek Chat Logs"
+  - "%LOCALAPPDATA%/SoulseekQt/Soulseek Chat Logs"
+  - "%PROGRAMFILES%/Soulseek"
+  - "%USERPROFILE%/Documents/Soulseek Chat Logs/Private"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/*.log"
+  - "**/*.log"
+  - "*.log"
+  - "*/*Chat_Logs"
+  - "*/*Chat_Logs/*.txt"
+  - "**/*.txt"
+  - "*.txt"
+- id: priv-history-supermium-download-history
+  name: Supermium Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Supermium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-supermium-extension-cookies
+  name: Supermium Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Supermium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-supermium-web-browsing-cookies
+  name: Supermium Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Supermium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-thorium-download-history
+  name: Thorium Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Thorium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-thorium-extension-cookies
+  name: Thorium Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Thorium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-thorium-web-browsing-cookies
+  name: Thorium Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Thorium/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-thunderbird-autocomplete-history
+  name: Thunderbird Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Thunderbird/Profiles"
+  - "%LOCALAPPDATA%/Packages/MozillaThunderbird.MozillaThunderbirdRelease_h5892qc0xkpca/LocalCache/Roaming/Thunderbird/Profiles"
+  - "%LOCALAPPDATA%/Packages/MozillaThunderbird.MZLA_h5892qc0xkpca/LocalCache/Roaming/Thunderbird/Profiles"
+  - "%LOCALAPPDATA%/Packages/MozillaThunderbird.ThunderbirdBeta_h5892qc0xkpca/LocalCache/Roaming/Thunderbird/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-thunderbird-web-browsing-cookies
+  name: Thunderbird Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Thunderbird/Profiles"
+  - "%LOCALAPPDATA%/Packages/MozillaThunderbird.MozillaThunderbirdRelease_h5892qc0xkpca/LocalCache/Roaming/Thunderbird/Profiles"
+  - "%LOCALAPPDATA%/Packages/MozillaThunderbird.MZLA_h5892qc0xkpca/LocalCache/Roaming/Thunderbird/Profiles"
+  - "%LOCALAPPDATA%/Packages/MozillaThunderbird.ThunderbirdBeta_h5892qc0xkpca/LocalCache/Roaming/Thunderbird/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-uc-download-history
+  name: UC Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/UC/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-uc-extension-cookies
+  name: UC Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/UC/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-uc-web-browsing-cookies
+  name: UC Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/UC/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-ulaa-download-history
+  name: Ulaa Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Zoho/Ulaa/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-ulaa-extension-cookies
+  name: Ulaa Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Zoho/Ulaa/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-ulaa-web-browsing-cookies
+  name: Ulaa Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Zoho/Ulaa/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-v-v-messenger-chat-history
+  name: V&V Messenger Chat History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/AJabber"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*/Contacts"
+- id: priv-history-vivaldi-download-history
+  name: Vivaldi Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Vivaldi/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-vivaldi-extension-cookies
+  name: Vivaldi Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Vivaldi/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-vivaldi-web-browsing-cookies
+  name: Vivaldi Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Vivaldi/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-waterfox-autocomplete-history
+  name: Waterfox Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Waterfox/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-waterfox-web-browsing-cookies
+  name: Waterfox Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Waterfox/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-history-wavebox-download-history
+  name: Wavebox Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Waveboxapp/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-wavebox-extension-cookies
+  name: Wavebox Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Waveboxapp/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-wavebox-web-browsing-cookies
+  name: Wavebox Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Waveboxapp/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-windows-activity-history
+  name: Windows Activity History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/ConnectedDevicesPlatform"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/*.db*"
+  - "**/*.db*"
+- id: priv-history-yandex-download-history
+  name: Yandex Download History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Yandex/YandexBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/DownloadMetadata"
+  - "**/DownloadMetadata"
+  - "*/shared_proto_db"
+- id: priv-cookies-yandex-extension-cookies
+  name: Yandex Extension Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Yandex/YandexBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/Extension Cookies"
+  - "**/Extension Cookies"
+- id: priv-cookies-yandex-web-browsing-cookies
+  name: Yandex Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%LOCALAPPDATA%/Yandex/YandexBrowser/User Data"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*/Network"
+  - "*/Network/Cookies*;Device Bound Sessions*"
+  - "**/Cookies*;Device Bound Sessions*"
+- id: priv-history-zen-autocomplete-history
+  name: Zen Autocomplete History
+  description: Browser history from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Zen/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/formhistory*"
+  - "**/formhistory*"
+- id: priv-cookies-zen-web-browsing-cookies
+  name: Zen Web Browsing Cookies
+  description: Browser cookies from Winapp2.ini. Off unless enabled in Junk rules
+    → Privacy.
+  category: browser-privacy
+  platform: windows
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Zen/Profiles"
+  delete_mode: contents
+  max_depth: 8
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "*"
+  - "*/cookies*"
+  - "**/cookies*"
+- id: priv-cookies-chrome-mac
+  name: Chrome cookies
+  description: Browser cookies. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: macos
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Cookies"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Cookies-journal"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - cookies
+  - browser
+  - privacy
+- id: priv-history-chrome-mac
+  name: Chrome history
+  description: Browser history. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: macos
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/Default/History"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/History-journal"
+  - "$HOME/Library/Application Support/Google/Chrome/Default/Visited Links"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - history
+  - browser
+  - privacy
+- id: priv-cookies-firefox-mac
+  name: Firefox cookies
+  description: Browser cookies. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: macos
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "**/cookies.sqlite"
+  - "**/cookies.sqlite-wal"
+- id: priv-history-firefox-mac
+  name: Firefox history
+  description: Browser history. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: macos
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Firefox/Profiles"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "**/places.sqlite"
+  - "**/places.sqlite-wal"
+- id: priv-cookies-chrome-linux
+  name: Chrome cookies
+  description: Browser cookies. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: linux
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/google-chrome/Default/Cookies"
+  - "$XDG_CONFIG_HOME/google-chrome/Default/Cookies"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - cookies
+  - browser
+  - privacy
+- id: priv-history-chrome-linux
+  name: Chrome history
+  description: Browser history. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: linux
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.config/google-chrome/Default/History"
+  - "$XDG_CONFIG_HOME/google-chrome/Default/History"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - history
+  - browser
+  - privacy
+- id: priv-cookies-firefox-linux
+  name: Firefox cookies
+  description: Browser cookies. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: linux
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.mozilla/firefox"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - cookies
+  - browser
+  - privacy
+  include_globs:
+  - "**/cookies.sqlite"
+  - "**/cookies.sqlite-wal"
+- id: priv-history-firefox-linux
+  name: Firefox history
+  description: Browser history. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: linux
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/.mozilla/firefox"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - history
+  - browser
+  - privacy
+  include_globs:
+  - "**/places.sqlite"
+  - "**/places.sqlite-wal"
+- id: priv-cookies-safari-mac
+  name: Safari cookies
+  description: Browser cookies. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: macos
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Cookies"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - cookies
+  - browser
+  - privacy
+- id: priv-history-safari-mac
+  name: Safari history
+  description: Browser history. Off unless enabled in Junk rules → Privacy.
+  category: browser-privacy
+  platform: macos
+  risk: high
+  kind: browser
+  default_enabled: false
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Safari/History.db"
+  - "$HOME/Library/Safari/History.db-wal"
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - history
+  - browser
+  - privacy

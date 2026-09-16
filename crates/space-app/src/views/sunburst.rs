@@ -2,12 +2,10 @@
 
 use std::sync::Arc;
 
-use egui::{
-    epaint::Mesh, Align2, Color32, FontId, Pos2, Sense, Shape, Stroke, Ui, Vec2,
-};
+use egui::{epaint::Mesh, Align2, Color32, FontId, Pos2, Sense, Shape, Stroke, Ui, Vec2};
 use space_core::{format_bytes, NodeId};
 
-use crate::theme::{self, MUTED, TEXT};
+use crate::theme::{self, ACCENT, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, GeomCache, GeomKey, ViewAction};
 
 const MAX_DEPTH: usize = 2;
@@ -106,17 +104,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             let a1 = angle + sweep - gap * 0.5;
             if a1 > a0 {
                 paint_subtree(
-                    ctx,
-                    id,
-                    0,
-                    a0,
-                    a1,
-                    hole,
-                    ring_w,
-                    center,
-                    color,
-                    min_sweep,
-                    &mut mesh,
+                    ctx, id, 0, a0, a1, hole, ring_w, center, color, min_sweep, &mut mesh,
                     &mut hits,
                 );
             }
@@ -164,12 +152,20 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     painter.circle_filled(center, max_r + 2.0, theme::PANEL);
     painter.add(Shape::Mesh(Arc::clone(mesh)));
 
+    if hits.is_empty() && ctx.filter.is_active() {
+        super::empty_filter_prompt(ui, rect, &mut action);
+    }
+
     let pointer = response.hover_pos();
     let mut hover_id = None;
+    let mut hover_other = false;
     if let Some(pos) = pointer {
         for hit in hits.iter().rev() {
             if point_in_arc(pos, center, hit) {
-                hover_id = hit.id;
+                match hit.id {
+                    Some(id) => hover_id = Some(id),
+                    None => hover_other = true,
+                }
                 break;
             }
         }
@@ -179,11 +175,16 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     for (hi, hit) in hits.iter().enumerate() {
         let is_hov = match (hover_id, hit.id) {
             (Some(h), Some(id)) => h == id,
+            (None, None) if hover_other => true,
             _ => false,
         };
         let is_sel = hit.id.is_some_and(|id| ctx.selected == Some(id));
-        let hov_t = ui.ctx().animate_bool_with_time(ui.id().with(("sb_hov", hi)), is_hov, 0.14);
-        let sel_t = ui.ctx().animate_bool_with_time(ui.id().with(("sb_sel", hi)), is_sel, 0.18);
+        let hov_t = ui
+            .ctx()
+            .animate_bool_with_time(ui.id().with(("sb_hov", hi)), is_hov, 0.14);
+        let sel_t = ui
+            .ctx()
+            .animate_bool_with_time(ui.id().with(("sb_sel", hi)), is_sel, 0.18);
         if hov_t > 0.01 {
             // Proper annular wash (same tessellation as wedges).
             let mut overlay = Mesh::default();
@@ -222,11 +223,9 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let focus_node = tree.node(focus);
     painter.circle_filled(center, hole - 2.0, theme::BG);
     // Fade-in hub label when focus changes (id-keyed animation resets).
-    let name_alpha = ui.ctx().animate_bool_with_time(
-        ui.id().with(("sb_focus", focus.0)),
-        true,
-        0.32,
-    );
+    let name_alpha =
+        ui.ctx()
+            .animate_bool_with_time(ui.id().with(("sb_focus", focus.0)), true, 0.32);
     let label_a = (0.4 + 0.6 * name_alpha).clamp(0.0, 1.0);
     painter.text(
         center + Vec2::new(0.0, -10.0),
@@ -242,6 +241,20 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         FontId::proportional(12.0),
         Color32::from_rgba_unmultiplied(MUTED.r(), MUTED.g(), MUTED.b(), (label_a * 220.0) as u8),
     );
+    if focus_node.parent.is_some() {
+        painter.text(
+            center + Vec2::new(0.0, 26.0),
+            Align2::CENTER_CENTER,
+            "↑  click to go up",
+            FontId::proportional(10.0),
+            Color32::from_rgba_unmultiplied(
+                ACCENT.r(),
+                ACCENT.g(),
+                ACCENT.b(),
+                (label_a * 200.0) as u8,
+            ),
+        );
+    }
 
     if response.clicked() {
         if let Some(pos) = response.interact_pointer_pos() {
@@ -254,7 +267,13 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 for hit in hits.iter().rev() {
                     if point_in_arc(pos, center, hit) {
                         if let Some(id) = hit.id {
-                            action.select = Some(id);
+                            super::click_map_node(
+                                tree,
+                                id,
+                                focus,
+                                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                                &mut action,
+                            );
                         }
                         break;
                     }
@@ -264,23 +283,27 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     }
     if response.double_clicked() {
         if let Some(id) = hover_id {
-            if tree.node(id).is_dir {
-                action.navigate = Some(id);
-            }
+            super::double_click_map_node(tree, id, &mut action);
         }
     }
-    if response.secondary_clicked() {
-        if let Some(id) = hover_id {
-            action.toggle_review = Some(id);
-        }
+    if let Some(id) = hover_id {
+        super::node_context_menu(&response, tree, id, ctx.review.contains(&id), &mut action);
     }
 
     action.hover = hover_id;
-    let label_t = ui.ctx().animate_bool_with_time(
-        ui.id().with("sb_label"),
-        hover_id.is_some(),
-        0.18,
-    );
+    if let Some(id) = hover_id {
+        ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
+        response
+            .clone()
+            .on_hover_ui(|ui| super::node_hover_ui(ui, tree, id, ctx.focus, ctx.mode));
+    } else if hover_other {
+        response
+            .clone()
+            .on_hover_text("Smaller items grouped here. Open a larger folder to see them.");
+    }
+    let label_t =
+        ui.ctx()
+            .animate_bool_with_time(ui.id().with("sb_label"), hover_id.is_some(), 0.18);
     if let Some(id) = hover_id {
         if label_t > 0.02 {
             let n = tree.node(id);
@@ -395,6 +418,7 @@ fn sibling_colors(
     out
 }
 
+#[allow(clippy::too_many_arguments)]
 fn paint_subtree(
     ctx: &DrawCtx<'_>,
     id: NodeId,
@@ -442,7 +466,8 @@ fn paint_subtree(
         .map(|c| tree.node(*c).size(ctx.mode))
         .sum::<u64>()
         .max(1);
-    let child_min = (min_sweep * (hole + ring_w * 1.5) / (hole + ring_w * 0.5).max(1.0)).max(min_sweep);
+    let child_min =
+        (min_sweep * (hole + ring_w * 1.5) / (hole + ring_w * 0.5).max(1.0)).max(min_sweep);
     let mut visible: Vec<(NodeId, f32)> = Vec::new();
     let mut other = 0.0_f32;
     for &cid in &take {
@@ -507,6 +532,7 @@ fn paint_subtree(
     }
 }
 
+#[allow(clippy::too_many_arguments)]
 fn push_segment(
     mesh: &mut Mesh,
     hits: &mut Vec<ArcHit>,

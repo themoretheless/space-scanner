@@ -199,13 +199,7 @@ fn format_tm_date(date: &str) -> String {
         let (d, t) = date.split_at(10);
         let t = t.trim_start_matches('-');
         if t.len() >= 6 {
-            return format!(
-                "{} {}:{}:{}",
-                d,
-                &t[0..2],
-                &t[2..4],
-                &t[4..6]
-            );
+            return format!("{} {}:{}:{}", d, &t[0..2], &t[2..4], &t[4..6]);
         }
     }
     date.to_string()

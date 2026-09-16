@@ -7,8 +7,10 @@ use eframe::egui::{self, Align, Layout, RichText, Sense};
 use space_clean::{CleanProgress, Finding, JunkScanProgress, ScanReport};
 use space_core::format_bytes;
 
+use crate::settings::FeatureFlags;
 use crate::theme::{self, ACCENT, MUTED, PANEL_2, TEXT};
 
+#[derive(Default)]
 pub struct JunkPanelState {
     pub open: bool,
     pub loading: bool,
@@ -22,25 +24,6 @@ pub struct JunkPanelState {
     pub confirm: bool,
     pub expanded_cat: Option<String>,
     pub error: Option<String>,
-}
-
-impl Default for JunkPanelState {
-    fn default() -> Self {
-        Self {
-            open: false,
-            loading: false,
-            cleaning: false,
-            report: None,
-            progress: JunkScanProgress::default(),
-            scan_started: None,
-            clean_progress: CleanProgress::default(),
-            clean_started: None,
-            selected: Vec::new(),
-            confirm: false,
-            expanded_cat: None,
-            error: None,
-        }
-    }
 }
 
 impl JunkPanelState {
@@ -110,6 +93,7 @@ pub enum JunkAction {
     Clean,
     Close,
     OpenRules,
+    PrefsChanged,
 }
 
 struct CatAgg {
@@ -120,12 +104,12 @@ struct CatAgg {
     indices: Vec<usize>,
 }
 
-pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
+pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFlags) -> JunkAction {
     let mut action = JunkAction::None;
 
     ui.horizontal(|ui| {
         ui.label(
-            RichText::new("Caches, logs, temp — regenerable only. Goes to Trash.")
+            RichText::new("Caches, logs, and temp. Always to Trash — never deleted immediately.")
                 .size(12.0)
                 .color(MUTED),
         );
@@ -141,12 +125,29 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
             }
             if ui
                 .button("Rules…")
-                .on_hover_text("Open rule manager")
+                .on_hover_text("Turn individual rules on or off")
                 .clicked()
             {
                 action = JunkAction::OpenRules;
             }
         });
+    });
+    ui.horizontal(|ui| {
+        ui.label(RichText::new("Also scan").small().color(MUTED));
+        if ui
+            .checkbox(&mut flags.scan_browser_cookies, "Cookies")
+            .on_hover_text("Off by default — cleaning cookies signs you out of websites")
+            .changed()
+        {
+            action = JunkAction::PrefsChanged;
+        }
+        if ui
+            .checkbox(&mut flags.scan_browser_history, "History")
+            .on_hover_text("Off by default")
+            .changed()
+        {
+            action = JunkAction::PrefsChanged;
+        }
     });
     ui.add_space(10.0);
 
@@ -175,7 +176,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                     p.items_total,
                     p.files_done,
                     p.folders_done,
-                    format_bytes(p.bytes_freed),
+                    format_bytes(p.bytes_processed),
                     p.error_count,
                     elapsed
                 ))
@@ -240,7 +241,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
         );
         if !p.current_rule.is_empty() {
             ui.label(
-                RichText::new(format!("Rule: {}", p.current_rule))
+                RichText::new(format!("Looking at {}", p.current_rule))
                     .small()
                     .color(TEXT),
             );
@@ -261,7 +262,10 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
     }
 
     let Some(report) = state.report.as_ref() else {
-        ui.label(RichText::new("Nothing scanned yet.").color(MUTED));
+        ui.label(
+            RichText::new("Still scanning, or press Rescan if this is empty by mistake.")
+                .color(MUTED),
+        );
         ui.add_space(12.0);
         if ui.button("Close").clicked() {
             action = JunkAction::Close;
@@ -311,8 +315,22 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
         }
     }
     let mut cat_list: Vec<CatAgg> = cats.into_values().collect();
-    cat_list.sort_by(|a, b| b.bytes.cmp(&a.bytes));
+    cat_list.sort_by_key(|category| std::cmp::Reverse(category.bytes));
     let max_bytes = cat_list.first().map(|c| c.bytes).unwrap_or(1).max(1);
+
+    if cat_list.is_empty() {
+        ui.label(
+            RichText::new("Nothing to clean right now.")
+                .size(14.0)
+                .color(TEXT),
+        );
+        ui.label(
+            RichText::new("Try Rules to turn more categories on, or Rescan.")
+                .small()
+                .color(MUTED),
+        );
+        ui.add_space(8.0);
+    }
 
     egui::ScrollArea::vertical()
         .max_height(300.0)
@@ -367,10 +385,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                                 ui.add_space(2.0);
                                 ui.label(
                                     RichText::new(format!(
-                                        "{} cleanable{}",
+                                        "{} removable{}",
                                         cat.cleanable,
                                         if cat.report_only > 0 {
-                                            format!(" · {} report-only", cat.report_only)
+                                            format!(
+                                                " · {} listed only (not removable)",
+                                                cat.report_only
+                                            )
                                         } else {
                                             String::new()
                                         }
@@ -382,7 +403,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                         });
                     });
 
-                if row.response.interact(Sense::click()).clicked() {
+                let cat_click = row.response.interact(Sense::click());
+                cat_click.clone().on_hover_text(if open {
+                    "Hide items"
+                } else {
+                    "Click to list items"
+                });
+                if cat_click.clicked() {
                     if open {
                         state.expanded_cat = None;
                     } else {
@@ -510,7 +537,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                         state.confirm = false;
                     }
                     if ui
-                        .button(RichText::new("Confirm").color(ACCENT).strong())
+                        .button(RichText::new("Move to Trash").color(ACCENT).strong())
                         .clicked()
                     {
                         state.confirm = false;

@@ -7,11 +7,16 @@ description = "Rule-driven junk cleaner (ppduster core: caches, logs, temp, left
 
 [dependencies]
 anyhow = "1"
-dirs = "6"
 directories = { workspace = true }
 globset = "0.4"
 serde = { workspace = true }
 serde_json = { workspace = true }
 serde_yaml = "0.9"
-trash = { workspace = true }
 walkdir = "2"
+
+[target.'cfg(not(target_os = "macos"))'.dependencies]
+trash = { workspace = true }
+
+[[bench]]
+name = "clean"
+harness = false

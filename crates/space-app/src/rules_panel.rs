@@ -3,6 +3,7 @@
 use eframe::egui::{self, Align, Layout, RichText};
 use space_clean::{CategoryPolicy, JunkKind, Risk, RuleFilter, RuleManager, RuleRow};
 
+use crate::settings::FeatureFlags;
 use crate::theme::{ACCENT, DANGER, MUTED, TEXT};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -61,20 +62,20 @@ pub enum RulesAction {
     PrefsChanged,
 }
 
-pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManager) -> RulesAction {
+pub fn draw(
+    ui: &mut egui::Ui,
+    state: &mut RulesPanelState,
+    mgr: &mut RuleManager,
+    flags: &mut FeatureFlags,
+) -> RulesAction {
     let mut action = RulesAction::None;
     let stats = mgr.stats();
 
     ui.horizontal(|ui| {
         ui.label(
             RichText::new(format!(
-                "{} rules · {} on · {} off · {} cats · {} kinds · {} tags",
-                stats.host,
-                stats.enabled,
-                stats.disabled,
-                stats.categories,
-                stats.kinds,
-                stats.tags
+                "{} of {} rules on · {} off",
+                stats.enabled, stats.host, stats.disabled,
             ))
             .size(12.0)
             .color(MUTED),
@@ -82,7 +83,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
                 .button("Reset all")
-                .on_hover_text("Clear all overrides → YAML defaults")
+                .on_hover_text("Restore built-in defaults for every rule")
                 .clicked()
             {
                 mgr.reset_all();
@@ -92,8 +93,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             }
             let mut all = mgr.prefs.enable_all_by_default;
             if ui
-                .checkbox(&mut all, "Enable all")
-                .on_hover_text("Treat every rule as on, then apply per-rule/category/tag overrides")
+                .checkbox(&mut all, "Turn every rule on")
+                .on_hover_text("Then you can still turn categories, tags, or single rules off")
                 .changed()
             {
                 mgr.prefs.enable_all_by_default = all;
@@ -102,6 +103,26 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                 action = RulesAction::PrefsChanged;
             }
         });
+    });
+
+    ui.horizontal(|ui| {
+        ui.label(RichText::new("Privacy").color(MUTED));
+        if ui
+            .checkbox(&mut flags.scan_browser_cookies, "Cookies")
+            .on_hover_text(
+                "Scan/clean browser cookies. Off by default — signs you out of websites.",
+            )
+            .changed()
+        {
+            action = RulesAction::PrefsChanged;
+        }
+        if ui
+            .checkbox(&mut flags.scan_browser_history, "History")
+            .on_hover_text("Scan/clean browser history. Off by default.")
+            .changed()
+        {
+            action = RulesAction::PrefsChanged;
+        }
     });
 
     if let Some(err) = &state.error {
@@ -114,7 +135,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
         let resp = ui.add(
             egui::TextEdit::singleline(&mut state.query)
                 .desired_width(220.0)
-                .hint_text("id, name, kind, tag…"),
+                .hint_text("name or description…"),
         );
         let _ = resp;
         ui.separator();
@@ -122,15 +143,15 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             ("All", EnabledFilter::All),
             ("On", EnabledFilter::On),
             ("Off", EnabledFilter::Off),
-            ("Δ", EnabledFilter::Overridden),
+            ("Changed", EnabledFilter::Overridden),
         ] {
             if ui
                 .selectable_label(state.enabled == mode, label)
                 .on_hover_text(match mode {
                     EnabledFilter::All => "All rules",
-                    EnabledFilter::On => "Effectively enabled",
-                    EnabledFilter::Off => "Effectively disabled",
-                    EnabledFilter::Overridden => "Has prefs override",
+                    EnabledFilter::On => "Rules that will run",
+                    EnabledFilter::Off => "Rules that will not run",
+                    EnabledFilter::Overridden => "Rules you turned on or off yourself",
                 })
                 .clicked()
             {
@@ -152,8 +173,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
         cols[0].horizontal(|ui| {
             for (label, tab) in [
                 ("Categories", SideTab::Categories),
-                ("Kinds", SideTab::Kinds),
-                ("Danger", SideTab::Danger),
+                ("Types", SideTab::Kinds),
+                ("Caution", SideTab::Danger),
                 ("Tags", SideTab::Tags),
             ] {
                 if ui.selectable_label(state.side_tab == tab, label).clicked() {
@@ -170,7 +191,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                     let all_selected = state.category.is_none();
                     let all_resp = ui.selectable_label(
                         all_selected,
-                        format!("All categories  ({})", stats.host),
+                        format!("All categories  ({} rules)", stats.host),
                     );
                     if all_resp.clicked() {
                         state.category = None;
@@ -181,8 +202,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                             let selected = state.category.as_deref() == Some(cat.name.as_str());
                             let policy_mark = match cat.policy {
                                 CategoryPolicy::Default => "",
-                                CategoryPolicy::ForceOn => " ⊕",
-                                CategoryPolicy::ForceOff => " ⊖",
+                                CategoryPolicy::ForceOn => " · always on",
+                                CategoryPolicy::ForceOff => " · always off",
                             };
                             let label = format!(
                                 "{}{}  {}/{}",
@@ -196,8 +217,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                             }
                             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                 if ui
-                                    .small_button("∅")
-                                    .on_hover_text("Reset category + its rule overrides")
+                                    .small_button("Reset")
+                                    .on_hover_text("Reset this category to defaults")
                                     .clicked()
                                 {
                                     mgr.reset_category(&cat.name);
@@ -207,7 +228,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                                 }
                                 if ui
                                     .small_button("Off")
-                                    .on_hover_text("Force category off")
+                                    .on_hover_text("Turn this whole category off")
                                     .clicked()
                                 {
                                     let _ = mgr.set_category_enabled(&cat.name, false);
@@ -217,7 +238,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                                 }
                                 if ui
                                     .small_button("On")
-                                    .on_hover_text("Force category on")
+                                    .on_hover_text("Turn this whole category on")
                                     .clicked()
                                 {
                                     let _ = mgr.set_category_enabled(&cat.name, true);
@@ -233,7 +254,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                     if ui
                         .selectable_label(
                             state.kind.is_none(),
-                            format!("All kinds  ({})", kinds.len()),
+                            format!("All types  ({})", kinds.len()),
                         )
                         .clicked()
                     {
@@ -250,7 +271,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                 }
                 SideTab::Danger => {
                     if ui
-                        .selectable_label(state.risk.is_none(), "All danger levels")
+                        .selectable_label(state.risk.is_none(), "All caution levels")
                         .clicked()
                     {
                         state.risk = None;
@@ -280,8 +301,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                             let selected = state.tag.as_deref() == Some(tag.name.as_str());
                             let policy_mark = match tag.policy {
                                 CategoryPolicy::Default => "",
-                                CategoryPolicy::ForceOn => " ⊕",
-                                CategoryPolicy::ForceOff => " ⊖",
+                                CategoryPolicy::ForceOn => " · always on",
+                                CategoryPolicy::ForceOff => " · always off",
                             };
                             let label = format!(
                                 "{}{}  {}/{}",
@@ -292,8 +313,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                             }
                             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                 if ui
-                                    .small_button("∅")
-                                    .on_hover_text("Clear tag force on/off")
+                                    .small_button("Reset")
+                                    .on_hover_text("Stop forcing this tag on or off")
                                     .clicked()
                                 {
                                     mgr.reset_tag(&tag.name);
@@ -303,7 +324,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                                 }
                                 if ui
                                     .small_button("Off")
-                                    .on_hover_text("Force-disable rules with this tag")
+                                    .on_hover_text("Turn off all rules with this tag")
                                     .clicked()
                                 {
                                     let _ = mgr.set_tag_enabled(&tag.name, false);
@@ -313,7 +334,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                                 }
                                 if ui
                                     .small_button("On")
-                                    .on_hover_text("Force-enable rules with this tag")
+                                    .on_hover_text("Turn on all rules with this tag")
                                     .clicked()
                                 {
                                     let _ = mgr.set_tag_enabled(&tag.name, true);
@@ -388,11 +409,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             action = RulesAction::Close;
         }
         if state.dirty {
-            ui.label(
-                RichText::new("Saved to rule-prefs.json")
-                    .size(11.0)
-                    .color(MUTED),
-            );
+            ui.label(RichText::new("Saved").size(11.0).color(MUTED));
         }
     });
 
@@ -411,9 +428,9 @@ fn draw_rule_row(
         if ui
             .checkbox(&mut enabled, "")
             .on_hover_text(if row.overridden {
-                "Override active"
+                "Your setting (not the default)"
             } else {
-                "Override YAML default"
+                "Turn this rule on or off for junk cleaning"
             })
             .changed()
         {
@@ -425,7 +442,7 @@ fn draw_rule_row(
 
         let color = if row.effectively_enabled { TEXT } else { MUTED };
         let name = if row.overridden {
-            format!("Δ {}", row.name)
+            format!("Changed · {}", row.name)
         } else {
             row.name.clone()
         };
@@ -442,7 +459,7 @@ fn draw_rule_row(
         resp.on_hover_ui(|ui| {
             ui.label(RichText::new(&row.id).strong());
             ui.label(format!(
-                "kind: {} · danger: {} ({})",
+                "{} · caution: {} ({})",
                 row.kind, row.danger, row.risk
             ));
             if !row.description.is_empty() {
@@ -463,7 +480,7 @@ fn draw_rule_row(
                 ui.label(format!("… {} more paths", row.paths.len() - 6));
             }
             ui.label(format!(
-                "min age {}d · yaml default {}",
+                "skip if newer than {} days · default {}",
                 row.min_age_days,
                 if row.default_enabled { "on" } else { "off" }
             ));
@@ -472,8 +489,8 @@ fn draw_rule_row(
         ui.label(RichText::new(&row.kind).size(10.0).color(MUTED));
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
-                .small_button("↺")
-                .on_hover_text("Clear rule override")
+                .small_button("Reset")
+                .on_hover_text("Use the default for this rule")
                 .clicked()
             {
                 mgr.reset_rule(&row.id);
@@ -482,7 +499,7 @@ fn draw_rule_row(
                 *action = RulesAction::PrefsChanged;
             }
             if row.report_only {
-                ui.label(RichText::new("report").size(10.0).color(MUTED));
+                ui.label(RichText::new("list only").size(10.0).color(MUTED));
             }
             let danger_color = match row.danger.as_str() {
                 "dangerous" | "report-only" => DANGER,

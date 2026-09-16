@@ -13,7 +13,7 @@ use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
 use airbug_bench::{DropPolicy, Suite};
-use space_core::{scan_path, ScanEvent, SpaceTree};
+use space_core::{rescan_subtree, scan_path, NodeId, ScanEvent, SpaceTree};
 
 fn main() -> airbug_bench::Result<()> {
     // `cargo bench` appends `--bench`; airbug-bench rejects unknown flags.
@@ -61,6 +61,21 @@ fn main() -> airbug_bench::Result<()> {
             let tree = scan_blocking(root);
             black_box(tree.total_size());
             black_box(tree.node(tree.root).file_count);
+        },
+        DropPolicy::OutsideTiming,
+    );
+
+    suite.bench_with_input(
+        "rescan/subtree_256_of_4096",
+        || {
+            let root = make_fixture(16, 16, 16);
+            let tree = scan_blocking(&root);
+            let subtree = child_named(&tree, tree.root, "d0");
+            (root, tree, subtree)
+        },
+        |(_, tree, subtree)| {
+            let rescanned = rescan_subtree(tree, *subtree).expect("subtree rescan");
+            black_box(rescanned.item_count);
         },
         DropPolicy::OutsideTiming,
     );
@@ -160,4 +175,12 @@ fn scan_blocking(path: &Path) -> SpaceTree {
             Err(e) => panic!("scan recv: {e}"),
         }
     }
+}
+
+fn child_named(tree: &SpaceTree, parent: NodeId, name: &str) -> NodeId {
+    tree.children(parent)
+        .iter()
+        .copied()
+        .find(|id| tree.node(*id).name == name)
+        .expect("fixture child")
 }

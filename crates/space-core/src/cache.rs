@@ -10,7 +10,7 @@ use crate::tree::SpaceTree;
 
 const CACHE_MAGIC: &[u8; 8] = b"SPSCACHE";
 /// Bump when `SpaceTree` / `Node` on-disk schema changes.
-pub const CACHE_VERSION: u32 = 3;
+pub const CACHE_VERSION: u32 = 4;
 
 #[derive(Debug, Error)]
 pub enum CacheError {
@@ -65,9 +65,7 @@ impl CacheStore {
     }
 
     fn key_for(root: &Path) -> String {
-        let canonical = root
-            .canonicalize()
-            .unwrap_or_else(|_| root.to_path_buf());
+        let canonical = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
         let hash = blake3::hash(canonical.to_string_lossy().as_bytes());
         hash.to_hex().to_string()
     }
@@ -94,8 +92,8 @@ impl CacheStore {
         }
 
         let meta_bytes = fs::read(&meta_path)?;
-        let meta: CacheMeta = bincode::deserialize(&meta_bytes)
-            .map_err(|e| CacheError::Decode(e.to_string()))?;
+        let meta: CacheMeta =
+            bincode::deserialize(&meta_bytes).map_err(|e| CacheError::Decode(e.to_string()))?;
 
         let current_mtime = path_mtime_secs(root).unwrap_or(0);
         let stale = current_mtime > meta.root_mtime_secs.saturating_add(1);
@@ -111,13 +109,10 @@ impl CacheStore {
         if u32::from_le_bytes(ver) != CACHE_VERSION {
             return Err(CacheError::Decode("version mismatch".into()));
         }
-        let mut compressed = Vec::new();
-        file.read_to_end(&mut compressed)?;
-        let payload = zstd::decode_all(compressed.as_slice())
+        let decoder = zstd::stream::read::Decoder::new(file)
             .map_err(|e| CacheError::Decode(e.to_string()))?;
-        let mut tree: SpaceTree = bincode::deserialize(&payload)
-            .map_err(|e| CacheError::Decode(e.to_string()))?;
-        tree.normalize_unicode_names();
+        let tree: SpaceTree =
+            bincode::deserialize_from(decoder).map_err(|e| CacheError::Decode(e.to_string()))?;
 
         Ok(CacheLoad { meta, tree, stale })
     }
@@ -144,17 +139,21 @@ impl CacheStore {
 
         let meta_bytes =
             bincode::serialize(&meta).map_err(|e| CacheError::Encode(e.to_string()))?;
-        let payload =
-            bincode::serialize(tree).map_err(|e| CacheError::Encode(e.to_string()))?;
-        let compressed =
-            zstd::encode_all(payload.as_slice(), 3).map_err(|e| CacheError::Encode(e.to_string()))?;
 
         let tmp_bin = bin_path.with_extension("bin.tmp");
         {
             let mut f = fs::File::create(&tmp_bin)?;
             f.write_all(CACHE_MAGIC)?;
             f.write_all(&CACHE_VERSION.to_le_bytes())?;
-            f.write_all(&compressed)?;
+            {
+                let mut encoder = zstd::stream::write::Encoder::new(&mut f, 3)
+                    .map_err(|e| CacheError::Encode(e.to_string()))?;
+                bincode::serialize_into(&mut encoder, tree)
+                    .map_err(|e| CacheError::Encode(e.to_string()))?;
+                encoder
+                    .finish()
+                    .map_err(|e| CacheError::Encode(e.to_string()))?;
+            }
             f.sync_all()?;
         }
         fs::rename(&tmp_bin, &bin_path)?;
@@ -187,7 +186,7 @@ impl CacheStore {
                 }
             }
         }
-        out.sort_by(|a, b| b.scanned_at_unix.cmp(&a.scanned_at_unix));
+        out.sort_by_key(|meta| std::cmp::Reverse(meta.scanned_at_unix));
         Ok(out)
     }
 }
@@ -204,4 +203,51 @@ fn now_unix() -> u64 {
         .duration_since(UNIX_EPOCH)
         .map(|d| d.as_secs())
         .unwrap_or(0)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::tree::{Node, NodeId};
+
+    #[test]
+    fn streaming_cache_round_trip_preserves_tree() {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let base = std::env::temp_dir().join(format!("space-cache-stream-{unique}"));
+        let root = base.join("root");
+        let cache_dir = base.join("cache");
+        fs::create_dir_all(&root).unwrap();
+        fs::create_dir_all(&cache_dir).unwrap();
+        let store = CacheStore { dir: cache_dir };
+        let tree = SpaceTree {
+            root_path: root.to_string_lossy().into_owned(),
+            nodes: vec![Node {
+                name: "root".into(),
+                apparent_size: 7,
+                allocated_size: 8,
+                file_count: 1,
+                is_dir: true,
+                synthetic: false,
+                children: Vec::new(),
+                parent: None,
+            }],
+            root: NodeId(0),
+            scanned_at_unix: 123,
+            item_count: 1,
+            skipped_errors: 0,
+            hardlink_candidates: 0,
+            hardlinks_deduped: 0,
+        };
+
+        store.save(&tree).unwrap();
+        let loaded = store.load(&root).unwrap();
+        assert_eq!(loaded.tree.root_path, tree.root_path);
+        assert_eq!(loaded.tree.total_size(), 8);
+        assert_eq!(loaded.tree.item_count, 1);
+        assert_eq!(loaded.meta.scanned_at_unix, 123);
+        fs::remove_dir_all(base).unwrap();
+    }
 }

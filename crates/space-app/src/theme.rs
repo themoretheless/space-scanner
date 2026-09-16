@@ -47,7 +47,7 @@ pub fn apply(ctx: &egui::Context) {
     style.spacing.button_padding = egui::vec2(10.0, 5.0);
     style.spacing.window_margin = Margin::same(14);
     style.spacing.indent = 12.0;
-    style.interaction.show_tooltips_only_when_still = true;
+    style.interaction.show_tooltips_only_when_still = false;
     ctx.set_style(style);
 }
 
@@ -111,7 +111,10 @@ pub fn color_for_adjacent(
         return pick_dir_color(name, sibling_index, avoid);
     }
     let base = color_for_ext(extension_of(name));
-    if avoid.iter().all(|c| color_dist2(base, *c) >= MIN_COLOR_DIST2) {
+    if avoid
+        .iter()
+        .all(|c| color_dist2(base, *c) >= MIN_COLOR_DIST2)
+    {
         return base;
     }
     // Same extension as neighbor — nudge hue so wedges still separate.
@@ -133,7 +136,11 @@ pub fn color_child_of(parent: Color32, sibling_index: usize, avoid: &[Color32]) 
             return c;
         }
     }
-    hsv((h + 95.0 + sibling_index as f32 * 47.0).rem_euclid(360.0), 0.58, 0.66)
+    hsv(
+        (h + 95.0 + sibling_index as f32 * 47.0).rem_euclid(360.0),
+        0.58,
+        0.66,
+    )
 }
 
 fn color_for_dir(name: &str) -> Color32 {
@@ -154,7 +161,11 @@ fn pick_dir_color(name: &str, sibling_index: usize, avoid: &[Color32]) -> Color3
     }
     let conflict = avoid.last().copied().unwrap_or(DIR);
     let h = (fnv1a(name) % 360) as f32;
-    let forced = hsv((h + 140.0 + sibling_index as f32 * 37.0) % 360.0, 0.58, 0.65);
+    let forced = hsv(
+        (h + 140.0 + sibling_index as f32 * 37.0) % 360.0,
+        0.58,
+        0.65,
+    );
     if color_dist2(forced, conflict) >= MIN_COLOR_DIST2 / 2 {
         forced
     } else {
@@ -201,7 +212,9 @@ pub fn color_for_ext(ext: &str) -> Color32 {
         | "kt" | "java" => Color32::from_rgb(90, 180, 130),
         "pdf" | "doc" | "docx" | "txt" | "md" | "rtf" | "pages" => Color32::from_rgb(220, 180, 80),
         "app" | "exe" | "dll" | "so" | "dylib" | "bin" => Color32::from_rgb(100, 140, 190),
-        "json" | "xml" | "yml" | "yaml" | "toml" | "csv" | "sql" => Color32::from_rgb(140, 170, 100),
+        "json" | "xml" | "yml" | "yaml" | "toml" | "csv" | "sql" => {
+            Color32::from_rgb(140, 170, 100)
+        }
         "ttf" | "otf" | "woff" | "woff2" => Color32::from_rgb(160, 130, 100),
         "(none)" => Color32::from_rgb(110, 115, 120),
         _ => {
@@ -216,7 +229,9 @@ pub fn color_for_ext(ext: &str) -> Color32 {
 }
 
 /// Stable palette entries for a legend (ext, color).
-pub fn legend_for_names<'a>(names: impl Iterator<Item = (&'a str, bool)>) -> Vec<(String, Color32)> {
+pub fn legend_for_names<'a>(
+    names: impl Iterator<Item = (&'a str, bool)>,
+) -> Vec<(String, Color32)> {
     let mut seen = std::collections::BTreeMap::<String, Color32>::new();
     for (name, is_dir) in names {
         if is_dir {

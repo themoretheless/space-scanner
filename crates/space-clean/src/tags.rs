@@ -154,6 +154,11 @@ pub fn infer_tags(rule: &Rule) -> Vec<String> {
         ("project", "project"),
         ("deriveddata", "xcode"),
         ("cocoapods", "ios"),
+        ("cookie", "cookies"),
+        ("cookies", "cookies"),
+        ("places.sqlite", "history"),
+        ("browsing-history", "history"),
+        ("typed url", "history"),
     ];
 
     for (needle, tag) in keywords {

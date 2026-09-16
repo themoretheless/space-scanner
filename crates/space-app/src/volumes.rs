@@ -135,7 +135,7 @@ pub fn list_volumes() -> Vec<VolumeInfo> {
         }
     }
 
-    unique.sort_by(|a, b| b.used().cmp(&a.used()));
+    unique.sort_by_key(|volume| std::cmp::Reverse(volume.used()));
     unique
 }
 
@@ -177,8 +177,8 @@ fn apfs_volume_stats(mount: &str) -> Option<(u64, u32)> {
         return None;
     }
     let txt = String::from_utf8_lossy(&out.stdout);
-    let consumed = plist_u64(&txt, "VolumeUsedSpace")
-        .or_else(|| plist_u64(&txt, "CapacityInUse"))?;
+    let consumed =
+        plist_u64(&txt, "VolumeUsedSpace").or_else(|| plist_u64(&txt, "CapacityInUse"))?;
     let snaps = snapshot_count_for_mount(mount);
     Some((consumed, snaps))
 }
@@ -292,10 +292,7 @@ fn same_disk(a: &VolumeInfo, b: &VolumeInfo) -> bool {
     let b_s = b.mount.to_string_lossy();
     let root_pair = (a_s.as_ref() == "/" && b_s.as_ref() == "/System/Volumes/Data")
         || (b_s.as_ref() == "/" && a_s.as_ref() == "/System/Volumes/Data");
-    if root_pair && a.total > 0 && a.total == b.total {
-        return true;
-    }
-    false
+    root_pair && a.total > 0 && a.total == b.total
 }
 
 fn is_same_file(a: &Path, b: &Path) -> bool {
