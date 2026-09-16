@@ -73,6 +73,12 @@ pub fn infer_tags(rule: &Rule) -> Vec<String> {
         Risk::High => set.insert("risk-high".into()),
         Risk::ReportOnly => set.insert("risk-report".into()),
     };
+    set.insert(format!(
+        "danger-{}",
+        rule.risk.danger_label().replace(' ', "-")
+    ));
+    set.insert(format!("kind-{}", rule.kind.as_str()));
+    set.insert(rule.kind.as_str().into());
 
     if rule.default_enabled {
         set.insert("default-on".into());
@@ -181,7 +187,7 @@ pub fn enrich_rule_tags(rule: &mut Rule) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::rules::{DeleteMode, Platform, Risk};
+    use crate::rules::{DeleteMode, JunkKind, Platform, Risk};
 
     fn sample() -> Rule {
         Rule {
@@ -191,11 +197,14 @@ mod tests {
             category: "app-cache".into(),
             platform: Platform::Macos,
             risk: Risk::Low,
+            kind: JunkKind::Cache,
             default_enabled: false,
             min_age_days: 7,
             paths: vec!["$HOME/Library/Application Support/discord/Cache".into()],
             include_globs: vec![],
             exclude_globs: vec![],
+            required_ancestor_globs: vec![],
+            match_directories: false,
             max_depth: 6,
             delete_mode: DeleteMode::Contents,
             report_only: false,
@@ -210,5 +219,16 @@ mod tests {
         assert!(tags.iter().any(|t| t == "discord"));
         assert!(tags.iter().any(|t| t == "app-cache"));
         assert!(tags.iter().any(|t| t == "curated"));
+        assert!(tags.iter().any(|t| t == "kind-cache"));
+        assert!(tags.iter().any(|t| t == "danger-safe"));
+    }
+
+    #[test]
+    fn infers_logs_kind_from_category() {
+        let mut rule = sample();
+        rule.category = "logs".into();
+        rule.kind = JunkKind::Other;
+        crate::rules::enrich_rule_kind(&mut rule);
+        assert_eq!(rule.kind, JunkKind::Logs);
     }
 }

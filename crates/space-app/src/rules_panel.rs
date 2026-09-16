@@ -1,9 +1,9 @@
 //! Flexible rule manager UI — browse / search / toggle categories, tags & rules.
 
 use eframe::egui::{self, Align, Layout, RichText};
-use space_clean::{CategoryPolicy, RuleFilter, RuleManager, RuleRow};
+use space_clean::{CategoryPolicy, JunkKind, Risk, RuleFilter, RuleManager, RuleRow};
 
-use crate::theme::{ACCENT, MUTED, TEXT};
+use crate::theme::{ACCENT, DANGER, MUTED, TEXT};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum EnabledFilter {
@@ -17,6 +17,8 @@ pub(crate) enum EnabledFilter {
 pub(crate) enum SideTab {
     Categories,
     Tags,
+    Kinds,
+    Danger,
 }
 
 pub struct RulesPanelState {
@@ -24,6 +26,8 @@ pub struct RulesPanelState {
     pub query: String,
     pub category: Option<String>,
     pub tag: Option<String>,
+    pub kind: Option<JunkKind>,
+    pub risk: Option<Risk>,
     pub enabled: EnabledFilter,
     pub side_tab: SideTab,
     pub error: Option<String>,
@@ -39,6 +43,8 @@ impl Default for RulesPanelState {
             query: String::new(),
             category: None,
             tag: None,
+            kind: None,
+            risk: None,
             enabled: EnabledFilter::All,
             side_tab: SideTab::Categories,
             error: None,
@@ -62,12 +68,12 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
     ui.horizontal(|ui| {
         ui.label(
             RichText::new(format!(
-                "{} rules · {} on · {} off · {} overridden · {} cats · {} tags",
+                "{} rules · {} on · {} off · {} cats · {} kinds · {} tags",
                 stats.host,
                 stats.enabled,
                 stats.disabled,
-                stats.overridden,
                 stats.categories,
+                stats.kinds,
                 stats.tags
             ))
             .size(12.0)
@@ -108,7 +114,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
         let resp = ui.add(
             egui::TextEdit::singleline(&mut state.query)
                 .desired_width(220.0)
-                .hint_text("id, name, category, tag…"),
+                .hint_text("id, name, kind, tag…"),
         );
         let _ = resp;
         ui.separator();
@@ -137,22 +143,22 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
 
     let cats = mgr.categories(true);
     let tags = mgr.tags(true);
+    let kinds = mgr.kinds(true);
+    let risks = mgr.risks(true);
     let filter = build_filter(state);
     let rows = mgr.list(&filter);
 
     ui.columns(2, |cols| {
         cols[0].horizontal(|ui| {
-            if ui
-                .selectable_label(state.side_tab == SideTab::Categories, "Categories")
-                .clicked()
-            {
-                state.side_tab = SideTab::Categories;
-            }
-            if ui
-                .selectable_label(state.side_tab == SideTab::Tags, "Tags")
-                .clicked()
-            {
-                state.side_tab = SideTab::Tags;
+            for (label, tab) in [
+                ("Categories", SideTab::Categories),
+                ("Kinds", SideTab::Kinds),
+                ("Danger", SideTab::Danger),
+                ("Tags", SideTab::Tags),
+            ] {
+                if ui.selectable_label(state.side_tab == tab, label).clicked() {
+                    state.side_tab = tab;
+                }
             }
         });
 
@@ -221,6 +227,44 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
                                 }
                             });
                         });
+                    }
+                }
+                SideTab::Kinds => {
+                    if ui
+                        .selectable_label(
+                            state.kind.is_none(),
+                            format!("All kinds  ({})", kinds.len()),
+                        )
+                        .clicked()
+                    {
+                        state.kind = None;
+                    }
+                    for kind in &kinds {
+                        let parsed = JunkKind::parse(&kind.name);
+                        let selected = state.kind == parsed;
+                        let label = format!("{}  {}/{}", kind.name, kind.enabled, kind.total);
+                        if ui.selectable_label(selected, label).clicked() {
+                            state.kind = parsed;
+                        }
+                    }
+                }
+                SideTab::Danger => {
+                    if ui
+                        .selectable_label(state.risk.is_none(), "All danger levels")
+                        .clicked()
+                    {
+                        state.risk = None;
+                    }
+                    for risk in &risks {
+                        let parsed = Risk::parse(&risk.name);
+                        let selected = state.risk == parsed;
+                        let label = format!(
+                            "{} ({})  {}/{}",
+                            risk.danger, risk.name, risk.enabled, risk.total
+                        );
+                        if ui.selectable_label(selected, label).clicked() {
+                            state.risk = parsed;
+                        }
                     }
                 }
                 SideTab::Tags => {
@@ -294,6 +338,20 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             if let Some(cat) = &state.category {
                 ui.label(RichText::new(format!("· {cat}")).size(12.0).color(ACCENT));
             }
+            if let Some(kind) = state.kind {
+                ui.label(
+                    RichText::new(format!("· {}", kind.as_str()))
+                        .size(12.0)
+                        .color(ACCENT),
+                );
+            }
+            if let Some(risk) = state.risk {
+                ui.label(
+                    RichText::new(format!("· {}", risk.danger_label()))
+                        .size(12.0)
+                        .color(ACCENT),
+                );
+            }
             if let Some(tag) = &state.tag {
                 ui.label(RichText::new(format!("· #{tag}")).size(12.0).color(ACCENT));
             }
@@ -330,7 +388,11 @@ pub fn draw(ui: &mut egui::Ui, state: &mut RulesPanelState, mgr: &mut RuleManage
             action = RulesAction::Close;
         }
         if state.dirty {
-            ui.label(RichText::new("Saved to rule-prefs.json").size(11.0).color(MUTED));
+            ui.label(
+                RichText::new("Saved to rule-prefs.json")
+                    .size(11.0)
+                    .color(MUTED),
+            );
         }
     });
 
@@ -367,13 +429,31 @@ fn draw_rule_row(
         } else {
             row.name.clone()
         };
-        let resp = ui.label(RichText::new(name).size(12.5).color(color));
+        let resp = ui
+            .vertical(|ui| {
+                ui.set_max_width(340.0);
+                ui.label(RichText::new(name).size(12.5).color(color));
+                ui.add(
+                    egui::Label::new(RichText::new(&row.description).size(10.5).color(MUTED))
+                        .truncate(),
+                );
+            })
+            .response;
         resp.on_hover_ui(|ui| {
             ui.label(RichText::new(&row.id).strong());
+            ui.label(format!(
+                "kind: {} · danger: {} ({})",
+                row.kind, row.danger, row.risk
+            ));
             if !row.description.is_empty() {
                 ui.label(&row.description);
             }
+            ui.separator();
+            for detail in &row.details {
+                ui.label(detail);
+            }
             if !row.tags.is_empty() {
+                ui.separator();
                 ui.label(RichText::new(format!("tags: {}", row.tags.join(", "))).color(MUTED));
             }
             for p in row.paths.iter().take(6) {
@@ -389,7 +469,7 @@ fn draw_rule_row(
             ));
         });
 
-        ui.label(RichText::new(&row.id).size(10.0).color(MUTED));
+        ui.label(RichText::new(&row.kind).size(10.0).color(MUTED));
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
                 .small_button("↺")
@@ -404,7 +484,12 @@ fn draw_rule_row(
             if row.report_only {
                 ui.label(RichText::new("report").size(10.0).color(MUTED));
             }
-            ui.label(RichText::new(&row.risk).size(10.0).color(MUTED));
+            let danger_color = match row.danger.as_str() {
+                "dangerous" | "report-only" => DANGER,
+                "caution" => ACCENT,
+                _ => MUTED,
+            };
+            ui.label(RichText::new(&row.danger).size(10.0).color(danger_color));
         });
     });
 }
@@ -425,7 +510,9 @@ fn build_filter(state: &RulesPanelState) -> RuleFilter {
         query: state.query.clone(),
         category: state.category.clone(),
         tags,
-        risk: None,
+        kind: state.kind,
+        risk: state.risk,
+        max_risk: None,
         enabled,
         report_only: None,
         host_only: true,

@@ -1,0 +1,3304 @@
+---
+pack: protected-windows
+description: Generated hard deletion guards; do not load as cleanup rules.
+protections:
+- id: protect-windows-1password-user-data
+  name: Protect 1password User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/1password/User Data"
+  tags:
+  - never-delete
+  - 1password
+  - user-data
+- id: protect-windows-1password-profiles
+  name: Protect 1password Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/1password/Profiles"
+  tags:
+  - never-delete
+  - 1password
+  - profiles
+- id: protect-windows-1password-databases
+  name: Protect 1password Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/1password/Databases"
+  tags:
+  - never-delete
+  - 1password
+  - databases
+- id: protect-windows-bitwarden-user-data
+  name: Protect bitwarden User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bitwarden/User Data"
+  tags:
+  - never-delete
+  - bitwarden
+  - user-data
+- id: protect-windows-bitwarden-profiles
+  name: Protect bitwarden Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bitwarden/Profiles"
+  tags:
+  - never-delete
+  - bitwarden
+  - profiles
+- id: protect-windows-bitwarden-databases
+  name: Protect bitwarden Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bitwarden/Databases"
+  tags:
+  - never-delete
+  - bitwarden
+  - databases
+- id: protect-windows-keepassxc-user-data
+  name: Protect keepassxc User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/keepassxc/User Data"
+  tags:
+  - never-delete
+  - keepassxc
+  - user-data
+- id: protect-windows-keepassxc-profiles
+  name: Protect keepassxc Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/keepassxc/Profiles"
+  tags:
+  - never-delete
+  - keepassxc
+  - profiles
+- id: protect-windows-keepassxc-databases
+  name: Protect keepassxc Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/keepassxc/Databases"
+  tags:
+  - never-delete
+  - keepassxc
+  - databases
+- id: protect-windows-lastpass-user-data
+  name: Protect lastpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/lastpass/User Data"
+  tags:
+  - never-delete
+  - lastpass
+  - user-data
+- id: protect-windows-lastpass-profiles
+  name: Protect lastpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/lastpass/Profiles"
+  tags:
+  - never-delete
+  - lastpass
+  - profiles
+- id: protect-windows-lastpass-databases
+  name: Protect lastpass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/lastpass/Databases"
+  tags:
+  - never-delete
+  - lastpass
+  - databases
+- id: protect-windows-authy-user-data
+  name: Protect authy User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/authy/User Data"
+  tags:
+  - never-delete
+  - authy
+  - user-data
+- id: protect-windows-authy-profiles
+  name: Protect authy Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/authy/Profiles"
+  tags:
+  - never-delete
+  - authy
+  - profiles
+- id: protect-windows-authy-databases
+  name: Protect authy Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/authy/Databases"
+  tags:
+  - never-delete
+  - authy
+  - databases
+- id: protect-windows-microsoft-authenticator-user-data
+  name: Protect microsoft-authenticator User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/microsoft-authenticator/User Data"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - user-data
+- id: protect-windows-microsoft-authenticator-profiles
+  name: Protect microsoft-authenticator Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/microsoft-authenticator/Profiles"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - profiles
+- id: protect-windows-microsoft-authenticator-databases
+  name: Protect microsoft-authenticator Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/microsoft-authenticator/Databases"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - databases
+- id: protect-windows-google-authenticator-user-data
+  name: Protect google-authenticator User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/google-authenticator/User Data"
+  tags:
+  - never-delete
+  - google-authenticator
+  - user-data
+- id: protect-windows-google-authenticator-profiles
+  name: Protect google-authenticator Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/google-authenticator/Profiles"
+  tags:
+  - never-delete
+  - google-authenticator
+  - profiles
+- id: protect-windows-google-authenticator-databases
+  name: Protect google-authenticator Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/google-authenticator/Databases"
+  tags:
+  - never-delete
+  - google-authenticator
+  - databases
+- id: protect-windows-proton-pass-user-data
+  name: Protect proton-pass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/proton-pass/User Data"
+  tags:
+  - never-delete
+  - proton-pass
+  - user-data
+- id: protect-windows-proton-pass-profiles
+  name: Protect proton-pass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/proton-pass/Profiles"
+  tags:
+  - never-delete
+  - proton-pass
+  - profiles
+- id: protect-windows-proton-pass-databases
+  name: Protect proton-pass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/proton-pass/Databases"
+  tags:
+  - never-delete
+  - proton-pass
+  - databases
+- id: protect-windows-dashlane-user-data
+  name: Protect dashlane User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/dashlane/User Data"
+  tags:
+  - never-delete
+  - dashlane
+  - user-data
+- id: protect-windows-dashlane-profiles
+  name: Protect dashlane Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/dashlane/Profiles"
+  tags:
+  - never-delete
+  - dashlane
+  - profiles
+- id: protect-windows-dashlane-databases
+  name: Protect dashlane Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/dashlane/Databases"
+  tags:
+  - never-delete
+  - dashlane
+  - databases
+- id: protect-windows-nordpass-user-data
+  name: Protect nordpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/nordpass/User Data"
+  tags:
+  - never-delete
+  - nordpass
+  - user-data
+- id: protect-windows-nordpass-profiles
+  name: Protect nordpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/nordpass/Profiles"
+  tags:
+  - never-delete
+  - nordpass
+  - profiles
+- id: protect-windows-nordpass-databases
+  name: Protect nordpass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/nordpass/Databases"
+  tags:
+  - never-delete
+  - nordpass
+  - databases
+- id: protect-windows-keeper-user-data
+  name: Protect keeper User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/keeper/User Data"
+  tags:
+  - never-delete
+  - keeper
+  - user-data
+- id: protect-windows-keeper-profiles
+  name: Protect keeper Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/keeper/Profiles"
+  tags:
+  - never-delete
+  - keeper
+  - profiles
+- id: protect-windows-keeper-databases
+  name: Protect keeper Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/keeper/Databases"
+  tags:
+  - never-delete
+  - keeper
+  - databases
+- id: protect-windows-enpass-user-data
+  name: Protect enpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/enpass/User Data"
+  tags:
+  - never-delete
+  - enpass
+  - user-data
+- id: protect-windows-enpass-profiles
+  name: Protect enpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/enpass/Profiles"
+  tags:
+  - never-delete
+  - enpass
+  - profiles
+- id: protect-windows-enpass-databases
+  name: Protect enpass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/enpass/Databases"
+  tags:
+  - never-delete
+  - enpass
+  - databases
+- id: protect-windows-yubico-user-data
+  name: Protect yubico User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/yubico/User Data"
+  tags:
+  - never-delete
+  - yubico
+  - user-data
+- id: protect-windows-yubico-profiles
+  name: Protect yubico Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/yubico/Profiles"
+  tags:
+  - never-delete
+  - yubico
+  - profiles
+- id: protect-windows-yubico-databases
+  name: Protect yubico Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/yubico/Databases"
+  tags:
+  - never-delete
+  - yubico
+  - databases
+- id: protect-windows-electrum-user-data
+  name: Protect electrum User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/electrum/User Data"
+  tags:
+  - never-delete
+  - electrum
+  - user-data
+- id: protect-windows-electrum-profiles
+  name: Protect electrum Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/electrum/Profiles"
+  tags:
+  - never-delete
+  - electrum
+  - profiles
+- id: protect-windows-electrum-databases
+  name: Protect electrum Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/electrum/Databases"
+  tags:
+  - never-delete
+  - electrum
+  - databases
+- id: protect-windows-exodus-user-data
+  name: Protect exodus User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/exodus/User Data"
+  tags:
+  - never-delete
+  - exodus
+  - user-data
+- id: protect-windows-exodus-profiles
+  name: Protect exodus Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/exodus/Profiles"
+  tags:
+  - never-delete
+  - exodus
+  - profiles
+- id: protect-windows-exodus-databases
+  name: Protect exodus Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/exodus/Databases"
+  tags:
+  - never-delete
+  - exodus
+  - databases
+- id: protect-windows-metamask-user-data
+  name: Protect metamask User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/metamask/User Data"
+  tags:
+  - never-delete
+  - metamask
+  - user-data
+- id: protect-windows-metamask-profiles
+  name: Protect metamask Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/metamask/Profiles"
+  tags:
+  - never-delete
+  - metamask
+  - profiles
+- id: protect-windows-metamask-databases
+  name: Protect metamask Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/metamask/Databases"
+  tags:
+  - never-delete
+  - metamask
+  - databases
+- id: protect-windows-ledger-live-user-data
+  name: Protect ledger-live User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ledger-live/User Data"
+  tags:
+  - never-delete
+  - ledger-live
+  - user-data
+- id: protect-windows-ledger-live-profiles
+  name: Protect ledger-live Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ledger-live/Profiles"
+  tags:
+  - never-delete
+  - ledger-live
+  - profiles
+- id: protect-windows-ledger-live-databases
+  name: Protect ledger-live Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ledger-live/Databases"
+  tags:
+  - never-delete
+  - ledger-live
+  - databases
+- id: protect-windows-trezor-suite-user-data
+  name: Protect trezor-suite User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/trezor-suite/User Data"
+  tags:
+  - never-delete
+  - trezor-suite
+  - user-data
+- id: protect-windows-trezor-suite-profiles
+  name: Protect trezor-suite Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/trezor-suite/Profiles"
+  tags:
+  - never-delete
+  - trezor-suite
+  - profiles
+- id: protect-windows-trezor-suite-databases
+  name: Protect trezor-suite Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/trezor-suite/Databases"
+  tags:
+  - never-delete
+  - trezor-suite
+  - databases
+- id: protect-windows-phantom-user-data
+  name: Protect phantom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/phantom/User Data"
+  tags:
+  - never-delete
+  - phantom
+  - user-data
+- id: protect-windows-phantom-profiles
+  name: Protect phantom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/phantom/Profiles"
+  tags:
+  - never-delete
+  - phantom
+  - profiles
+- id: protect-windows-phantom-databases
+  name: Protect phantom Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/phantom/Databases"
+  tags:
+  - never-delete
+  - phantom
+  - databases
+- id: protect-windows-solflare-user-data
+  name: Protect solflare User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/solflare/User Data"
+  tags:
+  - never-delete
+  - solflare
+  - user-data
+- id: protect-windows-solflare-profiles
+  name: Protect solflare Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/solflare/Profiles"
+  tags:
+  - never-delete
+  - solflare
+  - profiles
+- id: protect-windows-solflare-databases
+  name: Protect solflare Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/solflare/Databases"
+  tags:
+  - never-delete
+  - solflare
+  - databases
+- id: protect-windows-sparrow-wallet-user-data
+  name: Protect sparrow-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/sparrow-wallet/User Data"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - user-data
+- id: protect-windows-sparrow-wallet-profiles
+  name: Protect sparrow-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/sparrow-wallet/Profiles"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - profiles
+- id: protect-windows-sparrow-wallet-databases
+  name: Protect sparrow-wallet Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/sparrow-wallet/Databases"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - databases
+- id: protect-windows-wasabi-wallet-user-data
+  name: Protect wasabi-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/wasabi-wallet/User Data"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - user-data
+- id: protect-windows-wasabi-wallet-profiles
+  name: Protect wasabi-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/wasabi-wallet/Profiles"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - profiles
+- id: protect-windows-wasabi-wallet-databases
+  name: Protect wasabi-wallet Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/wasabi-wallet/Databases"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - databases
+- id: protect-windows-monero-wallet-user-data
+  name: Protect monero-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/monero-wallet/User Data"
+  tags:
+  - never-delete
+  - monero-wallet
+  - user-data
+- id: protect-windows-monero-wallet-profiles
+  name: Protect monero-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/monero-wallet/Profiles"
+  tags:
+  - never-delete
+  - monero-wallet
+  - profiles
+- id: protect-windows-monero-wallet-databases
+  name: Protect monero-wallet Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/monero-wallet/Databases"
+  tags:
+  - never-delete
+  - monero-wallet
+  - databases
+- id: protect-windows-bitcoin-core-user-data
+  name: Protect bitcoin-core User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bitcoin-core/User Data"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - user-data
+- id: protect-windows-bitcoin-core-profiles
+  name: Protect bitcoin-core Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bitcoin-core/Profiles"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - profiles
+- id: protect-windows-bitcoin-core-databases
+  name: Protect bitcoin-core Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bitcoin-core/Databases"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - databases
+- id: protect-windows-ethereum-user-data
+  name: Protect ethereum User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ethereum/User Data"
+  tags:
+  - never-delete
+  - ethereum
+  - user-data
+- id: protect-windows-ethereum-profiles
+  name: Protect ethereum Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ethereum/Profiles"
+  tags:
+  - never-delete
+  - ethereum
+  - profiles
+- id: protect-windows-ethereum-databases
+  name: Protect ethereum Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ethereum/Databases"
+  tags:
+  - never-delete
+  - ethereum
+  - databases
+- id: protect-windows-chrome-user-data
+  name: Protect chrome User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/chrome/User Data"
+  tags:
+  - never-delete
+  - chrome
+  - user-data
+- id: protect-windows-chrome-profiles
+  name: Protect chrome Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/chrome/Profiles"
+  tags:
+  - never-delete
+  - chrome
+  - profiles
+- id: protect-windows-chrome-databases
+  name: Protect chrome Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/chrome/Databases"
+  tags:
+  - never-delete
+  - chrome
+  - databases
+- id: protect-windows-chromium-user-data
+  name: Protect chromium User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/chromium/User Data"
+  tags:
+  - never-delete
+  - chromium
+  - user-data
+- id: protect-windows-chromium-profiles
+  name: Protect chromium Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/chromium/Profiles"
+  tags:
+  - never-delete
+  - chromium
+  - profiles
+- id: protect-windows-chromium-databases
+  name: Protect chromium Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/chromium/Databases"
+  tags:
+  - never-delete
+  - chromium
+  - databases
+- id: protect-windows-firefox-user-data
+  name: Protect firefox User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/firefox/User Data"
+  tags:
+  - never-delete
+  - firefox
+  - user-data
+- id: protect-windows-firefox-profiles
+  name: Protect firefox Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/firefox/Profiles"
+  tags:
+  - never-delete
+  - firefox
+  - profiles
+- id: protect-windows-firefox-databases
+  name: Protect firefox Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/firefox/Databases"
+  tags:
+  - never-delete
+  - firefox
+  - databases
+- id: protect-windows-safari-user-data
+  name: Protect safari User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/safari/User Data"
+  tags:
+  - never-delete
+  - safari
+  - user-data
+- id: protect-windows-safari-profiles
+  name: Protect safari Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/safari/Profiles"
+  tags:
+  - never-delete
+  - safari
+  - profiles
+- id: protect-windows-safari-databases
+  name: Protect safari Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/safari/Databases"
+  tags:
+  - never-delete
+  - safari
+  - databases
+- id: protect-windows-edge-user-data
+  name: Protect edge User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/edge/User Data"
+  tags:
+  - never-delete
+  - edge
+  - user-data
+- id: protect-windows-edge-profiles
+  name: Protect edge Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/edge/Profiles"
+  tags:
+  - never-delete
+  - edge
+  - profiles
+- id: protect-windows-edge-databases
+  name: Protect edge Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/edge/Databases"
+  tags:
+  - never-delete
+  - edge
+  - databases
+- id: protect-windows-brave-user-data
+  name: Protect brave User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/brave/User Data"
+  tags:
+  - never-delete
+  - brave
+  - user-data
+- id: protect-windows-brave-profiles
+  name: Protect brave Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/brave/Profiles"
+  tags:
+  - never-delete
+  - brave
+  - profiles
+- id: protect-windows-brave-databases
+  name: Protect brave Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/brave/Databases"
+  tags:
+  - never-delete
+  - brave
+  - databases
+- id: protect-windows-vivaldi-user-data
+  name: Protect vivaldi User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/vivaldi/User Data"
+  tags:
+  - never-delete
+  - vivaldi
+  - user-data
+- id: protect-windows-vivaldi-profiles
+  name: Protect vivaldi Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/vivaldi/Profiles"
+  tags:
+  - never-delete
+  - vivaldi
+  - profiles
+- id: protect-windows-vivaldi-databases
+  name: Protect vivaldi Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/vivaldi/Databases"
+  tags:
+  - never-delete
+  - vivaldi
+  - databases
+- id: protect-windows-opera-user-data
+  name: Protect opera User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/opera/User Data"
+  tags:
+  - never-delete
+  - opera
+  - user-data
+- id: protect-windows-opera-profiles
+  name: Protect opera Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/opera/Profiles"
+  tags:
+  - never-delete
+  - opera
+  - profiles
+- id: protect-windows-opera-databases
+  name: Protect opera Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/opera/Databases"
+  tags:
+  - never-delete
+  - opera
+  - databases
+- id: protect-windows-tor-browser-user-data
+  name: Protect tor-browser User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/tor-browser/User Data"
+  tags:
+  - never-delete
+  - tor-browser
+  - user-data
+- id: protect-windows-tor-browser-profiles
+  name: Protect tor-browser Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/tor-browser/Profiles"
+  tags:
+  - never-delete
+  - tor-browser
+  - profiles
+- id: protect-windows-tor-browser-databases
+  name: Protect tor-browser Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/tor-browser/Databases"
+  tags:
+  - never-delete
+  - tor-browser
+  - databases
+- id: protect-windows-arc-user-data
+  name: Protect arc User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/arc/User Data"
+  tags:
+  - never-delete
+  - arc
+  - user-data
+- id: protect-windows-arc-profiles
+  name: Protect arc Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/arc/Profiles"
+  tags:
+  - never-delete
+  - arc
+  - profiles
+- id: protect-windows-arc-databases
+  name: Protect arc Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/arc/Databases"
+  tags:
+  - never-delete
+  - arc
+  - databases
+- id: protect-windows-thunderbird-user-data
+  name: Protect thunderbird User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/thunderbird/User Data"
+  tags:
+  - never-delete
+  - thunderbird
+  - user-data
+- id: protect-windows-thunderbird-profiles
+  name: Protect thunderbird Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/thunderbird/Profiles"
+  tags:
+  - never-delete
+  - thunderbird
+  - profiles
+- id: protect-windows-thunderbird-databases
+  name: Protect thunderbird Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/thunderbird/Databases"
+  tags:
+  - never-delete
+  - thunderbird
+  - databases
+- id: protect-windows-outlook-user-data
+  name: Protect outlook User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/outlook/User Data"
+  tags:
+  - never-delete
+  - outlook
+  - user-data
+- id: protect-windows-outlook-profiles
+  name: Protect outlook Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/outlook/Profiles"
+  tags:
+  - never-delete
+  - outlook
+  - profiles
+- id: protect-windows-outlook-databases
+  name: Protect outlook Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/outlook/Databases"
+  tags:
+  - never-delete
+  - outlook
+  - databases
+- id: protect-windows-proton-mail-user-data
+  name: Protect proton-mail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/proton-mail/User Data"
+  tags:
+  - never-delete
+  - proton-mail
+  - user-data
+- id: protect-windows-proton-mail-profiles
+  name: Protect proton-mail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/proton-mail/Profiles"
+  tags:
+  - never-delete
+  - proton-mail
+  - profiles
+- id: protect-windows-proton-mail-databases
+  name: Protect proton-mail Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/proton-mail/Databases"
+  tags:
+  - never-delete
+  - proton-mail
+  - databases
+- id: protect-windows-mailbird-user-data
+  name: Protect mailbird User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/mailbird/User Data"
+  tags:
+  - never-delete
+  - mailbird
+  - user-data
+- id: protect-windows-mailbird-profiles
+  name: Protect mailbird Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/mailbird/Profiles"
+  tags:
+  - never-delete
+  - mailbird
+  - profiles
+- id: protect-windows-mailbird-databases
+  name: Protect mailbird Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/mailbird/Databases"
+  tags:
+  - never-delete
+  - mailbird
+  - databases
+- id: protect-windows-spark-mail-user-data
+  name: Protect spark-mail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/spark-mail/User Data"
+  tags:
+  - never-delete
+  - spark-mail
+  - user-data
+- id: protect-windows-spark-mail-profiles
+  name: Protect spark-mail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/spark-mail/Profiles"
+  tags:
+  - never-delete
+  - spark-mail
+  - profiles
+- id: protect-windows-spark-mail-databases
+  name: Protect spark-mail Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/spark-mail/Databases"
+  tags:
+  - never-delete
+  - spark-mail
+  - databases
+- id: protect-windows-airmail-user-data
+  name: Protect airmail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/airmail/User Data"
+  tags:
+  - never-delete
+  - airmail
+  - user-data
+- id: protect-windows-airmail-profiles
+  name: Protect airmail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/airmail/Profiles"
+  tags:
+  - never-delete
+  - airmail
+  - profiles
+- id: protect-windows-airmail-databases
+  name: Protect airmail Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/airmail/Databases"
+  tags:
+  - never-delete
+  - airmail
+  - databases
+- id: protect-windows-mailspring-user-data
+  name: Protect mailspring User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/mailspring/User Data"
+  tags:
+  - never-delete
+  - mailspring
+  - user-data
+- id: protect-windows-mailspring-profiles
+  name: Protect mailspring Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/mailspring/Profiles"
+  tags:
+  - never-delete
+  - mailspring
+  - profiles
+- id: protect-windows-mailspring-databases
+  name: Protect mailspring Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/mailspring/Databases"
+  tags:
+  - never-delete
+  - mailspring
+  - databases
+- id: protect-windows-signal-user-data
+  name: Protect signal User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/signal/User Data"
+  tags:
+  - never-delete
+  - signal
+  - user-data
+- id: protect-windows-signal-profiles
+  name: Protect signal Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/signal/Profiles"
+  tags:
+  - never-delete
+  - signal
+  - profiles
+- id: protect-windows-signal-databases
+  name: Protect signal Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/signal/Databases"
+  tags:
+  - never-delete
+  - signal
+  - databases
+- id: protect-windows-telegram-user-data
+  name: Protect telegram User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/telegram/User Data"
+  tags:
+  - never-delete
+  - telegram
+  - user-data
+- id: protect-windows-telegram-profiles
+  name: Protect telegram Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/telegram/Profiles"
+  tags:
+  - never-delete
+  - telegram
+  - profiles
+- id: protect-windows-telegram-databases
+  name: Protect telegram Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/telegram/Databases"
+  tags:
+  - never-delete
+  - telegram
+  - databases
+- id: protect-windows-whatsapp-user-data
+  name: Protect whatsapp User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/whatsapp/User Data"
+  tags:
+  - never-delete
+  - whatsapp
+  - user-data
+- id: protect-windows-whatsapp-profiles
+  name: Protect whatsapp Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/whatsapp/Profiles"
+  tags:
+  - never-delete
+  - whatsapp
+  - profiles
+- id: protect-windows-whatsapp-databases
+  name: Protect whatsapp Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/whatsapp/Databases"
+  tags:
+  - never-delete
+  - whatsapp
+  - databases
+- id: protect-windows-element-user-data
+  name: Protect element User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/element/User Data"
+  tags:
+  - never-delete
+  - element
+  - user-data
+- id: protect-windows-element-profiles
+  name: Protect element Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/element/Profiles"
+  tags:
+  - never-delete
+  - element
+  - profiles
+- id: protect-windows-element-databases
+  name: Protect element Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/element/Databases"
+  tags:
+  - never-delete
+  - element
+  - databases
+- id: protect-windows-discord-user-data
+  name: Protect discord User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/discord/User Data"
+  tags:
+  - never-delete
+  - discord
+  - user-data
+- id: protect-windows-discord-profiles
+  name: Protect discord Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/discord/Profiles"
+  tags:
+  - never-delete
+  - discord
+  - profiles
+- id: protect-windows-discord-databases
+  name: Protect discord Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/discord/Databases"
+  tags:
+  - never-delete
+  - discord
+  - databases
+- id: protect-windows-slack-user-data
+  name: Protect slack User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/slack/User Data"
+  tags:
+  - never-delete
+  - slack
+  - user-data
+- id: protect-windows-slack-profiles
+  name: Protect slack Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/slack/Profiles"
+  tags:
+  - never-delete
+  - slack
+  - profiles
+- id: protect-windows-slack-databases
+  name: Protect slack Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/slack/Databases"
+  tags:
+  - never-delete
+  - slack
+  - databases
+- id: protect-windows-teams-user-data
+  name: Protect teams User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/teams/User Data"
+  tags:
+  - never-delete
+  - teams
+  - user-data
+- id: protect-windows-teams-profiles
+  name: Protect teams Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/teams/Profiles"
+  tags:
+  - never-delete
+  - teams
+  - profiles
+- id: protect-windows-teams-databases
+  name: Protect teams Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/teams/Databases"
+  tags:
+  - never-delete
+  - teams
+  - databases
+- id: protect-windows-zoom-user-data
+  name: Protect zoom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/zoom/User Data"
+  tags:
+  - never-delete
+  - zoom
+  - user-data
+- id: protect-windows-zoom-profiles
+  name: Protect zoom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/zoom/Profiles"
+  tags:
+  - never-delete
+  - zoom
+  - profiles
+- id: protect-windows-zoom-databases
+  name: Protect zoom Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/zoom/Databases"
+  tags:
+  - never-delete
+  - zoom
+  - databases
+- id: protect-windows-skype-user-data
+  name: Protect skype User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/skype/User Data"
+  tags:
+  - never-delete
+  - skype
+  - user-data
+- id: protect-windows-skype-profiles
+  name: Protect skype Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/skype/Profiles"
+  tags:
+  - never-delete
+  - skype
+  - profiles
+- id: protect-windows-skype-databases
+  name: Protect skype Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/skype/Databases"
+  tags:
+  - never-delete
+  - skype
+  - databases
+- id: protect-windows-messages-user-data
+  name: Protect messages User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/messages/User Data"
+  tags:
+  - never-delete
+  - messages
+  - user-data
+- id: protect-windows-messages-profiles
+  name: Protect messages Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/messages/Profiles"
+  tags:
+  - never-delete
+  - messages
+  - profiles
+- id: protect-windows-messages-databases
+  name: Protect messages Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/messages/Databases"
+  tags:
+  - never-delete
+  - messages
+  - databases
+- id: protect-windows-facetime-user-data
+  name: Protect facetime User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/facetime/User Data"
+  tags:
+  - never-delete
+  - facetime
+  - user-data
+- id: protect-windows-facetime-profiles
+  name: Protect facetime Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/facetime/Profiles"
+  tags:
+  - never-delete
+  - facetime
+  - profiles
+- id: protect-windows-facetime-databases
+  name: Protect facetime Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/facetime/Databases"
+  tags:
+  - never-delete
+  - facetime
+  - databases
+- id: protect-windows-contacts-user-data
+  name: Protect contacts User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/contacts/User Data"
+  tags:
+  - never-delete
+  - contacts
+  - user-data
+- id: protect-windows-contacts-profiles
+  name: Protect contacts Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/contacts/Profiles"
+  tags:
+  - never-delete
+  - contacts
+  - profiles
+- id: protect-windows-contacts-databases
+  name: Protect contacts Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/contacts/Databases"
+  tags:
+  - never-delete
+  - contacts
+  - databases
+- id: protect-windows-calendars-user-data
+  name: Protect calendars User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/calendars/User Data"
+  tags:
+  - never-delete
+  - calendars
+  - user-data
+- id: protect-windows-calendars-profiles
+  name: Protect calendars Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/calendars/Profiles"
+  tags:
+  - never-delete
+  - calendars
+  - profiles
+- id: protect-windows-calendars-databases
+  name: Protect calendars Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/calendars/Databases"
+  tags:
+  - never-delete
+  - calendars
+  - databases
+- id: protect-windows-reminders-user-data
+  name: Protect reminders User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/reminders/User Data"
+  tags:
+  - never-delete
+  - reminders
+  - user-data
+- id: protect-windows-reminders-profiles
+  name: Protect reminders Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/reminders/Profiles"
+  tags:
+  - never-delete
+  - reminders
+  - profiles
+- id: protect-windows-reminders-databases
+  name: Protect reminders Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/reminders/Databases"
+  tags:
+  - never-delete
+  - reminders
+  - databases
+- id: protect-windows-notes-user-data
+  name: Protect notes User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/notes/User Data"
+  tags:
+  - never-delete
+  - notes
+  - user-data
+- id: protect-windows-notes-profiles
+  name: Protect notes Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/notes/Profiles"
+  tags:
+  - never-delete
+  - notes
+  - profiles
+- id: protect-windows-notes-databases
+  name: Protect notes Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/notes/Databases"
+  tags:
+  - never-delete
+  - notes
+  - databases
+- id: protect-windows-notion-user-data
+  name: Protect notion User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/notion/User Data"
+  tags:
+  - never-delete
+  - notion
+  - user-data
+- id: protect-windows-notion-profiles
+  name: Protect notion Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/notion/Profiles"
+  tags:
+  - never-delete
+  - notion
+  - profiles
+- id: protect-windows-notion-databases
+  name: Protect notion Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/notion/Databases"
+  tags:
+  - never-delete
+  - notion
+  - databases
+- id: protect-windows-obsidian-user-data
+  name: Protect obsidian User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/obsidian/User Data"
+  tags:
+  - never-delete
+  - obsidian
+  - user-data
+- id: protect-windows-obsidian-profiles
+  name: Protect obsidian Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/obsidian/Profiles"
+  tags:
+  - never-delete
+  - obsidian
+  - profiles
+- id: protect-windows-obsidian-databases
+  name: Protect obsidian Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/obsidian/Databases"
+  tags:
+  - never-delete
+  - obsidian
+  - databases
+- id: protect-windows-evernote-user-data
+  name: Protect evernote User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/evernote/User Data"
+  tags:
+  - never-delete
+  - evernote
+  - user-data
+- id: protect-windows-evernote-profiles
+  name: Protect evernote Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/evernote/Profiles"
+  tags:
+  - never-delete
+  - evernote
+  - profiles
+- id: protect-windows-evernote-databases
+  name: Protect evernote Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/evernote/Databases"
+  tags:
+  - never-delete
+  - evernote
+  - databases
+- id: protect-windows-onenote-user-data
+  name: Protect onenote User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/onenote/User Data"
+  tags:
+  - never-delete
+  - onenote
+  - user-data
+- id: protect-windows-onenote-profiles
+  name: Protect onenote Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/onenote/Profiles"
+  tags:
+  - never-delete
+  - onenote
+  - profiles
+- id: protect-windows-onenote-databases
+  name: Protect onenote Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/onenote/Databases"
+  tags:
+  - never-delete
+  - onenote
+  - databases
+- id: protect-windows-bear-user-data
+  name: Protect bear User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bear/User Data"
+  tags:
+  - never-delete
+  - bear
+  - user-data
+- id: protect-windows-bear-profiles
+  name: Protect bear Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bear/Profiles"
+  tags:
+  - never-delete
+  - bear
+  - profiles
+- id: protect-windows-bear-databases
+  name: Protect bear Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/bear/Databases"
+  tags:
+  - never-delete
+  - bear
+  - databases
+- id: protect-windows-craft-user-data
+  name: Protect craft User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/craft/User Data"
+  tags:
+  - never-delete
+  - craft
+  - user-data
+- id: protect-windows-craft-profiles
+  name: Protect craft Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/craft/Profiles"
+  tags:
+  - never-delete
+  - craft
+  - profiles
+- id: protect-windows-craft-databases
+  name: Protect craft Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/craft/Databases"
+  tags:
+  - never-delete
+  - craft
+  - databases
+- id: protect-windows-todoist-user-data
+  name: Protect todoist User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/todoist/User Data"
+  tags:
+  - never-delete
+  - todoist
+  - user-data
+- id: protect-windows-todoist-profiles
+  name: Protect todoist Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/todoist/Profiles"
+  tags:
+  - never-delete
+  - todoist
+  - profiles
+- id: protect-windows-todoist-databases
+  name: Protect todoist Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/todoist/Databases"
+  tags:
+  - never-delete
+  - todoist
+  - databases
+- id: protect-windows-things-user-data
+  name: Protect things User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/things/User Data"
+  tags:
+  - never-delete
+  - things
+  - user-data
+- id: protect-windows-things-profiles
+  name: Protect things Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/things/Profiles"
+  tags:
+  - never-delete
+  - things
+  - profiles
+- id: protect-windows-things-databases
+  name: Protect things Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/things/Databases"
+  tags:
+  - never-delete
+  - things
+  - databases
+- id: protect-windows-omnifocus-user-data
+  name: Protect omnifocus User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/omnifocus/User Data"
+  tags:
+  - never-delete
+  - omnifocus
+  - user-data
+- id: protect-windows-omnifocus-profiles
+  name: Protect omnifocus Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/omnifocus/Profiles"
+  tags:
+  - never-delete
+  - omnifocus
+  - profiles
+- id: protect-windows-omnifocus-databases
+  name: Protect omnifocus Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/omnifocus/Databases"
+  tags:
+  - never-delete
+  - omnifocus
+  - databases
+- id: protect-windows-logseq-user-data
+  name: Protect logseq User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/logseq/User Data"
+  tags:
+  - never-delete
+  - logseq
+  - user-data
+- id: protect-windows-logseq-profiles
+  name: Protect logseq Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/logseq/Profiles"
+  tags:
+  - never-delete
+  - logseq
+  - profiles
+- id: protect-windows-logseq-databases
+  name: Protect logseq Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/logseq/Databases"
+  tags:
+  - never-delete
+  - logseq
+  - databases
+- id: protect-windows-roam-user-data
+  name: Protect roam User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/roam/User Data"
+  tags:
+  - never-delete
+  - roam
+  - user-data
+- id: protect-windows-roam-profiles
+  name: Protect roam Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/roam/Profiles"
+  tags:
+  - never-delete
+  - roam
+  - profiles
+- id: protect-windows-roam-databases
+  name: Protect roam Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/roam/Databases"
+  tags:
+  - never-delete
+  - roam
+  - databases
+- id: protect-windows-vscode-user-data
+  name: Protect vscode User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/vscode/User Data"
+  tags:
+  - never-delete
+  - vscode
+  - user-data
+- id: protect-windows-vscode-profiles
+  name: Protect vscode Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/vscode/Profiles"
+  tags:
+  - never-delete
+  - vscode
+  - profiles
+- id: protect-windows-vscode-databases
+  name: Protect vscode Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/vscode/Databases"
+  tags:
+  - never-delete
+  - vscode
+  - databases
+- id: protect-windows-cursor-user-data
+  name: Protect cursor User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/cursor/User Data"
+  tags:
+  - never-delete
+  - cursor
+  - user-data
+- id: protect-windows-cursor-profiles
+  name: Protect cursor Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/cursor/Profiles"
+  tags:
+  - never-delete
+  - cursor
+  - profiles
+- id: protect-windows-cursor-databases
+  name: Protect cursor Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/cursor/Databases"
+  tags:
+  - never-delete
+  - cursor
+  - databases
+- id: protect-windows-zed-user-data
+  name: Protect zed User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/zed/User Data"
+  tags:
+  - never-delete
+  - zed
+  - user-data
+- id: protect-windows-zed-profiles
+  name: Protect zed Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/zed/Profiles"
+  tags:
+  - never-delete
+  - zed
+  - profiles
+- id: protect-windows-zed-databases
+  name: Protect zed Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/zed/Databases"
+  tags:
+  - never-delete
+  - zed
+  - databases
+- id: protect-windows-jetbrains-user-data
+  name: Protect jetbrains User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/jetbrains/User Data"
+  tags:
+  - never-delete
+  - jetbrains
+  - user-data
+- id: protect-windows-jetbrains-profiles
+  name: Protect jetbrains Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/jetbrains/Profiles"
+  tags:
+  - never-delete
+  - jetbrains
+  - profiles
+- id: protect-windows-jetbrains-databases
+  name: Protect jetbrains Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/jetbrains/Databases"
+  tags:
+  - never-delete
+  - jetbrains
+  - databases
+- id: protect-windows-xcode-user-data
+  name: Protect xcode User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/xcode/User Data"
+  tags:
+  - never-delete
+  - xcode
+  - user-data
+- id: protect-windows-xcode-profiles
+  name: Protect xcode Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/xcode/Profiles"
+  tags:
+  - never-delete
+  - xcode
+  - profiles
+- id: protect-windows-xcode-databases
+  name: Protect xcode Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/xcode/Databases"
+  tags:
+  - never-delete
+  - xcode
+  - databases
+- id: protect-windows-android-studio-user-data
+  name: Protect android-studio User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/android-studio/User Data"
+  tags:
+  - never-delete
+  - android-studio
+  - user-data
+- id: protect-windows-android-studio-profiles
+  name: Protect android-studio Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/android-studio/Profiles"
+  tags:
+  - never-delete
+  - android-studio
+  - profiles
+- id: protect-windows-android-studio-databases
+  name: Protect android-studio Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/android-studio/Databases"
+  tags:
+  - never-delete
+  - android-studio
+  - databases
+- id: protect-windows-visual-studio-user-data
+  name: Protect visual-studio User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/visual-studio/User Data"
+  tags:
+  - never-delete
+  - visual-studio
+  - user-data
+- id: protect-windows-visual-studio-profiles
+  name: Protect visual-studio Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/visual-studio/Profiles"
+  tags:
+  - never-delete
+  - visual-studio
+  - profiles
+- id: protect-windows-visual-studio-databases
+  name: Protect visual-studio Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/visual-studio/Databases"
+  tags:
+  - never-delete
+  - visual-studio
+  - databases
+- id: protect-windows-github-desktop-user-data
+  name: Protect github-desktop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/github-desktop/User Data"
+  tags:
+  - never-delete
+  - github-desktop
+  - user-data
+- id: protect-windows-github-desktop-profiles
+  name: Protect github-desktop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/github-desktop/Profiles"
+  tags:
+  - never-delete
+  - github-desktop
+  - profiles
+- id: protect-windows-github-desktop-databases
+  name: Protect github-desktop Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/github-desktop/Databases"
+  tags:
+  - never-delete
+  - github-desktop
+  - databases
+- id: protect-windows-sourcetree-user-data
+  name: Protect sourcetree User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/sourcetree/User Data"
+  tags:
+  - never-delete
+  - sourcetree
+  - user-data
+- id: protect-windows-sourcetree-profiles
+  name: Protect sourcetree Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/sourcetree/Profiles"
+  tags:
+  - never-delete
+  - sourcetree
+  - profiles
+- id: protect-windows-sourcetree-databases
+  name: Protect sourcetree Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/sourcetree/Databases"
+  tags:
+  - never-delete
+  - sourcetree
+  - databases
+- id: protect-windows-tower-user-data
+  name: Protect tower User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/tower/User Data"
+  tags:
+  - never-delete
+  - tower
+  - user-data
+- id: protect-windows-tower-profiles
+  name: Protect tower Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/tower/Profiles"
+  tags:
+  - never-delete
+  - tower
+  - profiles
+- id: protect-windows-tower-databases
+  name: Protect tower Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/tower/Databases"
+  tags:
+  - never-delete
+  - tower
+  - databases
+- id: protect-windows-fork-user-data
+  name: Protect fork User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/fork/User Data"
+  tags:
+  - never-delete
+  - fork
+  - user-data
+- id: protect-windows-fork-profiles
+  name: Protect fork Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/fork/Profiles"
+  tags:
+  - never-delete
+  - fork
+  - profiles
+- id: protect-windows-fork-databases
+  name: Protect fork Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/fork/Databases"
+  tags:
+  - never-delete
+  - fork
+  - databases
+- id: protect-windows-gitkraken-user-data
+  name: Protect gitkraken User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/gitkraken/User Data"
+  tags:
+  - never-delete
+  - gitkraken
+  - user-data
+- id: protect-windows-gitkraken-profiles
+  name: Protect gitkraken Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/gitkraken/Profiles"
+  tags:
+  - never-delete
+  - gitkraken
+  - profiles
+- id: protect-windows-gitkraken-databases
+  name: Protect gitkraken Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/gitkraken/Databases"
+  tags:
+  - never-delete
+  - gitkraken
+  - databases
+- id: protect-windows-docker-desktop-user-data
+  name: Protect docker-desktop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/docker-desktop/User Data"
+  tags:
+  - never-delete
+  - docker-desktop
+  - user-data
+- id: protect-windows-docker-desktop-profiles
+  name: Protect docker-desktop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/docker-desktop/Profiles"
+  tags:
+  - never-delete
+  - docker-desktop
+  - profiles
+- id: protect-windows-docker-desktop-databases
+  name: Protect docker-desktop Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/docker-desktop/Databases"
+  tags:
+  - never-delete
+  - docker-desktop
+  - databases
+- id: protect-windows-dropbox-user-data
+  name: Protect dropbox User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/dropbox/User Data"
+  tags:
+  - never-delete
+  - dropbox
+  - user-data
+- id: protect-windows-dropbox-profiles
+  name: Protect dropbox Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/dropbox/Profiles"
+  tags:
+  - never-delete
+  - dropbox
+  - profiles
+- id: protect-windows-dropbox-databases
+  name: Protect dropbox Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/dropbox/Databases"
+  tags:
+  - never-delete
+  - dropbox
+  - databases
+- id: protect-windows-onedrive-user-data
+  name: Protect onedrive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/onedrive/User Data"
+  tags:
+  - never-delete
+  - onedrive
+  - user-data
+- id: protect-windows-onedrive-profiles
+  name: Protect onedrive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/onedrive/Profiles"
+  tags:
+  - never-delete
+  - onedrive
+  - profiles
+- id: protect-windows-onedrive-databases
+  name: Protect onedrive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/onedrive/Databases"
+  tags:
+  - never-delete
+  - onedrive
+  - databases
+- id: protect-windows-google-drive-user-data
+  name: Protect google-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/google-drive/User Data"
+  tags:
+  - never-delete
+  - google-drive
+  - user-data
+- id: protect-windows-google-drive-profiles
+  name: Protect google-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/google-drive/Profiles"
+  tags:
+  - never-delete
+  - google-drive
+  - profiles
+- id: protect-windows-google-drive-databases
+  name: Protect google-drive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/google-drive/Databases"
+  tags:
+  - never-delete
+  - google-drive
+  - databases
+- id: protect-windows-icloud-drive-user-data
+  name: Protect icloud-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/icloud-drive/User Data"
+  tags:
+  - never-delete
+  - icloud-drive
+  - user-data
+- id: protect-windows-icloud-drive-profiles
+  name: Protect icloud-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/icloud-drive/Profiles"
+  tags:
+  - never-delete
+  - icloud-drive
+  - profiles
+- id: protect-windows-icloud-drive-databases
+  name: Protect icloud-drive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/icloud-drive/Databases"
+  tags:
+  - never-delete
+  - icloud-drive
+  - databases
+- id: protect-windows-nextcloud-user-data
+  name: Protect nextcloud User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/nextcloud/User Data"
+  tags:
+  - never-delete
+  - nextcloud
+  - user-data
+- id: protect-windows-nextcloud-profiles
+  name: Protect nextcloud Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/nextcloud/Profiles"
+  tags:
+  - never-delete
+  - nextcloud
+  - profiles
+- id: protect-windows-nextcloud-databases
+  name: Protect nextcloud Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/nextcloud/Databases"
+  tags:
+  - never-delete
+  - nextcloud
+  - databases
+- id: protect-windows-syncthing-user-data
+  name: Protect syncthing User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/syncthing/User Data"
+  tags:
+  - never-delete
+  - syncthing
+  - user-data
+- id: protect-windows-syncthing-profiles
+  name: Protect syncthing Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/syncthing/Profiles"
+  tags:
+  - never-delete
+  - syncthing
+  - profiles
+- id: protect-windows-syncthing-databases
+  name: Protect syncthing Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/syncthing/Databases"
+  tags:
+  - never-delete
+  - syncthing
+  - databases
+- id: protect-windows-box-drive-user-data
+  name: Protect box-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/box-drive/User Data"
+  tags:
+  - never-delete
+  - box-drive
+  - user-data
+- id: protect-windows-box-drive-profiles
+  name: Protect box-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/box-drive/Profiles"
+  tags:
+  - never-delete
+  - box-drive
+  - profiles
+- id: protect-windows-box-drive-databases
+  name: Protect box-drive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/box-drive/Databases"
+  tags:
+  - never-delete
+  - box-drive
+  - databases
+- id: protect-windows-photos-user-data
+  name: Protect photos User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/photos/User Data"
+  tags:
+  - never-delete
+  - photos
+  - user-data
+- id: protect-windows-photos-profiles
+  name: Protect photos Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/photos/Profiles"
+  tags:
+  - never-delete
+  - photos
+  - profiles
+- id: protect-windows-photos-databases
+  name: Protect photos Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/photos/Databases"
+  tags:
+  - never-delete
+  - photos
+  - databases
+- id: protect-windows-lightroom-user-data
+  name: Protect lightroom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/lightroom/User Data"
+  tags:
+  - never-delete
+  - lightroom
+  - user-data
+- id: protect-windows-lightroom-profiles
+  name: Protect lightroom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/lightroom/Profiles"
+  tags:
+  - never-delete
+  - lightroom
+  - profiles
+- id: protect-windows-lightroom-databases
+  name: Protect lightroom Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/lightroom/Databases"
+  tags:
+  - never-delete
+  - lightroom
+  - databases
+- id: protect-windows-photoshop-user-data
+  name: Protect photoshop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/photoshop/User Data"
+  tags:
+  - never-delete
+  - photoshop
+  - user-data
+- id: protect-windows-photoshop-profiles
+  name: Protect photoshop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/photoshop/Profiles"
+  tags:
+  - never-delete
+  - photoshop
+  - profiles
+- id: protect-windows-photoshop-databases
+  name: Protect photoshop Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/photoshop/Databases"
+  tags:
+  - never-delete
+  - photoshop
+  - databases
+- id: protect-windows-affinity-photo-user-data
+  name: Protect affinity-photo User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/affinity-photo/User Data"
+  tags:
+  - never-delete
+  - affinity-photo
+  - user-data
+- id: protect-windows-affinity-photo-profiles
+  name: Protect affinity-photo Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/affinity-photo/Profiles"
+  tags:
+  - never-delete
+  - affinity-photo
+  - profiles
+- id: protect-windows-affinity-photo-databases
+  name: Protect affinity-photo Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/affinity-photo/Databases"
+  tags:
+  - never-delete
+  - affinity-photo
+  - databases
+- id: protect-windows-capture-one-user-data
+  name: Protect capture-one User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/capture-one/User Data"
+  tags:
+  - never-delete
+  - capture-one
+  - user-data
+- id: protect-windows-capture-one-profiles
+  name: Protect capture-one Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/capture-one/Profiles"
+  tags:
+  - never-delete
+  - capture-one
+  - profiles
+- id: protect-windows-capture-one-databases
+  name: Protect capture-one Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/capture-one/Databases"
+  tags:
+  - never-delete
+  - capture-one
+  - databases
+- id: protect-windows-davinci-resolve-user-data
+  name: Protect davinci-resolve User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/davinci-resolve/User Data"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - user-data
+- id: protect-windows-davinci-resolve-profiles
+  name: Protect davinci-resolve Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/davinci-resolve/Profiles"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - profiles
+- id: protect-windows-davinci-resolve-databases
+  name: Protect davinci-resolve Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/davinci-resolve/Databases"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - databases
+- id: protect-windows-final-cut-pro-user-data
+  name: Protect final-cut-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/final-cut-pro/User Data"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - user-data
+- id: protect-windows-final-cut-pro-profiles
+  name: Protect final-cut-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/final-cut-pro/Profiles"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - profiles
+- id: protect-windows-final-cut-pro-databases
+  name: Protect final-cut-pro Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/final-cut-pro/Databases"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - databases
+- id: protect-windows-logic-pro-user-data
+  name: Protect logic-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/logic-pro/User Data"
+  tags:
+  - never-delete
+  - logic-pro
+  - user-data
+- id: protect-windows-logic-pro-profiles
+  name: Protect logic-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/logic-pro/Profiles"
+  tags:
+  - never-delete
+  - logic-pro
+  - profiles
+- id: protect-windows-logic-pro-databases
+  name: Protect logic-pro Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/logic-pro/Databases"
+  tags:
+  - never-delete
+  - logic-pro
+  - databases
+- id: protect-windows-ableton-live-user-data
+  name: Protect ableton-live User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ableton-live/User Data"
+  tags:
+  - never-delete
+  - ableton-live
+  - user-data
+- id: protect-windows-ableton-live-profiles
+  name: Protect ableton-live Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ableton-live/Profiles"
+  tags:
+  - never-delete
+  - ableton-live
+  - profiles
+- id: protect-windows-ableton-live-databases
+  name: Protect ableton-live Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/ableton-live/Databases"
+  tags:
+  - never-delete
+  - ableton-live
+  - databases
+- id: protect-windows-pro-tools-user-data
+  name: Protect pro-tools User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/pro-tools/User Data"
+  tags:
+  - never-delete
+  - pro-tools
+  - user-data
+- id: protect-windows-pro-tools-profiles
+  name: Protect pro-tools Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/pro-tools/Profiles"
+  tags:
+  - never-delete
+  - pro-tools
+  - profiles
+- id: protect-windows-pro-tools-databases
+  name: Protect pro-tools Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/pro-tools/Databases"
+  tags:
+  - never-delete
+  - pro-tools
+  - databases
+- id: protect-windows-premiere-pro-user-data
+  name: Protect premiere-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/premiere-pro/User Data"
+  tags:
+  - never-delete
+  - premiere-pro
+  - user-data
+- id: protect-windows-premiere-pro-profiles
+  name: Protect premiere-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/premiere-pro/Profiles"
+  tags:
+  - never-delete
+  - premiere-pro
+  - profiles
+- id: protect-windows-premiere-pro-databases
+  name: Protect premiere-pro Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/premiere-pro/Databases"
+  tags:
+  - never-delete
+  - premiere-pro
+  - databases
+- id: protect-windows-blender-user-data
+  name: Protect blender User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/blender/User Data"
+  tags:
+  - never-delete
+  - blender
+  - user-data
+- id: protect-windows-blender-profiles
+  name: Protect blender Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/blender/Profiles"
+  tags:
+  - never-delete
+  - blender
+  - profiles
+- id: protect-windows-blender-databases
+  name: Protect blender Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: windows
+  paths:
+  - "%APPDATA%/blender/Databases"
+  tags:
+  - never-delete
+  - blender
+  - databases

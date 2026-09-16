@@ -3,12 +3,8 @@
 use std::path::PathBuf;
 
 use clap::{Parser, Subcommand};
-use space_clean::{
-    clean, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions,
-};
-use space_core::{
-    format_bytes, scan_path, CacheStore, NodeId, ScanEvent, SizeMode, SpaceTree,
-};
+use space_clean::{clean, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions};
+use space_core::{format_bytes, scan_path, CacheStore, NodeId, ScanEvent, SizeMode, SpaceTree};
 
 #[derive(Parser)]
 #[command(name = "space", about = "Space Scanner CLI (index + junk cleaner)")]
@@ -20,9 +16,7 @@ struct Cli {
 #[derive(Subcommand)]
 enum Cmd {
     /// Index a path and save to cache
-    Scan {
-        path: PathBuf,
-    },
+    Scan { path: PathBuf },
     /// List children of a path from cache (or scan if missing)
     Ls {
         path: PathBuf,
@@ -55,6 +49,24 @@ enum Cmd {
         #[arg(long, default_value_t = 80)]
         limit: usize,
     },
+    /// List junk kinds (logs, temp, cache, …)
+    Kinds {
+        #[arg(long)]
+        all: bool,
+    },
+    /// List deletion danger levels
+    Risks {
+        #[arg(long)]
+        all: bool,
+    },
+    /// List hard safety rules for data that must never be deleted
+    Protections {
+        /// Include rules for every OS instead of this host only
+        #[arg(long)]
+        all: bool,
+        #[arg(long, default_value_t = 80)]
+        limit: usize,
+    },
     /// Scan regenerable junk (caches, logs, temp, …)
     Junk {
         /// Categories or rule ids (comma-separated). Empty = all enabled.
@@ -63,6 +75,15 @@ enum Cmd {
         /// Require tags (AND, comma-separated)
         #[arg(short = 't', long = "tag", value_delimiter = ',')]
         tags: Vec<String>,
+        /// Junk kind: logs, temp, cache, browser, packages, …
+        #[arg(short = 'k', long = "kind")]
+        kind: Option<String>,
+        /// Exact danger: low|medium|high|report-only (aliases: safe|caution|dangerous)
+        #[arg(long = "risk")]
+        risk: Option<String>,
+        /// Include rules up to this danger (inclusive)
+        #[arg(long = "max-risk")]
+        max_risk: Option<String>,
         /// Ignore prefs / YAML defaults — scan every host rule
         #[arg(long)]
         all: bool,
@@ -87,6 +108,15 @@ enum RulesCmd {
         /// Require tags (AND, comma-separated)
         #[arg(short = 't', long = "tag", value_delimiter = ',')]
         tags: Vec<String>,
+        /// Junk kind: logs, temp, cache, …
+        #[arg(short = 'k', long = "kind")]
+        kind: Option<String>,
+        /// Exact danger: low|medium|high|report-only
+        #[arg(long = "risk")]
+        risk: Option<String>,
+        /// Include rules up to this danger
+        #[arg(long = "max-risk")]
+        max_risk: Option<String>,
         #[arg(long)]
         enabled: bool,
         #[arg(long)]
@@ -101,13 +131,9 @@ enum RulesCmd {
     /// Show manager stats
     Status,
     /// Force-enable rule id(s)
-    Enable {
-        ids: Vec<String>,
-    },
+    Enable { ids: Vec<String> },
     /// Force-disable rule id(s)
-    Disable {
-        ids: Vec<String>,
-    },
+    Disable { ids: Vec<String> },
     /// Clear per-rule override(s)
     Reset {
         /// Rule ids. Empty + --all → wipe prefs file.
@@ -116,15 +142,9 @@ enum RulesCmd {
         all: bool,
     },
     /// Force a whole category on/off/reset
-    Category {
-        action: CatAction,
-        name: String,
-    },
+    Category { action: CatAction, name: String },
     /// Force a tag on/off/reset
-    Tag {
-        action: CatAction,
-        name: String,
-    },
+    Tag { action: CatAction, name: String },
 }
 
 #[derive(Clone, clap::ValueEnum)]
@@ -202,6 +222,9 @@ fn main() {
                 query,
                 category,
                 tags,
+                kind,
+                risk,
+                max_risk,
                 enabled,
                 disabled,
                 overridden,
@@ -213,8 +236,6 @@ fn main() {
                     Some(true)
                 } else if disabled {
                     Some(false)
-                } else if all {
-                    None
                 } else {
                     None
                 };
@@ -222,6 +243,9 @@ fn main() {
                     query,
                     category,
                     tags,
+                    kind: parse_kind_opt(kind.as_deref()),
+                    risk: parse_risk_opt(risk.as_deref()),
+                    max_risk: parse_risk_opt(max_risk.as_deref()),
                     enabled: en,
                     overridden_only: overridden,
                     host_only: !all,
@@ -232,14 +256,9 @@ fn main() {
                 for r in rows.iter().take(limit) {
                     let flag = if r.effectively_enabled { "on " } else { "off" };
                     let mark = if r.overridden { "*" } else { " " };
-                    let tag_s = if r.tags.is_empty() {
-                        String::new()
-                    } else {
-                        format!("  [{}]", r.tags.iter().take(4).cloned().collect::<Vec<_>>().join(","))
-                    };
                     println!(
-                        "[{flag}]{mark} {:>28}  {:<14}  {}{tag_s}",
-                        r.id, r.category, r.name
+                        "[{flag}]{mark} {:>28}  {:<10}  {:<8}  {:<10}  {}",
+                        r.id, r.kind, r.danger, r.category, r.name
                     );
                 }
             }
@@ -265,6 +284,7 @@ fn main() {
                 println!("overridden\t{}", s.overridden);
                 println!("categories\t{}", s.categories);
                 println!("tags\t{}", s.tags);
+                println!("kinds\t{}", s.kinds);
                 println!("platform.macos\t{macos}");
                 println!("platform.linux\t{linux}");
                 println!("platform.windows\t{win}");
@@ -280,7 +300,8 @@ fn main() {
                         eprintln!("{e}");
                     });
                 }
-                mgr.save_prefs().unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
+                mgr.save_prefs()
+                    .unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
                 println!("enabled {} rule(s)", ids.len());
             }
             Some(RulesCmd::Disable { ids }) => {
@@ -290,14 +311,16 @@ fn main() {
                         eprintln!("{e}");
                     });
                 }
-                mgr.save_prefs().unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
+                mgr.save_prefs()
+                    .unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
                 println!("disabled {} rule(s)", ids.len());
             }
             Some(RulesCmd::Reset { ids, all }) => {
                 let mut mgr = RuleManager::load_default().expect("rules");
                 if all {
                     mgr.reset_all();
-                    mgr.save_prefs().unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
+                    mgr.save_prefs()
+                        .unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
                     println!("prefs reset");
                 } else if ids.is_empty() {
                     eprintln!("pass rule ids or --all");
@@ -305,7 +328,8 @@ fn main() {
                     for id in &ids {
                         mgr.reset_rule(id);
                     }
-                    mgr.save_prefs().unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
+                    mgr.save_prefs()
+                        .unwrap_or_else(|e| eprintln!("warn: save prefs: {e}"));
                     println!("cleared {} override(s)", ids.len());
                 }
             }
@@ -374,15 +398,60 @@ fn main() {
                 println!("{}\t{}/{}\t{pol}", tag.name, tag.enabled, tag.total);
             }
         }
+        Cmd::Kinds { all } => {
+            let mgr = RuleManager::load_default().expect("rules");
+            for kind in mgr.kinds(true) {
+                if !all && kind.enabled == 0 {
+                    continue;
+                }
+                println!("{}\t{}/{}", kind.name, kind.enabled, kind.total);
+            }
+        }
+        Cmd::Risks { all } => {
+            let mgr = RuleManager::load_default().expect("rules");
+            for risk in mgr.risks(true) {
+                if !all && risk.enabled == 0 {
+                    continue;
+                }
+                println!(
+                    "{}\t{}\t{}/{}",
+                    risk.name, risk.danger, risk.enabled, risk.total
+                );
+            }
+        }
+        Cmd::Protections { all, limit } => {
+            let pack = space_clean::ProtectionPack::load_many(&space_clean::default_rules_dirs())
+                .expect("protection rules");
+            let rules: Vec<_> = pack
+                .rules
+                .iter()
+                .filter(|r| all || r.platform.matches_host())
+                .collect();
+            println!("{} protection rules (showing up to {limit})", rules.len());
+            for rule in rules.iter().take(limit) {
+                println!(
+                    "{:<44}  {:<8}  {}",
+                    rule.id,
+                    rule.platform.as_str(),
+                    rule.name
+                );
+            }
+        }
         Cmd::Junk {
             categories,
             tags,
+            kind,
+            risk,
+            max_risk,
             all,
             min_age,
             clean: do_clean,
             yes,
         } => {
             let mgr = RuleManager::load_default().expect("rules");
+            let kind = parse_kind_opt(kind.as_deref());
+            let risk = parse_risk_opt(risk.as_deref());
+            let max_risk = parse_risk_opt(max_risk.as_deref());
             let opts = ScanOptions {
                 categories: categories.clone(),
                 include_disabled: all,
@@ -399,10 +468,15 @@ fn main() {
                         if categories.is_empty() {
                             true
                         } else {
-                            categories
-                                .iter()
-                                .any(|c| c == &r.category || c == &r.id)
+                            categories.iter().any(|c| c == &r.category || c == &r.id)
                         }
+                    })
+                    .filter(|r| kind.map(|k| r.kind == k).unwrap_or(true))
+                    .filter(|r| risk.map(|rk| r.risk == rk).unwrap_or(true))
+                    .filter(|r| {
+                        max_risk
+                            .map(|max| r.risk.rank() <= max.rank())
+                            .unwrap_or(true)
                     })
                     .filter(|r| {
                         if tags.is_empty() {
@@ -417,7 +491,11 @@ fn main() {
                     .collect();
                 scan_rules(rules, &opts).expect("junk scan")
             } else {
-                scan_rules(mgr.scan_rules_filtered(&categories, &tags), &opts).expect("junk scan")
+                let mut rules = mgr.scan_rules_filtered(&categories, &tags, kind, max_risk);
+                if let Some(rk) = risk {
+                    rules.retain(|r| r.risk == rk);
+                }
+                scan_rules(rules, &opts).expect("junk scan")
             };
             println!(
                 "Junk scan · {} · {} findings · {} rules matched / {} scanned",
@@ -495,4 +573,24 @@ fn load_or_scan(path: &std::path::Path) -> SpaceTree {
     let tree = scan_blocking(path);
     let _ = cache.save(&tree);
     tree
+}
+
+fn parse_kind_opt(raw: Option<&str>) -> Option<space_clean::JunkKind> {
+    raw.map(|s| {
+        space_clean::JunkKind::parse(s).unwrap_or_else(|| {
+            eprintln!("unknown kind '{s}' (try: cache logs temp downloads packages browser …)");
+            std::process::exit(2);
+        })
+    })
+}
+
+fn parse_risk_opt(raw: Option<&str>) -> Option<space_clean::Risk> {
+    raw.map(|s| {
+        space_clean::Risk::parse(s).unwrap_or_else(|| {
+            eprintln!(
+                "unknown risk '{s}' (try: low medium high report-only / safe caution dangerous)"
+            );
+            std::process::exit(2);
+        })
+    })
 }

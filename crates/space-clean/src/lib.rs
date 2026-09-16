@@ -4,19 +4,28 @@
 
 pub mod clean;
 pub mod manager;
+pub mod protection;
 pub mod rules;
 pub mod safety;
 pub mod scan;
 pub mod tags;
 
-pub use clean::{clean, CleanResult, CleanedItem};
+pub use clean::{
+    clean, clean_with_progress, trash_paths_batch, CleanProgress, CleanResult, CleanedItem,
+    TRASH_BATCH_SIZE,
+};
 pub use manager::{
-    CategoryPolicy, CategoryRow, ManagerStats, RuleFilter, RuleManager, RulePrefs, RuleRow, TagRow,
+    CategoryPolicy, CategoryRow, KindRow, ManagerStats, RiskRow, RuleFilter, RuleManager,
+    RulePrefs, RuleRow, TagRow,
 };
+pub use protection::{is_protected_by_rule, protected_paths, ProtectionPack, ProtectionRule};
 pub use rules::{
-    expand_path_template, host_platform_name, DeleteMode, Platform, Risk, Rule, RulePack,
+    enrich_rule_kind, expand_path_template, host_platform_name, DeleteMode, JunkKind, Platform,
+    Risk, Rule, RulePack,
 };
-pub use scan::{scan, scan_rules, Finding, ScanOptions, ScanReport};
+pub use scan::{
+    scan, scan_rules, scan_rules_with_progress, Finding, JunkScanProgress, ScanOptions, ScanReport,
+};
 pub use tags::{effective_tags, enrich_rule_tags, infer_tags, normalize_tag};
 
 use std::path::PathBuf;

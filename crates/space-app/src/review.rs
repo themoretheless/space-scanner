@@ -1,6 +1,4 @@
-//! Review queue + trash helpers.
-
-use std::path::Path;
+//! Review queue helpers.
 
 use space_core::{NodeId, SizeMode, SpaceTree};
 
@@ -14,13 +12,4 @@ pub fn toggle(queue: &mut Vec<NodeId>, id: NodeId) {
     } else {
         queue.push(id);
     }
-}
-
-pub fn trash_paths(paths: &[impl AsRef<Path>]) -> Result<usize, String> {
-    let mut ok = 0usize;
-    for p in paths {
-        trash::delete(p).map_err(|e| e.to_string())?;
-        ok += 1;
-    }
-    Ok(ok)
 }

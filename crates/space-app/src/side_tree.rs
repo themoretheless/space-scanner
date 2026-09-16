@@ -319,6 +319,14 @@ pub fn draw_rows(
         ui.horizontal(|ui| {
             ui.set_height(18.0);
             ui.add_space(indent);
+            let mut queued = in_q;
+            if ui
+                .add(egui::Checkbox::without_text(&mut queued))
+                .on_hover_text("Include in deletion review")
+                .changed()
+            {
+                action.toggle_review = Some(row.id);
+            }
 
             if row.is_dir && row.has_kids {
                 let open = side.expanded.contains(&row.id);
@@ -385,8 +393,7 @@ pub fn draw_rows(
                 );
             }
 
-            let mark = if in_q { "✓ " } else { "" };
-            let name = format!("{mark}{}", node.name);
+            let name = node.name.clone();
             let name_color = if is_hov {
                 fade(ACCENT)
             } else {

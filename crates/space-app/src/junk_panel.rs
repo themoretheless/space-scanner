@@ -1,9 +1,10 @@
 //! Junk cleaner panel — category-first, Trash-first (ppduster rules).
 
 use std::collections::BTreeMap;
+use std::time::Instant;
 
 use eframe::egui::{self, Align, Layout, RichText, Sense};
-use space_clean::{Finding, ScanReport};
+use space_clean::{CleanProgress, Finding, JunkScanProgress, ScanReport};
 use space_core::format_bytes;
 
 use crate::theme::{self, ACCENT, MUTED, PANEL_2, TEXT};
@@ -11,7 +12,12 @@ use crate::theme::{self, ACCENT, MUTED, PANEL_2, TEXT};
 pub struct JunkPanelState {
     pub open: bool,
     pub loading: bool,
+    pub cleaning: bool,
     pub report: Option<ScanReport>,
+    pub progress: JunkScanProgress,
+    pub scan_started: Option<Instant>,
+    pub clean_progress: CleanProgress,
+    pub clean_started: Option<Instant>,
     pub selected: Vec<usize>,
     pub confirm: bool,
     pub expanded_cat: Option<String>,
@@ -23,7 +29,12 @@ impl Default for JunkPanelState {
         Self {
             open: false,
             loading: false,
+            cleaning: false,
             report: None,
+            progress: JunkScanProgress::default(),
+            scan_started: None,
+            clean_progress: CleanProgress::default(),
+            clean_started: None,
             selected: Vec::new(),
             confirm: false,
             expanded_cat: None,
@@ -36,7 +47,12 @@ impl JunkPanelState {
     pub fn open_and_scan(&mut self) {
         self.open = true;
         self.loading = true;
+        self.cleaning = false;
         self.error = None;
+        self.progress = JunkScanProgress::default();
+        self.scan_started = Some(Instant::now());
+        self.clean_progress = CleanProgress::default();
+        self.clean_started = None;
         self.confirm = false;
         self.selected.clear();
         self.expanded_cat = None;
@@ -44,6 +60,9 @@ impl JunkPanelState {
 
     pub fn set_report(&mut self, report: ScanReport) {
         self.loading = false;
+        self.cleaning = false;
+        self.scan_started = None;
+        self.clean_started = None;
         self.selected = report
             .findings
             .iter()
@@ -112,7 +131,10 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
         );
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
-                .add_enabled(!state.loading, egui::Button::new("Rescan"))
+                .add_enabled(
+                    !state.loading && !state.cleaning,
+                    egui::Button::new("Rescan"),
+                )
                 .clicked()
             {
                 action = JunkAction::Rescan;
@@ -133,11 +155,108 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
         ui.add_space(6.0);
     }
 
-    if state.loading {
+    if state.cleaning {
+        let p = &state.clean_progress;
+        let fraction = if p.items_total > 0 {
+            p.items_done as f32 / p.items_total as f32
+        } else {
+            0.0
+        };
+        let elapsed = state
+            .clean_started
+            .map(|t| t.elapsed().as_secs())
+            .unwrap_or(0);
         ui.horizontal(|ui| {
             ui.spinner();
-            ui.label(RichText::new("Scanning…").color(MUTED));
+            ui.label(
+                RichText::new(format!(
+                    "Moving to Trash · {}/{} items · {} files · {} folders · {} · {} errors · {}s",
+                    p.items_done,
+                    p.items_total,
+                    p.files_done,
+                    p.folders_done,
+                    format_bytes(p.bytes_freed),
+                    p.error_count,
+                    elapsed
+                ))
+                .color(MUTED),
+            );
         });
+        ui.add_space(6.0);
+        ui.add(
+            egui::ProgressBar::new(fraction.clamp(0.0, 1.0))
+                .desired_width(ui.available_width())
+                .show_percentage(),
+        );
+        if !p.current_path.as_os_str().is_empty() {
+            ui.add(
+                egui::Label::new(
+                    RichText::new(p.current_path.display().to_string())
+                        .small()
+                        .monospace()
+                        .color(MUTED),
+                )
+                .truncate(),
+            )
+            .on_hover_text(p.current_path.display().to_string());
+        }
+        return action;
+    }
+
+    if state.loading {
+        let p = &state.progress;
+        let fraction = if p.roots_total > 0 {
+            p.roots_done as f32 / p.roots_total as f32
+        } else if p.rules_total > 0 {
+            p.rules_done as f32 / p.rules_total as f32
+        } else {
+            0.0
+        };
+        let elapsed = state
+            .scan_started
+            .map(|t| t.elapsed().as_secs())
+            .unwrap_or(0);
+        ui.horizontal(|ui| {
+            ui.spinner();
+            ui.label(
+                RichText::new(format!(
+                    "Scanning · {}/{} rules · {} removable files · {} folders · {} ({}) · {}s",
+                    p.rules_done,
+                    p.rules_total,
+                    p.files_found,
+                    p.folders_found,
+                    format_bytes(p.bytes_found),
+                    p.findings_found,
+                    elapsed
+                ))
+                .color(MUTED),
+            );
+        });
+        ui.add_space(6.0);
+        ui.add(
+            egui::ProgressBar::new(fraction.clamp(0.0, 1.0))
+                .desired_width(ui.available_width())
+                .show_percentage(),
+        );
+        if !p.current_rule.is_empty() {
+            ui.label(
+                RichText::new(format!("Rule: {}", p.current_rule))
+                    .small()
+                    .color(TEXT),
+            );
+        }
+        if !p.current_path.as_os_str().is_empty() {
+            ui.add(
+                egui::Label::new(
+                    RichText::new(p.current_path.display().to_string())
+                        .small()
+                        .monospace()
+                        .color(MUTED),
+                )
+                .truncate(),
+            )
+            .on_hover_text(p.current_path.display().to_string());
+        }
         return action;
     }
 
@@ -183,11 +302,11 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
             report_only: 0,
             indices: Vec::new(),
         });
-        e.bytes = e.bytes.saturating_add(f.bytes);
         e.indices.push(i);
         if f.report_only {
             e.report_only += 1;
         } else {
+            e.bytes = e.bytes.saturating_add(f.bytes);
             e.cleanable += 1;
         }
     }
@@ -242,10 +361,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
                                     0.45,
                                 );
                                 let fill_w = bar_w * frac.clamp(0.04, 1.0) * grow;
-                                let fill = egui::Rect::from_min_size(
-                                    bar.min,
-                                    egui::vec2(fill_w, 4.0),
-                                );
+                                let fill =
+                                    egui::Rect::from_min_size(bar.min, egui::vec2(fill_w, 4.0));
                                 ui.painter().rect_filled(fill, 2.0, ACCENT);
                                 ui.add_space(2.0);
                                 ui.label(
@@ -347,7 +464,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) -> JunkAction {
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             let n = state.selected.len();
             let bytes = state.selected_bytes();
-            let can = n > 0 && !state.loading;
+            let can = n > 0 && !state.loading && !state.cleaning;
             if ui
                 .add_enabled(
                     can,

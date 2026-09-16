@@ -255,13 +255,17 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                     if point_in_arc(pos, center, hit) {
                         if let Some(id) = hit.id {
                             action.select = Some(id);
-                            if tree.node(id).is_dir {
-                                action.navigate = Some(id);
-                            }
                         }
                         break;
                     }
                 }
+            }
+        }
+    }
+    if response.double_clicked() {
+        if let Some(id) = hover_id {
+            if tree.node(id).is_dir {
+                action.navigate = Some(id);
             }
         }
     }

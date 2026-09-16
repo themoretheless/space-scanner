@@ -1,0 +1,105 @@
+---
+pack: dotnet-projects
+description: Regenerable C#/.NET build output guarded by project markers.
+rules:
+- id: dotnet-project-bin-obj-macos
+  name: C# project bin and obj directories
+  description: Removes regenerable bin/obj build output only when a .csproj, .sln, or global.json marker exists in its project ancestry.
+  category: dev
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/Developer"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  include_globs:
+  - "**/bin"
+  - "**/obj"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - "*.csproj"
+  - "*.sln"
+  - "global.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 16
+  tags: [dotnet, csharp, build-output, project]
+
+- id: dotnet-project-bin-obj-linux
+  name: C# project bin and obj directories
+  description: Removes regenerable bin/obj build output only when a .csproj, .sln, or global.json marker exists in its project ancestry.
+  category: dev
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/code"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  include_globs:
+  - "**/bin"
+  - "**/obj"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - "*.csproj"
+  - "*.sln"
+  - "global.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 16
+  tags: [dotnet, csharp, build-output, project]
+
+- id: dotnet-project-bin-obj-windows
+  name: C# project bin and obj directories
+  description: Removes regenerable bin/obj build output only when a .csproj, .sln, or global.json marker exists in its project ancestry.
+  category: dev
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "%USERPROFILE%/source/repos"
+  - "%USERPROFILE%/Source"
+  - "%USERPROFILE%/Sources"
+  - "%USERPROFILE%/Projects"
+  - "%USERPROFILE%/src"
+  - "%USERPROFILE%/repos"
+  - "%USERPROFILE%/Documents/Projects"
+  - "%USERPROFILE%/Documents/Source"
+  - "%USERPROFILE%/Documents/Sources"
+  include_globs:
+  - "**/bin"
+  - "**/obj"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - "*.csproj"
+  - "*.sln"
+  - "global.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 16
+  tags: [dotnet, csharp, build-output, project]

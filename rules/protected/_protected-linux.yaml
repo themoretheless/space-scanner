@@ -1,0 +1,3304 @@
+---
+pack: protected-linux
+description: Generated hard deletion guards; do not load as cleanup rules.
+protections:
+- id: protect-linux-1password-user-data
+  name: Protect 1password User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/1password/User Data"
+  tags:
+  - never-delete
+  - 1password
+  - user-data
+- id: protect-linux-1password-profiles
+  name: Protect 1password Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/1password/Profiles"
+  tags:
+  - never-delete
+  - 1password
+  - profiles
+- id: protect-linux-1password-databases
+  name: Protect 1password databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/1password/databases"
+  tags:
+  - never-delete
+  - 1password
+  - databases
+- id: protect-linux-bitwarden-user-data
+  name: Protect bitwarden User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bitwarden/User Data"
+  tags:
+  - never-delete
+  - bitwarden
+  - user-data
+- id: protect-linux-bitwarden-profiles
+  name: Protect bitwarden Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bitwarden/Profiles"
+  tags:
+  - never-delete
+  - bitwarden
+  - profiles
+- id: protect-linux-bitwarden-databases
+  name: Protect bitwarden databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bitwarden/databases"
+  tags:
+  - never-delete
+  - bitwarden
+  - databases
+- id: protect-linux-keepassxc-user-data
+  name: Protect keepassxc User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/keepassxc/User Data"
+  tags:
+  - never-delete
+  - keepassxc
+  - user-data
+- id: protect-linux-keepassxc-profiles
+  name: Protect keepassxc Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/keepassxc/Profiles"
+  tags:
+  - never-delete
+  - keepassxc
+  - profiles
+- id: protect-linux-keepassxc-databases
+  name: Protect keepassxc databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/keepassxc/databases"
+  tags:
+  - never-delete
+  - keepassxc
+  - databases
+- id: protect-linux-lastpass-user-data
+  name: Protect lastpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/lastpass/User Data"
+  tags:
+  - never-delete
+  - lastpass
+  - user-data
+- id: protect-linux-lastpass-profiles
+  name: Protect lastpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/lastpass/Profiles"
+  tags:
+  - never-delete
+  - lastpass
+  - profiles
+- id: protect-linux-lastpass-databases
+  name: Protect lastpass databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/lastpass/databases"
+  tags:
+  - never-delete
+  - lastpass
+  - databases
+- id: protect-linux-authy-user-data
+  name: Protect authy User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/authy/User Data"
+  tags:
+  - never-delete
+  - authy
+  - user-data
+- id: protect-linux-authy-profiles
+  name: Protect authy Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/authy/Profiles"
+  tags:
+  - never-delete
+  - authy
+  - profiles
+- id: protect-linux-authy-databases
+  name: Protect authy databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/authy/databases"
+  tags:
+  - never-delete
+  - authy
+  - databases
+- id: protect-linux-microsoft-authenticator-user-data
+  name: Protect microsoft-authenticator User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/microsoft-authenticator/User Data"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - user-data
+- id: protect-linux-microsoft-authenticator-profiles
+  name: Protect microsoft-authenticator Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/microsoft-authenticator/Profiles"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - profiles
+- id: protect-linux-microsoft-authenticator-databases
+  name: Protect microsoft-authenticator databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/microsoft-authenticator/databases"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - databases
+- id: protect-linux-google-authenticator-user-data
+  name: Protect google-authenticator User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/google-authenticator/User Data"
+  tags:
+  - never-delete
+  - google-authenticator
+  - user-data
+- id: protect-linux-google-authenticator-profiles
+  name: Protect google-authenticator Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/google-authenticator/Profiles"
+  tags:
+  - never-delete
+  - google-authenticator
+  - profiles
+- id: protect-linux-google-authenticator-databases
+  name: Protect google-authenticator databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/google-authenticator/databases"
+  tags:
+  - never-delete
+  - google-authenticator
+  - databases
+- id: protect-linux-proton-pass-user-data
+  name: Protect proton-pass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/proton-pass/User Data"
+  tags:
+  - never-delete
+  - proton-pass
+  - user-data
+- id: protect-linux-proton-pass-profiles
+  name: Protect proton-pass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/proton-pass/Profiles"
+  tags:
+  - never-delete
+  - proton-pass
+  - profiles
+- id: protect-linux-proton-pass-databases
+  name: Protect proton-pass databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/proton-pass/databases"
+  tags:
+  - never-delete
+  - proton-pass
+  - databases
+- id: protect-linux-dashlane-user-data
+  name: Protect dashlane User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/dashlane/User Data"
+  tags:
+  - never-delete
+  - dashlane
+  - user-data
+- id: protect-linux-dashlane-profiles
+  name: Protect dashlane Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/dashlane/Profiles"
+  tags:
+  - never-delete
+  - dashlane
+  - profiles
+- id: protect-linux-dashlane-databases
+  name: Protect dashlane databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/dashlane/databases"
+  tags:
+  - never-delete
+  - dashlane
+  - databases
+- id: protect-linux-nordpass-user-data
+  name: Protect nordpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/nordpass/User Data"
+  tags:
+  - never-delete
+  - nordpass
+  - user-data
+- id: protect-linux-nordpass-profiles
+  name: Protect nordpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/nordpass/Profiles"
+  tags:
+  - never-delete
+  - nordpass
+  - profiles
+- id: protect-linux-nordpass-databases
+  name: Protect nordpass databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/nordpass/databases"
+  tags:
+  - never-delete
+  - nordpass
+  - databases
+- id: protect-linux-keeper-user-data
+  name: Protect keeper User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/keeper/User Data"
+  tags:
+  - never-delete
+  - keeper
+  - user-data
+- id: protect-linux-keeper-profiles
+  name: Protect keeper Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/keeper/Profiles"
+  tags:
+  - never-delete
+  - keeper
+  - profiles
+- id: protect-linux-keeper-databases
+  name: Protect keeper databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/keeper/databases"
+  tags:
+  - never-delete
+  - keeper
+  - databases
+- id: protect-linux-enpass-user-data
+  name: Protect enpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/enpass/User Data"
+  tags:
+  - never-delete
+  - enpass
+  - user-data
+- id: protect-linux-enpass-profiles
+  name: Protect enpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/enpass/Profiles"
+  tags:
+  - never-delete
+  - enpass
+  - profiles
+- id: protect-linux-enpass-databases
+  name: Protect enpass databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/enpass/databases"
+  tags:
+  - never-delete
+  - enpass
+  - databases
+- id: protect-linux-yubico-user-data
+  name: Protect yubico User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/yubico/User Data"
+  tags:
+  - never-delete
+  - yubico
+  - user-data
+- id: protect-linux-yubico-profiles
+  name: Protect yubico Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/yubico/Profiles"
+  tags:
+  - never-delete
+  - yubico
+  - profiles
+- id: protect-linux-yubico-databases
+  name: Protect yubico databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/yubico/databases"
+  tags:
+  - never-delete
+  - yubico
+  - databases
+- id: protect-linux-electrum-user-data
+  name: Protect electrum User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/electrum/User Data"
+  tags:
+  - never-delete
+  - electrum
+  - user-data
+- id: protect-linux-electrum-profiles
+  name: Protect electrum Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/electrum/Profiles"
+  tags:
+  - never-delete
+  - electrum
+  - profiles
+- id: protect-linux-electrum-databases
+  name: Protect electrum databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/electrum/databases"
+  tags:
+  - never-delete
+  - electrum
+  - databases
+- id: protect-linux-exodus-user-data
+  name: Protect exodus User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/exodus/User Data"
+  tags:
+  - never-delete
+  - exodus
+  - user-data
+- id: protect-linux-exodus-profiles
+  name: Protect exodus Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/exodus/Profiles"
+  tags:
+  - never-delete
+  - exodus
+  - profiles
+- id: protect-linux-exodus-databases
+  name: Protect exodus databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/exodus/databases"
+  tags:
+  - never-delete
+  - exodus
+  - databases
+- id: protect-linux-metamask-user-data
+  name: Protect metamask User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/metamask/User Data"
+  tags:
+  - never-delete
+  - metamask
+  - user-data
+- id: protect-linux-metamask-profiles
+  name: Protect metamask Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/metamask/Profiles"
+  tags:
+  - never-delete
+  - metamask
+  - profiles
+- id: protect-linux-metamask-databases
+  name: Protect metamask databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/metamask/databases"
+  tags:
+  - never-delete
+  - metamask
+  - databases
+- id: protect-linux-ledger-live-user-data
+  name: Protect ledger-live User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ledger-live/User Data"
+  tags:
+  - never-delete
+  - ledger-live
+  - user-data
+- id: protect-linux-ledger-live-profiles
+  name: Protect ledger-live Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ledger-live/Profiles"
+  tags:
+  - never-delete
+  - ledger-live
+  - profiles
+- id: protect-linux-ledger-live-databases
+  name: Protect ledger-live databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ledger-live/databases"
+  tags:
+  - never-delete
+  - ledger-live
+  - databases
+- id: protect-linux-trezor-suite-user-data
+  name: Protect trezor-suite User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/trezor-suite/User Data"
+  tags:
+  - never-delete
+  - trezor-suite
+  - user-data
+- id: protect-linux-trezor-suite-profiles
+  name: Protect trezor-suite Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/trezor-suite/Profiles"
+  tags:
+  - never-delete
+  - trezor-suite
+  - profiles
+- id: protect-linux-trezor-suite-databases
+  name: Protect trezor-suite databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/trezor-suite/databases"
+  tags:
+  - never-delete
+  - trezor-suite
+  - databases
+- id: protect-linux-phantom-user-data
+  name: Protect phantom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/phantom/User Data"
+  tags:
+  - never-delete
+  - phantom
+  - user-data
+- id: protect-linux-phantom-profiles
+  name: Protect phantom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/phantom/Profiles"
+  tags:
+  - never-delete
+  - phantom
+  - profiles
+- id: protect-linux-phantom-databases
+  name: Protect phantom databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/phantom/databases"
+  tags:
+  - never-delete
+  - phantom
+  - databases
+- id: protect-linux-solflare-user-data
+  name: Protect solflare User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/solflare/User Data"
+  tags:
+  - never-delete
+  - solflare
+  - user-data
+- id: protect-linux-solflare-profiles
+  name: Protect solflare Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/solflare/Profiles"
+  tags:
+  - never-delete
+  - solflare
+  - profiles
+- id: protect-linux-solflare-databases
+  name: Protect solflare databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/solflare/databases"
+  tags:
+  - never-delete
+  - solflare
+  - databases
+- id: protect-linux-sparrow-wallet-user-data
+  name: Protect sparrow-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/sparrow-wallet/User Data"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - user-data
+- id: protect-linux-sparrow-wallet-profiles
+  name: Protect sparrow-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/sparrow-wallet/Profiles"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - profiles
+- id: protect-linux-sparrow-wallet-databases
+  name: Protect sparrow-wallet databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/sparrow-wallet/databases"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - databases
+- id: protect-linux-wasabi-wallet-user-data
+  name: Protect wasabi-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/wasabi-wallet/User Data"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - user-data
+- id: protect-linux-wasabi-wallet-profiles
+  name: Protect wasabi-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/wasabi-wallet/Profiles"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - profiles
+- id: protect-linux-wasabi-wallet-databases
+  name: Protect wasabi-wallet databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/wasabi-wallet/databases"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - databases
+- id: protect-linux-monero-wallet-user-data
+  name: Protect monero-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/monero-wallet/User Data"
+  tags:
+  - never-delete
+  - monero-wallet
+  - user-data
+- id: protect-linux-monero-wallet-profiles
+  name: Protect monero-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/monero-wallet/Profiles"
+  tags:
+  - never-delete
+  - monero-wallet
+  - profiles
+- id: protect-linux-monero-wallet-databases
+  name: Protect monero-wallet databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/monero-wallet/databases"
+  tags:
+  - never-delete
+  - monero-wallet
+  - databases
+- id: protect-linux-bitcoin-core-user-data
+  name: Protect bitcoin-core User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bitcoin-core/User Data"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - user-data
+- id: protect-linux-bitcoin-core-profiles
+  name: Protect bitcoin-core Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bitcoin-core/Profiles"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - profiles
+- id: protect-linux-bitcoin-core-databases
+  name: Protect bitcoin-core databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bitcoin-core/databases"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - databases
+- id: protect-linux-ethereum-user-data
+  name: Protect ethereum User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ethereum/User Data"
+  tags:
+  - never-delete
+  - ethereum
+  - user-data
+- id: protect-linux-ethereum-profiles
+  name: Protect ethereum Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ethereum/Profiles"
+  tags:
+  - never-delete
+  - ethereum
+  - profiles
+- id: protect-linux-ethereum-databases
+  name: Protect ethereum databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ethereum/databases"
+  tags:
+  - never-delete
+  - ethereum
+  - databases
+- id: protect-linux-chrome-user-data
+  name: Protect chrome User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/chrome/User Data"
+  tags:
+  - never-delete
+  - chrome
+  - user-data
+- id: protect-linux-chrome-profiles
+  name: Protect chrome Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/chrome/Profiles"
+  tags:
+  - never-delete
+  - chrome
+  - profiles
+- id: protect-linux-chrome-databases
+  name: Protect chrome databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/chrome/databases"
+  tags:
+  - never-delete
+  - chrome
+  - databases
+- id: protect-linux-chromium-user-data
+  name: Protect chromium User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/chromium/User Data"
+  tags:
+  - never-delete
+  - chromium
+  - user-data
+- id: protect-linux-chromium-profiles
+  name: Protect chromium Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/chromium/Profiles"
+  tags:
+  - never-delete
+  - chromium
+  - profiles
+- id: protect-linux-chromium-databases
+  name: Protect chromium databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/chromium/databases"
+  tags:
+  - never-delete
+  - chromium
+  - databases
+- id: protect-linux-firefox-user-data
+  name: Protect firefox User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/firefox/User Data"
+  tags:
+  - never-delete
+  - firefox
+  - user-data
+- id: protect-linux-firefox-profiles
+  name: Protect firefox Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/firefox/Profiles"
+  tags:
+  - never-delete
+  - firefox
+  - profiles
+- id: protect-linux-firefox-databases
+  name: Protect firefox databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/firefox/databases"
+  tags:
+  - never-delete
+  - firefox
+  - databases
+- id: protect-linux-safari-user-data
+  name: Protect safari User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/safari/User Data"
+  tags:
+  - never-delete
+  - safari
+  - user-data
+- id: protect-linux-safari-profiles
+  name: Protect safari Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/safari/Profiles"
+  tags:
+  - never-delete
+  - safari
+  - profiles
+- id: protect-linux-safari-databases
+  name: Protect safari databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/safari/databases"
+  tags:
+  - never-delete
+  - safari
+  - databases
+- id: protect-linux-edge-user-data
+  name: Protect edge User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/edge/User Data"
+  tags:
+  - never-delete
+  - edge
+  - user-data
+- id: protect-linux-edge-profiles
+  name: Protect edge Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/edge/Profiles"
+  tags:
+  - never-delete
+  - edge
+  - profiles
+- id: protect-linux-edge-databases
+  name: Protect edge databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/edge/databases"
+  tags:
+  - never-delete
+  - edge
+  - databases
+- id: protect-linux-brave-user-data
+  name: Protect brave User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/brave/User Data"
+  tags:
+  - never-delete
+  - brave
+  - user-data
+- id: protect-linux-brave-profiles
+  name: Protect brave Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/brave/Profiles"
+  tags:
+  - never-delete
+  - brave
+  - profiles
+- id: protect-linux-brave-databases
+  name: Protect brave databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/brave/databases"
+  tags:
+  - never-delete
+  - brave
+  - databases
+- id: protect-linux-vivaldi-user-data
+  name: Protect vivaldi User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/vivaldi/User Data"
+  tags:
+  - never-delete
+  - vivaldi
+  - user-data
+- id: protect-linux-vivaldi-profiles
+  name: Protect vivaldi Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/vivaldi/Profiles"
+  tags:
+  - never-delete
+  - vivaldi
+  - profiles
+- id: protect-linux-vivaldi-databases
+  name: Protect vivaldi databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/vivaldi/databases"
+  tags:
+  - never-delete
+  - vivaldi
+  - databases
+- id: protect-linux-opera-user-data
+  name: Protect opera User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/opera/User Data"
+  tags:
+  - never-delete
+  - opera
+  - user-data
+- id: protect-linux-opera-profiles
+  name: Protect opera Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/opera/Profiles"
+  tags:
+  - never-delete
+  - opera
+  - profiles
+- id: protect-linux-opera-databases
+  name: Protect opera databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/opera/databases"
+  tags:
+  - never-delete
+  - opera
+  - databases
+- id: protect-linux-tor-browser-user-data
+  name: Protect tor-browser User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/tor-browser/User Data"
+  tags:
+  - never-delete
+  - tor-browser
+  - user-data
+- id: protect-linux-tor-browser-profiles
+  name: Protect tor-browser Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/tor-browser/Profiles"
+  tags:
+  - never-delete
+  - tor-browser
+  - profiles
+- id: protect-linux-tor-browser-databases
+  name: Protect tor-browser databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/tor-browser/databases"
+  tags:
+  - never-delete
+  - tor-browser
+  - databases
+- id: protect-linux-arc-user-data
+  name: Protect arc User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/arc/User Data"
+  tags:
+  - never-delete
+  - arc
+  - user-data
+- id: protect-linux-arc-profiles
+  name: Protect arc Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/arc/Profiles"
+  tags:
+  - never-delete
+  - arc
+  - profiles
+- id: protect-linux-arc-databases
+  name: Protect arc databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/arc/databases"
+  tags:
+  - never-delete
+  - arc
+  - databases
+- id: protect-linux-thunderbird-user-data
+  name: Protect thunderbird User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/thunderbird/User Data"
+  tags:
+  - never-delete
+  - thunderbird
+  - user-data
+- id: protect-linux-thunderbird-profiles
+  name: Protect thunderbird Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/thunderbird/Profiles"
+  tags:
+  - never-delete
+  - thunderbird
+  - profiles
+- id: protect-linux-thunderbird-databases
+  name: Protect thunderbird databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/thunderbird/databases"
+  tags:
+  - never-delete
+  - thunderbird
+  - databases
+- id: protect-linux-outlook-user-data
+  name: Protect outlook User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/outlook/User Data"
+  tags:
+  - never-delete
+  - outlook
+  - user-data
+- id: protect-linux-outlook-profiles
+  name: Protect outlook Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/outlook/Profiles"
+  tags:
+  - never-delete
+  - outlook
+  - profiles
+- id: protect-linux-outlook-databases
+  name: Protect outlook databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/outlook/databases"
+  tags:
+  - never-delete
+  - outlook
+  - databases
+- id: protect-linux-proton-mail-user-data
+  name: Protect proton-mail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/proton-mail/User Data"
+  tags:
+  - never-delete
+  - proton-mail
+  - user-data
+- id: protect-linux-proton-mail-profiles
+  name: Protect proton-mail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/proton-mail/Profiles"
+  tags:
+  - never-delete
+  - proton-mail
+  - profiles
+- id: protect-linux-proton-mail-databases
+  name: Protect proton-mail databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/proton-mail/databases"
+  tags:
+  - never-delete
+  - proton-mail
+  - databases
+- id: protect-linux-mailbird-user-data
+  name: Protect mailbird User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/mailbird/User Data"
+  tags:
+  - never-delete
+  - mailbird
+  - user-data
+- id: protect-linux-mailbird-profiles
+  name: Protect mailbird Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/mailbird/Profiles"
+  tags:
+  - never-delete
+  - mailbird
+  - profiles
+- id: protect-linux-mailbird-databases
+  name: Protect mailbird databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/mailbird/databases"
+  tags:
+  - never-delete
+  - mailbird
+  - databases
+- id: protect-linux-spark-mail-user-data
+  name: Protect spark-mail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/spark-mail/User Data"
+  tags:
+  - never-delete
+  - spark-mail
+  - user-data
+- id: protect-linux-spark-mail-profiles
+  name: Protect spark-mail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/spark-mail/Profiles"
+  tags:
+  - never-delete
+  - spark-mail
+  - profiles
+- id: protect-linux-spark-mail-databases
+  name: Protect spark-mail databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/spark-mail/databases"
+  tags:
+  - never-delete
+  - spark-mail
+  - databases
+- id: protect-linux-airmail-user-data
+  name: Protect airmail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/airmail/User Data"
+  tags:
+  - never-delete
+  - airmail
+  - user-data
+- id: protect-linux-airmail-profiles
+  name: Protect airmail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/airmail/Profiles"
+  tags:
+  - never-delete
+  - airmail
+  - profiles
+- id: protect-linux-airmail-databases
+  name: Protect airmail databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/airmail/databases"
+  tags:
+  - never-delete
+  - airmail
+  - databases
+- id: protect-linux-mailspring-user-data
+  name: Protect mailspring User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/mailspring/User Data"
+  tags:
+  - never-delete
+  - mailspring
+  - user-data
+- id: protect-linux-mailspring-profiles
+  name: Protect mailspring Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/mailspring/Profiles"
+  tags:
+  - never-delete
+  - mailspring
+  - profiles
+- id: protect-linux-mailspring-databases
+  name: Protect mailspring databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/mailspring/databases"
+  tags:
+  - never-delete
+  - mailspring
+  - databases
+- id: protect-linux-signal-user-data
+  name: Protect signal User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/signal/User Data"
+  tags:
+  - never-delete
+  - signal
+  - user-data
+- id: protect-linux-signal-profiles
+  name: Protect signal Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/signal/Profiles"
+  tags:
+  - never-delete
+  - signal
+  - profiles
+- id: protect-linux-signal-databases
+  name: Protect signal databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/signal/databases"
+  tags:
+  - never-delete
+  - signal
+  - databases
+- id: protect-linux-telegram-user-data
+  name: Protect telegram User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/telegram/User Data"
+  tags:
+  - never-delete
+  - telegram
+  - user-data
+- id: protect-linux-telegram-profiles
+  name: Protect telegram Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/telegram/Profiles"
+  tags:
+  - never-delete
+  - telegram
+  - profiles
+- id: protect-linux-telegram-databases
+  name: Protect telegram databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/telegram/databases"
+  tags:
+  - never-delete
+  - telegram
+  - databases
+- id: protect-linux-whatsapp-user-data
+  name: Protect whatsapp User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/whatsapp/User Data"
+  tags:
+  - never-delete
+  - whatsapp
+  - user-data
+- id: protect-linux-whatsapp-profiles
+  name: Protect whatsapp Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/whatsapp/Profiles"
+  tags:
+  - never-delete
+  - whatsapp
+  - profiles
+- id: protect-linux-whatsapp-databases
+  name: Protect whatsapp databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/whatsapp/databases"
+  tags:
+  - never-delete
+  - whatsapp
+  - databases
+- id: protect-linux-element-user-data
+  name: Protect element User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/element/User Data"
+  tags:
+  - never-delete
+  - element
+  - user-data
+- id: protect-linux-element-profiles
+  name: Protect element Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/element/Profiles"
+  tags:
+  - never-delete
+  - element
+  - profiles
+- id: protect-linux-element-databases
+  name: Protect element databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/element/databases"
+  tags:
+  - never-delete
+  - element
+  - databases
+- id: protect-linux-discord-user-data
+  name: Protect discord User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/discord/User Data"
+  tags:
+  - never-delete
+  - discord
+  - user-data
+- id: protect-linux-discord-profiles
+  name: Protect discord Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/discord/Profiles"
+  tags:
+  - never-delete
+  - discord
+  - profiles
+- id: protect-linux-discord-databases
+  name: Protect discord databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/discord/databases"
+  tags:
+  - never-delete
+  - discord
+  - databases
+- id: protect-linux-slack-user-data
+  name: Protect slack User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/slack/User Data"
+  tags:
+  - never-delete
+  - slack
+  - user-data
+- id: protect-linux-slack-profiles
+  name: Protect slack Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/slack/Profiles"
+  tags:
+  - never-delete
+  - slack
+  - profiles
+- id: protect-linux-slack-databases
+  name: Protect slack databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/slack/databases"
+  tags:
+  - never-delete
+  - slack
+  - databases
+- id: protect-linux-teams-user-data
+  name: Protect teams User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/teams/User Data"
+  tags:
+  - never-delete
+  - teams
+  - user-data
+- id: protect-linux-teams-profiles
+  name: Protect teams Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/teams/Profiles"
+  tags:
+  - never-delete
+  - teams
+  - profiles
+- id: protect-linux-teams-databases
+  name: Protect teams databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/teams/databases"
+  tags:
+  - never-delete
+  - teams
+  - databases
+- id: protect-linux-zoom-user-data
+  name: Protect zoom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/zoom/User Data"
+  tags:
+  - never-delete
+  - zoom
+  - user-data
+- id: protect-linux-zoom-profiles
+  name: Protect zoom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/zoom/Profiles"
+  tags:
+  - never-delete
+  - zoom
+  - profiles
+- id: protect-linux-zoom-databases
+  name: Protect zoom databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/zoom/databases"
+  tags:
+  - never-delete
+  - zoom
+  - databases
+- id: protect-linux-skype-user-data
+  name: Protect skype User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/skype/User Data"
+  tags:
+  - never-delete
+  - skype
+  - user-data
+- id: protect-linux-skype-profiles
+  name: Protect skype Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/skype/Profiles"
+  tags:
+  - never-delete
+  - skype
+  - profiles
+- id: protect-linux-skype-databases
+  name: Protect skype databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/skype/databases"
+  tags:
+  - never-delete
+  - skype
+  - databases
+- id: protect-linux-messages-user-data
+  name: Protect messages User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/messages/User Data"
+  tags:
+  - never-delete
+  - messages
+  - user-data
+- id: protect-linux-messages-profiles
+  name: Protect messages Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/messages/Profiles"
+  tags:
+  - never-delete
+  - messages
+  - profiles
+- id: protect-linux-messages-databases
+  name: Protect messages databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/messages/databases"
+  tags:
+  - never-delete
+  - messages
+  - databases
+- id: protect-linux-facetime-user-data
+  name: Protect facetime User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/facetime/User Data"
+  tags:
+  - never-delete
+  - facetime
+  - user-data
+- id: protect-linux-facetime-profiles
+  name: Protect facetime Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/facetime/Profiles"
+  tags:
+  - never-delete
+  - facetime
+  - profiles
+- id: protect-linux-facetime-databases
+  name: Protect facetime databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/facetime/databases"
+  tags:
+  - never-delete
+  - facetime
+  - databases
+- id: protect-linux-contacts-user-data
+  name: Protect contacts User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/contacts/User Data"
+  tags:
+  - never-delete
+  - contacts
+  - user-data
+- id: protect-linux-contacts-profiles
+  name: Protect contacts Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/contacts/Profiles"
+  tags:
+  - never-delete
+  - contacts
+  - profiles
+- id: protect-linux-contacts-databases
+  name: Protect contacts databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/contacts/databases"
+  tags:
+  - never-delete
+  - contacts
+  - databases
+- id: protect-linux-calendars-user-data
+  name: Protect calendars User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/calendars/User Data"
+  tags:
+  - never-delete
+  - calendars
+  - user-data
+- id: protect-linux-calendars-profiles
+  name: Protect calendars Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/calendars/Profiles"
+  tags:
+  - never-delete
+  - calendars
+  - profiles
+- id: protect-linux-calendars-databases
+  name: Protect calendars databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/calendars/databases"
+  tags:
+  - never-delete
+  - calendars
+  - databases
+- id: protect-linux-reminders-user-data
+  name: Protect reminders User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/reminders/User Data"
+  tags:
+  - never-delete
+  - reminders
+  - user-data
+- id: protect-linux-reminders-profiles
+  name: Protect reminders Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/reminders/Profiles"
+  tags:
+  - never-delete
+  - reminders
+  - profiles
+- id: protect-linux-reminders-databases
+  name: Protect reminders databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/reminders/databases"
+  tags:
+  - never-delete
+  - reminders
+  - databases
+- id: protect-linux-notes-user-data
+  name: Protect notes User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/notes/User Data"
+  tags:
+  - never-delete
+  - notes
+  - user-data
+- id: protect-linux-notes-profiles
+  name: Protect notes Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/notes/Profiles"
+  tags:
+  - never-delete
+  - notes
+  - profiles
+- id: protect-linux-notes-databases
+  name: Protect notes databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/notes/databases"
+  tags:
+  - never-delete
+  - notes
+  - databases
+- id: protect-linux-notion-user-data
+  name: Protect notion User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/notion/User Data"
+  tags:
+  - never-delete
+  - notion
+  - user-data
+- id: protect-linux-notion-profiles
+  name: Protect notion Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/notion/Profiles"
+  tags:
+  - never-delete
+  - notion
+  - profiles
+- id: protect-linux-notion-databases
+  name: Protect notion databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/notion/databases"
+  tags:
+  - never-delete
+  - notion
+  - databases
+- id: protect-linux-obsidian-user-data
+  name: Protect obsidian User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/obsidian/User Data"
+  tags:
+  - never-delete
+  - obsidian
+  - user-data
+- id: protect-linux-obsidian-profiles
+  name: Protect obsidian Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/obsidian/Profiles"
+  tags:
+  - never-delete
+  - obsidian
+  - profiles
+- id: protect-linux-obsidian-databases
+  name: Protect obsidian databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/obsidian/databases"
+  tags:
+  - never-delete
+  - obsidian
+  - databases
+- id: protect-linux-evernote-user-data
+  name: Protect evernote User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/evernote/User Data"
+  tags:
+  - never-delete
+  - evernote
+  - user-data
+- id: protect-linux-evernote-profiles
+  name: Protect evernote Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/evernote/Profiles"
+  tags:
+  - never-delete
+  - evernote
+  - profiles
+- id: protect-linux-evernote-databases
+  name: Protect evernote databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/evernote/databases"
+  tags:
+  - never-delete
+  - evernote
+  - databases
+- id: protect-linux-onenote-user-data
+  name: Protect onenote User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/onenote/User Data"
+  tags:
+  - never-delete
+  - onenote
+  - user-data
+- id: protect-linux-onenote-profiles
+  name: Protect onenote Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/onenote/Profiles"
+  tags:
+  - never-delete
+  - onenote
+  - profiles
+- id: protect-linux-onenote-databases
+  name: Protect onenote databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/onenote/databases"
+  tags:
+  - never-delete
+  - onenote
+  - databases
+- id: protect-linux-bear-user-data
+  name: Protect bear User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bear/User Data"
+  tags:
+  - never-delete
+  - bear
+  - user-data
+- id: protect-linux-bear-profiles
+  name: Protect bear Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bear/Profiles"
+  tags:
+  - never-delete
+  - bear
+  - profiles
+- id: protect-linux-bear-databases
+  name: Protect bear databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/bear/databases"
+  tags:
+  - never-delete
+  - bear
+  - databases
+- id: protect-linux-craft-user-data
+  name: Protect craft User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/craft/User Data"
+  tags:
+  - never-delete
+  - craft
+  - user-data
+- id: protect-linux-craft-profiles
+  name: Protect craft Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/craft/Profiles"
+  tags:
+  - never-delete
+  - craft
+  - profiles
+- id: protect-linux-craft-databases
+  name: Protect craft databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/craft/databases"
+  tags:
+  - never-delete
+  - craft
+  - databases
+- id: protect-linux-todoist-user-data
+  name: Protect todoist User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/todoist/User Data"
+  tags:
+  - never-delete
+  - todoist
+  - user-data
+- id: protect-linux-todoist-profiles
+  name: Protect todoist Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/todoist/Profiles"
+  tags:
+  - never-delete
+  - todoist
+  - profiles
+- id: protect-linux-todoist-databases
+  name: Protect todoist databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/todoist/databases"
+  tags:
+  - never-delete
+  - todoist
+  - databases
+- id: protect-linux-things-user-data
+  name: Protect things User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/things/User Data"
+  tags:
+  - never-delete
+  - things
+  - user-data
+- id: protect-linux-things-profiles
+  name: Protect things Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/things/Profiles"
+  tags:
+  - never-delete
+  - things
+  - profiles
+- id: protect-linux-things-databases
+  name: Protect things databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/things/databases"
+  tags:
+  - never-delete
+  - things
+  - databases
+- id: protect-linux-omnifocus-user-data
+  name: Protect omnifocus User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/omnifocus/User Data"
+  tags:
+  - never-delete
+  - omnifocus
+  - user-data
+- id: protect-linux-omnifocus-profiles
+  name: Protect omnifocus Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/omnifocus/Profiles"
+  tags:
+  - never-delete
+  - omnifocus
+  - profiles
+- id: protect-linux-omnifocus-databases
+  name: Protect omnifocus databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/omnifocus/databases"
+  tags:
+  - never-delete
+  - omnifocus
+  - databases
+- id: protect-linux-logseq-user-data
+  name: Protect logseq User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/logseq/User Data"
+  tags:
+  - never-delete
+  - logseq
+  - user-data
+- id: protect-linux-logseq-profiles
+  name: Protect logseq Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/logseq/Profiles"
+  tags:
+  - never-delete
+  - logseq
+  - profiles
+- id: protect-linux-logseq-databases
+  name: Protect logseq databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/logseq/databases"
+  tags:
+  - never-delete
+  - logseq
+  - databases
+- id: protect-linux-roam-user-data
+  name: Protect roam User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/roam/User Data"
+  tags:
+  - never-delete
+  - roam
+  - user-data
+- id: protect-linux-roam-profiles
+  name: Protect roam Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/roam/Profiles"
+  tags:
+  - never-delete
+  - roam
+  - profiles
+- id: protect-linux-roam-databases
+  name: Protect roam databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/roam/databases"
+  tags:
+  - never-delete
+  - roam
+  - databases
+- id: protect-linux-vscode-user-data
+  name: Protect vscode User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/vscode/User Data"
+  tags:
+  - never-delete
+  - vscode
+  - user-data
+- id: protect-linux-vscode-profiles
+  name: Protect vscode Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/vscode/Profiles"
+  tags:
+  - never-delete
+  - vscode
+  - profiles
+- id: protect-linux-vscode-databases
+  name: Protect vscode databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/vscode/databases"
+  tags:
+  - never-delete
+  - vscode
+  - databases
+- id: protect-linux-cursor-user-data
+  name: Protect cursor User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/cursor/User Data"
+  tags:
+  - never-delete
+  - cursor
+  - user-data
+- id: protect-linux-cursor-profiles
+  name: Protect cursor Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/cursor/Profiles"
+  tags:
+  - never-delete
+  - cursor
+  - profiles
+- id: protect-linux-cursor-databases
+  name: Protect cursor databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/cursor/databases"
+  tags:
+  - never-delete
+  - cursor
+  - databases
+- id: protect-linux-zed-user-data
+  name: Protect zed User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/zed/User Data"
+  tags:
+  - never-delete
+  - zed
+  - user-data
+- id: protect-linux-zed-profiles
+  name: Protect zed Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/zed/Profiles"
+  tags:
+  - never-delete
+  - zed
+  - profiles
+- id: protect-linux-zed-databases
+  name: Protect zed databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/zed/databases"
+  tags:
+  - never-delete
+  - zed
+  - databases
+- id: protect-linux-jetbrains-user-data
+  name: Protect jetbrains User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/jetbrains/User Data"
+  tags:
+  - never-delete
+  - jetbrains
+  - user-data
+- id: protect-linux-jetbrains-profiles
+  name: Protect jetbrains Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/jetbrains/Profiles"
+  tags:
+  - never-delete
+  - jetbrains
+  - profiles
+- id: protect-linux-jetbrains-databases
+  name: Protect jetbrains databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/jetbrains/databases"
+  tags:
+  - never-delete
+  - jetbrains
+  - databases
+- id: protect-linux-xcode-user-data
+  name: Protect xcode User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/xcode/User Data"
+  tags:
+  - never-delete
+  - xcode
+  - user-data
+- id: protect-linux-xcode-profiles
+  name: Protect xcode Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/xcode/Profiles"
+  tags:
+  - never-delete
+  - xcode
+  - profiles
+- id: protect-linux-xcode-databases
+  name: Protect xcode databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/xcode/databases"
+  tags:
+  - never-delete
+  - xcode
+  - databases
+- id: protect-linux-android-studio-user-data
+  name: Protect android-studio User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/android-studio/User Data"
+  tags:
+  - never-delete
+  - android-studio
+  - user-data
+- id: protect-linux-android-studio-profiles
+  name: Protect android-studio Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/android-studio/Profiles"
+  tags:
+  - never-delete
+  - android-studio
+  - profiles
+- id: protect-linux-android-studio-databases
+  name: Protect android-studio databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/android-studio/databases"
+  tags:
+  - never-delete
+  - android-studio
+  - databases
+- id: protect-linux-visual-studio-user-data
+  name: Protect visual-studio User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/visual-studio/User Data"
+  tags:
+  - never-delete
+  - visual-studio
+  - user-data
+- id: protect-linux-visual-studio-profiles
+  name: Protect visual-studio Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/visual-studio/Profiles"
+  tags:
+  - never-delete
+  - visual-studio
+  - profiles
+- id: protect-linux-visual-studio-databases
+  name: Protect visual-studio databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/visual-studio/databases"
+  tags:
+  - never-delete
+  - visual-studio
+  - databases
+- id: protect-linux-github-desktop-user-data
+  name: Protect github-desktop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/github-desktop/User Data"
+  tags:
+  - never-delete
+  - github-desktop
+  - user-data
+- id: protect-linux-github-desktop-profiles
+  name: Protect github-desktop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/github-desktop/Profiles"
+  tags:
+  - never-delete
+  - github-desktop
+  - profiles
+- id: protect-linux-github-desktop-databases
+  name: Protect github-desktop databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/github-desktop/databases"
+  tags:
+  - never-delete
+  - github-desktop
+  - databases
+- id: protect-linux-sourcetree-user-data
+  name: Protect sourcetree User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/sourcetree/User Data"
+  tags:
+  - never-delete
+  - sourcetree
+  - user-data
+- id: protect-linux-sourcetree-profiles
+  name: Protect sourcetree Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/sourcetree/Profiles"
+  tags:
+  - never-delete
+  - sourcetree
+  - profiles
+- id: protect-linux-sourcetree-databases
+  name: Protect sourcetree databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/sourcetree/databases"
+  tags:
+  - never-delete
+  - sourcetree
+  - databases
+- id: protect-linux-tower-user-data
+  name: Protect tower User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/tower/User Data"
+  tags:
+  - never-delete
+  - tower
+  - user-data
+- id: protect-linux-tower-profiles
+  name: Protect tower Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/tower/Profiles"
+  tags:
+  - never-delete
+  - tower
+  - profiles
+- id: protect-linux-tower-databases
+  name: Protect tower databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/tower/databases"
+  tags:
+  - never-delete
+  - tower
+  - databases
+- id: protect-linux-fork-user-data
+  name: Protect fork User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/fork/User Data"
+  tags:
+  - never-delete
+  - fork
+  - user-data
+- id: protect-linux-fork-profiles
+  name: Protect fork Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/fork/Profiles"
+  tags:
+  - never-delete
+  - fork
+  - profiles
+- id: protect-linux-fork-databases
+  name: Protect fork databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/fork/databases"
+  tags:
+  - never-delete
+  - fork
+  - databases
+- id: protect-linux-gitkraken-user-data
+  name: Protect gitkraken User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/gitkraken/User Data"
+  tags:
+  - never-delete
+  - gitkraken
+  - user-data
+- id: protect-linux-gitkraken-profiles
+  name: Protect gitkraken Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/gitkraken/Profiles"
+  tags:
+  - never-delete
+  - gitkraken
+  - profiles
+- id: protect-linux-gitkraken-databases
+  name: Protect gitkraken databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/gitkraken/databases"
+  tags:
+  - never-delete
+  - gitkraken
+  - databases
+- id: protect-linux-docker-desktop-user-data
+  name: Protect docker-desktop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/docker-desktop/User Data"
+  tags:
+  - never-delete
+  - docker-desktop
+  - user-data
+- id: protect-linux-docker-desktop-profiles
+  name: Protect docker-desktop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/docker-desktop/Profiles"
+  tags:
+  - never-delete
+  - docker-desktop
+  - profiles
+- id: protect-linux-docker-desktop-databases
+  name: Protect docker-desktop databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/docker-desktop/databases"
+  tags:
+  - never-delete
+  - docker-desktop
+  - databases
+- id: protect-linux-dropbox-user-data
+  name: Protect dropbox User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/dropbox/User Data"
+  tags:
+  - never-delete
+  - dropbox
+  - user-data
+- id: protect-linux-dropbox-profiles
+  name: Protect dropbox Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/dropbox/Profiles"
+  tags:
+  - never-delete
+  - dropbox
+  - profiles
+- id: protect-linux-dropbox-databases
+  name: Protect dropbox databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/dropbox/databases"
+  tags:
+  - never-delete
+  - dropbox
+  - databases
+- id: protect-linux-onedrive-user-data
+  name: Protect onedrive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/onedrive/User Data"
+  tags:
+  - never-delete
+  - onedrive
+  - user-data
+- id: protect-linux-onedrive-profiles
+  name: Protect onedrive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/onedrive/Profiles"
+  tags:
+  - never-delete
+  - onedrive
+  - profiles
+- id: protect-linux-onedrive-databases
+  name: Protect onedrive databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/onedrive/databases"
+  tags:
+  - never-delete
+  - onedrive
+  - databases
+- id: protect-linux-google-drive-user-data
+  name: Protect google-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/google-drive/User Data"
+  tags:
+  - never-delete
+  - google-drive
+  - user-data
+- id: protect-linux-google-drive-profiles
+  name: Protect google-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/google-drive/Profiles"
+  tags:
+  - never-delete
+  - google-drive
+  - profiles
+- id: protect-linux-google-drive-databases
+  name: Protect google-drive databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/google-drive/databases"
+  tags:
+  - never-delete
+  - google-drive
+  - databases
+- id: protect-linux-icloud-drive-user-data
+  name: Protect icloud-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/icloud-drive/User Data"
+  tags:
+  - never-delete
+  - icloud-drive
+  - user-data
+- id: protect-linux-icloud-drive-profiles
+  name: Protect icloud-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/icloud-drive/Profiles"
+  tags:
+  - never-delete
+  - icloud-drive
+  - profiles
+- id: protect-linux-icloud-drive-databases
+  name: Protect icloud-drive databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/icloud-drive/databases"
+  tags:
+  - never-delete
+  - icloud-drive
+  - databases
+- id: protect-linux-nextcloud-user-data
+  name: Protect nextcloud User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/nextcloud/User Data"
+  tags:
+  - never-delete
+  - nextcloud
+  - user-data
+- id: protect-linux-nextcloud-profiles
+  name: Protect nextcloud Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/nextcloud/Profiles"
+  tags:
+  - never-delete
+  - nextcloud
+  - profiles
+- id: protect-linux-nextcloud-databases
+  name: Protect nextcloud databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/nextcloud/databases"
+  tags:
+  - never-delete
+  - nextcloud
+  - databases
+- id: protect-linux-syncthing-user-data
+  name: Protect syncthing User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/syncthing/User Data"
+  tags:
+  - never-delete
+  - syncthing
+  - user-data
+- id: protect-linux-syncthing-profiles
+  name: Protect syncthing Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/syncthing/Profiles"
+  tags:
+  - never-delete
+  - syncthing
+  - profiles
+- id: protect-linux-syncthing-databases
+  name: Protect syncthing databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/syncthing/databases"
+  tags:
+  - never-delete
+  - syncthing
+  - databases
+- id: protect-linux-box-drive-user-data
+  name: Protect box-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/box-drive/User Data"
+  tags:
+  - never-delete
+  - box-drive
+  - user-data
+- id: protect-linux-box-drive-profiles
+  name: Protect box-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/box-drive/Profiles"
+  tags:
+  - never-delete
+  - box-drive
+  - profiles
+- id: protect-linux-box-drive-databases
+  name: Protect box-drive databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/box-drive/databases"
+  tags:
+  - never-delete
+  - box-drive
+  - databases
+- id: protect-linux-photos-user-data
+  name: Protect photos User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/photos/User Data"
+  tags:
+  - never-delete
+  - photos
+  - user-data
+- id: protect-linux-photos-profiles
+  name: Protect photos Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/photos/Profiles"
+  tags:
+  - never-delete
+  - photos
+  - profiles
+- id: protect-linux-photos-databases
+  name: Protect photos databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/photos/databases"
+  tags:
+  - never-delete
+  - photos
+  - databases
+- id: protect-linux-lightroom-user-data
+  name: Protect lightroom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/lightroom/User Data"
+  tags:
+  - never-delete
+  - lightroom
+  - user-data
+- id: protect-linux-lightroom-profiles
+  name: Protect lightroom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/lightroom/Profiles"
+  tags:
+  - never-delete
+  - lightroom
+  - profiles
+- id: protect-linux-lightroom-databases
+  name: Protect lightroom databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/lightroom/databases"
+  tags:
+  - never-delete
+  - lightroom
+  - databases
+- id: protect-linux-photoshop-user-data
+  name: Protect photoshop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/photoshop/User Data"
+  tags:
+  - never-delete
+  - photoshop
+  - user-data
+- id: protect-linux-photoshop-profiles
+  name: Protect photoshop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/photoshop/Profiles"
+  tags:
+  - never-delete
+  - photoshop
+  - profiles
+- id: protect-linux-photoshop-databases
+  name: Protect photoshop databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/photoshop/databases"
+  tags:
+  - never-delete
+  - photoshop
+  - databases
+- id: protect-linux-affinity-photo-user-data
+  name: Protect affinity-photo User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/affinity-photo/User Data"
+  tags:
+  - never-delete
+  - affinity-photo
+  - user-data
+- id: protect-linux-affinity-photo-profiles
+  name: Protect affinity-photo Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/affinity-photo/Profiles"
+  tags:
+  - never-delete
+  - affinity-photo
+  - profiles
+- id: protect-linux-affinity-photo-databases
+  name: Protect affinity-photo databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/affinity-photo/databases"
+  tags:
+  - never-delete
+  - affinity-photo
+  - databases
+- id: protect-linux-capture-one-user-data
+  name: Protect capture-one User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/capture-one/User Data"
+  tags:
+  - never-delete
+  - capture-one
+  - user-data
+- id: protect-linux-capture-one-profiles
+  name: Protect capture-one Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/capture-one/Profiles"
+  tags:
+  - never-delete
+  - capture-one
+  - profiles
+- id: protect-linux-capture-one-databases
+  name: Protect capture-one databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/capture-one/databases"
+  tags:
+  - never-delete
+  - capture-one
+  - databases
+- id: protect-linux-davinci-resolve-user-data
+  name: Protect davinci-resolve User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/davinci-resolve/User Data"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - user-data
+- id: protect-linux-davinci-resolve-profiles
+  name: Protect davinci-resolve Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/davinci-resolve/Profiles"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - profiles
+- id: protect-linux-davinci-resolve-databases
+  name: Protect davinci-resolve databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/davinci-resolve/databases"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - databases
+- id: protect-linux-final-cut-pro-user-data
+  name: Protect final-cut-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/final-cut-pro/User Data"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - user-data
+- id: protect-linux-final-cut-pro-profiles
+  name: Protect final-cut-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/final-cut-pro/Profiles"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - profiles
+- id: protect-linux-final-cut-pro-databases
+  name: Protect final-cut-pro databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/final-cut-pro/databases"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - databases
+- id: protect-linux-logic-pro-user-data
+  name: Protect logic-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/logic-pro/User Data"
+  tags:
+  - never-delete
+  - logic-pro
+  - user-data
+- id: protect-linux-logic-pro-profiles
+  name: Protect logic-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/logic-pro/Profiles"
+  tags:
+  - never-delete
+  - logic-pro
+  - profiles
+- id: protect-linux-logic-pro-databases
+  name: Protect logic-pro databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/logic-pro/databases"
+  tags:
+  - never-delete
+  - logic-pro
+  - databases
+- id: protect-linux-ableton-live-user-data
+  name: Protect ableton-live User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ableton-live/User Data"
+  tags:
+  - never-delete
+  - ableton-live
+  - user-data
+- id: protect-linux-ableton-live-profiles
+  name: Protect ableton-live Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ableton-live/Profiles"
+  tags:
+  - never-delete
+  - ableton-live
+  - profiles
+- id: protect-linux-ableton-live-databases
+  name: Protect ableton-live databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/ableton-live/databases"
+  tags:
+  - never-delete
+  - ableton-live
+  - databases
+- id: protect-linux-pro-tools-user-data
+  name: Protect pro-tools User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/pro-tools/User Data"
+  tags:
+  - never-delete
+  - pro-tools
+  - user-data
+- id: protect-linux-pro-tools-profiles
+  name: Protect pro-tools Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/pro-tools/Profiles"
+  tags:
+  - never-delete
+  - pro-tools
+  - profiles
+- id: protect-linux-pro-tools-databases
+  name: Protect pro-tools databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/pro-tools/databases"
+  tags:
+  - never-delete
+  - pro-tools
+  - databases
+- id: protect-linux-premiere-pro-user-data
+  name: Protect premiere-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/premiere-pro/User Data"
+  tags:
+  - never-delete
+  - premiere-pro
+  - user-data
+- id: protect-linux-premiere-pro-profiles
+  name: Protect premiere-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/premiere-pro/Profiles"
+  tags:
+  - never-delete
+  - premiere-pro
+  - profiles
+- id: protect-linux-premiere-pro-databases
+  name: Protect premiere-pro databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/premiere-pro/databases"
+  tags:
+  - never-delete
+  - premiere-pro
+  - databases
+- id: protect-linux-blender-user-data
+  name: Protect blender User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/blender/User Data"
+  tags:
+  - never-delete
+  - blender
+  - user-data
+- id: protect-linux-blender-profiles
+  name: Protect blender Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/blender/Profiles"
+  tags:
+  - never-delete
+  - blender
+  - profiles
+- id: protect-linux-blender-databases
+  name: Protect blender databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: linux
+  paths:
+  - "$HOME/.config/blender/databases"
+  tags:
+  - never-delete
+  - blender
+  - databases

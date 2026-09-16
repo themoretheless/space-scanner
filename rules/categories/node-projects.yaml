@@ -1,0 +1,99 @@
+---
+pack: node-projects
+description: Regenerable Node.js dependency directories guarded by package.json markers.
+rules:
+- id: node-project-node-modules-macos
+  name: Node.js project node_modules directories
+  description: Removes reinstallable node_modules dependencies only when a package.json marker exists in the project ancestry; source files and lockfiles are preserved.
+  category: dev
+  platform: macos
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/Developer"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  include_globs:
+  - "**/node_modules"
+  exclude_globs:
+  - "**/.git/**"
+  required_ancestor_globs:
+  - "package.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 16
+  tags: [nodejs, npm, dependencies, build-output, project]
+
+- id: node-project-node-modules-linux
+  name: Node.js project node_modules directories
+  description: Removes reinstallable node_modules dependencies only when a package.json marker exists in the project ancestry; source files and lockfiles are preserved.
+  category: dev
+  platform: linux
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/code"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  include_globs:
+  - "**/node_modules"
+  exclude_globs:
+  - "**/.git/**"
+  required_ancestor_globs:
+  - "package.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 16
+  tags: [nodejs, npm, dependencies, build-output, project]
+
+- id: node-project-node-modules-windows
+  name: Node.js project node_modules directories
+  description: Removes reinstallable node_modules dependencies only when a package.json marker exists in the project ancestry; source files and lockfiles are preserved.
+  category: dev
+  platform: windows
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "%USERPROFILE%/source/repos"
+  - "%USERPROFILE%/Source"
+  - "%USERPROFILE%/Sources"
+  - "%USERPROFILE%/Projects"
+  - "%USERPROFILE%/src"
+  - "%USERPROFILE%/repos"
+  - "%USERPROFILE%/work"
+  - "%USERPROFILE%/workspace"
+  - "%USERPROFILE%/Documents/Projects"
+  - "%USERPROFILE%/Documents/Source"
+  - "%USERPROFILE%/Documents/Sources"
+  include_globs:
+  - "**/node_modules"
+  exclude_globs:
+  - "**/.git/**"
+  required_ancestor_globs:
+  - "package.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 16
+  tags: [nodejs, npm, dependencies, build-output, project]

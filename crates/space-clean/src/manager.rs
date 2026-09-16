@@ -1,6 +1,6 @@
 //! Flexible junk rule manager: prefs overlays, filters, category bulk toggles.
 
-use crate::rules::{Risk, Rule, RulePack};
+use crate::rules::{DeleteMode, JunkKind, Risk, Rule, RulePack};
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
@@ -96,7 +96,10 @@ impl RulePrefs {
         self.rules.contains_key(&rule.id)
             || self.categories_off.contains(&rule.category)
             || self.categories_on.contains(&rule.category)
-            || rule.tags.iter().any(|t| self.tags_off.contains(t) || self.tags_on.contains(t))
+            || rule
+                .tags
+                .iter()
+                .any(|t| self.tags_off.contains(t) || self.tags_on.contains(t))
             || self.enable_all_by_default
             || self.min_age.contains_key(&rule.id)
     }
@@ -164,7 +167,10 @@ pub struct RuleFilter {
     pub category: Option<String>,
     /// Require all listed tags (AND). Empty = no tag filter.
     pub tags: Vec<String>,
+    pub kind: Option<JunkKind>,
     pub risk: Option<Risk>,
+    /// Exclude rules riskier than this (inclusive).
+    pub max_risk: Option<Risk>,
     /// `Some(true)` → effectively enabled only; `Some(false)` → disabled only.
     pub enabled: Option<bool>,
     pub report_only: Option<bool>,
@@ -178,7 +184,9 @@ impl Default for RuleFilter {
             query: String::new(),
             category: None,
             tags: Vec::new(),
+            kind: None,
             risk: None,
+            max_risk: None,
             enabled: None,
             report_only: None,
             host_only: true,
@@ -197,6 +205,11 @@ impl RuleFilter {
                 return false;
             }
         }
+        if let Some(kind) = self.kind {
+            if rule.kind != kind {
+                return false;
+            }
+        }
         if !self.tags.is_empty() {
             let want: BTreeSet<String> = self
                 .tags
@@ -210,6 +223,11 @@ impl RuleFilter {
         }
         if let Some(risk) = self.risk {
             if rule.risk != risk {
+                return false;
+            }
+        }
+        if let Some(max) = self.max_risk {
+            if rule.risk.rank() > max.rank() {
                 return false;
             }
         }
@@ -232,8 +250,13 @@ impl RuleFilter {
         if !q.is_empty() {
             let tag_hay = rule.tags.join(" ");
             let hay = format!(
-                "{} {} {} {} {}",
-                rule.id, rule.name, rule.category, rule.description, tag_hay
+                "{} {} {} {} {} {}",
+                rule.id,
+                rule.name,
+                rule.category,
+                rule.kind.as_str(),
+                rule.description,
+                tag_hay
             )
             .to_ascii_lowercase();
             if !hay.contains(&q) {
@@ -249,8 +272,10 @@ pub struct RuleRow {
     pub id: String,
     pub name: String,
     pub category: String,
+    pub kind: String,
     pub tags: Vec<String>,
     pub risk: String,
+    pub danger: String,
     pub platform: String,
     pub default_enabled: bool,
     pub effectively_enabled: bool,
@@ -259,6 +284,7 @@ pub struct RuleRow {
     pub min_age_days: u64,
     pub paths: Vec<String>,
     pub description: String,
+    pub details: Vec<String>,
 }
 
 #[derive(Debug, Clone)]
@@ -275,6 +301,21 @@ pub struct TagRow {
     pub total: usize,
     pub enabled: usize,
     pub policy: CategoryPolicy,
+}
+
+#[derive(Debug, Clone)]
+pub struct KindRow {
+    pub name: String,
+    pub total: usize,
+    pub enabled: usize,
+}
+
+#[derive(Debug, Clone)]
+pub struct RiskRow {
+    pub name: String,
+    pub danger: String,
+    pub total: usize,
+    pub enabled: usize,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -316,8 +357,10 @@ impl RuleManager {
                 id: r.id.clone(),
                 name: r.name.clone(),
                 category: r.category.clone(),
+                kind: r.kind.as_str().to_string(),
                 tags: r.tags.clone(),
                 risk: r.risk.as_str().to_string(),
+                danger: r.risk.danger_label().to_string(),
                 platform: r.platform.as_str().to_string(),
                 default_enabled: r.default_enabled,
                 effectively_enabled: self.prefs.is_enabled(r),
@@ -326,6 +369,7 @@ impl RuleManager {
                 min_age_days: self.prefs.min_age_for(r),
                 paths: r.paths.clone(),
                 description: r.description.clone(),
+                details: detailed_rule_description(r, self.prefs.min_age_for(r)),
             })
             .collect()
     }
@@ -396,6 +440,51 @@ impl RuleManager {
             .collect()
     }
 
+    pub fn kinds(&self, host_only: bool) -> Vec<KindRow> {
+        let mut totals: BTreeMap<&'static str, (usize, usize)> = BTreeMap::new();
+        for r in &self.pack.rules {
+            if host_only && !r.platform.matches_host() {
+                continue;
+            }
+            let e = totals.entry(r.kind.as_str()).or_insert((0, 0));
+            e.0 += 1;
+            if self.prefs.is_enabled(r) {
+                e.1 += 1;
+            }
+        }
+        totals
+            .into_iter()
+            .map(|(name, (total, enabled))| KindRow {
+                name: name.to_string(),
+                total,
+                enabled,
+            })
+            .collect()
+    }
+
+    pub fn risks(&self, host_only: bool) -> Vec<RiskRow> {
+        let mut totals: BTreeMap<Risk, (usize, usize)> = BTreeMap::new();
+        for r in &self.pack.rules {
+            if host_only && !r.platform.matches_host() {
+                continue;
+            }
+            let e = totals.entry(r.risk).or_insert((0, 0));
+            e.0 += 1;
+            if self.prefs.is_enabled(r) {
+                e.1 += 1;
+            }
+        }
+        totals
+            .into_iter()
+            .map(|(risk, (total, enabled))| RiskRow {
+                name: risk.as_str().to_string(),
+                danger: risk.danger_label().to_string(),
+                total,
+                enabled,
+            })
+            .collect()
+    }
+
     pub fn set_rule_enabled(&mut self, id: &str, enabled: bool) -> Result<()> {
         if self.pack.get(id).is_none() {
             anyhow::bail!("unknown rule id '{id}'");
@@ -436,7 +525,11 @@ impl RuleManager {
         if tag.is_empty() {
             anyhow::bail!("empty tag");
         }
-        let exists = self.pack.rules.iter().any(|r| r.tags.iter().any(|t| t == &tag));
+        let exists = self
+            .pack
+            .rules
+            .iter()
+            .any(|r| r.tags.iter().any(|t| t == &tag));
         if !exists {
             anyhow::bail!("unknown tag '{tag}'");
         }
@@ -454,10 +547,16 @@ impl RuleManager {
 
     /// Rules that should run in a junk scan under current prefs (+ optional category/tag filter).
     pub fn scan_rules(&self, categories: &[String]) -> Vec<&Rule> {
-        self.scan_rules_filtered(categories, &[])
+        self.scan_rules_filtered(categories, &[], None, None)
     }
 
-    pub fn scan_rules_filtered(&self, categories: &[String], tags: &[String]) -> Vec<&Rule> {
+    pub fn scan_rules_filtered(
+        &self,
+        categories: &[String],
+        tags: &[String],
+        kind: Option<JunkKind>,
+        max_risk: Option<Risk>,
+    ) -> Vec<&Rule> {
         let want_tags: BTreeSet<String> = tags
             .iter()
             .map(|t| crate::tags::normalize_tag(t))
@@ -469,13 +568,21 @@ impl RuleManager {
             .filter(|r| r.platform.matches_host())
             .filter(|r| self.prefs.is_enabled(r))
             .filter(|r| {
+                self.prefs.include_report_only
+                    || !(r.report_only || matches!(r.risk, Risk::ReportOnly))
+            })
+            .filter(|r| {
                 if categories.is_empty() {
                     true
                 } else {
-                    categories
-                        .iter()
-                        .any(|c| c == &r.category || c == &r.id)
+                    categories.iter().any(|c| c == &r.category || c == &r.id)
                 }
+            })
+            .filter(|r| kind.map(|k| r.kind == k).unwrap_or(true))
+            .filter(|r| {
+                max_risk
+                    .map(|max| r.risk.rank() <= max.rank())
+                    .unwrap_or(true)
             })
             .filter(|r| {
                 if want_tags.is_empty() {
@@ -504,8 +611,94 @@ impl RuleManager {
             overridden,
             categories: self.categories(true).len(),
             tags: self.tags(true).len(),
+            kinds: self.kinds(true).len(),
         }
     }
+}
+
+fn detailed_rule_description(rule: &Rule, min_age_days: u64) -> Vec<String> {
+    let report_only = rule.report_only || rule.risk == Risk::ReportOnly;
+    let action = if report_only {
+        "Action: information only. Matches cannot be selected for automatic cleanup.".to_string()
+    } else {
+        match rule.delete_mode {
+            DeleteMode::Contents => {
+                "Action: moves matching entries to Trash while preserving the configured root folder."
+                    .to_string()
+            }
+            DeleteMode::Path => {
+                "Action: moves the matched file or directory, including its contents, to Trash."
+                    .to_string()
+            }
+        }
+    };
+    let consequence = match rule.kind {
+        JunkKind::Cache | JunkKind::Browser => {
+            "After cleanup: applications may start more slowly once while caches are rebuilt."
+        }
+        JunkKind::Logs => {
+            "After cleanup: historical diagnostic logs are lost; applications continue to create new logs."
+        }
+        JunkKind::Temp => {
+            "After cleanup: stale temporary data is removed; active or recently changed entries are protected by the age rule."
+        }
+        JunkKind::Downloads | JunkKind::Packages => {
+            "After cleanup: required packages or downloads may need to be downloaded again."
+        }
+        JunkKind::Leftovers => {
+            "After cleanup: residual data from removed or changed applications is discarded."
+        }
+        JunkKind::Dev => {
+            "After cleanup: generated build/dependency artifacts must be recreated by the next build or install."
+        }
+        JunkKind::System => {
+            "After cleanup: macOS may recreate the data; protected system and user paths remain blocked."
+        }
+        JunkKind::AppData => {
+            "Warning: matches may contain application state or settings; review every path before cleanup."
+        }
+        JunkKind::Media => {
+            "Warning: matches may be previews, derived media, or original assets depending on the application."
+        }
+        JunkKind::Databases => {
+            "Warning: database matches may contain unique user data and are therefore normally report-only."
+        }
+        JunkKind::Models => {
+            "After cleanup: model files must be downloaded again before the related tool can run."
+        }
+        JunkKind::Vm => {
+            "Warning: virtual-machine data may contain complete operating systems and unique files."
+        }
+        JunkKind::Other => {
+            "After cleanup: inspect the matched path and the rule-specific description before proceeding."
+        }
+    };
+    let age = if min_age_days == 0 {
+        "Age filter: none; every matching entry is eligible.".to_string()
+    } else {
+        format!("Age filter: entries changed within the last {min_age_days} day(s) are preserved.")
+    };
+    let mut guards = Vec::new();
+    if !rule.required_ancestor_globs.is_empty() {
+        guards.push(format!(
+            "requires project marker: {}",
+            rule.required_ancestor_globs.join(", ")
+        ));
+    }
+    if !rule.exclude_globs.is_empty() {
+        guards.push(format!("{} exclusion pattern(s)", rule.exclude_globs.len()));
+    }
+    let guard_text = if guards.is_empty() {
+        format!("Scope: {} configured root path(s).", rule.paths.len())
+    } else {
+        format!(
+            "Scope: {} configured root path(s); {}.",
+            rule.paths.len(),
+            guards.join("; ")
+        )
+    };
+
+    vec![action, consequence.to_string(), age, guard_text]
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -517,4 +710,5 @@ pub struct ManagerStats {
     pub overridden: usize,
     pub categories: usize,
     pub tags: usize,
+    pub kinds: usize,
 }

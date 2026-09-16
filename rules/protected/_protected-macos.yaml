@@ -1,0 +1,4404 @@
+---
+pack: protected-macos
+description: Generated hard deletion guards; do not load as cleanup rules.
+protections:
+- id: protect-macos-1password-user-data
+  name: Protect 1password User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/1password/User Data"
+  tags:
+  - never-delete
+  - 1password
+  - user-data
+- id: protect-macos-1password-profiles
+  name: Protect 1password Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/1password/Profiles"
+  tags:
+  - never-delete
+  - 1password
+  - profiles
+- id: protect-macos-1password-databases
+  name: Protect 1password Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/1password/Databases"
+  tags:
+  - never-delete
+  - 1password
+  - databases
+- id: protect-macos-1password-local-storage
+  name: Protect 1password Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/1password/Local Storage"
+  tags:
+  - never-delete
+  - 1password
+  - local-storage
+- id: protect-macos-bitwarden-user-data
+  name: Protect bitwarden User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitwarden/User Data"
+  tags:
+  - never-delete
+  - bitwarden
+  - user-data
+- id: protect-macos-bitwarden-profiles
+  name: Protect bitwarden Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitwarden/Profiles"
+  tags:
+  - never-delete
+  - bitwarden
+  - profiles
+- id: protect-macos-bitwarden-databases
+  name: Protect bitwarden Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitwarden/Databases"
+  tags:
+  - never-delete
+  - bitwarden
+  - databases
+- id: protect-macos-bitwarden-local-storage
+  name: Protect bitwarden Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitwarden/Local Storage"
+  tags:
+  - never-delete
+  - bitwarden
+  - local-storage
+- id: protect-macos-keepassxc-user-data
+  name: Protect keepassxc User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keepassxc/User Data"
+  tags:
+  - never-delete
+  - keepassxc
+  - user-data
+- id: protect-macos-keepassxc-profiles
+  name: Protect keepassxc Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keepassxc/Profiles"
+  tags:
+  - never-delete
+  - keepassxc
+  - profiles
+- id: protect-macos-keepassxc-databases
+  name: Protect keepassxc Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keepassxc/Databases"
+  tags:
+  - never-delete
+  - keepassxc
+  - databases
+- id: protect-macos-keepassxc-local-storage
+  name: Protect keepassxc Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keepassxc/Local Storage"
+  tags:
+  - never-delete
+  - keepassxc
+  - local-storage
+- id: protect-macos-lastpass-user-data
+  name: Protect lastpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lastpass/User Data"
+  tags:
+  - never-delete
+  - lastpass
+  - user-data
+- id: protect-macos-lastpass-profiles
+  name: Protect lastpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lastpass/Profiles"
+  tags:
+  - never-delete
+  - lastpass
+  - profiles
+- id: protect-macos-lastpass-databases
+  name: Protect lastpass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lastpass/Databases"
+  tags:
+  - never-delete
+  - lastpass
+  - databases
+- id: protect-macos-lastpass-local-storage
+  name: Protect lastpass Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lastpass/Local Storage"
+  tags:
+  - never-delete
+  - lastpass
+  - local-storage
+- id: protect-macos-authy-user-data
+  name: Protect authy User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/authy/User Data"
+  tags:
+  - never-delete
+  - authy
+  - user-data
+- id: protect-macos-authy-profiles
+  name: Protect authy Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/authy/Profiles"
+  tags:
+  - never-delete
+  - authy
+  - profiles
+- id: protect-macos-authy-databases
+  name: Protect authy Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/authy/Databases"
+  tags:
+  - never-delete
+  - authy
+  - databases
+- id: protect-macos-authy-local-storage
+  name: Protect authy Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/authy/Local Storage"
+  tags:
+  - never-delete
+  - authy
+  - local-storage
+- id: protect-macos-microsoft-authenticator-user-data
+  name: Protect microsoft-authenticator User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/microsoft-authenticator/User Data"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - user-data
+- id: protect-macos-microsoft-authenticator-profiles
+  name: Protect microsoft-authenticator Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/microsoft-authenticator/Profiles"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - profiles
+- id: protect-macos-microsoft-authenticator-databases
+  name: Protect microsoft-authenticator Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/microsoft-authenticator/Databases"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - databases
+- id: protect-macos-microsoft-authenticator-local-storage
+  name: Protect microsoft-authenticator Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/microsoft-authenticator/Local Storage"
+  tags:
+  - never-delete
+  - microsoft-authenticator
+  - local-storage
+- id: protect-macos-google-authenticator-user-data
+  name: Protect google-authenticator User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-authenticator/User Data"
+  tags:
+  - never-delete
+  - google-authenticator
+  - user-data
+- id: protect-macos-google-authenticator-profiles
+  name: Protect google-authenticator Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-authenticator/Profiles"
+  tags:
+  - never-delete
+  - google-authenticator
+  - profiles
+- id: protect-macos-google-authenticator-databases
+  name: Protect google-authenticator Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-authenticator/Databases"
+  tags:
+  - never-delete
+  - google-authenticator
+  - databases
+- id: protect-macos-google-authenticator-local-storage
+  name: Protect google-authenticator Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-authenticator/Local Storage"
+  tags:
+  - never-delete
+  - google-authenticator
+  - local-storage
+- id: protect-macos-proton-pass-user-data
+  name: Protect proton-pass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-pass/User Data"
+  tags:
+  - never-delete
+  - proton-pass
+  - user-data
+- id: protect-macos-proton-pass-profiles
+  name: Protect proton-pass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-pass/Profiles"
+  tags:
+  - never-delete
+  - proton-pass
+  - profiles
+- id: protect-macos-proton-pass-databases
+  name: Protect proton-pass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-pass/Databases"
+  tags:
+  - never-delete
+  - proton-pass
+  - databases
+- id: protect-macos-proton-pass-local-storage
+  name: Protect proton-pass Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-pass/Local Storage"
+  tags:
+  - never-delete
+  - proton-pass
+  - local-storage
+- id: protect-macos-dashlane-user-data
+  name: Protect dashlane User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dashlane/User Data"
+  tags:
+  - never-delete
+  - dashlane
+  - user-data
+- id: protect-macos-dashlane-profiles
+  name: Protect dashlane Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dashlane/Profiles"
+  tags:
+  - never-delete
+  - dashlane
+  - profiles
+- id: protect-macos-dashlane-databases
+  name: Protect dashlane Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dashlane/Databases"
+  tags:
+  - never-delete
+  - dashlane
+  - databases
+- id: protect-macos-dashlane-local-storage
+  name: Protect dashlane Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dashlane/Local Storage"
+  tags:
+  - never-delete
+  - dashlane
+  - local-storage
+- id: protect-macos-nordpass-user-data
+  name: Protect nordpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nordpass/User Data"
+  tags:
+  - never-delete
+  - nordpass
+  - user-data
+- id: protect-macos-nordpass-profiles
+  name: Protect nordpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nordpass/Profiles"
+  tags:
+  - never-delete
+  - nordpass
+  - profiles
+- id: protect-macos-nordpass-databases
+  name: Protect nordpass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nordpass/Databases"
+  tags:
+  - never-delete
+  - nordpass
+  - databases
+- id: protect-macos-nordpass-local-storage
+  name: Protect nordpass Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nordpass/Local Storage"
+  tags:
+  - never-delete
+  - nordpass
+  - local-storage
+- id: protect-macos-keeper-user-data
+  name: Protect keeper User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keeper/User Data"
+  tags:
+  - never-delete
+  - keeper
+  - user-data
+- id: protect-macos-keeper-profiles
+  name: Protect keeper Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keeper/Profiles"
+  tags:
+  - never-delete
+  - keeper
+  - profiles
+- id: protect-macos-keeper-databases
+  name: Protect keeper Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keeper/Databases"
+  tags:
+  - never-delete
+  - keeper
+  - databases
+- id: protect-macos-keeper-local-storage
+  name: Protect keeper Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/keeper/Local Storage"
+  tags:
+  - never-delete
+  - keeper
+  - local-storage
+- id: protect-macos-enpass-user-data
+  name: Protect enpass User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/enpass/User Data"
+  tags:
+  - never-delete
+  - enpass
+  - user-data
+- id: protect-macos-enpass-profiles
+  name: Protect enpass Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/enpass/Profiles"
+  tags:
+  - never-delete
+  - enpass
+  - profiles
+- id: protect-macos-enpass-databases
+  name: Protect enpass Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/enpass/Databases"
+  tags:
+  - never-delete
+  - enpass
+  - databases
+- id: protect-macos-enpass-local-storage
+  name: Protect enpass Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/enpass/Local Storage"
+  tags:
+  - never-delete
+  - enpass
+  - local-storage
+- id: protect-macos-yubico-user-data
+  name: Protect yubico User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/yubico/User Data"
+  tags:
+  - never-delete
+  - yubico
+  - user-data
+- id: protect-macos-yubico-profiles
+  name: Protect yubico Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/yubico/Profiles"
+  tags:
+  - never-delete
+  - yubico
+  - profiles
+- id: protect-macos-yubico-databases
+  name: Protect yubico Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/yubico/Databases"
+  tags:
+  - never-delete
+  - yubico
+  - databases
+- id: protect-macos-yubico-local-storage
+  name: Protect yubico Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/yubico/Local Storage"
+  tags:
+  - never-delete
+  - yubico
+  - local-storage
+- id: protect-macos-electrum-user-data
+  name: Protect electrum User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/electrum/User Data"
+  tags:
+  - never-delete
+  - electrum
+  - user-data
+- id: protect-macos-electrum-profiles
+  name: Protect electrum Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/electrum/Profiles"
+  tags:
+  - never-delete
+  - electrum
+  - profiles
+- id: protect-macos-electrum-databases
+  name: Protect electrum Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/electrum/Databases"
+  tags:
+  - never-delete
+  - electrum
+  - databases
+- id: protect-macos-electrum-local-storage
+  name: Protect electrum Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/electrum/Local Storage"
+  tags:
+  - never-delete
+  - electrum
+  - local-storage
+- id: protect-macos-exodus-user-data
+  name: Protect exodus User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/exodus/User Data"
+  tags:
+  - never-delete
+  - exodus
+  - user-data
+- id: protect-macos-exodus-profiles
+  name: Protect exodus Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/exodus/Profiles"
+  tags:
+  - never-delete
+  - exodus
+  - profiles
+- id: protect-macos-exodus-databases
+  name: Protect exodus Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/exodus/Databases"
+  tags:
+  - never-delete
+  - exodus
+  - databases
+- id: protect-macos-exodus-local-storage
+  name: Protect exodus Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/exodus/Local Storage"
+  tags:
+  - never-delete
+  - exodus
+  - local-storage
+- id: protect-macos-metamask-user-data
+  name: Protect metamask User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/metamask/User Data"
+  tags:
+  - never-delete
+  - metamask
+  - user-data
+- id: protect-macos-metamask-profiles
+  name: Protect metamask Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/metamask/Profiles"
+  tags:
+  - never-delete
+  - metamask
+  - profiles
+- id: protect-macos-metamask-databases
+  name: Protect metamask Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/metamask/Databases"
+  tags:
+  - never-delete
+  - metamask
+  - databases
+- id: protect-macos-metamask-local-storage
+  name: Protect metamask Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/metamask/Local Storage"
+  tags:
+  - never-delete
+  - metamask
+  - local-storage
+- id: protect-macos-ledger-live-user-data
+  name: Protect ledger-live User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ledger-live/User Data"
+  tags:
+  - never-delete
+  - ledger-live
+  - user-data
+- id: protect-macos-ledger-live-profiles
+  name: Protect ledger-live Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ledger-live/Profiles"
+  tags:
+  - never-delete
+  - ledger-live
+  - profiles
+- id: protect-macos-ledger-live-databases
+  name: Protect ledger-live Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ledger-live/Databases"
+  tags:
+  - never-delete
+  - ledger-live
+  - databases
+- id: protect-macos-ledger-live-local-storage
+  name: Protect ledger-live Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ledger-live/Local Storage"
+  tags:
+  - never-delete
+  - ledger-live
+  - local-storage
+- id: protect-macos-trezor-suite-user-data
+  name: Protect trezor-suite User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/trezor-suite/User Data"
+  tags:
+  - never-delete
+  - trezor-suite
+  - user-data
+- id: protect-macos-trezor-suite-profiles
+  name: Protect trezor-suite Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/trezor-suite/Profiles"
+  tags:
+  - never-delete
+  - trezor-suite
+  - profiles
+- id: protect-macos-trezor-suite-databases
+  name: Protect trezor-suite Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/trezor-suite/Databases"
+  tags:
+  - never-delete
+  - trezor-suite
+  - databases
+- id: protect-macos-trezor-suite-local-storage
+  name: Protect trezor-suite Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/trezor-suite/Local Storage"
+  tags:
+  - never-delete
+  - trezor-suite
+  - local-storage
+- id: protect-macos-phantom-user-data
+  name: Protect phantom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/phantom/User Data"
+  tags:
+  - never-delete
+  - phantom
+  - user-data
+- id: protect-macos-phantom-profiles
+  name: Protect phantom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/phantom/Profiles"
+  tags:
+  - never-delete
+  - phantom
+  - profiles
+- id: protect-macos-phantom-databases
+  name: Protect phantom Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/phantom/Databases"
+  tags:
+  - never-delete
+  - phantom
+  - databases
+- id: protect-macos-phantom-local-storage
+  name: Protect phantom Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/phantom/Local Storage"
+  tags:
+  - never-delete
+  - phantom
+  - local-storage
+- id: protect-macos-solflare-user-data
+  name: Protect solflare User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/solflare/User Data"
+  tags:
+  - never-delete
+  - solflare
+  - user-data
+- id: protect-macos-solflare-profiles
+  name: Protect solflare Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/solflare/Profiles"
+  tags:
+  - never-delete
+  - solflare
+  - profiles
+- id: protect-macos-solflare-databases
+  name: Protect solflare Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/solflare/Databases"
+  tags:
+  - never-delete
+  - solflare
+  - databases
+- id: protect-macos-solflare-local-storage
+  name: Protect solflare Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/solflare/Local Storage"
+  tags:
+  - never-delete
+  - solflare
+  - local-storage
+- id: protect-macos-sparrow-wallet-user-data
+  name: Protect sparrow-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sparrow-wallet/User Data"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - user-data
+- id: protect-macos-sparrow-wallet-profiles
+  name: Protect sparrow-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sparrow-wallet/Profiles"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - profiles
+- id: protect-macos-sparrow-wallet-databases
+  name: Protect sparrow-wallet Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sparrow-wallet/Databases"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - databases
+- id: protect-macos-sparrow-wallet-local-storage
+  name: Protect sparrow-wallet Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sparrow-wallet/Local Storage"
+  tags:
+  - never-delete
+  - sparrow-wallet
+  - local-storage
+- id: protect-macos-wasabi-wallet-user-data
+  name: Protect wasabi-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/wasabi-wallet/User Data"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - user-data
+- id: protect-macos-wasabi-wallet-profiles
+  name: Protect wasabi-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/wasabi-wallet/Profiles"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - profiles
+- id: protect-macos-wasabi-wallet-databases
+  name: Protect wasabi-wallet Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/wasabi-wallet/Databases"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - databases
+- id: protect-macos-wasabi-wallet-local-storage
+  name: Protect wasabi-wallet Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/wasabi-wallet/Local Storage"
+  tags:
+  - never-delete
+  - wasabi-wallet
+  - local-storage
+- id: protect-macos-monero-wallet-user-data
+  name: Protect monero-wallet User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/monero-wallet/User Data"
+  tags:
+  - never-delete
+  - monero-wallet
+  - user-data
+- id: protect-macos-monero-wallet-profiles
+  name: Protect monero-wallet Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/monero-wallet/Profiles"
+  tags:
+  - never-delete
+  - monero-wallet
+  - profiles
+- id: protect-macos-monero-wallet-databases
+  name: Protect monero-wallet Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/monero-wallet/Databases"
+  tags:
+  - never-delete
+  - monero-wallet
+  - databases
+- id: protect-macos-monero-wallet-local-storage
+  name: Protect monero-wallet Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/monero-wallet/Local Storage"
+  tags:
+  - never-delete
+  - monero-wallet
+  - local-storage
+- id: protect-macos-bitcoin-core-user-data
+  name: Protect bitcoin-core User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitcoin-core/User Data"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - user-data
+- id: protect-macos-bitcoin-core-profiles
+  name: Protect bitcoin-core Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitcoin-core/Profiles"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - profiles
+- id: protect-macos-bitcoin-core-databases
+  name: Protect bitcoin-core Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitcoin-core/Databases"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - databases
+- id: protect-macos-bitcoin-core-local-storage
+  name: Protect bitcoin-core Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bitcoin-core/Local Storage"
+  tags:
+  - never-delete
+  - bitcoin-core
+  - local-storage
+- id: protect-macos-ethereum-user-data
+  name: Protect ethereum User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ethereum/User Data"
+  tags:
+  - never-delete
+  - ethereum
+  - user-data
+- id: protect-macos-ethereum-profiles
+  name: Protect ethereum Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ethereum/Profiles"
+  tags:
+  - never-delete
+  - ethereum
+  - profiles
+- id: protect-macos-ethereum-databases
+  name: Protect ethereum Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ethereum/Databases"
+  tags:
+  - never-delete
+  - ethereum
+  - databases
+- id: protect-macos-ethereum-local-storage
+  name: Protect ethereum Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ethereum/Local Storage"
+  tags:
+  - never-delete
+  - ethereum
+  - local-storage
+- id: protect-macos-chrome-user-data
+  name: Protect chrome User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chrome/User Data"
+  tags:
+  - never-delete
+  - chrome
+  - user-data
+- id: protect-macos-chrome-profiles
+  name: Protect chrome Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chrome/Profiles"
+  tags:
+  - never-delete
+  - chrome
+  - profiles
+- id: protect-macos-chrome-databases
+  name: Protect chrome Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chrome/Databases"
+  tags:
+  - never-delete
+  - chrome
+  - databases
+- id: protect-macos-chrome-local-storage
+  name: Protect chrome Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chrome/Local Storage"
+  tags:
+  - never-delete
+  - chrome
+  - local-storage
+- id: protect-macos-chromium-user-data
+  name: Protect chromium User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chromium/User Data"
+  tags:
+  - never-delete
+  - chromium
+  - user-data
+- id: protect-macos-chromium-profiles
+  name: Protect chromium Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chromium/Profiles"
+  tags:
+  - never-delete
+  - chromium
+  - profiles
+- id: protect-macos-chromium-databases
+  name: Protect chromium Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chromium/Databases"
+  tags:
+  - never-delete
+  - chromium
+  - databases
+- id: protect-macos-chromium-local-storage
+  name: Protect chromium Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/chromium/Local Storage"
+  tags:
+  - never-delete
+  - chromium
+  - local-storage
+- id: protect-macos-firefox-user-data
+  name: Protect firefox User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/firefox/User Data"
+  tags:
+  - never-delete
+  - firefox
+  - user-data
+- id: protect-macos-firefox-profiles
+  name: Protect firefox Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/firefox/Profiles"
+  tags:
+  - never-delete
+  - firefox
+  - profiles
+- id: protect-macos-firefox-databases
+  name: Protect firefox Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/firefox/Databases"
+  tags:
+  - never-delete
+  - firefox
+  - databases
+- id: protect-macos-firefox-local-storage
+  name: Protect firefox Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/firefox/Local Storage"
+  tags:
+  - never-delete
+  - firefox
+  - local-storage
+- id: protect-macos-safari-user-data
+  name: Protect safari User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/safari/User Data"
+  tags:
+  - never-delete
+  - safari
+  - user-data
+- id: protect-macos-safari-profiles
+  name: Protect safari Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/safari/Profiles"
+  tags:
+  - never-delete
+  - safari
+  - profiles
+- id: protect-macos-safari-databases
+  name: Protect safari Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/safari/Databases"
+  tags:
+  - never-delete
+  - safari
+  - databases
+- id: protect-macos-safari-local-storage
+  name: Protect safari Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/safari/Local Storage"
+  tags:
+  - never-delete
+  - safari
+  - local-storage
+- id: protect-macos-edge-user-data
+  name: Protect edge User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/edge/User Data"
+  tags:
+  - never-delete
+  - edge
+  - user-data
+- id: protect-macos-edge-profiles
+  name: Protect edge Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/edge/Profiles"
+  tags:
+  - never-delete
+  - edge
+  - profiles
+- id: protect-macos-edge-databases
+  name: Protect edge Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/edge/Databases"
+  tags:
+  - never-delete
+  - edge
+  - databases
+- id: protect-macos-edge-local-storage
+  name: Protect edge Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/edge/Local Storage"
+  tags:
+  - never-delete
+  - edge
+  - local-storage
+- id: protect-macos-brave-user-data
+  name: Protect brave User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/brave/User Data"
+  tags:
+  - never-delete
+  - brave
+  - user-data
+- id: protect-macos-brave-profiles
+  name: Protect brave Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/brave/Profiles"
+  tags:
+  - never-delete
+  - brave
+  - profiles
+- id: protect-macos-brave-databases
+  name: Protect brave Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/brave/Databases"
+  tags:
+  - never-delete
+  - brave
+  - databases
+- id: protect-macos-brave-local-storage
+  name: Protect brave Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/brave/Local Storage"
+  tags:
+  - never-delete
+  - brave
+  - local-storage
+- id: protect-macos-vivaldi-user-data
+  name: Protect vivaldi User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vivaldi/User Data"
+  tags:
+  - never-delete
+  - vivaldi
+  - user-data
+- id: protect-macos-vivaldi-profiles
+  name: Protect vivaldi Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vivaldi/Profiles"
+  tags:
+  - never-delete
+  - vivaldi
+  - profiles
+- id: protect-macos-vivaldi-databases
+  name: Protect vivaldi Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vivaldi/Databases"
+  tags:
+  - never-delete
+  - vivaldi
+  - databases
+- id: protect-macos-vivaldi-local-storage
+  name: Protect vivaldi Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vivaldi/Local Storage"
+  tags:
+  - never-delete
+  - vivaldi
+  - local-storage
+- id: protect-macos-opera-user-data
+  name: Protect opera User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/opera/User Data"
+  tags:
+  - never-delete
+  - opera
+  - user-data
+- id: protect-macos-opera-profiles
+  name: Protect opera Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/opera/Profiles"
+  tags:
+  - never-delete
+  - opera
+  - profiles
+- id: protect-macos-opera-databases
+  name: Protect opera Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/opera/Databases"
+  tags:
+  - never-delete
+  - opera
+  - databases
+- id: protect-macos-opera-local-storage
+  name: Protect opera Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/opera/Local Storage"
+  tags:
+  - never-delete
+  - opera
+  - local-storage
+- id: protect-macos-tor-browser-user-data
+  name: Protect tor-browser User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tor-browser/User Data"
+  tags:
+  - never-delete
+  - tor-browser
+  - user-data
+- id: protect-macos-tor-browser-profiles
+  name: Protect tor-browser Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tor-browser/Profiles"
+  tags:
+  - never-delete
+  - tor-browser
+  - profiles
+- id: protect-macos-tor-browser-databases
+  name: Protect tor-browser Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tor-browser/Databases"
+  tags:
+  - never-delete
+  - tor-browser
+  - databases
+- id: protect-macos-tor-browser-local-storage
+  name: Protect tor-browser Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tor-browser/Local Storage"
+  tags:
+  - never-delete
+  - tor-browser
+  - local-storage
+- id: protect-macos-arc-user-data
+  name: Protect arc User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/arc/User Data"
+  tags:
+  - never-delete
+  - arc
+  - user-data
+- id: protect-macos-arc-profiles
+  name: Protect arc Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/arc/Profiles"
+  tags:
+  - never-delete
+  - arc
+  - profiles
+- id: protect-macos-arc-databases
+  name: Protect arc Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/arc/Databases"
+  tags:
+  - never-delete
+  - arc
+  - databases
+- id: protect-macos-arc-local-storage
+  name: Protect arc Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/arc/Local Storage"
+  tags:
+  - never-delete
+  - arc
+  - local-storage
+- id: protect-macos-thunderbird-user-data
+  name: Protect thunderbird User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/thunderbird/User Data"
+  tags:
+  - never-delete
+  - thunderbird
+  - user-data
+- id: protect-macos-thunderbird-profiles
+  name: Protect thunderbird Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/thunderbird/Profiles"
+  tags:
+  - never-delete
+  - thunderbird
+  - profiles
+- id: protect-macos-thunderbird-databases
+  name: Protect thunderbird Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/thunderbird/Databases"
+  tags:
+  - never-delete
+  - thunderbird
+  - databases
+- id: protect-macos-thunderbird-local-storage
+  name: Protect thunderbird Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/thunderbird/Local Storage"
+  tags:
+  - never-delete
+  - thunderbird
+  - local-storage
+- id: protect-macos-outlook-user-data
+  name: Protect outlook User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/outlook/User Data"
+  tags:
+  - never-delete
+  - outlook
+  - user-data
+- id: protect-macos-outlook-profiles
+  name: Protect outlook Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/outlook/Profiles"
+  tags:
+  - never-delete
+  - outlook
+  - profiles
+- id: protect-macos-outlook-databases
+  name: Protect outlook Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/outlook/Databases"
+  tags:
+  - never-delete
+  - outlook
+  - databases
+- id: protect-macos-outlook-local-storage
+  name: Protect outlook Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/outlook/Local Storage"
+  tags:
+  - never-delete
+  - outlook
+  - local-storage
+- id: protect-macos-proton-mail-user-data
+  name: Protect proton-mail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-mail/User Data"
+  tags:
+  - never-delete
+  - proton-mail
+  - user-data
+- id: protect-macos-proton-mail-profiles
+  name: Protect proton-mail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-mail/Profiles"
+  tags:
+  - never-delete
+  - proton-mail
+  - profiles
+- id: protect-macos-proton-mail-databases
+  name: Protect proton-mail Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-mail/Databases"
+  tags:
+  - never-delete
+  - proton-mail
+  - databases
+- id: protect-macos-proton-mail-local-storage
+  name: Protect proton-mail Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/proton-mail/Local Storage"
+  tags:
+  - never-delete
+  - proton-mail
+  - local-storage
+- id: protect-macos-mailbird-user-data
+  name: Protect mailbird User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailbird/User Data"
+  tags:
+  - never-delete
+  - mailbird
+  - user-data
+- id: protect-macos-mailbird-profiles
+  name: Protect mailbird Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailbird/Profiles"
+  tags:
+  - never-delete
+  - mailbird
+  - profiles
+- id: protect-macos-mailbird-databases
+  name: Protect mailbird Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailbird/Databases"
+  tags:
+  - never-delete
+  - mailbird
+  - databases
+- id: protect-macos-mailbird-local-storage
+  name: Protect mailbird Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailbird/Local Storage"
+  tags:
+  - never-delete
+  - mailbird
+  - local-storage
+- id: protect-macos-spark-mail-user-data
+  name: Protect spark-mail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/spark-mail/User Data"
+  tags:
+  - never-delete
+  - spark-mail
+  - user-data
+- id: protect-macos-spark-mail-profiles
+  name: Protect spark-mail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/spark-mail/Profiles"
+  tags:
+  - never-delete
+  - spark-mail
+  - profiles
+- id: protect-macos-spark-mail-databases
+  name: Protect spark-mail Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/spark-mail/Databases"
+  tags:
+  - never-delete
+  - spark-mail
+  - databases
+- id: protect-macos-spark-mail-local-storage
+  name: Protect spark-mail Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/spark-mail/Local Storage"
+  tags:
+  - never-delete
+  - spark-mail
+  - local-storage
+- id: protect-macos-airmail-user-data
+  name: Protect airmail User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/airmail/User Data"
+  tags:
+  - never-delete
+  - airmail
+  - user-data
+- id: protect-macos-airmail-profiles
+  name: Protect airmail Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/airmail/Profiles"
+  tags:
+  - never-delete
+  - airmail
+  - profiles
+- id: protect-macos-airmail-databases
+  name: Protect airmail Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/airmail/Databases"
+  tags:
+  - never-delete
+  - airmail
+  - databases
+- id: protect-macos-airmail-local-storage
+  name: Protect airmail Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/airmail/Local Storage"
+  tags:
+  - never-delete
+  - airmail
+  - local-storage
+- id: protect-macos-mailspring-user-data
+  name: Protect mailspring User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailspring/User Data"
+  tags:
+  - never-delete
+  - mailspring
+  - user-data
+- id: protect-macos-mailspring-profiles
+  name: Protect mailspring Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailspring/Profiles"
+  tags:
+  - never-delete
+  - mailspring
+  - profiles
+- id: protect-macos-mailspring-databases
+  name: Protect mailspring Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailspring/Databases"
+  tags:
+  - never-delete
+  - mailspring
+  - databases
+- id: protect-macos-mailspring-local-storage
+  name: Protect mailspring Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/mailspring/Local Storage"
+  tags:
+  - never-delete
+  - mailspring
+  - local-storage
+- id: protect-macos-signal-user-data
+  name: Protect signal User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/signal/User Data"
+  tags:
+  - never-delete
+  - signal
+  - user-data
+- id: protect-macos-signal-profiles
+  name: Protect signal Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/signal/Profiles"
+  tags:
+  - never-delete
+  - signal
+  - profiles
+- id: protect-macos-signal-databases
+  name: Protect signal Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/signal/Databases"
+  tags:
+  - never-delete
+  - signal
+  - databases
+- id: protect-macos-signal-local-storage
+  name: Protect signal Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/signal/Local Storage"
+  tags:
+  - never-delete
+  - signal
+  - local-storage
+- id: protect-macos-telegram-user-data
+  name: Protect telegram User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/telegram/User Data"
+  tags:
+  - never-delete
+  - telegram
+  - user-data
+- id: protect-macos-telegram-profiles
+  name: Protect telegram Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/telegram/Profiles"
+  tags:
+  - never-delete
+  - telegram
+  - profiles
+- id: protect-macos-telegram-databases
+  name: Protect telegram Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/telegram/Databases"
+  tags:
+  - never-delete
+  - telegram
+  - databases
+- id: protect-macos-telegram-local-storage
+  name: Protect telegram Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/telegram/Local Storage"
+  tags:
+  - never-delete
+  - telegram
+  - local-storage
+- id: protect-macos-whatsapp-user-data
+  name: Protect whatsapp User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/whatsapp/User Data"
+  tags:
+  - never-delete
+  - whatsapp
+  - user-data
+- id: protect-macos-whatsapp-profiles
+  name: Protect whatsapp Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/whatsapp/Profiles"
+  tags:
+  - never-delete
+  - whatsapp
+  - profiles
+- id: protect-macos-whatsapp-databases
+  name: Protect whatsapp Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/whatsapp/Databases"
+  tags:
+  - never-delete
+  - whatsapp
+  - databases
+- id: protect-macos-whatsapp-local-storage
+  name: Protect whatsapp Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/whatsapp/Local Storage"
+  tags:
+  - never-delete
+  - whatsapp
+  - local-storage
+- id: protect-macos-element-user-data
+  name: Protect element User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/element/User Data"
+  tags:
+  - never-delete
+  - element
+  - user-data
+- id: protect-macos-element-profiles
+  name: Protect element Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/element/Profiles"
+  tags:
+  - never-delete
+  - element
+  - profiles
+- id: protect-macos-element-databases
+  name: Protect element Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/element/Databases"
+  tags:
+  - never-delete
+  - element
+  - databases
+- id: protect-macos-element-local-storage
+  name: Protect element Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/element/Local Storage"
+  tags:
+  - never-delete
+  - element
+  - local-storage
+- id: protect-macos-discord-user-data
+  name: Protect discord User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/discord/User Data"
+  tags:
+  - never-delete
+  - discord
+  - user-data
+- id: protect-macos-discord-profiles
+  name: Protect discord Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/discord/Profiles"
+  tags:
+  - never-delete
+  - discord
+  - profiles
+- id: protect-macos-discord-databases
+  name: Protect discord Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/discord/Databases"
+  tags:
+  - never-delete
+  - discord
+  - databases
+- id: protect-macos-discord-local-storage
+  name: Protect discord Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/discord/Local Storage"
+  tags:
+  - never-delete
+  - discord
+  - local-storage
+- id: protect-macos-slack-user-data
+  name: Protect slack User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/slack/User Data"
+  tags:
+  - never-delete
+  - slack
+  - user-data
+- id: protect-macos-slack-profiles
+  name: Protect slack Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/slack/Profiles"
+  tags:
+  - never-delete
+  - slack
+  - profiles
+- id: protect-macos-slack-databases
+  name: Protect slack Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/slack/Databases"
+  tags:
+  - never-delete
+  - slack
+  - databases
+- id: protect-macos-slack-local-storage
+  name: Protect slack Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/slack/Local Storage"
+  tags:
+  - never-delete
+  - slack
+  - local-storage
+- id: protect-macos-teams-user-data
+  name: Protect teams User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/teams/User Data"
+  tags:
+  - never-delete
+  - teams
+  - user-data
+- id: protect-macos-teams-profiles
+  name: Protect teams Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/teams/Profiles"
+  tags:
+  - never-delete
+  - teams
+  - profiles
+- id: protect-macos-teams-databases
+  name: Protect teams Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/teams/Databases"
+  tags:
+  - never-delete
+  - teams
+  - databases
+- id: protect-macos-teams-local-storage
+  name: Protect teams Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/teams/Local Storage"
+  tags:
+  - never-delete
+  - teams
+  - local-storage
+- id: protect-macos-zoom-user-data
+  name: Protect zoom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zoom/User Data"
+  tags:
+  - never-delete
+  - zoom
+  - user-data
+- id: protect-macos-zoom-profiles
+  name: Protect zoom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zoom/Profiles"
+  tags:
+  - never-delete
+  - zoom
+  - profiles
+- id: protect-macos-zoom-databases
+  name: Protect zoom Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zoom/Databases"
+  tags:
+  - never-delete
+  - zoom
+  - databases
+- id: protect-macos-zoom-local-storage
+  name: Protect zoom Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zoom/Local Storage"
+  tags:
+  - never-delete
+  - zoom
+  - local-storage
+- id: protect-macos-skype-user-data
+  name: Protect skype User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/skype/User Data"
+  tags:
+  - never-delete
+  - skype
+  - user-data
+- id: protect-macos-skype-profiles
+  name: Protect skype Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/skype/Profiles"
+  tags:
+  - never-delete
+  - skype
+  - profiles
+- id: protect-macos-skype-databases
+  name: Protect skype Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/skype/Databases"
+  tags:
+  - never-delete
+  - skype
+  - databases
+- id: protect-macos-skype-local-storage
+  name: Protect skype Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/skype/Local Storage"
+  tags:
+  - never-delete
+  - skype
+  - local-storage
+- id: protect-macos-messages-user-data
+  name: Protect messages User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/messages/User Data"
+  tags:
+  - never-delete
+  - messages
+  - user-data
+- id: protect-macos-messages-profiles
+  name: Protect messages Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/messages/Profiles"
+  tags:
+  - never-delete
+  - messages
+  - profiles
+- id: protect-macos-messages-databases
+  name: Protect messages Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/messages/Databases"
+  tags:
+  - never-delete
+  - messages
+  - databases
+- id: protect-macos-messages-local-storage
+  name: Protect messages Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/messages/Local Storage"
+  tags:
+  - never-delete
+  - messages
+  - local-storage
+- id: protect-macos-facetime-user-data
+  name: Protect facetime User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/facetime/User Data"
+  tags:
+  - never-delete
+  - facetime
+  - user-data
+- id: protect-macos-facetime-profiles
+  name: Protect facetime Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/facetime/Profiles"
+  tags:
+  - never-delete
+  - facetime
+  - profiles
+- id: protect-macos-facetime-databases
+  name: Protect facetime Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/facetime/Databases"
+  tags:
+  - never-delete
+  - facetime
+  - databases
+- id: protect-macos-facetime-local-storage
+  name: Protect facetime Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/facetime/Local Storage"
+  tags:
+  - never-delete
+  - facetime
+  - local-storage
+- id: protect-macos-contacts-user-data
+  name: Protect contacts User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/contacts/User Data"
+  tags:
+  - never-delete
+  - contacts
+  - user-data
+- id: protect-macos-contacts-profiles
+  name: Protect contacts Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/contacts/Profiles"
+  tags:
+  - never-delete
+  - contacts
+  - profiles
+- id: protect-macos-contacts-databases
+  name: Protect contacts Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/contacts/Databases"
+  tags:
+  - never-delete
+  - contacts
+  - databases
+- id: protect-macos-contacts-local-storage
+  name: Protect contacts Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/contacts/Local Storage"
+  tags:
+  - never-delete
+  - contacts
+  - local-storage
+- id: protect-macos-calendars-user-data
+  name: Protect calendars User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/calendars/User Data"
+  tags:
+  - never-delete
+  - calendars
+  - user-data
+- id: protect-macos-calendars-profiles
+  name: Protect calendars Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/calendars/Profiles"
+  tags:
+  - never-delete
+  - calendars
+  - profiles
+- id: protect-macos-calendars-databases
+  name: Protect calendars Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/calendars/Databases"
+  tags:
+  - never-delete
+  - calendars
+  - databases
+- id: protect-macos-calendars-local-storage
+  name: Protect calendars Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/calendars/Local Storage"
+  tags:
+  - never-delete
+  - calendars
+  - local-storage
+- id: protect-macos-reminders-user-data
+  name: Protect reminders User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/reminders/User Data"
+  tags:
+  - never-delete
+  - reminders
+  - user-data
+- id: protect-macos-reminders-profiles
+  name: Protect reminders Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/reminders/Profiles"
+  tags:
+  - never-delete
+  - reminders
+  - profiles
+- id: protect-macos-reminders-databases
+  name: Protect reminders Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/reminders/Databases"
+  tags:
+  - never-delete
+  - reminders
+  - databases
+- id: protect-macos-reminders-local-storage
+  name: Protect reminders Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/reminders/Local Storage"
+  tags:
+  - never-delete
+  - reminders
+  - local-storage
+- id: protect-macos-notes-user-data
+  name: Protect notes User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notes/User Data"
+  tags:
+  - never-delete
+  - notes
+  - user-data
+- id: protect-macos-notes-profiles
+  name: Protect notes Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notes/Profiles"
+  tags:
+  - never-delete
+  - notes
+  - profiles
+- id: protect-macos-notes-databases
+  name: Protect notes Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notes/Databases"
+  tags:
+  - never-delete
+  - notes
+  - databases
+- id: protect-macos-notes-local-storage
+  name: Protect notes Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notes/Local Storage"
+  tags:
+  - never-delete
+  - notes
+  - local-storage
+- id: protect-macos-notion-user-data
+  name: Protect notion User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notion/User Data"
+  tags:
+  - never-delete
+  - notion
+  - user-data
+- id: protect-macos-notion-profiles
+  name: Protect notion Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notion/Profiles"
+  tags:
+  - never-delete
+  - notion
+  - profiles
+- id: protect-macos-notion-databases
+  name: Protect notion Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notion/Databases"
+  tags:
+  - never-delete
+  - notion
+  - databases
+- id: protect-macos-notion-local-storage
+  name: Protect notion Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/notion/Local Storage"
+  tags:
+  - never-delete
+  - notion
+  - local-storage
+- id: protect-macos-obsidian-user-data
+  name: Protect obsidian User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/obsidian/User Data"
+  tags:
+  - never-delete
+  - obsidian
+  - user-data
+- id: protect-macos-obsidian-profiles
+  name: Protect obsidian Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/obsidian/Profiles"
+  tags:
+  - never-delete
+  - obsidian
+  - profiles
+- id: protect-macos-obsidian-databases
+  name: Protect obsidian Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/obsidian/Databases"
+  tags:
+  - never-delete
+  - obsidian
+  - databases
+- id: protect-macos-obsidian-local-storage
+  name: Protect obsidian Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/obsidian/Local Storage"
+  tags:
+  - never-delete
+  - obsidian
+  - local-storage
+- id: protect-macos-evernote-user-data
+  name: Protect evernote User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/evernote/User Data"
+  tags:
+  - never-delete
+  - evernote
+  - user-data
+- id: protect-macos-evernote-profiles
+  name: Protect evernote Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/evernote/Profiles"
+  tags:
+  - never-delete
+  - evernote
+  - profiles
+- id: protect-macos-evernote-databases
+  name: Protect evernote Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/evernote/Databases"
+  tags:
+  - never-delete
+  - evernote
+  - databases
+- id: protect-macos-evernote-local-storage
+  name: Protect evernote Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/evernote/Local Storage"
+  tags:
+  - never-delete
+  - evernote
+  - local-storage
+- id: protect-macos-onenote-user-data
+  name: Protect onenote User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onenote/User Data"
+  tags:
+  - never-delete
+  - onenote
+  - user-data
+- id: protect-macos-onenote-profiles
+  name: Protect onenote Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onenote/Profiles"
+  tags:
+  - never-delete
+  - onenote
+  - profiles
+- id: protect-macos-onenote-databases
+  name: Protect onenote Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onenote/Databases"
+  tags:
+  - never-delete
+  - onenote
+  - databases
+- id: protect-macos-onenote-local-storage
+  name: Protect onenote Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onenote/Local Storage"
+  tags:
+  - never-delete
+  - onenote
+  - local-storage
+- id: protect-macos-bear-user-data
+  name: Protect bear User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bear/User Data"
+  tags:
+  - never-delete
+  - bear
+  - user-data
+- id: protect-macos-bear-profiles
+  name: Protect bear Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bear/Profiles"
+  tags:
+  - never-delete
+  - bear
+  - profiles
+- id: protect-macos-bear-databases
+  name: Protect bear Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bear/Databases"
+  tags:
+  - never-delete
+  - bear
+  - databases
+- id: protect-macos-bear-local-storage
+  name: Protect bear Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/bear/Local Storage"
+  tags:
+  - never-delete
+  - bear
+  - local-storage
+- id: protect-macos-craft-user-data
+  name: Protect craft User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/craft/User Data"
+  tags:
+  - never-delete
+  - craft
+  - user-data
+- id: protect-macos-craft-profiles
+  name: Protect craft Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/craft/Profiles"
+  tags:
+  - never-delete
+  - craft
+  - profiles
+- id: protect-macos-craft-databases
+  name: Protect craft Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/craft/Databases"
+  tags:
+  - never-delete
+  - craft
+  - databases
+- id: protect-macos-craft-local-storage
+  name: Protect craft Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/craft/Local Storage"
+  tags:
+  - never-delete
+  - craft
+  - local-storage
+- id: protect-macos-todoist-user-data
+  name: Protect todoist User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/todoist/User Data"
+  tags:
+  - never-delete
+  - todoist
+  - user-data
+- id: protect-macos-todoist-profiles
+  name: Protect todoist Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/todoist/Profiles"
+  tags:
+  - never-delete
+  - todoist
+  - profiles
+- id: protect-macos-todoist-databases
+  name: Protect todoist Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/todoist/Databases"
+  tags:
+  - never-delete
+  - todoist
+  - databases
+- id: protect-macos-todoist-local-storage
+  name: Protect todoist Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/todoist/Local Storage"
+  tags:
+  - never-delete
+  - todoist
+  - local-storage
+- id: protect-macos-things-user-data
+  name: Protect things User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/things/User Data"
+  tags:
+  - never-delete
+  - things
+  - user-data
+- id: protect-macos-things-profiles
+  name: Protect things Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/things/Profiles"
+  tags:
+  - never-delete
+  - things
+  - profiles
+- id: protect-macos-things-databases
+  name: Protect things Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/things/Databases"
+  tags:
+  - never-delete
+  - things
+  - databases
+- id: protect-macos-things-local-storage
+  name: Protect things Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/things/Local Storage"
+  tags:
+  - never-delete
+  - things
+  - local-storage
+- id: protect-macos-omnifocus-user-data
+  name: Protect omnifocus User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/omnifocus/User Data"
+  tags:
+  - never-delete
+  - omnifocus
+  - user-data
+- id: protect-macos-omnifocus-profiles
+  name: Protect omnifocus Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/omnifocus/Profiles"
+  tags:
+  - never-delete
+  - omnifocus
+  - profiles
+- id: protect-macos-omnifocus-databases
+  name: Protect omnifocus Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/omnifocus/Databases"
+  tags:
+  - never-delete
+  - omnifocus
+  - databases
+- id: protect-macos-omnifocus-local-storage
+  name: Protect omnifocus Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/omnifocus/Local Storage"
+  tags:
+  - never-delete
+  - omnifocus
+  - local-storage
+- id: protect-macos-logseq-user-data
+  name: Protect logseq User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logseq/User Data"
+  tags:
+  - never-delete
+  - logseq
+  - user-data
+- id: protect-macos-logseq-profiles
+  name: Protect logseq Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logseq/Profiles"
+  tags:
+  - never-delete
+  - logseq
+  - profiles
+- id: protect-macos-logseq-databases
+  name: Protect logseq Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logseq/Databases"
+  tags:
+  - never-delete
+  - logseq
+  - databases
+- id: protect-macos-logseq-local-storage
+  name: Protect logseq Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logseq/Local Storage"
+  tags:
+  - never-delete
+  - logseq
+  - local-storage
+- id: protect-macos-roam-user-data
+  name: Protect roam User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/roam/User Data"
+  tags:
+  - never-delete
+  - roam
+  - user-data
+- id: protect-macos-roam-profiles
+  name: Protect roam Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/roam/Profiles"
+  tags:
+  - never-delete
+  - roam
+  - profiles
+- id: protect-macos-roam-databases
+  name: Protect roam Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/roam/Databases"
+  tags:
+  - never-delete
+  - roam
+  - databases
+- id: protect-macos-roam-local-storage
+  name: Protect roam Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/roam/Local Storage"
+  tags:
+  - never-delete
+  - roam
+  - local-storage
+- id: protect-macos-vscode-user-data
+  name: Protect vscode User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vscode/User Data"
+  tags:
+  - never-delete
+  - vscode
+  - user-data
+- id: protect-macos-vscode-profiles
+  name: Protect vscode Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vscode/Profiles"
+  tags:
+  - never-delete
+  - vscode
+  - profiles
+- id: protect-macos-vscode-databases
+  name: Protect vscode Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vscode/Databases"
+  tags:
+  - never-delete
+  - vscode
+  - databases
+- id: protect-macos-vscode-local-storage
+  name: Protect vscode Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/vscode/Local Storage"
+  tags:
+  - never-delete
+  - vscode
+  - local-storage
+- id: protect-macos-cursor-user-data
+  name: Protect cursor User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/cursor/User Data"
+  tags:
+  - never-delete
+  - cursor
+  - user-data
+- id: protect-macos-cursor-profiles
+  name: Protect cursor Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/cursor/Profiles"
+  tags:
+  - never-delete
+  - cursor
+  - profiles
+- id: protect-macos-cursor-databases
+  name: Protect cursor Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/cursor/Databases"
+  tags:
+  - never-delete
+  - cursor
+  - databases
+- id: protect-macos-cursor-local-storage
+  name: Protect cursor Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/cursor/Local Storage"
+  tags:
+  - never-delete
+  - cursor
+  - local-storage
+- id: protect-macos-zed-user-data
+  name: Protect zed User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zed/User Data"
+  tags:
+  - never-delete
+  - zed
+  - user-data
+- id: protect-macos-zed-profiles
+  name: Protect zed Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zed/Profiles"
+  tags:
+  - never-delete
+  - zed
+  - profiles
+- id: protect-macos-zed-databases
+  name: Protect zed Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zed/Databases"
+  tags:
+  - never-delete
+  - zed
+  - databases
+- id: protect-macos-zed-local-storage
+  name: Protect zed Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/zed/Local Storage"
+  tags:
+  - never-delete
+  - zed
+  - local-storage
+- id: protect-macos-jetbrains-user-data
+  name: Protect jetbrains User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/jetbrains/User Data"
+  tags:
+  - never-delete
+  - jetbrains
+  - user-data
+- id: protect-macos-jetbrains-profiles
+  name: Protect jetbrains Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/jetbrains/Profiles"
+  tags:
+  - never-delete
+  - jetbrains
+  - profiles
+- id: protect-macos-jetbrains-databases
+  name: Protect jetbrains Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/jetbrains/Databases"
+  tags:
+  - never-delete
+  - jetbrains
+  - databases
+- id: protect-macos-jetbrains-local-storage
+  name: Protect jetbrains Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/jetbrains/Local Storage"
+  tags:
+  - never-delete
+  - jetbrains
+  - local-storage
+- id: protect-macos-xcode-user-data
+  name: Protect xcode User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/xcode/User Data"
+  tags:
+  - never-delete
+  - xcode
+  - user-data
+- id: protect-macos-xcode-profiles
+  name: Protect xcode Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/xcode/Profiles"
+  tags:
+  - never-delete
+  - xcode
+  - profiles
+- id: protect-macos-xcode-databases
+  name: Protect xcode Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/xcode/Databases"
+  tags:
+  - never-delete
+  - xcode
+  - databases
+- id: protect-macos-xcode-local-storage
+  name: Protect xcode Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/xcode/Local Storage"
+  tags:
+  - never-delete
+  - xcode
+  - local-storage
+- id: protect-macos-android-studio-user-data
+  name: Protect android-studio User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/android-studio/User Data"
+  tags:
+  - never-delete
+  - android-studio
+  - user-data
+- id: protect-macos-android-studio-profiles
+  name: Protect android-studio Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/android-studio/Profiles"
+  tags:
+  - never-delete
+  - android-studio
+  - profiles
+- id: protect-macos-android-studio-databases
+  name: Protect android-studio Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/android-studio/Databases"
+  tags:
+  - never-delete
+  - android-studio
+  - databases
+- id: protect-macos-android-studio-local-storage
+  name: Protect android-studio Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/android-studio/Local Storage"
+  tags:
+  - never-delete
+  - android-studio
+  - local-storage
+- id: protect-macos-visual-studio-user-data
+  name: Protect visual-studio User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/visual-studio/User Data"
+  tags:
+  - never-delete
+  - visual-studio
+  - user-data
+- id: protect-macos-visual-studio-profiles
+  name: Protect visual-studio Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/visual-studio/Profiles"
+  tags:
+  - never-delete
+  - visual-studio
+  - profiles
+- id: protect-macos-visual-studio-databases
+  name: Protect visual-studio Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/visual-studio/Databases"
+  tags:
+  - never-delete
+  - visual-studio
+  - databases
+- id: protect-macos-visual-studio-local-storage
+  name: Protect visual-studio Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/visual-studio/Local Storage"
+  tags:
+  - never-delete
+  - visual-studio
+  - local-storage
+- id: protect-macos-github-desktop-user-data
+  name: Protect github-desktop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/github-desktop/User Data"
+  tags:
+  - never-delete
+  - github-desktop
+  - user-data
+- id: protect-macos-github-desktop-profiles
+  name: Protect github-desktop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/github-desktop/Profiles"
+  tags:
+  - never-delete
+  - github-desktop
+  - profiles
+- id: protect-macos-github-desktop-databases
+  name: Protect github-desktop Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/github-desktop/Databases"
+  tags:
+  - never-delete
+  - github-desktop
+  - databases
+- id: protect-macos-github-desktop-local-storage
+  name: Protect github-desktop Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/github-desktop/Local Storage"
+  tags:
+  - never-delete
+  - github-desktop
+  - local-storage
+- id: protect-macos-sourcetree-user-data
+  name: Protect sourcetree User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sourcetree/User Data"
+  tags:
+  - never-delete
+  - sourcetree
+  - user-data
+- id: protect-macos-sourcetree-profiles
+  name: Protect sourcetree Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sourcetree/Profiles"
+  tags:
+  - never-delete
+  - sourcetree
+  - profiles
+- id: protect-macos-sourcetree-databases
+  name: Protect sourcetree Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sourcetree/Databases"
+  tags:
+  - never-delete
+  - sourcetree
+  - databases
+- id: protect-macos-sourcetree-local-storage
+  name: Protect sourcetree Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/sourcetree/Local Storage"
+  tags:
+  - never-delete
+  - sourcetree
+  - local-storage
+- id: protect-macos-tower-user-data
+  name: Protect tower User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tower/User Data"
+  tags:
+  - never-delete
+  - tower
+  - user-data
+- id: protect-macos-tower-profiles
+  name: Protect tower Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tower/Profiles"
+  tags:
+  - never-delete
+  - tower
+  - profiles
+- id: protect-macos-tower-databases
+  name: Protect tower Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tower/Databases"
+  tags:
+  - never-delete
+  - tower
+  - databases
+- id: protect-macos-tower-local-storage
+  name: Protect tower Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/tower/Local Storage"
+  tags:
+  - never-delete
+  - tower
+  - local-storage
+- id: protect-macos-fork-user-data
+  name: Protect fork User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/fork/User Data"
+  tags:
+  - never-delete
+  - fork
+  - user-data
+- id: protect-macos-fork-profiles
+  name: Protect fork Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/fork/Profiles"
+  tags:
+  - never-delete
+  - fork
+  - profiles
+- id: protect-macos-fork-databases
+  name: Protect fork Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/fork/Databases"
+  tags:
+  - never-delete
+  - fork
+  - databases
+- id: protect-macos-fork-local-storage
+  name: Protect fork Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/fork/Local Storage"
+  tags:
+  - never-delete
+  - fork
+  - local-storage
+- id: protect-macos-gitkraken-user-data
+  name: Protect gitkraken User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/gitkraken/User Data"
+  tags:
+  - never-delete
+  - gitkraken
+  - user-data
+- id: protect-macos-gitkraken-profiles
+  name: Protect gitkraken Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/gitkraken/Profiles"
+  tags:
+  - never-delete
+  - gitkraken
+  - profiles
+- id: protect-macos-gitkraken-databases
+  name: Protect gitkraken Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/gitkraken/Databases"
+  tags:
+  - never-delete
+  - gitkraken
+  - databases
+- id: protect-macos-gitkraken-local-storage
+  name: Protect gitkraken Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/gitkraken/Local Storage"
+  tags:
+  - never-delete
+  - gitkraken
+  - local-storage
+- id: protect-macos-docker-desktop-user-data
+  name: Protect docker-desktop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/docker-desktop/User Data"
+  tags:
+  - never-delete
+  - docker-desktop
+  - user-data
+- id: protect-macos-docker-desktop-profiles
+  name: Protect docker-desktop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/docker-desktop/Profiles"
+  tags:
+  - never-delete
+  - docker-desktop
+  - profiles
+- id: protect-macos-docker-desktop-databases
+  name: Protect docker-desktop Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/docker-desktop/Databases"
+  tags:
+  - never-delete
+  - docker-desktop
+  - databases
+- id: protect-macos-docker-desktop-local-storage
+  name: Protect docker-desktop Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/docker-desktop/Local Storage"
+  tags:
+  - never-delete
+  - docker-desktop
+  - local-storage
+- id: protect-macos-dropbox-user-data
+  name: Protect dropbox User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dropbox/User Data"
+  tags:
+  - never-delete
+  - dropbox
+  - user-data
+- id: protect-macos-dropbox-profiles
+  name: Protect dropbox Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dropbox/Profiles"
+  tags:
+  - never-delete
+  - dropbox
+  - profiles
+- id: protect-macos-dropbox-databases
+  name: Protect dropbox Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dropbox/Databases"
+  tags:
+  - never-delete
+  - dropbox
+  - databases
+- id: protect-macos-dropbox-local-storage
+  name: Protect dropbox Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/dropbox/Local Storage"
+  tags:
+  - never-delete
+  - dropbox
+  - local-storage
+- id: protect-macos-onedrive-user-data
+  name: Protect onedrive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onedrive/User Data"
+  tags:
+  - never-delete
+  - onedrive
+  - user-data
+- id: protect-macos-onedrive-profiles
+  name: Protect onedrive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onedrive/Profiles"
+  tags:
+  - never-delete
+  - onedrive
+  - profiles
+- id: protect-macos-onedrive-databases
+  name: Protect onedrive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onedrive/Databases"
+  tags:
+  - never-delete
+  - onedrive
+  - databases
+- id: protect-macos-onedrive-local-storage
+  name: Protect onedrive Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/onedrive/Local Storage"
+  tags:
+  - never-delete
+  - onedrive
+  - local-storage
+- id: protect-macos-google-drive-user-data
+  name: Protect google-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-drive/User Data"
+  tags:
+  - never-delete
+  - google-drive
+  - user-data
+- id: protect-macos-google-drive-profiles
+  name: Protect google-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-drive/Profiles"
+  tags:
+  - never-delete
+  - google-drive
+  - profiles
+- id: protect-macos-google-drive-databases
+  name: Protect google-drive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-drive/Databases"
+  tags:
+  - never-delete
+  - google-drive
+  - databases
+- id: protect-macos-google-drive-local-storage
+  name: Protect google-drive Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/google-drive/Local Storage"
+  tags:
+  - never-delete
+  - google-drive
+  - local-storage
+- id: protect-macos-icloud-drive-user-data
+  name: Protect icloud-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/icloud-drive/User Data"
+  tags:
+  - never-delete
+  - icloud-drive
+  - user-data
+- id: protect-macos-icloud-drive-profiles
+  name: Protect icloud-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/icloud-drive/Profiles"
+  tags:
+  - never-delete
+  - icloud-drive
+  - profiles
+- id: protect-macos-icloud-drive-databases
+  name: Protect icloud-drive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/icloud-drive/Databases"
+  tags:
+  - never-delete
+  - icloud-drive
+  - databases
+- id: protect-macos-icloud-drive-local-storage
+  name: Protect icloud-drive Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/icloud-drive/Local Storage"
+  tags:
+  - never-delete
+  - icloud-drive
+  - local-storage
+- id: protect-macos-nextcloud-user-data
+  name: Protect nextcloud User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nextcloud/User Data"
+  tags:
+  - never-delete
+  - nextcloud
+  - user-data
+- id: protect-macos-nextcloud-profiles
+  name: Protect nextcloud Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nextcloud/Profiles"
+  tags:
+  - never-delete
+  - nextcloud
+  - profiles
+- id: protect-macos-nextcloud-databases
+  name: Protect nextcloud Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nextcloud/Databases"
+  tags:
+  - never-delete
+  - nextcloud
+  - databases
+- id: protect-macos-nextcloud-local-storage
+  name: Protect nextcloud Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/nextcloud/Local Storage"
+  tags:
+  - never-delete
+  - nextcloud
+  - local-storage
+- id: protect-macos-syncthing-user-data
+  name: Protect syncthing User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/syncthing/User Data"
+  tags:
+  - never-delete
+  - syncthing
+  - user-data
+- id: protect-macos-syncthing-profiles
+  name: Protect syncthing Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/syncthing/Profiles"
+  tags:
+  - never-delete
+  - syncthing
+  - profiles
+- id: protect-macos-syncthing-databases
+  name: Protect syncthing Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/syncthing/Databases"
+  tags:
+  - never-delete
+  - syncthing
+  - databases
+- id: protect-macos-syncthing-local-storage
+  name: Protect syncthing Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/syncthing/Local Storage"
+  tags:
+  - never-delete
+  - syncthing
+  - local-storage
+- id: protect-macos-box-drive-user-data
+  name: Protect box-drive User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/box-drive/User Data"
+  tags:
+  - never-delete
+  - box-drive
+  - user-data
+- id: protect-macos-box-drive-profiles
+  name: Protect box-drive Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/box-drive/Profiles"
+  tags:
+  - never-delete
+  - box-drive
+  - profiles
+- id: protect-macos-box-drive-databases
+  name: Protect box-drive Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/box-drive/Databases"
+  tags:
+  - never-delete
+  - box-drive
+  - databases
+- id: protect-macos-box-drive-local-storage
+  name: Protect box-drive Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/box-drive/Local Storage"
+  tags:
+  - never-delete
+  - box-drive
+  - local-storage
+- id: protect-macos-photos-user-data
+  name: Protect photos User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photos/User Data"
+  tags:
+  - never-delete
+  - photos
+  - user-data
+- id: protect-macos-photos-profiles
+  name: Protect photos Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photos/Profiles"
+  tags:
+  - never-delete
+  - photos
+  - profiles
+- id: protect-macos-photos-databases
+  name: Protect photos Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photos/Databases"
+  tags:
+  - never-delete
+  - photos
+  - databases
+- id: protect-macos-photos-local-storage
+  name: Protect photos Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photos/Local Storage"
+  tags:
+  - never-delete
+  - photos
+  - local-storage
+- id: protect-macos-lightroom-user-data
+  name: Protect lightroom User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lightroom/User Data"
+  tags:
+  - never-delete
+  - lightroom
+  - user-data
+- id: protect-macos-lightroom-profiles
+  name: Protect lightroom Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lightroom/Profiles"
+  tags:
+  - never-delete
+  - lightroom
+  - profiles
+- id: protect-macos-lightroom-databases
+  name: Protect lightroom Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lightroom/Databases"
+  tags:
+  - never-delete
+  - lightroom
+  - databases
+- id: protect-macos-lightroom-local-storage
+  name: Protect lightroom Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/lightroom/Local Storage"
+  tags:
+  - never-delete
+  - lightroom
+  - local-storage
+- id: protect-macos-photoshop-user-data
+  name: Protect photoshop User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photoshop/User Data"
+  tags:
+  - never-delete
+  - photoshop
+  - user-data
+- id: protect-macos-photoshop-profiles
+  name: Protect photoshop Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photoshop/Profiles"
+  tags:
+  - never-delete
+  - photoshop
+  - profiles
+- id: protect-macos-photoshop-databases
+  name: Protect photoshop Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photoshop/Databases"
+  tags:
+  - never-delete
+  - photoshop
+  - databases
+- id: protect-macos-photoshop-local-storage
+  name: Protect photoshop Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/photoshop/Local Storage"
+  tags:
+  - never-delete
+  - photoshop
+  - local-storage
+- id: protect-macos-affinity-photo-user-data
+  name: Protect affinity-photo User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/affinity-photo/User Data"
+  tags:
+  - never-delete
+  - affinity-photo
+  - user-data
+- id: protect-macos-affinity-photo-profiles
+  name: Protect affinity-photo Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/affinity-photo/Profiles"
+  tags:
+  - never-delete
+  - affinity-photo
+  - profiles
+- id: protect-macos-affinity-photo-databases
+  name: Protect affinity-photo Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/affinity-photo/Databases"
+  tags:
+  - never-delete
+  - affinity-photo
+  - databases
+- id: protect-macos-affinity-photo-local-storage
+  name: Protect affinity-photo Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/affinity-photo/Local Storage"
+  tags:
+  - never-delete
+  - affinity-photo
+  - local-storage
+- id: protect-macos-capture-one-user-data
+  name: Protect capture-one User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/capture-one/User Data"
+  tags:
+  - never-delete
+  - capture-one
+  - user-data
+- id: protect-macos-capture-one-profiles
+  name: Protect capture-one Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/capture-one/Profiles"
+  tags:
+  - never-delete
+  - capture-one
+  - profiles
+- id: protect-macos-capture-one-databases
+  name: Protect capture-one Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/capture-one/Databases"
+  tags:
+  - never-delete
+  - capture-one
+  - databases
+- id: protect-macos-capture-one-local-storage
+  name: Protect capture-one Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/capture-one/Local Storage"
+  tags:
+  - never-delete
+  - capture-one
+  - local-storage
+- id: protect-macos-davinci-resolve-user-data
+  name: Protect davinci-resolve User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/davinci-resolve/User Data"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - user-data
+- id: protect-macos-davinci-resolve-profiles
+  name: Protect davinci-resolve Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/davinci-resolve/Profiles"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - profiles
+- id: protect-macos-davinci-resolve-databases
+  name: Protect davinci-resolve Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/davinci-resolve/Databases"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - databases
+- id: protect-macos-davinci-resolve-local-storage
+  name: Protect davinci-resolve Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/davinci-resolve/Local Storage"
+  tags:
+  - never-delete
+  - davinci-resolve
+  - local-storage
+- id: protect-macos-final-cut-pro-user-data
+  name: Protect final-cut-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/final-cut-pro/User Data"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - user-data
+- id: protect-macos-final-cut-pro-profiles
+  name: Protect final-cut-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/final-cut-pro/Profiles"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - profiles
+- id: protect-macos-final-cut-pro-databases
+  name: Protect final-cut-pro Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/final-cut-pro/Databases"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - databases
+- id: protect-macos-final-cut-pro-local-storage
+  name: Protect final-cut-pro Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/final-cut-pro/Local Storage"
+  tags:
+  - never-delete
+  - final-cut-pro
+  - local-storage
+- id: protect-macos-logic-pro-user-data
+  name: Protect logic-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logic-pro/User Data"
+  tags:
+  - never-delete
+  - logic-pro
+  - user-data
+- id: protect-macos-logic-pro-profiles
+  name: Protect logic-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logic-pro/Profiles"
+  tags:
+  - never-delete
+  - logic-pro
+  - profiles
+- id: protect-macos-logic-pro-databases
+  name: Protect logic-pro Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logic-pro/Databases"
+  tags:
+  - never-delete
+  - logic-pro
+  - databases
+- id: protect-macos-logic-pro-local-storage
+  name: Protect logic-pro Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/logic-pro/Local Storage"
+  tags:
+  - never-delete
+  - logic-pro
+  - local-storage
+- id: protect-macos-ableton-live-user-data
+  name: Protect ableton-live User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ableton-live/User Data"
+  tags:
+  - never-delete
+  - ableton-live
+  - user-data
+- id: protect-macos-ableton-live-profiles
+  name: Protect ableton-live Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ableton-live/Profiles"
+  tags:
+  - never-delete
+  - ableton-live
+  - profiles
+- id: protect-macos-ableton-live-databases
+  name: Protect ableton-live Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ableton-live/Databases"
+  tags:
+  - never-delete
+  - ableton-live
+  - databases
+- id: protect-macos-ableton-live-local-storage
+  name: Protect ableton-live Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/ableton-live/Local Storage"
+  tags:
+  - never-delete
+  - ableton-live
+  - local-storage
+- id: protect-macos-pro-tools-user-data
+  name: Protect pro-tools User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/pro-tools/User Data"
+  tags:
+  - never-delete
+  - pro-tools
+  - user-data
+- id: protect-macos-pro-tools-profiles
+  name: Protect pro-tools Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/pro-tools/Profiles"
+  tags:
+  - never-delete
+  - pro-tools
+  - profiles
+- id: protect-macos-pro-tools-databases
+  name: Protect pro-tools Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/pro-tools/Databases"
+  tags:
+  - never-delete
+  - pro-tools
+  - databases
+- id: protect-macos-pro-tools-local-storage
+  name: Protect pro-tools Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/pro-tools/Local Storage"
+  tags:
+  - never-delete
+  - pro-tools
+  - local-storage
+- id: protect-macos-premiere-pro-user-data
+  name: Protect premiere-pro User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/premiere-pro/User Data"
+  tags:
+  - never-delete
+  - premiere-pro
+  - user-data
+- id: protect-macos-premiere-pro-profiles
+  name: Protect premiere-pro Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/premiere-pro/Profiles"
+  tags:
+  - never-delete
+  - premiere-pro
+  - profiles
+- id: protect-macos-premiere-pro-databases
+  name: Protect premiere-pro Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/premiere-pro/Databases"
+  tags:
+  - never-delete
+  - premiere-pro
+  - databases
+- id: protect-macos-premiere-pro-local-storage
+  name: Protect premiere-pro Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/premiere-pro/Local Storage"
+  tags:
+  - never-delete
+  - premiere-pro
+  - local-storage
+- id: protect-macos-blender-user-data
+  name: Protect blender User Data
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/blender/User Data"
+  tags:
+  - never-delete
+  - blender
+  - user-data
+- id: protect-macos-blender-profiles
+  name: Protect blender Profiles
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/blender/Profiles"
+  tags:
+  - never-delete
+  - blender
+  - profiles
+- id: protect-macos-blender-databases
+  name: Protect blender Databases
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/blender/Databases"
+  tags:
+  - never-delete
+  - blender
+  - databases
+- id: protect-macos-blender-local-storage
+  name: Protect blender Local Storage
+  description: Hard safety boundary for credentials, profiles, settings, or user-created
+    data.
+  platform: macos
+  paths:
+  - "$HOME/Library/Application Support/blender/Local Storage"
+  tags:
+  - never-delete
+  - blender
+  - local-storage

@@ -32,9 +32,12 @@ enum BgMsg {
     },
     CacheSaved(Vec<CacheMeta>),
     RescanDone(Result<Arc<SpaceTree>, String>),
-    DeleteDone(Result<(Arc<SpaceTree>, usize), String>),
+    DeleteProgress(space_clean::CleanProgress),
+    DeleteDone(Result<(Arc<SpaceTree>, usize, Vec<String>), String>),
     TmCleanDone(CleanReport),
+    JunkScanProgress(space_clean::JunkScanProgress),
     JunkScanDone(Result<space_clean::ScanReport, String>),
+    JunkCleanProgress(space_clean::CleanProgress),
     JunkCleanDone(Result<space_clean::CleanResult, String>),
     Largest {
         focus: NodeId,
@@ -66,6 +69,8 @@ pub struct SpaceApp {
     volumes_loading: bool,
     review: Vec<NodeId>,
     confirm_delete: bool,
+    delete_progress: Option<space_clean::CleanProgress>,
+    delete_started: Option<Instant>,
     show_tm_panel: bool,
     confirm_tm_clean: bool,
     tm_snapshots: Vec<LocalSnapshot>,
@@ -155,6 +160,8 @@ impl SpaceApp {
             volumes_loading: true,
             review: Vec::new(),
             confirm_delete: false,
+            delete_progress: None,
+            delete_started: None,
             show_tm_panel: false,
             confirm_tm_clean: false,
             tm_snapshots: Vec::new(),
@@ -281,9 +288,18 @@ impl SpaceApp {
                     self.busy = false;
                     self.status = format!("Incremental rescan failed: {e}");
                 }
-                BgMsg::DeleteDone(Ok((tree, n))) => {
+                BgMsg::DeleteProgress(progress) => {
+                    self.delete_progress = Some(progress);
+                }
+                BgMsg::DeleteDone(Ok((tree, n, errors))) => {
                     self.busy = false;
-                    self.status = format!("Moved {n} item(s) to Trash");
+                    self.delete_progress = None;
+                    self.delete_started = None;
+                    self.status = if errors.is_empty() {
+                        format!("Moved {n} item(s) to Trash")
+                    } else {
+                        format!("Moved {n} item(s) · {} failed", errors.len())
+                    };
                     self.review.clear();
                     self.selected = None;
                     self.confirm_delete = false;
@@ -293,6 +309,8 @@ impl SpaceApp {
                 }
                 BgMsg::DeleteDone(Err(e)) => {
                     self.busy = false;
+                    self.delete_progress = None;
+                    self.delete_started = None;
                     self.confirm_delete = false;
                     self.status = format!("Trash failed: {e}");
                 }
@@ -321,6 +339,11 @@ impl SpaceApp {
                     self.refresh_volumes();
                     self.refresh_snapshots();
                 }
+                BgMsg::JunkScanProgress(progress) => {
+                    if self.junk.loading {
+                        self.junk.progress = progress;
+                    }
+                }
                 BgMsg::JunkScanDone(Ok(report)) => {
                     self.junk.set_report(report);
                     self.status = format!(
@@ -341,11 +364,19 @@ impl SpaceApp {
                 }
                 BgMsg::JunkScanDone(Err(e)) => {
                     self.junk.loading = false;
+                    self.junk.scan_started = None;
                     self.junk.error = Some(e.clone());
                     self.status = format!("Junk scan failed: {e}");
                 }
+                BgMsg::JunkCleanProgress(progress) => {
+                    if self.junk.cleaning {
+                        self.junk.clean_progress = progress;
+                    }
+                }
                 BgMsg::JunkCleanDone(Ok(result)) => {
                     self.busy = false;
+                    self.junk.cleaning = false;
+                    self.junk.clean_started = None;
                     self.status = format!(
                         "Junk · moved {} to Trash · {}",
                         result.deleted.len(),
@@ -356,6 +387,9 @@ impl SpaceApp {
                 }
                 BgMsg::JunkCleanDone(Err(e)) => {
                     self.busy = false;
+                    self.junk.cleaning = false;
+                    self.junk.clean_started = None;
+                    self.junk.error = Some(e.clone());
                     self.status = format!("Junk clean failed: {e}");
                 }
                 BgMsg::Largest { focus, mode, rows } => {
@@ -370,7 +404,12 @@ impl SpaceApp {
         if let Some(path) = start_scan_path {
             self.begin_filesystem_scan(path);
         }
-        if self.volumes_loading || self.tm_loading || self.busy || self.scan.is_some() {
+        if self.volumes_loading
+            || self.tm_loading
+            || self.busy
+            || self.scan.is_some()
+            || self.junk.loading
+        {
             ctx.request_repaint_after(std::time::Duration::from_millis(100));
         } else if self.largest_loading {
             // Don't spin the UI at 20fps while a background walk finishes.
@@ -909,13 +948,38 @@ impl SpaceApp {
         if self.review.is_empty() || self.busy {
             return;
         }
-        let paths: Vec<PathBuf> = self
+        let mode = self.size_mode;
+        let mut items: Vec<(NodeId, PathBuf, u64, bool)> = self
             .review
             .iter()
-            .map(|id| PathBuf::from(tree.path_string(*id)))
+            .map(|id| {
+                let node = tree.node(*id);
+                (
+                    *id,
+                    PathBuf::from(tree.path_string(*id)),
+                    node.size(mode),
+                    node.is_dir,
+                )
+            })
             .collect();
-        let ids = self.review.clone();
+        items.sort_by_key(|(_, path, _, _)| path.components().count());
+        let mut coalesced: Vec<(NodeId, PathBuf, u64, bool)> = Vec::with_capacity(items.len());
+        for item in items {
+            if coalesced
+                .iter()
+                .any(|(_, parent, _, _)| item.1.starts_with(parent))
+            {
+                continue;
+            }
+            coalesced.push(item);
+        }
+        let items = coalesced;
         self.busy = true;
+        self.delete_progress = Some(space_clean::CleanProgress {
+            items_total: items.len(),
+            ..Default::default()
+        });
+        self.delete_started = Some(Instant::now());
         self.status = "Moving to Trash…".into();
         let cache = self.cache.clone();
         let tx = self.bg_tx.clone();
@@ -923,11 +987,75 @@ impl SpaceApp {
             .name("space-trash".into())
             .spawn(move || {
                 let result = (|| {
-                    let n = review::trash_paths(&paths)?;
+                    let mut deleted_ids = Vec::new();
+                    let mut errors = Vec::new();
+                    let mut progress = space_clean::CleanProgress {
+                        items_total: items.len(),
+                        ..Default::default()
+                    };
+                    let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
+                    let mut candidates = Vec::new();
+                    for item in items {
+                        progress.current_path = item.1.clone();
+                        if space_clean::safety::is_never_touch(&item.1) {
+                            errors.push(format!("Protected: {}", item.1.display()));
+                            progress.items_done += 1;
+                            progress.error_count = errors.len();
+                            let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
+                            continue;
+                        }
+                        if !item.1.exists() {
+                            progress.items_done += 1;
+                            let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
+                            continue;
+                        }
+                        candidates.push(item);
+                    }
+                    candidates.sort_by(|a, b| {
+                        a.1.parent()
+                            .cmp(&b.1.parent())
+                            .then_with(|| a.1.cmp(&b.1))
+                    });
+                    for chunk in candidates.chunks(space_clean::TRASH_BATCH_SIZE) {
+                        if let Some((_, path, _, _)) = chunk.first() {
+                            progress.current_path = path.clone();
+                            let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
+                        }
+                        let paths: Vec<PathBuf> =
+                            chunk.iter().map(|(_, path, _, _)| path.clone()).collect();
+                        let outcomes = space_clean::trash_paths_batch(&paths);
+                        for ((id, path, bytes, is_dir), outcome) in
+                            chunk.iter().cloned().zip(outcomes)
+                        {
+                            progress.current_path = path.clone();
+                            match outcome {
+                                Ok(()) => {
+                                    deleted_ids.push(id);
+                                    progress.items_done += 1;
+                                    progress.bytes_freed =
+                                        progress.bytes_freed.saturating_add(bytes);
+                                    if is_dir {
+                                        progress.folders_done += 1;
+                                    } else {
+                                        progress.files_done += 1;
+                                    }
+                                }
+                                Err(e) => {
+                                    errors.push(format!("{}: {e}", path.display()));
+                                    progress.items_done += 1;
+                                    progress.error_count = errors.len();
+                                }
+                            }
+                        }
+                        let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
+                    }
+                    if deleted_ids.is_empty() && !errors.is_empty() {
+                        return Err(errors.join("\n"));
+                    }
+
                     let mut new_tree = (*tree).clone();
-                    let mut ids = ids;
-                    ids.sort_by_key(|id| std::cmp::Reverse(new_tree.path_to(*id).len()));
-                    for id in ids {
+                    deleted_ids.sort_by_key(|id| std::cmp::Reverse(new_tree.path_to(*id).len()));
+                    for &id in &deleted_ids {
                         new_tree.remove_node(id);
                     }
                     let arc = Arc::new(new_tree);
@@ -935,7 +1063,7 @@ impl SpaceApp {
                         let _ = cache.invalidate(PathBuf::from(&arc.root_path).as_path());
                         let _ = cache.save(arc.as_ref());
                     }
-                    Ok((arc, n))
+                    Ok((arc, deleted_ids.len(), errors))
                 })();
                 let _ = tx.send(BgMsg::DeleteDone(result));
             })
@@ -1021,6 +1149,8 @@ impl SpaceApp {
     fn start_junk_scan(&mut self) {
         self.junk.loading = true;
         self.junk.error = None;
+        self.junk.progress = space_clean::JunkScanProgress::default();
+        self.junk.scan_started = Some(Instant::now());
         let prefs = self
             .rule_mgr
             .as_ref()
@@ -1040,7 +1170,10 @@ impl SpaceApp {
                         prefs_min_age: mgr.prefs.min_age.clone(),
                     };
                     let rules = mgr.scan_rules(&[]);
-                    space_clean::scan_rules(rules, &opts)
+                    let progress_tx = tx.clone();
+                    space_clean::scan_rules_with_progress(rules, &opts, move |progress| {
+                        let _ = progress_tx.send(BgMsg::JunkScanProgress(progress));
+                    })
                 })()
                 .map_err(|e| e.to_string());
                 let _ = tx.send(BgMsg::JunkScanDone(result));
@@ -1057,6 +1190,13 @@ impl SpaceApp {
             return;
         }
         self.busy = true;
+        self.junk.cleaning = true;
+        self.junk.clean_progress = space_clean::CleanProgress {
+            items_total: findings.len(),
+            ..Default::default()
+        };
+        self.junk.clean_started = Some(Instant::now());
+        self.junk.confirm = false;
         self.status = "Moving junk to Trash…".into();
         let tx = self.bg_tx.clone();
         thread::Builder::new()
@@ -1069,7 +1209,11 @@ impl SpaceApp {
                     rules_scanned: 0,
                     skipped_roots: Vec::new(),
                 };
-                let result = space_clean::clean(&report, false).map_err(|e| e.to_string());
+                let progress_tx = tx.clone();
+                let result = space_clean::clean_with_progress(&report, false, move |progress| {
+                    let _ = progress_tx.send(BgMsg::JunkCleanProgress(progress));
+                })
+                .map_err(|e| e.to_string());
                 let _ = tx.send(BgMsg::JunkCleanDone(result));
             })
             .ok();
@@ -1124,6 +1268,54 @@ impl eframe::App for SpaceApp {
                 .resizable(false)
                 .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
                 .show(ctx, |ui| {
+                    if let Some(progress) = &self.delete_progress {
+                        let fraction = if progress.items_total > 0 {
+                            progress.items_done as f32 / progress.items_total as f32
+                        } else {
+                            0.0
+                        };
+                        let elapsed = self
+                            .delete_started
+                            .map(|started| started.elapsed().as_secs())
+                            .unwrap_or(0);
+                        ui.label(
+                            RichText::new(format!(
+                                "Moving to Trash · {}/{} items",
+                                progress.items_done, progress.items_total
+                            ))
+                            .strong(),
+                        );
+                        ui.label(
+                            RichText::new(format!(
+                                "{} files · {} folders · {} · {} errors · {}s",
+                                progress.files_done,
+                                progress.folders_done,
+                                format_bytes(progress.bytes_freed),
+                                progress.error_count,
+                                elapsed
+                            ))
+                            .color(MUTED),
+                        );
+                        ui.add(
+                            egui::ProgressBar::new(fraction.clamp(0.0, 1.0))
+                                .desired_width(420.0)
+                                .show_percentage(),
+                        );
+                        if !progress.current_path.as_os_str().is_empty() {
+                            ui.add(
+                                egui::Label::new(
+                                    RichText::new(progress.current_path.display().to_string())
+                                        .small()
+                                        .monospace()
+                                        .color(MUTED),
+                                )
+                                .truncate(),
+                            )
+                            .on_hover_text(progress.current_path.display().to_string());
+                        }
+                        return;
+                    }
+
                     let bytes = self
                         .tree
                         .as_ref()
@@ -1648,17 +1840,30 @@ impl eframe::App for SpaceApp {
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.add_space(10.0);
-                        let can_review = !self.review.is_empty() && self.scan.is_none();
+                        let can_review =
+                            (!self.review.is_empty() || self.selected.is_some())
+                                && self.scan.is_none()
+                                && !self.busy;
+                        let review_label = if self.review.is_empty() {
+                            "Delete selected…"
+                        } else {
+                            "Review delete…"
+                        };
                         if ui
                             .add_enabled(
                                 can_review,
                                 egui::Button::new(
-                                    RichText::new("Review").color(ACCENT),
+                                    RichText::new(review_label).color(ACCENT),
                                 ),
                             )
-                            .on_hover_text("Review and Remove")
+                            .on_hover_text("Review selected files and move them to Trash")
                             .clicked()
                         {
+                            if self.review.is_empty() {
+                                if let Some(id) = self.selected {
+                                    self.review.push(id);
+                                }
+                            }
                             self.confirm_delete = true;
                         }
                         if ui
@@ -2127,8 +2332,15 @@ impl eframe::App for SpaceApp {
                                     let hovered = self.hovered == Some(id);
                                     ui.horizontal(|ui| {
                                         ui.add_space(8.0);
-                                        let prefix = if in_q { "✓ " } else { "· " };
-                                        let text = RichText::new(format!("{prefix}{name}"))
+                                        let mut queued = in_q;
+                                        if ui
+                                            .add(egui::Checkbox::without_text(&mut queued))
+                                            .on_hover_text("Include in deletion review")
+                                            .changed()
+                                        {
+                                            toggle_file = Some(id);
+                                        }
+                                        let text = RichText::new(name)
                                             .color(if hovered { ACCENT } else { TEXT });
                                         let resp = ui.selectable_label(selected || hovered, text);
                                         ui.with_layout(

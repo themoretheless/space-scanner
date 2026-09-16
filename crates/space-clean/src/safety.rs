@@ -89,6 +89,10 @@ pub fn is_never_touch(path: &Path) -> bool {
         return true;
     }
 
+    if crate::protection::is_protected_by_rule(&canon) {
+        return true;
+    }
+
     for forbidden in never_touch_patterns() {
         // Skip bare filesystem roots in the prefix list; handled above.
         if is_filesystem_root(&forbidden) {

@@ -4,8 +4,8 @@ use std::collections::BTreeMap;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-/// Risk level for a cleaning rule.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+/// Deletion danger level for a cleaning rule.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum Risk {
     Low,
@@ -21,6 +21,191 @@ impl Risk {
             Risk::Medium => "medium",
             Risk::High => "high",
             Risk::ReportOnly => "report-only",
+        }
+    }
+
+    /// Short danger label for UI / CLI.
+    pub fn danger_label(self) -> &'static str {
+        match self {
+            Risk::Low => "safe",
+            Risk::Medium => "caution",
+            Risk::High => "dangerous",
+            Risk::ReportOnly => "report-only",
+        }
+    }
+
+    /// Rank for `--max-risk` filters (higher = more dangerous).
+    pub fn rank(self) -> u8 {
+        match self {
+            Risk::Low => 0,
+            Risk::Medium => 1,
+            Risk::High => 2,
+            Risk::ReportOnly => 3,
+        }
+    }
+
+    pub fn parse(s: &str) -> Option<Self> {
+        match s.trim().to_ascii_lowercase().as_str() {
+            "low" | "safe" => Some(Risk::Low),
+            "medium" | "caution" | "med" => Some(Risk::Medium),
+            "high" | "dangerous" | "danger" => Some(Risk::High),
+            "report-only" | "report" | "ro" => Some(Risk::ReportOnly),
+            _ => None,
+        }
+    }
+
+    pub fn all() -> &'static [Risk] {
+        &[Risk::Low, Risk::Medium, Risk::High, Risk::ReportOnly]
+    }
+}
+
+/// What kind of junk the rule targets (logs, temp, cache, …).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize, Default)]
+#[serde(rename_all = "kebab-case")]
+pub enum JunkKind {
+    Cache,
+    Logs,
+    Temp,
+    Downloads,
+    Leftovers,
+    Packages,
+    Browser,
+    System,
+    AppData,
+    Media,
+    Databases,
+    Models,
+    Vm,
+    Dev,
+    #[default]
+    Other,
+}
+
+impl JunkKind {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            JunkKind::Cache => "cache",
+            JunkKind::Logs => "logs",
+            JunkKind::Temp => "temp",
+            JunkKind::Downloads => "downloads",
+            JunkKind::Leftovers => "leftovers",
+            JunkKind::Packages => "packages",
+            JunkKind::Browser => "browser",
+            JunkKind::System => "system",
+            JunkKind::AppData => "app-data",
+            JunkKind::Media => "media",
+            JunkKind::Databases => "databases",
+            JunkKind::Models => "models",
+            JunkKind::Vm => "vm",
+            JunkKind::Dev => "dev",
+            JunkKind::Other => "other",
+        }
+    }
+
+    pub fn parse(s: &str) -> Option<Self> {
+        match s.trim().to_ascii_lowercase().as_str() {
+            "cache" | "caches" => Some(JunkKind::Cache),
+            "logs" | "log" => Some(JunkKind::Logs),
+            "temp" | "tmp" | "temporary" => Some(JunkKind::Temp),
+            "downloads" | "download" => Some(JunkKind::Downloads),
+            "leftovers" | "leftover" | "orphan" => Some(JunkKind::Leftovers),
+            "packages" | "package" | "package-cache" => Some(JunkKind::Packages),
+            "browser" | "browser-cache" => Some(JunkKind::Browser),
+            "system" => Some(JunkKind::System),
+            "app-data" | "appdata" => Some(JunkKind::AppData),
+            "media" | "media-cache" | "media-library" => Some(JunkKind::Media),
+            "databases" | "database" | "db" => Some(JunkKind::Databases),
+            "models" | "ml" | "ml-models" => Some(JunkKind::Models),
+            "vm" | "vm-disk" | "vm-cache" => Some(JunkKind::Vm),
+            "dev" | "developer" => Some(JunkKind::Dev),
+            "other" | "misc" | "report" => Some(JunkKind::Other),
+            _ => None,
+        }
+    }
+
+    pub fn all() -> &'static [JunkKind] {
+        &[
+            JunkKind::Cache,
+            JunkKind::Logs,
+            JunkKind::Temp,
+            JunkKind::Downloads,
+            JunkKind::Leftovers,
+            JunkKind::Packages,
+            JunkKind::Browser,
+            JunkKind::System,
+            JunkKind::AppData,
+            JunkKind::Media,
+            JunkKind::Databases,
+            JunkKind::Models,
+            JunkKind::Vm,
+            JunkKind::Dev,
+            JunkKind::Other,
+        ]
+    }
+
+    /// Infer junk kind from category / id / paths when YAML omits `kind`.
+    pub fn infer(rule: &Rule) -> Self {
+        let cat = rule.category.to_ascii_lowercase();
+        if let Some(k) = Self::from_category(&cat) {
+            return k;
+        }
+        let id = rule.id.to_ascii_lowercase();
+        let name = rule.name.to_ascii_lowercase();
+        let paths = rule.paths.join("\n").to_ascii_lowercase();
+        let hay = format!("{id}\n{name}\n{paths}");
+        if hay.contains("browser") || hay.contains("chrome") || hay.contains("firefox") {
+            return JunkKind::Browser;
+        }
+        if hay.contains("/log") || hay.contains("logs") || hay.contains(".log") {
+            return JunkKind::Logs;
+        }
+        if hay.contains("temp") || hay.contains("tmpdir") || hay.contains("/tmp") {
+            return JunkKind::Temp;
+        }
+        if hay.contains("download") {
+            return JunkKind::Downloads;
+        }
+        if hay.contains("node_modules") || hay.contains("package") || hay.contains("pip") {
+            return JunkKind::Packages;
+        }
+        if hay.contains("cache") {
+            return JunkKind::Cache;
+        }
+        JunkKind::Other
+    }
+
+    fn from_category(cat: &str) -> Option<Self> {
+        match cat {
+            "logs" => Some(JunkKind::Logs),
+            "temp" => Some(JunkKind::Temp),
+            "leftovers" => Some(JunkKind::Leftovers),
+            "package-cache" => Some(JunkKind::Packages),
+            "browser-cache" => Some(JunkKind::Browser),
+            "system" => Some(JunkKind::System),
+            "app-data" => Some(JunkKind::AppData),
+            "databases" => Some(JunkKind::Databases),
+            "ml-models" => Some(JunkKind::Models),
+            "dev" => Some(JunkKind::Dev),
+            "games-downloads" => Some(JunkKind::Downloads),
+            "media-library" | "sample-library" | "media-cache" => Some(JunkKind::Media),
+            "vm-disk" | "vm-cache" => Some(JunkKind::Vm),
+            "app-cache" | "caches" | "shader-cache" | "game-cache" | "ml-cache" | "wine-cache" => {
+                Some(JunkKind::Cache)
+            }
+            "report" | "misc" => Some(JunkKind::Other),
+            _ => {
+                if cat.contains("log") {
+                    Some(JunkKind::Logs)
+                } else if cat.contains("temp") {
+                    Some(JunkKind::Temp)
+                } else if cat.contains("browser") {
+                    Some(JunkKind::Browser)
+                } else if cat.contains("cache") {
+                    Some(JunkKind::Cache)
+                } else {
+                    None
+                }
+            }
         }
     }
 }
@@ -79,6 +264,9 @@ pub struct Rule {
     pub platform: Platform,
     #[serde(default = "default_risk")]
     pub risk: Risk,
+    /// Junk type: logs, temp, cache, … — inferred from category when omitted.
+    #[serde(default)]
+    pub kind: JunkKind,
     #[serde(default = "default_true")]
     pub default_enabled: bool,
     /// Skip files newer than this many days (0 = no age filter).
@@ -90,6 +278,13 @@ pub struct Rule {
     pub include_globs: Vec<String>,
     #[serde(default)]
     pub exclude_globs: Vec<String>,
+    /// Require at least one matching marker in the candidate's ancestor tree.
+    /// Useful for project output rules such as C# `bin`/`obj`.
+    #[serde(default)]
+    pub required_ancestor_globs: Vec<String>,
+    /// Emit a matched directory as one cleanable unit instead of its files.
+    #[serde(default)]
+    pub match_directories: bool,
     #[serde(default = "default_max_depth")]
     pub max_depth: usize,
     #[serde(default)]
@@ -161,6 +356,7 @@ impl RulePack {
                     rule.name = rule.name.trim().to_string();
                     rule.category = rule.category.trim().to_string();
                     validate_rule(&rule, &file)?;
+                    enrich_rule_kind(&mut rule);
                     crate::tags::enrich_rule_tags(&mut rule);
                     if by_id.contains_key(&rule.id) {
                         bail!("{}: duplicate rule id '{}'", file.display(), rule.id);
@@ -252,6 +448,13 @@ fn validate_rule(rule: &Rule, source: &Path) -> Result<()> {
     if rule.name.trim().is_empty() {
         bail!(
             "{}: rule '{}' missing non-empty name",
+            source.display(),
+            rule_id
+        );
+    }
+    if rule.description.trim().is_empty() {
+        bail!(
+            "{}: rule '{}' missing non-empty description",
             source.display(),
             rule_id
         );
@@ -399,6 +602,16 @@ pub fn host_platform_name() -> &'static str {
     }
 }
 
+/// Fill `kind` when YAML left it as default `other` but category/paths imply something else.
+pub fn enrich_rule_kind(rule: &mut Rule) {
+    if rule.kind == JunkKind::Other {
+        let inferred = JunkKind::infer(rule);
+        if inferred != JunkKind::Other {
+            rule.kind = inferred;
+        }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -411,18 +624,21 @@ mod tests {
 
     #[test]
     fn rejects_rule_without_required_fields() {
-        let rule = Rule {
+        let mut rule = Rule {
             id: "   ".into(),
             name: "   ".into(),
             description: "".into(),
             category: "".into(),
             platform: Platform::Any,
             risk: Risk::Low,
+            kind: JunkKind::Other,
             default_enabled: true,
             min_age_days: 0,
             paths: vec![],
             include_globs: vec![],
             exclude_globs: vec![],
+            required_ancestor_globs: vec![],
+            match_directories: false,
             max_depth: 12,
             delete_mode: DeleteMode::Contents,
             report_only: false,
@@ -430,5 +646,12 @@ mod tests {
         };
         let err = validate_rule(&rule, &PathBuf::from("rules.yaml")).unwrap_err();
         assert!(err.to_string().contains("missing non-empty id"));
+
+        rule.id = "valid-id".into();
+        rule.name = "Valid name".into();
+        rule.category = "caches".into();
+        rule.paths = vec!["$HOME/.cache/example".into()];
+        let err = validate_rule(&rule, &PathBuf::from("rules.yaml")).unwrap_err();
+        assert!(err.to_string().contains("missing non-empty description"));
     }
 }
