@@ -49,6 +49,7 @@ space rules status
 | `platforms/windows.yaml` / `linux.yaml` | Hand-tuned OS seeds |
 | `generated/src5k-*.yaml` | Homebrew cask `zap` leftovers + Winapp2.ini FileKeys + formula XDG caches |
 | `generated/src5kb-*.yaml` | Flathub + remaining Homebrew casks + Scoop buckets |
+| `generated/src10k-*.yaml` | AUR + Debian package XDG caches + extra Scoop |
 | `generated/*.yaml` | Auto-expanded bulk (`macos` / `windows` / `linux` only) |
 
 No `platform: any` — shared apps are split per OS (`ruby scripts/split_any_rules.rb`).
