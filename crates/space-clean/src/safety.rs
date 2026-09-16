@@ -6,7 +6,6 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
     let mut out = Vec::new();
     if let Some(home) = dirs::home_dir() {
         for rel in [
-            "Documents",
             "Desktop",
             "Downloads",
             "Pictures",
@@ -26,7 +25,6 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
             "Library/CloudStorage",
             "Library/Containers/com.apple.mail",
             // Windows profile folders (same names under USERPROFILE)
-            "Documents",
             "OneDrive",
             "AppData/Roaming/Microsoft/Credentials",
             "AppData/Local/Microsoft/Credentials",
@@ -63,7 +61,6 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
         "$HOME/.ssh",
         "$HOME/.gnupg",
         "$HOME/Library/Keychains",
-        "%USERPROFILE%\\Documents",
         "%USERPROFILE%\\Desktop",
         "%USERPROFILE%\\Downloads",
         "%USERPROFILE%\\.ssh",
@@ -199,10 +196,11 @@ mod tests {
     use super::*;
 
     #[test]
-    fn home_documents_blocked() {
+    fn home_documents_allowed_but_home_and_desktop_blocked() {
         if let Some(home) = dirs::home_dir() {
-            assert!(is_never_touch(&home.join("Documents")));
-            assert!(is_never_touch(&home.join("Documents/file.txt")));
+            assert!(!is_never_touch(&home.join("Documents")));
+            assert!(!is_never_touch(&home.join("Documents/file.txt")));
+            assert!(is_never_touch(&home.join("Desktop")));
             assert!(is_never_touch(&home));
         }
     }
