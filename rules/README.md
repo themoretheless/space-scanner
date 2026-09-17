@@ -57,7 +57,8 @@ space rules status
 | `generated/src-iter05-*.yaml` | Iterative 10k leftover Nixpkgs pnames × macOS/Linux/Windows |
 | `generated/src-iter04-*.yaml` … `src-iter31-*.yaml` | Iterative 10k leftover Nixpkgs pnames × macOS/Linux/Windows |
 | `generated/src-iter32-*.yaml` … `src-iter49-*.yaml` | Iterative 10k leftover Debian names × macOS/Linux/Windows |
-| `generated/src-iter50-*.yaml` … `src-iter69-*.yaml` | Iterative 10k leftover AUR names × macOS/Linux/Windows |
+| `generated/src-iter50-*.yaml` … `src-iter81-*.yaml` | Iterative 10k leftover AUR names × macOS/Linux/Windows |
+| `generated/src-iter82-*.yaml` … `src-iter84-*.yaml` | Iterative 10k leftover mixed catalog names × macOS/Linux/Windows |
 | `generated/*.yaml` | Auto-expanded bulk (`macos` / `windows` / `linux` only) |
 
 No `platform: any` — shared apps are split per OS (`ruby scripts/split_any_rules.rb`).
