@@ -1,0 +1,5216 @@
+---
+pack: src30k-38
+description: Nixpkgs wave 3 × macOS/Linux/Windows. Chunk 38.
+rules:
+- id: np3-win-aws-translate
+  name: Nixpkgs aws.translate Windows cache (wave 3)
+  description: Third Nixpkgs slice for aws.translate on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aws.translate/Cache"
+  - "%LOCALAPPDATA%/aws.translate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aws-wrfsmn
+  name: Nixpkgs aws.wrfsmn macOS cache (wave 3)
+  description: Third Nixpkgs slice for aws.wrfsmn on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aws.wrfsmn"
+  - "$HOME/Library/Logs/aws.wrfsmn"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aws-wrfsmn
+  name: Nixpkgs aws.wrfsmn Linux cache (wave 3)
+  description: Third Nixpkgs slice for aws.wrfsmn on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aws.wrfsmn"
+  - "$XDG_CACHE_HOME/aws.wrfsmn"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aws-wrfsmn
+  name: Nixpkgs aws.wrfsmn Windows cache (wave 3)
+  description: Third Nixpkgs slice for aws.wrfsmn on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aws.wrfsmn/Cache"
+  - "%LOCALAPPDATA%/aws.wrfsmn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsmethods
+  name: Nixpkgs awsMethods macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsMethods on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsMethods"
+  - "$HOME/Library/Logs/awsMethods"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsmethods
+  name: Nixpkgs awsMethods Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsMethods on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsMethods"
+  - "$XDG_CACHE_HOME/awsMethods"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsmethods
+  name: Nixpkgs awsMethods Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsMethods on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsMethods/Cache"
+  - "%LOCALAPPDATA%/awsMethods/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsbck
+  name: Nixpkgs awsbck macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsbck on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsbck"
+  - "$HOME/Library/Logs/awsbck"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsbck
+  name: Nixpkgs awsbck Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsbck on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsbck"
+  - "$XDG_CACHE_HOME/awsbck"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsbck
+  name: Nixpkgs awsbck Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsbck on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsbck/Cache"
+  - "%LOCALAPPDATA%/awsbck/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awscli
+  name: Nixpkgs awscli macOS cache (wave 3)
+  description: Third Nixpkgs slice for awscli on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awscli"
+  - "$HOME/Library/Logs/awscli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awscli
+  name: Nixpkgs awscli Linux cache (wave 3)
+  description: Third Nixpkgs slice for awscli on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awscli"
+  - "$XDG_CACHE_HOME/awscli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awscli
+  name: Nixpkgs awscli Windows cache (wave 3)
+  description: Third Nixpkgs slice for awscli on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awscli/Cache"
+  - "%LOCALAPPDATA%/awscli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awscli-capf
+  name: Nixpkgs awscli-capf macOS cache (wave 3)
+  description: Third Nixpkgs slice for awscli-capf on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awscli-capf"
+  - "$HOME/Library/Logs/awscli-capf"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awscli-capf
+  name: Nixpkgs awscli-capf Linux cache (wave 3)
+  description: Third Nixpkgs slice for awscli-capf on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awscli-capf"
+  - "$XDG_CACHE_HOME/awscli-capf"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awscli-capf
+  name: Nixpkgs awscli-capf Windows cache (wave 3)
+  description: Third Nixpkgs slice for awscli-capf on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awscli-capf/Cache"
+  - "%LOCALAPPDATA%/awscli-capf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awscli2
+  name: Nixpkgs awscli2 macOS cache (wave 3)
+  description: Third Nixpkgs slice for awscli2 on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awscli2"
+  - "$HOME/Library/Logs/awscli2"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awscli2
+  name: Nixpkgs awscli2 Linux cache (wave 3)
+  description: Third Nixpkgs slice for awscli2 on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awscli2"
+  - "$XDG_CACHE_HOME/awscli2"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awscli2
+  name: Nixpkgs awscli2 Windows cache (wave 3)
+  description: Third Nixpkgs slice for awscli2 on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awscli2/Cache"
+  - "%LOCALAPPDATA%/awscli2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awscrt
+  name: Nixpkgs awscrt macOS cache (wave 3)
+  description: Third Nixpkgs slice for awscrt on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awscrt"
+  - "$HOME/Library/Logs/awscrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awscrt
+  name: Nixpkgs awscrt Linux cache (wave 3)
+  description: Third Nixpkgs slice for awscrt on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awscrt"
+  - "$XDG_CACHE_HOME/awscrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awscrt
+  name: Nixpkgs awscrt Windows cache (wave 3)
+  description: Third Nixpkgs slice for awscrt on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awscrt/Cache"
+  - "%LOCALAPPDATA%/awscrt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsebcli
+  name: Nixpkgs awsebcli macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsebcli on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsebcli"
+  - "$HOME/Library/Logs/awsebcli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsebcli
+  name: Nixpkgs awsebcli Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsebcli on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsebcli"
+  - "$XDG_CACHE_HOME/awsebcli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsebcli
+  name: Nixpkgs awsebcli Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsebcli on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsebcli/Cache"
+  - "%LOCALAPPDATA%/awsebcli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsiotpythonsdk
+  name: Nixpkgs awsiotpythonsdk macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsiotpythonsdk on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsiotpythonsdk"
+  - "$HOME/Library/Logs/awsiotpythonsdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsiotpythonsdk
+  name: Nixpkgs awsiotpythonsdk Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsiotpythonsdk on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsiotpythonsdk"
+  - "$XDG_CACHE_HOME/awsiotpythonsdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsiotpythonsdk
+  name: Nixpkgs awsiotpythonsdk Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsiotpythonsdk on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsiotpythonsdk/Cache"
+  - "%LOCALAPPDATA%/awsiotpythonsdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsiotsdk
+  name: Nixpkgs awsiotsdk macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsiotsdk on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsiotsdk"
+  - "$HOME/Library/Logs/awsiotsdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsiotsdk
+  name: Nixpkgs awsiotsdk Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsiotsdk on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsiotsdk"
+  - "$XDG_CACHE_HOME/awsiotsdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsiotsdk
+  name: Nixpkgs awsiotsdk Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsiotsdk on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsiotsdk/Cache"
+  - "%LOCALAPPDATA%/awsiotsdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsipranges
+  name: Nixpkgs awsipranges macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsipranges on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsipranges"
+  - "$HOME/Library/Logs/awsipranges"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsipranges
+  name: Nixpkgs awsipranges Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsipranges on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsipranges"
+  - "$XDG_CACHE_HOME/awsipranges"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsipranges
+  name: Nixpkgs awsipranges Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsipranges on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsipranges/Cache"
+  - "%LOCALAPPDATA%/awsipranges/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awslambdaric
+  name: Nixpkgs awslambdaric macOS cache (wave 3)
+  description: Third Nixpkgs slice for awslambdaric on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awslambdaric"
+  - "$HOME/Library/Logs/awslambdaric"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awslambdaric
+  name: Nixpkgs awslambdaric Linux cache (wave 3)
+  description: Third Nixpkgs slice for awslambdaric on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awslambdaric"
+  - "$XDG_CACHE_HOME/awslambdaric"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awslambdaric
+  name: Nixpkgs awslambdaric Windows cache (wave 3)
+  description: Third Nixpkgs slice for awslambdaric on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awslambdaric/Cache"
+  - "%LOCALAPPDATA%/awslambdaric/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awslimitchecker
+  name: Nixpkgs awslimitchecker macOS cache (wave 3)
+  description: Third Nixpkgs slice for awslimitchecker on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awslimitchecker"
+  - "$HOME/Library/Logs/awslimitchecker"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awslimitchecker
+  name: Nixpkgs awslimitchecker Linux cache (wave 3)
+  description: Third Nixpkgs slice for awslimitchecker on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awslimitchecker"
+  - "$XDG_CACHE_HOME/awslimitchecker"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awslimitchecker
+  name: Nixpkgs awslimitchecker Windows cache (wave 3)
+  description: Third Nixpkgs slice for awslimitchecker on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awslimitchecker/Cache"
+  - "%LOCALAPPDATA%/awslimitchecker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awslogs
+  name: Nixpkgs awslogs macOS cache (wave 3)
+  description: Third Nixpkgs slice for awslogs on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awslogs"
+  - "$HOME/Library/Logs/awslogs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awslogs
+  name: Nixpkgs awslogs Linux cache (wave 3)
+  description: Third Nixpkgs slice for awslogs on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awslogs"
+  - "$XDG_CACHE_HOME/awslogs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awslogs
+  name: Nixpkgs awslogs Windows cache (wave 3)
+  description: Third Nixpkgs slice for awslogs on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awslogs/Cache"
+  - "%LOCALAPPDATA%/awslogs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsls
+  name: Nixpkgs awsls macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsls on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsls"
+  - "$HOME/Library/Logs/awsls"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsls
+  name: Nixpkgs awsls Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsls on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsls"
+  - "$XDG_CACHE_HOME/awsls"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsls
+  name: Nixpkgs awsls Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsls on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsls/Cache"
+  - "%LOCALAPPDATA%/awsls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsrm
+  name: Nixpkgs awsrm macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsrm on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsrm"
+  - "$HOME/Library/Logs/awsrm"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsrm
+  name: Nixpkgs awsrm Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsrm on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsrm"
+  - "$XDG_CACHE_HOME/awsrm"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsrm
+  name: Nixpkgs awsrm Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsrm on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsrm/Cache"
+  - "%LOCALAPPDATA%/awsrm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsspendsummary
+  name: Nixpkgs awsspendsummary macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsspendsummary on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsspendsummary"
+  - "$HOME/Library/Logs/awsspendsummary"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsspendsummary
+  name: Nixpkgs awsspendsummary Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsspendsummary on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsspendsummary"
+  - "$XDG_CACHE_HOME/awsspendsummary"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsspendsummary
+  name: Nixpkgs awsspendsummary Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsspendsummary on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsspendsummary/Cache"
+  - "%LOCALAPPDATA%/awsspendsummary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awst
+  name: Nixpkgs awst macOS cache (wave 3)
+  description: Third Nixpkgs slice for awst on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awst"
+  - "$HOME/Library/Logs/awst"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awst
+  name: Nixpkgs awst Linux cache (wave 3)
+  description: Third Nixpkgs slice for awst on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awst"
+  - "$XDG_CACHE_HOME/awst"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awst
+  name: Nixpkgs awst Windows cache (wave 3)
+  description: Third Nixpkgs slice for awst on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awst/Cache"
+  - "%LOCALAPPDATA%/awst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awstats
+  name: Nixpkgs awstats macOS cache (wave 3)
+  description: Third Nixpkgs slice for awstats on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awstats"
+  - "$HOME/Library/Logs/awstats"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awstats
+  name: Nixpkgs awstats Linux cache (wave 3)
+  description: Third Nixpkgs slice for awstats on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awstats"
+  - "$XDG_CACHE_HOME/awstats"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awstats
+  name: Nixpkgs awstats Windows cache (wave 3)
+  description: Third Nixpkgs slice for awstats on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awstats/Cache"
+  - "%LOCALAPPDATA%/awstats/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsume
+  name: Nixpkgs awsume macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsume on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsume"
+  - "$HOME/Library/Logs/awsume"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsume
+  name: Nixpkgs awsume Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsume on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsume"
+  - "$XDG_CACHE_HOME/awsume"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsume
+  name: Nixpkgs awsume Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsume on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsume/Cache"
+  - "%LOCALAPPDATA%/awsume/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awsweeper
+  name: Nixpkgs awsweeper macOS cache (wave 3)
+  description: Third Nixpkgs slice for awsweeper on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awsweeper"
+  - "$HOME/Library/Logs/awsweeper"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awsweeper
+  name: Nixpkgs awsweeper Linux cache (wave 3)
+  description: Third Nixpkgs slice for awsweeper on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awsweeper"
+  - "$XDG_CACHE_HOME/awsweeper"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awsweeper
+  name: Nixpkgs awsweeper Windows cache (wave 3)
+  description: Third Nixpkgs slice for awsweeper on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awsweeper/Cache"
+  - "%LOCALAPPDATA%/awsweeper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awswrangler
+  name: Nixpkgs awswrangler macOS cache (wave 3)
+  description: Third Nixpkgs slice for awswrangler on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awswrangler"
+  - "$HOME/Library/Logs/awswrangler"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awswrangler
+  name: Nixpkgs awswrangler Linux cache (wave 3)
+  description: Third Nixpkgs slice for awswrangler on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awswrangler"
+  - "$XDG_CACHE_HOME/awswrangler"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awswrangler
+  name: Nixpkgs awswrangler Windows cache (wave 3)
+  description: Third Nixpkgs slice for awswrangler on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awswrangler/Cache"
+  - "%LOCALAPPDATA%/awswrangler/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-awww
+  name: Nixpkgs awww macOS cache (wave 3)
+  description: Third Nixpkgs slice for awww on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/awww"
+  - "$HOME/Library/Logs/awww"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-awww
+  name: Nixpkgs awww Linux cache (wave 3)
+  description: Third Nixpkgs slice for awww on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/awww"
+  - "$XDG_CACHE_HOME/awww"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-awww
+  name: Nixpkgs awww Windows cache (wave 3)
+  description: Third Nixpkgs slice for awww on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/awww/Cache"
+  - "%LOCALAPPDATA%/awww/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ax-platform
+  name: Nixpkgs ax-platform macOS cache (wave 3)
+  description: Third Nixpkgs slice for ax-platform on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ax-platform"
+  - "$HOME/Library/Logs/ax-platform"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ax-platform
+  name: Nixpkgs ax-platform Linux cache (wave 3)
+  description: Third Nixpkgs slice for ax-platform on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ax-platform"
+  - "$XDG_CACHE_HOME/ax-platform"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ax-platform
+  name: Nixpkgs ax-platform Windows cache (wave 3)
+  description: Third Nixpkgs slice for ax-platform on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ax-platform/Cache"
+  - "%LOCALAPPDATA%/ax-platform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ax25-apps
+  name: Nixpkgs ax25-apps macOS cache (wave 3)
+  description: Third Nixpkgs slice for ax25-apps on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ax25-apps"
+  - "$HOME/Library/Logs/ax25-apps"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ax25-apps
+  name: Nixpkgs ax25-apps Linux cache (wave 3)
+  description: Third Nixpkgs slice for ax25-apps on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ax25-apps"
+  - "$XDG_CACHE_HOME/ax25-apps"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ax25-apps
+  name: Nixpkgs ax25-apps Windows cache (wave 3)
+  description: Third Nixpkgs slice for ax25-apps on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ax25-apps/Cache"
+  - "%LOCALAPPDATA%/ax25-apps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ax25-tools
+  name: Nixpkgs ax25-tools macOS cache (wave 3)
+  description: Third Nixpkgs slice for ax25-tools on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ax25-tools"
+  - "$HOME/Library/Logs/ax25-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ax25-tools
+  name: Nixpkgs ax25-tools Linux cache (wave 3)
+  description: Third Nixpkgs slice for ax25-tools on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ax25-tools"
+  - "$XDG_CACHE_HOME/ax25-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ax25-tools
+  name: Nixpkgs ax25-tools Windows cache (wave 3)
+  description: Third Nixpkgs slice for ax25-tools on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ax25-tools/Cache"
+  - "%LOCALAPPDATA%/ax25-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ax25ms
+  name: Nixpkgs ax25ms macOS cache (wave 3)
+  description: Third Nixpkgs slice for ax25ms on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ax25ms"
+  - "$HOME/Library/Logs/ax25ms"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ax25ms
+  name: Nixpkgs ax25ms Linux cache (wave 3)
+  description: Third Nixpkgs slice for ax25ms on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ax25ms"
+  - "$XDG_CACHE_HOME/ax25ms"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ax25ms
+  name: Nixpkgs ax25ms Windows cache (wave 3)
+  description: Third Nixpkgs slice for ax25ms on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ax25ms/Cache"
+  - "%LOCALAPPDATA%/ax25ms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ax99100
+  name: Nixpkgs ax99100 macOS cache (wave 3)
+  description: Third Nixpkgs slice for ax99100 on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ax99100"
+  - "$HOME/Library/Logs/ax99100"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ax99100
+  name: Nixpkgs ax99100 Linux cache (wave 3)
+  description: Third Nixpkgs slice for ax99100 on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ax99100"
+  - "$XDG_CACHE_HOME/ax99100"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ax99100
+  name: Nixpkgs ax99100 Windows cache (wave 3)
+  description: Third Nixpkgs slice for ax99100 on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ax99100/Cache"
+  - "%LOCALAPPDATA%/ax99100/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axe
+  name: Nixpkgs axe macOS cache (wave 3)
+  description: Third Nixpkgs slice for axe on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axe"
+  - "$HOME/Library/Logs/axe"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axe
+  name: Nixpkgs axe Linux cache (wave 3)
+  description: Third Nixpkgs slice for axe on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axe"
+  - "$XDG_CACHE_HOME/axe"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axe
+  name: Nixpkgs axe Windows cache (wave 3)
+  description: Third Nixpkgs slice for axe on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axe/Cache"
+  - "%LOCALAPPDATA%/axe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axel
+  name: Nixpkgs axel macOS cache (wave 3)
+  description: Third Nixpkgs slice for axel on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axel"
+  - "$HOME/Library/Logs/axel"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axel
+  name: Nixpkgs axel Linux cache (wave 3)
+  description: Third Nixpkgs slice for axel on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axel"
+  - "$XDG_CACHE_HOME/axel"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axel
+  name: Nixpkgs axel Windows cache (wave 3)
+  description: Third Nixpkgs slice for axel on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axel/Cache"
+  - "%LOCALAPPDATA%/axel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axessibility
+  name: Nixpkgs axessibility macOS cache (wave 3)
+  description: Third Nixpkgs slice for axessibility on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axessibility"
+  - "$HOME/Library/Logs/axessibility"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axessibility
+  name: Nixpkgs axessibility Linux cache (wave 3)
+  description: Third Nixpkgs slice for axessibility on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axessibility"
+  - "$XDG_CACHE_HOME/axessibility"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axessibility
+  name: Nixpkgs axessibility Windows cache (wave 3)
+  description: Third Nixpkgs slice for axessibility on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axessibility/Cache"
+  - "%LOCALAPPDATA%/axessibility/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axiom
+  name: Nixpkgs axiom macOS cache (wave 3)
+  description: Third Nixpkgs slice for axiom on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axiom"
+  - "$HOME/Library/Logs/axiom"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axiom
+  name: Nixpkgs axiom Linux cache (wave 3)
+  description: Third Nixpkgs slice for axiom on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axiom"
+  - "$XDG_CACHE_HOME/axiom"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axiom
+  name: Nixpkgs axiom Windows cache (wave 3)
+  description: Third Nixpkgs slice for axiom on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axiom/Cache"
+  - "%LOCALAPPDATA%/axiom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axiomatic-classes
+  name: Nixpkgs axiomatic-classes macOS cache (wave 3)
+  description: Third Nixpkgs slice for axiomatic-classes on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axiomatic-classes"
+  - "$HOME/Library/Logs/axiomatic-classes"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axiomatic-classes
+  name: Nixpkgs axiomatic-classes Linux cache (wave 3)
+  description: Third Nixpkgs slice for axiomatic-classes on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axiomatic-classes"
+  - "$XDG_CACHE_HOME/axiomatic-classes"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axiomatic-classes
+  name: Nixpkgs axiomatic-classes Windows cache (wave 3)
+  description: Third Nixpkgs slice for axiomatic-classes on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axiomatic-classes/Cache"
+  - "%LOCALAPPDATA%/axiomatic-classes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axiomst
+  name: Nixpkgs axiomst macOS cache (wave 3)
+  description: Third Nixpkgs slice for axiomst on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axiomst"
+  - "$HOME/Library/Logs/axiomst"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axiomst
+  name: Nixpkgs axiomst Linux cache (wave 3)
+  description: Third Nixpkgs slice for axiomst on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axiomst"
+  - "$XDG_CACHE_HOME/axiomst"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axiomst
+  name: Nixpkgs axiomst Windows cache (wave 3)
+  description: Third Nixpkgs slice for axiomst on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axiomst/Cache"
+  - "%LOCALAPPDATA%/axiomst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axis
+  name: Nixpkgs axis macOS cache (wave 3)
+  description: Third Nixpkgs slice for axis on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axis"
+  - "$HOME/Library/Logs/axis"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axis
+  name: Nixpkgs axis Linux cache (wave 3)
+  description: Third Nixpkgs slice for axis on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axis"
+  - "$XDG_CACHE_HOME/axis"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axis
+  name: Nixpkgs axis Windows cache (wave 3)
+  description: Third Nixpkgs slice for axis on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axis/Cache"
+  - "%LOCALAPPDATA%/axis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axis2
+  name: Nixpkgs axis2 macOS cache (wave 3)
+  description: Third Nixpkgs slice for axis2 on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axis2"
+  - "$HOME/Library/Logs/axis2"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axis2
+  name: Nixpkgs axis2 Linux cache (wave 3)
+  description: Third Nixpkgs slice for axis2 on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axis2"
+  - "$XDG_CACHE_HOME/axis2"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axis2
+  name: Nixpkgs axis2 Windows cache (wave 3)
+  description: Third Nixpkgs slice for axis2 on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axis2/Cache"
+  - "%LOCALAPPDATA%/axis2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axisandallies
+  name: Nixpkgs axisandallies macOS cache (wave 3)
+  description: Third Nixpkgs slice for axisandallies on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axisandallies"
+  - "$HOME/Library/Logs/axisandallies"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axisandallies
+  name: Nixpkgs axisandallies Linux cache (wave 3)
+  description: Third Nixpkgs slice for axisandallies on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axisandallies"
+  - "$XDG_CACHE_HOME/axisandallies"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axisandallies
+  name: Nixpkgs axisandallies Windows cache (wave 3)
+  description: Third Nixpkgs slice for axisandallies on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axisandallies/Cache"
+  - "%LOCALAPPDATA%/axisandallies/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axisregistry
+  name: Nixpkgs axisregistry macOS cache (wave 3)
+  description: Third Nixpkgs slice for axisregistry on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axisregistry"
+  - "$HOME/Library/Logs/axisregistry"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axisregistry
+  name: Nixpkgs axisregistry Linux cache (wave 3)
+  description: Third Nixpkgs slice for axisregistry on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axisregistry"
+  - "$XDG_CACHE_HOME/axisregistry"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axisregistry
+  name: Nixpkgs axisregistry Windows cache (wave 3)
+  description: Third Nixpkgs slice for axisregistry on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axisregistry/Cache"
+  - "%LOCALAPPDATA%/axisregistry/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axodendron
+  name: Nixpkgs axodendron macOS cache (wave 3)
+  description: Third Nixpkgs slice for axodendron on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axodendron"
+  - "$HOME/Library/Logs/axodendron"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axodendron
+  name: Nixpkgs axodendron Linux cache (wave 3)
+  description: Third Nixpkgs slice for axodendron on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axodendron"
+  - "$XDG_CACHE_HOME/axodendron"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axodendron
+  name: Nixpkgs axodendron Windows cache (wave 3)
+  description: Third Nixpkgs slice for axodendron on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axodendron/Cache"
+  - "%LOCALAPPDATA%/axodendron/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axodraw2
+  name: Nixpkgs axodraw2 macOS cache (wave 3)
+  description: Third Nixpkgs slice for axodraw2 on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axodraw2"
+  - "$HOME/Library/Logs/axodraw2"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axodraw2
+  name: Nixpkgs axodraw2 Linux cache (wave 3)
+  description: Third Nixpkgs slice for axodraw2 on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axodraw2"
+  - "$XDG_CACHE_HOME/axodraw2"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axodraw2
+  name: Nixpkgs axodraw2 Windows cache (wave 3)
+  description: Third Nixpkgs slice for axodraw2 on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axodraw2/Cache"
+  - "%LOCALAPPDATA%/axodraw2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-axprism
+  name: Nixpkgs axprism macOS cache (wave 3)
+  description: Third Nixpkgs slice for axprism on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/axprism"
+  - "$HOME/Library/Logs/axprism"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-axprism
+  name: Nixpkgs axprism Linux cache (wave 3)
+  description: Third Nixpkgs slice for axprism on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/axprism"
+  - "$XDG_CACHE_HOME/axprism"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-axprism
+  name: Nixpkgs axprism Windows cache (wave 3)
+  description: Third Nixpkgs slice for axprism on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/axprism/Cache"
+  - "%LOCALAPPDATA%/axprism/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayah-captcha
+  name: Nixpkgs ayah-captcha macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayah-captcha on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayah-captcha"
+  - "$HOME/Library/Logs/ayah-captcha"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayah-captcha
+  name: Nixpkgs ayah-captcha Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayah-captcha on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayah-captcha"
+  - "$XDG_CACHE_HOME/ayah-captcha"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayah-captcha
+  name: Nixpkgs ayah-captcha Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayah-captcha on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayah-captcha/Cache"
+  - "%LOCALAPPDATA%/ayah-captcha/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayah-captcha-demo
+  name: Nixpkgs ayah-captcha-demo macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayah-captcha-demo on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayah-captcha-demo"
+  - "$HOME/Library/Logs/ayah-captcha-demo"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayah-captcha-demo
+  name: Nixpkgs ayah-captcha-demo Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayah-captcha-demo on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayah-captcha-demo"
+  - "$XDG_CACHE_HOME/ayah-captcha-demo"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayah-captcha-demo
+  name: Nixpkgs ayah-captcha-demo Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayah-captcha-demo on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayah-captcha-demo/Cache"
+  - "%LOCALAPPDATA%/ayah-captcha-demo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-ido
+  name: Nixpkgs ayatana-ido macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-ido on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-ido"
+  - "$HOME/Library/Logs/ayatana-ido"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-ido
+  name: Nixpkgs ayatana-ido Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-ido on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-ido"
+  - "$XDG_CACHE_HOME/ayatana-ido"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-ido
+  name: Nixpkgs ayatana-ido Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-ido on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-ido/Cache"
+  - "%LOCALAPPDATA%/ayatana-ido/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-bluetooth
+  name: Nixpkgs ayatana-indicator-bluetooth macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-bluetooth on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-bluetooth"
+  - "$HOME/Library/Logs/ayatana-indicator-bluetooth"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-bluetooth
+  name: Nixpkgs ayatana-indicator-bluetooth Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-bluetooth on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-bluetooth"
+  - "$XDG_CACHE_HOME/ayatana-indicator-bluetooth"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-bluetooth
+  name: Nixpkgs ayatana-indicator-bluetooth Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-bluetooth on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-bluetooth/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-bluetooth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-datetime
+  name: Nixpkgs ayatana-indicator-datetime macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-datetime on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-datetime"
+  - "$HOME/Library/Logs/ayatana-indicator-datetime"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-datetime
+  name: Nixpkgs ayatana-indicator-datetime Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-datetime on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-datetime"
+  - "$XDG_CACHE_HOME/ayatana-indicator-datetime"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-datetime
+  name: Nixpkgs ayatana-indicator-datetime Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-datetime on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-datetime/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-datetime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-display
+  name: Nixpkgs ayatana-indicator-display macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-display on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-display"
+  - "$HOME/Library/Logs/ayatana-indicator-display"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-display
+  name: Nixpkgs ayatana-indicator-display Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-display on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-display"
+  - "$XDG_CACHE_HOME/ayatana-indicator-display"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-display
+  name: Nixpkgs ayatana-indicator-display Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-display on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-display/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-display/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-messages
+  name: Nixpkgs ayatana-indicator-messages macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-messages on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-messages"
+  - "$HOME/Library/Logs/ayatana-indicator-messages"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-messages
+  name: Nixpkgs ayatana-indicator-messages Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-messages on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-messages"
+  - "$XDG_CACHE_HOME/ayatana-indicator-messages"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-messages
+  name: Nixpkgs ayatana-indicator-messages Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-messages on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-messages/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-messages/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-power
+  name: Nixpkgs ayatana-indicator-power macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-power on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-power"
+  - "$HOME/Library/Logs/ayatana-indicator-power"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-power
+  name: Nixpkgs ayatana-indicator-power Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-power on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-power"
+  - "$XDG_CACHE_HOME/ayatana-indicator-power"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-power
+  name: Nixpkgs ayatana-indicator-power Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-power on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-power/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-power/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-session
+  name: Nixpkgs ayatana-indicator-session macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-session on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-session"
+  - "$HOME/Library/Logs/ayatana-indicator-session"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-session
+  name: Nixpkgs ayatana-indicator-session Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-session on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-session"
+  - "$XDG_CACHE_HOME/ayatana-indicator-session"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-session
+  name: Nixpkgs ayatana-indicator-session Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-session on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-session/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-session/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-indicator-sound
+  name: Nixpkgs ayatana-indicator-sound macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-sound on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-indicator-sound"
+  - "$HOME/Library/Logs/ayatana-indicator-sound"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-indicator-sound
+  name: Nixpkgs ayatana-indicator-sound Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-sound on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-indicator-sound"
+  - "$XDG_CACHE_HOME/ayatana-indicator-sound"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-indicator-sound
+  name: Nixpkgs ayatana-indicator-sound Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-indicator-sound on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-indicator-sound/Cache"
+  - "%LOCALAPPDATA%/ayatana-indicator-sound/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayatana-webmail
+  name: Nixpkgs ayatana-webmail macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-webmail on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayatana-webmail"
+  - "$HOME/Library/Logs/ayatana-webmail"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayatana-webmail
+  name: Nixpkgs ayatana-webmail Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-webmail on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayatana-webmail"
+  - "$XDG_CACHE_HOME/ayatana-webmail"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayatana-webmail
+  name: Nixpkgs ayatana-webmail Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayatana-webmail on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayatana-webmail/Cache"
+  - "%LOCALAPPDATA%/ayatana-webmail/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayla-iot-unofficial
+  name: Nixpkgs ayla-iot-unofficial macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayla-iot-unofficial on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayla-iot-unofficial"
+  - "$HOME/Library/Logs/ayla-iot-unofficial"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayla-iot-unofficial
+  name: Nixpkgs ayla-iot-unofficial Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayla-iot-unofficial on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayla-iot-unofficial"
+  - "$XDG_CACHE_HOME/ayla-iot-unofficial"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayla-iot-unofficial
+  name: Nixpkgs ayla-iot-unofficial Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayla-iot-unofficial on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayla-iot-unofficial/Cache"
+  - "%LOCALAPPDATA%/ayla-iot-unofficial/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aylin-vim
+  name: Nixpkgs aylin.vim macOS cache (wave 3)
+  description: Third Nixpkgs slice for aylin.vim on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aylin.vim"
+  - "$HOME/Library/Logs/aylin.vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aylin-vim
+  name: Nixpkgs aylin.vim Linux cache (wave 3)
+  description: Third Nixpkgs slice for aylin.vim on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aylin.vim"
+  - "$XDG_CACHE_HOME/aylin.vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aylin-vim
+  name: Nixpkgs aylin.vim Windows cache (wave 3)
+  description: Third Nixpkgs slice for aylin.vim on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aylin.vim/Cache"
+  - "%LOCALAPPDATA%/aylin.vim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayu-theme
+  name: Nixpkgs ayu-theme macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayu-theme on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayu-theme"
+  - "$HOME/Library/Logs/ayu-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayu-theme
+  name: Nixpkgs ayu-theme Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayu-theme on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayu-theme"
+  - "$XDG_CACHE_HOME/ayu-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayu-theme
+  name: Nixpkgs ayu-theme Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayu-theme on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayu-theme/Cache"
+  - "%LOCALAPPDATA%/ayu-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayu-vim
+  name: Nixpkgs ayu-vim macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayu-vim on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayu-vim"
+  - "$HOME/Library/Logs/ayu-vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayu-vim
+  name: Nixpkgs ayu-vim Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayu-vim on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayu-vim"
+  - "$XDG_CACHE_HOME/ayu-vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayu-vim
+  name: Nixpkgs ayu-vim Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayu-vim on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayu-vim/Cache"
+  - "%LOCALAPPDATA%/ayu-vim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-ayugram-desktop
+  name: Nixpkgs ayugram-desktop macOS cache (wave 3)
+  description: Third Nixpkgs slice for ayugram-desktop on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ayugram-desktop"
+  - "$HOME/Library/Logs/ayugram-desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-ayugram-desktop
+  name: Nixpkgs ayugram-desktop Linux cache (wave 3)
+  description: Third Nixpkgs slice for ayugram-desktop on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ayugram-desktop"
+  - "$XDG_CACHE_HOME/ayugram-desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-ayugram-desktop
+  name: Nixpkgs ayugram-desktop Windows cache (wave 3)
+  description: Third Nixpkgs slice for ayugram-desktop on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ayugram-desktop/Cache"
+  - "%LOCALAPPDATA%/ayugram-desktop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-az-pim-cli
+  name: Nixpkgs az-pim-cli macOS cache (wave 3)
+  description: Third Nixpkgs slice for az-pim-cli on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/az-pim-cli"
+  - "$HOME/Library/Logs/az-pim-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-az-pim-cli
+  name: Nixpkgs az-pim-cli Linux cache (wave 3)
+  description: Third Nixpkgs slice for az-pim-cli on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/az-pim-cli"
+  - "$XDG_CACHE_HOME/az-pim-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-az-pim-cli
+  name: Nixpkgs az-pim-cli Windows cache (wave 3)
+  description: Third Nixpkgs slice for az-pim-cli on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/az-pim-cli/Cache"
+  - "%LOCALAPPDATA%/az-pim-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azahar
+  name: Nixpkgs azahar macOS cache (wave 3)
+  description: Third Nixpkgs slice for azahar on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azahar"
+  - "$HOME/Library/Logs/azahar"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azahar
+  name: Nixpkgs azahar Linux cache (wave 3)
+  description: Third Nixpkgs slice for azahar on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azahar"
+  - "$XDG_CACHE_HOME/azahar"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azahar
+  name: Nixpkgs azahar Windows cache (wave 3)
+  description: Third Nixpkgs slice for azahar on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azahar/Cache"
+  - "%LOCALAPPDATA%/azahar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azeret-mono
+  name: Nixpkgs azeret-mono macOS cache (wave 3)
+  description: Third Nixpkgs slice for azeret-mono on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azeret-mono"
+  - "$HOME/Library/Logs/azeret-mono"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azeret-mono
+  name: Nixpkgs azeret-mono Linux cache (wave 3)
+  description: Third Nixpkgs slice for azeret-mono on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azeret-mono"
+  - "$XDG_CACHE_HOME/azeret-mono"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azeret-mono
+  name: Nixpkgs azeret-mono Windows cache (wave 3)
+  description: Third Nixpkgs slice for azeret-mono on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azeret-mono/Cache"
+  - "%LOCALAPPDATA%/azeret-mono/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azimuth
+  name: Nixpkgs azimuth macOS cache (wave 3)
+  description: Third Nixpkgs slice for azimuth on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azimuth"
+  - "$HOME/Library/Logs/azimuth"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azimuth
+  name: Nixpkgs azimuth Linux cache (wave 3)
+  description: Third Nixpkgs slice for azimuth on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azimuth"
+  - "$XDG_CACHE_HOME/azimuth"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azimuth
+  name: Nixpkgs azimuth Windows cache (wave 3)
+  description: Third Nixpkgs slice for azimuth on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azimuth/Cache"
+  - "%LOCALAPPDATA%/azimuth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azimuth-hs
+  name: Nixpkgs azimuth-hs macOS cache (wave 3)
+  description: Third Nixpkgs slice for azimuth-hs on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azimuth-hs"
+  - "$HOME/Library/Logs/azimuth-hs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azimuth-hs
+  name: Nixpkgs azimuth-hs Linux cache (wave 3)
+  description: Third Nixpkgs slice for azimuth-hs on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azimuth-hs"
+  - "$XDG_CACHE_HOME/azimuth-hs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azimuth-hs
+  name: Nixpkgs azimuth-hs Windows cache (wave 3)
+  description: Third Nixpkgs slice for azimuth-hs on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azimuth-hs/Cache"
+  - "%LOCALAPPDATA%/azimuth-hs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aziztest
+  name: Nixpkgs aziztest macOS cache (wave 3)
+  description: Third Nixpkgs slice for aziztest on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aziztest"
+  - "$HOME/Library/Logs/aziztest"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aziztest
+  name: Nixpkgs aziztest Linux cache (wave 3)
+  description: Third Nixpkgs slice for aziztest on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aziztest"
+  - "$XDG_CACHE_HOME/aziztest"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aziztest
+  name: Nixpkgs aziztest Windows cache (wave 3)
+  description: Third Nixpkgs slice for aziztest on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aziztest/Cache"
+  - "%LOCALAPPDATA%/aziztest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azlogr
+  name: Nixpkgs azlogr macOS cache (wave 3)
+  description: Third Nixpkgs slice for azlogr on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azlogr"
+  - "$HOME/Library/Logs/azlogr"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azlogr
+  name: Nixpkgs azlogr Linux cache (wave 3)
+  description: Third Nixpkgs slice for azlogr on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azlogr"
+  - "$XDG_CACHE_HOME/azlogr"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azlogr
+  name: Nixpkgs azlogr Windows cache (wave 3)
+  description: Third Nixpkgs slice for azlogr on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azlogr/Cache"
+  - "%LOCALAPPDATA%/azlogr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azmq
+  name: Nixpkgs azmq macOS cache (wave 3)
+  description: Third Nixpkgs slice for azmq on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azmq"
+  - "$HOME/Library/Logs/azmq"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azmq
+  name: Nixpkgs azmq Linux cache (wave 3)
+  description: Third Nixpkgs slice for azmq on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azmq"
+  - "$XDG_CACHE_HOME/azmq"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azmq
+  name: Nixpkgs azmq Windows cache (wave 3)
+  description: Third Nixpkgs slice for azmq on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azmq/Cache"
+  - "%LOCALAPPDATA%/azmq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azpainter
+  name: Nixpkgs azpainter macOS cache (wave 3)
+  description: Third Nixpkgs slice for azpainter on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azpainter"
+  - "$HOME/Library/Logs/azpainter"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azpainter
+  name: Nixpkgs azpainter Linux cache (wave 3)
+  description: Third Nixpkgs slice for azpainter on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azpainter"
+  - "$XDG_CACHE_HOME/azpainter"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azpainter
+  name: Nixpkgs azpainter Windows cache (wave 3)
+  description: Third Nixpkgs slice for azpainter on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azpainter/Cache"
+  - "%LOCALAPPDATA%/azpainter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azr
+  name: Nixpkgs azr macOS cache (wave 3)
+  description: Third Nixpkgs slice for azr on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azr"
+  - "$HOME/Library/Logs/azr"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azr
+  name: Nixpkgs azr Linux cache (wave 3)
+  description: Third Nixpkgs slice for azr on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azr"
+  - "$XDG_CACHE_HOME/azr"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azr
+  name: Nixpkgs azr Windows cache (wave 3)
+  description: Third Nixpkgs slice for azr on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azr/Cache"
+  - "%LOCALAPPDATA%/azr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs
+  name: Nixpkgs aztecs macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs"
+  - "$HOME/Library/Logs/aztecs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs
+  name: Nixpkgs aztecs Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs"
+  - "$XDG_CACHE_HOME/aztecs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs
+  name: Nixpkgs aztecs Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs/Cache"
+  - "%LOCALAPPDATA%/aztecs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-asset
+  name: Nixpkgs aztecs-asset macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-asset on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-asset"
+  - "$HOME/Library/Logs/aztecs-asset"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-asset
+  name: Nixpkgs aztecs-asset Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-asset on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-asset"
+  - "$XDG_CACHE_HOME/aztecs-asset"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-asset
+  name: Nixpkgs aztecs-asset Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-asset on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-asset/Cache"
+  - "%LOCALAPPDATA%/aztecs-asset/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-gl
+  name: Nixpkgs aztecs-gl macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-gl on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-gl"
+  - "$HOME/Library/Logs/aztecs-gl"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-gl
+  name: Nixpkgs aztecs-gl Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-gl on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-gl"
+  - "$XDG_CACHE_HOME/aztecs-gl"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-gl
+  name: Nixpkgs aztecs-gl Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-gl on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-gl/Cache"
+  - "%LOCALAPPDATA%/aztecs-gl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-gl-text
+  name: Nixpkgs aztecs-gl-text macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-gl-text on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-gl-text"
+  - "$HOME/Library/Logs/aztecs-gl-text"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-gl-text
+  name: Nixpkgs aztecs-gl-text Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-gl-text on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-gl-text"
+  - "$XDG_CACHE_HOME/aztecs-gl-text"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-gl-text
+  name: Nixpkgs aztecs-gl-text Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-gl-text on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-gl-text/Cache"
+  - "%LOCALAPPDATA%/aztecs-gl-text/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-glfw
+  name: Nixpkgs aztecs-glfw macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-glfw on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-glfw"
+  - "$HOME/Library/Logs/aztecs-glfw"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-glfw
+  name: Nixpkgs aztecs-glfw Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-glfw on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-glfw"
+  - "$XDG_CACHE_HOME/aztecs-glfw"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-glfw
+  name: Nixpkgs aztecs-glfw Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-glfw on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-glfw/Cache"
+  - "%LOCALAPPDATA%/aztecs-glfw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-hierarchy
+  name: Nixpkgs aztecs-hierarchy macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-hierarchy on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-hierarchy"
+  - "$HOME/Library/Logs/aztecs-hierarchy"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-hierarchy
+  name: Nixpkgs aztecs-hierarchy Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-hierarchy on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-hierarchy"
+  - "$XDG_CACHE_HOME/aztecs-hierarchy"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-hierarchy
+  name: Nixpkgs aztecs-hierarchy Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-hierarchy on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-hierarchy/Cache"
+  - "%LOCALAPPDATA%/aztecs-hierarchy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-sdl
+  name: Nixpkgs aztecs-sdl macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-sdl"
+  - "$HOME/Library/Logs/aztecs-sdl"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-sdl
+  name: Nixpkgs aztecs-sdl Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-sdl"
+  - "$XDG_CACHE_HOME/aztecs-sdl"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-sdl
+  name: Nixpkgs aztecs-sdl Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-sdl/Cache"
+  - "%LOCALAPPDATA%/aztecs-sdl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-sdl-image
+  name: Nixpkgs aztecs-sdl-image macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl-image on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-sdl-image"
+  - "$HOME/Library/Logs/aztecs-sdl-image"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-sdl-image
+  name: Nixpkgs aztecs-sdl-image Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl-image on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-sdl-image"
+  - "$XDG_CACHE_HOME/aztecs-sdl-image"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-sdl-image
+  name: Nixpkgs aztecs-sdl-image Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl-image on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-sdl-image/Cache"
+  - "%LOCALAPPDATA%/aztecs-sdl-image/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-sdl-text
+  name: Nixpkgs aztecs-sdl-text macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl-text on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-sdl-text"
+  - "$HOME/Library/Logs/aztecs-sdl-text"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-sdl-text
+  name: Nixpkgs aztecs-sdl-text Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl-text on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-sdl-text"
+  - "$XDG_CACHE_HOME/aztecs-sdl-text"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-sdl-text
+  name: Nixpkgs aztecs-sdl-text Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-sdl-text on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-sdl-text/Cache"
+  - "%LOCALAPPDATA%/aztecs-sdl-text/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztecs-transform
+  name: Nixpkgs aztecs-transform macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-transform on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztecs-transform"
+  - "$HOME/Library/Logs/aztecs-transform"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztecs-transform
+  name: Nixpkgs aztecs-transform Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-transform on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztecs-transform"
+  - "$XDG_CACHE_HOME/aztecs-transform"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztecs-transform
+  name: Nixpkgs aztecs-transform Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztecs-transform on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztecs-transform/Cache"
+  - "%LOCALAPPDATA%/aztecs-transform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-aztfexport
+  name: Nixpkgs aztfexport macOS cache (wave 3)
+  description: Third Nixpkgs slice for aztfexport on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/aztfexport"
+  - "$HOME/Library/Logs/aztfexport"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-aztfexport
+  name: Nixpkgs aztfexport Linux cache (wave 3)
+  description: Third Nixpkgs slice for aztfexport on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/aztfexport"
+  - "$XDG_CACHE_HOME/aztfexport"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-aztfexport
+  name: Nixpkgs aztfexport Windows cache (wave 3)
+  description: Third Nixpkgs slice for aztfexport on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/aztfexport/Cache"
+  - "%LOCALAPPDATA%/aztfexport/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azubi
+  name: Nixpkgs azubi macOS cache (wave 3)
+  description: Third Nixpkgs slice for azubi on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azubi"
+  - "$HOME/Library/Logs/azubi"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azubi
+  name: Nixpkgs azubi Linux cache (wave 3)
+  description: Third Nixpkgs slice for azubi on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azubi"
+  - "$XDG_CACHE_HOME/azubi"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azubi
+  name: Nixpkgs azubi Windows cache (wave 3)
+  description: Third Nixpkgs slice for azubi on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azubi/Cache"
+  - "%LOCALAPPDATA%/azubi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azuki
+  name: Nixpkgs azuki macOS cache (wave 3)
+  description: Third Nixpkgs slice for azuki on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azuki"
+  - "$HOME/Library/Logs/azuki"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azuki
+  name: Nixpkgs azuki Linux cache (wave 3)
+  description: Third Nixpkgs slice for azuki on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azuki"
+  - "$XDG_CACHE_HOME/azuki"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azuki
+  name: Nixpkgs azuki Windows cache (wave 3)
+  description: Third Nixpkgs slice for azuki on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azuki/Cache"
+  - "%LOCALAPPDATA%/azuki/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-acs
+  name: Nixpkgs azure-acs macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-acs on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-acs"
+  - "$HOME/Library/Logs/azure-acs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-acs
+  name: Nixpkgs azure-acs Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-acs on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-acs"
+  - "$XDG_CACHE_HOME/azure-acs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-acs
+  name: Nixpkgs azure-acs Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-acs on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-acs/Cache"
+  - "%LOCALAPPDATA%/azure-acs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-ai-agents
+  name: Nixpkgs azure-ai-agents macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-agents on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-ai-agents"
+  - "$HOME/Library/Logs/azure-ai-agents"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-ai-agents
+  name: Nixpkgs azure-ai-agents Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-agents on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-ai-agents"
+  - "$XDG_CACHE_HOME/azure-ai-agents"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-ai-agents
+  name: Nixpkgs azure-ai-agents Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-agents on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-ai-agents/Cache"
+  - "%LOCALAPPDATA%/azure-ai-agents/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-ai-documentintelligence
+  name: Nixpkgs azure-ai-documentintelligence macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-documentintelligence on macOS. Not
+    /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-ai-documentintelligence"
+  - "$HOME/Library/Logs/azure-ai-documentintelligence"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-ai-documentintelligence
+  name: Nixpkgs azure-ai-documentintelligence Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-documentintelligence on Linux. Not
+    /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-ai-documentintelligence"
+  - "$XDG_CACHE_HOME/azure-ai-documentintelligence"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-ai-documentintelligence
+  name: Nixpkgs azure-ai-documentintelligence Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-documentintelligence on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-ai-documentintelligence/Cache"
+  - "%LOCALAPPDATA%/azure-ai-documentintelligence/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-ai-projects
+  name: Nixpkgs azure-ai-projects macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-projects on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-ai-projects"
+  - "$HOME/Library/Logs/azure-ai-projects"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-ai-projects
+  name: Nixpkgs azure-ai-projects Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-projects on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-ai-projects"
+  - "$XDG_CACHE_HOME/azure-ai-projects"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-ai-projects
+  name: Nixpkgs azure-ai-projects Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-projects on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-ai-projects/Cache"
+  - "%LOCALAPPDATA%/azure-ai-projects/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-ai-vision-imageanalysis
+  name: Nixpkgs azure-ai-vision-imageanalysis macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-vision-imageanalysis on macOS. Not
+    /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-ai-vision-imageanalysis"
+  - "$HOME/Library/Logs/azure-ai-vision-imageanalysis"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-ai-vision-imageanalysis
+  name: Nixpkgs azure-ai-vision-imageanalysis Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-vision-imageanalysis on Linux. Not
+    /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-ai-vision-imageanalysis"
+  - "$XDG_CACHE_HOME/azure-ai-vision-imageanalysis"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-ai-vision-imageanalysis
+  name: Nixpkgs azure-ai-vision-imageanalysis Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-ai-vision-imageanalysis on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-ai-vision-imageanalysis/Cache"
+  - "%LOCALAPPDATA%/azure-ai-vision-imageanalysis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-appconfiguration
+  name: Nixpkgs azure-appconfiguration macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-appconfiguration on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-appconfiguration"
+  - "$HOME/Library/Logs/azure-appconfiguration"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-appconfiguration
+  name: Nixpkgs azure-appconfiguration Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-appconfiguration on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-appconfiguration"
+  - "$XDG_CACHE_HOME/azure-appconfiguration"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-appconfiguration
+  name: Nixpkgs azure-appconfiguration Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-appconfiguration on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-appconfiguration/Cache"
+  - "%LOCALAPPDATA%/azure-appconfiguration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-applicationinsights
+  name: Nixpkgs azure-applicationinsights macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-applicationinsights on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-applicationinsights"
+  - "$HOME/Library/Logs/azure-applicationinsights"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-applicationinsights
+  name: Nixpkgs azure-applicationinsights Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-applicationinsights on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-applicationinsights"
+  - "$XDG_CACHE_HOME/azure-applicationinsights"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-applicationinsights
+  name: Nixpkgs azure-applicationinsights Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-applicationinsights on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-applicationinsights/Cache"
+  - "%LOCALAPPDATA%/azure-applicationinsights/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-artifacts-credprovider
+  name: Nixpkgs azure-artifacts-credprovider macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-artifacts-credprovider on macOS. Not
+    /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-artifacts-credprovider"
+  - "$HOME/Library/Logs/azure-artifacts-credprovider"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-artifacts-credprovider
+  name: Nixpkgs azure-artifacts-credprovider Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-artifacts-credprovider on Linux. Not
+    /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-artifacts-credprovider"
+  - "$XDG_CACHE_HOME/azure-artifacts-credprovider"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-artifacts-credprovider
+  name: Nixpkgs azure-artifacts-credprovider Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-artifacts-credprovider on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-artifacts-credprovider/Cache"
+  - "%LOCALAPPDATA%/azure-artifacts-credprovider/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-batch
+  name: Nixpkgs azure-batch macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-batch on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-batch"
+  - "$HOME/Library/Logs/azure-batch"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-batch
+  name: Nixpkgs azure-batch Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-batch on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-batch"
+  - "$XDG_CACHE_HOME/azure-batch"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-batch
+  name: Nixpkgs azure-batch Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-batch on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-batch/Cache"
+  - "%LOCALAPPDATA%/azure-batch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-c-shared-utility
+  name: Nixpkgs azure-c-shared-utility macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-c-shared-utility on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-c-shared-utility"
+  - "$HOME/Library/Logs/azure-c-shared-utility"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-c-shared-utility
+  name: Nixpkgs azure-c-shared-utility Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-c-shared-utility on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-c-shared-utility"
+  - "$XDG_CACHE_HOME/azure-c-shared-utility"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-c-shared-utility
+  name: Nixpkgs azure-c-shared-utility Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-c-shared-utility on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-c-shared-utility/Cache"
+  - "%LOCALAPPDATA%/azure-c-shared-utility/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-changesafety
+  name: Nixpkgs azure-changesafety macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-changesafety on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-changesafety"
+  - "$HOME/Library/Logs/azure-changesafety"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-changesafety
+  name: Nixpkgs azure-changesafety Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-changesafety on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-changesafety"
+  - "$XDG_CACHE_HOME/azure-changesafety"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-changesafety
+  name: Nixpkgs azure-changesafety Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-changesafety on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-changesafety/Cache"
+  - "%LOCALAPPDATA%/azure-changesafety/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-cli
+  name: Nixpkgs azure-cli macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-cli on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-cli"
+  - "$HOME/Library/Logs/azure-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-cli
+  name: Nixpkgs azure-cli Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-cli on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-cli"
+  - "$XDG_CACHE_HOME/azure-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-cli
+  name: Nixpkgs azure-cli Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-cli on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-cli/Cache"
+  - "%LOCALAPPDATA%/azure-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-common
+  name: Nixpkgs azure-common macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-common on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-common"
+  - "$HOME/Library/Logs/azure-common"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-common
+  name: Nixpkgs azure-common Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-common on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-common"
+  - "$XDG_CACHE_HOME/azure-common"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-common
+  name: Nixpkgs azure-common Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-common on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-common/Cache"
+  - "%LOCALAPPDATA%/azure-common/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-containerregistry
+  name: Nixpkgs azure-containerregistry macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-containerregistry on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-containerregistry"
+  - "$HOME/Library/Logs/azure-containerregistry"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-containerregistry
+  name: Nixpkgs azure-containerregistry Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-containerregistry on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-containerregistry"
+  - "$XDG_CACHE_HOME/azure-containerregistry"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-containerregistry
+  name: Nixpkgs azure-containerregistry Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-containerregistry on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-containerregistry/Cache"
+  - "%LOCALAPPDATA%/azure-containerregistry/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-core
+  name: Nixpkgs azure-core macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-core on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-core"
+  - "$HOME/Library/Logs/azure-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-core
+  name: Nixpkgs azure-core Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-core on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-core"
+  - "$XDG_CACHE_HOME/azure-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-core
+  name: Nixpkgs azure-core Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-core on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-core/Cache"
+  - "%LOCALAPPDATA%/azure-core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-cosmos
+  name: Nixpkgs azure-cosmos macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmos on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-cosmos"
+  - "$HOME/Library/Logs/azure-cosmos"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-cosmos
+  name: Nixpkgs azure-cosmos Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmos on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-cosmos"
+  - "$XDG_CACHE_HOME/azure-cosmos"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-cosmos
+  name: Nixpkgs azure-cosmos Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmos on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-cosmos/Cache"
+  - "%LOCALAPPDATA%/azure-cosmos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-cosmosdb-nspkg
+  name: Nixpkgs azure-cosmosdb-nspkg macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmosdb-nspkg on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-cosmosdb-nspkg"
+  - "$HOME/Library/Logs/azure-cosmosdb-nspkg"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-cosmosdb-nspkg
+  name: Nixpkgs azure-cosmosdb-nspkg Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmosdb-nspkg on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-cosmosdb-nspkg"
+  - "$XDG_CACHE_HOME/azure-cosmosdb-nspkg"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-cosmosdb-nspkg
+  name: Nixpkgs azure-cosmosdb-nspkg Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmosdb-nspkg on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-cosmosdb-nspkg/Cache"
+  - "%LOCALAPPDATA%/azure-cosmosdb-nspkg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-cosmosdb-table
+  name: Nixpkgs azure-cosmosdb-table macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmosdb-table on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-cosmosdb-table"
+  - "$HOME/Library/Logs/azure-cosmosdb-table"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-cosmosdb-table
+  name: Nixpkgs azure-cosmosdb-table Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmosdb-table on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-cosmosdb-table"
+  - "$XDG_CACHE_HOME/azure-cosmosdb-table"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-cosmosdb-table
+  name: Nixpkgs azure-cosmosdb-table Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-cosmosdb-table on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-cosmosdb-table/Cache"
+  - "%LOCALAPPDATA%/azure-cosmosdb-table/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-data-tables
+  name: Nixpkgs azure-data-tables macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-data-tables on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-data-tables"
+  - "$HOME/Library/Logs/azure-data-tables"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-data-tables
+  name: Nixpkgs azure-data-tables Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-data-tables on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-data-tables"
+  - "$XDG_CACHE_HOME/azure-data-tables"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-data-tables
+  name: Nixpkgs azure-data-tables Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-data-tables on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-data-tables/Cache"
+  - "%LOCALAPPDATA%/azure-data-tables/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-datalake-store
+  name: Nixpkgs azure-datalake-store macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-datalake-store on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-datalake-store"
+  - "$HOME/Library/Logs/azure-datalake-store"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-datalake-store
+  name: Nixpkgs azure-datalake-store Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-datalake-store on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-datalake-store"
+  - "$XDG_CACHE_HOME/azure-datalake-store"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-datalake-store
+  name: Nixpkgs azure-datalake-store Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-datalake-store on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-datalake-store/Cache"
+  - "%LOCALAPPDATA%/azure-datalake-store/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-dcap-client
+  name: Nixpkgs azure-dcap-client macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-dcap-client on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-dcap-client"
+  - "$HOME/Library/Logs/azure-dcap-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-dcap-client
+  name: Nixpkgs azure-dcap-client Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-dcap-client on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-dcap-client"
+  - "$XDG_CACHE_HOME/azure-dcap-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-dcap-client
+  name: Nixpkgs azure-dcap-client Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-dcap-client on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-dcap-client/Cache"
+  - "%LOCALAPPDATA%/azure-dcap-client/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-devops
+  name: Nixpkgs azure-devops macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-devops on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-devops"
+  - "$HOME/Library/Logs/azure-devops"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-devops
+  name: Nixpkgs azure-devops Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-devops on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-devops"
+  - "$XDG_CACHE_HOME/azure-devops"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-devops
+  name: Nixpkgs azure-devops Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-devops on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-devops/Cache"
+  - "%LOCALAPPDATA%/azure-devops/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-email
+  name: Nixpkgs azure-email macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-email on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-email"
+  - "$HOME/Library/Logs/azure-email"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-email
+  name: Nixpkgs azure-email Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-email on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-email"
+  - "$XDG_CACHE_HOME/azure-email"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-email
+  name: Nixpkgs azure-email Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-email on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-email/Cache"
+  - "%LOCALAPPDATA%/azure-email/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-eventgrid
+  name: Nixpkgs azure-eventgrid macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-eventgrid on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-eventgrid"
+  - "$HOME/Library/Logs/azure-eventgrid"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-eventgrid
+  name: Nixpkgs azure-eventgrid Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-eventgrid on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-eventgrid"
+  - "$XDG_CACHE_HOME/azure-eventgrid"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-eventgrid
+  name: Nixpkgs azure-eventgrid Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-eventgrid on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-eventgrid/Cache"
+  - "%LOCALAPPDATA%/azure-eventgrid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-eventhub
+  name: Nixpkgs azure-eventhub macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-eventhub on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-eventhub"
+  - "$HOME/Library/Logs/azure-eventhub"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-eventhub
+  name: Nixpkgs azure-eventhub Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-eventhub on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-eventhub"
+  - "$XDG_CACHE_HOME/azure-eventhub"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-eventhub
+  name: Nixpkgs azure-eventhub Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-eventhub on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-eventhub/Cache"
+  - "%LOCALAPPDATA%/azure-eventhub/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-firewall
+  name: Nixpkgs azure-firewall macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-firewall on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-firewall"
+  - "$HOME/Library/Logs/azure-firewall"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-firewall
+  name: Nixpkgs azure-firewall Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-firewall on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-firewall"
+  - "$XDG_CACHE_HOME/azure-firewall"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-firewall
+  name: Nixpkgs azure-firewall Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-firewall on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-firewall/Cache"
+  - "%LOCALAPPDATA%/azure-firewall/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-functions-core-tools
+  name: Nixpkgs azure-functions-core-tools macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-functions-core-tools on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-functions-core-tools"
+  - "$HOME/Library/Logs/azure-functions-core-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-functions-core-tools
+  name: Nixpkgs azure-functions-core-tools Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-functions-core-tools on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-functions-core-tools"
+  - "$XDG_CACHE_HOME/azure-functions-core-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-functions-core-tools
+  name: Nixpkgs azure-functions-core-tools Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-functions-core-tools on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-functions-core-tools/Cache"
+  - "%LOCALAPPDATA%/azure-functions-core-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-functions-worker
+  name: Nixpkgs azure-functions-worker macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-functions-worker on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-functions-worker"
+  - "$HOME/Library/Logs/azure-functions-worker"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-functions-worker
+  name: Nixpkgs azure-functions-worker Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-functions-worker on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-functions-worker"
+  - "$XDG_CACHE_HOME/azure-functions-worker"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-functions-worker
+  name: Nixpkgs azure-functions-worker Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-functions-worker on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-functions-worker/Cache"
+  - "%LOCALAPPDATA%/azure-functions-worker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-graphrbac
+  name: Nixpkgs azure-graphrbac macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-graphrbac on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-graphrbac"
+  - "$HOME/Library/Logs/azure-graphrbac"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-graphrbac
+  name: Nixpkgs azure-graphrbac Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-graphrbac on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-graphrbac"
+  - "$XDG_CACHE_HOME/azure-graphrbac"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-graphrbac
+  name: Nixpkgs azure-graphrbac Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-graphrbac on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-graphrbac/Cache"
+  - "%LOCALAPPDATA%/azure-graphrbac/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-identity
+  name: Nixpkgs azure-identity macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-identity on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-identity"
+  - "$HOME/Library/Logs/azure-identity"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-identity
+  name: Nixpkgs azure-identity Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-identity on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-identity"
+  - "$XDG_CACHE_HOME/azure-identity"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-identity
+  name: Nixpkgs azure-identity Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-identity on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-identity/Cache"
+  - "%LOCALAPPDATA%/azure-identity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-iot
+  name: Nixpkgs azure-iot macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-iot on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-iot"
+  - "$HOME/Library/Logs/azure-iot"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-iot
+  name: Nixpkgs azure-iot Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-iot on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-iot"
+  - "$XDG_CACHE_HOME/azure-iot"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-iot
+  name: Nixpkgs azure-iot Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-iot on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-iot/Cache"
+  - "%LOCALAPPDATA%/azure-iot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-iot-device
+  name: Nixpkgs azure-iot-device macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-iot-device on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-iot-device"
+  - "$HOME/Library/Logs/azure-iot-device"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-iot-device
+  name: Nixpkgs azure-iot-device Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-iot-device on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-iot-device"
+  - "$XDG_CACHE_HOME/azure-iot-device"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-iot-device
+  name: Nixpkgs azure-iot-device Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-iot-device on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-iot-device/Cache"
+  - "%LOCALAPPDATA%/azure-iot-device/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault
+  name: Nixpkgs azure-keyvault macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault"
+  - "$HOME/Library/Logs/azure-keyvault"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault
+  name: Nixpkgs azure-keyvault Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault"
+  - "$XDG_CACHE_HOME/azure-keyvault"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault
+  name: Nixpkgs azure-keyvault Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault-administration
+  name: Nixpkgs azure-keyvault-administration macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-administration on macOS. Not
+    /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault-administration"
+  - "$HOME/Library/Logs/azure-keyvault-administration"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault-administration
+  name: Nixpkgs azure-keyvault-administration Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-administration on Linux. Not
+    /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault-administration"
+  - "$XDG_CACHE_HOME/azure-keyvault-administration"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault-administration
+  name: Nixpkgs azure-keyvault-administration Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-administration on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault-administration/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault-administration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault-certificates
+  name: Nixpkgs azure-keyvault-certificates macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-certificates on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault-certificates"
+  - "$HOME/Library/Logs/azure-keyvault-certificates"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault-certificates
+  name: Nixpkgs azure-keyvault-certificates Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-certificates on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault-certificates"
+  - "$XDG_CACHE_HOME/azure-keyvault-certificates"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault-certificates
+  name: Nixpkgs azure-keyvault-certificates Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-certificates on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault-certificates/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault-certificates/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault-keys
+  name: Nixpkgs azure-keyvault-keys macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-keys on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault-keys"
+  - "$HOME/Library/Logs/azure-keyvault-keys"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault-keys
+  name: Nixpkgs azure-keyvault-keys Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-keys on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault-keys"
+  - "$XDG_CACHE_HOME/azure-keyvault-keys"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault-keys
+  name: Nixpkgs azure-keyvault-keys Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-keys on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault-keys/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault-keys/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault-nspkg
+  name: Nixpkgs azure-keyvault-nspkg macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-nspkg on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault-nspkg"
+  - "$HOME/Library/Logs/azure-keyvault-nspkg"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault-nspkg
+  name: Nixpkgs azure-keyvault-nspkg Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-nspkg on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault-nspkg"
+  - "$XDG_CACHE_HOME/azure-keyvault-nspkg"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault-nspkg
+  name: Nixpkgs azure-keyvault-nspkg Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-nspkg on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault-nspkg/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault-nspkg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault-secrets
+  name: Nixpkgs azure-keyvault-secrets macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-secrets on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault-secrets"
+  - "$HOME/Library/Logs/azure-keyvault-secrets"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault-secrets
+  name: Nixpkgs azure-keyvault-secrets Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-secrets on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault-secrets"
+  - "$XDG_CACHE_HOME/azure-keyvault-secrets"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault-secrets
+  name: Nixpkgs azure-keyvault-secrets Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-secrets on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault-secrets/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault-secrets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-keyvault-securitydomain
+  name: Nixpkgs azure-keyvault-securitydomain macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-securitydomain on macOS. Not
+    /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-keyvault-securitydomain"
+  - "$HOME/Library/Logs/azure-keyvault-securitydomain"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-keyvault-securitydomain
+  name: Nixpkgs azure-keyvault-securitydomain Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-securitydomain on Linux. Not
+    /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-keyvault-securitydomain"
+  - "$XDG_CACHE_HOME/azure-keyvault-securitydomain"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-keyvault-securitydomain
+  name: Nixpkgs azure-keyvault-securitydomain Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-keyvault-securitydomain on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-keyvault-securitydomain/Cache"
+  - "%LOCALAPPDATA%/azure-keyvault-securitydomain/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-kusto-data
+  name: Nixpkgs azure-kusto-data macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-kusto-data on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-kusto-data"
+  - "$HOME/Library/Logs/azure-kusto-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-kusto-data
+  name: Nixpkgs azure-kusto-data Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-kusto-data on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-kusto-data"
+  - "$XDG_CACHE_HOME/azure-kusto-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-kusto-data
+  name: Nixpkgs azure-kusto-data Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-kusto-data on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-kusto-data/Cache"
+  - "%LOCALAPPDATA%/azure-kusto-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-kusto-ingest
+  name: Nixpkgs azure-kusto-ingest macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-kusto-ingest on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-kusto-ingest"
+  - "$HOME/Library/Logs/azure-kusto-ingest"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-kusto-ingest
+  name: Nixpkgs azure-kusto-ingest Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-kusto-ingest on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-kusto-ingest"
+  - "$XDG_CACHE_HOME/azure-kusto-ingest"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-kusto-ingest
+  name: Nixpkgs azure-kusto-ingest Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-kusto-ingest on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-kusto-ingest/Cache"
+  - "%LOCALAPPDATA%/azure-kusto-ingest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-loganalytics
+  name: Nixpkgs azure-loganalytics macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-loganalytics on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-loganalytics"
+  - "$HOME/Library/Logs/azure-loganalytics"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-loganalytics
+  name: Nixpkgs azure-loganalytics Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-loganalytics on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-loganalytics"
+  - "$XDG_CACHE_HOME/azure-loganalytics"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-loganalytics
+  name: Nixpkgs azure-loganalytics Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-loganalytics on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-loganalytics/Cache"
+  - "%LOCALAPPDATA%/azure-loganalytics/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-macro-utils-c
+  name: Nixpkgs azure-macro-utils-c macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-macro-utils-c on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-macro-utils-c"
+  - "$HOME/Library/Logs/azure-macro-utils-c"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-macro-utils-c
+  name: Nixpkgs azure-macro-utils-c Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-macro-utils-c on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-macro-utils-c"
+  - "$XDG_CACHE_HOME/azure-macro-utils-c"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-macro-utils-c
+  name: Nixpkgs azure-macro-utils-c Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-macro-utils-c on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-macro-utils-c/Cache"
+  - "%LOCALAPPDATA%/azure-macro-utils-c/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mcp
+  name: Nixpkgs azure-mcp macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mcp on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mcp"
+  - "$HOME/Library/Logs/azure-mcp"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mcp
+  name: Nixpkgs azure-mcp Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mcp on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mcp"
+  - "$XDG_CACHE_HOME/azure-mcp"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mcp
+  name: Nixpkgs azure-mcp Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mcp on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mcp/Cache"
+  - "%LOCALAPPDATA%/azure-mcp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-advisor
+  name: Nixpkgs azure-mgmt-advisor macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-advisor on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-advisor"
+  - "$HOME/Library/Logs/azure-mgmt-advisor"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-advisor
+  name: Nixpkgs azure-mgmt-advisor Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-advisor on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-advisor"
+  - "$XDG_CACHE_HOME/azure-mgmt-advisor"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-advisor
+  name: Nixpkgs azure-mgmt-advisor Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-advisor on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-advisor/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-advisor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-apimanagement
+  name: Nixpkgs azure-mgmt-apimanagement macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-apimanagement on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-apimanagement"
+  - "$HOME/Library/Logs/azure-mgmt-apimanagement"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-apimanagement
+  name: Nixpkgs azure-mgmt-apimanagement Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-apimanagement on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-apimanagement"
+  - "$XDG_CACHE_HOME/azure-mgmt-apimanagement"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-apimanagement
+  name: Nixpkgs azure-mgmt-apimanagement Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-apimanagement on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-apimanagement/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-apimanagement/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-appconfiguration
+  name: Nixpkgs azure-mgmt-appconfiguration macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-appconfiguration on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-appconfiguration"
+  - "$HOME/Library/Logs/azure-mgmt-appconfiguration"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-appconfiguration
+  name: Nixpkgs azure-mgmt-appconfiguration Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-appconfiguration on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-appconfiguration"
+  - "$XDG_CACHE_HOME/azure-mgmt-appconfiguration"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-appconfiguration
+  name: Nixpkgs azure-mgmt-appconfiguration Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-appconfiguration on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-appconfiguration/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-appconfiguration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-appcontainers
+  name: Nixpkgs azure-mgmt-appcontainers macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-appcontainers on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-appcontainers"
+  - "$HOME/Library/Logs/azure-mgmt-appcontainers"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-appcontainers
+  name: Nixpkgs azure-mgmt-appcontainers Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-appcontainers on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-appcontainers"
+  - "$XDG_CACHE_HOME/azure-mgmt-appcontainers"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-appcontainers
+  name: Nixpkgs azure-mgmt-appcontainers Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-appcontainers on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-appcontainers/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-appcontainers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-applicationinsights
+  name: Nixpkgs azure-mgmt-applicationinsights macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-applicationinsights on macOS. Not
+    /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-applicationinsights"
+  - "$HOME/Library/Logs/azure-mgmt-applicationinsights"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-applicationinsights
+  name: Nixpkgs azure-mgmt-applicationinsights Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-applicationinsights on Linux. Not
+    /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-applicationinsights"
+  - "$XDG_CACHE_HOME/azure-mgmt-applicationinsights"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-applicationinsights
+  name: Nixpkgs azure-mgmt-applicationinsights Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-applicationinsights on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-applicationinsights/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-applicationinsights/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-authorization
+  name: Nixpkgs azure-mgmt-authorization macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-authorization on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-authorization"
+  - "$HOME/Library/Logs/azure-mgmt-authorization"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-authorization
+  name: Nixpkgs azure-mgmt-authorization Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-authorization on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-authorization"
+  - "$XDG_CACHE_HOME/azure-mgmt-authorization"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-authorization
+  name: Nixpkgs azure-mgmt-authorization Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-authorization on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-authorization/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-authorization/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-automation
+  name: Nixpkgs azure-mgmt-automation macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-automation on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-automation"
+  - "$HOME/Library/Logs/azure-mgmt-automation"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-automation
+  name: Nixpkgs azure-mgmt-automation Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-automation on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-automation"
+  - "$XDG_CACHE_HOME/azure-mgmt-automation"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-automation
+  name: Nixpkgs azure-mgmt-automation Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-automation on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-automation/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-automation/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-batch
+  name: Nixpkgs azure-mgmt-batch macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-batch on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-batch"
+  - "$HOME/Library/Logs/azure-mgmt-batch"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-batch
+  name: Nixpkgs azure-mgmt-batch Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-batch on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-batch"
+  - "$XDG_CACHE_HOME/azure-mgmt-batch"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-batch
+  name: Nixpkgs azure-mgmt-batch Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-batch on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-batch/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-batch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-mac-azure-mgmt-batchai
+  name: Nixpkgs azure-mgmt-batchai macOS cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-batchai on macOS. Not /nix/store.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/azure-mgmt-batchai"
+  - "$HOME/Library/Logs/azure-mgmt-batchai"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-lin-azure-mgmt-batchai
+  name: Nixpkgs azure-mgmt-batchai Linux cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-batchai on Linux. Not /nix/store.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/azure-mgmt-batchai"
+  - "$XDG_CACHE_HOME/azure-mgmt-batchai"
+  delete_mode: contents
+  max_depth: 6
+- id: np3-win-azure-mgmt-batchai
+  name: Nixpkgs azure-mgmt-batchai Windows cache (wave 3)
+  description: Third Nixpkgs slice for azure-mgmt-batchai on Windows.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/azure-mgmt-batchai/Cache"
+  - "%LOCALAPPDATA%/azure-mgmt-batchai/Logs"
+  delete_mode: contents
+  max_depth: 6

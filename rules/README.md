@@ -51,6 +51,8 @@ space rules status
 | `generated/src5kb-*.yaml` | Flathub + remaining Homebrew casks + Scoop buckets |
 | `generated/src10k-*.yaml` | AUR + Debian package XDG caches + extra Scoop |
 | `generated/src15k-*.yaml` | Nixpkgs names × macOS/Linux/Windows caches (15k) |
+| `generated/src-more-*.yaml` | Nixpkgs wave 2, MacPorts, Chocolatey, AUR slice 2 |
+| `generated/src30k-*.yaml` | Nixpkgs wave 3 × macOS/Linux/Windows (30k) |
 | `generated/*.yaml` | Auto-expanded bulk (`macos` / `windows` / `linux` only) |
 
 No `platform: any` — shared apps are split per OS (`ruby scripts/split_any_rules.rb`).

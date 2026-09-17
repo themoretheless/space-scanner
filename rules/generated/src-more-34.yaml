@@ -1,0 +1,3712 @@
+---
+pack: src-more-34
+description: 'Further catalog import: Nixpkgs wave 2, MacPorts, Chocolatey, AUR slice
+  2. Chunk 34.'
+rules:
+- id: aur2-borg-import-git
+  name: AUR borg-import-git logs
+  description: User logs/cache leftover for AUR package borg-import-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borg-import-git/logs"
+  - "$HOME/.local/share/borg-import-git/logs"
+  - "$XDG_CACHE_HOME/borg-import-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borg2
+  name: AUR borg2 logs
+  description: User logs/cache leftover for AUR package borg2 (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borg2/logs"
+  - "$HOME/.local/share/borg2/logs"
+  - "$XDG_CACHE_HOME/borg2/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgctl
+  name: AUR borgctl logs
+  description: User logs/cache leftover for AUR package borgctl (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgctl/logs"
+  - "$HOME/.local/share/borgctl/logs"
+  - "$XDG_CACHE_HOME/borgctl/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgit
+  name: AUR borgit logs
+  description: User logs/cache leftover for AUR package borgit (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgit/logs"
+  - "$HOME/.local/share/borgit/logs"
+  - "$XDG_CACHE_HOME/borgit/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgreport
+  name: AUR borgreport logs
+  description: User logs/cache leftover for AUR package borgreport (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgreport/logs"
+  - "$HOME/.local/share/borgreport/logs"
+  - "$XDG_CACHE_HOME/borgreport/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgrestore
+  name: AUR borgrestore logs
+  description: User logs/cache leftover for AUR package borgrestore (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgrestore/logs"
+  - "$HOME/.local/share/borgrestore/logs"
+  - "$XDG_CACHE_HOME/borgrestore/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgtui-git
+  name: AUR borgtui-git logs
+  description: User logs/cache leftover for AUR package borgtui-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgtui-git/logs"
+  - "$HOME/.local/share/borgtui-git/logs"
+  - "$XDG_CACHE_HOME/borgtui-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgwarehouse
+  name: AUR borgwarehouse logs
+  description: User logs/cache leftover for AUR package borgwarehouse (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgwarehouse/logs"
+  - "$HOME/.local/share/borgwarehouse/logs"
+  - "$XDG_CACHE_HOME/borgwarehouse/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borgweb-git
+  name: AUR borgweb-git logs
+  description: User logs/cache leftover for AUR package borgweb-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borgweb-git/logs"
+  - "$HOME/.local/share/borgweb-git/logs"
+  - "$XDG_CACHE_HOME/borgweb-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boring
+  name: AUR boring logs
+  description: User logs/cache leftover for AUR package boring (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boring/logs"
+  - "$HOME/.local/share/boring/logs"
+  - "$XDG_CACHE_HOME/boring/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boring-bin
+  name: AUR boring-bin logs
+  description: User logs/cache leftover for AUR package boring-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boring-bin/logs"
+  - "$HOME/.local/share/boring-bin/logs"
+  - "$XDG_CACHE_HOME/boring-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boringssl-git
+  name: AUR boringssl-git logs
+  description: User logs/cache leftover for AUR package boringssl-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boringssl-git/logs"
+  - "$HOME/.local/share/boringssl-git/logs"
+  - "$XDG_CACHE_HOME/boringssl-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boringtun
+  name: AUR boringtun logs
+  description: User logs/cache leftover for AUR package boringtun (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boringtun/logs"
+  - "$HOME/.local/share/boringtun/logs"
+  - "$XDG_CACHE_HOME/boringtun/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boringtun-git
+  name: AUR boringtun-git logs
+  description: User logs/cache leftover for AUR package boringtun-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boringtun-git/logs"
+  - "$HOME/.local/share/boringtun-git/logs"
+  - "$XDG_CACHE_HOME/boringtun-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boris
+  name: AUR boris logs
+  description: User logs/cache leftover for AUR package boris (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boris/logs"
+  - "$HOME/.local/share/boris/logs"
+  - "$XDG_CACHE_HOME/boris/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bork
+  name: AUR bork logs
+  description: User logs/cache leftover for AUR package bork (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bork/logs"
+  - "$HOME/.local/share/bork/logs"
+  - "$XDG_CACHE_HOME/bork/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bork-bin
+  name: AUR bork-bin logs
+  description: User logs/cache leftover for AUR package bork-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bork-bin/logs"
+  - "$HOME/.local/share/bork-bin/logs"
+  - "$XDG_CACHE_HOME/bork-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borked3ds
+  name: AUR borked3ds logs
+  description: User logs/cache leftover for AUR package borked3ds (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borked3ds/logs"
+  - "$HOME/.local/share/borked3ds/logs"
+  - "$XDG_CACHE_HOME/borked3ds/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borked3ds-appimage
+  name: AUR borked3ds-appimage logs
+  description: User logs/cache leftover for AUR package borked3ds-appimage (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borked3ds-appimage/logs"
+  - "$HOME/.local/share/borked3ds-appimage/logs"
+  - "$XDG_CACHE_HOME/borked3ds-appimage/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borna-fonts
+  name: AUR borna-fonts logs
+  description: User logs/cache leftover for AUR package borna-fonts (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borna-fonts/logs"
+  - "$HOME/.local/share/borna-fonts/logs"
+  - "$XDG_CACHE_HOME/borna-fonts/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boron
+  name: AUR boron logs
+  description: User logs/cache leftover for AUR package boron (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boron/logs"
+  - "$HOME/.local/share/boron/logs"
+  - "$XDG_CACHE_HOME/boron/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borrg
+  name: AUR borrg logs
+  description: User logs/cache leftover for AUR package borrg (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borrg/logs"
+  - "$HOME/.local/share/borrg/logs"
+  - "$XDG_CACHE_HOME/borrg/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borrg-bin
+  name: AUR borrg-bin logs
+  description: User logs/cache leftover for AUR package borrg-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borrg-bin/logs"
+  - "$HOME/.local/share/borrg-bin/logs"
+  - "$XDG_CACHE_HOME/borrg-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-borse
+  name: AUR borse logs
+  description: User logs/cache leftover for AUR package borse (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/borse/logs"
+  - "$HOME/.local/share/borse/logs"
+  - "$XDG_CACHE_HOME/borse/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boscaceoil
+  name: AUR boscaceoil logs
+  description: User logs/cache leftover for AUR package boscaceoil (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boscaceoil/logs"
+  - "$HOME/.local/share/boscaceoil/logs"
+  - "$XDG_CACHE_HOME/boscaceoil/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boscaceoil-blue-bin
+  name: AUR boscaceoil-blue-bin logs
+  description: User logs/cache leftover for AUR package boscaceoil-blue-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boscaceoil-blue-bin/logs"
+  - "$HOME/.local/share/boscaceoil-blue-bin/logs"
+  - "$XDG_CACHE_HOME/boscaceoil-blue-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosce
+  name: AUR bosce logs
+  description: User logs/cache leftover for AUR package bosce (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosce/logs"
+  - "$HOME/.local/share/bosce/logs"
+  - "$XDG_CACHE_HOME/bosce/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosectl-qt
+  name: AUR bosectl-qt logs
+  description: User logs/cache leftover for AUR package bosectl-qt (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosectl-qt/logs"
+  - "$HOME/.local/share/bosectl-qt/logs"
+  - "$XDG_CACHE_HOME/bosectl-qt/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosectl-qt-git
+  name: AUR bosectl-qt-git logs
+  description: User logs/cache leftover for AUR package bosectl-qt-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosectl-qt-git/logs"
+  - "$HOME/.local/share/bosectl-qt-git/logs"
+  - "$XDG_CACHE_HOME/bosectl-qt-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosh
+  name: AUR bosh logs
+  description: User logs/cache leftover for AUR package bosh (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosh/logs"
+  - "$HOME/.local/share/bosh/logs"
+  - "$XDG_CACHE_HOME/bosh/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosh-7-cli
+  name: AUR bosh-7-cli logs
+  description: User logs/cache leftover for AUR package bosh-7-cli (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosh-7-cli/logs"
+  - "$HOME/.local/share/bosh-7-cli/logs"
+  - "$XDG_CACHE_HOME/bosh-7-cli/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosh-cli
+  name: AUR bosh-cli logs
+  description: User logs/cache leftover for AUR package bosh-cli (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosh-cli/logs"
+  - "$HOME/.local/share/bosh-cli/logs"
+  - "$XDG_CACHE_HOME/bosh-cli/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boson
+  name: AUR boson logs
+  description: User logs/cache leftover for AUR package boson (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boson/logs"
+  - "$HOME/.local/share/boson/logs"
+  - "$XDG_CACHE_HOME/boson/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boson-git
+  name: AUR boson-git logs
+  description: User logs/cache leftover for AUR package boson-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boson-git/logs"
+  - "$HOME/.local/share/boson-git/logs"
+  - "$XDG_CACHE_HOME/boson-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosphorus-git
+  name: AUR bosphorus-git logs
+  description: User logs/cache leftover for AUR package bosphorus-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosphorus-git/logs"
+  - "$HOME/.local/share/bosphorus-git/logs"
+  - "$XDG_CACHE_HOME/bosphorus-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bosq-git
+  name: AUR bosq-git logs
+  description: User logs/cache leftover for AUR package bosq-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bosq-git/logs"
+  - "$HOME/.local/share/bosq-git/logs"
+  - "$XDG_CACHE_HOME/bosq-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boss-job-agent-bin
+  name: AUR boss-job-agent-bin logs
+  description: User logs/cache leftover for AUR package boss-job-agent-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boss-job-agent-bin/logs"
+  - "$HOME/.local/share/boss-job-agent-bin/logs"
+  - "$XDG_CACHE_HOME/boss-job-agent-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bossa
+  name: AUR bossa logs
+  description: User logs/cache leftover for AUR package bossa (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bossa/logs"
+  - "$HOME/.local/share/bossa/logs"
+  - "$XDG_CACHE_HOME/bossa/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bossa-git
+  name: AUR bossa-git logs
+  description: User logs/cache leftover for AUR package bossa-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bossa-git/logs"
+  - "$HOME/.local/share/bossa-git/logs"
+  - "$XDG_CACHE_HOME/bossa-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boston-icon-theme
+  name: AUR boston-icon-theme logs
+  description: User logs/cache leftover for AUR package boston-icon-theme (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boston-icon-theme/logs"
+  - "$HOME/.local/share/boston-icon-theme/logs"
+  - "$XDG_CACHE_HOME/boston-icon-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boston-icon-theme-git
+  name: AUR boston-icon-theme-git logs
+  description: User logs/cache leftover for AUR package boston-icon-theme-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boston-icon-theme-git/logs"
+  - "$HOME/.local/share/boston-icon-theme-git/logs"
+  - "$XDG_CACHE_HOME/boston-icon-theme-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boswars
+  name: AUR boswars logs
+  description: User logs/cache leftover for AUR package boswars (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boswars/logs"
+  - "$HOME/.local/share/boswars/logs"
+  - "$XDG_CACHE_HOME/boswars/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boswars-addons
+  name: AUR boswars-addons logs
+  description: User logs/cache leftover for AUR package boswars-addons (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boswars-addons/logs"
+  - "$HOME/.local/share/boswars-addons/logs"
+  - "$XDG_CACHE_HOME/boswars-addons/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bot-crossing-git
+  name: AUR bot-crossing-git logs
+  description: User logs/cache leftover for AUR package bot-crossing-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bot-crossing-git/logs"
+  - "$HOME/.local/share/bot-crossing-git/logs"
+  - "$XDG_CACHE_HOME/bot-crossing-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bot-sentry
+  name: AUR bot-sentry logs
+  description: User logs/cache leftover for AUR package bot-sentry (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bot-sentry/logs"
+  - "$HOME/.local/share/bot-sentry/logs"
+  - "$XDG_CACHE_HOME/bot-sentry/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bot-dev
+  name: AUR bot.dev logs
+  description: User logs/cache leftover for AUR package bot.dev (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bot.dev/logs"
+  - "$HOME/.local/share/bot.dev/logs"
+  - "$XDG_CACHE_HOME/bot.dev/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botamusique
+  name: AUR botamusique logs
+  description: User logs/cache leftover for AUR package botamusique (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botamusique/logs"
+  - "$HOME/.local/share/botamusique/logs"
+  - "$XDG_CACHE_HOME/botamusique/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botan-git
+  name: AUR botan-git logs
+  description: User logs/cache leftover for AUR package botan-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botan-git/logs"
+  - "$HOME/.local/share/botan-git/logs"
+  - "$XDG_CACHE_HOME/botan-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botan1-10
+  name: AUR botan1.10 logs
+  description: User logs/cache leftover for AUR package botan1.10 (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botan1.10/logs"
+  - "$HOME/.local/share/botan1.10/logs"
+  - "$XDG_CACHE_HOME/botan1.10/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botan2
+  name: AUR botan2 logs
+  description: User logs/cache leftover for AUR package botan2 (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botan2/logs"
+  - "$HOME/.local/share/botan2/logs"
+  - "$XDG_CACHE_HOME/botan2/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botanicula
+  name: AUR botanicula logs
+  description: User logs/cache leftover for AUR package botanicula (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botanicula/logs"
+  - "$HOME/.local/share/botanicula/logs"
+  - "$XDG_CACHE_HOME/botanicula/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botbox
+  name: AUR botbox logs
+  description: User logs/cache leftover for AUR package botbox (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botbox/logs"
+  - "$HOME/.local/share/botbox/logs"
+  - "$XDG_CACHE_HOME/botbox/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botbox-bin
+  name: AUR botbox-bin logs
+  description: User logs/cache leftover for AUR package botbox-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botbox-bin/logs"
+  - "$HOME/.local/share/botbox-bin/logs"
+  - "$XDG_CACHE_HOME/botbox-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botclient-bin
+  name: AUR botclient-bin logs
+  description: User logs/cache leftover for AUR package botclient-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botclient-bin/logs"
+  - "$HOME/.local/share/botclient-bin/logs"
+  - "$XDG_CACHE_HOME/botclient-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botflix-git
+  name: AUR botflix-git logs
+  description: User logs/cache leftover for AUR package botflix-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botflix-git/logs"
+  - "$HOME/.local/share/botflix-git/logs"
+  - "$XDG_CACHE_HOME/botflix-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botframework-emulator-bin
+  name: AUR botframework-emulator-bin logs
+  description: User logs/cache leftover for AUR package botframework-emulator-bin
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botframework-emulator-bin/logs"
+  - "$HOME/.local/share/botframework-emulator-bin/logs"
+  - "$XDG_CACHE_HOME/botframework-emulator-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botgem-bin
+  name: AUR botgem-bin logs
+  description: User logs/cache leftover for AUR package botgem-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botgem-bin/logs"
+  - "$HOME/.local/share/botgem-bin/logs"
+  - "$XDG_CACHE_HOME/botgem-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bother
+  name: AUR bother logs
+  description: User logs/cache leftover for AUR package bother (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bother/logs"
+  - "$HOME/.local/share/bother/logs"
+  - "$XDG_CACHE_HOME/bother/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bothy-bin
+  name: AUR bothy-bin logs
+  description: User logs/cache leftover for AUR package bothy-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bothy-bin/logs"
+  - "$HOME/.local/share/bothy-bin/logs"
+  - "$XDG_CACHE_HOME/bothy-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botim-appimage
+  name: AUR botim-appimage logs
+  description: User logs/cache leftover for AUR package botim-appimage (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botim-appimage/logs"
+  - "$HOME/.local/share/botim-appimage/logs"
+  - "$XDG_CACHE_HOME/botim-appimage/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottle-imp
+  name: AUR bottle-imp logs
+  description: User logs/cache leftover for AUR package bottle-imp (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottle-imp/logs"
+  - "$HOME/.local/share/bottle-imp/logs"
+  - "$XDG_CACHE_HOME/bottle-imp/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottles
+  name: AUR bottles logs
+  description: User logs/cache leftover for AUR package bottles (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottles/logs"
+  - "$HOME/.local/share/bottles/logs"
+  - "$XDG_CACHE_HOME/bottles/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottles-git
+  name: AUR bottles-git logs
+  description: User logs/cache leftover for AUR package bottles-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottles-git/logs"
+  - "$HOME/.local/share/bottles-git/logs"
+  - "$XDG_CACHE_HOME/bottles-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottom-cli-git
+  name: AUR bottom-cli-git logs
+  description: User logs/cache leftover for AUR package bottom-cli-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottom-cli-git/logs"
+  - "$HOME/.local/share/bottom-cli-git/logs"
+  - "$XDG_CACHE_HOME/bottom-cli-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottom-git
+  name: AUR bottom-git logs
+  description: User logs/cache leftover for AUR package bottom-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottom-git/logs"
+  - "$HOME/.local/share/bottom-git/logs"
+  - "$XDG_CACHE_HOME/bottom-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottom-nightly-autocomplete
+  name: AUR bottom-nightly-autocomplete logs
+  description: User logs/cache leftover for AUR package bottom-nightly-autocomplete
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottom-nightly-autocomplete/logs"
+  - "$HOME/.local/share/bottom-nightly-autocomplete/logs"
+  - "$XDG_CACHE_HOME/bottom-nightly-autocomplete/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bottom-nightly-bin
+  name: AUR bottom-nightly-bin logs
+  description: User logs/cache leftover for AUR package bottom-nightly-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bottom-nightly-bin/logs"
+  - "$HOME/.local/share/bottom-nightly-bin/logs"
+  - "$XDG_CACHE_HOME/bottom-nightly-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-botw-save-manager-bin
+  name: AUR botw-save-manager-bin logs
+  description: User logs/cache leftover for AUR package botw-save-manager-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/botw-save-manager-bin/logs"
+  - "$HOME/.local/share/botw-save-manager-bin/logs"
+  - "$XDG_CACHE_HOME/botw-save-manager-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bouclier-bleu
+  name: AUR bouclier-bleu logs
+  description: User logs/cache leftover for AUR package bouclier-bleu (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bouclier-bleu/logs"
+  - "$HOME/.local/share/bouclier-bleu/logs"
+  - "$XDG_CACHE_HOME/bouclier-bleu/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bouffalo-isp-git
+  name: AUR bouffalo-isp-git logs
+  description: User logs/cache leftover for AUR package bouffalo-isp-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bouffalo-isp-git/logs"
+  - "$HOME/.local/share/bouffalo-isp-git/logs"
+  - "$XDG_CACHE_HOME/bouffalo-isp-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bouffalo-lab-dev-cube
+  name: AUR bouffalo-lab-dev-cube logs
+  description: User logs/cache leftover for AUR package bouffalo-lab-dev-cube (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bouffalo-lab-dev-cube/logs"
+  - "$HOME/.local/share/bouffalo-lab-dev-cube/logs"
+  - "$XDG_CACHE_HOME/bouffalo-lab-dev-cube/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bouffalolab-devcude-bin
+  name: AUR bouffalolab-devcude-bin logs
+  description: User logs/cache leftover for AUR package bouffalolab-devcude-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bouffalolab-devcude-bin/logs"
+  - "$HOME/.local/share/bouffalolab-devcude-bin/logs"
+  - "$XDG_CACHE_HOME/bouffalolab-devcude-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boulder-git
+  name: AUR boulder-git logs
+  description: User logs/cache leftover for AUR package boulder-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boulder-git/logs"
+  - "$HOME/.local/share/boulder-git/logs"
+  - "$XDG_CACHE_HOME/boulder-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bouml
+  name: AUR bouml logs
+  description: User logs/cache leftover for AUR package bouml (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bouml/logs"
+  - "$HOME/.local/share/bouml/logs"
+  - "$XDG_CACHE_HOME/bouml/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bounce
+  name: AUR bounce logs
+  description: User logs/cache leftover for AUR package bounce (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bounce/logs"
+  - "$HOME/.local/share/bounce/logs"
+  - "$XDG_CACHE_HOME/bounce/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bounce-bin
+  name: AUR bounce-bin logs
+  description: User logs/cache leftover for AUR package bounce-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bounce-bin/logs"
+  - "$HOME/.local/share/bounce-bin/logs"
+  - "$XDG_CACHE_HOME/bounce-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bouncer
+  name: AUR bouncer logs
+  description: User logs/cache leftover for AUR package bouncer (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bouncer/logs"
+  - "$HOME/.local/share/bouncer/logs"
+  - "$XDG_CACHE_HOME/bouncer/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boundary-bin
+  name: AUR boundary-bin logs
+  description: User logs/cache leftover for AUR package boundary-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boundary-bin/logs"
+  - "$HOME/.local/share/boundary-bin/logs"
+  - "$XDG_CACHE_HOME/boundary-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boundary-desktop
+  name: AUR boundary-desktop logs
+  description: User logs/cache leftover for AUR package boundary-desktop (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boundary-desktop/logs"
+  - "$HOME/.local/share/boundary-desktop/logs"
+  - "$XDG_CACHE_HOME/boundary-desktop/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boundary-git
+  name: AUR boundary-git logs
+  description: User logs/cache leftover for AUR package boundary-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boundary-git/logs"
+  - "$HOME/.local/share/boundary-git/logs"
+  - "$XDG_CACHE_HOME/boundary-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bountui
+  name: AUR bountui logs
+  description: User logs/cache leftover for AUR package bountui (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bountui/logs"
+  - "$HOME/.local/share/bountui/logs"
+  - "$XDG_CACHE_HOME/bountui/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bounty
+  name: AUR bounty logs
+  description: User logs/cache leftover for AUR package bounty (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bounty/logs"
+  - "$HOME/.local/share/bounty/logs"
+  - "$XDG_CACHE_HOME/bounty/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bounty-git
+  name: AUR bounty-git logs
+  description: User logs/cache leftover for AUR package bounty-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bounty-git/logs"
+  - "$HOME/.local/share/bounty-git/logs"
+  - "$XDG_CACHE_HOME/bounty-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bournal
+  name: AUR bournal logs
+  description: User logs/cache leftover for AUR package bournal (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bournal/logs"
+  - "$HOME/.local/share/bournal/logs"
+  - "$XDG_CACHE_HOME/bournal/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bout
+  name: AUR bout logs
+  description: User logs/cache leftover for AUR package bout (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bout/logs"
+  - "$HOME/.local/share/bout/logs"
+  - "$XDG_CACHE_HOME/bout/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bow-git
+  name: AUR bow-git logs
+  description: User logs/cache leftover for AUR package bow-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bow-git/logs"
+  - "$HOME/.local/share/bow-git/logs"
+  - "$XDG_CACHE_HOME/bow-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bower-away
+  name: AUR bower-away logs
+  description: User logs/cache leftover for AUR package bower-away (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bower-away/logs"
+  - "$HOME/.local/share/bower-away/logs"
+  - "$XDG_CACHE_HOME/bower-away/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bower-mail
+  name: AUR bower-mail logs
+  description: User logs/cache leftover for AUR package bower-mail (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bower-mail/logs"
+  - "$HOME/.local/share/bower-mail/logs"
+  - "$XDG_CACHE_HOME/bower-mail/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bower-mail-git
+  name: AUR bower-mail-git logs
+  description: User logs/cache leftover for AUR package bower-mail-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bower-mail-git/logs"
+  - "$HOME/.local/share/bower-mail-git/logs"
+  - "$XDG_CACHE_HOME/bower-mail-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bowtie
+  name: AUR bowtie logs
+  description: User logs/cache leftover for AUR package bowtie (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bowtie/logs"
+  - "$HOME/.local/share/bowtie/logs"
+  - "$XDG_CACHE_HOME/bowtie/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bowtie2
+  name: AUR bowtie2 logs
+  description: User logs/cache leftover for AUR package bowtie2 (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bowtie2/logs"
+  - "$HOME/.local/share/bowtie2/logs"
+  - "$XDG_CACHE_HOME/bowtie2/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bowtie2-bin
+  name: AUR bowtie2-bin logs
+  description: User logs/cache leftover for AUR package bowtie2-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bowtie2-bin/logs"
+  - "$HOME/.local/share/bowtie2-bin/logs"
+  - "$XDG_CACHE_HOME/bowtie2-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bowtie2-git
+  name: AUR bowtie2-git logs
+  description: User logs/cache leftover for AUR package bowtie2-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bowtie2-git/logs"
+  - "$HOME/.local/share/bowtie2-git/logs"
+  - "$XDG_CACHE_HOME/bowtie2-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box-installer
+  name: AUR box-installer logs
+  description: User logs/cache leftover for AUR package box-installer (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box-installer/logs"
+  - "$HOME/.local/share/box-installer/logs"
+  - "$XDG_CACHE_HOME/box-installer/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box0-studio-qt-git
+  name: AUR box0-studio-qt-git logs
+  description: User logs/cache leftover for AUR package box0-studio-qt-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box0-studio-qt-git/logs"
+  - "$HOME/.local/share/box0-studio-qt-git/logs"
+  - "$XDG_CACHE_HOME/box0-studio-qt-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box0-utils-git
+  name: AUR box0-utils-git logs
+  description: User logs/cache leftover for AUR package box0-utils-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box0-utils-git/logs"
+  - "$HOME/.local/share/box0-utils-git/logs"
+  - "$XDG_CACHE_HOME/box0-utils-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box64
+  name: AUR box64 logs
+  description: User logs/cache leftover for AUR package box64 (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box64/logs"
+  - "$HOME/.local/share/box64/logs"
+  - "$XDG_CACHE_HOME/box64/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box64-android-git
+  name: AUR box64-android-git logs
+  description: User logs/cache leftover for AUR package box64-android-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box64-android-git/logs"
+  - "$HOME/.local/share/box64-android-git/logs"
+  - "$XDG_CACHE_HOME/box64-android-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box64-git
+  name: AUR box64-git logs
+  description: User logs/cache leftover for AUR package box64-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box64-git/logs"
+  - "$HOME/.local/share/box64-git/logs"
+  - "$XDG_CACHE_HOME/box64-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box86
+  name: AUR box86 logs
+  description: User logs/cache leftover for AUR package box86 (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box86/logs"
+  - "$HOME/.local/share/box86/logs"
+  - "$XDG_CACHE_HOME/box86/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-box86-git
+  name: AUR box86-git logs
+  description: User logs/cache leftover for AUR package box86-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/box86-git/logs"
+  - "$HOME/.local/share/box86-git/logs"
+  - "$XDG_CACHE_HOME/box86-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxbackup-client
+  name: AUR boxbackup-client logs
+  description: User logs/cache leftover for AUR package boxbackup-client (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxbackup-client/logs"
+  - "$HOME/.local/share/boxbackup-client/logs"
+  - "$XDG_CACHE_HOME/boxbackup-client/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxbackup-server
+  name: AUR boxbackup-server logs
+  description: User logs/cache leftover for AUR package boxbackup-server (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxbackup-server/logs"
+  - "$HOME/.local/share/boxbackup-server/logs"
+  - "$XDG_CACHE_HOME/boxbackup-server/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxcli-git
+  name: AUR boxcli-git logs
+  description: User logs/cache leftover for AUR package boxcli-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxcli-git/logs"
+  - "$HOME/.local/share/boxcli-git/logs"
+  - "$XDG_CACHE_HOME/boxcli-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxd-cli-bin
+  name: AUR boxd-cli-bin logs
+  description: User logs/cache leftover for AUR package boxd-cli-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxd-cli-bin/logs"
+  - "$HOME/.local/share/boxd-cli-bin/logs"
+  - "$XDG_CACHE_HOME/boxd-cli-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxedwine
+  name: AUR boxedwine logs
+  description: User logs/cache leftover for AUR package boxedwine (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxedwine/logs"
+  - "$HOME/.local/share/boxedwine/logs"
+  - "$XDG_CACHE_HOME/boxedwine/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxedwine-git
+  name: AUR boxedwine-git logs
+  description: User logs/cache leftover for AUR package boxedwine-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxedwine-git/logs"
+  - "$HOME/.local/share/boxedwine-git/logs"
+  - "$XDG_CACHE_HOME/boxedwine-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxes
+  name: AUR boxes logs
+  description: User logs/cache leftover for AUR package boxes (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxes/logs"
+  - "$HOME/.local/share/boxes/logs"
+  - "$XDG_CACHE_HOME/boxes/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxes-git
+  name: AUR boxes-git logs
+  description: User logs/cache leftover for AUR package boxes-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxes-git/logs"
+  - "$HOME/.local/share/boxes-git/logs"
+  - "$XDG_CACHE_HOME/boxes-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxes-py-git
+  name: AUR boxes-py-git logs
+  description: User logs/cache leftover for AUR package boxes-py-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxes-py-git/logs"
+  - "$HOME/.local/share/boxes-py-git/logs"
+  - "$XDG_CACHE_HOME/boxes-py-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxesandglue-glu
+  name: AUR boxesandglue-glu logs
+  description: User logs/cache leftover for AUR package boxesandglue-glu (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxesandglue-glu/logs"
+  - "$HOME/.local/share/boxesandglue-glu/logs"
+  - "$XDG_CACHE_HOME/boxesandglue-glu/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxflat-git
+  name: AUR boxflat-git logs
+  description: User logs/cache leftover for AUR package boxflat-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxflat-git/logs"
+  - "$HOME/.local/share/boxflat-git/logs"
+  - "$XDG_CACHE_HOME/boxflat-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-ttf-boxicons
+  name: AUR ttf-boxicons logs
+  description: User logs/cache leftover for AUR package ttf-boxicons (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ttf-boxicons/logs"
+  - "$HOME/.local/share/ttf-boxicons/logs"
+  - "$XDG_CACHE_HOME/ttf-boxicons/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-woff-boxicons
+  name: AUR woff-boxicons logs
+  description: User logs/cache leftover for AUR package woff-boxicons (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/woff-boxicons/logs"
+  - "$HOME/.local/share/woff-boxicons/logs"
+  - "$XDG_CACHE_HOME/woff-boxicons/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-woff2-boxicons
+  name: AUR woff2-boxicons logs
+  description: User logs/cache leftover for AUR package woff2-boxicons (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/woff2-boxicons/logs"
+  - "$HOME/.local/share/woff2-boxicons/logs"
+  - "$XDG_CACHE_HOME/woff2-boxicons/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxplayer-bin
+  name: AUR boxplayer-bin logs
+  description: User logs/cache leftover for AUR package boxplayer-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxplayer-bin/logs"
+  - "$HOME/.local/share/boxplayer-bin/logs"
+  - "$XDG_CACHE_HOME/boxplayer-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxtron
+  name: AUR boxtron logs
+  description: User logs/cache leftover for AUR package boxtron (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxtron/logs"
+  - "$HOME/.local/share/boxtron/logs"
+  - "$XDG_CACHE_HOME/boxtron/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxtron-git
+  name: AUR boxtron-git logs
+  description: User logs/cache leftover for AUR package boxtron-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxtron-git/logs"
+  - "$HOME/.local/share/boxtron-git/logs"
+  - "$XDG_CACHE_HOME/boxtron-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxunbox
+  name: AUR boxunbox logs
+  description: User logs/cache leftover for AUR package boxunbox (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxunbox/logs"
+  - "$HOME/.local/share/boxunbox/logs"
+  - "$XDG_CACHE_HOME/boxunbox/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxunbox-git
+  name: AUR boxunbox-git logs
+  description: User logs/cache leftover for AUR package boxunbox-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxunbox-git/logs"
+  - "$HOME/.local/share/boxunbox-git/logs"
+  - "$XDG_CACHE_HOME/boxunbox-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-boxxy-git
+  name: AUR boxxy-git logs
+  description: User logs/cache leftover for AUR package boxxy-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/boxxy-git/logs"
+  - "$HOME/.local/share/boxxy-git/logs"
+  - "$XDG_CACHE_HOME/boxxy-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bozocrack-git
+  name: AUR bozocrack-git logs
+  description: User logs/cache leftover for AUR package bozocrack-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bozocrack-git/logs"
+  - "$HOME/.local/share/bozocrack-git/logs"
+  - "$XDG_CACHE_HOME/bozocrack-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bozohttpd
+  name: AUR bozohttpd logs
+  description: User logs/cache leftover for AUR package bozohttpd (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bozohttpd/logs"
+  - "$HOME/.local/share/bozohttpd/logs"
+  - "$XDG_CACHE_HOME/bozohttpd/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bp-bin
+  name: AUR bp-bin logs
+  description: User logs/cache leftover for AUR package bp-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bp-bin/logs"
+  - "$HOME/.local/share/bp-bin/logs"
+  - "$XDG_CACHE_HOME/bp-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bp-nfoview
+  name: AUR bp-nfoview logs
+  description: User logs/cache leftover for AUR package bp-nfoview (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bp-nfoview/logs"
+  - "$HOME/.local/share/bp-nfoview/logs"
+  - "$XDG_CACHE_HOME/bp-nfoview/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpf-dtrace-utils
+  name: AUR bpf-dtrace-utils logs
+  description: User logs/cache leftover for AUR package bpf-dtrace-utils (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpf-dtrace-utils/logs"
+  - "$HOME/.local/share/bpf-dtrace-utils/logs"
+  - "$XDG_CACHE_HOME/bpf-dtrace-utils/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpf-unknown-none-binutils
+  name: AUR bpf-unknown-none-binutils logs
+  description: User logs/cache leftover for AUR package bpf-unknown-none-binutils
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpf-unknown-none-binutils/logs"
+  - "$HOME/.local/share/bpf-unknown-none-binutils/logs"
+  - "$XDG_CACHE_HOME/bpf-unknown-none-binutils/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpf-unknown-none-gcc
+  name: AUR bpf-unknown-none-gcc logs
+  description: User logs/cache leftover for AUR package bpf-unknown-none-gcc (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpf-unknown-none-gcc/logs"
+  - "$HOME/.local/share/bpf-unknown-none-gcc/logs"
+  - "$XDG_CACHE_HOME/bpf-unknown-none-gcc/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpfix-git
+  name: AUR bpfix-git logs
+  description: User logs/cache leftover for AUR package bpfix-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpfix-git/logs"
+  - "$HOME/.local/share/bpfix-git/logs"
+  - "$XDG_CACHE_HOME/bpfix-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpfmon
+  name: AUR bpfmon logs
+  description: User logs/cache leftover for AUR package bpfmon (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpfmon/logs"
+  - "$HOME/.local/share/bpfmon/logs"
+  - "$XDG_CACHE_HOME/bpfmon/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpfmt-git
+  name: AUR bpfmt-git logs
+  description: User logs/cache leftover for AUR package bpfmt-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpfmt-git/logs"
+  - "$HOME/.local/share/bpfmt-git/logs"
+  - "$XDG_CACHE_HOME/bpfmt-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpftrace-git
+  name: AUR bpftrace-git logs
+  description: User logs/cache leftover for AUR package bpftrace-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpftrace-git/logs"
+  - "$HOME/.local/share/bpftrace-git/logs"
+  - "$XDG_CACHE_HOME/bpftrace-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpftune-git
+  name: AUR bpftune-git logs
+  description: User logs/cache leftover for AUR package bpftune-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpftune-git/logs"
+  - "$HOME/.local/share/bpftune-git/logs"
+  - "$XDG_CACHE_HOME/bpftune-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpkg-git
+  name: AUR bpkg-git logs
+  description: User logs/cache leftover for AUR package bpkg-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpkg-git/logs"
+  - "$HOME/.local/share/bpkg-git/logs"
+  - "$XDG_CACHE_HOME/bpkg-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bplay
+  name: AUR bplay logs
+  description: User logs/cache leftover for AUR package bplay (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bplay/logs"
+  - "$HOME/.local/share/bplay/logs"
+  - "$XDG_CACHE_HOME/bplay/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpm-git
+  name: AUR bpm-git logs
+  description: User logs/cache leftover for AUR package bpm-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpm-git/logs"
+  - "$HOME/.local/share/bpm-git/logs"
+  - "$XDG_CACHE_HOME/bpm-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpm-tools
+  name: AUR bpm-tools logs
+  description: User logs/cache leftover for AUR package bpm-tools (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpm-tools/logs"
+  - "$HOME/.local/share/bpm-tools/logs"
+  - "$XDG_CACHE_HOME/bpm-tools/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bprolog
+  name: AUR bprolog logs
+  description: User logs/cache leftover for AUR package bprolog (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bprolog/logs"
+  - "$HOME/.local/share/bprolog/logs"
+  - "$XDG_CACHE_HOME/bprolog/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bptt
+  name: AUR bptt logs
+  description: User logs/cache leftover for AUR package bptt (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bptt/logs"
+  - "$HOME/.local/share/bptt/logs"
+  - "$XDG_CACHE_HOME/bptt/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bpytop-git
+  name: AUR bpytop-git logs
+  description: User logs/cache leftover for AUR package bpytop-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bpytop-git/logs"
+  - "$HOME/.local/share/bpytop-git/logs"
+  - "$XDG_CACHE_HOME/bpytop-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bqm
+  name: AUR bqm logs
+  description: User logs/cache leftover for AUR package bqm (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bqm/logs"
+  - "$HOME/.local/share/bqm/logs"
+  - "$XDG_CACHE_HOME/bqm/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bra
+  name: AUR bra logs
+  description: User logs/cache leftover for AUR package bra (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bra/logs"
+  - "$HOME/.local/share/bra/logs"
+  - "$XDG_CACHE_HOME/bra/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bracelet-generator
+  name: AUR bracelet-generator logs
+  description: User logs/cache leftover for AUR package bracelet-generator (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bracelet-generator/logs"
+  - "$HOME/.local/share/bracelet-generator/logs"
+  - "$XDG_CACHE_HOME/bracelet-generator/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-braces
+  name: AUR braces logs
+  description: User logs/cache leftover for AUR package braces (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/braces/logs"
+  - "$HOME/.local/share/braces/logs"
+  - "$XDG_CACHE_HOME/braces/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bracken
+  name: AUR bracken logs
+  description: User logs/cache leftover for AUR package bracken (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bracken/logs"
+  - "$HOME/.local/share/bracken/logs"
+  - "$XDG_CACHE_HOME/bracken/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bracket
+  name: AUR bracket logs
+  description: User logs/cache leftover for AUR package bracket (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bracket/logs"
+  - "$HOME/.local/share/bracket/logs"
+  - "$XDG_CACHE_HOME/bracket/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bracmat-git
+  name: AUR bracmat-git logs
+  description: User logs/cache leftover for AUR package bracmat-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bracmat-git/logs"
+  - "$HOME/.local/share/bracmat-git/logs"
+  - "$XDG_CACHE_HOME/bracmat-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bradtunes-git
+  name: AUR bradtunes-git logs
+  description: User logs/cache leftover for AUR package bradtunes-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bradtunes-git/logs"
+  - "$HOME/.local/share/bradtunes-git/logs"
+  - "$XDG_CACHE_HOME/bradtunes-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brahms-git
+  name: AUR brahms-git logs
+  description: User logs/cache leftover for AUR package brahms-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brahms-git/logs"
+  - "$HOME/.local/share/brahms-git/logs"
+  - "$XDG_CACHE_HOME/brahms-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-braid-hib
+  name: AUR braid-hib logs
+  description: User logs/cache leftover for AUR package braid-hib (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/braid-hib/logs"
+  - "$HOME/.local/share/braid-hib/logs"
+  - "$XDG_CACHE_HOME/braid-hib/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brailleblaster-bin
+  name: AUR brailleblaster-bin logs
+  description: User logs/cache leftover for AUR package brailleblaster-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brailleblaster-bin/logs"
+  - "$HOME/.local/share/brailleblaster-bin/logs"
+  - "$XDG_CACHE_HOME/brailleblaster-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brain
+  name: AUR brain logs
+  description: User logs/cache leftover for AUR package brain (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brain/logs"
+  - "$HOME/.local/share/brain/logs"
+  - "$XDG_CACHE_HOME/brain/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brain-fm
+  name: AUR brain-fm logs
+  description: User logs/cache leftover for AUR package brain-fm (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brain-fm/logs"
+  - "$HOME/.local/share/brain-fm/logs"
+  - "$XDG_CACHE_HOME/brain-fm/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainbash-git
+  name: AUR brainbash-git logs
+  description: User logs/cache leftover for AUR package brainbash-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainbash-git/logs"
+  - "$HOME/.local/share/brainbash-git/logs"
+  - "$XDG_CACHE_HOME/brainbash-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainboxes-serial-pci
+  name: AUR brainboxes-serial-pci logs
+  description: User logs/cache leftover for AUR package brainboxes-serial-pci (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainboxes-serial-pci/logs"
+  - "$HOME/.local/share/brainboxes-serial-pci/logs"
+  - "$XDG_CACHE_HOME/brainboxes-serial-pci/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-braincup-bin
+  name: AUR braincup-bin logs
+  description: User logs/cache leftover for AUR package braincup-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/braincup-bin/logs"
+  - "$HOME/.local/share/braincup-bin/logs"
+  - "$XDG_CACHE_HOME/braincup-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-braincurses
+  name: AUR braincurses logs
+  description: User logs/cache leftover for AUR package braincurses (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/braincurses/logs"
+  - "$HOME/.local/share/braincurses/logs"
+  - "$XDG_CACHE_HOME/braincurses/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainflop
+  name: AUR brainflop logs
+  description: User logs/cache leftover for AUR package brainflop (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainflop/logs"
+  - "$HOME/.local/share/brainflop/logs"
+  - "$XDG_CACHE_HOME/brainflop/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainfpv
+  name: AUR brainfpv logs
+  description: User logs/cache leftover for AUR package brainfpv (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainfpv/logs"
+  - "$HOME/.local/share/brainfpv/logs"
+  - "$XDG_CACHE_HOME/brainfpv/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainfuck
+  name: AUR brainfuck logs
+  description: User logs/cache leftover for AUR package brainfuck (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainfuck/logs"
+  - "$HOME/.local/share/brainfuck/logs"
+  - "$XDG_CACHE_HOME/brainfuck/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainfuck-interp
+  name: AUR brainfuck-interp logs
+  description: User logs/cache leftover for AUR package brainfuck-interp (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainfuck-interp/logs"
+  - "$HOME/.local/share/brainfuck-interp/logs"
+  - "$XDG_CACHE_HOME/brainfuck-interp/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainfuck-psiphon-pro-go-bin
+  name: AUR brainfuck-psiphon-pro-go-bin logs
+  description: User logs/cache leftover for AUR package brainfuck-psiphon-pro-go-bin
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainfuck-psiphon-pro-go-bin/logs"
+  - "$HOME/.local/share/brainfuck-psiphon-pro-go-bin/logs"
+  - "$XDG_CACHE_HOME/brainfuck-psiphon-pro-go-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainparty
+  name: AUR brainparty logs
+  description: User logs/cache leftover for AUR package brainparty (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainparty/logs"
+  - "$HOME/.local/share/brainparty/logs"
+  - "$XDG_CACHE_HOME/brainparty/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainrot-battery
+  name: AUR brainrot-battery logs
+  description: User logs/cache leftover for AUR package brainrot-battery (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainrot-battery/logs"
+  - "$HOME/.local/share/brainrot-battery/logs"
+  - "$XDG_CACHE_HOME/brainrot-battery/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainworkshop
+  name: AUR brainworkshop logs
+  description: User logs/cache leftover for AUR package brainworkshop (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainworkshop/logs"
+  - "$HOME/.local/share/brainworkshop/logs"
+  - "$XDG_CACHE_HOME/brainworkshop/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brainworkshop-git
+  name: AUR brainworkshop-git logs
+  description: User logs/cache leftover for AUR package brainworkshop-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brainworkshop-git/logs"
+  - "$HOME/.local/share/brainworkshop-git/logs"
+  - "$XDG_CACHE_HOME/brainworkshop-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-branch
+  name: AUR branch logs
+  description: User logs/cache leftover for AUR package branch (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/branch/logs"
+  - "$HOME/.local/share/branch/logs"
+  - "$XDG_CACHE_HOME/branch/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-branta-bin
+  name: AUR branta-bin logs
+  description: User logs/cache leftover for AUR package branta-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/branta-bin/logs"
+  - "$HOME/.local/share/branta-bin/logs"
+  - "$XDG_CACHE_HOME/branta-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brasero-git
+  name: AUR brasero-git logs
+  description: User logs/cache leftover for AUR package brasero-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brasero-git/logs"
+  - "$HOME/.local/share/brasero-git/logs"
+  - "$XDG_CACHE_HOME/brasero-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-braus-git
+  name: AUR braus-git logs
+  description: User logs/cache leftover for AUR package braus-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/braus-git/logs"
+  - "$HOME/.local/share/braus-git/logs"
+  - "$XDG_CACHE_HOME/braus-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-beta-bin
+  name: AUR brave-beta-bin logs
+  description: User logs/cache leftover for AUR package brave-beta-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-beta-bin/logs"
+  - "$HOME/.local/share/brave-beta-bin/logs"
+  - "$XDG_CACHE_HOME/brave-beta-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-bin
+  name: AUR brave-bin logs
+  description: User logs/cache leftover for AUR package brave-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-bin/logs"
+  - "$HOME/.local/share/brave-bin/logs"
+  - "$XDG_CACHE_HOME/brave-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-debloater
+  name: AUR brave-debloater logs
+  description: User logs/cache leftover for AUR package brave-debloater (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-debloater/logs"
+  - "$HOME/.local/share/brave-debloater/logs"
+  - "$XDG_CACHE_HOME/brave-debloater/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-nightly-bin
+  name: AUR brave-nightly-bin logs
+  description: User logs/cache leftover for AUR package brave-nightly-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-nightly-bin/logs"
+  - "$HOME/.local/share/brave-nightly-bin/logs"
+  - "$XDG_CACHE_HOME/brave-nightly-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-origin-beta-bin
+  name: AUR brave-origin-beta-bin logs
+  description: User logs/cache leftover for AUR package brave-origin-beta-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-origin-beta-bin/logs"
+  - "$HOME/.local/share/brave-origin-beta-bin/logs"
+  - "$XDG_CACHE_HOME/brave-origin-beta-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-origin-bin
+  name: AUR brave-origin-bin logs
+  description: User logs/cache leftover for AUR package brave-origin-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-origin-bin/logs"
+  - "$HOME/.local/share/brave-origin-bin/logs"
+  - "$XDG_CACHE_HOME/brave-origin-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brave-origin-nightly-bin
+  name: AUR brave-origin-nightly-bin logs
+  description: User logs/cache leftover for AUR package brave-origin-nightly-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brave-origin-nightly-bin/logs"
+  - "$HOME/.local/share/brave-origin-nightly-bin/logs"
+  - "$XDG_CACHE_HOME/brave-origin-nightly-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brawl
+  name: AUR brawl logs
+  description: User logs/cache leftover for AUR package brawl (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brawl/logs"
+  - "$HOME/.local/share/brawl/logs"
+  - "$XDG_CACHE_HOME/brawl/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brawlcrate-wine-bin
+  name: AUR brawlcrate-wine-bin logs
+  description: User logs/cache leftover for AUR package brawlcrate-wine-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brawlcrate-wine-bin/logs"
+  - "$HOME/.local/share/brawlcrate-wine-bin/logs"
+  - "$XDG_CACHE_HOME/brawlcrate-wine-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brawltag
+  name: AUR brawltag logs
+  description: User logs/cache leftover for AUR package brawltag (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brawltag/logs"
+  - "$HOME/.local/share/brawltag/logs"
+  - "$XDG_CACHE_HOME/brawltag/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brchd
+  name: AUR brchd logs
+  description: User logs/cache leftover for AUR package brchd (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brchd/logs"
+  - "$HOME/.local/share/brchd/logs"
+  - "$XDG_CACHE_HOME/brchd/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brcm4354-firmware
+  name: AUR brcm4354-firmware logs
+  description: User logs/cache leftover for AUR package brcm4354-firmware (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brcm4354-firmware/logs"
+  - "$HOME/.local/share/brcm4354-firmware/logs"
+  - "$XDG_CACHE_HOME/brcm4354-firmware/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brcm43xx-firmware
+  name: AUR brcm43xx-firmware logs
+  description: User logs/cache leftover for AUR package brcm43xx-firmware (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brcm43xx-firmware/logs"
+  - "$HOME/.local/share/brcm43xx-firmware/logs"
+  - "$XDG_CACHE_HOME/brcm43xx-firmware/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brcmfmac43456-firmware
+  name: AUR brcmfmac43456-firmware logs
+  description: User logs/cache leftover for AUR package brcmfmac43456-firmware (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brcmfmac43456-firmware/logs"
+  - "$HOME/.local/share/brcmfmac43456-firmware/logs"
+  - "$XDG_CACHE_HOME/brcmfmac43456-firmware/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breachcheck
+  name: AUR breachcheck logs
+  description: User logs/cache leftover for AUR package breachcheck (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breachcheck/logs"
+  - "$HOME/.local/share/breachcheck/logs"
+  - "$XDG_CACHE_HOME/breachcheck/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bread-bin
+  name: AUR bread-bin logs
+  description: User logs/cache leftover for AUR package bread-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bread-bin/logs"
+  - "$HOME/.local/share/bread-bin/logs"
+  - "$XDG_CACHE_HOME/bread-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bread-of-life-bin
+  name: AUR bread-of-life-bin logs
+  description: User logs/cache leftover for AUR package bread-of-life-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bread-of-life-bin/logs"
+  - "$HOME/.local/share/bread-of-life-bin/logs"
+  - "$XDG_CACHE_HOME/bread-of-life-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breakd
+  name: AUR breakd logs
+  description: User logs/cache leftover for AUR package breakd (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breakd/logs"
+  - "$HOME/.local/share/breakd/logs"
+  - "$XDG_CACHE_HOME/breakd/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breaktimer-appimage
+  name: AUR breaktimer-appimage logs
+  description: User logs/cache leftover for AUR package breaktimer-appimage (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breaktimer-appimage/logs"
+  - "$HOME/.local/share/breaktimer-appimage/logs"
+  - "$XDG_CACHE_HOME/breaktimer-appimage/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breaktimer-bin
+  name: AUR breaktimer-bin logs
+  description: User logs/cache leftover for AUR package breaktimer-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breaktimer-bin/logs"
+  - "$HOME/.local/share/breaktimer-bin/logs"
+  - "$XDG_CACHE_HOME/breaktimer-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breath-theme-git
+  name: AUR breath-theme-git logs
+  description: User logs/cache leftover for AUR package breath-theme-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breath-theme-git/logs"
+  - "$HOME/.local/share/breath-theme-git/logs"
+  - "$XDG_CACHE_HOME/breath-theme-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breathing
+  name: AUR breathing logs
+  description: User logs/cache leftover for AUR package breathing (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breathing/logs"
+  - "$HOME/.local/share/breathing/logs"
+  - "$XDG_CACHE_HOME/breathing/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breathing-git
+  name: AUR breathing-git logs
+  description: User logs/cache leftover for AUR package breathing-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breathing-git/logs"
+  - "$HOME/.local/share/breathing-git/logs"
+  - "$XDG_CACHE_HOME/breathing-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breed-enter-rust-git
+  name: AUR breed-enter-rust-git logs
+  description: User logs/cache leftover for AUR package breed-enter-rust-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breed-enter-rust-git/logs"
+  - "$HOME/.local/share/breed-enter-rust-git/logs"
+  - "$XDG_CACHE_HOME/breed-enter-rust-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breed-git
+  name: AUR breed-git logs
+  description: User logs/cache leftover for AUR package breed-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breed-git/logs"
+  - "$HOME/.local/share/breed-git/logs"
+  - "$XDG_CACHE_HOME/breed-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-adapta-cursor-theme-git
+  name: AUR breeze-adapta-cursor-theme-git logs
+  description: User logs/cache leftover for AUR package breeze-adapta-cursor-theme-git
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-adapta-cursor-theme-git/logs"
+  - "$HOME/.local/share/breeze-adapta-cursor-theme-git/logs"
+  - "$XDG_CACHE_HOME/breeze-adapta-cursor-theme-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-contrast-cursor-theme
+  name: AUR breeze-contrast-cursor-theme logs
+  description: User logs/cache leftover for AUR package breeze-contrast-cursor-theme
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-contrast-cursor-theme/logs"
+  - "$HOME/.local/share/breeze-contrast-cursor-theme/logs"
+  - "$XDG_CACHE_HOME/breeze-contrast-cursor-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-cursors-lh
+  name: AUR breeze-cursors-lh logs
+  description: User logs/cache leftover for AUR package breeze-cursors-lh (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-cursors-lh/logs"
+  - "$HOME/.local/share/breeze-cursors-lh/logs"
+  - "$XDG_CACHE_HOME/breeze-cursors-lh/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-dark-red-cursor-git
+  name: AUR breeze-dark-red-cursor-git logs
+  description: User logs/cache leftover for AUR package breeze-dark-red-cursor-git
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-dark-red-cursor-git/logs"
+  - "$HOME/.local/share/breeze-dark-red-cursor-git/logs"
+  - "$XDG_CACHE_HOME/breeze-dark-red-cursor-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-default-cursor-theme
+  name: AUR breeze-default-cursor-theme logs
+  description: User logs/cache leftover for AUR package breeze-default-cursor-theme
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-default-cursor-theme/logs"
+  - "$HOME/.local/share/breeze-default-cursor-theme/logs"
+  - "$XDG_CACHE_HOME/breeze-default-cursor-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-enhanced
+  name: AUR breeze-enhanced logs
+  description: User logs/cache leftover for AUR package breeze-enhanced (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-enhanced/logs"
+  - "$HOME/.local/share/breeze-enhanced/logs"
+  - "$XDG_CACHE_HOME/breeze-enhanced/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-enhanced-git
+  name: AUR breeze-enhanced-git logs
+  description: User logs/cache leftover for AUR package breeze-enhanced-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-enhanced-git/logs"
+  - "$HOME/.local/share/breeze-enhanced-git/logs"
+  - "$XDG_CACHE_HOME/breeze-enhanced-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-extended
+  name: AUR breeze-extended logs
+  description: User logs/cache leftover for AUR package breeze-extended (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-extended/logs"
+  - "$HOME/.local/share/breeze-extended/logs"
+  - "$XDG_CACHE_HOME/breeze-extended/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-extra
+  name: AUR breeze-extra logs
+  description: User logs/cache leftover for AUR package breeze-extra (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-extra/logs"
+  - "$HOME/.local/share/breeze-extra/logs"
+  - "$XDG_CACHE_HOME/breeze-extra/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-extra-gnome
+  name: AUR breeze-extra-gnome logs
+  description: User logs/cache leftover for AUR package breeze-extra-gnome (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-extra-gnome/logs"
+  - "$HOME/.local/share/breeze-extra-gnome/logs"
+  - "$XDG_CACHE_HOME/breeze-extra-gnome/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-flat
+  name: AUR breeze-flat logs
+  description: User logs/cache leftover for AUR package breeze-flat (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-flat/logs"
+  - "$HOME/.local/share/breeze-flat/logs"
+  - "$XDG_CACHE_HOME/breeze-flat/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-git
+  name: AUR breeze-git logs
+  description: User logs/cache leftover for AUR package breeze-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-git/logs"
+  - "$HOME/.local/share/breeze-git/logs"
+  - "$XDG_CACHE_HOME/breeze-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-gtk-git
+  name: AUR breeze-gtk-git logs
+  description: User logs/cache leftover for AUR package breeze-gtk-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-gtk-git/logs"
+  - "$HOME/.local/share/breeze-gtk-git/logs"
+  - "$XDG_CACHE_HOME/breeze-gtk-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-hacked-cursor-theme-git
+  name: AUR breeze-hacked-cursor-theme-git logs
+  description: User logs/cache leftover for AUR package breeze-hacked-cursor-theme-git
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-hacked-cursor-theme-git/logs"
+  - "$HOME/.local/share/breeze-hacked-cursor-theme-git/logs"
+  - "$XDG_CACHE_HOME/breeze-hacked-cursor-theme-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-icons-git
+  name: AUR breeze-icons-git logs
+  description: User logs/cache leftover for AUR package breeze-icons-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-icons-git/logs"
+  - "$HOME/.local/share/breeze-icons-git/logs"
+  - "$XDG_CACHE_HOME/breeze-icons-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-lxqt
+  name: AUR breeze-lxqt logs
+  description: User logs/cache leftover for AUR package breeze-lxqt (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-lxqt/logs"
+  - "$HOME/.local/share/breeze-lxqt/logs"
+  - "$XDG_CACHE_HOME/breeze-lxqt/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-lxqt-theme
+  name: AUR breeze-lxqt-theme logs
+  description: User logs/cache leftover for AUR package breeze-lxqt-theme (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-lxqt-theme/logs"
+  - "$HOME/.local/share/breeze-lxqt-theme/logs"
+  - "$XDG_CACHE_HOME/breeze-lxqt-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-plus
+  name: AUR breeze-plus logs
+  description: User logs/cache leftover for AUR package breeze-plus (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-plus/logs"
+  - "$HOME/.local/share/breeze-plus/logs"
+  - "$XDG_CACHE_HOME/breeze-plus/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-purple-cursor-theme
+  name: AUR breeze-purple-cursor-theme logs
+  description: User logs/cache leftover for AUR package breeze-purple-cursor-theme
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-purple-cursor-theme/logs"
+  - "$HOME/.local/share/breeze-purple-cursor-theme/logs"
+  - "$XDG_CACHE_HOME/breeze-purple-cursor-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-rofi-theme-git
+  name: AUR breeze-rofi-theme-git logs
+  description: User logs/cache leftover for AUR package breeze-rofi-theme-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-rofi-theme-git/logs"
+  - "$HOME/.local/share/breeze-rofi-theme-git/logs"
+  - "$XDG_CACHE_HOME/breeze-rofi-theme-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breeze-snow-cursor-theme
+  name: AUR breeze-snow-cursor-theme logs
+  description: User logs/cache leftover for AUR package breeze-snow-cursor-theme (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breeze-snow-cursor-theme/logs"
+  - "$HOME/.local/share/breeze-snow-cursor-theme/logs"
+  - "$XDG_CACHE_HOME/breeze-snow-cursor-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breezewiki-bin
+  name: AUR breezewiki-bin logs
+  description: User logs/cache leftover for AUR package breezewiki-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breezewiki-bin/logs"
+  - "$HOME/.local/share/breezewiki-bin/logs"
+  - "$XDG_CACHE_HOME/breezewiki-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breezex-cursor-theme
+  name: AUR breezex-cursor-theme logs
+  description: User logs/cache leftover for AUR package breezex-cursor-theme (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breezex-cursor-theme/logs"
+  - "$HOME/.local/share/breezex-cursor-theme/logs"
+  - "$XDG_CACHE_HOME/breezex-cursor-theme/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breezy-desktop-gnome-git
+  name: AUR breezy-desktop-gnome-git logs
+  description: User logs/cache leftover for AUR package breezy-desktop-gnome-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breezy-desktop-gnome-git/logs"
+  - "$HOME/.local/share/breezy-desktop-gnome-git/logs"
+  - "$XDG_CACHE_HOME/breezy-desktop-gnome-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breezy-desktop-kwin-git
+  name: AUR breezy-desktop-kwin-git logs
+  description: User logs/cache leftover for AUR package breezy-desktop-kwin-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breezy-desktop-kwin-git/logs"
+  - "$HOME/.local/share/breezy-desktop-kwin-git/logs"
+  - "$XDG_CACHE_HOME/breezy-desktop-kwin-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-breitbandmessung-bin
+  name: AUR breitbandmessung-bin logs
+  description: User logs/cache leftover for AUR package breitbandmessung-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/breitbandmessung-bin/logs"
+  - "$HOME/.local/share/breitbandmessung-bin/logs"
+  - "$XDG_CACHE_HOME/breitbandmessung-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brem
+  name: AUR brem logs
+  description: User logs/cache leftover for AUR package brem (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brem/logs"
+  - "$HOME/.local/share/brem/logs"
+  - "$XDG_CACHE_HOME/brem/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brem-git
+  name: AUR brem-git logs
+  description: User logs/cache leftover for AUR package brem-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brem-git/logs"
+  - "$HOME/.local/share/brem-git/logs"
+  - "$XDG_CACHE_HOME/brem-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brename
+  name: AUR brename logs
+  description: User logs/cache leftover for AUR package brename (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brename/logs"
+  - "$HOME/.local/share/brename/logs"
+  - "$XDG_CACHE_HOME/brename/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brename-bin
+  name: AUR brename-bin logs
+  description: User logs/cache leftover for AUR package brename-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brename-bin/logs"
+  - "$HOME/.local/share/brename-bin/logs"
+  - "$XDG_CACHE_HOME/brename-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bretellofier
+  name: AUR bretellofier logs
+  description: User logs/cache leftover for AUR package bretellofier (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bretellofier/logs"
+  - "$HOME/.local/share/bretellofier/logs"
+  - "$XDG_CACHE_HOME/bretellofier/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brettspielwelt
+  name: AUR brettspielwelt logs
+  description: User logs/cache leftover for AUR package brettspielwelt (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brettspielwelt/logs"
+  - "$HOME/.local/share/brettspielwelt/logs"
+  - "$XDG_CACHE_HOME/brettspielwelt/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brev-cli
+  name: AUR brev-cli logs
+  description: User logs/cache leftover for AUR package brev-cli (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brev-cli/logs"
+  - "$HOME/.local/share/brev-cli/logs"
+  - "$XDG_CACHE_HOME/brev-cli/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brew-git
+  name: AUR brew-git logs
+  description: User logs/cache leftover for AUR package brew-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brew-git/logs"
+  - "$HOME/.local/share/brew-git/logs"
+  - "$XDG_CACHE_HOME/brew-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brewbuddy
+  name: AUR brewbuddy logs
+  description: User logs/cache leftover for AUR package brewbuddy (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brewbuddy/logs"
+  - "$HOME/.local/share/brewbuddy/logs"
+  - "$XDG_CACHE_HOME/brewbuddy/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brewkit
+  name: AUR brewkit logs
+  description: User logs/cache leftover for AUR package brewkit (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brewkit/logs"
+  - "$HOME/.local/share/brewkit/logs"
+  - "$XDG_CACHE_HOME/brewkit/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brewstillery
+  name: AUR brewstillery logs
+  description: User logs/cache leftover for AUR package brewstillery (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brewstillery/logs"
+  - "$HOME/.local/share/brewstillery/logs"
+  - "$XDG_CACHE_HOME/brewstillery/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brewtarget
+  name: AUR brewtarget logs
+  description: User logs/cache leftover for AUR package brewtarget (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brewtarget/logs"
+  - "$HOME/.local/share/brewtarget/logs"
+  - "$XDG_CACHE_HOME/brewtarget/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brewtarget-git
+  name: AUR brewtarget-git logs
+  description: User logs/cache leftover for AUR package brewtarget-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brewtarget-git/logs"
+  - "$HOME/.local/share/brewtarget-git/logs"
+  - "$XDG_CACHE_HOME/brewtarget-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-briar-desktop
+  name: AUR briar-desktop logs
+  description: User logs/cache leftover for AUR package briar-desktop (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/briar-desktop/logs"
+  - "$HOME/.local/share/briar-desktop/logs"
+  - "$XDG_CACHE_HOME/briar-desktop/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-briar-desktop-bin
+  name: AUR briar-desktop-bin logs
+  description: User logs/cache leftover for AUR package briar-desktop-bin (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/briar-desktop-bin/logs"
+  - "$HOME/.local/share/briar-desktop-bin/logs"
+  - "$XDG_CACHE_HOME/briar-desktop-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-briar-desktop-git
+  name: AUR briar-desktop-git logs
+  description: User logs/cache leftover for AUR package briar-desktop-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/briar-desktop-git/logs"
+  - "$HOME/.local/share/briar-desktop-git/logs"
+  - "$XDG_CACHE_HOME/briar-desktop-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-briar-desktop-nightly-bin
+  name: AUR briar-desktop-nightly-bin logs
+  description: User logs/cache leftover for AUR package briar-desktop-nightly-bin
+    (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/briar-desktop-nightly-bin/logs"
+  - "$HOME/.local/share/briar-desktop-nightly-bin/logs"
+  - "$XDG_CACHE_HOME/briar-desktop-nightly-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-briar-headless
+  name: AUR briar-headless logs
+  description: User logs/cache leftover for AUR package briar-headless (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/briar-headless/logs"
+  - "$HOME/.local/share/briar-headless/logs"
+  - "$XDG_CACHE_HOME/briar-headless/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-briar-headless-git
+  name: AUR briar-headless-git logs
+  description: User logs/cache leftover for AUR package briar-headless-git (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/briar-headless-git/logs"
+  - "$HOME/.local/share/briar-headless-git/logs"
+  - "$XDG_CACHE_HOME/briar-headless-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickadia-launcher
+  name: AUR brickadia-launcher logs
+  description: User logs/cache leftover for AUR package brickadia-launcher (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickadia-launcher/logs"
+  - "$HOME/.local/share/brickadia-launcher/logs"
+  - "$XDG_CACHE_HOME/brickadia-launcher/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickbench
+  name: AUR brickbench logs
+  description: User logs/cache leftover for AUR package brickbench (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickbench/logs"
+  - "$HOME/.local/share/brickbench/logs"
+  - "$XDG_CACHE_HOME/brickbench/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickd
+  name: AUR brickd logs
+  description: User logs/cache leftover for AUR package brickd (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickd/logs"
+  - "$HOME/.local/share/brickd/logs"
+  - "$XDG_CACHE_HOME/brickd/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bricklink-studio
+  name: AUR bricklink-studio logs
+  description: User logs/cache leftover for AUR package bricklink-studio (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bricklink-studio/logs"
+  - "$HOME/.local/share/bricklink-studio/logs"
+  - "$XDG_CACHE_HOME/bricklink-studio/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickshooter
+  name: AUR brickshooter logs
+  description: User logs/cache leftover for AUR package brickshooter (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickshooter/logs"
+  - "$HOME/.local/share/brickshooter/logs"
+  - "$XDG_CACHE_HOME/brickshooter/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickstore
+  name: AUR brickstore logs
+  description: User logs/cache leftover for AUR package brickstore (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickstore/logs"
+  - "$HOME/.local/share/brickstore/logs"
+  - "$XDG_CACHE_HOME/brickstore/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickstrap-git
+  name: AUR brickstrap-git logs
+  description: User logs/cache leftover for AUR package brickstrap-git (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickstrap-git/logs"
+  - "$HOME/.local/share/brickstrap-git/logs"
+  - "$XDG_CACHE_HOME/brickstrap-git/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brickv
+  name: AUR brickv logs
+  description: User logs/cache leftover for AUR package brickv (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brickv/logs"
+  - "$HOME/.local/share/brickv/logs"
+  - "$XDG_CACHE_HOME/brickv/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bricscad
+  name: AUR bricscad logs
+  description: User logs/cache leftover for AUR package bricscad (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bricscad/logs"
+  - "$HOME/.local/share/bricscad/logs"
+  - "$XDG_CACHE_HOME/bricscad/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bricscad-cn
+  name: AUR bricscad-cn logs
+  description: User logs/cache leftover for AUR package bricscad-cn (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bricscad-cn/logs"
+  - "$HOME/.local/share/bricscad-cn/logs"
+  - "$XDG_CACHE_HOME/bricscad-cn/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bricscad-communicator
+  name: AUR bricscad-communicator logs
+  description: User logs/cache leftover for AUR package bricscad-communicator (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bricscad-communicator/logs"
+  - "$HOME/.local/share/bricscad-communicator/logs"
+  - "$XDG_CACHE_HOME/bricscad-communicator/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bricscad-fr-fr
+  name: AUR bricscad-fr_fr logs
+  description: User logs/cache leftover for AUR package bricscad-fr_fr (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bricscad-fr_fr/logs"
+  - "$HOME/.local/share/bricscad-fr_fr/logs"
+  - "$XDG_CACHE_HOME/bricscad-fr_fr/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bricscad-pt-br
+  name: AUR bricscad-pt_br logs
+  description: User logs/cache leftover for AUR package bricscad-pt_br (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bricscad-pt_br/logs"
+  - "$HOME/.local/share/bricscad-pt_br/logs"
+  - "$XDG_CACHE_HOME/bricscad-pt_br/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridge-bin
+  name: AUR bridge-bin logs
+  description: User logs/cache leftover for AUR package bridge-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridge-bin/logs"
+  - "$HOME/.local/share/bridge-bin/logs"
+  - "$XDG_CACHE_HOME/bridge-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridge-constructor
+  name: AUR bridge-constructor logs
+  description: User logs/cache leftover for AUR package bridge-constructor (second
+    slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridge-constructor/logs"
+  - "$HOME/.local/share/bridge-constructor/logs"
+  - "$XDG_CACHE_HOME/bridge-constructor/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridge-core-bin
+  name: AUR bridge-core-bin logs
+  description: User logs/cache leftover for AUR package bridge-core-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridge-core-bin/logs"
+  - "$HOME/.local/share/bridge-core-bin/logs"
+  - "$XDG_CACHE_HOME/bridge-core-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridge-utils
+  name: AUR bridge-utils logs
+  description: User logs/cache leftover for AUR package bridge-utils (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridge-utils/logs"
+  - "$HOME/.local/share/bridge-utils/logs"
+  - "$XDG_CACHE_HOME/bridge-utils/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridgedesigner
+  name: AUR bridgedesigner logs
+  description: User logs/cache leftover for AUR package bridgedesigner (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridgedesigner/logs"
+  - "$HOME/.local/share/bridgedesigner/logs"
+  - "$XDG_CACHE_HOME/bridgedesigner/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridje-bin
+  name: AUR bridje-bin logs
+  description: User logs/cache leftover for AUR package bridje-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridje-bin/logs"
+  - "$HOME/.local/share/bridje-bin/logs"
+  - "$XDG_CACHE_HOME/bridje-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-bridle-bin
+  name: AUR bridle-bin logs
+  description: User logs/cache leftover for AUR package bridle-bin (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bridle-bin/logs"
+  - "$HOME/.local/share/bridle-bin/logs"
+  - "$XDG_CACHE_HOME/bridle-bin/logs"
+  delete_mode: contents
+  max_depth: 6
+- id: aur2-brief
+  name: AUR brief logs
+  description: User logs/cache leftover for AUR package brief (second slice).
+  category: logs
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brief/logs"
+  - "$HOME/.local/share/brief/logs"
+  - "$XDG_CACHE_HOME/brief/logs"
+  delete_mode: contents
+  max_depth: 6
