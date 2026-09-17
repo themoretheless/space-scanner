@@ -1,0 +1,5596 @@
+---
+pack: src-iter28-13
+description: Iterative 10k import wave 28 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np28-mac-trafficserver
+  name: Nixpkgs trafficserver macos cache (wave 28)
+  description: Nixpkgs leftover pname trafficserver on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trafficserver"
+  - "$HOME/Library/Logs/trafficserver"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trafficserver
+  name: Nixpkgs trafficserver linux cache (wave 28)
+  description: Nixpkgs leftover pname trafficserver on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trafficserver"
+  - "$XDG_CACHE_HOME/trafficserver"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trafficserver
+  name: Nixpkgs trafficserver windows cache (wave 28)
+  description: Nixpkgs leftover pname trafficserver on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trafficserver/Cache"
+  - "%LOCALAPPDATA%/trafficserver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trafilatura
+  name: Nixpkgs trafilatura macos cache (wave 28)
+  description: Nixpkgs leftover pname trafilatura on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trafilatura"
+  - "$HOME/Library/Logs/trafilatura"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trafilatura
+  name: Nixpkgs trafilatura linux cache (wave 28)
+  description: Nixpkgs leftover pname trafilatura on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trafilatura"
+  - "$XDG_CACHE_HOME/trafilatura"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trafilatura
+  name: Nixpkgs trafilatura windows cache (wave 28)
+  description: Nixpkgs leftover pname trafilatura on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trafilatura/Cache"
+  - "%LOCALAPPDATA%/trafilatura/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trafo
+  name: Nixpkgs trafo macos cache (wave 28)
+  description: Nixpkgs leftover pname trafo on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trafo"
+  - "$HOME/Library/Logs/trafo"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trafo
+  name: Nixpkgs trafo linux cache (wave 28)
+  description: Nixpkgs leftover pname trafo on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trafo"
+  - "$XDG_CACHE_HOME/trafo"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trafo
+  name: Nixpkgs trafo windows cache (wave 28)
+  description: Nixpkgs leftover pname trafo on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trafo/Cache"
+  - "%LOCALAPPDATA%/trafo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trailbase
+  name: Nixpkgs trailbase macos cache (wave 28)
+  description: Nixpkgs leftover pname trailbase on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trailbase"
+  - "$HOME/Library/Logs/trailbase"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trailbase
+  name: Nixpkgs trailbase linux cache (wave 28)
+  description: Nixpkgs leftover pname trailbase on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trailbase"
+  - "$XDG_CACHE_HOME/trailbase"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trailbase
+  name: Nixpkgs trailbase windows cache (wave 28)
+  description: Nixpkgs leftover pname trailbase on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trailbase/Cache"
+  - "%LOCALAPPDATA%/trailbase/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trailblazer-nvim
+  name: Nixpkgs trailblazer.nvim macos cache (wave 28)
+  description: Nixpkgs leftover pname trailblazer.nvim on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trailblazer.nvim"
+  - "$HOME/Library/Logs/trailblazer.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trailblazer-nvim
+  name: Nixpkgs trailblazer.nvim linux cache (wave 28)
+  description: Nixpkgs leftover pname trailblazer.nvim on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trailblazer.nvim"
+  - "$XDG_CACHE_HOME/trailblazer.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trailblazer-nvim
+  name: Nixpkgs trailblazer.nvim windows cache (wave 28)
+  description: Nixpkgs leftover pname trailblazer.nvim on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trailblazer.nvim/Cache"
+  - "%LOCALAPPDATA%/trailblazer.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traildb
+  name: Nixpkgs traildb macos cache (wave 28)
+  description: Nixpkgs leftover pname traildb on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traildb"
+  - "$HOME/Library/Logs/traildb"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traildb
+  name: Nixpkgs traildb linux cache (wave 28)
+  description: Nixpkgs leftover pname traildb on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traildb"
+  - "$XDG_CACHE_HOME/traildb"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traildb
+  name: Nixpkgs traildb windows cache (wave 28)
+  description: Nixpkgs leftover pname traildb on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traildb/Cache"
+  - "%LOCALAPPDATA%/traildb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trailing-newline-indicator
+  name: Nixpkgs trailing-newline-indicator macos cache (wave 28)
+  description: Nixpkgs leftover pname trailing-newline-indicator on macos (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trailing-newline-indicator"
+  - "$HOME/Library/Logs/trailing-newline-indicator"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trailing-newline-indicator
+  name: Nixpkgs trailing-newline-indicator linux cache (wave 28)
+  description: Nixpkgs leftover pname trailing-newline-indicator on linux (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trailing-newline-indicator"
+  - "$XDG_CACHE_HOME/trailing-newline-indicator"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trailing-newline-indicator
+  name: Nixpkgs trailing-newline-indicator windows cache (wave 28)
+  description: Nixpkgs leftover pname trailing-newline-indicator on windows (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trailing-newline-indicator/Cache"
+  - "%LOCALAPPDATA%/trailing-newline-indicator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trailrunner
+  name: Nixpkgs trailrunner macos cache (wave 28)
+  description: Nixpkgs leftover pname trailrunner on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trailrunner"
+  - "$HOME/Library/Logs/trailrunner"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trailrunner
+  name: Nixpkgs trailrunner linux cache (wave 28)
+  description: Nixpkgs leftover pname trailrunner on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trailrunner"
+  - "$XDG_CACHE_HOME/trailrunner"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trailrunner
+  name: Nixpkgs trailrunner windows cache (wave 28)
+  description: Nixpkgs leftover pname trailrunner on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trailrunner/Cache"
+  - "%LOCALAPPDATA%/trailrunner/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-train-nvim
+  name: Nixpkgs train.nvim macos cache (wave 28)
+  description: Nixpkgs leftover pname train.nvim on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/train.nvim"
+  - "$HOME/Library/Logs/train.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-train-nvim
+  name: Nixpkgs train.nvim linux cache (wave 28)
+  description: Nixpkgs leftover pname train.nvim on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/train.nvim"
+  - "$XDG_CACHE_HOME/train.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-train-nvim
+  name: Nixpkgs train.nvim windows cache (wave 28)
+  description: Nixpkgs leftover pname train.nvim on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/train.nvim/Cache"
+  - "%LOCALAPPDATA%/train.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trainr
+  name: Nixpkgs trainR macos cache (wave 28)
+  description: Nixpkgs leftover pname trainR on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trainR"
+  - "$HOME/Library/Logs/trainR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trainr
+  name: Nixpkgs trainR linux cache (wave 28)
+  description: Nixpkgs leftover pname trainR on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trainR"
+  - "$XDG_CACHE_HOME/trainR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trainr
+  name: Nixpkgs trainR windows cache (wave 28)
+  description: Nixpkgs leftover pname trainR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trainR/Cache"
+  - "%LOCALAPPDATA%/trainR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trainable-object
+  name: Nixpkgs trainable-object macos cache (wave 28)
+  description: Nixpkgs leftover pname trainable-object on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trainable-object"
+  - "$HOME/Library/Logs/trainable-object"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trainable-object
+  name: Nixpkgs trainable-object linux cache (wave 28)
+  description: Nixpkgs leftover pname trainable-object on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trainable-object"
+  - "$XDG_CACHE_HOME/trainable-object"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trainable-object
+  name: Nixpkgs trainable-object windows cache (wave 28)
+  description: Nixpkgs leftover pname trainable-object on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trainable-object/Cache"
+  - "%LOCALAPPDATA%/trainable-object/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trainable-object-test
+  name: Nixpkgs trainable-object.test macos cache (wave 28)
+  description: Nixpkgs leftover pname trainable-object.test on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trainable-object.test"
+  - "$HOME/Library/Logs/trainable-object.test"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trainable-object-test
+  name: Nixpkgs trainable-object.test linux cache (wave 28)
+  description: Nixpkgs leftover pname trainable-object.test on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trainable-object.test"
+  - "$XDG_CACHE_HOME/trainable-object.test"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trainable-object-test
+  name: Nixpkgs trainable-object.test windows cache (wave 28)
+  description: Nixpkgs leftover pname trainable-object.test on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trainable-object.test/Cache"
+  - "%LOCALAPPDATA%/trainable-object.test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trainer
+  name: Nixpkgs traineR macos cache (wave 28)
+  description: Nixpkgs leftover pname traineR on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traineR"
+  - "$HOME/Library/Logs/traineR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trainer
+  name: Nixpkgs traineR linux cache (wave 28)
+  description: Nixpkgs leftover pname traineR on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traineR"
+  - "$XDG_CACHE_HOME/traineR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trainer
+  name: Nixpkgs traineR windows cache (wave 28)
+  description: Nixpkgs leftover pname traineR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traineR/Cache"
+  - "%LOCALAPPDATA%/traineR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trainsplit
+  name: Nixpkgs trainsplit macos cache (wave 28)
+  description: Nixpkgs leftover pname trainsplit on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trainsplit"
+  - "$HOME/Library/Logs/trainsplit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trainsplit
+  name: Nixpkgs trainsplit linux cache (wave 28)
+  description: Nixpkgs leftover pname trainsplit on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trainsplit"
+  - "$XDG_CACHE_HOME/trainsplit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trainsplit
+  name: Nixpkgs trainsplit windows cache (wave 28)
+  description: Nixpkgs leftover pname trainsplit on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trainsplit/Cache"
+  - "%LOCALAPPDATA%/trainsplit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traipse
+  name: Nixpkgs traipse macos cache (wave 28)
+  description: Nixpkgs leftover pname traipse on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traipse"
+  - "$HOME/Library/Logs/traipse"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traipse
+  name: Nixpkgs traipse linux cache (wave 28)
+  description: Nixpkgs leftover pname traipse on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traipse"
+  - "$XDG_CACHE_HOME/traipse"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traipse
+  name: Nixpkgs traipse windows cache (wave 28)
+  description: Nixpkgs leftover pname traipse on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traipse/Cache"
+  - "%LOCALAPPDATA%/traipse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traitdataform
+  name: Nixpkgs traitdataform macos cache (wave 28)
+  description: Nixpkgs leftover pname traitdataform on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traitdataform"
+  - "$HOME/Library/Logs/traitdataform"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traitdataform
+  name: Nixpkgs traitdataform linux cache (wave 28)
+  description: Nixpkgs leftover pname traitdataform on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traitdataform"
+  - "$XDG_CACHE_HOME/traitdataform"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traitdataform
+  name: Nixpkgs traitdataform windows cache (wave 28)
+  description: Nixpkgs leftover pname traitdataform on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traitdataform/Cache"
+  - "%LOCALAPPDATA%/traitdataform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traitlets
+  name: Nixpkgs traitlets macos cache (wave 28)
+  description: Nixpkgs leftover pname traitlets on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traitlets"
+  - "$HOME/Library/Logs/traitlets"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traitlets
+  name: Nixpkgs traitlets linux cache (wave 28)
+  description: Nixpkgs leftover pname traitlets on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traitlets"
+  - "$XDG_CACHE_HOME/traitlets"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traitlets
+  name: Nixpkgs traitlets windows cache (wave 28)
+  description: Nixpkgs leftover pname traitlets on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traitlets/Cache"
+  - "%LOCALAPPDATA%/traitlets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traitor
+  name: Nixpkgs traitor macos cache (wave 28)
+  description: Nixpkgs leftover pname traitor on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traitor"
+  - "$HOME/Library/Logs/traitor"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traitor
+  name: Nixpkgs traitor linux cache (wave 28)
+  description: Nixpkgs leftover pname traitor on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traitor"
+  - "$XDG_CACHE_HOME/traitor"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traitor
+  name: Nixpkgs traitor windows cache (wave 28)
+  description: Nixpkgs leftover pname traitor on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traitor/Cache"
+  - "%LOCALAPPDATA%/traitor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traits
+  name: Nixpkgs traits macos cache (wave 28)
+  description: Nixpkgs leftover pname traits on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traits"
+  - "$HOME/Library/Logs/traits"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traits
+  name: Nixpkgs traits linux cache (wave 28)
+  description: Nixpkgs leftover pname traits on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traits"
+  - "$XDG_CACHE_HOME/traits"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traits
+  name: Nixpkgs traits windows cache (wave 28)
+  description: Nixpkgs leftover pname traits on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traits/Cache"
+  - "%LOCALAPPDATA%/traits/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traitstrap
+  name: Nixpkgs traitstrap macos cache (wave 28)
+  description: Nixpkgs leftover pname traitstrap on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traitstrap"
+  - "$HOME/Library/Logs/traitstrap"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traitstrap
+  name: Nixpkgs traitstrap linux cache (wave 28)
+  description: Nixpkgs leftover pname traitstrap on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traitstrap"
+  - "$XDG_CACHE_HOME/traitstrap"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traitstrap
+  name: Nixpkgs traitstrap windows cache (wave 28)
+  description: Nixpkgs leftover pname traitstrap on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traitstrap/Cache"
+  - "%LOCALAPPDATA%/traitstrap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traitsui
+  name: Nixpkgs traitsui macos cache (wave 28)
+  description: Nixpkgs leftover pname traitsui on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traitsui"
+  - "$HOME/Library/Logs/traitsui"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traitsui
+  name: Nixpkgs traitsui linux cache (wave 28)
+  description: Nixpkgs leftover pname traitsui on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traitsui"
+  - "$XDG_CACHE_HOME/traitsui"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traitsui
+  name: Nixpkgs traitsui windows cache (wave 28)
+  description: Nixpkgs leftover pname traitsui on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traitsui/Cache"
+  - "%LOCALAPPDATA%/traitsui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traittypes
+  name: Nixpkgs traittypes macos cache (wave 28)
+  description: Nixpkgs leftover pname traittypes on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traittypes"
+  - "$HOME/Library/Logs/traittypes"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traittypes
+  name: Nixpkgs traittypes linux cache (wave 28)
+  description: Nixpkgs leftover pname traittypes on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traittypes"
+  - "$XDG_CACHE_HOME/traittypes"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traittypes
+  name: Nixpkgs traittypes windows cache (wave 28)
+  description: Nixpkgs leftover pname traittypes on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traittypes/Cache"
+  - "%LOCALAPPDATA%/traittypes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traj
+  name: Nixpkgs traj macos cache (wave 28)
+  description: Nixpkgs leftover pname traj on macos (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traj"
+  - "$HOME/Library/Logs/traj"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traj
+  name: Nixpkgs traj linux cache (wave 28)
+  description: Nixpkgs leftover pname traj on linux (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traj"
+  - "$XDG_CACHE_HOME/traj"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traj
+  name: Nixpkgs traj windows cache (wave 28)
+  description: Nixpkgs leftover pname traj on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traj/Cache"
+  - "%LOCALAPPDATA%/traj/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trajan
+  name: Nixpkgs trajan macos cache (wave 28)
+  description: Nixpkgs leftover pname trajan on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trajan"
+  - "$HOME/Library/Logs/trajan"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trajan
+  name: Nixpkgs trajan linux cache (wave 28)
+  description: Nixpkgs leftover pname trajan on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trajan"
+  - "$XDG_CACHE_HOME/trajan"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trajan
+  name: Nixpkgs trajan windows cache (wave 28)
+  description: Nixpkgs leftover pname trajan on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trajan/Cache"
+  - "%LOCALAPPDATA%/trajan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trajer
+  name: Nixpkgs trajeR macos cache (wave 28)
+  description: Nixpkgs leftover pname trajeR on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trajeR"
+  - "$HOME/Library/Logs/trajeR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trajer
+  name: Nixpkgs trajeR linux cache (wave 28)
+  description: Nixpkgs leftover pname trajeR on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trajeR"
+  - "$XDG_CACHE_HOME/trajeR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trajer
+  name: Nixpkgs trajeR windows cache (wave 28)
+  description: Nixpkgs leftover pname trajeR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trajeR/Cache"
+  - "%LOCALAPPDATA%/trajeR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trajectories
+  name: Nixpkgs trajectories macos cache (wave 28)
+  description: Nixpkgs leftover pname trajectories on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trajectories"
+  - "$HOME/Library/Logs/trajectories"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trajectories
+  name: Nixpkgs trajectories linux cache (wave 28)
+  description: Nixpkgs leftover pname trajectories on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trajectories"
+  - "$XDG_CACHE_HOME/trajectories"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trajectories
+  name: Nixpkgs trajectories windows cache (wave 28)
+  description: Nixpkgs leftover pname trajectories on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trajectories/Cache"
+  - "%LOCALAPPDATA%/trajectories/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trajectory
+  name: Nixpkgs trajectory macos cache (wave 28)
+  description: Nixpkgs leftover pname trajectory on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trajectory"
+  - "$HOME/Library/Logs/trajectory"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trajectory
+  name: Nixpkgs trajectory linux cache (wave 28)
+  description: Nixpkgs leftover pname trajectory on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trajectory"
+  - "$XDG_CACHE_HOME/trajectory"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trajectory
+  name: Nixpkgs trajectory windows cache (wave 28)
+  description: Nixpkgs leftover pname trajectory on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trajectory/Cache"
+  - "%LOCALAPPDATA%/trajectory/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trajmsm
+  name: Nixpkgs trajmsm macos cache (wave 28)
+  description: Nixpkgs leftover pname trajmsm on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trajmsm"
+  - "$HOME/Library/Logs/trajmsm"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trajmsm
+  name: Nixpkgs trajmsm linux cache (wave 28)
+  description: Nixpkgs leftover pname trajmsm on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trajmsm"
+  - "$XDG_CACHE_HOME/trajmsm"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trajmsm
+  name: Nixpkgs trajmsm windows cache (wave 28)
+  description: Nixpkgs leftover pname trajmsm on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trajmsm/Cache"
+  - "%LOCALAPPDATA%/trajmsm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trajr
+  name: Nixpkgs trajr macos cache (wave 28)
+  description: Nixpkgs leftover pname trajr on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trajr"
+  - "$HOME/Library/Logs/trajr"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trajr
+  name: Nixpkgs trajr linux cache (wave 28)
+  description: Nixpkgs leftover pname trajr on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trajr"
+  - "$XDG_CACHE_HOME/trajr"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trajr
+  name: Nixpkgs trajr windows cache (wave 28)
+  description: Nixpkgs leftover pname trajr on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trajr/Cache"
+  - "%LOCALAPPDATA%/trajr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trak
+  name: Nixpkgs trak macos cache (wave 28)
+  description: Nixpkgs leftover pname trak on macos (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trak"
+  - "$HOME/Library/Logs/trak"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trak
+  name: Nixpkgs trak linux cache (wave 28)
+  description: Nixpkgs leftover pname trak on linux (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trak"
+  - "$XDG_CACHE_HOME/trak"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trak
+  name: Nixpkgs trak windows cache (wave 28)
+  description: Nixpkgs leftover pname trak on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trak/Cache"
+  - "%LOCALAPPDATA%/trak/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trakit
+  name: Nixpkgs trakit macos cache (wave 28)
+  description: Nixpkgs leftover pname trakit on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trakit"
+  - "$HOME/Library/Logs/trakit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trakit
+  name: Nixpkgs trakit linux cache (wave 28)
+  description: Nixpkgs leftover pname trakit on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trakit"
+  - "$XDG_CACHE_HOME/trakit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trakit
+  name: Nixpkgs trakit windows cache (wave 28)
+  description: Nixpkgs leftover pname trakit on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trakit/Cache"
+  - "%LOCALAPPDATA%/trakit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trakt
+  name: Nixpkgs trakt macos cache (wave 28)
+  description: Nixpkgs leftover pname trakt on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trakt"
+  - "$HOME/Library/Logs/trakt"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trakt
+  name: Nixpkgs trakt linux cache (wave 28)
+  description: Nixpkgs leftover pname trakt on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trakt"
+  - "$XDG_CACHE_HOME/trakt"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trakt
+  name: Nixpkgs trakt windows cache (wave 28)
+  description: Nixpkgs leftover pname trakt on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trakt/Cache"
+  - "%LOCALAPPDATA%/trakt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trakt-module
+  name: Nixpkgs trakt-module macos cache (wave 28)
+  description: Nixpkgs leftover pname trakt-module on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trakt-module"
+  - "$HOME/Library/Logs/trakt-module"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trakt-module
+  name: Nixpkgs trakt-module linux cache (wave 28)
+  description: Nixpkgs leftover pname trakt-module on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trakt-module"
+  - "$XDG_CACHE_HOME/trakt-module"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trakt-module
+  name: Nixpkgs trakt-module windows cache (wave 28)
+  description: Nixpkgs leftover pname trakt-module on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trakt-module/Cache"
+  - "%LOCALAPPDATA%/trakt-module/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-traktok
+  name: Nixpkgs traktok macos cache (wave 28)
+  description: Nixpkgs leftover pname traktok on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/traktok"
+  - "$HOME/Library/Logs/traktok"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-traktok
+  name: Nixpkgs traktok linux cache (wave 28)
+  description: Nixpkgs leftover pname traktok on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/traktok"
+  - "$XDG_CACHE_HOME/traktok"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-traktok
+  name: Nixpkgs traktok windows cache (wave 28)
+  description: Nixpkgs leftover pname traktok on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/traktok/Cache"
+  - "%LOCALAPPDATA%/traktok/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tram
+  name: Nixpkgs tram macos cache (wave 28)
+  description: Nixpkgs leftover pname tram on macos (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tram"
+  - "$HOME/Library/Logs/tram"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tram
+  name: Nixpkgs tram linux cache (wave 28)
+  description: Nixpkgs leftover pname tram on linux (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tram"
+  - "$XDG_CACHE_HOME/tram"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tram
+  name: Nixpkgs tram windows cache (wave 28)
+  description: Nixpkgs leftover pname tram on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tram/Cache"
+  - "%LOCALAPPDATA%/tram/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramme
+  name: Nixpkgs tramME macos cache (wave 28)
+  description: Nixpkgs leftover pname tramME on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramME"
+  - "$HOME/Library/Logs/tramME"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramme
+  name: Nixpkgs tramME linux cache (wave 28)
+  description: Nixpkgs leftover pname tramME on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramME"
+  - "$XDG_CACHE_HOME/tramME"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramme
+  name: Nixpkgs tramME windows cache (wave 28)
+  description: Nixpkgs leftover pname tramME on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramME/Cache"
+  - "%LOCALAPPDATA%/tramME/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramicp
+  name: Nixpkgs tramicp macos cache (wave 28)
+  description: Nixpkgs leftover pname tramicp on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramicp"
+  - "$HOME/Library/Logs/tramicp"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramicp
+  name: Nixpkgs tramicp linux cache (wave 28)
+  description: Nixpkgs leftover pname tramicp on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramicp"
+  - "$XDG_CACHE_HOME/tramicp"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramicp
+  name: Nixpkgs tramicp windows cache (wave 28)
+  description: Nixpkgs leftover pname tramicp on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramicp/Cache"
+  - "%LOCALAPPDATA%/tramicp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramlines
+  name: Nixpkgs tramlines macos cache (wave 28)
+  description: Nixpkgs leftover pname tramlines on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramlines"
+  - "$HOME/Library/Logs/tramlines"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramlines
+  name: Nixpkgs tramlines linux cache (wave 28)
+  description: Nixpkgs leftover pname tramlines on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramlines"
+  - "$XDG_CACHE_HOME/tramlines"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramlines
+  name: Nixpkgs tramlines windows cache (wave 28)
+  description: Nixpkgs leftover pname tramlines on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramlines/Cache"
+  - "%LOCALAPPDATA%/tramlines/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramnet
+  name: Nixpkgs tramnet macos cache (wave 28)
+  description: Nixpkgs leftover pname tramnet on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramnet"
+  - "$HOME/Library/Logs/tramnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramnet
+  name: Nixpkgs tramnet linux cache (wave 28)
+  description: Nixpkgs leftover pname tramnet on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramnet"
+  - "$XDG_CACHE_HOME/tramnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramnet
+  name: Nixpkgs tramnet windows cache (wave 28)
+  description: Nixpkgs leftover pname tramnet on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramnet/Cache"
+  - "%LOCALAPPDATA%/tramnet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp
+  name: Nixpkgs tramp macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp"
+  - "$HOME/Library/Logs/tramp"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp
+  name: Nixpkgs tramp linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp"
+  - "$XDG_CACHE_HOME/tramp"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp
+  name: Nixpkgs tramp windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp/Cache"
+  - "%LOCALAPPDATA%/tramp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp-auto-auth
+  name: Nixpkgs tramp-auto-auth macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp-auto-auth on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp-auto-auth"
+  - "$HOME/Library/Logs/tramp-auto-auth"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp-auto-auth
+  name: Nixpkgs tramp-auto-auth linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp-auto-auth on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp-auto-auth"
+  - "$XDG_CACHE_HOME/tramp-auto-auth"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp-auto-auth
+  name: Nixpkgs tramp-auto-auth windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp-auto-auth on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp-auto-auth/Cache"
+  - "%LOCALAPPDATA%/tramp-auto-auth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp-hdfs
+  name: Nixpkgs tramp-hdfs macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp-hdfs on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp-hdfs"
+  - "$HOME/Library/Logs/tramp-hdfs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp-hdfs
+  name: Nixpkgs tramp-hdfs linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp-hdfs on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp-hdfs"
+  - "$XDG_CACHE_HOME/tramp-hdfs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp-hdfs
+  name: Nixpkgs tramp-hdfs windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp-hdfs on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp-hdfs/Cache"
+  - "%LOCALAPPDATA%/tramp-hdfs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp-hlo
+  name: Nixpkgs tramp-hlo macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp-hlo on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp-hlo"
+  - "$HOME/Library/Logs/tramp-hlo"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp-hlo
+  name: Nixpkgs tramp-hlo linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp-hlo on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp-hlo"
+  - "$XDG_CACHE_HOME/tramp-hlo"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp-hlo
+  name: Nixpkgs tramp-hlo windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp-hlo on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp-hlo/Cache"
+  - "%LOCALAPPDATA%/tramp-hlo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp-nspawn
+  name: Nixpkgs tramp-nspawn macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp-nspawn on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp-nspawn"
+  - "$HOME/Library/Logs/tramp-nspawn"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp-nspawn
+  name: Nixpkgs tramp-nspawn linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp-nspawn on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp-nspawn"
+  - "$XDG_CACHE_HOME/tramp-nspawn"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp-nspawn
+  name: Nixpkgs tramp-nspawn windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp-nspawn on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp-nspawn/Cache"
+  - "%LOCALAPPDATA%/tramp-nspawn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp-term
+  name: Nixpkgs tramp-term macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp-term on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp-term"
+  - "$HOME/Library/Logs/tramp-term"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp-term
+  name: Nixpkgs tramp-term linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp-term on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp-term"
+  - "$XDG_CACHE_HOME/tramp-term"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp-term
+  name: Nixpkgs tramp-term windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp-term on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp-term/Cache"
+  - "%LOCALAPPDATA%/tramp-term/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramp-theme
+  name: Nixpkgs tramp-theme macos cache (wave 28)
+  description: Nixpkgs leftover pname tramp-theme on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramp-theme"
+  - "$HOME/Library/Logs/tramp-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramp-theme
+  name: Nixpkgs tramp-theme linux cache (wave 28)
+  description: Nixpkgs leftover pname tramp-theme on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramp-theme"
+  - "$XDG_CACHE_HOME/tramp-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramp-theme
+  name: Nixpkgs tramp-theme windows cache (wave 28)
+  description: Nixpkgs leftover pname tramp-theme on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramp-theme/Cache"
+  - "%LOCALAPPDATA%/tramp-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trampoline
+  name: Nixpkgs trampoline macos cache (wave 28)
+  description: Nixpkgs leftover pname trampoline on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trampoline"
+  - "$HOME/Library/Logs/trampoline"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trampoline
+  name: Nixpkgs trampoline linux cache (wave 28)
+  description: Nixpkgs leftover pname trampoline on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trampoline"
+  - "$XDG_CACHE_HOME/trampoline"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trampoline
+  name: Nixpkgs trampoline windows cache (wave 28)
+  description: Nixpkgs leftover pname trampoline on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trampoline/Cache"
+  - "%LOCALAPPDATA%/trampoline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tramvs
+  name: Nixpkgs tramvs macos cache (wave 28)
+  description: Nixpkgs leftover pname tramvs on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tramvs"
+  - "$HOME/Library/Logs/tramvs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tramvs
+  name: Nixpkgs tramvs linux cache (wave 28)
+  description: Nixpkgs leftover pname tramvs on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tramvs"
+  - "$XDG_CACHE_HOME/tramvs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tramvs
+  name: Nixpkgs tramvs windows cache (wave 28)
+  description: Nixpkgs leftover pname tramvs on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tramvs/Cache"
+  - "%LOCALAPPDATA%/tramvs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tran
+  name: Nixpkgs tran macos cache (wave 28)
+  description: Nixpkgs leftover pname tran on macos (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tran"
+  - "$HOME/Library/Logs/tran"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tran
+  name: Nixpkgs tran linux cache (wave 28)
+  description: Nixpkgs leftover pname tran on linux (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tran"
+  - "$XDG_CACHE_HOME/tran"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tran
+  name: Nixpkgs tran windows cache (wave 28)
+  description: Nixpkgs leftover pname tran on windows (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tran/Cache"
+  - "%LOCALAPPDATA%/tran/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transurv
+  name: Nixpkgs tranSurv macos cache (wave 28)
+  description: Nixpkgs leftover pname tranSurv on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tranSurv"
+  - "$HOME/Library/Logs/tranSurv"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transurv
+  name: Nixpkgs tranSurv linux cache (wave 28)
+  description: Nixpkgs leftover pname tranSurv on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tranSurv"
+  - "$XDG_CACHE_HOME/tranSurv"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transurv
+  name: Nixpkgs tranSurv windows cache (wave 28)
+  description: Nixpkgs leftover pname tranSurv on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tranSurv/Cache"
+  - "%LOCALAPPDATA%/tranSurv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tranquil-frontend
+  name: Nixpkgs tranquil-frontend macos cache (wave 28)
+  description: Nixpkgs leftover pname tranquil-frontend on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tranquil-frontend"
+  - "$HOME/Library/Logs/tranquil-frontend"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tranquil-frontend
+  name: Nixpkgs tranquil-frontend linux cache (wave 28)
+  description: Nixpkgs leftover pname tranquil-frontend on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tranquil-frontend"
+  - "$XDG_CACHE_HOME/tranquil-frontend"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tranquil-frontend
+  name: Nixpkgs tranquil-frontend windows cache (wave 28)
+  description: Nixpkgs leftover pname tranquil-frontend on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tranquil-frontend/Cache"
+  - "%LOCALAPPDATA%/tranquil-frontend/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-tranquil-pds
+  name: Nixpkgs tranquil-pds macos cache (wave 28)
+  description: Nixpkgs leftover pname tranquil-pds on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tranquil-pds"
+  - "$HOME/Library/Logs/tranquil-pds"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-tranquil-pds
+  name: Nixpkgs tranquil-pds linux cache (wave 28)
+  description: Nixpkgs leftover pname tranquil-pds on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tranquil-pds"
+  - "$XDG_CACHE_HOME/tranquil-pds"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-tranquil-pds
+  name: Nixpkgs tranquil-pds windows cache (wave 28)
+  description: Nixpkgs leftover pname tranquil-pds on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tranquil-pds/Cache"
+  - "%LOCALAPPDATA%/tranquil-pds/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trans-fx-core
+  name: Nixpkgs trans-fx-core macos cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-core on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trans-fx-core"
+  - "$HOME/Library/Logs/trans-fx-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trans-fx-core
+  name: Nixpkgs trans-fx-core linux cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-core on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trans-fx-core"
+  - "$XDG_CACHE_HOME/trans-fx-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trans-fx-core
+  name: Nixpkgs trans-fx-core windows cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-core on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trans-fx-core/Cache"
+  - "%LOCALAPPDATA%/trans-fx-core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trans-fx-data
+  name: Nixpkgs trans-fx-data macos cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-data on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trans-fx-data"
+  - "$HOME/Library/Logs/trans-fx-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trans-fx-data
+  name: Nixpkgs trans-fx-data linux cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-data on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trans-fx-data"
+  - "$XDG_CACHE_HOME/trans-fx-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trans-fx-data
+  name: Nixpkgs trans-fx-data windows cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-data on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trans-fx-data/Cache"
+  - "%LOCALAPPDATA%/trans-fx-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-trans-fx-io
+  name: Nixpkgs trans-fx-io macos cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-io on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/trans-fx-io"
+  - "$HOME/Library/Logs/trans-fx-io"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-trans-fx-io
+  name: Nixpkgs trans-fx-io linux cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-io on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/trans-fx-io"
+  - "$XDG_CACHE_HOME/trans-fx-io"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-trans-fx-io
+  name: Nixpkgs trans-fx-io windows cache (wave 28)
+  description: Nixpkgs leftover pname trans-fx-io on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/trans-fx-io/Cache"
+  - "%LOCALAPPDATA%/trans-fx-io/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transda
+  name: Nixpkgs transDA macos cache (wave 28)
+  description: Nixpkgs leftover pname transDA on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transDA"
+  - "$HOME/Library/Logs/transDA"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transda
+  name: Nixpkgs transDA linux cache (wave 28)
+  description: Nixpkgs leftover pname transDA on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transDA"
+  - "$XDG_CACHE_HOME/transDA"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transda
+  name: Nixpkgs transDA windows cache (wave 28)
+  description: Nixpkgs leftover pname transDA on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transDA/Cache"
+  - "%LOCALAPPDATA%/transDA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transgfm
+  name: Nixpkgs transGFM macos cache (wave 28)
+  description: Nixpkgs leftover pname transGFM on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transGFM"
+  - "$HOME/Library/Logs/transGFM"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transgfm
+  name: Nixpkgs transGFM linux cache (wave 28)
+  description: Nixpkgs leftover pname transGFM on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transGFM"
+  - "$XDG_CACHE_HOME/transGFM"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transgfm
+  name: Nixpkgs transGFM windows cache (wave 28)
+  description: Nixpkgs leftover pname transGFM on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transGFM/Cache"
+  - "%LOCALAPPDATA%/transGFM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transplotr
+  name: Nixpkgs transPlotR macos cache (wave 28)
+  description: Nixpkgs leftover pname transPlotR on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transPlotR"
+  - "$HOME/Library/Logs/transPlotR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transplotr
+  name: Nixpkgs transPlotR linux cache (wave 28)
+  description: Nixpkgs leftover pname transPlotR on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transPlotR"
+  - "$XDG_CACHE_HOME/transPlotR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transplotr
+  name: Nixpkgs transPlotR windows cache (wave 28)
+  description: Nixpkgs leftover pname transPlotR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transPlotR/Cache"
+  - "%LOCALAPPDATA%/transPlotR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transaction
+  name: Nixpkgs transaction macos cache (wave 28)
+  description: Nixpkgs leftover pname transaction on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transaction"
+  - "$HOME/Library/Logs/transaction"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transaction
+  name: Nixpkgs transaction linux cache (wave 28)
+  description: Nixpkgs leftover pname transaction on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transaction"
+  - "$XDG_CACHE_HOME/transaction"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transaction
+  name: Nixpkgs transaction windows cache (wave 28)
+  description: Nixpkgs leftover pname transaction on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transaction/Cache"
+  - "%LOCALAPPDATA%/transaction/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transactional-events
+  name: Nixpkgs transactional-events macos cache (wave 28)
+  description: Nixpkgs leftover pname transactional-events on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transactional-events"
+  - "$HOME/Library/Logs/transactional-events"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transactional-events
+  name: Nixpkgs transactional-events linux cache (wave 28)
+  description: Nixpkgs leftover pname transactional-events on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transactional-events"
+  - "$XDG_CACHE_HOME/transactional-events"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transactional-events
+  name: Nixpkgs transactional-events windows cache (wave 28)
+  description: Nixpkgs leftover pname transactional-events on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transactional-events/Cache"
+  - "%LOCALAPPDATA%/transactional-events/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transcribe
+  name: Nixpkgs transcribe macos cache (wave 28)
+  description: Nixpkgs leftover pname transcribe on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transcribe"
+  - "$HOME/Library/Logs/transcribe"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transcribe
+  name: Nixpkgs transcribe linux cache (wave 28)
+  description: Nixpkgs leftover pname transcribe on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transcribe"
+  - "$XDG_CACHE_HOME/transcribe"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transcribe
+  name: Nixpkgs transcribe windows cache (wave 28)
+  description: Nixpkgs leftover pname transcribe on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transcribe/Cache"
+  - "%LOCALAPPDATA%/transcribe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transcriber
+  name: Nixpkgs transcribeR macos cache (wave 28)
+  description: Nixpkgs leftover pname transcribeR on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transcribeR"
+  - "$HOME/Library/Logs/transcribeR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transcriber
+  name: Nixpkgs transcribeR linux cache (wave 28)
+  description: Nixpkgs leftover pname transcribeR on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transcribeR"
+  - "$XDG_CACHE_HOME/transcribeR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transcriber
+  name: Nixpkgs transcribeR windows cache (wave 28)
+  description: Nixpkgs leftover pname transcribeR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transcribeR/Cache"
+  - "%LOCALAPPDATA%/transcribeR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transcriptr
+  name: Nixpkgs transcriptR macos cache (wave 28)
+  description: Nixpkgs leftover pname transcriptR on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transcriptR"
+  - "$HOME/Library/Logs/transcriptR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transcriptr
+  name: Nixpkgs transcriptR linux cache (wave 28)
+  description: Nixpkgs leftover pname transcriptR on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transcriptR"
+  - "$XDG_CACHE_HOME/transcriptR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transcriptr
+  name: Nixpkgs transcriptR windows cache (wave 28)
+  description: Nixpkgs leftover pname transcriptR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transcriptR/Cache"
+  - "%LOCALAPPDATA%/transcriptR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transcriptogramer
+  name: Nixpkgs transcriptogramer macos cache (wave 28)
+  description: Nixpkgs leftover pname transcriptogramer on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transcriptogramer"
+  - "$HOME/Library/Logs/transcriptogramer"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transcriptogramer
+  name: Nixpkgs transcriptogramer linux cache (wave 28)
+  description: Nixpkgs leftover pname transcriptogramer on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transcriptogramer"
+  - "$XDG_CACHE_HOME/transcriptogramer"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transcriptogramer
+  name: Nixpkgs transcriptogramer windows cache (wave 28)
+  description: Nixpkgs leftover pname transcriptogramer on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transcriptogramer/Cache"
+  - "%LOCALAPPDATA%/transcriptogramer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transcrypt
+  name: Nixpkgs transcrypt macos cache (wave 28)
+  description: Nixpkgs leftover pname transcrypt on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transcrypt"
+  - "$HOME/Library/Logs/transcrypt"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transcrypt
+  name: Nixpkgs transcrypt linux cache (wave 28)
+  description: Nixpkgs leftover pname transcrypt on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transcrypt"
+  - "$XDG_CACHE_HOME/transcrypt"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transcrypt
+  name: Nixpkgs transcrypt windows cache (wave 28)
+  description: Nixpkgs leftover pname transcrypt on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transcrypt/Cache"
+  - "%LOCALAPPDATA%/transcrypt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transducers
+  name: Nixpkgs transducers macos cache (wave 28)
+  description: Nixpkgs leftover pname transducers on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transducers"
+  - "$HOME/Library/Logs/transducers"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transducers
+  name: Nixpkgs transducers linux cache (wave 28)
+  description: Nixpkgs leftover pname transducers on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transducers"
+  - "$XDG_CACHE_HOME/transducers"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transducers
+  name: Nixpkgs transducers windows cache (wave 28)
+  description: Nixpkgs leftover pname transducers on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transducers/Cache"
+  - "%LOCALAPPDATA%/transducers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transf
+  name: Nixpkgs transf macos cache (wave 28)
+  description: Nixpkgs leftover pname transf on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transf"
+  - "$HOME/Library/Logs/transf"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transf
+  name: Nixpkgs transf linux cache (wave 28)
+  description: Nixpkgs leftover pname transf on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transf"
+  - "$XDG_CACHE_HOME/transf"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transf
+  name: Nixpkgs transf windows cache (wave 28)
+  description: Nixpkgs leftover pname transf on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transf/Cache"
+  - "%LOCALAPPDATA%/transf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transfr
+  name: Nixpkgs transfR macos cache (wave 28)
+  description: Nixpkgs leftover pname transfR on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transfR"
+  - "$HOME/Library/Logs/transfR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transfr
+  name: Nixpkgs transfR linux cache (wave 28)
+  description: Nixpkgs leftover pname transfR on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transfR"
+  - "$XDG_CACHE_HOME/transfR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transfr
+  name: Nixpkgs transfR windows cache (wave 28)
+  description: Nixpkgs leftover pname transfR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transfR/Cache"
+  - "%LOCALAPPDATA%/transfR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transfer-db
+  name: Nixpkgs transfer-db macos cache (wave 28)
+  description: Nixpkgs leftover pname transfer-db on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transfer-db"
+  - "$HOME/Library/Logs/transfer-db"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transfer-db
+  name: Nixpkgs transfer-db linux cache (wave 28)
+  description: Nixpkgs leftover pname transfer-db on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transfer-db"
+  - "$XDG_CACHE_HOME/transfer-db"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transfer-db
+  name: Nixpkgs transfer-db windows cache (wave 28)
+  description: Nixpkgs leftover pname transfer-db on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transfer-db/Cache"
+  - "%LOCALAPPDATA%/transfer-db/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transfer-sh
+  name: Nixpkgs transfer-sh macos cache (wave 28)
+  description: Nixpkgs leftover pname transfer-sh on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transfer-sh"
+  - "$HOME/Library/Logs/transfer-sh"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transfer-sh
+  name: Nixpkgs transfer-sh linux cache (wave 28)
+  description: Nixpkgs leftover pname transfer-sh on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transfer-sh"
+  - "$XDG_CACHE_HOME/transfer-sh"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transfer-sh
+  name: Nixpkgs transfer-sh windows cache (wave 28)
+  description: Nixpkgs leftover pname transfer-sh on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transfer-sh/Cache"
+  - "%LOCALAPPDATA%/transfer-sh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transforemotion
+  name: Nixpkgs transforEmotion macos cache (wave 28)
+  description: Nixpkgs leftover pname transforEmotion on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transforEmotion"
+  - "$HOME/Library/Logs/transforEmotion"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transforemotion
+  name: Nixpkgs transforEmotion linux cache (wave 28)
+  description: Nixpkgs leftover pname transforEmotion on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transforEmotion"
+  - "$XDG_CACHE_HOME/transforEmotion"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transforemotion
+  name: Nixpkgs transforEmotion windows cache (wave 28)
+  description: Nixpkgs leftover pname transforEmotion on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transforEmotion/Cache"
+  - "%LOCALAPPDATA%/transforEmotion/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transform-symbol-at-point
+  name: Nixpkgs transform-symbol-at-point macos cache (wave 28)
+  description: Nixpkgs leftover pname transform-symbol-at-point on macos (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transform-symbol-at-point"
+  - "$HOME/Library/Logs/transform-symbol-at-point"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transform-symbol-at-point
+  name: Nixpkgs transform-symbol-at-point linux cache (wave 28)
+  description: Nixpkgs leftover pname transform-symbol-at-point on linux (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transform-symbol-at-point"
+  - "$XDG_CACHE_HOME/transform-symbol-at-point"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transform-symbol-at-point
+  name: Nixpkgs transform-symbol-at-point windows cache (wave 28)
+  description: Nixpkgs leftover pname transform-symbol-at-point on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transform-symbol-at-point/Cache"
+  - "%LOCALAPPDATA%/transform-symbol-at-point/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transform-hazards
+  name: Nixpkgs transform.hazards macos cache (wave 28)
+  description: Nixpkgs leftover pname transform.hazards on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transform.hazards"
+  - "$HOME/Library/Logs/transform.hazards"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transform-hazards
+  name: Nixpkgs transform.hazards linux cache (wave 28)
+  description: Nixpkgs leftover pname transform.hazards on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transform.hazards"
+  - "$XDG_CACHE_HOME/transform.hazards"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transform-hazards
+  name: Nixpkgs transform.hazards windows cache (wave 28)
+  description: Nixpkgs leftover pname transform.hazards on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transform.hazards/Cache"
+  - "%LOCALAPPDATA%/transform.hazards/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformgampoi
+  name: Nixpkgs transformGamPoi macos cache (wave 28)
+  description: Nixpkgs leftover pname transformGamPoi on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformGamPoi"
+  - "$HOME/Library/Logs/transformGamPoi"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformgampoi
+  name: Nixpkgs transformGamPoi linux cache (wave 28)
+  description: Nixpkgs leftover pname transformGamPoi on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformGamPoi"
+  - "$XDG_CACHE_HOME/transformGamPoi"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformgampoi
+  name: Nixpkgs transformGamPoi windows cache (wave 28)
+  description: Nixpkgs leftover pname transformGamPoi on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformGamPoi/Cache"
+  - "%LOCALAPPDATA%/transformGamPoi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformations
+  name: Nixpkgs transformations macos cache (wave 28)
+  description: Nixpkgs leftover pname transformations on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformations"
+  - "$HOME/Library/Logs/transformations"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformations
+  name: Nixpkgs transformations linux cache (wave 28)
+  description: Nixpkgs leftover pname transformations on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformations"
+  - "$XDG_CACHE_HOME/transformations"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformations
+  name: Nixpkgs transformations windows cache (wave 28)
+  description: Nixpkgs leftover pname transformations on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformations/Cache"
+  - "%LOCALAPPDATA%/transformations/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformer-engine
+  name: Nixpkgs transformer-engine macos cache (wave 28)
+  description: Nixpkgs leftover pname transformer-engine on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformer-engine"
+  - "$HOME/Library/Logs/transformer-engine"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformer-engine
+  name: Nixpkgs transformer-engine linux cache (wave 28)
+  description: Nixpkgs leftover pname transformer-engine on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformer-engine"
+  - "$XDG_CACHE_HOME/transformer-engine"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformer-engine
+  name: Nixpkgs transformer-engine windows cache (wave 28)
+  description: Nixpkgs leftover pname transformer-engine on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformer-engine/Cache"
+  - "%LOCALAPPDATA%/transformer-engine/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformerforecasting
+  name: Nixpkgs transformerForecasting macos cache (wave 28)
+  description: Nixpkgs leftover pname transformerForecasting on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformerForecasting"
+  - "$HOME/Library/Logs/transformerForecasting"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformerforecasting
+  name: Nixpkgs transformerForecasting linux cache (wave 28)
+  description: Nixpkgs leftover pname transformerForecasting on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformerForecasting"
+  - "$XDG_CACHE_HOME/transformerForecasting"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformerforecasting
+  name: Nixpkgs transformerForecasting windows cache (wave 28)
+  description: Nixpkgs leftover pname transformerForecasting on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformerForecasting/Cache"
+  - "%LOCALAPPDATA%/transformerForecasting/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers
+  name: Nixpkgs transformers macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers"
+  - "$HOME/Library/Logs/transformers"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers
+  name: Nixpkgs transformers linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers"
+  - "$XDG_CACHE_HOME/transformers"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers
+  name: Nixpkgs transformers windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers/Cache"
+  - "%LOCALAPPDATA%/transformers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-abort
+  name: Nixpkgs transformers-abort macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-abort on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-abort"
+  - "$HOME/Library/Logs/transformers-abort"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-abort
+  name: Nixpkgs transformers-abort linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-abort on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-abort"
+  - "$XDG_CACHE_HOME/transformers-abort"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-abort
+  name: Nixpkgs transformers-abort windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-abort on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-abort/Cache"
+  - "%LOCALAPPDATA%/transformers-abort/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-base
+  name: Nixpkgs transformers-base macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-base on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-base"
+  - "$HOME/Library/Logs/transformers-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-base
+  name: Nixpkgs transformers-base linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-base on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-base"
+  - "$XDG_CACHE_HOME/transformers-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-base
+  name: Nixpkgs transformers-base windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-base on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-base/Cache"
+  - "%LOCALAPPDATA%/transformers-base/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-bifunctors
+  name: Nixpkgs transformers-bifunctors macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-bifunctors on macos (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-bifunctors"
+  - "$HOME/Library/Logs/transformers-bifunctors"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-bifunctors
+  name: Nixpkgs transformers-bifunctors linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-bifunctors on linux (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-bifunctors"
+  - "$XDG_CACHE_HOME/transformers-bifunctors"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-bifunctors
+  name: Nixpkgs transformers-bifunctors windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-bifunctors on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-bifunctors/Cache"
+  - "%LOCALAPPDATA%/transformers-bifunctors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-compat
+  name: Nixpkgs transformers-compat macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-compat on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-compat"
+  - "$HOME/Library/Logs/transformers-compat"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-compat
+  name: Nixpkgs transformers-compat linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-compat on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-compat"
+  - "$XDG_CACHE_HOME/transformers-compat"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-compat
+  name: Nixpkgs transformers-compat windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-compat on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-compat/Cache"
+  - "%LOCALAPPDATA%/transformers-compat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-compose
+  name: Nixpkgs transformers-compose macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-compose on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-compose"
+  - "$HOME/Library/Logs/transformers-compose"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-compose
+  name: Nixpkgs transformers-compose linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-compose on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-compose"
+  - "$XDG_CACHE_HOME/transformers-compose"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-compose
+  name: Nixpkgs transformers-compose windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-compose on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-compose/Cache"
+  - "%LOCALAPPDATA%/transformers-compose/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-continue
+  name: Nixpkgs transformers-continue macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-continue on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-continue"
+  - "$HOME/Library/Logs/transformers-continue"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-continue
+  name: Nixpkgs transformers-continue linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-continue on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-continue"
+  - "$XDG_CACHE_HOME/transformers-continue"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-continue
+  name: Nixpkgs transformers-continue windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-continue on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-continue/Cache"
+  - "%LOCALAPPDATA%/transformers-continue/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-convert
+  name: Nixpkgs transformers-convert macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-convert on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-convert"
+  - "$HOME/Library/Logs/transformers-convert"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-convert
+  name: Nixpkgs transformers-convert linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-convert on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-convert"
+  - "$XDG_CACHE_HOME/transformers-convert"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-convert
+  name: Nixpkgs transformers-convert windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-convert on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-convert/Cache"
+  - "%LOCALAPPDATA%/transformers-convert/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-eff
+  name: Nixpkgs transformers-eff macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-eff on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-eff"
+  - "$HOME/Library/Logs/transformers-eff"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-eff
+  name: Nixpkgs transformers-eff linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-eff on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-eff"
+  - "$XDG_CACHE_HOME/transformers-eff"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-eff
+  name: Nixpkgs transformers-eff windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-eff on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-eff/Cache"
+  - "%LOCALAPPDATA%/transformers-eff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-either
+  name: Nixpkgs transformers-either macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-either on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-either"
+  - "$HOME/Library/Logs/transformers-either"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-either
+  name: Nixpkgs transformers-either linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-either on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-either"
+  - "$XDG_CACHE_HOME/transformers-either"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-either
+  name: Nixpkgs transformers-either windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-either on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-either/Cache"
+  - "%LOCALAPPDATA%/transformers-either/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-except
+  name: Nixpkgs transformers-except macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-except on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-except"
+  - "$HOME/Library/Logs/transformers-except"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-except
+  name: Nixpkgs transformers-except linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-except on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-except"
+  - "$XDG_CACHE_HOME/transformers-except"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-except
+  name: Nixpkgs transformers-except windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-except on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-except/Cache"
+  - "%LOCALAPPDATA%/transformers-except/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-fix
+  name: Nixpkgs transformers-fix macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-fix on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-fix"
+  - "$HOME/Library/Logs/transformers-fix"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-fix
+  name: Nixpkgs transformers-fix linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-fix on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-fix"
+  - "$XDG_CACHE_HOME/transformers-fix"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-fix
+  name: Nixpkgs transformers-fix windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-fix on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-fix/Cache"
+  - "%LOCALAPPDATA%/transformers-fix/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-free
+  name: Nixpkgs transformers-free macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-free on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-free"
+  - "$HOME/Library/Logs/transformers-free"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-free
+  name: Nixpkgs transformers-free linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-free on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-free"
+  - "$XDG_CACHE_HOME/transformers-free"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-free
+  name: Nixpkgs transformers-free windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-free on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-free/Cache"
+  - "%LOCALAPPDATA%/transformers-free/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-lift
+  name: Nixpkgs transformers-lift macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-lift on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-lift"
+  - "$HOME/Library/Logs/transformers-lift"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-lift
+  name: Nixpkgs transformers-lift linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-lift on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-lift"
+  - "$XDG_CACHE_HOME/transformers-lift"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-lift
+  name: Nixpkgs transformers-lift windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-lift on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-lift/Cache"
+  - "%LOCALAPPDATA%/transformers-lift/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-runnable
+  name: Nixpkgs transformers-runnable macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-runnable on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-runnable"
+  - "$HOME/Library/Logs/transformers-runnable"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-runnable
+  name: Nixpkgs transformers-runnable linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-runnable on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-runnable"
+  - "$XDG_CACHE_HOME/transformers-runnable"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-runnable
+  name: Nixpkgs transformers-runnable windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-runnable on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-runnable/Cache"
+  - "%LOCALAPPDATA%/transformers-runnable/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformers-supply
+  name: Nixpkgs transformers-supply macos cache (wave 28)
+  description: Nixpkgs leftover pname transformers-supply on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformers-supply"
+  - "$HOME/Library/Logs/transformers-supply"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformers-supply
+  name: Nixpkgs transformers-supply linux cache (wave 28)
+  description: Nixpkgs leftover pname transformers-supply on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformers-supply"
+  - "$XDG_CACHE_HOME/transformers-supply"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformers-supply
+  name: Nixpkgs transformers-supply windows cache (wave 28)
+  description: Nixpkgs leftover pname transformers-supply on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformers-supply/Cache"
+  - "%LOCALAPPDATA%/transformers-supply/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformmos
+  name: Nixpkgs transformmos macos cache (wave 28)
+  description: Nixpkgs leftover pname transformmos on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformmos"
+  - "$HOME/Library/Logs/transformmos"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformmos
+  name: Nixpkgs transformmos linux cache (wave 28)
+  description: Nixpkgs leftover pname transformmos on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformmos"
+  - "$XDG_CACHE_HOME/transformmos"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformmos
+  name: Nixpkgs transformmos windows cache (wave 28)
+  description: Nixpkgs leftover pname transformmos on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformmos/Cache"
+  - "%LOCALAPPDATA%/transformmos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transformr
+  name: Nixpkgs transformr macos cache (wave 28)
+  description: Nixpkgs leftover pname transformr on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transformr"
+  - "$HOME/Library/Logs/transformr"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transformr
+  name: Nixpkgs transformr linux cache (wave 28)
+  description: Nixpkgs leftover pname transformr on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transformr"
+  - "$XDG_CACHE_HOME/transformr"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transformr
+  name: Nixpkgs transformr windows cache (wave 28)
+  description: Nixpkgs leftover pname transformr on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transformr/Cache"
+  - "%LOCALAPPDATA%/transformr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transforms3d
+  name: Nixpkgs transforms3d macos cache (wave 28)
+  description: Nixpkgs leftover pname transforms3d on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transforms3d"
+  - "$HOME/Library/Logs/transforms3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transforms3d
+  name: Nixpkgs transforms3d linux cache (wave 28)
+  description: Nixpkgs leftover pname transforms3d on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transforms3d"
+  - "$XDG_CACHE_HOME/transforms3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transforms3d
+  name: Nixpkgs transforms3d windows cache (wave 28)
+  description: Nixpkgs leftover pname transforms3d on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transforms3d/Cache"
+  - "%LOCALAPPDATA%/transforms3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transgui
+  name: Nixpkgs transgui macos cache (wave 28)
+  description: Nixpkgs leftover pname transgui on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transgui"
+  - "$HOME/Library/Logs/transgui"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transgui
+  name: Nixpkgs transgui linux cache (wave 28)
+  description: Nixpkgs leftover pname transgui on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transgui"
+  - "$XDG_CACHE_HOME/transgui"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transgui
+  name: Nixpkgs transgui windows cache (wave 28)
+  description: Nixpkgs leftover pname transgui on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transgui/Cache"
+  - "%LOCALAPPDATA%/transgui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient
+  name: Nixpkgs transient macos cache (wave 28)
+  description: Nixpkgs leftover pname transient on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient"
+  - "$HOME/Library/Logs/transient"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient
+  name: Nixpkgs transient linux cache (wave 28)
+  description: Nixpkgs leftover pname transient on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient"
+  - "$XDG_CACHE_HOME/transient"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient
+  name: Nixpkgs transient windows cache (wave 28)
+  description: Nixpkgs leftover pname transient on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient/Cache"
+  - "%LOCALAPPDATA%/transient/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-cycles
+  name: Nixpkgs transient-cycles macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-cycles on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-cycles"
+  - "$HOME/Library/Logs/transient-cycles"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-cycles
+  name: Nixpkgs transient-cycles linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-cycles on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-cycles"
+  - "$XDG_CACHE_HOME/transient-cycles"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-cycles
+  name: Nixpkgs transient-cycles windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-cycles on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-cycles/Cache"
+  - "%LOCALAPPDATA%/transient-cycles/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-dwim
+  name: Nixpkgs transient-dwim macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-dwim on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-dwim"
+  - "$HOME/Library/Logs/transient-dwim"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-dwim
+  name: Nixpkgs transient-dwim linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-dwim on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-dwim"
+  - "$XDG_CACHE_HOME/transient-dwim"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-dwim
+  name: Nixpkgs transient-dwim windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-dwim on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-dwim/Cache"
+  - "%LOCALAPPDATA%/transient-dwim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-extras
+  name: Nixpkgs transient-extras macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-extras"
+  - "$HOME/Library/Logs/transient-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-extras
+  name: Nixpkgs transient-extras linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-extras"
+  - "$XDG_CACHE_HOME/transient-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-extras
+  name: Nixpkgs transient-extras windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-extras/Cache"
+  - "%LOCALAPPDATA%/transient-extras/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-extras-a2ps
+  name: Nixpkgs transient-extras-a2ps macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras-a2ps on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-extras-a2ps"
+  - "$HOME/Library/Logs/transient-extras-a2ps"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-extras-a2ps
+  name: Nixpkgs transient-extras-a2ps linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras-a2ps on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-extras-a2ps"
+  - "$XDG_CACHE_HOME/transient-extras-a2ps"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-extras-a2ps
+  name: Nixpkgs transient-extras-a2ps windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras-a2ps on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-extras-a2ps/Cache"
+  - "%LOCALAPPDATA%/transient-extras-a2ps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-extras-lp
+  name: Nixpkgs transient-extras-lp macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras-lp on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-extras-lp"
+  - "$HOME/Library/Logs/transient-extras-lp"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-extras-lp
+  name: Nixpkgs transient-extras-lp linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras-lp on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-extras-lp"
+  - "$XDG_CACHE_HOME/transient-extras-lp"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-extras-lp
+  name: Nixpkgs transient-extras-lp windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-extras-lp on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-extras-lp/Cache"
+  - "%LOCALAPPDATA%/transient-extras-lp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-fish
+  name: Nixpkgs transient-fish macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-fish on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-fish"
+  - "$HOME/Library/Logs/transient-fish"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-fish
+  name: Nixpkgs transient-fish linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-fish on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-fish"
+  - "$XDG_CACHE_HOME/transient-fish"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-fish
+  name: Nixpkgs transient-fish windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-fish on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-fish/Cache"
+  - "%LOCALAPPDATA%/transient-fish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-posframe
+  name: Nixpkgs transient-posframe macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-posframe on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-posframe"
+  - "$HOME/Library/Logs/transient-posframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-posframe
+  name: Nixpkgs transient-posframe linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-posframe on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-posframe"
+  - "$XDG_CACHE_HOME/transient-posframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-posframe
+  name: Nixpkgs transient-posframe windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-posframe on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-posframe/Cache"
+  - "%LOCALAPPDATA%/transient-posframe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-universe
+  name: Nixpkgs transient-universe macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-universe on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-universe"
+  - "$HOME/Library/Logs/transient-universe"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-universe
+  name: Nixpkgs transient-universe linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-universe on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-universe"
+  - "$XDG_CACHE_HOME/transient-universe"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-universe
+  name: Nixpkgs transient-universe windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-universe on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-universe/Cache"
+  - "%LOCALAPPDATA%/transient-universe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transient-universe-tls
+  name: Nixpkgs transient-universe-tls macos cache (wave 28)
+  description: Nixpkgs leftover pname transient-universe-tls on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transient-universe-tls"
+  - "$HOME/Library/Logs/transient-universe-tls"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transient-universe-tls
+  name: Nixpkgs transient-universe-tls linux cache (wave 28)
+  description: Nixpkgs leftover pname transient-universe-tls on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transient-universe-tls"
+  - "$XDG_CACHE_HOME/transient-universe-tls"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transient-universe-tls
+  name: Nixpkgs transient-universe-tls windows cache (wave 28)
+  description: Nixpkgs leftover pname transient-universe-tls on windows (wave 28).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transient-universe-tls/Cache"
+  - "%LOCALAPPDATA%/transient-universe-tls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transifex-cli
+  name: Nixpkgs transifex-cli macos cache (wave 28)
+  description: Nixpkgs leftover pname transifex-cli on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transifex-cli"
+  - "$HOME/Library/Logs/transifex-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transifex-cli
+  name: Nixpkgs transifex-cli linux cache (wave 28)
+  description: Nixpkgs leftover pname transifex-cli on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transifex-cli"
+  - "$XDG_CACHE_HOME/transifex-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transifex-cli
+  name: Nixpkgs transifex-cli windows cache (wave 28)
+  description: Nixpkgs leftover pname transifex-cli on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transifex-cli/Cache"
+  - "%LOCALAPPDATA%/transifex-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transit
+  name: Nixpkgs transit macos cache (wave 28)
+  description: Nixpkgs leftover pname transit on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transit"
+  - "$HOME/Library/Logs/transit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transit
+  name: Nixpkgs transit linux cache (wave 28)
+  description: Nixpkgs leftover pname transit on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transit"
+  - "$XDG_CACHE_HOME/transit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transit
+  name: Nixpkgs transit windows cache (wave 28)
+  description: Nixpkgs leftover pname transit on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transit/Cache"
+  - "%LOCALAPPDATA%/transit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transit-tests
+  name: Nixpkgs transit-tests macos cache (wave 28)
+  description: Nixpkgs leftover pname transit-tests on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transit-tests"
+  - "$HOME/Library/Logs/transit-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transit-tests
+  name: Nixpkgs transit-tests linux cache (wave 28)
+  description: Nixpkgs leftover pname transit-tests on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transit-tests"
+  - "$XDG_CACHE_HOME/transit-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transit-tests
+  name: Nixpkgs transit-tests windows cache (wave 28)
+  description: Nixpkgs leftover pname transit-tests on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transit-tests/Cache"
+  - "%LOCALAPPDATA%/transit-tests/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transite
+  name: Nixpkgs transite macos cache (wave 28)
+  description: Nixpkgs leftover pname transite on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transite"
+  - "$HOME/Library/Logs/transite"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transite
+  name: Nixpkgs transite linux cache (wave 28)
+  description: Nixpkgs leftover pname transite on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transite"
+  - "$XDG_CACHE_HOME/transite"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transite
+  name: Nixpkgs transite windows cache (wave 28)
+  description: Nixpkgs leftover pname transite on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transite/Cache"
+  - "%LOCALAPPDATA%/transite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transitions
+  name: Nixpkgs transitions macos cache (wave 28)
+  description: Nixpkgs leftover pname transitions on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transitions"
+  - "$HOME/Library/Logs/transitions"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transitions
+  name: Nixpkgs transitions linux cache (wave 28)
+  description: Nixpkgs leftover pname transitions on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transitions"
+  - "$XDG_CACHE_HOME/transitions"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transitions
+  name: Nixpkgs transitions windows cache (wave 28)
+  description: Nixpkgs leftover pname transitions on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transitions/Cache"
+  - "%LOCALAPPDATA%/transitions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transitiontrees
+  name: Nixpkgs transitiontrees macos cache (wave 28)
+  description: Nixpkgs leftover pname transitiontrees on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transitiontrees"
+  - "$HOME/Library/Logs/transitiontrees"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transitiontrees
+  name: Nixpkgs transitiontrees linux cache (wave 28)
+  description: Nixpkgs leftover pname transitiontrees on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transitiontrees"
+  - "$XDG_CACHE_HOME/transitiontrees"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transitiontrees
+  name: Nixpkgs transitiontrees windows cache (wave 28)
+  description: Nixpkgs leftover pname transitiontrees on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transitiontrees/Cache"
+  - "%LOCALAPPDATA%/transitiontrees/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transito
+  name: Nixpkgs transito macos cache (wave 28)
+  description: Nixpkgs leftover pname transito on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transito"
+  - "$HOME/Library/Logs/transito"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transito
+  name: Nixpkgs transito linux cache (wave 28)
+  description: Nixpkgs leftover pname transito on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transito"
+  - "$XDG_CACHE_HOME/transito"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transito
+  name: Nixpkgs transito windows cache (wave 28)
+  description: Nixpkgs leftover pname transito on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transito/Cache"
+  - "%LOCALAPPDATA%/transito/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-transl
+  name: Nixpkgs transl macos cache (wave 28)
+  description: Nixpkgs leftover pname transl on macos (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/transl"
+  - "$HOME/Library/Logs/transl"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-transl
+  name: Nixpkgs transl linux cache (wave 28)
+  description: Nixpkgs leftover pname transl on linux (wave 28). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/transl"
+  - "$XDG_CACHE_HOME/transl"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-transl
+  name: Nixpkgs transl windows cache (wave 28)
+  description: Nixpkgs leftover pname transl on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/transl/Cache"
+  - "%LOCALAPPDATA%/transl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatable-intset
+  name: Nixpkgs translatable-intset macos cache (wave 28)
+  description: Nixpkgs leftover pname translatable-intset on macos (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatable-intset"
+  - "$HOME/Library/Logs/translatable-intset"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatable-intset
+  name: Nixpkgs translatable-intset linux cache (wave 28)
+  description: Nixpkgs leftover pname translatable-intset on linux (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatable-intset"
+  - "$XDG_CACHE_HOME/translatable-intset"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatable-intset
+  name: Nixpkgs translatable-intset windows cache (wave 28)
+  description: Nixpkgs leftover pname translatable-intset on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatable-intset/Cache"
+  - "%LOCALAPPDATA%/translatable-intset/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate
+  name: Nixpkgs translate macos cache (wave 28)
+  description: Nixpkgs leftover pname translate on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate"
+  - "$HOME/Library/Logs/translate"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate
+  name: Nixpkgs translate linux cache (wave 28)
+  description: Nixpkgs leftover pname translate on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate"
+  - "$XDG_CACHE_HOME/translate"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate
+  name: Nixpkgs translate windows cache (wave 28)
+  description: Nixpkgs leftover pname translate on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate/Cache"
+  - "%LOCALAPPDATA%/translate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate-cli
+  name: Nixpkgs translate-cli macos cache (wave 28)
+  description: Nixpkgs leftover pname translate-cli on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate-cli"
+  - "$HOME/Library/Logs/translate-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate-cli
+  name: Nixpkgs translate-cli linux cache (wave 28)
+  description: Nixpkgs leftover pname translate-cli on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate-cli"
+  - "$XDG_CACHE_HOME/translate-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate-cli
+  name: Nixpkgs translate-cli windows cache (wave 28)
+  description: Nixpkgs leftover pname translate-cli on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate-cli/Cache"
+  - "%LOCALAPPDATA%/translate-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate-client
+  name: Nixpkgs translate-client macos cache (wave 28)
+  description: Nixpkgs leftover pname translate-client on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate-client"
+  - "$HOME/Library/Logs/translate-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate-client
+  name: Nixpkgs translate-client linux cache (wave 28)
+  description: Nixpkgs leftover pname translate-client on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate-client"
+  - "$XDG_CACHE_HOME/translate-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate-client
+  name: Nixpkgs translate-client windows cache (wave 28)
+  description: Nixpkgs leftover pname translate-client on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate-client/Cache"
+  - "%LOCALAPPDATA%/translate-client/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate-mode
+  name: Nixpkgs translate-mode macos cache (wave 28)
+  description: Nixpkgs leftover pname translate-mode on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate-mode"
+  - "$HOME/Library/Logs/translate-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate-mode
+  name: Nixpkgs translate-mode linux cache (wave 28)
+  description: Nixpkgs leftover pname translate-mode on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate-mode"
+  - "$XDG_CACHE_HOME/translate-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate-mode
+  name: Nixpkgs translate-mode windows cache (wave 28)
+  description: Nixpkgs leftover pname translate-mode on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate-mode/Cache"
+  - "%LOCALAPPDATA%/translate-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate-shell
+  name: Nixpkgs translate-shell macos cache (wave 28)
+  description: Nixpkgs leftover pname translate-shell on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate-shell"
+  - "$HOME/Library/Logs/translate-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate-shell
+  name: Nixpkgs translate-shell linux cache (wave 28)
+  description: Nixpkgs leftover pname translate-shell on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate-shell"
+  - "$XDG_CACHE_HOME/translate-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate-shell
+  name: Nixpkgs translate-shell windows cache (wave 28)
+  description: Nixpkgs leftover pname translate-shell on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate-shell/Cache"
+  - "%LOCALAPPDATA%/translate-shell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate-toolkit
+  name: Nixpkgs translate-toolkit macos cache (wave 28)
+  description: Nixpkgs leftover pname translate-toolkit on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate-toolkit"
+  - "$HOME/Library/Logs/translate-toolkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate-toolkit
+  name: Nixpkgs translate-toolkit linux cache (wave 28)
+  description: Nixpkgs leftover pname translate-toolkit on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate-toolkit"
+  - "$XDG_CACHE_HOME/translate-toolkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate-toolkit
+  name: Nixpkgs translate-toolkit windows cache (wave 28)
+  description: Nixpkgs leftover pname translate-toolkit on windows (wave 28). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate-toolkit/Cache"
+  - "%LOCALAPPDATA%/translate-toolkit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translate-logit
+  name: Nixpkgs translate.logit macos cache (wave 28)
+  description: Nixpkgs leftover pname translate.logit on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translate.logit"
+  - "$HOME/Library/Logs/translate.logit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translate-logit
+  name: Nixpkgs translate.logit linux cache (wave 28)
+  description: Nixpkgs leftover pname translate.logit on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translate.logit"
+  - "$XDG_CACHE_HOME/translate.logit"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translate-logit
+  name: Nixpkgs translate.logit windows cache (wave 28)
+  description: Nixpkgs leftover pname translate.logit on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translate.logit/Cache"
+  - "%LOCALAPPDATA%/translate.logit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translater
+  name: Nixpkgs translateR macos cache (wave 28)
+  description: Nixpkgs leftover pname translateR on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translateR"
+  - "$HOME/Library/Logs/translateR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translater
+  name: Nixpkgs translateR linux cache (wave 28)
+  description: Nixpkgs leftover pname translateR on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translateR"
+  - "$XDG_CACHE_HOME/translateR"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translater
+  name: Nixpkgs translateR windows cache (wave 28)
+  description: Nixpkgs leftover pname translateR on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translateR/Cache"
+  - "%LOCALAPPDATA%/translateR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translated
+  name: Nixpkgs translated macos cache (wave 28)
+  description: Nixpkgs leftover pname translated on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translated"
+  - "$HOME/Library/Logs/translated"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translated
+  name: Nixpkgs translated linux cache (wave 28)
+  description: Nixpkgs leftover pname translated on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translated"
+  - "$XDG_CACHE_HOME/translated"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translated
+  name: Nixpkgs translated windows cache (wave 28)
+  description: Nixpkgs leftover pname translated on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translated/Cache"
+  - "%LOCALAPPDATA%/translated/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatehtml
+  name: Nixpkgs translatehtml macos cache (wave 28)
+  description: Nixpkgs leftover pname translatehtml on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatehtml"
+  - "$HOME/Library/Logs/translatehtml"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatehtml
+  name: Nixpkgs translatehtml linux cache (wave 28)
+  description: Nixpkgs leftover pname translatehtml on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatehtml"
+  - "$XDG_CACHE_HOME/translatehtml"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatehtml
+  name: Nixpkgs translatehtml windows cache (wave 28)
+  description: Nixpkgs leftover pname translatehtml on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatehtml/Cache"
+  - "%LOCALAPPDATA%/translatehtml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally
+  name: Nixpkgs translatelocally macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally on macos (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally"
+  - "$HOME/Library/Logs/translatelocally"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally
+  name: Nixpkgs translatelocally linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally on linux (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally"
+  - "$XDG_CACHE_HOME/translatelocally"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally
+  name: Nixpkgs translatelocally windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally on windows (wave 28). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally/Cache"
+  - "%LOCALAPPDATA%/translatelocally/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-bg-en-tiny
+  name: Nixpkgs translatelocally-model-bg-en-tiny macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-bg-en-tiny on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-bg-en-tiny"
+  - "$HOME/Library/Logs/translatelocally-model-bg-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally-model-bg-en-tiny
+  name: Nixpkgs translatelocally-model-bg-en-tiny linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-bg-en-tiny on linux (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally-model-bg-en-tiny"
+  - "$XDG_CACHE_HOME/translatelocally-model-bg-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally-model-bg-en-tiny
+  name: Nixpkgs translatelocally-model-bg-en-tiny windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-bg-en-tiny on windows
+    (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally-model-bg-en-tiny/Cache"
+  - "%LOCALAPPDATA%/translatelocally-model-bg-en-tiny/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-ca-en-tiny
+  name: Nixpkgs translatelocally-model-ca-en-tiny macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-ca-en-tiny on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-ca-en-tiny"
+  - "$HOME/Library/Logs/translatelocally-model-ca-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally-model-ca-en-tiny
+  name: Nixpkgs translatelocally-model-ca-en-tiny linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-ca-en-tiny on linux (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally-model-ca-en-tiny"
+  - "$XDG_CACHE_HOME/translatelocally-model-ca-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally-model-ca-en-tiny
+  name: Nixpkgs translatelocally-model-ca-en-tiny windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-ca-en-tiny on windows
+    (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally-model-ca-en-tiny/Cache"
+  - "%LOCALAPPDATA%/translatelocally-model-ca-en-tiny/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-cs-en-base
+  name: Nixpkgs translatelocally-model-cs-en-base macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-cs-en-base on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-cs-en-base"
+  - "$HOME/Library/Logs/translatelocally-model-cs-en-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally-model-cs-en-base
+  name: Nixpkgs translatelocally-model-cs-en-base linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-cs-en-base on linux (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally-model-cs-en-base"
+  - "$XDG_CACHE_HOME/translatelocally-model-cs-en-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally-model-cs-en-base
+  name: Nixpkgs translatelocally-model-cs-en-base windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-cs-en-base on windows
+    (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally-model-cs-en-base/Cache"
+  - "%LOCALAPPDATA%/translatelocally-model-cs-en-base/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-cs-en-tiny
+  name: Nixpkgs translatelocally-model-cs-en-tiny macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-cs-en-tiny on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-cs-en-tiny"
+  - "$HOME/Library/Logs/translatelocally-model-cs-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally-model-cs-en-tiny
+  name: Nixpkgs translatelocally-model-cs-en-tiny linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-cs-en-tiny on linux (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally-model-cs-en-tiny"
+  - "$XDG_CACHE_HOME/translatelocally-model-cs-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally-model-cs-en-tiny
+  name: Nixpkgs translatelocally-model-cs-en-tiny windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-cs-en-tiny on windows
+    (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally-model-cs-en-tiny/Cache"
+  - "%LOCALAPPDATA%/translatelocally-model-cs-en-tiny/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-de-en-base
+  name: Nixpkgs translatelocally-model-de-en-base macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-de-en-base on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-de-en-base"
+  - "$HOME/Library/Logs/translatelocally-model-de-en-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally-model-de-en-base
+  name: Nixpkgs translatelocally-model-de-en-base linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-de-en-base on linux (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally-model-de-en-base"
+  - "$XDG_CACHE_HOME/translatelocally-model-de-en-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally-model-de-en-base
+  name: Nixpkgs translatelocally-model-de-en-base windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-de-en-base on windows
+    (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally-model-de-en-base/Cache"
+  - "%LOCALAPPDATA%/translatelocally-model-de-en-base/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-de-en-tiny
+  name: Nixpkgs translatelocally-model-de-en-tiny macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-de-en-tiny on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-de-en-tiny"
+  - "$HOME/Library/Logs/translatelocally-model-de-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-lin-translatelocally-model-de-en-tiny
+  name: Nixpkgs translatelocally-model-de-en-tiny linux cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-de-en-tiny on linux (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/translatelocally-model-de-en-tiny"
+  - "$XDG_CACHE_HOME/translatelocally-model-de-en-tiny"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-win-translatelocally-model-de-en-tiny
+  name: Nixpkgs translatelocally-model-de-en-tiny windows cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-de-en-tiny on windows
+    (wave 28). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/translatelocally-model-de-en-tiny/Cache"
+  - "%LOCALAPPDATA%/translatelocally-model-de-en-tiny/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np28-mac-translatelocally-model-el-en-tiny
+  name: Nixpkgs translatelocally-model-el-en-tiny macos cache (wave 28)
+  description: Nixpkgs leftover pname translatelocally-model-el-en-tiny on macos (wave
+    28). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/translatelocally-model-el-en-tiny"
+  - "$HOME/Library/Logs/translatelocally-model-el-en-tiny"
+  delete_mode: contents
+  max_depth: 6

@@ -1,0 +1,5607 @@
+---
+pack: src-iter32-13
+description: Iterative 10k import wave 32 from leftover Debian names. Chunk 13.
+rules:
+- id: db32-mac-python3-cephfs
+  name: Debian python3-cephfs macos cache (wave 32)
+  description: Debian leftover name python3-cephfs on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cephfs"
+  - "$HOME/Library/Logs/python3-cephfs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cephfs
+  name: Debian python3-cephfs linux cache (wave 32)
+  description: Debian leftover name python3-cephfs on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cephfs"
+  - "$XDG_CACHE_HOME/python3-cephfs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cephfs
+  name: Debian python3-cephfs windows cache (wave 32)
+  description: Debian leftover name python3-cephfs on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cephfs/Cache"
+  - "%LOCALAPPDATA%/python3-cephfs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-rados
+  name: Debian python3-rados macos cache (wave 32)
+  description: Debian leftover name python3-rados on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-rados"
+  - "$HOME/Library/Logs/python3-rados"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-rados
+  name: Debian python3-rados linux cache (wave 32)
+  description: Debian leftover name python3-rados on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-rados"
+  - "$XDG_CACHE_HOME/python3-rados"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-rados
+  name: Debian python3-rados windows cache (wave 32)
+  description: Debian leftover name python3-rados on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-rados/Cache"
+  - "%LOCALAPPDATA%/python3-rados/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-rbd
+  name: Debian python3-rbd macos cache (wave 32)
+  description: Debian leftover name python3-rbd on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-rbd"
+  - "$HOME/Library/Logs/python3-rbd"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-rbd
+  name: Debian python3-rbd linux cache (wave 32)
+  description: Debian leftover name python3-rbd on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-rbd"
+  - "$XDG_CACHE_HOME/python3-rbd"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-rbd
+  name: Debian python3-rbd windows cache (wave 32)
+  description: Debian leftover name python3-rbd on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-rbd/Cache"
+  - "%LOCALAPPDATA%/python3-rbd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-rgw
+  name: Debian python3-rgw macos cache (wave 32)
+  description: Debian leftover name python3-rgw on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-rgw"
+  - "$HOME/Library/Logs/python3-rgw"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-rgw
+  name: Debian python3-rgw linux cache (wave 32)
+  description: Debian leftover name python3-rgw on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-rgw"
+  - "$XDG_CACHE_HOME/python3-rgw"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-rgw
+  name: Debian python3-rgw windows cache (wave 32)
+  description: Debian leftover name python3-rgw on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-rgw/Cache"
+  - "%LOCALAPPDATA%/python3-rgw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rados-objclass-dev
+  name: Debian rados-objclass-dev macos cache (wave 32)
+  description: Debian leftover name rados-objclass-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rados-objclass-dev"
+  - "$HOME/Library/Logs/rados-objclass-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rados-objclass-dev
+  name: Debian rados-objclass-dev linux cache (wave 32)
+  description: Debian leftover name rados-objclass-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rados-objclass-dev"
+  - "$XDG_CACHE_HOME/rados-objclass-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rados-objclass-dev
+  name: Debian rados-objclass-dev windows cache (wave 32)
+  description: Debian leftover name rados-objclass-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rados-objclass-dev/Cache"
+  - "%LOCALAPPDATA%/rados-objclass-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-radosgw
+  name: Debian radosgw macos cache (wave 32)
+  description: Debian leftover name radosgw on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/radosgw"
+  - "$HOME/Library/Logs/radosgw"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-radosgw
+  name: Debian radosgw linux cache (wave 32)
+  description: Debian leftover name radosgw on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/radosgw"
+  - "$XDG_CACHE_HOME/radosgw"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-radosgw
+  name: Debian radosgw windows cache (wave 32)
+  description: Debian leftover name radosgw on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/radosgw/Cache"
+  - "%LOCALAPPDATA%/radosgw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-radosgw-dbg
+  name: Debian radosgw-dbg macos cache (wave 32)
+  description: Debian leftover name radosgw-dbg on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/radosgw-dbg"
+  - "$HOME/Library/Logs/radosgw-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-radosgw-dbg
+  name: Debian radosgw-dbg linux cache (wave 32)
+  description: Debian leftover name radosgw-dbg on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/radosgw-dbg"
+  - "$XDG_CACHE_HOME/radosgw-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-radosgw-dbg
+  name: Debian radosgw-dbg windows cache (wave 32)
+  description: Debian leftover name radosgw-dbg on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/radosgw-dbg/Cache"
+  - "%LOCALAPPDATA%/radosgw-dbg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rbd-fuse
+  name: Debian rbd-fuse macos cache (wave 32)
+  description: Debian leftover name rbd-fuse on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rbd-fuse"
+  - "$HOME/Library/Logs/rbd-fuse"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rbd-fuse
+  name: Debian rbd-fuse linux cache (wave 32)
+  description: Debian leftover name rbd-fuse on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rbd-fuse"
+  - "$XDG_CACHE_HOME/rbd-fuse"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rbd-fuse
+  name: Debian rbd-fuse windows cache (wave 32)
+  description: Debian leftover name rbd-fuse on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rbd-fuse/Cache"
+  - "%LOCALAPPDATA%/rbd-fuse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rbd-fuse-dbg
+  name: Debian rbd-fuse-dbg macos cache (wave 32)
+  description: Debian leftover name rbd-fuse-dbg on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rbd-fuse-dbg"
+  - "$HOME/Library/Logs/rbd-fuse-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rbd-fuse-dbg
+  name: Debian rbd-fuse-dbg linux cache (wave 32)
+  description: Debian leftover name rbd-fuse-dbg on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rbd-fuse-dbg"
+  - "$XDG_CACHE_HOME/rbd-fuse-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rbd-fuse-dbg
+  name: Debian rbd-fuse-dbg windows cache (wave 32)
+  description: Debian leftover name rbd-fuse-dbg on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rbd-fuse-dbg/Cache"
+  - "%LOCALAPPDATA%/rbd-fuse-dbg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rbd-mirror
+  name: Debian rbd-mirror macos cache (wave 32)
+  description: Debian leftover name rbd-mirror on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rbd-mirror"
+  - "$HOME/Library/Logs/rbd-mirror"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rbd-mirror
+  name: Debian rbd-mirror linux cache (wave 32)
+  description: Debian leftover name rbd-mirror on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rbd-mirror"
+  - "$XDG_CACHE_HOME/rbd-mirror"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rbd-mirror
+  name: Debian rbd-mirror windows cache (wave 32)
+  description: Debian leftover name rbd-mirror on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rbd-mirror/Cache"
+  - "%LOCALAPPDATA%/rbd-mirror/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rbd-mirror-dbg
+  name: Debian rbd-mirror-dbg macos cache (wave 32)
+  description: Debian leftover name rbd-mirror-dbg on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rbd-mirror-dbg"
+  - "$HOME/Library/Logs/rbd-mirror-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rbd-mirror-dbg
+  name: Debian rbd-mirror-dbg linux cache (wave 32)
+  description: Debian leftover name rbd-mirror-dbg on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rbd-mirror-dbg"
+  - "$XDG_CACHE_HOME/rbd-mirror-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rbd-mirror-dbg
+  name: Debian rbd-mirror-dbg windows cache (wave 32)
+  description: Debian leftover name rbd-mirror-dbg on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rbd-mirror-dbg/Cache"
+  - "%LOCALAPPDATA%/rbd-mirror-dbg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rbd-nbd
+  name: Debian rbd-nbd macos cache (wave 32)
+  description: Debian leftover name rbd-nbd on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rbd-nbd"
+  - "$HOME/Library/Logs/rbd-nbd"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rbd-nbd
+  name: Debian rbd-nbd linux cache (wave 32)
+  description: Debian leftover name rbd-nbd on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rbd-nbd"
+  - "$XDG_CACHE_HOME/rbd-nbd"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rbd-nbd
+  name: Debian rbd-nbd windows cache (wave 32)
+  description: Debian leftover name rbd-nbd on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rbd-nbd/Cache"
+  - "%LOCALAPPDATA%/rbd-nbd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-rbd-nbd-dbg
+  name: Debian rbd-nbd-dbg macos cache (wave 32)
+  description: Debian leftover name rbd-nbd-dbg on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rbd-nbd-dbg"
+  - "$HOME/Library/Logs/rbd-nbd-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-rbd-nbd-dbg
+  name: Debian rbd-nbd-dbg linux cache (wave 32)
+  description: Debian leftover name rbd-nbd-dbg on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rbd-nbd-dbg"
+  - "$XDG_CACHE_HOME/rbd-nbd-dbg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-rbd-nbd-dbg
+  name: Debian rbd-nbd-dbg windows cache (wave 32)
+  description: Debian leftover name rbd-nbd-dbg on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rbd-nbd-dbg/Cache"
+  - "%LOCALAPPDATA%/rbd-nbd-dbg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-ceph-iscsi
+  name: Debian ceph-iscsi macos cache (wave 32)
+  description: Debian leftover name ceph-iscsi on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ceph-iscsi"
+  - "$HOME/Library/Logs/ceph-iscsi"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-ceph-iscsi
+  name: Debian ceph-iscsi linux cache (wave 32)
+  description: Debian leftover name ceph-iscsi on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ceph-iscsi"
+  - "$XDG_CACHE_HOME/ceph-iscsi"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-ceph-iscsi
+  name: Debian ceph-iscsi windows cache (wave 32)
+  description: Debian leftover name ceph-iscsi on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ceph-iscsi/Cache"
+  - "%LOCALAPPDATA%/ceph-iscsi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-ceph-tools
+  name: Debian ceph-tools macos cache (wave 32)
+  description: Debian leftover name ceph-tools on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ceph-tools"
+  - "$HOME/Library/Logs/ceph-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-ceph-tools
+  name: Debian ceph-tools linux cache (wave 32)
+  description: Debian leftover name ceph-tools on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ceph-tools"
+  - "$XDG_CACHE_HOME/ceph-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-ceph-tools
+  name: Debian ceph-tools windows cache (wave 32)
+  description: Debian leftover name ceph-tools on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ceph-tools/Cache"
+  - "%LOCALAPPDATA%/ceph-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cerealizer
+  name: Debian python3-cerealizer macos cache (wave 32)
+  description: Debian leftover name python3-cerealizer on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cerealizer"
+  - "$HOME/Library/Logs/python3-cerealizer"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cerealizer
+  name: Debian python3-cerealizer linux cache (wave 32)
+  description: Debian leftover name python3-cerealizer on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cerealizer"
+  - "$XDG_CACHE_HOME/python3-cerealizer"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cerealizer
+  name: Debian python3-cerealizer windows cache (wave 32)
+  description: Debian leftover name python3-cerealizer on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cerealizer/Cache"
+  - "%LOCALAPPDATA%/python3-cerealizer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-ceres-solver-doc
+  name: Debian ceres-solver-doc macos cache (wave 32)
+  description: Debian leftover name ceres-solver-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ceres-solver-doc"
+  - "$HOME/Library/Logs/ceres-solver-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-ceres-solver-doc
+  name: Debian ceres-solver-doc linux cache (wave 32)
+  description: Debian leftover name ceres-solver-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ceres-solver-doc"
+  - "$XDG_CACHE_HOME/ceres-solver-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-ceres-solver-doc
+  name: Debian ceres-solver-doc windows cache (wave 32)
+  description: Debian leftover name ceres-solver-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ceres-solver-doc/Cache"
+  - "%LOCALAPPDATA%/ceres-solver-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libceres-dev
+  name: Debian libceres-dev macos cache (wave 32)
+  description: Debian leftover name libceres-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libceres-dev"
+  - "$HOME/Library/Logs/libceres-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libceres-dev
+  name: Debian libceres-dev linux cache (wave 32)
+  description: Debian leftover name libceres-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libceres-dev"
+  - "$XDG_CACHE_HOME/libceres-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libceres-dev
+  name: Debian libceres-dev windows cache (wave 32)
+  description: Debian leftover name libceres-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libceres-dev/Cache"
+  - "%LOCALAPPDATA%/libceres-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libceres4t64
+  name: Debian libceres4t64 macos cache (wave 32)
+  description: Debian leftover name libceres4t64 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libceres4t64"
+  - "$HOME/Library/Logs/libceres4t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libceres4t64
+  name: Debian libceres4t64 linux cache (wave 32)
+  description: Debian leftover name libceres4t64 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libceres4t64"
+  - "$XDG_CACHE_HOME/libceres4t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libceres4t64
+  name: Debian libceres4t64 windows cache (wave 32)
+  description: Debian leftover name libceres4t64 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libceres4t64/Cache"
+  - "%LOCALAPPDATA%/libceres4t64/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-certipy
+  name: Debian python3-certipy macos cache (wave 32)
+  description: Debian leftover name python3-certipy on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-certipy"
+  - "$HOME/Library/Logs/python3-certipy"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-certipy
+  name: Debian python3-certipy linux cache (wave 32)
+  description: Debian leftover name python3-certipy on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-certipy"
+  - "$XDG_CACHE_HOME/python3-certipy"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-certipy
+  name: Debian python3-certipy windows cache (wave 32)
+  description: Debian leftover name python3-certipy on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-certipy/Cache"
+  - "%LOCALAPPDATA%/python3-certipy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-certmonger
+  name: Debian certmonger macos cache (wave 32)
+  description: Debian leftover name certmonger on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/certmonger"
+  - "$HOME/Library/Logs/certmonger"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-certmonger
+  name: Debian certmonger linux cache (wave 32)
+  description: Debian leftover name certmonger on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/certmonger"
+  - "$XDG_CACHE_HOME/certmonger"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-certmonger
+  name: Debian certmonger windows cache (wave 32)
+  description: Debian leftover name certmonger on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/certmonger/Cache"
+  - "%LOCALAPPDATA%/certmonger/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-golang-github-d-rickyy-b-certstream-server-go-dev
+  name: Debian golang-github-d-rickyy-b-certstream-server-go-dev macos cache (wave
+    32)
+  description: Debian leftover name golang-github-d-rickyy-b-certstream-server-go-dev
+    on macos (wave 32). Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/golang-github-d-rickyy-b-certstream-server-go-dev"
+  - "$HOME/Library/Logs/golang-github-d-rickyy-b-certstream-server-go-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-golang-github-d-rickyy-b-certstream-server-go-dev
+  name: Debian golang-github-d-rickyy-b-certstream-server-go-dev linux cache (wave
+    32)
+  description: Debian leftover name golang-github-d-rickyy-b-certstream-server-go-dev
+    on linux (wave 32). Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/golang-github-d-rickyy-b-certstream-server-go-dev"
+  - "$XDG_CACHE_HOME/golang-github-d-rickyy-b-certstream-server-go-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-golang-github-d-rickyy-b-certstream-server-go-dev
+  name: Debian golang-github-d-rickyy-b-certstream-server-go-dev windows cache (wave
+    32)
+  description: Debian leftover name golang-github-d-rickyy-b-certstream-server-go-dev
+    on windows (wave 32). Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/golang-github-d-rickyy-b-certstream-server-go-dev/Cache"
+  - "%LOCALAPPDATA%/golang-github-d-rickyy-b-certstream-server-go-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cervisia
+  name: Debian cervisia macos cache (wave 32)
+  description: Debian leftover name cervisia on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cervisia"
+  - "$HOME/Library/Logs/cervisia"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cervisia
+  name: Debian cervisia linux cache (wave 32)
+  description: Debian leftover name cervisia on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cervisia"
+  - "$XDG_CACHE_HOME/cervisia"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cervisia
+  name: Debian cervisia windows cache (wave 32)
+  description: Debian leftover name cervisia on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cervisia/Cache"
+  - "%LOCALAPPDATA%/cervisia/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cvsservice
+  name: Debian cvsservice macos cache (wave 32)
+  description: Debian leftover name cvsservice on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cvsservice"
+  - "$HOME/Library/Logs/cvsservice"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cvsservice
+  name: Debian cvsservice linux cache (wave 32)
+  description: Debian leftover name cvsservice on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cvsservice"
+  - "$XDG_CACHE_HOME/cvsservice"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cvsservice
+  name: Debian cvsservice windows cache (wave 32)
+  description: Debian leftover name cvsservice on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cvsservice/Cache"
+  - "%LOCALAPPDATA%/cvsservice/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-c-evo-map-gen
+  name: Debian c-evo-map-gen macos cache (wave 32)
+  description: Debian leftover name c-evo-map-gen on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/c-evo-map-gen"
+  - "$HOME/Library/Logs/c-evo-map-gen"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-c-evo-map-gen
+  name: Debian c-evo-map-gen linux cache (wave 32)
+  description: Debian leftover name c-evo-map-gen on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/c-evo-map-gen"
+  - "$XDG_CACHE_HOME/c-evo-map-gen"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-c-evo-map-gen
+  name: Debian c-evo-map-gen windows cache (wave 32)
+  description: Debian leftover name c-evo-map-gen on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/c-evo-map-gen/Cache"
+  - "%LOCALAPPDATA%/c-evo-map-gen/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cfengine3
+  name: Debian cfengine3 macos cache (wave 32)
+  description: Debian leftover name cfengine3 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cfengine3"
+  - "$HOME/Library/Logs/cfengine3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cfengine3
+  name: Debian cfengine3 linux cache (wave 32)
+  description: Debian leftover name cfengine3 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cfengine3"
+  - "$XDG_CACHE_HOME/cfengine3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cfengine3
+  name: Debian cfengine3 windows cache (wave 32)
+  description: Debian leftover name cfengine3 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cfengine3/Cache"
+  - "%LOCALAPPDATA%/cfengine3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libpromises3
+  name: Debian libpromises3 macos cache (wave 32)
+  description: Debian leftover name libpromises3 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libpromises3"
+  - "$HOME/Library/Logs/libpromises3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libpromises3
+  name: Debian libpromises3 linux cache (wave 32)
+  description: Debian leftover name libpromises3 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libpromises3"
+  - "$XDG_CACHE_HOME/libpromises3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libpromises3
+  name: Debian libpromises3 windows cache (wave 32)
+  description: Debian leftover name libpromises3 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libpromises3/Cache"
+  - "%LOCALAPPDATA%/libpromises3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cl-cffi
+  name: Debian cl-cffi macos cache (wave 32)
+  description: Debian leftover name cl-cffi on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cl-cffi"
+  - "$HOME/Library/Logs/cl-cffi"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cl-cffi
+  name: Debian cl-cffi linux cache (wave 32)
+  description: Debian leftover name cl-cffi on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cl-cffi"
+  - "$XDG_CACHE_HOME/cl-cffi"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cl-cffi
+  name: Debian cl-cffi windows cache (wave 32)
+  description: Debian leftover name cl-cffi on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cl-cffi/Cache"
+  - "%LOCALAPPDATA%/cl-cffi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cffsubr
+  name: Debian python3-cffsubr macos cache (wave 32)
+  description: Debian leftover name python3-cffsubr on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cffsubr"
+  - "$HOME/Library/Logs/python3-cffsubr"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cffsubr
+  name: Debian python3-cffsubr linux cache (wave 32)
+  description: Debian leftover name python3-cffsubr on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cffsubr"
+  - "$XDG_CACHE_HOME/python3-cffsubr"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cffsubr
+  name: Debian python3-cffsubr windows cache (wave 32)
+  description: Debian leftover name python3-cffsubr on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cffsubr/Cache"
+  - "%LOCALAPPDATA%/python3-cffsubr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cfgrib
+  name: Debian python3-cfgrib macos cache (wave 32)
+  description: Debian leftover name python3-cfgrib on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cfgrib"
+  - "$HOME/Library/Logs/python3-cfgrib"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cfgrib
+  name: Debian python3-cfgrib linux cache (wave 32)
+  description: Debian leftover name python3-cfgrib on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cfgrib"
+  - "$XDG_CACHE_HOME/python3-cfgrib"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cfgrib
+  name: Debian python3-cfgrib windows cache (wave 32)
+  description: Debian leftover name python3-cfgrib on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cfgrib/Cache"
+  - "%LOCALAPPDATA%/python3-cfgrib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cfgv
+  name: Debian python3-cfgv macos cache (wave 32)
+  description: Debian leftover name python3-cfgv on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cfgv"
+  - "$HOME/Library/Logs/python3-cfgv"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cfgv
+  name: Debian python3-cfgv linux cache (wave 32)
+  description: Debian leftover name python3-cfgv on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cfgv"
+  - "$XDG_CACHE_HOME/python3-cfgv"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cfgv
+  name: Debian python3-cfgv windows cache (wave 32)
+  description: Debian leftover name python3-cfgv on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cfgv/Cache"
+  - "%LOCALAPPDATA%/python3-cfgv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cfi-en
+  name: Debian cfi-en macos cache (wave 32)
+  description: Debian leftover name cfi-en on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cfi-en"
+  - "$HOME/Library/Logs/cfi-en"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cfi-en
+  name: Debian cfi-en linux cache (wave 32)
+  description: Debian leftover name cfi-en on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cfi-en"
+  - "$XDG_CACHE_HOME/cfi-en"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cfi-en
+  name: Debian cfi-en windows cache (wave 32)
+  description: Debian leftover name cfi-en on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cfi-en/Cache"
+  - "%LOCALAPPDATA%/cfi-en/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cfi-sv
+  name: Debian cfi-sv macos cache (wave 32)
+  description: Debian leftover name cfi-sv on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cfi-sv"
+  - "$HOME/Library/Logs/cfi-sv"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cfi-sv
+  name: Debian cfi-sv linux cache (wave 32)
+  description: Debian leftover name cfi-sv on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cfi-sv"
+  - "$XDG_CACHE_HOME/cfi-sv"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cfi-sv
+  name: Debian cfi-sv windows cache (wave 32)
+  description: Debian leftover name cfi-sv on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cfi-sv/Cache"
+  - "%LOCALAPPDATA%/cfi-sv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cfingerd
+  name: Debian cfingerd macos cache (wave 32)
+  description: Debian leftover name cfingerd on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cfingerd"
+  - "$HOME/Library/Logs/cfingerd"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cfingerd
+  name: Debian cfingerd linux cache (wave 32)
+  description: Debian leftover name cfingerd on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cfingerd"
+  - "$XDG_CACHE_HOME/cfingerd"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cfingerd
+  name: Debian cfingerd windows cache (wave 32)
+  description: Debian leftover name cfingerd on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cfingerd/Cache"
+  - "%LOCALAPPDATA%/cfingerd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcfitsio-bin
+  name: Debian libcfitsio-bin macos cache (wave 32)
+  description: Debian leftover name libcfitsio-bin on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcfitsio-bin"
+  - "$HOME/Library/Logs/libcfitsio-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcfitsio-bin
+  name: Debian libcfitsio-bin linux cache (wave 32)
+  description: Debian leftover name libcfitsio-bin on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcfitsio-bin"
+  - "$XDG_CACHE_HOME/libcfitsio-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcfitsio-bin
+  name: Debian libcfitsio-bin windows cache (wave 32)
+  description: Debian leftover name libcfitsio-bin on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcfitsio-bin/Cache"
+  - "%LOCALAPPDATA%/libcfitsio-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcfitsio-dev
+  name: Debian libcfitsio-dev macos cache (wave 32)
+  description: Debian leftover name libcfitsio-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcfitsio-dev"
+  - "$HOME/Library/Logs/libcfitsio-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcfitsio-dev
+  name: Debian libcfitsio-dev linux cache (wave 32)
+  description: Debian leftover name libcfitsio-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcfitsio-dev"
+  - "$XDG_CACHE_HOME/libcfitsio-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcfitsio-dev
+  name: Debian libcfitsio-dev windows cache (wave 32)
+  description: Debian leftover name libcfitsio-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcfitsio-dev/Cache"
+  - "%LOCALAPPDATA%/libcfitsio-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcfitsio-doc
+  name: Debian libcfitsio-doc macos cache (wave 32)
+  description: Debian leftover name libcfitsio-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcfitsio-doc"
+  - "$HOME/Library/Logs/libcfitsio-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcfitsio-doc
+  name: Debian libcfitsio-doc linux cache (wave 32)
+  description: Debian leftover name libcfitsio-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcfitsio-doc"
+  - "$XDG_CACHE_HOME/libcfitsio-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcfitsio-doc
+  name: Debian libcfitsio-doc windows cache (wave 32)
+  description: Debian leftover name libcfitsio-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcfitsio-doc/Cache"
+  - "%LOCALAPPDATA%/libcfitsio-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcfitsio10t64
+  name: Debian libcfitsio10t64 macos cache (wave 32)
+  description: Debian leftover name libcfitsio10t64 on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcfitsio10t64"
+  - "$HOME/Library/Logs/libcfitsio10t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcfitsio10t64
+  name: Debian libcfitsio10t64 linux cache (wave 32)
+  description: Debian leftover name libcfitsio10t64 on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcfitsio10t64"
+  - "$XDG_CACHE_HOME/libcfitsio10t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcfitsio10t64
+  name: Debian libcfitsio10t64 windows cache (wave 32)
+  description: Debian leftover name libcfitsio10t64 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcfitsio10t64/Cache"
+  - "%LOCALAPPDATA%/libcfitsio10t64/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cflow-doc
+  name: Debian cflow-doc macos cache (wave 32)
+  description: Debian leftover name cflow-doc on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cflow-doc"
+  - "$HOME/Library/Logs/cflow-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cflow-doc
+  name: Debian cflow-doc linux cache (wave 32)
+  description: Debian leftover name cflow-doc on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cflow-doc"
+  - "$XDG_CACHE_HOME/cflow-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cflow-doc
+  name: Debian cflow-doc windows cache (wave 32)
+  description: Debian leftover name cflow-doc on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cflow-doc/Cache"
+  - "%LOCALAPPDATA%/cflow-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cflow-l10n
+  name: Debian cflow-l10n macos cache (wave 32)
+  description: Debian leftover name cflow-l10n on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cflow-l10n"
+  - "$HOME/Library/Logs/cflow-l10n"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cflow-l10n
+  name: Debian cflow-l10n linux cache (wave 32)
+  description: Debian leftover name cflow-l10n on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cflow-l10n"
+  - "$XDG_CACHE_HOME/cflow-l10n"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cflow-l10n
+  name: Debian cflow-l10n windows cache (wave 32)
+  description: Debian leftover name cflow-l10n on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cflow-l10n/Cache"
+  - "%LOCALAPPDATA%/cflow-l10n/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cfortran
+  name: Debian cfortran macos cache (wave 32)
+  description: Debian leftover name cfortran on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cfortran"
+  - "$HOME/Library/Logs/cfortran"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cfortran
+  name: Debian cfortran linux cache (wave 32)
+  description: Debian leftover name cfortran on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cfortran"
+  - "$XDG_CACHE_HOME/cfortran"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cfortran
+  name: Debian cfortran windows cache (wave 32)
+  description: Debian leftover name cfortran on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cfortran/Cache"
+  - "%LOCALAPPDATA%/cfortran/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cfourcc
+  name: Debian cfourcc macos cache (wave 32)
+  description: Debian leftover name cfourcc on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cfourcc"
+  - "$HOME/Library/Logs/cfourcc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cfourcc
+  name: Debian cfourcc linux cache (wave 32)
+  description: Debian leftover name cfourcc on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cfourcc"
+  - "$XDG_CACHE_HOME/cfourcc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cfourcc
+  name: Debian cfourcc windows cache (wave 32)
+  description: Debian leftover name cfourcc on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cfourcc/Cache"
+  - "%LOCALAPPDATA%/cfourcc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cftime
+  name: Debian python3-cftime macos cache (wave 32)
+  description: Debian leftover name python3-cftime on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cftime"
+  - "$HOME/Library/Logs/python3-cftime"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cftime
+  name: Debian python3-cftime linux cache (wave 32)
+  description: Debian leftover name python3-cftime on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cftime"
+  - "$XDG_CACHE_HOME/python3-cftime"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cftime
+  name: Debian python3-cftime windows cache (wave 32)
+  description: Debian leftover name python3-cftime on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cftime/Cache"
+  - "%LOCALAPPDATA%/python3-cftime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cg3-dev
+  name: Debian cg3-dev macos cache (wave 32)
+  description: Debian leftover name cg3-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cg3-dev"
+  - "$HOME/Library/Logs/cg3-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cg3-dev
+  name: Debian cg3-dev linux cache (wave 32)
+  description: Debian leftover name cg3-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cg3-dev"
+  - "$XDG_CACHE_HOME/cg3-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cg3-dev
+  name: Debian cg3-dev windows cache (wave 32)
+  description: Debian leftover name cg3-dev on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cg3-dev/Cache"
+  - "%LOCALAPPDATA%/cg3-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcg3-1
+  name: Debian libcg3-1 macos cache (wave 32)
+  description: Debian leftover name libcg3-1 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcg3-1"
+  - "$HOME/Library/Logs/libcg3-1"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcg3-1
+  name: Debian libcg3-1 linux cache (wave 32)
+  description: Debian leftover name libcg3-1 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcg3-1"
+  - "$XDG_CACHE_HOME/libcg3-1"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcg3-1
+  name: Debian libcg3-1 windows cache (wave 32)
+  description: Debian leftover name libcg3-1 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcg3-1/Cache"
+  - "%LOCALAPPDATA%/libcg3-1/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcg3-dev
+  name: Debian libcg3-dev macos cache (wave 32)
+  description: Debian leftover name libcg3-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcg3-dev"
+  - "$HOME/Library/Logs/libcg3-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcg3-dev
+  name: Debian libcg3-dev linux cache (wave 32)
+  description: Debian leftover name libcg3-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcg3-dev"
+  - "$XDG_CACHE_HOME/libcg3-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcg3-dev
+  name: Debian libcg3-dev windows cache (wave 32)
+  description: Debian leftover name libcg3-dev on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcg3-dev/Cache"
+  - "%LOCALAPPDATA%/libcg3-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cg3
+  name: Debian python3-cg3 macos cache (wave 32)
+  description: Debian leftover name python3-cg3 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cg3"
+  - "$HOME/Library/Logs/python3-cg3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cg3
+  name: Debian python3-cg3 linux cache (wave 32)
+  description: Debian leftover name python3-cg3 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cg3"
+  - "$XDG_CACHE_HOME/python3-cg3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cg3
+  name: Debian python3-cg3 windows cache (wave 32)
+  description: Debian leftover name python3-cg3 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cg3/Cache"
+  - "%LOCALAPPDATA%/python3-cg3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgal-demo
+  name: Debian libcgal-demo macos cache (wave 32)
+  description: Debian leftover name libcgal-demo on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgal-demo"
+  - "$HOME/Library/Logs/libcgal-demo"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgal-demo
+  name: Debian libcgal-demo linux cache (wave 32)
+  description: Debian leftover name libcgal-demo on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgal-demo"
+  - "$XDG_CACHE_HOME/libcgal-demo"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgal-demo
+  name: Debian libcgal-demo windows cache (wave 32)
+  description: Debian leftover name libcgal-demo on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgal-demo/Cache"
+  - "%LOCALAPPDATA%/libcgal-demo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgal-dev
+  name: Debian libcgal-dev macos cache (wave 32)
+  description: Debian leftover name libcgal-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgal-dev"
+  - "$HOME/Library/Logs/libcgal-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgal-dev
+  name: Debian libcgal-dev linux cache (wave 32)
+  description: Debian leftover name libcgal-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgal-dev"
+  - "$XDG_CACHE_HOME/libcgal-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgal-dev
+  name: Debian libcgal-dev windows cache (wave 32)
+  description: Debian leftover name libcgal-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgal-dev/Cache"
+  - "%LOCALAPPDATA%/libcgal-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgal-ipelets
+  name: Debian libcgal-ipelets macos cache (wave 32)
+  description: Debian leftover name libcgal-ipelets on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgal-ipelets"
+  - "$HOME/Library/Logs/libcgal-ipelets"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgal-ipelets
+  name: Debian libcgal-ipelets linux cache (wave 32)
+  description: Debian leftover name libcgal-ipelets on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgal-ipelets"
+  - "$XDG_CACHE_HOME/libcgal-ipelets"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgal-ipelets
+  name: Debian libcgal-ipelets windows cache (wave 32)
+  description: Debian leftover name libcgal-ipelets on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgal-ipelets/Cache"
+  - "%LOCALAPPDATA%/libcgal-ipelets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgal-qt6-dev
+  name: Debian libcgal-qt6-dev macos cache (wave 32)
+  description: Debian leftover name libcgal-qt6-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgal-qt6-dev"
+  - "$HOME/Library/Logs/libcgal-qt6-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgal-qt6-dev
+  name: Debian libcgal-qt6-dev linux cache (wave 32)
+  description: Debian leftover name libcgal-qt6-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgal-qt6-dev"
+  - "$XDG_CACHE_HOME/libcgal-qt6-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgal-qt6-dev
+  name: Debian libcgal-qt6-dev windows cache (wave 32)
+  description: Debian leftover name libcgal-qt6-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgal-qt6-dev/Cache"
+  - "%LOCALAPPDATA%/libcgal-qt6-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgif-dev
+  name: Debian libcgif-dev macos cache (wave 32)
+  description: Debian leftover name libcgif-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgif-dev"
+  - "$HOME/Library/Logs/libcgif-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgif-dev
+  name: Debian libcgif-dev linux cache (wave 32)
+  description: Debian leftover name libcgif-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgif-dev"
+  - "$XDG_CACHE_HOME/libcgif-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgif-dev
+  name: Debian libcgif-dev windows cache (wave 32)
+  description: Debian leftover name libcgif-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgif-dev/Cache"
+  - "%LOCALAPPDATA%/libcgif-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgif0
+  name: Debian libcgif0 macos cache (wave 32)
+  description: Debian leftover name libcgif0 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgif0"
+  - "$HOME/Library/Logs/libcgif0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgif0
+  name: Debian libcgif0 linux cache (wave 32)
+  description: Debian leftover name libcgif0 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgif0"
+  - "$XDG_CACHE_HOME/libcgif0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgif0
+  name: Debian libcgif0 windows cache (wave 32)
+  description: Debian leftover name libcgif0 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgif0/Cache"
+  - "%LOCALAPPDATA%/libcgif0/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcglib-java
+  name: Debian libcglib-java macos cache (wave 32)
+  description: Debian leftover name libcglib-java on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcglib-java"
+  - "$HOME/Library/Logs/libcglib-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcglib-java
+  name: Debian libcglib-java linux cache (wave 32)
+  description: Debian leftover name libcglib-java on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcglib-java"
+  - "$XDG_CACHE_HOME/libcglib-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcglib-java
+  name: Debian libcglib-java windows cache (wave 32)
+  description: Debian leftover name libcglib-java on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcglib-java/Cache"
+  - "%LOCALAPPDATA%/libcglib-java/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcglib-nodep-java
+  name: Debian libcglib-nodep-java macos cache (wave 32)
+  description: Debian leftover name libcglib-nodep-java on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcglib-nodep-java"
+  - "$HOME/Library/Logs/libcglib-nodep-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcglib-nodep-java
+  name: Debian libcglib-nodep-java linux cache (wave 32)
+  description: Debian leftover name libcglib-nodep-java on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcglib-nodep-java"
+  - "$XDG_CACHE_HOME/libcglib-nodep-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcglib-nodep-java
+  name: Debian libcglib-nodep-java windows cache (wave 32)
+  description: Debian leftover name libcglib-nodep-java on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcglib-nodep-java/Cache"
+  - "%LOCALAPPDATA%/libcglib-nodep-java/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcglm-dev
+  name: Debian libcglm-dev macos cache (wave 32)
+  description: Debian leftover name libcglm-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcglm-dev"
+  - "$HOME/Library/Logs/libcglm-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcglm-dev
+  name: Debian libcglm-dev linux cache (wave 32)
+  description: Debian leftover name libcglm-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcglm-dev"
+  - "$XDG_CACHE_HOME/libcglm-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcglm-dev
+  name: Debian libcglm-dev windows cache (wave 32)
+  description: Debian leftover name libcglm-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcglm-dev/Cache"
+  - "%LOCALAPPDATA%/libcglm-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcglm-doc
+  name: Debian libcglm-doc macos cache (wave 32)
+  description: Debian leftover name libcglm-doc on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcglm-doc"
+  - "$HOME/Library/Logs/libcglm-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcglm-doc
+  name: Debian libcglm-doc linux cache (wave 32)
+  description: Debian leftover name libcglm-doc on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcglm-doc"
+  - "$XDG_CACHE_HOME/libcglm-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcglm-doc
+  name: Debian libcglm-doc windows cache (wave 32)
+  description: Debian leftover name libcglm-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcglm-doc/Cache"
+  - "%LOCALAPPDATA%/libcglm-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcglm0
+  name: Debian libcglm0 macos cache (wave 32)
+  description: Debian leftover name libcglm0 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcglm0"
+  - "$HOME/Library/Logs/libcglm0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcglm0
+  name: Debian libcglm0 linux cache (wave 32)
+  description: Debian leftover name libcglm0 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcglm0"
+  - "$XDG_CACHE_HOME/libcglm0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcglm0
+  name: Debian libcglm0 windows cache (wave 32)
+  description: Debian leftover name libcglm0 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcglm0/Cache"
+  - "%LOCALAPPDATA%/libcglm0/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cgreen1
+  name: Debian cgreen1 macos cache (wave 32)
+  description: Debian leftover name cgreen1 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cgreen1"
+  - "$HOME/Library/Logs/cgreen1"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cgreen1
+  name: Debian cgreen1 linux cache (wave 32)
+  description: Debian leftover name cgreen1 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cgreen1"
+  - "$XDG_CACHE_HOME/cgreen1"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cgreen1
+  name: Debian cgreen1 windows cache (wave 32)
+  description: Debian leftover name cgreen1 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cgreen1/Cache"
+  - "%LOCALAPPDATA%/cgreen1/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgreen1
+  name: Debian libcgreen1 macos cache (wave 32)
+  description: Debian leftover name libcgreen1 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgreen1"
+  - "$HOME/Library/Logs/libcgreen1"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgreen1
+  name: Debian libcgreen1 linux cache (wave 32)
+  description: Debian leftover name libcgreen1 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgreen1"
+  - "$XDG_CACHE_HOME/libcgreen1"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgreen1
+  name: Debian libcgreen1 windows cache (wave 32)
+  description: Debian leftover name libcgreen1 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgreen1/Cache"
+  - "%LOCALAPPDATA%/libcgreen1/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgreen1-dev
+  name: Debian libcgreen1-dev macos cache (wave 32)
+  description: Debian leftover name libcgreen1-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgreen1-dev"
+  - "$HOME/Library/Logs/libcgreen1-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgreen1-dev
+  name: Debian libcgreen1-dev linux cache (wave 32)
+  description: Debian leftover name libcgreen1-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgreen1-dev"
+  - "$XDG_CACHE_HOME/libcgreen1-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgreen1-dev
+  name: Debian libcgreen1-dev windows cache (wave 32)
+  description: Debian leftover name libcgreen1-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgreen1-dev/Cache"
+  - "%LOCALAPPDATA%/libcgreen1-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgreen1-doc
+  name: Debian libcgreen1-doc macos cache (wave 32)
+  description: Debian leftover name libcgreen1-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgreen1-doc"
+  - "$HOME/Library/Logs/libcgreen1-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgreen1-doc
+  name: Debian libcgreen1-doc linux cache (wave 32)
+  description: Debian leftover name libcgreen1-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgreen1-doc"
+  - "$XDG_CACHE_HOME/libcgreen1-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgreen1-doc
+  name: Debian libcgreen1-doc windows cache (wave 32)
+  description: Debian leftover name libcgreen1-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgreen1-doc/Cache"
+  - "%LOCALAPPDATA%/libcgreen1-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgsi-gsoap-dev
+  name: Debian libcgsi-gsoap-dev macos cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgsi-gsoap-dev"
+  - "$HOME/Library/Logs/libcgsi-gsoap-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgsi-gsoap-dev
+  name: Debian libcgsi-gsoap-dev linux cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgsi-gsoap-dev"
+  - "$XDG_CACHE_HOME/libcgsi-gsoap-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgsi-gsoap-dev
+  name: Debian libcgsi-gsoap-dev windows cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgsi-gsoap-dev/Cache"
+  - "%LOCALAPPDATA%/libcgsi-gsoap-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgsi-gsoap-doc
+  name: Debian libcgsi-gsoap-doc macos cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgsi-gsoap-doc"
+  - "$HOME/Library/Logs/libcgsi-gsoap-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgsi-gsoap-doc
+  name: Debian libcgsi-gsoap-doc linux cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgsi-gsoap-doc"
+  - "$XDG_CACHE_HOME/libcgsi-gsoap-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgsi-gsoap-doc
+  name: Debian libcgsi-gsoap-doc windows cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgsi-gsoap-doc/Cache"
+  - "%LOCALAPPDATA%/libcgsi-gsoap-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcgsi-gsoap1t64
+  name: Debian libcgsi-gsoap1t64 macos cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap1t64 on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcgsi-gsoap1t64"
+  - "$HOME/Library/Logs/libcgsi-gsoap1t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcgsi-gsoap1t64
+  name: Debian libcgsi-gsoap1t64 linux cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap1t64 on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcgsi-gsoap1t64"
+  - "$XDG_CACHE_HOME/libcgsi-gsoap1t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcgsi-gsoap1t64
+  name: Debian libcgsi-gsoap1t64 windows cache (wave 32)
+  description: Debian leftover name libcgsi-gsoap1t64 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcgsi-gsoap1t64/Cache"
+  - "%LOCALAPPDATA%/libcgsi-gsoap1t64/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cgvg
+  name: Debian cgvg macos cache (wave 32)
+  description: Debian leftover name cgvg on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cgvg"
+  - "$HOME/Library/Logs/cgvg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cgvg
+  name: Debian cgvg linux cache (wave 32)
+  description: Debian leftover name cgvg on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cgvg"
+  - "$XDG_CACHE_HOME/cgvg"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cgvg
+  name: Debian cgvg windows cache (wave 32)
+  description: Debian leftover name cgvg on windows (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cgvg/Cache"
+  - "%LOCALAPPDATA%/cgvg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cgview
+  name: Debian cgview macos cache (wave 32)
+  description: Debian leftover name cgview on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cgview"
+  - "$HOME/Library/Logs/cgview"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cgview
+  name: Debian cgview linux cache (wave 32)
+  description: Debian leftover name cgview on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cgview"
+  - "$XDG_CACHE_HOME/cgview"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cgview
+  name: Debian cgview windows cache (wave 32)
+  description: Debian leftover name cgview on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cgview/Cache"
+  - "%LOCALAPPDATA%/cgview/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-ch5m3d
+  name: Debian ch5m3d macos cache (wave 32)
+  description: Debian leftover name ch5m3d on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ch5m3d"
+  - "$HOME/Library/Logs/ch5m3d"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-ch5m3d
+  name: Debian ch5m3d linux cache (wave 32)
+  description: Debian leftover name ch5m3d on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ch5m3d"
+  - "$XDG_CACHE_HOME/ch5m3d"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-ch5m3d
+  name: Debian ch5m3d windows cache (wave 32)
+  description: Debian leftover name ch5m3d on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ch5m3d/Cache"
+  - "%LOCALAPPDATA%/ch5m3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchafa-dev
+  name: Debian libchafa-dev macos cache (wave 32)
+  description: Debian leftover name libchafa-dev on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchafa-dev"
+  - "$HOME/Library/Logs/libchafa-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchafa-dev
+  name: Debian libchafa-dev linux cache (wave 32)
+  description: Debian leftover name libchafa-dev on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchafa-dev"
+  - "$XDG_CACHE_HOME/libchafa-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchafa-dev
+  name: Debian libchafa-dev windows cache (wave 32)
+  description: Debian leftover name libchafa-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchafa-dev/Cache"
+  - "%LOCALAPPDATA%/libchafa-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchafa0t64
+  name: Debian libchafa0t64 macos cache (wave 32)
+  description: Debian leftover name libchafa0t64 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchafa0t64"
+  - "$HOME/Library/Logs/libchafa0t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchafa0t64
+  name: Debian libchafa0t64 linux cache (wave 32)
+  description: Debian leftover name libchafa0t64 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchafa0t64"
+  - "$XDG_CACHE_HOME/libchafa0t64"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchafa0t64
+  name: Debian libchafa0t64 windows cache (wave 32)
+  description: Debian leftover name libchafa0t64 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchafa0t64/Cache"
+  - "%LOCALAPPDATA%/libchafa0t64/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chake
+  name: Debian chake macos cache (wave 32)
+  description: Debian leftover name chake on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chake"
+  - "$HOME/Library/Logs/chake"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chake
+  name: Debian chake linux cache (wave 32)
+  description: Debian leftover name chake on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chake"
+  - "$XDG_CACHE_HOME/chake"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chake
+  name: Debian chake windows cache (wave 32)
+  description: Debian leftover name chake on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chake/Cache"
+  - "%LOCALAPPDATA%/chake/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chalow
+  name: Debian chalow macos cache (wave 32)
+  description: Debian leftover name chalow on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chalow"
+  - "$HOME/Library/Logs/chalow"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chalow
+  name: Debian chalow linux cache (wave 32)
+  description: Debian leftover name chalow on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chalow"
+  - "$XDG_CACHE_HOME/chalow"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chalow
+  name: Debian chalow windows cache (wave 32)
+  description: Debian leftover name chalow on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chalow/Cache"
+  - "%LOCALAPPDATA%/chalow/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chameleon-cursor-theme
+  name: Debian chameleon-cursor-theme macos cache (wave 32)
+  description: Debian leftover name chameleon-cursor-theme on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chameleon-cursor-theme"
+  - "$HOME/Library/Logs/chameleon-cursor-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chameleon-cursor-theme
+  name: Debian chameleon-cursor-theme linux cache (wave 32)
+  description: Debian leftover name chameleon-cursor-theme on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chameleon-cursor-theme"
+  - "$XDG_CACHE_HOME/chameleon-cursor-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chameleon-cursor-theme
+  name: Debian chameleon-cursor-theme windows cache (wave 32)
+  description: Debian leftover name chameleon-cursor-theme on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chameleon-cursor-theme/Cache"
+  - "%LOCALAPPDATA%/chameleon-cursor-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-changelog-chug
+  name: Debian python3-changelog-chug macos cache (wave 32)
+  description: Debian leftover name python3-changelog-chug on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-changelog-chug"
+  - "$HOME/Library/Logs/python3-changelog-chug"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-changelog-chug
+  name: Debian python3-changelog-chug linux cache (wave 32)
+  description: Debian leftover name python3-changelog-chug on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-changelog-chug"
+  - "$XDG_CACHE_HOME/python3-changelog-chug"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-changelog-chug
+  name: Debian python3-changelog-chug windows cache (wave 32)
+  description: Debian leftover name python3-changelog-chug on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-changelog-chug/Cache"
+  - "%LOCALAPPDATA%/python3-changelog-chug/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-changeme
+  name: Debian changeme macos cache (wave 32)
+  description: Debian leftover name changeme on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/changeme"
+  - "$HOME/Library/Logs/changeme"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-changeme
+  name: Debian changeme linux cache (wave 32)
+  description: Debian leftover name changeme on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/changeme"
+  - "$XDG_CACHE_HOME/changeme"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-changeme
+  name: Debian changeme windows cache (wave 32)
+  description: Debian leftover name changeme on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/changeme/Cache"
+  - "%LOCALAPPDATA%/changeme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-changeo
+  name: Debian changeo macos cache (wave 32)
+  description: Debian leftover name changeo on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/changeo"
+  - "$HOME/Library/Logs/changeo"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-changeo
+  name: Debian changeo linux cache (wave 32)
+  description: Debian leftover name changeo on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/changeo"
+  - "$XDG_CACHE_HOME/changeo"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-changeo
+  name: Debian changeo windows cache (wave 32)
+  description: Debian leftover name changeo on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/changeo/Cache"
+  - "%LOCALAPPDATA%/changeo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-changetrack
+  name: Debian changetrack macos cache (wave 32)
+  description: Debian leftover name changetrack on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/changetrack"
+  - "$HOME/Library/Logs/changetrack"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-changetrack
+  name: Debian changetrack linux cache (wave 32)
+  description: Debian leftover name changetrack on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/changetrack"
+  - "$XDG_CACHE_HOME/changetrack"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-changetrack
+  name: Debian changetrack windows cache (wave 32)
+  description: Debian leftover name changetrack on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/changetrack/Cache"
+  - "%LOCALAPPDATA%/changetrack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chaos-marmosets
+  name: Debian chaos-marmosets macos cache (wave 32)
+  description: Debian leftover name chaos-marmosets on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chaos-marmosets"
+  - "$HOME/Library/Logs/chaos-marmosets"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chaos-marmosets
+  name: Debian chaos-marmosets linux cache (wave 32)
+  description: Debian leftover name chaos-marmosets on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chaos-marmosets"
+  - "$XDG_CACHE_HOME/chaos-marmosets"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chaos-marmosets
+  name: Debian chaos-marmosets windows cache (wave 32)
+  description: Debian leftover name chaos-marmosets on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chaos-marmosets/Cache"
+  - "%LOCALAPPDATA%/chaos-marmosets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chaosread
+  name: Debian chaosread macos cache (wave 32)
+  description: Debian leftover name chaosread on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chaosread"
+  - "$HOME/Library/Logs/chaosread"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chaosread
+  name: Debian chaosread linux cache (wave 32)
+  description: Debian leftover name chaosread on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chaosread"
+  - "$XDG_CACHE_HOME/chaosread"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chaosread
+  name: Debian chaosread windows cache (wave 32)
+  description: Debian leftover name chaosread on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chaosread/Cache"
+  - "%LOCALAPPDATA%/chaosread/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chaosreader
+  name: Debian chaosreader macos cache (wave 32)
+  description: Debian leftover name chaosreader on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chaosreader"
+  - "$HOME/Library/Logs/chaosreader"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chaosreader
+  name: Debian chaosreader linux cache (wave 32)
+  description: Debian leftover name chaosreader on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chaosreader"
+  - "$XDG_CACHE_HOME/chaosreader"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chaosreader
+  name: Debian chaosreader windows cache (wave 32)
+  description: Debian leftover name chaosreader on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chaosreader/Cache"
+  - "%LOCALAPPDATA%/chaosreader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-elpa-char-menu
+  name: Debian elpa-char-menu macos cache (wave 32)
+  description: Debian leftover name elpa-char-menu on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/elpa-char-menu"
+  - "$HOME/Library/Logs/elpa-char-menu"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-elpa-char-menu
+  name: Debian elpa-char-menu linux cache (wave 32)
+  description: Debian leftover name elpa-char-menu on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/elpa-char-menu"
+  - "$XDG_CACHE_HOME/elpa-char-menu"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-elpa-char-menu
+  name: Debian elpa-char-menu windows cache (wave 32)
+  description: Debian leftover name elpa-char-menu on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/elpa-char-menu/Cache"
+  - "%LOCALAPPDATA%/elpa-char-menu/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charactermanaj
+  name: Debian charactermanaj macos cache (wave 32)
+  description: Debian leftover name charactermanaj on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charactermanaj"
+  - "$HOME/Library/Logs/charactermanaj"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charactermanaj
+  name: Debian charactermanaj linux cache (wave 32)
+  description: Debian leftover name charactermanaj on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charactermanaj"
+  - "$XDG_CACHE_HOME/charactermanaj"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charactermanaj
+  name: Debian charactermanaj windows cache (wave 32)
+  description: Debian leftover name charactermanaj on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charactermanaj/Cache"
+  - "%LOCALAPPDATA%/charactermanaj/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python-chardet-doc
+  name: Debian python-chardet-doc macos cache (wave 32)
+  description: Debian leftover name python-chardet-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python-chardet-doc"
+  - "$HOME/Library/Logs/python-chardet-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python-chardet-doc
+  name: Debian python-chardet-doc linux cache (wave 32)
+  description: Debian leftover name python-chardet-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python-chardet-doc"
+  - "$XDG_CACHE_HOME/python-chardet-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python-chardet-doc
+  name: Debian python-chardet-doc windows cache (wave 32)
+  description: Debian leftover name python-chardet-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python-chardet-doc/Cache"
+  - "%LOCALAPPDATA%/python-chardet-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-chardet
+  name: Debian python3-chardet macos cache (wave 32)
+  description: Debian leftover name python3-chardet on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-chardet"
+  - "$HOME/Library/Logs/python3-chardet"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-chardet
+  name: Debian python3-chardet linux cache (wave 32)
+  description: Debian leftover name python3-chardet on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-chardet"
+  - "$XDG_CACHE_HOME/python3-chardet"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-chardet
+  name: Debian python3-chardet windows cache (wave 32)
+  description: Debian leftover name python3-chardet on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-chardet/Cache"
+  - "%LOCALAPPDATA%/python3-chardet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charliecloud-builders
+  name: Debian charliecloud-builders macos cache (wave 32)
+  description: Debian leftover name charliecloud-builders on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charliecloud-builders"
+  - "$HOME/Library/Logs/charliecloud-builders"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charliecloud-builders
+  name: Debian charliecloud-builders linux cache (wave 32)
+  description: Debian leftover name charliecloud-builders on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charliecloud-builders"
+  - "$XDG_CACHE_HOME/charliecloud-builders"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charliecloud-builders
+  name: Debian charliecloud-builders windows cache (wave 32)
+  description: Debian leftover name charliecloud-builders on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charliecloud-builders/Cache"
+  - "%LOCALAPPDATA%/charliecloud-builders/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charliecloud-common
+  name: Debian charliecloud-common macos cache (wave 32)
+  description: Debian leftover name charliecloud-common on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charliecloud-common"
+  - "$HOME/Library/Logs/charliecloud-common"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charliecloud-common
+  name: Debian charliecloud-common linux cache (wave 32)
+  description: Debian leftover name charliecloud-common on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charliecloud-common"
+  - "$XDG_CACHE_HOME/charliecloud-common"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charliecloud-common
+  name: Debian charliecloud-common windows cache (wave 32)
+  description: Debian leftover name charliecloud-common on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charliecloud-common/Cache"
+  - "%LOCALAPPDATA%/charliecloud-common/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charliecloud-doc
+  name: Debian charliecloud-doc macos cache (wave 32)
+  description: Debian leftover name charliecloud-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charliecloud-doc"
+  - "$HOME/Library/Logs/charliecloud-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charliecloud-doc
+  name: Debian charliecloud-doc linux cache (wave 32)
+  description: Debian leftover name charliecloud-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charliecloud-doc"
+  - "$XDG_CACHE_HOME/charliecloud-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charliecloud-doc
+  name: Debian charliecloud-doc windows cache (wave 32)
+  description: Debian leftover name charliecloud-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charliecloud-doc/Cache"
+  - "%LOCALAPPDATA%/charliecloud-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charliecloud-runtime
+  name: Debian charliecloud-runtime macos cache (wave 32)
+  description: Debian leftover name charliecloud-runtime on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charliecloud-runtime"
+  - "$HOME/Library/Logs/charliecloud-runtime"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charliecloud-runtime
+  name: Debian charliecloud-runtime linux cache (wave 32)
+  description: Debian leftover name charliecloud-runtime on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charliecloud-runtime"
+  - "$XDG_CACHE_HOME/charliecloud-runtime"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charliecloud-runtime
+  name: Debian charliecloud-runtime windows cache (wave 32)
+  description: Debian leftover name charliecloud-runtime on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charliecloud-runtime/Cache"
+  - "%LOCALAPPDATA%/charliecloud-runtime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charliecloud-tests
+  name: Debian charliecloud-tests macos cache (wave 32)
+  description: Debian leftover name charliecloud-tests on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charliecloud-tests"
+  - "$HOME/Library/Logs/charliecloud-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charliecloud-tests
+  name: Debian charliecloud-tests linux cache (wave 32)
+  description: Debian leftover name charliecloud-tests on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charliecloud-tests"
+  - "$XDG_CACHE_HOME/charliecloud-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charliecloud-tests
+  name: Debian charliecloud-tests windows cache (wave 32)
+  description: Debian leftover name charliecloud-tests on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charliecloud-tests/Cache"
+  - "%LOCALAPPDATA%/charliecloud-tests/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcharls-dev
+  name: Debian libcharls-dev macos cache (wave 32)
+  description: Debian leftover name libcharls-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcharls-dev"
+  - "$HOME/Library/Logs/libcharls-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcharls-dev
+  name: Debian libcharls-dev linux cache (wave 32)
+  description: Debian leftover name libcharls-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcharls-dev"
+  - "$XDG_CACHE_HOME/libcharls-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcharls-dev
+  name: Debian libcharls-dev windows cache (wave 32)
+  description: Debian leftover name libcharls-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcharls-dev/Cache"
+  - "%LOCALAPPDATA%/libcharls-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcharls2
+  name: Debian libcharls2 macos cache (wave 32)
+  description: Debian leftover name libcharls2 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcharls2"
+  - "$HOME/Library/Logs/libcharls2"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcharls2
+  name: Debian libcharls2 linux cache (wave 32)
+  description: Debian leftover name libcharls2 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcharls2"
+  - "$XDG_CACHE_HOME/libcharls2"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcharls2
+  name: Debian libcharls2 windows cache (wave 32)
+  description: Debian leftover name libcharls2 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcharls2/Cache"
+  - "%LOCALAPPDATA%/libcharls2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charmap-app
+  name: Debian charmap.app macos cache (wave 32)
+  description: Debian leftover name charmap.app on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charmap.app"
+  - "$HOME/Library/Logs/charmap.app"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charmap-app
+  name: Debian charmap.app linux cache (wave 32)
+  description: Debian leftover name charmap.app on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charmap.app"
+  - "$XDG_CACHE_HOME/charmap.app"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charmap-app
+  name: Debian charmap.app windows cache (wave 32)
+  description: Debian leftover name charmap.app on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charmap.app/Cache"
+  - "%LOCALAPPDATA%/charmap.app/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-charmap-app-common
+  name: Debian charmap.app-common macos cache (wave 32)
+  description: Debian leftover name charmap.app-common on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/charmap.app-common"
+  - "$HOME/Library/Logs/charmap.app-common"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-charmap-app-common
+  name: Debian charmap.app-common linux cache (wave 32)
+  description: Debian leftover name charmap.app-common on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/charmap.app-common"
+  - "$XDG_CACHE_HOME/charmap.app-common"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-charmap-app-common
+  name: Debian charmap.app-common windows cache (wave 32)
+  description: Debian leftover name charmap.app-common on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/charmap.app-common/Cache"
+  - "%LOCALAPPDATA%/charmap.app-common/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libjs-chartkick-js
+  name: Debian libjs-chartkick.js macos cache (wave 32)
+  description: Debian leftover name libjs-chartkick.js on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libjs-chartkick.js"
+  - "$HOME/Library/Logs/libjs-chartkick.js"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libjs-chartkick-js
+  name: Debian libjs-chartkick.js linux cache (wave 32)
+  description: Debian leftover name libjs-chartkick.js on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libjs-chartkick.js"
+  - "$XDG_CACHE_HOME/libjs-chartkick.js"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libjs-chartkick-js
+  name: Debian libjs-chartkick.js windows cache (wave 32)
+  description: Debian leftover name libjs-chartkick.js on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libjs-chartkick.js/Cache"
+  - "%LOCALAPPDATA%/libjs-chartkick.js/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcharts4j-java
+  name: Debian libcharts4j-java macos cache (wave 32)
+  description: Debian leftover name libcharts4j-java on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcharts4j-java"
+  - "$HOME/Library/Logs/libcharts4j-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcharts4j-java
+  name: Debian libcharts4j-java linux cache (wave 32)
+  description: Debian leftover name libcharts4j-java on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcharts4j-java"
+  - "$XDG_CACHE_HOME/libcharts4j-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcharts4j-java
+  name: Debian libcharts4j-java windows cache (wave 32)
+  description: Debian leftover name libcharts4j-java on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcharts4j-java/Cache"
+  - "%LOCALAPPDATA%/libcharts4j-java/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chasen
+  name: Debian chasen macos cache (wave 32)
+  description: Debian leftover name chasen on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chasen"
+  - "$HOME/Library/Logs/chasen"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chasen
+  name: Debian chasen linux cache (wave 32)
+  description: Debian leftover name chasen on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chasen"
+  - "$XDG_CACHE_HOME/chasen"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chasen
+  name: Debian chasen windows cache (wave 32)
+  description: Debian leftover name chasen on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chasen/Cache"
+  - "%LOCALAPPDATA%/chasen/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chasen-dictutils
+  name: Debian chasen-dictutils macos cache (wave 32)
+  description: Debian leftover name chasen-dictutils on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chasen-dictutils"
+  - "$HOME/Library/Logs/chasen-dictutils"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chasen-dictutils
+  name: Debian chasen-dictutils linux cache (wave 32)
+  description: Debian leftover name chasen-dictutils on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chasen-dictutils"
+  - "$XDG_CACHE_HOME/chasen-dictutils"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chasen-dictutils
+  name: Debian chasen-dictutils windows cache (wave 32)
+  description: Debian leftover name chasen-dictutils on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chasen-dictutils/Cache"
+  - "%LOCALAPPDATA%/chasen-dictutils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchasen-dev
+  name: Debian libchasen-dev macos cache (wave 32)
+  description: Debian leftover name libchasen-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchasen-dev"
+  - "$HOME/Library/Logs/libchasen-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchasen-dev
+  name: Debian libchasen-dev linux cache (wave 32)
+  description: Debian leftover name libchasen-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchasen-dev"
+  - "$XDG_CACHE_HOME/libchasen-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchasen-dev
+  name: Debian libchasen-dev windows cache (wave 32)
+  description: Debian leftover name libchasen-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchasen-dev/Cache"
+  - "%LOCALAPPDATA%/libchasen-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchasen2
+  name: Debian libchasen2 macos cache (wave 32)
+  description: Debian leftover name libchasen2 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchasen2"
+  - "$HOME/Library/Logs/libchasen2"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchasen2
+  name: Debian libchasen2 linux cache (wave 32)
+  description: Debian leftover name libchasen2 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchasen2"
+  - "$XDG_CACHE_HOME/libchasen2"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchasen2
+  name: Debian libchasen2 windows cache (wave 32)
+  description: Debian leftover name libchasen2 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchasen2/Cache"
+  - "%LOCALAPPDATA%/libchasen2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chasquid
+  name: Debian chasquid macos cache (wave 32)
+  description: Debian leftover name chasquid on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chasquid"
+  - "$HOME/Library/Logs/chasquid"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chasquid
+  name: Debian chasquid linux cache (wave 32)
+  description: Debian leftover name chasquid on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chasquid"
+  - "$XDG_CACHE_HOME/chasquid"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chasquid
+  name: Debian chasquid windows cache (wave 32)
+  description: Debian leftover name chasquid on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chasquid/Cache"
+  - "%LOCALAPPDATA%/chasquid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchealpix-dev
+  name: Debian libchealpix-dev macos cache (wave 32)
+  description: Debian leftover name libchealpix-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchealpix-dev"
+  - "$HOME/Library/Logs/libchealpix-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchealpix-dev
+  name: Debian libchealpix-dev linux cache (wave 32)
+  description: Debian leftover name libchealpix-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchealpix-dev"
+  - "$XDG_CACHE_HOME/libchealpix-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchealpix-dev
+  name: Debian libchealpix-dev windows cache (wave 32)
+  description: Debian leftover name libchealpix-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchealpix-dev/Cache"
+  - "%LOCALAPPDATA%/libchealpix-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchealpix0
+  name: Debian libchealpix0 macos cache (wave 32)
+  description: Debian leftover name libchealpix0 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchealpix0"
+  - "$HOME/Library/Logs/libchealpix0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchealpix0
+  name: Debian libchealpix0 linux cache (wave 32)
+  description: Debian leftover name libchealpix0 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchealpix0"
+  - "$XDG_CACHE_HOME/libchealpix0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchealpix0
+  name: Debian libchealpix0 windows cache (wave 32)
+  description: Debian leftover name libchealpix0 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchealpix0/Cache"
+  - "%LOCALAPPDATA%/libchealpix0/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-check-dfsg-status
+  name: Debian check-dfsg-status macos cache (wave 32)
+  description: Debian leftover name check-dfsg-status on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/check-dfsg-status"
+  - "$HOME/Library/Logs/check-dfsg-status"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-check-dfsg-status
+  name: Debian check-dfsg-status linux cache (wave 32)
+  description: Debian leftover name check-dfsg-status on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/check-dfsg-status"
+  - "$XDG_CACHE_HOME/check-dfsg-status"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-check-dfsg-status
+  name: Debian check-dfsg-status windows cache (wave 32)
+  description: Debian leftover name check-dfsg-status on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/check-dfsg-status/Cache"
+  - "%LOCALAPPDATA%/check-dfsg-status/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-vrms
+  name: Debian vrms macos cache (wave 32)
+  description: Debian leftover name vrms on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/vrms"
+  - "$HOME/Library/Logs/vrms"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-vrms
+  name: Debian vrms linux cache (wave 32)
+  description: Debian leftover name vrms on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/vrms"
+  - "$XDG_CACHE_HOME/vrms"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-vrms
+  name: Debian vrms windows cache (wave 32)
+  description: Debian leftover name vrms on windows (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/vrms/Cache"
+  - "%LOCALAPPDATA%/vrms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-check-patroni
+  name: Debian check-patroni macos cache (wave 32)
+  description: Debian leftover name check-patroni on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/check-patroni"
+  - "$HOME/Library/Logs/check-patroni"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-check-patroni
+  name: Debian check-patroni linux cache (wave 32)
+  description: Debian leftover name check-patroni on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/check-patroni"
+  - "$XDG_CACHE_HOME/check-patroni"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-check-patroni
+  name: Debian check-patroni windows cache (wave 32)
+  description: Debian leftover name check-patroni on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/check-patroni/Cache"
+  - "%LOCALAPPDATA%/check-patroni/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-check-pgactivity
+  name: Debian check-pgactivity macos cache (wave 32)
+  description: Debian leftover name check-pgactivity on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/check-pgactivity"
+  - "$HOME/Library/Logs/check-pgactivity"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-check-pgactivity
+  name: Debian check-pgactivity linux cache (wave 32)
+  description: Debian leftover name check-pgactivity on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/check-pgactivity"
+  - "$XDG_CACHE_HOME/check-pgactivity"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-check-pgactivity
+  name: Debian check-pgactivity windows cache (wave 32)
+  description: Debian leftover name check-pgactivity on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/check-pgactivity/Cache"
+  - "%LOCALAPPDATA%/check-pgactivity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-check-pgbackrest
+  name: Debian check-pgbackrest macos cache (wave 32)
+  description: Debian leftover name check-pgbackrest on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/check-pgbackrest"
+  - "$HOME/Library/Logs/check-pgbackrest"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-check-pgbackrest
+  name: Debian check-pgbackrest linux cache (wave 32)
+  description: Debian leftover name check-pgbackrest on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/check-pgbackrest"
+  - "$XDG_CACHE_HOME/check-pgbackrest"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-check-pgbackrest
+  name: Debian check-pgbackrest windows cache (wave 32)
+  description: Debian leftover name check-pgbackrest on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/check-pgbackrest/Cache"
+  - "%LOCALAPPDATA%/check-pgbackrest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-check-postgres
+  name: Debian check-postgres macos cache (wave 32)
+  description: Debian leftover name check-postgres on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/check-postgres"
+  - "$HOME/Library/Logs/check-postgres"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-check-postgres
+  name: Debian check-postgres linux cache (wave 32)
+  description: Debian leftover name check-postgres on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/check-postgres"
+  - "$XDG_CACHE_HOME/check-postgres"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-check-postgres
+  name: Debian check-postgres windows cache (wave 32)
+  description: Debian leftover name check-postgres on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/check-postgres/Cache"
+  - "%LOCALAPPDATA%/check-postgres/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-monitoring-plugins-check-smart-attributes
+  name: Debian monitoring-plugins-check-smart-attributes macos cache (wave 32)
+  description: Debian leftover name monitoring-plugins-check-smart-attributes on macos
+    (wave 32). Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/monitoring-plugins-check-smart-attributes"
+  - "$HOME/Library/Logs/monitoring-plugins-check-smart-attributes"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-monitoring-plugins-check-smart-attributes
+  name: Debian monitoring-plugins-check-smart-attributes linux cache (wave 32)
+  description: Debian leftover name monitoring-plugins-check-smart-attributes on linux
+    (wave 32). Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/monitoring-plugins-check-smart-attributes"
+  - "$XDG_CACHE_HOME/monitoring-plugins-check-smart-attributes"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-monitoring-plugins-check-smart-attributes
+  name: Debian monitoring-plugins-check-smart-attributes windows cache (wave 32)
+  description: Debian leftover name monitoring-plugins-check-smart-attributes on windows
+    (wave 32). Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/monitoring-plugins-check-smart-attributes/Cache"
+  - "%LOCALAPPDATA%/monitoring-plugins-check-smart-attributes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchecker-framework-java
+  name: Debian libchecker-framework-java macos cache (wave 32)
+  description: Debian leftover name libchecker-framework-java on macos (wave 32).
+    Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchecker-framework-java"
+  - "$HOME/Library/Logs/libchecker-framework-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchecker-framework-java
+  name: Debian libchecker-framework-java linux cache (wave 32)
+  description: Debian leftover name libchecker-framework-java on linux (wave 32).
+    Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchecker-framework-java"
+  - "$XDG_CACHE_HOME/libchecker-framework-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchecker-framework-java
+  name: Debian libchecker-framework-java windows cache (wave 32)
+  description: Debian leftover name libchecker-framework-java on windows (wave 32).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchecker-framework-java/Cache"
+  - "%LOCALAPPDATA%/libchecker-framework-java/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-checkit-tiff
+  name: Debian checkit-tiff macos cache (wave 32)
+  description: Debian leftover name checkit-tiff on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/checkit-tiff"
+  - "$HOME/Library/Logs/checkit-tiff"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-checkit-tiff
+  name: Debian checkit-tiff linux cache (wave 32)
+  description: Debian leftover name checkit-tiff on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/checkit-tiff"
+  - "$XDG_CACHE_HOME/checkit-tiff"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-checkit-tiff
+  name: Debian checkit-tiff windows cache (wave 32)
+  description: Debian leftover name checkit-tiff on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/checkit-tiff/Cache"
+  - "%LOCALAPPDATA%/checkit-tiff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-checkpw
+  name: Debian checkpw macos cache (wave 32)
+  description: Debian leftover name checkpw on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/checkpw"
+  - "$HOME/Library/Logs/checkpw"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-checkpw
+  name: Debian checkpw linux cache (wave 32)
+  description: Debian leftover name checkpw on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/checkpw"
+  - "$XDG_CACHE_HOME/checkpw"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-checkpw
+  name: Debian checkpw windows cache (wave 32)
+  description: Debian leftover name checkpw on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/checkpw/Cache"
+  - "%LOCALAPPDATA%/checkpw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-checksecurity
+  name: Debian checksecurity macos cache (wave 32)
+  description: Debian leftover name checksecurity on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/checksecurity"
+  - "$HOME/Library/Logs/checksecurity"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-checksecurity
+  name: Debian checksecurity linux cache (wave 32)
+  description: Debian leftover name checksecurity on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/checksecurity"
+  - "$XDG_CACHE_HOME/checksecurity"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-checksecurity
+  name: Debian checksecurity windows cache (wave 32)
+  description: Debian leftover name checksecurity on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/checksecurity/Cache"
+  - "%LOCALAPPDATA%/checksecurity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-checkstyle-doc
+  name: Debian checkstyle-doc macos cache (wave 32)
+  description: Debian leftover name checkstyle-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/checkstyle-doc"
+  - "$HOME/Library/Logs/checkstyle-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-checkstyle-doc
+  name: Debian checkstyle-doc linux cache (wave 32)
+  description: Debian leftover name checkstyle-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/checkstyle-doc"
+  - "$XDG_CACHE_HOME/checkstyle-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-checkstyle-doc
+  name: Debian checkstyle-doc windows cache (wave 32)
+  description: Debian leftover name checkstyle-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/checkstyle-doc/Cache"
+  - "%LOCALAPPDATA%/checkstyle-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-cheese-common
+  name: Debian cheese-common macos cache (wave 32)
+  description: Debian leftover name cheese-common on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cheese-common"
+  - "$HOME/Library/Logs/cheese-common"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-cheese-common
+  name: Debian cheese-common linux cache (wave 32)
+  description: Debian leftover name cheese-common on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cheese-common"
+  - "$XDG_CACHE_HOME/cheese-common"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-cheese-common
+  name: Debian cheese-common windows cache (wave 32)
+  description: Debian leftover name cheese-common on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cheese-common/Cache"
+  - "%LOCALAPPDATA%/cheese-common/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-gir1-2-cheese-3-0
+  name: Debian gir1.2-cheese-3.0 macos cache (wave 32)
+  description: Debian leftover name gir1.2-cheese-3.0 on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gir1.2-cheese-3.0"
+  - "$HOME/Library/Logs/gir1.2-cheese-3.0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-gir1-2-cheese-3-0
+  name: Debian gir1.2-cheese-3.0 linux cache (wave 32)
+  description: Debian leftover name gir1.2-cheese-3.0 on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gir1.2-cheese-3.0"
+  - "$XDG_CACHE_HOME/gir1.2-cheese-3.0"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-gir1-2-cheese-3-0
+  name: Debian gir1.2-cheese-3.0 windows cache (wave 32)
+  description: Debian leftover name gir1.2-cheese-3.0 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gir1.2-cheese-3.0/Cache"
+  - "%LOCALAPPDATA%/gir1.2-cheese-3.0/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcheese-dev
+  name: Debian libcheese-dev macos cache (wave 32)
+  description: Debian leftover name libcheese-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcheese-dev"
+  - "$HOME/Library/Logs/libcheese-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcheese-dev
+  name: Debian libcheese-dev linux cache (wave 32)
+  description: Debian leftover name libcheese-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcheese-dev"
+  - "$XDG_CACHE_HOME/libcheese-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcheese-dev
+  name: Debian libcheese-dev windows cache (wave 32)
+  description: Debian leftover name libcheese-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcheese-dev/Cache"
+  - "%LOCALAPPDATA%/libcheese-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcheese-doc
+  name: Debian libcheese-doc macos cache (wave 32)
+  description: Debian leftover name libcheese-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcheese-doc"
+  - "$HOME/Library/Logs/libcheese-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcheese-doc
+  name: Debian libcheese-doc linux cache (wave 32)
+  description: Debian leftover name libcheese-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcheese-doc"
+  - "$XDG_CACHE_HOME/libcheese-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcheese-doc
+  name: Debian libcheese-doc windows cache (wave 32)
+  description: Debian leftover name libcheese-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcheese-doc/Cache"
+  - "%LOCALAPPDATA%/libcheese-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcheese-gtk-dev
+  name: Debian libcheese-gtk-dev macos cache (wave 32)
+  description: Debian leftover name libcheese-gtk-dev on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcheese-gtk-dev"
+  - "$HOME/Library/Logs/libcheese-gtk-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcheese-gtk-dev
+  name: Debian libcheese-gtk-dev linux cache (wave 32)
+  description: Debian leftover name libcheese-gtk-dev on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcheese-gtk-dev"
+  - "$XDG_CACHE_HOME/libcheese-gtk-dev"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcheese-gtk-dev
+  name: Debian libcheese-gtk-dev windows cache (wave 32)
+  description: Debian leftover name libcheese-gtk-dev on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcheese-gtk-dev/Cache"
+  - "%LOCALAPPDATA%/libcheese-gtk-dev/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcheese-gtk25
+  name: Debian libcheese-gtk25 macos cache (wave 32)
+  description: Debian leftover name libcheese-gtk25 on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcheese-gtk25"
+  - "$HOME/Library/Logs/libcheese-gtk25"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcheese-gtk25
+  name: Debian libcheese-gtk25 linux cache (wave 32)
+  description: Debian leftover name libcheese-gtk25 on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcheese-gtk25"
+  - "$XDG_CACHE_HOME/libcheese-gtk25"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcheese-gtk25
+  name: Debian libcheese-gtk25 windows cache (wave 32)
+  description: Debian leftover name libcheese-gtk25 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcheese-gtk25/Cache"
+  - "%LOCALAPPDATA%/libcheese-gtk25/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcheese8
+  name: Debian libcheese8 macos cache (wave 32)
+  description: Debian leftover name libcheese8 on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcheese8"
+  - "$HOME/Library/Logs/libcheese8"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcheese8
+  name: Debian libcheese8 linux cache (wave 32)
+  description: Debian leftover name libcheese8 on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcheese8"
+  - "$XDG_CACHE_HOME/libcheese8"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcheese8
+  name: Debian libcheese8 windows cache (wave 32)
+  description: Debian leftover name libcheese8 on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcheese8/Cache"
+  - "%LOCALAPPDATA%/libcheese8/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python-cheetah-doc
+  name: Debian python-cheetah-doc macos cache (wave 32)
+  description: Debian leftover name python-cheetah-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python-cheetah-doc"
+  - "$HOME/Library/Logs/python-cheetah-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python-cheetah-doc
+  name: Debian python-cheetah-doc linux cache (wave 32)
+  description: Debian leftover name python-cheetah-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python-cheetah-doc"
+  - "$XDG_CACHE_HOME/python-cheetah-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python-cheetah-doc
+  name: Debian python-cheetah-doc windows cache (wave 32)
+  description: Debian leftover name python-cheetah-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python-cheetah-doc/Cache"
+  - "%LOCALAPPDATA%/python-cheetah-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cheetah
+  name: Debian python3-cheetah macos cache (wave 32)
+  description: Debian leftover name python3-cheetah on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cheetah"
+  - "$HOME/Library/Logs/python3-cheetah"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cheetah
+  name: Debian python3-cheetah linux cache (wave 32)
+  description: Debian leftover name python3-cheetah on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cheetah"
+  - "$XDG_CACHE_HOME/python3-cheetah"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cheetah
+  name: Debian python3-cheetah windows cache (wave 32)
+  description: Debian leftover name python3-cheetah on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cheetah/Cache"
+  - "%LOCALAPPDATA%/python3-cheetah/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chemeq
+  name: Debian chemeq macos cache (wave 32)
+  description: Debian leftover name chemeq on macos (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chemeq"
+  - "$HOME/Library/Logs/chemeq"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chemeq
+  name: Debian chemeq linux cache (wave 32)
+  description: Debian leftover name chemeq on linux (wave 32). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chemeq"
+  - "$XDG_CACHE_HOME/chemeq"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chemeq
+  name: Debian chemeq windows cache (wave 32)
+  description: Debian leftover name chemeq on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chemeq/Cache"
+  - "%LOCALAPPDATA%/chemeq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chemical-mime-data
+  name: Debian chemical-mime-data macos cache (wave 32)
+  description: Debian leftover name chemical-mime-data on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chemical-mime-data"
+  - "$HOME/Library/Logs/chemical-mime-data"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chemical-mime-data
+  name: Debian chemical-mime-data linux cache (wave 32)
+  description: Debian leftover name chemical-mime-data on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chemical-mime-data"
+  - "$XDG_CACHE_HOME/chemical-mime-data"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chemical-mime-data
+  name: Debian chemical-mime-data windows cache (wave 32)
+  description: Debian leftover name chemical-mime-data on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chemical-mime-data/Cache"
+  - "%LOCALAPPDATA%/chemical-mime-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chemical-structures
+  name: Debian chemical-structures macos cache (wave 32)
+  description: Debian leftover name chemical-structures on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chemical-structures"
+  - "$HOME/Library/Logs/chemical-structures"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chemical-structures
+  name: Debian chemical-structures linux cache (wave 32)
+  description: Debian leftover name chemical-structures on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chemical-structures"
+  - "$XDG_CACHE_HOME/chemical-structures"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chemical-structures
+  name: Debian chemical-structures windows cache (wave 32)
+  description: Debian leftover name chemical-structures on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chemical-structures/Cache"
+  - "%LOCALAPPDATA%/chemical-structures/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chemical-structures-data
+  name: Debian chemical-structures-data macos cache (wave 32)
+  description: Debian leftover name chemical-structures-data on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chemical-structures-data"
+  - "$HOME/Library/Logs/chemical-structures-data"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chemical-structures-data
+  name: Debian chemical-structures-data linux cache (wave 32)
+  description: Debian leftover name chemical-structures-data on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chemical-structures-data"
+  - "$XDG_CACHE_HOME/chemical-structures-data"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chemical-structures-data
+  name: Debian chemical-structures-data windows cache (wave 32)
+  description: Debian leftover name chemical-structures-data on windows (wave 32).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chemical-structures-data/Cache"
+  - "%LOCALAPPDATA%/chemical-structures-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libchemicaltagger-java
+  name: Debian libchemicaltagger-java macos cache (wave 32)
+  description: Debian leftover name libchemicaltagger-java on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libchemicaltagger-java"
+  - "$HOME/Library/Logs/libchemicaltagger-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libchemicaltagger-java
+  name: Debian libchemicaltagger-java linux cache (wave 32)
+  description: Debian leftover name libchemicaltagger-java on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libchemicaltagger-java"
+  - "$XDG_CACHE_HOME/libchemicaltagger-java"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libchemicaltagger-java
+  name: Debian libchemicaltagger-java windows cache (wave 32)
+  description: Debian leftover name libchemicaltagger-java on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libchemicaltagger-java/Cache"
+  - "%LOCALAPPDATA%/libchemicaltagger-java/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chemonomatopist
+  name: Debian chemonomatopist macos cache (wave 32)
+  description: Debian leftover name chemonomatopist on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chemonomatopist"
+  - "$HOME/Library/Logs/chemonomatopist"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chemonomatopist
+  name: Debian chemonomatopist linux cache (wave 32)
+  description: Debian leftover name chemonomatopist on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chemonomatopist"
+  - "$XDG_CACHE_HOME/chemonomatopist"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chemonomatopist
+  name: Debian chemonomatopist windows cache (wave 32)
+  description: Debian leftover name chemonomatopist on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chemonomatopist/Cache"
+  - "%LOCALAPPDATA%/chemonomatopist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chemtool
+  name: Debian chemtool macos cache (wave 32)
+  description: Debian leftover name chemtool on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chemtool"
+  - "$HOME/Library/Logs/chemtool"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-chemtool
+  name: Debian chemtool linux cache (wave 32)
+  description: Debian leftover name chemtool on linux (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chemtool"
+  - "$XDG_CACHE_HOME/chemtool"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-chemtool
+  name: Debian chemtool windows cache (wave 32)
+  description: Debian leftover name chemtool on windows (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chemtool/Cache"
+  - "%LOCALAPPDATA%/chemtool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python-cherrypy3-doc
+  name: Debian python-cherrypy3-doc macos cache (wave 32)
+  description: Debian leftover name python-cherrypy3-doc on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python-cherrypy3-doc"
+  - "$HOME/Library/Logs/python-cherrypy3-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python-cherrypy3-doc
+  name: Debian python-cherrypy3-doc linux cache (wave 32)
+  description: Debian leftover name python-cherrypy3-doc on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python-cherrypy3-doc"
+  - "$XDG_CACHE_HOME/python-cherrypy3-doc"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python-cherrypy3-doc
+  name: Debian python-cherrypy3-doc windows cache (wave 32)
+  description: Debian leftover name python-cherrypy3-doc on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python-cherrypy3-doc/Cache"
+  - "%LOCALAPPDATA%/python-cherrypy3-doc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-python3-cherrypy3
+  name: Debian python3-cherrypy3 macos cache (wave 32)
+  description: Debian leftover name python3-cherrypy3 on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/python3-cherrypy3"
+  - "$HOME/Library/Logs/python3-cherrypy3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-python3-cherrypy3
+  name: Debian python3-cherrypy3 linux cache (wave 32)
+  description: Debian leftover name python3-cherrypy3 on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/python3-cherrypy3"
+  - "$XDG_CACHE_HOME/python3-cherrypy3"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-python3-cherrypy3
+  name: Debian python3-cherrypy3 windows cache (wave 32)
+  description: Debian leftover name python3-cherrypy3 on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/python3-cherrypy3/Cache"
+  - "%LOCALAPPDATA%/python3-cherrypy3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-libcheshire-clojure
+  name: Debian libcheshire-clojure macos cache (wave 32)
+  description: Debian leftover name libcheshire-clojure on macos (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/libcheshire-clojure"
+  - "$HOME/Library/Logs/libcheshire-clojure"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-lin-libcheshire-clojure
+  name: Debian libcheshire-clojure linux cache (wave 32)
+  description: Debian leftover name libcheshire-clojure on linux (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/libcheshire-clojure"
+  - "$XDG_CACHE_HOME/libcheshire-clojure"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-win-libcheshire-clojure
+  name: Debian libcheshire-clojure windows cache (wave 32)
+  description: Debian leftover name libcheshire-clojure on windows (wave 32). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/libcheshire-clojure/Cache"
+  - "%LOCALAPPDATA%/libcheshire-clojure/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: db32-mac-chess-app
+  name: Debian chess.app macos cache (wave 32)
+  description: Debian leftover name chess.app on macos (wave 32). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chess.app"
+  - "$HOME/Library/Logs/chess.app"
+  delete_mode: contents
+  max_depth: 6

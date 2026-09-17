@@ -1,0 +1,5571 @@
+---
+pack: src-iter09-13
+description: Iterative 10k import wave 9 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np9-mac-exdex
+  name: Nixpkgs exdex macos cache (wave 9)
+  description: Nixpkgs leftover pname exdex on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exdex"
+  - "$HOME/Library/Logs/exdex"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exdex
+  name: Nixpkgs exdex linux cache (wave 9)
+  description: Nixpkgs leftover pname exdex on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exdex"
+  - "$XDG_CACHE_HOME/exdex"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exdex
+  name: Nixpkgs exdex windows cache (wave 9)
+  description: Nixpkgs leftover pname exdex on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exdex/Cache"
+  - "%LOCALAPPDATA%/exdex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exdown
+  name: Nixpkgs exdown macos cache (wave 9)
+  description: Nixpkgs leftover pname exdown on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exdown"
+  - "$HOME/Library/Logs/exdown"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exdown
+  name: Nixpkgs exdown linux cache (wave 9)
+  description: Nixpkgs leftover pname exdown on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exdown"
+  - "$XDG_CACHE_HOME/exdown"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exdown
+  name: Nixpkgs exdown windows cache (wave 9)
+  description: Nixpkgs leftover pname exdown on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exdown/Cache"
+  - "%LOCALAPPDATA%/exdown/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exdqlm
+  name: Nixpkgs exdqlm macos cache (wave 9)
+  description: Nixpkgs leftover pname exdqlm on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exdqlm"
+  - "$HOME/Library/Logs/exdqlm"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exdqlm
+  name: Nixpkgs exdqlm linux cache (wave 9)
+  description: Nixpkgs leftover pname exdqlm on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exdqlm"
+  - "$XDG_CACHE_HOME/exdqlm"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exdqlm
+  name: Nixpkgs exdqlm windows cache (wave 9)
+  description: Nixpkgs leftover pname exdqlm on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exdqlm/Cache"
+  - "%LOCALAPPDATA%/exdqlm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exe2hex
+  name: Nixpkgs exe2hex macos cache (wave 9)
+  description: Nixpkgs leftover pname exe2hex on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exe2hex"
+  - "$HOME/Library/Logs/exe2hex"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exe2hex
+  name: Nixpkgs exe2hex linux cache (wave 9)
+  description: Nixpkgs leftover pname exe2hex on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exe2hex"
+  - "$XDG_CACHE_HOME/exe2hex"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exe2hex
+  name: Nixpkgs exe2hex windows cache (wave 9)
+  description: Nixpkgs leftover pname exe2hex on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exe2hex/Cache"
+  - "%LOCALAPPDATA%/exe2hex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exec-in-buffer
+  name: Nixpkgs exec-in-buffer macos cache (wave 9)
+  description: Nixpkgs leftover pname exec-in-buffer on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exec-in-buffer"
+  - "$HOME/Library/Logs/exec-in-buffer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exec-in-buffer
+  name: Nixpkgs exec-in-buffer linux cache (wave 9)
+  description: Nixpkgs leftover pname exec-in-buffer on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exec-in-buffer"
+  - "$XDG_CACHE_HOME/exec-in-buffer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exec-in-buffer
+  name: Nixpkgs exec-in-buffer windows cache (wave 9)
+  description: Nixpkgs leftover pname exec-in-buffer on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exec-in-buffer/Cache"
+  - "%LOCALAPPDATA%/exec-in-buffer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exec-path-from-shell
+  name: Nixpkgs exec-path-from-shell macos cache (wave 9)
+  description: Nixpkgs leftover pname exec-path-from-shell on macos (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exec-path-from-shell"
+  - "$HOME/Library/Logs/exec-path-from-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exec-path-from-shell
+  name: Nixpkgs exec-path-from-shell linux cache (wave 9)
+  description: Nixpkgs leftover pname exec-path-from-shell on linux (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exec-path-from-shell"
+  - "$XDG_CACHE_HOME/exec-path-from-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exec-path-from-shell
+  name: Nixpkgs exec-path-from-shell windows cache (wave 9)
+  description: Nixpkgs leftover pname exec-path-from-shell on windows (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exec-path-from-shell/Cache"
+  - "%LOCALAPPDATA%/exec-path-from-shell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-execjs
+  name: Nixpkgs execjs macos cache (wave 9)
+  description: Nixpkgs leftover pname execjs on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/execjs"
+  - "$HOME/Library/Logs/execjs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-execjs
+  name: Nixpkgs execjs linux cache (wave 9)
+  description: Nixpkgs leftover pname execjs on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/execjs"
+  - "$XDG_CACHE_HOME/execjs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-execjs
+  name: Nixpkgs execjs windows cache (wave 9)
+  description: Nixpkgs leftover pname execjs on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/execjs/Cache"
+  - "%LOCALAPPDATA%/execjs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-execline
+  name: Nixpkgs execline macos cache (wave 9)
+  description: Nixpkgs leftover pname execline on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/execline"
+  - "$HOME/Library/Logs/execline"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-execline
+  name: Nixpkgs execline linux cache (wave 9)
+  description: Nixpkgs leftover pname execline on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/execline"
+  - "$XDG_CACHE_HOME/execline"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-execline
+  name: Nixpkgs execline windows cache (wave 9)
+  description: Nixpkgs leftover pname execline on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/execline/Cache"
+  - "%LOCALAPPDATA%/execline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-execline-man-pages
+  name: Nixpkgs execline-man-pages macos cache (wave 9)
+  description: Nixpkgs leftover pname execline-man-pages on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/execline-man-pages"
+  - "$HOME/Library/Logs/execline-man-pages"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-execline-man-pages
+  name: Nixpkgs execline-man-pages linux cache (wave 9)
+  description: Nixpkgs leftover pname execline-man-pages on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/execline-man-pages"
+  - "$XDG_CACHE_HOME/execline-man-pages"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-execline-man-pages
+  name: Nixpkgs execline-man-pages windows cache (wave 9)
+  description: Nixpkgs leftover pname execline-man-pages on windows (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/execline-man-pages/Cache"
+  - "%LOCALAPPDATA%/execline-man-pages/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-execnb
+  name: Nixpkgs execnb macos cache (wave 9)
+  description: Nixpkgs leftover pname execnb on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/execnb"
+  - "$HOME/Library/Logs/execnb"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-execnb
+  name: Nixpkgs execnb linux cache (wave 9)
+  description: Nixpkgs leftover pname execnb on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/execnb"
+  - "$XDG_CACHE_HOME/execnb"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-execnb
+  name: Nixpkgs execnb windows cache (wave 9)
+  description: Nixpkgs leftover pname execnb on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/execnb/Cache"
+  - "%LOCALAPPDATA%/execnb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-execnet
+  name: Nixpkgs execnet macos cache (wave 9)
+  description: Nixpkgs leftover pname execnet on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/execnet"
+  - "$HOME/Library/Logs/execnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-execnet
+  name: Nixpkgs execnet linux cache (wave 9)
+  description: Nixpkgs leftover pname execnet on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/execnet"
+  - "$XDG_CACHE_HOME/execnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-execnet
+  name: Nixpkgs execnet windows cache (wave 9)
+  description: Nixpkgs leftover pname execnet on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/execnet/Cache"
+  - "%LOCALAPPDATA%/execnet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-execs
+  name: Nixpkgs execs macos cache (wave 9)
+  description: Nixpkgs leftover pname execs on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/execs"
+  - "$HOME/Library/Logs/execs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-execs
+  name: Nixpkgs execs linux cache (wave 9)
+  description: Nixpkgs leftover pname execs on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/execs"
+  - "$XDG_CACHE_HOME/execs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-execs
+  name: Nixpkgs execs windows cache (wave 9)
+  description: Nixpkgs leftover pname execs on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/execs/Cache"
+  - "%LOCALAPPDATA%/execs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executable-hash
+  name: Nixpkgs executable-hash macos cache (wave 9)
+  description: Nixpkgs leftover pname executable-hash on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executable-hash"
+  - "$HOME/Library/Logs/executable-hash"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executable-hash
+  name: Nixpkgs executable-hash linux cache (wave 9)
+  description: Nixpkgs leftover pname executable-hash on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executable-hash"
+  - "$XDG_CACHE_HOME/executable-hash"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executable-hash
+  name: Nixpkgs executable-hash windows cache (wave 9)
+  description: Nixpkgs leftover pname executable-hash on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executable-hash/Cache"
+  - "%LOCALAPPDATA%/executable-hash/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executable-path
+  name: Nixpkgs executable-path macos cache (wave 9)
+  description: Nixpkgs leftover pname executable-path on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executable-path"
+  - "$HOME/Library/Logs/executable-path"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executable-path
+  name: Nixpkgs executable-path linux cache (wave 9)
+  description: Nixpkgs leftover pname executable-path on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executable-path"
+  - "$XDG_CACHE_HOME/executable-path"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executable-path
+  name: Nixpkgs executable-path windows cache (wave 9)
+  description: Nixpkgs leftover pname executable-path on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executable-path/Cache"
+  - "%LOCALAPPDATA%/executable-path/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executablepacker
+  name: Nixpkgs executablePackeR macos cache (wave 9)
+  description: Nixpkgs leftover pname executablePackeR on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executablePackeR"
+  - "$HOME/Library/Logs/executablePackeR"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executablepacker
+  name: Nixpkgs executablePackeR linux cache (wave 9)
+  description: Nixpkgs leftover pname executablePackeR on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executablePackeR"
+  - "$XDG_CACHE_HOME/executablePackeR"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executablepacker
+  name: Nixpkgs executablePackeR windows cache (wave 9)
+  description: Nixpkgs leftover pname executablePackeR on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executablePackeR/Cache"
+  - "%LOCALAPPDATA%/executablePackeR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executing
+  name: Nixpkgs executing macos cache (wave 9)
+  description: Nixpkgs leftover pname executing on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executing"
+  - "$HOME/Library/Logs/executing"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executing
+  name: Nixpkgs executing linux cache (wave 9)
+  description: Nixpkgs leftover pname executing on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executing"
+  - "$XDG_CACHE_HOME/executing"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executing
+  name: Nixpkgs executing windows cache (wave 9)
+  description: Nixpkgs leftover pname executing on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executing/Cache"
+  - "%LOCALAPPDATA%/executing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executor
+  name: Nixpkgs executor macos cache (wave 9)
+  description: Nixpkgs leftover pname executor on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executor"
+  - "$HOME/Library/Logs/executor"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executor
+  name: Nixpkgs executor linux cache (wave 9)
+  description: Nixpkgs leftover pname executor on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executor"
+  - "$XDG_CACHE_HOME/executor"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executor
+  name: Nixpkgs executor windows cache (wave 9)
+  description: Nixpkgs leftover pname executor on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executor/Cache"
+  - "%LOCALAPPDATA%/executor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executor-nvim
+  name: Nixpkgs executor.nvim macos cache (wave 9)
+  description: Nixpkgs leftover pname executor.nvim on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executor.nvim"
+  - "$HOME/Library/Logs/executor.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executor-nvim
+  name: Nixpkgs executor.nvim linux cache (wave 9)
+  description: Nixpkgs leftover pname executor.nvim on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executor.nvim"
+  - "$XDG_CACHE_HOME/executor.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executor-nvim
+  name: Nixpkgs executor.nvim windows cache (wave 9)
+  description: Nixpkgs leftover pname executor.nvim on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executor.nvim/Cache"
+  - "%LOCALAPPDATA%/executor.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-executorch
+  name: Nixpkgs executorch macos cache (wave 9)
+  description: Nixpkgs leftover pname executorch on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/executorch"
+  - "$HOME/Library/Logs/executorch"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-executorch
+  name: Nixpkgs executorch linux cache (wave 9)
+  description: Nixpkgs leftover pname executorch on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/executorch"
+  - "$XDG_CACHE_HOME/executorch"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-executorch
+  name: Nixpkgs executorch windows cache (wave 9)
+  description: Nixpkgs leftover pname executorch on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/executorch/Cache"
+  - "%LOCALAPPDATA%/executorch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exegol
+  name: Nixpkgs exegol macos cache (wave 9)
+  description: Nixpkgs leftover pname exegol on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exegol"
+  - "$HOME/Library/Logs/exegol"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exegol
+  name: Nixpkgs exegol linux cache (wave 9)
+  description: Nixpkgs leftover pname exegol on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exegol"
+  - "$XDG_CACHE_HOME/exegol"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exegol
+  name: Nixpkgs exegol windows cache (wave 9)
+  description: Nixpkgs leftover pname exegol on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exegol/Cache"
+  - "%LOCALAPPDATA%/exegol/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exemel
+  name: Nixpkgs exemel macos cache (wave 9)
+  description: Nixpkgs leftover pname exemel on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exemel"
+  - "$HOME/Library/Logs/exemel"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exemel
+  name: Nixpkgs exemel linux cache (wave 9)
+  description: Nixpkgs leftover pname exemel on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exemel"
+  - "$XDG_CACHE_HOME/exemel"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exemel
+  name: Nixpkgs exemel windows cache (wave 9)
+  description: Nixpkgs leftover pname exemel on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exemel/Cache"
+  - "%LOCALAPPDATA%/exemel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exempi
+  name: Nixpkgs exempi macos cache (wave 9)
+  description: Nixpkgs leftover pname exempi on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exempi"
+  - "$HOME/Library/Logs/exempi"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exempi
+  name: Nixpkgs exempi linux cache (wave 9)
+  description: Nixpkgs leftover pname exempi on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exempi"
+  - "$XDG_CACHE_HOME/exempi"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exempi
+  name: Nixpkgs exempi windows cache (wave 9)
+  description: Nixpkgs leftover pname exempi on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exempi/Cache"
+  - "%LOCALAPPDATA%/exempi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercise
+  name: Nixpkgs exercise macos cache (wave 9)
+  description: Nixpkgs leftover pname exercise on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercise"
+  - "$HOME/Library/Logs/exercise"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercise
+  name: Nixpkgs exercise linux cache (wave 9)
+  description: Nixpkgs leftover pname exercise on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercise"
+  - "$XDG_CACHE_HOME/exercise"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercise
+  name: Nixpkgs exercise windows cache (wave 9)
+  description: Nixpkgs leftover pname exercise on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercise/Cache"
+  - "%LOCALAPPDATA%/exercise/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercise-bank
+  name: Nixpkgs exercise-bank macos cache (wave 9)
+  description: Nixpkgs leftover pname exercise-bank on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercise-bank"
+  - "$HOME/Library/Logs/exercise-bank"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercise-bank
+  name: Nixpkgs exercise-bank linux cache (wave 9)
+  description: Nixpkgs leftover pname exercise-bank on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercise-bank"
+  - "$XDG_CACHE_HOME/exercise-bank"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercise-bank
+  name: Nixpkgs exercise-bank windows cache (wave 9)
+  description: Nixpkgs leftover pname exercise-bank on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercise-bank/Cache"
+  - "%LOCALAPPDATA%/exercise-bank/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercise-timer
+  name: Nixpkgs exercise-timer macos cache (wave 9)
+  description: Nixpkgs leftover pname exercise-timer on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercise-timer"
+  - "$HOME/Library/Logs/exercise-timer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercise-timer
+  name: Nixpkgs exercise-timer linux cache (wave 9)
+  description: Nixpkgs leftover pname exercise-timer on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercise-timer"
+  - "$XDG_CACHE_HOME/exercise-timer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercise-timer
+  name: Nixpkgs exercise-timer windows cache (wave 9)
+  description: Nixpkgs leftover pname exercise-timer on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercise-timer/Cache"
+  - "%LOCALAPPDATA%/exercise-timer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercisebank
+  name: Nixpkgs exercisebank macos cache (wave 9)
+  description: Nixpkgs leftover pname exercisebank on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercisebank"
+  - "$HOME/Library/Logs/exercisebank"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercisebank
+  name: Nixpkgs exercisebank linux cache (wave 9)
+  description: Nixpkgs leftover pname exercisebank on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercisebank"
+  - "$XDG_CACHE_HOME/exercisebank"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercisebank
+  name: Nixpkgs exercisebank windows cache (wave 9)
+  description: Nixpkgs leftover pname exercisebank on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercisebank/Cache"
+  - "%LOCALAPPDATA%/exercisebank/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercisepoints
+  name: Nixpkgs exercisepoints macos cache (wave 9)
+  description: Nixpkgs leftover pname exercisepoints on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercisepoints"
+  - "$HOME/Library/Logs/exercisepoints"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercisepoints
+  name: Nixpkgs exercisepoints linux cache (wave 9)
+  description: Nixpkgs leftover pname exercisepoints on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercisepoints"
+  - "$XDG_CACHE_HOME/exercisepoints"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercisepoints
+  name: Nixpkgs exercisepoints windows cache (wave 9)
+  description: Nixpkgs leftover pname exercisepoints on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercisepoints/Cache"
+  - "%LOCALAPPDATA%/exercisepoints/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercises
+  name: Nixpkgs exercises macos cache (wave 9)
+  description: Nixpkgs leftover pname exercises on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercises"
+  - "$HOME/Library/Logs/exercises"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercises
+  name: Nixpkgs exercises linux cache (wave 9)
+  description: Nixpkgs leftover pname exercises on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercises"
+  - "$XDG_CACHE_HOME/exercises"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercises
+  name: Nixpkgs exercises windows cache (wave 9)
+  description: Nixpkgs leftover pname exercises on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercises/Cache"
+  - "%LOCALAPPDATA%/exercises/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercisesheets
+  name: Nixpkgs exercisesheets macos cache (wave 9)
+  description: Nixpkgs leftover pname exercisesheets on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercisesheets"
+  - "$HOME/Library/Logs/exercisesheets"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercisesheets
+  name: Nixpkgs exercisesheets linux cache (wave 9)
+  description: Nixpkgs leftover pname exercisesheets on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercisesheets"
+  - "$XDG_CACHE_HOME/exercisesheets"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercisesheets
+  name: Nixpkgs exercisesheets windows cache (wave 9)
+  description: Nixpkgs leftover pname exercisesheets on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercisesheets/Cache"
+  - "%LOCALAPPDATA%/exercisesheets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercism
+  name: Nixpkgs exercism macos cache (wave 9)
+  description: Nixpkgs leftover pname exercism on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercism"
+  - "$HOME/Library/Logs/exercism"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercism
+  name: Nixpkgs exercism linux cache (wave 9)
+  description: Nixpkgs leftover pname exercism on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercism"
+  - "$XDG_CACHE_HOME/exercism"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercism
+  name: Nixpkgs exercism windows cache (wave 9)
+  description: Nixpkgs leftover pname exercism on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercism/Cache"
+  - "%LOCALAPPDATA%/exercism/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exercism-cli-fish-wrapper
+  name: Nixpkgs exercism-cli-fish-wrapper macos cache (wave 9)
+  description: Nixpkgs leftover pname exercism-cli-fish-wrapper on macos (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exercism-cli-fish-wrapper"
+  - "$HOME/Library/Logs/exercism-cli-fish-wrapper"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exercism-cli-fish-wrapper
+  name: Nixpkgs exercism-cli-fish-wrapper linux cache (wave 9)
+  description: Nixpkgs leftover pname exercism-cli-fish-wrapper on linux (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exercism-cli-fish-wrapper"
+  - "$XDG_CACHE_HOME/exercism-cli-fish-wrapper"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exercism-cli-fish-wrapper
+  name: Nixpkgs exercism-cli-fish-wrapper windows cache (wave 9)
+  description: Nixpkgs leftover pname exercism-cli-fish-wrapper on windows (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exercism-cli-fish-wrapper/Cache"
+  - "%LOCALAPPDATA%/exercism-cli-fish-wrapper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exesheet
+  name: Nixpkgs exesheet macos cache (wave 9)
+  description: Nixpkgs leftover pname exesheet on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exesheet"
+  - "$HOME/Library/Logs/exesheet"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exesheet
+  name: Nixpkgs exesheet linux cache (wave 9)
+  description: Nixpkgs leftover pname exesheet on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exesheet"
+  - "$XDG_CACHE_HOME/exesheet"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exesheet
+  name: Nixpkgs exesheet windows cache (wave 9)
+  description: Nixpkgs leftover pname exesheet on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exesheet/Cache"
+  - "%LOCALAPPDATA%/exesheet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exeval
+  name: Nixpkgs exeval macos cache (wave 9)
+  description: Nixpkgs leftover pname exeval on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exeval"
+  - "$HOME/Library/Logs/exeval"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exeval
+  name: Nixpkgs exeval linux cache (wave 9)
+  description: Nixpkgs leftover pname exeval on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exeval"
+  - "$XDG_CACHE_HOME/exeval"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exeval
+  name: Nixpkgs exeval windows cache (wave 9)
+  description: Nixpkgs leftover pname exeval on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exeval/Cache"
+  - "%LOCALAPPDATA%/exeval/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exfat
+  name: Nixpkgs exfat macos cache (wave 9)
+  description: Nixpkgs leftover pname exfat on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exfat"
+  - "$HOME/Library/Logs/exfat"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exfat
+  name: Nixpkgs exfat linux cache (wave 9)
+  description: Nixpkgs leftover pname exfat on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exfat"
+  - "$XDG_CACHE_HOME/exfat"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exfat
+  name: Nixpkgs exfat windows cache (wave 9)
+  description: Nixpkgs leftover pname exfat on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exfat/Cache"
+  - "%LOCALAPPDATA%/exfat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exfatprogs
+  name: Nixpkgs exfatprogs macos cache (wave 9)
+  description: Nixpkgs leftover pname exfatprogs on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exfatprogs"
+  - "$HOME/Library/Logs/exfatprogs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exfatprogs
+  name: Nixpkgs exfatprogs linux cache (wave 9)
+  description: Nixpkgs leftover pname exfatprogs on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exfatprogs"
+  - "$XDG_CACHE_HOME/exfatprogs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exfatprogs
+  name: Nixpkgs exfatprogs windows cache (wave 9)
+  description: Nixpkgs leftover pname exfatprogs on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exfatprogs/Cache"
+  - "%LOCALAPPDATA%/exfatprogs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exference
+  name: Nixpkgs exference macos cache (wave 9)
+  description: Nixpkgs leftover pname exference on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exference"
+  - "$HOME/Library/Logs/exference"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exference
+  name: Nixpkgs exference linux cache (wave 9)
+  description: Nixpkgs leftover pname exference on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exference"
+  - "$XDG_CACHE_HOME/exference"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exference
+  name: Nixpkgs exference windows cache (wave 9)
+  description: Nixpkgs leftover pname exference on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exference/Cache"
+  - "%LOCALAPPDATA%/exference/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exframe
+  name: Nixpkgs exframe macos cache (wave 9)
+  description: Nixpkgs leftover pname exframe on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exframe"
+  - "$HOME/Library/Logs/exframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exframe
+  name: Nixpkgs exframe linux cache (wave 9)
+  description: Nixpkgs leftover pname exframe on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exframe"
+  - "$XDG_CACHE_HOME/exframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exframe
+  name: Nixpkgs exframe windows cache (wave 9)
+  description: Nixpkgs leftover pname exframe on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exframe/Cache"
+  - "%LOCALAPPDATA%/exframe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exh
+  name: Nixpkgs exh macos cache (wave 9)
+  description: Nixpkgs leftover pname exh on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exh"
+  - "$HOME/Library/Logs/exh"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exh
+  name: Nixpkgs exh linux cache (wave 9)
+  description: Nixpkgs leftover pname exh on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exh"
+  - "$XDG_CACHE_HOME/exh"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exh
+  name: Nixpkgs exh windows cache (wave 9)
+  description: Nixpkgs leftover pname exh on windows (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exh/Cache"
+  - "%LOCALAPPDATA%/exh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exhaustive
+  name: Nixpkgs exhaustive macos cache (wave 9)
+  description: Nixpkgs leftover pname exhaustive on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exhaustive"
+  - "$HOME/Library/Logs/exhaustive"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exhaustive
+  name: Nixpkgs exhaustive linux cache (wave 9)
+  description: Nixpkgs leftover pname exhaustive on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exhaustive"
+  - "$XDG_CACHE_HOME/exhaustive"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exhaustive
+  name: Nixpkgs exhaustive windows cache (wave 9)
+  description: Nixpkgs leftover pname exhaustive on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exhaustive/Cache"
+  - "%LOCALAPPDATA%/exhaustive/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exhaustiverasch
+  name: Nixpkgs exhaustiveRasch macos cache (wave 9)
+  description: Nixpkgs leftover pname exhaustiveRasch on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exhaustiveRasch"
+  - "$HOME/Library/Logs/exhaustiveRasch"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exhaustiverasch
+  name: Nixpkgs exhaustiveRasch linux cache (wave 9)
+  description: Nixpkgs leftover pname exhaustiveRasch on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exhaustiveRasch"
+  - "$XDG_CACHE_HOME/exhaustiveRasch"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exhaustiverasch
+  name: Nixpkgs exhaustiveRasch windows cache (wave 9)
+  description: Nixpkgs leftover pname exhaustiveRasch on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exhaustiveRasch/Cache"
+  - "%LOCALAPPDATA%/exhaustiveRasch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exherbo-cabal
+  name: Nixpkgs exherbo-cabal macos cache (wave 9)
+  description: Nixpkgs leftover pname exherbo-cabal on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exherbo-cabal"
+  - "$HOME/Library/Logs/exherbo-cabal"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exherbo-cabal
+  name: Nixpkgs exherbo-cabal linux cache (wave 9)
+  description: Nixpkgs leftover pname exherbo-cabal on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exherbo-cabal"
+  - "$XDG_CACHE_HOME/exherbo-cabal"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exherbo-cabal
+  name: Nixpkgs exherbo-cabal windows cache (wave 9)
+  description: Nixpkgs leftover pname exherbo-cabal on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exherbo-cabal/Cache"
+  - "%LOCALAPPDATA%/exherbo-cabal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exhibit
+  name: Nixpkgs exhibit macos cache (wave 9)
+  description: Nixpkgs leftover pname exhibit on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exhibit"
+  - "$HOME/Library/Logs/exhibit"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exhibit
+  name: Nixpkgs exhibit linux cache (wave 9)
+  description: Nixpkgs leftover pname exhibit on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exhibit"
+  - "$XDG_CACHE_HOME/exhibit"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exhibit
+  name: Nixpkgs exhibit windows cache (wave 9)
+  description: Nixpkgs leftover pname exhibit on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exhibit/Cache"
+  - "%LOCALAPPDATA%/exhibit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exif
+  name: Nixpkgs exif macos cache (wave 9)
+  description: Nixpkgs leftover pname exif on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exif"
+  - "$HOME/Library/Logs/exif"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exif
+  name: Nixpkgs exif linux cache (wave 9)
+  description: Nixpkgs leftover pname exif on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exif"
+  - "$XDG_CACHE_HOME/exif"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exif
+  name: Nixpkgs exif windows cache (wave 9)
+  description: Nixpkgs leftover pname exif on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exif/Cache"
+  - "%LOCALAPPDATA%/exif/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exificient
+  name: Nixpkgs exificient macos cache (wave 9)
+  description: Nixpkgs leftover pname exificient on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exificient"
+  - "$HOME/Library/Logs/exificient"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exificient
+  name: Nixpkgs exificient linux cache (wave 9)
+  description: Nixpkgs leftover pname exificient on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exificient"
+  - "$XDG_CACHE_HOME/exificient"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exificient
+  name: Nixpkgs exificient windows cache (wave 9)
+  description: Nixpkgs leftover pname exificient on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exificient/Cache"
+  - "%LOCALAPPDATA%/exificient/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exiflooter
+  name: Nixpkgs exiflooter macos cache (wave 9)
+  description: Nixpkgs leftover pname exiflooter on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exiflooter"
+  - "$HOME/Library/Logs/exiflooter"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exiflooter
+  name: Nixpkgs exiflooter linux cache (wave 9)
+  description: Nixpkgs leftover pname exiflooter on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exiflooter"
+  - "$XDG_CACHE_HOME/exiflooter"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exiflooter
+  name: Nixpkgs exiflooter windows cache (wave 9)
+  description: Nixpkgs leftover pname exiflooter on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exiflooter/Cache"
+  - "%LOCALAPPDATA%/exiflooter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exifprobe
+  name: Nixpkgs exifprobe macos cache (wave 9)
+  description: Nixpkgs leftover pname exifprobe on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exifprobe"
+  - "$HOME/Library/Logs/exifprobe"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exifprobe
+  name: Nixpkgs exifprobe linux cache (wave 9)
+  description: Nixpkgs leftover pname exifprobe on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exifprobe"
+  - "$XDG_CACHE_HOME/exifprobe"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exifprobe
+  name: Nixpkgs exifprobe windows cache (wave 9)
+  description: Nixpkgs leftover pname exifprobe on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exifprobe/Cache"
+  - "%LOCALAPPDATA%/exifprobe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exifr
+  name: Nixpkgs exifr macos cache (wave 9)
+  description: Nixpkgs leftover pname exifr on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exifr"
+  - "$HOME/Library/Logs/exifr"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exifr
+  name: Nixpkgs exifr linux cache (wave 9)
+  description: Nixpkgs leftover pname exifr on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exifr"
+  - "$XDG_CACHE_HOME/exifr"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exifr
+  name: Nixpkgs exifr windows cache (wave 9)
+  description: Nixpkgs leftover pname exifr on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exifr/Cache"
+  - "%LOCALAPPDATA%/exifr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exifread
+  name: Nixpkgs exifread macos cache (wave 9)
+  description: Nixpkgs leftover pname exifread on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exifread"
+  - "$HOME/Library/Logs/exifread"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exifread
+  name: Nixpkgs exifread linux cache (wave 9)
+  description: Nixpkgs leftover pname exifread on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exifread"
+  - "$XDG_CACHE_HOME/exifread"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exifread
+  name: Nixpkgs exifread windows cache (wave 9)
+  description: Nixpkgs leftover pname exifread on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exifread/Cache"
+  - "%LOCALAPPDATA%/exifread/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exiftags
+  name: Nixpkgs exiftags macos cache (wave 9)
+  description: Nixpkgs leftover pname exiftags on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exiftags"
+  - "$HOME/Library/Logs/exiftags"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exiftags
+  name: Nixpkgs exiftags linux cache (wave 9)
+  description: Nixpkgs leftover pname exiftags on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exiftags"
+  - "$XDG_CACHE_HOME/exiftags"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exiftags
+  name: Nixpkgs exiftags windows cache (wave 9)
+  description: Nixpkgs leftover pname exiftags on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exiftags/Cache"
+  - "%LOCALAPPDATA%/exiftags/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exiftool
+  name: Nixpkgs exiftool macos cache (wave 9)
+  description: Nixpkgs leftover pname exiftool on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exiftool"
+  - "$HOME/Library/Logs/exiftool"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exiftool
+  name: Nixpkgs exiftool linux cache (wave 9)
+  description: Nixpkgs leftover pname exiftool on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exiftool"
+  - "$XDG_CACHE_HOME/exiftool"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exiftool
+  name: Nixpkgs exiftool windows cache (wave 9)
+  description: Nixpkgs leftover pname exiftool on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exiftool/Cache"
+  - "%LOCALAPPDATA%/exiftool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exiftoolr
+  name: Nixpkgs exiftoolr macos cache (wave 9)
+  description: Nixpkgs leftover pname exiftoolr on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exiftoolr"
+  - "$HOME/Library/Logs/exiftoolr"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exiftoolr
+  name: Nixpkgs exiftoolr linux cache (wave 9)
+  description: Nixpkgs leftover pname exiftoolr on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exiftoolr"
+  - "$XDG_CACHE_HOME/exiftoolr"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exiftoolr
+  name: Nixpkgs exiftoolr windows cache (wave 9)
+  description: Nixpkgs leftover pname exiftoolr on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exiftoolr/Cache"
+  - "%LOCALAPPDATA%/exiftoolr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exigo-schema
+  name: Nixpkgs exigo-schema macos cache (wave 9)
+  description: Nixpkgs leftover pname exigo-schema on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exigo-schema"
+  - "$HOME/Library/Logs/exigo-schema"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exigo-schema
+  name: Nixpkgs exigo-schema linux cache (wave 9)
+  description: Nixpkgs leftover pname exigo-schema on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exigo-schema"
+  - "$XDG_CACHE_HOME/exigo-schema"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exigo-schema
+  name: Nixpkgs exigo-schema windows cache (wave 9)
+  description: Nixpkgs leftover pname exigo-schema on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exigo-schema/Cache"
+  - "%LOCALAPPDATA%/exigo-schema/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exim
+  name: Nixpkgs exim macos cache (wave 9)
+  description: Nixpkgs leftover pname exim on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exim"
+  - "$HOME/Library/Logs/exim"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exim
+  name: Nixpkgs exim linux cache (wave 9)
+  description: Nixpkgs leftover pname exim on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exim"
+  - "$XDG_CACHE_HOME/exim"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exim
+  name: Nixpkgs exim windows cache (wave 9)
+  description: Nixpkgs leftover pname exim on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exim/Cache"
+  - "%LOCALAPPDATA%/exim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst
+  name: Nixpkgs exinst macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst"
+  - "$HOME/Library/Logs/exinst"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst
+  name: Nixpkgs exinst linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst"
+  - "$XDG_CACHE_HOME/exinst"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst
+  name: Nixpkgs exinst windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst/Cache"
+  - "%LOCALAPPDATA%/exinst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-aeson
+  name: Nixpkgs exinst-aeson macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-aeson on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-aeson"
+  - "$HOME/Library/Logs/exinst-aeson"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-aeson
+  name: Nixpkgs exinst-aeson linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-aeson on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-aeson"
+  - "$XDG_CACHE_HOME/exinst-aeson"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-aeson
+  name: Nixpkgs exinst-aeson windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-aeson on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-aeson/Cache"
+  - "%LOCALAPPDATA%/exinst-aeson/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-base
+  name: Nixpkgs exinst-base macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-base on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-base"
+  - "$HOME/Library/Logs/exinst-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-base
+  name: Nixpkgs exinst-base linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-base on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-base"
+  - "$XDG_CACHE_HOME/exinst-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-base
+  name: Nixpkgs exinst-base windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-base on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-base/Cache"
+  - "%LOCALAPPDATA%/exinst-base/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-bytes
+  name: Nixpkgs exinst-bytes macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-bytes on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-bytes"
+  - "$HOME/Library/Logs/exinst-bytes"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-bytes
+  name: Nixpkgs exinst-bytes linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-bytes on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-bytes"
+  - "$XDG_CACHE_HOME/exinst-bytes"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-bytes
+  name: Nixpkgs exinst-bytes windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-bytes on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-bytes/Cache"
+  - "%LOCALAPPDATA%/exinst-bytes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-cereal
+  name: Nixpkgs exinst-cereal macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-cereal on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-cereal"
+  - "$HOME/Library/Logs/exinst-cereal"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-cereal
+  name: Nixpkgs exinst-cereal linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-cereal on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-cereal"
+  - "$XDG_CACHE_HOME/exinst-cereal"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-cereal
+  name: Nixpkgs exinst-cereal windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-cereal on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-cereal/Cache"
+  - "%LOCALAPPDATA%/exinst-cereal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-deepseq
+  name: Nixpkgs exinst-deepseq macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-deepseq on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-deepseq"
+  - "$HOME/Library/Logs/exinst-deepseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-deepseq
+  name: Nixpkgs exinst-deepseq linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-deepseq on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-deepseq"
+  - "$XDG_CACHE_HOME/exinst-deepseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-deepseq
+  name: Nixpkgs exinst-deepseq windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-deepseq on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-deepseq/Cache"
+  - "%LOCALAPPDATA%/exinst-deepseq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-hashable
+  name: Nixpkgs exinst-hashable macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-hashable on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-hashable"
+  - "$HOME/Library/Logs/exinst-hashable"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-hashable
+  name: Nixpkgs exinst-hashable linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-hashable on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-hashable"
+  - "$XDG_CACHE_HOME/exinst-hashable"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-hashable
+  name: Nixpkgs exinst-hashable windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-hashable on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-hashable/Cache"
+  - "%LOCALAPPDATA%/exinst-hashable/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exinst-serialise
+  name: Nixpkgs exinst-serialise macos cache (wave 9)
+  description: Nixpkgs leftover pname exinst-serialise on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exinst-serialise"
+  - "$HOME/Library/Logs/exinst-serialise"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exinst-serialise
+  name: Nixpkgs exinst-serialise linux cache (wave 9)
+  description: Nixpkgs leftover pname exinst-serialise on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exinst-serialise"
+  - "$XDG_CACHE_HOME/exinst-serialise"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exinst-serialise
+  name: Nixpkgs exinst-serialise windows cache (wave 9)
+  description: Nixpkgs leftover pname exinst-serialise on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exinst-serialise/Cache"
+  - "%LOCALAPPDATA%/exinst-serialise/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exist
+  name: Nixpkgs exist macos cache (wave 9)
+  description: Nixpkgs leftover pname exist on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exist"
+  - "$HOME/Library/Logs/exist"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exist
+  name: Nixpkgs exist linux cache (wave 9)
+  description: Nixpkgs leftover pname exist on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exist"
+  - "$XDG_CACHE_HOME/exist"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exist
+  name: Nixpkgs exist windows cache (wave 9)
+  description: Nixpkgs leftover pname exist on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exist/Cache"
+  - "%LOCALAPPDATA%/exist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exist-instances
+  name: Nixpkgs exist-instances macos cache (wave 9)
+  description: Nixpkgs leftover pname exist-instances on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exist-instances"
+  - "$HOME/Library/Logs/exist-instances"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exist-instances
+  name: Nixpkgs exist-instances linux cache (wave 9)
+  description: Nixpkgs leftover pname exist-instances on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exist-instances"
+  - "$XDG_CACHE_HOME/exist-instances"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exist-instances
+  name: Nixpkgs exist-instances windows cache (wave 9)
+  description: Nixpkgs leftover pname exist-instances on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exist-instances/Cache"
+  - "%LOCALAPPDATA%/exist-instances/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-existential
+  name: Nixpkgs existential macos cache (wave 9)
+  description: Nixpkgs leftover pname existential on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/existential"
+  - "$HOME/Library/Logs/existential"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-existential
+  name: Nixpkgs existential linux cache (wave 9)
+  description: Nixpkgs leftover pname existential on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/existential"
+  - "$XDG_CACHE_HOME/existential"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-existential
+  name: Nixpkgs existential windows cache (wave 9)
+  description: Nixpkgs leftover pname existential on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/existential/Cache"
+  - "%LOCALAPPDATA%/existential/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exists
+  name: Nixpkgs exists macos cache (wave 9)
+  description: Nixpkgs leftover pname exists on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exists"
+  - "$HOME/Library/Logs/exists"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exists
+  name: Nixpkgs exists linux cache (wave 9)
+  description: Nixpkgs leftover pname exists on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exists"
+  - "$XDG_CACHE_HOME/exists"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exists
+  name: Nixpkgs exists windows cache (wave 9)
+  description: Nixpkgs leftover pname exists on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exists/Cache"
+  - "%LOCALAPPDATA%/exists/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exit-codes
+  name: Nixpkgs exit-codes macos cache (wave 9)
+  description: Nixpkgs leftover pname exit-codes on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exit-codes"
+  - "$HOME/Library/Logs/exit-codes"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exit-codes
+  name: Nixpkgs exit-codes linux cache (wave 9)
+  description: Nixpkgs leftover pname exit-codes on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exit-codes"
+  - "$XDG_CACHE_HOME/exit-codes"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exit-codes
+  name: Nixpkgs exit-codes windows cache (wave 9)
+  description: Nixpkgs leftover pname exit-codes on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exit-codes/Cache"
+  - "%LOCALAPPDATA%/exit-codes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exit-hooks
+  name: Nixpkgs exit-hooks macos cache (wave 9)
+  description: Nixpkgs leftover pname exit-hooks on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exit-hooks"
+  - "$HOME/Library/Logs/exit-hooks"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exit-hooks
+  name: Nixpkgs exit-hooks linux cache (wave 9)
+  description: Nixpkgs leftover pname exit-hooks on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exit-hooks"
+  - "$XDG_CACHE_HOME/exit-hooks"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exit-hooks
+  name: Nixpkgs exit-hooks windows cache (wave 9)
+  description: Nixpkgs leftover pname exit-hooks on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exit-hooks/Cache"
+  - "%LOCALAPPDATA%/exit-hooks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exitcode
+  name: Nixpkgs exitcode macos cache (wave 9)
+  description: Nixpkgs leftover pname exitcode on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exitcode"
+  - "$HOME/Library/Logs/exitcode"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exitcode
+  name: Nixpkgs exitcode linux cache (wave 9)
+  description: Nixpkgs leftover pname exitcode on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exitcode"
+  - "$XDG_CACHE_HOME/exitcode"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exitcode
+  name: Nixpkgs exitcode windows cache (wave 9)
+  description: Nixpkgs leftover pname exitcode on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exitcode/Cache"
+  - "%LOCALAPPDATA%/exitcode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exiv2
+  name: Nixpkgs exiv2 macos cache (wave 9)
+  description: Nixpkgs leftover pname exiv2 on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exiv2"
+  - "$HOME/Library/Logs/exiv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exiv2
+  name: Nixpkgs exiv2 linux cache (wave 9)
+  description: Nixpkgs leftover pname exiv2 on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exiv2"
+  - "$XDG_CACHE_HOME/exiv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exiv2
+  name: Nixpkgs exiv2 windows cache (wave 9)
+  description: Nixpkgs leftover pname exiv2 on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exiv2/Cache"
+  - "%LOCALAPPDATA%/exiv2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exllamav3
+  name: Nixpkgs exllamav3 macos cache (wave 9)
+  description: Nixpkgs leftover pname exllamav3 on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exllamav3"
+  - "$HOME/Library/Logs/exllamav3"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exllamav3
+  name: Nixpkgs exllamav3 linux cache (wave 9)
+  description: Nixpkgs leftover pname exllamav3 on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exllamav3"
+  - "$XDG_CACHE_HOME/exllamav3"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exllamav3
+  name: Nixpkgs exllamav3 windows cache (wave 9)
+  description: Nixpkgs leftover pname exllamav3 on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exllamav3/Cache"
+  - "%LOCALAPPDATA%/exllamav3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exm
+  name: Nixpkgs exm macos cache (wave 9)
+  description: Nixpkgs leftover pname exm on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exm"
+  - "$HOME/Library/Logs/exm"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exm
+  name: Nixpkgs exm linux cache (wave 9)
+  description: Nixpkgs leftover pname exm on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exm"
+  - "$XDG_CACHE_HOME/exm"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exm
+  name: Nixpkgs exm windows cache (wave 9)
+  description: Nixpkgs leftover pname exm on windows (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exm/Cache"
+  - "%LOCALAPPDATA%/exm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exmllent
+  name: Nixpkgs exmllent macos cache (wave 9)
+  description: Nixpkgs leftover pname exmllent on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exmllent"
+  - "$HOME/Library/Logs/exmllent"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exmllent
+  name: Nixpkgs exmllent linux cache (wave 9)
+  description: Nixpkgs leftover pname exmllent on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exmllent"
+  - "$XDG_CACHE_HOME/exmllent"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exmllent
+  name: Nixpkgs exmllent windows cache (wave 9)
+  description: Nixpkgs leftover pname exmllent on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exmllent/Cache"
+  - "%LOCALAPPDATA%/exmllent/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exo
+  name: Nixpkgs exo macos cache (wave 9)
+  description: Nixpkgs leftover pname exo on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exo"
+  - "$HOME/Library/Logs/exo"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exo
+  name: Nixpkgs exo linux cache (wave 9)
+  description: Nixpkgs leftover pname exo on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exo"
+  - "$XDG_CACHE_HOME/exo"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exo
+  name: Nixpkgs exo windows cache (wave 9)
+  description: Nixpkgs leftover pname exo on windows (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exo/Cache"
+  - "%LOCALAPPDATA%/exo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exodus
+  name: Nixpkgs exodus macos cache (wave 9)
+  description: Nixpkgs leftover pname exodus on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exodus"
+  - "$HOME/Library/Logs/exodus"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exodus
+  name: Nixpkgs exodus linux cache (wave 9)
+  description: Nixpkgs leftover pname exodus on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exodus"
+  - "$XDG_CACHE_HOME/exodus"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exodus
+  name: Nixpkgs exodus windows cache (wave 9)
+  description: Nixpkgs leftover pname exodus on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exodus/Cache"
+  - "%LOCALAPPDATA%/exodus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exomecopy
+  name: Nixpkgs exomeCopy macos cache (wave 9)
+  description: Nixpkgs leftover pname exomeCopy on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exomeCopy"
+  - "$HOME/Library/Logs/exomeCopy"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exomecopy
+  name: Nixpkgs exomeCopy linux cache (wave 9)
+  description: Nixpkgs leftover pname exomeCopy on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exomeCopy"
+  - "$XDG_CACHE_HOME/exomeCopy"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exomecopy
+  name: Nixpkgs exomeCopy windows cache (wave 9)
+  description: Nixpkgs leftover pname exomeCopy on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exomeCopy/Cache"
+  - "%LOCALAPPDATA%/exomeCopy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exomepeak
+  name: Nixpkgs exomePeak macos cache (wave 9)
+  description: Nixpkgs leftover pname exomePeak on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exomePeak"
+  - "$HOME/Library/Logs/exomePeak"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exomepeak
+  name: Nixpkgs exomePeak linux cache (wave 9)
+  description: Nixpkgs leftover pname exomePeak on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exomePeak"
+  - "$XDG_CACHE_HOME/exomePeak"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exomepeak
+  name: Nixpkgs exomePeak windows cache (wave 9)
+  description: Nixpkgs leftover pname exomePeak on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exomePeak/Cache"
+  - "%LOCALAPPDATA%/exomePeak/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exomepeak2
+  name: Nixpkgs exomePeak2 macos cache (wave 9)
+  description: Nixpkgs leftover pname exomePeak2 on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exomePeak2"
+  - "$HOME/Library/Logs/exomePeak2"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exomepeak2
+  name: Nixpkgs exomePeak2 linux cache (wave 9)
+  description: Nixpkgs leftover pname exomePeak2 on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exomePeak2"
+  - "$XDG_CACHE_HOME/exomePeak2"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exomepeak2
+  name: Nixpkgs exomePeak2 windows cache (wave 9)
+  description: Nixpkgs leftover pname exomePeak2 on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exomePeak2/Cache"
+  - "%LOCALAPPDATA%/exomePeak2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exomizer
+  name: Nixpkgs exomizer macos cache (wave 9)
+  description: Nixpkgs leftover pname exomizer on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exomizer"
+  - "$HOME/Library/Logs/exomizer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exomizer
+  name: Nixpkgs exomizer linux cache (wave 9)
+  description: Nixpkgs leftover pname exomizer on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exomizer"
+  - "$XDG_CACHE_HOME/exomizer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exomizer
+  name: Nixpkgs exomizer windows cache (wave 9)
+  description: Nixpkgs leftover pname exomizer on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exomizer/Cache"
+  - "%LOCALAPPDATA%/exomizer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exon
+  name: Nixpkgs exon macos cache (wave 9)
+  description: Nixpkgs leftover pname exon on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exon"
+  - "$HOME/Library/Logs/exon"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exon
+  name: Nixpkgs exon linux cache (wave 9)
+  description: Nixpkgs leftover pname exon on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exon"
+  - "$XDG_CACHE_HOME/exon"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exon
+  name: Nixpkgs exon windows cache (wave 9)
+  description: Nixpkgs leftover pname exon on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exon/Cache"
+  - "%LOCALAPPDATA%/exon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exonerate
+  name: Nixpkgs exonerate macos cache (wave 9)
+  description: Nixpkgs leftover pname exonerate on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exonerate"
+  - "$HOME/Library/Logs/exonerate"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exonerate
+  name: Nixpkgs exonerate linux cache (wave 9)
+  description: Nixpkgs leftover pname exonerate on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exonerate"
+  - "$XDG_CACHE_HOME/exonerate"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exonerate
+  name: Nixpkgs exonerate windows cache (wave 9)
+  description: Nixpkgs leftover pname exonerate on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exonerate/Cache"
+  - "%LOCALAPPDATA%/exonerate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exoplanets
+  name: Nixpkgs exoplanets macos cache (wave 9)
+  description: Nixpkgs leftover pname exoplanets on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exoplanets"
+  - "$HOME/Library/Logs/exoplanets"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exoplanets
+  name: Nixpkgs exoplanets linux cache (wave 9)
+  description: Nixpkgs leftover pname exoplanets on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exoplanets"
+  - "$XDG_CACHE_HOME/exoplanets"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exoplanets
+  name: Nixpkgs exoplanets windows cache (wave 9)
+  description: Nixpkgs leftover pname exoplanets on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exoplanets/Cache"
+  - "%LOCALAPPDATA%/exoplanets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exoscale-cli
+  name: Nixpkgs exoscale-cli macos cache (wave 9)
+  description: Nixpkgs leftover pname exoscale-cli on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exoscale-cli"
+  - "$HOME/Library/Logs/exoscale-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exoscale-cli
+  name: Nixpkgs exoscale-cli linux cache (wave 9)
+  description: Nixpkgs leftover pname exoscale-cli on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exoscale-cli"
+  - "$XDG_CACHE_HOME/exoscale-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exoscale-cli
+  name: Nixpkgs exoscale-cli windows cache (wave 9)
+  description: Nixpkgs leftover pname exoscale-cli on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exoscale-cli/Cache"
+  - "%LOCALAPPDATA%/exoscale-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exotic-list-monads
+  name: Nixpkgs exotic-list-monads macos cache (wave 9)
+  description: Nixpkgs leftover pname exotic-list-monads on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exotic-list-monads"
+  - "$HOME/Library/Logs/exotic-list-monads"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exotic-list-monads
+  name: Nixpkgs exotic-list-monads linux cache (wave 9)
+  description: Nixpkgs leftover pname exotic-list-monads on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exotic-list-monads"
+  - "$XDG_CACHE_HOME/exotic-list-monads"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exotic-list-monads
+  name: Nixpkgs exotic-list-monads windows cache (wave 9)
+  description: Nixpkgs leftover pname exotic-list-monads on windows (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exotic-list-monads/Cache"
+  - "%LOCALAPPDATA%/exotic-list-monads/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exotica-theme
+  name: Nixpkgs exotica-theme macos cache (wave 9)
+  description: Nixpkgs leftover pname exotica-theme on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exotica-theme"
+  - "$HOME/Library/Logs/exotica-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exotica-theme
+  name: Nixpkgs exotica-theme linux cache (wave 9)
+  description: Nixpkgs leftover pname exotica-theme on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exotica-theme"
+  - "$XDG_CACHE_HOME/exotica-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exotica-theme
+  name: Nixpkgs exotica-theme windows cache (wave 9)
+  description: Nixpkgs leftover pname exotica-theme on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exotica-theme/Cache"
+  - "%LOCALAPPDATA%/exotica-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exp-cache
+  name: Nixpkgs exp-cache macos cache (wave 9)
+  description: Nixpkgs leftover pname exp-cache on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exp-cache"
+  - "$HOME/Library/Logs/exp-cache"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exp-cache
+  name: Nixpkgs exp-cache linux cache (wave 9)
+  description: Nixpkgs leftover pname exp-cache on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exp-cache"
+  - "$XDG_CACHE_HOME/exp-cache"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exp-cache
+  name: Nixpkgs exp-cache windows cache (wave 9)
+  description: Nixpkgs leftover pname exp-cache on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exp-cache/Cache"
+  - "%LOCALAPPDATA%/exp-cache/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exp-extended
+  name: Nixpkgs exp-extended macos cache (wave 9)
+  description: Nixpkgs leftover pname exp-extended on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exp-extended"
+  - "$HOME/Library/Logs/exp-extended"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exp-extended
+  name: Nixpkgs exp-extended linux cache (wave 9)
+  description: Nixpkgs leftover pname exp-extended on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exp-extended"
+  - "$XDG_CACHE_HOME/exp-extended"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exp-extended
+  name: Nixpkgs exp-extended windows cache (wave 9)
+  description: Nixpkgs leftover pname exp-extended on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exp-extended/Cache"
+  - "%LOCALAPPDATA%/exp-extended/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exp-pairs
+  name: Nixpkgs exp-pairs macos cache (wave 9)
+  description: Nixpkgs leftover pname exp-pairs on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exp-pairs"
+  - "$HOME/Library/Logs/exp-pairs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exp-pairs
+  name: Nixpkgs exp-pairs linux cache (wave 9)
+  description: Nixpkgs leftover pname exp-pairs on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exp-pairs"
+  - "$XDG_CACHE_HOME/exp-pairs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exp-pairs
+  name: Nixpkgs exp-pairs windows cache (wave 9)
+  description: Nixpkgs leftover pname exp-pairs on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exp-pairs/Cache"
+  - "%LOCALAPPDATA%/exp-pairs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exp-resume
+  name: Nixpkgs exp-resume macos cache (wave 9)
+  description: Nixpkgs leftover pname exp-resume on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exp-resume"
+  - "$HOME/Library/Logs/exp-resume"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exp-resume
+  name: Nixpkgs exp-resume linux cache (wave 9)
+  description: Nixpkgs leftover pname exp-resume on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exp-resume"
+  - "$XDG_CACHE_HOME/exp-resume"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exp-resume
+  name: Nixpkgs exp-resume windows cache (wave 9)
+  description: Nixpkgs leftover pname exp-resume on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exp-resume/Cache"
+  - "%LOCALAPPDATA%/exp-resume/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exp-testopt
+  name: Nixpkgs exp-testopt macos cache (wave 9)
+  description: Nixpkgs leftover pname exp-testopt on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exp-testopt"
+  - "$HOME/Library/Logs/exp-testopt"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exp-testopt
+  name: Nixpkgs exp-testopt linux cache (wave 9)
+  description: Nixpkgs leftover pname exp-testopt on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exp-testopt"
+  - "$XDG_CACHE_HOME/exp-testopt"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exp-testopt
+  name: Nixpkgs exp-testopt windows cache (wave 9)
+  description: Nixpkgs leftover pname exp-testopt on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exp-testopt/Cache"
+  - "%LOCALAPPDATA%/exp-testopt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-exp2flux
+  name: Nixpkgs exp2flux macos cache (wave 9)
+  description: Nixpkgs leftover pname exp2flux on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/exp2flux"
+  - "$HOME/Library/Logs/exp2flux"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-exp2flux
+  name: Nixpkgs exp2flux linux cache (wave 9)
+  description: Nixpkgs leftover pname exp2flux on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/exp2flux"
+  - "$XDG_CACHE_HOME/exp2flux"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-exp2flux
+  name: Nixpkgs exp2flux windows cache (wave 9)
+  description: Nixpkgs leftover pname exp2flux on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/exp2flux/Cache"
+  - "%LOCALAPPDATA%/exp2flux/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expdb
+  name: Nixpkgs expDB macos cache (wave 9)
+  description: Nixpkgs leftover pname expDB on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expDB"
+  - "$HOME/Library/Logs/expDB"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expdb
+  name: Nixpkgs expDB linux cache (wave 9)
+  description: Nixpkgs leftover pname expDB on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expDB"
+  - "$XDG_CACHE_HOME/expDB"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expdb
+  name: Nixpkgs expDB windows cache (wave 9)
+  description: Nixpkgs leftover pname expDB on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expDB/Cache"
+  - "%LOCALAPPDATA%/expDB/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expsbm
+  name: Nixpkgs expSBM macos cache (wave 9)
+  description: Nixpkgs leftover pname expSBM on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expSBM"
+  - "$HOME/Library/Logs/expSBM"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expsbm
+  name: Nixpkgs expSBM linux cache (wave 9)
+  description: Nixpkgs leftover pname expSBM on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expSBM"
+  - "$XDG_CACHE_HOME/expSBM"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expsbm
+  name: Nixpkgs expSBM windows cache (wave 9)
+  description: Nixpkgs leftover pname expSBM on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expSBM/Cache"
+  - "%LOCALAPPDATA%/expSBM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expand
+  name: Nixpkgs expand macos cache (wave 9)
+  description: Nixpkgs leftover pname expand on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expand"
+  - "$HOME/Library/Logs/expand"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expand
+  name: Nixpkgs expand linux cache (wave 9)
+  description: Nixpkgs leftover pname expand on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expand"
+  - "$XDG_CACHE_HOME/expand"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expand
+  name: Nixpkgs expand windows cache (wave 9)
+  description: Nixpkgs leftover pname expand on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expand/Cache"
+  - "%LOCALAPPDATA%/expand/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expand-line
+  name: Nixpkgs expand-line macos cache (wave 9)
+  description: Nixpkgs leftover pname expand-line on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expand-line"
+  - "$HOME/Library/Logs/expand-line"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expand-line
+  name: Nixpkgs expand-line linux cache (wave 9)
+  description: Nixpkgs leftover pname expand-line on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expand-line"
+  - "$XDG_CACHE_HOME/expand-line"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expand-line
+  name: Nixpkgs expand-line windows cache (wave 9)
+  description: Nixpkgs leftover pname expand-line on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expand-line/Cache"
+  - "%LOCALAPPDATA%/expand-line/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expand-region
+  name: Nixpkgs expand-region macos cache (wave 9)
+  description: Nixpkgs leftover pname expand-region on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expand-region"
+  - "$HOME/Library/Logs/expand-region"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expand-region
+  name: Nixpkgs expand-region linux cache (wave 9)
+  description: Nixpkgs leftover pname expand-region on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expand-region"
+  - "$XDG_CACHE_HOME/expand-region"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expand-region
+  name: Nixpkgs expand-region windows cache (wave 9)
+  description: Nixpkgs leftover pname expand-region on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expand-region/Cache"
+  - "%LOCALAPPDATA%/expand-region/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expand-response-params
+  name: Nixpkgs expand-response-params macos cache (wave 9)
+  description: Nixpkgs leftover pname expand-response-params on macos (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expand-response-params"
+  - "$HOME/Library/Logs/expand-response-params"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expand-response-params
+  name: Nixpkgs expand-response-params linux cache (wave 9)
+  description: Nixpkgs leftover pname expand-response-params on linux (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expand-response-params"
+  - "$XDG_CACHE_HOME/expand-response-params"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expand-response-params
+  name: Nixpkgs expand-response-params windows cache (wave 9)
+  description: Nixpkgs leftover pname expand-response-params on windows (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expand-response-params/Cache"
+  - "%LOCALAPPDATA%/expand-response-params/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expandfunctions
+  name: Nixpkgs expandFunctions macos cache (wave 9)
+  description: Nixpkgs leftover pname expandFunctions on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expandFunctions"
+  - "$HOME/Library/Logs/expandFunctions"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expandfunctions
+  name: Nixpkgs expandFunctions linux cache (wave 9)
+  description: Nixpkgs leftover pname expandFunctions on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expandFunctions"
+  - "$XDG_CACHE_HOME/expandFunctions"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expandfunctions
+  name: Nixpkgs expandFunctions windows cache (wave 9)
+  description: Nixpkgs leftover pname expandFunctions on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expandFunctions/Cache"
+  - "%LOCALAPPDATA%/expandFunctions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expanders
+  name: Nixpkgs expanders macos cache (wave 9)
+  description: Nixpkgs leftover pname expanders on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expanders"
+  - "$HOME/Library/Logs/expanders"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expanders
+  name: Nixpkgs expanders linux cache (wave 9)
+  description: Nixpkgs leftover pname expanders on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expanders"
+  - "$XDG_CACHE_HOME/expanders"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expanders
+  name: Nixpkgs expanders windows cache (wave 9)
+  description: Nixpkgs leftover pname expanders on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expanders/Cache"
+  - "%LOCALAPPDATA%/expanders/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expands
+  name: Nixpkgs expands macos cache (wave 9)
+  description: Nixpkgs leftover pname expands on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expands"
+  - "$HOME/Library/Logs/expands"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expands
+  name: Nixpkgs expands linux cache (wave 9)
+  description: Nixpkgs leftover pname expands on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expands"
+  - "$XDG_CACHE_HOME/expands"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expands
+  name: Nixpkgs expands windows cache (wave 9)
+  description: Nixpkgs leftover pname expands on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expands/Cache"
+  - "%LOCALAPPDATA%/expands/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expandvars
+  name: Nixpkgs expandvars macos cache (wave 9)
+  description: Nixpkgs leftover pname expandvars on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expandvars"
+  - "$HOME/Library/Logs/expandvars"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expandvars
+  name: Nixpkgs expandvars linux cache (wave 9)
+  description: Nixpkgs leftover pname expandvars on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expandvars"
+  - "$XDG_CACHE_HOME/expandvars"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expandvars
+  name: Nixpkgs expandvars windows cache (wave 9)
+  description: Nixpkgs leftover pname expandvars on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expandvars/Cache"
+  - "%LOCALAPPDATA%/expandvars/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expat
+  name: Nixpkgs expat macos cache (wave 9)
+  description: Nixpkgs leftover pname expat on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expat"
+  - "$HOME/Library/Logs/expat"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expat
+  name: Nixpkgs expat linux cache (wave 9)
+  description: Nixpkgs leftover pname expat on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expat"
+  - "$XDG_CACHE_HOME/expat"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expat
+  name: Nixpkgs expat windows cache (wave 9)
+  description: Nixpkgs leftover pname expat on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expat/Cache"
+  - "%LOCALAPPDATA%/expat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expat-enumerator
+  name: Nixpkgs expat-enumerator macos cache (wave 9)
+  description: Nixpkgs leftover pname expat-enumerator on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expat-enumerator"
+  - "$HOME/Library/Logs/expat-enumerator"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expat-enumerator
+  name: Nixpkgs expat-enumerator linux cache (wave 9)
+  description: Nixpkgs leftover pname expat-enumerator on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expat-enumerator"
+  - "$XDG_CACHE_HOME/expat-enumerator"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expat-enumerator
+  name: Nixpkgs expat-enumerator windows cache (wave 9)
+  description: Nixpkgs leftover pname expat-enumerator on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expat-enumerator/Cache"
+  - "%LOCALAPPDATA%/expat-enumerator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expdlist
+  name: Nixpkgs expdlist macos cache (wave 9)
+  description: Nixpkgs leftover pname expdlist on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expdlist"
+  - "$HOME/Library/Logs/expdlist"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expdlist
+  name: Nixpkgs expdlist linux cache (wave 9)
+  description: Nixpkgs leftover pname expdlist on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expdlist"
+  - "$XDG_CACHE_HOME/expdlist"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expdlist
+  name: Nixpkgs expdlist windows cache (wave 9)
+  description: Nixpkgs leftover pname expdlist on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expdlist/Cache"
+  - "%LOCALAPPDATA%/expdlist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expect-test-helpers-async
+  name: Nixpkgs expect_test_helpers_async macos cache (wave 9)
+  description: Nixpkgs leftover pname expect_test_helpers_async on macos (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expect_test_helpers_async"
+  - "$HOME/Library/Logs/expect_test_helpers_async"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expect-test-helpers-async
+  name: Nixpkgs expect_test_helpers_async linux cache (wave 9)
+  description: Nixpkgs leftover pname expect_test_helpers_async on linux (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expect_test_helpers_async"
+  - "$XDG_CACHE_HOME/expect_test_helpers_async"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expect-test-helpers-async
+  name: Nixpkgs expect_test_helpers_async windows cache (wave 9)
+  description: Nixpkgs leftover pname expect_test_helpers_async on windows (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expect_test_helpers_async/Cache"
+  - "%LOCALAPPDATA%/expect_test_helpers_async/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expect-test-helpers-core
+  name: Nixpkgs expect_test_helpers_core macos cache (wave 9)
+  description: Nixpkgs leftover pname expect_test_helpers_core on macos (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expect_test_helpers_core"
+  - "$HOME/Library/Logs/expect_test_helpers_core"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expect-test-helpers-core
+  name: Nixpkgs expect_test_helpers_core linux cache (wave 9)
+  description: Nixpkgs leftover pname expect_test_helpers_core on linux (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expect_test_helpers_core"
+  - "$XDG_CACHE_HOME/expect_test_helpers_core"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expect-test-helpers-core
+  name: Nixpkgs expect_test_helpers_core windows cache (wave 9)
+  description: Nixpkgs leftover pname expect_test_helpers_core on windows (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expect_test_helpers_core/Cache"
+  - "%LOCALAPPDATA%/expect_test_helpers_core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expected-lite
+  name: Nixpkgs expected-lite macos cache (wave 9)
+  description: Nixpkgs leftover pname expected-lite on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expected-lite"
+  - "$HOME/Library/Logs/expected-lite"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expected-lite
+  name: Nixpkgs expected-lite linux cache (wave 9)
+  description: Nixpkgs leftover pname expected-lite on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expected-lite"
+  - "$XDG_CACHE_HOME/expected-lite"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expected-lite
+  name: Nixpkgs expected-lite windows cache (wave 9)
+  description: Nixpkgs leftover pname expected-lite on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expected-lite/Cache"
+  - "%LOCALAPPDATA%/expected-lite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expectreg
+  name: Nixpkgs expectreg macos cache (wave 9)
+  description: Nixpkgs leftover pname expectreg on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expectreg"
+  - "$HOME/Library/Logs/expectreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expectreg
+  name: Nixpkgs expectreg linux cache (wave 9)
+  description: Nixpkgs leftover pname expectreg on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expectreg"
+  - "$XDG_CACHE_HOME/expectreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expectreg
+  name: Nixpkgs expectreg windows cache (wave 9)
+  description: Nixpkgs leftover pname expectreg on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expectreg/Cache"
+  - "%LOCALAPPDATA%/expectreg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expects
+  name: Nixpkgs expects macos cache (wave 9)
+  description: Nixpkgs leftover pname expects on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expects"
+  - "$HOME/Library/Logs/expects"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expects
+  name: Nixpkgs expects linux cache (wave 9)
+  description: Nixpkgs leftover pname expects on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expects"
+  - "$XDG_CACHE_HOME/expects"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expects
+  name: Nixpkgs expects windows cache (wave 9)
+  description: Nixpkgs leftover pname expects on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expects/Cache"
+  - "%LOCALAPPDATA%/expects/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expecttest
+  name: Nixpkgs expecttest macos cache (wave 9)
+  description: Nixpkgs leftover pname expecttest on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expecttest"
+  - "$HOME/Library/Logs/expecttest"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expecttest
+  name: Nixpkgs expecttest linux cache (wave 9)
+  description: Nixpkgs leftover pname expecttest on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expecttest"
+  - "$XDG_CACHE_HOME/expecttest"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expecttest
+  name: Nixpkgs expecttest windows cache (wave 9)
+  description: Nixpkgs leftover pname expecttest on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expecttest/Cache"
+  - "%LOCALAPPDATA%/expecttest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expenses
+  name: Nixpkgs expenses macos cache (wave 9)
+  description: Nixpkgs leftover pname expenses on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expenses"
+  - "$HOME/Library/Logs/expenses"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expenses
+  name: Nixpkgs expenses linux cache (wave 9)
+  description: Nixpkgs leftover pname expenses on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expenses"
+  - "$XDG_CACHE_HOME/expenses"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expenses
+  name: Nixpkgs expenses windows cache (wave 9)
+  description: Nixpkgs leftover pname expenses on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expenses/Cache"
+  - "%LOCALAPPDATA%/expenses/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experdesign
+  name: Nixpkgs experDesign macos cache (wave 9)
+  description: Nixpkgs leftover pname experDesign on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experDesign"
+  - "$HOME/Library/Logs/experDesign"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experdesign
+  name: Nixpkgs experDesign linux cache (wave 9)
+  description: Nixpkgs leftover pname experDesign on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experDesign"
+  - "$XDG_CACHE_HOME/experDesign"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experdesign
+  name: Nixpkgs experDesign windows cache (wave 9)
+  description: Nixpkgs leftover pname experDesign on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experDesign/Cache"
+  - "%LOCALAPPDATA%/experDesign/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experienced-pixel-dungeon
+  name: Nixpkgs experienced-pixel-dungeon macos cache (wave 9)
+  description: Nixpkgs leftover pname experienced-pixel-dungeon on macos (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experienced-pixel-dungeon"
+  - "$HOME/Library/Logs/experienced-pixel-dungeon"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experienced-pixel-dungeon
+  name: Nixpkgs experienced-pixel-dungeon linux cache (wave 9)
+  description: Nixpkgs leftover pname experienced-pixel-dungeon on linux (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experienced-pixel-dungeon"
+  - "$XDG_CACHE_HOME/experienced-pixel-dungeon"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experienced-pixel-dungeon
+  name: Nixpkgs experienced-pixel-dungeon windows cache (wave 9)
+  description: Nixpkgs leftover pname experienced-pixel-dungeon on windows (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experienced-pixel-dungeon/Cache"
+  - "%LOCALAPPDATA%/experienced-pixel-dungeon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experiences
+  name: Nixpkgs experiences macos cache (wave 9)
+  description: Nixpkgs leftover pname experiences on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experiences"
+  - "$HOME/Library/Logs/experiences"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experiences
+  name: Nixpkgs experiences linux cache (wave 9)
+  description: Nixpkgs leftover pname experiences on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experiences"
+  - "$XDG_CACHE_HOME/experiences"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experiences
+  name: Nixpkgs experiences windows cache (wave 9)
+  description: Nixpkgs leftover pname experiences on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experiences/Cache"
+  - "%LOCALAPPDATA%/experiences/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experiment
+  name: Nixpkgs experiment macos cache (wave 9)
+  description: Nixpkgs leftover pname experiment on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experiment"
+  - "$HOME/Library/Logs/experiment"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experiment
+  name: Nixpkgs experiment linux cache (wave 9)
+  description: Nixpkgs leftover pname experiment on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experiment"
+  - "$XDG_CACHE_HOME/experiment"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experiment
+  name: Nixpkgs experiment windows cache (wave 9)
+  description: Nixpkgs leftover pname experiment on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experiment/Cache"
+  - "%LOCALAPPDATA%/experiment/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experiment-utilities
+  name: Nixpkgs experiment-utilities macos cache (wave 9)
+  description: Nixpkgs leftover pname experiment-utilities on macos (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experiment-utilities"
+  - "$HOME/Library/Logs/experiment-utilities"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experiment-utilities
+  name: Nixpkgs experiment-utilities linux cache (wave 9)
+  description: Nixpkgs leftover pname experiment-utilities on linux (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experiment-utilities"
+  - "$XDG_CACHE_HOME/experiment-utilities"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experiment-utilities
+  name: Nixpkgs experiment-utilities windows cache (wave 9)
+  description: Nixpkgs leftover pname experiment-utilities on windows (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experiment-utilities/Cache"
+  - "%LOCALAPPDATA%/experiment-utilities/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experimenter
+  name: Nixpkgs experimenter macos cache (wave 9)
+  description: Nixpkgs leftover pname experimenter on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experimenter"
+  - "$HOME/Library/Logs/experimenter"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experimenter
+  name: Nixpkgs experimenter linux cache (wave 9)
+  description: Nixpkgs leftover pname experimenter on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experimenter"
+  - "$XDG_CACHE_HOME/experimenter"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experimenter
+  name: Nixpkgs experimenter windows cache (wave 9)
+  description: Nixpkgs leftover pname experimenter on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experimenter/Cache"
+  - "%LOCALAPPDATA%/experimenter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-experimentr
+  name: Nixpkgs experimentr macos cache (wave 9)
+  description: Nixpkgs leftover pname experimentr on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/experimentr"
+  - "$HOME/Library/Logs/experimentr"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-experimentr
+  name: Nixpkgs experimentr linux cache (wave 9)
+  description: Nixpkgs leftover pname experimentr on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/experimentr"
+  - "$XDG_CACHE_HOME/experimentr"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-experimentr
+  name: Nixpkgs experimentr windows cache (wave 9)
+  description: Nixpkgs leftover pname experimentr on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/experimentr/Cache"
+  - "%LOCALAPPDATA%/experimentr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expert
+  name: Nixpkgs expert macos cache (wave 9)
+  description: Nixpkgs leftover pname expert on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expert"
+  - "$HOME/Library/Logs/expert"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expert
+  name: Nixpkgs expert linux cache (wave 9)
+  description: Nixpkgs leftover pname expert on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expert"
+  - "$XDG_CACHE_HOME/expert"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expert
+  name: Nixpkgs expert windows cache (wave 9)
+  description: Nixpkgs leftover pname expert on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expert/Cache"
+  - "%LOCALAPPDATA%/expert/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expertsurv
+  name: Nixpkgs expertsurv macos cache (wave 9)
+  description: Nixpkgs leftover pname expertsurv on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expertsurv"
+  - "$HOME/Library/Logs/expertsurv"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expertsurv
+  name: Nixpkgs expertsurv linux cache (wave 9)
+  description: Nixpkgs leftover pname expertsurv on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expertsurv"
+  - "$XDG_CACHE_HOME/expertsurv"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expertsurv
+  name: Nixpkgs expertsurv windows cache (wave 9)
+  description: Nixpkgs leftover pname expertsurv on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expertsurv/Cache"
+  - "%LOCALAPPDATA%/expertsurv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expex
+  name: Nixpkgs expex macos cache (wave 9)
+  description: Nixpkgs leftover pname expex on macos (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expex"
+  - "$HOME/Library/Logs/expex"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expex
+  name: Nixpkgs expex linux cache (wave 9)
+  description: Nixpkgs leftover pname expex on linux (wave 9). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expex"
+  - "$XDG_CACHE_HOME/expex"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expex
+  name: Nixpkgs expex windows cache (wave 9)
+  description: Nixpkgs leftover pname expex on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expex/Cache"
+  - "%LOCALAPPDATA%/expex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expex-acro
+  name: Nixpkgs expex-acro macos cache (wave 9)
+  description: Nixpkgs leftover pname expex-acro on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expex-acro"
+  - "$HOME/Library/Logs/expex-acro"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expex-acro
+  name: Nixpkgs expex-acro linux cache (wave 9)
+  description: Nixpkgs leftover pname expex-acro on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expex-acro"
+  - "$XDG_CACHE_HOME/expex-acro"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expex-acro
+  name: Nixpkgs expex-acro windows cache (wave 9)
+  description: Nixpkgs leftover pname expex-acro on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expex-acro/Cache"
+  - "%LOCALAPPDATA%/expex-acro/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expex-glossonly
+  name: Nixpkgs expex-glossonly macos cache (wave 9)
+  description: Nixpkgs leftover pname expex-glossonly on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expex-glossonly"
+  - "$HOME/Library/Logs/expex-glossonly"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expex-glossonly
+  name: Nixpkgs expex-glossonly linux cache (wave 9)
+  description: Nixpkgs leftover pname expex-glossonly on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expex-glossonly"
+  - "$XDG_CACHE_HOME/expex-glossonly"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expex-glossonly
+  name: Nixpkgs expex-glossonly windows cache (wave 9)
+  description: Nixpkgs leftover pname expex-glossonly on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expex-glossonly/Cache"
+  - "%LOCALAPPDATA%/expex-glossonly/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expint
+  name: Nixpkgs expint macos cache (wave 9)
+  description: Nixpkgs leftover pname expint on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expint"
+  - "$HOME/Library/Logs/expint"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expint
+  name: Nixpkgs expint linux cache (wave 9)
+  description: Nixpkgs leftover pname expint on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expint"
+  - "$XDG_CACHE_HOME/expint"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expint
+  name: Nixpkgs expint windows cache (wave 9)
+  description: Nixpkgs leftover pname expint on windows (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expint/Cache"
+  - "%LOCALAPPDATA%/expint/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expirest
+  name: Nixpkgs expirest macos cache (wave 9)
+  description: Nixpkgs leftover pname expirest on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expirest"
+  - "$HOME/Library/Logs/expirest"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expirest
+  name: Nixpkgs expirest linux cache (wave 9)
+  description: Nixpkgs leftover pname expirest on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expirest"
+  - "$XDG_CACHE_HOME/expirest"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expirest
+  name: Nixpkgs expirest windows cache (wave 9)
+  description: Nixpkgs leftover pname expirest on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expirest/Cache"
+  - "%LOCALAPPDATA%/expirest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expiring-cache-map
+  name: Nixpkgs expiring-cache-map macos cache (wave 9)
+  description: Nixpkgs leftover pname expiring-cache-map on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expiring-cache-map"
+  - "$HOME/Library/Logs/expiring-cache-map"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expiring-cache-map
+  name: Nixpkgs expiring-cache-map linux cache (wave 9)
+  description: Nixpkgs leftover pname expiring-cache-map on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expiring-cache-map"
+  - "$XDG_CACHE_HOME/expiring-cache-map"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expiring-cache-map
+  name: Nixpkgs expiring-cache-map windows cache (wave 9)
+  description: Nixpkgs leftover pname expiring-cache-map on windows (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expiring-cache-map/Cache"
+  - "%LOCALAPPDATA%/expiring-cache-map/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expiring-containers
+  name: Nixpkgs expiring-containers macos cache (wave 9)
+  description: Nixpkgs leftover pname expiring-containers on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expiring-containers"
+  - "$HOME/Library/Logs/expiring-containers"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expiring-containers
+  name: Nixpkgs expiring-containers linux cache (wave 9)
+  description: Nixpkgs leftover pname expiring-containers on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expiring-containers"
+  - "$XDG_CACHE_HOME/expiring-containers"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expiring-containers
+  name: Nixpkgs expiring-containers windows cache (wave 9)
+  description: Nixpkgs leftover pname expiring-containers on windows (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expiring-containers/Cache"
+  - "%LOCALAPPDATA%/expiring-containers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expiring-dict
+  name: Nixpkgs expiring-dict macos cache (wave 9)
+  description: Nixpkgs leftover pname expiring-dict on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expiring-dict"
+  - "$HOME/Library/Logs/expiring-dict"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expiring-dict
+  name: Nixpkgs expiring-dict linux cache (wave 9)
+  description: Nixpkgs leftover pname expiring-dict on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expiring-dict"
+  - "$XDG_CACHE_HOME/expiring-dict"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expiring-dict
+  name: Nixpkgs expiring-dict windows cache (wave 9)
+  description: Nixpkgs leftover pname expiring-dict on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expiring-dict/Cache"
+  - "%LOCALAPPDATA%/expiring-dict/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expiring-mvar
+  name: Nixpkgs expiring-mvar macos cache (wave 9)
+  description: Nixpkgs leftover pname expiring-mvar on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expiring-mvar"
+  - "$HOME/Library/Logs/expiring-mvar"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expiring-mvar
+  name: Nixpkgs expiring-mvar linux cache (wave 9)
+  description: Nixpkgs leftover pname expiring-mvar on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expiring-mvar"
+  - "$XDG_CACHE_HOME/expiring-mvar"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expiring-mvar
+  name: Nixpkgs expiring-mvar windows cache (wave 9)
+  description: Nixpkgs leftover pname expiring-mvar on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expiring-mvar/Cache"
+  - "%LOCALAPPDATA%/expiring-mvar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expiringdict
+  name: Nixpkgs expiringdict macos cache (wave 9)
+  description: Nixpkgs leftover pname expiringdict on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expiringdict"
+  - "$HOME/Library/Logs/expiringdict"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expiringdict
+  name: Nixpkgs expiringdict linux cache (wave 9)
+  description: Nixpkgs leftover pname expiringdict on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expiringdict"
+  - "$XDG_CACHE_HOME/expiringdict"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expiringdict
+  name: Nixpkgs expiringdict windows cache (wave 9)
+  description: Nixpkgs leftover pname expiringdict on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expiringdict/Cache"
+  - "%LOCALAPPDATA%/expiringdict/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-expkv-bundle
+  name: Nixpkgs expkv-bundle macos cache (wave 9)
+  description: Nixpkgs leftover pname expkv-bundle on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/expkv-bundle"
+  - "$HOME/Library/Logs/expkv-bundle"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-expkv-bundle
+  name: Nixpkgs expkv-bundle linux cache (wave 9)
+  description: Nixpkgs leftover pname expkv-bundle on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/expkv-bundle"
+  - "$XDG_CACHE_HOME/expkv-bundle"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-expkv-bundle
+  name: Nixpkgs expkv-bundle windows cache (wave 9)
+  description: Nixpkgs leftover pname expkv-bundle on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/expkv-bundle/Cache"
+  - "%LOCALAPPDATA%/expkv-bundle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-explain
+  name: Nixpkgs explain macos cache (wave 9)
+  description: Nixpkgs leftover pname explain on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/explain"
+  - "$HOME/Library/Logs/explain"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-explain
+  name: Nixpkgs explain linux cache (wave 9)
+  description: Nixpkgs leftover pname explain on linux (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/explain"
+  - "$XDG_CACHE_HOME/explain"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-explain
+  name: Nixpkgs explain windows cache (wave 9)
+  description: Nixpkgs leftover pname explain on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/explain/Cache"
+  - "%LOCALAPPDATA%/explain/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-explainable-predicates
+  name: Nixpkgs explainable-predicates macos cache (wave 9)
+  description: Nixpkgs leftover pname explainable-predicates on macos (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/explainable-predicates"
+  - "$HOME/Library/Logs/explainable-predicates"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-explainable-predicates
+  name: Nixpkgs explainable-predicates linux cache (wave 9)
+  description: Nixpkgs leftover pname explainable-predicates on linux (wave 9). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/explainable-predicates"
+  - "$XDG_CACHE_HOME/explainable-predicates"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-explainable-predicates
+  name: Nixpkgs explainable-predicates windows cache (wave 9)
+  description: Nixpkgs leftover pname explainable-predicates on windows (wave 9).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/explainable-predicates/Cache"
+  - "%LOCALAPPDATA%/explainable-predicates/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-explainer
+  name: Nixpkgs explainer macos cache (wave 9)
+  description: Nixpkgs leftover pname explainer on macos (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/explainer"
+  - "$HOME/Library/Logs/explainer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-lin-explainer
+  name: Nixpkgs explainer linux cache (wave 9)
+  description: Nixpkgs leftover pname explainer on linux (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/explainer"
+  - "$XDG_CACHE_HOME/explainer"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-win-explainer
+  name: Nixpkgs explainer windows cache (wave 9)
+  description: Nixpkgs leftover pname explainer on windows (wave 9). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/explainer/Cache"
+  - "%LOCALAPPDATA%/explainer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np9-mac-explex
+  name: Nixpkgs explex macos cache (wave 9)
+  description: Nixpkgs leftover pname explex on macos (wave 9). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/explex"
+  - "$HOME/Library/Logs/explex"
+  delete_mode: contents
+  max_depth: 6

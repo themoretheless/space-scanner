@@ -1,0 +1,5562 @@
+---
+pack: src-iter18-13
+description: Iterative 10k import wave 18 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np18-mac-mp3-duration
+  name: Nixpkgs mp3-duration macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3-duration on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3-duration"
+  - "$HOME/Library/Logs/mp3-duration"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3-duration
+  name: Nixpkgs mp3-duration linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3-duration on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3-duration"
+  - "$XDG_CACHE_HOME/mp3-duration"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3-duration
+  name: Nixpkgs mp3-duration windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3-duration on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3-duration/Cache"
+  - "%LOCALAPPDATA%/mp3-duration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3-duration-test
+  name: Nixpkgs mp3-duration-test macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3-duration-test on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3-duration-test"
+  - "$HOME/Library/Logs/mp3-duration-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3-duration-test
+  name: Nixpkgs mp3-duration-test linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3-duration-test on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3-duration-test"
+  - "$XDG_CACHE_HOME/mp3-duration-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3-duration-test
+  name: Nixpkgs mp3-duration-test windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3-duration-test on windows (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3-duration-test/Cache"
+  - "%LOCALAPPDATA%/mp3-duration-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3blaster
+  name: Nixpkgs mp3blaster macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3blaster on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3blaster"
+  - "$HOME/Library/Logs/mp3blaster"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3blaster
+  name: Nixpkgs mp3blaster linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3blaster on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3blaster"
+  - "$XDG_CACHE_HOME/mp3blaster"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3blaster
+  name: Nixpkgs mp3blaster windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3blaster on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3blaster/Cache"
+  - "%LOCALAPPDATA%/mp3blaster/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3cat
+  name: Nixpkgs mp3cat macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3cat on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3cat"
+  - "$HOME/Library/Logs/mp3cat"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3cat
+  name: Nixpkgs mp3cat linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3cat on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3cat"
+  - "$XDG_CACHE_HOME/mp3cat"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3cat
+  name: Nixpkgs mp3cat windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3cat on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3cat/Cache"
+  - "%LOCALAPPDATA%/mp3cat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3d
+  name: Nixpkgs mp3d macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3d on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3d"
+  - "$HOME/Library/Logs/mp3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3d
+  name: Nixpkgs mp3d linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3d on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3d"
+  - "$XDG_CACHE_HOME/mp3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3d
+  name: Nixpkgs mp3d windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3d on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3d/Cache"
+  - "%LOCALAPPDATA%/mp3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3decoder
+  name: Nixpkgs mp3decoder macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3decoder on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3decoder"
+  - "$HOME/Library/Logs/mp3decoder"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3decoder
+  name: Nixpkgs mp3decoder linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3decoder on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3decoder"
+  - "$XDG_CACHE_HOME/mp3decoder"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3decoder
+  name: Nixpkgs mp3decoder windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3decoder on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3decoder/Cache"
+  - "%LOCALAPPDATA%/mp3decoder/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3fs
+  name: Nixpkgs mp3fs macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3fs on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3fs"
+  - "$HOME/Library/Logs/mp3fs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3fs
+  name: Nixpkgs mp3fs linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3fs on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3fs"
+  - "$XDG_CACHE_HOME/mp3fs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3fs
+  name: Nixpkgs mp3fs windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3fs on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3fs/Cache"
+  - "%LOCALAPPDATA%/mp3fs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3gain
+  name: Nixpkgs mp3gain macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3gain on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3gain"
+  - "$HOME/Library/Logs/mp3gain"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3gain
+  name: Nixpkgs mp3gain linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3gain on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3gain"
+  - "$XDG_CACHE_HOME/mp3gain"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3gain
+  name: Nixpkgs mp3gain windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3gain on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3gain/Cache"
+  - "%LOCALAPPDATA%/mp3gain/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp3val
+  name: Nixpkgs mp3val macos cache (wave 18)
+  description: Nixpkgs leftover pname mp3val on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp3val"
+  - "$HOME/Library/Logs/mp3val"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp3val
+  name: Nixpkgs mp3val linux cache (wave 18)
+  description: Nixpkgs leftover pname mp3val on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp3val"
+  - "$XDG_CACHE_HOME/mp3val"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp3val
+  name: Nixpkgs mp3val windows cache (wave 18)
+  description: Nixpkgs leftover pname mp3val on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp3val/Cache"
+  - "%LOCALAPPDATA%/mp3val/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp4fpsmod
+  name: Nixpkgs mp4fpsmod macos cache (wave 18)
+  description: Nixpkgs leftover pname mp4fpsmod on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp4fpsmod"
+  - "$HOME/Library/Logs/mp4fpsmod"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp4fpsmod
+  name: Nixpkgs mp4fpsmod linux cache (wave 18)
+  description: Nixpkgs leftover pname mp4fpsmod on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp4fpsmod"
+  - "$XDG_CACHE_HOME/mp4fpsmod"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp4fpsmod
+  name: Nixpkgs mp4fpsmod windows cache (wave 18)
+  description: Nixpkgs leftover pname mp4fpsmod on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp4fpsmod/Cache"
+  - "%LOCALAPPDATA%/mp4fpsmod/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mp4v2
+  name: Nixpkgs mp4v2 macos cache (wave 18)
+  description: Nixpkgs leftover pname mp4v2 on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mp4v2"
+  - "$HOME/Library/Logs/mp4v2"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mp4v2
+  name: Nixpkgs mp4v2 linux cache (wave 18)
+  description: Nixpkgs leftover pname mp4v2 on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mp4v2"
+  - "$XDG_CACHE_HOME/mp4v2"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mp4v2
+  name: Nixpkgs mp4v2 windows cache (wave 18)
+  description: Nixpkgs leftover pname mp4v2 on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mp4v2/Cache"
+  - "%LOCALAPPDATA%/mp4v2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdris2
+  name: Nixpkgs mpDris2 macos cache (wave 18)
+  description: Nixpkgs leftover pname mpDris2 on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpDris2"
+  - "$HOME/Library/Logs/mpDris2"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdris2
+  name: Nixpkgs mpDris2 linux cache (wave 18)
+  description: Nixpkgs leftover pname mpDris2 on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpDris2"
+  - "$XDG_CACHE_HOME/mpDris2"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdris2
+  name: Nixpkgs mpDris2 windows cache (wave 18)
+  description: Nixpkgs leftover pname mpDris2 on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpDris2/Cache"
+  - "%LOCALAPPDATA%/mpDris2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpa
+  name: Nixpkgs mpa macos cache (wave 18)
+  description: Nixpkgs leftover pname mpa on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpa"
+  - "$HOME/Library/Logs/mpa"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpa
+  name: Nixpkgs mpa linux cache (wave 18)
+  description: Nixpkgs leftover pname mpa on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpa"
+  - "$XDG_CACHE_HOME/mpa"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpa
+  name: Nixpkgs mpa windows cache (wave 18)
+  description: Nixpkgs leftover pname mpa on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpa/Cache"
+  - "%LOCALAPPDATA%/mpa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpar
+  name: Nixpkgs mpaR macos cache (wave 18)
+  description: Nixpkgs leftover pname mpaR on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpaR"
+  - "$HOME/Library/Logs/mpaR"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpar
+  name: Nixpkgs mpaR linux cache (wave 18)
+  description: Nixpkgs leftover pname mpaR on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpaR"
+  - "$XDG_CACHE_HOME/mpaR"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpar
+  name: Nixpkgs mpaR windows cache (wave 18)
+  description: Nixpkgs leftover pname mpaR on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpaR/Cache"
+  - "%LOCALAPPDATA%/mpaR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpack
+  name: Nixpkgs mpack macos cache (wave 18)
+  description: Nixpkgs leftover pname mpack on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpack"
+  - "$HOME/Library/Logs/mpack"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpack
+  name: Nixpkgs mpack linux cache (wave 18)
+  description: Nixpkgs leftover pname mpack on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpack"
+  - "$XDG_CACHE_HOME/mpack"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpack
+  name: Nixpkgs mpack windows cache (wave 18)
+  description: Nixpkgs leftover pname mpack on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpack/Cache"
+  - "%LOCALAPPDATA%/mpack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpactr
+  name: Nixpkgs mpactr macos cache (wave 18)
+  description: Nixpkgs leftover pname mpactr on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpactr"
+  - "$HOME/Library/Logs/mpactr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpactr
+  name: Nixpkgs mpactr linux cache (wave 18)
+  description: Nixpkgs leftover pname mpactr on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpactr"
+  - "$XDG_CACHE_HOME/mpactr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpactr
+  name: Nixpkgs mpactr windows cache (wave 18)
+  description: Nixpkgs leftover pname mpactr on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpactr/Cache"
+  - "%LOCALAPPDATA%/mpactr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpae
+  name: Nixpkgs mpae macos cache (wave 18)
+  description: Nixpkgs leftover pname mpae on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpae"
+  - "$HOME/Library/Logs/mpae"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpae
+  name: Nixpkgs mpae linux cache (wave 18)
+  description: Nixpkgs leftover pname mpae on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpae"
+  - "$XDG_CACHE_HOME/mpae"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpae
+  name: Nixpkgs mpae windows cache (wave 18)
+  description: Nixpkgs leftover pname mpae on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpae/Cache"
+  - "%LOCALAPPDATA%/mpae/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpages
+  name: Nixpkgs mpages macos cache (wave 18)
+  description: Nixpkgs leftover pname mpages on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpages"
+  - "$HOME/Library/Logs/mpages"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpages
+  name: Nixpkgs mpages linux cache (wave 18)
+  description: Nixpkgs leftover pname mpages on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpages"
+  - "$XDG_CACHE_HOME/mpages"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpages
+  name: Nixpkgs mpages windows cache (wave 18)
+  description: Nixpkgs leftover pname mpages on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpages/Cache"
+  - "%LOCALAPPDATA%/mpages/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mparhack
+  name: Nixpkgs mparhack macos cache (wave 18)
+  description: Nixpkgs leftover pname mparhack on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mparhack"
+  - "$HOME/Library/Logs/mparhack"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mparhack
+  name: Nixpkgs mparhack linux cache (wave 18)
+  description: Nixpkgs leftover pname mparhack on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mparhack"
+  - "$XDG_CACHE_HOME/mparhack"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mparhack
+  name: Nixpkgs mparhack windows cache (wave 18)
+  description: Nixpkgs leftover pname mparhack on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mparhack/Cache"
+  - "%LOCALAPPDATA%/mparhack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mparrows
+  name: Nixpkgs mparrows macos cache (wave 18)
+  description: Nixpkgs leftover pname mparrows on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mparrows"
+  - "$HOME/Library/Logs/mparrows"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mparrows
+  name: Nixpkgs mparrows linux cache (wave 18)
+  description: Nixpkgs leftover pname mparrows on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mparrows"
+  - "$XDG_CACHE_HOME/mparrows"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mparrows
+  name: Nixpkgs mparrows windows cache (wave 18)
+  description: Nixpkgs leftover pname mparrows on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mparrows/Cache"
+  - "%LOCALAPPDATA%/mparrows/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mparser
+  name: Nixpkgs mparser macos cache (wave 18)
+  description: Nixpkgs leftover pname mparser on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mparser"
+  - "$HOME/Library/Logs/mparser"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mparser
+  name: Nixpkgs mparser linux cache (wave 18)
+  description: Nixpkgs leftover pname mparser on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mparser"
+  - "$XDG_CACHE_HOME/mparser"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mparser
+  name: Nixpkgs mparser windows cache (wave 18)
+  description: Nixpkgs leftover pname mparser on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mparser/Cache"
+  - "%LOCALAPPDATA%/mparser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mparser-pcre
+  name: Nixpkgs mparser-pcre macos cache (wave 18)
+  description: Nixpkgs leftover pname mparser-pcre on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mparser-pcre"
+  - "$HOME/Library/Logs/mparser-pcre"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mparser-pcre
+  name: Nixpkgs mparser-pcre linux cache (wave 18)
+  description: Nixpkgs leftover pname mparser-pcre on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mparser-pcre"
+  - "$XDG_CACHE_HOME/mparser-pcre"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mparser-pcre
+  name: Nixpkgs mparser-pcre windows cache (wave 18)
+  description: Nixpkgs leftover pname mparser-pcre on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mparser-pcre/Cache"
+  - "%LOCALAPPDATA%/mparser-pcre/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mparser-re
+  name: Nixpkgs mparser-re macos cache (wave 18)
+  description: Nixpkgs leftover pname mparser-re on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mparser-re"
+  - "$HOME/Library/Logs/mparser-re"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mparser-re
+  name: Nixpkgs mparser-re linux cache (wave 18)
+  description: Nixpkgs leftover pname mparser-re on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mparser-re"
+  - "$XDG_CACHE_HOME/mparser-re"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mparser-re
+  name: Nixpkgs mparser-re windows cache (wave 18)
+  description: Nixpkgs leftover pname mparser-re on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mparser-re/Cache"
+  - "%LOCALAPPDATA%/mparser-re/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpath
+  name: Nixpkgs mpath macos cache (wave 18)
+  description: Nixpkgs leftover pname mpath on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpath"
+  - "$HOME/Library/Logs/mpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpath
+  name: Nixpkgs mpath linux cache (wave 18)
+  description: Nixpkgs leftover pname mpath on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpath"
+  - "$XDG_CACHE_HOME/mpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpath
+  name: Nixpkgs mpath windows cache (wave 18)
+  description: Nixpkgs leftover pname mpath on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpath/Cache"
+  - "%LOCALAPPDATA%/mpath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpathr
+  name: Nixpkgs mpathr macos cache (wave 18)
+  description: Nixpkgs leftover pname mpathr on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpathr"
+  - "$HOME/Library/Logs/mpathr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpathr
+  name: Nixpkgs mpathr linux cache (wave 18)
+  description: Nixpkgs leftover pname mpathr on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpathr"
+  - "$XDG_CACHE_HOME/mpathr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpathr
+  name: Nixpkgs mpathr windows cache (wave 18)
+  description: Nixpkgs leftover pname mpathr on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpathr/Cache"
+  - "%LOCALAPPDATA%/mpathr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpathsenser
+  name: Nixpkgs mpathsenser macos cache (wave 18)
+  description: Nixpkgs leftover pname mpathsenser on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpathsenser"
+  - "$HOME/Library/Logs/mpathsenser"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpathsenser
+  name: Nixpkgs mpathsenser linux cache (wave 18)
+  description: Nixpkgs leftover pname mpathsenser on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpathsenser"
+  - "$XDG_CACHE_HOME/mpathsenser"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpathsenser
+  name: Nixpkgs mpathsenser windows cache (wave 18)
+  description: Nixpkgs leftover pname mpathsenser on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpathsenser/Cache"
+  - "%LOCALAPPDATA%/mpathsenser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpattern
+  name: Nixpkgs mpattern macos cache (wave 18)
+  description: Nixpkgs leftover pname mpattern on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpattern"
+  - "$HOME/Library/Logs/mpattern"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpattern
+  name: Nixpkgs mpattern linux cache (wave 18)
+  description: Nixpkgs leftover pname mpattern on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpattern"
+  - "$XDG_CACHE_HOME/mpattern"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpattern
+  name: Nixpkgs mpattern windows cache (wave 18)
+  description: Nixpkgs leftover pname mpattern on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpattern/Cache"
+  - "%LOCALAPPDATA%/mpattern/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpb
+  name: Nixpkgs mpb macos cache (wave 18)
+  description: Nixpkgs leftover pname mpb on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpb"
+  - "$HOME/Library/Logs/mpb"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpb
+  name: Nixpkgs mpb linux cache (wave 18)
+  description: Nixpkgs leftover pname mpb on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpb"
+  - "$XDG_CACHE_HOME/mpb"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpb
+  name: Nixpkgs mpb windows cache (wave 18)
+  description: Nixpkgs leftover pname mpb on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpb/Cache"
+  - "%LOCALAPPDATA%/mpb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpbart
+  name: Nixpkgs mpbart macos cache (wave 18)
+  description: Nixpkgs leftover pname mpbart on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpbart"
+  - "$HOME/Library/Logs/mpbart"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpbart
+  name: Nixpkgs mpbart linux cache (wave 18)
+  description: Nixpkgs leftover pname mpbart on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpbart"
+  - "$XDG_CACHE_HOME/mpbart"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpbart
+  name: Nixpkgs mpbart windows cache (wave 18)
+  description: Nixpkgs leftover pname mpbart on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpbart/Cache"
+  - "%LOCALAPPDATA%/mpbart/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpc
+  name: Nixpkgs mpc macos cache (wave 18)
+  description: Nixpkgs leftover pname mpc on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpc"
+  - "$HOME/Library/Logs/mpc"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpc
+  name: Nixpkgs mpc linux cache (wave 18)
+  description: Nixpkgs leftover pname mpc on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpc"
+  - "$XDG_CACHE_HOME/mpc"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpc
+  name: Nixpkgs mpc windows cache (wave 18)
+  description: Nixpkgs leftover pname mpc on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpc/Cache"
+  - "%LOCALAPPDATA%/mpc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpc-qt
+  name: Nixpkgs mpc-qt macos cache (wave 18)
+  description: Nixpkgs leftover pname mpc-qt on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpc-qt"
+  - "$HOME/Library/Logs/mpc-qt"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpc-qt
+  name: Nixpkgs mpc-qt linux cache (wave 18)
+  description: Nixpkgs leftover pname mpc-qt on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpc-qt"
+  - "$XDG_CACHE_HOME/mpc-qt"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpc-qt
+  name: Nixpkgs mpc-qt windows cache (wave 18)
+  description: Nixpkgs leftover pname mpc-qt on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpc-qt/Cache"
+  - "%LOCALAPPDATA%/mpc-qt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpc123
+  name: Nixpkgs mpc123 macos cache (wave 18)
+  description: Nixpkgs leftover pname mpc123 on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpc123"
+  - "$HOME/Library/Logs/mpc123"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpc123
+  name: Nixpkgs mpc123 linux cache (wave 18)
+  description: Nixpkgs leftover pname mpc123 on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpc123"
+  - "$XDG_CACHE_HOME/mpc123"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpc123
+  name: Nixpkgs mpc123 windows cache (wave 18)
+  description: Nixpkgs leftover pname mpc123 on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpc123/Cache"
+  - "%LOCALAPPDATA%/mpc123/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpchess
+  name: Nixpkgs mpchess macos cache (wave 18)
+  description: Nixpkgs leftover pname mpchess on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpchess"
+  - "$HOME/Library/Logs/mpchess"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpchess
+  name: Nixpkgs mpchess linux cache (wave 18)
+  description: Nixpkgs leftover pname mpchess on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpchess"
+  - "$XDG_CACHE_HOME/mpchess"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpchess
+  name: Nixpkgs mpchess windows cache (wave 18)
+  description: Nixpkgs leftover pname mpchess on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpchess/Cache"
+  - "%LOCALAPPDATA%/mpchess/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpcmp
+  name: Nixpkgs mpcmp macos cache (wave 18)
+  description: Nixpkgs leftover pname mpcmp on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpcmp"
+  - "$HOME/Library/Logs/mpcmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpcmp
+  name: Nixpkgs mpcmp linux cache (wave 18)
+  description: Nixpkgs leftover pname mpcmp on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpcmp"
+  - "$XDG_CACHE_HOME/mpcmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpcmp
+  name: Nixpkgs mpcmp windows cache (wave 18)
+  description: Nixpkgs leftover pname mpcmp on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpcmp/Cache"
+  - "%LOCALAPPDATA%/mpcmp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpcolornames
+  name: Nixpkgs mpcolornames macos cache (wave 18)
+  description: Nixpkgs leftover pname mpcolornames on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpcolornames"
+  - "$HOME/Library/Logs/mpcolornames"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpcolornames
+  name: Nixpkgs mpcolornames linux cache (wave 18)
+  description: Nixpkgs leftover pname mpcolornames on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpcolornames"
+  - "$XDG_CACHE_HOME/mpcolornames"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpcolornames
+  name: Nixpkgs mpcolornames windows cache (wave 18)
+  description: Nixpkgs leftover pname mpcolornames on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpcolornames/Cache"
+  - "%LOCALAPPDATA%/mpcolornames/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpcv
+  name: Nixpkgs mpcv macos cache (wave 18)
+  description: Nixpkgs leftover pname mpcv on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpcv"
+  - "$HOME/Library/Logs/mpcv"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpcv
+  name: Nixpkgs mpcv linux cache (wave 18)
+  description: Nixpkgs leftover pname mpcv on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpcv"
+  - "$XDG_CACHE_HOME/mpcv"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpcv
+  name: Nixpkgs mpcv windows cache (wave 18)
+  description: Nixpkgs leftover pname mpcv on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpcv/Cache"
+  - "%LOCALAPPDATA%/mpcv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd
+  name: Nixpkgs mpd macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd"
+  - "$HOME/Library/Logs/mpd"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd
+  name: Nixpkgs mpd linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd"
+  - "$XDG_CACHE_HOME/mpd"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd
+  name: Nixpkgs mpd windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd/Cache"
+  - "%LOCALAPPDATA%/mpd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd-current-json
+  name: Nixpkgs mpd-current-json macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd-current-json on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd-current-json"
+  - "$HOME/Library/Logs/mpd-current-json"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd-current-json
+  name: Nixpkgs mpd-current-json linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd-current-json on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd-current-json"
+  - "$XDG_CACHE_HOME/mpd-current-json"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd-current-json
+  name: Nixpkgs mpd-current-json windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd-current-json on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd-current-json/Cache"
+  - "%LOCALAPPDATA%/mpd-current-json/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd-discord-rpc
+  name: Nixpkgs mpd-discord-rpc macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd-discord-rpc on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd-discord-rpc"
+  - "$HOME/Library/Logs/mpd-discord-rpc"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd-discord-rpc
+  name: Nixpkgs mpd-discord-rpc linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd-discord-rpc on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd-discord-rpc"
+  - "$XDG_CACHE_HOME/mpd-discord-rpc"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd-discord-rpc
+  name: Nixpkgs mpd-discord-rpc windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd-discord-rpc on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd-discord-rpc/Cache"
+  - "%LOCALAPPDATA%/mpd-discord-rpc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd-mpris
+  name: Nixpkgs mpd-mpris macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd-mpris on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd-mpris"
+  - "$HOME/Library/Logs/mpd-mpris"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd-mpris
+  name: Nixpkgs mpd-mpris linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd-mpris on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd-mpris"
+  - "$XDG_CACHE_HOME/mpd-mpris"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd-mpris
+  name: Nixpkgs mpd-mpris windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd-mpris on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd-mpris/Cache"
+  - "%LOCALAPPDATA%/mpd-mpris/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd-notification
+  name: Nixpkgs mpd-notification macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd-notification on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd-notification"
+  - "$HOME/Library/Logs/mpd-notification"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd-notification
+  name: Nixpkgs mpd-notification linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd-notification on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd-notification"
+  - "$XDG_CACHE_HOME/mpd-notification"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd-notification
+  name: Nixpkgs mpd-notification windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd-notification on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd-notification/Cache"
+  - "%LOCALAPPDATA%/mpd-notification/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd-sima
+  name: Nixpkgs mpd-sima macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd-sima on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd-sima"
+  - "$HOME/Library/Logs/mpd-sima"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd-sima
+  name: Nixpkgs mpd-sima linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd-sima on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd-sima"
+  - "$XDG_CACHE_HOME/mpd-sima"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd-sima
+  name: Nixpkgs mpd-sima windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd-sima on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd-sima/Cache"
+  - "%LOCALAPPDATA%/mpd-sima/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpd-touch-screen-gui
+  name: Nixpkgs mpd-touch-screen-gui macos cache (wave 18)
+  description: Nixpkgs leftover pname mpd-touch-screen-gui on macos (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpd-touch-screen-gui"
+  - "$HOME/Library/Logs/mpd-touch-screen-gui"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpd-touch-screen-gui
+  name: Nixpkgs mpd-touch-screen-gui linux cache (wave 18)
+  description: Nixpkgs leftover pname mpd-touch-screen-gui on linux (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpd-touch-screen-gui"
+  - "$XDG_CACHE_HOME/mpd-touch-screen-gui"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpd-touch-screen-gui
+  name: Nixpkgs mpd-touch-screen-gui windows cache (wave 18)
+  description: Nixpkgs leftover pname mpd-touch-screen-gui on windows (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpd-touch-screen-gui/Cache"
+  - "%LOCALAPPDATA%/mpd-touch-screen-gui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdas
+  name: Nixpkgs mpdas macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdas on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdas"
+  - "$HOME/Library/Logs/mpdas"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdas
+  name: Nixpkgs mpdas linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdas on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdas"
+  - "$XDG_CACHE_HOME/mpdas"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdas
+  name: Nixpkgs mpdas windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdas on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdas/Cache"
+  - "%LOCALAPPDATA%/mpdas/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdcron
+  name: Nixpkgs mpdcron macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdcron on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdcron"
+  - "$HOME/Library/Logs/mpdcron"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdcron
+  name: Nixpkgs mpdcron linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdcron on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdcron"
+  - "$XDG_CACHE_HOME/mpdcron"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdcron
+  name: Nixpkgs mpdcron windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdcron on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdcron/Cache"
+  - "%LOCALAPPDATA%/mpdcron/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdecimal
+  name: Nixpkgs mpdecimal macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdecimal on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdecimal"
+  - "$HOME/Library/Logs/mpdecimal"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdecimal
+  name: Nixpkgs mpdecimal linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdecimal on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdecimal"
+  - "$XDG_CACHE_HOME/mpdecimal"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdecimal
+  name: Nixpkgs mpdecimal windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdecimal on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdecimal/Cache"
+  - "%LOCALAPPDATA%/mpdecimal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdel
+  name: Nixpkgs mpdel macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdel on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdel"
+  - "$HOME/Library/Logs/mpdel"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdel
+  name: Nixpkgs mpdel linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdel on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdel"
+  - "$XDG_CACHE_HOME/mpdel"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdel
+  name: Nixpkgs mpdel windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdel on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdel/Cache"
+  - "%LOCALAPPDATA%/mpdel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdel-embark
+  name: Nixpkgs mpdel-embark macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdel-embark on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdel-embark"
+  - "$HOME/Library/Logs/mpdel-embark"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdel-embark
+  name: Nixpkgs mpdel-embark linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdel-embark on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdel-embark"
+  - "$XDG_CACHE_HOME/mpdel-embark"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdel-embark
+  name: Nixpkgs mpdel-embark windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdel-embark on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdel-embark/Cache"
+  - "%LOCALAPPDATA%/mpdel-embark/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdired
+  name: Nixpkgs mpdired macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdired on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdired"
+  - "$HOME/Library/Logs/mpdired"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdired
+  name: Nixpkgs mpdired linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdired on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdired"
+  - "$XDG_CACHE_HOME/mpdired"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdired
+  name: Nixpkgs mpdired windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdired on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdired/Cache"
+  - "%LOCALAPPDATA%/mpdired/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdmacs
+  name: Nixpkgs mpdmacs macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdmacs on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdmacs"
+  - "$HOME/Library/Logs/mpdmacs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdmacs
+  name: Nixpkgs mpdmacs linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdmacs on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdmacs"
+  - "$XDG_CACHE_HOME/mpdmacs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdmacs
+  name: Nixpkgs mpdmacs windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdmacs on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdmacs/Cache"
+  - "%LOCALAPPDATA%/mpdmacs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdmate
+  name: Nixpkgs mpdmate macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdmate on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdmate"
+  - "$HOME/Library/Logs/mpdmate"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdmate
+  name: Nixpkgs mpdmate linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdmate on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdmate"
+  - "$XDG_CACHE_HOME/mpdmate"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdmate
+  name: Nixpkgs mpdmate windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdmate on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdmate/Cache"
+  - "%LOCALAPPDATA%/mpdmate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdris2-rs
+  name: Nixpkgs mpdris2-rs macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdris2-rs on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdris2-rs"
+  - "$HOME/Library/Logs/mpdris2-rs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdris2-rs
+  name: Nixpkgs mpdris2-rs linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdris2-rs on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdris2-rs"
+  - "$XDG_CACHE_HOME/mpdris2-rs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdris2-rs
+  name: Nixpkgs mpdris2-rs windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdris2-rs on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdris2-rs/Cache"
+  - "%LOCALAPPDATA%/mpdris2-rs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpdscribble
+  name: Nixpkgs mpdscribble macos cache (wave 18)
+  description: Nixpkgs leftover pname mpdscribble on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpdscribble"
+  - "$HOME/Library/Logs/mpdscribble"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpdscribble
+  name: Nixpkgs mpdscribble linux cache (wave 18)
+  description: Nixpkgs leftover pname mpdscribble on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpdscribble"
+  - "$XDG_CACHE_HOME/mpdscribble"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpdscribble
+  name: Nixpkgs mpdscribble windows cache (wave 18)
+  description: Nixpkgs leftover pname mpdscribble on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpdscribble/Cache"
+  - "%LOCALAPPDATA%/mpdscribble/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpe
+  name: Nixpkgs mpe macos cache (wave 18)
+  description: Nixpkgs leftover pname mpe on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpe"
+  - "$HOME/Library/Logs/mpe"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpe
+  name: Nixpkgs mpe linux cache (wave 18)
+  description: Nixpkgs leftover pname mpe on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpe"
+  - "$XDG_CACHE_HOME/mpe"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpe
+  name: Nixpkgs mpe windows cache (wave 18)
+  description: Nixpkgs leftover pname mpe on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpe/Cache"
+  - "%LOCALAPPDATA%/mpe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpedbarray-db
+  name: Nixpkgs mpedbarray.db macos cache (wave 18)
+  description: Nixpkgs leftover pname mpedbarray.db on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpedbarray.db"
+  - "$HOME/Library/Logs/mpedbarray.db"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpedbarray-db
+  name: Nixpkgs mpedbarray.db linux cache (wave 18)
+  description: Nixpkgs leftover pname mpedbarray.db on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpedbarray.db"
+  - "$XDG_CACHE_HOME/mpedbarray.db"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpedbarray-db
+  name: Nixpkgs mpedbarray.db windows cache (wave 18)
+  description: Nixpkgs leftover pname mpedbarray.db on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpedbarray.db/Cache"
+  - "%LOCALAPPDATA%/mpedbarray.db/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpeff
+  name: Nixpkgs mpeff macos cache (wave 18)
+  description: Nixpkgs leftover pname mpeff on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpeff"
+  - "$HOME/Library/Logs/mpeff"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpeff
+  name: Nixpkgs mpeff linux cache (wave 18)
+  description: Nixpkgs leftover pname mpeff on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpeff"
+  - "$XDG_CACHE_HOME/mpeff"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpeff
+  name: Nixpkgs mpeff windows cache (wave 18)
+  description: Nixpkgs leftover pname mpeff on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpeff/Cache"
+  - "%LOCALAPPDATA%/mpeff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpeg-ts
+  name: Nixpkgs mpeg-ts macos cache (wave 18)
+  description: Nixpkgs leftover pname mpeg-ts on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpeg-ts"
+  - "$HOME/Library/Logs/mpeg-ts"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpeg-ts
+  name: Nixpkgs mpeg-ts linux cache (wave 18)
+  description: Nixpkgs leftover pname mpeg-ts on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpeg-ts"
+  - "$XDG_CACHE_HOME/mpeg-ts"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpeg-ts
+  name: Nixpkgs mpeg-ts windows cache (wave 18)
+  description: Nixpkgs leftover pname mpeg-ts on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpeg-ts/Cache"
+  - "%LOCALAPPDATA%/mpeg-ts/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpegdash
+  name: Nixpkgs mpegdash macos cache (wave 18)
+  description: Nixpkgs leftover pname mpegdash on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpegdash"
+  - "$HOME/Library/Logs/mpegdash"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpegdash
+  name: Nixpkgs mpegdash linux cache (wave 18)
+  description: Nixpkgs leftover pname mpegdash on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpegdash"
+  - "$XDG_CACHE_HOME/mpegdash"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpegdash
+  name: Nixpkgs mpegdash windows cache (wave 18)
+  description: Nixpkgs leftover pname mpegdash on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpegdash/Cache"
+  - "%LOCALAPPDATA%/mpegdash/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpfi
+  name: Nixpkgs mpfi macos cache (wave 18)
+  description: Nixpkgs leftover pname mpfi on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpfi"
+  - "$HOME/Library/Logs/mpfi"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpfi
+  name: Nixpkgs mpfi linux cache (wave 18)
+  description: Nixpkgs leftover pname mpfi on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpfi"
+  - "$XDG_CACHE_HOME/mpfi"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpfi
+  name: Nixpkgs mpfi windows cache (wave 18)
+  description: Nixpkgs leftover pname mpfi on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpfi/Cache"
+  - "%LOCALAPPDATA%/mpfi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpfonts
+  name: Nixpkgs mpfonts macos cache (wave 18)
+  description: Nixpkgs leftover pname mpfonts on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpfonts"
+  - "$HOME/Library/Logs/mpfonts"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpfonts
+  name: Nixpkgs mpfonts linux cache (wave 18)
+  description: Nixpkgs leftover pname mpfonts on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpfonts"
+  - "$XDG_CACHE_HOME/mpfonts"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpfonts
+  name: Nixpkgs mpfonts windows cache (wave 18)
+  description: Nixpkgs leftover pname mpfonts on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpfonts/Cache"
+  - "%LOCALAPPDATA%/mpfonts/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpfr
+  name: Nixpkgs mpfr macos cache (wave 18)
+  description: Nixpkgs leftover pname mpfr on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpfr"
+  - "$HOME/Library/Logs/mpfr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpfr
+  name: Nixpkgs mpfr linux cache (wave 18)
+  description: Nixpkgs leftover pname mpfr on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpfr"
+  - "$XDG_CACHE_HOME/mpfr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpfr
+  name: Nixpkgs mpfr windows cache (wave 18)
+  description: Nixpkgs leftover pname mpfr on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpfr/Cache"
+  - "%LOCALAPPDATA%/mpfr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpfshell
+  name: Nixpkgs mpfshell macos cache (wave 18)
+  description: Nixpkgs leftover pname mpfshell on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpfshell"
+  - "$HOME/Library/Logs/mpfshell"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpfshell
+  name: Nixpkgs mpfshell linux cache (wave 18)
+  description: Nixpkgs leftover pname mpfshell on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpfshell"
+  - "$XDG_CACHE_HOME/mpfshell"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpfshell
+  name: Nixpkgs mpfshell windows cache (wave 18)
+  description: Nixpkgs leftover pname mpfshell on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpfshell/Cache"
+  - "%LOCALAPPDATA%/mpfshell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpg123
+  name: Nixpkgs mpg123 macos cache (wave 18)
+  description: Nixpkgs leftover pname mpg123 on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpg123"
+  - "$HOME/Library/Logs/mpg123"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpg123
+  name: Nixpkgs mpg123 linux cache (wave 18)
+  description: Nixpkgs leftover pname mpg123 on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpg123"
+  - "$XDG_CACHE_HOME/mpg123"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpg123
+  name: Nixpkgs mpg123 windows cache (wave 18)
+  description: Nixpkgs leftover pname mpg123 on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpg123/Cache"
+  - "%LOCALAPPDATA%/mpg123/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpg123-bindings
+  name: Nixpkgs mpg123-bindings macos cache (wave 18)
+  description: Nixpkgs leftover pname mpg123-bindings on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpg123-bindings"
+  - "$HOME/Library/Logs/mpg123-bindings"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpg123-bindings
+  name: Nixpkgs mpg123-bindings linux cache (wave 18)
+  description: Nixpkgs leftover pname mpg123-bindings on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpg123-bindings"
+  - "$XDG_CACHE_HOME/mpg123-bindings"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpg123-bindings
+  name: Nixpkgs mpg123-bindings windows cache (wave 18)
+  description: Nixpkgs leftover pname mpg123-bindings on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpg123-bindings/Cache"
+  - "%LOCALAPPDATA%/mpg123-bindings/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpg123-ffi
+  name: Nixpkgs mpg123-ffi macos cache (wave 18)
+  description: Nixpkgs leftover pname mpg123-ffi on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpg123-ffi"
+  - "$HOME/Library/Logs/mpg123-ffi"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpg123-ffi
+  name: Nixpkgs mpg123-ffi linux cache (wave 18)
+  description: Nixpkgs leftover pname mpg123-ffi on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpg123-ffi"
+  - "$XDG_CACHE_HOME/mpg123-ffi"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpg123-ffi
+  name: Nixpkgs mpg123-ffi windows cache (wave 18)
+  description: Nixpkgs leftover pname mpg123-ffi on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpg123-ffi/Cache"
+  - "%LOCALAPPDATA%/mpg123-ffi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpgraphics
+  name: Nixpkgs mpgraphics macos cache (wave 18)
+  description: Nixpkgs leftover pname mpgraphics on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpgraphics"
+  - "$HOME/Library/Logs/mpgraphics"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpgraphics
+  name: Nixpkgs mpgraphics linux cache (wave 18)
+  description: Nixpkgs leftover pname mpgraphics on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpgraphics"
+  - "$XDG_CACHE_HOME/mpgraphics"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpgraphics
+  name: Nixpkgs mpgraphics windows cache (wave 18)
+  description: Nixpkgs leftover pname mpgraphics on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpgraphics/Cache"
+  - "%LOCALAPPDATA%/mpgraphics/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mph-2b-damase
+  name: Nixpkgs mph-2b-damase macos cache (wave 18)
+  description: Nixpkgs leftover pname mph-2b-damase on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mph-2b-damase"
+  - "$HOME/Library/Logs/mph-2b-damase"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mph-2b-damase
+  name: Nixpkgs mph-2b-damase linux cache (wave 18)
+  description: Nixpkgs leftover pname mph-2b-damase on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mph-2b-damase"
+  - "$XDG_CACHE_HOME/mph-2b-damase"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mph-2b-damase
+  name: Nixpkgs mph-2b-damase windows cache (wave 18)
+  description: Nixpkgs leftover pname mph-2b-damase on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mph-2b-damase/Cache"
+  - "%LOCALAPPDATA%/mph-2b-damase/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi-checkphase-hook
+  name: Nixpkgs mpi-checkPhase-hook macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi-checkPhase-hook on macos (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi-checkPhase-hook"
+  - "$HOME/Library/Logs/mpi-checkPhase-hook"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi-checkphase-hook
+  name: Nixpkgs mpi-checkPhase-hook linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi-checkPhase-hook on linux (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi-checkPhase-hook"
+  - "$XDG_CACHE_HOME/mpi-checkPhase-hook"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi-checkphase-hook
+  name: Nixpkgs mpi-checkPhase-hook windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi-checkPhase-hook on windows (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi-checkPhase-hook/Cache"
+  - "%LOCALAPPDATA%/mpi-checkPhase-hook/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi-hs
+  name: Nixpkgs mpi-hs macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi-hs"
+  - "$HOME/Library/Logs/mpi-hs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi-hs
+  name: Nixpkgs mpi-hs linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi-hs"
+  - "$XDG_CACHE_HOME/mpi-hs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi-hs
+  name: Nixpkgs mpi-hs windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi-hs/Cache"
+  - "%LOCALAPPDATA%/mpi-hs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi-hs-binary
+  name: Nixpkgs mpi-hs-binary macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-binary on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi-hs-binary"
+  - "$HOME/Library/Logs/mpi-hs-binary"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi-hs-binary
+  name: Nixpkgs mpi-hs-binary linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-binary on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi-hs-binary"
+  - "$XDG_CACHE_HOME/mpi-hs-binary"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi-hs-binary
+  name: Nixpkgs mpi-hs-binary windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-binary on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi-hs-binary/Cache"
+  - "%LOCALAPPDATA%/mpi-hs-binary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi-hs-cereal
+  name: Nixpkgs mpi-hs-cereal macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-cereal on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi-hs-cereal"
+  - "$HOME/Library/Logs/mpi-hs-cereal"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi-hs-cereal
+  name: Nixpkgs mpi-hs-cereal linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-cereal on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi-hs-cereal"
+  - "$XDG_CACHE_HOME/mpi-hs-cereal"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi-hs-cereal
+  name: Nixpkgs mpi-hs-cereal windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-cereal on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi-hs-cereal/Cache"
+  - "%LOCALAPPDATA%/mpi-hs-cereal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi-hs-store
+  name: Nixpkgs mpi-hs-store macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-store on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi-hs-store"
+  - "$HOME/Library/Logs/mpi-hs-store"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi-hs-store
+  name: Nixpkgs mpi-hs-store linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-store on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi-hs-store"
+  - "$XDG_CACHE_HOME/mpi-hs-store"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi-hs-store
+  name: Nixpkgs mpi-hs-store windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi-hs-store on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi-hs-store/Cache"
+  - "%LOCALAPPDATA%/mpi-hs-store/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi-pytest
+  name: Nixpkgs mpi-pytest macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi-pytest on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi-pytest"
+  - "$HOME/Library/Logs/mpi-pytest"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi-pytest
+  name: Nixpkgs mpi-pytest linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi-pytest on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi-pytest"
+  - "$XDG_CACHE_HOME/mpi-pytest"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi-pytest
+  name: Nixpkgs mpi-pytest windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi-pytest on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi-pytest/Cache"
+  - "%LOCALAPPDATA%/mpi-pytest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpi4py
+  name: Nixpkgs mpi4py macos cache (wave 18)
+  description: Nixpkgs leftover pname mpi4py on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpi4py"
+  - "$HOME/Library/Logs/mpi4py"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpi4py
+  name: Nixpkgs mpi4py linux cache (wave 18)
+  description: Nixpkgs leftover pname mpi4py on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpi4py"
+  - "$XDG_CACHE_HOME/mpi4py"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpi4py
+  name: Nixpkgs mpi4py windows cache (wave 18)
+  description: Nixpkgs leftover pname mpi4py on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpi4py/Cache"
+  - "%LOCALAPPDATA%/mpi4py/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpich
+  name: Nixpkgs mpich macos cache (wave 18)
+  description: Nixpkgs leftover pname mpich on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpich"
+  - "$HOME/Library/Logs/mpich"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpich
+  name: Nixpkgs mpich linux cache (wave 18)
+  description: Nixpkgs leftover pname mpich on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpich"
+  - "$XDG_CACHE_HOME/mpich"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpich
+  name: Nixpkgs mpich windows cache (wave 18)
+  description: Nixpkgs leftover pname mpich on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpich/Cache"
+  - "%LOCALAPPDATA%/mpich/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpifileutils
+  name: Nixpkgs mpifileutils macos cache (wave 18)
+  description: Nixpkgs leftover pname mpifileutils on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpifileutils"
+  - "$HOME/Library/Logs/mpifileutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpifileutils
+  name: Nixpkgs mpifileutils linux cache (wave 18)
+  description: Nixpkgs leftover pname mpifileutils on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpifileutils"
+  - "$XDG_CACHE_HOME/mpifileutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpifileutils
+  name: Nixpkgs mpifileutils windows cache (wave 18)
+  description: Nixpkgs leftover pname mpifileutils on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpifileutils/Cache"
+  - "%LOCALAPPDATA%/mpifileutils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpindex
+  name: Nixpkgs mpindex macos cache (wave 18)
+  description: Nixpkgs leftover pname mpindex on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpindex"
+  - "$HOME/Library/Logs/mpindex"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpindex
+  name: Nixpkgs mpindex linux cache (wave 18)
+  description: Nixpkgs leftover pname mpindex on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpindex"
+  - "$XDG_CACHE_HOME/mpindex"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpindex
+  name: Nixpkgs mpindex windows cache (wave 18)
+  description: Nixpkgs leftover pname mpindex on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpindex/Cache"
+  - "%LOCALAPPDATA%/mpindex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpir
+  name: Nixpkgs mpir macos cache (wave 18)
+  description: Nixpkgs leftover pname mpir on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpir"
+  - "$HOME/Library/Logs/mpir"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpir
+  name: Nixpkgs mpir linux cache (wave 18)
+  description: Nixpkgs leftover pname mpir on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpir"
+  - "$XDG_CACHE_HOME/mpir"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpir
+  name: Nixpkgs mpir windows cache (wave 18)
+  description: Nixpkgs leftover pname mpir on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpir/Cache"
+  - "%LOCALAPPDATA%/mpir/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpitbr
+  name: Nixpkgs mpitbR macos cache (wave 18)
+  description: Nixpkgs leftover pname mpitbR on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpitbR"
+  - "$HOME/Library/Logs/mpitbR"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpitbr
+  name: Nixpkgs mpitbR linux cache (wave 18)
+  description: Nixpkgs leftover pname mpitbR on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpitbR"
+  - "$XDG_CACHE_HOME/mpitbR"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpitbr
+  name: Nixpkgs mpitbR windows cache (wave 18)
+  description: Nixpkgs leftover pname mpitbR on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpitbR/Cache"
+  - "%LOCALAPPDATA%/mpitbR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpkiviat
+  name: Nixpkgs mpkiviat macos cache (wave 18)
+  description: Nixpkgs leftover pname mpkiviat on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpkiviat"
+  - "$HOME/Library/Logs/mpkiviat"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpkiviat
+  name: Nixpkgs mpkiviat linux cache (wave 18)
+  description: Nixpkgs leftover pname mpkiviat on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpkiviat"
+  - "$XDG_CACHE_HOME/mpkiviat"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpkiviat
+  name: Nixpkgs mpkiviat windows cache (wave 18)
+  description: Nixpkgs leftover pname mpkiviat on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpkiviat/Cache"
+  - "%LOCALAPPDATA%/mpkiviat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpl-scatter-density
+  name: Nixpkgs mpl-scatter-density macos cache (wave 18)
+  description: Nixpkgs leftover pname mpl-scatter-density on macos (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpl-scatter-density"
+  - "$HOME/Library/Logs/mpl-scatter-density"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpl-scatter-density
+  name: Nixpkgs mpl-scatter-density linux cache (wave 18)
+  description: Nixpkgs leftover pname mpl-scatter-density on linux (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpl-scatter-density"
+  - "$XDG_CACHE_HOME/mpl-scatter-density"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpl-scatter-density
+  name: Nixpkgs mpl-scatter-density windows cache (wave 18)
+  description: Nixpkgs leftover pname mpl-scatter-density on windows (wave 18). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpl-scatter-density/Cache"
+  - "%LOCALAPPDATA%/mpl-scatter-density/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpl-typst
+  name: Nixpkgs mpl-typst macos cache (wave 18)
+  description: Nixpkgs leftover pname mpl-typst on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpl-typst"
+  - "$HOME/Library/Logs/mpl-typst"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpl-typst
+  name: Nixpkgs mpl-typst linux cache (wave 18)
+  description: Nixpkgs leftover pname mpl-typst on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpl-typst"
+  - "$XDG_CACHE_HOME/mpl-typst"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpl-typst
+  name: Nixpkgs mpl-typst windows cache (wave 18)
+  description: Nixpkgs leftover pname mpl-typst on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpl-typst/Cache"
+  - "%LOCALAPPDATA%/mpl-typst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplayer
+  name: Nixpkgs mplayer macos cache (wave 18)
+  description: Nixpkgs leftover pname mplayer on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplayer"
+  - "$HOME/Library/Logs/mplayer"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplayer
+  name: Nixpkgs mplayer linux cache (wave 18)
+  description: Nixpkgs leftover pname mplayer on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplayer"
+  - "$XDG_CACHE_HOME/mplayer"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplayer
+  name: Nixpkgs mplayer windows cache (wave 18)
+  description: Nixpkgs leftover pname mplayer on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplayer/Cache"
+  - "%LOCALAPPDATA%/mplayer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplayer-spot
+  name: Nixpkgs mplayer-spot macos cache (wave 18)
+  description: Nixpkgs leftover pname mplayer-spot on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplayer-spot"
+  - "$HOME/Library/Logs/mplayer-spot"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplayer-spot
+  name: Nixpkgs mplayer-spot linux cache (wave 18)
+  description: Nixpkgs leftover pname mplayer-spot on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplayer-spot"
+  - "$XDG_CACHE_HOME/mplayer-spot"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplayer-spot
+  name: Nixpkgs mplayer-spot windows cache (wave 18)
+  description: Nixpkgs leftover pname mplayer-spot on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplayer-spot/Cache"
+  - "%LOCALAPPDATA%/mplayer-spot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplcursors
+  name: Nixpkgs mplcursors macos cache (wave 18)
+  description: Nixpkgs leftover pname mplcursors on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplcursors"
+  - "$HOME/Library/Logs/mplcursors"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplcursors
+  name: Nixpkgs mplcursors linux cache (wave 18)
+  description: Nixpkgs leftover pname mplcursors on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplcursors"
+  - "$XDG_CACHE_HOME/mplcursors"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplcursors
+  name: Nixpkgs mplcursors windows cache (wave 18)
+  description: Nixpkgs leftover pname mplcursors on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplcursors/Cache"
+  - "%LOCALAPPDATA%/mplcursors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpldatacursor
+  name: Nixpkgs mpldatacursor macos cache (wave 18)
+  description: Nixpkgs leftover pname mpldatacursor on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpldatacursor"
+  - "$HOME/Library/Logs/mpldatacursor"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpldatacursor
+  name: Nixpkgs mpldatacursor linux cache (wave 18)
+  description: Nixpkgs leftover pname mpldatacursor on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpldatacursor"
+  - "$XDG_CACHE_HOME/mpldatacursor"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpldatacursor
+  name: Nixpkgs mpldatacursor windows cache (wave 18)
+  description: Nixpkgs leftover pname mpldatacursor on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpldatacursor/Cache"
+  - "%LOCALAPPDATA%/mpldatacursor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplfinance
+  name: Nixpkgs mplfinance macos cache (wave 18)
+  description: Nixpkgs leftover pname mplfinance on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplfinance"
+  - "$HOME/Library/Logs/mplfinance"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplfinance
+  name: Nixpkgs mplfinance linux cache (wave 18)
+  description: Nixpkgs leftover pname mplfinance on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplfinance"
+  - "$XDG_CACHE_HOME/mplfinance"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplfinance
+  name: Nixpkgs mplfinance windows cache (wave 18)
+  description: Nixpkgs leftover pname mplfinance on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplfinance/Cache"
+  - "%LOCALAPPDATA%/mplfinance/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplhep
+  name: Nixpkgs mplhep macos cache (wave 18)
+  description: Nixpkgs leftover pname mplhep on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplhep"
+  - "$HOME/Library/Logs/mplhep"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplhep
+  name: Nixpkgs mplhep linux cache (wave 18)
+  description: Nixpkgs leftover pname mplhep on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplhep"
+  - "$XDG_CACHE_HOME/mplhep"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplhep
+  name: Nixpkgs mplhep windows cache (wave 18)
+  description: Nixpkgs leftover pname mplhep on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplhep/Cache"
+  - "%LOCALAPPDATA%/mplhep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplhep-data
+  name: Nixpkgs mplhep-data macos cache (wave 18)
+  description: Nixpkgs leftover pname mplhep-data on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplhep-data"
+  - "$HOME/Library/Logs/mplhep-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplhep-data
+  name: Nixpkgs mplhep-data linux cache (wave 18)
+  description: Nixpkgs leftover pname mplhep-data on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplhep-data"
+  - "$XDG_CACHE_HOME/mplhep-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplhep-data
+  name: Nixpkgs mplhep-data windows cache (wave 18)
+  description: Nixpkgs leftover pname mplhep-data on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplhep-data/Cache"
+  - "%LOCALAPPDATA%/mplhep-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplleaflet
+  name: Nixpkgs mplleaflet macos cache (wave 18)
+  description: Nixpkgs leftover pname mplleaflet on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplleaflet"
+  - "$HOME/Library/Logs/mplleaflet"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplleaflet
+  name: Nixpkgs mplleaflet linux cache (wave 18)
+  description: Nixpkgs leftover pname mplleaflet on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplleaflet"
+  - "$XDG_CACHE_HOME/mplleaflet"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplleaflet
+  name: Nixpkgs mplleaflet windows cache (wave 18)
+  description: Nixpkgs leftover pname mplleaflet on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplleaflet/Cache"
+  - "%LOCALAPPDATA%/mplleaflet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplot
+  name: Nixpkgs mplot macos cache (wave 18)
+  description: Nixpkgs leftover pname mplot on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplot"
+  - "$HOME/Library/Logs/mplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplot
+  name: Nixpkgs mplot linux cache (wave 18)
+  description: Nixpkgs leftover pname mplot on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplot"
+  - "$XDG_CACHE_HOME/mplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplot
+  name: Nixpkgs mplot windows cache (wave 18)
+  description: Nixpkgs leftover pname mplot on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplot/Cache"
+  - "%LOCALAPPDATA%/mplot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpls
+  name: Nixpkgs mpls macos cache (wave 18)
+  description: Nixpkgs leftover pname mpls on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpls"
+  - "$HOME/Library/Logs/mpls"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpls
+  name: Nixpkgs mpls linux cache (wave 18)
+  description: Nixpkgs leftover pname mpls on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpls"
+  - "$XDG_CACHE_HOME/mpls"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpls
+  name: Nixpkgs mpls windows cache (wave 18)
+  description: Nixpkgs leftover pname mpls on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpls/Cache"
+  - "%LOCALAPPDATA%/mpls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpltoolbox
+  name: Nixpkgs mpltoolbox macos cache (wave 18)
+  description: Nixpkgs leftover pname mpltoolbox on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpltoolbox"
+  - "$HOME/Library/Logs/mpltoolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpltoolbox
+  name: Nixpkgs mpltoolbox linux cache (wave 18)
+  description: Nixpkgs leftover pname mpltoolbox on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpltoolbox"
+  - "$XDG_CACHE_HOME/mpltoolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpltoolbox
+  name: Nixpkgs mpltoolbox windows cache (wave 18)
+  description: Nixpkgs leftover pname mpltoolbox on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpltoolbox/Cache"
+  - "%LOCALAPPDATA%/mpltoolbox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplus-outline-fonts-github
+  name: Nixpkgs mplus-outline-fonts-github macos cache (wave 18)
+  description: Nixpkgs leftover pname mplus-outline-fonts-github on macos (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplus-outline-fonts-github"
+  - "$HOME/Library/Logs/mplus-outline-fonts-github"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplus-outline-fonts-github
+  name: Nixpkgs mplus-outline-fonts-github linux cache (wave 18)
+  description: Nixpkgs leftover pname mplus-outline-fonts-github on linux (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplus-outline-fonts-github"
+  - "$XDG_CACHE_HOME/mplus-outline-fonts-github"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplus-outline-fonts-github
+  name: Nixpkgs mplus-outline-fonts-github windows cache (wave 18)
+  description: Nixpkgs leftover pname mplus-outline-fonts-github on windows (wave
+    18). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplus-outline-fonts-github/Cache"
+  - "%LOCALAPPDATA%/mplus-outline-fonts-github/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplus-outline-fonts-osdn
+  name: Nixpkgs mplus-outline-fonts-osdn macos cache (wave 18)
+  description: Nixpkgs leftover pname mplus-outline-fonts-osdn on macos (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplus-outline-fonts-osdn"
+  - "$HOME/Library/Logs/mplus-outline-fonts-osdn"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplus-outline-fonts-osdn
+  name: Nixpkgs mplus-outline-fonts-osdn linux cache (wave 18)
+  description: Nixpkgs leftover pname mplus-outline-fonts-osdn on linux (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplus-outline-fonts-osdn"
+  - "$XDG_CACHE_HOME/mplus-outline-fonts-osdn"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplus-outline-fonts-osdn
+  name: Nixpkgs mplus-outline-fonts-osdn windows cache (wave 18)
+  description: Nixpkgs leftover pname mplus-outline-fonts-osdn on windows (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplus-outline-fonts-osdn/Cache"
+  - "%LOCALAPPDATA%/mplus-outline-fonts-osdn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mplusparallel-automation
+  name: Nixpkgs mplusParallel.automation macos cache (wave 18)
+  description: Nixpkgs leftover pname mplusParallel.automation on macos (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mplusParallel.automation"
+  - "$HOME/Library/Logs/mplusParallel.automation"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mplusparallel-automation
+  name: Nixpkgs mplusParallel.automation linux cache (wave 18)
+  description: Nixpkgs leftover pname mplusParallel.automation on linux (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mplusParallel.automation"
+  - "$XDG_CACHE_HOME/mplusParallel.automation"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mplusparallel-automation
+  name: Nixpkgs mplusParallel.automation windows cache (wave 18)
+  description: Nixpkgs leftover pname mplusParallel.automation on windows (wave 18).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mplusParallel.automation/Cache"
+  - "%LOCALAPPDATA%/mplusParallel.automation/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpm
+  name: Nixpkgs mpm macos cache (wave 18)
+  description: Nixpkgs leftover pname mpm on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpm"
+  - "$HOME/Library/Logs/mpm"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpm
+  name: Nixpkgs mpm linux cache (wave 18)
+  description: Nixpkgs leftover pname mpm on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpm"
+  - "$XDG_CACHE_HOME/mpm"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpm
+  name: Nixpkgs mpm windows cache (wave 18)
+  description: Nixpkgs leftover pname mpm on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpm/Cache"
+  - "%LOCALAPPDATA%/mpm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpmaggregate
+  name: Nixpkgs mpmaggregate macos cache (wave 18)
+  description: Nixpkgs leftover pname mpmaggregate on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpmaggregate"
+  - "$HOME/Library/Logs/mpmaggregate"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpmaggregate
+  name: Nixpkgs mpmaggregate linux cache (wave 18)
+  description: Nixpkgs leftover pname mpmaggregate on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpmaggregate"
+  - "$XDG_CACHE_HOME/mpmaggregate"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpmaggregate
+  name: Nixpkgs mpmaggregate windows cache (wave 18)
+  description: Nixpkgs leftover pname mpmaggregate on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpmaggregate/Cache"
+  - "%LOCALAPPDATA%/mpmaggregate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpman-ru
+  name: Nixpkgs mpman-ru macos cache (wave 18)
+  description: Nixpkgs leftover pname mpman-ru on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpman-ru"
+  - "$HOME/Library/Logs/mpman-ru"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpman-ru
+  name: Nixpkgs mpman-ru linux cache (wave 18)
+  description: Nixpkgs leftover pname mpman-ru on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpman-ru"
+  - "$XDG_CACHE_HOME/mpman-ru"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpman-ru
+  name: Nixpkgs mpman-ru windows cache (wave 18)
+  description: Nixpkgs leftover pname mpman-ru on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpman-ru/Cache"
+  - "%LOCALAPPDATA%/mpman-ru/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpmath
+  name: Nixpkgs mpmath macos cache (wave 18)
+  description: Nixpkgs leftover pname mpmath on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpmath"
+  - "$HOME/Library/Logs/mpmath"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpmath
+  name: Nixpkgs mpmath linux cache (wave 18)
+  description: Nixpkgs leftover pname mpmath on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpmath"
+  - "$XDG_CACHE_HOME/mpmath"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpmath
+  name: Nixpkgs mpmath windows cache (wave 18)
+  description: Nixpkgs leftover pname mpmath on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpmath/Cache"
+  - "%LOCALAPPDATA%/mpmath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpmc-queue
+  name: Nixpkgs mpmc-queue macos cache (wave 18)
+  description: Nixpkgs leftover pname mpmc-queue on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpmc-queue"
+  - "$HOME/Library/Logs/mpmc-queue"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpmc-queue
+  name: Nixpkgs mpmc-queue linux cache (wave 18)
+  description: Nixpkgs leftover pname mpmc-queue on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpmc-queue"
+  - "$XDG_CACHE_HOME/mpmc-queue"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpmc-queue
+  name: Nixpkgs mpmc-queue windows cache (wave 18)
+  description: Nixpkgs leftover pname mpmc-queue on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpmc-queue/Cache"
+  - "%LOCALAPPDATA%/mpmc-queue/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpmcorrelogram
+  name: Nixpkgs mpmcorrelogram macos cache (wave 18)
+  description: Nixpkgs leftover pname mpmcorrelogram on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpmcorrelogram"
+  - "$HOME/Library/Logs/mpmcorrelogram"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpmcorrelogram
+  name: Nixpkgs mpmcorrelogram linux cache (wave 18)
+  description: Nixpkgs leftover pname mpmcorrelogram on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpmcorrelogram"
+  - "$XDG_CACHE_HOME/mpmcorrelogram"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpmcorrelogram
+  name: Nixpkgs mpmcorrelogram windows cache (wave 18)
+  description: Nixpkgs leftover pname mpmcorrelogram on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpmcorrelogram/Cache"
+  - "%LOCALAPPDATA%/mpmcorrelogram/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpmi
+  name: Nixpkgs mpmi macos cache (wave 18)
+  description: Nixpkgs leftover pname mpmi on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpmi"
+  - "$HOME/Library/Logs/mpmi"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpmi
+  name: Nixpkgs mpmi linux cache (wave 18)
+  description: Nixpkgs leftover pname mpmi on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpmi"
+  - "$XDG_CACHE_HOME/mpmi"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpmi
+  name: Nixpkgs mpmi windows cache (wave 18)
+  description: Nixpkgs leftover pname mpmi on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpmi/Cache"
+  - "%LOCALAPPDATA%/mpmi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpmsim
+  name: Nixpkgs mpmsim macos cache (wave 18)
+  description: Nixpkgs leftover pname mpmsim on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpmsim"
+  - "$HOME/Library/Logs/mpmsim"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpmsim
+  name: Nixpkgs mpmsim linux cache (wave 18)
+  description: Nixpkgs leftover pname mpmsim on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpmsim"
+  - "$XDG_CACHE_HOME/mpmsim"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpmsim
+  name: Nixpkgs mpmsim windows cache (wave 18)
+  description: Nixpkgs leftover pname mpmsim on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpmsim/Cache"
+  - "%LOCALAPPDATA%/mpmsim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpoly
+  name: Nixpkgs mpoly macos cache (wave 18)
+  description: Nixpkgs leftover pname mpoly on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpoly"
+  - "$HOME/Library/Logs/mpoly"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpoly
+  name: Nixpkgs mpoly linux cache (wave 18)
+  description: Nixpkgs leftover pname mpoly on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpoly"
+  - "$XDG_CACHE_HOME/mpoly"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpoly
+  name: Nixpkgs mpoly windows cache (wave 18)
+  description: Nixpkgs leftover pname mpoly on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpoly/Cache"
+  - "%LOCALAPPDATA%/mpoly/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpolynomials
+  name: Nixpkgs mpolynomials macos cache (wave 18)
+  description: Nixpkgs leftover pname mpolynomials on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpolynomials"
+  - "$HOME/Library/Logs/mpolynomials"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpolynomials
+  name: Nixpkgs mpolynomials linux cache (wave 18)
+  description: Nixpkgs leftover pname mpolynomials on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpolynomials"
+  - "$XDG_CACHE_HOME/mpolynomials"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpolynomials
+  name: Nixpkgs mpolynomials windows cache (wave 18)
+  description: Nixpkgs leftover pname mpolynomials on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpolynomials/Cache"
+  - "%LOCALAPPDATA%/mpolynomials/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpop
+  name: Nixpkgs mpop macos cache (wave 18)
+  description: Nixpkgs leftover pname mpop on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpop"
+  - "$HOME/Library/Logs/mpop"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpop
+  name: Nixpkgs mpop linux cache (wave 18)
+  description: Nixpkgs leftover pname mpop on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpop"
+  - "$XDG_CACHE_HOME/mpop"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpop
+  name: Nixpkgs mpop windows cache (wave 18)
+  description: Nixpkgs leftover pname mpop on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpop/Cache"
+  - "%LOCALAPPDATA%/mpop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpostinl
+  name: Nixpkgs mpostinl macos cache (wave 18)
+  description: Nixpkgs leftover pname mpostinl on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpostinl"
+  - "$HOME/Library/Logs/mpostinl"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpostinl
+  name: Nixpkgs mpostinl linux cache (wave 18)
+  description: Nixpkgs leftover pname mpostinl on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpostinl"
+  - "$XDG_CACHE_HOME/mpostinl"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpostinl
+  name: Nixpkgs mpostinl windows cache (wave 18)
+  description: Nixpkgs leftover pname mpostinl on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpostinl/Cache"
+  - "%LOCALAPPDATA%/mpostinl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpower
+  name: Nixpkgs mpower macos cache (wave 18)
+  description: Nixpkgs leftover pname mpower on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpower"
+  - "$HOME/Library/Logs/mpower"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpower
+  name: Nixpkgs mpower linux cache (wave 18)
+  description: Nixpkgs leftover pname mpower on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpower"
+  - "$XDG_CACHE_HOME/mpower"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpower
+  name: Nixpkgs mpower windows cache (wave 18)
+  description: Nixpkgs leftover pname mpower on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpower/Cache"
+  - "%LOCALAPPDATA%/mpower/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mppr
+  name: Nixpkgs mppR macos cache (wave 18)
+  description: Nixpkgs leftover pname mppR on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mppR"
+  - "$HOME/Library/Logs/mppR"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mppr
+  name: Nixpkgs mppR linux cache (wave 18)
+  description: Nixpkgs leftover pname mppR on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mppR"
+  - "$XDG_CACHE_HOME/mppR"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mppr
+  name: Nixpkgs mppR windows cache (wave 18)
+  description: Nixpkgs leftover pname mppR on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mppR/Cache"
+  - "%LOCALAPPDATA%/mppR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mppa
+  name: Nixpkgs mppa macos cache (wave 18)
+  description: Nixpkgs leftover pname mppa on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mppa"
+  - "$HOME/Library/Logs/mppa"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mppa
+  name: Nixpkgs mppa linux cache (wave 18)
+  description: Nixpkgs leftover pname mppa on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mppa"
+  - "$XDG_CACHE_HOME/mppa"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mppa
+  name: Nixpkgs mppa windows cache (wave 18)
+  description: Nixpkgs leftover pname mppa on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mppa/Cache"
+  - "%LOCALAPPDATA%/mppa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpppc
+  name: Nixpkgs mpppc macos cache (wave 18)
+  description: Nixpkgs leftover pname mpppc on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpppc"
+  - "$HOME/Library/Logs/mpppc"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpppc
+  name: Nixpkgs mpppc linux cache (wave 18)
+  description: Nixpkgs leftover pname mpppc on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpppc"
+  - "$XDG_CACHE_HOME/mpppc"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpppc
+  name: Nixpkgs mpppc windows cache (wave 18)
+  description: Nixpkgs leftover pname mpppc on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpppc/Cache"
+  - "%LOCALAPPDATA%/mpppc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpr
+  name: Nixpkgs mpr macos cache (wave 18)
+  description: Nixpkgs leftover pname mpr on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpr"
+  - "$HOME/Library/Logs/mpr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpr
+  name: Nixpkgs mpr linux cache (wave 18)
+  description: Nixpkgs leftover pname mpr on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpr"
+  - "$XDG_CACHE_HOME/mpr"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpr
+  name: Nixpkgs mpr windows cache (wave 18)
+  description: Nixpkgs leftover pname mpr on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpr/Cache"
+  - "%LOCALAPPDATA%/mpr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpra
+  name: Nixpkgs mpra macos cache (wave 18)
+  description: Nixpkgs leftover pname mpra on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpra"
+  - "$HOME/Library/Logs/mpra"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpra
+  name: Nixpkgs mpra linux cache (wave 18)
+  description: Nixpkgs leftover pname mpra on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpra"
+  - "$XDG_CACHE_HOME/mpra"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpra
+  name: Nixpkgs mpra windows cache (wave 18)
+  description: Nixpkgs leftover pname mpra on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpra/Cache"
+  - "%LOCALAPPDATA%/mpra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mprelude
+  name: Nixpkgs mprelude macos cache (wave 18)
+  description: Nixpkgs leftover pname mprelude on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mprelude"
+  - "$HOME/Library/Logs/mprelude"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mprelude
+  name: Nixpkgs mprelude linux cache (wave 18)
+  description: Nixpkgs leftover pname mprelude on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mprelude"
+  - "$XDG_CACHE_HOME/mprelude"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mprelude
+  name: Nixpkgs mprelude windows cache (wave 18)
+  description: Nixpkgs leftover pname mprelude on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mprelude/Cache"
+  - "%LOCALAPPDATA%/mprelude/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpremote
+  name: Nixpkgs mpremote macos cache (wave 18)
+  description: Nixpkgs leftover pname mpremote on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpremote"
+  - "$HOME/Library/Logs/mpremote"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpremote
+  name: Nixpkgs mpremote linux cache (wave 18)
+  description: Nixpkgs leftover pname mpremote on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpremote"
+  - "$XDG_CACHE_HOME/mpremote"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpremote
+  name: Nixpkgs mpremote windows cache (wave 18)
+  description: Nixpkgs leftover pname mpremote on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpremote/Cache"
+  - "%LOCALAPPDATA%/mpremote/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpretty
+  name: Nixpkgs mpretty macos cache (wave 18)
+  description: Nixpkgs leftover pname mpretty on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpretty"
+  - "$HOME/Library/Logs/mpretty"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpretty
+  name: Nixpkgs mpretty linux cache (wave 18)
+  description: Nixpkgs leftover pname mpretty on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpretty"
+  - "$XDG_CACHE_HOME/mpretty"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpretty
+  name: Nixpkgs mpretty windows cache (wave 18)
+  description: Nixpkgs leftover pname mpretty on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpretty/Cache"
+  - "%LOCALAPPDATA%/mpretty/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mprime
+  name: Nixpkgs mprime macos cache (wave 18)
+  description: Nixpkgs leftover pname mprime on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mprime"
+  - "$HOME/Library/Logs/mprime"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mprime
+  name: Nixpkgs mprime linux cache (wave 18)
+  description: Nixpkgs leftover pname mprime on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mprime"
+  - "$XDG_CACHE_HOME/mprime"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mprime
+  name: Nixpkgs mprime windows cache (wave 18)
+  description: Nixpkgs leftover pname mprime on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mprime/Cache"
+  - "%LOCALAPPDATA%/mprime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpris
+  name: Nixpkgs mpris macos cache (wave 18)
+  description: Nixpkgs leftover pname mpris on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpris"
+  - "$HOME/Library/Logs/mpris"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpris
+  name: Nixpkgs mpris linux cache (wave 18)
+  description: Nixpkgs leftover pname mpris on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpris"
+  - "$XDG_CACHE_HOME/mpris"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpris
+  name: Nixpkgs mpris windows cache (wave 18)
+  description: Nixpkgs leftover pname mpris on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpris/Cache"
+  - "%LOCALAPPDATA%/mpris/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpris-api
+  name: Nixpkgs mpris-api macos cache (wave 18)
+  description: Nixpkgs leftover pname mpris-api on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpris-api"
+  - "$HOME/Library/Logs/mpris-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpris-api
+  name: Nixpkgs mpris-api linux cache (wave 18)
+  description: Nixpkgs leftover pname mpris-api on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpris-api"
+  - "$XDG_CACHE_HOME/mpris-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpris-api
+  name: Nixpkgs mpris-api windows cache (wave 18)
+  description: Nixpkgs leftover pname mpris-api on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpris-api/Cache"
+  - "%LOCALAPPDATA%/mpris-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpris-notifier
+  name: Nixpkgs mpris-notifier macos cache (wave 18)
+  description: Nixpkgs leftover pname mpris-notifier on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpris-notifier"
+  - "$HOME/Library/Logs/mpris-notifier"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpris-notifier
+  name: Nixpkgs mpris-notifier linux cache (wave 18)
+  description: Nixpkgs leftover pname mpris-notifier on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpris-notifier"
+  - "$XDG_CACHE_HOME/mpris-notifier"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpris-notifier
+  name: Nixpkgs mpris-notifier windows cache (wave 18)
+  description: Nixpkgs leftover pname mpris-notifier on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpris-notifier/Cache"
+  - "%LOCALAPPDATA%/mpris-notifier/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpris-scrobbler
+  name: Nixpkgs mpris-scrobbler macos cache (wave 18)
+  description: Nixpkgs leftover pname mpris-scrobbler on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpris-scrobbler"
+  - "$HOME/Library/Logs/mpris-scrobbler"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpris-scrobbler
+  name: Nixpkgs mpris-scrobbler linux cache (wave 18)
+  description: Nixpkgs leftover pname mpris-scrobbler on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpris-scrobbler"
+  - "$XDG_CACHE_HOME/mpris-scrobbler"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpris-scrobbler
+  name: Nixpkgs mpris-scrobbler windows cache (wave 18)
+  description: Nixpkgs leftover pname mpris-scrobbler on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpris-scrobbler/Cache"
+  - "%LOCALAPPDATA%/mpris-scrobbler/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpris-server
+  name: Nixpkgs mpris-server macos cache (wave 18)
+  description: Nixpkgs leftover pname mpris-server on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpris-server"
+  - "$HOME/Library/Logs/mpris-server"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpris-server
+  name: Nixpkgs mpris-server linux cache (wave 18)
+  description: Nixpkgs leftover pname mpris-server on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpris-server"
+  - "$XDG_CACHE_HOME/mpris-server"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpris-server
+  name: Nixpkgs mpris-server windows cache (wave 18)
+  description: Nixpkgs leftover pname mpris-server on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpris-server/Cache"
+  - "%LOCALAPPDATA%/mpris-server/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpris-timer
+  name: Nixpkgs mpris-timer macos cache (wave 18)
+  description: Nixpkgs leftover pname mpris-timer on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpris-timer"
+  - "$HOME/Library/Logs/mpris-timer"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpris-timer
+  name: Nixpkgs mpris-timer linux cache (wave 18)
+  description: Nixpkgs leftover pname mpris-timer on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpris-timer"
+  - "$XDG_CACHE_HOME/mpris-timer"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpris-timer
+  name: Nixpkgs mpris-timer windows cache (wave 18)
+  description: Nixpkgs leftover pname mpris-timer on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpris-timer/Cache"
+  - "%LOCALAPPDATA%/mpris-timer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mprisence
+  name: Nixpkgs mprisence macos cache (wave 18)
+  description: Nixpkgs leftover pname mprisence on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mprisence"
+  - "$HOME/Library/Logs/mprisence"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mprisence
+  name: Nixpkgs mprisence linux cache (wave 18)
+  description: Nixpkgs leftover pname mprisence on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mprisence"
+  - "$XDG_CACHE_HOME/mprisence"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mprisence
+  name: Nixpkgs mprisence windows cache (wave 18)
+  description: Nixpkgs leftover pname mprisence on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mprisence/Cache"
+  - "%LOCALAPPDATA%/mprisence/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mprisify
+  name: Nixpkgs mprisify macos cache (wave 18)
+  description: Nixpkgs leftover pname mprisify on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mprisify"
+  - "$HOME/Library/Logs/mprisify"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mprisify
+  name: Nixpkgs mprisify linux cache (wave 18)
+  description: Nixpkgs leftover pname mprisify on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mprisify"
+  - "$XDG_CACHE_HOME/mprisify"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mprisify
+  name: Nixpkgs mprisify windows cache (wave 18)
+  description: Nixpkgs leftover pname mprisify on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mprisify/Cache"
+  - "%LOCALAPPDATA%/mprisify/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mprocs
+  name: Nixpkgs mprocs macos cache (wave 18)
+  description: Nixpkgs leftover pname mprocs on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mprocs"
+  - "$HOME/Library/Logs/mprocs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mprocs
+  name: Nixpkgs mprocs linux cache (wave 18)
+  description: Nixpkgs leftover pname mprocs on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mprocs"
+  - "$XDG_CACHE_HOME/mprocs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mprocs
+  name: Nixpkgs mprocs windows cache (wave 18)
+  description: Nixpkgs leftover pname mprocs on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mprocs/Cache"
+  - "%LOCALAPPDATA%/mprocs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mprover
+  name: Nixpkgs mprover macos cache (wave 18)
+  description: Nixpkgs leftover pname mprover on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mprover"
+  - "$HOME/Library/Logs/mprover"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mprover
+  name: Nixpkgs mprover linux cache (wave 18)
+  description: Nixpkgs leftover pname mprover on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mprover"
+  - "$XDG_CACHE_HOME/mprover"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mprover
+  name: Nixpkgs mprover windows cache (wave 18)
+  description: Nixpkgs leftover pname mprover on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mprover/Cache"
+  - "%LOCALAPPDATA%/mprover/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpshock
+  name: Nixpkgs mpshock macos cache (wave 18)
+  description: Nixpkgs leftover pname mpshock on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpshock"
+  - "$HOME/Library/Logs/mpshock"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpshock
+  name: Nixpkgs mpshock linux cache (wave 18)
+  description: Nixpkgs leftover pname mpshock on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpshock"
+  - "$XDG_CACHE_HOME/mpshock"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpshock
+  name: Nixpkgs mpshock windows cache (wave 18)
+  description: Nixpkgs leftover pname mpshock on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpshock/Cache"
+  - "%LOCALAPPDATA%/mpshock/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpsolve
+  name: Nixpkgs mpsolve macos cache (wave 18)
+  description: Nixpkgs leftover pname mpsolve on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpsolve"
+  - "$HOME/Library/Logs/mpsolve"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpsolve
+  name: Nixpkgs mpsolve linux cache (wave 18)
+  description: Nixpkgs leftover pname mpsolve on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpsolve"
+  - "$XDG_CACHE_HOME/mpsolve"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpsolve
+  name: Nixpkgs mpsolve windows cache (wave 18)
+  description: Nixpkgs leftover pname mpsolve on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpsolve/Cache"
+  - "%LOCALAPPDATA%/mpsolve/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpspline2
+  name: Nixpkgs mpspline2 macos cache (wave 18)
+  description: Nixpkgs leftover pname mpspline2 on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpspline2"
+  - "$HOME/Library/Logs/mpspline2"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpspline2
+  name: Nixpkgs mpspline2 linux cache (wave 18)
+  description: Nixpkgs leftover pname mpspline2 on linux (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpspline2"
+  - "$XDG_CACHE_HOME/mpspline2"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpspline2
+  name: Nixpkgs mpspline2 windows cache (wave 18)
+  description: Nixpkgs leftover pname mpspline2 on windows (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpspline2/Cache"
+  - "%LOCALAPPDATA%/mpspline2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mpt
+  name: Nixpkgs mpt macos cache (wave 18)
+  description: Nixpkgs leftover pname mpt on macos (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mpt"
+  - "$HOME/Library/Logs/mpt"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mpt
+  name: Nixpkgs mpt linux cache (wave 18)
+  description: Nixpkgs leftover pname mpt on linux (wave 18). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mpt"
+  - "$XDG_CACHE_HOME/mpt"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mpt
+  name: Nixpkgs mpt windows cache (wave 18)
+  description: Nixpkgs leftover pname mpt on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mpt/Cache"
+  - "%LOCALAPPDATA%/mpt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mptcp
+  name: Nixpkgs mptcp macos cache (wave 18)
+  description: Nixpkgs leftover pname mptcp on macos (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mptcp"
+  - "$HOME/Library/Logs/mptcp"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-lin-mptcp
+  name: Nixpkgs mptcp linux cache (wave 18)
+  description: Nixpkgs leftover pname mptcp on linux (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/mptcp"
+  - "$XDG_CACHE_HOME/mptcp"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-win-mptcp
+  name: Nixpkgs mptcp windows cache (wave 18)
+  description: Nixpkgs leftover pname mptcp on windows (wave 18). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/mptcp/Cache"
+  - "%LOCALAPPDATA%/mptcp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np18-mac-mptcp-pm
+  name: Nixpkgs mptcp-pm macos cache (wave 18)
+  description: Nixpkgs leftover pname mptcp-pm on macos (wave 18). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/mptcp-pm"
+  - "$HOME/Library/Logs/mptcp-pm"
+  delete_mode: contents
+  max_depth: 6

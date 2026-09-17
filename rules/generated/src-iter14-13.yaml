@@ -1,0 +1,5604 @@
+---
+pack: src-iter14-13
+description: Iterative 10k import wave 14 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np14-mac-installr
+  name: Nixpkgs installr macos cache (wave 14)
+  description: Nixpkgs leftover pname installr on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/installr"
+  - "$HOME/Library/Logs/installr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-installr
+  name: Nixpkgs installr linux cache (wave 14)
+  description: Nixpkgs leftover pname installr on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/installr"
+  - "$XDG_CACHE_HOME/installr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-installr
+  name: Nixpkgs installr windows cache (wave 14)
+  description: Nixpkgs leftover pname installr on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/installr/Cache"
+  - "%LOCALAPPDATA%/installr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instaloader
+  name: Nixpkgs instaloader macos cache (wave 14)
+  description: Nixpkgs leftover pname instaloader on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instaloader"
+  - "$HOME/Library/Logs/instaloader"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instaloader
+  name: Nixpkgs instaloader linux cache (wave 14)
+  description: Nixpkgs leftover pname instaloader on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instaloader"
+  - "$XDG_CACHE_HOME/instaloader"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instaloader
+  name: Nixpkgs instaloader windows cache (wave 14)
+  description: Nixpkgs leftover pname instaloader on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instaloader/Cache"
+  - "%LOCALAPPDATA%/instaloader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instana-haskell-trace-sdk
+  name: Nixpkgs instana-haskell-trace-sdk macos cache (wave 14)
+  description: Nixpkgs leftover pname instana-haskell-trace-sdk on macos (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instana-haskell-trace-sdk"
+  - "$HOME/Library/Logs/instana-haskell-trace-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instana-haskell-trace-sdk
+  name: Nixpkgs instana-haskell-trace-sdk linux cache (wave 14)
+  description: Nixpkgs leftover pname instana-haskell-trace-sdk on linux (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instana-haskell-trace-sdk"
+  - "$XDG_CACHE_HOME/instana-haskell-trace-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instana-haskell-trace-sdk
+  name: Nixpkgs instana-haskell-trace-sdk windows cache (wave 14)
+  description: Nixpkgs leftover pname instana-haskell-trace-sdk on windows (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instana-haskell-trace-sdk/Cache"
+  - "%LOCALAPPDATA%/instana-haskell-trace-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instance-control
+  name: Nixpkgs instance-control macos cache (wave 14)
+  description: Nixpkgs leftover pname instance-control on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instance-control"
+  - "$HOME/Library/Logs/instance-control"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instance-control
+  name: Nixpkgs instance-control linux cache (wave 14)
+  description: Nixpkgs leftover pname instance-control on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instance-control"
+  - "$XDG_CACHE_HOME/instance-control"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instance-control
+  name: Nixpkgs instance-control windows cache (wave 14)
+  description: Nixpkgs leftover pname instance-control on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instance-control/Cache"
+  - "%LOCALAPPDATA%/instance-control/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instance-map
+  name: Nixpkgs instance-map macos cache (wave 14)
+  description: Nixpkgs leftover pname instance-map on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instance-map"
+  - "$HOME/Library/Logs/instance-map"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instance-map
+  name: Nixpkgs instance-map linux cache (wave 14)
+  description: Nixpkgs leftover pname instance-map on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instance-map"
+  - "$XDG_CACHE_HOME/instance-map"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instance-map
+  name: Nixpkgs instance-map windows cache (wave 14)
+  description: Nixpkgs leftover pname instance-map on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instance-map/Cache"
+  - "%LOCALAPPDATA%/instance-map/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instance-tracking
+  name: Nixpkgs instance-tracking macos cache (wave 14)
+  description: Nixpkgs leftover pname instance-tracking on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instance-tracking"
+  - "$HOME/Library/Logs/instance-tracking"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instance-tracking
+  name: Nixpkgs instance-tracking linux cache (wave 14)
+  description: Nixpkgs leftover pname instance-tracking on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instance-tracking"
+  - "$XDG_CACHE_HOME/instance-tracking"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instance-tracking
+  name: Nixpkgs instance-tracking windows cache (wave 14)
+  description: Nixpkgs leftover pname instance-tracking on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instance-tracking/Cache"
+  - "%LOCALAPPDATA%/instance-tracking/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-aeson
+  name: Nixpkgs instant-aeson macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-aeson on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-aeson"
+  - "$HOME/Library/Logs/instant-aeson"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-aeson
+  name: Nixpkgs instant-aeson linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-aeson on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-aeson"
+  - "$XDG_CACHE_HOME/instant-aeson"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-aeson
+  name: Nixpkgs instant-aeson windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-aeson on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-aeson/Cache"
+  - "%LOCALAPPDATA%/instant-aeson/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-bytes
+  name: Nixpkgs instant-bytes macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-bytes on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-bytes"
+  - "$HOME/Library/Logs/instant-bytes"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-bytes
+  name: Nixpkgs instant-bytes linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-bytes on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-bytes"
+  - "$XDG_CACHE_HOME/instant-bytes"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-bytes
+  name: Nixpkgs instant-bytes windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-bytes on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-bytes/Cache"
+  - "%LOCALAPPDATA%/instant-bytes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-deepseq
+  name: Nixpkgs instant-deepseq macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-deepseq on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-deepseq"
+  - "$HOME/Library/Logs/instant-deepseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-deepseq
+  name: Nixpkgs instant-deepseq linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-deepseq on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-deepseq"
+  - "$XDG_CACHE_HOME/instant-deepseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-deepseq
+  name: Nixpkgs instant-deepseq windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-deepseq on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-deepseq/Cache"
+  - "%LOCALAPPDATA%/instant-deepseq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-generics
+  name: Nixpkgs instant-generics macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-generics on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-generics"
+  - "$HOME/Library/Logs/instant-generics"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-generics
+  name: Nixpkgs instant-generics linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-generics on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-generics"
+  - "$XDG_CACHE_HOME/instant-generics"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-generics
+  name: Nixpkgs instant-generics windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-generics on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-generics/Cache"
+  - "%LOCALAPPDATA%/instant-generics/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-hashable
+  name: Nixpkgs instant-hashable macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-hashable on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-hashable"
+  - "$HOME/Library/Logs/instant-hashable"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-hashable
+  name: Nixpkgs instant-hashable linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-hashable on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-hashable"
+  - "$XDG_CACHE_HOME/instant-hashable"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-hashable
+  name: Nixpkgs instant-hashable windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-hashable on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-hashable/Cache"
+  - "%LOCALAPPDATA%/instant-hashable/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-space-switcher
+  name: Nixpkgs instant-space-switcher macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-space-switcher on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-space-switcher"
+  - "$HOME/Library/Logs/instant-space-switcher"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-space-switcher
+  name: Nixpkgs instant-space-switcher linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-space-switcher on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-space-switcher"
+  - "$XDG_CACHE_HOME/instant-space-switcher"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-space-switcher
+  name: Nixpkgs instant-space-switcher windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-space-switcher on windows (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-space-switcher/Cache"
+  - "%LOCALAPPDATA%/instant-space-switcher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-zipper
+  name: Nixpkgs instant-zipper macos cache (wave 14)
+  description: Nixpkgs leftover pname instant-zipper on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant-zipper"
+  - "$HOME/Library/Logs/instant-zipper"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-zipper
+  name: Nixpkgs instant-zipper linux cache (wave 14)
+  description: Nixpkgs leftover pname instant-zipper on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant-zipper"
+  - "$XDG_CACHE_HOME/instant-zipper"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-zipper
+  name: Nixpkgs instant-zipper windows cache (wave 14)
+  description: Nixpkgs leftover pname instant-zipper on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant-zipper/Cache"
+  - "%LOCALAPPDATA%/instant-zipper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instant-nvim
+  name: Nixpkgs instant.nvim macos cache (wave 14)
+  description: Nixpkgs leftover pname instant.nvim on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instant.nvim"
+  - "$HOME/Library/Logs/instant.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instant-nvim
+  name: Nixpkgs instant.nvim linux cache (wave 14)
+  description: Nixpkgs leftover pname instant.nvim on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instant.nvim"
+  - "$XDG_CACHE_HOME/instant.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instant-nvim
+  name: Nixpkgs instant.nvim windows cache (wave 14)
+  description: Nixpkgs leftover pname instant.nvim on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instant.nvim/Cache"
+  - "%LOCALAPPDATA%/instant.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instantiate
+  name: Nixpkgs instantiate macos cache (wave 14)
+  description: Nixpkgs leftover pname instantiate on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instantiate"
+  - "$HOME/Library/Logs/instantiate"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instantiate
+  name: Nixpkgs instantiate linux cache (wave 14)
+  description: Nixpkgs leftover pname instantiate on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instantiate"
+  - "$XDG_CACHE_HOME/instantiate"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instantiate
+  name: Nixpkgs instantiate windows cache (wave 14)
+  description: Nixpkgs leftover pname instantiate on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instantiate/Cache"
+  - "%LOCALAPPDATA%/instantiate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instantview
+  name: Nixpkgs instantview macos cache (wave 14)
+  description: Nixpkgs leftover pname instantview on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instantview"
+  - "$HOME/Library/Logs/instantview"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instantview
+  name: Nixpkgs instantview linux cache (wave 14)
+  description: Nixpkgs leftover pname instantview on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instantview"
+  - "$XDG_CACHE_HOME/instantview"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instantview
+  name: Nixpkgs instantview windows cache (wave 14)
+  description: Nixpkgs leftover pname instantview on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instantview/Cache"
+  - "%LOCALAPPDATA%/instantview/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instapaper
+  name: Nixpkgs instapaper macos cache (wave 14)
+  description: Nixpkgs leftover pname instapaper on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instapaper"
+  - "$HOME/Library/Logs/instapaper"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instapaper
+  name: Nixpkgs instapaper linux cache (wave 14)
+  description: Nixpkgs leftover pname instapaper on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instapaper"
+  - "$XDG_CACHE_HOME/instapaper"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instapaper
+  name: Nixpkgs instapaper windows cache (wave 14)
+  description: Nixpkgs leftover pname instapaper on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instapaper/Cache"
+  - "%LOCALAPPDATA%/instapaper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instapaper-sender
+  name: Nixpkgs instapaper-sender macos cache (wave 14)
+  description: Nixpkgs leftover pname instapaper-sender on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instapaper-sender"
+  - "$HOME/Library/Logs/instapaper-sender"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instapaper-sender
+  name: Nixpkgs instapaper-sender linux cache (wave 14)
+  description: Nixpkgs leftover pname instapaper-sender on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instapaper-sender"
+  - "$XDG_CACHE_HOME/instapaper-sender"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instapaper-sender
+  name: Nixpkgs instapaper-sender windows cache (wave 14)
+  description: Nixpkgs leftover pname instapaper-sender on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instapaper-sender/Cache"
+  - "%LOCALAPPDATA%/instapaper-sender/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instawow
+  name: Nixpkgs instawow macos cache (wave 14)
+  description: Nixpkgs leftover pname instawow on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instawow"
+  - "$HOME/Library/Logs/instawow"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instawow
+  name: Nixpkgs instawow linux cache (wave 14)
+  description: Nixpkgs leftover pname instawow on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instawow"
+  - "$XDG_CACHE_HOME/instawow"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instawow
+  name: Nixpkgs instawow windows cache (wave 14)
+  description: Nixpkgs leftover pname instawow on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instawow/Cache"
+  - "%LOCALAPPDATA%/instawow/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instead
+  name: Nixpkgs instead macos cache (wave 14)
+  description: Nixpkgs leftover pname instead on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instead"
+  - "$HOME/Library/Logs/instead"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instead
+  name: Nixpkgs instead linux cache (wave 14)
+  description: Nixpkgs leftover pname instead on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instead"
+  - "$XDG_CACHE_HOME/instead"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instead
+  name: Nixpkgs instead windows cache (wave 14)
+  description: Nixpkgs leftover pname instead on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instead/Cache"
+  - "%LOCALAPPDATA%/instead/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insteon-frontend-home-assistant
+  name: Nixpkgs insteon-frontend-home-assistant macos cache (wave 14)
+  description: Nixpkgs leftover pname insteon-frontend-home-assistant on macos (wave
+    14). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insteon-frontend-home-assistant"
+  - "$HOME/Library/Logs/insteon-frontend-home-assistant"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insteon-frontend-home-assistant
+  name: Nixpkgs insteon-frontend-home-assistant linux cache (wave 14)
+  description: Nixpkgs leftover pname insteon-frontend-home-assistant on linux (wave
+    14). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insteon-frontend-home-assistant"
+  - "$XDG_CACHE_HOME/insteon-frontend-home-assistant"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insteon-frontend-home-assistant
+  name: Nixpkgs insteon-frontend-home-assistant windows cache (wave 14)
+  description: Nixpkgs leftover pname insteon-frontend-home-assistant on windows (wave
+    14). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insteon-frontend-home-assistant/Cache"
+  - "%LOCALAPPDATA%/insteon-frontend-home-assistant/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instinct
+  name: Nixpkgs instinct macos cache (wave 14)
+  description: Nixpkgs leftover pname instinct on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instinct"
+  - "$HOME/Library/Logs/instinct"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instinct
+  name: Nixpkgs instinct linux cache (wave 14)
+  description: Nixpkgs leftover pname instinct on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instinct"
+  - "$XDG_CACHE_HOME/instinct"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instinct
+  name: Nixpkgs instinct windows cache (wave 14)
+  description: Nixpkgs leftover pname instinct on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instinct/Cache"
+  - "%LOCALAPPDATA%/instinct/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instructor
+  name: Nixpkgs instructor macos cache (wave 14)
+  description: Nixpkgs leftover pname instructor on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instructor"
+  - "$HOME/Library/Logs/instructor"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instructor
+  name: Nixpkgs instructor linux cache (wave 14)
+  description: Nixpkgs leftover pname instructor on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instructor"
+  - "$XDG_CACHE_HOME/instructor"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instructor
+  name: Nixpkgs instructor windows cache (wave 14)
+  description: Nixpkgs leftover pname instructor on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instructor/Cache"
+  - "%LOCALAPPDATA%/instructor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instrument
+  name: Nixpkgs instrument macos cache (wave 14)
+  description: Nixpkgs leftover pname instrument on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instrument"
+  - "$HOME/Library/Logs/instrument"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instrument
+  name: Nixpkgs instrument linux cache (wave 14)
+  description: Nixpkgs leftover pname instrument on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instrument"
+  - "$XDG_CACHE_HOME/instrument"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instrument
+  name: Nixpkgs instrument windows cache (wave 14)
+  description: Nixpkgs leftover pname instrument on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instrument/Cache"
+  - "%LOCALAPPDATA%/instrument/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instrument-chord
+  name: Nixpkgs instrument-chord macos cache (wave 14)
+  description: Nixpkgs leftover pname instrument-chord on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instrument-chord"
+  - "$HOME/Library/Logs/instrument-chord"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instrument-chord
+  name: Nixpkgs instrument-chord linux cache (wave 14)
+  description: Nixpkgs leftover pname instrument-chord on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instrument-chord"
+  - "$XDG_CACHE_HOME/instrument-chord"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instrument-chord
+  name: Nixpkgs instrument-chord windows cache (wave 14)
+  description: Nixpkgs leftover pname instrument-chord on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instrument-chord/Cache"
+  - "%LOCALAPPDATA%/instrument-chord/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instrument-cloudwatch
+  name: Nixpkgs instrument-cloudwatch macos cache (wave 14)
+  description: Nixpkgs leftover pname instrument-cloudwatch on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instrument-cloudwatch"
+  - "$HOME/Library/Logs/instrument-cloudwatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instrument-cloudwatch
+  name: Nixpkgs instrument-cloudwatch linux cache (wave 14)
+  description: Nixpkgs leftover pname instrument-cloudwatch on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instrument-cloudwatch"
+  - "$XDG_CACHE_HOME/instrument-cloudwatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instrument-cloudwatch
+  name: Nixpkgs instrument-cloudwatch windows cache (wave 14)
+  description: Nixpkgs leftover pname instrument-cloudwatch on windows (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instrument-cloudwatch/Cache"
+  - "%LOCALAPPDATA%/instrument-cloudwatch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-instrument-control
+  name: Nixpkgs instrument-control macos cache (wave 14)
+  description: Nixpkgs leftover pname instrument-control on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/instrument-control"
+  - "$HOME/Library/Logs/instrument-control"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-instrument-control
+  name: Nixpkgs instrument-control linux cache (wave 14)
+  description: Nixpkgs leftover pname instrument-control on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/instrument-control"
+  - "$XDG_CACHE_HOME/instrument-control"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-instrument-control
+  name: Nixpkgs instrument-control windows cache (wave 14)
+  description: Nixpkgs leftover pname instrument-control on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/instrument-control/Cache"
+  - "%LOCALAPPDATA%/instrument-control/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insulator2
+  name: Nixpkgs insulator2 macos cache (wave 14)
+  description: Nixpkgs leftover pname insulator2 on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insulator2"
+  - "$HOME/Library/Logs/insulator2"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insulator2
+  name: Nixpkgs insulator2 linux cache (wave 14)
+  description: Nixpkgs leftover pname insulator2 on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insulator2"
+  - "$XDG_CACHE_HOME/insulator2"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insulator2
+  name: Nixpkgs insulator2 windows cache (wave 14)
+  description: Nixpkgs leftover pname insulator2 on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insulator2/Cache"
+  - "%LOCALAPPDATA%/insulator2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insulin-secretion
+  name: Nixpkgs insulin.secretion macos cache (wave 14)
+  description: Nixpkgs leftover pname insulin.secretion on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insulin.secretion"
+  - "$HOME/Library/Logs/insulin.secretion"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insulin-secretion
+  name: Nixpkgs insulin.secretion linux cache (wave 14)
+  description: Nixpkgs leftover pname insulin.secretion on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insulin.secretion"
+  - "$XDG_CACHE_HOME/insulin.secretion"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insulin-secretion
+  name: Nixpkgs insulin.secretion windows cache (wave 14)
+  description: Nixpkgs leftover pname insulin.secretion on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insulin.secretion/Cache"
+  - "%LOCALAPPDATA%/insulin.secretion/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insurancedata
+  name: Nixpkgs insuranceData macos cache (wave 14)
+  description: Nixpkgs leftover pname insuranceData on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insuranceData"
+  - "$HOME/Library/Logs/insuranceData"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insurancedata
+  name: Nixpkgs insuranceData linux cache (wave 14)
+  description: Nixpkgs leftover pname insuranceData on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insuranceData"
+  - "$XDG_CACHE_HOME/insuranceData"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insurancedata
+  name: Nixpkgs insuranceData windows cache (wave 14)
+  description: Nixpkgs leftover pname insuranceData on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insuranceData/Cache"
+  - "%LOCALAPPDATA%/insuranceData/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insurancerating
+  name: Nixpkgs insurancerating macos cache (wave 14)
+  description: Nixpkgs leftover pname insurancerating on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insurancerating"
+  - "$HOME/Library/Logs/insurancerating"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insurancerating
+  name: Nixpkgs insurancerating linux cache (wave 14)
+  description: Nixpkgs leftover pname insurancerating on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insurancerating"
+  - "$XDG_CACHE_HOME/insurancerating"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insurancerating
+  name: Nixpkgs insurancerating windows cache (wave 14)
+  description: Nixpkgs leftover pname insurancerating on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insurancerating/Cache"
+  - "%LOCALAPPDATA%/insurancerating/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insync
+  name: Nixpkgs insync macos cache (wave 14)
+  description: Nixpkgs leftover pname insync on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insync"
+  - "$HOME/Library/Logs/insync"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insync
+  name: Nixpkgs insync linux cache (wave 14)
+  description: Nixpkgs leftover pname insync on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insync"
+  - "$XDG_CACHE_HOME/insync"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insync
+  name: Nixpkgs insync windows cache (wave 14)
+  description: Nixpkgs leftover pname insync on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insync/Cache"
+  - "%LOCALAPPDATA%/insync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-insync-nautilus
+  name: Nixpkgs insync-nautilus macos cache (wave 14)
+  description: Nixpkgs leftover pname insync-nautilus on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/insync-nautilus"
+  - "$HOME/Library/Logs/insync-nautilus"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-insync-nautilus
+  name: Nixpkgs insync-nautilus linux cache (wave 14)
+  description: Nixpkgs leftover pname insync-nautilus on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/insync-nautilus"
+  - "$XDG_CACHE_HOME/insync-nautilus"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-insync-nautilus
+  name: Nixpkgs insync-nautilus windows cache (wave 14)
+  description: Nixpkgs leftover pname insync-nautilus on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/insync-nautilus/Cache"
+  - "%LOCALAPPDATA%/insync-nautilus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-cast
+  name: Nixpkgs int-cast macos cache (wave 14)
+  description: Nixpkgs leftover pname int-cast on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int-cast"
+  - "$HOME/Library/Logs/int-cast"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-cast
+  name: Nixpkgs int-cast linux cache (wave 14)
+  description: Nixpkgs leftover pname int-cast on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int-cast"
+  - "$XDG_CACHE_HOME/int-cast"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-cast
+  name: Nixpkgs int-cast windows cache (wave 14)
+  description: Nixpkgs leftover pname int-cast on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int-cast/Cache"
+  - "%LOCALAPPDATA%/int-cast/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-conv
+  name: Nixpkgs int-conv macos cache (wave 14)
+  description: Nixpkgs leftover pname int-conv on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int-conv"
+  - "$HOME/Library/Logs/int-conv"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-conv
+  name: Nixpkgs int-conv linux cache (wave 14)
+  description: Nixpkgs leftover pname int-conv on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int-conv"
+  - "$XDG_CACHE_HOME/int-conv"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-conv
+  name: Nixpkgs int-conv windows cache (wave 14)
+  description: Nixpkgs leftover pname int-conv on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int-conv/Cache"
+  - "%LOCALAPPDATA%/int-conv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-interval-map
+  name: Nixpkgs int-interval-map macos cache (wave 14)
+  description: Nixpkgs leftover pname int-interval-map on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int-interval-map"
+  - "$HOME/Library/Logs/int-interval-map"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-interval-map
+  name: Nixpkgs int-interval-map linux cache (wave 14)
+  description: Nixpkgs leftover pname int-interval-map on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int-interval-map"
+  - "$XDG_CACHE_HOME/int-interval-map"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-interval-map
+  name: Nixpkgs int-interval-map windows cache (wave 14)
+  description: Nixpkgs leftover pname int-interval-map on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int-interval-map/Cache"
+  - "%LOCALAPPDATA%/int-interval-map/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-like
+  name: Nixpkgs int-like macos cache (wave 14)
+  description: Nixpkgs leftover pname int-like on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int-like"
+  - "$HOME/Library/Logs/int-like"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-like
+  name: Nixpkgs int-like linux cache (wave 14)
+  description: Nixpkgs leftover pname int-like on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int-like"
+  - "$XDG_CACHE_HOME/int-like"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-like
+  name: Nixpkgs int-like windows cache (wave 14)
+  description: Nixpkgs leftover pname int-like on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int-like/Cache"
+  - "%LOCALAPPDATA%/int-like/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-multimap
+  name: Nixpkgs int-multimap macos cache (wave 14)
+  description: Nixpkgs leftover pname int-multimap on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int-multimap"
+  - "$HOME/Library/Logs/int-multimap"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-multimap
+  name: Nixpkgs int-multimap linux cache (wave 14)
+  description: Nixpkgs leftover pname int-multimap on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int-multimap"
+  - "$XDG_CACHE_HOME/int-multimap"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-multimap
+  name: Nixpkgs int-multimap windows cache (wave 14)
+  description: Nixpkgs leftover pname int-multimap on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int-multimap/Cache"
+  - "%LOCALAPPDATA%/int-multimap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-supply
+  name: Nixpkgs int-supply macos cache (wave 14)
+  description: Nixpkgs leftover pname int-supply on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int-supply"
+  - "$HOME/Library/Logs/int-supply"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-supply
+  name: Nixpkgs int-supply linux cache (wave 14)
+  description: Nixpkgs leftover pname int-supply on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int-supply"
+  - "$XDG_CACHE_HOME/int-supply"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-supply
+  name: Nixpkgs int-supply windows cache (wave 14)
+  description: Nixpkgs leftover pname int-supply on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int-supply/Cache"
+  - "%LOCALAPPDATA%/int-supply/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int3ract
+  name: Nixpkgs int3ract macos cache (wave 14)
+  description: Nixpkgs leftover pname int3ract on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int3ract"
+  - "$HOME/Library/Logs/int3ract"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int3ract
+  name: Nixpkgs int3ract linux cache (wave 14)
+  description: Nixpkgs leftover pname int3ract on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int3ract"
+  - "$XDG_CACHE_HOME/int3ract"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int3ract
+  name: Nixpkgs int3ract windows cache (wave 14)
+  description: Nixpkgs leftover pname int3ract on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int3ract/Cache"
+  - "%LOCALAPPDATA%/int3ract/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intreggof
+  name: Nixpkgs intRegGOF macos cache (wave 14)
+  description: Nixpkgs leftover pname intRegGOF on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intRegGOF"
+  - "$HOME/Library/Logs/intRegGOF"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intreggof
+  name: Nixpkgs intRegGOF linux cache (wave 14)
+  description: Nixpkgs leftover pname intRegGOF on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intRegGOF"
+  - "$XDG_CACHE_HOME/intRegGOF"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intreggof
+  name: Nixpkgs intRegGOF windows cache (wave 14)
+  description: Nixpkgs leftover pname intRegGOF on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intRegGOF/Cache"
+  - "%LOCALAPPDATA%/intRegGOF/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intrinsic
+  name: Nixpkgs intRinsic macos cache (wave 14)
+  description: Nixpkgs leftover pname intRinsic on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intRinsic"
+  - "$HOME/Library/Logs/intRinsic"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intrinsic
+  name: Nixpkgs intRinsic linux cache (wave 14)
+  description: Nixpkgs leftover pname intRinsic on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intRinsic"
+  - "$XDG_CACHE_HOME/intRinsic"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intrinsic
+  name: Nixpkgs intRinsic windows cache (wave 14)
+  description: Nixpkgs leftover pname intRinsic on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intRinsic/Cache"
+  - "%LOCALAPPDATA%/intRinsic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intrvals
+  name: Nixpkgs intRvals macos cache (wave 14)
+  description: Nixpkgs leftover pname intRvals on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intRvals"
+  - "$HOME/Library/Logs/intRvals"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intrvals
+  name: Nixpkgs intRvals linux cache (wave 14)
+  description: Nixpkgs leftover pname intRvals on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intRvals"
+  - "$XDG_CACHE_HOME/intRvals"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intrvals
+  name: Nixpkgs intRvals windows cache (wave 14)
+  description: Nixpkgs leftover pname intRvals on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intRvals/Cache"
+  - "%LOCALAPPDATA%/intRvals/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intsdm
+  name: Nixpkgs intSDM macos cache (wave 14)
+  description: Nixpkgs leftover pname intSDM on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intSDM"
+  - "$HOME/Library/Logs/intSDM"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intsdm
+  name: Nixpkgs intSDM linux cache (wave 14)
+  description: Nixpkgs leftover pname intSDM on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intSDM"
+  - "$XDG_CACHE_HOME/intSDM"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intsdm
+  name: Nixpkgs intSDM windows cache (wave 14)
+  description: Nixpkgs leftover pname intSDM on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intSDM/Cache"
+  - "%LOCALAPPDATA%/intSDM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-int-repr
+  name: Nixpkgs int_repr macos cache (wave 14)
+  description: Nixpkgs leftover pname int_repr on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/int_repr"
+  - "$HOME/Library/Logs/int_repr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-int-repr
+  name: Nixpkgs int_repr linux cache (wave 14)
+  description: Nixpkgs leftover pname int_repr on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/int_repr"
+  - "$XDG_CACHE_HOME/int_repr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-int-repr
+  name: Nixpkgs int_repr windows cache (wave 14)
+  description: Nixpkgs leftover pname int_repr on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/int_repr/Cache"
+  - "%LOCALAPPDATA%/int_repr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intake
+  name: Nixpkgs intake macos cache (wave 14)
+  description: Nixpkgs leftover pname intake on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intake"
+  - "$HOME/Library/Logs/intake"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intake
+  name: Nixpkgs intake linux cache (wave 14)
+  description: Nixpkgs leftover pname intake on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intake"
+  - "$XDG_CACHE_HOME/intake"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intake
+  name: Nixpkgs intake windows cache (wave 14)
+  description: Nixpkgs leftover pname intake on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intake/Cache"
+  - "%LOCALAPPDATA%/intake/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intake-parquet
+  name: Nixpkgs intake-parquet macos cache (wave 14)
+  description: Nixpkgs leftover pname intake-parquet on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intake-parquet"
+  - "$HOME/Library/Logs/intake-parquet"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intake-parquet
+  name: Nixpkgs intake-parquet linux cache (wave 14)
+  description: Nixpkgs leftover pname intake-parquet on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intake-parquet"
+  - "$XDG_CACHE_HOME/intake-parquet"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intake-parquet
+  name: Nixpkgs intake-parquet windows cache (wave 14)
+  description: Nixpkgs leftover pname intake-parquet on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intake-parquet/Cache"
+  - "%LOCALAPPDATA%/intake-parquet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intamap
+  name: Nixpkgs intamap macos cache (wave 14)
+  description: Nixpkgs leftover pname intamap on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intamap"
+  - "$HOME/Library/Logs/intamap"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intamap
+  name: Nixpkgs intamap linux cache (wave 14)
+  description: Nixpkgs leftover pname intamap on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intamap"
+  - "$XDG_CACHE_HOME/intamap"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intamap
+  name: Nixpkgs intamap windows cache (wave 14)
+  description: Nixpkgs leftover pname intamap on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intamap/Cache"
+  - "%LOCALAPPDATA%/intamap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intamapinteractive
+  name: Nixpkgs intamapInteractive macos cache (wave 14)
+  description: Nixpkgs leftover pname intamapInteractive on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intamapInteractive"
+  - "$HOME/Library/Logs/intamapInteractive"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intamapinteractive
+  name: Nixpkgs intamapInteractive linux cache (wave 14)
+  description: Nixpkgs leftover pname intamapInteractive on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intamapInteractive"
+  - "$XDG_CACHE_HOME/intamapInteractive"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intamapinteractive
+  name: Nixpkgs intamapInteractive windows cache (wave 14)
+  description: Nixpkgs leftover pname intamapInteractive on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intamapInteractive/Cache"
+  - "%LOCALAPPDATA%/intamapInteractive/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intansv
+  name: Nixpkgs intansv macos cache (wave 14)
+  description: Nixpkgs leftover pname intansv on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intansv"
+  - "$HOME/Library/Logs/intansv"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intansv
+  name: Nixpkgs intansv linux cache (wave 14)
+  description: Nixpkgs leftover pname intansv on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intansv"
+  - "$XDG_CACHE_HOME/intansv"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intansv
+  name: Nixpkgs intansv windows cache (wave 14)
+  description: Nixpkgs leftover pname intansv on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intansv/Cache"
+  - "%LOCALAPPDATA%/intansv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intarweb
+  name: Nixpkgs intarweb macos cache (wave 14)
+  description: Nixpkgs leftover pname intarweb on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intarweb"
+  - "$HOME/Library/Logs/intarweb"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intarweb
+  name: Nixpkgs intarweb linux cache (wave 14)
+  description: Nixpkgs leftover pname intarweb on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intarweb"
+  - "$XDG_CACHE_HOME/intarweb"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intarweb
+  name: Nixpkgs intarweb windows cache (wave 14)
+  description: Nixpkgs leftover pname intarweb on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intarweb/Cache"
+  - "%LOCALAPPDATA%/intarweb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intbitset
+  name: Nixpkgs intbitset macos cache (wave 14)
+  description: Nixpkgs leftover pname intbitset on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intbitset"
+  - "$HOME/Library/Logs/intbitset"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intbitset
+  name: Nixpkgs intbitset linux cache (wave 14)
+  description: Nixpkgs leftover pname intbitset on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intbitset"
+  - "$XDG_CACHE_HOME/intbitset"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intbitset
+  name: Nixpkgs intbitset windows cache (wave 14)
+  description: Nixpkgs leftover pname intbitset on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intbitset/Cache"
+  - "%LOCALAPPDATA%/intbitset/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intcalc
+  name: Nixpkgs intcalc macos cache (wave 14)
+  description: Nixpkgs leftover pname intcalc on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intcalc"
+  - "$HOME/Library/Logs/intcalc"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intcalc
+  name: Nixpkgs intcalc linux cache (wave 14)
+  description: Nixpkgs leftover pname intcalc on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intcalc"
+  - "$XDG_CACHE_HOME/intcalc"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intcalc
+  name: Nixpkgs intcalc windows cache (wave 14)
+  description: Nixpkgs leftover pname intcalc on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intcalc/Cache"
+  - "%LOCALAPPDATA%/intcalc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intccr
+  name: Nixpkgs intccr macos cache (wave 14)
+  description: Nixpkgs leftover pname intccr on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intccr"
+  - "$HOME/Library/Logs/intccr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intccr
+  name: Nixpkgs intccr linux cache (wave 14)
+  description: Nixpkgs leftover pname intccr on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intccr"
+  - "$XDG_CACHE_HOME/intccr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intccr
+  name: Nixpkgs intccr windows cache (wave 14)
+  description: Nixpkgs leftover pname intccr on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intccr/Cache"
+  - "%LOCALAPPDATA%/intccr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intcensroc
+  name: Nixpkgs intcensROC macos cache (wave 14)
+  description: Nixpkgs leftover pname intcensROC on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intcensROC"
+  - "$HOME/Library/Logs/intcensROC"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intcensroc
+  name: Nixpkgs intcensROC linux cache (wave 14)
+  description: Nixpkgs leftover pname intcensROC on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intcensROC"
+  - "$XDG_CACHE_HOME/intcensROC"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intcensroc
+  name: Nixpkgs intcensROC windows cache (wave 14)
+  description: Nixpkgs leftover pname intcensROC on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intcensROC/Cache"
+  - "%LOCALAPPDATA%/intcensROC/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intcode
+  name: Nixpkgs intcode macos cache (wave 14)
+  description: Nixpkgs leftover pname intcode on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intcode"
+  - "$HOME/Library/Logs/intcode"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intcode
+  name: Nixpkgs intcode linux cache (wave 14)
+  description: Nixpkgs leftover pname intcode on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intcode"
+  - "$XDG_CACHE_HOME/intcode"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intcode
+  name: Nixpkgs intcode windows cache (wave 14)
+  description: Nixpkgs leftover pname intcode on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intcode/Cache"
+  - "%LOCALAPPDATA%/intcode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intdag
+  name: Nixpkgs intdag macos cache (wave 14)
+  description: Nixpkgs leftover pname intdag on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intdag"
+  - "$HOME/Library/Logs/intdag"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intdag
+  name: Nixpkgs intdag linux cache (wave 14)
+  description: Nixpkgs leftover pname intdag on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intdag"
+  - "$XDG_CACHE_HOME/intdag"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intdag
+  name: Nixpkgs intdag windows cache (wave 14)
+  description: Nixpkgs leftover pname intdag on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intdag/Cache"
+  - "%LOCALAPPDATA%/intdag/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intepareto
+  name: Nixpkgs intePareto macos cache (wave 14)
+  description: Nixpkgs leftover pname intePareto on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intePareto"
+  - "$HOME/Library/Logs/intePareto"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intepareto
+  name: Nixpkgs intePareto linux cache (wave 14)
+  description: Nixpkgs leftover pname intePareto on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intePareto"
+  - "$XDG_CACHE_HOME/intePareto"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intepareto
+  name: Nixpkgs intePareto windows cache (wave 14)
+  description: Nixpkgs leftover pname intePareto on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intePareto/Cache"
+  - "%LOCALAPPDATA%/intePareto/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integirty
+  name: Nixpkgs integIRTy macos cache (wave 14)
+  description: Nixpkgs leftover pname integIRTy on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integIRTy"
+  - "$HOME/Library/Logs/integIRTy"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integirty
+  name: Nixpkgs integIRTy linux cache (wave 14)
+  description: Nixpkgs leftover pname integIRTy on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integIRTy"
+  - "$XDG_CACHE_HOME/integIRTy"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integirty
+  name: Nixpkgs integIRTy windows cache (wave 14)
+  description: Nixpkgs leftover pname integIRTy on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integIRTy/Cache"
+  - "%LOCALAPPDATA%/integIRTy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-conversion
+  name: Nixpkgs integer-conversion macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-conversion on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-conversion"
+  - "$HOME/Library/Logs/integer-conversion"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-conversion
+  name: Nixpkgs integer-conversion linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-conversion on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-conversion"
+  - "$XDG_CACHE_HOME/integer-conversion"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-conversion
+  name: Nixpkgs integer-conversion windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-conversion on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-conversion/Cache"
+  - "%LOCALAPPDATA%/integer-conversion/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-gmp
+  name: Nixpkgs integer-gmp macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-gmp on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-gmp"
+  - "$HOME/Library/Logs/integer-gmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-gmp
+  name: Nixpkgs integer-gmp linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-gmp on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-gmp"
+  - "$XDG_CACHE_HOME/integer-gmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-gmp
+  name: Nixpkgs integer-gmp windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-gmp on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-gmp/Cache"
+  - "%LOCALAPPDATA%/integer-gmp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-logarithms
+  name: Nixpkgs integer-logarithms macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-logarithms on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-logarithms"
+  - "$HOME/Library/Logs/integer-logarithms"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-logarithms
+  name: Nixpkgs integer-logarithms linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-logarithms on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-logarithms"
+  - "$XDG_CACHE_HOME/integer-logarithms"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-logarithms
+  name: Nixpkgs integer-logarithms windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-logarithms on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-logarithms/Cache"
+  - "%LOCALAPPDATA%/integer-logarithms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-pure
+  name: Nixpkgs integer-pure macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-pure on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-pure"
+  - "$HOME/Library/Logs/integer-pure"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-pure
+  name: Nixpkgs integer-pure linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-pure on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-pure"
+  - "$XDG_CACHE_HOME/integer-pure"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-pure
+  name: Nixpkgs integer-pure windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-pure on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-pure/Cache"
+  - "%LOCALAPPDATA%/integer-pure/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-roots
+  name: Nixpkgs integer-roots macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-roots on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-roots"
+  - "$HOME/Library/Logs/integer-roots"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-roots
+  name: Nixpkgs integer-roots linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-roots on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-roots"
+  - "$XDG_CACHE_HOME/integer-roots"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-roots
+  name: Nixpkgs integer-roots windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-roots on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-roots/Cache"
+  - "%LOCALAPPDATA%/integer-roots/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-simple
+  name: Nixpkgs integer-simple macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-simple on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-simple"
+  - "$HOME/Library/Logs/integer-simple"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-simple
+  name: Nixpkgs integer-simple linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-simple on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-simple"
+  - "$XDG_CACHE_HOME/integer-simple"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-simple
+  name: Nixpkgs integer-simple windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-simple on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-simple/Cache"
+  - "%LOCALAPPDATA%/integer-simple/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integer-types
+  name: Nixpkgs integer-types macos cache (wave 14)
+  description: Nixpkgs leftover pname integer-types on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integer-types"
+  - "$HOME/Library/Logs/integer-types"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integer-types
+  name: Nixpkgs integer-types linux cache (wave 14)
+  description: Nixpkgs leftover pname integer-types on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integer-types"
+  - "$XDG_CACHE_HOME/integer-types"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integer-types
+  name: Nixpkgs integer-types windows cache (wave 14)
+  description: Nixpkgs leftover pname integer-types on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integer-types/Cache"
+  - "%LOCALAPPDATA%/integer-types/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integers
+  name: Nixpkgs integers macos cache (wave 14)
+  description: Nixpkgs leftover pname integers on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integers"
+  - "$HOME/Library/Logs/integers"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integers
+  name: Nixpkgs integers linux cache (wave 14)
+  description: Nixpkgs leftover pname integers on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integers"
+  - "$XDG_CACHE_HOME/integers"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integers
+  name: Nixpkgs integers windows cache (wave 14)
+  description: Nixpkgs leftover pname integers on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integers/Cache"
+  - "%LOCALAPPDATA%/integers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integers-stubs-js
+  name: Nixpkgs integers_stubs_js macos cache (wave 14)
+  description: Nixpkgs leftover pname integers_stubs_js on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integers_stubs_js"
+  - "$HOME/Library/Logs/integers_stubs_js"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integers-stubs-js
+  name: Nixpkgs integers_stubs_js linux cache (wave 14)
+  description: Nixpkgs leftover pname integers_stubs_js on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integers_stubs_js"
+  - "$XDG_CACHE_HOME/integers_stubs_js"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integers-stubs-js
+  name: Nixpkgs integers_stubs_js windows cache (wave 14)
+  description: Nixpkgs leftover pname integers_stubs_js on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integers_stubs_js/Cache"
+  - "%LOCALAPPDATA%/integers_stubs_js/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integr
+  name: Nixpkgs integr macos cache (wave 14)
+  description: Nixpkgs leftover pname integr on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integr"
+  - "$HOME/Library/Logs/integr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integr
+  name: Nixpkgs integr linux cache (wave 14)
+  description: Nixpkgs leftover pname integr on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integr"
+  - "$XDG_CACHE_HOME/integr"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integr
+  name: Nixpkgs integr windows cache (wave 14)
+  description: Nixpkgs leftover pname integr on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integr/Cache"
+  - "%LOCALAPPDATA%/integr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integral
+  name: Nixpkgs integral macos cache (wave 14)
+  description: Nixpkgs leftover pname integral on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integral"
+  - "$HOME/Library/Logs/integral"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integral
+  name: Nixpkgs integral linux cache (wave 14)
+  description: Nixpkgs leftover pname integral on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integral"
+  - "$XDG_CACHE_HOME/integral"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integral
+  name: Nixpkgs integral windows cache (wave 14)
+  description: Nixpkgs leftover pname integral on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integral/Cache"
+  - "%LOCALAPPDATA%/integral/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integral-rest
+  name: Nixpkgs integral-rest macos cache (wave 14)
+  description: Nixpkgs leftover pname integral-rest on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integral-rest"
+  - "$HOME/Library/Logs/integral-rest"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integral-rest
+  name: Nixpkgs integral-rest linux cache (wave 14)
+  description: Nixpkgs leftover pname integral-rest on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integral-rest"
+  - "$XDG_CACHE_HOME/integral-rest"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integral-rest
+  name: Nixpkgs integral-rest windows cache (wave 14)
+  description: Nixpkgs leftover pname integral-rest on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integral-rest/Cache"
+  - "%LOCALAPPDATA%/integral-rest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integral-rest-test
+  name: Nixpkgs integral-rest-test macos cache (wave 14)
+  description: Nixpkgs leftover pname integral-rest-test on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integral-rest-test"
+  - "$HOME/Library/Logs/integral-rest-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integral-rest-test
+  name: Nixpkgs integral-rest-test linux cache (wave 14)
+  description: Nixpkgs leftover pname integral-rest-test on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integral-rest-test"
+  - "$XDG_CACHE_HOME/integral-rest-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integral-rest-test
+  name: Nixpkgs integral-rest-test windows cache (wave 14)
+  description: Nixpkgs leftover pname integral-rest-test on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integral-rest-test/Cache"
+  - "%LOCALAPPDATA%/integral-rest-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integral-test
+  name: Nixpkgs integral-test macos cache (wave 14)
+  description: Nixpkgs leftover pname integral-test on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integral-test"
+  - "$HOME/Library/Logs/integral-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integral-test
+  name: Nixpkgs integral-test linux cache (wave 14)
+  description: Nixpkgs leftover pname integral-test on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integral-test"
+  - "$XDG_CACHE_HOME/integral-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integral-test
+  name: Nixpkgs integral-test windows cache (wave 14)
+  description: Nixpkgs leftover pname integral-test on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integral-test/Cache"
+  - "%LOCALAPPDATA%/integral-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integration
+  name: Nixpkgs integration macos cache (wave 14)
+  description: Nixpkgs leftover pname integration on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integration"
+  - "$HOME/Library/Logs/integration"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integration
+  name: Nixpkgs integration linux cache (wave 14)
+  description: Nixpkgs leftover pname integration on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integration"
+  - "$XDG_CACHE_HOME/integration"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integration
+  name: Nixpkgs integration windows cache (wave 14)
+  description: Nixpkgs leftover pname integration on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integration/Cache"
+  - "%LOCALAPPDATA%/integration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integratorxx
+  name: Nixpkgs integratorxx macos cache (wave 14)
+  description: Nixpkgs leftover pname integratorxx on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integratorxx"
+  - "$HOME/Library/Logs/integratorxx"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integratorxx
+  name: Nixpkgs integratorxx linux cache (wave 14)
+  description: Nixpkgs leftover pname integratorxx on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integratorxx"
+  - "$XDG_CACHE_HOME/integratorxx"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integratorxx
+  name: Nixpkgs integratorxx windows cache (wave 14)
+  description: Nixpkgs leftover pname integratorxx on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integratorxx/Cache"
+  - "%LOCALAPPDATA%/integratorxx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integreat
+  name: Nixpkgs integreat macos cache (wave 14)
+  description: Nixpkgs leftover pname integreat on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integreat"
+  - "$HOME/Library/Logs/integreat"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integreat
+  name: Nixpkgs integreat linux cache (wave 14)
+  description: Nixpkgs leftover pname integreat on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integreat"
+  - "$XDG_CACHE_HOME/integreat"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integreat
+  name: Nixpkgs integreat windows cache (wave 14)
+  description: Nixpkgs leftover pname integreat on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integreat/Cache"
+  - "%LOCALAPPDATA%/integreat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integresql
+  name: Nixpkgs integresql macos cache (wave 14)
+  description: Nixpkgs leftover pname integresql on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integresql"
+  - "$HOME/Library/Logs/integresql"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integresql
+  name: Nixpkgs integresql linux cache (wave 14)
+  description: Nixpkgs leftover pname integresql on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integresql"
+  - "$XDG_CACHE_HOME/integresql"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integresql
+  name: Nixpkgs integresql windows cache (wave 14)
+  description: Nixpkgs leftover pname integresql on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integresql/Cache"
+  - "%LOCALAPPDATA%/integresql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integrity
+  name: Nixpkgs integrity macos cache (wave 14)
+  description: Nixpkgs leftover pname integrity on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integrity"
+  - "$HOME/Library/Logs/integrity"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integrity
+  name: Nixpkgs integrity linux cache (wave 14)
+  description: Nixpkgs leftover pname integrity on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integrity"
+  - "$XDG_CACHE_HOME/integrity"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integrity
+  name: Nixpkgs integrity windows cache (wave 14)
+  description: Nixpkgs leftover pname integrity on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integrity/Cache"
+  - "%LOCALAPPDATA%/integrity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-integrity-scrub
+  name: Nixpkgs integrity-scrub macos cache (wave 14)
+  description: Nixpkgs leftover pname integrity-scrub on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/integrity-scrub"
+  - "$HOME/Library/Logs/integrity-scrub"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-integrity-scrub
+  name: Nixpkgs integrity-scrub linux cache (wave 14)
+  description: Nixpkgs leftover pname integrity-scrub on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/integrity-scrub"
+  - "$XDG_CACHE_HOME/integrity-scrub"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-integrity-scrub
+  name: Nixpkgs integrity-scrub windows cache (wave 14)
+  description: Nixpkgs leftover pname integrity-scrub on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/integrity-scrub/Cache"
+  - "%LOCALAPPDATA%/integrity-scrub/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-aes
+  name: Nixpkgs intel-aes macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-aes on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-aes"
+  - "$HOME/Library/Logs/intel-aes"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-aes
+  name: Nixpkgs intel-aes linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-aes on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-aes"
+  - "$XDG_CACHE_HOME/intel-aes"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-aes
+  name: Nixpkgs intel-aes windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-aes on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-aes/Cache"
+  - "%LOCALAPPDATA%/intel-aes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-cmt-cat
+  name: Nixpkgs intel-cmt-cat macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-cmt-cat on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-cmt-cat"
+  - "$HOME/Library/Logs/intel-cmt-cat"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-cmt-cat
+  name: Nixpkgs intel-cmt-cat linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-cmt-cat on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-cmt-cat"
+  - "$XDG_CACHE_HOME/intel-cmt-cat"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-cmt-cat
+  name: Nixpkgs intel-cmt-cat windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-cmt-cat on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-cmt-cat/Cache"
+  - "%LOCALAPPDATA%/intel-cmt-cat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-compute-runtime
+  name: Nixpkgs intel-compute-runtime macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-compute-runtime on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-compute-runtime"
+  - "$HOME/Library/Logs/intel-compute-runtime"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-compute-runtime
+  name: Nixpkgs intel-compute-runtime linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-compute-runtime on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-compute-runtime"
+  - "$XDG_CACHE_HOME/intel-compute-runtime"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-compute-runtime
+  name: Nixpkgs intel-compute-runtime windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-compute-runtime on windows (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-compute-runtime/Cache"
+  - "%LOCALAPPDATA%/intel-compute-runtime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-compute-runtime-legacy1
+  name: Nixpkgs intel-compute-runtime-legacy1 macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-compute-runtime-legacy1 on macos (wave
+    14). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-compute-runtime-legacy1"
+  - "$HOME/Library/Logs/intel-compute-runtime-legacy1"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-compute-runtime-legacy1
+  name: Nixpkgs intel-compute-runtime-legacy1 linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-compute-runtime-legacy1 on linux (wave
+    14). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-compute-runtime-legacy1"
+  - "$XDG_CACHE_HOME/intel-compute-runtime-legacy1"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-compute-runtime-legacy1
+  name: Nixpkgs intel-compute-runtime-legacy1 windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-compute-runtime-legacy1 on windows (wave
+    14). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-compute-runtime-legacy1/Cache"
+  - "%LOCALAPPDATA%/intel-compute-runtime-legacy1/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-gmmlib
+  name: Nixpkgs intel-gmmlib macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-gmmlib on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-gmmlib"
+  - "$HOME/Library/Logs/intel-gmmlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-gmmlib
+  name: Nixpkgs intel-gmmlib linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-gmmlib on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-gmmlib"
+  - "$XDG_CACHE_HOME/intel-gmmlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-gmmlib
+  name: Nixpkgs intel-gmmlib windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-gmmlib on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-gmmlib/Cache"
+  - "%LOCALAPPDATA%/intel-gmmlib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-gpu-tools
+  name: Nixpkgs intel-gpu-tools macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-gpu-tools on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-gpu-tools"
+  - "$HOME/Library/Logs/intel-gpu-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-gpu-tools
+  name: Nixpkgs intel-gpu-tools linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-gpu-tools on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-gpu-tools"
+  - "$XDG_CACHE_HOME/intel-gpu-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-gpu-tools
+  name: Nixpkgs intel-gpu-tools windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-gpu-tools on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-gpu-tools/Cache"
+  - "%LOCALAPPDATA%/intel-gpu-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-graphics-compiler
+  name: Nixpkgs intel-graphics-compiler macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-graphics-compiler on macos (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-graphics-compiler"
+  - "$HOME/Library/Logs/intel-graphics-compiler"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-graphics-compiler
+  name: Nixpkgs intel-graphics-compiler linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-graphics-compiler on linux (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-graphics-compiler"
+  - "$XDG_CACHE_HOME/intel-graphics-compiler"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-graphics-compiler
+  name: Nixpkgs intel-graphics-compiler windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-graphics-compiler on windows (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-graphics-compiler/Cache"
+  - "%LOCALAPPDATA%/intel-graphics-compiler/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-hex
+  name: Nixpkgs intel-hex macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-hex"
+  - "$HOME/Library/Logs/intel-hex"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-hex
+  name: Nixpkgs intel-hex linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-hex"
+  - "$XDG_CACHE_HOME/intel-hex"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-hex
+  name: Nixpkgs intel-hex windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-hex/Cache"
+  - "%LOCALAPPDATA%/intel-hex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-hex-mode
+  name: Nixpkgs intel-hex-mode macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex-mode on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-hex-mode"
+  - "$HOME/Library/Logs/intel-hex-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-hex-mode
+  name: Nixpkgs intel-hex-mode linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex-mode on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-hex-mode"
+  - "$XDG_CACHE_HOME/intel-hex-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-hex-mode
+  name: Nixpkgs intel-hex-mode windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex-mode on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-hex-mode/Cache"
+  - "%LOCALAPPDATA%/intel-hex-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-hex-test
+  name: Nixpkgs intel-hex-test macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex-test on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-hex-test"
+  - "$HOME/Library/Logs/intel-hex-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-hex-test
+  name: Nixpkgs intel-hex-test linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex-test on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-hex-test"
+  - "$XDG_CACHE_HOME/intel-hex-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-hex-test
+  name: Nixpkgs intel-hex-test windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-hex-test on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-hex-test/Cache"
+  - "%LOCALAPPDATA%/intel-hex-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-hybrid-driver
+  name: Nixpkgs intel-hybrid-driver macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-hybrid-driver on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-hybrid-driver"
+  - "$HOME/Library/Logs/intel-hybrid-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-hybrid-driver
+  name: Nixpkgs intel-hybrid-driver linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-hybrid-driver on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-hybrid-driver"
+  - "$XDG_CACHE_HOME/intel-hybrid-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-hybrid-driver
+  name: Nixpkgs intel-hybrid-driver windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-hybrid-driver on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-hybrid-driver/Cache"
+  - "%LOCALAPPDATA%/intel-hybrid-driver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-ipsec-mb
+  name: Nixpkgs intel-ipsec-mb macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-ipsec-mb on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-ipsec-mb"
+  - "$HOME/Library/Logs/intel-ipsec-mb"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-ipsec-mb
+  name: Nixpkgs intel-ipsec-mb linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-ipsec-mb on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-ipsec-mb"
+  - "$XDG_CACHE_HOME/intel-ipsec-mb"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-ipsec-mb
+  name: Nixpkgs intel-ipsec-mb windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-ipsec-mb on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-ipsec-mb/Cache"
+  - "%LOCALAPPDATA%/intel-ipsec-mb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-llvm
+  name: Nixpkgs intel-llvm macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-llvm on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-llvm"
+  - "$HOME/Library/Logs/intel-llvm"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-llvm
+  name: Nixpkgs intel-llvm linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-llvm on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-llvm"
+  - "$XDG_CACHE_HOME/intel-llvm"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-llvm
+  name: Nixpkgs intel-llvm windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-llvm on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-llvm/Cache"
+  - "%LOCALAPPDATA%/intel-llvm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-media-driver
+  name: Nixpkgs intel-media-driver macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-media-driver on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-media-driver"
+  - "$HOME/Library/Logs/intel-media-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-media-driver
+  name: Nixpkgs intel-media-driver linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-media-driver on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-media-driver"
+  - "$XDG_CACHE_HOME/intel-media-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-media-driver
+  name: Nixpkgs intel-media-driver windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-media-driver on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-media-driver/Cache"
+  - "%LOCALAPPDATA%/intel-media-driver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-media-sdk
+  name: Nixpkgs intel-media-sdk macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-media-sdk on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-media-sdk"
+  - "$HOME/Library/Logs/intel-media-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-media-sdk
+  name: Nixpkgs intel-media-sdk linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-media-sdk on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-media-sdk"
+  - "$XDG_CACHE_HOME/intel-media-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-media-sdk
+  name: Nixpkgs intel-media-sdk windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-media-sdk on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-media-sdk/Cache"
+  - "%LOCALAPPDATA%/intel-media-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-npu-driver
+  name: Nixpkgs intel-npu-driver macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-npu-driver on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-npu-driver"
+  - "$HOME/Library/Logs/intel-npu-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-npu-driver
+  name: Nixpkgs intel-npu-driver linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-npu-driver on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-npu-driver"
+  - "$XDG_CACHE_HOME/intel-npu-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-npu-driver
+  name: Nixpkgs intel-npu-driver windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-npu-driver on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-npu-driver/Cache"
+  - "%LOCALAPPDATA%/intel-npu-driver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-ocl
+  name: Nixpkgs intel-ocl macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-ocl on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-ocl"
+  - "$HOME/Library/Logs/intel-ocl"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-ocl
+  name: Nixpkgs intel-ocl linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-ocl on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-ocl"
+  - "$XDG_CACHE_HOME/intel-ocl"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-ocl
+  name: Nixpkgs intel-ocl windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-ocl on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-ocl/Cache"
+  - "%LOCALAPPDATA%/intel-ocl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-one-mono
+  name: Nixpkgs intel-one-mono macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-one-mono on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-one-mono"
+  - "$HOME/Library/Logs/intel-one-mono"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-one-mono
+  name: Nixpkgs intel-one-mono linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-one-mono on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-one-mono"
+  - "$XDG_CACHE_HOME/intel-one-mono"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-one-mono
+  name: Nixpkgs intel-one-mono windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-one-mono on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-one-mono/Cache"
+  - "%LOCALAPPDATA%/intel-one-mono/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-oneapi-toolkit
+  name: Nixpkgs intel-oneapi-toolkit macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-oneapi-toolkit on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-oneapi-toolkit"
+  - "$HOME/Library/Logs/intel-oneapi-toolkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-oneapi-toolkit
+  name: Nixpkgs intel-oneapi-toolkit linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-oneapi-toolkit on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-oneapi-toolkit"
+  - "$XDG_CACHE_HOME/intel-oneapi-toolkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-oneapi-toolkit
+  name: Nixpkgs intel-oneapi-toolkit windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-oneapi-toolkit on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-oneapi-toolkit/Cache"
+  - "%LOCALAPPDATA%/intel-oneapi-toolkit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-powermon
+  name: Nixpkgs intel-powermon macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-powermon on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-powermon"
+  - "$HOME/Library/Logs/intel-powermon"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-powermon
+  name: Nixpkgs intel-powermon linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-powermon on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-powermon"
+  - "$XDG_CACHE_HOME/intel-powermon"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-powermon
+  name: Nixpkgs intel-powermon windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-powermon on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-powermon/Cache"
+  - "%LOCALAPPDATA%/intel-powermon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-speed-select
+  name: Nixpkgs intel-speed-select macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-speed-select on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-speed-select"
+  - "$HOME/Library/Logs/intel-speed-select"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-speed-select
+  name: Nixpkgs intel-speed-select linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-speed-select on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-speed-select"
+  - "$XDG_CACHE_HOME/intel-speed-select"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-speed-select
+  name: Nixpkgs intel-speed-select windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-speed-select on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-speed-select/Cache"
+  - "%LOCALAPPDATA%/intel-speed-select/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-undervolt
+  name: Nixpkgs intel-undervolt macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-undervolt on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-undervolt"
+  - "$HOME/Library/Logs/intel-undervolt"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-undervolt
+  name: Nixpkgs intel-undervolt linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-undervolt on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-undervolt"
+  - "$XDG_CACHE_HOME/intel-undervolt"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-undervolt
+  name: Nixpkgs intel-undervolt windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-undervolt on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-undervolt/Cache"
+  - "%LOCALAPPDATA%/intel-undervolt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intel-vaapi-driver
+  name: Nixpkgs intel-vaapi-driver macos cache (wave 14)
+  description: Nixpkgs leftover pname intel-vaapi-driver on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intel-vaapi-driver"
+  - "$HOME/Library/Logs/intel-vaapi-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intel-vaapi-driver
+  name: Nixpkgs intel-vaapi-driver linux cache (wave 14)
+  description: Nixpkgs leftover pname intel-vaapi-driver on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intel-vaapi-driver"
+  - "$XDG_CACHE_HOME/intel-vaapi-driver"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intel-vaapi-driver
+  name: Nixpkgs intel-vaapi-driver windows cache (wave 14)
+  description: Nixpkgs leftover pname intel-vaapi-driver on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intel-vaapi-driver/Cache"
+  - "%LOCALAPPDATA%/intel-vaapi-driver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intelephense
+  name: Nixpkgs intelephense macos cache (wave 14)
+  description: Nixpkgs leftover pname intelephense on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intelephense"
+  - "$HOME/Library/Logs/intelephense"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intelephense
+  name: Nixpkgs intelephense linux cache (wave 14)
+  description: Nixpkgs leftover pname intelephense on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intelephense"
+  - "$XDG_CACHE_HOME/intelephense"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intelephense
+  name: Nixpkgs intelephense windows cache (wave 14)
+  description: Nixpkgs leftover pname intelephense on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intelephense/Cache"
+  - "%LOCALAPPDATA%/intelephense/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intelhex
+  name: Nixpkgs intelhex macos cache (wave 14)
+  description: Nixpkgs leftover pname intelhex on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intelhex"
+  - "$HOME/Library/Logs/intelhex"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intelhex
+  name: Nixpkgs intelhex linux cache (wave 14)
+  description: Nixpkgs leftover pname intelhex on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intelhex"
+  - "$XDG_CACHE_HOME/intelhex"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intelhex
+  name: Nixpkgs intelhex windows cache (wave 14)
+  description: Nixpkgs leftover pname intelhex on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intelhex/Cache"
+  - "%LOCALAPPDATA%/intelhex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-inteli
+  name: Nixpkgs inteli macos cache (wave 14)
+  description: Nixpkgs leftover pname inteli on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/inteli"
+  - "$HOME/Library/Logs/inteli"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-inteli
+  name: Nixpkgs inteli linux cache (wave 14)
+  description: Nixpkgs leftover pname inteli on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/inteli"
+  - "$XDG_CACHE_HOME/inteli"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-inteli
+  name: Nixpkgs inteli windows cache (wave 14)
+  description: Nixpkgs leftover pname inteli on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/inteli/Cache"
+  - "%LOCALAPPDATA%/inteli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intelli-monad
+  name: Nixpkgs intelli-monad macos cache (wave 14)
+  description: Nixpkgs leftover pname intelli-monad on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intelli-monad"
+  - "$HOME/Library/Logs/intelli-monad"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intelli-monad
+  name: Nixpkgs intelli-monad linux cache (wave 14)
+  description: Nixpkgs leftover pname intelli-monad on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intelli-monad"
+  - "$XDG_CACHE_HOME/intelli-monad"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intelli-monad
+  name: Nixpkgs intelli-monad windows cache (wave 14)
+  description: Nixpkgs leftover pname intelli-monad on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intelli-monad/Cache"
+  - "%LOCALAPPDATA%/intelli-monad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intelli-shell
+  name: Nixpkgs intelli-shell macos cache (wave 14)
+  description: Nixpkgs leftover pname intelli-shell on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intelli-shell"
+  - "$HOME/Library/Logs/intelli-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intelli-shell
+  name: Nixpkgs intelli-shell linux cache (wave 14)
+  description: Nixpkgs leftover pname intelli-shell on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intelli-shell"
+  - "$XDG_CACHE_HOME/intelli-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intelli-shell
+  name: Nixpkgs intelli-shell windows cache (wave 14)
+  description: Nixpkgs leftover pname intelli-shell on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intelli-shell/Cache"
+  - "%LOCALAPPDATA%/intelli-shell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intellifire4py
+  name: Nixpkgs intellifire4py macos cache (wave 14)
+  description: Nixpkgs leftover pname intellifire4py on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intellifire4py"
+  - "$HOME/Library/Logs/intellifire4py"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intellifire4py
+  name: Nixpkgs intellifire4py linux cache (wave 14)
+  description: Nixpkgs leftover pname intellifire4py on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intellifire4py"
+  - "$XDG_CACHE_HOME/intellifire4py"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intellifire4py
+  name: Nixpkgs intellifire4py windows cache (wave 14)
+  description: Nixpkgs leftover pname intellifire4py on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intellifire4py/Cache"
+  - "%LOCALAPPDATA%/intellifire4py/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intellij-theme
+  name: Nixpkgs intellij-theme macos cache (wave 14)
+  description: Nixpkgs leftover pname intellij-theme on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intellij-theme"
+  - "$HOME/Library/Logs/intellij-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intellij-theme
+  name: Nixpkgs intellij-theme linux cache (wave 14)
+  description: Nixpkgs leftover pname intellij-theme on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intellij-theme"
+  - "$XDG_CACHE_HOME/intellij-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intellij-theme
+  name: Nixpkgs intellij-theme windows cache (wave 14)
+  description: Nixpkgs leftover pname intellij-theme on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intellij-theme/Cache"
+  - "%LOCALAPPDATA%/intellij-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intellitab-nvim
+  name: Nixpkgs intellitab.nvim macos cache (wave 14)
+  description: Nixpkgs leftover pname intellitab.nvim on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intellitab.nvim"
+  - "$HOME/Library/Logs/intellitab.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intellitab-nvim
+  name: Nixpkgs intellitab.nvim linux cache (wave 14)
+  description: Nixpkgs leftover pname intellitab.nvim on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intellitab.nvim"
+  - "$XDG_CACHE_HOME/intellitab.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intellitab-nvim
+  name: Nixpkgs intellitab.nvim windows cache (wave 14)
+  description: Nixpkgs leftover pname intellitab.nvim on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intellitab.nvim/Cache"
+  - "%LOCALAPPDATA%/intellitab.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intelmetool
+  name: Nixpkgs intelmetool macos cache (wave 14)
+  description: Nixpkgs leftover pname intelmetool on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intelmetool"
+  - "$HOME/Library/Logs/intelmetool"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intelmetool
+  name: Nixpkgs intelmetool linux cache (wave 14)
+  description: Nixpkgs leftover pname intelmetool on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intelmetool"
+  - "$XDG_CACHE_HOME/intelmetool"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intelmetool
+  name: Nixpkgs intelmetool windows cache (wave 14)
+  description: Nixpkgs leftover pname intelmetool on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intelmetool/Cache"
+  - "%LOCALAPPDATA%/intelmetool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intelp2m
+  name: Nixpkgs intelp2m macos cache (wave 14)
+  description: Nixpkgs leftover pname intelp2m on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intelp2m"
+  - "$HOME/Library/Logs/intelp2m"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intelp2m
+  name: Nixpkgs intelp2m linux cache (wave 14)
+  description: Nixpkgs leftover pname intelp2m on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intelp2m"
+  - "$XDG_CACHE_HOME/intelp2m"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intelp2m
+  name: Nixpkgs intelp2m windows cache (wave 14)
+  description: Nixpkgs leftover pname intelp2m on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intelp2m/Cache"
+  - "%LOCALAPPDATA%/intelp2m/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-inteltool
+  name: Nixpkgs inteltool macos cache (wave 14)
+  description: Nixpkgs leftover pname inteltool on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/inteltool"
+  - "$HOME/Library/Logs/inteltool"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-inteltool
+  name: Nixpkgs inteltool linux cache (wave 14)
+  description: Nixpkgs leftover pname inteltool on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/inteltool"
+  - "$XDG_CACHE_HOME/inteltool"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-inteltool
+  name: Nixpkgs inteltool windows cache (wave 14)
+  description: Nixpkgs leftover pname inteltool on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/inteltool/Cache"
+  - "%LOCALAPPDATA%/inteltool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intendo
+  name: Nixpkgs intendo macos cache (wave 14)
+  description: Nixpkgs leftover pname intendo on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intendo"
+  - "$HOME/Library/Logs/intendo"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intendo
+  name: Nixpkgs intendo linux cache (wave 14)
+  description: Nixpkgs leftover pname intendo on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intendo"
+  - "$XDG_CACHE_HOME/intendo"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intendo
+  name: Nixpkgs intendo windows cache (wave 14)
+  description: Nixpkgs leftover pname intendo on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intendo/Cache"
+  - "%LOCALAPPDATA%/intendo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intensegrid
+  name: Nixpkgs intensegRid macos cache (wave 14)
+  description: Nixpkgs leftover pname intensegRid on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intensegRid"
+  - "$HOME/Library/Logs/intensegRid"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intensegrid
+  name: Nixpkgs intensegRid linux cache (wave 14)
+  description: Nixpkgs leftover pname intensegRid on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intensegRid"
+  - "$XDG_CACHE_HOME/intensegRid"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intensegrid
+  name: Nixpkgs intensegRid windows cache (wave 14)
+  description: Nixpkgs leftover pname intensegRid on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intensegRid/Cache"
+  - "%LOCALAPPDATA%/intensegRid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intensional-datatys
+  name: Nixpkgs intensional-datatys macos cache (wave 14)
+  description: Nixpkgs leftover pname intensional-datatys on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intensional-datatys"
+  - "$HOME/Library/Logs/intensional-datatys"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intensional-datatys
+  name: Nixpkgs intensional-datatys linux cache (wave 14)
+  description: Nixpkgs leftover pname intensional-datatys on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intensional-datatys"
+  - "$XDG_CACHE_HOME/intensional-datatys"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intensional-datatys
+  name: Nixpkgs intensional-datatys windows cache (wave 14)
+  description: Nixpkgs leftover pname intensional-datatys on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intensional-datatys/Cache"
+  - "%LOCALAPPDATA%/intensional-datatys/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intensity-normalization
+  name: Nixpkgs intensity-normalization macos cache (wave 14)
+  description: Nixpkgs leftover pname intensity-normalization on macos (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intensity-normalization"
+  - "$HOME/Library/Logs/intensity-normalization"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intensity-normalization
+  name: Nixpkgs intensity-normalization linux cache (wave 14)
+  description: Nixpkgs leftover pname intensity-normalization on linux (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intensity-normalization"
+  - "$XDG_CACHE_HOME/intensity-normalization"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intensity-normalization
+  name: Nixpkgs intensity-normalization windows cache (wave 14)
+  description: Nixpkgs leftover pname intensity-normalization on windows (wave 14).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intensity-normalization/Cache"
+  - "%LOCALAPPDATA%/intensity-normalization/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intensity-analysis
+  name: Nixpkgs intensity.analysis macos cache (wave 14)
+  description: Nixpkgs leftover pname intensity.analysis on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intensity.analysis"
+  - "$HOME/Library/Logs/intensity.analysis"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intensity-analysis
+  name: Nixpkgs intensity.analysis linux cache (wave 14)
+  description: Nixpkgs leftover pname intensity.analysis on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intensity.analysis"
+  - "$XDG_CACHE_HOME/intensity.analysis"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intensity-analysis
+  name: Nixpkgs intensity.analysis windows cache (wave 14)
+  description: Nixpkgs leftover pname intensity.analysis on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intensity.analysis/Cache"
+  - "%LOCALAPPDATA%/intensity.analysis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intensitynet
+  name: Nixpkgs intensitynet macos cache (wave 14)
+  description: Nixpkgs leftover pname intensitynet on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intensitynet"
+  - "$HOME/Library/Logs/intensitynet"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intensitynet
+  name: Nixpkgs intensitynet linux cache (wave 14)
+  description: Nixpkgs leftover pname intensitynet on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intensitynet"
+  - "$XDG_CACHE_HOME/intensitynet"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intensitynet
+  name: Nixpkgs intensitynet windows cache (wave 14)
+  description: Nixpkgs leftover pname intensitynet on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intensitynet/Cache"
+  - "%LOCALAPPDATA%/intensitynet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-intentrace
+  name: Nixpkgs intentrace macos cache (wave 14)
+  description: Nixpkgs leftover pname intentrace on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/intentrace"
+  - "$HOME/Library/Logs/intentrace"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-intentrace
+  name: Nixpkgs intentrace linux cache (wave 14)
+  description: Nixpkgs leftover pname intentrace on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/intentrace"
+  - "$XDG_CACHE_HOME/intentrace"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-intentrace
+  name: Nixpkgs intentrace windows cache (wave 14)
+  description: Nixpkgs leftover pname intentrace on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/intentrace/Cache"
+  - "%LOCALAPPDATA%/intentrace/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-inteq
+  name: Nixpkgs inteq macos cache (wave 14)
+  description: Nixpkgs leftover pname inteq on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/inteq"
+  - "$HOME/Library/Logs/inteq"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-inteq
+  name: Nixpkgs inteq linux cache (wave 14)
+  description: Nixpkgs leftover pname inteq on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/inteq"
+  - "$XDG_CACHE_HOME/inteq"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-inteq
+  name: Nixpkgs inteq windows cache (wave 14)
+  description: Nixpkgs leftover pname inteq on windows (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/inteq/Cache"
+  - "%LOCALAPPDATA%/inteq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-inter
+  name: Nixpkgs inter macos cache (wave 14)
+  description: Nixpkgs leftover pname inter on macos (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/inter"
+  - "$HOME/Library/Logs/inter"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-inter
+  name: Nixpkgs inter linux cache (wave 14)
+  description: Nixpkgs leftover pname inter on linux (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/inter"
+  - "$XDG_CACHE_HOME/inter"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-inter
+  name: Nixpkgs inter windows cache (wave 14)
+  description: Nixpkgs leftover pname inter on windows (wave 14). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/inter/Cache"
+  - "%LOCALAPPDATA%/inter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-inter-alia
+  name: Nixpkgs inter-alia macos cache (wave 14)
+  description: Nixpkgs leftover pname inter-alia on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/inter-alia"
+  - "$HOME/Library/Logs/inter-alia"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-inter-alia
+  name: Nixpkgs inter-alia linux cache (wave 14)
+  description: Nixpkgs leftover pname inter-alia on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/inter-alia"
+  - "$XDG_CACHE_HOME/inter-alia"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-inter-alia
+  name: Nixpkgs inter-alia windows cache (wave 14)
+  description: Nixpkgs leftover pname inter-alia on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/inter-alia/Cache"
+  - "%LOCALAPPDATA%/inter-alia/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-inter-nerdfont
+  name: Nixpkgs inter-nerdfont macos cache (wave 14)
+  description: Nixpkgs leftover pname inter-nerdfont on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/inter-nerdfont"
+  - "$HOME/Library/Logs/inter-nerdfont"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-inter-nerdfont
+  name: Nixpkgs inter-nerdfont linux cache (wave 14)
+  description: Nixpkgs leftover pname inter-nerdfont on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/inter-nerdfont"
+  - "$XDG_CACHE_HOME/inter-nerdfont"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-inter-nerdfont
+  name: Nixpkgs inter-nerdfont windows cache (wave 14)
+  description: Nixpkgs leftover pname inter-nerdfont on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/inter-nerdfont/Cache"
+  - "%LOCALAPPDATA%/inter-nerdfont/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interaccircos
+  name: Nixpkgs interacCircos macos cache (wave 14)
+  description: Nixpkgs leftover pname interacCircos on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interacCircos"
+  - "$HOME/Library/Logs/interacCircos"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interaccircos
+  name: Nixpkgs interacCircos linux cache (wave 14)
+  description: Nixpkgs leftover pname interacCircos on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interacCircos"
+  - "$XDG_CACHE_HOME/interacCircos"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interaccircos
+  name: Nixpkgs interacCircos windows cache (wave 14)
+  description: Nixpkgs leftover pname interacCircos on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interacCircos/Cache"
+  - "%LOCALAPPDATA%/interacCircos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interaction-log
+  name: Nixpkgs interaction-log macos cache (wave 14)
+  description: Nixpkgs leftover pname interaction-log on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interaction-log"
+  - "$HOME/Library/Logs/interaction-log"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interaction-log
+  name: Nixpkgs interaction-log linux cache (wave 14)
+  description: Nixpkgs leftover pname interaction-log on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interaction-log"
+  - "$XDG_CACHE_HOME/interaction-log"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interaction-log
+  name: Nixpkgs interaction-log windows cache (wave 14)
+  description: Nixpkgs leftover pname interaction-log on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interaction-log/Cache"
+  - "%LOCALAPPDATA%/interaction-log/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactionr
+  name: Nixpkgs interactionR macos cache (wave 14)
+  description: Nixpkgs leftover pname interactionR on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactionR"
+  - "$HOME/Library/Logs/interactionR"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactionr
+  name: Nixpkgs interactionR linux cache (wave 14)
+  description: Nixpkgs leftover pname interactionR on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactionR"
+  - "$XDG_CACHE_HOME/interactionR"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactionr
+  name: Nixpkgs interactionR windows cache (wave 14)
+  description: Nixpkgs leftover pname interactionR on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactionR/Cache"
+  - "%LOCALAPPDATA%/interactionR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactionrcs
+  name: Nixpkgs interactionRCS macos cache (wave 14)
+  description: Nixpkgs leftover pname interactionRCS on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactionRCS"
+  - "$HOME/Library/Logs/interactionRCS"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactionrcs
+  name: Nixpkgs interactionRCS linux cache (wave 14)
+  description: Nixpkgs leftover pname interactionRCS on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactionRCS"
+  - "$XDG_CACHE_HOME/interactionRCS"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactionrcs
+  name: Nixpkgs interactionRCS windows cache (wave 14)
+  description: Nixpkgs leftover pname interactionRCS on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactionRCS/Cache"
+  - "%LOCALAPPDATA%/interactionRCS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactiontest
+  name: Nixpkgs interactionTest macos cache (wave 14)
+  description: Nixpkgs leftover pname interactionTest on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactionTest"
+  - "$HOME/Library/Logs/interactionTest"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactiontest
+  name: Nixpkgs interactionTest linux cache (wave 14)
+  description: Nixpkgs leftover pname interactionTest on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactionTest"
+  - "$XDG_CACHE_HOME/interactionTest"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactiontest
+  name: Nixpkgs interactionTest windows cache (wave 14)
+  description: Nixpkgs leftover pname interactionTest on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactionTest/Cache"
+  - "%LOCALAPPDATA%/interactionTest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactions
+  name: Nixpkgs interactions macos cache (wave 14)
+  description: Nixpkgs leftover pname interactions on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactions"
+  - "$HOME/Library/Logs/interactions"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactions
+  name: Nixpkgs interactions linux cache (wave 14)
+  description: Nixpkgs leftover pname interactions on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactions"
+  - "$XDG_CACHE_HOME/interactions"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactions
+  name: Nixpkgs interactions windows cache (wave 14)
+  description: Nixpkgs leftover pname interactions on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactions/Cache"
+  - "%LOCALAPPDATA%/interactions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactive
+  name: Nixpkgs interactive macos cache (wave 14)
+  description: Nixpkgs leftover pname interactive on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactive"
+  - "$HOME/Library/Logs/interactive"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactive
+  name: Nixpkgs interactive linux cache (wave 14)
+  description: Nixpkgs leftover pname interactive on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactive"
+  - "$XDG_CACHE_HOME/interactive"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactive
+  name: Nixpkgs interactive windows cache (wave 14)
+  description: Nixpkgs leftover pname interactive on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactive/Cache"
+  - "%LOCALAPPDATA%/interactive/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactive-html-bom
+  name: Nixpkgs interactive-html-bom macos cache (wave 14)
+  description: Nixpkgs leftover pname interactive-html-bom on macos (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactive-html-bom"
+  - "$HOME/Library/Logs/interactive-html-bom"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactive-html-bom
+  name: Nixpkgs interactive-html-bom linux cache (wave 14)
+  description: Nixpkgs leftover pname interactive-html-bom on linux (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactive-html-bom"
+  - "$XDG_CACHE_HOME/interactive-html-bom"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactive-html-bom
+  name: Nixpkgs interactive-html-bom windows cache (wave 14)
+  description: Nixpkgs leftover pname interactive-html-bom on windows (wave 14). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactive-html-bom/Cache"
+  - "%LOCALAPPDATA%/interactive-html-bom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactive-plot
+  name: Nixpkgs interactive-plot macos cache (wave 14)
+  description: Nixpkgs leftover pname interactive-plot on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactive-plot"
+  - "$HOME/Library/Logs/interactive-plot"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-lin-interactive-plot
+  name: Nixpkgs interactive-plot linux cache (wave 14)
+  description: Nixpkgs leftover pname interactive-plot on linux (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/interactive-plot"
+  - "$XDG_CACHE_HOME/interactive-plot"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-win-interactive-plot
+  name: Nixpkgs interactive-plot windows cache (wave 14)
+  description: Nixpkgs leftover pname interactive-plot on windows (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/interactive-plot/Cache"
+  - "%LOCALAPPDATA%/interactive-plot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np14-mac-interactivedisplay
+  name: Nixpkgs interactiveDisplay macos cache (wave 14)
+  description: Nixpkgs leftover pname interactiveDisplay on macos (wave 14). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/interactiveDisplay"
+  - "$HOME/Library/Logs/interactiveDisplay"
+  delete_mode: contents
+  max_depth: 6

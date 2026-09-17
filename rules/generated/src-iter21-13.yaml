@@ -1,0 +1,5604 @@
+---
+pack: src-iter21-13
+description: Iterative 10k import wave 21 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np21-mac-photo
+  name: Nixpkgs photo macos cache (wave 21)
+  description: Nixpkgs leftover pname photo on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photo"
+  - "$HOME/Library/Logs/photo"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photo
+  name: Nixpkgs photo linux cache (wave 21)
+  description: Nixpkgs leftover pname photo on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photo"
+  - "$XDG_CACHE_HOME/photo"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photo
+  name: Nixpkgs photo windows cache (wave 21)
+  description: Nixpkgs leftover pname photo on windows (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photo/Cache"
+  - "%LOCALAPPDATA%/photo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiology
+  name: Nixpkgs photobiology macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiology on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiology"
+  - "$HOME/Library/Logs/photobiology"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiology
+  name: Nixpkgs photobiology linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiology on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiology"
+  - "$XDG_CACHE_HOME/photobiology"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiology
+  name: Nixpkgs photobiology windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiology on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiology/Cache"
+  - "%LOCALAPPDATA%/photobiology/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologyfilters
+  name: Nixpkgs photobiologyFilters macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyFilters on macos (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologyFilters"
+  - "$HOME/Library/Logs/photobiologyFilters"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologyfilters
+  name: Nixpkgs photobiologyFilters linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyFilters on linux (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologyFilters"
+  - "$XDG_CACHE_HOME/photobiologyFilters"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologyfilters
+  name: Nixpkgs photobiologyFilters windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyFilters on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologyFilters/Cache"
+  - "%LOCALAPPDATA%/photobiologyFilters/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologyinout
+  name: Nixpkgs photobiologyInOut macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyInOut on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologyInOut"
+  - "$HOME/Library/Logs/photobiologyInOut"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologyinout
+  name: Nixpkgs photobiologyInOut linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyInOut on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologyInOut"
+  - "$XDG_CACHE_HOME/photobiologyInOut"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologyinout
+  name: Nixpkgs photobiologyInOut windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyInOut on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologyInOut/Cache"
+  - "%LOCALAPPDATA%/photobiologyInOut/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologyleds
+  name: Nixpkgs photobiologyLEDs macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyLEDs on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologyLEDs"
+  - "$HOME/Library/Logs/photobiologyLEDs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologyleds
+  name: Nixpkgs photobiologyLEDs linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyLEDs on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologyLEDs"
+  - "$XDG_CACHE_HOME/photobiologyLEDs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologyleds
+  name: Nixpkgs photobiologyLEDs windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyLEDs on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologyLEDs/Cache"
+  - "%LOCALAPPDATA%/photobiologyLEDs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologylamps
+  name: Nixpkgs photobiologyLamps macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyLamps on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologyLamps"
+  - "$HOME/Library/Logs/photobiologyLamps"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologylamps
+  name: Nixpkgs photobiologyLamps linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyLamps on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologyLamps"
+  - "$XDG_CACHE_HOME/photobiologyLamps"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologylamps
+  name: Nixpkgs photobiologyLamps windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyLamps on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologyLamps/Cache"
+  - "%LOCALAPPDATA%/photobiologyLamps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologyplants
+  name: Nixpkgs photobiologyPlants macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyPlants on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologyPlants"
+  - "$HOME/Library/Logs/photobiologyPlants"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologyplants
+  name: Nixpkgs photobiologyPlants linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyPlants on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologyPlants"
+  - "$XDG_CACHE_HOME/photobiologyPlants"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologyplants
+  name: Nixpkgs photobiologyPlants windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyPlants on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologyPlants/Cache"
+  - "%LOCALAPPDATA%/photobiologyPlants/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologysensors
+  name: Nixpkgs photobiologySensors macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologySensors on macos (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologySensors"
+  - "$HOME/Library/Logs/photobiologySensors"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologysensors
+  name: Nixpkgs photobiologySensors linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologySensors on linux (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologySensors"
+  - "$XDG_CACHE_HOME/photobiologySensors"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologysensors
+  name: Nixpkgs photobiologySensors windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologySensors on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologySensors/Cache"
+  - "%LOCALAPPDATA%/photobiologySensors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologysun
+  name: Nixpkgs photobiologySun macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologySun on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologySun"
+  - "$HOME/Library/Logs/photobiologySun"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologysun
+  name: Nixpkgs photobiologySun linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologySun on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologySun"
+  - "$XDG_CACHE_HOME/photobiologySun"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologysun
+  name: Nixpkgs photobiologySun windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologySun on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologySun/Cache"
+  - "%LOCALAPPDATA%/photobiologySun/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobiologywavebands
+  name: Nixpkgs photobiologyWavebands macos cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyWavebands on macos (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobiologyWavebands"
+  - "$HOME/Library/Logs/photobiologyWavebands"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobiologywavebands
+  name: Nixpkgs photobiologyWavebands linux cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyWavebands on linux (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobiologyWavebands"
+  - "$XDG_CACHE_HOME/photobiologyWavebands"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobiologywavebands
+  name: Nixpkgs photobiologyWavebands windows cache (wave 21)
+  description: Nixpkgs leftover pname photobiologyWavebands on windows (wave 21).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobiologyWavebands/Cache"
+  - "%LOCALAPPDATA%/photobiologyWavebands/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photobook
+  name: Nixpkgs photobook macos cache (wave 21)
+  description: Nixpkgs leftover pname photobook on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photobook"
+  - "$HOME/Library/Logs/photobook"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photobook
+  name: Nixpkgs photobook linux cache (wave 21)
+  description: Nixpkgs leftover pname photobook on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photobook"
+  - "$XDG_CACHE_HOME/photobook"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photobook
+  name: Nixpkgs photobook windows cache (wave 21)
+  description: Nixpkgs leftover pname photobook on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photobook/Cache"
+  - "%LOCALAPPDATA%/photobook/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photocollage
+  name: Nixpkgs photocollage macos cache (wave 21)
+  description: Nixpkgs leftover pname photocollage on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photocollage"
+  - "$HOME/Library/Logs/photocollage"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photocollage
+  name: Nixpkgs photocollage linux cache (wave 21)
+  description: Nixpkgs leftover pname photocollage on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photocollage"
+  - "$XDG_CACHE_HOME/photocollage"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photocollage
+  name: Nixpkgs photocollage windows cache (wave 21)
+  description: Nixpkgs leftover pname photocollage on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photocollage/Cache"
+  - "%LOCALAPPDATA%/photocollage/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photofield
+  name: Nixpkgs photofield macos cache (wave 21)
+  description: Nixpkgs leftover pname photofield on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photofield"
+  - "$HOME/Library/Logs/photofield"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photofield
+  name: Nixpkgs photofield linux cache (wave 21)
+  description: Nixpkgs leftover pname photofield on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photofield"
+  - "$XDG_CACHE_HOME/photofield"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photofield
+  name: Nixpkgs photofield windows cache (wave 21)
+  description: Nixpkgs leftover pname photofield on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photofield/Cache"
+  - "%LOCALAPPDATA%/photofield/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photoflare
+  name: Nixpkgs photoflare macos cache (wave 21)
+  description: Nixpkgs leftover pname photoflare on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photoflare"
+  - "$HOME/Library/Logs/photoflare"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photoflare
+  name: Nixpkgs photoflare linux cache (wave 21)
+  description: Nixpkgs leftover pname photoflare on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photoflare"
+  - "$XDG_CACHE_HOME/photoflare"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photoflare
+  name: Nixpkgs photoflare windows cache (wave 21)
+  description: Nixpkgs leftover pname photoflare on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photoflare/Cache"
+  - "%LOCALAPPDATA%/photoflare/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photon
+  name: Nixpkgs photon macos cache (wave 21)
+  description: Nixpkgs leftover pname photon on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photon"
+  - "$HOME/Library/Logs/photon"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photon
+  name: Nixpkgs photon linux cache (wave 21)
+  description: Nixpkgs leftover pname photon on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photon"
+  - "$XDG_CACHE_HOME/photon"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photon
+  name: Nixpkgs photon windows cache (wave 21)
+  description: Nixpkgs leftover pname photon on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photon/Cache"
+  - "%LOCALAPPDATA%/photon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photoname
+  name: Nixpkgs photoname macos cache (wave 21)
+  description: Nixpkgs leftover pname photoname on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photoname"
+  - "$HOME/Library/Logs/photoname"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photoname
+  name: Nixpkgs photoname linux cache (wave 21)
+  description: Nixpkgs leftover pname photoname on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photoname"
+  - "$XDG_CACHE_HOME/photoname"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photoname
+  name: Nixpkgs photoname windows cache (wave 21)
+  description: Nixpkgs leftover pname photoname on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photoname/Cache"
+  - "%LOCALAPPDATA%/photoname/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photonvision
+  name: Nixpkgs photonvision macos cache (wave 21)
+  description: Nixpkgs leftover pname photonvision on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photonvision"
+  - "$HOME/Library/Logs/photonvision"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photonvision
+  name: Nixpkgs photonvision linux cache (wave 21)
+  description: Nixpkgs leftover pname photonvision on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photonvision"
+  - "$XDG_CACHE_HOME/photonvision"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photonvision
+  name: Nixpkgs photonvision windows cache (wave 21)
+  description: Nixpkgs leftover pname photonvision on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photonvision/Cache"
+  - "%LOCALAPPDATA%/photonvision/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photoprism
+  name: Nixpkgs photoprism macos cache (wave 21)
+  description: Nixpkgs leftover pname photoprism on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photoprism"
+  - "$HOME/Library/Logs/photoprism"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photoprism
+  name: Nixpkgs photoprism linux cache (wave 21)
+  description: Nixpkgs leftover pname photoprism on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photoprism"
+  - "$XDG_CACHE_HOME/photoprism"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photoprism
+  name: Nixpkgs photoprism windows cache (wave 21)
+  description: Nixpkgs leftover pname photoprism on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photoprism/Cache"
+  - "%LOCALAPPDATA%/photoprism/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photoqt
+  name: Nixpkgs photoqt macos cache (wave 21)
+  description: Nixpkgs leftover pname photoqt on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photoqt"
+  - "$HOME/Library/Logs/photoqt"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photoqt
+  name: Nixpkgs photoqt linux cache (wave 21)
+  description: Nixpkgs leftover pname photoqt on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photoqt"
+  - "$XDG_CACHE_HOME/photoqt"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photoqt
+  name: Nixpkgs photoqt windows cache (wave 21)
+  description: Nixpkgs leftover pname photoqt on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photoqt/Cache"
+  - "%LOCALAPPDATA%/photoqt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photosynthesis
+  name: Nixpkgs photosynthesis macos cache (wave 21)
+  description: Nixpkgs leftover pname photosynthesis on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photosynthesis"
+  - "$HOME/Library/Logs/photosynthesis"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photosynthesis
+  name: Nixpkgs photosynthesis linux cache (wave 21)
+  description: Nixpkgs leftover pname photosynthesis on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photosynthesis"
+  - "$XDG_CACHE_HOME/photosynthesis"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photosynthesis
+  name: Nixpkgs photosynthesis windows cache (wave 21)
+  description: Nixpkgs leftover pname photosynthesis on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photosynthesis/Cache"
+  - "%LOCALAPPDATA%/photosynthesis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photosynthesislrc
+  name: Nixpkgs photosynthesisLRC macos cache (wave 21)
+  description: Nixpkgs leftover pname photosynthesisLRC on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photosynthesisLRC"
+  - "$HOME/Library/Logs/photosynthesisLRC"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photosynthesislrc
+  name: Nixpkgs photosynthesisLRC linux cache (wave 21)
+  description: Nixpkgs leftover pname photosynthesisLRC on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photosynthesisLRC"
+  - "$XDG_CACHE_HOME/photosynthesisLRC"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photosynthesislrc
+  name: Nixpkgs photosynthesisLRC windows cache (wave 21)
+  description: Nixpkgs leftover pname photosynthesisLRC on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photosynthesisLRC/Cache"
+  - "%LOCALAPPDATA%/photosynthesisLRC/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phototonic
+  name: Nixpkgs phototonic macos cache (wave 21)
+  description: Nixpkgs leftover pname phototonic on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phototonic"
+  - "$HOME/Library/Logs/phototonic"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phototonic
+  name: Nixpkgs phototonic linux cache (wave 21)
+  description: Nixpkgs leftover pname phototonic on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phototonic"
+  - "$XDG_CACHE_HOME/phototonic"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phototonic
+  name: Nixpkgs phototonic windows cache (wave 21)
+  description: Nixpkgs leftover pname phototonic on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phototonic/Cache"
+  - "%LOCALAPPDATA%/phototonic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photoview
+  name: Nixpkgs photoview macos cache (wave 21)
+  description: Nixpkgs leftover pname photoview on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photoview"
+  - "$HOME/Library/Logs/photoview"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photoview
+  name: Nixpkgs photoview linux cache (wave 21)
+  description: Nixpkgs leftover pname photoview on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photoview"
+  - "$XDG_CACHE_HOME/photoview"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photoview
+  name: Nixpkgs photoview windows cache (wave 21)
+  description: Nixpkgs leftover pname photoview on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photoview/Cache"
+  - "%LOCALAPPDATA%/photoview/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-photutils
+  name: Nixpkgs photutils macos cache (wave 21)
+  description: Nixpkgs leftover pname photutils on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/photutils"
+  - "$HOME/Library/Logs/photutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-photutils
+  name: Nixpkgs photutils linux cache (wave 21)
+  description: Nixpkgs leftover pname photutils on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/photutils"
+  - "$XDG_CACHE_HOME/photutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-photutils
+  name: Nixpkgs photutils windows cache (wave 21)
+  description: Nixpkgs leftover pname photutils on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/photutils/Cache"
+  - "%LOCALAPPDATA%/photutils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-bcmath
+  name: Nixpkgs php-bcmath macos cache (wave 21)
+  description: Nixpkgs leftover pname php-bcmath on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-bcmath"
+  - "$HOME/Library/Logs/php-bcmath"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-bcmath
+  name: Nixpkgs php-bcmath linux cache (wave 21)
+  description: Nixpkgs leftover pname php-bcmath on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-bcmath"
+  - "$XDG_CACHE_HOME/php-bcmath"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-bcmath
+  name: Nixpkgs php-bcmath windows cache (wave 21)
+  description: Nixpkgs leftover pname php-bcmath on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-bcmath/Cache"
+  - "%LOCALAPPDATA%/php-bcmath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-blackfire
+  name: Nixpkgs php-blackfire macos cache (wave 21)
+  description: Nixpkgs leftover pname php-blackfire on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-blackfire"
+  - "$HOME/Library/Logs/php-blackfire"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-blackfire
+  name: Nixpkgs php-blackfire linux cache (wave 21)
+  description: Nixpkgs leftover pname php-blackfire on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-blackfire"
+  - "$XDG_CACHE_HOME/php-blackfire"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-blackfire
+  name: Nixpkgs php-blackfire windows cache (wave 21)
+  description: Nixpkgs leftover pname php-blackfire on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-blackfire/Cache"
+  - "%LOCALAPPDATA%/php-blackfire/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-boris
+  name: Nixpkgs php-boris macos cache (wave 21)
+  description: Nixpkgs leftover pname php-boris on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-boris"
+  - "$HOME/Library/Logs/php-boris"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-boris
+  name: Nixpkgs php-boris linux cache (wave 21)
+  description: Nixpkgs leftover pname php-boris on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-boris"
+  - "$XDG_CACHE_HOME/php-boris"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-boris
+  name: Nixpkgs php-boris windows cache (wave 21)
+  description: Nixpkgs leftover pname php-boris on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-boris/Cache"
+  - "%LOCALAPPDATA%/php-boris/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-boris-minor-mode
+  name: Nixpkgs php-boris-minor-mode macos cache (wave 21)
+  description: Nixpkgs leftover pname php-boris-minor-mode on macos (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-boris-minor-mode"
+  - "$HOME/Library/Logs/php-boris-minor-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-boris-minor-mode
+  name: Nixpkgs php-boris-minor-mode linux cache (wave 21)
+  description: Nixpkgs leftover pname php-boris-minor-mode on linux (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-boris-minor-mode"
+  - "$XDG_CACHE_HOME/php-boris-minor-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-boris-minor-mode
+  name: Nixpkgs php-boris-minor-mode windows cache (wave 21)
+  description: Nixpkgs leftover pname php-boris-minor-mode on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-boris-minor-mode/Cache"
+  - "%LOCALAPPDATA%/php-boris-minor-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-bz2
+  name: Nixpkgs php-bz2 macos cache (wave 21)
+  description: Nixpkgs leftover pname php-bz2 on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-bz2"
+  - "$HOME/Library/Logs/php-bz2"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-bz2
+  name: Nixpkgs php-bz2 linux cache (wave 21)
+  description: Nixpkgs leftover pname php-bz2 on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-bz2"
+  - "$XDG_CACHE_HOME/php-bz2"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-bz2
+  name: Nixpkgs php-bz2 windows cache (wave 21)
+  description: Nixpkgs leftover pname php-bz2 on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-bz2/Cache"
+  - "%LOCALAPPDATA%/php-bz2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-calendar
+  name: Nixpkgs php-calendar macos cache (wave 21)
+  description: Nixpkgs leftover pname php-calendar on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-calendar"
+  - "$HOME/Library/Logs/php-calendar"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-calendar
+  name: Nixpkgs php-calendar linux cache (wave 21)
+  description: Nixpkgs leftover pname php-calendar on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-calendar"
+  - "$XDG_CACHE_HOME/php-calendar"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-calendar
+  name: Nixpkgs php-calendar windows cache (wave 21)
+  description: Nixpkgs leftover pname php-calendar on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-calendar/Cache"
+  - "%LOCALAPPDATA%/php-calendar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-codesniffer
+  name: Nixpkgs php-codesniffer macos cache (wave 21)
+  description: Nixpkgs leftover pname php-codesniffer on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-codesniffer"
+  - "$HOME/Library/Logs/php-codesniffer"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-codesniffer
+  name: Nixpkgs php-codesniffer linux cache (wave 21)
+  description: Nixpkgs leftover pname php-codesniffer on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-codesniffer"
+  - "$XDG_CACHE_HOME/php-codesniffer"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-codesniffer
+  name: Nixpkgs php-codesniffer windows cache (wave 21)
+  description: Nixpkgs leftover pname php-codesniffer on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-codesniffer/Cache"
+  - "%LOCALAPPDATA%/php-codesniffer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-cs-fixer
+  name: Nixpkgs php-cs-fixer macos cache (wave 21)
+  description: Nixpkgs leftover pname php-cs-fixer on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-cs-fixer"
+  - "$HOME/Library/Logs/php-cs-fixer"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-cs-fixer
+  name: Nixpkgs php-cs-fixer linux cache (wave 21)
+  description: Nixpkgs leftover pname php-cs-fixer on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-cs-fixer"
+  - "$XDG_CACHE_HOME/php-cs-fixer"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-cs-fixer
+  name: Nixpkgs php-cs-fixer windows cache (wave 21)
+  description: Nixpkgs leftover pname php-cs-fixer on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-cs-fixer/Cache"
+  - "%LOCALAPPDATA%/php-cs-fixer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-ctype
+  name: Nixpkgs php-ctype macos cache (wave 21)
+  description: Nixpkgs leftover pname php-ctype on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-ctype"
+  - "$HOME/Library/Logs/php-ctype"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-ctype
+  name: Nixpkgs php-ctype linux cache (wave 21)
+  description: Nixpkgs leftover pname php-ctype on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-ctype"
+  - "$XDG_CACHE_HOME/php-ctype"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-ctype
+  name: Nixpkgs php-ctype windows cache (wave 21)
+  description: Nixpkgs leftover pname php-ctype on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-ctype/Cache"
+  - "%LOCALAPPDATA%/php-ctype/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-curl
+  name: Nixpkgs php-curl macos cache (wave 21)
+  description: Nixpkgs leftover pname php-curl on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-curl"
+  - "$HOME/Library/Logs/php-curl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-curl
+  name: Nixpkgs php-curl linux cache (wave 21)
+  description: Nixpkgs leftover pname php-curl on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-curl"
+  - "$XDG_CACHE_HOME/php-curl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-curl
+  name: Nixpkgs php-curl windows cache (wave 21)
+  description: Nixpkgs leftover pname php-curl on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-curl/Cache"
+  - "%LOCALAPPDATA%/php-curl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-dba
+  name: Nixpkgs php-dba macos cache (wave 21)
+  description: Nixpkgs leftover pname php-dba on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-dba"
+  - "$HOME/Library/Logs/php-dba"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-dba
+  name: Nixpkgs php-dba linux cache (wave 21)
+  description: Nixpkgs leftover pname php-dba on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-dba"
+  - "$XDG_CACHE_HOME/php-dba"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-dba
+  name: Nixpkgs php-dba windows cache (wave 21)
+  description: Nixpkgs leftover pname php-dba on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-dba/Cache"
+  - "%LOCALAPPDATA%/php-dba/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-dom
+  name: Nixpkgs php-dom macos cache (wave 21)
+  description: Nixpkgs leftover pname php-dom on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-dom"
+  - "$HOME/Library/Logs/php-dom"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-dom
+  name: Nixpkgs php-dom linux cache (wave 21)
+  description: Nixpkgs leftover pname php-dom on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-dom"
+  - "$XDG_CACHE_HOME/php-dom"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-dom
+  name: Nixpkgs php-dom windows cache (wave 21)
+  description: Nixpkgs leftover pname php-dom on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-dom/Cache"
+  - "%LOCALAPPDATA%/php-dom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-eldoc
+  name: Nixpkgs php-eldoc macos cache (wave 21)
+  description: Nixpkgs leftover pname php-eldoc on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-eldoc"
+  - "$HOME/Library/Logs/php-eldoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-eldoc
+  name: Nixpkgs php-eldoc linux cache (wave 21)
+  description: Nixpkgs leftover pname php-eldoc on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-eldoc"
+  - "$XDG_CACHE_HOME/php-eldoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-eldoc
+  name: Nixpkgs php-eldoc windows cache (wave 21)
+  description: Nixpkgs leftover pname php-eldoc on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-eldoc/Cache"
+  - "%LOCALAPPDATA%/php-eldoc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-enchant
+  name: Nixpkgs php-enchant macos cache (wave 21)
+  description: Nixpkgs leftover pname php-enchant on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-enchant"
+  - "$HOME/Library/Logs/php-enchant"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-enchant
+  name: Nixpkgs php-enchant linux cache (wave 21)
+  description: Nixpkgs leftover pname php-enchant on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-enchant"
+  - "$XDG_CACHE_HOME/php-enchant"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-enchant
+  name: Nixpkgs php-enchant windows cache (wave 21)
+  description: Nixpkgs leftover pname php-enchant on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-enchant/Cache"
+  - "%LOCALAPPDATA%/php-enchant/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-exif
+  name: Nixpkgs php-exif macos cache (wave 21)
+  description: Nixpkgs leftover pname php-exif on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-exif"
+  - "$HOME/Library/Logs/php-exif"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-exif
+  name: Nixpkgs php-exif linux cache (wave 21)
+  description: Nixpkgs leftover pname php-exif on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-exif"
+  - "$XDG_CACHE_HOME/php-exif"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-exif
+  name: Nixpkgs php-exif windows cache (wave 21)
+  description: Nixpkgs leftover pname php-exif on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-exif/Cache"
+  - "%LOCALAPPDATA%/php-exif/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-ffi
+  name: Nixpkgs php-ffi macos cache (wave 21)
+  description: Nixpkgs leftover pname php-ffi on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-ffi"
+  - "$HOME/Library/Logs/php-ffi"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-ffi
+  name: Nixpkgs php-ffi linux cache (wave 21)
+  description: Nixpkgs leftover pname php-ffi on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-ffi"
+  - "$XDG_CACHE_HOME/php-ffi"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-ffi
+  name: Nixpkgs php-ffi windows cache (wave 21)
+  description: Nixpkgs leftover pname php-ffi on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-ffi/Cache"
+  - "%LOCALAPPDATA%/php-ffi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-fileinfo
+  name: Nixpkgs php-fileinfo macos cache (wave 21)
+  description: Nixpkgs leftover pname php-fileinfo on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-fileinfo"
+  - "$HOME/Library/Logs/php-fileinfo"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-fileinfo
+  name: Nixpkgs php-fileinfo linux cache (wave 21)
+  description: Nixpkgs leftover pname php-fileinfo on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-fileinfo"
+  - "$XDG_CACHE_HOME/php-fileinfo"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-fileinfo
+  name: Nixpkgs php-fileinfo windows cache (wave 21)
+  description: Nixpkgs leftover pname php-fileinfo on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-fileinfo/Cache"
+  - "%LOCALAPPDATA%/php-fileinfo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-fill
+  name: Nixpkgs php-fill macos cache (wave 21)
+  description: Nixpkgs leftover pname php-fill on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-fill"
+  - "$HOME/Library/Logs/php-fill"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-fill
+  name: Nixpkgs php-fill linux cache (wave 21)
+  description: Nixpkgs leftover pname php-fill on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-fill"
+  - "$XDG_CACHE_HOME/php-fill"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-fill
+  name: Nixpkgs php-fill windows cache (wave 21)
+  description: Nixpkgs leftover pname php-fill on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-fill/Cache"
+  - "%LOCALAPPDATA%/php-fill/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-filter
+  name: Nixpkgs php-filter macos cache (wave 21)
+  description: Nixpkgs leftover pname php-filter on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-filter"
+  - "$HOME/Library/Logs/php-filter"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-filter
+  name: Nixpkgs php-filter linux cache (wave 21)
+  description: Nixpkgs leftover pname php-filter on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-filter"
+  - "$XDG_CACHE_HOME/php-filter"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-filter
+  name: Nixpkgs php-filter windows cache (wave 21)
+  description: Nixpkgs leftover pname php-filter on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-filter/Cache"
+  - "%LOCALAPPDATA%/php-filter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-fpm-exporter
+  name: Nixpkgs php-fpm_exporter macos cache (wave 21)
+  description: Nixpkgs leftover pname php-fpm_exporter on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-fpm_exporter"
+  - "$HOME/Library/Logs/php-fpm_exporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-fpm-exporter
+  name: Nixpkgs php-fpm_exporter linux cache (wave 21)
+  description: Nixpkgs leftover pname php-fpm_exporter on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-fpm_exporter"
+  - "$XDG_CACHE_HOME/php-fpm_exporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-fpm-exporter
+  name: Nixpkgs php-fpm_exporter windows cache (wave 21)
+  description: Nixpkgs leftover pname php-fpm_exporter on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-fpm_exporter/Cache"
+  - "%LOCALAPPDATA%/php-fpm_exporter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-ftp
+  name: Nixpkgs php-ftp macos cache (wave 21)
+  description: Nixpkgs leftover pname php-ftp on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-ftp"
+  - "$HOME/Library/Logs/php-ftp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-ftp
+  name: Nixpkgs php-ftp linux cache (wave 21)
+  description: Nixpkgs leftover pname php-ftp on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-ftp"
+  - "$XDG_CACHE_HOME/php-ftp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-ftp
+  name: Nixpkgs php-ftp windows cache (wave 21)
+  description: Nixpkgs leftover pname php-ftp on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-ftp/Cache"
+  - "%LOCALAPPDATA%/php-ftp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-gd
+  name: Nixpkgs php-gd macos cache (wave 21)
+  description: Nixpkgs leftover pname php-gd on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-gd"
+  - "$HOME/Library/Logs/php-gd"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-gd
+  name: Nixpkgs php-gd linux cache (wave 21)
+  description: Nixpkgs leftover pname php-gd on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-gd"
+  - "$XDG_CACHE_HOME/php-gd"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-gd
+  name: Nixpkgs php-gd windows cache (wave 21)
+  description: Nixpkgs leftover pname php-gd on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-gd/Cache"
+  - "%LOCALAPPDATA%/php-gd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-gettext
+  name: Nixpkgs php-gettext macos cache (wave 21)
+  description: Nixpkgs leftover pname php-gettext on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-gettext"
+  - "$HOME/Library/Logs/php-gettext"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-gettext
+  name: Nixpkgs php-gettext linux cache (wave 21)
+  description: Nixpkgs leftover pname php-gettext on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-gettext"
+  - "$XDG_CACHE_HOME/php-gettext"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-gettext
+  name: Nixpkgs php-gettext windows cache (wave 21)
+  description: Nixpkgs leftover pname php-gettext on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-gettext/Cache"
+  - "%LOCALAPPDATA%/php-gettext/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-gmp
+  name: Nixpkgs php-gmp macos cache (wave 21)
+  description: Nixpkgs leftover pname php-gmp on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-gmp"
+  - "$HOME/Library/Logs/php-gmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-gmp
+  name: Nixpkgs php-gmp linux cache (wave 21)
+  description: Nixpkgs leftover pname php-gmp on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-gmp"
+  - "$XDG_CACHE_HOME/php-gmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-gmp
+  name: Nixpkgs php-gmp windows cache (wave 21)
+  description: Nixpkgs leftover pname php-gmp on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-gmp/Cache"
+  - "%LOCALAPPDATA%/php-gmp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-iconv
+  name: Nixpkgs php-iconv macos cache (wave 21)
+  description: Nixpkgs leftover pname php-iconv on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-iconv"
+  - "$HOME/Library/Logs/php-iconv"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-iconv
+  name: Nixpkgs php-iconv linux cache (wave 21)
+  description: Nixpkgs leftover pname php-iconv on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-iconv"
+  - "$XDG_CACHE_HOME/php-iconv"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-iconv
+  name: Nixpkgs php-iconv windows cache (wave 21)
+  description: Nixpkgs leftover pname php-iconv on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-iconv/Cache"
+  - "%LOCALAPPDATA%/php-iconv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-imap
+  name: Nixpkgs php-imap macos cache (wave 21)
+  description: Nixpkgs leftover pname php-imap on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-imap"
+  - "$HOME/Library/Logs/php-imap"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-imap
+  name: Nixpkgs php-imap linux cache (wave 21)
+  description: Nixpkgs leftover pname php-imap on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-imap"
+  - "$XDG_CACHE_HOME/php-imap"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-imap
+  name: Nixpkgs php-imap windows cache (wave 21)
+  description: Nixpkgs leftover pname php-imap on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-imap/Cache"
+  - "%LOCALAPPDATA%/php-imap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-intl
+  name: Nixpkgs php-intl macos cache (wave 21)
+  description: Nixpkgs leftover pname php-intl on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-intl"
+  - "$HOME/Library/Logs/php-intl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-intl
+  name: Nixpkgs php-intl linux cache (wave 21)
+  description: Nixpkgs leftover pname php-intl on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-intl"
+  - "$XDG_CACHE_HOME/php-intl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-intl
+  name: Nixpkgs php-intl windows cache (wave 21)
+  description: Nixpkgs leftover pname php-intl on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-intl/Cache"
+  - "%LOCALAPPDATA%/php-intl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-ldap
+  name: Nixpkgs php-ldap macos cache (wave 21)
+  description: Nixpkgs leftover pname php-ldap on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-ldap"
+  - "$HOME/Library/Logs/php-ldap"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-ldap
+  name: Nixpkgs php-ldap linux cache (wave 21)
+  description: Nixpkgs leftover pname php-ldap on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-ldap"
+  - "$XDG_CACHE_HOME/php-ldap"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-ldap
+  name: Nixpkgs php-ldap windows cache (wave 21)
+  description: Nixpkgs leftover pname php-ldap on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-ldap/Cache"
+  - "%LOCALAPPDATA%/php-ldap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-mbstring
+  name: Nixpkgs php-mbstring macos cache (wave 21)
+  description: Nixpkgs leftover pname php-mbstring on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-mbstring"
+  - "$HOME/Library/Logs/php-mbstring"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-mbstring
+  name: Nixpkgs php-mbstring linux cache (wave 21)
+  description: Nixpkgs leftover pname php-mbstring on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-mbstring"
+  - "$XDG_CACHE_HOME/php-mbstring"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-mbstring
+  name: Nixpkgs php-mbstring windows cache (wave 21)
+  description: Nixpkgs leftover pname php-mbstring on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-mbstring/Cache"
+  - "%LOCALAPPDATA%/php-mbstring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-mode
+  name: Nixpkgs php-mode macos cache (wave 21)
+  description: Nixpkgs leftover pname php-mode on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-mode"
+  - "$HOME/Library/Logs/php-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-mode
+  name: Nixpkgs php-mode linux cache (wave 21)
+  description: Nixpkgs leftover pname php-mode on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-mode"
+  - "$XDG_CACHE_HOME/php-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-mode
+  name: Nixpkgs php-mode windows cache (wave 21)
+  description: Nixpkgs leftover pname php-mode on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-mode/Cache"
+  - "%LOCALAPPDATA%/php-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-mysqli
+  name: Nixpkgs php-mysqli macos cache (wave 21)
+  description: Nixpkgs leftover pname php-mysqli on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-mysqli"
+  - "$HOME/Library/Logs/php-mysqli"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-mysqli
+  name: Nixpkgs php-mysqli linux cache (wave 21)
+  description: Nixpkgs leftover pname php-mysqli on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-mysqli"
+  - "$XDG_CACHE_HOME/php-mysqli"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-mysqli
+  name: Nixpkgs php-mysqli windows cache (wave 21)
+  description: Nixpkgs leftover pname php-mysqli on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-mysqli/Cache"
+  - "%LOCALAPPDATA%/php-mysqli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-mysqlnd
+  name: Nixpkgs php-mysqlnd macos cache (wave 21)
+  description: Nixpkgs leftover pname php-mysqlnd on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-mysqlnd"
+  - "$HOME/Library/Logs/php-mysqlnd"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-mysqlnd
+  name: Nixpkgs php-mysqlnd linux cache (wave 21)
+  description: Nixpkgs leftover pname php-mysqlnd on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-mysqlnd"
+  - "$XDG_CACHE_HOME/php-mysqlnd"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-mysqlnd
+  name: Nixpkgs php-mysqlnd windows cache (wave 21)
+  description: Nixpkgs leftover pname php-mysqlnd on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-mysqlnd/Cache"
+  - "%LOCALAPPDATA%/php-mysqlnd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-opcache
+  name: Nixpkgs php-opcache macos cache (wave 21)
+  description: Nixpkgs leftover pname php-opcache on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-opcache"
+  - "$HOME/Library/Logs/php-opcache"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-opcache
+  name: Nixpkgs php-opcache linux cache (wave 21)
+  description: Nixpkgs leftover pname php-opcache on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-opcache"
+  - "$XDG_CACHE_HOME/php-opcache"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-opcache
+  name: Nixpkgs php-opcache windows cache (wave 21)
+  description: Nixpkgs leftover pname php-opcache on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-opcache/Cache"
+  - "%LOCALAPPDATA%/php-opcache/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-openssl
+  name: Nixpkgs php-openssl macos cache (wave 21)
+  description: Nixpkgs leftover pname php-openssl on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-openssl"
+  - "$HOME/Library/Logs/php-openssl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-openssl
+  name: Nixpkgs php-openssl linux cache (wave 21)
+  description: Nixpkgs leftover pname php-openssl on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-openssl"
+  - "$XDG_CACHE_HOME/php-openssl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-openssl
+  name: Nixpkgs php-openssl windows cache (wave 21)
+  description: Nixpkgs leftover pname php-openssl on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-openssl/Cache"
+  - "%LOCALAPPDATA%/php-openssl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-parallel-lint
+  name: Nixpkgs php-parallel-lint macos cache (wave 21)
+  description: Nixpkgs leftover pname php-parallel-lint on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-parallel-lint"
+  - "$HOME/Library/Logs/php-parallel-lint"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-parallel-lint
+  name: Nixpkgs php-parallel-lint linux cache (wave 21)
+  description: Nixpkgs leftover pname php-parallel-lint on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-parallel-lint"
+  - "$XDG_CACHE_HOME/php-parallel-lint"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-parallel-lint
+  name: Nixpkgs php-parallel-lint windows cache (wave 21)
+  description: Nixpkgs leftover pname php-parallel-lint on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-parallel-lint/Cache"
+  - "%LOCALAPPDATA%/php-parallel-lint/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pcntl
+  name: Nixpkgs php-pcntl macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pcntl on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pcntl"
+  - "$HOME/Library/Logs/php-pcntl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pcntl
+  name: Nixpkgs php-pcntl linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pcntl on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pcntl"
+  - "$XDG_CACHE_HOME/php-pcntl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pcntl
+  name: Nixpkgs php-pcntl windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pcntl on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pcntl/Cache"
+  - "%LOCALAPPDATA%/php-pcntl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pdo
+  name: Nixpkgs php-pdo macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pdo"
+  - "$HOME/Library/Logs/php-pdo"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pdo
+  name: Nixpkgs php-pdo linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pdo"
+  - "$XDG_CACHE_HOME/php-pdo"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pdo
+  name: Nixpkgs php-pdo windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pdo/Cache"
+  - "%LOCALAPPDATA%/php-pdo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pdo-dblib
+  name: Nixpkgs php-pdo_dblib macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_dblib on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pdo_dblib"
+  - "$HOME/Library/Logs/php-pdo_dblib"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pdo-dblib
+  name: Nixpkgs php-pdo_dblib linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_dblib on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pdo_dblib"
+  - "$XDG_CACHE_HOME/php-pdo_dblib"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pdo-dblib
+  name: Nixpkgs php-pdo_dblib windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_dblib on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pdo_dblib/Cache"
+  - "%LOCALAPPDATA%/php-pdo_dblib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pdo-mysql
+  name: Nixpkgs php-pdo_mysql macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_mysql on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pdo_mysql"
+  - "$HOME/Library/Logs/php-pdo_mysql"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pdo-mysql
+  name: Nixpkgs php-pdo_mysql linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_mysql on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pdo_mysql"
+  - "$XDG_CACHE_HOME/php-pdo_mysql"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pdo-mysql
+  name: Nixpkgs php-pdo_mysql windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_mysql on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pdo_mysql/Cache"
+  - "%LOCALAPPDATA%/php-pdo_mysql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pdo-odbc
+  name: Nixpkgs php-pdo_odbc macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_odbc on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pdo_odbc"
+  - "$HOME/Library/Logs/php-pdo_odbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pdo-odbc
+  name: Nixpkgs php-pdo_odbc linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_odbc on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pdo_odbc"
+  - "$XDG_CACHE_HOME/php-pdo_odbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pdo-odbc
+  name: Nixpkgs php-pdo_odbc windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_odbc on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pdo_odbc/Cache"
+  - "%LOCALAPPDATA%/php-pdo_odbc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pdo-pgsql
+  name: Nixpkgs php-pdo_pgsql macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_pgsql on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pdo_pgsql"
+  - "$HOME/Library/Logs/php-pdo_pgsql"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pdo-pgsql
+  name: Nixpkgs php-pdo_pgsql linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_pgsql on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pdo_pgsql"
+  - "$XDG_CACHE_HOME/php-pdo_pgsql"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pdo-pgsql
+  name: Nixpkgs php-pdo_pgsql windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_pgsql on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pdo_pgsql/Cache"
+  - "%LOCALAPPDATA%/php-pdo_pgsql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pdo-sqlite
+  name: Nixpkgs php-pdo_sqlite macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_sqlite on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pdo_sqlite"
+  - "$HOME/Library/Logs/php-pdo_sqlite"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pdo-sqlite
+  name: Nixpkgs php-pdo_sqlite linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_sqlite on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pdo_sqlite"
+  - "$XDG_CACHE_HOME/php-pdo_sqlite"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pdo-sqlite
+  name: Nixpkgs php-pdo_sqlite windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pdo_sqlite on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pdo_sqlite/Cache"
+  - "%LOCALAPPDATA%/php-pdo_sqlite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-pgsql
+  name: Nixpkgs php-pgsql macos cache (wave 21)
+  description: Nixpkgs leftover pname php-pgsql on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-pgsql"
+  - "$HOME/Library/Logs/php-pgsql"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-pgsql
+  name: Nixpkgs php-pgsql linux cache (wave 21)
+  description: Nixpkgs leftover pname php-pgsql on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-pgsql"
+  - "$XDG_CACHE_HOME/php-pgsql"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-pgsql
+  name: Nixpkgs php-pgsql windows cache (wave 21)
+  description: Nixpkgs leftover pname php-pgsql on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-pgsql/Cache"
+  - "%LOCALAPPDATA%/php-pgsql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-posix
+  name: Nixpkgs php-posix macos cache (wave 21)
+  description: Nixpkgs leftover pname php-posix on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-posix"
+  - "$HOME/Library/Logs/php-posix"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-posix
+  name: Nixpkgs php-posix linux cache (wave 21)
+  description: Nixpkgs leftover pname php-posix on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-posix"
+  - "$XDG_CACHE_HOME/php-posix"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-posix
+  name: Nixpkgs php-posix windows cache (wave 21)
+  description: Nixpkgs leftover pname php-posix on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-posix/Cache"
+  - "%LOCALAPPDATA%/php-posix/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-quickhelp
+  name: Nixpkgs php-quickhelp macos cache (wave 21)
+  description: Nixpkgs leftover pname php-quickhelp on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-quickhelp"
+  - "$HOME/Library/Logs/php-quickhelp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-quickhelp
+  name: Nixpkgs php-quickhelp linux cache (wave 21)
+  description: Nixpkgs leftover pname php-quickhelp on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-quickhelp"
+  - "$XDG_CACHE_HOME/php-quickhelp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-quickhelp
+  name: Nixpkgs php-quickhelp windows cache (wave 21)
+  description: Nixpkgs leftover pname php-quickhelp on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-quickhelp/Cache"
+  - "%LOCALAPPDATA%/php-quickhelp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-readline
+  name: Nixpkgs php-readline macos cache (wave 21)
+  description: Nixpkgs leftover pname php-readline on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-readline"
+  - "$HOME/Library/Logs/php-readline"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-readline
+  name: Nixpkgs php-readline linux cache (wave 21)
+  description: Nixpkgs leftover pname php-readline on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-readline"
+  - "$XDG_CACHE_HOME/php-readline"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-readline
+  name: Nixpkgs php-readline windows cache (wave 21)
+  description: Nixpkgs leftover pname php-readline on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-readline/Cache"
+  - "%LOCALAPPDATA%/php-readline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-refactor-mode
+  name: Nixpkgs php-refactor-mode macos cache (wave 21)
+  description: Nixpkgs leftover pname php-refactor-mode on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-refactor-mode"
+  - "$HOME/Library/Logs/php-refactor-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-refactor-mode
+  name: Nixpkgs php-refactor-mode linux cache (wave 21)
+  description: Nixpkgs leftover pname php-refactor-mode on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-refactor-mode"
+  - "$XDG_CACHE_HOME/php-refactor-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-refactor-mode
+  name: Nixpkgs php-refactor-mode windows cache (wave 21)
+  description: Nixpkgs leftover pname php-refactor-mode on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-refactor-mode/Cache"
+  - "%LOCALAPPDATA%/php-refactor-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-runtime
+  name: Nixpkgs php-runtime macos cache (wave 21)
+  description: Nixpkgs leftover pname php-runtime on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-runtime"
+  - "$HOME/Library/Logs/php-runtime"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-runtime
+  name: Nixpkgs php-runtime linux cache (wave 21)
+  description: Nixpkgs leftover pname php-runtime on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-runtime"
+  - "$XDG_CACHE_HOME/php-runtime"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-runtime
+  name: Nixpkgs php-runtime windows cache (wave 21)
+  description: Nixpkgs leftover pname php-runtime on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-runtime/Cache"
+  - "%LOCALAPPDATA%/php-runtime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-scratch
+  name: Nixpkgs php-scratch macos cache (wave 21)
+  description: Nixpkgs leftover pname php-scratch on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-scratch"
+  - "$HOME/Library/Logs/php-scratch"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-scratch
+  name: Nixpkgs php-scratch linux cache (wave 21)
+  description: Nixpkgs leftover pname php-scratch on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-scratch"
+  - "$XDG_CACHE_HOME/php-scratch"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-scratch
+  name: Nixpkgs php-scratch windows cache (wave 21)
+  description: Nixpkgs leftover pname php-scratch on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-scratch/Cache"
+  - "%LOCALAPPDATA%/php-scratch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-session
+  name: Nixpkgs php-session macos cache (wave 21)
+  description: Nixpkgs leftover pname php-session on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-session"
+  - "$HOME/Library/Logs/php-session"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-session
+  name: Nixpkgs php-session linux cache (wave 21)
+  description: Nixpkgs leftover pname php-session on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-session"
+  - "$XDG_CACHE_HOME/php-session"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-session
+  name: Nixpkgs php-session windows cache (wave 21)
+  description: Nixpkgs leftover pname php-session on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-session/Cache"
+  - "%LOCALAPPDATA%/php-session/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-shmop
+  name: Nixpkgs php-shmop macos cache (wave 21)
+  description: Nixpkgs leftover pname php-shmop on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-shmop"
+  - "$HOME/Library/Logs/php-shmop"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-shmop
+  name: Nixpkgs php-shmop linux cache (wave 21)
+  description: Nixpkgs leftover pname php-shmop on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-shmop"
+  - "$XDG_CACHE_HOME/php-shmop"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-shmop
+  name: Nixpkgs php-shmop windows cache (wave 21)
+  description: Nixpkgs leftover pname php-shmop on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-shmop/Cache"
+  - "%LOCALAPPDATA%/php-shmop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-simplexml
+  name: Nixpkgs php-simplexml macos cache (wave 21)
+  description: Nixpkgs leftover pname php-simplexml on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-simplexml"
+  - "$HOME/Library/Logs/php-simplexml"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-simplexml
+  name: Nixpkgs php-simplexml linux cache (wave 21)
+  description: Nixpkgs leftover pname php-simplexml on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-simplexml"
+  - "$XDG_CACHE_HOME/php-simplexml"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-simplexml
+  name: Nixpkgs php-simplexml windows cache (wave 21)
+  description: Nixpkgs leftover pname php-simplexml on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-simplexml/Cache"
+  - "%LOCALAPPDATA%/php-simplexml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-snmp
+  name: Nixpkgs php-snmp macos cache (wave 21)
+  description: Nixpkgs leftover pname php-snmp on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-snmp"
+  - "$HOME/Library/Logs/php-snmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-snmp
+  name: Nixpkgs php-snmp linux cache (wave 21)
+  description: Nixpkgs leftover pname php-snmp on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-snmp"
+  - "$XDG_CACHE_HOME/php-snmp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-snmp
+  name: Nixpkgs php-snmp windows cache (wave 21)
+  description: Nixpkgs leftover pname php-snmp on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-snmp/Cache"
+  - "%LOCALAPPDATA%/php-snmp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-soap
+  name: Nixpkgs php-soap macos cache (wave 21)
+  description: Nixpkgs leftover pname php-soap on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-soap"
+  - "$HOME/Library/Logs/php-soap"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-soap
+  name: Nixpkgs php-soap linux cache (wave 21)
+  description: Nixpkgs leftover pname php-soap on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-soap"
+  - "$XDG_CACHE_HOME/php-soap"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-soap
+  name: Nixpkgs php-soap windows cache (wave 21)
+  description: Nixpkgs leftover pname php-soap on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-soap/Cache"
+  - "%LOCALAPPDATA%/php-soap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-sockets
+  name: Nixpkgs php-sockets macos cache (wave 21)
+  description: Nixpkgs leftover pname php-sockets on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-sockets"
+  - "$HOME/Library/Logs/php-sockets"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-sockets
+  name: Nixpkgs php-sockets linux cache (wave 21)
+  description: Nixpkgs leftover pname php-sockets on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-sockets"
+  - "$XDG_CACHE_HOME/php-sockets"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-sockets
+  name: Nixpkgs php-sockets windows cache (wave 21)
+  description: Nixpkgs leftover pname php-sockets on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-sockets/Cache"
+  - "%LOCALAPPDATA%/php-sockets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-sodium
+  name: Nixpkgs php-sodium macos cache (wave 21)
+  description: Nixpkgs leftover pname php-sodium on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-sodium"
+  - "$HOME/Library/Logs/php-sodium"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-sodium
+  name: Nixpkgs php-sodium linux cache (wave 21)
+  description: Nixpkgs leftover pname php-sodium on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-sodium"
+  - "$XDG_CACHE_HOME/php-sodium"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-sodium
+  name: Nixpkgs php-sodium windows cache (wave 21)
+  description: Nixpkgs leftover pname php-sodium on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-sodium/Cache"
+  - "%LOCALAPPDATA%/php-sodium/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-sqlite3
+  name: Nixpkgs php-sqlite3 macos cache (wave 21)
+  description: Nixpkgs leftover pname php-sqlite3 on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-sqlite3"
+  - "$HOME/Library/Logs/php-sqlite3"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-sqlite3
+  name: Nixpkgs php-sqlite3 linux cache (wave 21)
+  description: Nixpkgs leftover pname php-sqlite3 on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-sqlite3"
+  - "$XDG_CACHE_HOME/php-sqlite3"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-sqlite3
+  name: Nixpkgs php-sqlite3 windows cache (wave 21)
+  description: Nixpkgs leftover pname php-sqlite3 on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-sqlite3/Cache"
+  - "%LOCALAPPDATA%/php-sqlite3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-sysvmsg
+  name: Nixpkgs php-sysvmsg macos cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvmsg on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-sysvmsg"
+  - "$HOME/Library/Logs/php-sysvmsg"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-sysvmsg
+  name: Nixpkgs php-sysvmsg linux cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvmsg on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-sysvmsg"
+  - "$XDG_CACHE_HOME/php-sysvmsg"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-sysvmsg
+  name: Nixpkgs php-sysvmsg windows cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvmsg on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-sysvmsg/Cache"
+  - "%LOCALAPPDATA%/php-sysvmsg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-sysvsem
+  name: Nixpkgs php-sysvsem macos cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvsem on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-sysvsem"
+  - "$HOME/Library/Logs/php-sysvsem"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-sysvsem
+  name: Nixpkgs php-sysvsem linux cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvsem on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-sysvsem"
+  - "$XDG_CACHE_HOME/php-sysvsem"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-sysvsem
+  name: Nixpkgs php-sysvsem windows cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvsem on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-sysvsem/Cache"
+  - "%LOCALAPPDATA%/php-sysvsem/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-sysvshm
+  name: Nixpkgs php-sysvshm macos cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvshm on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-sysvshm"
+  - "$HOME/Library/Logs/php-sysvshm"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-sysvshm
+  name: Nixpkgs php-sysvshm linux cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvshm on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-sysvshm"
+  - "$XDG_CACHE_HOME/php-sysvshm"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-sysvshm
+  name: Nixpkgs php-sysvshm windows cache (wave 21)
+  description: Nixpkgs leftover pname php-sysvshm on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-sysvshm/Cache"
+  - "%LOCALAPPDATA%/php-sysvshm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-tidy
+  name: Nixpkgs php-tidy macos cache (wave 21)
+  description: Nixpkgs leftover pname php-tidy on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-tidy"
+  - "$HOME/Library/Logs/php-tidy"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-tidy
+  name: Nixpkgs php-tidy linux cache (wave 21)
+  description: Nixpkgs leftover pname php-tidy on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-tidy"
+  - "$XDG_CACHE_HOME/php-tidy"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-tidy
+  name: Nixpkgs php-tidy windows cache (wave 21)
+  description: Nixpkgs leftover pname php-tidy on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-tidy/Cache"
+  - "%LOCALAPPDATA%/php-tidy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-tokenizer
+  name: Nixpkgs php-tokenizer macos cache (wave 21)
+  description: Nixpkgs leftover pname php-tokenizer on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-tokenizer"
+  - "$HOME/Library/Logs/php-tokenizer"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-tokenizer
+  name: Nixpkgs php-tokenizer linux cache (wave 21)
+  description: Nixpkgs leftover pname php-tokenizer on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-tokenizer"
+  - "$XDG_CACHE_HOME/php-tokenizer"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-tokenizer
+  name: Nixpkgs php-tokenizer windows cache (wave 21)
+  description: Nixpkgs leftover pname php-tokenizer on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-tokenizer/Cache"
+  - "%LOCALAPPDATA%/php-tokenizer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-with-extensions
+  name: Nixpkgs php-with-extensions macos cache (wave 21)
+  description: Nixpkgs leftover pname php-with-extensions on macos (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-with-extensions"
+  - "$HOME/Library/Logs/php-with-extensions"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-with-extensions
+  name: Nixpkgs php-with-extensions linux cache (wave 21)
+  description: Nixpkgs leftover pname php-with-extensions on linux (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-with-extensions"
+  - "$XDG_CACHE_HOME/php-with-extensions"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-with-extensions
+  name: Nixpkgs php-with-extensions windows cache (wave 21)
+  description: Nixpkgs leftover pname php-with-extensions on windows (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-with-extensions/Cache"
+  - "%LOCALAPPDATA%/php-with-extensions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-xml
+  name: Nixpkgs php-xml macos cache (wave 21)
+  description: Nixpkgs leftover pname php-xml on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-xml"
+  - "$HOME/Library/Logs/php-xml"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-xml
+  name: Nixpkgs php-xml linux cache (wave 21)
+  description: Nixpkgs leftover pname php-xml on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-xml"
+  - "$XDG_CACHE_HOME/php-xml"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-xml
+  name: Nixpkgs php-xml windows cache (wave 21)
+  description: Nixpkgs leftover pname php-xml on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-xml/Cache"
+  - "%LOCALAPPDATA%/php-xml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-xmlreader
+  name: Nixpkgs php-xmlreader macos cache (wave 21)
+  description: Nixpkgs leftover pname php-xmlreader on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-xmlreader"
+  - "$HOME/Library/Logs/php-xmlreader"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-xmlreader
+  name: Nixpkgs php-xmlreader linux cache (wave 21)
+  description: Nixpkgs leftover pname php-xmlreader on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-xmlreader"
+  - "$XDG_CACHE_HOME/php-xmlreader"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-xmlreader
+  name: Nixpkgs php-xmlreader windows cache (wave 21)
+  description: Nixpkgs leftover pname php-xmlreader on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-xmlreader/Cache"
+  - "%LOCALAPPDATA%/php-xmlreader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-xmlwriter
+  name: Nixpkgs php-xmlwriter macos cache (wave 21)
+  description: Nixpkgs leftover pname php-xmlwriter on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-xmlwriter"
+  - "$HOME/Library/Logs/php-xmlwriter"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-xmlwriter
+  name: Nixpkgs php-xmlwriter linux cache (wave 21)
+  description: Nixpkgs leftover pname php-xmlwriter on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-xmlwriter"
+  - "$XDG_CACHE_HOME/php-xmlwriter"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-xmlwriter
+  name: Nixpkgs php-xmlwriter windows cache (wave 21)
+  description: Nixpkgs leftover pname php-xmlwriter on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-xmlwriter/Cache"
+  - "%LOCALAPPDATA%/php-xmlwriter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-xsl
+  name: Nixpkgs php-xsl macos cache (wave 21)
+  description: Nixpkgs leftover pname php-xsl on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-xsl"
+  - "$HOME/Library/Logs/php-xsl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-xsl
+  name: Nixpkgs php-xsl linux cache (wave 21)
+  description: Nixpkgs leftover pname php-xsl on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-xsl"
+  - "$XDG_CACHE_HOME/php-xsl"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-xsl
+  name: Nixpkgs php-xsl windows cache (wave 21)
+  description: Nixpkgs leftover pname php-xsl on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-xsl/Cache"
+  - "%LOCALAPPDATA%/php-xsl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-zend-test
+  name: Nixpkgs php-zend_test macos cache (wave 21)
+  description: Nixpkgs leftover pname php-zend_test on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-zend_test"
+  - "$HOME/Library/Logs/php-zend_test"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-zend-test
+  name: Nixpkgs php-zend_test linux cache (wave 21)
+  description: Nixpkgs leftover pname php-zend_test on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-zend_test"
+  - "$XDG_CACHE_HOME/php-zend_test"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-zend-test
+  name: Nixpkgs php-zend_test windows cache (wave 21)
+  description: Nixpkgs leftover pname php-zend_test on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-zend_test/Cache"
+  - "%LOCALAPPDATA%/php-zend_test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-zip
+  name: Nixpkgs php-zip macos cache (wave 21)
+  description: Nixpkgs leftover pname php-zip on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-zip"
+  - "$HOME/Library/Logs/php-zip"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-zip
+  name: Nixpkgs php-zip linux cache (wave 21)
+  description: Nixpkgs leftover pname php-zip on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-zip"
+  - "$XDG_CACHE_HOME/php-zip"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-zip
+  name: Nixpkgs php-zip windows cache (wave 21)
+  description: Nixpkgs leftover pname php-zip on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-zip/Cache"
+  - "%LOCALAPPDATA%/php-zip/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-php-zlib
+  name: Nixpkgs php-zlib macos cache (wave 21)
+  description: Nixpkgs leftover pname php-zlib on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/php-zlib"
+  - "$HOME/Library/Logs/php-zlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-php-zlib
+  name: Nixpkgs php-zlib linux cache (wave 21)
+  description: Nixpkgs leftover pname php-zlib on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/php-zlib"
+  - "$XDG_CACHE_HOME/php-zlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-php-zlib
+  name: Nixpkgs php-zlib windows cache (wave 21)
+  description: Nixpkgs leftover pname php-zlib on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/php-zlib/Cache"
+  - "%LOCALAPPDATA%/php-zlib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpactor
+  name: Nixpkgs phpactor macos cache (wave 21)
+  description: Nixpkgs leftover pname phpactor on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpactor"
+  - "$HOME/Library/Logs/phpactor"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpactor
+  name: Nixpkgs phpactor linux cache (wave 21)
+  description: Nixpkgs leftover pname phpactor on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpactor"
+  - "$XDG_CACHE_HOME/phpactor"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpactor
+  name: Nixpkgs phpactor windows cache (wave 21)
+  description: Nixpkgs leftover pname phpactor on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpactor/Cache"
+  - "%LOCALAPPDATA%/phpactor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpantom-lsp
+  name: Nixpkgs phpantom-lsp macos cache (wave 21)
+  description: Nixpkgs leftover pname phpantom-lsp on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpantom-lsp"
+  - "$HOME/Library/Logs/phpantom-lsp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpantom-lsp
+  name: Nixpkgs phpantom-lsp linux cache (wave 21)
+  description: Nixpkgs leftover pname phpantom-lsp on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpantom-lsp"
+  - "$XDG_CACHE_HOME/phpantom-lsp"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpantom-lsp
+  name: Nixpkgs phpantom-lsp windows cache (wave 21)
+  description: Nixpkgs leftover pname phpantom-lsp on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpantom-lsp/Cache"
+  - "%LOCALAPPDATA%/phpantom-lsp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpdocumentor
+  name: Nixpkgs phpdocumentor macos cache (wave 21)
+  description: Nixpkgs leftover pname phpdocumentor on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpdocumentor"
+  - "$HOME/Library/Logs/phpdocumentor"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpdocumentor
+  name: Nixpkgs phpdocumentor linux cache (wave 21)
+  description: Nixpkgs leftover pname phpdocumentor on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpdocumentor"
+  - "$XDG_CACHE_HOME/phpdocumentor"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpdocumentor
+  name: Nixpkgs phpdocumentor windows cache (wave 21)
+  description: Nixpkgs leftover pname phpdocumentor on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpdocumentor/Cache"
+  - "%LOCALAPPDATA%/phpdocumentor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpinsights
+  name: Nixpkgs phpinsights macos cache (wave 21)
+  description: Nixpkgs leftover pname phpinsights on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpinsights"
+  - "$HOME/Library/Logs/phpinsights"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpinsights
+  name: Nixpkgs phpinsights linux cache (wave 21)
+  description: Nixpkgs leftover pname phpinsights on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpinsights"
+  - "$XDG_CACHE_HOME/phpinsights"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpinsights
+  name: Nixpkgs phpinsights windows cache (wave 21)
+  description: Nixpkgs leftover pname phpinsights on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpinsights/Cache"
+  - "%LOCALAPPDATA%/phpinsights/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpinspect
+  name: Nixpkgs phpinspect macos cache (wave 21)
+  description: Nixpkgs leftover pname phpinspect on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpinspect"
+  - "$HOME/Library/Logs/phpinspect"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpinspect
+  name: Nixpkgs phpinspect linux cache (wave 21)
+  description: Nixpkgs leftover pname phpinspect on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpinspect"
+  - "$XDG_CACHE_HOME/phpinspect"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpinspect
+  name: Nixpkgs phpinspect windows cache (wave 21)
+  description: Nixpkgs leftover pname phpinspect on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpinspect/Cache"
+  - "%LOCALAPPDATA%/phpinspect/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phply
+  name: Nixpkgs phply macos cache (wave 21)
+  description: Nixpkgs leftover pname phply on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phply"
+  - "$HOME/Library/Logs/phply"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phply
+  name: Nixpkgs phply linux cache (wave 21)
+  description: Nixpkgs leftover pname phply on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phply"
+  - "$XDG_CACHE_HOME/phply"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phply
+  name: Nixpkgs phply windows cache (wave 21)
+  description: Nixpkgs leftover pname phply on windows (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phply/Cache"
+  - "%LOCALAPPDATA%/phply/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpmd
+  name: Nixpkgs phpmd macos cache (wave 21)
+  description: Nixpkgs leftover pname phpmd on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpmd"
+  - "$HOME/Library/Logs/phpmd"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpmd
+  name: Nixpkgs phpmd linux cache (wave 21)
+  description: Nixpkgs leftover pname phpmd on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpmd"
+  - "$XDG_CACHE_HOME/phpmd"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpmd
+  name: Nixpkgs phpmd windows cache (wave 21)
+  description: Nixpkgs leftover pname phpmd on windows (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpmd/Cache"
+  - "%LOCALAPPDATA%/phpmd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phps-mode
+  name: Nixpkgs phps-mode macos cache (wave 21)
+  description: Nixpkgs leftover pname phps-mode on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phps-mode"
+  - "$HOME/Library/Logs/phps-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phps-mode
+  name: Nixpkgs phps-mode linux cache (wave 21)
+  description: Nixpkgs leftover pname phps-mode on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phps-mode"
+  - "$XDG_CACHE_HOME/phps-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phps-mode
+  name: Nixpkgs phps-mode windows cache (wave 21)
+  description: Nixpkgs leftover pname phps-mode on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phps-mode/Cache"
+  - "%LOCALAPPDATA%/phps-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpserialize
+  name: Nixpkgs phpserialize macos cache (wave 21)
+  description: Nixpkgs leftover pname phpserialize on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpserialize"
+  - "$HOME/Library/Logs/phpserialize"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpserialize
+  name: Nixpkgs phpserialize linux cache (wave 21)
+  description: Nixpkgs leftover pname phpserialize on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpserialize"
+  - "$XDG_CACHE_HOME/phpserialize"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpserialize
+  name: Nixpkgs phpserialize windows cache (wave 21)
+  description: Nixpkgs leftover pname phpserialize on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpserialize/Cache"
+  - "%LOCALAPPDATA%/phpserialize/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpspy
+  name: Nixpkgs phpspy macos cache (wave 21)
+  description: Nixpkgs leftover pname phpspy on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpspy"
+  - "$HOME/Library/Logs/phpspy"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpspy
+  name: Nixpkgs phpspy linux cache (wave 21)
+  description: Nixpkgs leftover pname phpspy on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpspy"
+  - "$XDG_CACHE_HOME/phpspy"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpspy
+  name: Nixpkgs phpspy windows cache (wave 21)
+  description: Nixpkgs leftover pname phpspy on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpspy/Cache"
+  - "%LOCALAPPDATA%/phpspy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpstan
+  name: Nixpkgs phpstan macos cache (wave 21)
+  description: Nixpkgs leftover pname phpstan on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpstan"
+  - "$HOME/Library/Logs/phpstan"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpstan
+  name: Nixpkgs phpstan linux cache (wave 21)
+  description: Nixpkgs leftover pname phpstan on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpstan"
+  - "$XDG_CACHE_HOME/phpstan"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpstan
+  name: Nixpkgs phpstan windows cache (wave 21)
+  description: Nixpkgs leftover pname phpstan on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpstan/Cache"
+  - "%LOCALAPPDATA%/phpstan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpstorm
+  name: Nixpkgs phpstorm macos cache (wave 21)
+  description: Nixpkgs leftover pname phpstorm on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpstorm"
+  - "$HOME/Library/Logs/phpstorm"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpstorm
+  name: Nixpkgs phpstorm linux cache (wave 21)
+  description: Nixpkgs leftover pname phpstorm on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpstorm"
+  - "$XDG_CACHE_HOME/phpstorm"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpstorm
+  name: Nixpkgs phpstorm windows cache (wave 21)
+  description: Nixpkgs leftover pname phpstorm on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpstorm/Cache"
+  - "%LOCALAPPDATA%/phpstorm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpt-mode
+  name: Nixpkgs phpt-mode macos cache (wave 21)
+  description: Nixpkgs leftover pname phpt-mode on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpt-mode"
+  - "$HOME/Library/Logs/phpt-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpt-mode
+  name: Nixpkgs phpt-mode linux cache (wave 21)
+  description: Nixpkgs leftover pname phpt-mode on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpt-mode"
+  - "$XDG_CACHE_HOME/phpt-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpt-mode
+  name: Nixpkgs phpt-mode windows cache (wave 21)
+  description: Nixpkgs leftover pname phpt-mode on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpt-mode/Cache"
+  - "%LOCALAPPDATA%/phpt-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phpunit
+  name: Nixpkgs phpunit macos cache (wave 21)
+  description: Nixpkgs leftover pname phpunit on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phpunit"
+  - "$HOME/Library/Logs/phpunit"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phpunit
+  name: Nixpkgs phpunit linux cache (wave 21)
+  description: Nixpkgs leftover pname phpunit on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phpunit"
+  - "$XDG_CACHE_HOME/phpunit"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phpunit
+  name: Nixpkgs phpunit windows cache (wave 21)
+  description: Nixpkgs leftover pname phpunit on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phpunit/Cache"
+  - "%LOCALAPPDATA%/phpunit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phrase-cli
+  name: Nixpkgs phrase-cli macos cache (wave 21)
+  description: Nixpkgs leftover pname phrase-cli on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phrase-cli"
+  - "$HOME/Library/Logs/phrase-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phrase-cli
+  name: Nixpkgs phrase-cli linux cache (wave 21)
+  description: Nixpkgs leftover pname phrase-cli on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phrase-cli"
+  - "$XDG_CACHE_HOME/phrase-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phrase-cli
+  name: Nixpkgs phrase-cli windows cache (wave 21)
+  description: Nixpkgs leftover pname phrase-cli on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phrase-cli/Cache"
+  - "%LOCALAPPDATA%/phrase-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phrasendrescher
+  name: Nixpkgs phrasendrescher macos cache (wave 21)
+  description: Nixpkgs leftover pname phrasendrescher on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phrasendrescher"
+  - "$HOME/Library/Logs/phrasendrescher"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phrasendrescher
+  name: Nixpkgs phrasendrescher linux cache (wave 21)
+  description: Nixpkgs leftover pname phrasendrescher on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phrasendrescher"
+  - "$XDG_CACHE_HOME/phrasendrescher"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phrasendrescher
+  name: Nixpkgs phrasendrescher windows cache (wave 21)
+  description: Nixpkgs leftover pname phrasendrescher on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phrasendrescher/Cache"
+  - "%LOCALAPPDATA%/phrasendrescher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phrases
+  name: Nixpkgs phrases macos cache (wave 21)
+  description: Nixpkgs leftover pname phrases on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phrases"
+  - "$HOME/Library/Logs/phrases"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phrases
+  name: Nixpkgs phrases linux cache (wave 21)
+  description: Nixpkgs leftover pname phrases on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phrases"
+  - "$XDG_CACHE_HOME/phrases"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phrases
+  name: Nixpkgs phrases windows cache (wave 21)
+  description: Nixpkgs leftover pname phrases on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phrases/Cache"
+  - "%LOCALAPPDATA%/phrases/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phraskell
+  name: Nixpkgs phraskell macos cache (wave 21)
+  description: Nixpkgs leftover pname phraskell on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phraskell"
+  - "$HOME/Library/Logs/phraskell"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phraskell
+  name: Nixpkgs phraskell linux cache (wave 21)
+  description: Nixpkgs leftover pname phraskell on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phraskell"
+  - "$XDG_CACHE_HOME/phraskell"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phraskell
+  name: Nixpkgs phraskell windows cache (wave 21)
+  description: Nixpkgs leftover pname phraskell on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phraskell/Cache"
+  - "%LOCALAPPDATA%/phraskell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phraze
+  name: Nixpkgs phraze macos cache (wave 21)
+  description: Nixpkgs leftover pname phraze on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phraze"
+  - "$HOME/Library/Logs/phraze"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phraze
+  name: Nixpkgs phraze linux cache (wave 21)
+  description: Nixpkgs leftover pname phraze on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phraze"
+  - "$XDG_CACHE_HOME/phraze"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phraze
+  name: Nixpkgs phraze windows cache (wave 21)
+  description: Nixpkgs leftover pname phraze on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phraze/Cache"
+  - "%LOCALAPPDATA%/phraze/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phreeqc
+  name: Nixpkgs phreeqc macos cache (wave 21)
+  description: Nixpkgs leftover pname phreeqc on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phreeqc"
+  - "$HOME/Library/Logs/phreeqc"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phreeqc
+  name: Nixpkgs phreeqc linux cache (wave 21)
+  description: Nixpkgs leftover pname phreeqc on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phreeqc"
+  - "$XDG_CACHE_HOME/phreeqc"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phreeqc
+  name: Nixpkgs phreeqc windows cache (wave 21)
+  description: Nixpkgs leftover pname phreeqc on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phreeqc/Cache"
+  - "%LOCALAPPDATA%/phreeqc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phscs
+  name: Nixpkgs phscs macos cache (wave 21)
+  description: Nixpkgs leftover pname phscs on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phscs"
+  - "$HOME/Library/Logs/phscs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phscs
+  name: Nixpkgs phscs linux cache (wave 21)
+  description: Nixpkgs leftover pname phscs on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phscs"
+  - "$XDG_CACHE_HOME/phscs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phscs
+  name: Nixpkgs phscs windows cache (wave 21)
+  description: Nixpkgs leftover pname phscs on windows (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phscs/Cache"
+  - "%LOCALAPPDATA%/phscs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phsmethods
+  name: Nixpkgs phsmethods macos cache (wave 21)
+  description: Nixpkgs leftover pname phsmethods on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phsmethods"
+  - "$HOME/Library/Logs/phsmethods"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phsmethods
+  name: Nixpkgs phsmethods linux cache (wave 21)
+  description: Nixpkgs leftover pname phsmethods on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phsmethods"
+  - "$XDG_CACHE_HOME/phsmethods"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phsmethods
+  name: Nixpkgs phsmethods windows cache (wave 21)
+  description: Nixpkgs leftover pname phsmethods on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phsmethods/Cache"
+  - "%LOCALAPPDATA%/phsmethods/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phsopendata
+  name: Nixpkgs phsopendata macos cache (wave 21)
+  description: Nixpkgs leftover pname phsopendata on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phsopendata"
+  - "$HOME/Library/Logs/phsopendata"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phsopendata
+  name: Nixpkgs phsopendata linux cache (wave 21)
+  description: Nixpkgs leftover pname phsopendata on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phsopendata"
+  - "$XDG_CACHE_HOME/phsopendata"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phsopendata
+  name: Nixpkgs phsopendata windows cache (wave 21)
+  description: Nixpkgs leftover pname phsopendata on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phsopendata/Cache"
+  - "%LOCALAPPDATA%/phsopendata/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phuassess
+  name: Nixpkgs phuassess macos cache (wave 21)
+  description: Nixpkgs leftover pname phuassess on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phuassess"
+  - "$HOME/Library/Logs/phuassess"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phuassess
+  name: Nixpkgs phuassess linux cache (wave 21)
+  description: Nixpkgs leftover pname phuassess on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phuassess"
+  - "$XDG_CACHE_HOME/phuassess"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phuassess
+  name: Nixpkgs phuassess windows cache (wave 21)
+  description: Nixpkgs leftover pname phuassess on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phuassess/Cache"
+  - "%LOCALAPPDATA%/phuassess/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phunspell
+  name: Nixpkgs phunspell macos cache (wave 21)
+  description: Nixpkgs leftover pname phunspell on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phunspell"
+  - "$HOME/Library/Logs/phunspell"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phunspell
+  name: Nixpkgs phunspell linux cache (wave 21)
+  description: Nixpkgs leftover pname phunspell on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phunspell"
+  - "$XDG_CACHE_HOME/phunspell"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phunspell
+  name: Nixpkgs phunspell windows cache (wave 21)
+  description: Nixpkgs leftover pname phunspell on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phunspell/Cache"
+  - "%LOCALAPPDATA%/phunspell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phutil
+  name: Nixpkgs phutil macos cache (wave 21)
+  description: Nixpkgs leftover pname phutil on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phutil"
+  - "$HOME/Library/Logs/phutil"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phutil
+  name: Nixpkgs phutil linux cache (wave 21)
+  description: Nixpkgs leftover pname phutil on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phutil"
+  - "$XDG_CACHE_HOME/phutil"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phutil
+  name: Nixpkgs phutil windows cache (wave 21)
+  description: Nixpkgs leftover pname phutil on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phutil/Cache"
+  - "%LOCALAPPDATA%/phutil/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phybin
+  name: Nixpkgs phybin macos cache (wave 21)
+  description: Nixpkgs leftover pname phybin on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phybin"
+  - "$HOME/Library/Logs/phybin"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phybin
+  name: Nixpkgs phybin linux cache (wave 21)
+  description: Nixpkgs leftover pname phybin on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phybin"
+  - "$XDG_CACHE_HOME/phybin"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phybin
+  name: Nixpkgs phybin windows cache (wave 21)
+  description: Nixpkgs leftover pname phybin on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phybin/Cache"
+  - "%LOCALAPPDATA%/phybin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phyclust
+  name: Nixpkgs phyclust macos cache (wave 21)
+  description: Nixpkgs leftover pname phyclust on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phyclust"
+  - "$HOME/Library/Logs/phyclust"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phyclust
+  name: Nixpkgs phyclust linux cache (wave 21)
+  description: Nixpkgs leftover pname phyclust on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phyclust"
+  - "$XDG_CACHE_HOME/phyclust"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phyclust
+  name: Nixpkgs phyclust windows cache (wave 21)
+  description: Nixpkgs leftover pname phyclust on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phyclust/Cache"
+  - "%LOCALAPPDATA%/phyclust/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phyext2
+  name: Nixpkgs phyext2 macos cache (wave 21)
+  description: Nixpkgs leftover pname phyext2 on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phyext2"
+  - "$HOME/Library/Logs/phyext2"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phyext2
+  name: Nixpkgs phyext2 linux cache (wave 21)
+  description: Nixpkgs leftover pname phyext2 on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phyext2"
+  - "$XDG_CACHE_HOME/phyext2"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phyext2
+  name: Nixpkgs phyext2 windows cache (wave 21)
+  description: Nixpkgs leftover pname phyext2 on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phyext2/Cache"
+  - "%LOCALAPPDATA%/phyext2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylactery
+  name: Nixpkgs phylactery macos cache (wave 21)
+  description: Nixpkgs leftover pname phylactery on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylactery"
+  - "$HOME/Library/Logs/phylactery"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylactery
+  name: Nixpkgs phylactery linux cache (wave 21)
+  description: Nixpkgs leftover pname phylactery on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phylactery"
+  - "$XDG_CACHE_HOME/phylactery"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylactery
+  name: Nixpkgs phylactery windows cache (wave 21)
+  description: Nixpkgs leftover pname phylactery on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phylactery/Cache"
+  - "%LOCALAPPDATA%/phylactery/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylepic
+  name: Nixpkgs phylepic macos cache (wave 21)
+  description: Nixpkgs leftover pname phylepic on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylepic"
+  - "$HOME/Library/Logs/phylepic"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylepic
+  name: Nixpkgs phylepic linux cache (wave 21)
+  description: Nixpkgs leftover pname phylepic on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phylepic"
+  - "$XDG_CACHE_HOME/phylepic"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylepic
+  name: Nixpkgs phylepic windows cache (wave 21)
+  description: Nixpkgs leftover pname phylepic on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phylepic/Cache"
+  - "%LOCALAPPDATA%/phylepic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylin
+  name: Nixpkgs phylin macos cache (wave 21)
+  description: Nixpkgs leftover pname phylin on macos (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylin"
+  - "$HOME/Library/Logs/phylin"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylin
+  name: Nixpkgs phylin linux cache (wave 21)
+  description: Nixpkgs leftover pname phylin on linux (wave 21). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phylin"
+  - "$XDG_CACHE_HOME/phylin"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylin
+  name: Nixpkgs phylin windows cache (wave 21)
+  description: Nixpkgs leftover pname phylin on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phylin/Cache"
+  - "%LOCALAPPDATA%/phylin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylop35way-ucsc-mm39
+  name: Nixpkgs phyloP35way.UCSC.mm39 macos cache (wave 21)
+  description: Nixpkgs leftover pname phyloP35way.UCSC.mm39 on macos (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phyloP35way.UCSC.mm39"
+  - "$HOME/Library/Logs/phyloP35way.UCSC.mm39"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylop35way-ucsc-mm39
+  name: Nixpkgs phyloP35way.UCSC.mm39 linux cache (wave 21)
+  description: Nixpkgs leftover pname phyloP35way.UCSC.mm39 on linux (wave 21). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phyloP35way.UCSC.mm39"
+  - "$XDG_CACHE_HOME/phyloP35way.UCSC.mm39"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylop35way-ucsc-mm39
+  name: Nixpkgs phyloP35way.UCSC.mm39 windows cache (wave 21)
+  description: Nixpkgs leftover pname phyloP35way.UCSC.mm39 on windows (wave 21).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phyloP35way.UCSC.mm39/Cache"
+  - "%LOCALAPPDATA%/phyloP35way.UCSC.mm39/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylotop
+  name: Nixpkgs phyloTop macos cache (wave 21)
+  description: Nixpkgs leftover pname phyloTop on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phyloTop"
+  - "$HOME/Library/Logs/phyloTop"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylotop
+  name: Nixpkgs phyloTop linux cache (wave 21)
+  description: Nixpkgs leftover pname phyloTop on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phyloTop"
+  - "$XDG_CACHE_HOME/phyloTop"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylotop
+  name: Nixpkgs phyloTop windows cache (wave 21)
+  description: Nixpkgs leftover pname phyloTop on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phyloTop/Cache"
+  - "%LOCALAPPDATA%/phyloTop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phyloatlas
+  name: Nixpkgs phyloatlas macos cache (wave 21)
+  description: Nixpkgs leftover pname phyloatlas on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phyloatlas"
+  - "$HOME/Library/Logs/phyloatlas"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phyloatlas
+  name: Nixpkgs phyloatlas linux cache (wave 21)
+  description: Nixpkgs leftover pname phyloatlas on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phyloatlas"
+  - "$XDG_CACHE_HOME/phyloatlas"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phyloatlas
+  name: Nixpkgs phyloatlas windows cache (wave 21)
+  description: Nixpkgs leftover pname phyloatlas on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phyloatlas/Cache"
+  - "%LOCALAPPDATA%/phyloatlas/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylobase
+  name: Nixpkgs phylobase macos cache (wave 21)
+  description: Nixpkgs leftover pname phylobase on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylobase"
+  - "$HOME/Library/Logs/phylobase"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylobase
+  name: Nixpkgs phylobase linux cache (wave 21)
+  description: Nixpkgs leftover pname phylobase on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phylobase"
+  - "$XDG_CACHE_HOME/phylobase"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylobase
+  name: Nixpkgs phylobase windows cache (wave 21)
+  description: Nixpkgs leftover pname phylobase on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phylobase/Cache"
+  - "%LOCALAPPDATA%/phylobase/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylocanvas
+  name: Nixpkgs phylocanvas macos cache (wave 21)
+  description: Nixpkgs leftover pname phylocanvas on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylocanvas"
+  - "$HOME/Library/Logs/phylocanvas"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylocanvas
+  name: Nixpkgs phylocanvas linux cache (wave 21)
+  description: Nixpkgs leftover pname phylocanvas on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phylocanvas"
+  - "$XDG_CACHE_HOME/phylocanvas"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylocanvas
+  name: Nixpkgs phylocanvas windows cache (wave 21)
+  description: Nixpkgs leftover pname phylocanvas on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phylocanvas/Cache"
+  - "%LOCALAPPDATA%/phylocanvas/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phyloclim
+  name: Nixpkgs phyloclim macos cache (wave 21)
+  description: Nixpkgs leftover pname phyloclim on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phyloclim"
+  - "$HOME/Library/Logs/phyloclim"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phyloclim
+  name: Nixpkgs phyloclim linux cache (wave 21)
+  description: Nixpkgs leftover pname phyloclim on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phyloclim"
+  - "$XDG_CACHE_HOME/phyloclim"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phyloclim
+  name: Nixpkgs phyloclim windows cache (wave 21)
+  description: Nixpkgs leftover pname phyloclim on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phyloclim/Cache"
+  - "%LOCALAPPDATA%/phyloclim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylocomr
+  name: Nixpkgs phylocomr macos cache (wave 21)
+  description: Nixpkgs leftover pname phylocomr on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylocomr"
+  - "$HOME/Library/Logs/phylocomr"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-lin-phylocomr
+  name: Nixpkgs phylocomr linux cache (wave 21)
+  description: Nixpkgs leftover pname phylocomr on linux (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/phylocomr"
+  - "$XDG_CACHE_HOME/phylocomr"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-win-phylocomr
+  name: Nixpkgs phylocomr windows cache (wave 21)
+  description: Nixpkgs leftover pname phylocomr on windows (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/phylocomr/Cache"
+  - "%LOCALAPPDATA%/phylocomr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np21-mac-phylogenetics
+  name: Nixpkgs phylogenetics macos cache (wave 21)
+  description: Nixpkgs leftover pname phylogenetics on macos (wave 21). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/phylogenetics"
+  - "$HOME/Library/Logs/phylogenetics"
+  delete_mode: contents
+  max_depth: 6

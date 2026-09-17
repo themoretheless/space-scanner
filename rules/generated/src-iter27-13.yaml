@@ -1,0 +1,5584 @@
+---
+pack: src-iter27-13
+description: Iterative 10k import wave 27 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np27-mac-tagged
+  name: Nixpkgs tagged macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged"
+  - "$HOME/Library/Logs/tagged"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged
+  name: Nixpkgs tagged linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged"
+  - "$XDG_CACHE_HOME/tagged"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged
+  name: Nixpkgs tagged windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged/Cache"
+  - "%LOCALAPPDATA%/tagged/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-binary
+  name: Nixpkgs tagged-binary macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-binary on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-binary"
+  - "$HOME/Library/Logs/tagged-binary"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-binary
+  name: Nixpkgs tagged-binary linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-binary on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-binary"
+  - "$XDG_CACHE_HOME/tagged-binary"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-binary
+  name: Nixpkgs tagged-binary windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-binary on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-binary/Cache"
+  - "%LOCALAPPDATA%/tagged-binary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-exception-core
+  name: Nixpkgs tagged-exception-core macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-exception-core on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-exception-core"
+  - "$HOME/Library/Logs/tagged-exception-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-exception-core
+  name: Nixpkgs tagged-exception-core linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-exception-core on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-exception-core"
+  - "$XDG_CACHE_HOME/tagged-exception-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-exception-core
+  name: Nixpkgs tagged-exception-core windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-exception-core on windows (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-exception-core/Cache"
+  - "%LOCALAPPDATA%/tagged-exception-core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-identity
+  name: Nixpkgs tagged-identity macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-identity on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-identity"
+  - "$HOME/Library/Logs/tagged-identity"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-identity
+  name: Nixpkgs tagged-identity linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-identity on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-identity"
+  - "$XDG_CACHE_HOME/tagged-identity"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-identity
+  name: Nixpkgs tagged-identity windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-identity on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-identity/Cache"
+  - "%LOCALAPPDATA%/tagged-identity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-list
+  name: Nixpkgs tagged-list macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-list on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-list"
+  - "$HOME/Library/Logs/tagged-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-list
+  name: Nixpkgs tagged-list linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-list on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-list"
+  - "$XDG_CACHE_HOME/tagged-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-list
+  name: Nixpkgs tagged-list windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-list on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-list/Cache"
+  - "%LOCALAPPDATA%/tagged-list/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-th
+  name: Nixpkgs tagged-th macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-th on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-th"
+  - "$HOME/Library/Logs/tagged-th"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-th
+  name: Nixpkgs tagged-th linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-th on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-th"
+  - "$XDG_CACHE_HOME/tagged-th"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-th
+  name: Nixpkgs tagged-th windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-th on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-th/Cache"
+  - "%LOCALAPPDATA%/tagged-th/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-timers
+  name: Nixpkgs tagged-timers macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-timers on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-timers"
+  - "$HOME/Library/Logs/tagged-timers"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-timers
+  name: Nixpkgs tagged-timers linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-timers on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-timers"
+  - "$XDG_CACHE_HOME/tagged-timers"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-timers
+  name: Nixpkgs tagged-timers windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-timers on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-timers/Cache"
+  - "%LOCALAPPDATA%/tagged-timers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagged-transformer
+  name: Nixpkgs tagged-transformer macos cache (wave 27)
+  description: Nixpkgs leftover pname tagged-transformer on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagged-transformer"
+  - "$HOME/Library/Logs/tagged-transformer"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagged-transformer
+  name: Nixpkgs tagged-transformer linux cache (wave 27)
+  description: Nixpkgs leftover pname tagged-transformer on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagged-transformer"
+  - "$XDG_CACHE_HOME/tagged-transformer"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagged-transformer
+  name: Nixpkgs tagged-transformer windows cache (wave 27)
+  description: Nixpkgs leftover pname tagged-transformer on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagged-transformer/Cache"
+  - "%LOCALAPPDATA%/tagged-transformer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagger
+  name: Nixpkgs tagger macos cache (wave 27)
+  description: Nixpkgs leftover pname tagger on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagger"
+  - "$HOME/Library/Logs/tagger"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagger
+  name: Nixpkgs tagger linux cache (wave 27)
+  description: Nixpkgs leftover pname tagger on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagger"
+  - "$XDG_CACHE_HOME/tagger"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagger
+  name: Nixpkgs tagger windows cache (wave 27)
+  description: Nixpkgs leftover pname tagger on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagger/Cache"
+  - "%LOCALAPPDATA%/tagger/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagging
+  name: Nixpkgs tagging macos cache (wave 27)
+  description: Nixpkgs leftover pname tagging on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagging"
+  - "$HOME/Library/Logs/tagging"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagging
+  name: Nixpkgs tagging linux cache (wave 27)
+  description: Nixpkgs leftover pname tagging on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagging"
+  - "$XDG_CACHE_HOME/tagging"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagging
+  name: Nixpkgs tagging windows cache (wave 27)
+  description: Nixpkgs leftover pname tagging on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagging/Cache"
+  - "%LOCALAPPDATA%/tagging/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taggy
+  name: Nixpkgs taggy macos cache (wave 27)
+  description: Nixpkgs leftover pname taggy on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taggy"
+  - "$HOME/Library/Logs/taggy"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taggy
+  name: Nixpkgs taggy linux cache (wave 27)
+  description: Nixpkgs leftover pname taggy on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taggy"
+  - "$XDG_CACHE_HOME/taggy"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taggy
+  name: Nixpkgs taggy windows cache (wave 27)
+  description: Nixpkgs leftover pname taggy on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taggy/Cache"
+  - "%LOCALAPPDATA%/taggy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taggy-lens
+  name: Nixpkgs taggy-lens macos cache (wave 27)
+  description: Nixpkgs leftover pname taggy-lens on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taggy-lens"
+  - "$HOME/Library/Logs/taggy-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taggy-lens
+  name: Nixpkgs taggy-lens linux cache (wave 27)
+  description: Nixpkgs leftover pname taggy-lens on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taggy-lens"
+  - "$XDG_CACHE_HOME/taggy-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taggy-lens
+  name: Nixpkgs taggy-lens windows cache (wave 27)
+  description: Nixpkgs leftover pname taggy-lens on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taggy-lens/Cache"
+  - "%LOCALAPPDATA%/taggy-lens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglib
+  name: Nixpkgs taglib macos cache (wave 27)
+  description: Nixpkgs leftover pname taglib on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglib"
+  - "$HOME/Library/Logs/taglib"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglib
+  name: Nixpkgs taglib linux cache (wave 27)
+  description: Nixpkgs leftover pname taglib on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglib"
+  - "$XDG_CACHE_HOME/taglib"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglib
+  name: Nixpkgs taglib windows cache (wave 27)
+  description: Nixpkgs leftover pname taglib on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglib/Cache"
+  - "%LOCALAPPDATA%/taglib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglib-api
+  name: Nixpkgs taglib-api macos cache (wave 27)
+  description: Nixpkgs leftover pname taglib-api on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglib-api"
+  - "$HOME/Library/Logs/taglib-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglib-api
+  name: Nixpkgs taglib-api linux cache (wave 27)
+  description: Nixpkgs leftover pname taglib-api on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglib-api"
+  - "$XDG_CACHE_HOME/taglib-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglib-api
+  name: Nixpkgs taglib-api windows cache (wave 27)
+  description: Nixpkgs leftover pname taglib-api on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglib-api/Cache"
+  - "%LOCALAPPDATA%/taglib-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglib-extras
+  name: Nixpkgs taglib-extras macos cache (wave 27)
+  description: Nixpkgs leftover pname taglib-extras on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglib-extras"
+  - "$HOME/Library/Logs/taglib-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglib-extras
+  name: Nixpkgs taglib-extras linux cache (wave 27)
+  description: Nixpkgs leftover pname taglib-extras on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglib-extras"
+  - "$XDG_CACHE_HOME/taglib-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglib-extras
+  name: Nixpkgs taglib-extras windows cache (wave 27)
+  description: Nixpkgs leftover pname taglib-extras on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglib-extras/Cache"
+  - "%LOCALAPPDATA%/taglib-extras/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglib-ruby
+  name: Nixpkgs taglib-ruby macos cache (wave 27)
+  description: Nixpkgs leftover pname taglib-ruby on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglib-ruby"
+  - "$HOME/Library/Logs/taglib-ruby"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglib-ruby
+  name: Nixpkgs taglib-ruby linux cache (wave 27)
+  description: Nixpkgs leftover pname taglib-ruby on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglib-ruby"
+  - "$XDG_CACHE_HOME/taglib-ruby"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglib-ruby
+  name: Nixpkgs taglib-ruby windows cache (wave 27)
+  description: Nixpkgs leftover pname taglib-ruby on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglib-ruby/Cache"
+  - "%LOCALAPPDATA%/taglib-ruby/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglib-sharp
+  name: Nixpkgs taglib-sharp macos cache (wave 27)
+  description: Nixpkgs leftover pname taglib-sharp on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglib-sharp"
+  - "$HOME/Library/Logs/taglib-sharp"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglib-sharp
+  name: Nixpkgs taglib-sharp linux cache (wave 27)
+  description: Nixpkgs leftover pname taglib-sharp on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglib-sharp"
+  - "$XDG_CACHE_HOME/taglib-sharp"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglib-sharp
+  name: Nixpkgs taglib-sharp windows cache (wave 27)
+  description: Nixpkgs leftover pname taglib-sharp on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglib-sharp/Cache"
+  - "%LOCALAPPDATA%/taglib-sharp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglib-tests
+  name: Nixpkgs taglib-tests macos cache (wave 27)
+  description: Nixpkgs leftover pname taglib-tests on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglib-tests"
+  - "$HOME/Library/Logs/taglib-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglib-tests
+  name: Nixpkgs taglib-tests linux cache (wave 27)
+  description: Nixpkgs leftover pname taglib-tests on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglib-tests"
+  - "$XDG_CACHE_HOME/taglib-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglib-tests
+  name: Nixpkgs taglib-tests windows cache (wave 27)
+  description: Nixpkgs leftover pname taglib-tests on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglib-tests/Cache"
+  - "%LOCALAPPDATA%/taglib-tests/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taglist-vim
+  name: Nixpkgs taglist.vim macos cache (wave 27)
+  description: Nixpkgs leftover pname taglist.vim on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taglist.vim"
+  - "$HOME/Library/Logs/taglist.vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taglist-vim
+  name: Nixpkgs taglist.vim linux cache (wave 27)
+  description: Nixpkgs leftover pname taglist.vim on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taglist.vim"
+  - "$XDG_CACHE_HOME/taglist.vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taglist-vim
+  name: Nixpkgs taglist.vim windows cache (wave 27)
+  description: Nixpkgs leftover pname taglist.vim on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taglist.vim/Cache"
+  - "%LOCALAPPDATA%/taglist.vim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagoio-sdk
+  name: Nixpkgs tagoio-sdk macos cache (wave 27)
+  description: Nixpkgs leftover pname tagoio-sdk on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagoio-sdk"
+  - "$HOME/Library/Logs/tagoio-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagoio-sdk
+  name: Nixpkgs tagoio-sdk linux cache (wave 27)
+  description: Nixpkgs leftover pname tagoio-sdk on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagoio-sdk"
+  - "$XDG_CACHE_HOME/tagoio-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagoio-sdk
+  name: Nixpkgs tagoio-sdk windows cache (wave 27)
+  description: Nixpkgs leftover pname tagoio-sdk on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagoio-sdk/Cache"
+  - "%LOCALAPPDATA%/tagoio-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagpair
+  name: Nixpkgs tagpair macos cache (wave 27)
+  description: Nixpkgs leftover pname tagpair on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagpair"
+  - "$HOME/Library/Logs/tagpair"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagpair
+  name: Nixpkgs tagpair linux cache (wave 27)
+  description: Nixpkgs leftover pname tagpair on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagpair"
+  - "$XDG_CACHE_HOME/tagpair"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagpair
+  name: Nixpkgs tagpair windows cache (wave 27)
+  description: Nixpkgs leftover pname tagpair on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagpair/Cache"
+  - "%LOCALAPPDATA%/tagpair/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagparser
+  name: Nixpkgs tagparser macos cache (wave 27)
+  description: Nixpkgs leftover pname tagparser on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagparser"
+  - "$HOME/Library/Logs/tagparser"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagparser
+  name: Nixpkgs tagparser linux cache (wave 27)
+  description: Nixpkgs leftover pname tagparser on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagparser"
+  - "$XDG_CACHE_HOME/tagparser"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagparser
+  name: Nixpkgs tagparser windows cache (wave 27)
+  description: Nixpkgs leftover pname tagparser on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagparser/Cache"
+  - "%LOCALAPPDATA%/tagparser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagpdf
+  name: Nixpkgs tagpdf macos cache (wave 27)
+  description: Nixpkgs leftover pname tagpdf on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagpdf"
+  - "$HOME/Library/Logs/tagpdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagpdf
+  name: Nixpkgs tagpdf linux cache (wave 27)
+  description: Nixpkgs leftover pname tagpdf on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagpdf"
+  - "$XDG_CACHE_HOME/tagpdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagpdf
+  name: Nixpkgs tagpdf windows cache (wave 27)
+  description: Nixpkgs leftover pname tagpdf on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagpdf/Cache"
+  - "%LOCALAPPDATA%/tagpdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagr
+  name: Nixpkgs tagr macos cache (wave 27)
+  description: Nixpkgs leftover pname tagr on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagr"
+  - "$HOME/Library/Logs/tagr"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagr
+  name: Nixpkgs tagr linux cache (wave 27)
+  description: Nixpkgs leftover pname tagr on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagr"
+  - "$XDG_CACHE_HOME/tagr"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagr
+  name: Nixpkgs tagr windows cache (wave 27)
+  description: Nixpkgs leftover pname tagr on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagr/Cache"
+  - "%LOCALAPPDATA%/tagr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagref
+  name: Nixpkgs tagref macos cache (wave 27)
+  description: Nixpkgs leftover pname tagref on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagref"
+  - "$HOME/Library/Logs/tagref"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagref
+  name: Nixpkgs tagref linux cache (wave 27)
+  description: Nixpkgs leftover pname tagref on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagref"
+  - "$XDG_CACHE_HOME/tagref"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagref
+  name: Nixpkgs tagref windows cache (wave 27)
+  description: Nixpkgs leftover pname tagref on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagref/Cache"
+  - "%LOCALAPPDATA%/tagref/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagset-positional
+  name: Nixpkgs tagset-positional macos cache (wave 27)
+  description: Nixpkgs leftover pname tagset-positional on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagset-positional"
+  - "$HOME/Library/Logs/tagset-positional"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagset-positional
+  name: Nixpkgs tagset-positional linux cache (wave 27)
+  description: Nixpkgs leftover pname tagset-positional on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagset-positional"
+  - "$XDG_CACHE_HOME/tagset-positional"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagset-positional
+  name: Nixpkgs tagset-positional windows cache (wave 27)
+  description: Nixpkgs leftover pname tagset-positional on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagset-positional/Cache"
+  - "%LOCALAPPDATA%/tagset-positional/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsets-json
+  name: Nixpkgs tagsets_json macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsets_json on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsets_json"
+  - "$HOME/Library/Logs/tagsets_json"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsets-json
+  name: Nixpkgs tagsets_json linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsets_json on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsets_json"
+  - "$XDG_CACHE_HOME/tagsets_json"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsets-json
+  name: Nixpkgs tagsets_json windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsets_json on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsets_json/Cache"
+  - "%LOCALAPPDATA%/tagsets_json/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagshare
+  name: Nixpkgs tagshare macos cache (wave 27)
+  description: Nixpkgs leftover pname tagshare on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagshare"
+  - "$HOME/Library/Logs/tagshare"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagshare
+  name: Nixpkgs tagshare linux cache (wave 27)
+  description: Nixpkgs leftover pname tagshare on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagshare"
+  - "$XDG_CACHE_HOME/tagshare"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagshare
+  name: Nixpkgs tagshare windows cache (wave 27)
+  description: Nixpkgs leftover pname tagshare on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagshare/Cache"
+  - "%LOCALAPPDATA%/tagshare/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsoup
+  name: Nixpkgs tagsoup macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsoup"
+  - "$HOME/Library/Logs/tagsoup"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsoup
+  name: Nixpkgs tagsoup linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsoup"
+  - "$XDG_CACHE_HOME/tagsoup"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsoup
+  name: Nixpkgs tagsoup windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsoup/Cache"
+  - "%LOCALAPPDATA%/tagsoup/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsoup-ht
+  name: Nixpkgs tagsoup-ht macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-ht on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsoup-ht"
+  - "$HOME/Library/Logs/tagsoup-ht"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsoup-ht
+  name: Nixpkgs tagsoup-ht linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-ht on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsoup-ht"
+  - "$XDG_CACHE_HOME/tagsoup-ht"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsoup-ht
+  name: Nixpkgs tagsoup-ht windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-ht on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsoup-ht/Cache"
+  - "%LOCALAPPDATA%/tagsoup-ht/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsoup-megaparsec
+  name: Nixpkgs tagsoup-megaparsec macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-megaparsec on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsoup-megaparsec"
+  - "$HOME/Library/Logs/tagsoup-megaparsec"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsoup-megaparsec
+  name: Nixpkgs tagsoup-megaparsec linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-megaparsec on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsoup-megaparsec"
+  - "$XDG_CACHE_HOME/tagsoup-megaparsec"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsoup-megaparsec
+  name: Nixpkgs tagsoup-megaparsec windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-megaparsec on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsoup-megaparsec/Cache"
+  - "%LOCALAPPDATA%/tagsoup-megaparsec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsoup-navigate
+  name: Nixpkgs tagsoup-navigate macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-navigate on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsoup-navigate"
+  - "$HOME/Library/Logs/tagsoup-navigate"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsoup-navigate
+  name: Nixpkgs tagsoup-navigate linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-navigate on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsoup-navigate"
+  - "$XDG_CACHE_HOME/tagsoup-navigate"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsoup-navigate
+  name: Nixpkgs tagsoup-navigate windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-navigate on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsoup-navigate/Cache"
+  - "%LOCALAPPDATA%/tagsoup-navigate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsoup-parsec
+  name: Nixpkgs tagsoup-parsec macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-parsec on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsoup-parsec"
+  - "$HOME/Library/Logs/tagsoup-parsec"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsoup-parsec
+  name: Nixpkgs tagsoup-parsec linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-parsec on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsoup-parsec"
+  - "$XDG_CACHE_HOME/tagsoup-parsec"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsoup-parsec
+  name: Nixpkgs tagsoup-parsec windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-parsec on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsoup-parsec/Cache"
+  - "%LOCALAPPDATA%/tagsoup-parsec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagsoup-selection
+  name: Nixpkgs tagsoup-selection macos cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-selection on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagsoup-selection"
+  - "$HOME/Library/Logs/tagsoup-selection"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagsoup-selection
+  name: Nixpkgs tagsoup-selection linux cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-selection on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagsoup-selection"
+  - "$XDG_CACHE_HOME/tagsoup-selection"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagsoup-selection
+  name: Nixpkgs tagsoup-selection windows cache (wave 27)
+  description: Nixpkgs leftover pname tagsoup-selection on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagsoup-selection/Cache"
+  - "%LOCALAPPDATA%/tagsoup-selection/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagstew
+  name: Nixpkgs tagstew macos cache (wave 27)
+  description: Nixpkgs leftover pname tagstew on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagstew"
+  - "$HOME/Library/Logs/tagstew"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagstew
+  name: Nixpkgs tagstew linux cache (wave 27)
+  description: Nixpkgs leftover pname tagstew on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagstew"
+  - "$XDG_CACHE_HOME/tagstew"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagstew
+  name: Nixpkgs tagstew windows cache (wave 27)
+  description: Nixpkgs leftover pname tagstew on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagstew/Cache"
+  - "%LOCALAPPDATA%/tagstew/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagstream-conduit
+  name: Nixpkgs tagstream-conduit macos cache (wave 27)
+  description: Nixpkgs leftover pname tagstream-conduit on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagstream-conduit"
+  - "$HOME/Library/Logs/tagstream-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagstream-conduit
+  name: Nixpkgs tagstream-conduit linux cache (wave 27)
+  description: Nixpkgs leftover pname tagstream-conduit on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagstream-conduit"
+  - "$XDG_CACHE_HOME/tagstream-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagstream-conduit
+  name: Nixpkgs tagstream-conduit windows cache (wave 27)
+  description: Nixpkgs leftover pname tagstream-conduit on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagstream-conduit/Cache"
+  - "%LOCALAPPDATA%/tagstream-conduit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagtime
+  name: Nixpkgs tagtime macos cache (wave 27)
+  description: Nixpkgs leftover pname tagtime on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagtime"
+  - "$HOME/Library/Logs/tagtime"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagtime
+  name: Nixpkgs tagtime linux cache (wave 27)
+  description: Nixpkgs leftover pname tagtime on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagtime"
+  - "$XDG_CACHE_HOME/tagtime"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagtime
+  name: Nixpkgs tagtime windows cache (wave 27)
+  description: Nixpkgs leftover pname tagtime on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagtime/Cache"
+  - "%LOCALAPPDATA%/tagtime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagtools
+  name: Nixpkgs tagtools macos cache (wave 27)
+  description: Nixpkgs leftover pname tagtools on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagtools"
+  - "$HOME/Library/Logs/tagtools"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagtools
+  name: Nixpkgs tagtools linux cache (wave 27)
+  description: Nixpkgs leftover pname tagtools on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagtools"
+  - "$XDG_CACHE_HOME/tagtools"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagtools
+  name: Nixpkgs tagtools windows cache (wave 27)
+  description: Nixpkgs leftover pname tagtools on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagtools/Cache"
+  - "%LOCALAPPDATA%/tagtools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagtree
+  name: Nixpkgs tagtree macos cache (wave 27)
+  description: Nixpkgs leftover pname tagtree on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagtree"
+  - "$HOME/Library/Logs/tagtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagtree
+  name: Nixpkgs tagtree linux cache (wave 27)
+  description: Nixpkgs leftover pname tagtree on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagtree"
+  - "$XDG_CACHE_HOME/tagtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagtree
+  name: Nixpkgs tagtree windows cache (wave 27)
+  description: Nixpkgs leftover pname tagtree on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagtree/Cache"
+  - "%LOCALAPPDATA%/tagtree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tagutil
+  name: Nixpkgs tagutil macos cache (wave 27)
+  description: Nixpkgs leftover pname tagutil on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tagutil"
+  - "$HOME/Library/Logs/tagutil"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tagutil
+  name: Nixpkgs tagutil linux cache (wave 27)
+  description: Nixpkgs leftover pname tagutil on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tagutil"
+  - "$XDG_CACHE_HOME/tagutil"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tagutil
+  name: Nixpkgs tagutil windows cache (wave 27)
+  description: Nixpkgs leftover pname tagutil on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tagutil/Cache"
+  - "%LOCALAPPDATA%/tagutil/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-capabilities
+  name: Nixpkgs tahoe-capabilities macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-capabilities on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-capabilities"
+  - "$HOME/Library/Logs/tahoe-capabilities"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-capabilities
+  name: Nixpkgs tahoe-capabilities linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-capabilities on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-capabilities"
+  - "$XDG_CACHE_HOME/tahoe-capabilities"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-capabilities
+  name: Nixpkgs tahoe-capabilities windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-capabilities on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-capabilities/Cache"
+  - "%LOCALAPPDATA%/tahoe-capabilities/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-chk
+  name: Nixpkgs tahoe-chk macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-chk on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-chk"
+  - "$HOME/Library/Logs/tahoe-chk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-chk
+  name: Nixpkgs tahoe-chk linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-chk on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-chk"
+  - "$XDG_CACHE_HOME/tahoe-chk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-chk
+  name: Nixpkgs tahoe-chk windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-chk on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-chk/Cache"
+  - "%LOCALAPPDATA%/tahoe-chk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-directory
+  name: Nixpkgs tahoe-directory macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-directory on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-directory"
+  - "$HOME/Library/Logs/tahoe-directory"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-directory
+  name: Nixpkgs tahoe-directory linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-directory on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-directory"
+  - "$XDG_CACHE_HOME/tahoe-directory"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-directory
+  name: Nixpkgs tahoe-directory windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-directory on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-directory/Cache"
+  - "%LOCALAPPDATA%/tahoe-directory/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-great-black-swamp
+  name: Nixpkgs tahoe-great-black-swamp macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp on macos (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-great-black-swamp"
+  - "$HOME/Library/Logs/tahoe-great-black-swamp"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-great-black-swamp
+  name: Nixpkgs tahoe-great-black-swamp linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp on linux (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-great-black-swamp"
+  - "$XDG_CACHE_HOME/tahoe-great-black-swamp"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-great-black-swamp
+  name: Nixpkgs tahoe-great-black-swamp windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp on windows (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-great-black-swamp/Cache"
+  - "%LOCALAPPDATA%/tahoe-great-black-swamp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-great-black-swamp-testing
+  name: Nixpkgs tahoe-great-black-swamp-testing macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp-testing on macos (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-great-black-swamp-testing"
+  - "$HOME/Library/Logs/tahoe-great-black-swamp-testing"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-great-black-swamp-testing
+  name: Nixpkgs tahoe-great-black-swamp-testing linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp-testing on linux (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-great-black-swamp-testing"
+  - "$XDG_CACHE_HOME/tahoe-great-black-swamp-testing"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-great-black-swamp-testing
+  name: Nixpkgs tahoe-great-black-swamp-testing windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp-testing on windows (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-great-black-swamp-testing/Cache"
+  - "%LOCALAPPDATA%/tahoe-great-black-swamp-testing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-great-black-swamp-types
+  name: Nixpkgs tahoe-great-black-swamp-types macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp-types on macos (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-great-black-swamp-types"
+  - "$HOME/Library/Logs/tahoe-great-black-swamp-types"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-great-black-swamp-types
+  name: Nixpkgs tahoe-great-black-swamp-types linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp-types on linux (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-great-black-swamp-types"
+  - "$XDG_CACHE_HOME/tahoe-great-black-swamp-types"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-great-black-swamp-types
+  name: Nixpkgs tahoe-great-black-swamp-types windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-great-black-swamp-types on windows (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-great-black-swamp-types/Cache"
+  - "%LOCALAPPDATA%/tahoe-great-black-swamp-types/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-lafs
+  name: Nixpkgs tahoe-lafs macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-lafs on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-lafs"
+  - "$HOME/Library/Logs/tahoe-lafs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-lafs
+  name: Nixpkgs tahoe-lafs linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-lafs on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-lafs"
+  - "$XDG_CACHE_HOME/tahoe-lafs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-lafs
+  name: Nixpkgs tahoe-lafs windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-lafs on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-lafs/Cache"
+  - "%LOCALAPPDATA%/tahoe-lafs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tahoe-ssk
+  name: Nixpkgs tahoe-ssk macos cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-ssk on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tahoe-ssk"
+  - "$HOME/Library/Logs/tahoe-ssk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tahoe-ssk
+  name: Nixpkgs tahoe-ssk linux cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-ssk on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tahoe-ssk"
+  - "$XDG_CACHE_HOME/tahoe-ssk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tahoe-ssk
+  name: Nixpkgs tahoe-ssk windows cache (wave 27)
+  description: Nixpkgs leftover pname tahoe-ssk on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tahoe-ssk/Cache"
+  - "%LOCALAPPDATA%/tahoe-ssk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tai-ahom
+  name: Nixpkgs tai-ahom macos cache (wave 27)
+  description: Nixpkgs leftover pname tai-ahom on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tai-ahom"
+  - "$HOME/Library/Logs/tai-ahom"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tai-ahom
+  name: Nixpkgs tai-ahom linux cache (wave 27)
+  description: Nixpkgs leftover pname tai-ahom on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tai-ahom"
+  - "$XDG_CACHE_HOME/tai-ahom"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tai-ahom
+  name: Nixpkgs tai-ahom windows cache (wave 27)
+  description: Nixpkgs leftover pname tai-ahom on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tai-ahom/Cache"
+  - "%LOCALAPPDATA%/tai-ahom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tai64
+  name: Nixpkgs tai64 macos cache (wave 27)
+  description: Nixpkgs leftover pname tai64 on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tai64"
+  - "$HOME/Library/Logs/tai64"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tai64
+  name: Nixpkgs tai64 linux cache (wave 27)
+  description: Nixpkgs leftover pname tai64 on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tai64"
+  - "$XDG_CACHE_HOME/tai64"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tai64
+  name: Nixpkgs tai64 windows cache (wave 27)
+  description: Nixpkgs leftover pname tai64 on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tai64/Cache"
+  - "%LOCALAPPDATA%/tai64/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tail
+  name: Nixpkgs tail macos cache (wave 27)
+  description: Nixpkgs leftover pname tail on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tail"
+  - "$HOME/Library/Logs/tail"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tail
+  name: Nixpkgs tail linux cache (wave 27)
+  description: Nixpkgs leftover pname tail on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tail"
+  - "$XDG_CACHE_HOME/tail"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tail
+  name: Nixpkgs tail windows cache (wave 27)
+  description: Nixpkgs leftover pname tail on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tail/Cache"
+  - "%LOCALAPPDATA%/tail/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tail-tray
+  name: Nixpkgs tail-tray macos cache (wave 27)
+  description: Nixpkgs leftover pname tail-tray on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tail-tray"
+  - "$HOME/Library/Logs/tail-tray"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tail-tray
+  name: Nixpkgs tail-tray linux cache (wave 27)
+  description: Nixpkgs leftover pname tail-tray on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tail-tray"
+  - "$XDG_CACHE_HOME/tail-tray"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tail-tray
+  name: Nixpkgs tail-tray windows cache (wave 27)
+  description: Nixpkgs leftover pname tail-tray on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tail-tray/Cache"
+  - "%LOCALAPPDATA%/tail-tray/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taildepfun
+  name: Nixpkgs tailDepFun macos cache (wave 27)
+  description: Nixpkgs leftover pname tailDepFun on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailDepFun"
+  - "$HOME/Library/Logs/tailDepFun"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taildepfun
+  name: Nixpkgs tailDepFun linux cache (wave 27)
+  description: Nixpkgs leftover pname tailDepFun on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailDepFun"
+  - "$XDG_CACHE_HOME/tailDepFun"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taildepfun
+  name: Nixpkgs tailDepFun windows cache (wave 27)
+  description: Nixpkgs leftover pname tailDepFun on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailDepFun/Cache"
+  - "%LOCALAPPDATA%/tailDepFun/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailtransform
+  name: Nixpkgs tailTransform macos cache (wave 27)
+  description: Nixpkgs leftover pname tailTransform on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailTransform"
+  - "$HOME/Library/Logs/tailTransform"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailtransform
+  name: Nixpkgs tailTransform linux cache (wave 27)
+  description: Nixpkgs leftover pname tailTransform on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailTransform"
+  - "$XDG_CACHE_HOME/tailTransform"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailtransform
+  name: Nixpkgs tailTransform windows cache (wave 27)
+  description: Nixpkgs leftover pname tailTransform on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailTransform/Cache"
+  - "%LOCALAPPDATA%/tailTransform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailcat
+  name: Nixpkgs tailcat macos cache (wave 27)
+  description: Nixpkgs leftover pname tailcat on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailcat"
+  - "$HOME/Library/Logs/tailcat"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailcat
+  name: Nixpkgs tailcat linux cache (wave 27)
+  description: Nixpkgs leftover pname tailcat on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailcat"
+  - "$XDG_CACHE_HOME/tailcat"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailcat
+  name: Nixpkgs tailcat windows cache (wave 27)
+  description: Nixpkgs leftover pname tailcat on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailcat/Cache"
+  - "%LOCALAPPDATA%/tailcat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailer
+  name: Nixpkgs tailer macos cache (wave 27)
+  description: Nixpkgs leftover pname tailer on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailer"
+  - "$HOME/Library/Logs/tailer"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailer
+  name: Nixpkgs tailer linux cache (wave 27)
+  description: Nixpkgs leftover pname tailer on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailer"
+  - "$XDG_CACHE_HOME/tailer"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailer
+  name: Nixpkgs tailer windows cache (wave 27)
+  description: Nixpkgs leftover pname tailer on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailer/Cache"
+  - "%LOCALAPPDATA%/tailer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailfile-hinotify
+  name: Nixpkgs tailfile-hinotify macos cache (wave 27)
+  description: Nixpkgs leftover pname tailfile-hinotify on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailfile-hinotify"
+  - "$HOME/Library/Logs/tailfile-hinotify"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailfile-hinotify
+  name: Nixpkgs tailfile-hinotify linux cache (wave 27)
+  description: Nixpkgs leftover pname tailfile-hinotify on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailfile-hinotify"
+  - "$XDG_CACHE_HOME/tailfile-hinotify"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailfile-hinotify
+  name: Nixpkgs tailfile-hinotify windows cache (wave 27)
+  description: Nixpkgs leftover pname tailfile-hinotify on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailfile-hinotify/Cache"
+  - "%LOCALAPPDATA%/tailfile-hinotify/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailloss
+  name: Nixpkgs tailloss macos cache (wave 27)
+  description: Nixpkgs leftover pname tailloss on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailloss"
+  - "$HOME/Library/Logs/tailloss"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailloss
+  name: Nixpkgs tailloss linux cache (wave 27)
+  description: Nixpkgs leftover pname tailloss on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailloss"
+  - "$XDG_CACHE_HOME/tailloss"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailloss
+  name: Nixpkgs tailloss windows cache (wave 27)
+  description: Nixpkgs leftover pname tailloss on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailloss/Cache"
+  - "%LOCALAPPDATA%/tailloss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailor
+  name: Nixpkgs tailor macos cache (wave 27)
+  description: Nixpkgs leftover pname tailor on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailor"
+  - "$HOME/Library/Logs/tailor"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailor
+  name: Nixpkgs tailor linux cache (wave 27)
+  description: Nixpkgs leftover pname tailor on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailor"
+  - "$XDG_CACHE_HOME/tailor"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailor
+  name: Nixpkgs tailor windows cache (wave 27)
+  description: Nixpkgs leftover pname tailor on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailor/Cache"
+  - "%LOCALAPPDATA%/tailor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailor-gui
+  name: Nixpkgs tailor_gui macos cache (wave 27)
+  description: Nixpkgs leftover pname tailor_gui on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailor_gui"
+  - "$HOME/Library/Logs/tailor_gui"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailor-gui
+  name: Nixpkgs tailor_gui linux cache (wave 27)
+  description: Nixpkgs leftover pname tailor_gui on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailor_gui"
+  - "$XDG_CACHE_HOME/tailor_gui"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailor-gui
+  name: Nixpkgs tailor_gui windows cache (wave 27)
+  description: Nixpkgs leftover pname tailor_gui on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailor_gui/Cache"
+  - "%LOCALAPPDATA%/tailor_gui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailplots
+  name: Nixpkgs tailplots macos cache (wave 27)
+  description: Nixpkgs leftover pname tailplots on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailplots"
+  - "$HOME/Library/Logs/tailplots"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailplots
+  name: Nixpkgs tailplots linux cache (wave 27)
+  description: Nixpkgs leftover pname tailplots on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailplots"
+  - "$XDG_CACHE_HOME/tailplots"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailplots
+  name: Nixpkgs tailplots windows cache (wave 27)
+  description: Nixpkgs leftover pname tailplots on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailplots/Cache"
+  - "%LOCALAPPDATA%/tailplots/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailrec
+  name: Nixpkgs tailrec macos cache (wave 27)
+  description: Nixpkgs leftover pname tailrec on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailrec"
+  - "$HOME/Library/Logs/tailrec"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailrec
+  name: Nixpkgs tailrec linux cache (wave 27)
+  description: Nixpkgs leftover pname tailrec on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailrec"
+  - "$XDG_CACHE_HOME/tailrec"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailrec
+  name: Nixpkgs tailrec windows cache (wave 27)
+  description: Nixpkgs leftover pname tailrec on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailrec/Cache"
+  - "%LOCALAPPDATA%/tailrec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscale
+  name: Nixpkgs tailscale macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscale on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscale"
+  - "$HOME/Library/Logs/tailscale"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscale
+  name: Nixpkgs tailscale linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscale on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscale"
+  - "$XDG_CACHE_HOME/tailscale"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscale
+  name: Nixpkgs tailscale windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscale on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscale/Cache"
+  - "%LOCALAPPDATA%/tailscale/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscale-exporter
+  name: Nixpkgs tailscale-exporter macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-exporter on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscale-exporter"
+  - "$HOME/Library/Logs/tailscale-exporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscale-exporter
+  name: Nixpkgs tailscale-exporter linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-exporter on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscale-exporter"
+  - "$XDG_CACHE_HOME/tailscale-exporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscale-exporter
+  name: Nixpkgs tailscale-exporter windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-exporter on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscale-exporter/Cache"
+  - "%LOCALAPPDATA%/tailscale-exporter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscale-gitops-pusher
+  name: Nixpkgs tailscale-gitops-pusher macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-gitops-pusher on macos (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscale-gitops-pusher"
+  - "$HOME/Library/Logs/tailscale-gitops-pusher"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscale-gitops-pusher
+  name: Nixpkgs tailscale-gitops-pusher linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-gitops-pusher on linux (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscale-gitops-pusher"
+  - "$XDG_CACHE_HOME/tailscale-gitops-pusher"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscale-gitops-pusher
+  name: Nixpkgs tailscale-gitops-pusher windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-gitops-pusher on windows (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscale-gitops-pusher/Cache"
+  - "%LOCALAPPDATA%/tailscale-gitops-pusher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscale-gui
+  name: Nixpkgs tailscale-gui macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-gui on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscale-gui"
+  - "$HOME/Library/Logs/tailscale-gui"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscale-gui
+  name: Nixpkgs tailscale-gui linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-gui on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscale-gui"
+  - "$XDG_CACHE_HOME/tailscale-gui"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscale-gui
+  name: Nixpkgs tailscale-gui windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-gui on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscale-gui/Cache"
+  - "%LOCALAPPDATA%/tailscale-gui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscale-nginx-auth
+  name: Nixpkgs tailscale-nginx-auth macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-nginx-auth on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscale-nginx-auth"
+  - "$HOME/Library/Logs/tailscale-nginx-auth"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscale-nginx-auth
+  name: Nixpkgs tailscale-nginx-auth linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-nginx-auth on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscale-nginx-auth"
+  - "$XDG_CACHE_HOME/tailscale-nginx-auth"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscale-nginx-auth
+  name: Nixpkgs tailscale-nginx-auth windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-nginx-auth on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscale-nginx-auth/Cache"
+  - "%LOCALAPPDATA%/tailscale-nginx-auth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscale-systray
+  name: Nixpkgs tailscale-systray macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-systray on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscale-systray"
+  - "$HOME/Library/Logs/tailscale-systray"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscale-systray
+  name: Nixpkgs tailscale-systray linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-systray on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscale-systray"
+  - "$XDG_CACHE_HOME/tailscale-systray"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscale-systray
+  name: Nixpkgs tailscale-systray windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscale-systray on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscale-systray/Cache"
+  - "%LOCALAPPDATA%/tailscale-systray/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailscalesd
+  name: Nixpkgs tailscalesd macos cache (wave 27)
+  description: Nixpkgs leftover pname tailscalesd on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailscalesd"
+  - "$HOME/Library/Logs/tailscalesd"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailscalesd
+  name: Nixpkgs tailscalesd linux cache (wave 27)
+  description: Nixpkgs leftover pname tailscalesd on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailscalesd"
+  - "$XDG_CACHE_HOME/tailscalesd"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailscalesd
+  name: Nixpkgs tailscalesd windows cache (wave 27)
+  description: Nixpkgs leftover pname tailscalesd on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailscalesd/Cache"
+  - "%LOCALAPPDATA%/tailscalesd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailsnitch
+  name: Nixpkgs tailsnitch macos cache (wave 27)
+  description: Nixpkgs leftover pname tailsnitch on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailsnitch"
+  - "$HOME/Library/Logs/tailsnitch"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailsnitch
+  name: Nixpkgs tailsnitch linux cache (wave 27)
+  description: Nixpkgs leftover pname tailsnitch on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailsnitch"
+  - "$XDG_CACHE_HOME/tailsnitch"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailsnitch
+  name: Nixpkgs tailsnitch windows cache (wave 27)
+  description: Nixpkgs leftover pname tailsnitch on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailsnitch/Cache"
+  - "%LOCALAPPDATA%/tailsnitch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailspin
+  name: Nixpkgs tailspin macos cache (wave 27)
+  description: Nixpkgs leftover pname tailspin on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailspin"
+  - "$HOME/Library/Logs/tailspin"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailspin
+  name: Nixpkgs tailspin linux cache (wave 27)
+  description: Nixpkgs leftover pname tailspin on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailspin"
+  - "$XDG_CACHE_HOME/tailspin"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailspin
+  name: Nixpkgs tailspin windows cache (wave 27)
+  description: Nixpkgs leftover pname tailspin on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailspin/Cache"
+  - "%LOCALAPPDATA%/tailspin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailwind
+  name: Nixpkgs tailwind macos cache (wave 27)
+  description: Nixpkgs leftover pname tailwind on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailwind"
+  - "$HOME/Library/Logs/tailwind"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailwind
+  name: Nixpkgs tailwind linux cache (wave 27)
+  description: Nixpkgs leftover pname tailwind on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailwind"
+  - "$XDG_CACHE_HOME/tailwind"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailwind
+  name: Nixpkgs tailwind windows cache (wave 27)
+  description: Nixpkgs leftover pname tailwind on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailwind/Cache"
+  - "%LOCALAPPDATA%/tailwind/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailwind-tools-nvim
+  name: Nixpkgs tailwind-tools.nvim macos cache (wave 27)
+  description: Nixpkgs leftover pname tailwind-tools.nvim on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailwind-tools.nvim"
+  - "$HOME/Library/Logs/tailwind-tools.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailwind-tools-nvim
+  name: Nixpkgs tailwind-tools.nvim linux cache (wave 27)
+  description: Nixpkgs leftover pname tailwind-tools.nvim on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailwind-tools.nvim"
+  - "$XDG_CACHE_HOME/tailwind-tools.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailwind-tools-nvim
+  name: Nixpkgs tailwind-tools.nvim windows cache (wave 27)
+  description: Nixpkgs leftover pname tailwind-tools.nvim on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailwind-tools.nvim/Cache"
+  - "%LOCALAPPDATA%/tailwind-tools.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailwindcss-colors-nvim
+  name: Nixpkgs tailwindcss-colors.nvim macos cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss-colors.nvim on macos (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailwindcss-colors.nvim"
+  - "$HOME/Library/Logs/tailwindcss-colors.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailwindcss-colors-nvim
+  name: Nixpkgs tailwindcss-colors.nvim linux cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss-colors.nvim on linux (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailwindcss-colors.nvim"
+  - "$XDG_CACHE_HOME/tailwindcss-colors.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailwindcss-colors-nvim
+  name: Nixpkgs tailwindcss-colors.nvim windows cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss-colors.nvim on windows (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailwindcss-colors.nvim/Cache"
+  - "%LOCALAPPDATA%/tailwindcss-colors.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailwindcss-language-server
+  name: Nixpkgs tailwindcss-language-server macos cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss-language-server on macos (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailwindcss-language-server"
+  - "$HOME/Library/Logs/tailwindcss-language-server"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailwindcss-language-server
+  name: Nixpkgs tailwindcss-language-server linux cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss-language-server on linux (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailwindcss-language-server"
+  - "$XDG_CACHE_HOME/tailwindcss-language-server"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailwindcss-language-server
+  name: Nixpkgs tailwindcss-language-server windows cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss-language-server on windows (wave
+    27). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailwindcss-language-server/Cache"
+  - "%LOCALAPPDATA%/tailwindcss-language-server/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailwindcss-3
+  name: Nixpkgs tailwindcss_3 macos cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss_3 on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailwindcss_3"
+  - "$HOME/Library/Logs/tailwindcss_3"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailwindcss-3
+  name: Nixpkgs tailwindcss_3 linux cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss_3 on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailwindcss_3"
+  - "$XDG_CACHE_HOME/tailwindcss_3"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailwindcss-3
+  name: Nixpkgs tailwindcss_3 windows cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss_3 on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailwindcss_3/Cache"
+  - "%LOCALAPPDATA%/tailwindcss_3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tailwindcss-4
+  name: Nixpkgs tailwindcss_4 macos cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss_4 on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tailwindcss_4"
+  - "$HOME/Library/Logs/tailwindcss_4"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tailwindcss-4
+  name: Nixpkgs tailwindcss_4 linux cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss_4 on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tailwindcss_4"
+  - "$XDG_CACHE_HOME/tailwindcss_4"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tailwindcss-4
+  name: Nixpkgs tailwindcss_4 windows cache (wave 27)
+  description: Nixpkgs leftover pname tailwindcss_4 on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tailwindcss_4/Cache"
+  - "%LOCALAPPDATA%/tailwindcss_4/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taipan
+  name: Nixpkgs taipan macos cache (wave 27)
+  description: Nixpkgs leftover pname taipan on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taipan"
+  - "$HOME/Library/Logs/taipan"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taipan
+  name: Nixpkgs taipan linux cache (wave 27)
+  description: Nixpkgs leftover pname taipan on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taipan"
+  - "$XDG_CACHE_HOME/taipan"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taipan
+  name: Nixpkgs taipan windows cache (wave 27)
+  description: Nixpkgs leftover pname taipan on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taipan/Cache"
+  - "%LOCALAPPDATA%/taipan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taisei
+  name: Nixpkgs taisei macos cache (wave 27)
+  description: Nixpkgs leftover pname taisei on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taisei"
+  - "$HOME/Library/Logs/taisei"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taisei
+  name: Nixpkgs taisei linux cache (wave 27)
+  description: Nixpkgs leftover pname taisei on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taisei"
+  - "$XDG_CACHE_HOME/taisei"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taisei
+  name: Nixpkgs taisei windows cache (wave 27)
+  description: Nixpkgs leftover pname taisei on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taisei/Cache"
+  - "%LOCALAPPDATA%/taisei/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taiwan-id
+  name: Nixpkgs taiwan-id macos cache (wave 27)
+  description: Nixpkgs leftover pname taiwan-id on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taiwan-id"
+  - "$HOME/Library/Logs/taiwan-id"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taiwan-id
+  name: Nixpkgs taiwan-id linux cache (wave 27)
+  description: Nixpkgs leftover pname taiwan-id on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taiwan-id"
+  - "$XDG_CACHE_HOME/taiwan-id"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taiwan-id
+  name: Nixpkgs taiwan-id windows cache (wave 27)
+  description: Nixpkgs leftover pname taiwan-id on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taiwan-id/Cache"
+  - "%LOCALAPPDATA%/taiwan-id/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taizen
+  name: Nixpkgs taizen macos cache (wave 27)
+  description: Nixpkgs leftover pname taizen on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taizen"
+  - "$HOME/Library/Logs/taizen"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taizen
+  name: Nixpkgs taizen linux cache (wave 27)
+  description: Nixpkgs leftover pname taizen on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taizen"
+  - "$XDG_CACHE_HOME/taizen"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taizen
+  name: Nixpkgs taizen windows cache (wave 27)
+  description: Nixpkgs leftover pname taizen on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taizen/Cache"
+  - "%LOCALAPPDATA%/taizen/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tak
+  name: Nixpkgs tak macos cache (wave 27)
+  description: Nixpkgs leftover pname tak on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tak"
+  - "$HOME/Library/Logs/tak"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tak
+  name: Nixpkgs tak linux cache (wave 27)
+  description: Nixpkgs leftover pname tak on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tak"
+  - "$XDG_CACHE_HOME/tak"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tak
+  name: Nixpkgs tak windows cache (wave 27)
+  description: Nixpkgs leftover pname tak on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tak/Cache"
+  - "%LOCALAPPDATA%/tak/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tak-ai
+  name: Nixpkgs tak-ai macos cache (wave 27)
+  description: Nixpkgs leftover pname tak-ai on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tak-ai"
+  - "$HOME/Library/Logs/tak-ai"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tak-ai
+  name: Nixpkgs tak-ai linux cache (wave 27)
+  description: Nixpkgs leftover pname tak-ai on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tak-ai"
+  - "$XDG_CACHE_HOME/tak-ai"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tak-ai
+  name: Nixpkgs tak-ai windows cache (wave 27)
+  description: Nixpkgs leftover pname tak-ai on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tak-ai/Cache"
+  - "%LOCALAPPDATA%/tak-ai/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-takahashi
+  name: Nixpkgs takahashi macos cache (wave 27)
+  description: Nixpkgs leftover pname takahashi on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/takahashi"
+  - "$HOME/Library/Logs/takahashi"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-takahashi
+  name: Nixpkgs takahashi linux cache (wave 27)
+  description: Nixpkgs leftover pname takahashi on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/takahashi"
+  - "$XDG_CACHE_HOME/takahashi"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-takahashi
+  name: Nixpkgs takahashi windows cache (wave 27)
+  description: Nixpkgs leftover pname takahashi on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/takahashi/Cache"
+  - "%LOCALAPPDATA%/takahashi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-takao
+  name: Nixpkgs takao macos cache (wave 27)
+  description: Nixpkgs leftover pname takao on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/takao"
+  - "$HOME/Library/Logs/takao"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-takao
+  name: Nixpkgs takao linux cache (wave 27)
+  description: Nixpkgs leftover pname takao on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/takao"
+  - "$XDG_CACHE_HOME/takao"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-takao
+  name: Nixpkgs takao windows cache (wave 27)
+  description: Nixpkgs leftover pname takao on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/takao/Cache"
+  - "%LOCALAPPDATA%/takao/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-take-off
+  name: Nixpkgs take-off macos cache (wave 27)
+  description: Nixpkgs leftover pname take-off on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/take-off"
+  - "$HOME/Library/Logs/take-off"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-take-off
+  name: Nixpkgs take-off linux cache (wave 27)
+  description: Nixpkgs leftover pname take-off on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/take-off"
+  - "$XDG_CACHE_HOME/take-off"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-take-off
+  name: Nixpkgs take-off windows cache (wave 27)
+  description: Nixpkgs leftover pname take-off on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/take-off/Cache"
+  - "%LOCALAPPDATA%/take-off/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-takedouble
+  name: Nixpkgs takedouble macos cache (wave 27)
+  description: Nixpkgs leftover pname takedouble on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/takedouble"
+  - "$HOME/Library/Logs/takedouble"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-takedouble
+  name: Nixpkgs takedouble linux cache (wave 27)
+  description: Nixpkgs leftover pname takedouble on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/takedouble"
+  - "$XDG_CACHE_HOME/takedouble"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-takedouble
+  name: Nixpkgs takedouble windows cache (wave 27)
+  description: Nixpkgs leftover pname takedouble on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/takedouble/Cache"
+  - "%LOCALAPPDATA%/takedouble/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-takethetime
+  name: Nixpkgs takethetime macos cache (wave 27)
+  description: Nixpkgs leftover pname takethetime on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/takethetime"
+  - "$HOME/Library/Logs/takethetime"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-takethetime
+  name: Nixpkgs takethetime linux cache (wave 27)
+  description: Nixpkgs leftover pname takethetime on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/takethetime"
+  - "$XDG_CACHE_HOME/takethetime"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-takethetime
+  name: Nixpkgs takethetime windows cache (wave 27)
+  description: Nixpkgs leftover pname takethetime on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/takethetime/Cache"
+  - "%LOCALAPPDATA%/takethetime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-takos
+  name: Nixpkgs takos macos cache (wave 27)
+  description: Nixpkgs leftover pname takos on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/takos"
+  - "$HOME/Library/Logs/takos"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-takos
+  name: Nixpkgs takos linux cache (wave 27)
+  description: Nixpkgs leftover pname takos on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/takos"
+  - "$XDG_CACHE_HOME/takos"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-takos
+  name: Nixpkgs takos windows cache (wave 27)
+  description: Nixpkgs leftover pname takos on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/takos/Cache"
+  - "%LOCALAPPDATA%/takos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taktuk
+  name: Nixpkgs taktuk macos cache (wave 27)
+  description: Nixpkgs leftover pname taktuk on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taktuk"
+  - "$HOME/Library/Logs/taktuk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taktuk
+  name: Nixpkgs taktuk linux cache (wave 27)
+  description: Nixpkgs leftover pname taktuk on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taktuk"
+  - "$XDG_CACHE_HOME/taktuk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taktuk
+  name: Nixpkgs taktuk windows cache (wave 27)
+  description: Nixpkgs leftover pname taktuk on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taktuk/Cache"
+  - "%LOCALAPPDATA%/taktuk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-takusen-oracle
+  name: Nixpkgs takusen-oracle macos cache (wave 27)
+  description: Nixpkgs leftover pname takusen-oracle on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/takusen-oracle"
+  - "$HOME/Library/Logs/takusen-oracle"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-takusen-oracle
+  name: Nixpkgs takusen-oracle linux cache (wave 27)
+  description: Nixpkgs leftover pname takusen-oracle on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/takusen-oracle"
+  - "$XDG_CACHE_HOME/takusen-oracle"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-takusen-oracle
+  name: Nixpkgs takusen-oracle windows cache (wave 27)
+  description: Nixpkgs leftover pname takusen-oracle on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/takusen-oracle/Cache"
+  - "%LOCALAPPDATA%/takusen-oracle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tal
+  name: Nixpkgs tal macos cache (wave 27)
+  description: Nixpkgs leftover pname tal on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tal"
+  - "$HOME/Library/Logs/tal"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tal
+  name: Nixpkgs tal linux cache (wave 27)
+  description: Nixpkgs leftover pname tal on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tal"
+  - "$XDG_CACHE_HOME/tal"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tal
+  name: Nixpkgs tal windows cache (wave 27)
+  description: Nixpkgs leftover pname tal on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tal/Cache"
+  - "%LOCALAPPDATA%/tal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talash
+  name: Nixpkgs talash macos cache (wave 27)
+  description: Nixpkgs leftover pname talash on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talash"
+  - "$HOME/Library/Logs/talash"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talash
+  name: Nixpkgs talash linux cache (wave 27)
+  description: Nixpkgs leftover pname talash on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talash"
+  - "$XDG_CACHE_HOME/talash"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talash
+  name: Nixpkgs talash windows cache (wave 27)
+  description: Nixpkgs leftover pname talash on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talash/Cache"
+  - "%LOCALAPPDATA%/talash/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talcl
+  name: Nixpkgs talcl macos cache (wave 27)
+  description: Nixpkgs leftover pname talcl on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talcl"
+  - "$HOME/Library/Logs/talcl"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talcl
+  name: Nixpkgs talcl linux cache (wave 27)
+  description: Nixpkgs leftover pname talcl on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talcl"
+  - "$XDG_CACHE_HOME/talcl"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talcl
+  name: Nixpkgs talcl windows cache (wave 27)
+  description: Nixpkgs leftover pname talcl on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talcl/Cache"
+  - "%LOCALAPPDATA%/talcl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talcl-examples
+  name: Nixpkgs talcl-examples macos cache (wave 27)
+  description: Nixpkgs leftover pname talcl-examples on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talcl-examples"
+  - "$HOME/Library/Logs/talcl-examples"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talcl-examples
+  name: Nixpkgs talcl-examples linux cache (wave 27)
+  description: Nixpkgs leftover pname talcl-examples on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talcl-examples"
+  - "$XDG_CACHE_HOME/talcl-examples"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talcl-examples
+  name: Nixpkgs talcl-examples windows cache (wave 27)
+  description: Nixpkgs leftover pname talcl-examples on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talcl-examples/Cache"
+  - "%LOCALAPPDATA%/talcl-examples/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talcl-speed-tests
+  name: Nixpkgs talcl-speed-tests macos cache (wave 27)
+  description: Nixpkgs leftover pname talcl-speed-tests on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talcl-speed-tests"
+  - "$HOME/Library/Logs/talcl-speed-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talcl-speed-tests
+  name: Nixpkgs talcl-speed-tests linux cache (wave 27)
+  description: Nixpkgs leftover pname talcl-speed-tests on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talcl-speed-tests"
+  - "$XDG_CACHE_HOME/talcl-speed-tests"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talcl-speed-tests
+  name: Nixpkgs talcl-speed-tests windows cache (wave 27)
+  description: Nixpkgs leftover pname talcl-speed-tests on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talcl-speed-tests/Cache"
+  - "%LOCALAPPDATA%/talcl-speed-tests/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talcl-test
+  name: Nixpkgs talcl-test macos cache (wave 27)
+  description: Nixpkgs leftover pname talcl-test on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talcl-test"
+  - "$HOME/Library/Logs/talcl-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talcl-test
+  name: Nixpkgs talcl-test linux cache (wave 27)
+  description: Nixpkgs leftover pname talcl-test on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talcl-test"
+  - "$XDG_CACHE_HOME/talcl-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talcl-test
+  name: Nixpkgs talcl-test windows cache (wave 27)
+  description: Nixpkgs leftover pname talcl-test on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talcl-test/Cache"
+  - "%LOCALAPPDATA%/talcl-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taldir
+  name: Nixpkgs taldir macos cache (wave 27)
+  description: Nixpkgs leftover pname taldir on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taldir"
+  - "$HOME/Library/Logs/taldir"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taldir
+  name: Nixpkgs taldir linux cache (wave 27)
+  description: Nixpkgs leftover pname taldir on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taldir"
+  - "$XDG_CACHE_HOME/taldir"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taldir
+  name: Nixpkgs taldir windows cache (wave 27)
+  description: Nixpkgs leftover pname taldir on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taldir/Cache"
+  - "%LOCALAPPDATA%/taldir/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talecast
+  name: Nixpkgs talecast macos cache (wave 27)
+  description: Nixpkgs leftover pname talecast on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talecast"
+  - "$HOME/Library/Logs/talecast"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talecast
+  name: Nixpkgs talecast linux cache (wave 27)
+  description: Nixpkgs leftover pname talecast on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talecast"
+  - "$XDG_CACHE_HOME/talecast"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talecast
+  name: Nixpkgs talecast windows cache (wave 27)
+  description: Nixpkgs leftover pname talecast on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talecast/Cache"
+  - "%LOCALAPPDATA%/talecast/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talentedhack
+  name: Nixpkgs talentedhack macos cache (wave 27)
+  description: Nixpkgs leftover pname talentedhack on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talentedhack"
+  - "$HOME/Library/Logs/talentedhack"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talentedhack
+  name: Nixpkgs talentedhack linux cache (wave 27)
+  description: Nixpkgs leftover pname talentedhack on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talentedhack"
+  - "$XDG_CACHE_HOME/talentedhack"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talentedhack
+  name: Nixpkgs talentedhack windows cache (wave 27)
+  description: Nixpkgs leftover pname talentedhack on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talentedhack/Cache"
+  - "%LOCALAPPDATA%/talentedhack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-challenger
+  name: Nixpkgs taler-challenger macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-challenger on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-challenger"
+  - "$HOME/Library/Logs/taler-challenger"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-challenger
+  name: Nixpkgs taler-challenger linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-challenger on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-challenger"
+  - "$XDG_CACHE_HOME/taler-challenger"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-challenger
+  name: Nixpkgs taler-challenger windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-challenger on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-challenger/Cache"
+  - "%LOCALAPPDATA%/taler-challenger/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-depolymerization
+  name: Nixpkgs taler-depolymerization macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-depolymerization on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-depolymerization"
+  - "$HOME/Library/Logs/taler-depolymerization"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-depolymerization
+  name: Nixpkgs taler-depolymerization linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-depolymerization on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-depolymerization"
+  - "$XDG_CACHE_HOME/taler-depolymerization"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-depolymerization
+  name: Nixpkgs taler-depolymerization windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-depolymerization on windows (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-depolymerization/Cache"
+  - "%LOCALAPPDATA%/taler-depolymerization/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-exchange
+  name: Nixpkgs taler-exchange macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-exchange on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-exchange"
+  - "$HOME/Library/Logs/taler-exchange"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-exchange
+  name: Nixpkgs taler-exchange linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-exchange on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-exchange"
+  - "$XDG_CACHE_HOME/taler-exchange"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-exchange
+  name: Nixpkgs taler-exchange windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-exchange on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-exchange/Cache"
+  - "%LOCALAPPDATA%/taler-exchange/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-mdb
+  name: Nixpkgs taler-mdb macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-mdb on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-mdb"
+  - "$HOME/Library/Logs/taler-mdb"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-mdb
+  name: Nixpkgs taler-mdb linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-mdb on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-mdb"
+  - "$XDG_CACHE_HOME/taler-mdb"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-mdb
+  name: Nixpkgs taler-mdb windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-mdb on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-mdb/Cache"
+  - "%LOCALAPPDATA%/taler-mdb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-merchant
+  name: Nixpkgs taler-merchant macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-merchant on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-merchant"
+  - "$HOME/Library/Logs/taler-merchant"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-merchant
+  name: Nixpkgs taler-merchant linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-merchant on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-merchant"
+  - "$XDG_CACHE_HOME/taler-merchant"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-merchant
+  name: Nixpkgs taler-merchant windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-merchant on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-merchant/Cache"
+  - "%LOCALAPPDATA%/taler-merchant/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-sync
+  name: Nixpkgs taler-sync macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-sync on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-sync"
+  - "$HOME/Library/Logs/taler-sync"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-sync
+  name: Nixpkgs taler-sync linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-sync on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-sync"
+  - "$XDG_CACHE_HOME/taler-sync"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-sync
+  name: Nixpkgs taler-sync windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-sync on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-sync/Cache"
+  - "%LOCALAPPDATA%/taler-sync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-twister
+  name: Nixpkgs taler-twister macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-twister on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-twister"
+  - "$HOME/Library/Logs/taler-twister"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-twister
+  name: Nixpkgs taler-twister linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-twister on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-twister"
+  - "$XDG_CACHE_HOME/taler-twister"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-twister
+  name: Nixpkgs taler-twister windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-twister on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-twister/Cache"
+  - "%LOCALAPPDATA%/taler-twister/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-taler-wallet-core
+  name: Nixpkgs taler-wallet-core macos cache (wave 27)
+  description: Nixpkgs leftover pname taler-wallet-core on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/taler-wallet-core"
+  - "$HOME/Library/Logs/taler-wallet-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-taler-wallet-core
+  name: Nixpkgs taler-wallet-core linux cache (wave 27)
+  description: Nixpkgs leftover pname taler-wallet-core on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/taler-wallet-core"
+  - "$XDG_CACHE_HOME/taler-wallet-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-taler-wallet-core
+  name: Nixpkgs taler-wallet-core windows cache (wave 27)
+  description: Nixpkgs leftover pname taler-wallet-core on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/taler-wallet-core/Cache"
+  - "%LOCALAPPDATA%/taler-wallet-core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talhelper
+  name: Nixpkgs talhelper macos cache (wave 27)
+  description: Nixpkgs leftover pname talhelper on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talhelper"
+  - "$HOME/Library/Logs/talhelper"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talhelper
+  name: Nixpkgs talhelper linux cache (wave 27)
+  description: Nixpkgs leftover pname talhelper on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talhelper"
+  - "$XDG_CACHE_HOME/talhelper"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talhelper
+  name: Nixpkgs talhelper windows cache (wave 27)
+  description: Nixpkgs leftover pname talhelper on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talhelper/Cache"
+  - "%LOCALAPPDATA%/talhelper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tali
+  name: Nixpkgs tali macos cache (wave 27)
+  description: Nixpkgs leftover pname tali on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tali"
+  - "$HOME/Library/Logs/tali"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tali
+  name: Nixpkgs tali linux cache (wave 27)
+  description: Nixpkgs leftover pname tali on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tali"
+  - "$XDG_CACHE_HOME/tali"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tali
+  name: Nixpkgs tali windows cache (wave 27)
+  description: Nixpkgs leftover pname tali on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tali/Cache"
+  - "%LOCALAPPDATA%/tali/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talib
+  name: Nixpkgs talib macos cache (wave 27)
+  description: Nixpkgs leftover pname talib on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talib"
+  - "$HOME/Library/Logs/talib"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talib
+  name: Nixpkgs talib linux cache (wave 27)
+  description: Nixpkgs leftover pname talib on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talib"
+  - "$XDG_CACHE_HOME/talib"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talib
+  name: Nixpkgs talib windows cache (wave 27)
+  description: Nixpkgs leftover pname talib on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talib/Cache"
+  - "%LOCALAPPDATA%/talib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talk
+  name: Nixpkgs talk macos cache (wave 27)
+  description: Nixpkgs leftover pname talk on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talk"
+  - "$HOME/Library/Logs/talk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talk
+  name: Nixpkgs talk linux cache (wave 27)
+  description: Nixpkgs leftover pname talk on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talk"
+  - "$XDG_CACHE_HOME/talk"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talk
+  name: Nixpkgs talk windows cache (wave 27)
+  description: Nixpkgs leftover pname talk on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talk/Cache"
+  - "%LOCALAPPDATA%/talk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talkfilters
+  name: Nixpkgs talkfilters macos cache (wave 27)
+  description: Nixpkgs leftover pname talkfilters on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talkfilters"
+  - "$HOME/Library/Logs/talkfilters"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talkfilters
+  name: Nixpkgs talkfilters linux cache (wave 27)
+  description: Nixpkgs leftover pname talkfilters on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talkfilters"
+  - "$XDG_CACHE_HOME/talkfilters"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talkfilters
+  name: Nixpkgs talkfilters windows cache (wave 27)
+  description: Nixpkgs leftover pname talkfilters on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talkfilters/Cache"
+  - "%LOCALAPPDATA%/talkfilters/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talkr
+  name: Nixpkgs talkr macos cache (wave 27)
+  description: Nixpkgs leftover pname talkr on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talkr"
+  - "$HOME/Library/Logs/talkr"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talkr
+  name: Nixpkgs talkr linux cache (wave 27)
+  description: Nixpkgs leftover pname talkr on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talkr"
+  - "$XDG_CACHE_HOME/talkr"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talkr
+  name: Nixpkgs talkr windows cache (wave 27)
+  description: Nixpkgs leftover pname talkr on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talkr/Cache"
+  - "%LOCALAPPDATA%/talkr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tall
+  name: Nixpkgs tall macos cache (wave 27)
+  description: Nixpkgs leftover pname tall on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tall"
+  - "$HOME/Library/Logs/tall"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tall
+  name: Nixpkgs tall linux cache (wave 27)
+  description: Nixpkgs leftover pname tall on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tall"
+  - "$XDG_CACHE_HOME/tall"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tall
+  name: Nixpkgs tall windows cache (wave 27)
+  description: Nixpkgs leftover pname tall on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tall/Cache"
+  - "%LOCALAPPDATA%/tall/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talloc
+  name: Nixpkgs talloc macos cache (wave 27)
+  description: Nixpkgs leftover pname talloc on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talloc"
+  - "$HOME/Library/Logs/talloc"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talloc
+  name: Nixpkgs talloc linux cache (wave 27)
+  description: Nixpkgs leftover pname talloc on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talloc"
+  - "$XDG_CACHE_HOME/talloc"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talloc
+  name: Nixpkgs talloc windows cache (wave 27)
+  description: Nixpkgs leftover pname talloc on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talloc/Cache"
+  - "%LOCALAPPDATA%/talloc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tally
+  name: Nixpkgs tally macos cache (wave 27)
+  description: Nixpkgs leftover pname tally on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tally"
+  - "$HOME/Library/Logs/tally"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tally
+  name: Nixpkgs tally linux cache (wave 27)
+  description: Nixpkgs leftover pname tally on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tally"
+  - "$XDG_CACHE_HOME/tally"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tally
+  name: Nixpkgs tally windows cache (wave 27)
+  description: Nixpkgs leftover pname tally on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tally/Cache"
+  - "%LOCALAPPDATA%/tally/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talm
+  name: Nixpkgs talm macos cache (wave 27)
+  description: Nixpkgs leftover pname talm on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talm"
+  - "$HOME/Library/Logs/talm"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talm
+  name: Nixpkgs talm linux cache (wave 27)
+  description: Nixpkgs leftover pname talm on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talm"
+  - "$XDG_CACHE_HOME/talm"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talm
+  name: Nixpkgs talm windows cache (wave 27)
+  description: Nixpkgs leftover pname talm on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talm/Cache"
+  - "%LOCALAPPDATA%/talm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talonscript-mode
+  name: Nixpkgs talonscript-mode macos cache (wave 27)
+  description: Nixpkgs leftover pname talonscript-mode on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talonscript-mode"
+  - "$HOME/Library/Logs/talonscript-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talonscript-mode
+  name: Nixpkgs talonscript-mode linux cache (wave 27)
+  description: Nixpkgs leftover pname talonscript-mode on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talonscript-mode"
+  - "$XDG_CACHE_HOME/talonscript-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talonscript-mode
+  name: Nixpkgs talonscript-mode windows cache (wave 27)
+  description: Nixpkgs leftover pname talonscript-mode on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talonscript-mode/Cache"
+  - "%LOCALAPPDATA%/talonscript-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talos
+  name: Nixpkgs talos macos cache (wave 27)
+  description: Nixpkgs leftover pname talos on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talos"
+  - "$HOME/Library/Logs/talos"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talos
+  name: Nixpkgs talos linux cache (wave 27)
+  description: Nixpkgs leftover pname talos on linux (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talos"
+  - "$XDG_CACHE_HOME/talos"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talos
+  name: Nixpkgs talos windows cache (wave 27)
+  description: Nixpkgs leftover pname talos on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talos/Cache"
+  - "%LOCALAPPDATA%/talos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talos-pilot
+  name: Nixpkgs talos-pilot macos cache (wave 27)
+  description: Nixpkgs leftover pname talos-pilot on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talos-pilot"
+  - "$HOME/Library/Logs/talos-pilot"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talos-pilot
+  name: Nixpkgs talos-pilot linux cache (wave 27)
+  description: Nixpkgs leftover pname talos-pilot on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talos-pilot"
+  - "$XDG_CACHE_HOME/talos-pilot"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talos-pilot
+  name: Nixpkgs talos-pilot windows cache (wave 27)
+  description: Nixpkgs leftover pname talos-pilot on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talos-pilot/Cache"
+  - "%LOCALAPPDATA%/talos-pilot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-talosctl
+  name: Nixpkgs talosctl macos cache (wave 27)
+  description: Nixpkgs leftover pname talosctl on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/talosctl"
+  - "$HOME/Library/Logs/talosctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-talosctl
+  name: Nixpkgs talosctl linux cache (wave 27)
+  description: Nixpkgs leftover pname talosctl on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/talosctl"
+  - "$XDG_CACHE_HOME/talosctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-talosctl
+  name: Nixpkgs talosctl windows cache (wave 27)
+  description: Nixpkgs leftover pname talosctl on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/talosctl/Cache"
+  - "%LOCALAPPDATA%/talosctl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamarin-prover
+  name: Nixpkgs tamarin-prover macos cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamarin-prover"
+  - "$HOME/Library/Logs/tamarin-prover"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamarin-prover
+  name: Nixpkgs tamarin-prover linux cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamarin-prover"
+  - "$XDG_CACHE_HOME/tamarin-prover"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamarin-prover
+  name: Nixpkgs tamarin-prover windows cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamarin-prover/Cache"
+  - "%LOCALAPPDATA%/tamarin-prover/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamarin-prover-term
+  name: Nixpkgs tamarin-prover-term macos cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-term on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamarin-prover-term"
+  - "$HOME/Library/Logs/tamarin-prover-term"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamarin-prover-term
+  name: Nixpkgs tamarin-prover-term linux cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-term on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamarin-prover-term"
+  - "$XDG_CACHE_HOME/tamarin-prover-term"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamarin-prover-term
+  name: Nixpkgs tamarin-prover-term windows cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-term on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamarin-prover-term/Cache"
+  - "%LOCALAPPDATA%/tamarin-prover-term/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamarin-prover-theory
+  name: Nixpkgs tamarin-prover-theory macos cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-theory on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamarin-prover-theory"
+  - "$HOME/Library/Logs/tamarin-prover-theory"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamarin-prover-theory
+  name: Nixpkgs tamarin-prover-theory linux cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-theory on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamarin-prover-theory"
+  - "$XDG_CACHE_HOME/tamarin-prover-theory"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamarin-prover-theory
+  name: Nixpkgs tamarin-prover-theory windows cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-theory on windows (wave 27).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamarin-prover-theory/Cache"
+  - "%LOCALAPPDATA%/tamarin-prover-theory/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamarin-prover-utils
+  name: Nixpkgs tamarin-prover-utils macos cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-utils on macos (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamarin-prover-utils"
+  - "$HOME/Library/Logs/tamarin-prover-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamarin-prover-utils
+  name: Nixpkgs tamarin-prover-utils linux cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-utils on linux (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamarin-prover-utils"
+  - "$XDG_CACHE_HOME/tamarin-prover-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamarin-prover-utils
+  name: Nixpkgs tamarin-prover-utils windows cache (wave 27)
+  description: Nixpkgs leftover pname tamarin-prover-utils on windows (wave 27). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamarin-prover-utils/Cache"
+  - "%LOCALAPPDATA%/tamarin-prover-utils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamatool
+  name: Nixpkgs tamatool macos cache (wave 27)
+  description: Nixpkgs leftover pname tamatool on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamatool"
+  - "$HOME/Library/Logs/tamatool"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamatool
+  name: Nixpkgs tamatool linux cache (wave 27)
+  description: Nixpkgs leftover pname tamatool on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamatool"
+  - "$XDG_CACHE_HOME/tamatool"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamatool
+  name: Nixpkgs tamatool windows cache (wave 27)
+  description: Nixpkgs leftover pname tamatool on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamatool/Cache"
+  - "%LOCALAPPDATA%/tamatool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamd
+  name: Nixpkgs tamd macos cache (wave 27)
+  description: Nixpkgs leftover pname tamd on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamd"
+  - "$HOME/Library/Logs/tamd"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamd
+  name: Nixpkgs tamd linux cache (wave 27)
+  description: Nixpkgs leftover pname tamd on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamd"
+  - "$XDG_CACHE_HOME/tamd"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamd
+  name: Nixpkgs tamd windows cache (wave 27)
+  description: Nixpkgs leftover pname tamd on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamd/Cache"
+  - "%LOCALAPPDATA%/tamd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tame
+  name: Nixpkgs tame macos cache (wave 27)
+  description: Nixpkgs leftover pname tame on macos (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tame"
+  - "$HOME/Library/Logs/tame"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tame
+  name: Nixpkgs tame linux cache (wave 27)
+  description: Nixpkgs leftover pname tame on linux (wave 27). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tame"
+  - "$XDG_CACHE_HOME/tame"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tame
+  name: Nixpkgs tame windows cache (wave 27)
+  description: Nixpkgs leftover pname tame on windows (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tame/Cache"
+  - "%LOCALAPPDATA%/tame/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamefloats
+  name: Nixpkgs tamefloats macos cache (wave 27)
+  description: Nixpkgs leftover pname tamefloats on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamefloats"
+  - "$HOME/Library/Logs/tamefloats"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamefloats
+  name: Nixpkgs tamefloats linux cache (wave 27)
+  description: Nixpkgs leftover pname tamefloats on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamefloats"
+  - "$XDG_CACHE_HOME/tamefloats"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamefloats
+  name: Nixpkgs tamefloats windows cache (wave 27)
+  description: Nixpkgs leftover pname tamefloats on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamefloats/Cache"
+  - "%LOCALAPPDATA%/tamefloats/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamethebeast
+  name: Nixpkgs tamethebeast macos cache (wave 27)
+  description: Nixpkgs leftover pname tamethebeast on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamethebeast"
+  - "$HOME/Library/Logs/tamethebeast"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamethebeast
+  name: Nixpkgs tamethebeast linux cache (wave 27)
+  description: Nixpkgs leftover pname tamethebeast on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamethebeast"
+  - "$XDG_CACHE_HOME/tamethebeast"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamethebeast
+  name: Nixpkgs tamethebeast windows cache (wave 27)
+  description: Nixpkgs leftover pname tamethebeast on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamethebeast/Cache"
+  - "%LOCALAPPDATA%/tamethebeast/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamgamp-lv2
+  name: Nixpkgs tamgamp.lv2 macos cache (wave 27)
+  description: Nixpkgs leftover pname tamgamp.lv2 on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamgamp.lv2"
+  - "$HOME/Library/Logs/tamgamp.lv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tamgamp-lv2
+  name: Nixpkgs tamgamp.lv2 linux cache (wave 27)
+  description: Nixpkgs leftover pname tamgamp.lv2 on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tamgamp.lv2"
+  - "$XDG_CACHE_HOME/tamgamp.lv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tamgamp-lv2
+  name: Nixpkgs tamgamp.lv2 windows cache (wave 27)
+  description: Nixpkgs leftover pname tamgamp.lv2 on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tamgamp.lv2/Cache"
+  - "%LOCALAPPDATA%/tamgamp.lv2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tami4edgeapi
+  name: Nixpkgs tami4edgeapi macos cache (wave 27)
+  description: Nixpkgs leftover pname tami4edgeapi on macos (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tami4edgeapi"
+  - "$HOME/Library/Logs/tami4edgeapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-lin-tami4edgeapi
+  name: Nixpkgs tami4edgeapi linux cache (wave 27)
+  description: Nixpkgs leftover pname tami4edgeapi on linux (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/tami4edgeapi"
+  - "$XDG_CACHE_HOME/tami4edgeapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-win-tami4edgeapi
+  name: Nixpkgs tami4edgeapi windows cache (wave 27)
+  description: Nixpkgs leftover pname tami4edgeapi on windows (wave 27). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/tami4edgeapi/Cache"
+  - "%LOCALAPPDATA%/tami4edgeapi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np27-mac-tamil
+  name: Nixpkgs tamil macos cache (wave 27)
+  description: Nixpkgs leftover pname tamil on macos (wave 27). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/tamil"
+  - "$HOME/Library/Logs/tamil"
+  delete_mode: contents
+  max_depth: 6

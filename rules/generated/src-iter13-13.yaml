@@ -1,0 +1,5584 @@
+---
+pack: src-iter13-13
+description: Iterative 10k import wave 13 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np13-mac-hpccm
+  name: Nixpkgs hpccm macos cache (wave 13)
+  description: Nixpkgs leftover pname hpccm on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpccm"
+  - "$HOME/Library/Logs/hpccm"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpccm
+  name: Nixpkgs hpccm linux cache (wave 13)
+  description: Nixpkgs leftover pname hpccm on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpccm"
+  - "$XDG_CACHE_HOME/hpccm"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpccm
+  name: Nixpkgs hpccm windows cache (wave 13)
+  description: Nixpkgs leftover pname hpccm on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpccm/Cache"
+  - "%LOCALAPPDATA%/hpccm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpcg
+  name: Nixpkgs hpcg macos cache (wave 13)
+  description: Nixpkgs leftover pname hpcg on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpcg"
+  - "$HOME/Library/Logs/hpcg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpcg
+  name: Nixpkgs hpcg linux cache (wave 13)
+  description: Nixpkgs leftover pname hpcg on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpcg"
+  - "$XDG_CACHE_HOME/hpcg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpcg
+  name: Nixpkgs hpcg windows cache (wave 13)
+  description: Nixpkgs leftover pname hpcg on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpcg/Cache"
+  - "%LOCALAPPDATA%/hpcg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpcwld
+  name: Nixpkgs hpcwld macos cache (wave 13)
+  description: Nixpkgs leftover pname hpcwld on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpcwld"
+  - "$HOME/Library/Logs/hpcwld"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpcwld
+  name: Nixpkgs hpcwld linux cache (wave 13)
+  description: Nixpkgs leftover pname hpcwld on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpcwld"
+  - "$XDG_CACHE_HOME/hpcwld"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpcwld
+  name: Nixpkgs hpcwld windows cache (wave 13)
+  description: Nixpkgs leftover pname hpcwld on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpcwld/Cache"
+  - "%LOCALAPPDATA%/hpcwld/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpdft
+  name: Nixpkgs hpdft macos cache (wave 13)
+  description: Nixpkgs leftover pname hpdft on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpdft"
+  - "$HOME/Library/Logs/hpdft"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpdft
+  name: Nixpkgs hpdft linux cache (wave 13)
+  description: Nixpkgs leftover pname hpdft on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpdft"
+  - "$XDG_CACHE_HOME/hpdft"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpdft
+  name: Nixpkgs hpdft windows cache (wave 13)
+  description: Nixpkgs leftover pname hpdft on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpdft/Cache"
+  - "%LOCALAPPDATA%/hpdft/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpe-ltfs
+  name: Nixpkgs hpe-ltfs macos cache (wave 13)
+  description: Nixpkgs leftover pname hpe-ltfs on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpe-ltfs"
+  - "$HOME/Library/Logs/hpe-ltfs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpe-ltfs
+  name: Nixpkgs hpe-ltfs linux cache (wave 13)
+  description: Nixpkgs leftover pname hpe-ltfs on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpe-ltfs"
+  - "$XDG_CACHE_HOME/hpe-ltfs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpe-ltfs
+  name: Nixpkgs hpe-ltfs windows cache (wave 13)
+  description: Nixpkgs leftover pname hpe-ltfs on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpe-ltfs/Cache"
+  - "%LOCALAPPDATA%/hpe-ltfs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpfilter
+  name: Nixpkgs hpfilter macos cache (wave 13)
+  description: Nixpkgs leftover pname hpfilter on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpfilter"
+  - "$HOME/Library/Logs/hpfilter"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpfilter
+  name: Nixpkgs hpfilter linux cache (wave 13)
+  description: Nixpkgs leftover pname hpfilter on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpfilter"
+  - "$XDG_CACHE_HOME/hpfilter"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpfilter
+  name: Nixpkgs hpfilter windows cache (wave 13)
+  description: Nixpkgs leftover pname hpfilter on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpfilter/Cache"
+  - "%LOCALAPPDATA%/hpfilter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpg
+  name: Nixpkgs hpg macos cache (wave 13)
+  description: Nixpkgs leftover pname hpg on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpg"
+  - "$HOME/Library/Logs/hpg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpg
+  name: Nixpkgs hpg linux cache (wave 13)
+  description: Nixpkgs leftover pname hpg on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpg"
+  - "$XDG_CACHE_HOME/hpg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpg
+  name: Nixpkgs hpg windows cache (wave 13)
+  description: Nixpkgs leftover pname hpg on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpg/Cache"
+  - "%LOCALAPPDATA%/hpg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpir
+  name: Nixpkgs hpiR macos cache (wave 13)
+  description: Nixpkgs leftover pname hpiR on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpiR"
+  - "$HOME/Library/Logs/hpiR"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpir
+  name: Nixpkgs hpiR linux cache (wave 13)
+  description: Nixpkgs leftover pname hpiR on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpiR"
+  - "$XDG_CACHE_HOME/hpiR"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpir
+  name: Nixpkgs hpiR windows cache (wave 13)
+  description: Nixpkgs leftover pname hpiR on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpiR/Cache"
+  - "%LOCALAPPDATA%/hpiR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hping
+  name: Nixpkgs hping macos cache (wave 13)
+  description: Nixpkgs leftover pname hping on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hping"
+  - "$HOME/Library/Logs/hping"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hping
+  name: Nixpkgs hping linux cache (wave 13)
+  description: Nixpkgs leftover pname hping on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hping"
+  - "$XDG_CACHE_HOME/hping"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hping
+  name: Nixpkgs hping windows cache (wave 13)
+  description: Nixpkgs leftover pname hping on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hping/Cache"
+  - "%LOCALAPPDATA%/hping/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpio
+  name: Nixpkgs hpio macos cache (wave 13)
+  description: Nixpkgs leftover pname hpio on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpio"
+  - "$HOME/Library/Logs/hpio"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpio
+  name: Nixpkgs hpio linux cache (wave 13)
+  description: Nixpkgs leftover pname hpio on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpio"
+  - "$XDG_CACHE_HOME/hpio"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpio
+  name: Nixpkgs hpio windows cache (wave 13)
+  description: Nixpkgs leftover pname hpio on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpio/Cache"
+  - "%LOCALAPPDATA%/hpio/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpipm
+  name: Nixpkgs hpipm macos cache (wave 13)
+  description: Nixpkgs leftover pname hpipm on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpipm"
+  - "$HOME/Library/Logs/hpipm"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpipm
+  name: Nixpkgs hpipm linux cache (wave 13)
+  description: Nixpkgs leftover pname hpipm on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpipm"
+  - "$XDG_CACHE_HOME/hpipm"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpipm
+  name: Nixpkgs hpipm windows cache (wave 13)
+  description: Nixpkgs leftover pname hpipm on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpipm/Cache"
+  - "%LOCALAPPDATA%/hpipm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpke
+  name: Nixpkgs hpke macos cache (wave 13)
+  description: Nixpkgs leftover pname hpke on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpke"
+  - "$HOME/Library/Logs/hpke"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpke
+  name: Nixpkgs hpke linux cache (wave 13)
+  description: Nixpkgs leftover pname hpke on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpke"
+  - "$XDG_CACHE_HOME/hpke"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpke
+  name: Nixpkgs hpke windows cache (wave 13)
+  description: Nixpkgs leftover pname hpke on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpke/Cache"
+  - "%LOCALAPPDATA%/hpke/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpl
+  name: Nixpkgs hpl macos cache (wave 13)
+  description: Nixpkgs leftover pname hpl on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpl"
+  - "$HOME/Library/Logs/hpl"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpl
+  name: Nixpkgs hpl linux cache (wave 13)
+  description: Nixpkgs leftover pname hpl on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpl"
+  - "$XDG_CACHE_HOME/hpl"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpl
+  name: Nixpkgs hpl windows cache (wave 13)
+  description: Nixpkgs leftover pname hpl on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpl/Cache"
+  - "%LOCALAPPDATA%/hpl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hplayground
+  name: Nixpkgs hplayground macos cache (wave 13)
+  description: Nixpkgs leftover pname hplayground on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hplayground"
+  - "$HOME/Library/Logs/hplayground"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hplayground
+  name: Nixpkgs hplayground linux cache (wave 13)
+  description: Nixpkgs leftover pname hplayground on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hplayground"
+  - "$XDG_CACHE_HOME/hplayground"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hplayground
+  name: Nixpkgs hplayground windows cache (wave 13)
+  description: Nixpkgs leftover pname hplayground on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hplayground/Cache"
+  - "%LOCALAPPDATA%/hplayground/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hplaylist
+  name: Nixpkgs hplaylist macos cache (wave 13)
+  description: Nixpkgs leftover pname hplaylist on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hplaylist"
+  - "$HOME/Library/Logs/hplaylist"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hplaylist
+  name: Nixpkgs hplaylist linux cache (wave 13)
+  description: Nixpkgs leftover pname hplaylist on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hplaylist"
+  - "$XDG_CACHE_HOME/hplaylist"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hplaylist
+  name: Nixpkgs hplaylist windows cache (wave 13)
+  description: Nixpkgs leftover pname hplaylist on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hplaylist/Cache"
+  - "%LOCALAPPDATA%/hplaylist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hplip
+  name: Nixpkgs hplip macos cache (wave 13)
+  description: Nixpkgs leftover pname hplip on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hplip"
+  - "$HOME/Library/Logs/hplip"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hplip
+  name: Nixpkgs hplip linux cache (wave 13)
+  description: Nixpkgs leftover pname hplip on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hplip"
+  - "$XDG_CACHE_HOME/hplip"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hplip
+  name: Nixpkgs hplip windows cache (wave 13)
+  description: Nixpkgs leftover pname hplip on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hplip/Cache"
+  - "%LOCALAPPDATA%/hplip/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpoplot
+  name: Nixpkgs hpoPlot macos cache (wave 13)
+  description: Nixpkgs leftover pname hpoPlot on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpoPlot"
+  - "$HOME/Library/Logs/hpoPlot"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpoplot
+  name: Nixpkgs hpoPlot linux cache (wave 13)
+  description: Nixpkgs leftover pname hpoPlot on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpoPlot"
+  - "$XDG_CACHE_HOME/hpoPlot"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpoplot
+  name: Nixpkgs hpoPlot windows cache (wave 13)
+  description: Nixpkgs leftover pname hpoPlot on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpoPlot/Cache"
+  - "%LOCALAPPDATA%/hpoPlot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpodder
+  name: Nixpkgs hpodder macos cache (wave 13)
+  description: Nixpkgs leftover pname hpodder on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpodder"
+  - "$HOME/Library/Logs/hpodder"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpodder
+  name: Nixpkgs hpodder linux cache (wave 13)
+  description: Nixpkgs leftover pname hpodder on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpodder"
+  - "$XDG_CACHE_HOME/hpodder"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpodder
+  name: Nixpkgs hpodder windows cache (wave 13)
+  description: Nixpkgs leftover pname hpodder on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpodder/Cache"
+  - "%LOCALAPPDATA%/hpodder/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpp
+  name: Nixpkgs hpp macos cache (wave 13)
+  description: Nixpkgs leftover pname hpp on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpp"
+  - "$HOME/Library/Logs/hpp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpp
+  name: Nixpkgs hpp linux cache (wave 13)
+  description: Nixpkgs leftover pname hpp on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpp"
+  - "$XDG_CACHE_HOME/hpp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpp
+  name: Nixpkgs hpp windows cache (wave 13)
+  description: Nixpkgs leftover pname hpp on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpp/Cache"
+  - "%LOCALAPPDATA%/hpp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpp2plantuml
+  name: Nixpkgs hpp2plantuml macos cache (wave 13)
+  description: Nixpkgs leftover pname hpp2plantuml on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpp2plantuml"
+  - "$HOME/Library/Logs/hpp2plantuml"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpp2plantuml
+  name: Nixpkgs hpp2plantuml linux cache (wave 13)
+  description: Nixpkgs leftover pname hpp2plantuml on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpp2plantuml"
+  - "$XDG_CACHE_HOME/hpp2plantuml"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpp2plantuml
+  name: Nixpkgs hpp2plantuml windows cache (wave 13)
+  description: Nixpkgs leftover pname hpp2plantuml on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpp2plantuml/Cache"
+  - "%LOCALAPPDATA%/hpp2plantuml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpqtypes
+  name: Nixpkgs hpqtypes macos cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpqtypes"
+  - "$HOME/Library/Logs/hpqtypes"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpqtypes
+  name: Nixpkgs hpqtypes linux cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpqtypes"
+  - "$XDG_CACHE_HOME/hpqtypes"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpqtypes
+  name: Nixpkgs hpqtypes windows cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpqtypes/Cache"
+  - "%LOCALAPPDATA%/hpqtypes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpqtypes-effectful
+  name: Nixpkgs hpqtypes-effectful macos cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes-effectful on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpqtypes-effectful"
+  - "$HOME/Library/Logs/hpqtypes-effectful"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpqtypes-effectful
+  name: Nixpkgs hpqtypes-effectful linux cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes-effectful on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpqtypes-effectful"
+  - "$XDG_CACHE_HOME/hpqtypes-effectful"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpqtypes-effectful
+  name: Nixpkgs hpqtypes-effectful windows cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes-effectful on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpqtypes-effectful/Cache"
+  - "%LOCALAPPDATA%/hpqtypes-effectful/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpqtypes-extras
+  name: Nixpkgs hpqtypes-extras macos cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes-extras on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpqtypes-extras"
+  - "$HOME/Library/Logs/hpqtypes-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpqtypes-extras
+  name: Nixpkgs hpqtypes-extras linux cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes-extras on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpqtypes-extras"
+  - "$XDG_CACHE_HOME/hpqtypes-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpqtypes-extras
+  name: Nixpkgs hpqtypes-extras windows cache (wave 13)
+  description: Nixpkgs leftover pname hpqtypes-extras on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpqtypes-extras/Cache"
+  - "%LOCALAPPDATA%/hpqtypes-extras/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpricot
+  name: Nixpkgs hpricot macos cache (wave 13)
+  description: Nixpkgs leftover pname hpricot on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpricot"
+  - "$HOME/Library/Logs/hpricot"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpricot
+  name: Nixpkgs hpricot linux cache (wave 13)
+  description: Nixpkgs leftover pname hpricot on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpricot"
+  - "$XDG_CACHE_HOME/hpricot"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpricot
+  name: Nixpkgs hpricot windows cache (wave 13)
+  description: Nixpkgs leftover pname hpricot on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpricot/Cache"
+  - "%LOCALAPPDATA%/hpricot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hprotoc
+  name: Nixpkgs hprotoc macos cache (wave 13)
+  description: Nixpkgs leftover pname hprotoc on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hprotoc"
+  - "$HOME/Library/Logs/hprotoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hprotoc
+  name: Nixpkgs hprotoc linux cache (wave 13)
+  description: Nixpkgs leftover pname hprotoc on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hprotoc"
+  - "$XDG_CACHE_HOME/hprotoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hprotoc
+  name: Nixpkgs hprotoc windows cache (wave 13)
+  description: Nixpkgs leftover pname hprotoc on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hprotoc/Cache"
+  - "%LOCALAPPDATA%/hprotoc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hprotoc-fork
+  name: Nixpkgs hprotoc-fork macos cache (wave 13)
+  description: Nixpkgs leftover pname hprotoc-fork on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hprotoc-fork"
+  - "$HOME/Library/Logs/hprotoc-fork"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hprotoc-fork
+  name: Nixpkgs hprotoc-fork linux cache (wave 13)
+  description: Nixpkgs leftover pname hprotoc-fork on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hprotoc-fork"
+  - "$XDG_CACHE_HOME/hprotoc-fork"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hprotoc-fork
+  name: Nixpkgs hprotoc-fork windows cache (wave 13)
+  description: Nixpkgs leftover pname hprotoc-fork on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hprotoc-fork/Cache"
+  - "%LOCALAPPDATA%/hprotoc-fork/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hprox
+  name: Nixpkgs hprox macos cache (wave 13)
+  description: Nixpkgs leftover pname hprox on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hprox"
+  - "$HOME/Library/Logs/hprox"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hprox
+  name: Nixpkgs hprox linux cache (wave 13)
+  description: Nixpkgs leftover pname hprox on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hprox"
+  - "$XDG_CACHE_HOME/hprox"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hprox
+  name: Nixpkgs hprox windows cache (wave 13)
+  description: Nixpkgs leftover pname hprox on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hprox/Cache"
+  - "%LOCALAPPDATA%/hprox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hps
+  name: Nixpkgs hps macos cache (wave 13)
+  description: Nixpkgs leftover pname hps on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hps"
+  - "$HOME/Library/Logs/hps"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hps
+  name: Nixpkgs hps linux cache (wave 13)
+  description: Nixpkgs leftover pname hps on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hps"
+  - "$XDG_CACHE_HOME/hps"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hps
+  name: Nixpkgs hps windows cache (wave 13)
+  description: Nixpkgs leftover pname hps on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hps/Cache"
+  - "%LOCALAPPDATA%/hps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hps-cairo
+  name: Nixpkgs hps-cairo macos cache (wave 13)
+  description: Nixpkgs leftover pname hps-cairo on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hps-cairo"
+  - "$HOME/Library/Logs/hps-cairo"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hps-cairo
+  name: Nixpkgs hps-cairo linux cache (wave 13)
+  description: Nixpkgs leftover pname hps-cairo on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hps-cairo"
+  - "$XDG_CACHE_HOME/hps-cairo"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hps-cairo
+  name: Nixpkgs hps-cairo windows cache (wave 13)
+  description: Nixpkgs leftover pname hps-cairo on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hps-cairo/Cache"
+  - "%LOCALAPPDATA%/hps-cairo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hps-kmeans
+  name: Nixpkgs hps-kmeans macos cache (wave 13)
+  description: Nixpkgs leftover pname hps-kmeans on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hps-kmeans"
+  - "$HOME/Library/Logs/hps-kmeans"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hps-kmeans
+  name: Nixpkgs hps-kmeans linux cache (wave 13)
+  description: Nixpkgs leftover pname hps-kmeans on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hps-kmeans"
+  - "$XDG_CACHE_HOME/hps-kmeans"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hps-kmeans
+  name: Nixpkgs hps-kmeans windows cache (wave 13)
+  description: Nixpkgs leftover pname hps-kmeans on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hps-kmeans/Cache"
+  - "%LOCALAPPDATA%/hps-kmeans/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpsdiss
+  name: Nixpkgs hpsdiss macos cache (wave 13)
+  description: Nixpkgs leftover pname hpsdiss on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpsdiss"
+  - "$HOME/Library/Logs/hpsdiss"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpsdiss
+  name: Nixpkgs hpsdiss linux cache (wave 13)
+  description: Nixpkgs leftover pname hpsdiss on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpsdiss"
+  - "$XDG_CACHE_HOME/hpsdiss"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpsdiss
+  name: Nixpkgs hpsdiss windows cache (wave 13)
+  description: Nixpkgs leftover pname hpsdiss on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpsdiss/Cache"
+  - "%LOCALAPPDATA%/hpsdiss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpuefi-mod
+  name: Nixpkgs hpuefi-mod macos cache (wave 13)
+  description: Nixpkgs leftover pname hpuefi-mod on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpuefi-mod"
+  - "$HOME/Library/Logs/hpuefi-mod"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpuefi-mod
+  name: Nixpkgs hpuefi-mod linux cache (wave 13)
+  description: Nixpkgs leftover pname hpuefi-mod on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpuefi-mod"
+  - "$XDG_CACHE_HOME/hpuefi-mod"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpuefi-mod
+  name: Nixpkgs hpuefi-mod windows cache (wave 13)
+  description: Nixpkgs leftover pname hpuefi-mod on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpuefi-mod/Cache"
+  - "%LOCALAPPDATA%/hpuefi-mod/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpuz
+  name: Nixpkgs hpuz macos cache (wave 13)
+  description: Nixpkgs leftover pname hpuz on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpuz"
+  - "$HOME/Library/Logs/hpuz"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpuz
+  name: Nixpkgs hpuz linux cache (wave 13)
+  description: Nixpkgs leftover pname hpuz on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpuz"
+  - "$XDG_CACHE_HOME/hpuz"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpuz
+  name: Nixpkgs hpuz windows cache (wave 13)
+  description: Nixpkgs leftover pname hpuz on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpuz/Cache"
+  - "%LOCALAPPDATA%/hpuz/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpx
+  name: Nixpkgs hpx macos cache (wave 13)
+  description: Nixpkgs leftover pname hpx on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpx"
+  - "$HOME/Library/Logs/hpx"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpx
+  name: Nixpkgs hpx linux cache (wave 13)
+  description: Nixpkgs leftover pname hpx on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpx"
+  - "$XDG_CACHE_HOME/hpx"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpx
+  name: Nixpkgs hpx windows cache (wave 13)
+  description: Nixpkgs leftover pname hpx on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpx/Cache"
+  - "%LOCALAPPDATA%/hpx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpygments
+  name: Nixpkgs hpygments macos cache (wave 13)
+  description: Nixpkgs leftover pname hpygments on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpygments"
+  - "$HOME/Library/Logs/hpygments"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpygments
+  name: Nixpkgs hpygments linux cache (wave 13)
+  description: Nixpkgs leftover pname hpygments on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpygments"
+  - "$XDG_CACHE_HOME/hpygments"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpygments
+  name: Nixpkgs hpygments windows cache (wave 13)
+  description: Nixpkgs leftover pname hpygments on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpygments/Cache"
+  - "%LOCALAPPDATA%/hpygments/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpylos
+  name: Nixpkgs hpylos macos cache (wave 13)
+  description: Nixpkgs leftover pname hpylos on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpylos"
+  - "$HOME/Library/Logs/hpylos"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpylos
+  name: Nixpkgs hpylos linux cache (wave 13)
+  description: Nixpkgs leftover pname hpylos on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpylos"
+  - "$XDG_CACHE_HOME/hpylos"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpylos
+  name: Nixpkgs hpylos windows cache (wave 13)
+  description: Nixpkgs leftover pname hpylos on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpylos/Cache"
+  - "%LOCALAPPDATA%/hpylos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpyrg
+  name: Nixpkgs hpyrg macos cache (wave 13)
+  description: Nixpkgs leftover pname hpyrg on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpyrg"
+  - "$HOME/Library/Logs/hpyrg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpyrg
+  name: Nixpkgs hpyrg linux cache (wave 13)
+  description: Nixpkgs leftover pname hpyrg on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpyrg"
+  - "$XDG_CACHE_HOME/hpyrg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpyrg
+  name: Nixpkgs hpyrg windows cache (wave 13)
+  description: Nixpkgs leftover pname hpyrg on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpyrg/Cache"
+  - "%LOCALAPPDATA%/hpyrg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hpython
+  name: Nixpkgs hpython macos cache (wave 13)
+  description: Nixpkgs leftover pname hpython on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hpython"
+  - "$HOME/Library/Logs/hpython"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hpython
+  name: Nixpkgs hpython linux cache (wave 13)
+  description: Nixpkgs leftover pname hpython on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hpython"
+  - "$XDG_CACHE_HOME/hpython"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hpython
+  name: Nixpkgs hpython windows cache (wave 13)
+  description: Nixpkgs leftover pname hpython on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hpython/Cache"
+  - "%LOCALAPPDATA%/hpython/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hq
+  name: Nixpkgs hq macos cache (wave 13)
+  description: Nixpkgs leftover pname hq on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hq"
+  - "$HOME/Library/Logs/hq"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hq
+  name: Nixpkgs hq linux cache (wave 13)
+  description: Nixpkgs leftover pname hq on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hq"
+  - "$XDG_CACHE_HOME/hq"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hq
+  name: Nixpkgs hq windows cache (wave 13)
+  description: Nixpkgs leftover pname hq on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hq/Cache"
+  - "%LOCALAPPDATA%/hq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hqcsim
+  name: Nixpkgs hqcsim macos cache (wave 13)
+  description: Nixpkgs leftover pname hqcsim on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hqcsim"
+  - "$HOME/Library/Logs/hqcsim"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hqcsim
+  name: Nixpkgs hqcsim linux cache (wave 13)
+  description: Nixpkgs leftover pname hqcsim on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hqcsim"
+  - "$XDG_CACHE_HOME/hqcsim"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hqcsim
+  name: Nixpkgs hqcsim windows cache (wave 13)
+  description: Nixpkgs leftover pname hqcsim on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hqcsim/Cache"
+  - "%LOCALAPPDATA%/hqcsim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hqmisc
+  name: Nixpkgs hqmisc macos cache (wave 13)
+  description: Nixpkgs leftover pname hqmisc on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hqmisc"
+  - "$HOME/Library/Logs/hqmisc"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hqmisc
+  name: Nixpkgs hqmisc linux cache (wave 13)
+  description: Nixpkgs leftover pname hqmisc on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hqmisc"
+  - "$XDG_CACHE_HOME/hqmisc"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hqmisc
+  name: Nixpkgs hqmisc windows cache (wave 13)
+  description: Nixpkgs leftover pname hqmisc on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hqmisc/Cache"
+  - "%LOCALAPPDATA%/hqmisc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hqplayer-desktop
+  name: Nixpkgs hqplayer-desktop macos cache (wave 13)
+  description: Nixpkgs leftover pname hqplayer-desktop on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hqplayer-desktop"
+  - "$HOME/Library/Logs/hqplayer-desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hqplayer-desktop
+  name: Nixpkgs hqplayer-desktop linux cache (wave 13)
+  description: Nixpkgs leftover pname hqplayer-desktop on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hqplayer-desktop"
+  - "$XDG_CACHE_HOME/hqplayer-desktop"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hqplayer-desktop
+  name: Nixpkgs hqplayer-desktop windows cache (wave 13)
+  description: Nixpkgs leftover pname hqplayer-desktop on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hqplayer-desktop/Cache"
+  - "%LOCALAPPDATA%/hqplayer-desktop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hqplayerd
+  name: Nixpkgs hqplayerd macos cache (wave 13)
+  description: Nixpkgs leftover pname hqplayerd on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hqplayerd"
+  - "$HOME/Library/Logs/hqplayerd"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hqplayerd
+  name: Nixpkgs hqplayerd linux cache (wave 13)
+  description: Nixpkgs leftover pname hqplayerd on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hqplayerd"
+  - "$XDG_CACHE_HOME/hqplayerd"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hqplayerd
+  name: Nixpkgs hqplayerd windows cache (wave 13)
+  description: Nixpkgs leftover pname hqplayerd on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hqplayerd/Cache"
+  - "%LOCALAPPDATA%/hqplayerd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hqreg
+  name: Nixpkgs hqreg macos cache (wave 13)
+  description: Nixpkgs leftover pname hqreg on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hqreg"
+  - "$HOME/Library/Logs/hqreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hqreg
+  name: Nixpkgs hqreg linux cache (wave 13)
+  description: Nixpkgs leftover pname hqreg on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hqreg"
+  - "$XDG_CACHE_HOME/hqreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hqreg
+  name: Nixpkgs hqreg windows cache (wave 13)
+  description: Nixpkgs leftover pname hqreg on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hqreg/Cache"
+  - "%LOCALAPPDATA%/hqreg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hquantlib
+  name: Nixpkgs hquantlib macos cache (wave 13)
+  description: Nixpkgs leftover pname hquantlib on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hquantlib"
+  - "$HOME/Library/Logs/hquantlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hquantlib
+  name: Nixpkgs hquantlib linux cache (wave 13)
+  description: Nixpkgs leftover pname hquantlib on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hquantlib"
+  - "$XDG_CACHE_HOME/hquantlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hquantlib
+  name: Nixpkgs hquantlib windows cache (wave 13)
+  description: Nixpkgs leftover pname hquantlib on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hquantlib/Cache"
+  - "%LOCALAPPDATA%/hquantlib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hquantlib-time
+  name: Nixpkgs hquantlib-time macos cache (wave 13)
+  description: Nixpkgs leftover pname hquantlib-time on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hquantlib-time"
+  - "$HOME/Library/Logs/hquantlib-time"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hquantlib-time
+  name: Nixpkgs hquantlib-time linux cache (wave 13)
+  description: Nixpkgs leftover pname hquantlib-time on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hquantlib-time"
+  - "$XDG_CACHE_HOME/hquantlib-time"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hquantlib-time
+  name: Nixpkgs hquantlib-time windows cache (wave 13)
+  description: Nixpkgs leftover pname hquantlib-time on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hquantlib-time/Cache"
+  - "%LOCALAPPDATA%/hquantlib-time/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hquery
+  name: Nixpkgs hquery macos cache (wave 13)
+  description: Nixpkgs leftover pname hquery on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hquery"
+  - "$HOME/Library/Logs/hquery"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hquery
+  name: Nixpkgs hquery linux cache (wave 13)
+  description: Nixpkgs leftover pname hquery on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hquery"
+  - "$XDG_CACHE_HOME/hquery"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hquery
+  name: Nixpkgs hquery windows cache (wave 13)
+  description: Nixpkgs leftover pname hquery on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hquery/Cache"
+  - "%LOCALAPPDATA%/hquery/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hripw
+  name: Nixpkgs hrIPW macos cache (wave 13)
+  description: Nixpkgs leftover pname hrIPW on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrIPW"
+  - "$HOME/Library/Logs/hrIPW"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hripw
+  name: Nixpkgs hrIPW linux cache (wave 13)
+  description: Nixpkgs leftover pname hrIPW on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrIPW"
+  - "$XDG_CACHE_HOME/hrIPW"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hripw
+  name: Nixpkgs hrIPW windows cache (wave 13)
+  description: Nixpkgs leftover pname hrIPW on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrIPW/Cache"
+  - "%LOCALAPPDATA%/hrIPW/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hranker
+  name: Nixpkgs hranker macos cache (wave 13)
+  description: Nixpkgs leftover pname hranker on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hranker"
+  - "$HOME/Library/Logs/hranker"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hranker
+  name: Nixpkgs hranker linux cache (wave 13)
+  description: Nixpkgs leftover pname hranker on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hranker"
+  - "$XDG_CACHE_HOME/hranker"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hranker
+  name: Nixpkgs hranker windows cache (wave 13)
+  description: Nixpkgs leftover pname hranker on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hranker/Cache"
+  - "%LOCALAPPDATA%/hranker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrbrthemes
+  name: Nixpkgs hrbrthemes macos cache (wave 13)
+  description: Nixpkgs leftover pname hrbrthemes on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrbrthemes"
+  - "$HOME/Library/Logs/hrbrthemes"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrbrthemes
+  name: Nixpkgs hrbrthemes linux cache (wave 13)
+  description: Nixpkgs leftover pname hrbrthemes on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrbrthemes"
+  - "$XDG_CACHE_HOME/hrbrthemes"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrbrthemes
+  name: Nixpkgs hrbrthemes windows cache (wave 13)
+  description: Nixpkgs leftover pname hrbrthemes on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrbrthemes/Cache"
+  - "%LOCALAPPDATA%/hrbrthemes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrcomprisk
+  name: Nixpkgs hrcomprisk macos cache (wave 13)
+  description: Nixpkgs leftover pname hrcomprisk on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrcomprisk"
+  - "$HOME/Library/Logs/hrcomprisk"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrcomprisk
+  name: Nixpkgs hrcomprisk linux cache (wave 13)
+  description: Nixpkgs leftover pname hrcomprisk on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrcomprisk"
+  - "$XDG_CACHE_HOME/hrcomprisk"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrcomprisk
+  name: Nixpkgs hrcomprisk windows cache (wave 13)
+  description: Nixpkgs leftover pname hrcomprisk on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrcomprisk/Cache"
+  - "%LOCALAPPDATA%/hrcomprisk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hreader
+  name: Nixpkgs hreader macos cache (wave 13)
+  description: Nixpkgs leftover pname hreader on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hreader"
+  - "$HOME/Library/Logs/hreader"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hreader
+  name: Nixpkgs hreader linux cache (wave 13)
+  description: Nixpkgs leftover pname hreader on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hreader"
+  - "$XDG_CACHE_HOME/hreader"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hreader
+  name: Nixpkgs hreader windows cache (wave 13)
+  description: Nixpkgs leftover pname hreader on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hreader/Cache"
+  - "%LOCALAPPDATA%/hreader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hreader-lens
+  name: Nixpkgs hreader-lens macos cache (wave 13)
+  description: Nixpkgs leftover pname hreader-lens on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hreader-lens"
+  - "$HOME/Library/Logs/hreader-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hreader-lens
+  name: Nixpkgs hreader-lens linux cache (wave 13)
+  description: Nixpkgs leftover pname hreader-lens on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hreader-lens"
+  - "$XDG_CACHE_HOME/hreader-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hreader-lens
+  name: Nixpkgs hreader-lens windows cache (wave 13)
+  description: Nixpkgs leftover pname hreader-lens on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hreader-lens/Cache"
+  - "%LOCALAPPDATA%/hreader-lens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hred
+  name: Nixpkgs hred macos cache (wave 13)
+  description: Nixpkgs leftover pname hred on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hred"
+  - "$HOME/Library/Logs/hred"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hred
+  name: Nixpkgs hred linux cache (wave 13)
+  description: Nixpkgs leftover pname hred on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hred"
+  - "$XDG_CACHE_HOME/hred"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hred
+  name: Nixpkgs hred windows cache (wave 13)
+  description: Nixpkgs leftover pname hred on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hred/Cache"
+  - "%LOCALAPPDATA%/hred/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-href-ul
+  name: Nixpkgs href-ul macos cache (wave 13)
+  description: Nixpkgs leftover pname href-ul on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/href-ul"
+  - "$HOME/Library/Logs/href-ul"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-href-ul
+  name: Nixpkgs href-ul linux cache (wave 13)
+  description: Nixpkgs leftover pname href-ul on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/href-ul"
+  - "$XDG_CACHE_HOME/href-ul"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-href-ul
+  name: Nixpkgs href-ul windows cache (wave 13)
+  description: Nixpkgs leftover pname href-ul on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/href-ul/Cache"
+  - "%LOCALAPPDATA%/href-ul/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrefhide
+  name: Nixpkgs hrefhide macos cache (wave 13)
+  description: Nixpkgs leftover pname hrefhide on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrefhide"
+  - "$HOME/Library/Logs/hrefhide"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrefhide
+  name: Nixpkgs hrefhide linux cache (wave 13)
+  description: Nixpkgs leftover pname hrefhide on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrefhide"
+  - "$XDG_CACHE_HOME/hrefhide"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrefhide
+  name: Nixpkgs hrefhide windows cache (wave 13)
+  description: Nixpkgs leftover pname hrefhide on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrefhide/Cache"
+  - "%LOCALAPPDATA%/hrefhide/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hreq-client
+  name: Nixpkgs hreq-client macos cache (wave 13)
+  description: Nixpkgs leftover pname hreq-client on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hreq-client"
+  - "$HOME/Library/Logs/hreq-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hreq-client
+  name: Nixpkgs hreq-client linux cache (wave 13)
+  description: Nixpkgs leftover pname hreq-client on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hreq-client"
+  - "$XDG_CACHE_HOME/hreq-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hreq-client
+  name: Nixpkgs hreq-client windows cache (wave 13)
+  description: Nixpkgs leftover pname hreq-client on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hreq-client/Cache"
+  - "%LOCALAPPDATA%/hreq-client/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hreq-conduit
+  name: Nixpkgs hreq-conduit macos cache (wave 13)
+  description: Nixpkgs leftover pname hreq-conduit on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hreq-conduit"
+  - "$HOME/Library/Logs/hreq-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hreq-conduit
+  name: Nixpkgs hreq-conduit linux cache (wave 13)
+  description: Nixpkgs leftover pname hreq-conduit on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hreq-conduit"
+  - "$XDG_CACHE_HOME/hreq-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hreq-conduit
+  name: Nixpkgs hreq-conduit windows cache (wave 13)
+  description: Nixpkgs leftover pname hreq-conduit on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hreq-conduit/Cache"
+  - "%LOCALAPPDATA%/hreq-conduit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hreq-core
+  name: Nixpkgs hreq-core macos cache (wave 13)
+  description: Nixpkgs leftover pname hreq-core on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hreq-core"
+  - "$HOME/Library/Logs/hreq-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hreq-core
+  name: Nixpkgs hreq-core linux cache (wave 13)
+  description: Nixpkgs leftover pname hreq-core on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hreq-core"
+  - "$XDG_CACHE_HOME/hreq-core"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hreq-core
+  name: Nixpkgs hreq-core windows cache (wave 13)
+  description: Nixpkgs leftover pname hreq-core on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hreq-core/Cache"
+  - "%LOCALAPPDATA%/hreq-core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrf
+  name: Nixpkgs hrf macos cache (wave 13)
+  description: Nixpkgs leftover pname hrf on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrf"
+  - "$HOME/Library/Logs/hrf"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrf
+  name: Nixpkgs hrf linux cache (wave 13)
+  description: Nixpkgs leftover pname hrf on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrf"
+  - "$XDG_CACHE_HOME/hrf"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrf
+  name: Nixpkgs hrf windows cache (wave 13)
+  description: Nixpkgs leftover pname hrf on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrf/Cache"
+  - "%LOCALAPPDATA%/hrf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrfsize
+  name: Nixpkgs hrfsize macos cache (wave 13)
+  description: Nixpkgs leftover pname hrfsize on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrfsize"
+  - "$HOME/Library/Logs/hrfsize"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrfsize
+  name: Nixpkgs hrfsize linux cache (wave 13)
+  description: Nixpkgs leftover pname hrfsize on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrfsize"
+  - "$XDG_CACHE_HOME/hrfsize"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrfsize
+  name: Nixpkgs hrfsize windows cache (wave 13)
+  description: Nixpkgs leftover pname hrfsize on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrfsize/Cache"
+  - "%LOCALAPPDATA%/hrfsize/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hriemann
+  name: Nixpkgs hriemann macos cache (wave 13)
+  description: Nixpkgs leftover pname hriemann on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hriemann"
+  - "$HOME/Library/Logs/hriemann"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hriemann
+  name: Nixpkgs hriemann linux cache (wave 13)
+  description: Nixpkgs leftover pname hriemann on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hriemann"
+  - "$XDG_CACHE_HOME/hriemann"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hriemann
+  name: Nixpkgs hriemann windows cache (wave 13)
+  description: Nixpkgs leftover pname hriemann on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hriemann/Cache"
+  - "%LOCALAPPDATA%/hriemann/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrlatex
+  name: Nixpkgs hrlatex macos cache (wave 13)
+  description: Nixpkgs leftover pname hrlatex on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrlatex"
+  - "$HOME/Library/Logs/hrlatex"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrlatex
+  name: Nixpkgs hrlatex linux cache (wave 13)
+  description: Nixpkgs leftover pname hrlatex on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrlatex"
+  - "$XDG_CACHE_HOME/hrlatex"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrlatex
+  name: Nixpkgs hrlatex windows cache (wave 13)
+  description: Nixpkgs leftover pname hrlatex on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrlatex/Cache"
+  - "%LOCALAPPDATA%/hrlatex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrqglas
+  name: Nixpkgs hrqglas macos cache (wave 13)
+  description: Nixpkgs leftover pname hrqglas on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrqglas"
+  - "$HOME/Library/Logs/hrqglas"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrqglas
+  name: Nixpkgs hrqglas linux cache (wave 13)
+  description: Nixpkgs leftover pname hrqglas on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrqglas"
+  - "$XDG_CACHE_HOME/hrqglas"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrqglas
+  name: Nixpkgs hrqglas windows cache (wave 13)
+  description: Nixpkgs leftover pname hrqglas on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrqglas/Cache"
+  - "%LOCALAPPDATA%/hrqglas/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrt
+  name: Nixpkgs hrt macos cache (wave 13)
+  description: Nixpkgs leftover pname hrt on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrt"
+  - "$HOME/Library/Logs/hrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrt
+  name: Nixpkgs hrt linux cache (wave 13)
+  description: Nixpkgs leftover pname hrt on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrt"
+  - "$XDG_CACHE_HOME/hrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrt
+  name: Nixpkgs hrt windows cache (wave 13)
+  description: Nixpkgs leftover pname hrt on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrt/Cache"
+  - "%LOCALAPPDATA%/hrt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hrtlfmc
+  name: Nixpkgs hrtlFMC macos cache (wave 13)
+  description: Nixpkgs leftover pname hrtlFMC on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hrtlFMC"
+  - "$HOME/Library/Logs/hrtlFMC"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hrtlfmc
+  name: Nixpkgs hrtlFMC linux cache (wave 13)
+  description: Nixpkgs leftover pname hrtlFMC on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hrtlFMC"
+  - "$XDG_CACHE_HOME/hrtlFMC"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hrtlfmc
+  name: Nixpkgs hrtlFMC windows cache (wave 13)
+  description: Nixpkgs leftover pname hrtlFMC on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hrtlFMC/Cache"
+  - "%LOCALAPPDATA%/hrtlFMC/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hruby
+  name: Nixpkgs hruby macos cache (wave 13)
+  description: Nixpkgs leftover pname hruby on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hruby"
+  - "$HOME/Library/Logs/hruby"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hruby
+  name: Nixpkgs hruby linux cache (wave 13)
+  description: Nixpkgs leftover pname hruby on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hruby"
+  - "$XDG_CACHE_HOME/hruby"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hruby
+  name: Nixpkgs hruby windows cache (wave 13)
+  description: Nixpkgs leftover pname hruby on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hruby/Cache"
+  - "%LOCALAPPDATA%/hruby/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-geoip
+  name: Nixpkgs hs-GeoIP macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-GeoIP on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-GeoIP"
+  - "$HOME/Library/Logs/hs-GeoIP"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-geoip
+  name: Nixpkgs hs-GeoIP linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-GeoIP on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-GeoIP"
+  - "$XDG_CACHE_HOME/hs-GeoIP"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-geoip
+  name: Nixpkgs hs-GeoIP windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-GeoIP on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-GeoIP/Cache"
+  - "%LOCALAPPDATA%/hs-GeoIP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-asapo
+  name: Nixpkgs hs-asapo macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-asapo on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-asapo"
+  - "$HOME/Library/Logs/hs-asapo"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-asapo
+  name: Nixpkgs hs-asapo linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-asapo on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-asapo"
+  - "$XDG_CACHE_HOME/hs-asapo"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-asapo
+  name: Nixpkgs hs-asapo windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-asapo on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-asapo/Cache"
+  - "%LOCALAPPDATA%/hs-asapo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-aws-lambda
+  name: Nixpkgs hs-aws-lambda macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-aws-lambda on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-aws-lambda"
+  - "$HOME/Library/Logs/hs-aws-lambda"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-aws-lambda
+  name: Nixpkgs hs-aws-lambda linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-aws-lambda on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-aws-lambda"
+  - "$XDG_CACHE_HOME/hs-aws-lambda"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-aws-lambda
+  name: Nixpkgs hs-aws-lambda windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-aws-lambda on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-aws-lambda/Cache"
+  - "%LOCALAPPDATA%/hs-aws-lambda/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-bibutils
+  name: Nixpkgs hs-bibutils macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-bibutils on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-bibutils"
+  - "$HOME/Library/Logs/hs-bibutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-bibutils
+  name: Nixpkgs hs-bibutils linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-bibutils on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-bibutils"
+  - "$XDG_CACHE_HOME/hs-bibutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-bibutils
+  name: Nixpkgs hs-bibutils windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-bibutils on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-bibutils/Cache"
+  - "%LOCALAPPDATA%/hs-bibutils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-blake2
+  name: Nixpkgs hs-blake2 macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-blake2 on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-blake2"
+  - "$HOME/Library/Logs/hs-blake2"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-blake2
+  name: Nixpkgs hs-blake2 linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-blake2 on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-blake2"
+  - "$XDG_CACHE_HOME/hs-blake2"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-blake2
+  name: Nixpkgs hs-blake2 windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-blake2 on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-blake2/Cache"
+  - "%LOCALAPPDATA%/hs-blake2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-brotli
+  name: Nixpkgs hs-brotli macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-brotli on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-brotli"
+  - "$HOME/Library/Logs/hs-brotli"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-brotli
+  name: Nixpkgs hs-brotli linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-brotli on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-brotli"
+  - "$XDG_CACHE_HOME/hs-brotli"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-brotli
+  name: Nixpkgs hs-brotli windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-brotli on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-brotli/Cache"
+  - "%LOCALAPPDATA%/hs-brotli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-captcha
+  name: Nixpkgs hs-captcha macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-captcha on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-captcha"
+  - "$HOME/Library/Logs/hs-captcha"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-captcha
+  name: Nixpkgs hs-captcha linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-captcha on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-captcha"
+  - "$XDG_CACHE_HOME/hs-captcha"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-captcha
+  name: Nixpkgs hs-captcha windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-captcha on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-captcha/Cache"
+  - "%LOCALAPPDATA%/hs-captcha/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-carbon
+  name: Nixpkgs hs-carbon macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-carbon on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-carbon"
+  - "$HOME/Library/Logs/hs-carbon"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-carbon
+  name: Nixpkgs hs-carbon linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-carbon on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-carbon"
+  - "$XDG_CACHE_HOME/hs-carbon"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-carbon
+  name: Nixpkgs hs-carbon windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-carbon on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-carbon/Cache"
+  - "%LOCALAPPDATA%/hs-carbon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-carbon-examples
+  name: Nixpkgs hs-carbon-examples macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-carbon-examples on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-carbon-examples"
+  - "$HOME/Library/Logs/hs-carbon-examples"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-carbon-examples
+  name: Nixpkgs hs-carbon-examples linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-carbon-examples on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-carbon-examples"
+  - "$XDG_CACHE_HOME/hs-carbon-examples"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-carbon-examples
+  name: Nixpkgs hs-carbon-examples windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-carbon-examples on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-carbon-examples/Cache"
+  - "%LOCALAPPDATA%/hs-carbon-examples/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-cdb
+  name: Nixpkgs hs-cdb macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-cdb on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-cdb"
+  - "$HOME/Library/Logs/hs-cdb"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-cdb
+  name: Nixpkgs hs-cdb linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-cdb on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-cdb"
+  - "$XDG_CACHE_HOME/hs-cdb"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-cdb
+  name: Nixpkgs hs-cdb windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-cdb on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-cdb/Cache"
+  - "%LOCALAPPDATA%/hs-cdb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-conllu
+  name: Nixpkgs hs-conllu macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-conllu on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-conllu"
+  - "$HOME/Library/Logs/hs-conllu"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-conllu
+  name: Nixpkgs hs-conllu linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-conllu on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-conllu"
+  - "$XDG_CACHE_HOME/hs-conllu"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-conllu
+  name: Nixpkgs hs-conllu windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-conllu on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-conllu/Cache"
+  - "%LOCALAPPDATA%/hs-conllu/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-dbus-signature
+  name: Nixpkgs hs-dbus-signature macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-dbus-signature on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-dbus-signature"
+  - "$HOME/Library/Logs/hs-dbus-signature"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-dbus-signature
+  name: Nixpkgs hs-dbus-signature linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-dbus-signature on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-dbus-signature"
+  - "$XDG_CACHE_HOME/hs-dbus-signature"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-dbus-signature
+  name: Nixpkgs hs-dbus-signature windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-dbus-signature on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-dbus-signature/Cache"
+  - "%LOCALAPPDATA%/hs-dbus-signature/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-di
+  name: Nixpkgs hs-di macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-di on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-di"
+  - "$HOME/Library/Logs/hs-di"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-di
+  name: Nixpkgs hs-di linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-di on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-di"
+  - "$XDG_CACHE_HOME/hs-di"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-di
+  name: Nixpkgs hs-di windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-di on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-di/Cache"
+  - "%LOCALAPPDATA%/hs-di/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-dotnet
+  name: Nixpkgs hs-dotnet macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-dotnet on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-dotnet"
+  - "$HOME/Library/Logs/hs-dotnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-dotnet
+  name: Nixpkgs hs-dotnet linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-dotnet on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-dotnet"
+  - "$XDG_CACHE_HOME/hs-dotnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-dotnet
+  name: Nixpkgs hs-dotnet windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-dotnet on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-dotnet/Cache"
+  - "%LOCALAPPDATA%/hs-dotnet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-duktape
+  name: Nixpkgs hs-duktape macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-duktape on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-duktape"
+  - "$HOME/Library/Logs/hs-duktape"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-duktape
+  name: Nixpkgs hs-duktape linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-duktape on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-duktape"
+  - "$XDG_CACHE_HOME/hs-duktape"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-duktape
+  name: Nixpkgs hs-duktape windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-duktape on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-duktape/Cache"
+  - "%LOCALAPPDATA%/hs-duktape/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-excelx
+  name: Nixpkgs hs-excelx macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-excelx on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-excelx"
+  - "$HOME/Library/Logs/hs-excelx"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-excelx
+  name: Nixpkgs hs-excelx linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-excelx on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-excelx"
+  - "$XDG_CACHE_HOME/hs-excelx"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-excelx
+  name: Nixpkgs hs-excelx windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-excelx on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-excelx/Cache"
+  - "%LOCALAPPDATA%/hs-excelx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-ffmpeg
+  name: Nixpkgs hs-ffmpeg macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-ffmpeg on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-ffmpeg"
+  - "$HOME/Library/Logs/hs-ffmpeg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-ffmpeg
+  name: Nixpkgs hs-ffmpeg linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-ffmpeg on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-ffmpeg"
+  - "$XDG_CACHE_HOME/hs-ffmpeg"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-ffmpeg
+  name: Nixpkgs hs-ffmpeg windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-ffmpeg on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-ffmpeg/Cache"
+  - "%LOCALAPPDATA%/hs-ffmpeg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-fltk
+  name: Nixpkgs hs-fltk macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-fltk on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-fltk"
+  - "$HOME/Library/Logs/hs-fltk"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-fltk
+  name: Nixpkgs hs-fltk linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-fltk on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-fltk"
+  - "$XDG_CACHE_HOME/hs-fltk"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-fltk
+  name: Nixpkgs hs-fltk windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-fltk on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-fltk/Cache"
+  - "%LOCALAPPDATA%/hs-fltk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-functors
+  name: Nixpkgs hs-functors macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-functors on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-functors"
+  - "$HOME/Library/Logs/hs-functors"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-functors
+  name: Nixpkgs hs-functors linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-functors on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-functors"
+  - "$XDG_CACHE_HOME/hs-functors"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-functors
+  name: Nixpkgs hs-functors windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-functors on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-functors/Cache"
+  - "%LOCALAPPDATA%/hs-functors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-gchart
+  name: Nixpkgs hs-gchart macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-gchart on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-gchart"
+  - "$HOME/Library/Logs/hs-gchart"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-gchart
+  name: Nixpkgs hs-gchart linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-gchart on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-gchart"
+  - "$XDG_CACHE_HOME/hs-gchart"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-gchart
+  name: Nixpkgs hs-gchart windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-gchart on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-gchart/Cache"
+  - "%LOCALAPPDATA%/hs-gchart/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-gen-iface
+  name: Nixpkgs hs-gen-iface macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-gen-iface on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-gen-iface"
+  - "$HOME/Library/Logs/hs-gen-iface"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-gen-iface
+  name: Nixpkgs hs-gen-iface linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-gen-iface on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-gen-iface"
+  - "$XDG_CACHE_HOME/hs-gen-iface"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-gen-iface
+  name: Nixpkgs hs-gen-iface windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-gen-iface on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-gen-iface/Cache"
+  - "%LOCALAPPDATA%/hs-gen-iface/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-gizapp
+  name: Nixpkgs hs-gizapp macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-gizapp on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-gizapp"
+  - "$HOME/Library/Logs/hs-gizapp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-gizapp
+  name: Nixpkgs hs-gizapp linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-gizapp on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-gizapp"
+  - "$XDG_CACHE_HOME/hs-gizapp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-gizapp
+  name: Nixpkgs hs-gizapp windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-gizapp on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-gizapp/Cache"
+  - "%LOCALAPPDATA%/hs-gizapp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-hath
+  name: Nixpkgs hs-hath macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-hath on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-hath"
+  - "$HOME/Library/Logs/hs-hath"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-hath
+  name: Nixpkgs hs-hath linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-hath on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-hath"
+  - "$XDG_CACHE_HOME/hs-hath"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-hath
+  name: Nixpkgs hs-hath windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-hath on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-hath/Cache"
+  - "%LOCALAPPDATA%/hs-hath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-highlight
+  name: Nixpkgs hs-highlight macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-highlight on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-highlight"
+  - "$HOME/Library/Logs/hs-highlight"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-highlight
+  name: Nixpkgs hs-highlight linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-highlight on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-highlight"
+  - "$XDG_CACHE_HOME/hs-highlight"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-highlight
+  name: Nixpkgs hs-highlight windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-highlight on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-highlight/Cache"
+  - "%LOCALAPPDATA%/hs-highlight/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-inspector
+  name: Nixpkgs hs-inspector macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-inspector on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-inspector"
+  - "$HOME/Library/Logs/hs-inspector"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-inspector
+  name: Nixpkgs hs-inspector linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-inspector on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-inspector"
+  - "$XDG_CACHE_HOME/hs-inspector"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-inspector
+  name: Nixpkgs hs-inspector windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-inspector on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-inspector/Cache"
+  - "%LOCALAPPDATA%/hs-inspector/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-ix
+  name: Nixpkgs hs-ix macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-ix on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-ix"
+  - "$HOME/Library/Logs/hs-ix"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-ix
+  name: Nixpkgs hs-ix linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-ix on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-ix"
+  - "$XDG_CACHE_HOME/hs-ix"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-ix
+  name: Nixpkgs hs-ix windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-ix on windows (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-ix/Cache"
+  - "%LOCALAPPDATA%/hs-ix/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-java
+  name: Nixpkgs hs-java macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-java on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-java"
+  - "$HOME/Library/Logs/hs-java"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-java
+  name: Nixpkgs hs-java linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-java on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-java"
+  - "$XDG_CACHE_HOME/hs-java"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-java
+  name: Nixpkgs hs-java windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-java on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-java/Cache"
+  - "%LOCALAPPDATA%/hs-java/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-json-rpc
+  name: Nixpkgs hs-json-rpc macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-json-rpc on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-json-rpc"
+  - "$HOME/Library/Logs/hs-json-rpc"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-json-rpc
+  name: Nixpkgs hs-json-rpc linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-json-rpc on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-json-rpc"
+  - "$XDG_CACHE_HOME/hs-json-rpc"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-json-rpc
+  name: Nixpkgs hs-json-rpc windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-json-rpc on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-json-rpc/Cache"
+  - "%LOCALAPPDATA%/hs-json-rpc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-logo
+  name: Nixpkgs hs-logo macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-logo on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-logo"
+  - "$HOME/Library/Logs/hs-logo"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-logo
+  name: Nixpkgs hs-logo linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-logo on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-logo"
+  - "$XDG_CACHE_HOME/hs-logo"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-logo
+  name: Nixpkgs hs-logo windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-logo on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-logo/Cache"
+  - "%LOCALAPPDATA%/hs-logo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-mesos
+  name: Nixpkgs hs-mesos macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-mesos on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-mesos"
+  - "$HOME/Library/Logs/hs-mesos"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-mesos
+  name: Nixpkgs hs-mesos linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-mesos on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-mesos"
+  - "$XDG_CACHE_HOME/hs-mesos"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-mesos
+  name: Nixpkgs hs-mesos windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-mesos on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-mesos/Cache"
+  - "%LOCALAPPDATA%/hs-mesos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-multiaddr
+  name: Nixpkgs hs-multiaddr macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-multiaddr on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-multiaddr"
+  - "$HOME/Library/Logs/hs-multiaddr"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-multiaddr
+  name: Nixpkgs hs-multiaddr linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-multiaddr on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-multiaddr"
+  - "$XDG_CACHE_HOME/hs-multiaddr"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-multiaddr
+  name: Nixpkgs hs-multiaddr windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-multiaddr on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-multiaddr/Cache"
+  - "%LOCALAPPDATA%/hs-multiaddr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-nombre-generator
+  name: Nixpkgs hs-nombre-generator macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-nombre-generator on macos (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-nombre-generator"
+  - "$HOME/Library/Logs/hs-nombre-generator"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-nombre-generator
+  name: Nixpkgs hs-nombre-generator linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-nombre-generator on linux (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-nombre-generator"
+  - "$XDG_CACHE_HOME/hs-nombre-generator"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-nombre-generator
+  name: Nixpkgs hs-nombre-generator windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-nombre-generator on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-nombre-generator/Cache"
+  - "%LOCALAPPDATA%/hs-nombre-generator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-onnxruntime-capi
+  name: Nixpkgs hs-onnxruntime-capi macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-onnxruntime-capi on macos (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-onnxruntime-capi"
+  - "$HOME/Library/Logs/hs-onnxruntime-capi"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-onnxruntime-capi
+  name: Nixpkgs hs-onnxruntime-capi linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-onnxruntime-capi on linux (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-onnxruntime-capi"
+  - "$XDG_CACHE_HOME/hs-onnxruntime-capi"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-onnxruntime-capi
+  name: Nixpkgs hs-onnxruntime-capi windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-onnxruntime-capi on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-onnxruntime-capi/Cache"
+  - "%LOCALAPPDATA%/hs-onnxruntime-capi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-openmoji-data
+  name: Nixpkgs hs-openmoji-data macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-openmoji-data on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-openmoji-data"
+  - "$HOME/Library/Logs/hs-openmoji-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-openmoji-data
+  name: Nixpkgs hs-openmoji-data linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-openmoji-data on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-openmoji-data"
+  - "$XDG_CACHE_HOME/hs-openmoji-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-openmoji-data
+  name: Nixpkgs hs-openmoji-data windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-openmoji-data on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-openmoji-data/Cache"
+  - "%LOCALAPPDATA%/hs-openmoji-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-api
+  name: Nixpkgs hs-opentelemetry-api macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-api on macos (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-api"
+  - "$HOME/Library/Logs/hs-opentelemetry-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-api
+  name: Nixpkgs hs-opentelemetry-api linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-api on linux (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-api"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-api
+  name: Nixpkgs hs-opentelemetry-api windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-api on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-api/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-awsxray
+  name: Nixpkgs hs-opentelemetry-awsxray macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-awsxray on macos (wave 13).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-awsxray"
+  - "$HOME/Library/Logs/hs-opentelemetry-awsxray"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-awsxray
+  name: Nixpkgs hs-opentelemetry-awsxray linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-awsxray on linux (wave 13).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-awsxray"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-awsxray"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-awsxray
+  name: Nixpkgs hs-opentelemetry-awsxray windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-awsxray on windows (wave 13).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-awsxray/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-awsxray/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-exporter-handle
+  name: Nixpkgs hs-opentelemetry-exporter-handle macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-handle on macos (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-exporter-handle"
+  - "$HOME/Library/Logs/hs-opentelemetry-exporter-handle"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-exporter-handle
+  name: Nixpkgs hs-opentelemetry-exporter-handle linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-handle on linux (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-exporter-handle"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-exporter-handle"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-exporter-handle
+  name: Nixpkgs hs-opentelemetry-exporter-handle windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-handle on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-exporter-handle/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-exporter-handle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-exporter-in-memory
+  name: Nixpkgs hs-opentelemetry-exporter-in-memory macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-in-memory on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-exporter-in-memory"
+  - "$HOME/Library/Logs/hs-opentelemetry-exporter-in-memory"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-exporter-in-memory
+  name: Nixpkgs hs-opentelemetry-exporter-in-memory linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-in-memory on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-exporter-in-memory"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-exporter-in-memory"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-exporter-in-memory
+  name: Nixpkgs hs-opentelemetry-exporter-in-memory windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-in-memory on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-exporter-in-memory/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-exporter-in-memory/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-exporter-otlp
+  name: Nixpkgs hs-opentelemetry-exporter-otlp macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-otlp on macos (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-exporter-otlp"
+  - "$HOME/Library/Logs/hs-opentelemetry-exporter-otlp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-exporter-otlp
+  name: Nixpkgs hs-opentelemetry-exporter-otlp linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-otlp on linux (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-exporter-otlp"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-exporter-otlp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-exporter-otlp
+  name: Nixpkgs hs-opentelemetry-exporter-otlp windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-exporter-otlp on windows (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-exporter-otlp/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-exporter-otlp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-auto
+  name: Nixpkgs hs-opentelemetry-instrumentation-auto macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-auto on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-auto"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-auto"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-auto
+  name: Nixpkgs hs-opentelemetry-instrumentation-auto linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-auto on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-auto"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-auto"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-auto
+  name: Nixpkgs hs-opentelemetry-instrumentation-auto windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-auto on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-auto/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-auto/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-cloudflare
+  name: Nixpkgs hs-opentelemetry-instrumentation-cloudflare macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-cloudflare
+    on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-cloudflare"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-cloudflare"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-cloudflare
+  name: Nixpkgs hs-opentelemetry-instrumentation-cloudflare linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-cloudflare
+    on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-cloudflare"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-cloudflare"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-cloudflare
+  name: Nixpkgs hs-opentelemetry-instrumentation-cloudflare windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-cloudflare
+    on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-cloudflare/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-cloudflare/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-conduit
+  name: Nixpkgs hs-opentelemetry-instrumentation-conduit macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-conduit on
+    macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-conduit"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-conduit
+  name: Nixpkgs hs-opentelemetry-instrumentation-conduit linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-conduit on
+    linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-conduit"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-conduit
+  name: Nixpkgs hs-opentelemetry-instrumentation-conduit windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-conduit on
+    windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-conduit/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-conduit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-hspec
+  name: Nixpkgs hs-opentelemetry-instrumentation-hspec macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-hspec on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-hspec"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-hspec"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-hspec
+  name: Nixpkgs hs-opentelemetry-instrumentation-hspec linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-hspec on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-hspec"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-hspec"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-hspec
+  name: Nixpkgs hs-opentelemetry-instrumentation-hspec windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-hspec on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-hspec/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-hspec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-http-client
+  name: Nixpkgs hs-opentelemetry-instrumentation-http-client macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-http-client
+    on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-http-client"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-http-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-http-client
+  name: Nixpkgs hs-opentelemetry-instrumentation-http-client linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-http-client
+    on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-http-client"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-http-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-http-client
+  name: Nixpkgs hs-opentelemetry-instrumentation-http-client windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-http-client
+    on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-http-client/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-http-client/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-hw-kafka-client
+  name: Nixpkgs hs-opentelemetry-instrumentation-hw-kafka-client macos cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-hw-kafka-client
+    on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-hw-kafka-client"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-hw-kafka-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-hw-kafka-client
+  name: Nixpkgs hs-opentelemetry-instrumentation-hw-kafka-client linux cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-hw-kafka-client
+    on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-hw-kafka-client"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-hw-kafka-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-hw-kafka-client
+  name: Nixpkgs hs-opentelemetry-instrumentation-hw-kafka-client windows cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-hw-kafka-client
+    on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-hw-kafka-client/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-hw-kafka-client/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-persistent
+  name: Nixpkgs hs-opentelemetry-instrumentation-persistent macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-persistent
+    on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-persistent"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-persistent"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-persistent
+  name: Nixpkgs hs-opentelemetry-instrumentation-persistent linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-persistent
+    on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-persistent"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-persistent"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-persistent
+  name: Nixpkgs hs-opentelemetry-instrumentation-persistent windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-persistent
+    on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-persistent/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-persistent/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-persistent-mysql
+  name: Nixpkgs hs-opentelemetry-instrumentation-persistent-mysql macos cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-persistent-mysql
+    on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-persistent-mysql"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-persistent-mysql"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-persistent-mysql
+  name: Nixpkgs hs-opentelemetry-instrumentation-persistent-mysql linux cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-persistent-mysql
+    on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-persistent-mysql"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-persistent-mysql"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-persistent-mysql
+  name: Nixpkgs hs-opentelemetry-instrumentation-persistent-mysql windows cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-persistent-mysql
+    on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-persistent-mysql/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-persistent-mysql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-postgresql-simple
+  name: Nixpkgs hs-opentelemetry-instrumentation-postgresql-simple macos cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-postgresql-simple
+    on macos (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-postgresql-simple"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-postgresql-simple"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-postgresql-simple
+  name: Nixpkgs hs-opentelemetry-instrumentation-postgresql-simple linux cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-postgresql-simple
+    on linux (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-postgresql-simple"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-postgresql-simple"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-postgresql-simple
+  name: Nixpkgs hs-opentelemetry-instrumentation-postgresql-simple windows cache (wave
+    13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-postgresql-simple
+    on windows (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-postgresql-simple/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-postgresql-simple/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-tasty
+  name: Nixpkgs hs-opentelemetry-instrumentation-tasty macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-tasty on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-tasty"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-tasty"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-tasty
+  name: Nixpkgs hs-opentelemetry-instrumentation-tasty linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-tasty on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-tasty"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-tasty"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-tasty
+  name: Nixpkgs hs-opentelemetry-instrumentation-tasty windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-tasty on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-tasty/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-tasty/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-wai
+  name: Nixpkgs hs-opentelemetry-instrumentation-wai macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-wai on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-wai"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-wai"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-wai
+  name: Nixpkgs hs-opentelemetry-instrumentation-wai linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-wai on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-wai"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-wai"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-wai
+  name: Nixpkgs hs-opentelemetry-instrumentation-wai windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-wai on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-wai/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-wai/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-instrumentation-yesod
+  name: Nixpkgs hs-opentelemetry-instrumentation-yesod macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-yesod on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-instrumentation-yesod"
+  - "$HOME/Library/Logs/hs-opentelemetry-instrumentation-yesod"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-instrumentation-yesod
+  name: Nixpkgs hs-opentelemetry-instrumentation-yesod linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-yesod on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-instrumentation-yesod"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-instrumentation-yesod"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-instrumentation-yesod
+  name: Nixpkgs hs-opentelemetry-instrumentation-yesod windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-instrumentation-yesod on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-yesod/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-instrumentation-yesod/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-otlp
+  name: Nixpkgs hs-opentelemetry-otlp macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-otlp on macos (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-otlp"
+  - "$HOME/Library/Logs/hs-opentelemetry-otlp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-otlp
+  name: Nixpkgs hs-opentelemetry-otlp linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-otlp on linux (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-otlp"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-otlp"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-otlp
+  name: Nixpkgs hs-opentelemetry-otlp windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-otlp on windows (wave 13).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-otlp/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-otlp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-propagator-b3
+  name: Nixpkgs hs-opentelemetry-propagator-b3 macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-b3 on macos (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-propagator-b3"
+  - "$HOME/Library/Logs/hs-opentelemetry-propagator-b3"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-propagator-b3
+  name: Nixpkgs hs-opentelemetry-propagator-b3 linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-b3 on linux (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-propagator-b3"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-propagator-b3"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-propagator-b3
+  name: Nixpkgs hs-opentelemetry-propagator-b3 windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-b3 on windows (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-propagator-b3/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-propagator-b3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-propagator-datadog
+  name: Nixpkgs hs-opentelemetry-propagator-datadog macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-datadog on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-propagator-datadog"
+  - "$HOME/Library/Logs/hs-opentelemetry-propagator-datadog"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-propagator-datadog
+  name: Nixpkgs hs-opentelemetry-propagator-datadog linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-datadog on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-propagator-datadog"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-propagator-datadog"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-propagator-datadog
+  name: Nixpkgs hs-opentelemetry-propagator-datadog windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-datadog on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-propagator-datadog/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-propagator-datadog/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-propagator-w3c
+  name: Nixpkgs hs-opentelemetry-propagator-w3c macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-w3c on macos (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-propagator-w3c"
+  - "$HOME/Library/Logs/hs-opentelemetry-propagator-w3c"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-propagator-w3c
+  name: Nixpkgs hs-opentelemetry-propagator-w3c linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-w3c on linux (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-propagator-w3c"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-propagator-w3c"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-propagator-w3c
+  name: Nixpkgs hs-opentelemetry-propagator-w3c windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-propagator-w3c on windows (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-propagator-w3c/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-propagator-w3c/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-sdk
+  name: Nixpkgs hs-opentelemetry-sdk macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-sdk on macos (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-sdk"
+  - "$HOME/Library/Logs/hs-opentelemetry-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-sdk
+  name: Nixpkgs hs-opentelemetry-sdk linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-sdk on linux (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-sdk"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-sdk
+  name: Nixpkgs hs-opentelemetry-sdk windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-sdk on windows (wave 13). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-sdk/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-semantic-conventions
+  name: Nixpkgs hs-opentelemetry-semantic-conventions macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-semantic-conventions on macos
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-semantic-conventions"
+  - "$HOME/Library/Logs/hs-opentelemetry-semantic-conventions"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-semantic-conventions
+  name: Nixpkgs hs-opentelemetry-semantic-conventions linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-semantic-conventions on linux
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-semantic-conventions"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-semantic-conventions"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-semantic-conventions
+  name: Nixpkgs hs-opentelemetry-semantic-conventions windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-semantic-conventions on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-semantic-conventions/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-semantic-conventions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-utils-exceptions
+  name: Nixpkgs hs-opentelemetry-utils-exceptions macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-utils-exceptions on macos (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-utils-exceptions"
+  - "$HOME/Library/Logs/hs-opentelemetry-utils-exceptions"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-utils-exceptions
+  name: Nixpkgs hs-opentelemetry-utils-exceptions linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-utils-exceptions on linux (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-utils-exceptions"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-utils-exceptions"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-utils-exceptions
+  name: Nixpkgs hs-opentelemetry-utils-exceptions windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-utils-exceptions on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-utils-exceptions/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-utils-exceptions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-opentelemetry-vendor-honeycomb
+  name: Nixpkgs hs-opentelemetry-vendor-honeycomb macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-vendor-honeycomb on macos (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-opentelemetry-vendor-honeycomb"
+  - "$HOME/Library/Logs/hs-opentelemetry-vendor-honeycomb"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-opentelemetry-vendor-honeycomb
+  name: Nixpkgs hs-opentelemetry-vendor-honeycomb linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-vendor-honeycomb on linux (wave
+    13). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-opentelemetry-vendor-honeycomb"
+  - "$XDG_CACHE_HOME/hs-opentelemetry-vendor-honeycomb"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-opentelemetry-vendor-honeycomb
+  name: Nixpkgs hs-opentelemetry-vendor-honeycomb windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-opentelemetry-vendor-honeycomb on windows
+    (wave 13). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-opentelemetry-vendor-honeycomb/Cache"
+  - "%LOCALAPPDATA%/hs-opentelemetry-vendor-honeycomb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-pattrans
+  name: Nixpkgs hs-pattrans macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-pattrans on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-pattrans"
+  - "$HOME/Library/Logs/hs-pattrans"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-pattrans
+  name: Nixpkgs hs-pattrans linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-pattrans on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-pattrans"
+  - "$XDG_CACHE_HOME/hs-pattrans"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-pattrans
+  name: Nixpkgs hs-pattrans windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-pattrans on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-pattrans/Cache"
+  - "%LOCALAPPDATA%/hs-pattrans/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-pgms
+  name: Nixpkgs hs-pgms macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-pgms on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-pgms"
+  - "$HOME/Library/Logs/hs-pgms"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-pgms
+  name: Nixpkgs hs-pgms linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-pgms on linux (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-pgms"
+  - "$XDG_CACHE_HOME/hs-pgms"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-pgms
+  name: Nixpkgs hs-pgms windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-pgms on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-pgms/Cache"
+  - "%LOCALAPPDATA%/hs-pgms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-php-session
+  name: Nixpkgs hs-php-session macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-php-session on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-php-session"
+  - "$HOME/Library/Logs/hs-php-session"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-php-session
+  name: Nixpkgs hs-php-session linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-php-session on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-php-session"
+  - "$XDG_CACHE_HOME/hs-php-session"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-php-session
+  name: Nixpkgs hs-php-session windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-php-session on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-php-session/Cache"
+  - "%LOCALAPPDATA%/hs-php-session/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-pkg-config
+  name: Nixpkgs hs-pkg-config macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-pkg-config on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-pkg-config"
+  - "$HOME/Library/Logs/hs-pkg-config"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-pkg-config
+  name: Nixpkgs hs-pkg-config linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-pkg-config on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-pkg-config"
+  - "$XDG_CACHE_HOME/hs-pkg-config"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-pkg-config
+  name: Nixpkgs hs-pkg-config windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-pkg-config on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-pkg-config/Cache"
+  - "%LOCALAPPDATA%/hs-pkg-config/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-pkpass
+  name: Nixpkgs hs-pkpass macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-pkpass on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-pkpass"
+  - "$HOME/Library/Logs/hs-pkpass"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-pkpass
+  name: Nixpkgs hs-pkpass linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-pkpass on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-pkpass"
+  - "$XDG_CACHE_HOME/hs-pkpass"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-pkpass
+  name: Nixpkgs hs-pkpass windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-pkpass on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-pkpass/Cache"
+  - "%LOCALAPPDATA%/hs-pkpass/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-popen
+  name: Nixpkgs hs-popen macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-popen on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-popen"
+  - "$HOME/Library/Logs/hs-popen"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-popen
+  name: Nixpkgs hs-popen linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-popen on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-popen"
+  - "$XDG_CACHE_HOME/hs-popen"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-popen
+  name: Nixpkgs hs-popen windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-popen on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-popen/Cache"
+  - "%LOCALAPPDATA%/hs-popen/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-profunctors
+  name: Nixpkgs hs-profunctors macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-profunctors on macos (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-profunctors"
+  - "$HOME/Library/Logs/hs-profunctors"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-lin-hs-profunctors
+  name: Nixpkgs hs-profunctors linux cache (wave 13)
+  description: Nixpkgs leftover pname hs-profunctors on linux (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/hs-profunctors"
+  - "$XDG_CACHE_HOME/hs-profunctors"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-win-hs-profunctors
+  name: Nixpkgs hs-profunctors windows cache (wave 13)
+  description: Nixpkgs leftover pname hs-profunctors on windows (wave 13). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/hs-profunctors/Cache"
+  - "%LOCALAPPDATA%/hs-profunctors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np13-mac-hs-re
+  name: Nixpkgs hs-re macos cache (wave 13)
+  description: Nixpkgs leftover pname hs-re on macos (wave 13). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/hs-re"
+  - "$HOME/Library/Logs/hs-re"
+  delete_mode: contents
+  max_depth: 6

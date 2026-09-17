@@ -1,0 +1,5581 @@
+---
+pack: src-iter26-13
+description: Iterative 10k import wave 26 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np26-mac-sqlcheck
+  name: Nixpkgs sqlcheck macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcheck on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcheck"
+  - "$HOME/Library/Logs/sqlcheck"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcheck
+  name: Nixpkgs sqlcheck linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcheck on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcheck"
+  - "$XDG_CACHE_HOME/sqlcheck"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcheck
+  name: Nixpkgs sqlcheck windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcheck on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcheck/Cache"
+  - "%LOCALAPPDATA%/sqlcheck/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcipher
+  name: Nixpkgs sqlcipher macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcipher"
+  - "$HOME/Library/Logs/sqlcipher"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcipher
+  name: Nixpkgs sqlcipher linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcipher"
+  - "$XDG_CACHE_HOME/sqlcipher"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcipher
+  name: Nixpkgs sqlcipher windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcipher/Cache"
+  - "%LOCALAPPDATA%/sqlcipher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcipher3
+  name: Nixpkgs sqlcipher3 macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3 on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcipher3"
+  - "$HOME/Library/Logs/sqlcipher3"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcipher3
+  name: Nixpkgs sqlcipher3 linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3 on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcipher3"
+  - "$XDG_CACHE_HOME/sqlcipher3"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcipher3
+  name: Nixpkgs sqlcipher3 windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3 on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcipher3/Cache"
+  - "%LOCALAPPDATA%/sqlcipher3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcipher3-binary
+  name: Nixpkgs sqlcipher3-binary macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3-binary on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcipher3-binary"
+  - "$HOME/Library/Logs/sqlcipher3-binary"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcipher3-binary
+  name: Nixpkgs sqlcipher3-binary linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3-binary on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcipher3-binary"
+  - "$XDG_CACHE_HOME/sqlcipher3-binary"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcipher3-binary
+  name: Nixpkgs sqlcipher3-binary windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3-binary on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcipher3-binary/Cache"
+  - "%LOCALAPPDATA%/sqlcipher3-binary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcipher3-wheels
+  name: Nixpkgs sqlcipher3-wheels macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3-wheels on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcipher3-wheels"
+  - "$HOME/Library/Logs/sqlcipher3-wheels"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcipher3-wheels
+  name: Nixpkgs sqlcipher3-wheels linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3-wheels on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcipher3-wheels"
+  - "$XDG_CACHE_HOME/sqlcipher3-wheels"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcipher3-wheels
+  name: Nixpkgs sqlcipher3-wheels windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcipher3-wheels on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcipher3-wheels/Cache"
+  - "%LOCALAPPDATA%/sqlcipher3-wheels/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcl
+  name: Nixpkgs sqlcl macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcl on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcl"
+  - "$HOME/Library/Logs/sqlcl"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcl
+  name: Nixpkgs sqlcl linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcl on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcl"
+  - "$XDG_CACHE_HOME/sqlcl"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcl
+  name: Nixpkgs sqlcl windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcl on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcl/Cache"
+  - "%LOCALAPPDATA%/sqlcl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcli
+  name: Nixpkgs sqlcli macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcli on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcli"
+  - "$HOME/Library/Logs/sqlcli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcli
+  name: Nixpkgs sqlcli linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcli on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcli"
+  - "$XDG_CACHE_HOME/sqlcli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcli
+  name: Nixpkgs sqlcli windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcli on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcli/Cache"
+  - "%LOCALAPPDATA%/sqlcli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcli-odbc
+  name: Nixpkgs sqlcli-odbc macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcli-odbc on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcli-odbc"
+  - "$HOME/Library/Logs/sqlcli-odbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcli-odbc
+  name: Nixpkgs sqlcli-odbc linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcli-odbc on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcli-odbc"
+  - "$XDG_CACHE_HOME/sqlcli-odbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcli-odbc
+  name: Nixpkgs sqlcli-odbc windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcli-odbc on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcli-odbc/Cache"
+  - "%LOCALAPPDATA%/sqlcli-odbc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlcmd
+  name: Nixpkgs sqlcmd macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlcmd on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlcmd"
+  - "$HOME/Library/Logs/sqlcmd"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlcmd
+  name: Nixpkgs sqlcmd linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlcmd on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlcmd"
+  - "$XDG_CACHE_HOME/sqlcmd"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlcmd
+  name: Nixpkgs sqlcmd windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlcmd on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlcmd/Cache"
+  - "%LOCALAPPDATA%/sqlcmd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqld
+  name: Nixpkgs sqld macos cache (wave 26)
+  description: Nixpkgs leftover pname sqld on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqld"
+  - "$HOME/Library/Logs/sqld"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqld
+  name: Nixpkgs sqld linux cache (wave 26)
+  description: Nixpkgs leftover pname sqld on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqld"
+  - "$XDG_CACHE_HOME/sqld"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqld
+  name: Nixpkgs sqld windows cache (wave 26)
+  description: Nixpkgs leftover pname sqld on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqld/Cache"
+  - "%LOCALAPPDATA%/sqld/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqldef
+  name: Nixpkgs sqldef macos cache (wave 26)
+  description: Nixpkgs leftover pname sqldef on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqldef"
+  - "$HOME/Library/Logs/sqldef"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqldef
+  name: Nixpkgs sqldef linux cache (wave 26)
+  description: Nixpkgs leftover pname sqldef on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqldef"
+  - "$XDG_CACHE_HOME/sqldef"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqldef
+  name: Nixpkgs sqldef windows cache (wave 26)
+  description: Nixpkgs leftover pname sqldef on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqldef/Cache"
+  - "%LOCALAPPDATA%/sqldef/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqldf
+  name: Nixpkgs sqldf macos cache (wave 26)
+  description: Nixpkgs leftover pname sqldf on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqldf"
+  - "$HOME/Library/Logs/sqldf"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqldf
+  name: Nixpkgs sqldf linux cache (wave 26)
+  description: Nixpkgs leftover pname sqldf on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqldf"
+  - "$XDG_CACHE_HOME/sqldf"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqldf
+  name: Nixpkgs sqldf windows cache (wave 26)
+  description: Nixpkgs leftover pname sqldf on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqldf/Cache"
+  - "%LOCALAPPDATA%/sqldf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqldiff
+  name: Nixpkgs sqldiff macos cache (wave 26)
+  description: Nixpkgs leftover pname sqldiff on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqldiff"
+  - "$HOME/Library/Logs/sqldiff"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqldiff
+  name: Nixpkgs sqldiff linux cache (wave 26)
+  description: Nixpkgs leftover pname sqldiff on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqldiff"
+  - "$XDG_CACHE_HOME/sqldiff"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqldiff
+  name: Nixpkgs sqldiff windows cache (wave 26)
+  description: Nixpkgs leftover pname sqldiff on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqldiff/Cache"
+  - "%LOCALAPPDATA%/sqldiff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlfluff
+  name: Nixpkgs sqlfluff macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlfluff on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlfluff"
+  - "$HOME/Library/Logs/sqlfluff"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlfluff
+  name: Nixpkgs sqlfluff linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlfluff on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlfluff"
+  - "$XDG_CACHE_HOME/sqlfluff"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlfluff
+  name: Nixpkgs sqlfluff windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlfluff on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlfluff/Cache"
+  - "%LOCALAPPDATA%/sqlfluff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlfluffr
+  name: Nixpkgs sqlfluffr macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlfluffr on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlfluffr"
+  - "$HOME/Library/Logs/sqlfluffr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlfluffr
+  name: Nixpkgs sqlfluffr linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlfluffr on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlfluffr"
+  - "$XDG_CACHE_HOME/sqlfluffr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlfluffr
+  name: Nixpkgs sqlfluffr windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlfluffr on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlfluffr/Cache"
+  - "%LOCALAPPDATA%/sqlfluffr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlfmt
+  name: Nixpkgs sqlfmt macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlfmt on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlfmt"
+  - "$HOME/Library/Logs/sqlfmt"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlfmt
+  name: Nixpkgs sqlfmt linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlfmt on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlfmt"
+  - "$XDG_CACHE_HOME/sqlfmt"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlfmt
+  name: Nixpkgs sqlfmt windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlfmt on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlfmt/Cache"
+  - "%LOCALAPPDATA%/sqlfmt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlformat
+  name: Nixpkgs sqlformat macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlformat on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlformat"
+  - "$HOME/Library/Logs/sqlformat"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlformat
+  name: Nixpkgs sqlformat linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlformat on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlformat"
+  - "$XDG_CACHE_HOME/sqlformat"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlformat
+  name: Nixpkgs sqlformat windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlformat on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlformat/Cache"
+  - "%LOCALAPPDATA%/sqlformat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlframe
+  name: Nixpkgs sqlframe macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlframe on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlframe"
+  - "$HOME/Library/Logs/sqlframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlframe
+  name: Nixpkgs sqlframe linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlframe on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlframe"
+  - "$XDG_CACHE_HOME/sqlframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlframe
+  name: Nixpkgs sqlframe windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlframe on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlframe/Cache"
+  - "%LOCALAPPDATA%/sqlframe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlglot
+  name: Nixpkgs sqlglot macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlglot on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlglot"
+  - "$HOME/Library/Logs/sqlglot"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlglot
+  name: Nixpkgs sqlglot linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlglot on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlglot"
+  - "$XDG_CACHE_HOME/sqlglot"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlglot
+  name: Nixpkgs sqlglot windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlglot on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlglot/Cache"
+  - "%LOCALAPPDATA%/sqlglot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlhelper
+  name: Nixpkgs sqlhelper macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlhelper on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlhelper"
+  - "$HOME/Library/Logs/sqlhelper"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlhelper
+  name: Nixpkgs sqlhelper linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlhelper on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlhelper"
+  - "$XDG_CACHE_HOME/sqlhelper"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlhelper
+  name: Nixpkgs sqlhelper windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlhelper on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlhelper/Cache"
+  - "%LOCALAPPDATA%/sqlhelper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlint
+  name: Nixpkgs sqlint macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlint on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlint"
+  - "$HOME/Library/Logs/sqlint"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlint
+  name: Nixpkgs sqlint linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlint on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlint"
+  - "$XDG_CACHE_HOME/sqlint"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlint
+  name: Nixpkgs sqlint windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlint on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlint/Cache"
+  - "%LOCALAPPDATA%/sqlint/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlit-tui
+  name: Nixpkgs sqlit-tui macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlit-tui on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlit-tui"
+  - "$HOME/Library/Logs/sqlit-tui"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlit-tui
+  name: Nixpkgs sqlit-tui linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlit-tui on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlit-tui"
+  - "$XDG_CACHE_HOME/sqlit-tui"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlit-tui
+  name: Nixpkgs sqlit-tui windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlit-tui on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlit-tui/Cache"
+  - "%LOCALAPPDATA%/sqlit-tui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite
+  name: Nixpkgs sqlite macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite"
+  - "$HOME/Library/Logs/sqlite"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite
+  name: Nixpkgs sqlite linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite"
+  - "$XDG_CACHE_HOME/sqlite"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite
+  name: Nixpkgs sqlite windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite/Cache"
+  - "%LOCALAPPDATA%/sqlite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-analyzer
+  name: Nixpkgs sqlite-analyzer macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-analyzer on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-analyzer"
+  - "$HOME/Library/Logs/sqlite-analyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-analyzer
+  name: Nixpkgs sqlite-analyzer linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-analyzer on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-analyzer"
+  - "$XDG_CACHE_HOME/sqlite-analyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-analyzer
+  name: Nixpkgs sqlite-analyzer windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-analyzer on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-analyzer/Cache"
+  - "%LOCALAPPDATA%/sqlite-analyzer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-anyio
+  name: Nixpkgs sqlite-anyio macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-anyio on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-anyio"
+  - "$HOME/Library/Logs/sqlite-anyio"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-anyio
+  name: Nixpkgs sqlite-anyio linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-anyio on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-anyio"
+  - "$XDG_CACHE_HOME/sqlite-anyio"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-anyio
+  name: Nixpkgs sqlite-anyio windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-anyio on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-anyio/Cache"
+  - "%LOCALAPPDATA%/sqlite-anyio/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-connector-odbc
+  name: Nixpkgs sqlite-connector-odbc macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-connector-odbc on macos (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-connector-odbc"
+  - "$HOME/Library/Logs/sqlite-connector-odbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-connector-odbc
+  name: Nixpkgs sqlite-connector-odbc linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-connector-odbc on linux (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-connector-odbc"
+  - "$XDG_CACHE_HOME/sqlite-connector-odbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-connector-odbc
+  name: Nixpkgs sqlite-connector-odbc windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-connector-odbc on windows (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-connector-odbc/Cache"
+  - "%LOCALAPPDATA%/sqlite-connector-odbc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-easy
+  name: Nixpkgs sqlite-easy macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-easy on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-easy"
+  - "$HOME/Library/Logs/sqlite-easy"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-easy
+  name: Nixpkgs sqlite-easy linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-easy on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-easy"
+  - "$XDG_CACHE_HOME/sqlite-easy"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-easy
+  name: Nixpkgs sqlite-easy windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-easy on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-easy/Cache"
+  - "%LOCALAPPDATA%/sqlite-easy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-fts4
+  name: Nixpkgs sqlite-fts4 macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-fts4 on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-fts4"
+  - "$HOME/Library/Logs/sqlite-fts4"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-fts4
+  name: Nixpkgs sqlite-fts4 linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-fts4 on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-fts4"
+  - "$XDG_CACHE_HOME/sqlite-fts4"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-fts4
+  name: Nixpkgs sqlite-fts4 windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-fts4 on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-fts4/Cache"
+  - "%LOCALAPPDATA%/sqlite-fts4/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-interactive
+  name: Nixpkgs sqlite-interactive macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-interactive on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-interactive"
+  - "$HOME/Library/Logs/sqlite-interactive"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-interactive
+  name: Nixpkgs sqlite-interactive linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-interactive on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-interactive"
+  - "$XDG_CACHE_HOME/sqlite-interactive"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-interactive
+  name: Nixpkgs sqlite-interactive windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-interactive on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-interactive/Cache"
+  - "%LOCALAPPDATA%/sqlite-interactive/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-jdbc
+  name: Nixpkgs sqlite-jdbc macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-jdbc on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-jdbc"
+  - "$HOME/Library/Logs/sqlite-jdbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-jdbc
+  name: Nixpkgs sqlite-jdbc linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-jdbc on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-jdbc"
+  - "$XDG_CACHE_HOME/sqlite-jdbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-jdbc
+  name: Nixpkgs sqlite-jdbc windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-jdbc on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-jdbc/Cache"
+  - "%LOCALAPPDATA%/sqlite-jdbc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-migrate
+  name: Nixpkgs sqlite-migrate macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-migrate on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-migrate"
+  - "$HOME/Library/Logs/sqlite-migrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-migrate
+  name: Nixpkgs sqlite-migrate linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-migrate on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-migrate"
+  - "$XDG_CACHE_HOME/sqlite-migrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-migrate
+  name: Nixpkgs sqlite-migrate windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-migrate on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-migrate/Cache"
+  - "%LOCALAPPDATA%/sqlite-migrate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-mode-extras
+  name: Nixpkgs sqlite-mode-extras macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-mode-extras on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-mode-extras"
+  - "$HOME/Library/Logs/sqlite-mode-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-mode-extras
+  name: Nixpkgs sqlite-mode-extras linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-mode-extras on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-mode-extras"
+  - "$XDG_CACHE_HOME/sqlite-mode-extras"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-mode-extras
+  name: Nixpkgs sqlite-mode-extras windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-mode-extras on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-mode-extras/Cache"
+  - "%LOCALAPPDATA%/sqlite-mode-extras/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-modern-cpp
+  name: Nixpkgs sqlite-modern-cpp macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-modern-cpp on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-modern-cpp"
+  - "$HOME/Library/Logs/sqlite-modern-cpp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-modern-cpp
+  name: Nixpkgs sqlite-modern-cpp linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-modern-cpp on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-modern-cpp"
+  - "$XDG_CACHE_HOME/sqlite-modern-cpp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-modern-cpp
+  name: Nixpkgs sqlite-modern-cpp windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-modern-cpp on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-modern-cpp/Cache"
+  - "%LOCALAPPDATA%/sqlite-modern-cpp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-rsync
+  name: Nixpkgs sqlite-rsync macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-rsync on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-rsync"
+  - "$HOME/Library/Logs/sqlite-rsync"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-rsync
+  name: Nixpkgs sqlite-rsync linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-rsync on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-rsync"
+  - "$XDG_CACHE_HOME/sqlite-rsync"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-rsync
+  name: Nixpkgs sqlite-rsync windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-rsync on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-rsync/Cache"
+  - "%LOCALAPPDATA%/sqlite-rsync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-simple
+  name: Nixpkgs sqlite-simple macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-simple"
+  - "$HOME/Library/Logs/sqlite-simple"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-simple
+  name: Nixpkgs sqlite-simple linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-simple"
+  - "$XDG_CACHE_HOME/sqlite-simple"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-simple
+  name: Nixpkgs sqlite-simple windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-simple/Cache"
+  - "%LOCALAPPDATA%/sqlite-simple/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-simple-errors
+  name: Nixpkgs sqlite-simple-errors macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-errors on macos (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-simple-errors"
+  - "$HOME/Library/Logs/sqlite-simple-errors"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-simple-errors
+  name: Nixpkgs sqlite-simple-errors linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-errors on linux (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-simple-errors"
+  - "$XDG_CACHE_HOME/sqlite-simple-errors"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-simple-errors
+  name: Nixpkgs sqlite-simple-errors windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-errors on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-simple-errors/Cache"
+  - "%LOCALAPPDATA%/sqlite-simple-errors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-simple-interpolate
+  name: Nixpkgs sqlite-simple-interpolate macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-interpolate on macos (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-simple-interpolate"
+  - "$HOME/Library/Logs/sqlite-simple-interpolate"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-simple-interpolate
+  name: Nixpkgs sqlite-simple-interpolate linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-interpolate on linux (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-simple-interpolate"
+  - "$XDG_CACHE_HOME/sqlite-simple-interpolate"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-simple-interpolate
+  name: Nixpkgs sqlite-simple-interpolate windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-interpolate on windows (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-simple-interpolate/Cache"
+  - "%LOCALAPPDATA%/sqlite-simple-interpolate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-simple-typed
+  name: Nixpkgs sqlite-simple-typed macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-typed on macos (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-simple-typed"
+  - "$HOME/Library/Logs/sqlite-simple-typed"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-simple-typed
+  name: Nixpkgs sqlite-simple-typed linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-typed on linux (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-simple-typed"
+  - "$XDG_CACHE_HOME/sqlite-simple-typed"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-simple-typed
+  name: Nixpkgs sqlite-simple-typed windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-simple-typed on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-simple-typed/Cache"
+  - "%LOCALAPPDATA%/sqlite-simple-typed/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-utils
+  name: Nixpkgs sqlite-utils macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-utils on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-utils"
+  - "$HOME/Library/Logs/sqlite-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-utils
+  name: Nixpkgs sqlite-utils linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-utils on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-utils"
+  - "$XDG_CACHE_HOME/sqlite-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-utils
+  name: Nixpkgs sqlite-utils windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-utils on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-utils/Cache"
+  - "%LOCALAPPDATA%/sqlite-utils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-vec
+  name: Nixpkgs sqlite-vec macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-vec on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-vec"
+  - "$HOME/Library/Logs/sqlite-vec"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-vec
+  name: Nixpkgs sqlite-vec linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-vec on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-vec"
+  - "$XDG_CACHE_HOME/sqlite-vec"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-vec
+  name: Nixpkgs sqlite-vec windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-vec on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-vec/Cache"
+  - "%LOCALAPPDATA%/sqlite-vec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-vss
+  name: Nixpkgs sqlite-vss macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-vss on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-vss"
+  - "$HOME/Library/Logs/sqlite-vss"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-vss
+  name: Nixpkgs sqlite-vss linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-vss on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-vss"
+  - "$XDG_CACHE_HOME/sqlite-vss"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-vss
+  name: Nixpkgs sqlite-vss windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-vss on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-vss/Cache"
+  - "%LOCALAPPDATA%/sqlite-vss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-web
+  name: Nixpkgs sqlite-web macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-web on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite-web"
+  - "$HOME/Library/Logs/sqlite-web"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-web
+  name: Nixpkgs sqlite-web linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-web on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite-web"
+  - "$XDG_CACHE_HOME/sqlite-web"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-web
+  name: Nixpkgs sqlite-web windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite-web on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite-web/Cache"
+  - "%LOCALAPPDATA%/sqlite-web/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-lua
+  name: Nixpkgs sqlite.lua macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite.lua on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite.lua"
+  - "$HOME/Library/Logs/sqlite.lua"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-lua
+  name: Nixpkgs sqlite.lua linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite.lua on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite.lua"
+  - "$XDG_CACHE_HOME/sqlite.lua"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-lua
+  name: Nixpkgs sqlite.lua windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite.lua on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite.lua/Cache"
+  - "%LOCALAPPDATA%/sqlite.lua/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite3
+  name: Nixpkgs sqlite3 macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite3 on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite3"
+  - "$HOME/Library/Logs/sqlite3"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite3
+  name: Nixpkgs sqlite3 linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite3 on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite3"
+  - "$XDG_CACHE_HOME/sqlite3"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite3
+  name: Nixpkgs sqlite3 windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite3 on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite3/Cache"
+  - "%LOCALAPPDATA%/sqlite3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite3-to-mysql
+  name: Nixpkgs sqlite3-to-mysql macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite3-to-mysql on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite3-to-mysql"
+  - "$HOME/Library/Logs/sqlite3-to-mysql"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite3-to-mysql
+  name: Nixpkgs sqlite3-to-mysql linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite3-to-mysql on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite3-to-mysql"
+  - "$XDG_CACHE_HOME/sqlite3-to-mysql"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite3-to-mysql
+  name: Nixpkgs sqlite3-to-mysql windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite3-to-mysql on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite3-to-mysql/Cache"
+  - "%LOCALAPPDATA%/sqlite3-to-mysql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-fdw
+  name: Nixpkgs sqlite_fdw macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite_fdw on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite_fdw"
+  - "$HOME/Library/Logs/sqlite_fdw"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-fdw
+  name: Nixpkgs sqlite_fdw linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite_fdw on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite_fdw"
+  - "$XDG_CACHE_HOME/sqlite_fdw"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-fdw
+  name: Nixpkgs sqlite_fdw windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite_fdw on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite_fdw/Cache"
+  - "%LOCALAPPDATA%/sqlite_fdw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlite-orm
+  name: Nixpkgs sqlite_orm macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlite_orm on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlite_orm"
+  - "$HOME/Library/Logs/sqlite_orm"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlite-orm
+  name: Nixpkgs sqlite_orm linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlite_orm on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlite_orm"
+  - "$XDG_CACHE_HOME/sqlite_orm"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlite-orm
+  name: Nixpkgs sqlite_orm windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlite_orm on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlite_orm/Cache"
+  - "%LOCALAPPDATA%/sqlite_orm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlitebrowser
+  name: Nixpkgs sqlitebrowser macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlitebrowser on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlitebrowser"
+  - "$HOME/Library/Logs/sqlitebrowser"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlitebrowser
+  name: Nixpkgs sqlitebrowser linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlitebrowser on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlitebrowser"
+  - "$XDG_CACHE_HOME/sqlitebrowser"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlitebrowser
+  name: Nixpkgs sqlitebrowser windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlitebrowser on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlitebrowser/Cache"
+  - "%LOCALAPPDATA%/sqlitebrowser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlitecpp
+  name: Nixpkgs sqlitecpp macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlitecpp on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlitecpp"
+  - "$HOME/Library/Logs/sqlitecpp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlitecpp
+  name: Nixpkgs sqlitecpp linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlitecpp on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlitecpp"
+  - "$XDG_CACHE_HOME/sqlitecpp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlitecpp
+  name: Nixpkgs sqlitecpp windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlitecpp on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlitecpp/Cache"
+  - "%LOCALAPPDATA%/sqlitecpp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlitedict
+  name: Nixpkgs sqlitedict macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlitedict on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlitedict"
+  - "$HOME/Library/Logs/sqlitedict"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlitedict
+  name: Nixpkgs sqlitedict linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlitedict on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlitedict"
+  - "$XDG_CACHE_HOME/sqlitedict"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlitedict
+  name: Nixpkgs sqlitedict windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlitedict on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlitedict/Cache"
+  - "%LOCALAPPDATA%/sqlitedict/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqliter
+  name: Nixpkgs sqliter macos cache (wave 26)
+  description: Nixpkgs leftover pname sqliter on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqliter"
+  - "$HOME/Library/Logs/sqliter"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqliter
+  name: Nixpkgs sqliter linux cache (wave 26)
+  description: Nixpkgs leftover pname sqliter on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqliter"
+  - "$XDG_CACHE_HOME/sqliter"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqliter
+  name: Nixpkgs sqliter windows cache (wave 26)
+  description: Nixpkgs leftover pname sqliter on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqliter/Cache"
+  - "%LOCALAPPDATA%/sqliter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqliteschema
+  name: Nixpkgs sqliteschema macos cache (wave 26)
+  description: Nixpkgs leftover pname sqliteschema on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqliteschema"
+  - "$HOME/Library/Logs/sqliteschema"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqliteschema
+  name: Nixpkgs sqliteschema linux cache (wave 26)
+  description: Nixpkgs leftover pname sqliteschema on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqliteschema"
+  - "$XDG_CACHE_HOME/sqliteschema"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqliteschema
+  name: Nixpkgs sqliteschema windows cache (wave 26)
+  description: Nixpkgs leftover pname sqliteschema on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqliteschema/Cache"
+  - "%LOCALAPPDATA%/sqliteschema/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqliteutils
+  name: Nixpkgs sqliteutils macos cache (wave 26)
+  description: Nixpkgs leftover pname sqliteutils on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqliteutils"
+  - "$HOME/Library/Logs/sqliteutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqliteutils
+  name: Nixpkgs sqliteutils linux cache (wave 26)
+  description: Nixpkgs leftover pname sqliteutils on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqliteutils"
+  - "$XDG_CACHE_HOME/sqliteutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqliteutils
+  name: Nixpkgs sqliteutils windows cache (wave 26)
+  description: Nixpkgs leftover pname sqliteutils on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqliteutils/Cache"
+  - "%LOCALAPPDATA%/sqliteutils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlline
+  name: Nixpkgs sqlline macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlline on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlline"
+  - "$HOME/Library/Logs/sqlline"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlline
+  name: Nixpkgs sqlline linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlline on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlline"
+  - "$XDG_CACHE_HOME/sqlline"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlline
+  name: Nixpkgs sqlline windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlline on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlline/Cache"
+  - "%LOCALAPPDATA%/sqlline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlm
+  name: Nixpkgs sqlm macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlm on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlm"
+  - "$HOME/Library/Logs/sqlm"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlm
+  name: Nixpkgs sqlm linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlm on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlm"
+  - "$XDG_CACHE_HOME/sqlm"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlm
+  name: Nixpkgs sqlm windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlm on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlm/Cache"
+  - "%LOCALAPPDATA%/sqlm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlmap
+  name: Nixpkgs sqlmap macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlmap on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlmap"
+  - "$HOME/Library/Logs/sqlmap"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlmap
+  name: Nixpkgs sqlmap linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlmap on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlmap"
+  - "$XDG_CACHE_HOME/sqlmap"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlmap
+  name: Nixpkgs sqlmap windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlmap on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlmap/Cache"
+  - "%LOCALAPPDATA%/sqlmap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlmc
+  name: Nixpkgs sqlmc macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlmc on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlmc"
+  - "$HOME/Library/Logs/sqlmc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlmc
+  name: Nixpkgs sqlmc linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlmc on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlmc"
+  - "$XDG_CACHE_HOME/sqlmc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlmc
+  name: Nixpkgs sqlmc windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlmc on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlmc/Cache"
+  - "%LOCALAPPDATA%/sqlmc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlmodel
+  name: Nixpkgs sqlmodel macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlmodel on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlmodel"
+  - "$HOME/Library/Logs/sqlmodel"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlmodel
+  name: Nixpkgs sqlmodel linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlmodel on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlmodel"
+  - "$XDG_CACHE_HOME/sqlmodel"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlmodel
+  name: Nixpkgs sqlmodel windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlmodel on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlmodel/Cache"
+  - "%LOCALAPPDATA%/sqlmodel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlobject
+  name: Nixpkgs sqlobject macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlobject on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlobject"
+  - "$HOME/Library/Logs/sqlobject"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlobject
+  name: Nixpkgs sqlobject linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlobject on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlobject"
+  - "$XDG_CACHE_HOME/sqlobject"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlobject
+  name: Nixpkgs sqlobject windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlobject on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlobject/Cache"
+  - "%LOCALAPPDATA%/sqlobject/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlpage
+  name: Nixpkgs sqlpage macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlpage on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlpage"
+  - "$HOME/Library/Logs/sqlpage"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlpage
+  name: Nixpkgs sqlpage linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlpage on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlpage"
+  - "$XDG_CACHE_HOME/sqlpage"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlpage
+  name: Nixpkgs sqlpage windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlpage on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlpage/Cache"
+  - "%LOCALAPPDATA%/sqlpage/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlparams
+  name: Nixpkgs sqlparams macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlparams on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlparams"
+  - "$HOME/Library/Logs/sqlparams"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlparams
+  name: Nixpkgs sqlparams linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlparams on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlparams"
+  - "$XDG_CACHE_HOME/sqlparams"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlparams
+  name: Nixpkgs sqlparams windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlparams on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlparams/Cache"
+  - "%LOCALAPPDATA%/sqlparams/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlparse
+  name: Nixpkgs sqlparse macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlparse on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlparse"
+  - "$HOME/Library/Logs/sqlparse"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlparse
+  name: Nixpkgs sqlparse linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlparse on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlparse"
+  - "$XDG_CACHE_HOME/sqlparse"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlparse
+  name: Nixpkgs sqlparse windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlparse on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlparse/Cache"
+  - "%LOCALAPPDATA%/sqlparse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlparser
+  name: Nixpkgs sqlparseR macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlparseR on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlparseR"
+  - "$HOME/Library/Logs/sqlparseR"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlparser
+  name: Nixpkgs sqlparseR linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlparseR on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlparseR"
+  - "$XDG_CACHE_HOME/sqlparseR"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlparser
+  name: Nixpkgs sqlparseR windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlparseR on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlparseR/Cache"
+  - "%LOCALAPPDATA%/sqlparseR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlpkg-cli
+  name: Nixpkgs sqlpkg-cli macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlpkg-cli on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlpkg-cli"
+  - "$HOME/Library/Logs/sqlpkg-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlpkg-cli
+  name: Nixpkgs sqlpkg-cli linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlpkg-cli on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlpkg-cli"
+  - "$XDG_CACHE_HOME/sqlpkg-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlpkg-cli
+  name: Nixpkgs sqlpkg-cli windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlpkg-cli on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlpkg-cli/Cache"
+  - "%LOCALAPPDATA%/sqlpkg-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlq
+  name: Nixpkgs sqlq macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlq on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlq"
+  - "$HOME/Library/Logs/sqlq"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlq
+  name: Nixpkgs sqlq linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlq on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlq"
+  - "$XDG_CACHE_HOME/sqlq"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlq
+  name: Nixpkgs sqlq windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlq on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlq/Cache"
+  - "%LOCALAPPDATA%/sqlq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqls
+  name: Nixpkgs sqls macos cache (wave 26)
+  description: Nixpkgs leftover pname sqls on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqls"
+  - "$HOME/Library/Logs/sqls"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqls
+  name: Nixpkgs sqls linux cache (wave 26)
+  description: Nixpkgs leftover pname sqls on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqls"
+  - "$XDG_CACHE_HOME/sqls"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqls
+  name: Nixpkgs sqls windows cache (wave 26)
+  description: Nixpkgs leftover pname sqls on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqls/Cache"
+  - "%LOCALAPPDATA%/sqls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlscore
+  name: Nixpkgs sqlscore macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlscore on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlscore"
+  - "$HOME/Library/Logs/sqlscore"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlscore
+  name: Nixpkgs sqlscore linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlscore on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlscore"
+  - "$XDG_CACHE_HOME/sqlscore"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlscore
+  name: Nixpkgs sqlscore windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlscore on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlscore/Cache"
+  - "%LOCALAPPDATA%/sqlscore/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlserverconnect
+  name: Nixpkgs sqlserverconnect macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlserverconnect on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlserverconnect"
+  - "$HOME/Library/Logs/sqlserverconnect"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlserverconnect
+  name: Nixpkgs sqlserverconnect linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlserverconnect on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlserverconnect"
+  - "$XDG_CACHE_HOME/sqlserverconnect"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlserverconnect
+  name: Nixpkgs sqlserverconnect windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlserverconnect on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlserverconnect/Cache"
+  - "%LOCALAPPDATA%/sqlserverconnect/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlsrv
+  name: Nixpkgs sqlsrv macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlsrv on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlsrv"
+  - "$HOME/Library/Logs/sqlsrv"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlsrv
+  name: Nixpkgs sqlsrv linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlsrv on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlsrv"
+  - "$XDG_CACHE_HOME/sqlsrv"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlsrv
+  name: Nixpkgs sqlsrv windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlsrv on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlsrv/Cache"
+  - "%LOCALAPPDATA%/sqlsrv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlstrings
+  name: Nixpkgs sqlstrings macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlstrings on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlstrings"
+  - "$HOME/Library/Logs/sqlstrings"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlstrings
+  name: Nixpkgs sqlstrings linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlstrings on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlstrings"
+  - "$XDG_CACHE_HOME/sqlstrings"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlstrings
+  name: Nixpkgs sqlstrings windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlstrings on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlstrings/Cache"
+  - "%LOCALAPPDATA%/sqlstrings/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqltargets
+  name: Nixpkgs sqltargets macos cache (wave 26)
+  description: Nixpkgs leftover pname sqltargets on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqltargets"
+  - "$HOME/Library/Logs/sqltargets"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqltargets
+  name: Nixpkgs sqltargets linux cache (wave 26)
+  description: Nixpkgs leftover pname sqltargets on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqltargets"
+  - "$XDG_CACHE_HOME/sqltargets"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqltargets
+  name: Nixpkgs sqltargets windows cache (wave 26)
+  description: Nixpkgs leftover pname sqltargets on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqltargets/Cache"
+  - "%LOCALAPPDATA%/sqltargets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqltex
+  name: Nixpkgs sqltex macos cache (wave 26)
+  description: Nixpkgs leftover pname sqltex on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqltex"
+  - "$HOME/Library/Logs/sqltex"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqltex
+  name: Nixpkgs sqltex linux cache (wave 26)
+  description: Nixpkgs leftover pname sqltex on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqltex"
+  - "$XDG_CACHE_HOME/sqltex"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqltex
+  name: Nixpkgs sqltex windows cache (wave 26)
+  description: Nixpkgs leftover pname sqltex on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqltex/Cache"
+  - "%LOCALAPPDATA%/sqltex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqltrie
+  name: Nixpkgs sqltrie macos cache (wave 26)
+  description: Nixpkgs leftover pname sqltrie on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqltrie"
+  - "$HOME/Library/Logs/sqltrie"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqltrie
+  name: Nixpkgs sqltrie linux cache (wave 26)
+  description: Nixpkgs leftover pname sqltrie on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqltrie"
+  - "$XDG_CACHE_HOME/sqltrie"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqltrie
+  name: Nixpkgs sqltrie windows cache (wave 26)
+  description: Nixpkgs leftover pname sqltrie on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqltrie/Cache"
+  - "%LOCALAPPDATA%/sqltrie/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlup-mode
+  name: Nixpkgs sqlup-mode macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlup-mode on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlup-mode"
+  - "$HOME/Library/Logs/sqlup-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlup-mode
+  name: Nixpkgs sqlup-mode linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlup-mode on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlup-mode"
+  - "$XDG_CACHE_HOME/sqlup-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlup-mode
+  name: Nixpkgs sqlup-mode windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlup-mode on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlup-mode/Cache"
+  - "%LOCALAPPDATA%/sqlup-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlutils
+  name: Nixpkgs sqlutils macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlutils on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlutils"
+  - "$HOME/Library/Logs/sqlutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlutils
+  name: Nixpkgs sqlutils linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlutils on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlutils"
+  - "$XDG_CACHE_HOME/sqlutils"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlutils
+  name: Nixpkgs sqlutils windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlutils on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlutils/Cache"
+  - "%LOCALAPPDATA%/sqlutils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlvalue-list
+  name: Nixpkgs sqlvalue-list macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlvalue-list on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlvalue-list"
+  - "$HOME/Library/Logs/sqlvalue-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlvalue-list
+  name: Nixpkgs sqlvalue-list linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlvalue-list on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlvalue-list"
+  - "$XDG_CACHE_HOME/sqlvalue-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlvalue-list
+  name: Nixpkgs sqlvalue-list windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlvalue-list on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlvalue-list/Cache"
+  - "%LOCALAPPDATA%/sqlvalue-list/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqlx-cli
+  name: Nixpkgs sqlx-cli macos cache (wave 26)
+  description: Nixpkgs leftover pname sqlx-cli on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqlx-cli"
+  - "$HOME/Library/Logs/sqlx-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqlx-cli
+  name: Nixpkgs sqlx-cli linux cache (wave 26)
+  description: Nixpkgs leftover pname sqlx-cli on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqlx-cli"
+  - "$XDG_CACHE_HOME/sqlx-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqlx-cli
+  name: Nixpkgs sqlx-cli windows cache (wave 26)
+  description: Nixpkgs leftover pname sqlx-cli on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqlx-cli/Cache"
+  - "%LOCALAPPDATA%/sqlx-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqp
+  name: Nixpkgs sqp macos cache (wave 26)
+  description: Nixpkgs leftover pname sqp on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqp"
+  - "$HOME/Library/Logs/sqp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqp
+  name: Nixpkgs sqp linux cache (wave 26)
+  description: Nixpkgs leftover pname sqp on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqp"
+  - "$XDG_CACHE_HOME/sqp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqp
+  name: Nixpkgs sqp windows cache (wave 26)
+  description: Nixpkgs leftover pname sqp on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqp/Cache"
+  - "%LOCALAPPDATA%/sqp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqruff
+  name: Nixpkgs sqruff macos cache (wave 26)
+  description: Nixpkgs leftover pname sqruff on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqruff"
+  - "$HOME/Library/Logs/sqruff"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqruff
+  name: Nixpkgs sqruff linux cache (wave 26)
+  description: Nixpkgs leftover pname sqruff on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqruff"
+  - "$XDG_CACHE_HOME/sqruff"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqruff
+  name: Nixpkgs sqruff windows cache (wave 26)
+  description: Nixpkgs leftover pname sqruff on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqruff/Cache"
+  - "%LOCALAPPDATA%/sqruff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqsd-local
+  name: Nixpkgs sqsd-local macos cache (wave 26)
+  description: Nixpkgs leftover pname sqsd-local on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqsd-local"
+  - "$HOME/Library/Logs/sqsd-local"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqsd-local
+  name: Nixpkgs sqsd-local linux cache (wave 26)
+  description: Nixpkgs leftover pname sqsd-local on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqsd-local"
+  - "$XDG_CACHE_HOME/sqsd-local"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqsd-local
+  name: Nixpkgs sqsd-local windows cache (wave 26)
+  description: Nixpkgs leftover pname sqsd-local on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqsd-local/Cache"
+  - "%LOCALAPPDATA%/sqsd-local/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sqsh
+  name: Nixpkgs sqsh macos cache (wave 26)
+  description: Nixpkgs leftover pname sqsh on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sqsh"
+  - "$HOME/Library/Logs/sqsh"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sqsh
+  name: Nixpkgs sqsh linux cache (wave 26)
+  description: Nixpkgs leftover pname sqsh on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sqsh"
+  - "$XDG_CACHE_HOME/sqsh"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sqsh
+  name: Nixpkgs sqsh windows cache (wave 26)
+  description: Nixpkgs leftover pname sqsh on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sqsh/Cache"
+  - "%LOCALAPPDATA%/sqsh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squallms
+  name: Nixpkgs squallms macos cache (wave 26)
+  description: Nixpkgs leftover pname squallms on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squallms"
+  - "$HOME/Library/Logs/squallms"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squallms
+  name: Nixpkgs squallms linux cache (wave 26)
+  description: Nixpkgs leftover pname squallms on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squallms"
+  - "$XDG_CACHE_HOME/squallms"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squallms
+  name: Nixpkgs squallms windows cache (wave 26)
+  description: Nixpkgs leftover pname squallms on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squallms/Cache"
+  - "%LOCALAPPDATA%/squallms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squant
+  name: Nixpkgs squant macos cache (wave 26)
+  description: Nixpkgs leftover pname squant on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squant"
+  - "$HOME/Library/Logs/squant"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squant
+  name: Nixpkgs squant linux cache (wave 26)
+  description: Nixpkgs leftover pname squant on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squant"
+  - "$XDG_CACHE_HOME/squant"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squant
+  name: Nixpkgs squant windows cache (wave 26)
+  description: Nixpkgs leftover pname squant on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squant/Cache"
+  - "%LOCALAPPDATA%/squant/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squares
+  name: Nixpkgs squares macos cache (wave 26)
+  description: Nixpkgs leftover pname squares on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squares"
+  - "$HOME/Library/Logs/squares"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squares
+  name: Nixpkgs squares linux cache (wave 26)
+  description: Nixpkgs leftover pname squares on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squares"
+  - "$XDG_CACHE_HOME/squares"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squares
+  name: Nixpkgs squares windows cache (wave 26)
+  description: Nixpkgs leftover pname squares on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squares/Cache"
+  - "%LOCALAPPDATA%/squares/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squarify
+  name: Nixpkgs squarify macos cache (wave 26)
+  description: Nixpkgs leftover pname squarify on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squarify"
+  - "$HOME/Library/Logs/squarify"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squarify
+  name: Nixpkgs squarify linux cache (wave 26)
+  description: Nixpkgs leftover pname squarify on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squarify"
+  - "$XDG_CACHE_HOME/squarify"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squarify
+  name: Nixpkgs squarify windows cache (wave 26)
+  description: Nixpkgs leftover pname squarify on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squarify/Cache"
+  - "%LOCALAPPDATA%/squarify/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squash
+  name: Nixpkgs squash macos cache (wave 26)
+  description: Nixpkgs leftover pname squash on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squash"
+  - "$HOME/Library/Logs/squash"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squash
+  name: Nixpkgs squash linux cache (wave 26)
+  description: Nixpkgs leftover pname squash on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squash"
+  - "$XDG_CACHE_HOME/squash"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squash
+  name: Nixpkgs squash windows cache (wave 26)
+  description: Nixpkgs leftover pname squash on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squash/Cache"
+  - "%LOCALAPPDATA%/squash/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squashfs-tools
+  name: Nixpkgs squashfs-tools macos cache (wave 26)
+  description: Nixpkgs leftover pname squashfs-tools on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squashfs-tools"
+  - "$HOME/Library/Logs/squashfs-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squashfs-tools
+  name: Nixpkgs squashfs-tools linux cache (wave 26)
+  description: Nixpkgs leftover pname squashfs-tools on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squashfs-tools"
+  - "$XDG_CACHE_HOME/squashfs-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squashfs-tools
+  name: Nixpkgs squashfs-tools windows cache (wave 26)
+  description: Nixpkgs leftover pname squashfs-tools on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squashfs-tools/Cache"
+  - "%LOCALAPPDATA%/squashfs-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squashfs-tools-ng
+  name: Nixpkgs squashfs-tools-ng macos cache (wave 26)
+  description: Nixpkgs leftover pname squashfs-tools-ng on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squashfs-tools-ng"
+  - "$HOME/Library/Logs/squashfs-tools-ng"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squashfs-tools-ng
+  name: Nixpkgs squashfs-tools-ng linux cache (wave 26)
+  description: Nixpkgs leftover pname squashfs-tools-ng on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squashfs-tools-ng"
+  - "$XDG_CACHE_HOME/squashfs-tools-ng"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squashfs-tools-ng
+  name: Nixpkgs squashfs-tools-ng windows cache (wave 26)
+  description: Nixpkgs leftover pname squashfs-tools-ng on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squashfs-tools-ng/Cache"
+  - "%LOCALAPPDATA%/squashfs-tools-ng/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squashfuse
+  name: Nixpkgs squashfuse macos cache (wave 26)
+  description: Nixpkgs leftover pname squashfuse on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squashfuse"
+  - "$HOME/Library/Logs/squashfuse"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squashfuse
+  name: Nixpkgs squashfuse linux cache (wave 26)
+  description: Nixpkgs leftover pname squashfuse on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squashfuse"
+  - "$XDG_CACHE_HOME/squashfuse"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squashfuse
+  name: Nixpkgs squashfuse windows cache (wave 26)
+  description: Nixpkgs leftover pname squashfuse on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squashfuse/Cache"
+  - "%LOCALAPPDATA%/squashfuse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squashinformr
+  name: Nixpkgs squashinformr macos cache (wave 26)
+  description: Nixpkgs leftover pname squashinformr on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squashinformr"
+  - "$HOME/Library/Logs/squashinformr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squashinformr
+  name: Nixpkgs squashinformr linux cache (wave 26)
+  description: Nixpkgs leftover pname squashinformr on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squashinformr"
+  - "$XDG_CACHE_HOME/squashinformr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squashinformr
+  name: Nixpkgs squashinformr windows cache (wave 26)
+  description: Nixpkgs leftover pname squashinformr on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squashinformr/Cache"
+  - "%LOCALAPPDATA%/squashinformr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squat
+  name: Nixpkgs squat macos cache (wave 26)
+  description: Nixpkgs leftover pname squat on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squat"
+  - "$HOME/Library/Logs/squat"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squat
+  name: Nixpkgs squat linux cache (wave 26)
+  description: Nixpkgs leftover pname squat on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squat"
+  - "$XDG_CACHE_HOME/squat"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squat
+  name: Nixpkgs squat windows cache (wave 26)
+  description: Nixpkgs leftover pname squat on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squat/Cache"
+  - "%LOCALAPPDATA%/squat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squawk
+  name: Nixpkgs squawk macos cache (wave 26)
+  description: Nixpkgs leftover pname squawk on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squawk"
+  - "$HOME/Library/Logs/squawk"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squawk
+  name: Nixpkgs squawk linux cache (wave 26)
+  description: Nixpkgs leftover pname squawk on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squawk"
+  - "$XDG_CACHE_HOME/squawk"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squawk
+  name: Nixpkgs squawk windows cache (wave 26)
+  description: Nixpkgs leftover pname squawk on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squawk/Cache"
+  - "%LOCALAPPDATA%/squawk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeak
+  name: Nixpkgs squeak macos cache (wave 26)
+  description: Nixpkgs leftover pname squeak on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeak"
+  - "$HOME/Library/Logs/squeak"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeak
+  name: Nixpkgs squeak linux cache (wave 26)
+  description: Nixpkgs leftover pname squeak on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeak"
+  - "$XDG_CACHE_HOME/squeak"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeak
+  name: Nixpkgs squeak windows cache (wave 26)
+  description: Nixpkgs leftover pname squeak on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeak/Cache"
+  - "%LOCALAPPDATA%/squeak/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeal-postgresql
+  name: Nixpkgs squeal-postgresql macos cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeal-postgresql"
+  - "$HOME/Library/Logs/squeal-postgresql"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeal-postgresql
+  name: Nixpkgs squeal-postgresql linux cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeal-postgresql"
+  - "$XDG_CACHE_HOME/squeal-postgresql"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeal-postgresql
+  name: Nixpkgs squeal-postgresql windows cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeal-postgresql/Cache"
+  - "%LOCALAPPDATA%/squeal-postgresql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeal-postgresql-ltree
+  name: Nixpkgs squeal-postgresql-ltree macos cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-ltree on macos (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeal-postgresql-ltree"
+  - "$HOME/Library/Logs/squeal-postgresql-ltree"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeal-postgresql-ltree
+  name: Nixpkgs squeal-postgresql-ltree linux cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-ltree on linux (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeal-postgresql-ltree"
+  - "$XDG_CACHE_HOME/squeal-postgresql-ltree"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeal-postgresql-ltree
+  name: Nixpkgs squeal-postgresql-ltree windows cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-ltree on windows (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeal-postgresql-ltree/Cache"
+  - "%LOCALAPPDATA%/squeal-postgresql-ltree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeal-postgresql-qq
+  name: Nixpkgs squeal-postgresql-qq macos cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-qq on macos (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeal-postgresql-qq"
+  - "$HOME/Library/Logs/squeal-postgresql-qq"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeal-postgresql-qq
+  name: Nixpkgs squeal-postgresql-qq linux cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-qq on linux (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeal-postgresql-qq"
+  - "$XDG_CACHE_HOME/squeal-postgresql-qq"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeal-postgresql-qq
+  name: Nixpkgs squeal-postgresql-qq windows cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-qq on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeal-postgresql-qq/Cache"
+  - "%LOCALAPPDATA%/squeal-postgresql-qq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeal-postgresql-uuid-ossp
+  name: Nixpkgs squeal-postgresql-uuid-ossp macos cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-uuid-ossp on macos (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeal-postgresql-uuid-ossp"
+  - "$HOME/Library/Logs/squeal-postgresql-uuid-ossp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeal-postgresql-uuid-ossp
+  name: Nixpkgs squeal-postgresql-uuid-ossp linux cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-uuid-ossp on linux (wave 26).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeal-postgresql-uuid-ossp"
+  - "$XDG_CACHE_HOME/squeal-postgresql-uuid-ossp"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeal-postgresql-uuid-ossp
+  name: Nixpkgs squeal-postgresql-uuid-ossp windows cache (wave 26)
+  description: Nixpkgs leftover pname squeal-postgresql-uuid-ossp on windows (wave
+    26). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeal-postgresql-uuid-ossp/Cache"
+  - "%LOCALAPPDATA%/squeal-postgresql-uuid-ossp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squealgen
+  name: Nixpkgs squealgen macos cache (wave 26)
+  description: Nixpkgs leftover pname squealgen on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squealgen"
+  - "$HOME/Library/Logs/squealgen"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squealgen
+  name: Nixpkgs squealgen linux cache (wave 26)
+  description: Nixpkgs leftover pname squealgen on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squealgen"
+  - "$XDG_CACHE_HOME/squealgen"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squealgen
+  name: Nixpkgs squealgen windows cache (wave 26)
+  description: Nixpkgs leftover pname squealgen on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squealgen/Cache"
+  - "%LOCALAPPDATA%/squealgen/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeather
+  name: Nixpkgs squeather macos cache (wave 26)
+  description: Nixpkgs leftover pname squeather on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeather"
+  - "$HOME/Library/Logs/squeather"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeather
+  name: Nixpkgs squeather linux cache (wave 26)
+  description: Nixpkgs leftover pname squeather on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeather"
+  - "$XDG_CACHE_HOME/squeather"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeather
+  name: Nixpkgs squeather windows cache (wave 26)
+  description: Nixpkgs leftover pname squeather on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeather/Cache"
+  - "%LOCALAPPDATA%/squeather/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeekboard
+  name: Nixpkgs squeekboard macos cache (wave 26)
+  description: Nixpkgs leftover pname squeekboard on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeekboard"
+  - "$HOME/Library/Logs/squeekboard"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeekboard
+  name: Nixpkgs squeekboard linux cache (wave 26)
+  description: Nixpkgs leftover pname squeekboard on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeekboard"
+  - "$XDG_CACHE_HOME/squeekboard"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeekboard
+  name: Nixpkgs squeekboard windows cache (wave 26)
+  description: Nixpkgs leftover pname squeekboard on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeekboard/Cache"
+  - "%LOCALAPPDATA%/squeekboard/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeeze
+  name: Nixpkgs squeeze macos cache (wave 26)
+  description: Nixpkgs leftover pname squeeze on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeeze"
+  - "$HOME/Library/Logs/squeeze"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeeze
+  name: Nixpkgs squeeze linux cache (wave 26)
+  description: Nixpkgs leftover pname squeeze on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeeze"
+  - "$XDG_CACHE_HOME/squeeze"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeeze
+  name: Nixpkgs squeeze windows cache (wave 26)
+  description: Nixpkgs leftover pname squeeze on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeeze/Cache"
+  - "%LOCALAPPDATA%/squeeze/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeezelite
+  name: Nixpkgs squeezelite macos cache (wave 26)
+  description: Nixpkgs leftover pname squeezelite on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeezelite"
+  - "$HOME/Library/Logs/squeezelite"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeezelite
+  name: Nixpkgs squeezelite linux cache (wave 26)
+  description: Nixpkgs leftover pname squeezelite on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeezelite"
+  - "$XDG_CACHE_HOME/squeezelite"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeezelite
+  name: Nixpkgs squeezelite windows cache (wave 26)
+  description: Nixpkgs leftover pname squeezelite on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeezelite/Cache"
+  - "%LOCALAPPDATA%/squeezelite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeezelite-pulse
+  name: Nixpkgs squeezelite-pulse macos cache (wave 26)
+  description: Nixpkgs leftover pname squeezelite-pulse on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeezelite-pulse"
+  - "$HOME/Library/Logs/squeezelite-pulse"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeezelite-pulse
+  name: Nixpkgs squeezelite-pulse linux cache (wave 26)
+  description: Nixpkgs leftover pname squeezelite-pulse on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeezelite-pulse"
+  - "$XDG_CACHE_HOME/squeezelite-pulse"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeezelite-pulse
+  name: Nixpkgs squeezelite-pulse windows cache (wave 26)
+  description: Nixpkgs leftover pname squeezelite-pulse on windows (wave 26). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeezelite-pulse/Cache"
+  - "%LOCALAPPDATA%/squeezelite-pulse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squeezy
+  name: Nixpkgs squeezy macos cache (wave 26)
+  description: Nixpkgs leftover pname squeezy on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squeezy"
+  - "$HOME/Library/Logs/squeezy"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squeezy
+  name: Nixpkgs squeezy linux cache (wave 26)
+  description: Nixpkgs leftover pname squeezy on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squeezy"
+  - "$XDG_CACHE_HOME/squeezy"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squeezy
+  name: Nixpkgs squeezy windows cache (wave 26)
+  description: Nixpkgs leftover pname squeezy on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squeezy/Cache"
+  - "%LOCALAPPDATA%/squeezy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squid
+  name: Nixpkgs squid macos cache (wave 26)
+  description: Nixpkgs leftover pname squid on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squid"
+  - "$HOME/Library/Logs/squid"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squid
+  name: Nixpkgs squid linux cache (wave 26)
+  description: Nixpkgs leftover pname squid on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squid"
+  - "$XDG_CACHE_HOME/squid"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squid
+  name: Nixpkgs squid windows cache (wave 26)
+  description: Nixpkgs leftover pname squid on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squid/Cache"
+  - "%LOCALAPPDATA%/squid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squid-exporter
+  name: Nixpkgs squid-exporter macos cache (wave 26)
+  description: Nixpkgs leftover pname squid-exporter on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squid-exporter"
+  - "$HOME/Library/Logs/squid-exporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squid-exporter
+  name: Nixpkgs squid-exporter linux cache (wave 26)
+  description: Nixpkgs leftover pname squid-exporter on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squid-exporter"
+  - "$XDG_CACHE_HOME/squid-exporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squid-exporter
+  name: Nixpkgs squid-exporter windows cache (wave 26)
+  description: Nixpkgs leftover pname squid-exporter on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squid-exporter/Cache"
+  - "%LOCALAPPDATA%/squid-exporter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squids
+  name: Nixpkgs squids macos cache (wave 26)
+  description: Nixpkgs leftover pname squids on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squids"
+  - "$HOME/Library/Logs/squids"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squids
+  name: Nixpkgs squids linux cache (wave 26)
+  description: Nixpkgs leftover pname squids on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squids"
+  - "$XDG_CACHE_HOME/squids"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squids
+  name: Nixpkgs squids windows cache (wave 26)
+  description: Nixpkgs leftover pname squids on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squids/Cache"
+  - "%LOCALAPPDATA%/squids/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squirrel-mode
+  name: Nixpkgs squirrel-mode macos cache (wave 26)
+  description: Nixpkgs leftover pname squirrel-mode on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squirrel-mode"
+  - "$HOME/Library/Logs/squirrel-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squirrel-mode
+  name: Nixpkgs squirrel-mode linux cache (wave 26)
+  description: Nixpkgs leftover pname squirrel-mode on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squirrel-mode"
+  - "$XDG_CACHE_HOME/squirrel-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squirrel-mode
+  name: Nixpkgs squirrel-mode windows cache (wave 26)
+  description: Nixpkgs leftover pname squirrel-mode on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squirrel-mode/Cache"
+  - "%LOCALAPPDATA%/squirrel-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squirrel-sql
+  name: Nixpkgs squirrel-sql macos cache (wave 26)
+  description: Nixpkgs leftover pname squirrel-sql on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squirrel-sql"
+  - "$HOME/Library/Logs/squirrel-sql"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squirrel-sql
+  name: Nixpkgs squirrel-sql linux cache (wave 26)
+  description: Nixpkgs leftover pname squirrel-sql on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squirrel-sql"
+  - "$XDG_CACHE_HOME/squirrel-sql"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squirrel-sql
+  name: Nixpkgs squirrel-sql windows cache (wave 26)
+  description: Nixpkgs leftover pname squirrel-sql on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squirrel-sql/Cache"
+  - "%LOCALAPPDATA%/squirrel-sql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squishyball
+  name: Nixpkgs squishyball macos cache (wave 26)
+  description: Nixpkgs leftover pname squishyball on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squishyball"
+  - "$HOME/Library/Logs/squishyball"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squishyball
+  name: Nixpkgs squishyball linux cache (wave 26)
+  description: Nixpkgs leftover pname squishyball on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squishyball"
+  - "$XDG_CACHE_HOME/squishyball"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squishyball
+  name: Nixpkgs squishyball windows cache (wave 26)
+  description: Nixpkgs leftover pname squishyball on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squishyball/Cache"
+  - "%LOCALAPPDATA%/squishyball/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-squix
+  name: Nixpkgs squix macos cache (wave 26)
+  description: Nixpkgs leftover pname squix on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/squix"
+  - "$HOME/Library/Logs/squix"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-squix
+  name: Nixpkgs squix linux cache (wave 26)
+  description: Nixpkgs leftover pname squix on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/squix"
+  - "$XDG_CACHE_HOME/squix"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-squix
+  name: Nixpkgs squix windows cache (wave 26)
+  description: Nixpkgs leftover pname squix on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/squix/Cache"
+  - "%LOCALAPPDATA%/squix/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sr
+  name: Nixpkgs sr macos cache (wave 26)
+  description: Nixpkgs leftover pname sr on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sr"
+  - "$HOME/Library/Logs/sr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sr
+  name: Nixpkgs sr linux cache (wave 26)
+  description: Nixpkgs leftover pname sr on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sr"
+  - "$XDG_CACHE_HOME/sr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sr
+  name: Nixpkgs sr windows cache (wave 26)
+  description: Nixpkgs leftover pname sr on windows (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sr/Cache"
+  - "%LOCALAPPDATA%/sr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sr-extra
+  name: Nixpkgs sr-extra macos cache (wave 26)
+  description: Nixpkgs leftover pname sr-extra on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sr-extra"
+  - "$HOME/Library/Logs/sr-extra"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sr-extra
+  name: Nixpkgs sr-extra linux cache (wave 26)
+  description: Nixpkgs leftover pname sr-extra on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sr-extra"
+  - "$XDG_CACHE_HOME/sr-extra"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sr-extra
+  name: Nixpkgs sr-extra windows cache (wave 26)
+  description: Nixpkgs leftover pname sr-extra on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sr-extra/Cache"
+  - "%LOCALAPPDATA%/sr-extra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sr-speedbar
+  name: Nixpkgs sr-speedbar macos cache (wave 26)
+  description: Nixpkgs leftover pname sr-speedbar on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sr-speedbar"
+  - "$HOME/Library/Logs/sr-speedbar"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sr-speedbar
+  name: Nixpkgs sr-speedbar linux cache (wave 26)
+  description: Nixpkgs leftover pname sr-speedbar on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sr-speedbar"
+  - "$XDG_CACHE_HOME/sr-speedbar"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sr-speedbar
+  name: Nixpkgs sr-speedbar windows cache (wave 26)
+  description: Nixpkgs leftover pname sr-speedbar on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sr-speedbar/Cache"
+  - "%LOCALAPPDATA%/sr-speedbar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sr-vorl
+  name: Nixpkgs sr-vorl macos cache (wave 26)
+  description: Nixpkgs leftover pname sr-vorl on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sr-vorl"
+  - "$HOME/Library/Logs/sr-vorl"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sr-vorl
+  name: Nixpkgs sr-vorl linux cache (wave 26)
+  description: Nixpkgs leftover pname sr-vorl on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sr-vorl"
+  - "$XDG_CACHE_HOME/sr-vorl"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sr-vorl
+  name: Nixpkgs sr-vorl windows cache (wave 26)
+  description: Nixpkgs leftover pname sr-vorl on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sr-vorl/Cache"
+  - "%LOCALAPPDATA%/sr-vorl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sr2t
+  name: Nixpkgs sr2t macos cache (wave 26)
+  description: Nixpkgs leftover pname sr2t on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sr2t"
+  - "$HOME/Library/Logs/sr2t"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sr2t
+  name: Nixpkgs sr2t linux cache (wave 26)
+  description: Nixpkgs leftover pname sr2t on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sr2t"
+  - "$XDG_CACHE_HOME/sr2t"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sr2t
+  name: Nixpkgs sr2t windows cache (wave 26)
+  description: Nixpkgs leftover pname sr2t on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sr2t/Cache"
+  - "%LOCALAPPDATA%/sr2t/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sra
+  name: Nixpkgs sra macos cache (wave 26)
+  description: Nixpkgs leftover pname sra on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sra"
+  - "$HOME/Library/Logs/sra"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sra
+  name: Nixpkgs sra linux cache (wave 26)
+  description: Nixpkgs leftover pname sra on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sra"
+  - "$XDG_CACHE_HOME/sra"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sra
+  name: Nixpkgs sra windows cache (wave 26)
+  description: Nixpkgs leftover pname sra on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sra/Cache"
+  - "%LOCALAPPDATA%/sra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srain
+  name: Nixpkgs srain macos cache (wave 26)
+  description: Nixpkgs leftover pname srain on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srain"
+  - "$HOME/Library/Logs/srain"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srain
+  name: Nixpkgs srain linux cache (wave 26)
+  description: Nixpkgs leftover pname srain on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srain"
+  - "$XDG_CACHE_HOME/srain"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srain
+  name: Nixpkgs srain windows cache (wave 26)
+  description: Nixpkgs leftover pname srain on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srain/Cache"
+  - "%LOCALAPPDATA%/srain/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srandrd
+  name: Nixpkgs srandrd macos cache (wave 26)
+  description: Nixpkgs leftover pname srandrd on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srandrd"
+  - "$HOME/Library/Logs/srandrd"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srandrd
+  name: Nixpkgs srandrd linux cache (wave 26)
+  description: Nixpkgs leftover pname srandrd on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srandrd"
+  - "$XDG_CACHE_HOME/srandrd"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srandrd
+  name: Nixpkgs srandrd windows cache (wave 26)
+  description: Nixpkgs leftover pname srandrd on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srandrd/Cache"
+  - "%LOCALAPPDATA%/srandrd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sratom
+  name: Nixpkgs sratom macos cache (wave 26)
+  description: Nixpkgs leftover pname sratom on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sratom"
+  - "$HOME/Library/Logs/sratom"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sratom
+  name: Nixpkgs sratom linux cache (wave 26)
+  description: Nixpkgs leftover pname sratom on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sratom"
+  - "$XDG_CACHE_HOME/sratom"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sratom
+  name: Nixpkgs sratom windows cache (wave 26)
+  description: Nixpkgs leftover pname sratom on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sratom/Cache"
+  - "%LOCALAPPDATA%/sratom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-sratoolkit
+  name: Nixpkgs sratoolkit macos cache (wave 26)
+  description: Nixpkgs leftover pname sratoolkit on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/sratoolkit"
+  - "$HOME/Library/Logs/sratoolkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-sratoolkit
+  name: Nixpkgs sratoolkit linux cache (wave 26)
+  description: Nixpkgs leftover pname sratoolkit on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/sratoolkit"
+  - "$XDG_CACHE_HOME/sratoolkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-sratoolkit
+  name: Nixpkgs sratoolkit windows cache (wave 26)
+  description: Nixpkgs leftover pname sratoolkit on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/sratoolkit/Cache"
+  - "%LOCALAPPDATA%/sratoolkit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srb2
+  name: Nixpkgs srb2 macos cache (wave 26)
+  description: Nixpkgs leftover pname srb2 on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srb2"
+  - "$HOME/Library/Logs/srb2"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srb2
+  name: Nixpkgs srb2 linux cache (wave 26)
+  description: Nixpkgs leftover pname srb2 on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srb2"
+  - "$XDG_CACHE_HOME/srb2"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srb2
+  name: Nixpkgs srb2 windows cache (wave 26)
+  description: Nixpkgs leftover pname srb2 on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srb2/Cache"
+  - "%LOCALAPPDATA%/srb2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srb2kart
+  name: Nixpkgs srb2kart macos cache (wave 26)
+  description: Nixpkgs leftover pname srb2kart on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srb2kart"
+  - "$HOME/Library/Logs/srb2kart"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srb2kart
+  name: Nixpkgs srb2kart linux cache (wave 26)
+  description: Nixpkgs leftover pname srb2kart on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srb2kart"
+  - "$XDG_CACHE_HOME/srb2kart"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srb2kart
+  name: Nixpkgs srb2kart windows cache (wave 26)
+  description: Nixpkgs leftover pname srb2kart on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srb2kart/Cache"
+  - "%LOCALAPPDATA%/srb2kart/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srbook-mem
+  name: Nixpkgs srbook-mem macos cache (wave 26)
+  description: Nixpkgs leftover pname srbook-mem on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srbook-mem"
+  - "$HOME/Library/Logs/srbook-mem"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srbook-mem
+  name: Nixpkgs srbook-mem linux cache (wave 26)
+  description: Nixpkgs leftover pname srbook-mem on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srbook-mem"
+  - "$XDG_CACHE_HOME/srbook-mem"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srbook-mem
+  name: Nixpkgs srbook-mem windows cache (wave 26)
+  description: Nixpkgs leftover pname srbook-mem on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srbook-mem/Cache"
+  - "%LOCALAPPDATA%/srbook-mem/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srbtiks
+  name: Nixpkgs srbtiks macos cache (wave 26)
+  description: Nixpkgs leftover pname srbtiks on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srbtiks"
+  - "$HOME/Library/Logs/srbtiks"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srbtiks
+  name: Nixpkgs srbtiks linux cache (wave 26)
+  description: Nixpkgs leftover pname srbtiks on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srbtiks"
+  - "$XDG_CACHE_HOME/srbtiks"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srbtiks
+  name: Nixpkgs srbtiks windows cache (wave 26)
+  description: Nixpkgs leftover pname srbtiks on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srbtiks/Cache"
+  - "%LOCALAPPDATA%/srbtiks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-src-cli
+  name: Nixpkgs src-cli macos cache (wave 26)
+  description: Nixpkgs leftover pname src-cli on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/src-cli"
+  - "$HOME/Library/Logs/src-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-src-cli
+  name: Nixpkgs src-cli linux cache (wave 26)
+  description: Nixpkgs leftover pname src-cli on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/src-cli"
+  - "$XDG_CACHE_HOME/src-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-src-cli
+  name: Nixpkgs src-cli windows cache (wave 26)
+  description: Nixpkgs leftover pname src-cli on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/src-cli/Cache"
+  - "%LOCALAPPDATA%/src-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcery-theme
+  name: Nixpkgs srcery-theme macos cache (wave 26)
+  description: Nixpkgs leftover pname srcery-theme on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcery-theme"
+  - "$HOME/Library/Logs/srcery-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcery-theme
+  name: Nixpkgs srcery-theme linux cache (wave 26)
+  description: Nixpkgs leftover pname srcery-theme on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcery-theme"
+  - "$XDG_CACHE_HOME/srcery-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcery-theme
+  name: Nixpkgs srcery-theme windows cache (wave 26)
+  description: Nixpkgs leftover pname srcery-theme on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcery-theme/Cache"
+  - "%LOCALAPPDATA%/srcery-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcery-vim
+  name: Nixpkgs srcery-vim macos cache (wave 26)
+  description: Nixpkgs leftover pname srcery-vim on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcery-vim"
+  - "$HOME/Library/Logs/srcery-vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcery-vim
+  name: Nixpkgs srcery-vim linux cache (wave 26)
+  description: Nixpkgs leftover pname srcery-vim on linux (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcery-vim"
+  - "$XDG_CACHE_HOME/srcery-vim"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcery-vim
+  name: Nixpkgs srcery-vim windows cache (wave 26)
+  description: Nixpkgs leftover pname srcery-vim on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcery-vim/Cache"
+  - "%LOCALAPPDATA%/srcery-vim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcinst
+  name: Nixpkgs srcinst macos cache (wave 26)
+  description: Nixpkgs leftover pname srcinst on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcinst"
+  - "$HOME/Library/Logs/srcinst"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcinst
+  name: Nixpkgs srcinst linux cache (wave 26)
+  description: Nixpkgs leftover pname srcinst on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcinst"
+  - "$XDG_CACHE_HOME/srcinst"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcinst
+  name: Nixpkgs srcinst windows cache (wave 26)
+  description: Nixpkgs leftover pname srcinst on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcinst/Cache"
+  - "%LOCALAPPDATA%/srcinst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcloc
+  name: Nixpkgs srcloc macos cache (wave 26)
+  description: Nixpkgs leftover pname srcloc on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcloc"
+  - "$HOME/Library/Logs/srcloc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcloc
+  name: Nixpkgs srcloc linux cache (wave 26)
+  description: Nixpkgs leftover pname srcloc on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcloc"
+  - "$XDG_CACHE_HOME/srcloc"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcloc
+  name: Nixpkgs srcloc windows cache (wave 26)
+  description: Nixpkgs leftover pname srcloc on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcloc/Cache"
+  - "%LOCALAPPDATA%/srcloc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcltx
+  name: Nixpkgs srcltx macos cache (wave 26)
+  description: Nixpkgs leftover pname srcltx on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcltx"
+  - "$HOME/Library/Logs/srcltx"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcltx
+  name: Nixpkgs srcltx linux cache (wave 26)
+  description: Nixpkgs leftover pname srcltx on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcltx"
+  - "$XDG_CACHE_HOME/srcltx"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcltx
+  name: Nixpkgs srcltx windows cache (wave 26)
+  description: Nixpkgs leftover pname srcltx on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcltx/Cache"
+  - "%LOCALAPPDATA%/srcltx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcpkgs
+  name: Nixpkgs srcpkgs macos cache (wave 26)
+  description: Nixpkgs leftover pname srcpkgs on macos (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcpkgs"
+  - "$HOME/Library/Logs/srcpkgs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcpkgs
+  name: Nixpkgs srcpkgs linux cache (wave 26)
+  description: Nixpkgs leftover pname srcpkgs on linux (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcpkgs"
+  - "$XDG_CACHE_HOME/srcpkgs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcpkgs
+  name: Nixpkgs srcpkgs windows cache (wave 26)
+  description: Nixpkgs leftover pname srcpkgs on windows (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcpkgs/Cache"
+  - "%LOCALAPPDATA%/srcpkgs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcr
+  name: Nixpkgs srcr macos cache (wave 26)
+  description: Nixpkgs leftover pname srcr on macos (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcr"
+  - "$HOME/Library/Logs/srcr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-lin-srcr
+  name: Nixpkgs srcr linux cache (wave 26)
+  description: Nixpkgs leftover pname srcr on linux (wave 26). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/srcr"
+  - "$XDG_CACHE_HOME/srcr"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-win-srcr
+  name: Nixpkgs srcr windows cache (wave 26)
+  description: Nixpkgs leftover pname srcr on windows (wave 26). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/srcr/Cache"
+  - "%LOCALAPPDATA%/srcr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np26-mac-srcredact
+  name: Nixpkgs srcredact macos cache (wave 26)
+  description: Nixpkgs leftover pname srcredact on macos (wave 26). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/srcredact"
+  - "$HOME/Library/Logs/srcredact"
+  delete_mode: contents
+  max_depth: 6

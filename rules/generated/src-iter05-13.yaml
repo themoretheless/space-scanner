@@ -1,0 +1,5557 @@
+---
+pack: src-iter05-13
+description: Iterative 10k import wave 5 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np5-mac-chromdraw
+  name: Nixpkgs chromDraw macos cache (wave 5)
+  description: Nixpkgs leftover pname chromDraw on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromDraw"
+  - "$HOME/Library/Logs/chromDraw"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromdraw
+  name: Nixpkgs chromDraw linux cache (wave 5)
+  description: Nixpkgs leftover pname chromDraw on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromDraw"
+  - "$XDG_CACHE_HOME/chromDraw"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromdraw
+  name: Nixpkgs chromDraw windows cache (wave 5)
+  description: Nixpkgs leftover pname chromDraw on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromDraw/Cache"
+  - "%LOCALAPPDATA%/chromDraw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromplot
+  name: Nixpkgs chromPlot macos cache (wave 5)
+  description: Nixpkgs leftover pname chromPlot on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromPlot"
+  - "$HOME/Library/Logs/chromPlot"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromplot
+  name: Nixpkgs chromPlot linux cache (wave 5)
+  description: Nixpkgs leftover pname chromPlot on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromPlot"
+  - "$XDG_CACHE_HOME/chromPlot"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromplot
+  name: Nixpkgs chromPlot windows cache (wave 5)
+  description: Nixpkgs leftover pname chromPlot on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromPlot/Cache"
+  - "%LOCALAPPDATA%/chromPlot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromvar
+  name: Nixpkgs chromVAR macos cache (wave 5)
+  description: Nixpkgs leftover pname chromVAR on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromVAR"
+  - "$HOME/Library/Logs/chromVAR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromvar
+  name: Nixpkgs chromVAR linux cache (wave 5)
+  description: Nixpkgs leftover pname chromVAR on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromVAR"
+  - "$XDG_CACHE_HOME/chromVAR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromvar
+  name: Nixpkgs chromVAR windows cache (wave 5)
+  description: Nixpkgs leftover pname chromVAR on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromVAR/Cache"
+  - "%LOCALAPPDATA%/chromVAR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chroma
+  name: Nixpkgs chroma macos cache (wave 5)
+  description: Nixpkgs leftover pname chroma on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chroma"
+  - "$HOME/Library/Logs/chroma"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chroma
+  name: Nixpkgs chroma linux cache (wave 5)
+  description: Nixpkgs leftover pname chroma on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chroma"
+  - "$XDG_CACHE_HOME/chroma"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chroma
+  name: Nixpkgs chroma windows cache (wave 5)
+  description: Nixpkgs leftover pname chroma on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chroma/Cache"
+  - "%LOCALAPPDATA%/chroma/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chroma-hnswlib
+  name: Nixpkgs chroma-hnswlib macos cache (wave 5)
+  description: Nixpkgs leftover pname chroma-hnswlib on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chroma-hnswlib"
+  - "$HOME/Library/Logs/chroma-hnswlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chroma-hnswlib
+  name: Nixpkgs chroma-hnswlib linux cache (wave 5)
+  description: Nixpkgs leftover pname chroma-hnswlib on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chroma-hnswlib"
+  - "$XDG_CACHE_HOME/chroma-hnswlib"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chroma-hnswlib
+  name: Nixpkgs chroma-hnswlib windows cache (wave 5)
+  description: Nixpkgs leftover pname chroma-hnswlib on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chroma-hnswlib/Cache"
+  - "%LOCALAPPDATA%/chroma-hnswlib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromadb
+  name: Nixpkgs chromadb macos cache (wave 5)
+  description: Nixpkgs leftover pname chromadb on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromadb"
+  - "$HOME/Library/Logs/chromadb"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromadb
+  name: Nixpkgs chromadb linux cache (wave 5)
+  description: Nixpkgs leftover pname chromadb on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromadb"
+  - "$XDG_CACHE_HOME/chromadb"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromadb
+  name: Nixpkgs chromadb windows cache (wave 5)
+  description: Nixpkgs leftover pname chromadb on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromadb/Cache"
+  - "%LOCALAPPDATA%/chromadb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromaprint
+  name: Nixpkgs chromaprint macos cache (wave 5)
+  description: Nixpkgs leftover pname chromaprint on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromaprint"
+  - "$HOME/Library/Logs/chromaprint"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromaprint
+  name: Nixpkgs chromaprint linux cache (wave 5)
+  description: Nixpkgs leftover pname chromaprint on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromaprint"
+  - "$XDG_CACHE_HOME/chromaprint"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromaprint
+  name: Nixpkgs chromaprint windows cache (wave 5)
+  description: Nixpkgs leftover pname chromaprint on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromaprint/Cache"
+  - "%LOCALAPPDATA%/chromaprint/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromatin
+  name: Nixpkgs chromatin macos cache (wave 5)
+  description: Nixpkgs leftover pname chromatin on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromatin"
+  - "$HOME/Library/Logs/chromatin"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromatin
+  name: Nixpkgs chromatin linux cache (wave 5)
+  description: Nixpkgs leftover pname chromatin on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromatin"
+  - "$XDG_CACHE_HOME/chromatin"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromatin
+  name: Nixpkgs chromatin windows cache (wave 5)
+  description: Nixpkgs leftover pname chromatin on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromatin/Cache"
+  - "%LOCALAPPDATA%/chromatin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromatographr
+  name: Nixpkgs chromatographR macos cache (wave 5)
+  description: Nixpkgs leftover pname chromatographR on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromatographR"
+  - "$HOME/Library/Logs/chromatographR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromatographr
+  name: Nixpkgs chromatographR linux cache (wave 5)
+  description: Nixpkgs leftover pname chromatographR on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromatographR"
+  - "$XDG_CACHE_HOME/chromatographR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromatographr
+  name: Nixpkgs chromatographR windows cache (wave 5)
+  description: Nixpkgs leftover pname chromatographR on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromatographR/Cache"
+  - "%LOCALAPPDATA%/chromatographR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrome-export
+  name: Nixpkgs chrome-export macos cache (wave 5)
+  description: Nixpkgs leftover pname chrome-export on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrome-export"
+  - "$HOME/Library/Logs/chrome-export"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrome-export
+  name: Nixpkgs chrome-export linux cache (wave 5)
+  description: Nixpkgs leftover pname chrome-export on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrome-export"
+  - "$XDG_CACHE_HOME/chrome-export"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrome-export
+  name: Nixpkgs chrome-export windows cache (wave 5)
+  description: Nixpkgs leftover pname chrome-export on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrome-export/Cache"
+  - "%LOCALAPPDATA%/chrome-export/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrome-native-messaging
+  name: Nixpkgs chrome-native-messaging macos cache (wave 5)
+  description: Nixpkgs leftover pname chrome-native-messaging on macos (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrome-native-messaging"
+  - "$HOME/Library/Logs/chrome-native-messaging"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrome-native-messaging
+  name: Nixpkgs chrome-native-messaging linux cache (wave 5)
+  description: Nixpkgs leftover pname chrome-native-messaging on linux (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrome-native-messaging"
+  - "$XDG_CACHE_HOME/chrome-native-messaging"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrome-native-messaging
+  name: Nixpkgs chrome-native-messaging windows cache (wave 5)
+  description: Nixpkgs leftover pname chrome-native-messaging on windows (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrome-native-messaging/Cache"
+  - "%LOCALAPPDATA%/chrome-native-messaging/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrome-pak-customizer
+  name: Nixpkgs chrome-pak-customizer macos cache (wave 5)
+  description: Nixpkgs leftover pname chrome-pak-customizer on macos (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrome-pak-customizer"
+  - "$HOME/Library/Logs/chrome-pak-customizer"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrome-pak-customizer
+  name: Nixpkgs chrome-pak-customizer linux cache (wave 5)
+  description: Nixpkgs leftover pname chrome-pak-customizer on linux (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrome-pak-customizer"
+  - "$XDG_CACHE_HOME/chrome-pak-customizer"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrome-pak-customizer
+  name: Nixpkgs chrome-pak-customizer windows cache (wave 5)
+  description: Nixpkgs leftover pname chrome-pak-customizer on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrome-pak-customizer/Cache"
+  - "%LOCALAPPDATA%/chrome-pak-customizer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrome-token-signing
+  name: Nixpkgs chrome-token-signing macos cache (wave 5)
+  description: Nixpkgs leftover pname chrome-token-signing on macos (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrome-token-signing"
+  - "$HOME/Library/Logs/chrome-token-signing"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrome-token-signing
+  name: Nixpkgs chrome-token-signing linux cache (wave 5)
+  description: Nixpkgs leftover pname chrome-token-signing on linux (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrome-token-signing"
+  - "$XDG_CACHE_HOME/chrome-token-signing"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrome-token-signing
+  name: Nixpkgs chrome-token-signing windows cache (wave 5)
+  description: Nixpkgs leftover pname chrome-token-signing on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrome-token-signing/Cache"
+  - "%LOCALAPPDATA%/chrome-token-signing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrome-trace
+  name: Nixpkgs chrome-trace macos cache (wave 5)
+  description: Nixpkgs leftover pname chrome-trace on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrome-trace"
+  - "$HOME/Library/Logs/chrome-trace"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrome-trace
+  name: Nixpkgs chrome-trace linux cache (wave 5)
+  description: Nixpkgs leftover pname chrome-trace on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrome-trace"
+  - "$XDG_CACHE_HOME/chrome-trace"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrome-trace
+  name: Nixpkgs chrome-trace windows cache (wave 5)
+  description: Nixpkgs leftover pname chrome-trace on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrome-trace/Cache"
+  - "%LOCALAPPDATA%/chrome-trace/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromedriver-unwrapped
+  name: Nixpkgs chromedriver-unwrapped macos cache (wave 5)
+  description: Nixpkgs leftover pname chromedriver-unwrapped on macos (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromedriver-unwrapped"
+  - "$HOME/Library/Logs/chromedriver-unwrapped"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromedriver-unwrapped
+  name: Nixpkgs chromedriver-unwrapped linux cache (wave 5)
+  description: Nixpkgs leftover pname chromedriver-unwrapped on linux (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromedriver-unwrapped"
+  - "$XDG_CACHE_HOME/chromedriver-unwrapped"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromedriver-unwrapped
+  name: Nixpkgs chromedriver-unwrapped windows cache (wave 5)
+  description: Nixpkgs leftover pname chromedriver-unwrapped on windows (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromedriver-unwrapped/Cache"
+  - "%LOCALAPPDATA%/chromedriver-unwrapped/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromer
+  name: Nixpkgs chromer macos cache (wave 5)
+  description: Nixpkgs leftover pname chromer on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromer"
+  - "$HOME/Library/Logs/chromer"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromer
+  name: Nixpkgs chromer linux cache (wave 5)
+  description: Nixpkgs leftover pname chromer on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromer"
+  - "$XDG_CACHE_HOME/chromer"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromer
+  name: Nixpkgs chromer windows cache (wave 5)
+  description: Nixpkgs leftover pname chromer on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromer/Cache"
+  - "%LOCALAPPDATA%/chromer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromhmmdata
+  name: Nixpkgs chromhmmData macos cache (wave 5)
+  description: Nixpkgs leftover pname chromhmmData on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromhmmData"
+  - "$HOME/Library/Logs/chromhmmData"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromhmmdata
+  name: Nixpkgs chromhmmData linux cache (wave 5)
+  description: Nixpkgs leftover pname chromhmmData on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromhmmData"
+  - "$XDG_CACHE_HOME/chromhmmData"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromhmmdata
+  name: Nixpkgs chromhmmData windows cache (wave 5)
+  description: Nixpkgs leftover pname chromhmmData on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromhmmData/Cache"
+  - "%LOCALAPPDATA%/chromhmmData/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromium
+  name: Nixpkgs chromium macos cache (wave 5)
+  description: Nixpkgs leftover pname chromium on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromium"
+  - "$HOME/Library/Logs/chromium"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromium
+  name: Nixpkgs chromium linux cache (wave 5)
+  description: Nixpkgs leftover pname chromium on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromium"
+  - "$XDG_CACHE_HOME/chromium"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromium
+  name: Nixpkgs chromium windows cache (wave 5)
+  description: Nixpkgs leftover pname chromium on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromium/Cache"
+  - "%LOCALAPPDATA%/chromium/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromium-bsu
+  name: Nixpkgs chromium-bsu macos cache (wave 5)
+  description: Nixpkgs leftover pname chromium-bsu on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromium-bsu"
+  - "$HOME/Library/Logs/chromium-bsu"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromium-bsu
+  name: Nixpkgs chromium-bsu linux cache (wave 5)
+  description: Nixpkgs leftover pname chromium-bsu on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromium-bsu"
+  - "$XDG_CACHE_HOME/chromium-bsu"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromium-bsu
+  name: Nixpkgs chromium-bsu windows cache (wave 5)
+  description: Nixpkgs leftover pname chromium-bsu on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromium-bsu/Cache"
+  - "%LOCALAPPDATA%/chromium-bsu/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromium-codecs-ffmpeg-extra
+  name: Nixpkgs chromium-codecs-ffmpeg-extra macos cache (wave 5)
+  description: Nixpkgs leftover pname chromium-codecs-ffmpeg-extra on macos (wave
+    5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromium-codecs-ffmpeg-extra"
+  - "$HOME/Library/Logs/chromium-codecs-ffmpeg-extra"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromium-codecs-ffmpeg-extra
+  name: Nixpkgs chromium-codecs-ffmpeg-extra linux cache (wave 5)
+  description: Nixpkgs leftover pname chromium-codecs-ffmpeg-extra on linux (wave
+    5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromium-codecs-ffmpeg-extra"
+  - "$XDG_CACHE_HOME/chromium-codecs-ffmpeg-extra"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromium-codecs-ffmpeg-extra
+  name: Nixpkgs chromium-codecs-ffmpeg-extra windows cache (wave 5)
+  description: Nixpkgs leftover pname chromium-codecs-ffmpeg-extra on windows (wave
+    5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromium-codecs-ffmpeg-extra/Cache"
+  - "%LOCALAPPDATA%/chromium-codecs-ffmpeg-extra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromium-hsts-preload-list
+  name: Nixpkgs chromium-hsts-preload-list macos cache (wave 5)
+  description: Nixpkgs leftover pname chromium-hsts-preload-list on macos (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromium-hsts-preload-list"
+  - "$HOME/Library/Logs/chromium-hsts-preload-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromium-hsts-preload-list
+  name: Nixpkgs chromium-hsts-preload-list linux cache (wave 5)
+  description: Nixpkgs leftover pname chromium-hsts-preload-list on linux (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromium-hsts-preload-list"
+  - "$XDG_CACHE_HOME/chromium-hsts-preload-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromium-hsts-preload-list
+  name: Nixpkgs chromium-hsts-preload-list windows cache (wave 5)
+  description: Nixpkgs leftover pname chromium-hsts-preload-list on windows (wave
+    5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromium-hsts-preload-list/Cache"
+  - "%LOCALAPPDATA%/chromium-hsts-preload-list/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromo
+  name: Nixpkgs chromo macos cache (wave 5)
+  description: Nixpkgs leftover pname chromo on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromo"
+  - "$HOME/Library/Logs/chromo"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromo
+  name: Nixpkgs chromo linux cache (wave 5)
+  description: Nixpkgs leftover pname chromo on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromo"
+  - "$XDG_CACHE_HOME/chromo"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromo
+  name: Nixpkgs chromo windows cache (wave 5)
+  description: Nixpkgs leftover pname chromo on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromo/Cache"
+  - "%LOCALAPPDATA%/chromo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromomap
+  name: Nixpkgs chromoMap macos cache (wave 5)
+  description: Nixpkgs leftover pname chromoMap on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromoMap"
+  - "$HOME/Library/Logs/chromoMap"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromomap
+  name: Nixpkgs chromoMap linux cache (wave 5)
+  description: Nixpkgs leftover pname chromoMap on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromoMap"
+  - "$XDG_CACHE_HOME/chromoMap"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromomap
+  name: Nixpkgs chromoMap windows cache (wave 5)
+  description: Nixpkgs leftover pname chromoMap on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromoMap/Cache"
+  - "%LOCALAPPDATA%/chromoMap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromote
+  name: Nixpkgs chromote macos cache (wave 5)
+  description: Nixpkgs leftover pname chromote on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromote"
+  - "$HOME/Library/Logs/chromote"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromote
+  name: Nixpkgs chromote linux cache (wave 5)
+  description: Nixpkgs leftover pname chromote on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromote"
+  - "$XDG_CACHE_HOME/chromote"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromote
+  name: Nixpkgs chromote windows cache (wave 5)
+  description: Nixpkgs leftover pname chromote on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromote/Cache"
+  - "%LOCALAPPDATA%/chromote/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromseq
+  name: Nixpkgs chromseq macos cache (wave 5)
+  description: Nixpkgs leftover pname chromseq on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromseq"
+  - "$HOME/Library/Logs/chromseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromseq
+  name: Nixpkgs chromseq linux cache (wave 5)
+  description: Nixpkgs leftover pname chromseq on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromseq"
+  - "$XDG_CACHE_HOME/chromseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromseq
+  name: Nixpkgs chromseq windows cache (wave 5)
+  description: Nixpkgs leftover pname chromseq on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromseq/Cache"
+  - "%LOCALAPPDATA%/chromseq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromstar
+  name: Nixpkgs chromstaR macos cache (wave 5)
+  description: Nixpkgs leftover pname chromstaR on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromstaR"
+  - "$HOME/Library/Logs/chromstaR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromstar
+  name: Nixpkgs chromstaR linux cache (wave 5)
+  description: Nixpkgs leftover pname chromstaR on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromstaR"
+  - "$XDG_CACHE_HOME/chromstaR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromstar
+  name: Nixpkgs chromstaR windows cache (wave 5)
+  description: Nixpkgs leftover pname chromstaR on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromstaR/Cache"
+  - "%LOCALAPPDATA%/chromstaR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromstardata
+  name: Nixpkgs chromstaRData macos cache (wave 5)
+  description: Nixpkgs leftover pname chromstaRData on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromstaRData"
+  - "$HOME/Library/Logs/chromstaRData"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromstardata
+  name: Nixpkgs chromstaRData linux cache (wave 5)
+  description: Nixpkgs leftover pname chromstaRData on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromstaRData"
+  - "$XDG_CACHE_HOME/chromstaRData"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromstardata
+  name: Nixpkgs chromstaRData windows cache (wave 5)
+  description: Nixpkgs leftover pname chromstaRData on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromstaRData/Cache"
+  - "%LOCALAPPDATA%/chromstaRData/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chromswitch
+  name: Nixpkgs chromswitch macos cache (wave 5)
+  description: Nixpkgs leftover pname chromswitch on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chromswitch"
+  - "$HOME/Library/Logs/chromswitch"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chromswitch
+  name: Nixpkgs chromswitch linux cache (wave 5)
+  description: Nixpkgs leftover pname chromswitch on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chromswitch"
+  - "$XDG_CACHE_HOME/chromswitch"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chromswitch
+  name: Nixpkgs chromswitch windows cache (wave 5)
+  description: Nixpkgs leftover pname chromswitch on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chromswitch/Cache"
+  - "%LOCALAPPDATA%/chromswitch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chron
+  name: Nixpkgs chron macos cache (wave 5)
+  description: Nixpkgs leftover pname chron on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chron"
+  - "$HOME/Library/Logs/chron"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chron
+  name: Nixpkgs chron linux cache (wave 5)
+  description: Nixpkgs leftover pname chron on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chron"
+  - "$XDG_CACHE_HOME/chron"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chron
+  name: Nixpkgs chron windows cache (wave 5)
+  description: Nixpkgs leftover pname chron on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chron/Cache"
+  - "%LOCALAPPDATA%/chron/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chroncal
+  name: Nixpkgs chroncal macos cache (wave 5)
+  description: Nixpkgs leftover pname chroncal on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chroncal"
+  - "$HOME/Library/Logs/chroncal"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chroncal
+  name: Nixpkgs chroncal linux cache (wave 5)
+  description: Nixpkgs leftover pname chroncal on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chroncal"
+  - "$XDG_CACHE_HOME/chroncal"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chroncal
+  name: Nixpkgs chroncal windows cache (wave 5)
+  description: Nixpkgs leftover pname chroncal on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chroncal/Cache"
+  - "%LOCALAPPDATA%/chroncal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronicity
+  name: Nixpkgs chronicity macos cache (wave 5)
+  description: Nixpkgs leftover pname chronicity on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronicity"
+  - "$HOME/Library/Logs/chronicity"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronicity
+  name: Nixpkgs chronicity linux cache (wave 5)
+  description: Nixpkgs leftover pname chronicity on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronicity"
+  - "$XDG_CACHE_HOME/chronicity"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronicity
+  name: Nixpkgs chronicity windows cache (wave 5)
+  description: Nixpkgs leftover pname chronicity on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronicity/Cache"
+  - "%LOCALAPPDATA%/chronicity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronicity-test
+  name: Nixpkgs chronicity-test macos cache (wave 5)
+  description: Nixpkgs leftover pname chronicity-test on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronicity-test"
+  - "$HOME/Library/Logs/chronicity-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronicity-test
+  name: Nixpkgs chronicity-test linux cache (wave 5)
+  description: Nixpkgs leftover pname chronicity-test on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronicity-test"
+  - "$XDG_CACHE_HOME/chronicity-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronicity-test
+  name: Nixpkgs chronicity-test windows cache (wave 5)
+  description: Nixpkgs leftover pname chronicity-test on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronicity-test/Cache"
+  - "%LOCALAPPDATA%/chronicity-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronicle
+  name: Nixpkgs chronicle macos cache (wave 5)
+  description: Nixpkgs leftover pname chronicle on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronicle"
+  - "$HOME/Library/Logs/chronicle"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronicle
+  name: Nixpkgs chronicle linux cache (wave 5)
+  description: Nixpkgs leftover pname chronicle on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronicle"
+  - "$XDG_CACHE_HOME/chronicle"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronicle
+  name: Nixpkgs chronicle windows cache (wave 5)
+  description: Nixpkgs leftover pname chronicle on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronicle/Cache"
+  - "%LOCALAPPDATA%/chronicle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronicler
+  name: Nixpkgs chronicler macos cache (wave 5)
+  description: Nixpkgs leftover pname chronicler on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronicler"
+  - "$HOME/Library/Logs/chronicler"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronicler
+  name: Nixpkgs chronicler linux cache (wave 5)
+  description: Nixpkgs leftover pname chronicler on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronicler"
+  - "$XDG_CACHE_HOME/chronicler"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronicler
+  name: Nixpkgs chronicler windows cache (wave 5)
+  description: Nixpkgs leftover pname chronicler on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronicler/Cache"
+  - "%LOCALAPPDATA%/chronicler/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronochrt
+  name: Nixpkgs chronochrt macos cache (wave 5)
+  description: Nixpkgs leftover pname chronochrt on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronochrt"
+  - "$HOME/Library/Logs/chronochrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronochrt
+  name: Nixpkgs chronochrt linux cache (wave 5)
+  description: Nixpkgs leftover pname chronochrt on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronochrt"
+  - "$XDG_CACHE_HOME/chronochrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronochrt
+  name: Nixpkgs chronochrt windows cache (wave 5)
+  description: Nixpkgs leftover pname chronochrt on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronochrt/Cache"
+  - "%LOCALAPPDATA%/chronochrt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronograph
+  name: Nixpkgs chronograph macos cache (wave 5)
+  description: Nixpkgs leftover pname chronograph on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronograph"
+  - "$HOME/Library/Logs/chronograph"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronograph
+  name: Nixpkgs chronograph linux cache (wave 5)
+  description: Nixpkgs leftover pname chronograph on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronograph"
+  - "$XDG_CACHE_HOME/chronograph"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronograph
+  name: Nixpkgs chronograph windows cache (wave 5)
+  description: Nixpkgs leftover pname chronograph on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronograph/Cache"
+  - "%LOCALAPPDATA%/chronograph/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronologique
+  name: Nixpkgs chronologique macos cache (wave 5)
+  description: Nixpkgs leftover pname chronologique on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronologique"
+  - "$HOME/Library/Logs/chronologique"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronologique
+  name: Nixpkgs chronologique linux cache (wave 5)
+  description: Nixpkgs leftover pname chronologique on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronologique"
+  - "$XDG_CACHE_HOME/chronologique"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronologique
+  name: Nixpkgs chronologique windows cache (wave 5)
+  description: Nixpkgs leftover pname chronologique on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronologique/Cache"
+  - "%LOCALAPPDATA%/chronologique/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronology
+  name: Nixpkgs chronology macos cache (wave 5)
+  description: Nixpkgs leftover pname chronology on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronology"
+  - "$HOME/Library/Logs/chronology"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronology
+  name: Nixpkgs chronology linux cache (wave 5)
+  description: Nixpkgs leftover pname chronology on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronology"
+  - "$XDG_CACHE_HOME/chronology"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronology
+  name: Nixpkgs chronology windows cache (wave 5)
+  description: Nixpkgs leftover pname chronology on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronology/Cache"
+  - "%LOCALAPPDATA%/chronology/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronometer
+  name: Nixpkgs chronometer macos cache (wave 5)
+  description: Nixpkgs leftover pname chronometer on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronometer"
+  - "$HOME/Library/Logs/chronometer"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronometer
+  name: Nixpkgs chronometer linux cache (wave 5)
+  description: Nixpkgs leftover pname chronometer on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronometer"
+  - "$XDG_CACHE_HOME/chronometer"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronometer
+  name: Nixpkgs chronometer windows cache (wave 5)
+  description: Nixpkgs leftover pname chronometer on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronometer/Cache"
+  - "%LOCALAPPDATA%/chronometer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronometre
+  name: Nixpkgs chronometre macos cache (wave 5)
+  description: Nixpkgs leftover pname chronometre on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronometre"
+  - "$HOME/Library/Logs/chronometre"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronometre
+  name: Nixpkgs chronometre linux cache (wave 5)
+  description: Nixpkgs leftover pname chronometre on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronometre"
+  - "$XDG_CACHE_HOME/chronometre"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronometre
+  name: Nixpkgs chronometre windows cache (wave 5)
+  description: Nixpkgs leftover pname chronometre on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronometre/Cache"
+  - "%LOCALAPPDATA%/chronometre/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronometrist
+  name: Nixpkgs chronometrist macos cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronometrist"
+  - "$HOME/Library/Logs/chronometrist"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronometrist
+  name: Nixpkgs chronometrist linux cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronometrist"
+  - "$XDG_CACHE_HOME/chronometrist"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronometrist
+  name: Nixpkgs chronometrist windows cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronometrist/Cache"
+  - "%LOCALAPPDATA%/chronometrist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronometrist-goal
+  name: Nixpkgs chronometrist-goal macos cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-goal on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronometrist-goal"
+  - "$HOME/Library/Logs/chronometrist-goal"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronometrist-goal
+  name: Nixpkgs chronometrist-goal linux cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-goal on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronometrist-goal"
+  - "$XDG_CACHE_HOME/chronometrist-goal"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronometrist-goal
+  name: Nixpkgs chronometrist-goal windows cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-goal on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronometrist-goal/Cache"
+  - "%LOCALAPPDATA%/chronometrist-goal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronometrist-key-values
+  name: Nixpkgs chronometrist-key-values macos cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-key-values on macos (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronometrist-key-values"
+  - "$HOME/Library/Logs/chronometrist-key-values"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronometrist-key-values
+  name: Nixpkgs chronometrist-key-values linux cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-key-values on linux (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronometrist-key-values"
+  - "$XDG_CACHE_HOME/chronometrist-key-values"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronometrist-key-values
+  name: Nixpkgs chronometrist-key-values windows cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-key-values on windows (wave 5).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronometrist-key-values/Cache"
+  - "%LOCALAPPDATA%/chronometrist-key-values/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronometrist-spark
+  name: Nixpkgs chronometrist-spark macos cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-spark on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronometrist-spark"
+  - "$HOME/Library/Logs/chronometrist-spark"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronometrist-spark
+  name: Nixpkgs chronometrist-spark linux cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-spark on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronometrist-spark"
+  - "$XDG_CACHE_HOME/chronometrist-spark"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronometrist-spark
+  name: Nixpkgs chronometrist-spark windows cache (wave 5)
+  description: Nixpkgs leftover pname chronometrist-spark on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronometrist-spark/Cache"
+  - "%LOCALAPPDATA%/chronometrist-spark/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronos-bench
+  name: Nixpkgs chronos-bench macos cache (wave 5)
+  description: Nixpkgs leftover pname chronos-bench on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronos-bench"
+  - "$HOME/Library/Logs/chronos-bench"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronos-bench
+  name: Nixpkgs chronos-bench linux cache (wave 5)
+  description: Nixpkgs leftover pname chronos-bench on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronos-bench"
+  - "$XDG_CACHE_HOME/chronos-bench"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronos-bench
+  name: Nixpkgs chronos-bench windows cache (wave 5)
+  description: Nixpkgs leftover pname chronos-bench on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronos-bench/Cache"
+  - "%LOCALAPPDATA%/chronos-bench/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronosphere
+  name: Nixpkgs chronosphere macos cache (wave 5)
+  description: Nixpkgs leftover pname chronosphere on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronosphere"
+  - "$HOME/Library/Logs/chronosphere"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronosphere
+  name: Nixpkgs chronosphere linux cache (wave 5)
+  description: Nixpkgs leftover pname chronosphere on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronosphere"
+  - "$XDG_CACHE_HOME/chronosphere"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronosphere
+  name: Nixpkgs chronosphere windows cache (wave 5)
+  description: Nixpkgs leftover pname chronosphere on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronosphere/Cache"
+  - "%LOCALAPPDATA%/chronosphere/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chronosys
+  name: Nixpkgs chronosys macos cache (wave 5)
+  description: Nixpkgs leftover pname chronosys on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chronosys"
+  - "$HOME/Library/Logs/chronosys"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chronosys
+  name: Nixpkgs chronosys linux cache (wave 5)
+  description: Nixpkgs leftover pname chronosys on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chronosys"
+  - "$XDG_CACHE_HOME/chronosys"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chronosys
+  name: Nixpkgs chronosys windows cache (wave 5)
+  description: Nixpkgs leftover pname chronosys on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chronosys/Cache"
+  - "%LOCALAPPDATA%/chronosys/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrony
+  name: Nixpkgs chrony macos cache (wave 5)
+  description: Nixpkgs leftover pname chrony on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrony"
+  - "$HOME/Library/Logs/chrony"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrony
+  name: Nixpkgs chrony linux cache (wave 5)
+  description: Nixpkgs leftover pname chrony on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrony"
+  - "$XDG_CACHE_HOME/chrony"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrony
+  name: Nixpkgs chrony windows cache (wave 5)
+  description: Nixpkgs leftover pname chrony on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrony/Cache"
+  - "%LOCALAPPDATA%/chrony/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrpath
+  name: Nixpkgs chrpath macos cache (wave 5)
+  description: Nixpkgs leftover pname chrpath on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrpath"
+  - "$HOME/Library/Logs/chrpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrpath
+  name: Nixpkgs chrpath linux cache (wave 5)
+  description: Nixpkgs leftover pname chrpath on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrpath"
+  - "$XDG_CACHE_HOME/chrpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrpath
+  name: Nixpkgs chrpath windows cache (wave 5)
+  description: Nixpkgs leftover pname chrpath on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrpath/Cache"
+  - "%LOCALAPPDATA%/chrpath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chruby
+  name: Nixpkgs chruby macos cache (wave 5)
+  description: Nixpkgs leftover pname chruby on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chruby"
+  - "$HOME/Library/Logs/chruby"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chruby
+  name: Nixpkgs chruby linux cache (wave 5)
+  description: Nixpkgs leftover pname chruby on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chruby"
+  - "$XDG_CACHE_HOME/chruby"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chruby
+  name: Nixpkgs chruby windows cache (wave 5)
+  description: Nixpkgs leftover pname chruby on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chruby/Cache"
+  - "%LOCALAPPDATA%/chruby/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chruby-fish
+  name: Nixpkgs chruby-fish macos cache (wave 5)
+  description: Nixpkgs leftover pname chruby-fish on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chruby-fish"
+  - "$HOME/Library/Logs/chruby-fish"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chruby-fish
+  name: Nixpkgs chruby-fish linux cache (wave 5)
+  description: Nixpkgs leftover pname chruby-fish on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chruby-fish"
+  - "$XDG_CACHE_HOME/chruby-fish"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chruby-fish
+  name: Nixpkgs chruby-fish windows cache (wave 5)
+  description: Nixpkgs leftover pname chruby-fish on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chruby-fish/Cache"
+  - "%LOCALAPPDATA%/chruby-fish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chrysalis
+  name: Nixpkgs chrysalis macos cache (wave 5)
+  description: Nixpkgs leftover pname chrysalis on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chrysalis"
+  - "$HOME/Library/Logs/chrysalis"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chrysalis
+  name: Nixpkgs chrysalis linux cache (wave 5)
+  description: Nixpkgs leftover pname chrysalis on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chrysalis"
+  - "$XDG_CACHE_HOME/chrysalis"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chrysalis
+  name: Nixpkgs chrysalis windows cache (wave 5)
+  description: Nixpkgs leftover pname chrysalis on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chrysalis/Cache"
+  - "%LOCALAPPDATA%/chrysalis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chs-cabal
+  name: Nixpkgs chs-cabal macos cache (wave 5)
+  description: Nixpkgs leftover pname chs-cabal on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chs-cabal"
+  - "$HOME/Library/Logs/chs-cabal"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chs-cabal
+  name: Nixpkgs chs-cabal linux cache (wave 5)
+  description: Nixpkgs leftover pname chs-cabal on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chs-cabal"
+  - "$XDG_CACHE_HOME/chs-cabal"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chs-cabal
+  name: Nixpkgs chs-cabal windows cache (wave 5)
+  description: Nixpkgs leftover pname chs-cabal on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chs-cabal/Cache"
+  - "%LOCALAPPDATA%/chs-cabal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chs-deps
+  name: Nixpkgs chs-deps macos cache (wave 5)
+  description: Nixpkgs leftover pname chs-deps on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chs-deps"
+  - "$HOME/Library/Logs/chs-deps"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chs-deps
+  name: Nixpkgs chs-deps linux cache (wave 5)
+  description: Nixpkgs leftover pname chs-deps on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chs-deps"
+  - "$XDG_CACHE_HOME/chs-deps"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chs-deps
+  name: Nixpkgs chs-deps windows cache (wave 5)
+  description: Nixpkgs leftover pname chs-deps on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chs-deps/Cache"
+  - "%LOCALAPPDATA%/chs-deps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chs-physics-report
+  name: Nixpkgs chs-physics-report macos cache (wave 5)
+  description: Nixpkgs leftover pname chs-physics-report on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chs-physics-report"
+  - "$HOME/Library/Logs/chs-physics-report"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chs-physics-report
+  name: Nixpkgs chs-physics-report linux cache (wave 5)
+  description: Nixpkgs leftover pname chs-physics-report on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chs-physics-report"
+  - "$XDG_CACHE_HOME/chs-physics-report"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chs-physics-report
+  name: Nixpkgs chs-physics-report windows cache (wave 5)
+  description: Nixpkgs leftover pname chs-physics-report on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chs-physics-report/Cache"
+  - "%LOCALAPPDATA%/chs-physics-report/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chscite
+  name: Nixpkgs chscite macos cache (wave 5)
+  description: Nixpkgs leftover pname chscite on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chscite"
+  - "$HOME/Library/Logs/chscite"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chscite
+  name: Nixpkgs chscite linux cache (wave 5)
+  description: Nixpkgs leftover pname chscite on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chscite"
+  - "$XDG_CACHE_HOME/chscite"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chscite
+  name: Nixpkgs chscite windows cache (wave 5)
+  description: Nixpkgs leftover pname chscite on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chscite/Cache"
+  - "%LOCALAPPDATA%/chscite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chsrc
+  name: Nixpkgs chsrc macos cache (wave 5)
+  description: Nixpkgs leftover pname chsrc on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chsrc"
+  - "$HOME/Library/Logs/chsrc"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chsrc
+  name: Nixpkgs chsrc linux cache (wave 5)
+  description: Nixpkgs leftover pname chsrc on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chsrc"
+  - "$XDG_CACHE_HOME/chsrc"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chsrc
+  name: Nixpkgs chsrc windows cache (wave 5)
+  description: Nixpkgs leftover pname chsrc on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chsrc/Cache"
+  - "%LOCALAPPDATA%/chsrc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cht-sh
+  name: Nixpkgs cht.sh macos cache (wave 5)
+  description: Nixpkgs leftover pname cht.sh on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cht.sh"
+  - "$HOME/Library/Logs/cht.sh"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cht-sh
+  name: Nixpkgs cht.sh linux cache (wave 5)
+  description: Nixpkgs leftover pname cht.sh on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cht.sh"
+  - "$XDG_CACHE_HOME/cht.sh"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cht-sh
+  name: Nixpkgs cht.sh windows cache (wave 5)
+  description: Nixpkgs leftover pname cht.sh on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cht.sh/Cache"
+  - "%LOCALAPPDATA%/cht.sh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chtml-matcher
+  name: Nixpkgs chtml-matcher macos cache (wave 5)
+  description: Nixpkgs leftover pname chtml-matcher on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chtml-matcher"
+  - "$HOME/Library/Logs/chtml-matcher"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chtml-matcher
+  name: Nixpkgs chtml-matcher linux cache (wave 5)
+  description: Nixpkgs leftover pname chtml-matcher on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chtml-matcher"
+  - "$XDG_CACHE_HOME/chtml-matcher"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chtml-matcher
+  name: Nixpkgs chtml-matcher windows cache (wave 5)
+  description: Nixpkgs leftover pname chtml-matcher on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chtml-matcher/Cache"
+  - "%LOCALAPPDATA%/chtml-matcher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chu2
+  name: Nixpkgs chu2 macos cache (wave 5)
+  description: Nixpkgs leftover pname chu2 on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chu2"
+  - "$HOME/Library/Logs/chu2"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chu2
+  name: Nixpkgs chu2 linux cache (wave 5)
+  description: Nixpkgs leftover pname chu2 on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chu2"
+  - "$XDG_CACHE_HOME/chu2"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chu2
+  name: Nixpkgs chu2 windows cache (wave 5)
+  description: Nixpkgs leftover pname chu2 on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chu2/Cache"
+  - "%LOCALAPPDATA%/chu2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chuchu
+  name: Nixpkgs chuchu macos cache (wave 5)
+  description: Nixpkgs leftover pname chuchu on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chuchu"
+  - "$HOME/Library/Logs/chuchu"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chuchu
+  name: Nixpkgs chuchu linux cache (wave 5)
+  description: Nixpkgs leftover pname chuchu on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chuchu"
+  - "$XDG_CACHE_HOME/chuchu"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chuchu
+  name: Nixpkgs chuchu windows cache (wave 5)
+  description: Nixpkgs leftover pname chuchu on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chuchu/Cache"
+  - "%LOCALAPPDATA%/chuchu/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chuck
+  name: Nixpkgs chuck macos cache (wave 5)
+  description: Nixpkgs leftover pname chuck on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chuck"
+  - "$HOME/Library/Logs/chuck"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chuck
+  name: Nixpkgs chuck linux cache (wave 5)
+  description: Nixpkgs leftover pname chuck on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chuck"
+  - "$XDG_CACHE_HOME/chuck"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chuck
+  name: Nixpkgs chuck windows cache (wave 5)
+  description: Nixpkgs leftover pname chuck on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chuck/Cache"
+  - "%LOCALAPPDATA%/chuck/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chuffed
+  name: Nixpkgs chuffed macos cache (wave 5)
+  description: Nixpkgs leftover pname chuffed on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chuffed"
+  - "$HOME/Library/Logs/chuffed"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chuffed
+  name: Nixpkgs chuffed linux cache (wave 5)
+  description: Nixpkgs leftover pname chuffed on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chuffed"
+  - "$XDG_CACHE_HOME/chuffed"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chuffed
+  name: Nixpkgs chuffed windows cache (wave 5)
+  description: Nixpkgs leftover pname chuffed on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chuffed/Cache"
+  - "%LOCALAPPDATA%/chuffed/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chuli-cv
+  name: Nixpkgs chuli-cv macos cache (wave 5)
+  description: Nixpkgs leftover pname chuli-cv on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chuli-cv"
+  - "$HOME/Library/Logs/chuli-cv"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chuli-cv
+  name: Nixpkgs chuli-cv linux cache (wave 5)
+  description: Nixpkgs leftover pname chuli-cv on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chuli-cv"
+  - "$XDG_CACHE_HOME/chuli-cv"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chuli-cv
+  name: Nixpkgs chuli-cv windows cache (wave 5)
+  description: Nixpkgs leftover pname chuli-cv on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chuli-cv/Cache"
+  - "%LOCALAPPDATA%/chuli-cv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunga
+  name: Nixpkgs chunga macos cache (wave 5)
+  description: Nixpkgs leftover pname chunga on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunga"
+  - "$HOME/Library/Logs/chunga"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunga
+  name: Nixpkgs chunga linux cache (wave 5)
+  description: Nixpkgs leftover pname chunga on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunga"
+  - "$XDG_CACHE_HOME/chunga"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunga
+  name: Nixpkgs chunga windows cache (wave 5)
+  description: Nixpkgs leftover pname chunga on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunga/Cache"
+  - "%LOCALAPPDATA%/chunga/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunk
+  name: Nixpkgs chunk macos cache (wave 5)
+  description: Nixpkgs leftover pname chunk on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunk"
+  - "$HOME/Library/Logs/chunk"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunk
+  name: Nixpkgs chunk linux cache (wave 5)
+  description: Nixpkgs leftover pname chunk on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunk"
+  - "$XDG_CACHE_HOME/chunk"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunk
+  name: Nixpkgs chunk windows cache (wave 5)
+  description: Nixpkgs leftover pname chunk on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunk/Cache"
+  - "%LOCALAPPDATA%/chunk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunkr
+  name: Nixpkgs chunkR macos cache (wave 5)
+  description: Nixpkgs leftover pname chunkR on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunkR"
+  - "$HOME/Library/Logs/chunkR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunkr
+  name: Nixpkgs chunkR linux cache (wave 5)
+  description: Nixpkgs leftover pname chunkR on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunkR"
+  - "$XDG_CACHE_HOME/chunkR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunkr
+  name: Nixpkgs chunkR windows cache (wave 5)
+  description: Nixpkgs leftover pname chunkR on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunkR/Cache"
+  - "%LOCALAPPDATA%/chunkR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunked
+  name: Nixpkgs chunked macos cache (wave 5)
+  description: Nixpkgs leftover pname chunked on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunked"
+  - "$HOME/Library/Logs/chunked"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunked
+  name: Nixpkgs chunked linux cache (wave 5)
+  description: Nixpkgs leftover pname chunked on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunked"
+  - "$XDG_CACHE_HOME/chunked"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunked
+  name: Nixpkgs chunked windows cache (wave 5)
+  description: Nixpkgs leftover pname chunked on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunked/Cache"
+  - "%LOCALAPPDATA%/chunked/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunked-data
+  name: Nixpkgs chunked-data macos cache (wave 5)
+  description: Nixpkgs leftover pname chunked-data on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunked-data"
+  - "$HOME/Library/Logs/chunked-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunked-data
+  name: Nixpkgs chunked-data linux cache (wave 5)
+  description: Nixpkgs leftover pname chunked-data on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunked-data"
+  - "$XDG_CACHE_HOME/chunked-data"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunked-data
+  name: Nixpkgs chunked-data windows cache (wave 5)
+  description: Nixpkgs leftover pname chunked-data on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunked-data/Cache"
+  - "%LOCALAPPDATA%/chunked-data/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunkfs
+  name: Nixpkgs chunkfs macos cache (wave 5)
+  description: Nixpkgs leftover pname chunkfs on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunkfs"
+  - "$HOME/Library/Logs/chunkfs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunkfs
+  name: Nixpkgs chunkfs linux cache (wave 5)
+  description: Nixpkgs leftover pname chunkfs on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunkfs"
+  - "$XDG_CACHE_HOME/chunkfs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunkfs
+  name: Nixpkgs chunkfs windows cache (wave 5)
+  description: Nixpkgs leftover pname chunkfs on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunkfs/Cache"
+  - "%LOCALAPPDATA%/chunkfs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunkhooks
+  name: Nixpkgs chunkhooks macos cache (wave 5)
+  description: Nixpkgs leftover pname chunkhooks on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunkhooks"
+  - "$HOME/Library/Logs/chunkhooks"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunkhooks
+  name: Nixpkgs chunkhooks linux cache (wave 5)
+  description: Nixpkgs leftover pname chunkhooks on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunkhooks"
+  - "$XDG_CACHE_HOME/chunkhooks"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunkhooks
+  name: Nixpkgs chunkhooks windows cache (wave 5)
+  description: Nixpkgs leftover pname chunkhooks on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunkhooks/Cache"
+  - "%LOCALAPPDATA%/chunkhooks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunks
+  name: Nixpkgs chunks macos cache (wave 5)
+  description: Nixpkgs leftover pname chunks on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunks"
+  - "$HOME/Library/Logs/chunks"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunks
+  name: Nixpkgs chunks linux cache (wave 5)
+  description: Nixpkgs leftover pname chunks on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunks"
+  - "$XDG_CACHE_HOME/chunks"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunks
+  name: Nixpkgs chunks windows cache (wave 5)
+  description: Nixpkgs leftover pname chunks on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunks/Cache"
+  - "%LOCALAPPDATA%/chunks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunksync
+  name: Nixpkgs chunksync macos cache (wave 5)
+  description: Nixpkgs leftover pname chunksync on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunksync"
+  - "$HOME/Library/Logs/chunksync"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunksync
+  name: Nixpkgs chunksync linux cache (wave 5)
+  description: Nixpkgs leftover pname chunksync on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunksync"
+  - "$XDG_CACHE_HOME/chunksync"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunksync
+  name: Nixpkgs chunksync windows cache (wave 5)
+  description: Nixpkgs leftover pname chunksync on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunksync/Cache"
+  - "%LOCALAPPDATA%/chunksync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chunky
+  name: Nixpkgs chunky macos cache (wave 5)
+  description: Nixpkgs leftover pname chunky on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chunky"
+  - "$HOME/Library/Logs/chunky"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chunky
+  name: Nixpkgs chunky linux cache (wave 5)
+  description: Nixpkgs leftover pname chunky on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chunky"
+  - "$XDG_CACHE_HOME/chunky"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chunky
+  name: Nixpkgs chunky windows cache (wave 5)
+  description: Nixpkgs leftover pname chunky on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chunky/Cache"
+  - "%LOCALAPPDATA%/chunky/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-church
+  name: Nixpkgs church macos cache (wave 5)
+  description: Nixpkgs leftover pname church on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/church"
+  - "$HOME/Library/Logs/church"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-church
+  name: Nixpkgs church linux cache (wave 5)
+  description: Nixpkgs leftover pname church on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/church"
+  - "$XDG_CACHE_HOME/church"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-church
+  name: Nixpkgs church windows cache (wave 5)
+  description: Nixpkgs leftover pname church on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/church/Cache"
+  - "%LOCALAPPDATA%/church/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-church-list
+  name: Nixpkgs church-list macos cache (wave 5)
+  description: Nixpkgs leftover pname church-list on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/church-list"
+  - "$HOME/Library/Logs/church-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-church-list
+  name: Nixpkgs church-list linux cache (wave 5)
+  description: Nixpkgs leftover pname church-list on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/church-list"
+  - "$XDG_CACHE_HOME/church-list"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-church-list
+  name: Nixpkgs church-list windows cache (wave 5)
+  description: Nixpkgs leftover pname church-list on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/church-list/Cache"
+  - "%LOCALAPPDATA%/church-list/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-church-maybe
+  name: Nixpkgs church-maybe macos cache (wave 5)
+  description: Nixpkgs leftover pname church-maybe on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/church-maybe"
+  - "$HOME/Library/Logs/church-maybe"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-church-maybe
+  name: Nixpkgs church-maybe linux cache (wave 5)
+  description: Nixpkgs leftover pname church-maybe on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/church-maybe"
+  - "$XDG_CACHE_HOME/church-maybe"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-church-maybe
+  name: Nixpkgs church-maybe windows cache (wave 5)
+  description: Nixpkgs leftover pname church-maybe on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/church-maybe/Cache"
+  - "%LOCALAPPDATA%/church-maybe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-church-pair
+  name: Nixpkgs church-pair macos cache (wave 5)
+  description: Nixpkgs leftover pname church-pair on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/church-pair"
+  - "$HOME/Library/Logs/church-pair"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-church-pair
+  name: Nixpkgs church-pair linux cache (wave 5)
+  description: Nixpkgs leftover pname church-pair on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/church-pair"
+  - "$XDG_CACHE_HOME/church-pair"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-church-pair
+  name: Nixpkgs church-pair windows cache (wave 5)
+  description: Nixpkgs leftover pname church-pair on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/church-pair/Cache"
+  - "%LOCALAPPDATA%/church-pair/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-churchslavonic
+  name: Nixpkgs churchslavonic macos cache (wave 5)
+  description: Nixpkgs leftover pname churchslavonic on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/churchslavonic"
+  - "$HOME/Library/Logs/churchslavonic"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-churchslavonic
+  name: Nixpkgs churchslavonic linux cache (wave 5)
+  description: Nixpkgs leftover pname churchslavonic on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/churchslavonic"
+  - "$XDG_CACHE_HOME/churchslavonic"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-churchslavonic
+  name: Nixpkgs churchslavonic windows cache (wave 5)
+  description: Nixpkgs leftover pname churchslavonic on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/churchslavonic/Cache"
+  - "%LOCALAPPDATA%/churchslavonic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-churros
+  name: Nixpkgs churros macos cache (wave 5)
+  description: Nixpkgs leftover pname churros on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/churros"
+  - "$HOME/Library/Logs/churros"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-churros
+  name: Nixpkgs churros linux cache (wave 5)
+  description: Nixpkgs leftover pname churros on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/churros"
+  - "$XDG_CACHE_HOME/churros"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-churros
+  name: Nixpkgs churros windows cache (wave 5)
+  description: Nixpkgs leftover pname churros on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/churros/Cache"
+  - "%LOCALAPPDATA%/churros/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chuushaku
+  name: Nixpkgs chuushaku macos cache (wave 5)
+  description: Nixpkgs leftover pname chuushaku on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chuushaku"
+  - "$HOME/Library/Logs/chuushaku"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chuushaku
+  name: Nixpkgs chuushaku linux cache (wave 5)
+  description: Nixpkgs leftover pname chuushaku on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chuushaku"
+  - "$XDG_CACHE_HOME/chuushaku"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chuushaku
+  name: Nixpkgs chuushaku windows cache (wave 5)
+  description: Nixpkgs leftover pname chuushaku on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chuushaku/Cache"
+  - "%LOCALAPPDATA%/chuushaku/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chyla-dark-theme
+  name: Nixpkgs chyla-dark-theme macos cache (wave 5)
+  description: Nixpkgs leftover pname chyla-dark-theme on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chyla-dark-theme"
+  - "$HOME/Library/Logs/chyla-dark-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chyla-dark-theme
+  name: Nixpkgs chyla-dark-theme linux cache (wave 5)
+  description: Nixpkgs leftover pname chyla-dark-theme on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chyla-dark-theme"
+  - "$XDG_CACHE_HOME/chyla-dark-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chyla-dark-theme
+  name: Nixpkgs chyla-dark-theme windows cache (wave 5)
+  description: Nixpkgs leftover pname chyla-dark-theme on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chyla-dark-theme/Cache"
+  - "%LOCALAPPDATA%/chyla-dark-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chyla-theme
+  name: Nixpkgs chyla-theme macos cache (wave 5)
+  description: Nixpkgs leftover pname chyla-theme on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chyla-theme"
+  - "$HOME/Library/Logs/chyla-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chyla-theme
+  name: Nixpkgs chyla-theme linux cache (wave 5)
+  description: Nixpkgs leftover pname chyla-theme on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chyla-theme"
+  - "$XDG_CACHE_HOME/chyla-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chyla-theme
+  name: Nixpkgs chyla-theme windows cache (wave 5)
+  description: Nixpkgs leftover pname chyla-theme on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chyla-theme/Cache"
+  - "%LOCALAPPDATA%/chyla-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-chyper
+  name: Nixpkgs chyper macos cache (wave 5)
+  description: Nixpkgs leftover pname chyper on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/chyper"
+  - "$HOME/Library/Logs/chyper"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-chyper
+  name: Nixpkgs chyper linux cache (wave 5)
+  description: Nixpkgs leftover pname chyper on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/chyper"
+  - "$XDG_CACHE_HOME/chyper"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-chyper
+  name: Nixpkgs chyper windows cache (wave 5)
+  description: Nixpkgs leftover pname chyper on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/chyper/Cache"
+  - "%LOCALAPPDATA%/chyper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ci
+  name: Nixpkgs ci macos cache (wave 5)
+  description: Nixpkgs leftover pname ci on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ci"
+  - "$HOME/Library/Logs/ci"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ci
+  name: Nixpkgs ci linux cache (wave 5)
+  description: Nixpkgs leftover pname ci on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ci"
+  - "$XDG_CACHE_HOME/ci"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ci
+  name: Nixpkgs ci windows cache (wave 5)
+  description: Nixpkgs leftover pname ci on windows (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ci/Cache"
+  - "%LOCALAPPDATA%/ci/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ci-info
+  name: Nixpkgs ci-info macos cache (wave 5)
+  description: Nixpkgs leftover pname ci-info on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ci-info"
+  - "$HOME/Library/Logs/ci-info"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ci-info
+  name: Nixpkgs ci-info linux cache (wave 5)
+  description: Nixpkgs leftover pname ci-info on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ci-info"
+  - "$XDG_CACHE_HOME/ci-info"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ci-info
+  name: Nixpkgs ci-info windows cache (wave 5)
+  description: Nixpkgs leftover pname ci-info on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ci-info/Cache"
+  - "%LOCALAPPDATA%/ci-info/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ci-py
+  name: Nixpkgs ci-py macos cache (wave 5)
+  description: Nixpkgs leftover pname ci-py on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ci-py"
+  - "$HOME/Library/Logs/ci-py"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ci-py
+  name: Nixpkgs ci-py linux cache (wave 5)
+  description: Nixpkgs leftover pname ci-py on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ci-py"
+  - "$XDG_CACHE_HOME/ci-py"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ci-py
+  name: Nixpkgs ci-py windows cache (wave 5)
+  description: Nixpkgs leftover pname ci-py on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ci-py/Cache"
+  - "%LOCALAPPDATA%/ci-py/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ci-utils
+  name: Nixpkgs ci-utils macos cache (wave 5)
+  description: Nixpkgs leftover pname ci-utils on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ci-utils"
+  - "$HOME/Library/Logs/ci-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ci-utils
+  name: Nixpkgs ci-utils linux cache (wave 5)
+  description: Nixpkgs leftover pname ci-utils on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ci-utils"
+  - "$XDG_CACHE_HOME/ci-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ci-utils
+  name: Nixpkgs ci-utils windows cache (wave 5)
+  description: Nixpkgs leftover pname ci-utils on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ci-utils/Cache"
+  - "%LOCALAPPDATA%/ci-utils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ci-utils-features
+  name: Nixpkgs ci-utils-features macos cache (wave 5)
+  description: Nixpkgs leftover pname ci-utils-features on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ci-utils-features"
+  - "$HOME/Library/Logs/ci-utils-features"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ci-utils-features
+  name: Nixpkgs ci-utils-features linux cache (wave 5)
+  description: Nixpkgs leftover pname ci-utils-features on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ci-utils-features"
+  - "$XDG_CACHE_HOME/ci-utils-features"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ci-utils-features
+  name: Nixpkgs ci-utils-features windows cache (wave 5)
+  description: Nixpkgs leftover pname ci-utils-features on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ci-utils-features/Cache"
+  - "%LOCALAPPDATA%/ci-utils-features/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cicalibrate
+  name: Nixpkgs ciCalibrate macos cache (wave 5)
+  description: Nixpkgs leftover pname ciCalibrate on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciCalibrate"
+  - "$HOME/Library/Logs/ciCalibrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cicalibrate
+  name: Nixpkgs ciCalibrate linux cache (wave 5)
+  description: Nixpkgs leftover pname ciCalibrate on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciCalibrate"
+  - "$XDG_CACHE_HOME/ciCalibrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cicalibrate
+  name: Nixpkgs ciCalibrate windows cache (wave 5)
+  description: Nixpkgs leftover pname ciCalibrate on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciCalibrate/Cache"
+  - "%LOCALAPPDATA%/ciCalibrate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-citools
+  name: Nixpkgs ciTools macos cache (wave 5)
+  description: Nixpkgs leftover pname ciTools on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciTools"
+  - "$HOME/Library/Logs/ciTools"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-citools
+  name: Nixpkgs ciTools linux cache (wave 5)
+  description: Nixpkgs leftover pname ciTools on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciTools"
+  - "$XDG_CACHE_HOME/ciTools"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-citools
+  name: Nixpkgs ciTools windows cache (wave 5)
+  description: Nixpkgs leftover pname ciTools on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciTools/Cache"
+  - "%LOCALAPPDATA%/ciTools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ci-dark
+  name: Nixpkgs ci_dark macos cache (wave 5)
+  description: Nixpkgs leftover pname ci_dark on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ci_dark"
+  - "$HOME/Library/Logs/ci_dark"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ci-dark
+  name: Nixpkgs ci_dark linux cache (wave 5)
+  description: Nixpkgs leftover pname ci_dark on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ci_dark"
+  - "$XDG_CACHE_HOME/ci_dark"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ci-dark
+  name: Nixpkgs ci_dark windows cache (wave 5)
+  description: Nixpkgs leftover pname ci_dark on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ci_dark/Cache"
+  - "%LOCALAPPDATA%/ci_dark/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cia
+  name: Nixpkgs cia macos cache (wave 5)
+  description: Nixpkgs leftover pname cia on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cia"
+  - "$HOME/Library/Logs/cia"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cia
+  name: Nixpkgs cia linux cache (wave 5)
+  description: Nixpkgs leftover pname cia on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cia"
+  - "$XDG_CACHE_HOME/cia"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cia
+  name: Nixpkgs cia windows cache (wave 5)
+  description: Nixpkgs leftover pname cia on windows (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cia/Cache"
+  - "%LOCALAPPDATA%/cia/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciano
+  name: Nixpkgs ciano macos cache (wave 5)
+  description: Nixpkgs leftover pname ciano on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciano"
+  - "$HOME/Library/Logs/ciano"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciano
+  name: Nixpkgs ciano linux cache (wave 5)
+  description: Nixpkgs leftover pname ciano on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciano"
+  - "$XDG_CACHE_HOME/ciano"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciano
+  name: Nixpkgs ciano windows cache (wave 5)
+  description: Nixpkgs leftover pname ciano on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciano/Cache"
+  - "%LOCALAPPDATA%/ciano/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciao
+  name: Nixpkgs ciao macos cache (wave 5)
+  description: Nixpkgs leftover pname ciao on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciao"
+  - "$HOME/Library/Logs/ciao"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciao
+  name: Nixpkgs ciao linux cache (wave 5)
+  description: Nixpkgs leftover pname ciao on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciao"
+  - "$XDG_CACHE_HOME/ciao"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciao
+  name: Nixpkgs ciao windows cache (wave 5)
+  description: Nixpkgs leftover pname ciao on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciao/Cache"
+  - "%LOCALAPPDATA%/ciao/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cicalc
+  name: Nixpkgs cicalc macos cache (wave 5)
+  description: Nixpkgs leftover pname cicalc on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cicalc"
+  - "$HOME/Library/Logs/cicalc"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cicalc
+  name: Nixpkgs cicalc linux cache (wave 5)
+  description: Nixpkgs leftover pname cicalc on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cicalc"
+  - "$XDG_CACHE_HOME/cicalc"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cicalc
+  name: Nixpkgs cicalc windows cache (wave 5)
+  description: Nixpkgs leftover pname cicalc on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cicalc/Cache"
+  - "%LOCALAPPDATA%/cicalc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciccr
+  name: Nixpkgs ciccr macos cache (wave 5)
+  description: Nixpkgs leftover pname ciccr on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciccr"
+  - "$HOME/Library/Logs/ciccr"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciccr
+  name: Nixpkgs ciccr linux cache (wave 5)
+  description: Nixpkgs leftover pname ciccr on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciccr"
+  - "$XDG_CACHE_HOME/ciccr"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciccr
+  name: Nixpkgs ciccr windows cache (wave 5)
+  description: Nixpkgs leftover pname ciccr on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciccr/Cache"
+  - "%LOCALAPPDATA%/ciccr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cicero
+  name: Nixpkgs cicero macos cache (wave 5)
+  description: Nixpkgs leftover pname cicero on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cicero"
+  - "$HOME/Library/Logs/cicero"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cicero
+  name: Nixpkgs cicero linux cache (wave 5)
+  description: Nixpkgs leftover pname cicero on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cicero"
+  - "$XDG_CACHE_HOME/cicero"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cicero
+  name: Nixpkgs cicero windows cache (wave 5)
+  description: Nixpkgs leftover pname cicero on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cicero/Cache"
+  - "%LOCALAPPDATA%/cicero/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cicero-api
+  name: Nixpkgs cicero-api macos cache (wave 5)
+  description: Nixpkgs leftover pname cicero-api on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cicero-api"
+  - "$HOME/Library/Logs/cicero-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cicero-api
+  name: Nixpkgs cicero-api linux cache (wave 5)
+  description: Nixpkgs leftover pname cicero-api on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cicero-api"
+  - "$XDG_CACHE_HOME/cicero-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cicero-api
+  name: Nixpkgs cicero-api windows cache (wave 5)
+  description: Nixpkgs leftover pname cicero-api on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cicero-api/Cache"
+  - "%LOCALAPPDATA%/cicero-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cicero-tui
+  name: Nixpkgs cicero-tui macos cache (wave 5)
+  description: Nixpkgs leftover pname cicero-tui on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cicero-tui"
+  - "$HOME/Library/Logs/cicero-tui"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cicero-tui
+  name: Nixpkgs cicero-tui linux cache (wave 5)
+  description: Nixpkgs leftover pname cicero-tui on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cicero-tui"
+  - "$XDG_CACHE_HOME/cicero-tui"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cicero-tui
+  name: Nixpkgs cicero-tui windows cache (wave 5)
+  description: Nixpkgs leftover pname cicero-tui on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cicero-tui/Cache"
+  - "%LOCALAPPDATA%/cicero-tui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cicerone
+  name: Nixpkgs cicerone macos cache (wave 5)
+  description: Nixpkgs leftover pname cicerone on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cicerone"
+  - "$HOME/Library/Logs/cicerone"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cicerone
+  name: Nixpkgs cicerone linux cache (wave 5)
+  description: Nixpkgs leftover pname cicerone on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cicerone"
+  - "$XDG_CACHE_HOME/cicerone"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cicerone
+  name: Nixpkgs cicerone windows cache (wave 5)
+  description: Nixpkgs leftover pname cicerone on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cicerone/Cache"
+  - "%LOCALAPPDATA%/cicerone/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cidarticle
+  name: Nixpkgs cidarticle macos cache (wave 5)
+  description: Nixpkgs leftover pname cidarticle on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cidarticle"
+  - "$HOME/Library/Logs/cidarticle"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cidarticle
+  name: Nixpkgs cidarticle linux cache (wave 5)
+  description: Nixpkgs leftover pname cidarticle on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cidarticle"
+  - "$XDG_CACHE_HOME/cidarticle"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cidarticle
+  name: Nixpkgs cidarticle windows cache (wave 5)
+  description: Nixpkgs leftover pname cidarticle on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cidarticle/Cache"
+  - "%LOCALAPPDATA%/cidarticle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cider-2
+  name: Nixpkgs cider-2 macos cache (wave 5)
+  description: Nixpkgs leftover pname cider-2 on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cider-2"
+  - "$HOME/Library/Logs/cider-2"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cider-2
+  name: Nixpkgs cider-2 linux cache (wave 5)
+  description: Nixpkgs leftover pname cider-2 on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cider-2"
+  - "$XDG_CACHE_HOME/cider-2"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cider-2
+  name: Nixpkgs cider-2 windows cache (wave 5)
+  description: Nixpkgs leftover pname cider-2 on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cider-2/Cache"
+  - "%LOCALAPPDATA%/cider-2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cider-decompile
+  name: Nixpkgs cider-decompile macos cache (wave 5)
+  description: Nixpkgs leftover pname cider-decompile on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cider-decompile"
+  - "$HOME/Library/Logs/cider-decompile"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cider-decompile
+  name: Nixpkgs cider-decompile linux cache (wave 5)
+  description: Nixpkgs leftover pname cider-decompile on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cider-decompile"
+  - "$XDG_CACHE_HOME/cider-decompile"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cider-decompile
+  name: Nixpkgs cider-decompile windows cache (wave 5)
+  description: Nixpkgs leftover pname cider-decompile on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cider-decompile/Cache"
+  - "%LOCALAPPDATA%/cider-decompile/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cider-eval-sexp-fu
+  name: Nixpkgs cider-eval-sexp-fu macos cache (wave 5)
+  description: Nixpkgs leftover pname cider-eval-sexp-fu on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cider-eval-sexp-fu"
+  - "$HOME/Library/Logs/cider-eval-sexp-fu"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cider-eval-sexp-fu
+  name: Nixpkgs cider-eval-sexp-fu linux cache (wave 5)
+  description: Nixpkgs leftover pname cider-eval-sexp-fu on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cider-eval-sexp-fu"
+  - "$XDG_CACHE_HOME/cider-eval-sexp-fu"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cider-eval-sexp-fu
+  name: Nixpkgs cider-eval-sexp-fu windows cache (wave 5)
+  description: Nixpkgs leftover pname cider-eval-sexp-fu on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cider-eval-sexp-fu/Cache"
+  - "%LOCALAPPDATA%/cider-eval-sexp-fu/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cider-hydra
+  name: Nixpkgs cider-hydra macos cache (wave 5)
+  description: Nixpkgs leftover pname cider-hydra on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cider-hydra"
+  - "$HOME/Library/Logs/cider-hydra"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cider-hydra
+  name: Nixpkgs cider-hydra linux cache (wave 5)
+  description: Nixpkgs leftover pname cider-hydra on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cider-hydra"
+  - "$XDG_CACHE_HOME/cider-hydra"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cider-hydra
+  name: Nixpkgs cider-hydra windows cache (wave 5)
+  description: Nixpkgs leftover pname cider-hydra on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cider-hydra/Cache"
+  - "%LOCALAPPDATA%/cider-hydra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciderpress2
+  name: Nixpkgs ciderpress2 macos cache (wave 5)
+  description: Nixpkgs leftover pname ciderpress2 on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciderpress2"
+  - "$HOME/Library/Logs/ciderpress2"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciderpress2
+  name: Nixpkgs ciderpress2 linux cache (wave 5)
+  description: Nixpkgs leftover pname ciderpress2 on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciderpress2"
+  - "$XDG_CACHE_HOME/ciderpress2"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciderpress2
+  name: Nixpkgs ciderpress2 windows cache (wave 5)
+  description: Nixpkgs leftover pname ciderpress2 on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciderpress2/Cache"
+  - "%LOCALAPPDATA%/ciderpress2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cidr-merger
+  name: Nixpkgs cidr-merger macos cache (wave 5)
+  description: Nixpkgs leftover pname cidr-merger on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cidr-merger"
+  - "$HOME/Library/Logs/cidr-merger"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cidr-merger
+  name: Nixpkgs cidr-merger linux cache (wave 5)
+  description: Nixpkgs leftover pname cidr-merger on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cidr-merger"
+  - "$XDG_CACHE_HOME/cidr-merger"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cidr-merger
+  name: Nixpkgs cidr-merger windows cache (wave 5)
+  description: Nixpkgs leftover pname cidr-merger on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cidr-merger/Cache"
+  - "%LOCALAPPDATA%/cidr-merger/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cidrgrep
+  name: Nixpkgs cidrgrep macos cache (wave 5)
+  description: Nixpkgs leftover pname cidrgrep on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cidrgrep"
+  - "$HOME/Library/Logs/cidrgrep"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cidrgrep
+  name: Nixpkgs cidrgrep linux cache (wave 5)
+  description: Nixpkgs leftover pname cidrgrep on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cidrgrep"
+  - "$XDG_CACHE_HOME/cidrgrep"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cidrgrep
+  name: Nixpkgs cidrgrep windows cache (wave 5)
+  description: Nixpkgs leftover pname cidrgrep on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cidrgrep/Cache"
+  - "%LOCALAPPDATA%/cidrgrep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cie-middleware-linux
+  name: Nixpkgs cie-middleware-linux macos cache (wave 5)
+  description: Nixpkgs leftover pname cie-middleware-linux on macos (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cie-middleware-linux"
+  - "$HOME/Library/Logs/cie-middleware-linux"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cie-middleware-linux
+  name: Nixpkgs cie-middleware-linux linux cache (wave 5)
+  description: Nixpkgs leftover pname cie-middleware-linux on linux (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cie-middleware-linux"
+  - "$XDG_CACHE_HOME/cie-middleware-linux"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cie-middleware-linux
+  name: Nixpkgs cie-middleware-linux windows cache (wave 5)
+  description: Nixpkgs leftover pname cie-middleware-linux on windows (wave 5). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cie-middleware-linux/Cache"
+  - "%LOCALAPPDATA%/cie-middleware-linux/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciecl
+  name: Nixpkgs ciecl macos cache (wave 5)
+  description: Nixpkgs leftover pname ciecl on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciecl"
+  - "$HOME/Library/Logs/ciecl"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciecl
+  name: Nixpkgs ciecl linux cache (wave 5)
+  description: Nixpkgs leftover pname ciecl on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciecl"
+  - "$XDG_CACHE_HOME/ciecl"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciecl
+  name: Nixpkgs ciecl windows cache (wave 5)
+  description: Nixpkgs leftover pname ciecl on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciecl/Cache"
+  - "%LOCALAPPDATA%/ciecl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciel
+  name: Nixpkgs ciel macos cache (wave 5)
+  description: Nixpkgs leftover pname ciel on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciel"
+  - "$HOME/Library/Logs/ciel"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciel
+  name: Nixpkgs ciel linux cache (wave 5)
+  description: Nixpkgs leftover pname ciel on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciel"
+  - "$XDG_CACHE_HOME/ciel"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciel
+  name: Nixpkgs ciel windows cache (wave 5)
+  description: Nixpkgs leftover pname ciel on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciel/Cache"
+  - "%LOCALAPPDATA%/ciel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cielo
+  name: Nixpkgs cielo macos cache (wave 5)
+  description: Nixpkgs leftover pname cielo on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cielo"
+  - "$HOME/Library/Logs/cielo"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cielo
+  name: Nixpkgs cielo linux cache (wave 5)
+  description: Nixpkgs leftover pname cielo on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cielo"
+  - "$XDG_CACHE_HOME/cielo"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cielo
+  name: Nixpkgs cielo windows cache (wave 5)
+  description: Nixpkgs leftover pname cielo on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cielo/Cache"
+  - "%LOCALAPPDATA%/cielo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cielo-connect-api
+  name: Nixpkgs cielo-connect-api macos cache (wave 5)
+  description: Nixpkgs leftover pname cielo-connect-api on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cielo-connect-api"
+  - "$HOME/Library/Logs/cielo-connect-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cielo-connect-api
+  name: Nixpkgs cielo-connect-api linux cache (wave 5)
+  description: Nixpkgs leftover pname cielo-connect-api on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cielo-connect-api"
+  - "$XDG_CACHE_HOME/cielo-connect-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cielo-connect-api
+  name: Nixpkgs cielo-connect-api windows cache (wave 5)
+  description: Nixpkgs leftover pname cielo-connect-api on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cielo-connect-api/Cache"
+  - "%LOCALAPPDATA%/cielo-connect-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cif
+  name: Nixpkgs cif macos cache (wave 5)
+  description: Nixpkgs leftover pname cif on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cif"
+  - "$HOME/Library/Logs/cif"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cif
+  name: Nixpkgs cif linux cache (wave 5)
+  description: Nixpkgs leftover pname cif on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cif"
+  - "$XDG_CACHE_HOME/cif"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cif
+  name: Nixpkgs cif windows cache (wave 5)
+  description: Nixpkgs leftover pname cif on windows (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cif/Cache"
+  - "%LOCALAPPDATA%/cif/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciflyr
+  name: Nixpkgs ciflyr macos cache (wave 5)
+  description: Nixpkgs leftover pname ciflyr on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciflyr"
+  - "$HOME/Library/Logs/ciflyr"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciflyr
+  name: Nixpkgs ciflyr linux cache (wave 5)
+  description: Nixpkgs leftover pname ciflyr on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciflyr"
+  - "$XDG_CACHE_HOME/ciflyr"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciflyr
+  name: Nixpkgs ciflyr windows cache (wave 5)
+  description: Nixpkgs leftover pname ciflyr on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciflyr/Cache"
+  - "%LOCALAPPDATA%/ciflyr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cifmodeling
+  name: Nixpkgs cifmodeling macos cache (wave 5)
+  description: Nixpkgs leftover pname cifmodeling on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cifmodeling"
+  - "$HOME/Library/Logs/cifmodeling"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cifmodeling
+  name: Nixpkgs cifmodeling linux cache (wave 5)
+  description: Nixpkgs leftover pname cifmodeling on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cifmodeling"
+  - "$XDG_CACHE_HOME/cifmodeling"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cifmodeling
+  name: Nixpkgs cifmodeling windows cache (wave 5)
+  description: Nixpkgs leftover pname cifmodeling on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cifmodeling/Cache"
+  - "%LOCALAPPDATA%/cifmodeling/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cifs-utils
+  name: Nixpkgs cifs-utils macos cache (wave 5)
+  description: Nixpkgs leftover pname cifs-utils on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cifs-utils"
+  - "$HOME/Library/Logs/cifs-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cifs-utils
+  name: Nixpkgs cifs-utils linux cache (wave 5)
+  description: Nixpkgs leftover pname cifs-utils on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cifs-utils"
+  - "$XDG_CACHE_HOME/cifs-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cifs-utils
+  name: Nixpkgs cifs-utils windows cache (wave 5)
+  description: Nixpkgs leftover pname cifs-utils on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cifs-utils/Cache"
+  - "%LOCALAPPDATA%/cifs-utils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cifti
+  name: Nixpkgs cifti macos cache (wave 5)
+  description: Nixpkgs leftover pname cifti on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cifti"
+  - "$HOME/Library/Logs/cifti"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cifti
+  name: Nixpkgs cifti linux cache (wave 5)
+  description: Nixpkgs leftover pname cifti on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cifti"
+  - "$XDG_CACHE_HOME/cifti"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cifti
+  name: Nixpkgs cifti windows cache (wave 5)
+  description: Nixpkgs leftover pname cifti on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cifti/Cache"
+  - "%LOCALAPPDATA%/cifti/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciftitools
+  name: Nixpkgs ciftiTools macos cache (wave 5)
+  description: Nixpkgs leftover pname ciftiTools on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciftiTools"
+  - "$HOME/Library/Logs/ciftiTools"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciftitools
+  name: Nixpkgs ciftiTools linux cache (wave 5)
+  description: Nixpkgs leftover pname ciftiTools on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciftiTools"
+  - "$XDG_CACHE_HOME/ciftiTools"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciftitools
+  name: Nixpkgs ciftiTools windows cache (wave 5)
+  description: Nixpkgs leftover pname ciftiTools on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciftiTools/Cache"
+  - "%LOCALAPPDATA%/ciftiTools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-ciftilib
+  name: Nixpkgs ciftilib macos cache (wave 5)
+  description: Nixpkgs leftover pname ciftilib on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ciftilib"
+  - "$HOME/Library/Logs/ciftilib"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-ciftilib
+  name: Nixpkgs ciftilib linux cache (wave 5)
+  description: Nixpkgs leftover pname ciftilib on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ciftilib"
+  - "$XDG_CACHE_HOME/ciftilib"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-ciftilib
+  name: Nixpkgs ciftilib windows cache (wave 5)
+  description: Nixpkgs leftover pname ciftilib on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ciftilib/Cache"
+  - "%LOCALAPPDATA%/ciftilib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cigarillo
+  name: Nixpkgs cigarillo macos cache (wave 5)
+  description: Nixpkgs leftover pname cigarillo on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cigarillo"
+  - "$HOME/Library/Logs/cigarillo"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cigarillo
+  name: Nixpkgs cigarillo linux cache (wave 5)
+  description: Nixpkgs leftover pname cigarillo on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cigarillo"
+  - "$XDG_CACHE_HOME/cigarillo"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cigarillo
+  name: Nixpkgs cigarillo windows cache (wave 5)
+  description: Nixpkgs leftover pname cigarillo on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cigarillo/Cache"
+  - "%LOCALAPPDATA%/cigarillo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cil
+  name: Nixpkgs cil macos cache (wave 5)
+  description: Nixpkgs leftover pname cil on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cil"
+  - "$HOME/Library/Logs/cil"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cil
+  name: Nixpkgs cil linux cache (wave 5)
+  description: Nixpkgs leftover pname cil on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cil"
+  - "$XDG_CACHE_HOME/cil"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cil
+  name: Nixpkgs cil windows cache (wave 5)
+  description: Nixpkgs leftover pname cil on windows (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cil/Cache"
+  - "%LOCALAPPDATA%/cil/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cil-mode
+  name: Nixpkgs cil-mode macos cache (wave 5)
+  description: Nixpkgs leftover pname cil-mode on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cil-mode"
+  - "$HOME/Library/Logs/cil-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cil-mode
+  name: Nixpkgs cil-mode linux cache (wave 5)
+  description: Nixpkgs leftover pname cil-mode on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cil-mode"
+  - "$XDG_CACHE_HOME/cil-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cil-mode
+  name: Nixpkgs cil-mode windows cache (wave 5)
+  description: Nixpkgs leftover pname cil-mode on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cil-mode/Cache"
+  - "%LOCALAPPDATA%/cil-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cilium-cli
+  name: Nixpkgs cilium-cli macos cache (wave 5)
+  description: Nixpkgs leftover pname cilium-cli on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cilium-cli"
+  - "$HOME/Library/Logs/cilium-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cilium-cli
+  name: Nixpkgs cilium-cli linux cache (wave 5)
+  description: Nixpkgs leftover pname cilium-cli on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cilium-cli"
+  - "$XDG_CACHE_HOME/cilium-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cilium-cli
+  name: Nixpkgs cilium-cli windows cache (wave 5)
+  description: Nixpkgs leftover pname cilium-cli on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cilium-cli/Cache"
+  - "%LOCALAPPDATA%/cilium-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cilk-mode
+  name: Nixpkgs cilk-mode macos cache (wave 5)
+  description: Nixpkgs leftover pname cilk-mode on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cilk-mode"
+  - "$HOME/Library/Logs/cilk-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cilk-mode
+  name: Nixpkgs cilk-mode linux cache (wave 5)
+  description: Nixpkgs leftover pname cilk-mode on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cilk-mode"
+  - "$XDG_CACHE_HOME/cilk-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cilk-mode
+  name: Nixpkgs cilk-mode windows cache (wave 5)
+  description: Nixpkgs leftover pname cilk-mode on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cilk-mode/Cache"
+  - "%LOCALAPPDATA%/cilk-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cimg
+  name: Nixpkgs cimg macos cache (wave 5)
+  description: Nixpkgs leftover pname cimg on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cimg"
+  - "$HOME/Library/Logs/cimg"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cimg
+  name: Nixpkgs cimg linux cache (wave 5)
+  description: Nixpkgs leftover pname cimg on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cimg"
+  - "$XDG_CACHE_HOME/cimg"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cimg
+  name: Nixpkgs cimg windows cache (wave 5)
+  description: Nixpkgs leftover pname cimg on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cimg/Cache"
+  - "%LOCALAPPDATA%/cimg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cimir
+  name: Nixpkgs cimir macos cache (wave 5)
+  description: Nixpkgs leftover pname cimir on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cimir"
+  - "$HOME/Library/Logs/cimir"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cimir
+  name: Nixpkgs cimir linux cache (wave 5)
+  description: Nixpkgs leftover pname cimir on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cimir"
+  - "$XDG_CACHE_HOME/cimir"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cimir
+  name: Nixpkgs cimir windows cache (wave 5)
+  description: Nixpkgs leftover pname cimir on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cimir/Cache"
+  - "%LOCALAPPDATA%/cimir/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cin
+  name: Nixpkgs cin macos cache (wave 5)
+  description: Nixpkgs leftover pname cin on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cin"
+  - "$HOME/Library/Logs/cin"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cin
+  name: Nixpkgs cin linux cache (wave 5)
+  description: Nixpkgs leftover pname cin on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cin"
+  - "$XDG_CACHE_HOME/cin"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cin
+  name: Nixpkgs cin windows cache (wave 5)
+  description: Nixpkgs leftover pname cin on windows (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cin/Cache"
+  - "%LOCALAPPDATA%/cin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cinar
+  name: Nixpkgs cinaR macos cache (wave 5)
+  description: Nixpkgs leftover pname cinaR on macos (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cinaR"
+  - "$HOME/Library/Logs/cinaR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cinar
+  name: Nixpkgs cinaR linux cache (wave 5)
+  description: Nixpkgs leftover pname cinaR on linux (wave 5). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cinaR"
+  - "$XDG_CACHE_HOME/cinaR"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cinar
+  name: Nixpkgs cinaR windows cache (wave 5)
+  description: Nixpkgs leftover pname cinaR on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cinaR/Cache"
+  - "%LOCALAPPDATA%/cinaR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cinargenesets
+  name: Nixpkgs cinaRgenesets macos cache (wave 5)
+  description: Nixpkgs leftover pname cinaRgenesets on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cinaRgenesets"
+  - "$HOME/Library/Logs/cinaRgenesets"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cinargenesets
+  name: Nixpkgs cinaRgenesets linux cache (wave 5)
+  description: Nixpkgs leftover pname cinaRgenesets on linux (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cinaRgenesets"
+  - "$XDG_CACHE_HOME/cinaRgenesets"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cinargenesets
+  name: Nixpkgs cinaRgenesets windows cache (wave 5)
+  description: Nixpkgs leftover pname cinaRgenesets on windows (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cinaRgenesets/Cache"
+  - "%LOCALAPPDATA%/cinaRgenesets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cinaps
+  name: Nixpkgs cinaps macos cache (wave 5)
+  description: Nixpkgs leftover pname cinaps on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cinaps"
+  - "$HOME/Library/Logs/cinaps"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cinaps
+  name: Nixpkgs cinaps linux cache (wave 5)
+  description: Nixpkgs leftover pname cinaps on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cinaps"
+  - "$XDG_CACHE_HOME/cinaps"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cinaps
+  name: Nixpkgs cinaps windows cache (wave 5)
+  description: Nixpkgs leftover pname cinaps on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cinaps/Cache"
+  - "%LOCALAPPDATA%/cinaps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cineca
+  name: Nixpkgs cineca macos cache (wave 5)
+  description: Nixpkgs leftover pname cineca on macos (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cineca"
+  - "$HOME/Library/Logs/cineca"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-lin-cineca
+  name: Nixpkgs cineca linux cache (wave 5)
+  description: Nixpkgs leftover pname cineca on linux (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cineca"
+  - "$XDG_CACHE_HOME/cineca"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-win-cineca
+  name: Nixpkgs cineca windows cache (wave 5)
+  description: Nixpkgs leftover pname cineca on windows (wave 5). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cineca/Cache"
+  - "%LOCALAPPDATA%/cineca/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np5-mac-cinelerra-cv
+  name: Nixpkgs cinelerra-cv macos cache (wave 5)
+  description: Nixpkgs leftover pname cinelerra-cv on macos (wave 5). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cinelerra-cv"
+  - "$HOME/Library/Logs/cinelerra-cv"
+  delete_mode: contents
+  max_depth: 6

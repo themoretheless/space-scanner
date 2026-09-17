@@ -1,0 +1,5582 @@
+---
+pack: src-iter22-13
+description: Iterative 10k import wave 22 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np22-mac-pspell
+  name: Nixpkgs pspell macos cache (wave 22)
+  description: Nixpkgs leftover pname pspell on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspell"
+  - "$HOME/Library/Logs/pspell"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspell
+  name: Nixpkgs pspell linux cache (wave 22)
+  description: Nixpkgs leftover pname pspell on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspell"
+  - "$XDG_CACHE_HOME/pspell"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspell
+  name: Nixpkgs pspell windows cache (wave 22)
+  description: Nixpkgs leftover pname pspell on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspell/Cache"
+  - "%LOCALAPPDATA%/pspell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspg
+  name: Nixpkgs pspg macos cache (wave 22)
+  description: Nixpkgs leftover pname pspg on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspg"
+  - "$HOME/Library/Logs/pspg"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspg
+  name: Nixpkgs pspg linux cache (wave 22)
+  description: Nixpkgs leftover pname pspg on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspg"
+  - "$XDG_CACHE_HOME/pspg"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspg
+  name: Nixpkgs pspg windows cache (wave 22)
+  description: Nixpkgs leftover pname pspg on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspg/Cache"
+  - "%LOCALAPPDATA%/pspg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspicture
+  name: Nixpkgs pspicture macos cache (wave 22)
+  description: Nixpkgs leftover pname pspicture on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspicture"
+  - "$HOME/Library/Logs/pspicture"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspicture
+  name: Nixpkgs pspicture linux cache (wave 22)
+  description: Nixpkgs leftover pname pspicture on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspicture"
+  - "$XDG_CACHE_HOME/pspicture"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspicture
+  name: Nixpkgs pspicture windows cache (wave 22)
+  description: Nixpkgs leftover pname pspicture on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspicture/Cache"
+  - "%LOCALAPPDATA%/pspicture/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspline
+  name: Nixpkgs pspline macos cache (wave 22)
+  description: Nixpkgs leftover pname pspline on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspline"
+  - "$HOME/Library/Logs/pspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspline
+  name: Nixpkgs pspline linux cache (wave 22)
+  description: Nixpkgs leftover pname pspline on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspline"
+  - "$XDG_CACHE_HOME/pspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspline
+  name: Nixpkgs pspline windows cache (wave 22)
+  description: Nixpkgs leftover pname pspline on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspline/Cache"
+  - "%LOCALAPPDATA%/pspline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspline-inference
+  name: Nixpkgs pspline.inference macos cache (wave 22)
+  description: Nixpkgs leftover pname pspline.inference on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspline.inference"
+  - "$HOME/Library/Logs/pspline.inference"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspline-inference
+  name: Nixpkgs pspline.inference linux cache (wave 22)
+  description: Nixpkgs leftover pname pspline.inference on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspline.inference"
+  - "$XDG_CACHE_HOME/pspline.inference"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspline-inference
+  name: Nixpkgs pspline.inference windows cache (wave 22)
+  description: Nixpkgs leftover pname pspline.inference on windows (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspline.inference/Cache"
+  - "%LOCALAPPDATA%/pspline.inference/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspp
+  name: Nixpkgs pspp macos cache (wave 22)
+  description: Nixpkgs leftover pname pspp on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspp"
+  - "$HOME/Library/Logs/pspp"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspp
+  name: Nixpkgs pspp linux cache (wave 22)
+  description: Nixpkgs leftover pname pspp on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspp"
+  - "$XDG_CACHE_HOME/pspp"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspp
+  name: Nixpkgs pspp windows cache (wave 22)
+  description: Nixpkgs leftover pname pspp on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspp/Cache"
+  - "%LOCALAPPDATA%/pspp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspp-mode
+  name: Nixpkgs pspp-mode macos cache (wave 22)
+  description: Nixpkgs leftover pname pspp-mode on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspp-mode"
+  - "$HOME/Library/Logs/pspp-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspp-mode
+  name: Nixpkgs pspp-mode linux cache (wave 22)
+  description: Nixpkgs leftover pname pspp-mode on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspp-mode"
+  - "$XDG_CACHE_HOME/pspp-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspp-mode
+  name: Nixpkgs pspp-mode windows cache (wave 22)
+  description: Nixpkgs leftover pname pspp-mode on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspp-mode/Cache"
+  - "%LOCALAPPDATA%/pspp-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pspy
+  name: Nixpkgs pspy macos cache (wave 22)
+  description: Nixpkgs leftover pname pspy on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pspy"
+  - "$HOME/Library/Logs/pspy"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pspy
+  name: Nixpkgs pspy linux cache (wave 22)
+  description: Nixpkgs leftover pname pspy on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pspy"
+  - "$XDG_CACHE_HOME/pspy"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pspy
+  name: Nixpkgs pspy windows cache (wave 22)
+  description: Nixpkgs leftover pname pspy on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pspy/Cache"
+  - "%LOCALAPPDATA%/pspy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psq
+  name: Nixpkgs psq macos cache (wave 22)
+  description: Nixpkgs leftover pname psq on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psq"
+  - "$HOME/Library/Logs/psq"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psq
+  name: Nixpkgs psq linux cache (wave 22)
+  description: Nixpkgs leftover pname psq on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psq"
+  - "$XDG_CACHE_HOME/psq"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psq
+  name: Nixpkgs psq windows cache (wave 22)
+  description: Nixpkgs leftover pname psq on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psq/Cache"
+  - "%LOCALAPPDATA%/psq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psql
+  name: Nixpkgs psql macos cache (wave 22)
+  description: Nixpkgs leftover pname psql on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psql"
+  - "$HOME/Library/Logs/psql"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psql
+  name: Nixpkgs psql linux cache (wave 22)
+  description: Nixpkgs leftover pname psql on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psql"
+  - "$XDG_CACHE_HOME/psql"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psql
+  name: Nixpkgs psql windows cache (wave 22)
+  description: Nixpkgs leftover pname psql on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psql/Cache"
+  - "%LOCALAPPDATA%/psql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psql-helpers
+  name: Nixpkgs psql-helpers macos cache (wave 22)
+  description: Nixpkgs leftover pname psql-helpers on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psql-helpers"
+  - "$HOME/Library/Logs/psql-helpers"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psql-helpers
+  name: Nixpkgs psql-helpers linux cache (wave 22)
+  description: Nixpkgs leftover pname psql-helpers on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psql-helpers"
+  - "$XDG_CACHE_HOME/psql-helpers"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psql-helpers
+  name: Nixpkgs psql-helpers windows cache (wave 22)
+  description: Nixpkgs leftover pname psql-helpers on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psql-helpers/Cache"
+  - "%LOCALAPPDATA%/psql-helpers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psql-utils
+  name: Nixpkgs psql-utils macos cache (wave 22)
+  description: Nixpkgs leftover pname psql-utils on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psql-utils"
+  - "$HOME/Library/Logs/psql-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psql-utils
+  name: Nixpkgs psql-utils linux cache (wave 22)
+  description: Nixpkgs leftover pname psql-utils on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psql-utils"
+  - "$XDG_CACHE_HOME/psql-utils"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psql-utils
+  name: Nixpkgs psql-utils windows cache (wave 22)
+  description: Nixpkgs leftover pname psql-utils on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psql-utils/Cache"
+  - "%LOCALAPPDATA%/psql-utils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psql2csv
+  name: Nixpkgs psql2csv macos cache (wave 22)
+  description: Nixpkgs leftover pname psql2csv on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psql2csv"
+  - "$HOME/Library/Logs/psql2csv"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psql2csv
+  name: Nixpkgs psql2csv linux cache (wave 22)
+  description: Nixpkgs leftover pname psql2csv on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psql2csv"
+  - "$XDG_CACHE_HOME/psql2csv"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psql2csv
+  name: Nixpkgs psql2csv windows cache (wave 22)
+  description: Nixpkgs leftover pname psql2csv on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psql2csv/Cache"
+  - "%LOCALAPPDATA%/psql2csv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psqlodbc
+  name: Nixpkgs psqlodbc macos cache (wave 22)
+  description: Nixpkgs leftover pname psqlodbc on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psqlodbc"
+  - "$HOME/Library/Logs/psqlodbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psqlodbc
+  name: Nixpkgs psqlodbc linux cache (wave 22)
+  description: Nixpkgs leftover pname psqlodbc on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psqlodbc"
+  - "$XDG_CACHE_HOME/psqlodbc"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psqlodbc
+  name: Nixpkgs psqlodbc windows cache (wave 22)
+  description: Nixpkgs leftover pname psqlodbc on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psqlodbc/Cache"
+  - "%LOCALAPPDATA%/psqlodbc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psqn
+  name: Nixpkgs psqn macos cache (wave 22)
+  description: Nixpkgs leftover pname psqn on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psqn"
+  - "$HOME/Library/Logs/psqn"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psqn
+  name: Nixpkgs psqn linux cache (wave 22)
+  description: Nixpkgs leftover pname psqn on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psqn"
+  - "$XDG_CACHE_HOME/psqn"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psqn
+  name: Nixpkgs psqn windows cache (wave 22)
+  description: Nixpkgs leftover pname psqn on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psqn/Cache"
+  - "%LOCALAPPDATA%/psqn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psqueues
+  name: Nixpkgs psqueues macos cache (wave 22)
+  description: Nixpkgs leftover pname psqueues on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psqueues"
+  - "$HOME/Library/Logs/psqueues"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psqueues
+  name: Nixpkgs psqueues linux cache (wave 22)
+  description: Nixpkgs leftover pname psqueues on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psqueues"
+  - "$XDG_CACHE_HOME/psqueues"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psqueues
+  name: Nixpkgs psqueues windows cache (wave 22)
+  description: Nixpkgs leftover pname psqueues on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psqueues/Cache"
+  - "%LOCALAPPDATA%/psqueues/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psr
+  name: Nixpkgs psr macos cache (wave 22)
+  description: Nixpkgs leftover pname psr on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psr"
+  - "$HOME/Library/Logs/psr"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psr
+  name: Nixpkgs psr linux cache (wave 22)
+  description: Nixpkgs leftover pname psr on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psr"
+  - "$XDG_CACHE_HOME/psr"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psr
+  name: Nixpkgs psr windows cache (wave 22)
+  description: Nixpkgs leftover pname psr on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psr/Cache"
+  - "%LOCALAPPDATA%/psr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psre
+  name: Nixpkgs psre macos cache (wave 22)
+  description: Nixpkgs leftover pname psre on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psre"
+  - "$HOME/Library/Logs/psre"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psre
+  name: Nixpkgs psre linux cache (wave 22)
+  description: Nixpkgs leftover pname psre on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psre"
+  - "$XDG_CACHE_HOME/psre"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psre
+  name: Nixpkgs psre windows cache (wave 22)
+  description: Nixpkgs leftover pname psre on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psre/Cache"
+  - "%LOCALAPPDATA%/psre/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psrecord
+  name: Nixpkgs psrecord macos cache (wave 22)
+  description: Nixpkgs leftover pname psrecord on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psrecord"
+  - "$HOME/Library/Logs/psrecord"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psrecord
+  name: Nixpkgs psrecord linux cache (wave 22)
+  description: Nixpkgs leftover pname psrecord on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psrecord"
+  - "$XDG_CACHE_HOME/psrecord"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psrecord
+  name: Nixpkgs psrecord windows cache (wave 22)
+  description: Nixpkgs leftover pname psrecord on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psrecord/Cache"
+  - "%LOCALAPPDATA%/psrecord/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psrpcore
+  name: Nixpkgs psrpcore macos cache (wave 22)
+  description: Nixpkgs leftover pname psrpcore on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psrpcore"
+  - "$HOME/Library/Logs/psrpcore"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psrpcore
+  name: Nixpkgs psrpcore linux cache (wave 22)
+  description: Nixpkgs leftover pname psrpcore on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psrpcore"
+  - "$XDG_CACHE_HOME/psrpcore"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psrpcore
+  name: Nixpkgs psrpcore windows cache (wave 22)
+  description: Nixpkgs leftover pname psrpcore on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psrpcore/Cache"
+  - "%LOCALAPPDATA%/psrpcore/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psrwe
+  name: Nixpkgs psrwe macos cache (wave 22)
+  description: Nixpkgs leftover pname psrwe on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psrwe"
+  - "$HOME/Library/Logs/psrwe"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psrwe
+  name: Nixpkgs psrwe linux cache (wave 22)
+  description: Nixpkgs leftover pname psrwe on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psrwe"
+  - "$XDG_CACHE_HOME/psrwe"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psrwe
+  name: Nixpkgs psrwe windows cache (wave 22)
+  description: Nixpkgs leftover pname psrwe on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psrwe/Cache"
+  - "%LOCALAPPDATA%/psrwe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pssh
+  name: Nixpkgs pssh macos cache (wave 22)
+  description: Nixpkgs leftover pname pssh on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pssh"
+  - "$HOME/Library/Logs/pssh"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pssh
+  name: Nixpkgs pssh linux cache (wave 22)
+  description: Nixpkgs leftover pname pssh on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pssh"
+  - "$XDG_CACHE_HOME/pssh"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pssh
+  name: Nixpkgs pssh windows cache (wave 22)
+  description: Nixpkgs leftover pname pssh on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pssh/Cache"
+  - "%LOCALAPPDATA%/pssh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pssm
+  name: Nixpkgs pssm macos cache (wave 22)
+  description: Nixpkgs leftover pname pssm on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pssm"
+  - "$HOME/Library/Logs/pssm"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pssm
+  name: Nixpkgs pssm linux cache (wave 22)
+  description: Nixpkgs leftover pname pssm on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pssm"
+  - "$XDG_CACHE_HOME/pssm"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pssm
+  name: Nixpkgs pssm windows cache (wave 22)
+  description: Nixpkgs leftover pname pssm on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pssm/Cache"
+  - "%LOCALAPPDATA%/pssm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pssmooth
+  name: Nixpkgs pssmooth macos cache (wave 22)
+  description: Nixpkgs leftover pname pssmooth on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pssmooth"
+  - "$HOME/Library/Logs/pssmooth"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pssmooth
+  name: Nixpkgs pssmooth linux cache (wave 22)
+  description: Nixpkgs leftover pname pssmooth on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pssmooth"
+  - "$XDG_CACHE_HOME/pssmooth"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pssmooth
+  name: Nixpkgs pssmooth windows cache (wave 22)
+  description: Nixpkgs leftover pname pssmooth on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pssmooth/Cache"
+  - "%LOCALAPPDATA%/pssmooth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-psst
+  name: Nixpkgs psst macos cache (wave 22)
+  description: Nixpkgs leftover pname psst on macos (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/psst"
+  - "$HOME/Library/Logs/psst"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-psst
+  name: Nixpkgs psst linux cache (wave 22)
+  description: Nixpkgs leftover pname psst on linux (wave 22). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/psst"
+  - "$XDG_CACHE_HOME/psst"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-psst
+  name: Nixpkgs psst windows cache (wave 22)
+  description: Nixpkgs leftover pname psst on windows (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/psst/Cache"
+  - "%LOCALAPPDATA%/psst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-2dplot
+  name: Nixpkgs pst-2dplot macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-2dplot on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-2dplot"
+  - "$HOME/Library/Logs/pst-2dplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-2dplot
+  name: Nixpkgs pst-2dplot linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-2dplot on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-2dplot"
+  - "$XDG_CACHE_HOME/pst-2dplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-2dplot
+  name: Nixpkgs pst-2dplot windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-2dplot on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-2dplot/Cache"
+  - "%LOCALAPPDATA%/pst-2dplot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-3d
+  name: Nixpkgs pst-3d macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-3d on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-3d"
+  - "$HOME/Library/Logs/pst-3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-3d
+  name: Nixpkgs pst-3d linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-3d on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-3d"
+  - "$XDG_CACHE_HOME/pst-3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-3d
+  name: Nixpkgs pst-3d windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-3d on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-3d/Cache"
+  - "%LOCALAPPDATA%/pst-3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-3dplot
+  name: Nixpkgs pst-3dplot macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-3dplot on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-3dplot"
+  - "$HOME/Library/Logs/pst-3dplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-3dplot
+  name: Nixpkgs pst-3dplot linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-3dplot on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-3dplot"
+  - "$XDG_CACHE_HOME/pst-3dplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-3dplot
+  name: Nixpkgs pst-3dplot windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-3dplot on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-3dplot/Cache"
+  - "%LOCALAPPDATA%/pst-3dplot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-abspos
+  name: Nixpkgs pst-abspos macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-abspos on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-abspos"
+  - "$HOME/Library/Logs/pst-abspos"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-abspos
+  name: Nixpkgs pst-abspos linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-abspos on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-abspos"
+  - "$XDG_CACHE_HOME/pst-abspos"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-abspos
+  name: Nixpkgs pst-abspos windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-abspos on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-abspos/Cache"
+  - "%LOCALAPPDATA%/pst-abspos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-am
+  name: Nixpkgs pst-am macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-am on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-am"
+  - "$HOME/Library/Logs/pst-am"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-am
+  name: Nixpkgs pst-am linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-am on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-am"
+  - "$XDG_CACHE_HOME/pst-am"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-am
+  name: Nixpkgs pst-am windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-am on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-am/Cache"
+  - "%LOCALAPPDATA%/pst-am/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-antiprism
+  name: Nixpkgs pst-antiprism macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-antiprism on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-antiprism"
+  - "$HOME/Library/Logs/pst-antiprism"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-antiprism
+  name: Nixpkgs pst-antiprism linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-antiprism on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-antiprism"
+  - "$XDG_CACHE_HOME/pst-antiprism"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-antiprism
+  name: Nixpkgs pst-antiprism windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-antiprism on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-antiprism/Cache"
+  - "%LOCALAPPDATA%/pst-antiprism/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-arrow
+  name: Nixpkgs pst-arrow macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-arrow on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-arrow"
+  - "$HOME/Library/Logs/pst-arrow"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-arrow
+  name: Nixpkgs pst-arrow linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-arrow on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-arrow"
+  - "$XDG_CACHE_HOME/pst-arrow"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-arrow
+  name: Nixpkgs pst-arrow windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-arrow on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-arrow/Cache"
+  - "%LOCALAPPDATA%/pst-arrow/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-asr
+  name: Nixpkgs pst-asr macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-asr on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-asr"
+  - "$HOME/Library/Logs/pst-asr"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-asr
+  name: Nixpkgs pst-asr linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-asr on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-asr"
+  - "$XDG_CACHE_HOME/pst-asr"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-asr
+  name: Nixpkgs pst-asr windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-asr on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-asr/Cache"
+  - "%LOCALAPPDATA%/pst-asr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-bar
+  name: Nixpkgs pst-bar macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-bar on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-bar"
+  - "$HOME/Library/Logs/pst-bar"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-bar
+  name: Nixpkgs pst-bar linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-bar on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-bar"
+  - "$XDG_CACHE_HOME/pst-bar"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-bar
+  name: Nixpkgs pst-bar windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-bar on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-bar/Cache"
+  - "%LOCALAPPDATA%/pst-bar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-barcode
+  name: Nixpkgs pst-barcode macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-barcode on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-barcode"
+  - "$HOME/Library/Logs/pst-barcode"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-barcode
+  name: Nixpkgs pst-barcode linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-barcode on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-barcode"
+  - "$XDG_CACHE_HOME/pst-barcode"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-barcode
+  name: Nixpkgs pst-barcode windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-barcode on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-barcode/Cache"
+  - "%LOCALAPPDATA%/pst-barcode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-bezier
+  name: Nixpkgs pst-bezier macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-bezier on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-bezier"
+  - "$HOME/Library/Logs/pst-bezier"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-bezier
+  name: Nixpkgs pst-bezier linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-bezier on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-bezier"
+  - "$XDG_CACHE_HOME/pst-bezier"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-bezier
+  name: Nixpkgs pst-bezier windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-bezier on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-bezier/Cache"
+  - "%LOCALAPPDATA%/pst-bezier/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-blur
+  name: Nixpkgs pst-blur macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-blur on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-blur"
+  - "$HOME/Library/Logs/pst-blur"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-blur
+  name: Nixpkgs pst-blur linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-blur on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-blur"
+  - "$XDG_CACHE_HOME/pst-blur"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-blur
+  name: Nixpkgs pst-blur windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-blur on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-blur/Cache"
+  - "%LOCALAPPDATA%/pst-blur/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-bspline
+  name: Nixpkgs pst-bspline macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-bspline on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-bspline"
+  - "$HOME/Library/Logs/pst-bspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-bspline
+  name: Nixpkgs pst-bspline linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-bspline on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-bspline"
+  - "$XDG_CACHE_HOME/pst-bspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-bspline
+  name: Nixpkgs pst-bspline windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-bspline on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-bspline/Cache"
+  - "%LOCALAPPDATA%/pst-bspline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-calculate
+  name: Nixpkgs pst-calculate macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-calculate on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-calculate"
+  - "$HOME/Library/Logs/pst-calculate"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-calculate
+  name: Nixpkgs pst-calculate linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-calculate on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-calculate"
+  - "$XDG_CACHE_HOME/pst-calculate"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-calculate
+  name: Nixpkgs pst-calculate windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-calculate on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-calculate/Cache"
+  - "%LOCALAPPDATA%/pst-calculate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-calendar
+  name: Nixpkgs pst-calendar macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-calendar on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-calendar"
+  - "$HOME/Library/Logs/pst-calendar"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-calendar
+  name: Nixpkgs pst-calendar linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-calendar on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-calendar"
+  - "$XDG_CACHE_HOME/pst-calendar"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-calendar
+  name: Nixpkgs pst-calendar windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-calendar on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-calendar/Cache"
+  - "%LOCALAPPDATA%/pst-calendar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-cie
+  name: Nixpkgs pst-cie macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-cie on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-cie"
+  - "$HOME/Library/Logs/pst-cie"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-cie
+  name: Nixpkgs pst-cie linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-cie on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-cie"
+  - "$XDG_CACHE_HOME/pst-cie"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-cie
+  name: Nixpkgs pst-cie windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-cie on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-cie/Cache"
+  - "%LOCALAPPDATA%/pst-cie/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-circ
+  name: Nixpkgs pst-circ macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-circ on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-circ"
+  - "$HOME/Library/Logs/pst-circ"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-circ
+  name: Nixpkgs pst-circ linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-circ on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-circ"
+  - "$XDG_CACHE_HOME/pst-circ"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-circ
+  name: Nixpkgs pst-circ windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-circ on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-circ/Cache"
+  - "%LOCALAPPDATA%/pst-circ/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-coil
+  name: Nixpkgs pst-coil macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-coil on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-coil"
+  - "$HOME/Library/Logs/pst-coil"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-coil
+  name: Nixpkgs pst-coil linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-coil on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-coil"
+  - "$XDG_CACHE_HOME/pst-coil"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-coil
+  name: Nixpkgs pst-coil windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-coil on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-coil/Cache"
+  - "%LOCALAPPDATA%/pst-coil/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-contourplot
+  name: Nixpkgs pst-contourplot macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-contourplot on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-contourplot"
+  - "$HOME/Library/Logs/pst-contourplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-contourplot
+  name: Nixpkgs pst-contourplot linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-contourplot on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-contourplot"
+  - "$XDG_CACHE_HOME/pst-contourplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-contourplot
+  name: Nixpkgs pst-contourplot windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-contourplot on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-contourplot/Cache"
+  - "%LOCALAPPDATA%/pst-contourplot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-cox
+  name: Nixpkgs pst-cox macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-cox on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-cox"
+  - "$HOME/Library/Logs/pst-cox"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-cox
+  name: Nixpkgs pst-cox linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-cox on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-cox"
+  - "$XDG_CACHE_HOME/pst-cox"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-cox
+  name: Nixpkgs pst-cox windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-cox on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-cox/Cache"
+  - "%LOCALAPPDATA%/pst-cox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-dart
+  name: Nixpkgs pst-dart macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-dart on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-dart"
+  - "$HOME/Library/Logs/pst-dart"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-dart
+  name: Nixpkgs pst-dart linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-dart on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-dart"
+  - "$XDG_CACHE_HOME/pst-dart"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-dart
+  name: Nixpkgs pst-dart windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-dart on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-dart/Cache"
+  - "%LOCALAPPDATA%/pst-dart/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-dbicons
+  name: Nixpkgs pst-dbicons macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-dbicons on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-dbicons"
+  - "$HOME/Library/Logs/pst-dbicons"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-dbicons
+  name: Nixpkgs pst-dbicons linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-dbicons on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-dbicons"
+  - "$XDG_CACHE_HOME/pst-dbicons"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-dbicons
+  name: Nixpkgs pst-dbicons windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-dbicons on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-dbicons/Cache"
+  - "%LOCALAPPDATA%/pst-dbicons/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-diffraction
+  name: Nixpkgs pst-diffraction macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-diffraction on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-diffraction"
+  - "$HOME/Library/Logs/pst-diffraction"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-diffraction
+  name: Nixpkgs pst-diffraction linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-diffraction on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-diffraction"
+  - "$XDG_CACHE_HOME/pst-diffraction"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-diffraction
+  name: Nixpkgs pst-diffraction windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-diffraction on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-diffraction/Cache"
+  - "%LOCALAPPDATA%/pst-diffraction/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-electricfield
+  name: Nixpkgs pst-electricfield macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-electricfield on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-electricfield"
+  - "$HOME/Library/Logs/pst-electricfield"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-electricfield
+  name: Nixpkgs pst-electricfield linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-electricfield on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-electricfield"
+  - "$XDG_CACHE_HOME/pst-electricfield"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-electricfield
+  name: Nixpkgs pst-electricfield windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-electricfield on windows (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-electricfield/Cache"
+  - "%LOCALAPPDATA%/pst-electricfield/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-eps
+  name: Nixpkgs pst-eps macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-eps on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-eps"
+  - "$HOME/Library/Logs/pst-eps"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-eps
+  name: Nixpkgs pst-eps linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-eps on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-eps"
+  - "$XDG_CACHE_HOME/pst-eps"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-eps
+  name: Nixpkgs pst-eps windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-eps on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-eps/Cache"
+  - "%LOCALAPPDATA%/pst-eps/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-eucl
+  name: Nixpkgs pst-eucl macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-eucl on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-eucl"
+  - "$HOME/Library/Logs/pst-eucl"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-eucl
+  name: Nixpkgs pst-eucl linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-eucl on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-eucl"
+  - "$XDG_CACHE_HOME/pst-eucl"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-eucl
+  name: Nixpkgs pst-eucl windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-eucl on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-eucl/Cache"
+  - "%LOCALAPPDATA%/pst-eucl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-eucl-translation-bg
+  name: Nixpkgs pst-eucl-translation-bg macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-eucl-translation-bg on macos (wave 22).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-eucl-translation-bg"
+  - "$HOME/Library/Logs/pst-eucl-translation-bg"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-eucl-translation-bg
+  name: Nixpkgs pst-eucl-translation-bg linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-eucl-translation-bg on linux (wave 22).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-eucl-translation-bg"
+  - "$XDG_CACHE_HOME/pst-eucl-translation-bg"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-eucl-translation-bg
+  name: Nixpkgs pst-eucl-translation-bg windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-eucl-translation-bg on windows (wave 22).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-eucl-translation-bg/Cache"
+  - "%LOCALAPPDATA%/pst-eucl-translation-bg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-exa
+  name: Nixpkgs pst-exa macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-exa on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-exa"
+  - "$HOME/Library/Logs/pst-exa"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-exa
+  name: Nixpkgs pst-exa linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-exa on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-exa"
+  - "$XDG_CACHE_HOME/pst-exa"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-exa
+  name: Nixpkgs pst-exa windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-exa on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-exa/Cache"
+  - "%LOCALAPPDATA%/pst-exa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-feyn
+  name: Nixpkgs pst-feyn macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-feyn on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-feyn"
+  - "$HOME/Library/Logs/pst-feyn"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-feyn
+  name: Nixpkgs pst-feyn linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-feyn on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-feyn"
+  - "$XDG_CACHE_HOME/pst-feyn"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-feyn
+  name: Nixpkgs pst-feyn windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-feyn on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-feyn/Cache"
+  - "%LOCALAPPDATA%/pst-feyn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-fill
+  name: Nixpkgs pst-fill macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-fill on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-fill"
+  - "$HOME/Library/Logs/pst-fill"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-fill
+  name: Nixpkgs pst-fill linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-fill on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-fill"
+  - "$XDG_CACHE_HOME/pst-fill"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-fill
+  name: Nixpkgs pst-fill windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-fill on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-fill/Cache"
+  - "%LOCALAPPDATA%/pst-fill/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-fit
+  name: Nixpkgs pst-fit macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-fit on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-fit"
+  - "$HOME/Library/Logs/pst-fit"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-fit
+  name: Nixpkgs pst-fit linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-fit on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-fit"
+  - "$XDG_CACHE_HOME/pst-fit"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-fit
+  name: Nixpkgs pst-fit windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-fit on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-fit/Cache"
+  - "%LOCALAPPDATA%/pst-fit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-flags
+  name: Nixpkgs pst-flags macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-flags on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-flags"
+  - "$HOME/Library/Logs/pst-flags"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-flags
+  name: Nixpkgs pst-flags linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-flags on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-flags"
+  - "$XDG_CACHE_HOME/pst-flags"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-flags
+  name: Nixpkgs pst-flags windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-flags on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-flags/Cache"
+  - "%LOCALAPPDATA%/pst-flags/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-fourbarlinkage
+  name: Nixpkgs pst-fourbarlinkage macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-fourbarlinkage on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-fourbarlinkage"
+  - "$HOME/Library/Logs/pst-fourbarlinkage"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-fourbarlinkage
+  name: Nixpkgs pst-fourbarlinkage linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-fourbarlinkage on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-fourbarlinkage"
+  - "$XDG_CACHE_HOME/pst-fourbarlinkage"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-fourbarlinkage
+  name: Nixpkgs pst-fourbarlinkage windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-fourbarlinkage on windows (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-fourbarlinkage/Cache"
+  - "%LOCALAPPDATA%/pst-fourbarlinkage/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-fr3d
+  name: Nixpkgs pst-fr3d macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-fr3d on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-fr3d"
+  - "$HOME/Library/Logs/pst-fr3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-fr3d
+  name: Nixpkgs pst-fr3d linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-fr3d on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-fr3d"
+  - "$XDG_CACHE_HOME/pst-fr3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-fr3d
+  name: Nixpkgs pst-fr3d windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-fr3d on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-fr3d/Cache"
+  - "%LOCALAPPDATA%/pst-fr3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-fractal
+  name: Nixpkgs pst-fractal macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-fractal on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-fractal"
+  - "$HOME/Library/Logs/pst-fractal"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-fractal
+  name: Nixpkgs pst-fractal linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-fractal on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-fractal"
+  - "$XDG_CACHE_HOME/pst-fractal"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-fractal
+  name: Nixpkgs pst-fractal windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-fractal on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-fractal/Cache"
+  - "%LOCALAPPDATA%/pst-fractal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-fun
+  name: Nixpkgs pst-fun macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-fun on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-fun"
+  - "$HOME/Library/Logs/pst-fun"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-fun
+  name: Nixpkgs pst-fun linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-fun on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-fun"
+  - "$XDG_CACHE_HOME/pst-fun"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-fun
+  name: Nixpkgs pst-fun windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-fun on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-fun/Cache"
+  - "%LOCALAPPDATA%/pst-fun/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-func
+  name: Nixpkgs pst-func macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-func on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-func"
+  - "$HOME/Library/Logs/pst-func"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-func
+  name: Nixpkgs pst-func linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-func on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-func"
+  - "$XDG_CACHE_HOME/pst-func"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-func
+  name: Nixpkgs pst-func windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-func on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-func/Cache"
+  - "%LOCALAPPDATA%/pst-func/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-gantt
+  name: Nixpkgs pst-gantt macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-gantt on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-gantt"
+  - "$HOME/Library/Logs/pst-gantt"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-gantt
+  name: Nixpkgs pst-gantt linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-gantt on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-gantt"
+  - "$XDG_CACHE_HOME/pst-gantt"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-gantt
+  name: Nixpkgs pst-gantt windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-gantt on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-gantt/Cache"
+  - "%LOCALAPPDATA%/pst-gantt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-gears
+  name: Nixpkgs pst-gears macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-gears on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-gears"
+  - "$HOME/Library/Logs/pst-gears"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-gears
+  name: Nixpkgs pst-gears linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-gears on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-gears"
+  - "$XDG_CACHE_HOME/pst-gears"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-gears
+  name: Nixpkgs pst-gears windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-gears on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-gears/Cache"
+  - "%LOCALAPPDATA%/pst-gears/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-geo
+  name: Nixpkgs pst-geo macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-geo on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-geo"
+  - "$HOME/Library/Logs/pst-geo"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-geo
+  name: Nixpkgs pst-geo linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-geo on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-geo"
+  - "$XDG_CACHE_HOME/pst-geo"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-geo
+  name: Nixpkgs pst-geo windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-geo on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-geo/Cache"
+  - "%LOCALAPPDATA%/pst-geo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-geometrictools
+  name: Nixpkgs pst-geometrictools macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-geometrictools on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-geometrictools"
+  - "$HOME/Library/Logs/pst-geometrictools"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-geometrictools
+  name: Nixpkgs pst-geometrictools linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-geometrictools on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-geometrictools"
+  - "$XDG_CACHE_HOME/pst-geometrictools"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-geometrictools
+  name: Nixpkgs pst-geometrictools windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-geometrictools on windows (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-geometrictools/Cache"
+  - "%LOCALAPPDATA%/pst-geometrictools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-gr3d
+  name: Nixpkgs pst-gr3d macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-gr3d on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-gr3d"
+  - "$HOME/Library/Logs/pst-gr3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-gr3d
+  name: Nixpkgs pst-gr3d linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-gr3d on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-gr3d"
+  - "$XDG_CACHE_HOME/pst-gr3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-gr3d
+  name: Nixpkgs pst-gr3d windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-gr3d on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-gr3d/Cache"
+  - "%LOCALAPPDATA%/pst-gr3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-grad
+  name: Nixpkgs pst-grad macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-grad on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-grad"
+  - "$HOME/Library/Logs/pst-grad"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-grad
+  name: Nixpkgs pst-grad linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-grad on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-grad"
+  - "$XDG_CACHE_HOME/pst-grad"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-grad
+  name: Nixpkgs pst-grad windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-grad on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-grad/Cache"
+  - "%LOCALAPPDATA%/pst-grad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-graphicx
+  name: Nixpkgs pst-graphicx macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-graphicx on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-graphicx"
+  - "$HOME/Library/Logs/pst-graphicx"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-graphicx
+  name: Nixpkgs pst-graphicx linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-graphicx on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-graphicx"
+  - "$XDG_CACHE_HOME/pst-graphicx"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-graphicx
+  name: Nixpkgs pst-graphicx windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-graphicx on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-graphicx/Cache"
+  - "%LOCALAPPDATA%/pst-graphicx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-hsb
+  name: Nixpkgs pst-hsb macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-hsb on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-hsb"
+  - "$HOME/Library/Logs/pst-hsb"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-hsb
+  name: Nixpkgs pst-hsb linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-hsb on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-hsb"
+  - "$XDG_CACHE_HOME/pst-hsb"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-hsb
+  name: Nixpkgs pst-hsb windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-hsb on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-hsb/Cache"
+  - "%LOCALAPPDATA%/pst-hsb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-infixplot
+  name: Nixpkgs pst-infixplot macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-infixplot on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-infixplot"
+  - "$HOME/Library/Logs/pst-infixplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-infixplot
+  name: Nixpkgs pst-infixplot linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-infixplot on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-infixplot"
+  - "$XDG_CACHE_HOME/pst-infixplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-infixplot
+  name: Nixpkgs pst-infixplot windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-infixplot on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-infixplot/Cache"
+  - "%LOCALAPPDATA%/pst-infixplot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-intersect
+  name: Nixpkgs pst-intersect macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-intersect on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-intersect"
+  - "$HOME/Library/Logs/pst-intersect"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-intersect
+  name: Nixpkgs pst-intersect linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-intersect on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-intersect"
+  - "$XDG_CACHE_HOME/pst-intersect"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-intersect
+  name: Nixpkgs pst-intersect windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-intersect on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-intersect/Cache"
+  - "%LOCALAPPDATA%/pst-intersect/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-jtree
+  name: Nixpkgs pst-jtree macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-jtree on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-jtree"
+  - "$HOME/Library/Logs/pst-jtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-jtree
+  name: Nixpkgs pst-jtree linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-jtree on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-jtree"
+  - "$XDG_CACHE_HOME/pst-jtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-jtree
+  name: Nixpkgs pst-jtree windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-jtree on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-jtree/Cache"
+  - "%LOCALAPPDATA%/pst-jtree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-kepler
+  name: Nixpkgs pst-kepler macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-kepler on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-kepler"
+  - "$HOME/Library/Logs/pst-kepler"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-kepler
+  name: Nixpkgs pst-kepler linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-kepler on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-kepler"
+  - "$XDG_CACHE_HOME/pst-kepler"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-kepler
+  name: Nixpkgs pst-kepler windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-kepler on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-kepler/Cache"
+  - "%LOCALAPPDATA%/pst-kepler/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-knot
+  name: Nixpkgs pst-knot macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-knot on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-knot"
+  - "$HOME/Library/Logs/pst-knot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-knot
+  name: Nixpkgs pst-knot linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-knot on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-knot"
+  - "$XDG_CACHE_HOME/pst-knot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-knot
+  name: Nixpkgs pst-knot windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-knot on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-knot/Cache"
+  - "%LOCALAPPDATA%/pst-knot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-labo
+  name: Nixpkgs pst-labo macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-labo on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-labo"
+  - "$HOME/Library/Logs/pst-labo"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-labo
+  name: Nixpkgs pst-labo linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-labo on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-labo"
+  - "$XDG_CACHE_HOME/pst-labo"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-labo
+  name: Nixpkgs pst-labo windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-labo on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-labo/Cache"
+  - "%LOCALAPPDATA%/pst-labo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-layout
+  name: Nixpkgs pst-layout macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-layout on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-layout"
+  - "$HOME/Library/Logs/pst-layout"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-layout
+  name: Nixpkgs pst-layout linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-layout on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-layout"
+  - "$XDG_CACHE_HOME/pst-layout"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-layout
+  name: Nixpkgs pst-layout windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-layout on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-layout/Cache"
+  - "%LOCALAPPDATA%/pst-layout/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-lens
+  name: Nixpkgs pst-lens macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-lens on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-lens"
+  - "$HOME/Library/Logs/pst-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-lens
+  name: Nixpkgs pst-lens linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-lens on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-lens"
+  - "$XDG_CACHE_HOME/pst-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-lens
+  name: Nixpkgs pst-lens windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-lens on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-lens/Cache"
+  - "%LOCALAPPDATA%/pst-lens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-light3d
+  name: Nixpkgs pst-light3d macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-light3d on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-light3d"
+  - "$HOME/Library/Logs/pst-light3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-light3d
+  name: Nixpkgs pst-light3d linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-light3d on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-light3d"
+  - "$XDG_CACHE_HOME/pst-light3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-light3d
+  name: Nixpkgs pst-light3d windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-light3d on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-light3d/Cache"
+  - "%LOCALAPPDATA%/pst-light3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-lsystem
+  name: Nixpkgs pst-lsystem macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-lsystem on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-lsystem"
+  - "$HOME/Library/Logs/pst-lsystem"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-lsystem
+  name: Nixpkgs pst-lsystem linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-lsystem on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-lsystem"
+  - "$XDG_CACHE_HOME/pst-lsystem"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-lsystem
+  name: Nixpkgs pst-lsystem windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-lsystem on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-lsystem/Cache"
+  - "%LOCALAPPDATA%/pst-lsystem/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-magneticfield
+  name: Nixpkgs pst-magneticfield macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-magneticfield on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-magneticfield"
+  - "$HOME/Library/Logs/pst-magneticfield"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-magneticfield
+  name: Nixpkgs pst-magneticfield linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-magneticfield on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-magneticfield"
+  - "$XDG_CACHE_HOME/pst-magneticfield"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-magneticfield
+  name: Nixpkgs pst-magneticfield windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-magneticfield on windows (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-magneticfield/Cache"
+  - "%LOCALAPPDATA%/pst-magneticfield/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-marble
+  name: Nixpkgs pst-marble macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-marble on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-marble"
+  - "$HOME/Library/Logs/pst-marble"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-marble
+  name: Nixpkgs pst-marble linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-marble on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-marble"
+  - "$XDG_CACHE_HOME/pst-marble"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-marble
+  name: Nixpkgs pst-marble windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-marble on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-marble/Cache"
+  - "%LOCALAPPDATA%/pst-marble/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-massspring
+  name: Nixpkgs pst-massspring macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-massspring on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-massspring"
+  - "$HOME/Library/Logs/pst-massspring"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-massspring
+  name: Nixpkgs pst-massspring linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-massspring on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-massspring"
+  - "$XDG_CACHE_HOME/pst-massspring"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-massspring
+  name: Nixpkgs pst-massspring windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-massspring on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-massspring/Cache"
+  - "%LOCALAPPDATA%/pst-massspring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-math
+  name: Nixpkgs pst-math macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-math on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-math"
+  - "$HOME/Library/Logs/pst-math"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-math
+  name: Nixpkgs pst-math linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-math on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-math"
+  - "$XDG_CACHE_HOME/pst-math"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-math
+  name: Nixpkgs pst-math windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-math on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-math/Cache"
+  - "%LOCALAPPDATA%/pst-math/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-mirror
+  name: Nixpkgs pst-mirror macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-mirror on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-mirror"
+  - "$HOME/Library/Logs/pst-mirror"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-mirror
+  name: Nixpkgs pst-mirror linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-mirror on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-mirror"
+  - "$XDG_CACHE_HOME/pst-mirror"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-mirror
+  name: Nixpkgs pst-mirror windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-mirror on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-mirror/Cache"
+  - "%LOCALAPPDATA%/pst-mirror/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-moire
+  name: Nixpkgs pst-moire macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-moire on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-moire"
+  - "$HOME/Library/Logs/pst-moire"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-moire
+  name: Nixpkgs pst-moire linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-moire on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-moire"
+  - "$XDG_CACHE_HOME/pst-moire"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-moire
+  name: Nixpkgs pst-moire windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-moire on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-moire/Cache"
+  - "%LOCALAPPDATA%/pst-moire/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-node
+  name: Nixpkgs pst-node macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-node on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-node"
+  - "$HOME/Library/Logs/pst-node"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-node
+  name: Nixpkgs pst-node linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-node on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-node"
+  - "$XDG_CACHE_HOME/pst-node"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-node
+  name: Nixpkgs pst-node windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-node on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-node/Cache"
+  - "%LOCALAPPDATA%/pst-node/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-nutation
+  name: Nixpkgs pst-nutation macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-nutation on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-nutation"
+  - "$HOME/Library/Logs/pst-nutation"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-nutation
+  name: Nixpkgs pst-nutation linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-nutation on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-nutation"
+  - "$XDG_CACHE_HOME/pst-nutation"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-nutation
+  name: Nixpkgs pst-nutation windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-nutation on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-nutation/Cache"
+  - "%LOCALAPPDATA%/pst-nutation/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-ob3d
+  name: Nixpkgs pst-ob3d macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-ob3d on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-ob3d"
+  - "$HOME/Library/Logs/pst-ob3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-ob3d
+  name: Nixpkgs pst-ob3d linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-ob3d on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-ob3d"
+  - "$XDG_CACHE_HOME/pst-ob3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-ob3d
+  name: Nixpkgs pst-ob3d windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-ob3d on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-ob3d/Cache"
+  - "%LOCALAPPDATA%/pst-ob3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-ode
+  name: Nixpkgs pst-ode macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-ode on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-ode"
+  - "$HOME/Library/Logs/pst-ode"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-ode
+  name: Nixpkgs pst-ode linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-ode on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-ode"
+  - "$XDG_CACHE_HOME/pst-ode"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-ode
+  name: Nixpkgs pst-ode windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-ode on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-ode/Cache"
+  - "%LOCALAPPDATA%/pst-ode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-optexp
+  name: Nixpkgs pst-optexp macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-optexp on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-optexp"
+  - "$HOME/Library/Logs/pst-optexp"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-optexp
+  name: Nixpkgs pst-optexp linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-optexp on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-optexp"
+  - "$XDG_CACHE_HOME/pst-optexp"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-optexp
+  name: Nixpkgs pst-optexp windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-optexp on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-optexp/Cache"
+  - "%LOCALAPPDATA%/pst-optexp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-optic
+  name: Nixpkgs pst-optic macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-optic on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-optic"
+  - "$HOME/Library/Logs/pst-optic"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-optic
+  name: Nixpkgs pst-optic linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-optic on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-optic"
+  - "$XDG_CACHE_HOME/pst-optic"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-optic
+  name: Nixpkgs pst-optic windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-optic on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-optic/Cache"
+  - "%LOCALAPPDATA%/pst-optic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-osci
+  name: Nixpkgs pst-osci macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-osci on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-osci"
+  - "$HOME/Library/Logs/pst-osci"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-osci
+  name: Nixpkgs pst-osci linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-osci on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-osci"
+  - "$XDG_CACHE_HOME/pst-osci"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-osci
+  name: Nixpkgs pst-osci windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-osci on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-osci/Cache"
+  - "%LOCALAPPDATA%/pst-osci/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-ovl
+  name: Nixpkgs pst-ovl macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-ovl on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-ovl"
+  - "$HOME/Library/Logs/pst-ovl"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-ovl
+  name: Nixpkgs pst-ovl linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-ovl on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-ovl"
+  - "$XDG_CACHE_HOME/pst-ovl"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-ovl
+  name: Nixpkgs pst-ovl windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-ovl on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-ovl/Cache"
+  - "%LOCALAPPDATA%/pst-ovl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-pad
+  name: Nixpkgs pst-pad macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-pad on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-pad"
+  - "$HOME/Library/Logs/pst-pad"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-pad
+  name: Nixpkgs pst-pad linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-pad on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-pad"
+  - "$XDG_CACHE_HOME/pst-pad"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-pad
+  name: Nixpkgs pst-pad windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-pad on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-pad/Cache"
+  - "%LOCALAPPDATA%/pst-pad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-pdf
+  name: Nixpkgs pst-pdf macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-pdf on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-pdf"
+  - "$HOME/Library/Logs/pst-pdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-pdf
+  name: Nixpkgs pst-pdf linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-pdf on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-pdf"
+  - "$XDG_CACHE_HOME/pst-pdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-pdf
+  name: Nixpkgs pst-pdf windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-pdf on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-pdf/Cache"
+  - "%LOCALAPPDATA%/pst-pdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-pdgr
+  name: Nixpkgs pst-pdgr macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-pdgr on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-pdgr"
+  - "$HOME/Library/Logs/pst-pdgr"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-pdgr
+  name: Nixpkgs pst-pdgr linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-pdgr on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-pdgr"
+  - "$XDG_CACHE_HOME/pst-pdgr"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-pdgr
+  name: Nixpkgs pst-pdgr windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-pdgr on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-pdgr/Cache"
+  - "%LOCALAPPDATA%/pst-pdgr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-perspective
+  name: Nixpkgs pst-perspective macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-perspective on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-perspective"
+  - "$HOME/Library/Logs/pst-perspective"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-perspective
+  name: Nixpkgs pst-perspective linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-perspective on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-perspective"
+  - "$XDG_CACHE_HOME/pst-perspective"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-perspective
+  name: Nixpkgs pst-perspective windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-perspective on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-perspective/Cache"
+  - "%LOCALAPPDATA%/pst-perspective/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-platon
+  name: Nixpkgs pst-platon macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-platon on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-platon"
+  - "$HOME/Library/Logs/pst-platon"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-platon
+  name: Nixpkgs pst-platon linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-platon on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-platon"
+  - "$XDG_CACHE_HOME/pst-platon"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-platon
+  name: Nixpkgs pst-platon windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-platon on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-platon/Cache"
+  - "%LOCALAPPDATA%/pst-platon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-plot
+  name: Nixpkgs pst-plot macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-plot on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-plot"
+  - "$HOME/Library/Logs/pst-plot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-plot
+  name: Nixpkgs pst-plot linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-plot on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-plot"
+  - "$XDG_CACHE_HOME/pst-plot"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-plot
+  name: Nixpkgs pst-plot windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-plot on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-plot/Cache"
+  - "%LOCALAPPDATA%/pst-plot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-poker
+  name: Nixpkgs pst-poker macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-poker on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-poker"
+  - "$HOME/Library/Logs/pst-poker"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-poker
+  name: Nixpkgs pst-poker linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-poker on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-poker"
+  - "$XDG_CACHE_HOME/pst-poker"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-poker
+  name: Nixpkgs pst-poker windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-poker on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-poker/Cache"
+  - "%LOCALAPPDATA%/pst-poker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-poly
+  name: Nixpkgs pst-poly macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-poly on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-poly"
+  - "$HOME/Library/Logs/pst-poly"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-poly
+  name: Nixpkgs pst-poly linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-poly on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-poly"
+  - "$XDG_CACHE_HOME/pst-poly"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-poly
+  name: Nixpkgs pst-poly windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-poly on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-poly/Cache"
+  - "%LOCALAPPDATA%/pst-poly/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-pulley
+  name: Nixpkgs pst-pulley macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-pulley on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-pulley"
+  - "$HOME/Library/Logs/pst-pulley"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-pulley
+  name: Nixpkgs pst-pulley linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-pulley on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-pulley"
+  - "$XDG_CACHE_HOME/pst-pulley"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-pulley
+  name: Nixpkgs pst-pulley windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-pulley on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-pulley/Cache"
+  - "%LOCALAPPDATA%/pst-pulley/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-qtree
+  name: Nixpkgs pst-qtree macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-qtree on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-qtree"
+  - "$HOME/Library/Logs/pst-qtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-qtree
+  name: Nixpkgs pst-qtree linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-qtree on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-qtree"
+  - "$XDG_CACHE_HOME/pst-qtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-qtree
+  name: Nixpkgs pst-qtree windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-qtree on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-qtree/Cache"
+  - "%LOCALAPPDATA%/pst-qtree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-rputover
+  name: Nixpkgs pst-rputover macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-rputover on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-rputover"
+  - "$HOME/Library/Logs/pst-rputover"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-rputover
+  name: Nixpkgs pst-rputover linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-rputover on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-rputover"
+  - "$XDG_CACHE_HOME/pst-rputover"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-rputover
+  name: Nixpkgs pst-rputover windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-rputover on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-rputover/Cache"
+  - "%LOCALAPPDATA%/pst-rputover/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-rubans
+  name: Nixpkgs pst-rubans macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-rubans on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-rubans"
+  - "$HOME/Library/Logs/pst-rubans"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-rubans
+  name: Nixpkgs pst-rubans linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-rubans on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-rubans"
+  - "$XDG_CACHE_HOME/pst-rubans"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-rubans
+  name: Nixpkgs pst-rubans windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-rubans on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-rubans/Cache"
+  - "%LOCALAPPDATA%/pst-rubans/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-shell
+  name: Nixpkgs pst-shell macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-shell on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-shell"
+  - "$HOME/Library/Logs/pst-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-shell
+  name: Nixpkgs pst-shell linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-shell on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-shell"
+  - "$XDG_CACHE_HOME/pst-shell"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-shell
+  name: Nixpkgs pst-shell windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-shell on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-shell/Cache"
+  - "%LOCALAPPDATA%/pst-shell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-sigsys
+  name: Nixpkgs pst-sigsys macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-sigsys on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-sigsys"
+  - "$HOME/Library/Logs/pst-sigsys"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-sigsys
+  name: Nixpkgs pst-sigsys linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-sigsys on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-sigsys"
+  - "$XDG_CACHE_HOME/pst-sigsys"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-sigsys
+  name: Nixpkgs pst-sigsys windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-sigsys on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-sigsys/Cache"
+  - "%LOCALAPPDATA%/pst-sigsys/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-slpe
+  name: Nixpkgs pst-slpe macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-slpe on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-slpe"
+  - "$HOME/Library/Logs/pst-slpe"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-slpe
+  name: Nixpkgs pst-slpe linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-slpe on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-slpe"
+  - "$XDG_CACHE_HOME/pst-slpe"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-slpe
+  name: Nixpkgs pst-slpe windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-slpe on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-slpe/Cache"
+  - "%LOCALAPPDATA%/pst-slpe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-solarsystem
+  name: Nixpkgs pst-solarsystem macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-solarsystem on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-solarsystem"
+  - "$HOME/Library/Logs/pst-solarsystem"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-solarsystem
+  name: Nixpkgs pst-solarsystem linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-solarsystem on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-solarsystem"
+  - "$XDG_CACHE_HOME/pst-solarsystem"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-solarsystem
+  name: Nixpkgs pst-solarsystem windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-solarsystem on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-solarsystem/Cache"
+  - "%LOCALAPPDATA%/pst-solarsystem/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-solides3d
+  name: Nixpkgs pst-solides3d macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-solides3d on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-solides3d"
+  - "$HOME/Library/Logs/pst-solides3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-solides3d
+  name: Nixpkgs pst-solides3d linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-solides3d on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-solides3d"
+  - "$XDG_CACHE_HOME/pst-solides3d"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-solides3d
+  name: Nixpkgs pst-solides3d windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-solides3d on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-solides3d/Cache"
+  - "%LOCALAPPDATA%/pst-solides3d/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-soroban
+  name: Nixpkgs pst-soroban macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-soroban on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-soroban"
+  - "$HOME/Library/Logs/pst-soroban"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-soroban
+  name: Nixpkgs pst-soroban linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-soroban on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-soroban"
+  - "$XDG_CACHE_HOME/pst-soroban"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-soroban
+  name: Nixpkgs pst-soroban windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-soroban on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-soroban/Cache"
+  - "%LOCALAPPDATA%/pst-soroban/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-spectra
+  name: Nixpkgs pst-spectra macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-spectra on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-spectra"
+  - "$HOME/Library/Logs/pst-spectra"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-spectra
+  name: Nixpkgs pst-spectra linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-spectra on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-spectra"
+  - "$XDG_CACHE_HOME/pst-spectra"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-spectra
+  name: Nixpkgs pst-spectra windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-spectra on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-spectra/Cache"
+  - "%LOCALAPPDATA%/pst-spectra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-sphericaltrochoid
+  name: Nixpkgs pst-sphericaltrochoid macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-sphericaltrochoid on macos (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-sphericaltrochoid"
+  - "$HOME/Library/Logs/pst-sphericaltrochoid"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-sphericaltrochoid
+  name: Nixpkgs pst-sphericaltrochoid linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-sphericaltrochoid on linux (wave 22). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-sphericaltrochoid"
+  - "$XDG_CACHE_HOME/pst-sphericaltrochoid"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-sphericaltrochoid
+  name: Nixpkgs pst-sphericaltrochoid windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-sphericaltrochoid on windows (wave 22).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-sphericaltrochoid/Cache"
+  - "%LOCALAPPDATA%/pst-sphericaltrochoid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-spinner
+  name: Nixpkgs pst-spinner macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-spinner on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-spinner"
+  - "$HOME/Library/Logs/pst-spinner"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-spinner
+  name: Nixpkgs pst-spinner linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-spinner on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-spinner"
+  - "$XDG_CACHE_HOME/pst-spinner"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-spinner
+  name: Nixpkgs pst-spinner windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-spinner on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-spinner/Cache"
+  - "%LOCALAPPDATA%/pst-spinner/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-stru
+  name: Nixpkgs pst-stru macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-stru on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-stru"
+  - "$HOME/Library/Logs/pst-stru"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-stru
+  name: Nixpkgs pst-stru linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-stru on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-stru"
+  - "$XDG_CACHE_HOME/pst-stru"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-stru
+  name: Nixpkgs pst-stru windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-stru on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-stru/Cache"
+  - "%LOCALAPPDATA%/pst-stru/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-support
+  name: Nixpkgs pst-support macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-support on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-support"
+  - "$HOME/Library/Logs/pst-support"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-support
+  name: Nixpkgs pst-support linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-support on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-support"
+  - "$XDG_CACHE_HOME/pst-support"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-support
+  name: Nixpkgs pst-support windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-support on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-support/Cache"
+  - "%LOCALAPPDATA%/pst-support/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-text
+  name: Nixpkgs pst-text macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-text on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-text"
+  - "$HOME/Library/Logs/pst-text"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-text
+  name: Nixpkgs pst-text linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-text on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-text"
+  - "$XDG_CACHE_HOME/pst-text"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-text
+  name: Nixpkgs pst-text windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-text on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-text/Cache"
+  - "%LOCALAPPDATA%/pst-text/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-thick
+  name: Nixpkgs pst-thick macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-thick on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-thick"
+  - "$HOME/Library/Logs/pst-thick"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-thick
+  name: Nixpkgs pst-thick linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-thick on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-thick"
+  - "$XDG_CACHE_HOME/pst-thick"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-thick
+  name: Nixpkgs pst-thick windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-thick on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-thick/Cache"
+  - "%LOCALAPPDATA%/pst-thick/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-tools
+  name: Nixpkgs pst-tools macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-tools on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-tools"
+  - "$HOME/Library/Logs/pst-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-tools
+  name: Nixpkgs pst-tools linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-tools on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-tools"
+  - "$XDG_CACHE_HOME/pst-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-tools
+  name: Nixpkgs pst-tools windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-tools on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-tools/Cache"
+  - "%LOCALAPPDATA%/pst-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-tree
+  name: Nixpkgs pst-tree macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-tree on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-tree"
+  - "$HOME/Library/Logs/pst-tree"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-tree
+  name: Nixpkgs pst-tree linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-tree on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-tree"
+  - "$XDG_CACHE_HOME/pst-tree"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-tree
+  name: Nixpkgs pst-tree windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-tree on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-tree/Cache"
+  - "%LOCALAPPDATA%/pst-tree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-turtle
+  name: Nixpkgs pst-turtle macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-turtle on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-turtle"
+  - "$HOME/Library/Logs/pst-turtle"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-turtle
+  name: Nixpkgs pst-turtle linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-turtle on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-turtle"
+  - "$XDG_CACHE_HOME/pst-turtle"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-turtle
+  name: Nixpkgs pst-turtle windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-turtle on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-turtle/Cache"
+  - "%LOCALAPPDATA%/pst-turtle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-tvz
+  name: Nixpkgs pst-tvz macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-tvz on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-tvz"
+  - "$HOME/Library/Logs/pst-tvz"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-tvz
+  name: Nixpkgs pst-tvz linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-tvz on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-tvz"
+  - "$XDG_CACHE_HOME/pst-tvz"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-tvz
+  name: Nixpkgs pst-tvz windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-tvz on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-tvz/Cache"
+  - "%LOCALAPPDATA%/pst-tvz/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-uml
+  name: Nixpkgs pst-uml macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-uml on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-uml"
+  - "$HOME/Library/Logs/pst-uml"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-uml
+  name: Nixpkgs pst-uml linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-uml on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-uml"
+  - "$XDG_CACHE_HOME/pst-uml"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-uml
+  name: Nixpkgs pst-uml windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-uml on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-uml/Cache"
+  - "%LOCALAPPDATA%/pst-uml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-vectorian
+  name: Nixpkgs pst-vectorian macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-vectorian on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-vectorian"
+  - "$HOME/Library/Logs/pst-vectorian"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-vectorian
+  name: Nixpkgs pst-vectorian linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-vectorian on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-vectorian"
+  - "$XDG_CACHE_HOME/pst-vectorian"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-vectorian
+  name: Nixpkgs pst-vectorian windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-vectorian on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-vectorian/Cache"
+  - "%LOCALAPPDATA%/pst-vectorian/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-vehicle
+  name: Nixpkgs pst-vehicle macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-vehicle on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-vehicle"
+  - "$HOME/Library/Logs/pst-vehicle"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-vehicle
+  name: Nixpkgs pst-vehicle linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-vehicle on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-vehicle"
+  - "$XDG_CACHE_HOME/pst-vehicle"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-vehicle
+  name: Nixpkgs pst-vehicle windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-vehicle on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-vehicle/Cache"
+  - "%LOCALAPPDATA%/pst-vehicle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-venn
+  name: Nixpkgs pst-venn macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-venn on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-venn"
+  - "$HOME/Library/Logs/pst-venn"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-venn
+  name: Nixpkgs pst-venn linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-venn on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-venn"
+  - "$XDG_CACHE_HOME/pst-venn"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-venn
+  name: Nixpkgs pst-venn windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-venn on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-venn/Cache"
+  - "%LOCALAPPDATA%/pst-venn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst-vowel
+  name: Nixpkgs pst-vowel macos cache (wave 22)
+  description: Nixpkgs leftover pname pst-vowel on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst-vowel"
+  - "$HOME/Library/Logs/pst-vowel"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst-vowel
+  name: Nixpkgs pst-vowel linux cache (wave 22)
+  description: Nixpkgs leftover pname pst-vowel on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst-vowel"
+  - "$XDG_CACHE_HOME/pst-vowel"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst-vowel
+  name: Nixpkgs pst-vowel windows cache (wave 22)
+  description: Nixpkgs leftover pname pst-vowel on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst-vowel/Cache"
+  - "%LOCALAPPDATA%/pst-vowel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pst2pdf
+  name: Nixpkgs pst2pdf macos cache (wave 22)
+  description: Nixpkgs leftover pname pst2pdf on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pst2pdf"
+  - "$HOME/Library/Logs/pst2pdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pst2pdf
+  name: Nixpkgs pst2pdf linux cache (wave 22)
+  description: Nixpkgs leftover pname pst2pdf on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pst2pdf"
+  - "$XDG_CACHE_HOME/pst2pdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pst2pdf
+  name: Nixpkgs pst2pdf windows cache (wave 22)
+  description: Nixpkgs leftover pname pst2pdf on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pst2pdf/Cache"
+  - "%LOCALAPPDATA%/pst2pdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pstemmer
+  name: Nixpkgs pstemmer macos cache (wave 22)
+  description: Nixpkgs leftover pname pstemmer on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pstemmer"
+  - "$HOME/Library/Logs/pstemmer"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pstemmer
+  name: Nixpkgs pstemmer linux cache (wave 22)
+  description: Nixpkgs leftover pname pstemmer on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pstemmer"
+  - "$XDG_CACHE_HOME/pstemmer"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pstemmer
+  name: Nixpkgs pstemmer windows cache (wave 22)
+  description: Nixpkgs leftover pname pstemmer on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pstemmer/Cache"
+  - "%LOCALAPPDATA%/pstemmer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pstest
+  name: Nixpkgs pstest macos cache (wave 22)
+  description: Nixpkgs leftover pname pstest on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pstest"
+  - "$HOME/Library/Logs/pstest"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pstest
+  name: Nixpkgs pstest linux cache (wave 22)
+  description: Nixpkgs leftover pname pstest on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pstest"
+  - "$XDG_CACHE_HOME/pstest"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pstest
+  name: Nixpkgs pstest windows cache (wave 22)
+  description: Nixpkgs leftover pname pstest on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pstest/Cache"
+  - "%LOCALAPPDATA%/pstest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pstoedit
+  name: Nixpkgs pstoedit macos cache (wave 22)
+  description: Nixpkgs leftover pname pstoedit on macos (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pstoedit"
+  - "$HOME/Library/Logs/pstoedit"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pstoedit
+  name: Nixpkgs pstoedit linux cache (wave 22)
+  description: Nixpkgs leftover pname pstoedit on linux (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pstoedit"
+  - "$XDG_CACHE_HOME/pstoedit"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pstoedit
+  name: Nixpkgs pstoedit windows cache (wave 22)
+  description: Nixpkgs leftover pname pstoedit on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pstoedit/Cache"
+  - "%LOCALAPPDATA%/pstoedit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pstool
+  name: Nixpkgs pstool macos cache (wave 22)
+  description: Nixpkgs leftover pname pstool on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pstool"
+  - "$HOME/Library/Logs/pstool"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-lin-pstool
+  name: Nixpkgs pstool linux cache (wave 22)
+  description: Nixpkgs leftover pname pstool on linux (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/pstool"
+  - "$XDG_CACHE_HOME/pstool"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-win-pstool
+  name: Nixpkgs pstool windows cache (wave 22)
+  description: Nixpkgs leftover pname pstool on windows (wave 22). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/pstool/Cache"
+  - "%LOCALAPPDATA%/pstool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np22-mac-pstree
+  name: Nixpkgs pstree macos cache (wave 22)
+  description: Nixpkgs leftover pname pstree on macos (wave 22). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/pstree"
+  - "$HOME/Library/Logs/pstree"
+  delete_mode: contents
+  max_depth: 6

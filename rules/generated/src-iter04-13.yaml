@@ -1,0 +1,5536 @@
+---
+pack: src-iter04-13
+description: Iterative 10k import wave 4 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np4-mac-brotli-conduit
+  name: Nixpkgs brotli-conduit macos cache (wave 4)
+  description: Nixpkgs leftover pname brotli-conduit on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brotli-conduit"
+  - "$HOME/Library/Logs/brotli-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brotli-conduit
+  name: Nixpkgs brotli-conduit linux cache (wave 4)
+  description: Nixpkgs leftover pname brotli-conduit on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brotli-conduit"
+  - "$XDG_CACHE_HOME/brotli-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brotli-conduit
+  name: Nixpkgs brotli-conduit windows cache (wave 4)
+  description: Nixpkgs leftover pname brotli-conduit on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brotli-conduit/Cache"
+  - "%LOCALAPPDATA%/brotli-conduit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brotli-streams
+  name: Nixpkgs brotli-streams macos cache (wave 4)
+  description: Nixpkgs leftover pname brotli-streams on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brotli-streams"
+  - "$HOME/Library/Logs/brotli-streams"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brotli-streams
+  name: Nixpkgs brotli-streams linux cache (wave 4)
+  description: Nixpkgs leftover pname brotli-streams on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brotli-streams"
+  - "$XDG_CACHE_HOME/brotli-streams"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brotli-streams
+  name: Nixpkgs brotli-streams windows cache (wave 4)
+  description: Nixpkgs leftover pname brotli-streams on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brotli-streams/Cache"
+  - "%LOCALAPPDATA%/brotli-streams/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brotlicffi
+  name: Nixpkgs brotlicffi macos cache (wave 4)
+  description: Nixpkgs leftover pname brotlicffi on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brotlicffi"
+  - "$HOME/Library/Logs/brotlicffi"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brotlicffi
+  name: Nixpkgs brotlicffi linux cache (wave 4)
+  description: Nixpkgs leftover pname brotlicffi on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brotlicffi"
+  - "$XDG_CACHE_HOME/brotlicffi"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brotlicffi
+  name: Nixpkgs brotlicffi windows cache (wave 4)
+  description: Nixpkgs leftover pname brotlicffi on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brotlicffi/Cache"
+  - "%LOCALAPPDATA%/brotlicffi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brotlipy
+  name: Nixpkgs brotlipy macos cache (wave 4)
+  description: Nixpkgs leftover pname brotlipy on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brotlipy"
+  - "$HOME/Library/Logs/brotlipy"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brotlipy
+  name: Nixpkgs brotlipy linux cache (wave 4)
+  description: Nixpkgs leftover pname brotlipy on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brotlipy"
+  - "$XDG_CACHE_HOME/brotlipy"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brotlipy
+  name: Nixpkgs brotlipy windows cache (wave 4)
+  description: Nixpkgs leftover pname brotlipy on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brotlipy/Cache"
+  - "%LOCALAPPDATA%/brotlipy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brottsplatskartan
+  name: Nixpkgs brottsplatskartan macos cache (wave 4)
+  description: Nixpkgs leftover pname brottsplatskartan on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brottsplatskartan"
+  - "$HOME/Library/Logs/brottsplatskartan"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brottsplatskartan
+  name: Nixpkgs brottsplatskartan linux cache (wave 4)
+  description: Nixpkgs leftover pname brottsplatskartan on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brottsplatskartan"
+  - "$XDG_CACHE_HOME/brottsplatskartan"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brottsplatskartan
+  name: Nixpkgs brottsplatskartan windows cache (wave 4)
+  description: Nixpkgs leftover pname brottsplatskartan on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brottsplatskartan/Cache"
+  - "%LOCALAPPDATA%/brottsplatskartan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brown
+  name: Nixpkgs brown macos cache (wave 4)
+  description: Nixpkgs leftover pname brown on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brown"
+  - "$HOME/Library/Logs/brown"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brown
+  name: Nixpkgs brown linux cache (wave 4)
+  description: Nixpkgs leftover pname brown on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brown"
+  - "$XDG_CACHE_HOME/brown"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brown
+  name: Nixpkgs brown windows cache (wave 4)
+  description: Nixpkgs leftover pname brown on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brown/Cache"
+  - "%LOCALAPPDATA%/brown/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brown-tei
+  name: Nixpkgs brown_tei macos cache (wave 4)
+  description: Nixpkgs leftover pname brown_tei on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brown_tei"
+  - "$HOME/Library/Logs/brown_tei"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brown-tei
+  name: Nixpkgs brown_tei linux cache (wave 4)
+  description: Nixpkgs leftover pname brown_tei on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brown_tei"
+  - "$XDG_CACHE_HOME/brown_tei"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brown-tei
+  name: Nixpkgs brown_tei windows cache (wave 4)
+  description: Nixpkgs leftover pname brown_tei on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brown_tei/Cache"
+  - "%LOCALAPPDATA%/brown_tei/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brows
+  name: Nixpkgs brows macos cache (wave 4)
+  description: Nixpkgs leftover pname brows on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brows"
+  - "$HOME/Library/Logs/brows"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brows
+  name: Nixpkgs brows linux cache (wave 4)
+  description: Nixpkgs leftover pname brows on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brows"
+  - "$XDG_CACHE_HOME/brows"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brows
+  name: Nixpkgs brows windows cache (wave 4)
+  description: Nixpkgs leftover pname brows on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brows/Cache"
+  - "%LOCALAPPDATA%/brows/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browscap
+  name: Nixpkgs browscap macos cache (wave 4)
+  description: Nixpkgs leftover pname browscap on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browscap"
+  - "$HOME/Library/Logs/browscap"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browscap
+  name: Nixpkgs browscap linux cache (wave 4)
+  description: Nixpkgs leftover pname browscap on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browscap"
+  - "$XDG_CACHE_HOME/browscap"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browscap
+  name: Nixpkgs browscap windows cache (wave 4)
+  description: Nixpkgs leftover pname browscap on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browscap/Cache"
+  - "%LOCALAPPDATA%/browscap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browse-at-remote
+  name: Nixpkgs browse-at-remote macos cache (wave 4)
+  description: Nixpkgs leftover pname browse-at-remote on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browse-at-remote"
+  - "$HOME/Library/Logs/browse-at-remote"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browse-at-remote
+  name: Nixpkgs browse-at-remote linux cache (wave 4)
+  description: Nixpkgs leftover pname browse-at-remote on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browse-at-remote"
+  - "$XDG_CACHE_HOME/browse-at-remote"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browse-at-remote
+  name: Nixpkgs browse-at-remote windows cache (wave 4)
+  description: Nixpkgs leftover pname browse-at-remote on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browse-at-remote/Cache"
+  - "%LOCALAPPDATA%/browse-at-remote/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browse-kill-ring
+  name: Nixpkgs browse-kill-ring macos cache (wave 4)
+  description: Nixpkgs leftover pname browse-kill-ring on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browse-kill-ring"
+  - "$HOME/Library/Logs/browse-kill-ring"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browse-kill-ring
+  name: Nixpkgs browse-kill-ring linux cache (wave 4)
+  description: Nixpkgs leftover pname browse-kill-ring on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browse-kill-ring"
+  - "$XDG_CACHE_HOME/browse-kill-ring"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browse-kill-ring
+  name: Nixpkgs browse-kill-ring windows cache (wave 4)
+  description: Nixpkgs leftover pname browse-kill-ring on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browse-kill-ring/Cache"
+  - "%LOCALAPPDATA%/browse-kill-ring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browse-url-dwim
+  name: Nixpkgs browse-url-dwim macos cache (wave 4)
+  description: Nixpkgs leftover pname browse-url-dwim on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browse-url-dwim"
+  - "$HOME/Library/Logs/browse-url-dwim"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browse-url-dwim
+  name: Nixpkgs browse-url-dwim linux cache (wave 4)
+  description: Nixpkgs leftover pname browse-url-dwim on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browse-url-dwim"
+  - "$XDG_CACHE_HOME/browse-url-dwim"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browse-url-dwim
+  name: Nixpkgs browse-url-dwim windows cache (wave 4)
+  description: Nixpkgs leftover pname browse-url-dwim on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browse-url-dwim/Cache"
+  - "%LOCALAPPDATA%/browse-url-dwim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browser-cookie3
+  name: Nixpkgs browser-cookie3 macos cache (wave 4)
+  description: Nixpkgs leftover pname browser-cookie3 on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browser-cookie3"
+  - "$HOME/Library/Logs/browser-cookie3"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browser-cookie3
+  name: Nixpkgs browser-cookie3 linux cache (wave 4)
+  description: Nixpkgs leftover pname browser-cookie3 on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browser-cookie3"
+  - "$XDG_CACHE_HOME/browser-cookie3"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browser-cookie3
+  name: Nixpkgs browser-cookie3 windows cache (wave 4)
+  description: Nixpkgs leftover pname browser-cookie3 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browser-cookie3/Cache"
+  - "%LOCALAPPDATA%/browser-cookie3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browser-gt
+  name: Nixpkgs browser-gt macos cache (wave 4)
+  description: Nixpkgs leftover pname browser-gt on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browser-gt"
+  - "$HOME/Library/Logs/browser-gt"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browser-gt
+  name: Nixpkgs browser-gt linux cache (wave 4)
+  description: Nixpkgs leftover pname browser-gt on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browser-gt"
+  - "$XDG_CACHE_HOME/browser-gt"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browser-gt
+  name: Nixpkgs browser-gt windows cache (wave 4)
+  description: Nixpkgs leftover pname browser-gt on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browser-gt/Cache"
+  - "%LOCALAPPDATA%/browser-gt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browser-hist
+  name: Nixpkgs browser-hist macos cache (wave 4)
+  description: Nixpkgs leftover pname browser-hist on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browser-hist"
+  - "$HOME/Library/Logs/browser-hist"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browser-hist
+  name: Nixpkgs browser-hist linux cache (wave 4)
+  description: Nixpkgs leftover pname browser-hist on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browser-hist"
+  - "$XDG_CACHE_HOME/browser-hist"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browser-hist
+  name: Nixpkgs browser-hist windows cache (wave 4)
+  description: Nixpkgs leftover pname browser-hist on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browser-hist/Cache"
+  - "%LOCALAPPDATA%/browser-hist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browser-sync
+  name: Nixpkgs browser-sync macos cache (wave 4)
+  description: Nixpkgs leftover pname browser-sync on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browser-sync"
+  - "$HOME/Library/Logs/browser-sync"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browser-sync
+  name: Nixpkgs browser-sync linux cache (wave 4)
+  description: Nixpkgs leftover pname browser-sync on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browser-sync"
+  - "$XDG_CACHE_HOME/browser-sync"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browser-sync
+  name: Nixpkgs browser-sync windows cache (wave 4)
+  description: Nixpkgs leftover pname browser-sync on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browser-sync/Cache"
+  - "%LOCALAPPDATA%/browser-sync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browserforge
+  name: Nixpkgs browserforge macos cache (wave 4)
+  description: Nixpkgs leftover pname browserforge on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browserforge"
+  - "$HOME/Library/Logs/browserforge"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browserforge
+  name: Nixpkgs browserforge linux cache (wave 4)
+  description: Nixpkgs leftover pname browserforge on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browserforge"
+  - "$XDG_CACHE_HOME/browserforge"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browserforge
+  name: Nixpkgs browserforge windows cache (wave 4)
+  description: Nixpkgs leftover pname browserforge on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browserforge/Cache"
+  - "%LOCALAPPDATA%/browserforge/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browserpass
+  name: Nixpkgs browserpass macos cache (wave 4)
+  description: Nixpkgs leftover pname browserpass on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browserpass"
+  - "$HOME/Library/Logs/browserpass"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browserpass
+  name: Nixpkgs browserpass linux cache (wave 4)
+  description: Nixpkgs leftover pname browserpass on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browserpass"
+  - "$XDG_CACHE_HOME/browserpass"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browserpass
+  name: Nixpkgs browserpass windows cache (wave 4)
+  description: Nixpkgs leftover pname browserpass on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browserpass/Cache"
+  - "%LOCALAPPDATA%/browserpass/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browsers
+  name: Nixpkgs browsers macos cache (wave 4)
+  description: Nixpkgs leftover pname browsers on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browsers"
+  - "$HOME/Library/Logs/browsers"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browsers
+  name: Nixpkgs browsers linux cache (wave 4)
+  description: Nixpkgs leftover pname browsers on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browsers"
+  - "$XDG_CACHE_HOME/browsers"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browsers
+  name: Nixpkgs browsers windows cache (wave 4)
+  description: Nixpkgs leftover pname browsers on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browsers/Cache"
+  - "%LOCALAPPDATA%/browsers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browsh
+  name: Nixpkgs browsh macos cache (wave 4)
+  description: Nixpkgs leftover pname browsh on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browsh"
+  - "$HOME/Library/Logs/browsh"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browsh
+  name: Nixpkgs browsh linux cache (wave 4)
+  description: Nixpkgs leftover pname browsh on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browsh"
+  - "$XDG_CACHE_HOME/browsh"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browsh
+  name: Nixpkgs browsh windows cache (wave 4)
+  description: Nixpkgs leftover pname browsh on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browsh/Cache"
+  - "%LOCALAPPDATA%/browsh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-browsr
+  name: Nixpkgs browsr macos cache (wave 4)
+  description: Nixpkgs leftover pname browsr on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/browsr"
+  - "$HOME/Library/Logs/browsr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-browsr
+  name: Nixpkgs browsr linux cache (wave 4)
+  description: Nixpkgs leftover pname browsr on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/browsr"
+  - "$XDG_CACHE_HOME/browsr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-browsr
+  name: Nixpkgs browsr windows cache (wave 4)
+  description: Nixpkgs leftover pname browsr on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/browsr/Cache"
+  - "%LOCALAPPDATA%/browsr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-broydensolve
+  name: Nixpkgs broydensolve macos cache (wave 4)
+  description: Nixpkgs leftover pname broydensolve on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/broydensolve"
+  - "$HOME/Library/Logs/broydensolve"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-broydensolve
+  name: Nixpkgs broydensolve linux cache (wave 4)
+  description: Nixpkgs leftover pname broydensolve on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/broydensolve"
+  - "$XDG_CACHE_HOME/broydensolve"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-broydensolve
+  name: Nixpkgs broydensolve windows cache (wave 4)
+  description: Nixpkgs leftover pname broydensolve on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/broydensolve/Cache"
+  - "%LOCALAPPDATA%/broydensolve/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brpop
+  name: Nixpkgs brpop macos cache (wave 4)
+  description: Nixpkgs leftover pname brpop on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brpop"
+  - "$HOME/Library/Logs/brpop"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brpop
+  name: Nixpkgs brpop linux cache (wave 4)
+  description: Nixpkgs leftover pname brpop on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brpop"
+  - "$XDG_CACHE_HOME/brpop"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brpop
+  name: Nixpkgs brpop windows cache (wave 4)
+  description: Nixpkgs leftover pname brpop on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brpop/Cache"
+  - "%LOCALAPPDATA%/brpop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brr
+  name: Nixpkgs brr macos cache (wave 4)
+  description: Nixpkgs leftover pname brr on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brr"
+  - "$HOME/Library/Logs/brr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brr
+  name: Nixpkgs brr linux cache (wave 4)
+  description: Nixpkgs leftover pname brr on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brr"
+  - "$XDG_CACHE_HOME/brr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brr
+  name: Nixpkgs brr windows cache (wave 4)
+  description: Nixpkgs leftover pname brr on windows (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brr/Cache"
+  - "%LOCALAPPDATA%/brr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brranching
+  name: Nixpkgs brranching macos cache (wave 4)
+  description: Nixpkgs leftover pname brranching on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brranching"
+  - "$HOME/Library/Logs/brranching"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brranching
+  name: Nixpkgs brranching linux cache (wave 4)
+  description: Nixpkgs leftover pname brranching on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brranching"
+  - "$XDG_CACHE_HOME/brranching"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brranching
+  name: Nixpkgs brranching windows cache (wave 4)
+  description: Nixpkgs leftover pname brranching on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brranching/Cache"
+  - "%LOCALAPPDATA%/brranching/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brscan4
+  name: Nixpkgs brscan4 macos cache (wave 4)
+  description: Nixpkgs leftover pname brscan4 on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brscan4"
+  - "$HOME/Library/Logs/brscan4"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brscan4
+  name: Nixpkgs brscan4 linux cache (wave 4)
+  description: Nixpkgs leftover pname brscan4 on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brscan4"
+  - "$XDG_CACHE_HOME/brscan4"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brscan4
+  name: Nixpkgs brscan4 windows cache (wave 4)
+  description: Nixpkgs leftover pname brscan4 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brscan4/Cache"
+  - "%LOCALAPPDATA%/brscan4/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brscan5
+  name: Nixpkgs brscan5 macos cache (wave 4)
+  description: Nixpkgs leftover pname brscan5 on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brscan5"
+  - "$HOME/Library/Logs/brscan5"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brscan5
+  name: Nixpkgs brscan5 linux cache (wave 4)
+  description: Nixpkgs leftover pname brscan5 on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brscan5"
+  - "$XDG_CACHE_HOME/brscan5"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brscan5
+  name: Nixpkgs brscan5 windows cache (wave 4)
+  description: Nixpkgs leftover pname brscan5 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brscan5/Cache"
+  - "%LOCALAPPDATA%/brscan5/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brsim
+  name: Nixpkgs brsim macos cache (wave 4)
+  description: Nixpkgs leftover pname brsim on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brsim"
+  - "$HOME/Library/Logs/brsim"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brsim
+  name: Nixpkgs brsim linux cache (wave 4)
+  description: Nixpkgs leftover pname brsim on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brsim"
+  - "$XDG_CACHE_HOME/brsim"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brsim
+  name: Nixpkgs brsim windows cache (wave 4)
+  description: Nixpkgs leftover pname brsim on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brsim/Cache"
+  - "%LOCALAPPDATA%/brsim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brucer
+  name: Nixpkgs bruceR macos cache (wave 4)
+  description: Nixpkgs leftover pname bruceR on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruceR"
+  - "$HOME/Library/Logs/bruceR"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brucer
+  name: Nixpkgs bruceR linux cache (wave 4)
+  description: Nixpkgs leftover pname bruceR on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruceR"
+  - "$XDG_CACHE_HOME/bruceR"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brucer
+  name: Nixpkgs bruceR windows cache (wave 4)
+  description: Nixpkgs leftover pname bruceR on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruceR/Cache"
+  - "%LOCALAPPDATA%/bruceR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruijn
+  name: Nixpkgs bruijn macos cache (wave 4)
+  description: Nixpkgs leftover pname bruijn on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruijn"
+  - "$HOME/Library/Logs/bruijn"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruijn
+  name: Nixpkgs bruijn linux cache (wave 4)
+  description: Nixpkgs leftover pname bruijn on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruijn"
+  - "$XDG_CACHE_HOME/bruijn"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruijn
+  name: Nixpkgs bruijn windows cache (wave 4)
+  description: Nixpkgs leftover pname bruijn on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruijn/Cache"
+  - "%LOCALAPPDATA%/bruijn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brulee
+  name: Nixpkgs brulee macos cache (wave 4)
+  description: Nixpkgs leftover pname brulee on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brulee"
+  - "$HOME/Library/Logs/brulee"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brulee
+  name: Nixpkgs brulee linux cache (wave 4)
+  description: Nixpkgs leftover pname brulee on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brulee"
+  - "$XDG_CACHE_HOME/brulee"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brulee
+  name: Nixpkgs brulee windows cache (wave 4)
+  description: Nixpkgs leftover pname brulee on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brulee/Cache"
+  - "%LOCALAPPDATA%/brulee/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruneimap
+  name: Nixpkgs bruneimap macos cache (wave 4)
+  description: Nixpkgs leftover pname bruneimap on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruneimap"
+  - "$HOME/Library/Logs/bruneimap"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruneimap
+  name: Nixpkgs bruneimap linux cache (wave 4)
+  description: Nixpkgs leftover pname bruneimap on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruneimap"
+  - "$XDG_CACHE_HOME/bruneimap"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruneimap
+  name: Nixpkgs bruneimap windows cache (wave 4)
+  description: Nixpkgs leftover pname bruneimap on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruneimap/Cache"
+  - "%LOCALAPPDATA%/bruneimap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brunnermunzel
+  name: Nixpkgs brunnermunzel macos cache (wave 4)
+  description: Nixpkgs leftover pname brunnermunzel on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brunnermunzel"
+  - "$HOME/Library/Logs/brunnermunzel"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brunnermunzel
+  name: Nixpkgs brunnermunzel linux cache (wave 4)
+  description: Nixpkgs leftover pname brunnermunzel on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brunnermunzel"
+  - "$XDG_CACHE_HOME/brunnermunzel"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brunnermunzel
+  name: Nixpkgs brunnermunzel windows cache (wave 4)
+  description: Nixpkgs leftover pname brunnermunzel on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brunnermunzel/Cache"
+  - "%LOCALAPPDATA%/brunnermunzel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruno
+  name: Nixpkgs bruno macos cache (wave 4)
+  description: Nixpkgs leftover pname bruno on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruno"
+  - "$HOME/Library/Logs/bruno"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruno
+  name: Nixpkgs bruno linux cache (wave 4)
+  description: Nixpkgs leftover pname bruno on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruno"
+  - "$XDG_CACHE_HOME/bruno"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruno
+  name: Nixpkgs bruno windows cache (wave 4)
+  description: Nixpkgs leftover pname bruno on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruno/Cache"
+  - "%LOCALAPPDATA%/bruno/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruno-cli
+  name: Nixpkgs bruno-cli macos cache (wave 4)
+  description: Nixpkgs leftover pname bruno-cli on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruno-cli"
+  - "$HOME/Library/Logs/bruno-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruno-cli
+  name: Nixpkgs bruno-cli linux cache (wave 4)
+  description: Nixpkgs leftover pname bruno-cli on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruno-cli"
+  - "$XDG_CACHE_HOME/bruno-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruno-cli
+  name: Nixpkgs bruno-cli windows cache (wave 4)
+  description: Nixpkgs leftover pname bruno-cli on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruno-cli/Cache"
+  - "%LOCALAPPDATA%/bruno-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brunsli
+  name: Nixpkgs brunsli macos cache (wave 4)
+  description: Nixpkgs leftover pname brunsli on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brunsli"
+  - "$HOME/Library/Logs/brunsli"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brunsli
+  name: Nixpkgs brunsli linux cache (wave 4)
+  description: Nixpkgs leftover pname brunsli on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brunsli"
+  - "$XDG_CACHE_HOME/brunsli"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brunsli
+  name: Nixpkgs brunsli windows cache (wave 4)
+  description: Nixpkgs leftover pname brunsli on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brunsli/Cache"
+  - "%LOCALAPPDATA%/brunsli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brunt
+  name: Nixpkgs brunt macos cache (wave 4)
+  description: Nixpkgs leftover pname brunt on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brunt"
+  - "$HOME/Library/Logs/brunt"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brunt
+  name: Nixpkgs brunt linux cache (wave 4)
+  description: Nixpkgs leftover pname brunt on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brunt"
+  - "$XDG_CACHE_HOME/brunt"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brunt
+  name: Nixpkgs brunt windows cache (wave 4)
+  description: Nixpkgs leftover pname brunt on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brunt/Cache"
+  - "%LOCALAPPDATA%/brunt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brush
+  name: Nixpkgs brush macos cache (wave 4)
+  description: Nixpkgs leftover pname brush on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brush"
+  - "$HOME/Library/Logs/brush"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brush
+  name: Nixpkgs brush linux cache (wave 4)
+  description: Nixpkgs leftover pname brush on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brush"
+  - "$XDG_CACHE_HOME/brush"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brush
+  name: Nixpkgs brush windows cache (wave 4)
+  description: Nixpkgs leftover pname brush on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brush/Cache"
+  - "%LOCALAPPDATA%/brush/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brush-splat
+  name: Nixpkgs brush-splat macos cache (wave 4)
+  description: Nixpkgs leftover pname brush-splat on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brush-splat"
+  - "$HOME/Library/Logs/brush-splat"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brush-splat
+  name: Nixpkgs brush-splat linux cache (wave 4)
+  description: Nixpkgs leftover pname brush-splat on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brush-splat"
+  - "$XDG_CACHE_HOME/brush-splat"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brush-splat
+  name: Nixpkgs brush-splat windows cache (wave 4)
+  description: Nixpkgs leftover pname brush-splat on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brush-splat/Cache"
+  - "%LOCALAPPDATA%/brush-splat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brush-strokes
+  name: Nixpkgs brush-strokes macos cache (wave 4)
+  description: Nixpkgs leftover pname brush-strokes on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brush-strokes"
+  - "$HOME/Library/Logs/brush-strokes"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brush-strokes
+  name: Nixpkgs brush-strokes linux cache (wave 4)
+  description: Nixpkgs leftover pname brush-strokes on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brush-strokes"
+  - "$XDG_CACHE_HOME/brush-strokes"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brush-strokes
+  name: Nixpkgs brush-strokes windows cache (wave 4)
+  description: Nixpkgs leftover pname brush-strokes on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brush-strokes/Cache"
+  - "%LOCALAPPDATA%/brush-strokes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brush-stroking
+  name: Nixpkgs brush-stroking macos cache (wave 4)
+  description: Nixpkgs leftover pname brush-stroking on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brush-stroking"
+  - "$HOME/Library/Logs/brush-stroking"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brush-stroking
+  name: Nixpkgs brush-stroking linux cache (wave 4)
+  description: Nixpkgs leftover pname brush-stroking on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brush-stroking"
+  - "$XDG_CACHE_HOME/brush-stroking"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brush-stroking
+  name: Nixpkgs brush-stroking windows cache (wave 4)
+  description: Nixpkgs leftover pname brush-stroking on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brush-stroking/Cache"
+  - "%LOCALAPPDATA%/brush-stroking/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brushscr
+  name: Nixpkgs brushscr macos cache (wave 4)
+  description: Nixpkgs leftover pname brushscr on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brushscr"
+  - "$HOME/Library/Logs/brushscr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brushscr
+  name: Nixpkgs brushscr linux cache (wave 4)
+  description: Nixpkgs leftover pname brushscr on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brushscr"
+  - "$XDG_CACHE_HOME/brushscr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brushscr
+  name: Nixpkgs brushscr windows cache (wave 4)
+  description: Nixpkgs leftover pname brushscr on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brushscr/Cache"
+  - "%LOCALAPPDATA%/brushscr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brutalist-theme
+  name: Nixpkgs brutalist-theme macos cache (wave 4)
+  description: Nixpkgs leftover pname brutalist-theme on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brutalist-theme"
+  - "$HOME/Library/Logs/brutalist-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brutalist-theme
+  name: Nixpkgs brutalist-theme linux cache (wave 4)
+  description: Nixpkgs leftover pname brutalist-theme on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brutalist-theme"
+  - "$XDG_CACHE_HOME/brutalist-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brutalist-theme
+  name: Nixpkgs brutalist-theme windows cache (wave 4)
+  description: Nixpkgs leftover pname brutalist-theme on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brutalist-theme/Cache"
+  - "%LOCALAPPDATA%/brutalist-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brutalmaze
+  name: Nixpkgs brutalmaze macos cache (wave 4)
+  description: Nixpkgs leftover pname brutalmaze on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brutalmaze"
+  - "$HOME/Library/Logs/brutalmaze"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brutalmaze
+  name: Nixpkgs brutalmaze linux cache (wave 4)
+  description: Nixpkgs leftover pname brutalmaze on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brutalmaze"
+  - "$XDG_CACHE_HOME/brutalmaze"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brutalmaze
+  name: Nixpkgs brutalmaze windows cache (wave 4)
+  description: Nixpkgs leftover pname brutalmaze on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brutalmaze/Cache"
+  - "%LOCALAPPDATA%/brutalmaze/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brutefir
+  name: Nixpkgs brutefir macos cache (wave 4)
+  description: Nixpkgs leftover pname brutefir on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brutefir"
+  - "$HOME/Library/Logs/brutefir"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brutefir
+  name: Nixpkgs brutefir linux cache (wave 4)
+  description: Nixpkgs leftover pname brutefir on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brutefir"
+  - "$XDG_CACHE_HOME/brutefir"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brutefir
+  name: Nixpkgs brutefir windows cache (wave 4)
+  description: Nixpkgs leftover pname brutefir on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brutefir/Cache"
+  - "%LOCALAPPDATA%/brutefir/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruteforce-luks
+  name: Nixpkgs bruteforce-luks macos cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-luks on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruteforce-luks"
+  - "$HOME/Library/Logs/bruteforce-luks"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruteforce-luks
+  name: Nixpkgs bruteforce-luks linux cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-luks on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruteforce-luks"
+  - "$XDG_CACHE_HOME/bruteforce-luks"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruteforce-luks
+  name: Nixpkgs bruteforce-luks windows cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-luks on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruteforce-luks/Cache"
+  - "%LOCALAPPDATA%/bruteforce-luks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruteforce-salted-openssl
+  name: Nixpkgs bruteforce-salted-openssl macos cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-salted-openssl on macos (wave 4).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruteforce-salted-openssl"
+  - "$HOME/Library/Logs/bruteforce-salted-openssl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruteforce-salted-openssl
+  name: Nixpkgs bruteforce-salted-openssl linux cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-salted-openssl on linux (wave 4).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruteforce-salted-openssl"
+  - "$XDG_CACHE_HOME/bruteforce-salted-openssl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruteforce-salted-openssl
+  name: Nixpkgs bruteforce-salted-openssl windows cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-salted-openssl on windows (wave 4).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruteforce-salted-openssl/Cache"
+  - "%LOCALAPPDATA%/bruteforce-salted-openssl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bruteforce-wallet
+  name: Nixpkgs bruteforce-wallet macos cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-wallet on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bruteforce-wallet"
+  - "$HOME/Library/Logs/bruteforce-wallet"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bruteforce-wallet
+  name: Nixpkgs bruteforce-wallet linux cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-wallet on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bruteforce-wallet"
+  - "$XDG_CACHE_HOME/bruteforce-wallet"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bruteforce-wallet
+  name: Nixpkgs bruteforce-wallet windows cache (wave 4)
+  description: Nixpkgs leftover pname bruteforce-wallet on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bruteforce-wallet/Cache"
+  - "%LOCALAPPDATA%/bruteforce-wallet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brutespray
+  name: Nixpkgs brutespray macos cache (wave 4)
+  description: Nixpkgs leftover pname brutespray on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brutespray"
+  - "$HOME/Library/Logs/brutespray"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brutespray
+  name: Nixpkgs brutespray linux cache (wave 4)
+  description: Nixpkgs leftover pname brutespray on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brutespray"
+  - "$XDG_CACHE_HOME/brutespray"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brutespray
+  name: Nixpkgs brutespray windows cache (wave 4)
+  description: Nixpkgs leftover pname brutespray on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brutespray/Cache"
+  - "%LOCALAPPDATA%/brutespray/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brutus
+  name: Nixpkgs brutus macos cache (wave 4)
+  description: Nixpkgs leftover pname brutus on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brutus"
+  - "$HOME/Library/Logs/brutus"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brutus
+  name: Nixpkgs brutus linux cache (wave 4)
+  description: Nixpkgs leftover pname brutus on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brutus"
+  - "$XDG_CACHE_HOME/brutus"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brutus
+  name: Nixpkgs brutus windows cache (wave 4)
+  description: Nixpkgs leftover pname brutus on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brutus/Cache"
+  - "%LOCALAPPDATA%/brutus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brxx
+  name: Nixpkgs brxx macos cache (wave 4)
+  description: Nixpkgs leftover pname brxx on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brxx"
+  - "$HOME/Library/Logs/brxx"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brxx
+  name: Nixpkgs brxx linux cache (wave 4)
+  description: Nixpkgs leftover pname brxx on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brxx"
+  - "$XDG_CACHE_HOME/brxx"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brxx
+  name: Nixpkgs brxx windows cache (wave 4)
+  description: Nixpkgs leftover pname brxx on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brxx/Cache"
+  - "%LOCALAPPDATA%/brxx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-brygada-1918
+  name: Nixpkgs brygada-1918 macos cache (wave 4)
+  description: Nixpkgs leftover pname brygada-1918 on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/brygada-1918"
+  - "$HOME/Library/Logs/brygada-1918"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-brygada-1918
+  name: Nixpkgs brygada-1918 linux cache (wave 4)
+  description: Nixpkgs leftover pname brygada-1918 on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/brygada-1918"
+  - "$XDG_CACHE_HOME/brygada-1918"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-brygada-1918
+  name: Nixpkgs brygada-1918 windows cache (wave 4)
+  description: Nixpkgs leftover pname brygada-1918 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/brygada-1918/Cache"
+  - "%LOCALAPPDATA%/brygada-1918/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bs-manager
+  name: Nixpkgs bs-manager macos cache (wave 4)
+  description: Nixpkgs leftover pname bs-manager on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bs-manager"
+  - "$HOME/Library/Logs/bs-manager"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bs-manager
+  name: Nixpkgs bs-manager linux cache (wave 4)
+  description: Nixpkgs leftover pname bs-manager on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bs-manager"
+  - "$XDG_CACHE_HOME/bs-manager"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bs-manager
+  name: Nixpkgs bs-manager windows cache (wave 4)
+  description: Nixpkgs leftover pname bs-manager on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bs-manager/Cache"
+  - "%LOCALAPPDATA%/bs-manager/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bs2b-lv2
+  name: Nixpkgs bs2b-lv2 macos cache (wave 4)
+  description: Nixpkgs leftover pname bs2b-lv2 on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bs2b-lv2"
+  - "$HOME/Library/Logs/bs2b-lv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bs2b-lv2
+  name: Nixpkgs bs2b-lv2 linux cache (wave 4)
+  description: Nixpkgs leftover pname bs2b-lv2 on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bs2b-lv2"
+  - "$XDG_CACHE_HOME/bs2b-lv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bs2b-lv2
+  name: Nixpkgs bs2b-lv2 windows cache (wave 4)
+  description: Nixpkgs leftover pname bs2b-lv2 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bs2b-lv2/Cache"
+  - "%LOCALAPPDATA%/bs2b-lv2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bs4dash
+  name: Nixpkgs bs4Dash macos cache (wave 4)
+  description: Nixpkgs leftover pname bs4Dash on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bs4Dash"
+  - "$HOME/Library/Logs/bs4Dash"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bs4dash
+  name: Nixpkgs bs4Dash linux cache (wave 4)
+  description: Nixpkgs leftover pname bs4Dash on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bs4Dash"
+  - "$XDG_CACHE_HOME/bs4Dash"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bs4dash
+  name: Nixpkgs bs4Dash windows cache (wave 4)
+  description: Nixpkgs leftover pname bs4Dash on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bs4Dash/Cache"
+  - "%LOCALAPPDATA%/bs4Dash/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bs4dashkit
+  name: Nixpkgs bs4Dashkit macos cache (wave 4)
+  description: Nixpkgs leftover pname bs4Dashkit on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bs4Dashkit"
+  - "$HOME/Library/Logs/bs4Dashkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bs4dashkit
+  name: Nixpkgs bs4Dashkit linux cache (wave 4)
+  description: Nixpkgs leftover pname bs4Dashkit on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bs4Dashkit"
+  - "$XDG_CACHE_HOME/bs4Dashkit"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bs4dashkit
+  name: Nixpkgs bs4Dashkit windows cache (wave 4)
+  description: Nixpkgs leftover pname bs4Dashkit on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bs4Dashkit/Cache"
+  - "%LOCALAPPDATA%/bs4Dashkit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bs4cards
+  name: Nixpkgs bs4cards macos cache (wave 4)
+  description: Nixpkgs leftover pname bs4cards on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bs4cards"
+  - "$HOME/Library/Logs/bs4cards"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bs4cards
+  name: Nixpkgs bs4cards linux cache (wave 4)
+  description: Nixpkgs leftover pname bs4cards on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bs4cards"
+  - "$XDG_CACHE_HOME/bs4cards"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bs4cards
+  name: Nixpkgs bs4cards windows cache (wave 4)
+  description: Nixpkgs leftover pname bs4cards on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bs4cards/Cache"
+  - "%LOCALAPPDATA%/bs4cards/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bstools
+  name: Nixpkgs bsTools macos cache (wave 4)
+  description: Nixpkgs leftover pname bsTools on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsTools"
+  - "$HOME/Library/Logs/bsTools"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bstools
+  name: Nixpkgs bsTools linux cache (wave 4)
+  description: Nixpkgs leftover pname bsTools on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsTools"
+  - "$XDG_CACHE_HOME/bsTools"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bstools
+  name: Nixpkgs bsTools windows cache (wave 4)
+  description: Nixpkgs leftover pname bsTools on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsTools/Cache"
+  - "%LOCALAPPDATA%/bsTools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsam
+  name: Nixpkgs bsam macos cache (wave 4)
+  description: Nixpkgs leftover pname bsam on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsam"
+  - "$HOME/Library/Logs/bsam"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsam
+  name: Nixpkgs bsam linux cache (wave 4)
+  description: Nixpkgs leftover pname bsam on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsam"
+  - "$XDG_CACHE_HOME/bsam"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsam
+  name: Nixpkgs bsam windows cache (wave 4)
+  description: Nixpkgs leftover pname bsam on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsam/Cache"
+  - "%LOCALAPPDATA%/bsam/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsamgp
+  name: Nixpkgs bsamGP macos cache (wave 4)
+  description: Nixpkgs leftover pname bsamGP on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsamGP"
+  - "$HOME/Library/Logs/bsamGP"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsamgp
+  name: Nixpkgs bsamGP linux cache (wave 4)
+  description: Nixpkgs leftover pname bsamGP on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsamGP"
+  - "$XDG_CACHE_HOME/bsamGP"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsamgp
+  name: Nixpkgs bsamGP windows cache (wave 4)
+  description: Nixpkgs leftover pname bsamGP on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsamGP/Cache"
+  - "%LOCALAPPDATA%/bsamGP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsb-http-chunked
+  name: Nixpkgs bsb-http-chunked macos cache (wave 4)
+  description: Nixpkgs leftover pname bsb-http-chunked on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsb-http-chunked"
+  - "$HOME/Library/Logs/bsb-http-chunked"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsb-http-chunked
+  name: Nixpkgs bsb-http-chunked linux cache (wave 4)
+  description: Nixpkgs leftover pname bsb-http-chunked on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsb-http-chunked"
+  - "$XDG_CACHE_HOME/bsb-http-chunked"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsb-http-chunked
+  name: Nixpkgs bsb-http-chunked windows cache (wave 4)
+  description: Nixpkgs leftover pname bsb-http-chunked on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsb-http-chunked/Cache"
+  - "%LOCALAPPDATA%/bsb-http-chunked/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsc
+  name: Nixpkgs bsc macos cache (wave 4)
+  description: Nixpkgs leftover pname bsc on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsc"
+  - "$HOME/Library/Logs/bsc"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsc
+  name: Nixpkgs bsc linux cache (wave 4)
+  description: Nixpkgs leftover pname bsc on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsc"
+  - "$XDG_CACHE_HOME/bsc"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsc
+  name: Nixpkgs bsc windows cache (wave 4)
+  description: Nixpkgs leftover pname bsc on windows (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsc/Cache"
+  - "%LOCALAPPDATA%/bsc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bschaffl
+  name: Nixpkgs bschaffl macos cache (wave 4)
+  description: Nixpkgs leftover pname bschaffl on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bschaffl"
+  - "$HOME/Library/Logs/bschaffl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bschaffl
+  name: Nixpkgs bschaffl linux cache (wave 4)
+  description: Nixpkgs leftover pname bschaffl on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bschaffl"
+  - "$XDG_CACHE_HOME/bschaffl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bschaffl
+  name: Nixpkgs bschaffl windows cache (wave 4)
+  description: Nixpkgs leftover pname bschaffl on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bschaffl/Cache"
+  - "%LOCALAPPDATA%/bschaffl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bscui
+  name: Nixpkgs bscui macos cache (wave 4)
+  description: Nixpkgs leftover pname bscui on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bscui"
+  - "$HOME/Library/Logs/bscui"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bscui
+  name: Nixpkgs bscui linux cache (wave 4)
+  description: Nixpkgs leftover pname bscui on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bscui"
+  - "$XDG_CACHE_HOME/bscui"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bscui
+  name: Nixpkgs bscui windows cache (wave 4)
+  description: Nixpkgs leftover pname bscui on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bscui/Cache"
+  - "%LOCALAPPDATA%/bscui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsd-finger
+  name: Nixpkgs bsd-finger macos cache (wave 4)
+  description: Nixpkgs leftover pname bsd-finger on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsd-finger"
+  - "$HOME/Library/Logs/bsd-finger"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsd-finger
+  name: Nixpkgs bsd-finger linux cache (wave 4)
+  description: Nixpkgs leftover pname bsd-finger on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsd-finger"
+  - "$XDG_CACHE_HOME/bsd-finger"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsd-finger
+  name: Nixpkgs bsd-finger windows cache (wave 4)
+  description: Nixpkgs leftover pname bsd-finger on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsd-finger/Cache"
+  - "%LOCALAPPDATA%/bsd-finger/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsd-fingerd
+  name: Nixpkgs bsd-fingerd macos cache (wave 4)
+  description: Nixpkgs leftover pname bsd-fingerd on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsd-fingerd"
+  - "$HOME/Library/Logs/bsd-fingerd"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsd-fingerd
+  name: Nixpkgs bsd-fingerd linux cache (wave 4)
+  description: Nixpkgs leftover pname bsd-fingerd on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsd-fingerd"
+  - "$XDG_CACHE_HOME/bsd-fingerd"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsd-fingerd
+  name: Nixpkgs bsd-fingerd windows cache (wave 4)
+  description: Nixpkgs leftover pname bsd-fingerd on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsd-fingerd/Cache"
+  - "%LOCALAPPDATA%/bsd-fingerd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsd-games
+  name: Nixpkgs bsd-games macos cache (wave 4)
+  description: Nixpkgs leftover pname bsd-games on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsd-games"
+  - "$HOME/Library/Logs/bsd-games"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsd-games
+  name: Nixpkgs bsd-games linux cache (wave 4)
+  description: Nixpkgs leftover pname bsd-games on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsd-games"
+  - "$XDG_CACHE_HOME/bsd-games"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsd-games
+  name: Nixpkgs bsd-games windows cache (wave 4)
+  description: Nixpkgs leftover pname bsd-games on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsd-games/Cache"
+  - "%LOCALAPPDATA%/bsd-games/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsd-setup-hook
+  name: Nixpkgs bsd-setup-hook macos cache (wave 4)
+  description: Nixpkgs leftover pname bsd-setup-hook on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsd-setup-hook"
+  - "$HOME/Library/Logs/bsd-setup-hook"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsd-setup-hook
+  name: Nixpkgs bsd-setup-hook linux cache (wave 4)
+  description: Nixpkgs leftover pname bsd-setup-hook on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsd-setup-hook"
+  - "$XDG_CACHE_HOME/bsd-setup-hook"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsd-setup-hook
+  name: Nixpkgs bsd-setup-hook windows cache (wave 4)
+  description: Nixpkgs leftover pname bsd-setup-hook on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsd-setup-hook/Cache"
+  - "%LOCALAPPDATA%/bsd-setup-hook/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsd-sysctl
+  name: Nixpkgs bsd-sysctl macos cache (wave 4)
+  description: Nixpkgs leftover pname bsd-sysctl on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsd-sysctl"
+  - "$HOME/Library/Logs/bsd-sysctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsd-sysctl
+  name: Nixpkgs bsd-sysctl linux cache (wave 4)
+  description: Nixpkgs leftover pname bsd-sysctl on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsd-sysctl"
+  - "$XDG_CACHE_HOME/bsd-sysctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsd-sysctl
+  name: Nixpkgs bsd-sysctl windows cache (wave 4)
+  description: Nixpkgs leftover pname bsd-sysctl on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsd-sysctl/Cache"
+  - "%LOCALAPPDATA%/bsd-sysctl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsdbuild
+  name: Nixpkgs bsdbuild macos cache (wave 4)
+  description: Nixpkgs leftover pname bsdbuild on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsdbuild"
+  - "$HOME/Library/Logs/bsdbuild"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsdbuild
+  name: Nixpkgs bsdbuild linux cache (wave 4)
+  description: Nixpkgs leftover pname bsdbuild on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsdbuild"
+  - "$XDG_CACHE_HOME/bsdbuild"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsdbuild
+  name: Nixpkgs bsdbuild windows cache (wave 4)
+  description: Nixpkgs leftover pname bsdbuild on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsdbuild/Cache"
+  - "%LOCALAPPDATA%/bsdbuild/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsdfan
+  name: Nixpkgs bsdfan macos cache (wave 4)
+  description: Nixpkgs leftover pname bsdfan on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsdfan"
+  - "$HOME/Library/Logs/bsdfan"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsdfan
+  name: Nixpkgs bsdfan linux cache (wave 4)
+  description: Nixpkgs leftover pname bsdfan on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsdfan"
+  - "$XDG_CACHE_HOME/bsdfan"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsdfan
+  name: Nixpkgs bsdfan windows cache (wave 4)
+  description: Nixpkgs leftover pname bsdfan on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsdfan/Cache"
+  - "%LOCALAPPDATA%/bsdfan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsdiff
+  name: Nixpkgs bsdiff macos cache (wave 4)
+  description: Nixpkgs leftover pname bsdiff on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsdiff"
+  - "$HOME/Library/Logs/bsdiff"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsdiff
+  name: Nixpkgs bsdiff linux cache (wave 4)
+  description: Nixpkgs leftover pname bsdiff on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsdiff"
+  - "$XDG_CACHE_HOME/bsdiff"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsdiff
+  name: Nixpkgs bsdiff windows cache (wave 4)
+  description: Nixpkgs leftover pname bsdiff on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsdiff/Cache"
+  - "%LOCALAPPDATA%/bsdiff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsdiff4
+  name: Nixpkgs bsdiff4 macos cache (wave 4)
+  description: Nixpkgs leftover pname bsdiff4 on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsdiff4"
+  - "$HOME/Library/Logs/bsdiff4"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsdiff4
+  name: Nixpkgs bsdiff4 linux cache (wave 4)
+  description: Nixpkgs leftover pname bsdiff4 on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsdiff4"
+  - "$XDG_CACHE_HOME/bsdiff4"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsdiff4
+  name: Nixpkgs bsdiff4 windows cache (wave 4)
+  description: Nixpkgs leftover pname bsdiff4 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsdiff4/Cache"
+  - "%LOCALAPPDATA%/bsdiff4/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsdlabel
+  name: Nixpkgs bsdlabel macos cache (wave 4)
+  description: Nixpkgs leftover pname bsdlabel on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsdlabel"
+  - "$HOME/Library/Logs/bsdlabel"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsdlabel
+  name: Nixpkgs bsdlabel linux cache (wave 4)
+  description: Nixpkgs leftover pname bsdlabel on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsdlabel"
+  - "$XDG_CACHE_HOME/bsdlabel"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsdlabel
+  name: Nixpkgs bsdlabel windows cache (wave 4)
+  description: Nixpkgs leftover pname bsdlabel on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsdlabel/Cache"
+  - "%LOCALAPPDATA%/bsdlabel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsearchtools
+  name: Nixpkgs bsearchtools macos cache (wave 4)
+  description: Nixpkgs leftover pname bsearchtools on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsearchtools"
+  - "$HOME/Library/Logs/bsearchtools"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsearchtools
+  name: Nixpkgs bsearchtools linux cache (wave 4)
+  description: Nixpkgs leftover pname bsearchtools on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsearchtools"
+  - "$XDG_CACHE_HOME/bsearchtools"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsearchtools
+  name: Nixpkgs bsearchtools windows cache (wave 4)
+  description: Nixpkgs leftover pname bsearchtools on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsearchtools/Cache"
+  - "%LOCALAPPDATA%/bsearchtools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsem
+  name: Nixpkgs bsem macos cache (wave 4)
+  description: Nixpkgs leftover pname bsem on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsem"
+  - "$HOME/Library/Logs/bsem"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsem
+  name: Nixpkgs bsem linux cache (wave 4)
+  description: Nixpkgs leftover pname bsem on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsem"
+  - "$XDG_CACHE_HOME/bsem"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsem
+  name: Nixpkgs bsem windows cache (wave 4)
+  description: Nixpkgs leftover pname bsem on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsem/Cache"
+  - "%LOCALAPPDATA%/bsem/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsequencer
+  name: Nixpkgs bsequencer macos cache (wave 4)
+  description: Nixpkgs leftover pname bsequencer on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsequencer"
+  - "$HOME/Library/Logs/bsequencer"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsequencer
+  name: Nixpkgs bsequencer linux cache (wave 4)
+  description: Nixpkgs leftover pname bsequencer on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsequencer"
+  - "$XDG_CACHE_HOME/bsequencer"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsequencer
+  name: Nixpkgs bsequencer windows cache (wave 4)
+  description: Nixpkgs leftover pname bsequencer on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsequencer/Cache"
+  - "%LOCALAPPDATA%/bsequencer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsgof
+  name: Nixpkgs bsgof macos cache (wave 4)
+  description: Nixpkgs leftover pname bsgof on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsgof"
+  - "$HOME/Library/Logs/bsgof"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsgof
+  name: Nixpkgs bsgof linux cache (wave 4)
+  description: Nixpkgs leftover pname bsgof on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsgof"
+  - "$XDG_CACHE_HOME/bsgof"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsgof
+  name: Nixpkgs bsgof windows cache (wave 4)
+  description: Nixpkgs leftover pname bsgof on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsgof/Cache"
+  - "%LOCALAPPDATA%/bsgof/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsh
+  name: Nixpkgs bsh macos cache (wave 4)
+  description: Nixpkgs leftover pname bsh on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsh"
+  - "$HOME/Library/Logs/bsh"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsh
+  name: Nixpkgs bsh linux cache (wave 4)
+  description: Nixpkgs leftover pname bsh on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsh"
+  - "$XDG_CACHE_HOME/bsh"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsh
+  name: Nixpkgs bsh windows cache (wave 4)
+  description: Nixpkgs leftover pname bsh on windows (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsh/Cache"
+  - "%LOCALAPPDATA%/bsh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bshapr
+  name: Nixpkgs bshapr macos cache (wave 4)
+  description: Nixpkgs leftover pname bshapr on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bshapr"
+  - "$HOME/Library/Logs/bshapr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bshapr
+  name: Nixpkgs bshapr linux cache (wave 4)
+  description: Nixpkgs leftover pname bshapr on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bshapr"
+  - "$XDG_CACHE_HOME/bshapr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bshapr
+  name: Nixpkgs bshapr windows cache (wave 4)
+  description: Nixpkgs leftover pname bshapr on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bshapr/Cache"
+  - "%LOCALAPPDATA%/bshapr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bshazard
+  name: Nixpkgs bshazard macos cache (wave 4)
+  description: Nixpkgs leftover pname bshazard on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bshazard"
+  - "$HOME/Library/Logs/bshazard"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bshazard
+  name: Nixpkgs bshazard linux cache (wave 4)
+  description: Nixpkgs leftover pname bshazard on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bshazard"
+  - "$XDG_CACHE_HOME/bshazard"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bshazard
+  name: Nixpkgs bshazard windows cache (wave 4)
+  description: Nixpkgs leftover pname bshazard on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bshazard/Cache"
+  - "%LOCALAPPDATA%/bshazard/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bshell
+  name: Nixpkgs bshell macos cache (wave 4)
+  description: Nixpkgs leftover pname bshell on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bshell"
+  - "$HOME/Library/Logs/bshell"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bshell
+  name: Nixpkgs bshell linux cache (wave 4)
+  description: Nixpkgs leftover pname bshell on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bshell"
+  - "$XDG_CACHE_HOME/bshell"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bshell
+  name: Nixpkgs bshell windows cache (wave 4)
+  description: Nixpkgs leftover pname bshell on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bshell/Cache"
+  - "%LOCALAPPDATA%/bshell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsicons
+  name: Nixpkgs bsicons macos cache (wave 4)
+  description: Nixpkgs leftover pname bsicons on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsicons"
+  - "$HOME/Library/Logs/bsicons"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsicons
+  name: Nixpkgs bsicons linux cache (wave 4)
+  description: Nixpkgs leftover pname bsicons on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsicons"
+  - "$XDG_CACHE_HOME/bsicons"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsicons
+  name: Nixpkgs bsicons windows cache (wave 4)
+  description: Nixpkgs leftover pname bsicons on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsicons/Cache"
+  - "%LOCALAPPDATA%/bsicons/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsitar
+  name: Nixpkgs bsitar macos cache (wave 4)
+  description: Nixpkgs leftover pname bsitar on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsitar"
+  - "$HOME/Library/Logs/bsitar"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsitar
+  name: Nixpkgs bsitar linux cache (wave 4)
+  description: Nixpkgs leftover pname bsitar on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsitar"
+  - "$XDG_CACHE_HOME/bsitar"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsitar
+  name: Nixpkgs bsitar windows cache (wave 4)
+  description: Nixpkgs leftover pname bsitar on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsitar/Cache"
+  - "%LOCALAPPDATA%/bsitar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsky-cli
+  name: Nixpkgs bsky-cli macos cache (wave 4)
+  description: Nixpkgs leftover pname bsky-cli on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsky-cli"
+  - "$HOME/Library/Logs/bsky-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsky-cli
+  name: Nixpkgs bsky-cli linux cache (wave 4)
+  description: Nixpkgs leftover pname bsky-cli on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsky-cli"
+  - "$XDG_CACHE_HOME/bsky-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsky-cli
+  name: Nixpkgs bsky-cli windows cache (wave 4)
+  description: Nixpkgs leftover pname bsky-cli on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsky-cli/Cache"
+  - "%LOCALAPPDATA%/bsky-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bskyr
+  name: Nixpkgs bskyr macos cache (wave 4)
+  description: Nixpkgs leftover pname bskyr on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bskyr"
+  - "$HOME/Library/Logs/bskyr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bskyr
+  name: Nixpkgs bskyr linux cache (wave 4)
+  description: Nixpkgs leftover pname bskyr on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bskyr"
+  - "$XDG_CACHE_HOME/bskyr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bskyr
+  name: Nixpkgs bskyr windows cache (wave 4)
+  description: Nixpkgs leftover pname bskyr on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bskyr/Cache"
+  - "%LOCALAPPDATA%/bskyr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bslib
+  name: Nixpkgs bslib macos cache (wave 4)
+  description: Nixpkgs leftover pname bslib on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bslib"
+  - "$HOME/Library/Logs/bslib"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bslib
+  name: Nixpkgs bslib linux cache (wave 4)
+  description: Nixpkgs leftover pname bslib on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bslib"
+  - "$XDG_CACHE_HOME/bslib"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bslib
+  name: Nixpkgs bslib windows cache (wave 4)
+  description: Nixpkgs leftover pname bslib on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bslib/Cache"
+  - "%LOCALAPPDATA%/bslib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bslizr
+  name: Nixpkgs bslizr macos cache (wave 4)
+  description: Nixpkgs leftover pname bslizr on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bslizr"
+  - "$HOME/Library/Logs/bslizr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bslizr
+  name: Nixpkgs bslizr linux cache (wave 4)
+  description: Nixpkgs leftover pname bslizr on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bslizr"
+  - "$XDG_CACHE_HOME/bslizr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bslizr
+  name: Nixpkgs bslizr windows cache (wave 4)
+  description: Nixpkgs leftover pname bslizr on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bslizr/Cache"
+  - "%LOCALAPPDATA%/bslizr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsltl
+  name: Nixpkgs bsltl macos cache (wave 4)
+  description: Nixpkgs leftover pname bsltl on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsltl"
+  - "$HOME/Library/Logs/bsltl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsltl
+  name: Nixpkgs bsltl linux cache (wave 4)
+  description: Nixpkgs leftover pname bsltl on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsltl"
+  - "$XDG_CACHE_HOME/bsltl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsltl
+  name: Nixpkgs bsltl windows cache (wave 4)
+  description: Nixpkgs leftover pname bsltl on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsltl/Cache"
+  - "%LOCALAPPDATA%/bsltl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsnes-hd
+  name: Nixpkgs bsnes-hd macos cache (wave 4)
+  description: Nixpkgs leftover pname bsnes-hd on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsnes-hd"
+  - "$HOME/Library/Logs/bsnes-hd"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsnes-hd
+  name: Nixpkgs bsnes-hd linux cache (wave 4)
+  description: Nixpkgs leftover pname bsnes-hd on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsnes-hd"
+  - "$XDG_CACHE_HOME/bsnes-hd"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsnes-hd
+  name: Nixpkgs bsnes-hd windows cache (wave 4)
+  description: Nixpkgs leftover pname bsnes-hd on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsnes-hd/Cache"
+  - "%LOCALAPPDATA%/bsnes-hd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsnsing
+  name: Nixpkgs bsnsing macos cache (wave 4)
+  description: Nixpkgs leftover pname bsnsing on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsnsing"
+  - "$HOME/Library/Logs/bsnsing"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsnsing
+  name: Nixpkgs bsnsing linux cache (wave 4)
+  description: Nixpkgs leftover pname bsnsing on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsnsing"
+  - "$XDG_CACHE_HOME/bsnsing"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsnsing
+  name: Nixpkgs bsnsing windows cache (wave 4)
+  description: Nixpkgs leftover pname bsnsing on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsnsing/Cache"
+  - "%LOCALAPPDATA%/bsnsing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsocialv2
+  name: Nixpkgs bsocialv2 macos cache (wave 4)
+  description: Nixpkgs leftover pname bsocialv2 on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsocialv2"
+  - "$HOME/Library/Logs/bsocialv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsocialv2
+  name: Nixpkgs bsocialv2 linux cache (wave 4)
+  description: Nixpkgs leftover pname bsocialv2 on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsocialv2"
+  - "$XDG_CACHE_HOME/bsocialv2"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsocialv2
+  name: Nixpkgs bsocialv2 windows cache (wave 4)
+  description: Nixpkgs leftover pname bsocialv2 on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsocialv2/Cache"
+  - "%LOCALAPPDATA%/bsocialv2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bson
+  name: Nixpkgs bson macos cache (wave 4)
+  description: Nixpkgs leftover pname bson on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bson"
+  - "$HOME/Library/Logs/bson"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bson
+  name: Nixpkgs bson linux cache (wave 4)
+  description: Nixpkgs leftover pname bson on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bson"
+  - "$XDG_CACHE_HOME/bson"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bson
+  name: Nixpkgs bson windows cache (wave 4)
+  description: Nixpkgs leftover pname bson on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bson/Cache"
+  - "%LOCALAPPDATA%/bson/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bson-generic
+  name: Nixpkgs bson-generic macos cache (wave 4)
+  description: Nixpkgs leftover pname bson-generic on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bson-generic"
+  - "$HOME/Library/Logs/bson-generic"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bson-generic
+  name: Nixpkgs bson-generic linux cache (wave 4)
+  description: Nixpkgs leftover pname bson-generic on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bson-generic"
+  - "$XDG_CACHE_HOME/bson-generic"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bson-generic
+  name: Nixpkgs bson-generic windows cache (wave 4)
+  description: Nixpkgs leftover pname bson-generic on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bson-generic/Cache"
+  - "%LOCALAPPDATA%/bson-generic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bson-generics
+  name: Nixpkgs bson-generics macos cache (wave 4)
+  description: Nixpkgs leftover pname bson-generics on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bson-generics"
+  - "$HOME/Library/Logs/bson-generics"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bson-generics
+  name: Nixpkgs bson-generics linux cache (wave 4)
+  description: Nixpkgs leftover pname bson-generics on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bson-generics"
+  - "$XDG_CACHE_HOME/bson-generics"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bson-generics
+  name: Nixpkgs bson-generics windows cache (wave 4)
+  description: Nixpkgs leftover pname bson-generics on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bson-generics/Cache"
+  - "%LOCALAPPDATA%/bson-generics/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bson-lens
+  name: Nixpkgs bson-lens macos cache (wave 4)
+  description: Nixpkgs leftover pname bson-lens on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bson-lens"
+  - "$HOME/Library/Logs/bson-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bson-lens
+  name: Nixpkgs bson-lens linux cache (wave 4)
+  description: Nixpkgs leftover pname bson-lens on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bson-lens"
+  - "$XDG_CACHE_HOME/bson-lens"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bson-lens
+  name: Nixpkgs bson-lens windows cache (wave 4)
+  description: Nixpkgs leftover pname bson-lens on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bson-lens/Cache"
+  - "%LOCALAPPDATA%/bson-lens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bson-mapping
+  name: Nixpkgs bson-mapping macos cache (wave 4)
+  description: Nixpkgs leftover pname bson-mapping on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bson-mapping"
+  - "$HOME/Library/Logs/bson-mapping"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bson-mapping
+  name: Nixpkgs bson-mapping linux cache (wave 4)
+  description: Nixpkgs leftover pname bson-mapping on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bson-mapping"
+  - "$XDG_CACHE_HOME/bson-mapping"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bson-mapping
+  name: Nixpkgs bson-mapping windows cache (wave 4)
+  description: Nixpkgs leftover pname bson-mapping on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bson-mapping/Cache"
+  - "%LOCALAPPDATA%/bson-mapping/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsp-layout
+  name: Nixpkgs bsp-layout macos cache (wave 4)
+  description: Nixpkgs leftover pname bsp-layout on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsp-layout"
+  - "$HOME/Library/Logs/bsp-layout"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsp-layout
+  name: Nixpkgs bsp-layout linux cache (wave 4)
+  description: Nixpkgs leftover pname bsp-layout on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsp-layout"
+  - "$XDG_CACHE_HOME/bsp-layout"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsp-layout
+  name: Nixpkgs bsp-layout windows cache (wave 4)
+  description: Nixpkgs leftover pname bsp-layout on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsp-layout/Cache"
+  - "%LOCALAPPDATA%/bsp-layout/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspack
+  name: Nixpkgs bspack macos cache (wave 4)
+  description: Nixpkgs leftover pname bspack on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspack"
+  - "$HOME/Library/Logs/bspack"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspack
+  name: Nixpkgs bspack linux cache (wave 4)
+  description: Nixpkgs leftover pname bspack on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspack"
+  - "$XDG_CACHE_HOME/bspack"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspack
+  name: Nixpkgs bspack windows cache (wave 4)
+  description: Nixpkgs leftover pname bspack on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspack/Cache"
+  - "%LOCALAPPDATA%/bspack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsparse
+  name: Nixpkgs bsparse macos cache (wave 4)
+  description: Nixpkgs leftover pname bsparse on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsparse"
+  - "$HOME/Library/Logs/bsparse"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsparse
+  name: Nixpkgs bsparse linux cache (wave 4)
+  description: Nixpkgs leftover pname bsparse on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsparse"
+  - "$XDG_CACHE_HOME/bsparse"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsparse
+  name: Nixpkgs bsparse windows cache (wave 4)
+  description: Nixpkgs leftover pname bsparse on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsparse/Cache"
+  - "%LOCALAPPDATA%/bsparse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspcov
+  name: Nixpkgs bspcov macos cache (wave 4)
+  description: Nixpkgs leftover pname bspcov on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspcov"
+  - "$HOME/Library/Logs/bspcov"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspcov
+  name: Nixpkgs bspcov linux cache (wave 4)
+  description: Nixpkgs leftover pname bspcov on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspcov"
+  - "$XDG_CACHE_HOME/bspcov"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspcov
+  name: Nixpkgs bspcov windows cache (wave 4)
+  description: Nixpkgs leftover pname bspcov on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspcov/Cache"
+  - "%LOCALAPPDATA%/bspcov/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspec
+  name: Nixpkgs bspec macos cache (wave 4)
+  description: Nixpkgs leftover pname bspec on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspec"
+  - "$HOME/Library/Logs/bspec"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspec
+  name: Nixpkgs bspec linux cache (wave 4)
+  description: Nixpkgs leftover pname bspec on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspec"
+  - "$XDG_CACHE_HOME/bspec"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspec
+  name: Nixpkgs bspec windows cache (wave 4)
+  description: Nixpkgs leftover pname bspec on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspec/Cache"
+  - "%LOCALAPPDATA%/bspec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspline
+  name: Nixpkgs bspline macos cache (wave 4)
+  description: Nixpkgs leftover pname bspline on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspline"
+  - "$HOME/Library/Logs/bspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspline
+  name: Nixpkgs bspline linux cache (wave 4)
+  description: Nixpkgs leftover pname bspline on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspline"
+  - "$XDG_CACHE_HOME/bspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspline
+  name: Nixpkgs bspline windows cache (wave 4)
+  description: Nixpkgs leftover pname bspline on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspline/Cache"
+  - "%LOCALAPPDATA%/bspline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsplinepsd
+  name: Nixpkgs bsplinePsd macos cache (wave 4)
+  description: Nixpkgs leftover pname bsplinePsd on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsplinePsd"
+  - "$HOME/Library/Logs/bsplinePsd"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsplinepsd
+  name: Nixpkgs bsplinePsd linux cache (wave 4)
+  description: Nixpkgs leftover pname bsplinePsd on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsplinePsd"
+  - "$XDG_CACHE_HOME/bsplinePsd"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsplinepsd
+  name: Nixpkgs bsplinePsd windows cache (wave 4)
+  description: Nixpkgs leftover pname bsplinePsd on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsplinePsd/Cache"
+  - "%LOCALAPPDATA%/bsplinePsd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsplus
+  name: Nixpkgs bsplus macos cache (wave 4)
+  description: Nixpkgs leftover pname bsplus on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsplus"
+  - "$HOME/Library/Logs/bsplus"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsplus
+  name: Nixpkgs bsplus linux cache (wave 4)
+  description: Nixpkgs leftover pname bsplus on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsplus"
+  - "$XDG_CACHE_HOME/bsplus"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsplus
+  name: Nixpkgs bsplus windows cache (wave 4)
+  description: Nixpkgs leftover pname bsplus on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsplus/Cache"
+  - "%LOCALAPPDATA%/bsplus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspm
+  name: Nixpkgs bspm macos cache (wave 4)
+  description: Nixpkgs leftover pname bspm on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspm"
+  - "$HOME/Library/Logs/bspm"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspm
+  name: Nixpkgs bspm linux cache (wave 4)
+  description: Nixpkgs leftover pname bspm on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspm"
+  - "$XDG_CACHE_HOME/bspm"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspm
+  name: Nixpkgs bspm windows cache (wave 4)
+  description: Nixpkgs leftover pname bspm on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspm/Cache"
+  - "%LOCALAPPDATA%/bspm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspmma
+  name: Nixpkgs bspmma macos cache (wave 4)
+  description: Nixpkgs leftover pname bspmma on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspmma"
+  - "$HOME/Library/Logs/bspmma"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspmma
+  name: Nixpkgs bspmma linux cache (wave 4)
+  description: Nixpkgs leftover pname bspmma on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspmma"
+  - "$XDG_CACHE_HOME/bspmma"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspmma
+  name: Nixpkgs bspmma windows cache (wave 4)
+  description: Nixpkgs leftover pname bspmma on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspmma/Cache"
+  - "%LOCALAPPDATA%/bspmma/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bspwm
+  name: Nixpkgs bspwm macos cache (wave 4)
+  description: Nixpkgs leftover pname bspwm on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bspwm"
+  - "$HOME/Library/Logs/bspwm"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bspwm
+  name: Nixpkgs bspwm linux cache (wave 4)
+  description: Nixpkgs leftover pname bspwm on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bspwm"
+  - "$XDG_CACHE_HOME/bspwm"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bspwm
+  name: Nixpkgs bspwm windows cache (wave 4)
+  description: Nixpkgs leftover pname bspwm on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bspwm/Cache"
+  - "%LOCALAPPDATA%/bspwm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsreg
+  name: Nixpkgs bsreg macos cache (wave 4)
+  description: Nixpkgs leftover pname bsreg on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsreg"
+  - "$HOME/Library/Logs/bsreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsreg
+  name: Nixpkgs bsreg linux cache (wave 4)
+  description: Nixpkgs leftover pname bsreg on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsreg"
+  - "$XDG_CACHE_HOME/bsreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsreg
+  name: Nixpkgs bsreg windows cache (wave 4)
+  description: Nixpkgs leftover pname bsreg on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsreg/Cache"
+  - "%LOCALAPPDATA%/bsreg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bssbinom
+  name: Nixpkgs bssbinom macos cache (wave 4)
+  description: Nixpkgs leftover pname bssbinom on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bssbinom"
+  - "$HOME/Library/Logs/bssbinom"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bssbinom
+  name: Nixpkgs bssbinom linux cache (wave 4)
+  description: Nixpkgs leftover pname bssbinom on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bssbinom"
+  - "$XDG_CACHE_HOME/bssbinom"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bssbinom
+  name: Nixpkgs bssbinom windows cache (wave 4)
+  description: Nixpkgs leftover pname bssbinom on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bssbinom/Cache"
+  - "%LOCALAPPDATA%/bssbinom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsseq
+  name: Nixpkgs bsseq macos cache (wave 4)
+  description: Nixpkgs leftover pname bsseq on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsseq"
+  - "$HOME/Library/Logs/bsseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsseq
+  name: Nixpkgs bsseq linux cache (wave 4)
+  description: Nixpkgs leftover pname bsseq on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsseq"
+  - "$XDG_CACHE_HOME/bsseq"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsseq
+  name: Nixpkgs bsseq windows cache (wave 4)
+  description: Nixpkgs leftover pname bsseq on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsseq/Cache"
+  - "%LOCALAPPDATA%/bsseq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsseqdata
+  name: Nixpkgs bsseqData macos cache (wave 4)
+  description: Nixpkgs leftover pname bsseqData on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsseqData"
+  - "$HOME/Library/Logs/bsseqData"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsseqdata
+  name: Nixpkgs bsseqData linux cache (wave 4)
+  description: Nixpkgs leftover pname bsseqData on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsseqData"
+  - "$XDG_CACHE_HOME/bsseqData"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsseqdata
+  name: Nixpkgs bsseqData windows cache (wave 4)
+  description: Nixpkgs leftover pname bsseqData on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsseqData/Cache"
+  - "%LOCALAPPDATA%/bsseqData/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bssm
+  name: Nixpkgs bssm macos cache (wave 4)
+  description: Nixpkgs leftover pname bssm on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bssm"
+  - "$HOME/Library/Logs/bssm"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bssm
+  name: Nixpkgs bssm linux cache (wave 4)
+  description: Nixpkgs leftover pname bssm on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bssm"
+  - "$XDG_CACHE_HOME/bssm"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bssm
+  name: Nixpkgs bssm windows cache (wave 4)
+  description: Nixpkgs leftover pname bssm on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bssm/Cache"
+  - "%LOCALAPPDATA%/bssm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bssn
+  name: Nixpkgs bssn macos cache (wave 4)
+  description: Nixpkgs leftover pname bssn on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bssn"
+  - "$HOME/Library/Logs/bssn"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bssn
+  name: Nixpkgs bssn linux cache (wave 4)
+  description: Nixpkgs leftover pname bssn on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bssn"
+  - "$XDG_CACHE_HOME/bssn"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bssn
+  name: Nixpkgs bssn windows cache (wave 4)
+  description: Nixpkgs leftover pname bssn on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bssn/Cache"
+  - "%LOCALAPPDATA%/bssn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bst
+  name: Nixpkgs bst macos cache (wave 4)
+  description: Nixpkgs leftover pname bst on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bst"
+  - "$HOME/Library/Logs/bst"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bst
+  name: Nixpkgs bst linux cache (wave 4)
+  description: Nixpkgs leftover pname bst on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bst"
+  - "$XDG_CACHE_HOME/bst"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bst
+  name: Nixpkgs bst windows cache (wave 4)
+  description: Nixpkgs leftover pname bst on windows (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bst/Cache"
+  - "%LOCALAPPDATA%/bst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bstone
+  name: Nixpkgs bstone macos cache (wave 4)
+  description: Nixpkgs leftover pname bstone on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bstone"
+  - "$HOME/Library/Logs/bstone"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bstone
+  name: Nixpkgs bstone linux cache (wave 4)
+  description: Nixpkgs leftover pname bstone on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bstone"
+  - "$XDG_CACHE_HOME/bstone"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bstone
+  name: Nixpkgs bstone windows cache (wave 4)
+  description: Nixpkgs leftover pname bstone on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bstone/Cache"
+  - "%LOCALAPPDATA%/bstone/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bstr
+  name: Nixpkgs bstr macos cache (wave 4)
+  description: Nixpkgs leftover pname bstr on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bstr"
+  - "$HOME/Library/Logs/bstr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bstr
+  name: Nixpkgs bstr linux cache (wave 4)
+  description: Nixpkgs leftover pname bstr on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bstr"
+  - "$XDG_CACHE_HOME/bstr"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bstr
+  name: Nixpkgs bstr windows cache (wave 4)
+  description: Nixpkgs leftover pname bstr on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bstr/Cache"
+  - "%LOCALAPPDATA%/bstr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bstring
+  name: Nixpkgs bstring macos cache (wave 4)
+  description: Nixpkgs leftover pname bstring on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bstring"
+  - "$HOME/Library/Logs/bstring"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bstring
+  name: Nixpkgs bstring linux cache (wave 4)
+  description: Nixpkgs leftover pname bstring on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bstring"
+  - "$XDG_CACHE_HOME/bstring"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bstring
+  name: Nixpkgs bstring windows cache (wave 4)
+  description: Nixpkgs leftover pname bstring on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bstring/Cache"
+  - "%LOCALAPPDATA%/bstring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bstrl
+  name: Nixpkgs bstrl macos cache (wave 4)
+  description: Nixpkgs leftover pname bstrl on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bstrl"
+  - "$HOME/Library/Logs/bstrl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bstrl
+  name: Nixpkgs bstrl linux cache (wave 4)
+  description: Nixpkgs leftover pname bstrl on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bstrl"
+  - "$XDG_CACHE_HOME/bstrl"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bstrl
+  name: Nixpkgs bstrl windows cache (wave 4)
+  description: Nixpkgs leftover pname bstrl on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bstrl/Cache"
+  - "%LOCALAPPDATA%/bstrl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsts
+  name: Nixpkgs bsts macos cache (wave 4)
+  description: Nixpkgs leftover pname bsts on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsts"
+  - "$HOME/Library/Logs/bsts"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsts
+  name: Nixpkgs bsts linux cache (wave 4)
+  description: Nixpkgs leftover pname bsts on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsts"
+  - "$XDG_CACHE_HOME/bsts"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsts
+  name: Nixpkgs bsts windows cache (wave 4)
+  description: Nixpkgs leftover pname bsts on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsts/Cache"
+  - "%LOCALAPPDATA%/bsts/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsub
+  name: Nixpkgs bsub macos cache (wave 4)
+  description: Nixpkgs leftover pname bsub on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsub"
+  - "$HOME/Library/Logs/bsub"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsub
+  name: Nixpkgs bsub linux cache (wave 4)
+  description: Nixpkgs leftover pname bsub on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsub"
+  - "$XDG_CACHE_HOME/bsub"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsub
+  name: Nixpkgs bsub windows cache (wave 4)
+  description: Nixpkgs leftover pname bsub on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsub/Cache"
+  - "%LOCALAPPDATA%/bsub/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsubtiliscdf
+  name: Nixpkgs bsubtiliscdf macos cache (wave 4)
+  description: Nixpkgs leftover pname bsubtiliscdf on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsubtiliscdf"
+  - "$HOME/Library/Logs/bsubtiliscdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsubtiliscdf
+  name: Nixpkgs bsubtiliscdf linux cache (wave 4)
+  description: Nixpkgs leftover pname bsubtiliscdf on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsubtiliscdf"
+  - "$XDG_CACHE_HOME/bsubtiliscdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsubtiliscdf
+  name: Nixpkgs bsubtiliscdf windows cache (wave 4)
+  description: Nixpkgs leftover pname bsubtiliscdf on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsubtiliscdf/Cache"
+  - "%LOCALAPPDATA%/bsubtiliscdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsubtilisprobe
+  name: Nixpkgs bsubtilisprobe macos cache (wave 4)
+  description: Nixpkgs leftover pname bsubtilisprobe on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsubtilisprobe"
+  - "$HOME/Library/Logs/bsubtilisprobe"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsubtilisprobe
+  name: Nixpkgs bsubtilisprobe linux cache (wave 4)
+  description: Nixpkgs leftover pname bsubtilisprobe on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsubtilisprobe"
+  - "$XDG_CACHE_HOME/bsubtilisprobe"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsubtilisprobe
+  name: Nixpkgs bsubtilisprobe windows cache (wave 4)
+  description: Nixpkgs leftover pname bsubtilisprobe on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsubtilisprobe/Cache"
+  - "%LOCALAPPDATA%/bsubtilisprobe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsuite
+  name: Nixpkgs bsuite macos cache (wave 4)
+  description: Nixpkgs leftover pname bsuite on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsuite"
+  - "$HOME/Library/Logs/bsuite"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsuite
+  name: Nixpkgs bsuite linux cache (wave 4)
+  description: Nixpkgs leftover pname bsuite on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsuite"
+  - "$XDG_CACHE_HOME/bsuite"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsuite
+  name: Nixpkgs bsuite windows cache (wave 4)
+  description: Nixpkgs leftover pname bsuite on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsuite/Cache"
+  - "%LOCALAPPDATA%/bsuite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsull-console-datasource
+  name: Nixpkgs bsull-console-datasource macos cache (wave 4)
+  description: Nixpkgs leftover pname bsull-console-datasource on macos (wave 4).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsull-console-datasource"
+  - "$HOME/Library/Logs/bsull-console-datasource"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsull-console-datasource
+  name: Nixpkgs bsull-console-datasource linux cache (wave 4)
+  description: Nixpkgs leftover pname bsull-console-datasource on linux (wave 4).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsull-console-datasource"
+  - "$XDG_CACHE_HOME/bsull-console-datasource"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsull-console-datasource
+  name: Nixpkgs bsull-console-datasource windows cache (wave 4)
+  description: Nixpkgs leftover pname bsull-console-datasource on windows (wave 4).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsull-console-datasource/Cache"
+  - "%LOCALAPPDATA%/bsull-console-datasource/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsvarsigns
+  name: Nixpkgs bsvarSIGNs macos cache (wave 4)
+  description: Nixpkgs leftover pname bsvarSIGNs on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsvarSIGNs"
+  - "$HOME/Library/Logs/bsvarSIGNs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsvarsigns
+  name: Nixpkgs bsvarSIGNs linux cache (wave 4)
+  description: Nixpkgs leftover pname bsvarSIGNs on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsvarSIGNs"
+  - "$XDG_CACHE_HOME/bsvarSIGNs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsvarsigns
+  name: Nixpkgs bsvarSIGNs windows cache (wave 4)
+  description: Nixpkgs leftover pname bsvarSIGNs on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsvarSIGNs/Cache"
+  - "%LOCALAPPDATA%/bsvarSIGNs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsvars
+  name: Nixpkgs bsvars macos cache (wave 4)
+  description: Nixpkgs leftover pname bsvars on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsvars"
+  - "$HOME/Library/Logs/bsvars"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsvars
+  name: Nixpkgs bsvars linux cache (wave 4)
+  description: Nixpkgs leftover pname bsvars on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsvars"
+  - "$XDG_CACHE_HOME/bsvars"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsvars
+  name: Nixpkgs bsvars windows cache (wave 4)
+  description: Nixpkgs leftover pname bsvars on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsvars/Cache"
+  - "%LOCALAPPDATA%/bsvars/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsync
+  name: Nixpkgs bsync macos cache (wave 4)
+  description: Nixpkgs leftover pname bsync on macos (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsync"
+  - "$HOME/Library/Logs/bsync"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsync
+  name: Nixpkgs bsync linux cache (wave 4)
+  description: Nixpkgs leftover pname bsync on linux (wave 4). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsync"
+  - "$XDG_CACHE_HOME/bsync"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsync
+  name: Nixpkgs bsync windows cache (wave 4)
+  description: Nixpkgs leftover pname bsync on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsync/Cache"
+  - "%LOCALAPPDATA%/bsync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bsynth
+  name: Nixpkgs bsynth macos cache (wave 4)
+  description: Nixpkgs leftover pname bsynth on macos (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bsynth"
+  - "$HOME/Library/Logs/bsynth"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bsynth
+  name: Nixpkgs bsynth linux cache (wave 4)
+  description: Nixpkgs leftover pname bsynth on linux (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bsynth"
+  - "$XDG_CACHE_HOME/bsynth"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bsynth
+  name: Nixpkgs bsynth windows cache (wave 4)
+  description: Nixpkgs leftover pname bsynth on windows (wave 4). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bsynth/Cache"
+  - "%LOCALAPPDATA%/bsynth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bt-decode
+  name: Nixpkgs bt-decode macos cache (wave 4)
+  description: Nixpkgs leftover pname bt-decode on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bt-decode"
+  - "$HOME/Library/Logs/bt-decode"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bt-decode
+  name: Nixpkgs bt-decode linux cache (wave 4)
+  description: Nixpkgs leftover pname bt-decode on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bt-decode"
+  - "$XDG_CACHE_HOME/bt-decode"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bt-decode
+  name: Nixpkgs bt-decode windows cache (wave 4)
+  description: Nixpkgs leftover pname bt-decode on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bt-decode/Cache"
+  - "%LOCALAPPDATA%/bt-decode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bt-fw-converter
+  name: Nixpkgs bt-fw-converter macos cache (wave 4)
+  description: Nixpkgs leftover pname bt-fw-converter on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bt-fw-converter"
+  - "$HOME/Library/Logs/bt-fw-converter"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bt-fw-converter
+  name: Nixpkgs bt-fw-converter linux cache (wave 4)
+  description: Nixpkgs leftover pname bt-fw-converter on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bt-fw-converter"
+  - "$XDG_CACHE_HOME/bt-fw-converter"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bt-fw-converter
+  name: Nixpkgs bt-fw-converter windows cache (wave 4)
+  description: Nixpkgs leftover pname bt-fw-converter on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bt-fw-converter/Cache"
+  - "%LOCALAPPDATA%/bt-fw-converter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bt-migrate
+  name: Nixpkgs bt-migrate macos cache (wave 4)
+  description: Nixpkgs leftover pname bt-migrate on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bt-migrate"
+  - "$HOME/Library/Logs/bt-migrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bt-migrate
+  name: Nixpkgs bt-migrate linux cache (wave 4)
+  description: Nixpkgs leftover pname bt-migrate on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bt-migrate"
+  - "$XDG_CACHE_HOME/bt-migrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bt-migrate
+  name: Nixpkgs bt-migrate windows cache (wave 4)
+  description: Nixpkgs leftover pname bt-migrate on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bt-migrate/Cache"
+  - "%LOCALAPPDATA%/bt-migrate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bt-proximity
+  name: Nixpkgs bt-proximity macos cache (wave 4)
+  description: Nixpkgs leftover pname bt-proximity on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bt-proximity"
+  - "$HOME/Library/Logs/bt-proximity"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-lin-bt-proximity
+  name: Nixpkgs bt-proximity linux cache (wave 4)
+  description: Nixpkgs leftover pname bt-proximity on linux (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/bt-proximity"
+  - "$XDG_CACHE_HOME/bt-proximity"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-win-bt-proximity
+  name: Nixpkgs bt-proximity windows cache (wave 4)
+  description: Nixpkgs leftover pname bt-proximity on windows (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/bt-proximity/Cache"
+  - "%LOCALAPPDATA%/bt-proximity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np4-mac-bt-semaphore
+  name: Nixpkgs bt-semaphore macos cache (wave 4)
+  description: Nixpkgs leftover pname bt-semaphore on macos (wave 4). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/bt-semaphore"
+  - "$HOME/Library/Logs/bt-semaphore"
+  delete_mode: contents
+  max_depth: 6

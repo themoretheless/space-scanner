@@ -1,0 +1,5588 @@
+---
+pack: src-iter20-13
+description: Iterative 10k import wave 20 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np20-mac-orchestrate
+  name: Nixpkgs orchestrate macos cache (wave 20)
+  description: Nixpkgs leftover pname orchestrate on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orchestrate"
+  - "$HOME/Library/Logs/orchestrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orchestrate
+  name: Nixpkgs orchestrate linux cache (wave 20)
+  description: Nixpkgs leftover pname orchestrate on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orchestrate"
+  - "$XDG_CACHE_HOME/orchestrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orchestrate
+  name: Nixpkgs orchestrate windows cache (wave 20)
+  description: Nixpkgs leftover pname orchestrate on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orchestrate/Cache"
+  - "%LOCALAPPDATA%/orchestrate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orchid
+  name: Nixpkgs orchid macos cache (wave 20)
+  description: Nixpkgs leftover pname orchid on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orchid"
+  - "$HOME/Library/Logs/orchid"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orchid
+  name: Nixpkgs orchid linux cache (wave 20)
+  description: Nixpkgs leftover pname orchid on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orchid"
+  - "$XDG_CACHE_HOME/orchid"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orchid
+  name: Nixpkgs orchid windows cache (wave 20)
+  description: Nixpkgs leftover pname orchid on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orchid/Cache"
+  - "%LOCALAPPDATA%/orchid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orchid-demo
+  name: Nixpkgs orchid-demo macos cache (wave 20)
+  description: Nixpkgs leftover pname orchid-demo on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orchid-demo"
+  - "$HOME/Library/Logs/orchid-demo"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orchid-demo
+  name: Nixpkgs orchid-demo linux cache (wave 20)
+  description: Nixpkgs leftover pname orchid-demo on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orchid-demo"
+  - "$XDG_CACHE_HOME/orchid-demo"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orchid-demo
+  name: Nixpkgs orchid-demo windows cache (wave 20)
+  description: Nixpkgs leftover pname orchid-demo on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orchid-demo/Cache"
+  - "%LOCALAPPDATA%/orchid-demo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orchis-theme
+  name: Nixpkgs orchis-theme macos cache (wave 20)
+  description: Nixpkgs leftover pname orchis-theme on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orchis-theme"
+  - "$HOME/Library/Logs/orchis-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orchis-theme
+  name: Nixpkgs orchis-theme linux cache (wave 20)
+  description: Nixpkgs leftover pname orchis-theme on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orchis-theme"
+  - "$XDG_CACHE_HOME/orchis-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orchis-theme
+  name: Nixpkgs orchis-theme windows cache (wave 20)
+  description: Nixpkgs leftover pname orchis-theme on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orchis-theme/Cache"
+  - "%LOCALAPPDATA%/orchis-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orcidlink
+  name: Nixpkgs orcidlink macos cache (wave 20)
+  description: Nixpkgs leftover pname orcidlink on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orcidlink"
+  - "$HOME/Library/Logs/orcidlink"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orcidlink
+  name: Nixpkgs orcidlink linux cache (wave 20)
+  description: Nixpkgs leftover pname orcidlink on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orcidlink"
+  - "$XDG_CACHE_HOME/orcidlink"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orcidlink
+  name: Nixpkgs orcidlink windows cache (wave 20)
+  description: Nixpkgs leftover pname orcidlink on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orcidlink/Cache"
+  - "%LOCALAPPDATA%/orcidlink/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orcidtr
+  name: Nixpkgs orcidtr macos cache (wave 20)
+  description: Nixpkgs leftover pname orcidtr on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orcidtr"
+  - "$HOME/Library/Logs/orcidtr"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orcidtr
+  name: Nixpkgs orcidtr linux cache (wave 20)
+  description: Nixpkgs leftover pname orcidtr on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orcidtr"
+  - "$XDG_CACHE_HOME/orcidtr"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orcidtr
+  name: Nixpkgs orcidtr windows cache (wave 20)
+  description: Nixpkgs leftover pname orcidtr on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orcidtr/Cache"
+  - "%LOCALAPPDATA%/orcidtr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orclus
+  name: Nixpkgs orclus macos cache (wave 20)
+  description: Nixpkgs leftover pname orclus on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orclus"
+  - "$HOME/Library/Logs/orclus"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orclus
+  name: Nixpkgs orclus linux cache (wave 20)
+  description: Nixpkgs leftover pname orclus on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orclus"
+  - "$XDG_CACHE_HOME/orclus"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orclus
+  name: Nixpkgs orclus windows cache (wave 20)
+  description: Nixpkgs leftover pname orclus on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orclus/Cache"
+  - "%LOCALAPPDATA%/orclus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orcutt
+  name: Nixpkgs orcutt macos cache (wave 20)
+  description: Nixpkgs leftover pname orcutt on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orcutt"
+  - "$HOME/Library/Logs/orcutt"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orcutt
+  name: Nixpkgs orcutt linux cache (wave 20)
+  description: Nixpkgs leftover pname orcutt on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orcutt"
+  - "$XDG_CACHE_HOME/orcutt"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orcutt
+  name: Nixpkgs orcutt windows cache (wave 20)
+  description: Nixpkgs leftover pname orcutt on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orcutt/Cache"
+  - "%LOCALAPPDATA%/orcutt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ord
+  name: Nixpkgs ord macos cache (wave 20)
+  description: Nixpkgs leftover pname ord on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ord"
+  - "$HOME/Library/Logs/ord"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ord
+  name: Nixpkgs ord linux cache (wave 20)
+  description: Nixpkgs leftover pname ord on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ord"
+  - "$XDG_CACHE_HOME/ord"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ord
+  name: Nixpkgs ord windows cache (wave 20)
+  description: Nixpkgs leftover pname ord on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ord/Cache"
+  - "%LOCALAPPDATA%/ord/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ord-adhoc
+  name: Nixpkgs ord-adhoc macos cache (wave 20)
+  description: Nixpkgs leftover pname ord-adhoc on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ord-adhoc"
+  - "$HOME/Library/Logs/ord-adhoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ord-adhoc
+  name: Nixpkgs ord-adhoc linux cache (wave 20)
+  description: Nixpkgs leftover pname ord-adhoc on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ord-adhoc"
+  - "$XDG_CACHE_HOME/ord-adhoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ord-adhoc
+  name: Nixpkgs ord-adhoc windows cache (wave 20)
+  description: Nixpkgs leftover pname ord-adhoc on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ord-adhoc/Cache"
+  - "%LOCALAPPDATA%/ord-adhoc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ord-axiomata
+  name: Nixpkgs ord-axiomata macos cache (wave 20)
+  description: Nixpkgs leftover pname ord-axiomata on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ord-axiomata"
+  - "$HOME/Library/Logs/ord-axiomata"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ord-axiomata
+  name: Nixpkgs ord-axiomata linux cache (wave 20)
+  description: Nixpkgs leftover pname ord-axiomata on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ord-axiomata"
+  - "$XDG_CACHE_HOME/ord-axiomata"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ord-axiomata
+  name: Nixpkgs ord-axiomata windows cache (wave 20)
+  description: Nixpkgs leftover pname ord-axiomata on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ord-axiomata/Cache"
+  - "%LOCALAPPDATA%/ord-axiomata/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orddisp
+  name: Nixpkgs ordDisp macos cache (wave 20)
+  description: Nixpkgs leftover pname ordDisp on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordDisp"
+  - "$HOME/Library/Logs/ordDisp"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orddisp
+  name: Nixpkgs ordDisp linux cache (wave 20)
+  description: Nixpkgs leftover pname ordDisp on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordDisp"
+  - "$XDG_CACHE_HOME/ordDisp"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orddisp
+  name: Nixpkgs ordDisp windows cache (wave 20)
+  description: Nixpkgs leftover pname ordDisp on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordDisp/Cache"
+  - "%LOCALAPPDATA%/ordDisp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordpanel
+  name: Nixpkgs ordPanel macos cache (wave 20)
+  description: Nixpkgs leftover pname ordPanel on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordPanel"
+  - "$HOME/Library/Logs/ordPanel"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordpanel
+  name: Nixpkgs ordPanel linux cache (wave 20)
+  description: Nixpkgs leftover pname ordPanel on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordPanel"
+  - "$XDG_CACHE_HOME/ordPanel"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordpanel
+  name: Nixpkgs ordPanel windows cache (wave 20)
+  description: Nixpkgs leftover pname ordPanel on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordPanel/Cache"
+  - "%LOCALAPPDATA%/ordPanel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordpens
+  name: Nixpkgs ordPens macos cache (wave 20)
+  description: Nixpkgs leftover pname ordPens on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordPens"
+  - "$HOME/Library/Logs/ordPens"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordpens
+  name: Nixpkgs ordPens linux cache (wave 20)
+  description: Nixpkgs leftover pname ordPens on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordPens"
+  - "$XDG_CACHE_HOME/ordPens"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordpens
+  name: Nixpkgs ordPens windows cache (wave 20)
+  description: Nixpkgs leftover pname ordPens on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordPens/Cache"
+  - "%LOCALAPPDATA%/ordPens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordbetareg
+  name: Nixpkgs ordbetareg macos cache (wave 20)
+  description: Nixpkgs leftover pname ordbetareg on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordbetareg"
+  - "$HOME/Library/Logs/ordbetareg"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordbetareg
+  name: Nixpkgs ordbetareg linux cache (wave 20)
+  description: Nixpkgs leftover pname ordbetareg on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordbetareg"
+  - "$XDG_CACHE_HOME/ordbetareg"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordbetareg
+  name: Nixpkgs ordbetareg windows cache (wave 20)
+  description: Nixpkgs leftover pname ordbetareg on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordbetareg/Cache"
+  - "%LOCALAPPDATA%/ordbetareg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordcrm
+  name: Nixpkgs ordcrm macos cache (wave 20)
+  description: Nixpkgs leftover pname ordcrm on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordcrm"
+  - "$HOME/Library/Logs/ordcrm"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordcrm
+  name: Nixpkgs ordcrm linux cache (wave 20)
+  description: Nixpkgs leftover pname ordcrm on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordcrm"
+  - "$XDG_CACHE_HOME/ordcrm"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordcrm
+  name: Nixpkgs ordcrm windows cache (wave 20)
+  description: Nixpkgs leftover pname ordcrm on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordcrm/Cache"
+  - "%LOCALAPPDATA%/ordcrm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-order-maintenance
+  name: Nixpkgs order-maintenance macos cache (wave 20)
+  description: Nixpkgs leftover pname order-maintenance on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/order-maintenance"
+  - "$HOME/Library/Logs/order-maintenance"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-order-maintenance
+  name: Nixpkgs order-maintenance linux cache (wave 20)
+  description: Nixpkgs leftover pname order-maintenance on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/order-maintenance"
+  - "$XDG_CACHE_HOME/order-maintenance"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-order-maintenance
+  name: Nixpkgs order-maintenance windows cache (wave 20)
+  description: Nixpkgs leftover pname order-maintenance on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/order-maintenance/Cache"
+  - "%LOCALAPPDATA%/order-maintenance/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-order-statistic-tree
+  name: Nixpkgs order-statistic-tree macos cache (wave 20)
+  description: Nixpkgs leftover pname order-statistic-tree on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/order-statistic-tree"
+  - "$HOME/Library/Logs/order-statistic-tree"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-order-statistic-tree
+  name: Nixpkgs order-statistic-tree linux cache (wave 20)
+  description: Nixpkgs leftover pname order-statistic-tree on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/order-statistic-tree"
+  - "$XDG_CACHE_HOME/order-statistic-tree"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-order-statistic-tree
+  name: Nixpkgs order-statistic-tree windows cache (wave 20)
+  description: Nixpkgs leftover pname order-statistic-tree on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/order-statistic-tree/Cache"
+  - "%LOCALAPPDATA%/order-statistic-tree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-order-statistics
+  name: Nixpkgs order-statistics macos cache (wave 20)
+  description: Nixpkgs leftover pname order-statistics on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/order-statistics"
+  - "$HOME/Library/Logs/order-statistics"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-order-statistics
+  name: Nixpkgs order-statistics linux cache (wave 20)
+  description: Nixpkgs leftover pname order-statistics on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/order-statistics"
+  - "$XDG_CACHE_HOME/order-statistics"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-order-statistics
+  name: Nixpkgs order-statistics windows cache (wave 20)
+  description: Nixpkgs leftover pname order-statistics on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/order-statistics/Cache"
+  - "%LOCALAPPDATA%/order-statistics/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderanalyzer
+  name: Nixpkgs orderanalyzer macos cache (wave 20)
+  description: Nixpkgs leftover pname orderanalyzer on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderanalyzer"
+  - "$HOME/Library/Logs/orderanalyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderanalyzer
+  name: Nixpkgs orderanalyzer linux cache (wave 20)
+  description: Nixpkgs leftover pname orderanalyzer on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderanalyzer"
+  - "$XDG_CACHE_HOME/orderanalyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderanalyzer
+  name: Nixpkgs orderanalyzer windows cache (wave 20)
+  description: Nixpkgs leftover pname orderanalyzer on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderanalyzer/Cache"
+  - "%LOCALAPPDATA%/orderanalyzer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderbook
+  name: Nixpkgs orderbook macos cache (wave 20)
+  description: Nixpkgs leftover pname orderbook on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderbook"
+  - "$HOME/Library/Logs/orderbook"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderbook
+  name: Nixpkgs orderbook linux cache (wave 20)
+  description: Nixpkgs leftover pname orderbook on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderbook"
+  - "$XDG_CACHE_HOME/orderbook"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderbook
+  name: Nixpkgs orderbook windows cache (wave 20)
+  description: Nixpkgs leftover pname orderbook on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderbook/Cache"
+  - "%LOCALAPPDATA%/orderbook/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordered
+  name: Nixpkgs ordered macos cache (wave 20)
+  description: Nixpkgs leftover pname ordered on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordered"
+  - "$HOME/Library/Logs/ordered"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordered
+  name: Nixpkgs ordered linux cache (wave 20)
+  description: Nixpkgs leftover pname ordered on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordered"
+  - "$XDG_CACHE_HOME/ordered"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordered
+  name: Nixpkgs ordered windows cache (wave 20)
+  description: Nixpkgs leftover pname ordered on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordered/Cache"
+  - "%LOCALAPPDATA%/ordered/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordered-containers
+  name: Nixpkgs ordered-containers macos cache (wave 20)
+  description: Nixpkgs leftover pname ordered-containers on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordered-containers"
+  - "$HOME/Library/Logs/ordered-containers"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordered-containers
+  name: Nixpkgs ordered-containers linux cache (wave 20)
+  description: Nixpkgs leftover pname ordered-containers on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordered-containers"
+  - "$XDG_CACHE_HOME/ordered-containers"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordered-containers
+  name: Nixpkgs ordered-containers windows cache (wave 20)
+  description: Nixpkgs leftover pname ordered-containers on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordered-containers/Cache"
+  - "%LOCALAPPDATA%/ordered-containers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordered-set
+  name: Nixpkgs ordered-set macos cache (wave 20)
+  description: Nixpkgs leftover pname ordered-set on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordered-set"
+  - "$HOME/Library/Logs/ordered-set"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordered-set
+  name: Nixpkgs ordered-set linux cache (wave 20)
+  description: Nixpkgs leftover pname ordered-set on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordered-set"
+  - "$XDG_CACHE_HOME/ordered-set"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordered-set
+  name: Nixpkgs ordered-set windows cache (wave 20)
+  description: Nixpkgs leftover pname ordered-set on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordered-set/Cache"
+  - "%LOCALAPPDATA%/ordered-set/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderedmultidict
+  name: Nixpkgs orderedmultidict macos cache (wave 20)
+  description: Nixpkgs leftover pname orderedmultidict on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderedmultidict"
+  - "$HOME/Library/Logs/orderedmultidict"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderedmultidict
+  name: Nixpkgs orderedmultidict linux cache (wave 20)
+  description: Nixpkgs leftover pname orderedmultidict on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderedmultidict"
+  - "$XDG_CACHE_HOME/orderedmultidict"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderedmultidict
+  name: Nixpkgs orderedmultidict windows cache (wave 20)
+  description: Nixpkgs leftover pname orderedmultidict on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderedmultidict/Cache"
+  - "%LOCALAPPDATA%/orderedmultidict/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordering
+  name: Nixpkgs ordering macos cache (wave 20)
+  description: Nixpkgs leftover pname ordering on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordering"
+  - "$HOME/Library/Logs/ordering"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordering
+  name: Nixpkgs ordering linux cache (wave 20)
+  description: Nixpkgs leftover pname ordering on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordering"
+  - "$XDG_CACHE_HOME/ordering"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordering
+  name: Nixpkgs ordering windows cache (wave 20)
+  description: Nixpkgs leftover pname ordering on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordering/Cache"
+  - "%LOCALAPPDATA%/ordering/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordering-duplicates
+  name: Nixpkgs ordering-duplicates macos cache (wave 20)
+  description: Nixpkgs leftover pname ordering-duplicates on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordering-duplicates"
+  - "$HOME/Library/Logs/ordering-duplicates"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordering-duplicates
+  name: Nixpkgs ordering-duplicates linux cache (wave 20)
+  description: Nixpkgs leftover pname ordering-duplicates on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordering-duplicates"
+  - "$XDG_CACHE_HOME/ordering-duplicates"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordering-duplicates
+  name: Nixpkgs ordering-duplicates windows cache (wave 20)
+  description: Nixpkgs leftover pname ordering-duplicates on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordering-duplicates/Cache"
+  - "%LOCALAPPDATA%/ordering-duplicates/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordering-util
+  name: Nixpkgs ordering-util macos cache (wave 20)
+  description: Nixpkgs leftover pname ordering-util on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordering-util"
+  - "$HOME/Library/Logs/ordering-util"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordering-util
+  name: Nixpkgs ordering-util linux cache (wave 20)
+  description: Nixpkgs leftover pname ordering-util on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordering-util"
+  - "$XDG_CACHE_HOME/ordering-util"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordering-util
+  name: Nixpkgs ordering-util windows cache (wave 20)
+  description: Nixpkgs leftover pname ordering-util on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordering-util/Cache"
+  - "%LOCALAPPDATA%/ordering-util/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderless
+  name: Nixpkgs orderless macos cache (wave 20)
+  description: Nixpkgs leftover pname orderless on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderless"
+  - "$HOME/Library/Logs/orderless"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderless
+  name: Nixpkgs orderless linux cache (wave 20)
+  description: Nixpkgs leftover pname orderless on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderless"
+  - "$XDG_CACHE_HOME/orderless"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderless
+  name: Nixpkgs orderless windows cache (wave 20)
+  description: Nixpkgs leftover pname orderless on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderless/Cache"
+  - "%LOCALAPPDATA%/orderless/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderly
+  name: Nixpkgs orderly macos cache (wave 20)
+  description: Nixpkgs leftover pname orderly on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderly"
+  - "$HOME/Library/Logs/orderly"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderly
+  name: Nixpkgs orderly linux cache (wave 20)
+  description: Nixpkgs leftover pname orderly on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderly"
+  - "$XDG_CACHE_HOME/orderly"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderly
+  name: Nixpkgs orderly windows cache (wave 20)
+  description: Nixpkgs leftover pname orderly on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderly/Cache"
+  - "%LOCALAPPDATA%/orderly/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderly-set
+  name: Nixpkgs orderly-set macos cache (wave 20)
+  description: Nixpkgs leftover pname orderly-set on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderly-set"
+  - "$HOME/Library/Logs/orderly-set"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderly-set
+  name: Nixpkgs orderly-set linux cache (wave 20)
+  description: Nixpkgs leftover pname orderly-set on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderly-set"
+  - "$XDG_CACHE_HOME/orderly-set"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderly-set
+  name: Nixpkgs orderly-set windows cache (wave 20)
+  description: Nixpkgs leftover pname orderly-set on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderly-set/Cache"
+  - "%LOCALAPPDATA%/orderly-set/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderly-workers
+  name: Nixpkgs orderly-workers macos cache (wave 20)
+  description: Nixpkgs leftover pname orderly-workers on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderly-workers"
+  - "$HOME/Library/Logs/orderly-workers"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderly-workers
+  name: Nixpkgs orderly-workers linux cache (wave 20)
+  description: Nixpkgs leftover pname orderly-workers on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderly-workers"
+  - "$XDG_CACHE_HOME/orderly-workers"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderly-workers
+  name: Nixpkgs orderly-workers windows cache (wave 20)
+  description: Nixpkgs leftover pname orderly-workers on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderly-workers/Cache"
+  - "%LOCALAPPDATA%/orderly-workers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orders
+  name: Nixpkgs orders macos cache (wave 20)
+  description: Nixpkgs leftover pname orders on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orders"
+  - "$HOME/Library/Logs/orders"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orders
+  name: Nixpkgs orders linux cache (wave 20)
+  description: Nixpkgs leftover pname orders on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orders"
+  - "$XDG_CACHE_HOME/orders"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orders
+  name: Nixpkgs orders windows cache (wave 20)
+  description: Nixpkgs leftover pname orders on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orders/Cache"
+  - "%LOCALAPPDATA%/orders/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orderstats
+  name: Nixpkgs orderstats macos cache (wave 20)
+  description: Nixpkgs leftover pname orderstats on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orderstats"
+  - "$HOME/Library/Logs/orderstats"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orderstats
+  name: Nixpkgs orderstats linux cache (wave 20)
+  description: Nixpkgs leftover pname orderstats on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orderstats"
+  - "$XDG_CACHE_HOME/orderstats"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orderstats
+  name: Nixpkgs orderstats windows cache (wave 20)
+  description: Nixpkgs leftover pname orderstats on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orderstats/Cache"
+  - "%LOCALAPPDATA%/orderstats/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordgam
+  name: Nixpkgs ordgam macos cache (wave 20)
+  description: Nixpkgs leftover pname ordgam on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordgam"
+  - "$HOME/Library/Logs/ordgam"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordgam
+  name: Nixpkgs ordgam linux cache (wave 20)
+  description: Nixpkgs leftover pname ordgam on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordgam"
+  - "$XDG_CACHE_HOME/ordgam"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordgam
+  name: Nixpkgs ordgam windows cache (wave 20)
+  description: Nixpkgs leftover pname ordgam on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordgam/Cache"
+  - "%LOCALAPPDATA%/ordgam/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordibreadth
+  name: Nixpkgs ordiBreadth macos cache (wave 20)
+  description: Nixpkgs leftover pname ordiBreadth on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordiBreadth"
+  - "$HOME/Library/Logs/ordiBreadth"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordibreadth
+  name: Nixpkgs ordiBreadth linux cache (wave 20)
+  description: Nixpkgs leftover pname ordiBreadth on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordiBreadth"
+  - "$XDG_CACHE_HOME/ordiBreadth"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordibreadth
+  name: Nixpkgs ordiBreadth windows cache (wave 20)
+  description: Nixpkgs leftover pname ordiBreadth on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordiBreadth/Cache"
+  - "%LOCALAPPDATA%/ordiBreadth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalclust
+  name: Nixpkgs ordinalClust macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalClust on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalClust"
+  - "$HOME/Library/Logs/ordinalClust"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalclust
+  name: Nixpkgs ordinalClust linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalClust on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalClust"
+  - "$XDG_CACHE_HOME/ordinalClust"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalclust
+  name: Nixpkgs ordinalClust windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalClust on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalClust/Cache"
+  - "%LOCALAPPDATA%/ordinalClust/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalcont
+  name: Nixpkgs ordinalCont macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalCont on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalCont"
+  - "$HOME/Library/Logs/ordinalCont"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalcont
+  name: Nixpkgs ordinalCont linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalCont on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalCont"
+  - "$XDG_CACHE_HOME/ordinalCont"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalcont
+  name: Nixpkgs ordinalCont windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalCont on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalCont/Cache"
+  - "%LOCALAPPDATA%/ordinalCont/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalforest
+  name: Nixpkgs ordinalForest macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalForest on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalForest"
+  - "$HOME/Library/Logs/ordinalForest"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalforest
+  name: Nixpkgs ordinalForest linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalForest on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalForest"
+  - "$XDG_CACHE_HOME/ordinalForest"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalforest
+  name: Nixpkgs ordinalForest windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalForest on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalForest/Cache"
+  - "%LOCALAPPDATA%/ordinalForest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalgof
+  name: Nixpkgs ordinalGOF macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalGOF on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalGOF"
+  - "$HOME/Library/Logs/ordinalGOF"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalgof
+  name: Nixpkgs ordinalGOF linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalGOF on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalGOF"
+  - "$XDG_CACHE_HOME/ordinalGOF"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalgof
+  name: Nixpkgs ordinalGOF windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalGOF on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalGOF/Cache"
+  - "%LOCALAPPDATA%/ordinalGOF/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinallbm
+  name: Nixpkgs ordinalLBM macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalLBM on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalLBM"
+  - "$HOME/Library/Logs/ordinalLBM"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinallbm
+  name: Nixpkgs ordinalLBM linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalLBM on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalLBM"
+  - "$XDG_CACHE_HOME/ordinalLBM"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinallbm
+  name: Nixpkgs ordinalLBM windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalLBM on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalLBM/Cache"
+  - "%LOCALAPPDATA%/ordinalLBM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalnet
+  name: Nixpkgs ordinalNet macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalNet on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalNet"
+  - "$HOME/Library/Logs/ordinalNet"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalnet
+  name: Nixpkgs ordinalNet linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalNet on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalNet"
+  - "$XDG_CACHE_HOME/ordinalNet"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalnet
+  name: Nixpkgs ordinalNet windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalNet on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalNet/Cache"
+  - "%LOCALAPPDATA%/ordinalNet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalrr
+  name: Nixpkgs ordinalRR macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalRR on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalRR"
+  - "$HOME/Library/Logs/ordinalRR"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalrr
+  name: Nixpkgs ordinalRR linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalRR on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalRR"
+  - "$XDG_CACHE_HOME/ordinalRR"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalrr
+  name: Nixpkgs ordinalRR windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalRR on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalRR/Cache"
+  - "%LOCALAPPDATA%/ordinalRR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinaltables
+  name: Nixpkgs ordinalTables macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalTables on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalTables"
+  - "$HOME/Library/Logs/ordinalTables"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinaltables
+  name: Nixpkgs ordinalTables linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalTables on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalTables"
+  - "$XDG_CACHE_HOME/ordinalTables"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinaltables
+  name: Nixpkgs ordinalTables windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalTables on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalTables/Cache"
+  - "%LOCALAPPDATA%/ordinalTables/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinal-abbreviation
+  name: Nixpkgs ordinal_abbreviation macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinal_abbreviation on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinal_abbreviation"
+  - "$HOME/Library/Logs/ordinal_abbreviation"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinal-abbreviation
+  name: Nixpkgs ordinal_abbreviation linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinal_abbreviation on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinal_abbreviation"
+  - "$XDG_CACHE_HOME/ordinal_abbreviation"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinal-abbreviation
+  name: Nixpkgs ordinal_abbreviation windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinal_abbreviation on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinal_abbreviation/Cache"
+  - "%LOCALAPPDATA%/ordinal_abbreviation/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalbayes
+  name: Nixpkgs ordinalbayes macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalbayes on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalbayes"
+  - "$HOME/Library/Logs/ordinalbayes"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalbayes
+  name: Nixpkgs ordinalbayes linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalbayes on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalbayes"
+  - "$XDG_CACHE_HOME/ordinalbayes"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalbayes
+  name: Nixpkgs ordinalbayes windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalbayes on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalbayes/Cache"
+  - "%LOCALAPPDATA%/ordinalbayes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalgmifs
+  name: Nixpkgs ordinalgmifs macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalgmifs on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalgmifs"
+  - "$HOME/Library/Logs/ordinalgmifs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalgmifs
+  name: Nixpkgs ordinalgmifs linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalgmifs on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalgmifs"
+  - "$XDG_CACHE_HOME/ordinalgmifs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalgmifs
+  name: Nixpkgs ordinalgmifs windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalgmifs on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalgmifs/Cache"
+  - "%LOCALAPPDATA%/ordinalgmifs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalpattern
+  name: Nixpkgs ordinalpattern macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalpattern on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalpattern"
+  - "$HOME/Library/Logs/ordinalpattern"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalpattern
+  name: Nixpkgs ordinalpattern linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalpattern on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalpattern"
+  - "$XDG_CACHE_HOME/ordinalpattern"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalpattern
+  name: Nixpkgs ordinalpattern windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalpattern on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalpattern/Cache"
+  - "%LOCALAPPDATA%/ordinalpattern/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalpt
+  name: Nixpkgs ordinalpt macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalpt on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalpt"
+  - "$HOME/Library/Logs/ordinalpt"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalpt
+  name: Nixpkgs ordinalpt linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalpt on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalpt"
+  - "$XDG_CACHE_HOME/ordinalpt"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalpt
+  name: Nixpkgs ordinalpt windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalpt on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalpt/Cache"
+  - "%LOCALAPPDATA%/ordinalpt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordinalsimr
+  name: Nixpkgs ordinalsimr macos cache (wave 20)
+  description: Nixpkgs leftover pname ordinalsimr on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordinalsimr"
+  - "$HOME/Library/Logs/ordinalsimr"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordinalsimr
+  name: Nixpkgs ordinalsimr linux cache (wave 20)
+  description: Nixpkgs leftover pname ordinalsimr on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordinalsimr"
+  - "$XDG_CACHE_HOME/ordinalsimr"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordinalsimr
+  name: Nixpkgs ordinalsimr windows cache (wave 20)
+  description: Nixpkgs leftover pname ordinalsimr on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordinalsimr/Cache"
+  - "%LOCALAPPDATA%/ordinalsimr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordr
+  name: Nixpkgs ordr macos cache (wave 20)
+  description: Nixpkgs leftover pname ordr on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordr"
+  - "$HOME/Library/Logs/ordr"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordr
+  name: Nixpkgs ordr linux cache (wave 20)
+  description: Nixpkgs leftover pname ordr on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordr"
+  - "$XDG_CACHE_HOME/ordr"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordr
+  name: Nixpkgs ordr windows cache (wave 20)
+  description: Nixpkgs leftover pname ordr on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordr/Cache"
+  - "%LOCALAPPDATA%/ordr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ordrea
+  name: Nixpkgs ordrea macos cache (wave 20)
+  description: Nixpkgs leftover pname ordrea on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ordrea"
+  - "$HOME/Library/Logs/ordrea"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ordrea
+  name: Nixpkgs ordrea linux cache (wave 20)
+  description: Nixpkgs leftover pname ordrea on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ordrea"
+  - "$XDG_CACHE_HOME/ordrea"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ordrea
+  name: Nixpkgs ordrea windows cache (wave 20)
+  description: Nixpkgs leftover pname ordrea on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ordrea/Cache"
+  - "%LOCALAPPDATA%/ordrea/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ore
+  name: Nixpkgs ore macos cache (wave 20)
+  description: Nixpkgs leftover pname ore on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ore"
+  - "$HOME/Library/Logs/ore"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ore
+  name: Nixpkgs ore linux cache (wave 20)
+  description: Nixpkgs leftover pname ore on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ore"
+  - "$XDG_CACHE_HOME/ore"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ore
+  name: Nixpkgs ore windows cache (wave 20)
+  description: Nixpkgs leftover pname ore on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ore/Cache"
+  - "%LOCALAPPDATA%/ore/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-oref
+  name: Nixpkgs oref macos cache (wave 20)
+  description: Nixpkgs leftover pname oref on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/oref"
+  - "$HOME/Library/Logs/oref"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-oref
+  name: Nixpkgs oref linux cache (wave 20)
+  description: Nixpkgs leftover pname oref on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/oref"
+  - "$XDG_CACHE_HOME/oref"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-oref
+  name: Nixpkgs oref windows cache (wave 20)
+  description: Nixpkgs leftover pname oref on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/oref/Cache"
+  - "%LOCALAPPDATA%/oref/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-oreo
+  name: Nixpkgs oreo macos cache (wave 20)
+  description: Nixpkgs leftover pname oreo on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/oreo"
+  - "$HOME/Library/Logs/oreo"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-oreo
+  name: Nixpkgs oreo linux cache (wave 20)
+  description: Nixpkgs leftover pname oreo on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/oreo"
+  - "$XDG_CACHE_HOME/oreo"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-oreo
+  name: Nixpkgs oreo windows cache (wave 20)
+  description: Nixpkgs leftover pname oreo on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/oreo/Cache"
+  - "%LOCALAPPDATA%/oreo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-oreo-cursors-plus
+  name: Nixpkgs oreo-cursors-plus macos cache (wave 20)
+  description: Nixpkgs leftover pname oreo-cursors-plus on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/oreo-cursors-plus"
+  - "$HOME/Library/Logs/oreo-cursors-plus"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-oreo-cursors-plus
+  name: Nixpkgs oreo-cursors-plus linux cache (wave 20)
+  description: Nixpkgs leftover pname oreo-cursors-plus on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/oreo-cursors-plus"
+  - "$XDG_CACHE_HOME/oreo-cursors-plus"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-oreo-cursors-plus
+  name: Nixpkgs oreo-cursors-plus windows cache (wave 20)
+  description: Nixpkgs leftover pname oreo-cursors-plus on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/oreo-cursors-plus/Cache"
+  - "%LOCALAPPDATA%/oreo-cursors-plus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-ores
+  name: Nixpkgs ores macos cache (wave 20)
+  description: Nixpkgs leftover pname ores on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ores"
+  - "$HOME/Library/Logs/ores"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-ores
+  name: Nixpkgs ores linux cache (wave 20)
+  description: Nixpkgs leftover pname ores on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ores"
+  - "$XDG_CACHE_HOME/ores"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-ores
+  name: Nixpkgs ores windows cache (wave 20)
+  description: Nixpkgs leftover pname ores on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ores/Cache"
+  - "%LOCALAPPDATA%/ores/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orf
+  name: Nixpkgs orf macos cache (wave 20)
+  description: Nixpkgs leftover pname orf on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orf"
+  - "$HOME/Library/Logs/orf"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orf
+  name: Nixpkgs orf linux cache (wave 20)
+  description: Nixpkgs leftover pname orf on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orf"
+  - "$XDG_CACHE_HOME/orf"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orf
+  name: Nixpkgs orf windows cache (wave 20)
+  description: Nixpkgs leftover pname orf on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orf/Cache"
+  - "%LOCALAPPDATA%/orf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-orftvthek
+  name: Nixpkgs orftvthek macos cache (wave 20)
+  description: Nixpkgs leftover pname orftvthek on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/orftvthek"
+  - "$HOME/Library/Logs/orftvthek"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-orftvthek
+  name: Nixpkgs orftvthek linux cache (wave 20)
+  description: Nixpkgs leftover pname orftvthek on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/orftvthek"
+  - "$XDG_CACHE_HOME/orftvthek"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-orftvthek
+  name: Nixpkgs orftvthek windows cache (wave 20)
+  description: Nixpkgs leftover pname orftvthek on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/orftvthek/Cache"
+  - "%LOCALAPPDATA%/orftvthek/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org
+  name: Nixpkgs org macos cache (wave 20)
+  description: Nixpkgs leftover pname org on macos (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org"
+  - "$HOME/Library/Logs/org"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org
+  name: Nixpkgs org linux cache (wave 20)
+  description: Nixpkgs leftover pname org on linux (wave 20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org"
+  - "$XDG_CACHE_HOME/org"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org
+  name: Nixpkgs org windows cache (wave 20)
+  description: Nixpkgs leftover pname org on windows (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org/Cache"
+  - "%LOCALAPPDATA%/org/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-ac
+  name: Nixpkgs org-ac macos cache (wave 20)
+  description: Nixpkgs leftover pname org-ac on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-ac"
+  - "$HOME/Library/Logs/org-ac"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-ac
+  name: Nixpkgs org-ac linux cache (wave 20)
+  description: Nixpkgs leftover pname org-ac on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-ac"
+  - "$XDG_CACHE_HOME/org-ac"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-ac
+  name: Nixpkgs org-ac windows cache (wave 20)
+  description: Nixpkgs leftover pname org-ac on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-ac/Cache"
+  - "%LOCALAPPDATA%/org-ac/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-agenda-dock
+  name: Nixpkgs org-agenda-dock macos cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-dock on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-agenda-dock"
+  - "$HOME/Library/Logs/org-agenda-dock"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-agenda-dock
+  name: Nixpkgs org-agenda-dock linux cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-dock on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-agenda-dock"
+  - "$XDG_CACHE_HOME/org-agenda-dock"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-agenda-dock
+  name: Nixpkgs org-agenda-dock windows cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-dock on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-agenda-dock/Cache"
+  - "%LOCALAPPDATA%/org-agenda-dock/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-agenda-files-track
+  name: Nixpkgs org-agenda-files-track macos cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-files-track on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-agenda-files-track"
+  - "$HOME/Library/Logs/org-agenda-files-track"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-agenda-files-track
+  name: Nixpkgs org-agenda-files-track linux cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-files-track on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-agenda-files-track"
+  - "$XDG_CACHE_HOME/org-agenda-files-track"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-agenda-files-track
+  name: Nixpkgs org-agenda-files-track windows cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-files-track on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-agenda-files-track/Cache"
+  - "%LOCALAPPDATA%/org-agenda-files-track/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-agenda-files-track-ql
+  name: Nixpkgs org-agenda-files-track-ql macos cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-files-track-ql on macos (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-agenda-files-track-ql"
+  - "$HOME/Library/Logs/org-agenda-files-track-ql"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-agenda-files-track-ql
+  name: Nixpkgs org-agenda-files-track-ql linux cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-files-track-ql on linux (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-agenda-files-track-ql"
+  - "$XDG_CACHE_HOME/org-agenda-files-track-ql"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-agenda-files-track-ql
+  name: Nixpkgs org-agenda-files-track-ql windows cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-files-track-ql on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-agenda-files-track-ql/Cache"
+  - "%LOCALAPPDATA%/org-agenda-files-track-ql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-agenda-property
+  name: Nixpkgs org-agenda-property macos cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-property on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-agenda-property"
+  - "$HOME/Library/Logs/org-agenda-property"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-agenda-property
+  name: Nixpkgs org-agenda-property linux cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-property on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-agenda-property"
+  - "$XDG_CACHE_HOME/org-agenda-property"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-agenda-property
+  name: Nixpkgs org-agenda-property windows cache (wave 20)
+  description: Nixpkgs leftover pname org-agenda-property on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-agenda-property/Cache"
+  - "%LOCALAPPDATA%/org-agenda-property/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-ai
+  name: Nixpkgs org-ai macos cache (wave 20)
+  description: Nixpkgs leftover pname org-ai on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-ai"
+  - "$HOME/Library/Logs/org-ai"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-ai
+  name: Nixpkgs org-ai linux cache (wave 20)
+  description: Nixpkgs leftover pname org-ai on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-ai"
+  - "$XDG_CACHE_HOME/org-ai"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-ai
+  name: Nixpkgs org-ai windows cache (wave 20)
+  description: Nixpkgs leftover pname org-ai on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-ai/Cache"
+  - "%LOCALAPPDATA%/org-ai/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-alert
+  name: Nixpkgs org-alert macos cache (wave 20)
+  description: Nixpkgs leftover pname org-alert on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-alert"
+  - "$HOME/Library/Logs/org-alert"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-alert
+  name: Nixpkgs org-alert linux cache (wave 20)
+  description: Nixpkgs leftover pname org-alert on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-alert"
+  - "$XDG_CACHE_HOME/org-alert"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-alert
+  name: Nixpkgs org-alert windows cache (wave 20)
+  description: Nixpkgs leftover pname org-alert on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-alert/Cache"
+  - "%LOCALAPPDATA%/org-alert/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-analyzer
+  name: Nixpkgs org-analyzer macos cache (wave 20)
+  description: Nixpkgs leftover pname org-analyzer on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-analyzer"
+  - "$HOME/Library/Logs/org-analyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-analyzer
+  name: Nixpkgs org-analyzer linux cache (wave 20)
+  description: Nixpkgs leftover pname org-analyzer on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-analyzer"
+  - "$XDG_CACHE_HOME/org-analyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-analyzer
+  name: Nixpkgs org-analyzer windows cache (wave 20)
+  description: Nixpkgs leftover pname org-analyzer on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-analyzer/Cache"
+  - "%LOCALAPPDATA%/org-analyzer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-anki
+  name: Nixpkgs org-anki macos cache (wave 20)
+  description: Nixpkgs leftover pname org-anki on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-anki"
+  - "$HOME/Library/Logs/org-anki"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-anki
+  name: Nixpkgs org-anki linux cache (wave 20)
+  description: Nixpkgs leftover pname org-anki on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-anki"
+  - "$XDG_CACHE_HOME/org-anki"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-anki
+  name: Nixpkgs org-anki windows cache (wave 20)
+  description: Nixpkgs leftover pname org-anki on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-anki/Cache"
+  - "%LOCALAPPDATA%/org-anki/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-appear
+  name: Nixpkgs org-appear macos cache (wave 20)
+  description: Nixpkgs leftover pname org-appear on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-appear"
+  - "$HOME/Library/Logs/org-appear"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-appear
+  name: Nixpkgs org-appear linux cache (wave 20)
+  description: Nixpkgs leftover pname org-appear on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-appear"
+  - "$XDG_CACHE_HOME/org-appear"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-appear
+  name: Nixpkgs org-appear windows cache (wave 20)
+  description: Nixpkgs leftover pname org-appear on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-appear/Cache"
+  - "%LOCALAPPDATA%/org-appear/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-arbeitszeit
+  name: Nixpkgs org-arbeitszeit macos cache (wave 20)
+  description: Nixpkgs leftover pname org-arbeitszeit on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-arbeitszeit"
+  - "$HOME/Library/Logs/org-arbeitszeit"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-arbeitszeit
+  name: Nixpkgs org-arbeitszeit linux cache (wave 20)
+  description: Nixpkgs leftover pname org-arbeitszeit on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-arbeitszeit"
+  - "$XDG_CACHE_HOME/org-arbeitszeit"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-arbeitszeit
+  name: Nixpkgs org-arbeitszeit windows cache (wave 20)
+  description: Nixpkgs leftover pname org-arbeitszeit on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-arbeitszeit/Cache"
+  - "%LOCALAPPDATA%/org-arbeitszeit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-assistant
+  name: Nixpkgs org-assistant macos cache (wave 20)
+  description: Nixpkgs leftover pname org-assistant on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-assistant"
+  - "$HOME/Library/Logs/org-assistant"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-assistant
+  name: Nixpkgs org-assistant linux cache (wave 20)
+  description: Nixpkgs leftover pname org-assistant on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-assistant"
+  - "$XDG_CACHE_HOME/org-assistant"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-assistant
+  name: Nixpkgs org-assistant windows cache (wave 20)
+  description: Nixpkgs leftover pname org-assistant on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-assistant/Cache"
+  - "%LOCALAPPDATA%/org-assistant/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-attach-screenshot
+  name: Nixpkgs org-attach-screenshot macos cache (wave 20)
+  description: Nixpkgs leftover pname org-attach-screenshot on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-attach-screenshot"
+  - "$HOME/Library/Logs/org-attach-screenshot"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-attach-screenshot
+  name: Nixpkgs org-attach-screenshot linux cache (wave 20)
+  description: Nixpkgs leftover pname org-attach-screenshot on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-attach-screenshot"
+  - "$XDG_CACHE_HOME/org-attach-screenshot"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-attach-screenshot
+  name: Nixpkgs org-attach-screenshot windows cache (wave 20)
+  description: Nixpkgs leftover pname org-attach-screenshot on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-attach-screenshot/Cache"
+  - "%LOCALAPPDATA%/org-attach-screenshot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-auto-expand
+  name: Nixpkgs org-auto-expand macos cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-expand on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-auto-expand"
+  - "$HOME/Library/Logs/org-auto-expand"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-auto-expand
+  name: Nixpkgs org-auto-expand linux cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-expand on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-auto-expand"
+  - "$XDG_CACHE_HOME/org-auto-expand"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-auto-expand
+  name: Nixpkgs org-auto-expand windows cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-expand on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-auto-expand/Cache"
+  - "%LOCALAPPDATA%/org-auto-expand/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-auto-export-pandoc
+  name: Nixpkgs org-auto-export-pandoc macos cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-export-pandoc on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-auto-export-pandoc"
+  - "$HOME/Library/Logs/org-auto-export-pandoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-auto-export-pandoc
+  name: Nixpkgs org-auto-export-pandoc linux cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-export-pandoc on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-auto-export-pandoc"
+  - "$XDG_CACHE_HOME/org-auto-export-pandoc"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-auto-export-pandoc
+  name: Nixpkgs org-auto-export-pandoc windows cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-export-pandoc on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-auto-export-pandoc/Cache"
+  - "%LOCALAPPDATA%/org-auto-export-pandoc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-auto-tangle
+  name: Nixpkgs org-auto-tangle macos cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-tangle on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-auto-tangle"
+  - "$HOME/Library/Logs/org-auto-tangle"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-auto-tangle
+  name: Nixpkgs org-auto-tangle linux cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-tangle on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-auto-tangle"
+  - "$XDG_CACHE_HOME/org-auto-tangle"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-auto-tangle
+  name: Nixpkgs org-auto-tangle windows cache (wave 20)
+  description: Nixpkgs leftover pname org-auto-tangle on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-auto-tangle/Cache"
+  - "%LOCALAPPDATA%/org-auto-tangle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-autoexport
+  name: Nixpkgs org-autoexport macos cache (wave 20)
+  description: Nixpkgs leftover pname org-autoexport on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-autoexport"
+  - "$HOME/Library/Logs/org-autoexport"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-autoexport
+  name: Nixpkgs org-autoexport linux cache (wave 20)
+  description: Nixpkgs leftover pname org-autoexport on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-autoexport"
+  - "$XDG_CACHE_HOME/org-autoexport"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-autoexport
+  name: Nixpkgs org-autoexport windows cache (wave 20)
+  description: Nixpkgs leftover pname org-autoexport on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-autoexport/Cache"
+  - "%LOCALAPPDATA%/org-autoexport/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-autolist
+  name: Nixpkgs org-autolist macos cache (wave 20)
+  description: Nixpkgs leftover pname org-autolist on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-autolist"
+  - "$HOME/Library/Logs/org-autolist"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-autolist
+  name: Nixpkgs org-autolist linux cache (wave 20)
+  description: Nixpkgs leftover pname org-autolist on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-autolist"
+  - "$XDG_CACHE_HOME/org-autolist"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-autolist
+  name: Nixpkgs org-autolist windows cache (wave 20)
+  description: Nixpkgs leftover pname org-autolist on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-autolist/Cache"
+  - "%LOCALAPPDATA%/org-autolist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-aws-iam-role
+  name: Nixpkgs org-aws-iam-role macos cache (wave 20)
+  description: Nixpkgs leftover pname org-aws-iam-role on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-aws-iam-role"
+  - "$HOME/Library/Logs/org-aws-iam-role"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-aws-iam-role
+  name: Nixpkgs org-aws-iam-role linux cache (wave 20)
+  description: Nixpkgs leftover pname org-aws-iam-role on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-aws-iam-role"
+  - "$XDG_CACHE_HOME/org-aws-iam-role"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-aws-iam-role
+  name: Nixpkgs org-aws-iam-role windows cache (wave 20)
+  description: Nixpkgs leftover pname org-aws-iam-role on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-aws-iam-role/Cache"
+  - "%LOCALAPPDATA%/org-aws-iam-role/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-babel-eval-in-repl
+  name: Nixpkgs org-babel-eval-in-repl macos cache (wave 20)
+  description: Nixpkgs leftover pname org-babel-eval-in-repl on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-babel-eval-in-repl"
+  - "$HOME/Library/Logs/org-babel-eval-in-repl"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-babel-eval-in-repl
+  name: Nixpkgs org-babel-eval-in-repl linux cache (wave 20)
+  description: Nixpkgs leftover pname org-babel-eval-in-repl on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-babel-eval-in-repl"
+  - "$XDG_CACHE_HOME/org-babel-eval-in-repl"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-babel-eval-in-repl
+  name: Nixpkgs org-babel-eval-in-repl windows cache (wave 20)
+  description: Nixpkgs leftover pname org-babel-eval-in-repl on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-babel-eval-in-repl/Cache"
+  - "%LOCALAPPDATA%/org-babel-eval-in-repl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-beautify-theme
+  name: Nixpkgs org-beautify-theme macos cache (wave 20)
+  description: Nixpkgs leftover pname org-beautify-theme on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-beautify-theme"
+  - "$HOME/Library/Logs/org-beautify-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-beautify-theme
+  name: Nixpkgs org-beautify-theme linux cache (wave 20)
+  description: Nixpkgs leftover pname org-beautify-theme on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-beautify-theme"
+  - "$XDG_CACHE_HOME/org-beautify-theme"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-beautify-theme
+  name: Nixpkgs org-beautify-theme windows cache (wave 20)
+  description: Nixpkgs leftover pname org-beautify-theme on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-beautify-theme/Cache"
+  - "%LOCALAPPDATA%/org-beautify-theme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-board
+  name: Nixpkgs org-board macos cache (wave 20)
+  description: Nixpkgs leftover pname org-board on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-board"
+  - "$HOME/Library/Logs/org-board"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-board
+  name: Nixpkgs org-board linux cache (wave 20)
+  description: Nixpkgs leftover pname org-board on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-board"
+  - "$XDG_CACHE_HOME/org-board"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-board
+  name: Nixpkgs org-board windows cache (wave 20)
+  description: Nixpkgs leftover pname org-board on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-board/Cache"
+  - "%LOCALAPPDATA%/org-board/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-bookmark-heading
+  name: Nixpkgs org-bookmark-heading macos cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmark-heading on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-bookmark-heading"
+  - "$HOME/Library/Logs/org-bookmark-heading"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-bookmark-heading
+  name: Nixpkgs org-bookmark-heading linux cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmark-heading on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-bookmark-heading"
+  - "$XDG_CACHE_HOME/org-bookmark-heading"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-bookmark-heading
+  name: Nixpkgs org-bookmark-heading windows cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmark-heading on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-bookmark-heading/Cache"
+  - "%LOCALAPPDATA%/org-bookmark-heading/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-bookmarks
+  name: Nixpkgs org-bookmarks macos cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmarks on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-bookmarks"
+  - "$HOME/Library/Logs/org-bookmarks"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-bookmarks
+  name: Nixpkgs org-bookmarks linux cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmarks on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-bookmarks"
+  - "$XDG_CACHE_HOME/org-bookmarks"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-bookmarks
+  name: Nixpkgs org-bookmarks windows cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmarks on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-bookmarks/Cache"
+  - "%LOCALAPPDATA%/org-bookmarks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-bookmarks-extractor
+  name: Nixpkgs org-bookmarks-extractor macos cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmarks-extractor on macos (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-bookmarks-extractor"
+  - "$HOME/Library/Logs/org-bookmarks-extractor"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-bookmarks-extractor
+  name: Nixpkgs org-bookmarks-extractor linux cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmarks-extractor on linux (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-bookmarks-extractor"
+  - "$XDG_CACHE_HOME/org-bookmarks-extractor"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-bookmarks-extractor
+  name: Nixpkgs org-bookmarks-extractor windows cache (wave 20)
+  description: Nixpkgs leftover pname org-bookmarks-extractor on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-bookmarks-extractor/Cache"
+  - "%LOCALAPPDATA%/org-bookmarks-extractor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-books
+  name: Nixpkgs org-books macos cache (wave 20)
+  description: Nixpkgs leftover pname org-books on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-books"
+  - "$HOME/Library/Logs/org-books"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-books
+  name: Nixpkgs org-books linux cache (wave 20)
+  description: Nixpkgs leftover pname org-books on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-books"
+  - "$XDG_CACHE_HOME/org-books"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-books
+  name: Nixpkgs org-books windows cache (wave 20)
+  description: Nixpkgs leftover pname org-books on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-books/Cache"
+  - "%LOCALAPPDATA%/org-books/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-brain
+  name: Nixpkgs org-brain macos cache (wave 20)
+  description: Nixpkgs leftover pname org-brain on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-brain"
+  - "$HOME/Library/Logs/org-brain"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-brain
+  name: Nixpkgs org-brain linux cache (wave 20)
+  description: Nixpkgs leftover pname org-brain on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-brain"
+  - "$XDG_CACHE_HOME/org-brain"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-brain
+  name: Nixpkgs org-brain windows cache (wave 20)
+  description: Nixpkgs leftover pname org-brain on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-brain/Cache"
+  - "%LOCALAPPDATA%/org-brain/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-bulletproof
+  name: Nixpkgs org-bulletproof macos cache (wave 20)
+  description: Nixpkgs leftover pname org-bulletproof on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-bulletproof"
+  - "$HOME/Library/Logs/org-bulletproof"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-bulletproof
+  name: Nixpkgs org-bulletproof linux cache (wave 20)
+  description: Nixpkgs leftover pname org-bulletproof on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-bulletproof"
+  - "$XDG_CACHE_HOME/org-bulletproof"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-bulletproof
+  name: Nixpkgs org-bulletproof windows cache (wave 20)
+  description: Nixpkgs leftover pname org-bulletproof on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-bulletproof/Cache"
+  - "%LOCALAPPDATA%/org-bulletproof/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-bullets
+  name: Nixpkgs org-bullets macos cache (wave 20)
+  description: Nixpkgs leftover pname org-bullets on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-bullets"
+  - "$HOME/Library/Logs/org-bullets"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-bullets
+  name: Nixpkgs org-bullets linux cache (wave 20)
+  description: Nixpkgs leftover pname org-bullets on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-bullets"
+  - "$XDG_CACHE_HOME/org-bullets"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-bullets
+  name: Nixpkgs org-bullets windows cache (wave 20)
+  description: Nixpkgs leftover pname org-bullets on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-bullets/Cache"
+  - "%LOCALAPPDATA%/org-bullets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-caldav
+  name: Nixpkgs org-caldav macos cache (wave 20)
+  description: Nixpkgs leftover pname org-caldav on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-caldav"
+  - "$HOME/Library/Logs/org-caldav"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-caldav
+  name: Nixpkgs org-caldav linux cache (wave 20)
+  description: Nixpkgs leftover pname org-caldav on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-caldav"
+  - "$XDG_CACHE_HOME/org-caldav"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-caldav
+  name: Nixpkgs org-caldav windows cache (wave 20)
+  description: Nixpkgs leftover pname org-caldav on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-caldav/Cache"
+  - "%LOCALAPPDATA%/org-caldav/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-calibre-notes
+  name: Nixpkgs org-calibre-notes macos cache (wave 20)
+  description: Nixpkgs leftover pname org-calibre-notes on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-calibre-notes"
+  - "$HOME/Library/Logs/org-calibre-notes"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-calibre-notes
+  name: Nixpkgs org-calibre-notes linux cache (wave 20)
+  description: Nixpkgs leftover pname org-calibre-notes on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-calibre-notes"
+  - "$XDG_CACHE_HOME/org-calibre-notes"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-calibre-notes
+  name: Nixpkgs org-calibre-notes windows cache (wave 20)
+  description: Nixpkgs leftover pname org-calibre-notes on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-calibre-notes/Cache"
+  - "%LOCALAPPDATA%/org-calibre-notes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-capture-pop-frame
+  name: Nixpkgs org-capture-pop-frame macos cache (wave 20)
+  description: Nixpkgs leftover pname org-capture-pop-frame on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-capture-pop-frame"
+  - "$HOME/Library/Logs/org-capture-pop-frame"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-capture-pop-frame
+  name: Nixpkgs org-capture-pop-frame linux cache (wave 20)
+  description: Nixpkgs leftover pname org-capture-pop-frame on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-capture-pop-frame"
+  - "$XDG_CACHE_HOME/org-capture-pop-frame"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-capture-pop-frame
+  name: Nixpkgs org-capture-pop-frame windows cache (wave 20)
+  description: Nixpkgs leftover pname org-capture-pop-frame on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-capture-pop-frame/Cache"
+  - "%LOCALAPPDATA%/org-capture-pop-frame/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-category-capture
+  name: Nixpkgs org-category-capture macos cache (wave 20)
+  description: Nixpkgs leftover pname org-category-capture on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-category-capture"
+  - "$HOME/Library/Logs/org-category-capture"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-category-capture
+  name: Nixpkgs org-category-capture linux cache (wave 20)
+  description: Nixpkgs leftover pname org-category-capture on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-category-capture"
+  - "$XDG_CACHE_HOME/org-category-capture"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-category-capture
+  name: Nixpkgs org-category-capture windows cache (wave 20)
+  description: Nixpkgs leftover pname org-category-capture on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-category-capture/Cache"
+  - "%LOCALAPPDATA%/org-category-capture/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-change
+  name: Nixpkgs org-change macos cache (wave 20)
+  description: Nixpkgs leftover pname org-change on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-change"
+  - "$HOME/Library/Logs/org-change"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-change
+  name: Nixpkgs org-change linux cache (wave 20)
+  description: Nixpkgs leftover pname org-change on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-change"
+  - "$XDG_CACHE_HOME/org-change"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-change
+  name: Nixpkgs org-change windows cache (wave 20)
+  description: Nixpkgs leftover pname org-change on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-change/Cache"
+  - "%LOCALAPPDATA%/org-change/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-chef
+  name: Nixpkgs org-chef macos cache (wave 20)
+  description: Nixpkgs leftover pname org-chef on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-chef"
+  - "$HOME/Library/Logs/org-chef"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-chef
+  name: Nixpkgs org-chef linux cache (wave 20)
+  description: Nixpkgs leftover pname org-chef on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-chef"
+  - "$XDG_CACHE_HOME/org-chef"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-chef
+  name: Nixpkgs org-chef windows cache (wave 20)
+  description: Nixpkgs leftover pname org-chef on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-chef/Cache"
+  - "%LOCALAPPDATA%/org-chef/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-cite-overlay
+  name: Nixpkgs org-cite-overlay macos cache (wave 20)
+  description: Nixpkgs leftover pname org-cite-overlay on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-cite-overlay"
+  - "$HOME/Library/Logs/org-cite-overlay"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-cite-overlay
+  name: Nixpkgs org-cite-overlay linux cache (wave 20)
+  description: Nixpkgs leftover pname org-cite-overlay on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-cite-overlay"
+  - "$XDG_CACHE_HOME/org-cite-overlay"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-cite-overlay
+  name: Nixpkgs org-cite-overlay windows cache (wave 20)
+  description: Nixpkgs leftover pname org-cite-overlay on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-cite-overlay/Cache"
+  - "%LOCALAPPDATA%/org-cite-overlay/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-cite-overlay-sidecar
+  name: Nixpkgs org-cite-overlay-sidecar macos cache (wave 20)
+  description: Nixpkgs leftover pname org-cite-overlay-sidecar on macos (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-cite-overlay-sidecar"
+  - "$HOME/Library/Logs/org-cite-overlay-sidecar"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-cite-overlay-sidecar
+  name: Nixpkgs org-cite-overlay-sidecar linux cache (wave 20)
+  description: Nixpkgs leftover pname org-cite-overlay-sidecar on linux (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-cite-overlay-sidecar"
+  - "$XDG_CACHE_HOME/org-cite-overlay-sidecar"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-cite-overlay-sidecar
+  name: Nixpkgs org-cite-overlay-sidecar windows cache (wave 20)
+  description: Nixpkgs leftover pname org-cite-overlay-sidecar on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-cite-overlay-sidecar/Cache"
+  - "%LOCALAPPDATA%/org-cite-overlay-sidecar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-cliplink
+  name: Nixpkgs org-cliplink macos cache (wave 20)
+  description: Nixpkgs leftover pname org-cliplink on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-cliplink"
+  - "$HOME/Library/Logs/org-cliplink"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-cliplink
+  name: Nixpkgs org-cliplink linux cache (wave 20)
+  description: Nixpkgs leftover pname org-cliplink on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-cliplink"
+  - "$XDG_CACHE_HOME/org-cliplink"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-cliplink
+  name: Nixpkgs org-cliplink windows cache (wave 20)
+  description: Nixpkgs leftover pname org-cliplink on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-cliplink/Cache"
+  - "%LOCALAPPDATA%/org-cliplink/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-clock-agenda-daytime-mode
+  name: Nixpkgs org-clock-agenda-daytime-mode macos cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-agenda-daytime-mode on macos (wave
+    20). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-clock-agenda-daytime-mode"
+  - "$HOME/Library/Logs/org-clock-agenda-daytime-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-clock-agenda-daytime-mode
+  name: Nixpkgs org-clock-agenda-daytime-mode linux cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-agenda-daytime-mode on linux (wave
+    20). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-clock-agenda-daytime-mode"
+  - "$XDG_CACHE_HOME/org-clock-agenda-daytime-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-clock-agenda-daytime-mode
+  name: Nixpkgs org-clock-agenda-daytime-mode windows cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-agenda-daytime-mode on windows (wave
+    20). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-clock-agenda-daytime-mode/Cache"
+  - "%LOCALAPPDATA%/org-clock-agenda-daytime-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-clock-convenience
+  name: Nixpkgs org-clock-convenience macos cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-convenience on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-clock-convenience"
+  - "$HOME/Library/Logs/org-clock-convenience"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-clock-convenience
+  name: Nixpkgs org-clock-convenience linux cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-convenience on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-clock-convenience"
+  - "$XDG_CACHE_HOME/org-clock-convenience"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-clock-convenience
+  name: Nixpkgs org-clock-convenience windows cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-convenience on windows (wave 20).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-clock-convenience/Cache"
+  - "%LOCALAPPDATA%/org-clock-convenience/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-clock-csv
+  name: Nixpkgs org-clock-csv macos cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-csv on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-clock-csv"
+  - "$HOME/Library/Logs/org-clock-csv"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-clock-csv
+  name: Nixpkgs org-clock-csv linux cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-csv on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-clock-csv"
+  - "$XDG_CACHE_HOME/org-clock-csv"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-clock-csv
+  name: Nixpkgs org-clock-csv windows cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-csv on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-clock-csv/Cache"
+  - "%LOCALAPPDATA%/org-clock-csv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-clock-reminder
+  name: Nixpkgs org-clock-reminder macos cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-reminder on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-clock-reminder"
+  - "$HOME/Library/Logs/org-clock-reminder"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-clock-reminder
+  name: Nixpkgs org-clock-reminder linux cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-reminder on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-clock-reminder"
+  - "$XDG_CACHE_HOME/org-clock-reminder"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-clock-reminder
+  name: Nixpkgs org-clock-reminder windows cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-reminder on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-clock-reminder/Cache"
+  - "%LOCALAPPDATA%/org-clock-reminder/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-clock-split
+  name: Nixpkgs org-clock-split macos cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-split on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-clock-split"
+  - "$HOME/Library/Logs/org-clock-split"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-clock-split
+  name: Nixpkgs org-clock-split linux cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-split on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-clock-split"
+  - "$XDG_CACHE_HOME/org-clock-split"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-clock-split
+  name: Nixpkgs org-clock-split windows cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-split on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-clock-split/Cache"
+  - "%LOCALAPPDATA%/org-clock-split/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-clock-today
+  name: Nixpkgs org-clock-today macos cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-today on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-clock-today"
+  - "$HOME/Library/Logs/org-clock-today"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-clock-today
+  name: Nixpkgs org-clock-today linux cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-today on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-clock-today"
+  - "$XDG_CACHE_HOME/org-clock-today"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-clock-today
+  name: Nixpkgs org-clock-today windows cache (wave 20)
+  description: Nixpkgs leftover pname org-clock-today on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-clock-today/Cache"
+  - "%LOCALAPPDATA%/org-clock-today/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-commentary
+  name: Nixpkgs org-commentary macos cache (wave 20)
+  description: Nixpkgs leftover pname org-commentary on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-commentary"
+  - "$HOME/Library/Logs/org-commentary"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-commentary
+  name: Nixpkgs org-commentary linux cache (wave 20)
+  description: Nixpkgs leftover pname org-commentary on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-commentary"
+  - "$XDG_CACHE_HOME/org-commentary"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-commentary
+  name: Nixpkgs org-commentary windows cache (wave 20)
+  description: Nixpkgs leftover pname org-commentary on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-commentary/Cache"
+  - "%LOCALAPPDATA%/org-commentary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-contacts
+  name: Nixpkgs org-contacts macos cache (wave 20)
+  description: Nixpkgs leftover pname org-contacts on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-contacts"
+  - "$HOME/Library/Logs/org-contacts"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-contacts
+  name: Nixpkgs org-contacts linux cache (wave 20)
+  description: Nixpkgs leftover pname org-contacts on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-contacts"
+  - "$XDG_CACHE_HOME/org-contacts"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-contacts
+  name: Nixpkgs org-contacts windows cache (wave 20)
+  description: Nixpkgs leftover pname org-contacts on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-contacts/Cache"
+  - "%LOCALAPPDATA%/org-contacts/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-context
+  name: Nixpkgs org-context macos cache (wave 20)
+  description: Nixpkgs leftover pname org-context on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-context"
+  - "$HOME/Library/Logs/org-context"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-context
+  name: Nixpkgs org-context linux cache (wave 20)
+  description: Nixpkgs leftover pname org-context on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-context"
+  - "$XDG_CACHE_HOME/org-context"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-context
+  name: Nixpkgs org-context windows cache (wave 20)
+  description: Nixpkgs leftover pname org-context on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-context/Cache"
+  - "%LOCALAPPDATA%/org-context/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-contrib
+  name: Nixpkgs org-contrib macos cache (wave 20)
+  description: Nixpkgs leftover pname org-contrib on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-contrib"
+  - "$HOME/Library/Logs/org-contrib"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-contrib
+  name: Nixpkgs org-contrib linux cache (wave 20)
+  description: Nixpkgs leftover pname org-contrib on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-contrib"
+  - "$XDG_CACHE_HOME/org-contrib"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-contrib
+  name: Nixpkgs org-contrib windows cache (wave 20)
+  description: Nixpkgs leftover pname org-contrib on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-contrib/Cache"
+  - "%LOCALAPPDATA%/org-contrib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-cua-dwim
+  name: Nixpkgs org-cua-dwim macos cache (wave 20)
+  description: Nixpkgs leftover pname org-cua-dwim on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-cua-dwim"
+  - "$HOME/Library/Logs/org-cua-dwim"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-cua-dwim
+  name: Nixpkgs org-cua-dwim linux cache (wave 20)
+  description: Nixpkgs leftover pname org-cua-dwim on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-cua-dwim"
+  - "$XDG_CACHE_HOME/org-cua-dwim"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-cua-dwim
+  name: Nixpkgs org-cua-dwim windows cache (wave 20)
+  description: Nixpkgs leftover pname org-cua-dwim on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-cua-dwim/Cache"
+  - "%LOCALAPPDATA%/org-cua-dwim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-custom-cookies
+  name: Nixpkgs org-custom-cookies macos cache (wave 20)
+  description: Nixpkgs leftover pname org-custom-cookies on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-custom-cookies"
+  - "$HOME/Library/Logs/org-custom-cookies"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-custom-cookies
+  name: Nixpkgs org-custom-cookies linux cache (wave 20)
+  description: Nixpkgs leftover pname org-custom-cookies on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-custom-cookies"
+  - "$XDG_CACHE_HOME/org-custom-cookies"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-custom-cookies
+  name: Nixpkgs org-custom-cookies windows cache (wave 20)
+  description: Nixpkgs leftover pname org-custom-cookies on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-custom-cookies/Cache"
+  - "%LOCALAPPDATA%/org-custom-cookies/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-d20
+  name: Nixpkgs org-d20 macos cache (wave 20)
+  description: Nixpkgs leftover pname org-d20 on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-d20"
+  - "$HOME/Library/Logs/org-d20"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-d20
+  name: Nixpkgs org-d20 linux cache (wave 20)
+  description: Nixpkgs leftover pname org-d20 on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-d20"
+  - "$XDG_CACHE_HOME/org-d20"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-d20
+  name: Nixpkgs org-d20 windows cache (wave 20)
+  description: Nixpkgs leftover pname org-d20 on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-d20/Cache"
+  - "%LOCALAPPDATA%/org-d20/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-daily-reflection
+  name: Nixpkgs org-daily-reflection macos cache (wave 20)
+  description: Nixpkgs leftover pname org-daily-reflection on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-daily-reflection"
+  - "$HOME/Library/Logs/org-daily-reflection"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-daily-reflection
+  name: Nixpkgs org-daily-reflection linux cache (wave 20)
+  description: Nixpkgs leftover pname org-daily-reflection on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-daily-reflection"
+  - "$XDG_CACHE_HOME/org-daily-reflection"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-daily-reflection
+  name: Nixpkgs org-daily-reflection windows cache (wave 20)
+  description: Nixpkgs leftover pname org-daily-reflection on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-daily-reflection/Cache"
+  - "%LOCALAPPDATA%/org-daily-reflection/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-dashboard
+  name: Nixpkgs org-dashboard macos cache (wave 20)
+  description: Nixpkgs leftover pname org-dashboard on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-dashboard"
+  - "$HOME/Library/Logs/org-dashboard"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-dashboard
+  name: Nixpkgs org-dashboard linux cache (wave 20)
+  description: Nixpkgs leftover pname org-dashboard on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-dashboard"
+  - "$XDG_CACHE_HOME/org-dashboard"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-dashboard
+  name: Nixpkgs org-dashboard windows cache (wave 20)
+  description: Nixpkgs leftover pname org-dashboard on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-dashboard/Cache"
+  - "%LOCALAPPDATA%/org-dashboard/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-davep-dict
+  name: Nixpkgs org-davep-dict macos cache (wave 20)
+  description: Nixpkgs leftover pname org-davep-dict on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-davep-dict"
+  - "$HOME/Library/Logs/org-davep-dict"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-davep-dict
+  name: Nixpkgs org-davep-dict linux cache (wave 20)
+  description: Nixpkgs leftover pname org-davep-dict on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-davep-dict"
+  - "$XDG_CACHE_HOME/org-davep-dict"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-davep-dict
+  name: Nixpkgs org-davep-dict windows cache (wave 20)
+  description: Nixpkgs leftover pname org-davep-dict on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-davep-dict/Cache"
+  - "%LOCALAPPDATA%/org-davep-dict/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-davep-dictrepl
+  name: Nixpkgs org-davep-dictrepl macos cache (wave 20)
+  description: Nixpkgs leftover pname org-davep-dictrepl on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-davep-dictrepl"
+  - "$HOME/Library/Logs/org-davep-dictrepl"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-davep-dictrepl
+  name: Nixpkgs org-davep-dictrepl linux cache (wave 20)
+  description: Nixpkgs leftover pname org-davep-dictrepl on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-davep-dictrepl"
+  - "$XDG_CACHE_HOME/org-davep-dictrepl"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-davep-dictrepl
+  name: Nixpkgs org-davep-dictrepl windows cache (wave 20)
+  description: Nixpkgs leftover pname org-davep-dictrepl on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-davep-dictrepl/Cache"
+  - "%LOCALAPPDATA%/org-davep-dictrepl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-doing
+  name: Nixpkgs org-doing macos cache (wave 20)
+  description: Nixpkgs leftover pname org-doing on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-doing"
+  - "$HOME/Library/Logs/org-doing"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-doing
+  name: Nixpkgs org-doing linux cache (wave 20)
+  description: Nixpkgs leftover pname org-doing on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-doing"
+  - "$XDG_CACHE_HOME/org-doing"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-doing
+  name: Nixpkgs org-doing windows cache (wave 20)
+  description: Nixpkgs leftover pname org-doing on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-doing/Cache"
+  - "%LOCALAPPDATA%/org-doing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-dotemacs
+  name: Nixpkgs org-dotemacs macos cache (wave 20)
+  description: Nixpkgs leftover pname org-dotemacs on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-dotemacs"
+  - "$HOME/Library/Logs/org-dotemacs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-dotemacs
+  name: Nixpkgs org-dotemacs linux cache (wave 20)
+  description: Nixpkgs leftover pname org-dotemacs on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-dotemacs"
+  - "$XDG_CACHE_HOME/org-dotemacs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-dotemacs
+  name: Nixpkgs org-dotemacs windows cache (wave 20)
+  description: Nixpkgs leftover pname org-dotemacs on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-dotemacs/Cache"
+  - "%LOCALAPPDATA%/org-dotemacs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-download
+  name: Nixpkgs org-download macos cache (wave 20)
+  description: Nixpkgs leftover pname org-download on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-download"
+  - "$HOME/Library/Logs/org-download"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-download
+  name: Nixpkgs org-download linux cache (wave 20)
+  description: Nixpkgs leftover pname org-download on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-download"
+  - "$XDG_CACHE_HOME/org-download"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-download
+  name: Nixpkgs org-download windows cache (wave 20)
+  description: Nixpkgs leftover pname org-download on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-download/Cache"
+  - "%LOCALAPPDATA%/org-download/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-dp
+  name: Nixpkgs org-dp macos cache (wave 20)
+  description: Nixpkgs leftover pname org-dp on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-dp"
+  - "$HOME/Library/Logs/org-dp"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-dp
+  name: Nixpkgs org-dp linux cache (wave 20)
+  description: Nixpkgs leftover pname org-dp on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-dp"
+  - "$XDG_CACHE_HOME/org-dp"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-dp
+  name: Nixpkgs org-dp windows cache (wave 20)
+  description: Nixpkgs leftover pname org-dp on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-dp/Cache"
+  - "%LOCALAPPDATA%/org-dp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-draw
+  name: Nixpkgs org-draw macos cache (wave 20)
+  description: Nixpkgs leftover pname org-draw on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-draw"
+  - "$HOME/Library/Logs/org-draw"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-draw
+  name: Nixpkgs org-draw linux cache (wave 20)
+  description: Nixpkgs leftover pname org-draw on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-draw"
+  - "$XDG_CACHE_HOME/org-draw"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-draw
+  name: Nixpkgs org-draw windows cache (wave 20)
+  description: Nixpkgs leftover pname org-draw on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-draw/Cache"
+  - "%LOCALAPPDATA%/org-draw/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-drawio
+  name: Nixpkgs org-drawio macos cache (wave 20)
+  description: Nixpkgs leftover pname org-drawio on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-drawio"
+  - "$HOME/Library/Logs/org-drawio"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-drawio
+  name: Nixpkgs org-drawio linux cache (wave 20)
+  description: Nixpkgs leftover pname org-drawio on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-drawio"
+  - "$XDG_CACHE_HOME/org-drawio"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-drawio
+  name: Nixpkgs org-drawio windows cache (wave 20)
+  description: Nixpkgs leftover pname org-drawio on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-drawio/Cache"
+  - "%LOCALAPPDATA%/org-drawio/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-drill
+  name: Nixpkgs org-drill macos cache (wave 20)
+  description: Nixpkgs leftover pname org-drill on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-drill"
+  - "$HOME/Library/Logs/org-drill"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-drill
+  name: Nixpkgs org-drill linux cache (wave 20)
+  description: Nixpkgs leftover pname org-drill on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-drill"
+  - "$XDG_CACHE_HOME/org-drill"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-drill
+  name: Nixpkgs org-drill windows cache (wave 20)
+  description: Nixpkgs leftover pname org-drill on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-drill/Cache"
+  - "%LOCALAPPDATA%/org-drill/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-dropbox
+  name: Nixpkgs org-dropbox macos cache (wave 20)
+  description: Nixpkgs leftover pname org-dropbox on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-dropbox"
+  - "$HOME/Library/Logs/org-dropbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-dropbox
+  name: Nixpkgs org-dropbox linux cache (wave 20)
+  description: Nixpkgs leftover pname org-dropbox on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-dropbox"
+  - "$XDG_CACHE_HOME/org-dropbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-dropbox
+  name: Nixpkgs org-dropbox windows cache (wave 20)
+  description: Nixpkgs leftover pname org-dropbox on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-dropbox/Cache"
+  - "%LOCALAPPDATA%/org-dropbox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-dt
+  name: Nixpkgs org-dt macos cache (wave 20)
+  description: Nixpkgs leftover pname org-dt on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-dt"
+  - "$HOME/Library/Logs/org-dt"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-dt
+  name: Nixpkgs org-dt linux cache (wave 20)
+  description: Nixpkgs leftover pname org-dt on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-dt"
+  - "$XDG_CACHE_HOME/org-dt"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-dt
+  name: Nixpkgs org-dt windows cache (wave 20)
+  description: Nixpkgs leftover pname org-dt on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-dt/Cache"
+  - "%LOCALAPPDATA%/org-dt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-easy-img-insert
+  name: Nixpkgs org-easy-img-insert macos cache (wave 20)
+  description: Nixpkgs leftover pname org-easy-img-insert on macos (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-easy-img-insert"
+  - "$HOME/Library/Logs/org-easy-img-insert"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-easy-img-insert
+  name: Nixpkgs org-easy-img-insert linux cache (wave 20)
+  description: Nixpkgs leftover pname org-easy-img-insert on linux (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-easy-img-insert"
+  - "$XDG_CACHE_HOME/org-easy-img-insert"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-easy-img-insert
+  name: Nixpkgs org-easy-img-insert windows cache (wave 20)
+  description: Nixpkgs leftover pname org-easy-img-insert on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-easy-img-insert/Cache"
+  - "%LOCALAPPDATA%/org-easy-img-insert/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-edit-indirect
+  name: Nixpkgs org-edit-indirect macos cache (wave 20)
+  description: Nixpkgs leftover pname org-edit-indirect on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-edit-indirect"
+  - "$HOME/Library/Logs/org-edit-indirect"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-edit-indirect
+  name: Nixpkgs org-edit-indirect linux cache (wave 20)
+  description: Nixpkgs leftover pname org-edit-indirect on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-edit-indirect"
+  - "$XDG_CACHE_HOME/org-edit-indirect"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-edit-indirect
+  name: Nixpkgs org-edit-indirect windows cache (wave 20)
+  description: Nixpkgs leftover pname org-edit-indirect on windows (wave 20). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-edit-indirect/Cache"
+  - "%LOCALAPPDATA%/org-edit-indirect/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-edit-latex
+  name: Nixpkgs org-edit-latex macos cache (wave 20)
+  description: Nixpkgs leftover pname org-edit-latex on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-edit-latex"
+  - "$HOME/Library/Logs/org-edit-latex"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-edit-latex
+  name: Nixpkgs org-edit-latex linux cache (wave 20)
+  description: Nixpkgs leftover pname org-edit-latex on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-edit-latex"
+  - "$XDG_CACHE_HOME/org-edit-latex"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-edit-latex
+  name: Nixpkgs org-edit-latex windows cache (wave 20)
+  description: Nixpkgs leftover pname org-edit-latex on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-edit-latex/Cache"
+  - "%LOCALAPPDATA%/org-edit-latex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-edna
+  name: Nixpkgs org-edna macos cache (wave 20)
+  description: Nixpkgs leftover pname org-edna on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-edna"
+  - "$HOME/Library/Logs/org-edna"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-edna
+  name: Nixpkgs org-edna linux cache (wave 20)
+  description: Nixpkgs leftover pname org-edna on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-edna"
+  - "$XDG_CACHE_HOME/org-edna"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-edna
+  name: Nixpkgs org-edna windows cache (wave 20)
+  description: Nixpkgs leftover pname org-edna on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-edna/Cache"
+  - "%LOCALAPPDATA%/org-edna/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-ehtml
+  name: Nixpkgs org-ehtml macos cache (wave 20)
+  description: Nixpkgs leftover pname org-ehtml on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-ehtml"
+  - "$HOME/Library/Logs/org-ehtml"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-ehtml
+  name: Nixpkgs org-ehtml linux cache (wave 20)
+  description: Nixpkgs leftover pname org-ehtml on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-ehtml"
+  - "$XDG_CACHE_HOME/org-ehtml"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-ehtml
+  name: Nixpkgs org-ehtml windows cache (wave 20)
+  description: Nixpkgs leftover pname org-ehtml on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-ehtml/Cache"
+  - "%LOCALAPPDATA%/org-ehtml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-elisp-help
+  name: Nixpkgs org-elisp-help macos cache (wave 20)
+  description: Nixpkgs leftover pname org-elisp-help on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-elisp-help"
+  - "$HOME/Library/Logs/org-elisp-help"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-elisp-help
+  name: Nixpkgs org-elisp-help linux cache (wave 20)
+  description: Nixpkgs leftover pname org-elisp-help on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-elisp-help"
+  - "$XDG_CACHE_HOME/org-elisp-help"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-elisp-help
+  name: Nixpkgs org-elisp-help windows cache (wave 20)
+  description: Nixpkgs leftover pname org-elisp-help on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-elisp-help/Cache"
+  - "%LOCALAPPDATA%/org-elisp-help/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-elp
+  name: Nixpkgs org-elp macos cache (wave 20)
+  description: Nixpkgs leftover pname org-elp on macos (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-elp"
+  - "$HOME/Library/Logs/org-elp"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-elp
+  name: Nixpkgs org-elp linux cache (wave 20)
+  description: Nixpkgs leftover pname org-elp on linux (wave 20). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-elp"
+  - "$XDG_CACHE_HOME/org-elp"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-elp
+  name: Nixpkgs org-elp windows cache (wave 20)
+  description: Nixpkgs leftover pname org-elp on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-elp/Cache"
+  - "%LOCALAPPDATA%/org-elp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-emms
+  name: Nixpkgs org-emms macos cache (wave 20)
+  description: Nixpkgs leftover pname org-emms on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-emms"
+  - "$HOME/Library/Logs/org-emms"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-emms
+  name: Nixpkgs org-emms linux cache (wave 20)
+  description: Nixpkgs leftover pname org-emms on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-emms"
+  - "$XDG_CACHE_HOME/org-emms"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-emms
+  name: Nixpkgs org-emms windows cache (wave 20)
+  description: Nixpkgs leftover pname org-emms on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-emms/Cache"
+  - "%LOCALAPPDATA%/org-emms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-epa-gpg
+  name: Nixpkgs org-epa-gpg macos cache (wave 20)
+  description: Nixpkgs leftover pname org-epa-gpg on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-epa-gpg"
+  - "$HOME/Library/Logs/org-epa-gpg"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-lin-org-epa-gpg
+  name: Nixpkgs org-epa-gpg linux cache (wave 20)
+  description: Nixpkgs leftover pname org-epa-gpg on linux (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/org-epa-gpg"
+  - "$XDG_CACHE_HOME/org-epa-gpg"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-win-org-epa-gpg
+  name: Nixpkgs org-epa-gpg windows cache (wave 20)
+  description: Nixpkgs leftover pname org-epa-gpg on windows (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/org-epa-gpg/Cache"
+  - "%LOCALAPPDATA%/org-epa-gpg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np20-mac-org-eval
+  name: Nixpkgs org-eval macos cache (wave 20)
+  description: Nixpkgs leftover pname org-eval on macos (wave 20). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/org-eval"
+  - "$HOME/Library/Logs/org-eval"
+  delete_mode: contents
+  max_depth: 6

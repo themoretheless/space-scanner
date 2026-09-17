@@ -1,0 +1,5578 @@
+---
+pack: src-iter29-13
+description: Iterative 10k import wave 29 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np29-mac-upskirt
+  name: Nixpkgs upskirt macos cache (wave 29)
+  description: Nixpkgs leftover pname upskirt on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upskirt"
+  - "$HOME/Library/Logs/upskirt"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upskirt
+  name: Nixpkgs upskirt linux cache (wave 29)
+  description: Nixpkgs leftover pname upskirt on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upskirt"
+  - "$XDG_CACHE_HOME/upskirt"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upskirt
+  name: Nixpkgs upskirt windows cache (wave 29)
+  description: Nixpkgs leftover pname upskirt on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upskirt/Cache"
+  - "%LOCALAPPDATA%/upskirt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upspin
+  name: Nixpkgs upspin macos cache (wave 29)
+  description: Nixpkgs leftover pname upspin on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upspin"
+  - "$HOME/Library/Logs/upspin"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upspin
+  name: Nixpkgs upspin linux cache (wave 29)
+  description: Nixpkgs leftover pname upspin on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upspin"
+  - "$XDG_CACHE_HOME/upspin"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upspin
+  name: Nixpkgs upspin windows cache (wave 29)
+  description: Nixpkgs leftover pname upspin on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upspin/Cache"
+  - "%LOCALAPPDATA%/upspin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upstartr
+  name: Nixpkgs upstartr macos cache (wave 29)
+  description: Nixpkgs leftover pname upstartr on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upstartr"
+  - "$HOME/Library/Logs/upstartr"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upstartr
+  name: Nixpkgs upstartr linux cache (wave 29)
+  description: Nixpkgs leftover pname upstartr on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upstartr"
+  - "$XDG_CACHE_HOME/upstartr"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upstartr
+  name: Nixpkgs upstartr windows cache (wave 29)
+  description: Nixpkgs leftover pname upstartr on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upstartr/Cache"
+  - "%LOCALAPPDATA%/upstartr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upstream-check
+  name: Nixpkgs upstream-check macos cache (wave 29)
+  description: Nixpkgs leftover pname upstream-check on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upstream-check"
+  - "$HOME/Library/Logs/upstream-check"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upstream-check
+  name: Nixpkgs upstream-check linux cache (wave 29)
+  description: Nixpkgs leftover pname upstream-check on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upstream-check"
+  - "$XDG_CACHE_HOME/upstream-check"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upstream-check
+  name: Nixpkgs upstream-check windows cache (wave 29)
+  description: Nixpkgs leftover pname upstream-check on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upstream-check/Cache"
+  - "%LOCALAPPDATA%/upstream-check/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upstream-tarantool
+  name: Nixpkgs upstream-tarantool macos cache (wave 29)
+  description: Nixpkgs leftover pname upstream-tarantool on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upstream-tarantool"
+  - "$HOME/Library/Logs/upstream-tarantool"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upstream-tarantool
+  name: Nixpkgs upstream-tarantool linux cache (wave 29)
+  description: Nixpkgs leftover pname upstream-tarantool on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upstream-tarantool"
+  - "$XDG_CACHE_HOME/upstream-tarantool"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upstream-tarantool
+  name: Nixpkgs upstream-tarantool windows cache (wave 29)
+  description: Nixpkgs leftover pname upstream-tarantool on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upstream-tarantool/Cache"
+  - "%LOCALAPPDATA%/upstream-tarantool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upsun
+  name: Nixpkgs upsun macos cache (wave 29)
+  description: Nixpkgs leftover pname upsun on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upsun"
+  - "$HOME/Library/Logs/upsun"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upsun
+  name: Nixpkgs upsun linux cache (wave 29)
+  description: Nixpkgs leftover pname upsun on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upsun"
+  - "$XDG_CACHE_HOME/upsun"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upsun
+  name: Nixpkgs upsun windows cache (wave 29)
+  description: Nixpkgs leftover pname upsun on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upsun/Cache"
+  - "%LOCALAPPDATA%/upsun/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptasticsearch
+  name: Nixpkgs uptasticsearch macos cache (wave 29)
+  description: Nixpkgs leftover pname uptasticsearch on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptasticsearch"
+  - "$HOME/Library/Logs/uptasticsearch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptasticsearch
+  name: Nixpkgs uptasticsearch linux cache (wave 29)
+  description: Nixpkgs leftover pname uptasticsearch on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptasticsearch"
+  - "$XDG_CACHE_HOME/uptasticsearch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptasticsearch
+  name: Nixpkgs uptasticsearch windows cache (wave 29)
+  description: Nixpkgs leftover pname uptasticsearch on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptasticsearch/Cache"
+  - "%LOCALAPPDATA%/uptasticsearch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upterm
+  name: Nixpkgs upterm macos cache (wave 29)
+  description: Nixpkgs leftover pname upterm on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upterm"
+  - "$HOME/Library/Logs/upterm"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upterm
+  name: Nixpkgs upterm linux cache (wave 29)
+  description: Nixpkgs leftover pname upterm on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upterm"
+  - "$XDG_CACHE_HOME/upterm"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upterm
+  name: Nixpkgs upterm windows cache (wave 29)
+  description: Nixpkgs leftover pname upterm on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upterm/Cache"
+  - "%LOCALAPPDATA%/upterm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptex
+  name: Nixpkgs uptex macos cache (wave 29)
+  description: Nixpkgs leftover pname uptex on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptex"
+  - "$HOME/Library/Logs/uptex"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptex
+  name: Nixpkgs uptex linux cache (wave 29)
+  description: Nixpkgs leftover pname uptex on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptex"
+  - "$XDG_CACHE_HOME/uptex"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptex
+  name: Nixpkgs uptex windows cache (wave 29)
+  description: Nixpkgs leftover pname uptex on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptex/Cache"
+  - "%LOCALAPPDATA%/uptex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptex-base
+  name: Nixpkgs uptex-base macos cache (wave 29)
+  description: Nixpkgs leftover pname uptex-base on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptex-base"
+  - "$HOME/Library/Logs/uptex-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptex-base
+  name: Nixpkgs uptex-base linux cache (wave 29)
+  description: Nixpkgs leftover pname uptex-base on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptex-base"
+  - "$XDG_CACHE_HOME/uptex-base"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptex-base
+  name: Nixpkgs uptex-base windows cache (wave 29)
+  description: Nixpkgs leftover pname uptex-base on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptex-base/Cache"
+  - "%LOCALAPPDATA%/uptex-base/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptex-fonts
+  name: Nixpkgs uptex-fonts macos cache (wave 29)
+  description: Nixpkgs leftover pname uptex-fonts on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptex-fonts"
+  - "$HOME/Library/Logs/uptex-fonts"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptex-fonts
+  name: Nixpkgs uptex-fonts linux cache (wave 29)
+  description: Nixpkgs leftover pname uptex-fonts on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptex-fonts"
+  - "$XDG_CACHE_HOME/uptex-fonts"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptex-fonts
+  name: Nixpkgs uptex-fonts windows cache (wave 29)
+  description: Nixpkgs leftover pname uptex-fonts on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptex-fonts/Cache"
+  - "%LOCALAPPDATA%/uptex-fonts/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptime
+  name: Nixpkgs uptime macos cache (wave 29)
+  description: Nixpkgs leftover pname uptime on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptime"
+  - "$HOME/Library/Logs/uptime"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptime
+  name: Nixpkgs uptime linux cache (wave 29)
+  description: Nixpkgs leftover pname uptime on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptime"
+  - "$XDG_CACHE_HOME/uptime"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptime
+  name: Nixpkgs uptime windows cache (wave 29)
+  description: Nixpkgs leftover pname uptime on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptime/Cache"
+  - "%LOCALAPPDATA%/uptime/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptime-kuma
+  name: Nixpkgs uptime-kuma macos cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptime-kuma"
+  - "$HOME/Library/Logs/uptime-kuma"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptime-kuma
+  name: Nixpkgs uptime-kuma linux cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptime-kuma"
+  - "$XDG_CACHE_HOME/uptime-kuma"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptime-kuma
+  name: Nixpkgs uptime-kuma windows cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptime-kuma/Cache"
+  - "%LOCALAPPDATA%/uptime-kuma/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptime-kuma-api
+  name: Nixpkgs uptime-kuma-api macos cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma-api on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptime-kuma-api"
+  - "$HOME/Library/Logs/uptime-kuma-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptime-kuma-api
+  name: Nixpkgs uptime-kuma-api linux cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma-api on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptime-kuma-api"
+  - "$XDG_CACHE_HOME/uptime-kuma-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptime-kuma-api
+  name: Nixpkgs uptime-kuma-api windows cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma-api on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptime-kuma-api/Cache"
+  - "%LOCALAPPDATA%/uptime-kuma-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptime-kuma-monitor
+  name: Nixpkgs uptime-kuma-monitor macos cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma-monitor on macos (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptime-kuma-monitor"
+  - "$HOME/Library/Logs/uptime-kuma-monitor"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptime-kuma-monitor
+  name: Nixpkgs uptime-kuma-monitor linux cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma-monitor on linux (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptime-kuma-monitor"
+  - "$XDG_CACHE_HOME/uptime-kuma-monitor"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptime-kuma-monitor
+  name: Nixpkgs uptime-kuma-monitor windows cache (wave 29)
+  description: Nixpkgs leftover pname uptime-kuma-monitor on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptime-kuma-monitor/Cache"
+  - "%LOCALAPPDATA%/uptime-kuma-monitor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptimerobot
+  name: Nixpkgs uptimeRobot macos cache (wave 29)
+  description: Nixpkgs leftover pname uptimeRobot on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptimeRobot"
+  - "$HOME/Library/Logs/uptimeRobot"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptimerobot
+  name: Nixpkgs uptimeRobot linux cache (wave 29)
+  description: Nixpkgs leftover pname uptimeRobot on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptimeRobot"
+  - "$XDG_CACHE_HOME/uptimeRobot"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptimerobot
+  name: Nixpkgs uptimeRobot windows cache (wave 29)
+  description: Nixpkgs leftover pname uptimeRobot on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptimeRobot/Cache"
+  - "%LOCALAPPDATA%/uptimeRobot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptimed
+  name: Nixpkgs uptimed macos cache (wave 29)
+  description: Nixpkgs leftover pname uptimed on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptimed"
+  - "$HOME/Library/Logs/uptimed"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptimed
+  name: Nixpkgs uptimed linux cache (wave 29)
+  description: Nixpkgs leftover pname uptimed on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptimed"
+  - "$XDG_CACHE_HOME/uptimed"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptimed
+  name: Nixpkgs uptimed windows cache (wave 29)
+  description: Nixpkgs leftover pname uptimed on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptimed/Cache"
+  - "%LOCALAPPDATA%/uptimed/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uptimes
+  name: Nixpkgs uptimes macos cache (wave 29)
+  description: Nixpkgs leftover pname uptimes on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uptimes"
+  - "$HOME/Library/Logs/uptimes"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uptimes
+  name: Nixpkgs uptimes linux cache (wave 29)
+  description: Nixpkgs leftover pname uptimes on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uptimes"
+  - "$XDG_CACHE_HOME/uptimes"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uptimes
+  name: Nixpkgs uptimes windows cache (wave 29)
+  description: Nixpkgs leftover pname uptimes on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uptimes/Cache"
+  - "%LOCALAPPDATA%/uptimes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upwork
+  name: Nixpkgs upwork macos cache (wave 29)
+  description: Nixpkgs leftover pname upwork on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upwork"
+  - "$HOME/Library/Logs/upwork"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upwork
+  name: Nixpkgs upwork linux cache (wave 29)
+  description: Nixpkgs leftover pname upwork on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upwork"
+  - "$XDG_CACHE_HOME/upwork"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upwork
+  name: Nixpkgs upwork windows cache (wave 29)
+  description: Nixpkgs leftover pname upwork on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upwork/Cache"
+  - "%LOCALAPPDATA%/upwork/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upx
+  name: Nixpkgs upx macos cache (wave 29)
+  description: Nixpkgs leftover pname upx on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upx"
+  - "$HOME/Library/Logs/upx"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upx
+  name: Nixpkgs upx linux cache (wave 29)
+  description: Nixpkgs leftover pname upx on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upx"
+  - "$XDG_CACHE_HOME/upx"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upx
+  name: Nixpkgs upx windows cache (wave 29)
+  description: Nixpkgs leftover pname upx on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upx/Cache"
+  - "%LOCALAPPDATA%/upx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-upzhkinsoku
+  name: Nixpkgs upzhkinsoku macos cache (wave 29)
+  description: Nixpkgs leftover pname upzhkinsoku on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/upzhkinsoku"
+  - "$HOME/Library/Logs/upzhkinsoku"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-upzhkinsoku
+  name: Nixpkgs upzhkinsoku linux cache (wave 29)
+  description: Nixpkgs leftover pname upzhkinsoku on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/upzhkinsoku"
+  - "$XDG_CACHE_HOME/upzhkinsoku"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-upzhkinsoku
+  name: Nixpkgs upzhkinsoku windows cache (wave 29)
+  description: Nixpkgs leftover pname upzhkinsoku on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/upzhkinsoku/Cache"
+  - "%LOCALAPPDATA%/upzhkinsoku/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uqbar
+  name: Nixpkgs uqbar macos cache (wave 29)
+  description: Nixpkgs leftover pname uqbar on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uqbar"
+  - "$HOME/Library/Logs/uqbar"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uqbar
+  name: Nixpkgs uqbar linux cache (wave 29)
+  description: Nixpkgs leftover pname uqbar on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uqbar"
+  - "$XDG_CACHE_HOME/uqbar"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uqbar
+  name: Nixpkgs uqbar windows cache (wave 29)
+  description: Nixpkgs leftover pname uqbar on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uqbar/Cache"
+  - "%LOCALAPPDATA%/uqbar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uqm
+  name: Nixpkgs uqm macos cache (wave 29)
+  description: Nixpkgs leftover pname uqm on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uqm"
+  - "$HOME/Library/Logs/uqm"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uqm
+  name: Nixpkgs uqm linux cache (wave 29)
+  description: Nixpkgs leftover pname uqm on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uqm"
+  - "$XDG_CACHE_HOME/uqm"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uqm
+  name: Nixpkgs uqm windows cache (wave 29)
+  description: Nixpkgs leftover pname uqm on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uqm/Cache"
+  - "%LOCALAPPDATA%/uqm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uqmi
+  name: Nixpkgs uqmi macos cache (wave 29)
+  description: Nixpkgs leftover pname uqmi on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uqmi"
+  - "$HOME/Library/Logs/uqmi"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uqmi
+  name: Nixpkgs uqmi linux cache (wave 29)
+  description: Nixpkgs leftover pname uqmi on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uqmi"
+  - "$XDG_CACHE_HOME/uqmi"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uqmi
+  name: Nixpkgs uqmi windows cache (wave 29)
+  description: Nixpkgs leftover pname uqmi on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uqmi/Cache"
+  - "%LOCALAPPDATA%/uqmi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-ura
+  name: Nixpkgs ura macos cache (wave 29)
+  description: Nixpkgs leftover pname ura on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ura"
+  - "$HOME/Library/Logs/ura"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-ura
+  name: Nixpkgs ura linux cache (wave 29)
+  description: Nixpkgs leftover pname ura on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ura"
+  - "$XDG_CACHE_HOME/ura"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-ura
+  name: Nixpkgs ura windows cache (wave 29)
+  description: Nixpkgs leftover pname ura on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ura/Cache"
+  - "%LOCALAPPDATA%/ura/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uradvd
+  name: Nixpkgs uradvd macos cache (wave 29)
+  description: Nixpkgs leftover pname uradvd on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uradvd"
+  - "$HOME/Library/Logs/uradvd"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uradvd
+  name: Nixpkgs uradvd linux cache (wave 29)
+  description: Nixpkgs leftover pname uradvd on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uradvd"
+  - "$XDG_CACHE_HOME/uradvd"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uradvd
+  name: Nixpkgs uradvd windows cache (wave 29)
+  description: Nixpkgs leftover pname uradvd on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uradvd/Cache"
+  - "%LOCALAPPDATA%/uradvd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbackup-client
+  name: Nixpkgs urbackup-client macos cache (wave 29)
+  description: Nixpkgs leftover pname urbackup-client on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbackup-client"
+  - "$HOME/Library/Logs/urbackup-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbackup-client
+  name: Nixpkgs urbackup-client linux cache (wave 29)
+  description: Nixpkgs leftover pname urbackup-client on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbackup-client"
+  - "$XDG_CACHE_HOME/urbackup-client"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbackup-client
+  name: Nixpkgs urbackup-client windows cache (wave 29)
+  description: Nixpkgs leftover pname urbackup-client on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbackup-client/Cache"
+  - "%LOCALAPPDATA%/urbackup-client/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urban-cli
+  name: Nixpkgs urban-cli macos cache (wave 29)
+  description: Nixpkgs leftover pname urban-cli on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urban-cli"
+  - "$HOME/Library/Logs/urban-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urban-cli
+  name: Nixpkgs urban-cli linux cache (wave 29)
+  description: Nixpkgs leftover pname urban-cli on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urban-cli"
+  - "$XDG_CACHE_HOME/urban-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urban-cli
+  name: Nixpkgs urban-cli windows cache (wave 29)
+  description: Nixpkgs leftover pname urban-cli on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urban-cli/Cache"
+  - "%LOCALAPPDATA%/urban-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbanterror
+  name: Nixpkgs urbanterror macos cache (wave 29)
+  description: Nixpkgs leftover pname urbanterror on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbanterror"
+  - "$HOME/Library/Logs/urbanterror"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbanterror
+  name: Nixpkgs urbanterror linux cache (wave 29)
+  description: Nixpkgs leftover pname urbanterror on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbanterror"
+  - "$XDG_CACHE_HOME/urbanterror"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbanterror
+  name: Nixpkgs urbanterror windows cache (wave 29)
+  description: Nixpkgs leftover pname urbanterror on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbanterror/Cache"
+  - "%LOCALAPPDATA%/urbanterror/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbin
+  name: Nixpkgs urbin macos cache (wave 29)
+  description: Nixpkgs leftover pname urbin on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbin"
+  - "$HOME/Library/Logs/urbin"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbin
+  name: Nixpkgs urbin linux cache (wave 29)
+  description: Nixpkgs leftover pname urbin on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbin"
+  - "$XDG_CACHE_HOME/urbin"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbin
+  name: Nixpkgs urbin windows cache (wave 29)
+  description: Nixpkgs leftover pname urbin on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbin/Cache"
+  - "%LOCALAPPDATA%/urbin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbit
+  name: Nixpkgs urbit macos cache (wave 29)
+  description: Nixpkgs leftover pname urbit on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbit"
+  - "$HOME/Library/Logs/urbit"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbit
+  name: Nixpkgs urbit linux cache (wave 29)
+  description: Nixpkgs leftover pname urbit on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbit"
+  - "$XDG_CACHE_HOME/urbit"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbit
+  name: Nixpkgs urbit windows cache (wave 29)
+  description: Nixpkgs leftover pname urbit on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbit/Cache"
+  - "%LOCALAPPDATA%/urbit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbit-airlock
+  name: Nixpkgs urbit-airlock macos cache (wave 29)
+  description: Nixpkgs leftover pname urbit-airlock on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbit-airlock"
+  - "$HOME/Library/Logs/urbit-airlock"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbit-airlock
+  name: Nixpkgs urbit-airlock linux cache (wave 29)
+  description: Nixpkgs leftover pname urbit-airlock on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbit-airlock"
+  - "$XDG_CACHE_HOME/urbit-airlock"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbit-airlock
+  name: Nixpkgs urbit-airlock windows cache (wave 29)
+  description: Nixpkgs leftover pname urbit-airlock on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbit-airlock/Cache"
+  - "%LOCALAPPDATA%/urbit-airlock/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbit-api
+  name: Nixpkgs urbit-api macos cache (wave 29)
+  description: Nixpkgs leftover pname urbit-api on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbit-api"
+  - "$HOME/Library/Logs/urbit-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbit-api
+  name: Nixpkgs urbit-api linux cache (wave 29)
+  description: Nixpkgs leftover pname urbit-api on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbit-api"
+  - "$XDG_CACHE_HOME/urbit-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbit-api
+  name: Nixpkgs urbit-api windows cache (wave 29)
+  description: Nixpkgs leftover pname urbit-api on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbit-api/Cache"
+  - "%LOCALAPPDATA%/urbit-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urbit-hob
+  name: Nixpkgs urbit-hob macos cache (wave 29)
+  description: Nixpkgs leftover pname urbit-hob on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urbit-hob"
+  - "$HOME/Library/Logs/urbit-hob"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urbit-hob
+  name: Nixpkgs urbit-hob linux cache (wave 29)
+  description: Nixpkgs leftover pname urbit-hob on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urbit-hob"
+  - "$XDG_CACHE_HOME/urbit-hob"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urbit-hob
+  name: Nixpkgs urbit-hob windows cache (wave 29)
+  description: Nixpkgs leftover pname urbit-hob on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urbit-hob/Cache"
+  - "%LOCALAPPDATA%/urbit-hob/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urca
+  name: Nixpkgs urca macos cache (wave 29)
+  description: Nixpkgs leftover pname urca on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urca"
+  - "$HOME/Library/Logs/urca"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urca
+  name: Nixpkgs urca linux cache (wave 29)
+  description: Nixpkgs leftover pname urca on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urca"
+  - "$XDG_CACHE_HOME/urca"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urca
+  name: Nixpkgs urca windows cache (wave 29)
+  description: Nixpkgs leftover pname urca on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urca/Cache"
+  - "%LOCALAPPDATA%/urca/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urcls
+  name: Nixpkgs urcls macos cache (wave 29)
+  description: Nixpkgs leftover pname urcls on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urcls"
+  - "$HOME/Library/Logs/urcls"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urcls
+  name: Nixpkgs urcls linux cache (wave 29)
+  description: Nixpkgs leftover pname urcls on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urcls"
+  - "$XDG_CACHE_HOME/urcls"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urcls
+  name: Nixpkgs urcls windows cache (wave 29)
+  description: Nixpkgs leftover pname urcls on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urcls/Cache"
+  - "%LOCALAPPDATA%/urcls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urdf-viz
+  name: Nixpkgs urdf-viz macos cache (wave 29)
+  description: Nixpkgs leftover pname urdf-viz on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urdf-viz"
+  - "$HOME/Library/Logs/urdf-viz"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urdf-viz
+  name: Nixpkgs urdf-viz linux cache (wave 29)
+  description: Nixpkgs leftover pname urdf-viz on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urdf-viz"
+  - "$XDG_CACHE_HOME/urdf-viz"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urdf-viz
+  name: Nixpkgs urdf-viz windows cache (wave 29)
+  description: Nixpkgs leftover pname urdf-viz on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urdf-viz/Cache"
+  - "%LOCALAPPDATA%/urdf-viz/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urdfdom
+  name: Nixpkgs urdfdom macos cache (wave 29)
+  description: Nixpkgs leftover pname urdfdom on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urdfdom"
+  - "$HOME/Library/Logs/urdfdom"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urdfdom
+  name: Nixpkgs urdfdom linux cache (wave 29)
+  description: Nixpkgs leftover pname urdfdom on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urdfdom"
+  - "$XDG_CACHE_HOME/urdfdom"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urdfdom
+  name: Nixpkgs urdfdom windows cache (wave 29)
+  description: Nixpkgs leftover pname urdfdom on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urdfdom/Cache"
+  - "%LOCALAPPDATA%/urdfdom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urdfdom-headers
+  name: Nixpkgs urdfdom-headers macos cache (wave 29)
+  description: Nixpkgs leftover pname urdfdom-headers on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urdfdom-headers"
+  - "$HOME/Library/Logs/urdfdom-headers"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urdfdom-headers
+  name: Nixpkgs urdfdom-headers linux cache (wave 29)
+  description: Nixpkgs leftover pname urdfdom-headers on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urdfdom-headers"
+  - "$XDG_CACHE_HOME/urdfdom-headers"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urdfdom-headers
+  name: Nixpkgs urdfdom-headers windows cache (wave 29)
+  description: Nixpkgs leftover pname urdfdom-headers on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urdfdom-headers/Cache"
+  - "%LOCALAPPDATA%/urdfdom-headers/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-ureader
+  name: Nixpkgs ureader macos cache (wave 29)
+  description: Nixpkgs leftover pname ureader on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ureader"
+  - "$HOME/Library/Logs/ureader"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-ureader
+  name: Nixpkgs ureader linux cache (wave 29)
+  description: Nixpkgs leftover pname ureader on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ureader"
+  - "$XDG_CACHE_HOME/ureader"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-ureader
+  name: Nixpkgs ureader windows cache (wave 29)
+  description: Nixpkgs leftover pname ureader on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ureader/Cache"
+  - "%LOCALAPPDATA%/ureader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urembed
+  name: Nixpkgs urembed macos cache (wave 29)
+  description: Nixpkgs leftover pname urembed on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urembed"
+  - "$HOME/Library/Logs/urembed"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urembed
+  name: Nixpkgs urembed linux cache (wave 29)
+  description: Nixpkgs leftover pname urembed on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urembed"
+  - "$XDG_CACHE_HOME/urembed"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urembed
+  name: Nixpkgs urembed windows cache (wave 29)
+  description: Nixpkgs leftover pname urembed on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urembed/Cache"
+  - "%LOCALAPPDATA%/urembed/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urgrep
+  name: Nixpkgs urgrep macos cache (wave 29)
+  description: Nixpkgs leftover pname urgrep on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urgrep"
+  - "$HOME/Library/Logs/urgrep"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urgrep
+  name: Nixpkgs urgrep linux cache (wave 29)
+  description: Nixpkgs leftover pname urgrep on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urgrep"
+  - "$XDG_CACHE_HOME/urgrep"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urgrep
+  name: Nixpkgs urgrep windows cache (wave 29)
+  description: Nixpkgs leftover pname urgrep on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urgrep/Cache"
+  - "%LOCALAPPDATA%/urgrep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urh
+  name: Nixpkgs urh macos cache (wave 29)
+  description: Nixpkgs leftover pname urh on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urh"
+  - "$HOME/Library/Logs/urh"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urh
+  name: Nixpkgs urh linux cache (wave 29)
+  description: Nixpkgs leftover pname urh on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urh"
+  - "$XDG_CACHE_HOME/urh"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urh
+  name: Nixpkgs urh windows cache (wave 29)
+  description: Nixpkgs leftover pname urh on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urh/Cache"
+  - "%LOCALAPPDATA%/urh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-bytestring
+  name: Nixpkgs uri-bytestring macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-bytestring on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-bytestring"
+  - "$HOME/Library/Logs/uri-bytestring"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-bytestring
+  name: Nixpkgs uri-bytestring linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-bytestring on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-bytestring"
+  - "$XDG_CACHE_HOME/uri-bytestring"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-bytestring
+  name: Nixpkgs uri-bytestring windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-bytestring on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-bytestring/Cache"
+  - "%LOCALAPPDATA%/uri-bytestring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-bytestring-aeson
+  name: Nixpkgs uri-bytestring-aeson macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-bytestring-aeson on macos (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-bytestring-aeson"
+  - "$HOME/Library/Logs/uri-bytestring-aeson"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-bytestring-aeson
+  name: Nixpkgs uri-bytestring-aeson linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-bytestring-aeson on linux (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-bytestring-aeson"
+  - "$XDG_CACHE_HOME/uri-bytestring-aeson"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-bytestring-aeson
+  name: Nixpkgs uri-bytestring-aeson windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-bytestring-aeson on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-bytestring-aeson/Cache"
+  - "%LOCALAPPDATA%/uri-bytestring-aeson/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-common
+  name: Nixpkgs uri-common macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-common on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-common"
+  - "$HOME/Library/Logs/uri-common"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-common
+  name: Nixpkgs uri-common linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-common on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-common"
+  - "$XDG_CACHE_HOME/uri-common"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-common
+  name: Nixpkgs uri-common windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-common on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-common/Cache"
+  - "%LOCALAPPDATA%/uri-common/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-conduit
+  name: Nixpkgs uri-conduit macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-conduit on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-conduit"
+  - "$HOME/Library/Logs/uri-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-conduit
+  name: Nixpkgs uri-conduit linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-conduit on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-conduit"
+  - "$XDG_CACHE_HOME/uri-conduit"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-conduit
+  name: Nixpkgs uri-conduit windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-conduit on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-conduit/Cache"
+  - "%LOCALAPPDATA%/uri-conduit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-encode
+  name: Nixpkgs uri-encode macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-encode on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-encode"
+  - "$HOME/Library/Logs/uri-encode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-encode
+  name: Nixpkgs uri-encode linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-encode on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-encode"
+  - "$XDG_CACHE_HOME/uri-encode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-encode
+  name: Nixpkgs uri-encode windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-encode on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-encode/Cache"
+  - "%LOCALAPPDATA%/uri-encode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-encoder
+  name: Nixpkgs uri-encoder macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-encoder on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-encoder"
+  - "$HOME/Library/Logs/uri-encoder"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-encoder
+  name: Nixpkgs uri-encoder linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-encoder on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-encoder"
+  - "$XDG_CACHE_HOME/uri-encoder"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-encoder
+  name: Nixpkgs uri-encoder windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-encoder on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-encoder/Cache"
+  - "%LOCALAPPDATA%/uri-encoder/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-enumerator
+  name: Nixpkgs uri-enumerator macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-enumerator on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-enumerator"
+  - "$HOME/Library/Logs/uri-enumerator"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-enumerator
+  name: Nixpkgs uri-enumerator linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-enumerator on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-enumerator"
+  - "$XDG_CACHE_HOME/uri-enumerator"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-enumerator
+  name: Nixpkgs uri-enumerator windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-enumerator on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-enumerator/Cache"
+  - "%LOCALAPPDATA%/uri-enumerator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-enumerator-file
+  name: Nixpkgs uri-enumerator-file macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-enumerator-file on macos (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-enumerator-file"
+  - "$HOME/Library/Logs/uri-enumerator-file"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-enumerator-file
+  name: Nixpkgs uri-enumerator-file linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-enumerator-file on linux (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-enumerator-file"
+  - "$XDG_CACHE_HOME/uri-enumerator-file"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-enumerator-file
+  name: Nixpkgs uri-enumerator-file windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-enumerator-file on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-enumerator-file/Cache"
+  - "%LOCALAPPDATA%/uri-enumerator-file/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-generic
+  name: Nixpkgs uri-generic macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-generic on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-generic"
+  - "$HOME/Library/Logs/uri-generic"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-generic
+  name: Nixpkgs uri-generic linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-generic on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-generic"
+  - "$XDG_CACHE_HOME/uri-generic"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-generic
+  name: Nixpkgs uri-generic windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-generic on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-generic/Cache"
+  - "%LOCALAPPDATA%/uri-generic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-parse
+  name: Nixpkgs uri-parse macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-parse on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-parse"
+  - "$HOME/Library/Logs/uri-parse"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-parse
+  name: Nixpkgs uri-parse linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-parse on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-parse"
+  - "$XDG_CACHE_HOME/uri-parse"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-parse
+  name: Nixpkgs uri-parse windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-parse on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-parse/Cache"
+  - "%LOCALAPPDATA%/uri-parse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-sexp
+  name: Nixpkgs uri-sexp macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-sexp on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-sexp"
+  - "$HOME/Library/Logs/uri-sexp"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-sexp
+  name: Nixpkgs uri-sexp linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-sexp on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-sexp"
+  - "$XDG_CACHE_HOME/uri-sexp"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-sexp
+  name: Nixpkgs uri-sexp windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-sexp on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-sexp/Cache"
+  - "%LOCALAPPDATA%/uri-sexp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-template-test
+  name: Nixpkgs uri-template.test macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-template.test on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-template.test"
+  - "$HOME/Library/Logs/uri-template.test"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-template-test
+  name: Nixpkgs uri-template.test linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-template.test on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-template.test"
+  - "$XDG_CACHE_HOME/uri-template.test"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-template-test
+  name: Nixpkgs uri-template.test windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-template.test on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-template.test/Cache"
+  - "%LOCALAPPDATA%/uri-template.test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uri-templater
+  name: Nixpkgs uri-templater macos cache (wave 29)
+  description: Nixpkgs leftover pname uri-templater on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uri-templater"
+  - "$HOME/Library/Logs/uri-templater"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uri-templater
+  name: Nixpkgs uri-templater linux cache (wave 29)
+  description: Nixpkgs leftover pname uri-templater on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uri-templater"
+  - "$XDG_CACHE_HOME/uri-templater"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uri-templater
+  name: Nixpkgs uri-templater windows cache (wave 29)
+  description: Nixpkgs leftover pname uri-templater on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uri-templater/Cache"
+  - "%LOCALAPPDATA%/uri-templater/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uring
+  name: Nixpkgs uring macos cache (wave 29)
+  description: Nixpkgs leftover pname uring on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uring"
+  - "$HOME/Library/Logs/uring"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uring
+  name: Nixpkgs uring linux cache (wave 29)
+  description: Nixpkgs leftover pname uring on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uring"
+  - "$XDG_CACHE_HOME/uring"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uring
+  name: Nixpkgs uring windows cache (wave 29)
+  description: Nixpkgs leftover pname uring on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uring/Cache"
+  - "%LOCALAPPDATA%/uring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uriparser
+  name: Nixpkgs uriparser macos cache (wave 29)
+  description: Nixpkgs leftover pname uriparser on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uriparser"
+  - "$HOME/Library/Logs/uriparser"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uriparser
+  name: Nixpkgs uriparser linux cache (wave 29)
+  description: Nixpkgs leftover pname uriparser on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uriparser"
+  - "$XDG_CACHE_HOME/uriparser"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uriparser
+  name: Nixpkgs uriparser windows cache (wave 29)
+  description: Nixpkgs leftover pname uriparser on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uriparser/Cache"
+  - "%LOCALAPPDATA%/uriparser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uritemplate
+  name: Nixpkgs uritemplate macos cache (wave 29)
+  description: Nixpkgs leftover pname uritemplate on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uritemplate"
+  - "$HOME/Library/Logs/uritemplate"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uritemplate
+  name: Nixpkgs uritemplate linux cache (wave 29)
+  description: Nixpkgs leftover pname uritemplate on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uritemplate"
+  - "$XDG_CACHE_HOME/uritemplate"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uritemplate
+  name: Nixpkgs uritemplate windows cache (wave 29)
+  description: Nixpkgs leftover pname uritemplate on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uritemplate/Cache"
+  - "%LOCALAPPDATA%/uritemplate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uritools
+  name: Nixpkgs uritools macos cache (wave 29)
+  description: Nixpkgs leftover pname uritools on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uritools"
+  - "$HOME/Library/Logs/uritools"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uritools
+  name: Nixpkgs uritools linux cache (wave 29)
+  description: Nixpkgs leftover pname uritools on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uritools"
+  - "$XDG_CACHE_HOME/uritools"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uritools
+  name: Nixpkgs uritools windows cache (wave 29)
+  description: Nixpkgs leftover pname uritools on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uritools/Cache"
+  - "%LOCALAPPDATA%/uritools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urjtag
+  name: Nixpkgs urjtag macos cache (wave 29)
+  description: Nixpkgs leftover pname urjtag on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urjtag"
+  - "$HOME/Library/Logs/urjtag"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urjtag
+  name: Nixpkgs urjtag linux cache (wave 29)
+  description: Nixpkgs leftover pname urjtag on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urjtag"
+  - "$XDG_CACHE_HOME/urjtag"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urjtag
+  name: Nixpkgs urjtag windows cache (wave 29)
+  description: Nixpkgs leftover pname urjtag on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urjtag/Cache"
+  - "%LOCALAPPDATA%/urjtag/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url
+  name: Nixpkgs url macos cache (wave 29)
+  description: Nixpkgs leftover pname url on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url"
+  - "$HOME/Library/Logs/url"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url
+  name: Nixpkgs url linux cache (wave 29)
+  description: Nixpkgs leftover pname url on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url"
+  - "$XDG_CACHE_HOME/url"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url
+  name: Nixpkgs url windows cache (wave 29)
+  description: Nixpkgs leftover pname url on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url/Cache"
+  - "%LOCALAPPDATA%/url/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-bytes
+  name: Nixpkgs url-bytes macos cache (wave 29)
+  description: Nixpkgs leftover pname url-bytes on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-bytes"
+  - "$HOME/Library/Logs/url-bytes"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-bytes
+  name: Nixpkgs url-bytes linux cache (wave 29)
+  description: Nixpkgs leftover pname url-bytes on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-bytes"
+  - "$XDG_CACHE_HOME/url-bytes"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-bytes
+  name: Nixpkgs url-bytes windows cache (wave 29)
+  description: Nixpkgs leftover pname url-bytes on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-bytes/Cache"
+  - "%LOCALAPPDATA%/url-bytes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-decoders
+  name: Nixpkgs url-decoders macos cache (wave 29)
+  description: Nixpkgs leftover pname url-decoders on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-decoders"
+  - "$HOME/Library/Logs/url-decoders"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-decoders
+  name: Nixpkgs url-decoders linux cache (wave 29)
+  description: Nixpkgs leftover pname url-decoders on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-decoders"
+  - "$XDG_CACHE_HOME/url-decoders"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-decoders
+  name: Nixpkgs url-decoders windows cache (wave 29)
+  description: Nixpkgs leftover pname url-decoders on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-decoders/Cache"
+  - "%LOCALAPPDATA%/url-decoders/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-generic
+  name: Nixpkgs url-generic macos cache (wave 29)
+  description: Nixpkgs leftover pname url-generic on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-generic"
+  - "$HOME/Library/Logs/url-generic"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-generic
+  name: Nixpkgs url-generic linux cache (wave 29)
+  description: Nixpkgs leftover pname url-generic on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-generic"
+  - "$XDG_CACHE_HOME/url-generic"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-generic
+  name: Nixpkgs url-generic windows cache (wave 29)
+  description: Nixpkgs leftover pname url-generic on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-generic/Cache"
+  - "%LOCALAPPDATA%/url-generic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-http-ntlm
+  name: Nixpkgs url-http-ntlm macos cache (wave 29)
+  description: Nixpkgs leftover pname url-http-ntlm on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-http-ntlm"
+  - "$HOME/Library/Logs/url-http-ntlm"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-http-ntlm
+  name: Nixpkgs url-http-ntlm linux cache (wave 29)
+  description: Nixpkgs leftover pname url-http-ntlm on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-http-ntlm"
+  - "$XDG_CACHE_HOME/url-http-ntlm"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-http-ntlm
+  name: Nixpkgs url-http-ntlm windows cache (wave 29)
+  description: Nixpkgs leftover pname url-http-ntlm on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-http-ntlm/Cache"
+  - "%LOCALAPPDATA%/url-http-ntlm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-http-oauth
+  name: Nixpkgs url-http-oauth macos cache (wave 29)
+  description: Nixpkgs leftover pname url-http-oauth on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-http-oauth"
+  - "$HOME/Library/Logs/url-http-oauth"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-http-oauth
+  name: Nixpkgs url-http-oauth linux cache (wave 29)
+  description: Nixpkgs leftover pname url-http-oauth on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-http-oauth"
+  - "$XDG_CACHE_HOME/url-http-oauth"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-http-oauth
+  name: Nixpkgs url-http-oauth windows cache (wave 29)
+  description: Nixpkgs leftover pname url-http-oauth on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-http-oauth/Cache"
+  - "%LOCALAPPDATA%/url-http-oauth/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-normalize
+  name: Nixpkgs url-normalize macos cache (wave 29)
+  description: Nixpkgs leftover pname url-normalize on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-normalize"
+  - "$HOME/Library/Logs/url-normalize"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-normalize
+  name: Nixpkgs url-normalize linux cache (wave 29)
+  description: Nixpkgs leftover pname url-normalize on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-normalize"
+  - "$XDG_CACHE_HOME/url-normalize"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-normalize
+  name: Nixpkgs url-normalize windows cache (wave 29)
+  description: Nixpkgs leftover pname url-normalize on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-normalize/Cache"
+  - "%LOCALAPPDATA%/url-normalize/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-open
+  name: Nixpkgs url-open macos cache (wave 29)
+  description: Nixpkgs leftover pname url-open on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-open"
+  - "$HOME/Library/Logs/url-open"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-open
+  name: Nixpkgs url-open linux cache (wave 29)
+  description: Nixpkgs leftover pname url-open on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-open"
+  - "$XDG_CACHE_HOME/url-open"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-open
+  name: Nixpkgs url-open windows cache (wave 29)
+  description: Nixpkgs leftover pname url-open on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-open/Cache"
+  - "%LOCALAPPDATA%/url-open/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-parser
+  name: Nixpkgs url-parser macos cache (wave 29)
+  description: Nixpkgs leftover pname url-parser on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-parser"
+  - "$HOME/Library/Logs/url-parser"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-parser
+  name: Nixpkgs url-parser linux cache (wave 29)
+  description: Nixpkgs leftover pname url-parser on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-parser"
+  - "$XDG_CACHE_HOME/url-parser"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-parser
+  name: Nixpkgs url-parser windows cache (wave 29)
+  description: Nixpkgs leftover pname url-parser on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-parser/Cache"
+  - "%LOCALAPPDATA%/url-parser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-rewrite
+  name: Nixpkgs url-rewrite macos cache (wave 29)
+  description: Nixpkgs leftover pname url-rewrite on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-rewrite"
+  - "$HOME/Library/Logs/url-rewrite"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-rewrite
+  name: Nixpkgs url-rewrite linux cache (wave 29)
+  description: Nixpkgs leftover pname url-rewrite on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-rewrite"
+  - "$XDG_CACHE_HOME/url-rewrite"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-rewrite
+  name: Nixpkgs url-rewrite windows cache (wave 29)
+  description: Nixpkgs leftover pname url-rewrite on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-rewrite/Cache"
+  - "%LOCALAPPDATA%/url-rewrite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-scgi
+  name: Nixpkgs url-scgi macos cache (wave 29)
+  description: Nixpkgs leftover pname url-scgi on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-scgi"
+  - "$HOME/Library/Logs/url-scgi"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-scgi
+  name: Nixpkgs url-scgi linux cache (wave 29)
+  description: Nixpkgs leftover pname url-scgi on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-scgi"
+  - "$XDG_CACHE_HOME/url-scgi"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-scgi
+  name: Nixpkgs url-scgi windows cache (wave 29)
+  description: Nixpkgs leftover pname url-scgi on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-scgi/Cache"
+  - "%LOCALAPPDATA%/url-scgi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-shortener
+  name: Nixpkgs url-shortener macos cache (wave 29)
+  description: Nixpkgs leftover pname url-shortener on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-shortener"
+  - "$HOME/Library/Logs/url-shortener"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-shortener
+  name: Nixpkgs url-shortener linux cache (wave 29)
+  description: Nixpkgs leftover pname url-shortener on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-shortener"
+  - "$XDG_CACHE_HOME/url-shortener"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-shortener
+  name: Nixpkgs url-shortener windows cache (wave 29)
+  description: Nixpkgs leftover pname url-shortener on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-shortener/Cache"
+  - "%LOCALAPPDATA%/url-shortener/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-slug
+  name: Nixpkgs url-slug macos cache (wave 29)
+  description: Nixpkgs leftover pname url-slug on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url-slug"
+  - "$HOME/Library/Logs/url-slug"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-slug
+  name: Nixpkgs url-slug linux cache (wave 29)
+  description: Nixpkgs leftover pname url-slug on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url-slug"
+  - "$XDG_CACHE_HOME/url-slug"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-slug
+  name: Nixpkgs url-slug windows cache (wave 29)
+  description: Nixpkgs leftover pname url-slug on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url-slug/Cache"
+  - "%LOCALAPPDATA%/url-slug/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-url-hint
+  name: Nixpkgs url_hint macos cache (wave 29)
+  description: Nixpkgs leftover pname url_hint on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/url_hint"
+  - "$HOME/Library/Logs/url_hint"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-url-hint
+  name: Nixpkgs url_hint linux cache (wave 29)
+  description: Nixpkgs leftover pname url_hint on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/url_hint"
+  - "$XDG_CACHE_HOME/url_hint"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-url-hint
+  name: Nixpkgs url_hint windows cache (wave 29)
+  description: Nixpkgs leftover pname url_hint on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/url_hint/Cache"
+  - "%LOCALAPPDATA%/url_hint/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlbst
+  name: Nixpkgs urlbst macos cache (wave 29)
+  description: Nixpkgs leftover pname urlbst on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlbst"
+  - "$HOME/Library/Logs/urlbst"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlbst
+  name: Nixpkgs urlbst linux cache (wave 29)
+  description: Nixpkgs leftover pname urlbst on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlbst"
+  - "$XDG_CACHE_HOME/urlbst"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlbst
+  name: Nixpkgs urlbst windows cache (wave 29)
+  description: Nixpkgs leftover pname urlbst on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlbst/Cache"
+  - "%LOCALAPPDATA%/urlbst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlcheck
+  name: Nixpkgs urlcheck macos cache (wave 29)
+  description: Nixpkgs leftover pname urlcheck on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlcheck"
+  - "$HOME/Library/Logs/urlcheck"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlcheck
+  name: Nixpkgs urlcheck linux cache (wave 29)
+  description: Nixpkgs leftover pname urlcheck on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlcheck"
+  - "$XDG_CACHE_HOME/urlcheck"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlcheck
+  name: Nixpkgs urlcheck windows cache (wave 29)
+  description: Nixpkgs leftover pname urlcheck on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlcheck/Cache"
+  - "%LOCALAPPDATA%/urlcheck/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlchecker
+  name: Nixpkgs urlchecker macos cache (wave 29)
+  description: Nixpkgs leftover pname urlchecker on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlchecker"
+  - "$HOME/Library/Logs/urlchecker"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlchecker
+  name: Nixpkgs urlchecker linux cache (wave 29)
+  description: Nixpkgs leftover pname urlchecker on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlchecker"
+  - "$XDG_CACHE_HOME/urlchecker"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlchecker
+  name: Nixpkgs urlchecker windows cache (wave 29)
+  description: Nixpkgs leftover pname urlchecker on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlchecker/Cache"
+  - "%LOCALAPPDATA%/urlchecker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urldecode
+  name: Nixpkgs urldecode macos cache (wave 29)
+  description: Nixpkgs leftover pname urldecode on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urldecode"
+  - "$HOME/Library/Logs/urldecode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urldecode
+  name: Nixpkgs urldecode linux cache (wave 29)
+  description: Nixpkgs leftover pname urldecode on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urldecode"
+  - "$XDG_CACHE_HOME/urldecode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urldecode
+  name: Nixpkgs urldecode windows cache (wave 29)
+  description: Nixpkgs leftover pname urldecode on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urldecode/Cache"
+  - "%LOCALAPPDATA%/urldecode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urldisp-happstack
+  name: Nixpkgs urldisp-happstack macos cache (wave 29)
+  description: Nixpkgs leftover pname urldisp-happstack on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urldisp-happstack"
+  - "$HOME/Library/Logs/urldisp-happstack"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urldisp-happstack
+  name: Nixpkgs urldisp-happstack linux cache (wave 29)
+  description: Nixpkgs leftover pname urldisp-happstack on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urldisp-happstack"
+  - "$XDG_CACHE_HOME/urldisp-happstack"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urldisp-happstack
+  name: Nixpkgs urldisp-happstack windows cache (wave 29)
+  description: Nixpkgs leftover pname urldisp-happstack on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urldisp-happstack/Cache"
+  - "%LOCALAPPDATA%/urldisp-happstack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlenc
+  name: Nixpkgs urlenc macos cache (wave 29)
+  description: Nixpkgs leftover pname urlenc on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlenc"
+  - "$HOME/Library/Logs/urlenc"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlenc
+  name: Nixpkgs urlenc linux cache (wave 29)
+  description: Nixpkgs leftover pname urlenc on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlenc"
+  - "$XDG_CACHE_HOME/urlenc"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlenc
+  name: Nixpkgs urlenc windows cache (wave 29)
+  description: Nixpkgs leftover pname urlenc on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlenc/Cache"
+  - "%LOCALAPPDATA%/urlenc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlencode
+  name: Nixpkgs urlencode macos cache (wave 29)
+  description: Nixpkgs leftover pname urlencode on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlencode"
+  - "$HOME/Library/Logs/urlencode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlencode
+  name: Nixpkgs urlencode linux cache (wave 29)
+  description: Nixpkgs leftover pname urlencode on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlencode"
+  - "$XDG_CACHE_HOME/urlencode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlencode
+  name: Nixpkgs urlencode windows cache (wave 29)
+  description: Nixpkgs leftover pname urlencode on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlencode/Cache"
+  - "%LOCALAPPDATA%/urlencode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlencoded
+  name: Nixpkgs urlencoded macos cache (wave 29)
+  description: Nixpkgs leftover pname urlencoded on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlencoded"
+  - "$HOME/Library/Logs/urlencoded"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlencoded
+  name: Nixpkgs urlencoded linux cache (wave 29)
+  description: Nixpkgs leftover pname urlencoded on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlencoded"
+  - "$XDG_CACHE_HOME/urlencoded"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlencoded
+  name: Nixpkgs urlencoded windows cache (wave 29)
+  description: Nixpkgs leftover pname urlencoded on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlencoded/Cache"
+  - "%LOCALAPPDATA%/urlencoded/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlexplorer
+  name: Nixpkgs urlexplorer macos cache (wave 29)
+  description: Nixpkgs leftover pname urlexplorer on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlexplorer"
+  - "$HOME/Library/Logs/urlexplorer"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlexplorer
+  name: Nixpkgs urlexplorer linux cache (wave 29)
+  description: Nixpkgs leftover pname urlexplorer on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlexplorer"
+  - "$XDG_CACHE_HOME/urlexplorer"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlexplorer
+  name: Nixpkgs urlexplorer windows cache (wave 29)
+  description: Nixpkgs leftover pname urlexplorer on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlexplorer/Cache"
+  - "%LOCALAPPDATA%/urlexplorer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlextract
+  name: Nixpkgs urlextract macos cache (wave 29)
+  description: Nixpkgs leftover pname urlextract on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlextract"
+  - "$HOME/Library/Logs/urlextract"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlextract
+  name: Nixpkgs urlextract linux cache (wave 29)
+  description: Nixpkgs leftover pname urlextract on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlextract"
+  - "$XDG_CACHE_HOME/urlextract"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlextract
+  name: Nixpkgs urlextract windows cache (wave 29)
+  description: Nixpkgs leftover pname urlextract on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlextract/Cache"
+  - "%LOCALAPPDATA%/urlextract/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlfinder
+  name: Nixpkgs urlfinder macos cache (wave 29)
+  description: Nixpkgs leftover pname urlfinder on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlfinder"
+  - "$HOME/Library/Logs/urlfinder"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlfinder
+  name: Nixpkgs urlfinder linux cache (wave 29)
+  description: Nixpkgs leftover pname urlfinder on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlfinder"
+  - "$XDG_CACHE_HOME/urlfinder"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlfinder
+  name: Nixpkgs urlfinder windows cache (wave 29)
+  description: Nixpkgs leftover pname urlfinder on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlfinder/Cache"
+  - "%LOCALAPPDATA%/urlfinder/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlgrabber
+  name: Nixpkgs urlgrabber macos cache (wave 29)
+  description: Nixpkgs leftover pname urlgrabber on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlgrabber"
+  - "$HOME/Library/Logs/urlgrabber"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlgrabber
+  name: Nixpkgs urlgrabber linux cache (wave 29)
+  description: Nixpkgs leftover pname urlgrabber on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlgrabber"
+  - "$XDG_CACHE_HOME/urlgrabber"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlgrabber
+  name: Nixpkgs urlgrabber windows cache (wave 29)
+  description: Nixpkgs leftover pname urlgrabber on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlgrabber/Cache"
+  - "%LOCALAPPDATA%/urlgrabber/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlhunter
+  name: Nixpkgs urlhunter macos cache (wave 29)
+  description: Nixpkgs leftover pname urlhunter on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlhunter"
+  - "$HOME/Library/Logs/urlhunter"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlhunter
+  name: Nixpkgs urlhunter linux cache (wave 29)
+  description: Nixpkgs leftover pname urlhunter on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlhunter"
+  - "$XDG_CACHE_HOME/urlhunter"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlhunter
+  name: Nixpkgs urlhunter windows cache (wave 29)
+  description: Nixpkgs leftover pname urlhunter on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlhunter/Cache"
+  - "%LOCALAPPDATA%/urlhunter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urllib3
+  name: Nixpkgs urllib3 macos cache (wave 29)
+  description: Nixpkgs leftover pname urllib3 on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urllib3"
+  - "$HOME/Library/Logs/urllib3"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urllib3
+  name: Nixpkgs urllib3 linux cache (wave 29)
+  description: Nixpkgs leftover pname urllib3 on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urllib3"
+  - "$XDG_CACHE_HOME/urllib3"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urllib3
+  name: Nixpkgs urllib3 windows cache (wave 29)
+  description: Nixpkgs leftover pname urllib3 on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urllib3/Cache"
+  - "%LOCALAPPDATA%/urllib3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urllib3-future
+  name: Nixpkgs urllib3-future macos cache (wave 29)
+  description: Nixpkgs leftover pname urllib3-future on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urllib3-future"
+  - "$HOME/Library/Logs/urllib3-future"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urllib3-future
+  name: Nixpkgs urllib3-future linux cache (wave 29)
+  description: Nixpkgs leftover pname urllib3-future on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urllib3-future"
+  - "$XDG_CACHE_HOME/urllib3-future"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urllib3-future
+  name: Nixpkgs urllib3-future windows cache (wave 29)
+  description: Nixpkgs leftover pname urllib3-future on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urllib3-future/Cache"
+  - "%LOCALAPPDATA%/urllib3-future/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlman
+  name: Nixpkgs urlman macos cache (wave 29)
+  description: Nixpkgs leftover pname urlman on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlman"
+  - "$HOME/Library/Logs/urlman"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlman
+  name: Nixpkgs urlman linux cache (wave 29)
+  description: Nixpkgs leftover pname urlman on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlman"
+  - "$XDG_CACHE_HOME/urlman"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlman
+  name: Nixpkgs urlman windows cache (wave 29)
+  description: Nixpkgs leftover pname urlman on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlman/Cache"
+  - "%LOCALAPPDATA%/urlman/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlmatch
+  name: Nixpkgs urlmatch macos cache (wave 29)
+  description: Nixpkgs leftover pname urlmatch on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlmatch"
+  - "$HOME/Library/Logs/urlmatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlmatch
+  name: Nixpkgs urlmatch linux cache (wave 29)
+  description: Nixpkgs leftover pname urlmatch on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlmatch"
+  - "$XDG_CACHE_HOME/urlmatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlmatch
+  name: Nixpkgs urlmatch windows cache (wave 29)
+  description: Nixpkgs leftover pname urlmatch on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlmatch/Cache"
+  - "%LOCALAPPDATA%/urlmatch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlobject
+  name: Nixpkgs urlobject macos cache (wave 29)
+  description: Nixpkgs leftover pname urlobject on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlobject"
+  - "$HOME/Library/Logs/urlobject"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlobject
+  name: Nixpkgs urlobject linux cache (wave 29)
+  description: Nixpkgs leftover pname urlobject on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlobject"
+  - "$XDG_CACHE_HOME/urlobject"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlobject
+  name: Nixpkgs urlobject windows cache (wave 29)
+  description: Nixpkgs leftover pname urlobject on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlobject/Cache"
+  - "%LOCALAPPDATA%/urlobject/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlparse
+  name: Nixpkgs urlparse macos cache (wave 29)
+  description: Nixpkgs leftover pname urlparse on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlparse"
+  - "$HOME/Library/Logs/urlparse"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlparse
+  name: Nixpkgs urlparse linux cache (wave 29)
+  description: Nixpkgs leftover pname urlparse on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlparse"
+  - "$XDG_CACHE_HOME/urlparse"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlparse
+  name: Nixpkgs urlparse windows cache (wave 29)
+  description: Nixpkgs leftover pname urlparse on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlparse/Cache"
+  - "%LOCALAPPDATA%/urlparse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlpath
+  name: Nixpkgs urlpath macos cache (wave 29)
+  description: Nixpkgs leftover pname urlpath on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlpath"
+  - "$HOME/Library/Logs/urlpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlpath
+  name: Nixpkgs urlpath linux cache (wave 29)
+  description: Nixpkgs leftover pname urlpath on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlpath"
+  - "$XDG_CACHE_HOME/urlpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlpath
+  name: Nixpkgs urlpath windows cache (wave 29)
+  description: Nixpkgs leftover pname urlpath on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlpath/Cache"
+  - "%LOCALAPPDATA%/urlpath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlpy
+  name: Nixpkgs urlpy macos cache (wave 29)
+  description: Nixpkgs leftover pname urlpy on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlpy"
+  - "$HOME/Library/Logs/urlpy"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlpy
+  name: Nixpkgs urlpy linux cache (wave 29)
+  description: Nixpkgs leftover pname urlpy on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlpy"
+  - "$XDG_CACHE_HOME/urlpy"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlpy
+  name: Nixpkgs urlpy windows cache (wave 29)
+  description: Nixpkgs leftover pname urlpy on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlpy/Cache"
+  - "%LOCALAPPDATA%/urlpy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlscan
+  name: Nixpkgs urlscan macos cache (wave 29)
+  description: Nixpkgs leftover pname urlscan on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlscan"
+  - "$HOME/Library/Logs/urlscan"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlscan
+  name: Nixpkgs urlscan linux cache (wave 29)
+  description: Nixpkgs leftover pname urlscan on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlscan"
+  - "$XDG_CACHE_HOME/urlscan"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlscan
+  name: Nixpkgs urlscan windows cache (wave 29)
+  description: Nixpkgs leftover pname urlscan on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlscan/Cache"
+  - "%LOCALAPPDATA%/urlscan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlscan-python
+  name: Nixpkgs urlscan-python macos cache (wave 29)
+  description: Nixpkgs leftover pname urlscan-python on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlscan-python"
+  - "$HOME/Library/Logs/urlscan-python"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlscan-python
+  name: Nixpkgs urlscan-python linux cache (wave 29)
+  description: Nixpkgs leftover pname urlscan-python on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlscan-python"
+  - "$XDG_CACHE_HOME/urlscan-python"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlscan-python
+  name: Nixpkgs urlscan-python windows cache (wave 29)
+  description: Nixpkgs leftover pname urlscan-python on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlscan-python/Cache"
+  - "%LOCALAPPDATA%/urlscan-python/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlshortener
+  name: Nixpkgs urlshorteneR macos cache (wave 29)
+  description: Nixpkgs leftover pname urlshorteneR on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlshorteneR"
+  - "$HOME/Library/Logs/urlshorteneR"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlshortener
+  name: Nixpkgs urlshorteneR linux cache (wave 29)
+  description: Nixpkgs leftover pname urlshorteneR on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlshorteneR"
+  - "$XDG_CACHE_HOME/urlshorteneR"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlshortener
+  name: Nixpkgs urlshorteneR windows cache (wave 29)
+  description: Nixpkgs leftover pname urlshorteneR on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlshorteneR/Cache"
+  - "%LOCALAPPDATA%/urlshorteneR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urltools
+  name: Nixpkgs urltools macos cache (wave 29)
+  description: Nixpkgs leftover pname urltools on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urltools"
+  - "$HOME/Library/Logs/urltools"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urltools
+  name: Nixpkgs urltools linux cache (wave 29)
+  description: Nixpkgs leftover pname urltools on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urltools"
+  - "$XDG_CACHE_HOME/urltools"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urltools
+  name: Nixpkgs urltools windows cache (wave 29)
+  description: Nixpkgs leftover pname urltools on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urltools/Cache"
+  - "%LOCALAPPDATA%/urltools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlview-nvim
+  name: Nixpkgs urlview.nvim macos cache (wave 29)
+  description: Nixpkgs leftover pname urlview.nvim on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlview.nvim"
+  - "$HOME/Library/Logs/urlview.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlview-nvim
+  name: Nixpkgs urlview.nvim linux cache (wave 29)
+  description: Nixpkgs leftover pname urlview.nvim on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlview.nvim"
+  - "$XDG_CACHE_HOME/urlview.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlview-nvim
+  name: Nixpkgs urlview.nvim windows cache (wave 29)
+  description: Nixpkgs leftover pname urlview.nvim on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlview.nvim/Cache"
+  - "%LOCALAPPDATA%/urlview.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urlwatch
+  name: Nixpkgs urlwatch macos cache (wave 29)
+  description: Nixpkgs leftover pname urlwatch on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urlwatch"
+  - "$HOME/Library/Logs/urlwatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urlwatch
+  name: Nixpkgs urlwatch linux cache (wave 29)
+  description: Nixpkgs leftover pname urlwatch on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urlwatch"
+  - "$XDG_CACHE_HOME/urlwatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urlwatch
+  name: Nixpkgs urlwatch windows cache (wave 29)
+  description: Nixpkgs leftover pname urlwatch on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urlwatch/Cache"
+  - "%LOCALAPPDATA%/urlwatch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urn
+  name: Nixpkgs urn macos cache (wave 29)
+  description: Nixpkgs leftover pname urn on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urn"
+  - "$HOME/Library/Logs/urn"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urn
+  name: Nixpkgs urn linux cache (wave 29)
+  description: Nixpkgs leftover pname urn on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urn"
+  - "$XDG_CACHE_HOME/urn"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urn
+  name: Nixpkgs urn windows cache (wave 29)
+  description: Nixpkgs leftover pname urn on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urn/Cache"
+  - "%LOCALAPPDATA%/urn/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urn-random
+  name: Nixpkgs urn-random macos cache (wave 29)
+  description: Nixpkgs leftover pname urn-random on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urn-random"
+  - "$HOME/Library/Logs/urn-random"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urn-random
+  name: Nixpkgs urn-random linux cache (wave 29)
+  description: Nixpkgs leftover pname urn-random on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urn-random"
+  - "$XDG_CACHE_HOME/urn-random"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urn-random
+  name: Nixpkgs urn-random windows cache (wave 29)
+  description: Nixpkgs leftover pname urn-random on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urn-random/Cache"
+  - "%LOCALAPPDATA%/urn-random/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urn-timer
+  name: Nixpkgs urn-timer macos cache (wave 29)
+  description: Nixpkgs leftover pname urn-timer on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urn-timer"
+  - "$HOME/Library/Logs/urn-timer"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urn-timer
+  name: Nixpkgs urn-timer linux cache (wave 29)
+  description: Nixpkgs leftover pname urn-timer on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urn-timer"
+  - "$XDG_CACHE_HOME/urn-timer"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urn-timer
+  name: Nixpkgs urn-timer windows cache (wave 29)
+  description: Nixpkgs leftover pname urn-timer on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urn-timer/Cache"
+  - "%LOCALAPPDATA%/urn-timer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uro
+  name: Nixpkgs uro macos cache (wave 29)
+  description: Nixpkgs leftover pname uro on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uro"
+  - "$HOME/Library/Logs/uro"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uro
+  name: Nixpkgs uro linux cache (wave 29)
+  description: Nixpkgs leftover pname uro on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uro"
+  - "$XDG_CACHE_HOME/uro"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uro
+  name: Nixpkgs uro windows cache (wave 29)
+  description: Nixpkgs leftover pname uro on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uro/Cache"
+  - "%LOCALAPPDATA%/uro/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uroboros
+  name: Nixpkgs uroboros macos cache (wave 29)
+  description: Nixpkgs leftover pname uroboros on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uroboros"
+  - "$HOME/Library/Logs/uroboros"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uroboros
+  name: Nixpkgs uroboros linux cache (wave 29)
+  description: Nixpkgs leftover pname uroboros on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uroboros"
+  - "$XDG_CACHE_HOME/uroboros"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uroboros
+  name: Nixpkgs uroboros windows cache (wave 29)
+  description: Nixpkgs leftover pname uroboros on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uroboros/Cache"
+  - "%LOCALAPPDATA%/uroboros/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-uroot
+  name: Nixpkgs uroot macos cache (wave 29)
+  description: Nixpkgs leftover pname uroot on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/uroot"
+  - "$HOME/Library/Logs/uroot"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-uroot
+  name: Nixpkgs uroot linux cache (wave 29)
+  description: Nixpkgs leftover pname uroot on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/uroot"
+  - "$XDG_CACHE_HOME/uroot"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-uroot
+  name: Nixpkgs uroot windows cache (wave 29)
+  description: Nixpkgs leftover pname uroot on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/uroot/Cache"
+  - "%LOCALAPPDATA%/uroot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-ursa
+  name: Nixpkgs ursa macos cache (wave 29)
+  description: Nixpkgs leftover pname ursa on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ursa"
+  - "$HOME/Library/Logs/ursa"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-ursa
+  name: Nixpkgs ursa linux cache (wave 29)
+  description: Nixpkgs leftover pname ursa on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ursa"
+  - "$XDG_CACHE_HOME/ursa"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-ursa
+  name: Nixpkgs ursa windows cache (wave 29)
+  description: Nixpkgs leftover pname ursa on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ursa/Cache"
+  - "%LOCALAPPDATA%/ursa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-ursa-ts-mode
+  name: Nixpkgs ursa-ts-mode macos cache (wave 29)
+  description: Nixpkgs leftover pname ursa-ts-mode on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ursa-ts-mode"
+  - "$HOME/Library/Logs/ursa-ts-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-ursa-ts-mode
+  name: Nixpkgs ursa-ts-mode linux cache (wave 29)
+  description: Nixpkgs leftover pname ursa-ts-mode on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ursa-ts-mode"
+  - "$XDG_CACHE_HOME/ursa-ts-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-ursa-ts-mode
+  name: Nixpkgs ursa-ts-mode windows cache (wave 29)
+  description: Nixpkgs leftover pname ursa-ts-mode on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ursa-ts-mode/Cache"
+  - "%LOCALAPPDATA%/ursa-ts-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-ursadb
+  name: Nixpkgs ursadb macos cache (wave 29)
+  description: Nixpkgs leftover pname ursadb on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ursadb"
+  - "$HOME/Library/Logs/ursadb"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-ursadb
+  name: Nixpkgs ursadb linux cache (wave 29)
+  description: Nixpkgs leftover pname ursadb on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ursadb"
+  - "$XDG_CACHE_HOME/ursadb"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-ursadb
+  name: Nixpkgs ursadb windows cache (wave 29)
+  description: Nixpkgs leftover pname ursadb on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ursadb/Cache"
+  - "%LOCALAPPDATA%/ursadb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urscript-mode
+  name: Nixpkgs urscript-mode macos cache (wave 29)
+  description: Nixpkgs leftover pname urscript-mode on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urscript-mode"
+  - "$HOME/Library/Logs/urscript-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urscript-mode
+  name: Nixpkgs urscript-mode linux cache (wave 29)
+  description: Nixpkgs leftover pname urscript-mode on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urscript-mode"
+  - "$XDG_CACHE_HOME/urscript-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urscript-mode
+  name: Nixpkgs urscript-mode windows cache (wave 29)
+  description: Nixpkgs leftover pname urscript-mode on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urscript-mode/Cache"
+  - "%LOCALAPPDATA%/urscript-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urserver
+  name: Nixpkgs urserver macos cache (wave 29)
+  description: Nixpkgs leftover pname urserver on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urserver"
+  - "$HOME/Library/Logs/urserver"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urserver
+  name: Nixpkgs urserver linux cache (wave 29)
+  description: Nixpkgs leftover pname urserver on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urserver"
+  - "$XDG_CACHE_HOME/urserver"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urserver
+  name: Nixpkgs urserver windows cache (wave 29)
+  description: Nixpkgs leftover pname urserver on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urserver/Cache"
+  - "%LOCALAPPDATA%/urserver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urwchancal
+  name: Nixpkgs urwchancal macos cache (wave 29)
+  description: Nixpkgs leftover pname urwchancal on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urwchancal"
+  - "$HOME/Library/Logs/urwchancal"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urwchancal
+  name: Nixpkgs urwchancal linux cache (wave 29)
+  description: Nixpkgs leftover pname urwchancal on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urwchancal"
+  - "$XDG_CACHE_HOME/urwchancal"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urwchancal
+  name: Nixpkgs urwchancal windows cache (wave 29)
+  description: Nixpkgs leftover pname urwchancal on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urwchancal/Cache"
+  - "%LOCALAPPDATA%/urwchancal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urweb
+  name: Nixpkgs urweb macos cache (wave 29)
+  description: Nixpkgs leftover pname urweb on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urweb"
+  - "$HOME/Library/Logs/urweb"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urweb
+  name: Nixpkgs urweb linux cache (wave 29)
+  description: Nixpkgs leftover pname urweb on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urweb"
+  - "$XDG_CACHE_HOME/urweb"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urweb
+  name: Nixpkgs urweb windows cache (wave 29)
+  description: Nixpkgs leftover pname urweb on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urweb/Cache"
+  - "%LOCALAPPDATA%/urweb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urweb-mode
+  name: Nixpkgs urweb-mode macos cache (wave 29)
+  description: Nixpkgs leftover pname urweb-mode on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urweb-mode"
+  - "$HOME/Library/Logs/urweb-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urweb-mode
+  name: Nixpkgs urweb-mode linux cache (wave 29)
+  description: Nixpkgs leftover pname urweb-mode on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urweb-mode"
+  - "$XDG_CACHE_HOME/urweb-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urweb-mode
+  name: Nixpkgs urweb-mode windows cache (wave 29)
+  description: Nixpkgs leftover pname urweb-mode on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urweb-mode/Cache"
+  - "%LOCALAPPDATA%/urweb-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urwid
+  name: Nixpkgs urwid macos cache (wave 29)
+  description: Nixpkgs leftover pname urwid on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urwid"
+  - "$HOME/Library/Logs/urwid"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urwid
+  name: Nixpkgs urwid linux cache (wave 29)
+  description: Nixpkgs leftover pname urwid on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urwid"
+  - "$XDG_CACHE_HOME/urwid"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urwid
+  name: Nixpkgs urwid windows cache (wave 29)
+  description: Nixpkgs leftover pname urwid on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urwid/Cache"
+  - "%LOCALAPPDATA%/urwid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urwid-readline
+  name: Nixpkgs urwid-readline macos cache (wave 29)
+  description: Nixpkgs leftover pname urwid-readline on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urwid-readline"
+  - "$HOME/Library/Logs/urwid-readline"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urwid-readline
+  name: Nixpkgs urwid-readline linux cache (wave 29)
+  description: Nixpkgs leftover pname urwid-readline on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urwid-readline"
+  - "$XDG_CACHE_HOME/urwid-readline"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urwid-readline
+  name: Nixpkgs urwid-readline windows cache (wave 29)
+  description: Nixpkgs leftover pname urwid-readline on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urwid-readline/Cache"
+  - "%LOCALAPPDATA%/urwid-readline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urwid-satext
+  name: Nixpkgs urwid-satext macos cache (wave 29)
+  description: Nixpkgs leftover pname urwid-satext on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urwid-satext"
+  - "$HOME/Library/Logs/urwid-satext"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urwid-satext
+  name: Nixpkgs urwid-satext linux cache (wave 29)
+  description: Nixpkgs leftover pname urwid-satext on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urwid-satext"
+  - "$XDG_CACHE_HOME/urwid-satext"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urwid-satext
+  name: Nixpkgs urwid-satext windows cache (wave 29)
+  description: Nixpkgs leftover pname urwid-satext on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urwid-satext/Cache"
+  - "%LOCALAPPDATA%/urwid-satext/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urwidgets
+  name: Nixpkgs urwidgets macos cache (wave 29)
+  description: Nixpkgs leftover pname urwidgets on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urwidgets"
+  - "$HOME/Library/Logs/urwidgets"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urwidgets
+  name: Nixpkgs urwidgets linux cache (wave 29)
+  description: Nixpkgs leftover pname urwidgets on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urwidgets"
+  - "$XDG_CACHE_HOME/urwidgets"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urwidgets
+  name: Nixpkgs urwidgets windows cache (wave 29)
+  description: Nixpkgs leftover pname urwidgets on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urwidgets/Cache"
+  - "%LOCALAPPDATA%/urwidgets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urwidtrees
+  name: Nixpkgs urwidtrees macos cache (wave 29)
+  description: Nixpkgs leftover pname urwidtrees on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urwidtrees"
+  - "$HOME/Library/Logs/urwidtrees"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urwidtrees
+  name: Nixpkgs urwidtrees linux cache (wave 29)
+  description: Nixpkgs leftover pname urwidtrees on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urwidtrees"
+  - "$XDG_CACHE_HOME/urwidtrees"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urwidtrees
+  name: Nixpkgs urwidtrees windows cache (wave 29)
+  description: Nixpkgs leftover pname urwidtrees on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urwidtrees/Cache"
+  - "%LOCALAPPDATA%/urwidtrees/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urx
+  name: Nixpkgs urx macos cache (wave 29)
+  description: Nixpkgs leftover pname urx on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urx"
+  - "$HOME/Library/Logs/urx"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urx
+  name: Nixpkgs urx linux cache (wave 29)
+  description: Nixpkgs leftover pname urx on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urx"
+  - "$XDG_CACHE_HOME/urx"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urx
+  name: Nixpkgs urx windows cache (wave 29)
+  description: Nixpkgs leftover pname urx on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urx/Cache"
+  - "%LOCALAPPDATA%/urx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxml
+  name: Nixpkgs urxml macos cache (wave 29)
+  description: Nixpkgs leftover pname urxml on macos (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxml"
+  - "$HOME/Library/Logs/urxml"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxml
+  name: Nixpkgs urxml linux cache (wave 29)
+  description: Nixpkgs leftover pname urxml on linux (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxml"
+  - "$XDG_CACHE_HOME/urxml"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxml
+  name: Nixpkgs urxml windows cache (wave 29)
+  description: Nixpkgs leftover pname urxml on windows (wave 29). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxml/Cache"
+  - "%LOCALAPPDATA%/urxml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-autocomplete-all-the-things
+  name: Nixpkgs urxvt-autocomplete-all-the-things macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-autocomplete-all-the-things on macos (wave
+    29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-autocomplete-all-the-things"
+  - "$HOME/Library/Logs/urxvt-autocomplete-all-the-things"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-autocomplete-all-the-things
+  name: Nixpkgs urxvt-autocomplete-all-the-things linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-autocomplete-all-the-things on linux (wave
+    29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-autocomplete-all-the-things"
+  - "$XDG_CACHE_HOME/urxvt-autocomplete-all-the-things"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-autocomplete-all-the-things
+  name: Nixpkgs urxvt-autocomplete-all-the-things windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-autocomplete-all-the-things on windows
+    (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-autocomplete-all-the-things/Cache"
+  - "%LOCALAPPDATA%/urxvt-autocomplete-all-the-things/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-bidi
+  name: Nixpkgs urxvt-bidi macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-bidi on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-bidi"
+  - "$HOME/Library/Logs/urxvt-bidi"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-bidi
+  name: Nixpkgs urxvt-bidi linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-bidi on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-bidi"
+  - "$XDG_CACHE_HOME/urxvt-bidi"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-bidi
+  name: Nixpkgs urxvt-bidi windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-bidi on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-bidi/Cache"
+  - "%LOCALAPPDATA%/urxvt-bidi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-font-size
+  name: Nixpkgs urxvt-font-size macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-font-size on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-font-size"
+  - "$HOME/Library/Logs/urxvt-font-size"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-font-size
+  name: Nixpkgs urxvt-font-size linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-font-size on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-font-size"
+  - "$XDG_CACHE_HOME/urxvt-font-size"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-font-size
+  name: Nixpkgs urxvt-font-size windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-font-size on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-font-size/Cache"
+  - "%LOCALAPPDATA%/urxvt-font-size/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-perl
+  name: Nixpkgs urxvt-perl macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-perl on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-perl"
+  - "$HOME/Library/Logs/urxvt-perl"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-perl
+  name: Nixpkgs urxvt-perl linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-perl on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-perl"
+  - "$XDG_CACHE_HOME/urxvt-perl"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-perl
+  name: Nixpkgs urxvt-perl windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-perl on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-perl/Cache"
+  - "%LOCALAPPDATA%/urxvt-perl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-perls
+  name: Nixpkgs urxvt-perls macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-perls on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-perls"
+  - "$HOME/Library/Logs/urxvt-perls"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-perls
+  name: Nixpkgs urxvt-perls linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-perls on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-perls"
+  - "$XDG_CACHE_HOME/urxvt-perls"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-perls
+  name: Nixpkgs urxvt-perls windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-perls on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-perls/Cache"
+  - "%LOCALAPPDATA%/urxvt-perls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-resize-font
+  name: Nixpkgs urxvt-resize-font macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-resize-font on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-resize-font"
+  - "$HOME/Library/Logs/urxvt-resize-font"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-resize-font
+  name: Nixpkgs urxvt-resize-font linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-resize-font on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-resize-font"
+  - "$XDG_CACHE_HOME/urxvt-resize-font"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-resize-font
+  name: Nixpkgs urxvt-resize-font windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-resize-font on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-resize-font/Cache"
+  - "%LOCALAPPDATA%/urxvt-resize-font/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-tabbedex
+  name: Nixpkgs urxvt-tabbedex macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-tabbedex on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-tabbedex"
+  - "$HOME/Library/Logs/urxvt-tabbedex"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-tabbedex
+  name: Nixpkgs urxvt-tabbedex linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-tabbedex on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-tabbedex"
+  - "$XDG_CACHE_HOME/urxvt-tabbedex"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-tabbedex
+  name: Nixpkgs urxvt-tabbedex windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-tabbedex on windows (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-tabbedex/Cache"
+  - "%LOCALAPPDATA%/urxvt-tabbedex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-urxvt-theme-switch
+  name: Nixpkgs urxvt-theme-switch macos cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-theme-switch on macos (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/urxvt-theme-switch"
+  - "$HOME/Library/Logs/urxvt-theme-switch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-urxvt-theme-switch
+  name: Nixpkgs urxvt-theme-switch linux cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-theme-switch on linux (wave 29). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/urxvt-theme-switch"
+  - "$XDG_CACHE_HOME/urxvt-theme-switch"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-urxvt-theme-switch
+  name: Nixpkgs urxvt-theme-switch windows cache (wave 29)
+  description: Nixpkgs leftover pname urxvt-theme-switch on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/urxvt-theme-switch/Cache"
+  - "%LOCALAPPDATA%/urxvt-theme-switch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-us
+  name: Nixpkgs us macos cache (wave 29)
+  description: Nixpkgs leftover pname us on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/us"
+  - "$HOME/Library/Logs/us"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-us
+  name: Nixpkgs us linux cache (wave 29)
+  description: Nixpkgs leftover pname us on linux (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/us"
+  - "$XDG_CACHE_HOME/us"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-us
+  name: Nixpkgs us windows cache (wave 29)
+  description: Nixpkgs leftover pname us on windows (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/us/Cache"
+  - "%LOCALAPPDATA%/us/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-us-census-geoheader
+  name: Nixpkgs us.census.geoheader macos cache (wave 29)
+  description: Nixpkgs leftover pname us.census.geoheader on macos (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/us.census.geoheader"
+  - "$HOME/Library/Logs/us.census.geoheader"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-lin-us-census-geoheader
+  name: Nixpkgs us.census.geoheader linux cache (wave 29)
+  description: Nixpkgs leftover pname us.census.geoheader on linux (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/us.census.geoheader"
+  - "$XDG_CACHE_HOME/us.census.geoheader"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-win-us-census-geoheader
+  name: Nixpkgs us.census.geoheader windows cache (wave 29)
+  description: Nixpkgs leftover pname us.census.geoheader on windows (wave 29). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/us.census.geoheader/Cache"
+  - "%LOCALAPPDATA%/us.census.geoheader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np29-mac-usa
+  name: Nixpkgs usa macos cache (wave 29)
+  description: Nixpkgs leftover pname usa on macos (wave 29). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/usa"
+  - "$HOME/Library/Logs/usa"
+  delete_mode: contents
+  max_depth: 6

@@ -1,0 +1,5604 @@
+---
+pack: src-iter07-13
+description: Iterative 10k import wave 7 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np7-mac-data-tensor
+  name: Nixpkgs data-tensor macos cache (wave 7)
+  description: Nixpkgs leftover pname data-tensor on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-tensor"
+  - "$HOME/Library/Logs/data-tensor"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-tensor
+  name: Nixpkgs data-tensor linux cache (wave 7)
+  description: Nixpkgs leftover pname data-tensor on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-tensor"
+  - "$XDG_CACHE_HOME/data-tensor"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-tensor
+  name: Nixpkgs data-tensor windows cache (wave 7)
+  description: Nixpkgs leftover pname data-tensor on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-tensor/Cache"
+  - "%LOCALAPPDATA%/data-tensor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-textual
+  name: Nixpkgs data-textual macos cache (wave 7)
+  description: Nixpkgs leftover pname data-textual on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-textual"
+  - "$HOME/Library/Logs/data-textual"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-textual
+  name: Nixpkgs data-textual linux cache (wave 7)
+  description: Nixpkgs leftover pname data-textual on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-textual"
+  - "$XDG_CACHE_HOME/data-textual"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-textual
+  name: Nixpkgs data-textual windows cache (wave 7)
+  description: Nixpkgs leftover pname data-textual on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-textual/Cache"
+  - "%LOCALAPPDATA%/data-textual/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-timeout
+  name: Nixpkgs data-timeout macos cache (wave 7)
+  description: Nixpkgs leftover pname data-timeout on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-timeout"
+  - "$HOME/Library/Logs/data-timeout"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-timeout
+  name: Nixpkgs data-timeout linux cache (wave 7)
+  description: Nixpkgs leftover pname data-timeout on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-timeout"
+  - "$XDG_CACHE_HOME/data-timeout"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-timeout
+  name: Nixpkgs data-timeout windows cache (wave 7)
+  description: Nixpkgs leftover pname data-timeout on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-timeout/Cache"
+  - "%LOCALAPPDATA%/data-timeout/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-transfer
+  name: Nixpkgs data-transfer macos cache (wave 7)
+  description: Nixpkgs leftover pname data-transfer on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-transfer"
+  - "$HOME/Library/Logs/data-transfer"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-transfer
+  name: Nixpkgs data-transfer linux cache (wave 7)
+  description: Nixpkgs leftover pname data-transfer on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-transfer"
+  - "$XDG_CACHE_HOME/data-transfer"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-transfer
+  name: Nixpkgs data-transfer windows cache (wave 7)
+  description: Nixpkgs leftover pname data-transfer on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-transfer/Cache"
+  - "%LOCALAPPDATA%/data-transfer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-transform
+  name: Nixpkgs data-transform macos cache (wave 7)
+  description: Nixpkgs leftover pname data-transform on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-transform"
+  - "$HOME/Library/Logs/data-transform"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-transform
+  name: Nixpkgs data-transform linux cache (wave 7)
+  description: Nixpkgs leftover pname data-transform on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-transform"
+  - "$XDG_CACHE_HOME/data-transform"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-transform
+  name: Nixpkgs data-transform windows cache (wave 7)
+  description: Nixpkgs leftover pname data-transform on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-transform/Cache"
+  - "%LOCALAPPDATA%/data-transform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-tree-print
+  name: Nixpkgs data-tree-print macos cache (wave 7)
+  description: Nixpkgs leftover pname data-tree-print on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-tree-print"
+  - "$HOME/Library/Logs/data-tree-print"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-tree-print
+  name: Nixpkgs data-tree-print linux cache (wave 7)
+  description: Nixpkgs leftover pname data-tree-print on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-tree-print"
+  - "$XDG_CACHE_HOME/data-tree-print"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-tree-print
+  name: Nixpkgs data-tree-print windows cache (wave 7)
+  description: Nixpkgs leftover pname data-tree-print on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-tree-print/Cache"
+  - "%LOCALAPPDATA%/data-tree-print/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-treify
+  name: Nixpkgs data-treify macos cache (wave 7)
+  description: Nixpkgs leftover pname data-treify on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-treify"
+  - "$HOME/Library/Logs/data-treify"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-treify
+  name: Nixpkgs data-treify linux cache (wave 7)
+  description: Nixpkgs leftover pname data-treify on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-treify"
+  - "$XDG_CACHE_HOME/data-treify"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-treify
+  name: Nixpkgs data-treify windows cache (wave 7)
+  description: Nixpkgs leftover pname data-treify on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-treify/Cache"
+  - "%LOCALAPPDATA%/data-treify/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-type
+  name: Nixpkgs data-type macos cache (wave 7)
+  description: Nixpkgs leftover pname data-type on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-type"
+  - "$HOME/Library/Logs/data-type"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-type
+  name: Nixpkgs data-type linux cache (wave 7)
+  description: Nixpkgs leftover pname data-type on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-type"
+  - "$XDG_CACHE_HOME/data-type"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-type
+  name: Nixpkgs data-type windows cache (wave 7)
+  description: Nixpkgs leftover pname data-type on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-type/Cache"
+  - "%LOCALAPPDATA%/data-type/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-validation
+  name: Nixpkgs data-validation macos cache (wave 7)
+  description: Nixpkgs leftover pname data-validation on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-validation"
+  - "$HOME/Library/Logs/data-validation"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-validation
+  name: Nixpkgs data-validation linux cache (wave 7)
+  description: Nixpkgs leftover pname data-validation on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-validation"
+  - "$XDG_CACHE_HOME/data-validation"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-validation
+  name: Nixpkgs data-validation windows cache (wave 7)
+  description: Nixpkgs leftover pname data-validation on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-validation/Cache"
+  - "%LOCALAPPDATA%/data-validation/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-variant
+  name: Nixpkgs data-variant macos cache (wave 7)
+  description: Nixpkgs leftover pname data-variant on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-variant"
+  - "$HOME/Library/Logs/data-variant"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-variant
+  name: Nixpkgs data-variant linux cache (wave 7)
+  description: Nixpkgs leftover pname data-variant on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-variant"
+  - "$XDG_CACHE_HOME/data-variant"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-variant
+  name: Nixpkgs data-variant windows cache (wave 7)
+  description: Nixpkgs leftover pname data-variant on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-variant/Cache"
+  - "%LOCALAPPDATA%/data-variant/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-vector-growable
+  name: Nixpkgs data-vector-growable macos cache (wave 7)
+  description: Nixpkgs leftover pname data-vector-growable on macos (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data-vector-growable"
+  - "$HOME/Library/Logs/data-vector-growable"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-vector-growable
+  name: Nixpkgs data-vector-growable linux cache (wave 7)
+  description: Nixpkgs leftover pname data-vector-growable on linux (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data-vector-growable"
+  - "$XDG_CACHE_HOME/data-vector-growable"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-vector-growable
+  name: Nixpkgs data-vector-growable windows cache (wave 7)
+  description: Nixpkgs leftover pname data-vector-growable on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data-vector-growable/Cache"
+  - "%LOCALAPPDATA%/data-vector-growable/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-checker
+  name: Nixpkgs data.checker macos cache (wave 7)
+  description: Nixpkgs leftover pname data.checker on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data.checker"
+  - "$HOME/Library/Logs/data.checker"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-checker
+  name: Nixpkgs data.checker linux cache (wave 7)
+  description: Nixpkgs leftover pname data.checker on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data.checker"
+  - "$XDG_CACHE_HOME/data.checker"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-checker
+  name: Nixpkgs data.checker windows cache (wave 7)
+  description: Nixpkgs leftover pname data.checker on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data.checker/Cache"
+  - "%LOCALAPPDATA%/data.checker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-table-threads
+  name: Nixpkgs data.table.threads macos cache (wave 7)
+  description: Nixpkgs leftover pname data.table.threads on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data.table.threads"
+  - "$HOME/Library/Logs/data.table.threads"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-table-threads
+  name: Nixpkgs data.table.threads linux cache (wave 7)
+  description: Nixpkgs leftover pname data.table.threads on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data.table.threads"
+  - "$XDG_CACHE_HOME/data.table.threads"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-table-threads
+  name: Nixpkgs data.table.threads windows cache (wave 7)
+  description: Nixpkgs leftover pname data.table.threads on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data.table.threads/Cache"
+  - "%LOCALAPPDATA%/data.table.threads/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-tree
+  name: Nixpkgs data.tree macos cache (wave 7)
+  description: Nixpkgs leftover pname data.tree on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data.tree"
+  - "$HOME/Library/Logs/data.tree"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-tree
+  name: Nixpkgs data.tree linux cache (wave 7)
+  description: Nixpkgs leftover pname data.tree on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data.tree"
+  - "$XDG_CACHE_HOME/data.tree"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-tree
+  name: Nixpkgs data.tree windows cache (wave 7)
+  description: Nixpkgs leftover pname data.tree on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data.tree/Cache"
+  - "%LOCALAPPDATA%/data.tree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-validator
+  name: Nixpkgs data.validator macos cache (wave 7)
+  description: Nixpkgs leftover pname data.validator on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data.validator"
+  - "$HOME/Library/Logs/data.validator"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-validator
+  name: Nixpkgs data.validator linux cache (wave 7)
+  description: Nixpkgs leftover pname data.validator on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data.validator"
+  - "$XDG_CACHE_HOME/data.validator"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-validator
+  name: Nixpkgs data.validator windows cache (wave 7)
+  description: Nixpkgs leftover pname data.validator on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data.validator/Cache"
+  - "%LOCALAPPDATA%/data.validator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data360r
+  name: Nixpkgs data360r macos cache (wave 7)
+  description: Nixpkgs leftover pname data360r on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data360r"
+  - "$HOME/Library/Logs/data360r"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data360r
+  name: Nixpkgs data360r linux cache (wave 7)
+  description: Nixpkgs leftover pname data360r on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data360r"
+  - "$XDG_CACHE_HOME/data360r"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data360r
+  name: Nixpkgs data360r windows cache (wave 7)
+  description: Nixpkgs leftover pname data360r on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data360r/Cache"
+  - "%LOCALAPPDATA%/data360r/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data4health
+  name: Nixpkgs data4health macos cache (wave 7)
+  description: Nixpkgs leftover pname data4health on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data4health"
+  - "$HOME/Library/Logs/data4health"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data4health
+  name: Nixpkgs data4health linux cache (wave 7)
+  description: Nixpkgs leftover pname data4health on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data4health"
+  - "$XDG_CACHE_HOME/data4health"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data4health
+  name: Nixpkgs data4health windows cache (wave 7)
+  description: Nixpkgs leftover pname data4health on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data4health/Cache"
+  - "%LOCALAPPDATA%/data4health/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacompare
+  name: Nixpkgs dataCompare macos cache (wave 7)
+  description: Nixpkgs leftover pname dataCompare on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataCompare"
+  - "$HOME/Library/Logs/dataCompare"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacompare
+  name: Nixpkgs dataCompare linux cache (wave 7)
+  description: Nixpkgs leftover pname dataCompare on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataCompare"
+  - "$XDG_CACHE_HOME/dataCompare"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacompare
+  name: Nixpkgs dataCompare windows cache (wave 7)
+  description: Nixpkgs leftover pname dataCompare on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataCompare/Cache"
+  - "%LOCALAPPDATA%/dataCompare/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacomparer
+  name: Nixpkgs dataCompareR macos cache (wave 7)
+  description: Nixpkgs leftover pname dataCompareR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataCompareR"
+  - "$HOME/Library/Logs/dataCompareR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacomparer
+  name: Nixpkgs dataCompareR linux cache (wave 7)
+  description: Nixpkgs leftover pname dataCompareR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataCompareR"
+  - "$XDG_CACHE_HOME/dataCompareR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacomparer
+  name: Nixpkgs dataCompareR windows cache (wave 7)
+  description: Nixpkgs leftover pname dataCompareR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataCompareR/Cache"
+  - "%LOCALAPPDATA%/dataCompareR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamaid
+  name: Nixpkgs dataMaid macos cache (wave 7)
+  description: Nixpkgs leftover pname dataMaid on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataMaid"
+  - "$HOME/Library/Logs/dataMaid"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamaid
+  name: Nixpkgs dataMaid linux cache (wave 7)
+  description: Nixpkgs leftover pname dataMaid on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataMaid"
+  - "$XDG_CACHE_HOME/dataMaid"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamaid
+  name: Nixpkgs dataMaid windows cache (wave 7)
+  description: Nixpkgs leftover pname dataMaid on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataMaid/Cache"
+  - "%LOCALAPPDATA%/dataMaid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datameta
+  name: Nixpkgs dataMeta macos cache (wave 7)
+  description: Nixpkgs leftover pname dataMeta on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataMeta"
+  - "$HOME/Library/Logs/dataMeta"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datameta
+  name: Nixpkgs dataMeta linux cache (wave 7)
+  description: Nixpkgs leftover pname dataMeta on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataMeta"
+  - "$XDG_CACHE_HOME/dataMeta"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datameta
+  name: Nixpkgs dataMeta windows cache (wave 7)
+  description: Nixpkgs leftover pname dataMeta on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataMeta/Cache"
+  - "%LOCALAPPDATA%/dataMeta/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamojo
+  name: Nixpkgs dataMojo macos cache (wave 7)
+  description: Nixpkgs leftover pname dataMojo on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataMojo"
+  - "$HOME/Library/Logs/dataMojo"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamojo
+  name: Nixpkgs dataMojo linux cache (wave 7)
+  description: Nixpkgs leftover pname dataMojo on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataMojo"
+  - "$XDG_CACHE_HOME/dataMojo"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamojo
+  name: Nixpkgs dataMojo windows cache (wave 7)
+  description: Nixpkgs leftover pname dataMojo on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataMojo/Cache"
+  - "%LOCALAPPDATA%/dataMojo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapreparation
+  name: Nixpkgs dataPreparation macos cache (wave 7)
+  description: Nixpkgs leftover pname dataPreparation on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataPreparation"
+  - "$HOME/Library/Logs/dataPreparation"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapreparation
+  name: Nixpkgs dataPreparation linux cache (wave 7)
+  description: Nixpkgs leftover pname dataPreparation on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataPreparation"
+  - "$XDG_CACHE_HOME/dataPreparation"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapreparation
+  name: Nixpkgs dataPreparation windows cache (wave 7)
+  description: Nixpkgs leftover pname dataPreparation on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataPreparation/Cache"
+  - "%LOCALAPPDATA%/dataPreparation/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataprofilerr
+  name: Nixpkgs dataProfilerR macos cache (wave 7)
+  description: Nixpkgs leftover pname dataProfilerR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataProfilerR"
+  - "$HOME/Library/Logs/dataProfilerR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataprofilerr
+  name: Nixpkgs dataProfilerR linux cache (wave 7)
+  description: Nixpkgs leftover pname dataProfilerR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataProfilerR"
+  - "$XDG_CACHE_HOME/dataProfilerR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataprofilerr
+  name: Nixpkgs dataProfilerR windows cache (wave 7)
+  description: Nixpkgs leftover pname dataProfilerR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataProfilerR/Cache"
+  - "%LOCALAPPDATA%/dataProfilerR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datareporter
+  name: Nixpkgs dataReporter macos cache (wave 7)
+  description: Nixpkgs leftover pname dataReporter on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataReporter"
+  - "$HOME/Library/Logs/dataReporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datareporter
+  name: Nixpkgs dataReporter linux cache (wave 7)
+  description: Nixpkgs leftover pname dataReporter on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataReporter"
+  - "$XDG_CACHE_HOME/dataReporter"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datareporter
+  name: Nixpkgs dataReporter windows cache (wave 7)
+  description: Nixpkgs leftover pname dataReporter on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataReporter/Cache"
+  - "%LOCALAPPDATA%/dataReporter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataretrieval
+  name: Nixpkgs dataRetrieval macos cache (wave 7)
+  description: Nixpkgs leftover pname dataRetrieval on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataRetrieval"
+  - "$HOME/Library/Logs/dataRetrieval"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataretrieval
+  name: Nixpkgs dataRetrieval linux cache (wave 7)
+  description: Nixpkgs leftover pname dataRetrieval on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataRetrieval"
+  - "$XDG_CACHE_HOME/dataRetrieval"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataretrieval
+  name: Nixpkgs dataRetrieval windows cache (wave 7)
+  description: Nixpkgs leftover pname dataRetrieval on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataRetrieval/Cache"
+  - "%LOCALAPPDATA%/dataRetrieval/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasda
+  name: Nixpkgs dataSDA macos cache (wave 7)
+  description: Nixpkgs leftover pname dataSDA on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataSDA"
+  - "$HOME/Library/Logs/dataSDA"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasda
+  name: Nixpkgs dataSDA linux cache (wave 7)
+  description: Nixpkgs leftover pname dataSDA on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataSDA"
+  - "$XDG_CACHE_HOME/dataSDA"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasda
+  name: Nixpkgs dataSDA windows cache (wave 7)
+  description: Nixpkgs leftover pname dataSDA on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataSDA/Cache"
+  - "%LOCALAPPDATA%/dataSDA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-data-objects
+  name: Nixpkgs data_objects macos cache (wave 7)
+  description: Nixpkgs leftover pname data_objects on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/data_objects"
+  - "$HOME/Library/Logs/data_objects"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-data-objects
+  name: Nixpkgs data_objects linux cache (wave 7)
+  description: Nixpkgs leftover pname data_objects on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/data_objects"
+  - "$XDG_CACHE_HOME/data_objects"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-data-objects
+  name: Nixpkgs data_objects windows cache (wave 7)
+  description: Nixpkgs leftover pname data_objects on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/data_objects/Cache"
+  - "%LOCALAPPDATA%/data_objects/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databackend
+  name: Nixpkgs databackend macos cache (wave 7)
+  description: Nixpkgs leftover pname databackend on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databackend"
+  - "$HOME/Library/Logs/databackend"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databackend
+  name: Nixpkgs databackend linux cache (wave 7)
+  description: Nixpkgs leftover pname databackend on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databackend"
+  - "$XDG_CACHE_HOME/databackend"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databackend
+  name: Nixpkgs databackend windows cache (wave 7)
+  description: Nixpkgs leftover pname databackend on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databackend/Cache"
+  - "%LOCALAPPDATA%/databackend/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-database
+  name: Nixpkgs database macos cache (wave 7)
+  description: Nixpkgs leftover pname database on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/database"
+  - "$HOME/Library/Logs/database"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-database
+  name: Nixpkgs database linux cache (wave 7)
+  description: Nixpkgs leftover pname database on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/database"
+  - "$XDG_CACHE_HOME/database"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-database
+  name: Nixpkgs database windows cache (wave 7)
+  description: Nixpkgs leftover pname database on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/database/Cache"
+  - "%LOCALAPPDATA%/database/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-database-id-class
+  name: Nixpkgs database-id-class macos cache (wave 7)
+  description: Nixpkgs leftover pname database-id-class on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/database-id-class"
+  - "$HOME/Library/Logs/database-id-class"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-database-id-class
+  name: Nixpkgs database-id-class linux cache (wave 7)
+  description: Nixpkgs leftover pname database-id-class on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/database-id-class"
+  - "$XDG_CACHE_HOME/database-id-class"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-database-id-class
+  name: Nixpkgs database-id-class windows cache (wave 7)
+  description: Nixpkgs leftover pname database-id-class on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/database-id-class/Cache"
+  - "%LOCALAPPDATA%/database-id-class/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-database-id-groundhog
+  name: Nixpkgs database-id-groundhog macos cache (wave 7)
+  description: Nixpkgs leftover pname database-id-groundhog on macos (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/database-id-groundhog"
+  - "$HOME/Library/Logs/database-id-groundhog"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-database-id-groundhog
+  name: Nixpkgs database-id-groundhog linux cache (wave 7)
+  description: Nixpkgs leftover pname database-id-groundhog on linux (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/database-id-groundhog"
+  - "$XDG_CACHE_HOME/database-id-groundhog"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-database-id-groundhog
+  name: Nixpkgs database-id-groundhog windows cache (wave 7)
+  description: Nixpkgs leftover pname database-id-groundhog on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/database-id-groundhog/Cache"
+  - "%LOCALAPPDATA%/database-id-groundhog/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-database-migrate
+  name: Nixpkgs database-migrate macos cache (wave 7)
+  description: Nixpkgs leftover pname database-migrate on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/database-migrate"
+  - "$HOME/Library/Logs/database-migrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-database-migrate
+  name: Nixpkgs database-migrate linux cache (wave 7)
+  description: Nixpkgs leftover pname database-migrate on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/database-migrate"
+  - "$XDG_CACHE_HOME/database-migrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-database-migrate
+  name: Nixpkgs database-migrate windows cache (wave 7)
+  description: Nixpkgs leftover pname database-migrate on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/database-migrate/Cache"
+  - "%LOCALAPPDATA%/database-migrate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-database-migrations
+  name: Nixpkgs database-migrations macos cache (wave 7)
+  description: Nixpkgs leftover pname database-migrations on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/database-migrations"
+  - "$HOME/Library/Logs/database-migrations"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-database-migrations
+  name: Nixpkgs database-migrations linux cache (wave 7)
+  description: Nixpkgs leftover pname database-migrations on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/database-migrations"
+  - "$XDG_CACHE_HOME/database-migrations"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-database-migrations
+  name: Nixpkgs database-migrations windows cache (wave 7)
+  description: Nixpkgs leftover pname database-migrations on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/database-migrations/Cache"
+  - "%LOCALAPPDATA%/database-migrations/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-database-study
+  name: Nixpkgs database-study macos cache (wave 7)
+  description: Nixpkgs leftover pname database-study on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/database-study"
+  - "$HOME/Library/Logs/database-study"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-database-study
+  name: Nixpkgs database-study linux cache (wave 7)
+  description: Nixpkgs leftover pname database-study on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/database-study"
+  - "$XDG_CACHE_HOME/database-study"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-database-study
+  name: Nixpkgs database-study windows cache (wave 7)
+  description: Nixpkgs leftover pname database-study on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/database-study/Cache"
+  - "%LOCALAPPDATA%/database-study/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databases
+  name: Nixpkgs databases macos cache (wave 7)
+  description: Nixpkgs leftover pname databases on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databases"
+  - "$HOME/Library/Logs/databases"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databases
+  name: Nixpkgs databases linux cache (wave 7)
+  description: Nixpkgs leftover pname databases on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databases"
+  - "$XDG_CACHE_HOME/databases"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databases
+  name: Nixpkgs databases windows cache (wave 7)
+  description: Nixpkgs leftover pname databases on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databases/Cache"
+  - "%LOCALAPPDATA%/databases/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databox
+  name: Nixpkgs databox macos cache (wave 7)
+  description: Nixpkgs leftover pname databox on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databox"
+  - "$HOME/Library/Logs/databox"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databox
+  name: Nixpkgs databox linux cache (wave 7)
+  description: Nixpkgs leftover pname databox on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databox"
+  - "$XDG_CACHE_HOME/databox"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databox
+  name: Nixpkgs databox windows cache (wave 7)
+  description: Nixpkgs leftover pname databox on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databox/Cache"
+  - "%LOCALAPPDATA%/databox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databraryr
+  name: Nixpkgs databraryr macos cache (wave 7)
+  description: Nixpkgs leftover pname databraryr on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databraryr"
+  - "$HOME/Library/Logs/databraryr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databraryr
+  name: Nixpkgs databraryr linux cache (wave 7)
+  description: Nixpkgs leftover pname databraryr on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databraryr"
+  - "$XDG_CACHE_HOME/databraryr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databraryr
+  name: Nixpkgs databraryr windows cache (wave 7)
+  description: Nixpkgs leftover pname databraryr on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databraryr/Cache"
+  - "%LOCALAPPDATA%/databraryr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databricks
+  name: Nixpkgs databricks macos cache (wave 7)
+  description: Nixpkgs leftover pname databricks on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databricks"
+  - "$HOME/Library/Logs/databricks"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databricks
+  name: Nixpkgs databricks linux cache (wave 7)
+  description: Nixpkgs leftover pname databricks on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databricks"
+  - "$XDG_CACHE_HOME/databricks"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databricks
+  name: Nixpkgs databricks windows cache (wave 7)
+  description: Nixpkgs leftover pname databricks on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databricks/Cache"
+  - "%LOCALAPPDATA%/databricks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databricks-cli
+  name: Nixpkgs databricks-cli macos cache (wave 7)
+  description: Nixpkgs leftover pname databricks-cli on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databricks-cli"
+  - "$HOME/Library/Logs/databricks-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databricks-cli
+  name: Nixpkgs databricks-cli linux cache (wave 7)
+  description: Nixpkgs leftover pname databricks-cli on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databricks-cli"
+  - "$XDG_CACHE_HOME/databricks-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databricks-cli
+  name: Nixpkgs databricks-cli windows cache (wave 7)
+  description: Nixpkgs leftover pname databricks-cli on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databricks-cli/Cache"
+  - "%LOCALAPPDATA%/databricks-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databricks-connect
+  name: Nixpkgs databricks-connect macos cache (wave 7)
+  description: Nixpkgs leftover pname databricks-connect on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databricks-connect"
+  - "$HOME/Library/Logs/databricks-connect"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databricks-connect
+  name: Nixpkgs databricks-connect linux cache (wave 7)
+  description: Nixpkgs leftover pname databricks-connect on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databricks-connect"
+  - "$XDG_CACHE_HOME/databricks-connect"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databricks-connect
+  name: Nixpkgs databricks-connect windows cache (wave 7)
+  description: Nixpkgs leftover pname databricks-connect on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databricks-connect/Cache"
+  - "%LOCALAPPDATA%/databricks-connect/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databricks-sdk
+  name: Nixpkgs databricks-sdk macos cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sdk on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databricks-sdk"
+  - "$HOME/Library/Logs/databricks-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databricks-sdk
+  name: Nixpkgs databricks-sdk linux cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sdk on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databricks-sdk"
+  - "$XDG_CACHE_HOME/databricks-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databricks-sdk
+  name: Nixpkgs databricks-sdk windows cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sdk on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databricks-sdk/Cache"
+  - "%LOCALAPPDATA%/databricks-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databricks-sql-cli
+  name: Nixpkgs databricks-sql-cli macos cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sql-cli on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databricks-sql-cli"
+  - "$HOME/Library/Logs/databricks-sql-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databricks-sql-cli
+  name: Nixpkgs databricks-sql-cli linux cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sql-cli on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databricks-sql-cli"
+  - "$XDG_CACHE_HOME/databricks-sql-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databricks-sql-cli
+  name: Nixpkgs databricks-sql-cli windows cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sql-cli on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databricks-sql-cli/Cache"
+  - "%LOCALAPPDATA%/databricks-sql-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-databricks-sql-connector
+  name: Nixpkgs databricks-sql-connector macos cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sql-connector on macos (wave 7).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/databricks-sql-connector"
+  - "$HOME/Library/Logs/databricks-sql-connector"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-databricks-sql-connector
+  name: Nixpkgs databricks-sql-connector linux cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sql-connector on linux (wave 7).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/databricks-sql-connector"
+  - "$XDG_CACHE_HOME/databricks-sql-connector"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-databricks-sql-connector
+  name: Nixpkgs databricks-sql-connector windows cache (wave 7)
+  description: Nixpkgs leftover pname databricks-sql-connector on windows (wave 7).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/databricks-sql-connector/Cache"
+  - "%LOCALAPPDATA%/databricks-sql-connector/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataclass
+  name: Nixpkgs dataclass macos cache (wave 7)
+  description: Nixpkgs leftover pname dataclass on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataclass"
+  - "$HOME/Library/Logs/dataclass"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataclass
+  name: Nixpkgs dataclass linux cache (wave 7)
+  description: Nixpkgs leftover pname dataclass on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataclass"
+  - "$XDG_CACHE_HOME/dataclass"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataclass
+  name: Nixpkgs dataclass windows cache (wave 7)
+  description: Nixpkgs leftover pname dataclass on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataclass/Cache"
+  - "%LOCALAPPDATA%/dataclass/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataclass-csv
+  name: Nixpkgs dataclass-csv macos cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-csv on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataclass-csv"
+  - "$HOME/Library/Logs/dataclass-csv"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataclass-csv
+  name: Nixpkgs dataclass-csv linux cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-csv on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataclass-csv"
+  - "$XDG_CACHE_HOME/dataclass-csv"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataclass-csv
+  name: Nixpkgs dataclass-csv windows cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-csv on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataclass-csv/Cache"
+  - "%LOCALAPPDATA%/dataclass-csv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataclass-factory
+  name: Nixpkgs dataclass-factory macos cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-factory on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataclass-factory"
+  - "$HOME/Library/Logs/dataclass-factory"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataclass-factory
+  name: Nixpkgs dataclass-factory linux cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-factory on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataclass-factory"
+  - "$XDG_CACHE_HOME/dataclass-factory"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataclass-factory
+  name: Nixpkgs dataclass-factory windows cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-factory on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataclass-factory/Cache"
+  - "%LOCALAPPDATA%/dataclass-factory/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataclass-wizard
+  name: Nixpkgs dataclass-wizard macos cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-wizard on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataclass-wizard"
+  - "$HOME/Library/Logs/dataclass-wizard"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataclass-wizard
+  name: Nixpkgs dataclass-wizard linux cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-wizard on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataclass-wizard"
+  - "$XDG_CACHE_HOME/dataclass-wizard"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataclass-wizard
+  name: Nixpkgs dataclass-wizard windows cache (wave 7)
+  description: Nixpkgs leftover pname dataclass-wizard on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataclass-wizard/Cache"
+  - "%LOCALAPPDATA%/dataclass-wizard/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataclasses-json
+  name: Nixpkgs dataclasses-json macos cache (wave 7)
+  description: Nixpkgs leftover pname dataclasses-json on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataclasses-json"
+  - "$HOME/Library/Logs/dataclasses-json"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataclasses-json
+  name: Nixpkgs dataclasses-json linux cache (wave 7)
+  description: Nixpkgs leftover pname dataclasses-json on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataclasses-json"
+  - "$XDG_CACHE_HOME/dataclasses-json"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataclasses-json
+  name: Nixpkgs dataclasses-json windows cache (wave 7)
+  description: Nixpkgs leftover pname dataclasses-json on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataclasses-json/Cache"
+  - "%LOCALAPPDATA%/dataclasses-json/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacleanr
+  name: Nixpkgs datacleanr macos cache (wave 7)
+  description: Nixpkgs leftover pname datacleanr on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datacleanr"
+  - "$HOME/Library/Logs/datacleanr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacleanr
+  name: Nixpkgs datacleanr linux cache (wave 7)
+  description: Nixpkgs leftover pname datacleanr on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datacleanr"
+  - "$XDG_CACHE_HOME/datacleanr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacleanr
+  name: Nixpkgs datacleanr windows cache (wave 7)
+  description: Nixpkgs leftover pname datacleanr on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datacleanr/Cache"
+  - "%LOCALAPPDATA%/datacleanr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacommons
+  name: Nixpkgs datacommons macos cache (wave 7)
+  description: Nixpkgs leftover pname datacommons on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datacommons"
+  - "$HOME/Library/Logs/datacommons"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacommons
+  name: Nixpkgs datacommons linux cache (wave 7)
+  description: Nixpkgs leftover pname datacommons on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datacommons"
+  - "$XDG_CACHE_HOME/datacommons"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacommons
+  name: Nixpkgs datacommons windows cache (wave 7)
+  description: Nixpkgs leftover pname datacommons on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datacommons/Cache"
+  - "%LOCALAPPDATA%/datacommons/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataconf
+  name: Nixpkgs dataconf macos cache (wave 7)
+  description: Nixpkgs leftover pname dataconf on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataconf"
+  - "$HOME/Library/Logs/dataconf"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataconf
+  name: Nixpkgs dataconf linux cache (wave 7)
+  description: Nixpkgs leftover pname dataconf on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataconf"
+  - "$XDG_CACHE_HOME/dataconf"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataconf
+  name: Nixpkgs dataconf windows cache (wave 7)
+  description: Nixpkgs leftover pname dataconf on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataconf/Cache"
+  - "%LOCALAPPDATA%/dataconf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacrypto
+  name: Nixpkgs datacrypto macos cache (wave 7)
+  description: Nixpkgs leftover pname datacrypto on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datacrypto"
+  - "$HOME/Library/Logs/datacrypto"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacrypto
+  name: Nixpkgs datacrypto linux cache (wave 7)
+  description: Nixpkgs leftover pname datacrypto on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datacrypto"
+  - "$XDG_CACHE_HOME/datacrypto"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacrypto
+  name: Nixpkgs datacrypto windows cache (wave 7)
+  description: Nixpkgs leftover pname datacrypto on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datacrypto/Cache"
+  - "%LOCALAPPDATA%/datacrypto/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacult
+  name: Nixpkgs datacult macos cache (wave 7)
+  description: Nixpkgs leftover pname datacult on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datacult"
+  - "$HOME/Library/Logs/datacult"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacult
+  name: Nixpkgs datacult linux cache (wave 7)
+  description: Nixpkgs leftover pname datacult on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datacult"
+  - "$XDG_CACHE_HOME/datacult"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacult
+  name: Nixpkgs datacult windows cache (wave 7)
+  description: Nixpkgs leftover pname datacult on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datacult/Cache"
+  - "%LOCALAPPDATA%/datacult/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datacutr
+  name: Nixpkgs datacutr macos cache (wave 7)
+  description: Nixpkgs leftover pname datacutr on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datacutr"
+  - "$HOME/Library/Logs/datacutr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datacutr
+  name: Nixpkgs datacutr linux cache (wave 7)
+  description: Nixpkgs leftover pname datacutr on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datacutr"
+  - "$XDG_CACHE_HOME/datacutr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datacutr
+  name: Nixpkgs datacutr windows cache (wave 7)
+  description: Nixpkgs leftover pname datacutr on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datacutr/Cache"
+  - "%LOCALAPPDATA%/datacutr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadictionary
+  name: Nixpkgs datadictionary macos cache (wave 7)
+  description: Nixpkgs leftover pname datadictionary on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadictionary"
+  - "$HOME/Library/Logs/datadictionary"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadictionary
+  name: Nixpkgs datadictionary linux cache (wave 7)
+  description: Nixpkgs leftover pname datadictionary on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadictionary"
+  - "$XDG_CACHE_HOME/datadictionary"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadictionary
+  name: Nixpkgs datadictionary windows cache (wave 7)
+  description: Nixpkgs leftover pname datadictionary on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadictionary/Cache"
+  - "%LOCALAPPDATA%/datadictionary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadiff
+  name: Nixpkgs datadiff macos cache (wave 7)
+  description: Nixpkgs leftover pname datadiff on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadiff"
+  - "$HOME/Library/Logs/datadiff"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadiff
+  name: Nixpkgs datadiff linux cache (wave 7)
+  description: Nixpkgs leftover pname datadiff on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadiff"
+  - "$XDG_CACHE_HOME/datadiff"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadiff
+  name: Nixpkgs datadiff windows cache (wave 7)
+  description: Nixpkgs leftover pname datadiff on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadiff/Cache"
+  - "%LOCALAPPDATA%/datadiff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadigest
+  name: Nixpkgs datadigest macos cache (wave 7)
+  description: Nixpkgs leftover pname datadigest on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadigest"
+  - "$HOME/Library/Logs/datadigest"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadigest
+  name: Nixpkgs datadigest linux cache (wave 7)
+  description: Nixpkgs leftover pname datadigest on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadigest"
+  - "$XDG_CACHE_HOME/datadigest"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadigest
+  name: Nixpkgs datadigest windows cache (wave 7)
+  description: Nixpkgs leftover pname datadigest on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadigest/Cache"
+  - "%LOCALAPPDATA%/datadigest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadog
+  name: Nixpkgs datadog macos cache (wave 7)
+  description: Nixpkgs leftover pname datadog on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadog"
+  - "$HOME/Library/Logs/datadog"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadog
+  name: Nixpkgs datadog linux cache (wave 7)
+  description: Nixpkgs leftover pname datadog on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadog"
+  - "$XDG_CACHE_HOME/datadog"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadog
+  name: Nixpkgs datadog windows cache (wave 7)
+  description: Nixpkgs leftover pname datadog on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadog/Cache"
+  - "%LOCALAPPDATA%/datadog/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadog-agent
+  name: Nixpkgs datadog-agent macos cache (wave 7)
+  description: Nixpkgs leftover pname datadog-agent on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadog-agent"
+  - "$HOME/Library/Logs/datadog-agent"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadog-agent
+  name: Nixpkgs datadog-agent linux cache (wave 7)
+  description: Nixpkgs leftover pname datadog-agent on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadog-agent"
+  - "$XDG_CACHE_HOME/datadog-agent"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadog-agent
+  name: Nixpkgs datadog-agent windows cache (wave 7)
+  description: Nixpkgs leftover pname datadog-agent on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadog-agent/Cache"
+  - "%LOCALAPPDATA%/datadog-agent/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadog-process-agent
+  name: Nixpkgs datadog-process-agent macos cache (wave 7)
+  description: Nixpkgs leftover pname datadog-process-agent on macos (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadog-process-agent"
+  - "$HOME/Library/Logs/datadog-process-agent"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadog-process-agent
+  name: Nixpkgs datadog-process-agent linux cache (wave 7)
+  description: Nixpkgs leftover pname datadog-process-agent on linux (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadog-process-agent"
+  - "$XDG_CACHE_HOME/datadog-process-agent"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadog-process-agent
+  name: Nixpkgs datadog-process-agent windows cache (wave 7)
+  description: Nixpkgs leftover pname datadog-process-agent on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadog-process-agent/Cache"
+  - "%LOCALAPPDATA%/datadog-process-agent/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadog-pup
+  name: Nixpkgs datadog-pup macos cache (wave 7)
+  description: Nixpkgs leftover pname datadog-pup on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadog-pup"
+  - "$HOME/Library/Logs/datadog-pup"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadog-pup
+  name: Nixpkgs datadog-pup linux cache (wave 7)
+  description: Nixpkgs leftover pname datadog-pup on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadog-pup"
+  - "$XDG_CACHE_HOME/datadog-pup"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadog-pup
+  name: Nixpkgs datadog-pup windows cache (wave 7)
+  description: Nixpkgs leftover pname datadog-pup on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadog-pup/Cache"
+  - "%LOCALAPPDATA%/datadog-pup/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadog-tracing
+  name: Nixpkgs datadog-tracing macos cache (wave 7)
+  description: Nixpkgs leftover pname datadog-tracing on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadog-tracing"
+  - "$HOME/Library/Logs/datadog-tracing"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadog-tracing
+  name: Nixpkgs datadog-tracing linux cache (wave 7)
+  description: Nixpkgs leftover pname datadog-tracing on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadog-tracing"
+  - "$XDG_CACHE_HOME/datadog-tracing"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadog-tracing
+  name: Nixpkgs datadog-tracing windows cache (wave 7)
+  description: Nixpkgs leftover pname datadog-tracing on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadog-tracing/Cache"
+  - "%LOCALAPPDATA%/datadog-tracing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadogr
+  name: Nixpkgs datadogr macos cache (wave 7)
+  description: Nixpkgs leftover pname datadogr on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadogr"
+  - "$HOME/Library/Logs/datadogr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadogr
+  name: Nixpkgs datadogr linux cache (wave 7)
+  description: Nixpkgs leftover pname datadogr on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadogr"
+  - "$XDG_CACHE_HOME/datadogr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadogr
+  name: Nixpkgs datadogr windows cache (wave 7)
+  description: Nixpkgs leftover pname datadogr on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadogr/Cache"
+  - "%LOCALAPPDATA%/datadogr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datadriftr
+  name: Nixpkgs datadriftR macos cache (wave 7)
+  description: Nixpkgs leftover pname datadriftR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datadriftR"
+  - "$HOME/Library/Logs/datadriftR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datadriftr
+  name: Nixpkgs datadriftR linux cache (wave 7)
+  description: Nixpkgs leftover pname datadriftR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datadriftR"
+  - "$XDG_CACHE_HOME/datadriftR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datadriftr
+  name: Nixpkgs datadriftR windows cache (wave 7)
+  description: Nixpkgs leftover pname datadriftR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datadriftR/Cache"
+  - "%LOCALAPPDATA%/datadriftR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataenc
+  name: Nixpkgs dataenc macos cache (wave 7)
+  description: Nixpkgs leftover pname dataenc on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataenc"
+  - "$HOME/Library/Logs/dataenc"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataenc
+  name: Nixpkgs dataenc linux cache (wave 7)
+  description: Nixpkgs leftover pname dataenc on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataenc"
+  - "$XDG_CACHE_HOME/dataenc"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataenc
+  name: Nixpkgs dataenc windows cache (wave 7)
+  description: Nixpkgs leftover pname dataenc on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataenc/Cache"
+  - "%LOCALAPPDATA%/dataenc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafactory
+  name: Nixpkgs datafactory macos cache (wave 7)
+  description: Nixpkgs leftover pname datafactory on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafactory"
+  - "$HOME/Library/Logs/datafactory"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafactory
+  name: Nixpkgs datafactory linux cache (wave 7)
+  description: Nixpkgs leftover pname datafactory on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafactory"
+  - "$XDG_CACHE_HOME/datafactory"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafactory
+  name: Nixpkgs datafactory windows cache (wave 7)
+  description: Nixpkgs leftover pname datafactory on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafactory/Cache"
+  - "%LOCALAPPDATA%/datafactory/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafile
+  name: Nixpkgs datafile macos cache (wave 7)
+  description: Nixpkgs leftover pname datafile on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafile"
+  - "$HOME/Library/Logs/datafile"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafile
+  name: Nixpkgs datafile linux cache (wave 7)
+  description: Nixpkgs leftover pname datafile on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafile"
+  - "$XDG_CACHE_HOME/datafile"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafile
+  name: Nixpkgs datafile windows cache (wave 7)
+  description: Nixpkgs leftover pname datafile on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafile/Cache"
+  - "%LOCALAPPDATA%/datafile/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafix
+  name: Nixpkgs datafix macos cache (wave 7)
+  description: Nixpkgs leftover pname datafix on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafix"
+  - "$HOME/Library/Logs/datafix"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafix
+  name: Nixpkgs datafix linux cache (wave 7)
+  description: Nixpkgs leftover pname datafix on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafix"
+  - "$XDG_CACHE_HOME/datafix"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafix
+  name: Nixpkgs datafix windows cache (wave 7)
+  description: Nixpkgs leftover pname datafix on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafix/Cache"
+  - "%LOCALAPPDATA%/datafix/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataflow
+  name: Nixpkgs dataflow macos cache (wave 7)
+  description: Nixpkgs leftover pname dataflow on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataflow"
+  - "$HOME/Library/Logs/dataflow"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataflow
+  name: Nixpkgs dataflow linux cache (wave 7)
+  description: Nixpkgs leftover pname dataflow on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataflow"
+  - "$XDG_CACHE_HOME/dataflow"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataflow
+  name: Nixpkgs dataflow windows cache (wave 7)
+  description: Nixpkgs leftover pname dataflow on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataflow/Cache"
+  - "%LOCALAPPDATA%/dataflow/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataflower
+  name: Nixpkgs dataflower macos cache (wave 7)
+  description: Nixpkgs leftover pname dataflower on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataflower"
+  - "$HOME/Library/Logs/dataflower"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataflower
+  name: Nixpkgs dataflower linux cache (wave 7)
+  description: Nixpkgs leftover pname dataflower on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataflower"
+  - "$XDG_CACHE_HOME/dataflower"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataflower
+  name: Nixpkgs dataflower windows cache (wave 7)
+  description: Nixpkgs leftover pname dataflower on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataflower/Cache"
+  - "%LOCALAPPDATA%/dataflower/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafly
+  name: Nixpkgs datafly macos cache (wave 7)
+  description: Nixpkgs leftover pname datafly on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafly"
+  - "$HOME/Library/Logs/datafly"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafly
+  name: Nixpkgs datafly linux cache (wave 7)
+  description: Nixpkgs leftover pname datafly on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafly"
+  - "$XDG_CACHE_HOME/datafly"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafly
+  name: Nixpkgs datafly windows cache (wave 7)
+  description: Nixpkgs leftover pname datafly on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafly/Cache"
+  - "%LOCALAPPDATA%/datafly/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafly-test
+  name: Nixpkgs datafly-test macos cache (wave 7)
+  description: Nixpkgs leftover pname datafly-test on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafly-test"
+  - "$HOME/Library/Logs/datafly-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafly-test
+  name: Nixpkgs datafly-test linux cache (wave 7)
+  description: Nixpkgs leftover pname datafly-test on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafly-test"
+  - "$XDG_CACHE_HOME/datafly-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafly-test
+  name: Nixpkgs datafly-test windows cache (wave 7)
+  description: Nixpkgs leftover pname datafly-test on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafly-test/Cache"
+  - "%LOCALAPPDATA%/datafly-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataform
+  name: Nixpkgs dataform macos cache (wave 7)
+  description: Nixpkgs leftover pname dataform on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataform"
+  - "$HOME/Library/Logs/dataform"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataform
+  name: Nixpkgs dataform linux cache (wave 7)
+  description: Nixpkgs leftover pname dataform on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataform"
+  - "$XDG_CACHE_HOME/dataform"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataform
+  name: Nixpkgs dataform windows cache (wave 7)
+  description: Nixpkgs leftover pname dataform on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataform/Cache"
+  - "%LOCALAPPDATA%/dataform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataform-nvim
+  name: Nixpkgs dataform.nvim macos cache (wave 7)
+  description: Nixpkgs leftover pname dataform.nvim on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataform.nvim"
+  - "$HOME/Library/Logs/dataform.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataform-nvim
+  name: Nixpkgs dataform.nvim linux cache (wave 7)
+  description: Nixpkgs leftover pname dataform.nvim on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataform.nvim"
+  - "$XDG_CACHE_HOME/dataform.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataform-nvim
+  name: Nixpkgs dataform.nvim windows cache (wave 7)
+  description: Nixpkgs leftover pname dataform.nvim on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataform.nvim/Cache"
+  - "%LOCALAPPDATA%/dataform.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataframe
+  name: Nixpkgs dataframe macos cache (wave 7)
+  description: Nixpkgs leftover pname dataframe on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataframe"
+  - "$HOME/Library/Logs/dataframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataframe
+  name: Nixpkgs dataframe linux cache (wave 7)
+  description: Nixpkgs leftover pname dataframe on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataframe"
+  - "$XDG_CACHE_HOME/dataframe"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataframe
+  name: Nixpkgs dataframe windows cache (wave 7)
+  description: Nixpkgs leftover pname dataframe on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataframe/Cache"
+  - "%LOCALAPPDATA%/dataframe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataframe-fastcsv
+  name: Nixpkgs dataframe-fastcsv macos cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-fastcsv on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataframe-fastcsv"
+  - "$HOME/Library/Logs/dataframe-fastcsv"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataframe-fastcsv
+  name: Nixpkgs dataframe-fastcsv linux cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-fastcsv on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataframe-fastcsv"
+  - "$XDG_CACHE_HOME/dataframe-fastcsv"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataframe-fastcsv
+  name: Nixpkgs dataframe-fastcsv windows cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-fastcsv on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataframe-fastcsv/Cache"
+  - "%LOCALAPPDATA%/dataframe-fastcsv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataframe-hasktorch
+  name: Nixpkgs dataframe-hasktorch macos cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-hasktorch on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataframe-hasktorch"
+  - "$HOME/Library/Logs/dataframe-hasktorch"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataframe-hasktorch
+  name: Nixpkgs dataframe-hasktorch linux cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-hasktorch on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataframe-hasktorch"
+  - "$XDG_CACHE_HOME/dataframe-hasktorch"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataframe-hasktorch
+  name: Nixpkgs dataframe-hasktorch windows cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-hasktorch on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataframe-hasktorch/Cache"
+  - "%LOCALAPPDATA%/dataframe-hasktorch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataframe-persistent
+  name: Nixpkgs dataframe-persistent macos cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-persistent on macos (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataframe-persistent"
+  - "$HOME/Library/Logs/dataframe-persistent"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataframe-persistent
+  name: Nixpkgs dataframe-persistent linux cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-persistent on linux (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataframe-persistent"
+  - "$XDG_CACHE_HOME/dataframe-persistent"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataframe-persistent
+  name: Nixpkgs dataframe-persistent windows cache (wave 7)
+  description: Nixpkgs leftover pname dataframe-persistent on windows (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataframe-persistent/Cache"
+  - "%LOCALAPPDATA%/dataframe-persistent/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataframeexplorer
+  name: Nixpkgs dataframeexplorer macos cache (wave 7)
+  description: Nixpkgs leftover pname dataframeexplorer on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataframeexplorer"
+  - "$HOME/Library/Logs/dataframeexplorer"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataframeexplorer
+  name: Nixpkgs dataframeexplorer linux cache (wave 7)
+  description: Nixpkgs leftover pname dataframeexplorer on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataframeexplorer"
+  - "$XDG_CACHE_HOME/dataframeexplorer"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataframeexplorer
+  name: Nixpkgs dataframeexplorer windows cache (wave 7)
+  description: Nixpkgs leftover pname dataframeexplorer on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataframeexplorer/Cache"
+  - "%LOCALAPPDATA%/dataframeexplorer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataframes2xls
+  name: Nixpkgs dataframes2xls macos cache (wave 7)
+  description: Nixpkgs leftover pname dataframes2xls on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataframes2xls"
+  - "$HOME/Library/Logs/dataframes2xls"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataframes2xls
+  name: Nixpkgs dataframes2xls linux cache (wave 7)
+  description: Nixpkgs leftover pname dataframes2xls on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataframes2xls"
+  - "$XDG_CACHE_HOME/dataframes2xls"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataframes2xls
+  name: Nixpkgs dataframes2xls windows cache (wave 7)
+  description: Nixpkgs leftover pname dataframes2xls on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataframes2xls/Cache"
+  - "%LOCALAPPDATA%/dataframes2xls/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafsm
+  name: Nixpkgs datafsm macos cache (wave 7)
+  description: Nixpkgs leftover pname datafsm on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafsm"
+  - "$HOME/Library/Logs/datafsm"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafsm
+  name: Nixpkgs datafsm linux cache (wave 7)
+  description: Nixpkgs leftover pname datafsm on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafsm"
+  - "$XDG_CACHE_HOME/datafsm"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafsm
+  name: Nixpkgs datafsm windows cache (wave 7)
+  description: Nixpkgs leftover pname datafsm on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafsm/Cache"
+  - "%LOCALAPPDATA%/datafsm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafusion
+  name: Nixpkgs datafusion macos cache (wave 7)
+  description: Nixpkgs leftover pname datafusion on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafusion"
+  - "$HOME/Library/Logs/datafusion"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafusion
+  name: Nixpkgs datafusion linux cache (wave 7)
+  description: Nixpkgs leftover pname datafusion on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafusion"
+  - "$XDG_CACHE_HOME/datafusion"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafusion
+  name: Nixpkgs datafusion windows cache (wave 7)
+  description: Nixpkgs leftover pname datafusion on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafusion/Cache"
+  - "%LOCALAPPDATA%/datafusion/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datafusion-cli
+  name: Nixpkgs datafusion-cli macos cache (wave 7)
+  description: Nixpkgs leftover pname datafusion-cli on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datafusion-cli"
+  - "$HOME/Library/Logs/datafusion-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datafusion-cli
+  name: Nixpkgs datafusion-cli linux cache (wave 7)
+  description: Nixpkgs leftover pname datafusion-cli on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datafusion-cli"
+  - "$XDG_CACHE_HOME/datafusion-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datafusion-cli
+  name: Nixpkgs datafusion-cli windows cache (wave 7)
+  description: Nixpkgs leftover pname datafusion-cli on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datafusion-cli/Cache"
+  - "%LOCALAPPDATA%/datafusion-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datagovindia
+  name: Nixpkgs datagovindia macos cache (wave 7)
+  description: Nixpkgs leftover pname datagovindia on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datagovindia"
+  - "$HOME/Library/Logs/datagovindia"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datagovindia
+  name: Nixpkgs datagovindia linux cache (wave 7)
+  description: Nixpkgs leftover pname datagovindia on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datagovindia"
+  - "$XDG_CACHE_HOME/datagovindia"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datagovindia
+  name: Nixpkgs datagovindia windows cache (wave 7)
+  description: Nixpkgs leftover pname datagovindia on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datagovindia/Cache"
+  - "%LOCALAPPDATA%/datagovindia/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datagovsgr
+  name: Nixpkgs datagovsgR macos cache (wave 7)
+  description: Nixpkgs leftover pname datagovsgR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datagovsgR"
+  - "$HOME/Library/Logs/datagovsgR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datagovsgr
+  name: Nixpkgs datagovsgR linux cache (wave 7)
+  description: Nixpkgs leftover pname datagovsgR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datagovsgR"
+  - "$XDG_CACHE_HOME/datagovsgR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datagovsgr
+  name: Nixpkgs datagovsgR windows cache (wave 7)
+  description: Nixpkgs leftover pname datagovsgR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datagovsgR/Cache"
+  - "%LOCALAPPDATA%/datagovsgR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datagrip
+  name: Nixpkgs datagrip macos cache (wave 7)
+  description: Nixpkgs leftover pname datagrip on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datagrip"
+  - "$HOME/Library/Logs/datagrip"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datagrip
+  name: Nixpkgs datagrip linux cache (wave 7)
+  description: Nixpkgs leftover pname datagrip on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datagrip"
+  - "$XDG_CACHE_HOME/datagrip"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datagrip
+  name: Nixpkgs datagrip windows cache (wave 7)
+  description: Nixpkgs leftover pname datagrip on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datagrip/Cache"
+  - "%LOCALAPPDATA%/datagrip/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datalab-platform
+  name: Nixpkgs datalab-platform macos cache (wave 7)
+  description: Nixpkgs leftover pname datalab-platform on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datalab-platform"
+  - "$HOME/Library/Logs/datalab-platform"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datalab-platform
+  name: Nixpkgs datalab-platform linux cache (wave 7)
+  description: Nixpkgs leftover pname datalab-platform on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datalab-platform"
+  - "$XDG_CACHE_HOME/datalab-platform"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datalab-platform
+  name: Nixpkgs datalab-platform windows cache (wave 7)
+  description: Nixpkgs leftover pname datalab-platform on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datalab-platform/Cache"
+  - "%LOCALAPPDATA%/datalab-platform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datalad
+  name: Nixpkgs datalad macos cache (wave 7)
+  description: Nixpkgs leftover pname datalad on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datalad"
+  - "$HOME/Library/Logs/datalad"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datalad
+  name: Nixpkgs datalad linux cache (wave 7)
+  description: Nixpkgs leftover pname datalad on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datalad"
+  - "$XDG_CACHE_HOME/datalad"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datalad
+  name: Nixpkgs datalad windows cache (wave 7)
+  description: Nixpkgs leftover pname datalad on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datalad/Cache"
+  - "%LOCALAPPDATA%/datalad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datalad-gooey
+  name: Nixpkgs datalad-gooey macos cache (wave 7)
+  description: Nixpkgs leftover pname datalad-gooey on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datalad-gooey"
+  - "$HOME/Library/Logs/datalad-gooey"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datalad-gooey
+  name: Nixpkgs datalad-gooey linux cache (wave 7)
+  description: Nixpkgs leftover pname datalad-gooey on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datalad-gooey"
+  - "$XDG_CACHE_HOME/datalad-gooey"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datalad-gooey
+  name: Nixpkgs datalad-gooey windows cache (wave 7)
+  description: Nixpkgs leftover pname datalad-gooey on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datalad-gooey/Cache"
+  - "%LOCALAPPDATA%/datalad-gooey/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datalad-next
+  name: Nixpkgs datalad-next macos cache (wave 7)
+  description: Nixpkgs leftover pname datalad-next on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datalad-next"
+  - "$HOME/Library/Logs/datalad-next"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datalad-next
+  name: Nixpkgs datalad-next linux cache (wave 7)
+  description: Nixpkgs leftover pname datalad-next on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datalad-next"
+  - "$XDG_CACHE_HOME/datalad-next"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datalad-next
+  name: Nixpkgs datalad-next windows cache (wave 7)
+  description: Nixpkgs leftover pname datalad-next on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datalad-next/Cache"
+  - "%LOCALAPPDATA%/datalad-next/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datalog
+  name: Nixpkgs datalog macos cache (wave 7)
+  description: Nixpkgs leftover pname datalog on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datalog"
+  - "$HOME/Library/Logs/datalog"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datalog
+  name: Nixpkgs datalog linux cache (wave 7)
+  description: Nixpkgs leftover pname datalog on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datalog"
+  - "$XDG_CACHE_HOME/datalog"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datalog
+  name: Nixpkgs datalog windows cache (wave 7)
+  description: Nixpkgs leftover pname datalog on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datalog/Cache"
+  - "%LOCALAPPDATA%/datalog/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamap
+  name: Nixpkgs datamap macos cache (wave 7)
+  description: Nixpkgs leftover pname datamap on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamap"
+  - "$HOME/Library/Logs/datamap"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamap
+  name: Nixpkgs datamap linux cache (wave 7)
+  description: Nixpkgs leftover pname datamap on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamap"
+  - "$XDG_CACHE_HOME/datamap"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamap
+  name: Nixpkgs datamap windows cache (wave 7)
+  description: Nixpkgs leftover pname datamap on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamap/Cache"
+  - "%LOCALAPPDATA%/datamap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamart
+  name: Nixpkgs datamart macos cache (wave 7)
+  description: Nixpkgs leftover pname datamart on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamart"
+  - "$HOME/Library/Logs/datamart"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamart
+  name: Nixpkgs datamart linux cache (wave 7)
+  description: Nixpkgs leftover pname datamart on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamart"
+  - "$XDG_CACHE_HOME/datamart"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamart
+  name: Nixpkgs datamart windows cache (wave 7)
+  description: Nixpkgs leftover pname datamart on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamart/Cache"
+  - "%LOCALAPPDATA%/datamart/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamash
+  name: Nixpkgs datamash macos cache (wave 7)
+  description: Nixpkgs leftover pname datamash on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamash"
+  - "$HOME/Library/Logs/datamash"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamash
+  name: Nixpkgs datamash linux cache (wave 7)
+  description: Nixpkgs leftover pname datamash on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamash"
+  - "$XDG_CACHE_HOME/datamash"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamash
+  name: Nixpkgs datamash windows cache (wave 7)
+  description: Nixpkgs leftover pname datamash on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamash/Cache"
+  - "%LOCALAPPDATA%/datamash/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamedios
+  name: Nixpkgs datamedios macos cache (wave 7)
+  description: Nixpkgs leftover pname datamedios on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamedios"
+  - "$HOME/Library/Logs/datamedios"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamedios
+  name: Nixpkgs datamedios linux cache (wave 7)
+  description: Nixpkgs leftover pname datamedios on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamedios"
+  - "$XDG_CACHE_HOME/datamedios"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamedios
+  name: Nixpkgs datamedios windows cache (wave 7)
+  description: Nixpkgs leftover pname datamedios on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamedios/Cache"
+  - "%LOCALAPPDATA%/datamedios/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamigration
+  name: Nixpkgs datamigration macos cache (wave 7)
+  description: Nixpkgs leftover pname datamigration on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamigration"
+  - "$HOME/Library/Logs/datamigration"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamigration
+  name: Nixpkgs datamigration linux cache (wave 7)
+  description: Nixpkgs leftover pname datamigration on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamigration"
+  - "$XDG_CACHE_HOME/datamigration"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamigration
+  name: Nixpkgs datamigration windows cache (wave 7)
+  description: Nixpkgs leftover pname datamigration on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamigration/Cache"
+  - "%LOCALAPPDATA%/datamigration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamodel-code-generator
+  name: Nixpkgs datamodel-code-generator macos cache (wave 7)
+  description: Nixpkgs leftover pname datamodel-code-generator on macos (wave 7).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamodel-code-generator"
+  - "$HOME/Library/Logs/datamodel-code-generator"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamodel-code-generator
+  name: Nixpkgs datamodel-code-generator linux cache (wave 7)
+  description: Nixpkgs leftover pname datamodel-code-generator on linux (wave 7).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamodel-code-generator"
+  - "$XDG_CACHE_HOME/datamodel-code-generator"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamodel-code-generator
+  name: Nixpkgs datamodel-code-generator windows cache (wave 7)
+  description: Nixpkgs leftover pname datamodel-code-generator on windows (wave 7).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamodel-code-generator/Cache"
+  - "%LOCALAPPDATA%/datamodel-code-generator/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamodeldict
+  name: Nixpkgs datamodeldict macos cache (wave 7)
+  description: Nixpkgs leftover pname datamodeldict on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamodeldict"
+  - "$HOME/Library/Logs/datamodeldict"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamodeldict
+  name: Nixpkgs datamodeldict linux cache (wave 7)
+  description: Nixpkgs leftover pname datamodeldict on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamodeldict"
+  - "$XDG_CACHE_HOME/datamodeldict"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamodeldict
+  name: Nixpkgs datamodeldict windows cache (wave 7)
+  description: Nixpkgs leftover pname datamodeldict on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamodeldict/Cache"
+  - "%LOCALAPPDATA%/datamodeldict/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamods
+  name: Nixpkgs datamods macos cache (wave 7)
+  description: Nixpkgs leftover pname datamods on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamods"
+  - "$HOME/Library/Logs/datamods"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamods
+  name: Nixpkgs datamods linux cache (wave 7)
+  description: Nixpkgs leftover pname datamods on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamods"
+  - "$XDG_CACHE_HOME/datamods"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamods
+  name: Nixpkgs datamods windows cache (wave 7)
+  description: Nixpkgs leftover pname datamods on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamods/Cache"
+  - "%LOCALAPPDATA%/datamods/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamuse
+  name: Nixpkgs datamuse macos cache (wave 7)
+  description: Nixpkgs leftover pname datamuse on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamuse"
+  - "$HOME/Library/Logs/datamuse"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamuse
+  name: Nixpkgs datamuse linux cache (wave 7)
+  description: Nixpkgs leftover pname datamuse on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamuse"
+  - "$XDG_CACHE_HOME/datamuse"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamuse
+  name: Nixpkgs datamuse windows cache (wave 7)
+  description: Nixpkgs leftover pname datamuse on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamuse/Cache"
+  - "%LOCALAPPDATA%/datamuse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datamuseum
+  name: Nixpkgs datamuseum macos cache (wave 7)
+  description: Nixpkgs leftover pname datamuseum on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datamuseum"
+  - "$HOME/Library/Logs/datamuseum"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datamuseum
+  name: Nixpkgs datamuseum linux cache (wave 7)
+  description: Nixpkgs leftover pname datamuseum on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datamuseum"
+  - "$XDG_CACHE_HOME/datamuseum"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datamuseum
+  name: Nixpkgs datamuseum windows cache (wave 7)
+  description: Nixpkgs leftover pname datamuseum on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datamuseum/Cache"
+  - "%LOCALAPPDATA%/datamuseum/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datana
+  name: Nixpkgs datana macos cache (wave 7)
+  description: Nixpkgs leftover pname datana on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datana"
+  - "$HOME/Library/Logs/datana"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datana
+  name: Nixpkgs datana linux cache (wave 7)
+  description: Nixpkgs leftover pname datana on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datana"
+  - "$XDG_CACHE_HOME/datana"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datana
+  name: Nixpkgs datana windows cache (wave 7)
+  description: Nixpkgs leftover pname datana on windows (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datana/Cache"
+  - "%LOCALAPPDATA%/datana/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datanugget
+  name: Nixpkgs datanugget macos cache (wave 7)
+  description: Nixpkgs leftover pname datanugget on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datanugget"
+  - "$HOME/Library/Logs/datanugget"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datanugget
+  name: Nixpkgs datanugget linux cache (wave 7)
+  description: Nixpkgs leftover pname datanugget on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datanugget"
+  - "$XDG_CACHE_HOME/datanugget"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datanugget
+  name: Nixpkgs datanugget windows cache (wave 7)
+  description: Nixpkgs leftover pname datanugget on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datanugget/Cache"
+  - "%LOCALAPPDATA%/datanugget/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataonderivatives
+  name: Nixpkgs dataonderivatives macos cache (wave 7)
+  description: Nixpkgs leftover pname dataonderivatives on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataonderivatives"
+  - "$HOME/Library/Logs/dataonderivatives"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataonderivatives
+  name: Nixpkgs dataonderivatives linux cache (wave 7)
+  description: Nixpkgs leftover pname dataonderivatives on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataonderivatives"
+  - "$XDG_CACHE_HOME/dataonderivatives"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataonderivatives
+  name: Nixpkgs dataonderivatives windows cache (wave 7)
+  description: Nixpkgs leftover pname dataonderivatives on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataonderivatives/Cache"
+  - "%LOCALAPPDATA%/dataonderivatives/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataone
+  name: Nixpkgs dataone macos cache (wave 7)
+  description: Nixpkgs leftover pname dataone on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataone"
+  - "$HOME/Library/Logs/dataone"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataone
+  name: Nixpkgs dataone linux cache (wave 7)
+  description: Nixpkgs leftover pname dataone on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataone"
+  - "$XDG_CACHE_HOME/dataone"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataone
+  name: Nixpkgs dataone windows cache (wave 7)
+  description: Nixpkgs leftover pname dataone on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataone/Cache"
+  - "%LOCALAPPDATA%/dataone/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapack
+  name: Nixpkgs datapack macos cache (wave 7)
+  description: Nixpkgs leftover pname datapack on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datapack"
+  - "$HOME/Library/Logs/datapack"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapack
+  name: Nixpkgs datapack linux cache (wave 7)
+  description: Nixpkgs leftover pname datapack on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datapack"
+  - "$XDG_CACHE_HOME/datapack"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapack
+  name: Nixpkgs datapack windows cache (wave 7)
+  description: Nixpkgs leftover pname datapack on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datapack/Cache"
+  - "%LOCALAPPDATA%/datapack/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapackage
+  name: Nixpkgs datapackage macos cache (wave 7)
+  description: Nixpkgs leftover pname datapackage on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datapackage"
+  - "$HOME/Library/Logs/datapackage"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapackage
+  name: Nixpkgs datapackage linux cache (wave 7)
+  description: Nixpkgs leftover pname datapackage on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datapackage"
+  - "$XDG_CACHE_HOME/datapackage"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapackage
+  name: Nixpkgs datapackage windows cache (wave 7)
+  description: Nixpkgs leftover pname datapackage on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datapackage/Cache"
+  - "%LOCALAPPDATA%/datapackage/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapackage-r
+  name: Nixpkgs datapackage.r macos cache (wave 7)
+  description: Nixpkgs leftover pname datapackage.r on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datapackage.r"
+  - "$HOME/Library/Logs/datapackage.r"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapackage-r
+  name: Nixpkgs datapackage.r linux cache (wave 7)
+  description: Nixpkgs leftover pname datapackage.r on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datapackage.r"
+  - "$XDG_CACHE_HOME/datapackage.r"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapackage-r
+  name: Nixpkgs datapackage.r windows cache (wave 7)
+  description: Nixpkgs leftover pname datapackage.r on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datapackage.r/Cache"
+  - "%LOCALAPPDATA%/datapackage.r/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapacker
+  name: Nixpkgs datapacker macos cache (wave 7)
+  description: Nixpkgs leftover pname datapacker on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datapacker"
+  - "$HOME/Library/Logs/datapacker"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapacker
+  name: Nixpkgs datapacker linux cache (wave 7)
+  description: Nixpkgs leftover pname datapacker on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datapacker"
+  - "$XDG_CACHE_HOME/datapacker"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapacker
+  name: Nixpkgs datapacker windows cache (wave 7)
+  description: Nixpkgs leftover pname datapacker on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datapacker/Cache"
+  - "%LOCALAPPDATA%/datapacker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapasta
+  name: Nixpkgs datapasta macos cache (wave 7)
+  description: Nixpkgs leftover pname datapasta on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datapasta"
+  - "$HOME/Library/Logs/datapasta"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapasta
+  name: Nixpkgs datapasta linux cache (wave 7)
+  description: Nixpkgs leftover pname datapasta on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datapasta"
+  - "$XDG_CACHE_HOME/datapasta"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapasta
+  name: Nixpkgs datapasta windows cache (wave 7)
+  description: Nixpkgs leftover pname datapasta on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datapasta/Cache"
+  - "%LOCALAPPDATA%/datapasta/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datapoint
+  name: Nixpkgs datapoint macos cache (wave 7)
+  description: Nixpkgs leftover pname datapoint on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datapoint"
+  - "$HOME/Library/Logs/datapoint"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datapoint
+  name: Nixpkgs datapoint linux cache (wave 7)
+  description: Nixpkgs leftover pname datapoint on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datapoint"
+  - "$XDG_CACHE_HOME/datapoint"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datapoint
+  name: Nixpkgs datapoint windows cache (wave 7)
+  description: Nixpkgs leftover pname datapoint on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datapoint/Cache"
+  - "%LOCALAPPDATA%/datapoint/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataprep
+  name: Nixpkgs dataprep macos cache (wave 7)
+  description: Nixpkgs leftover pname dataprep on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataprep"
+  - "$HOME/Library/Logs/dataprep"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataprep
+  name: Nixpkgs dataprep linux cache (wave 7)
+  description: Nixpkgs leftover pname dataprep on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataprep"
+  - "$XDG_CACHE_HOME/dataprep"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataprep
+  name: Nixpkgs dataprep windows cache (wave 7)
+  description: Nixpkgs leftover pname dataprep on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataprep/Cache"
+  - "%LOCALAPPDATA%/dataprep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataprep-ml
+  name: Nixpkgs dataprep-ml macos cache (wave 7)
+  description: Nixpkgs leftover pname dataprep-ml on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataprep-ml"
+  - "$HOME/Library/Logs/dataprep-ml"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataprep-ml
+  name: Nixpkgs dataprep-ml linux cache (wave 7)
+  description: Nixpkgs leftover pname dataprep-ml on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataprep-ml"
+  - "$XDG_CACHE_HOME/dataprep-ml"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataprep-ml
+  name: Nixpkgs dataprep-ml windows cache (wave 7)
+  description: Nixpkgs leftover pname dataprep-ml on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataprep-ml/Cache"
+  - "%LOCALAPPDATA%/dataprep-ml/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataproperty
+  name: Nixpkgs dataproperty macos cache (wave 7)
+  description: Nixpkgs leftover pname dataproperty on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataproperty"
+  - "$HOME/Library/Logs/dataproperty"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataproperty
+  name: Nixpkgs dataproperty linux cache (wave 7)
+  description: Nixpkgs leftover pname dataproperty on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataproperty"
+  - "$XDG_CACHE_HOME/dataproperty"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataproperty
+  name: Nixpkgs dataproperty windows cache (wave 7)
+  description: Nixpkgs leftover pname dataproperty on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataproperty/Cache"
+  - "%LOCALAPPDATA%/dataproperty/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataprotection
+  name: Nixpkgs dataprotection macos cache (wave 7)
+  description: Nixpkgs leftover pname dataprotection on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataprotection"
+  - "$HOME/Library/Logs/dataprotection"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataprotection
+  name: Nixpkgs dataprotection linux cache (wave 7)
+  description: Nixpkgs leftover pname dataprotection on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataprotection"
+  - "$XDG_CACHE_HOME/dataprotection"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataprotection
+  name: Nixpkgs dataprotection windows cache (wave 7)
+  description: Nixpkgs leftover pname dataprotection on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataprotection/Cache"
+  - "%LOCALAPPDATA%/dataprotection/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataquier
+  name: Nixpkgs dataquieR macos cache (wave 7)
+  description: Nixpkgs leftover pname dataquieR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataquieR"
+  - "$HOME/Library/Logs/dataquieR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataquier
+  name: Nixpkgs dataquieR linux cache (wave 7)
+  description: Nixpkgs leftover pname dataquieR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataquieR"
+  - "$XDG_CACHE_HOME/dataquieR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataquier
+  name: Nixpkgs dataquieR windows cache (wave 7)
+  description: Nixpkgs leftover pname dataquieR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataquieR/Cache"
+  - "%LOCALAPPDATA%/dataquieR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datardis
+  name: Nixpkgs datardis macos cache (wave 7)
+  description: Nixpkgs leftover pname datardis on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datardis"
+  - "$HOME/Library/Logs/datardis"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datardis
+  name: Nixpkgs datardis linux cache (wave 7)
+  description: Nixpkgs leftover pname datardis on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datardis"
+  - "$XDG_CACHE_HOME/datardis"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datardis
+  name: Nixpkgs datardis windows cache (wave 7)
+  description: Nixpkgs leftover pname datardis on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datardis/Cache"
+  - "%LOCALAPPDATA%/datardis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataref
+  name: Nixpkgs dataref macos cache (wave 7)
+  description: Nixpkgs leftover pname dataref on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataref"
+  - "$HOME/Library/Logs/dataref"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataref
+  name: Nixpkgs dataref linux cache (wave 7)
+  description: Nixpkgs leftover pname dataref on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataref"
+  - "$XDG_CACHE_HOME/dataref"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataref
+  name: Nixpkgs dataref windows cache (wave 7)
+  description: Nixpkgs leftover pname dataref on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataref/Cache"
+  - "%LOCALAPPDATA%/dataref/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datareportr
+  name: Nixpkgs datareportR macos cache (wave 7)
+  description: Nixpkgs leftover pname datareportR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datareportR"
+  - "$HOME/Library/Logs/datareportR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datareportr
+  name: Nixpkgs datareportR linux cache (wave 7)
+  description: Nixpkgs leftover pname datareportR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datareportR"
+  - "$XDG_CACHE_HOME/datareportR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datareportr
+  name: Nixpkgs datareportR windows cache (wave 7)
+  description: Nixpkgs leftover pname datareportR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datareportR/Cache"
+  - "%LOCALAPPDATA%/datareportR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataresqc
+  name: Nixpkgs dataresqc macos cache (wave 7)
+  description: Nixpkgs leftover pname dataresqc on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataresqc"
+  - "$HOME/Library/Logs/dataresqc"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataresqc
+  name: Nixpkgs dataresqc linux cache (wave 7)
+  description: Nixpkgs leftover pname dataresqc on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataresqc"
+  - "$XDG_CACHE_HOME/dataresqc"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataresqc
+  name: Nixpkgs dataresqc windows cache (wave 7)
+  description: Nixpkgs leftover pname dataresqc on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataresqc/Cache"
+  - "%LOCALAPPDATA%/dataresqc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datarium
+  name: Nixpkgs datarium macos cache (wave 7)
+  description: Nixpkgs leftover pname datarium on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datarium"
+  - "$HOME/Library/Logs/datarium"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datarium
+  name: Nixpkgs datarium linux cache (wave 7)
+  description: Nixpkgs leftover pname datarium on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datarium"
+  - "$XDG_CACHE_HOME/datarium"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datarium
+  name: Nixpkgs datarium windows cache (wave 7)
+  description: Nixpkgs leftover pname datarium on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datarium/Cache"
+  - "%LOCALAPPDATA%/datarium/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datarobot
+  name: Nixpkgs datarobot macos cache (wave 7)
+  description: Nixpkgs leftover pname datarobot on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datarobot"
+  - "$HOME/Library/Logs/datarobot"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datarobot
+  name: Nixpkgs datarobot linux cache (wave 7)
+  description: Nixpkgs leftover pname datarobot on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datarobot"
+  - "$XDG_CACHE_HOME/datarobot"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datarobot
+  name: Nixpkgs datarobot windows cache (wave 7)
+  description: Nixpkgs leftover pname datarobot on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datarobot/Cache"
+  - "%LOCALAPPDATA%/datarobot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasailr
+  name: Nixpkgs datasailr macos cache (wave 7)
+  description: Nixpkgs leftover pname datasailr on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasailr"
+  - "$HOME/Library/Logs/datasailr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasailr
+  name: Nixpkgs datasailr linux cache (wave 7)
+  description: Nixpkgs leftover pname datasailr on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasailr"
+  - "$XDG_CACHE_HOME/datasailr"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasailr
+  name: Nixpkgs datasailr windows cache (wave 7)
+  description: Nixpkgs leftover pname datasailr on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasailr/Cache"
+  - "%LOCALAPPDATA%/datasailr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasalad
+  name: Nixpkgs datasalad macos cache (wave 7)
+  description: Nixpkgs leftover pname datasalad on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasalad"
+  - "$HOME/Library/Logs/datasalad"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasalad
+  name: Nixpkgs datasalad linux cache (wave 7)
+  description: Nixpkgs leftover pname datasalad on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasalad"
+  - "$XDG_CACHE_HOME/datasalad"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasalad
+  name: Nixpkgs datasalad windows cache (wave 7)
+  description: Nixpkgs leftover pname datasalad on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasalad/Cache"
+  - "%LOCALAPPDATA%/datasalad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasaurus
+  name: Nixpkgs datasauRus macos cache (wave 7)
+  description: Nixpkgs leftover pname datasauRus on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasauRus"
+  - "$HOME/Library/Logs/datasauRus"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasaurus
+  name: Nixpkgs datasauRus linux cache (wave 7)
+  description: Nixpkgs leftover pname datasauRus on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasauRus"
+  - "$XDG_CACHE_HOME/datasauRus"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasaurus
+  name: Nixpkgs datasauRus windows cache (wave 7)
+  description: Nixpkgs leftover pname datasauRus on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasauRus/Cache"
+  - "%LOCALAPPDATA%/datasauRus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataseries
+  name: Nixpkgs dataseries macos cache (wave 7)
+  description: Nixpkgs leftover pname dataseries on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataseries"
+  - "$HOME/Library/Logs/dataseries"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataseries
+  name: Nixpkgs dataseries linux cache (wave 7)
+  description: Nixpkgs leftover pname dataseries on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataseries"
+  - "$XDG_CACHE_HOME/dataseries"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataseries
+  name: Nixpkgs dataseries windows cache (wave 7)
+  description: Nixpkgs leftover pname dataseries on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataseries/Cache"
+  - "%LOCALAPPDATA%/dataseries/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-dataset
+  name: Nixpkgs dataset macos cache (wave 7)
+  description: Nixpkgs leftover pname dataset on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dataset"
+  - "$HOME/Library/Logs/dataset"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-dataset
+  name: Nixpkgs dataset linux cache (wave 7)
+  description: Nixpkgs leftover pname dataset on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dataset"
+  - "$XDG_CACHE_HOME/dataset"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-dataset
+  name: Nixpkgs dataset windows cache (wave 7)
+  description: Nixpkgs leftover pname dataset on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dataset/Cache"
+  - "%LOCALAPPDATA%/dataset/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasetjson
+  name: Nixpkgs datasetjson macos cache (wave 7)
+  description: Nixpkgs leftover pname datasetjson on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasetjson"
+  - "$HOME/Library/Logs/datasetjson"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasetjson
+  name: Nixpkgs datasetjson linux cache (wave 7)
+  description: Nixpkgs leftover pname datasetjson on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasetjson"
+  - "$XDG_CACHE_HOME/datasetjson"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasetjson
+  name: Nixpkgs datasetjson windows cache (wave 7)
+  description: Nixpkgs leftover pname datasetjson on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasetjson/Cache"
+  - "%LOCALAPPDATA%/datasetjson/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasets
+  name: Nixpkgs datasets macos cache (wave 7)
+  description: Nixpkgs leftover pname datasets on macos (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasets"
+  - "$HOME/Library/Logs/datasets"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasets
+  name: Nixpkgs datasets linux cache (wave 7)
+  description: Nixpkgs leftover pname datasets on linux (wave 7). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasets"
+  - "$XDG_CACHE_HOME/datasets"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasets
+  name: Nixpkgs datasets windows cache (wave 7)
+  description: Nixpkgs leftover pname datasets on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasets/Cache"
+  - "%LOCALAPPDATA%/datasets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasets-load
+  name: Nixpkgs datasets.load macos cache (wave 7)
+  description: Nixpkgs leftover pname datasets.load on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasets.load"
+  - "$HOME/Library/Logs/datasets.load"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasets-load
+  name: Nixpkgs datasets.load linux cache (wave 7)
+  description: Nixpkgs leftover pname datasets.load on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasets.load"
+  - "$XDG_CACHE_HOME/datasets.load"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasets-load
+  name: Nixpkgs datasets.load windows cache (wave 7)
+  description: Nixpkgs leftover pname datasets.load on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasets.load/Cache"
+  - "%LOCALAPPDATA%/datasets.load/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasetsicr
+  name: Nixpkgs datasetsICR macos cache (wave 7)
+  description: Nixpkgs leftover pname datasetsICR on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasetsICR"
+  - "$HOME/Library/Logs/datasetsICR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasetsicr
+  name: Nixpkgs datasetsICR linux cache (wave 7)
+  description: Nixpkgs leftover pname datasetsICR on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasetsICR"
+  - "$XDG_CACHE_HOME/datasetsICR"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasetsicr
+  name: Nixpkgs datasetsICR windows cache (wave 7)
+  description: Nixpkgs leftover pname datasetsICR on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasetsICR/Cache"
+  - "%LOCALAPPDATA%/datasetsICR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasette
+  name: Nixpkgs datasette macos cache (wave 7)
+  description: Nixpkgs leftover pname datasette on macos (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasette"
+  - "$HOME/Library/Logs/datasette"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-lin-datasette
+  name: Nixpkgs datasette linux cache (wave 7)
+  description: Nixpkgs leftover pname datasette on linux (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/datasette"
+  - "$XDG_CACHE_HOME/datasette"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-win-datasette
+  name: Nixpkgs datasette windows cache (wave 7)
+  description: Nixpkgs leftover pname datasette on windows (wave 7). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/datasette/Cache"
+  - "%LOCALAPPDATA%/datasette/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np7-mac-datasette-publish-fly
+  name: Nixpkgs datasette-publish-fly macos cache (wave 7)
+  description: Nixpkgs leftover pname datasette-publish-fly on macos (wave 7). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/datasette-publish-fly"
+  - "$HOME/Library/Logs/datasette-publish-fly"
+  delete_mode: contents
+  max_depth: 6

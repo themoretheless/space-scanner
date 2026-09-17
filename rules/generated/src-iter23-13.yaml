@@ -1,0 +1,5530 @@
+---
+pack: src-iter23-13
+description: Iterative 10k import wave 23 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np23-mac-rcissvae
+  name: Nixpkgs rCISSVAE macos cache (wave 23)
+  description: Nixpkgs leftover pname rCISSVAE on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCISSVAE"
+  - "$HOME/Library/Logs/rCISSVAE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcissvae
+  name: Nixpkgs rCISSVAE linux cache (wave 23)
+  description: Nixpkgs leftover pname rCISSVAE on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCISSVAE"
+  - "$XDG_CACHE_HOME/rCISSVAE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcissvae
+  name: Nixpkgs rCISSVAE windows cache (wave 23)
+  description: Nixpkgs leftover pname rCISSVAE on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCISSVAE/Cache"
+  - "%LOCALAPPDATA%/rCISSVAE/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcma
+  name: Nixpkgs rCMA macos cache (wave 23)
+  description: Nixpkgs leftover pname rCMA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCMA"
+  - "$HOME/Library/Logs/rCMA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcma
+  name: Nixpkgs rCMA linux cache (wave 23)
+  description: Nixpkgs leftover pname rCMA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCMA"
+  - "$XDG_CACHE_HOME/rCMA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcma
+  name: Nixpkgs rCMA windows cache (wave 23)
+  description: Nixpkgs leftover pname rCMA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCMA/Cache"
+  - "%LOCALAPPDATA%/rCMA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcnv
+  name: Nixpkgs rCNV macos cache (wave 23)
+  description: Nixpkgs leftover pname rCNV on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCNV"
+  - "$HOME/Library/Logs/rCNV"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcnv
+  name: Nixpkgs rCNV linux cache (wave 23)
+  description: Nixpkgs leftover pname rCNV on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCNV"
+  - "$XDG_CACHE_HOME/rCNV"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcnv
+  name: Nixpkgs rCNV windows cache (wave 23)
+  description: Nixpkgs leftover pname rCNV on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCNV/Cache"
+  - "%LOCALAPPDATA%/rCNV/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcrm
+  name: Nixpkgs rCRM macos cache (wave 23)
+  description: Nixpkgs leftover pname rCRM on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCRM"
+  - "$HOME/Library/Logs/rCRM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcrm
+  name: Nixpkgs rCRM linux cache (wave 23)
+  description: Nixpkgs leftover pname rCRM on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCRM"
+  - "$XDG_CACHE_HOME/rCRM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcrm
+  name: Nixpkgs rCRM windows cache (wave 23)
+  description: Nixpkgs leftover pname rCRM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCRM/Cache"
+  - "%LOCALAPPDATA%/rCRM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rctool
+  name: Nixpkgs rCTOOL macos cache (wave 23)
+  description: Nixpkgs leftover pname rCTOOL on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCTOOL"
+  - "$HOME/Library/Logs/rCTOOL"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rctool
+  name: Nixpkgs rCTOOL linux cache (wave 23)
+  description: Nixpkgs leftover pname rCTOOL on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCTOOL"
+  - "$XDG_CACHE_HOME/rCTOOL"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rctool
+  name: Nixpkgs rCTOOL windows cache (wave 23)
+  description: Nixpkgs leftover pname rCTOOL on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCTOOL/Cache"
+  - "%LOCALAPPDATA%/rCTOOL/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcausalmgm
+  name: Nixpkgs rCausalMGM macos cache (wave 23)
+  description: Nixpkgs leftover pname rCausalMGM on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCausalMGM"
+  - "$HOME/Library/Logs/rCausalMGM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcausalmgm
+  name: Nixpkgs rCausalMGM linux cache (wave 23)
+  description: Nixpkgs leftover pname rCausalMGM on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCausalMGM"
+  - "$XDG_CACHE_HOME/rCausalMGM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcausalmgm
+  name: Nixpkgs rCausalMGM windows cache (wave 23)
+  description: Nixpkgs leftover pname rCausalMGM on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCausalMGM/Cache"
+  - "%LOCALAPPDATA%/rCausalMGM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rchea3
+  name: Nixpkgs rChEA3 macos cache (wave 23)
+  description: Nixpkgs leftover pname rChEA3 on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rChEA3"
+  - "$HOME/Library/Logs/rChEA3"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rchea3
+  name: Nixpkgs rChEA3 linux cache (wave 23)
+  description: Nixpkgs leftover pname rChEA3 on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rChEA3"
+  - "$XDG_CACHE_HOME/rChEA3"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rchea3
+  name: Nixpkgs rChEA3 windows cache (wave 23)
+  description: Nixpkgs leftover pname rChEA3 on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rChEA3/Cache"
+  - "%LOCALAPPDATA%/rChEA3/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rchoicedialogs
+  name: Nixpkgs rChoiceDialogs macos cache (wave 23)
+  description: Nixpkgs leftover pname rChoiceDialogs on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rChoiceDialogs"
+  - "$HOME/Library/Logs/rChoiceDialogs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rchoicedialogs
+  name: Nixpkgs rChoiceDialogs linux cache (wave 23)
+  description: Nixpkgs leftover pname rChoiceDialogs on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rChoiceDialogs"
+  - "$XDG_CACHE_HOME/rChoiceDialogs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rchoicedialogs
+  name: Nixpkgs rChoiceDialogs windows cache (wave 23)
+  description: Nixpkgs leftover pname rChoiceDialogs on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rChoiceDialogs/Cache"
+  - "%LOCALAPPDATA%/rChoiceDialogs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rclinicalcodes
+  name: Nixpkgs rClinicalCodes macos cache (wave 23)
+  description: Nixpkgs leftover pname rClinicalCodes on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rClinicalCodes"
+  - "$HOME/Library/Logs/rClinicalCodes"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rclinicalcodes
+  name: Nixpkgs rClinicalCodes linux cache (wave 23)
+  description: Nixpkgs leftover pname rClinicalCodes on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rClinicalCodes"
+  - "$XDG_CACHE_HOME/rClinicalCodes"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rclinicalcodes
+  name: Nixpkgs rClinicalCodes windows cache (wave 23)
+  description: Nixpkgs leftover pname rClinicalCodes on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rClinicalCodes/Cache"
+  - "%LOCALAPPDATA%/rClinicalCodes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcoinbase
+  name: Nixpkgs rCoinbase macos cache (wave 23)
+  description: Nixpkgs leftover pname rCoinbase on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCoinbase"
+  - "$HOME/Library/Logs/rCoinbase"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcoinbase
+  name: Nixpkgs rCoinbase linux cache (wave 23)
+  description: Nixpkgs leftover pname rCoinbase on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCoinbase"
+  - "$XDG_CACHE_HOME/rCoinbase"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcoinbase
+  name: Nixpkgs rCoinbase windows cache (wave 23)
+  description: Nixpkgs leftover pname rCoinbase on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCoinbase/Cache"
+  - "%LOCALAPPDATA%/rCoinbase/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcoregage
+  name: Nixpkgs rCoreGage macos cache (wave 23)
+  description: Nixpkgs leftover pname rCoreGage on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCoreGage"
+  - "$HOME/Library/Logs/rCoreGage"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcoregage
+  name: Nixpkgs rCoreGage linux cache (wave 23)
+  description: Nixpkgs leftover pname rCoreGage on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCoreGage"
+  - "$XDG_CACHE_HOME/rCoreGage"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcoregage
+  name: Nixpkgs rCoreGage windows cache (wave 23)
+  description: Nixpkgs leftover pname rCoreGage on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCoreGage/Cache"
+  - "%LOCALAPPDATA%/rCoreGage/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rcoros
+  name: Nixpkgs rCoros macos cache (wave 23)
+  description: Nixpkgs leftover pname rCoros on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rCoros"
+  - "$HOME/Library/Logs/rCoros"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rcoros
+  name: Nixpkgs rCoros linux cache (wave 23)
+  description: Nixpkgs leftover pname rCoros on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rCoros"
+  - "$XDG_CACHE_HOME/rCoros"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rcoros
+  name: Nixpkgs rCoros windows cache (wave 23)
+  description: Nixpkgs leftover pname rCoros on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rCoros/Cache"
+  - "%LOCALAPPDATA%/rCoros/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rd3plot
+  name: Nixpkgs rD3plot macos cache (wave 23)
+  description: Nixpkgs leftover pname rD3plot on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rD3plot"
+  - "$HOME/Library/Logs/rD3plot"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rd3plot
+  name: Nixpkgs rD3plot linux cache (wave 23)
+  description: Nixpkgs leftover pname rD3plot on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rD3plot"
+  - "$XDG_CACHE_HOME/rD3plot"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rd3plot
+  name: Nixpkgs rD3plot windows cache (wave 23)
+  description: Nixpkgs leftover pname rD3plot on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rD3plot/Cache"
+  - "%LOCALAPPDATA%/rD3plot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdea
+  name: Nixpkgs rDEA macos cache (wave 23)
+  description: Nixpkgs leftover pname rDEA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDEA"
+  - "$HOME/Library/Logs/rDEA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdea
+  name: Nixpkgs rDEA linux cache (wave 23)
+  description: Nixpkgs leftover pname rDEA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDEA"
+  - "$XDG_CACHE_HOME/rDEA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdea
+  name: Nixpkgs rDEA windows cache (wave 23)
+  description: Nixpkgs leftover pname rDEA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDEA/Cache"
+  - "%LOCALAPPDATA%/rDEA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdgidb
+  name: Nixpkgs rDGIdb macos cache (wave 23)
+  description: Nixpkgs leftover pname rDGIdb on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDGIdb"
+  - "$HOME/Library/Logs/rDGIdb"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdgidb
+  name: Nixpkgs rDGIdb linux cache (wave 23)
+  description: Nixpkgs leftover pname rDGIdb on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDGIdb"
+  - "$XDG_CACHE_HOME/rDGIdb"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdgidb
+  name: Nixpkgs rDGIdb windows cache (wave 23)
+  description: Nixpkgs leftover pname rDGIdb on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDGIdb/Cache"
+  - "%LOCALAPPDATA%/rDGIdb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdnase
+  name: Nixpkgs rDNAse macos cache (wave 23)
+  description: Nixpkgs leftover pname rDNAse on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDNAse"
+  - "$HOME/Library/Logs/rDNAse"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdnase
+  name: Nixpkgs rDNAse linux cache (wave 23)
+  description: Nixpkgs leftover pname rDNAse on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDNAse"
+  - "$XDG_CACHE_HOME/rDNAse"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdnase
+  name: Nixpkgs rDNAse windows cache (wave 23)
+  description: Nixpkgs leftover pname rDNAse on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDNAse/Cache"
+  - "%LOCALAPPDATA%/rDNAse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdatapipeline
+  name: Nixpkgs rDataPipeline macos cache (wave 23)
+  description: Nixpkgs leftover pname rDataPipeline on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDataPipeline"
+  - "$HOME/Library/Logs/rDataPipeline"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdatapipeline
+  name: Nixpkgs rDataPipeline linux cache (wave 23)
+  description: Nixpkgs leftover pname rDataPipeline on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDataPipeline"
+  - "$XDG_CACHE_HOME/rDataPipeline"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdatapipeline
+  name: Nixpkgs rDataPipeline windows cache (wave 23)
+  description: Nixpkgs leftover pname rDataPipeline on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDataPipeline/Cache"
+  - "%LOCALAPPDATA%/rDataPipeline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdeckgl
+  name: Nixpkgs rDeckgl macos cache (wave 23)
+  description: Nixpkgs leftover pname rDeckgl on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDeckgl"
+  - "$HOME/Library/Logs/rDeckgl"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdeckgl
+  name: Nixpkgs rDeckgl linux cache (wave 23)
+  description: Nixpkgs leftover pname rDeckgl on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDeckgl"
+  - "$XDG_CACHE_HOME/rDeckgl"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdeckgl
+  name: Nixpkgs rDeckgl windows cache (wave 23)
+  description: Nixpkgs leftover pname rDeckgl on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDeckgl/Cache"
+  - "%LOCALAPPDATA%/rDeckgl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdecode
+  name: Nixpkgs rDecode macos cache (wave 23)
+  description: Nixpkgs leftover pname rDecode on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDecode"
+  - "$HOME/Library/Logs/rDecode"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdecode
+  name: Nixpkgs rDecode linux cache (wave 23)
+  description: Nixpkgs leftover pname rDecode on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDecode"
+  - "$XDG_CACHE_HOME/rDecode"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdecode
+  name: Nixpkgs rDecode windows cache (wave 23)
+  description: Nixpkgs leftover pname rDecode on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDecode/Cache"
+  - "%LOCALAPPDATA%/rDecode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdotnet
+  name: Nixpkgs rDotNet macos cache (wave 23)
+  description: Nixpkgs leftover pname rDotNet on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDotNet"
+  - "$HOME/Library/Logs/rDotNet"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdotnet
+  name: Nixpkgs rDotNet linux cache (wave 23)
+  description: Nixpkgs leftover pname rDotNet on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDotNet"
+  - "$XDG_CACHE_HOME/rDotNet"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdotnet
+  name: Nixpkgs rDotNet windows cache (wave 23)
+  description: Nixpkgs leftover pname rDotNet on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDotNet/Cache"
+  - "%LOCALAPPDATA%/rDotNet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rdppdiversity
+  name: Nixpkgs rDppDiversity macos cache (wave 23)
+  description: Nixpkgs leftover pname rDppDiversity on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rDppDiversity"
+  - "$HOME/Library/Logs/rDppDiversity"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rdppdiversity
+  name: Nixpkgs rDppDiversity linux cache (wave 23)
+  description: Nixpkgs leftover pname rDppDiversity on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rDppDiversity"
+  - "$XDG_CACHE_HOME/rDppDiversity"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rdppdiversity
+  name: Nixpkgs rDppDiversity windows cache (wave 23)
+  description: Nixpkgs leftover pname rDppDiversity on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rDppDiversity/Cache"
+  - "%LOCALAPPDATA%/rDppDiversity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-redm
+  name: Nixpkgs rEDM macos cache (wave 23)
+  description: Nixpkgs leftover pname rEDM on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rEDM"
+  - "$HOME/Library/Logs/rEDM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-redm
+  name: Nixpkgs rEDM linux cache (wave 23)
+  description: Nixpkgs leftover pname rEDM on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rEDM"
+  - "$XDG_CACHE_HOME/rEDM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-redm
+  name: Nixpkgs rEDM windows cache (wave 23)
+  description: Nixpkgs leftover pname rEDM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rEDM/Cache"
+  - "%LOCALAPPDATA%/rEDM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-remm
+  name: Nixpkgs rEMM macos cache (wave 23)
+  description: Nixpkgs leftover pname rEMM on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rEMM"
+  - "$HOME/Library/Logs/rEMM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-remm
+  name: Nixpkgs rEMM linux cache (wave 23)
+  description: Nixpkgs leftover pname rEMM on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rEMM"
+  - "$XDG_CACHE_HOME/rEMM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-remm
+  name: Nixpkgs rEMM windows cache (wave 23)
+  description: Nixpkgs leftover pname rEMM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rEMM/Cache"
+  - "%LOCALAPPDATA%/rEMM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rena
+  name: Nixpkgs rENA macos cache (wave 23)
+  description: Nixpkgs leftover pname rENA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rENA"
+  - "$HOME/Library/Logs/rENA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rena
+  name: Nixpkgs rENA linux cache (wave 23)
+  description: Nixpkgs leftover pname rENA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rENA"
+  - "$XDG_CACHE_HOME/rENA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rena
+  name: Nixpkgs rENA windows cache (wave 23)
+  description: Nixpkgs leftover pname rENA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rENA/Cache"
+  - "%LOCALAPPDATA%/rENA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rfams
+  name: Nixpkgs rFAMS macos cache (wave 23)
+  description: Nixpkgs leftover pname rFAMS on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFAMS"
+  - "$HOME/Library/Logs/rFAMS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rfams
+  name: Nixpkgs rFAMS linux cache (wave 23)
+  description: Nixpkgs leftover pname rFAMS on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFAMS"
+  - "$XDG_CACHE_HOME/rFAMS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rfams
+  name: Nixpkgs rFAMS windows cache (wave 23)
+  description: Nixpkgs leftover pname rFAMS on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFAMS/Cache"
+  - "%LOCALAPPDATA%/rFAMS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rfdp
+  name: Nixpkgs rFDP macos cache (wave 23)
+  description: Nixpkgs leftover pname rFDP on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFDP"
+  - "$HOME/Library/Logs/rFDP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rfdp
+  name: Nixpkgs rFDP linux cache (wave 23)
+  description: Nixpkgs leftover pname rFDP on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFDP"
+  - "$XDG_CACHE_HOME/rFDP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rfdp
+  name: Nixpkgs rFDP windows cache (wave 23)
+  description: Nixpkgs leftover pname rFDP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFDP/Cache"
+  - "%LOCALAPPDATA%/rFDP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rfdsn
+  name: Nixpkgs rFDSN macos cache (wave 23)
+  description: Nixpkgs leftover pname rFDSN on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFDSN"
+  - "$HOME/Library/Logs/rFDSN"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rfdsn
+  name: Nixpkgs rFDSN linux cache (wave 23)
+  description: Nixpkgs leftover pname rFDSN on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFDSN"
+  - "$XDG_CACHE_HOME/rFDSN"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rfdsn
+  name: Nixpkgs rFDSN windows cache (wave 23)
+  description: Nixpkgs leftover pname rFDSN on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFDSN/Cache"
+  - "%LOCALAPPDATA%/rFDSN/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rfia
+  name: Nixpkgs rFIA macos cache (wave 23)
+  description: Nixpkgs leftover pname rFIA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFIA"
+  - "$HOME/Library/Logs/rFIA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rfia
+  name: Nixpkgs rFIA linux cache (wave 23)
+  description: Nixpkgs leftover pname rFIA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFIA"
+  - "$XDG_CACHE_HOME/rFIA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rfia
+  name: Nixpkgs rFIA windows cache (wave 23)
+  description: Nixpkgs leftover pname rFIA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFIA/Cache"
+  - "%LOCALAPPDATA%/rFIA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rfsa
+  name: Nixpkgs rFSA macos cache (wave 23)
+  description: Nixpkgs leftover pname rFSA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFSA"
+  - "$HOME/Library/Logs/rFSA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rfsa
+  name: Nixpkgs rFSA linux cache (wave 23)
+  description: Nixpkgs leftover pname rFSA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFSA"
+  - "$XDG_CACHE_HOME/rFSA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rfsa
+  name: Nixpkgs rFSA windows cache (wave 23)
+  description: Nixpkgs leftover pname rFSA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFSA/Cache"
+  - "%LOCALAPPDATA%/rFSA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rferns
+  name: Nixpkgs rFerns macos cache (wave 23)
+  description: Nixpkgs leftover pname rFerns on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFerns"
+  - "$HOME/Library/Logs/rFerns"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rferns
+  name: Nixpkgs rFerns linux cache (wave 23)
+  description: Nixpkgs leftover pname rFerns on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFerns"
+  - "$XDG_CACHE_HOME/rFerns"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rferns
+  name: Nixpkgs rFerns windows cache (wave 23)
+  description: Nixpkgs leftover pname rFerns on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFerns/Cache"
+  - "%LOCALAPPDATA%/rFerns/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rfocal
+  name: Nixpkgs rFocal macos cache (wave 23)
+  description: Nixpkgs leftover pname rFocal on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rFocal"
+  - "$HOME/Library/Logs/rFocal"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rfocal
+  name: Nixpkgs rFocal linux cache (wave 23)
+  description: Nixpkgs leftover pname rFocal on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rFocal"
+  - "$XDG_CACHE_HOME/rFocal"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rfocal
+  name: Nixpkgs rFocal windows cache (wave 23)
+  description: Nixpkgs leftover pname rFocal on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rFocal/Cache"
+  - "%LOCALAPPDATA%/rFocal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rforest
+  name: Nixpkgs rForest macos cache (wave 23)
+  description: Nixpkgs leftover pname rForest on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rForest"
+  - "$HOME/Library/Logs/rForest"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rforest
+  name: Nixpkgs rForest linux cache (wave 23)
+  description: Nixpkgs leftover pname rForest on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rForest"
+  - "$XDG_CACHE_HOME/rForest"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rforest
+  name: Nixpkgs rForest windows cache (wave 23)
+  description: Nixpkgs leftover pname rForest on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rForest/Cache"
+  - "%LOCALAPPDATA%/rForest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgadem
+  name: Nixpkgs rGADEM macos cache (wave 23)
+  description: Nixpkgs leftover pname rGADEM on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGADEM"
+  - "$HOME/Library/Logs/rGADEM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgadem
+  name: Nixpkgs rGADEM linux cache (wave 23)
+  description: Nixpkgs leftover pname rGADEM on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGADEM"
+  - "$XDG_CACHE_HOME/rGADEM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgadem
+  name: Nixpkgs rGADEM windows cache (wave 23)
+  description: Nixpkgs leftover pname rGADEM on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGADEM/Cache"
+  - "%LOCALAPPDATA%/rGADEM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgedi
+  name: Nixpkgs rGEDI macos cache (wave 23)
+  description: Nixpkgs leftover pname rGEDI on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGEDI"
+  - "$HOME/Library/Logs/rGEDI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgedi
+  name: Nixpkgs rGEDI linux cache (wave 23)
+  description: Nixpkgs leftover pname rGEDI on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGEDI"
+  - "$XDG_CACHE_HOME/rGEDI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgedi
+  name: Nixpkgs rGEDI windows cache (wave 23)
+  description: Nixpkgs leftover pname rGEDI on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGEDI/Cache"
+  - "%LOCALAPPDATA%/rGEDI/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgreat
+  name: Nixpkgs rGREAT macos cache (wave 23)
+  description: Nixpkgs leftover pname rGREAT on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGREAT"
+  - "$HOME/Library/Logs/rGREAT"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgreat
+  name: Nixpkgs rGREAT linux cache (wave 23)
+  description: Nixpkgs leftover pname rGREAT on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGREAT"
+  - "$XDG_CACHE_HOME/rGREAT"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgreat
+  name: Nixpkgs rGREAT windows cache (wave 23)
+  description: Nixpkgs leftover pname rGREAT on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGREAT/Cache"
+  - "%LOCALAPPDATA%/rGREAT/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgv
+  name: Nixpkgs rGV macos cache (wave 23)
+  description: Nixpkgs leftover pname rGV on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGV"
+  - "$HOME/Library/Logs/rGV"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgv
+  name: Nixpkgs rGV linux cache (wave 23)
+  description: Nixpkgs leftover pname rGV on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGV"
+  - "$XDG_CACHE_HOME/rGV"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgv
+  name: Nixpkgs rGV windows cache (wave 23)
+  description: Nixpkgs leftover pname rGV on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGV/Cache"
+  - "%LOCALAPPDATA%/rGV/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgammagamma
+  name: Nixpkgs rGammaGamma macos cache (wave 23)
+  description: Nixpkgs leftover pname rGammaGamma on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGammaGamma"
+  - "$HOME/Library/Logs/rGammaGamma"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgammagamma
+  name: Nixpkgs rGammaGamma linux cache (wave 23)
+  description: Nixpkgs leftover pname rGammaGamma on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGammaGamma"
+  - "$XDG_CACHE_HOME/rGammaGamma"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgammagamma
+  name: Nixpkgs rGammaGamma windows cache (wave 23)
+  description: Nixpkgs leftover pname rGammaGamma on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGammaGamma/Cache"
+  - "%LOCALAPPDATA%/rGammaGamma/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgenometracks
+  name: Nixpkgs rGenomeTracks macos cache (wave 23)
+  description: Nixpkgs leftover pname rGenomeTracks on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGenomeTracks"
+  - "$HOME/Library/Logs/rGenomeTracks"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgenometracks
+  name: Nixpkgs rGenomeTracks linux cache (wave 23)
+  description: Nixpkgs leftover pname rGenomeTracks on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGenomeTracks"
+  - "$XDG_CACHE_HOME/rGenomeTracks"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgenometracks
+  name: Nixpkgs rGenomeTracks windows cache (wave 23)
+  description: Nixpkgs leftover pname rGenomeTracks on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGenomeTracks/Cache"
+  - "%LOCALAPPDATA%/rGenomeTracks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgenometracksdata
+  name: Nixpkgs rGenomeTracksData macos cache (wave 23)
+  description: Nixpkgs leftover pname rGenomeTracksData on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGenomeTracksData"
+  - "$HOME/Library/Logs/rGenomeTracksData"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgenometracksdata
+  name: Nixpkgs rGenomeTracksData linux cache (wave 23)
+  description: Nixpkgs leftover pname rGenomeTracksData on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGenomeTracksData"
+  - "$XDG_CACHE_HOME/rGenomeTracksData"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgenometracksdata
+  name: Nixpkgs rGenomeTracksData windows cache (wave 23)
+  description: Nixpkgs leftover pname rGenomeTracksData on windows (wave 23). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGenomeTracksData/Cache"
+  - "%LOCALAPPDATA%/rGenomeTracksData/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rghanacensus
+  name: Nixpkgs rGhanaCensus macos cache (wave 23)
+  description: Nixpkgs leftover pname rGhanaCensus on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGhanaCensus"
+  - "$HOME/Library/Logs/rGhanaCensus"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rghanacensus
+  name: Nixpkgs rGhanaCensus linux cache (wave 23)
+  description: Nixpkgs leftover pname rGhanaCensus on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGhanaCensus"
+  - "$XDG_CACHE_HOME/rGhanaCensus"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rghanacensus
+  name: Nixpkgs rGhanaCensus windows cache (wave 23)
+  description: Nixpkgs leftover pname rGhanaCensus on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGhanaCensus/Cache"
+  - "%LOCALAPPDATA%/rGhanaCensus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rgroovy
+  name: Nixpkgs rGroovy macos cache (wave 23)
+  description: Nixpkgs leftover pname rGroovy on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rGroovy"
+  - "$HOME/Library/Logs/rGroovy"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rgroovy
+  name: Nixpkgs rGroovy linux cache (wave 23)
+  description: Nixpkgs leftover pname rGroovy on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rGroovy"
+  - "$XDG_CACHE_HOME/rGroovy"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rgroovy
+  name: Nixpkgs rGroovy windows cache (wave 23)
+  description: Nixpkgs leftover pname rGroovy on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rGroovy/Cache"
+  - "%LOCALAPPDATA%/rGroovy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rhl7
+  name: Nixpkgs rHL7 macos cache (wave 23)
+  description: Nixpkgs leftover pname rHL7 on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rHL7"
+  - "$HOME/Library/Logs/rHL7"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rhl7
+  name: Nixpkgs rHL7 linux cache (wave 23)
+  description: Nixpkgs leftover pname rHL7 on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rHL7"
+  - "$XDG_CACHE_HOME/rHL7"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rhl7
+  name: Nixpkgs rHL7 windows cache (wave 23)
+  description: Nixpkgs leftover pname rHL7 on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rHL7/Cache"
+  - "%LOCALAPPDATA%/rHL7/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rhvdm
+  name: Nixpkgs rHVDM macos cache (wave 23)
+  description: Nixpkgs leftover pname rHVDM on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rHVDM"
+  - "$HOME/Library/Logs/rHVDM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rhvdm
+  name: Nixpkgs rHVDM linux cache (wave 23)
+  description: Nixpkgs leftover pname rHVDM on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rHVDM"
+  - "$XDG_CACHE_HOME/rHVDM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rhvdm
+  name: Nixpkgs rHVDM windows cache (wave 23)
+  description: Nixpkgs leftover pname rHVDM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rHVDM/Cache"
+  - "%LOCALAPPDATA%/rHVDM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rhealthdatagov
+  name: Nixpkgs rHealthDataGov macos cache (wave 23)
+  description: Nixpkgs leftover pname rHealthDataGov on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rHealthDataGov"
+  - "$HOME/Library/Logs/rHealthDataGov"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rhealthdatagov
+  name: Nixpkgs rHealthDataGov linux cache (wave 23)
+  description: Nixpkgs leftover pname rHealthDataGov on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rHealthDataGov"
+  - "$XDG_CACHE_HOME/rHealthDataGov"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rhealthdatagov
+  name: Nixpkgs rHealthDataGov windows cache (wave 23)
+  description: Nixpkgs leftover pname rHealthDataGov on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rHealthDataGov/Cache"
+  - "%LOCALAPPDATA%/rHealthDataGov/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rhpcc
+  name: Nixpkgs rHpcc macos cache (wave 23)
+  description: Nixpkgs leftover pname rHpcc on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rHpcc"
+  - "$HOME/Library/Logs/rHpcc"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rhpcc
+  name: Nixpkgs rHpcc linux cache (wave 23)
+  description: Nixpkgs leftover pname rHpcc on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rHpcc"
+  - "$XDG_CACHE_HOME/rHpcc"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rhpcc
+  name: Nixpkgs rHpcc windows cache (wave 23)
+  description: Nixpkgs leftover pname rHpcc on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rHpcc/Cache"
+  - "%LOCALAPPDATA%/rHpcc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-riaci
+  name: Nixpkgs rIACI macos cache (wave 23)
+  description: Nixpkgs leftover pname rIACI on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rIACI"
+  - "$HOME/Library/Logs/rIACI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-riaci
+  name: Nixpkgs rIACI linux cache (wave 23)
+  description: Nixpkgs leftover pname rIACI on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rIACI"
+  - "$XDG_CACHE_HOME/rIACI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-riaci
+  name: Nixpkgs rIACI windows cache (wave 23)
+  description: Nixpkgs leftover pname rIACI on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rIACI/Cache"
+  - "%LOCALAPPDATA%/rIACI/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rip
+  name: Nixpkgs rIP macos cache (wave 23)
+  description: Nixpkgs leftover pname rIP on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rIP"
+  - "$HOME/Library/Logs/rIP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rip
+  name: Nixpkgs rIP linux cache (wave 23)
+  description: Nixpkgs leftover pname rIP on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rIP"
+  - "$XDG_CACHE_HOME/rIP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rip
+  name: Nixpkgs rIP windows cache (wave 23)
+  description: Nixpkgs leftover pname rIP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rIP/Cache"
+  - "%LOCALAPPDATA%/rIP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rintervaltree
+  name: Nixpkgs rIntervalTree macos cache (wave 23)
+  description: Nixpkgs leftover pname rIntervalTree on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rIntervalTree"
+  - "$HOME/Library/Logs/rIntervalTree"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rintervaltree
+  name: Nixpkgs rIntervalTree linux cache (wave 23)
+  description: Nixpkgs leftover pname rIntervalTree on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rIntervalTree"
+  - "$XDG_CACHE_HOME/rIntervalTree"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rintervaltree
+  name: Nixpkgs rIntervalTree windows cache (wave 23)
+  description: Nixpkgs leftover pname rIntervalTree on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rIntervalTree/Cache"
+  - "%LOCALAPPDATA%/rIntervalTree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rising
+  name: Nixpkgs rIsing macos cache (wave 23)
+  description: Nixpkgs leftover pname rIsing on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rIsing"
+  - "$HOME/Library/Logs/rIsing"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rising
+  name: Nixpkgs rIsing linux cache (wave 23)
+  description: Nixpkgs leftover pname rIsing on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rIsing"
+  - "$XDG_CACHE_HOME/rIsing"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rising
+  name: Nixpkgs rIsing windows cache (wave 23)
+  description: Nixpkgs leftover pname rIsing on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rIsing/Cache"
+  - "%LOCALAPPDATA%/rIsing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rjpsgcs
+  name: Nixpkgs rJPSGCS macos cache (wave 23)
+  description: Nixpkgs leftover pname rJPSGCS on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rJPSGCS"
+  - "$HOME/Library/Logs/rJPSGCS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rjpsgcs
+  name: Nixpkgs rJPSGCS linux cache (wave 23)
+  description: Nixpkgs leftover pname rJPSGCS on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rJPSGCS"
+  - "$XDG_CACHE_HOME/rJPSGCS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rjpsgcs
+  name: Nixpkgs rJPSGCS windows cache (wave 23)
+  description: Nixpkgs leftover pname rJPSGCS on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rJPSGCS/Cache"
+  - "%LOCALAPPDATA%/rJPSGCS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rjava
+  name: Nixpkgs rJava macos cache (wave 23)
+  description: Nixpkgs leftover pname rJava on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rJava"
+  - "$HOME/Library/Logs/rJava"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rjava
+  name: Nixpkgs rJava linux cache (wave 23)
+  description: Nixpkgs leftover pname rJava on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rJava"
+  - "$XDG_CACHE_HOME/rJava"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rjava
+  name: Nixpkgs rJava windows cache (wave 23)
+  description: Nixpkgs leftover pname rJava on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rJava/Cache"
+  - "%LOCALAPPDATA%/rJava/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rjavaenv
+  name: Nixpkgs rJavaEnv macos cache (wave 23)
+  description: Nixpkgs leftover pname rJavaEnv on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rJavaEnv"
+  - "$HOME/Library/Logs/rJavaEnv"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rjavaenv
+  name: Nixpkgs rJavaEnv linux cache (wave 23)
+  description: Nixpkgs leftover pname rJavaEnv on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rJavaEnv"
+  - "$XDG_CACHE_HOME/rJavaEnv"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rjavaenv
+  name: Nixpkgs rJavaEnv windows cache (wave 23)
+  description: Nixpkgs leftover pname rJavaEnv on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rJavaEnv/Cache"
+  - "%LOCALAPPDATA%/rJavaEnv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rjython
+  name: Nixpkgs rJython macos cache (wave 23)
+  description: Nixpkgs leftover pname rJython on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rJython"
+  - "$HOME/Library/Logs/rJython"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rjython
+  name: Nixpkgs rJython linux cache (wave 23)
+  description: Nixpkgs leftover pname rJython on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rJython"
+  - "$XDG_CACHE_HOME/rJython"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rjython
+  name: Nixpkgs rJython windows cache (wave 23)
+  description: Nixpkgs leftover pname rJython on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rJython/Cache"
+  - "%LOCALAPPDATA%/rJython/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rkin
+  name: Nixpkgs rKIN macos cache (wave 23)
+  description: Nixpkgs leftover pname rKIN on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rKIN"
+  - "$HOME/Library/Logs/rKIN"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rkin
+  name: Nixpkgs rKIN linux cache (wave 23)
+  description: Nixpkgs leftover pname rKIN on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rKIN"
+  - "$XDG_CACHE_HOME/rKIN"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rkin
+  name: Nixpkgs rKIN windows cache (wave 23)
+  description: Nixpkgs leftover pname rKIN on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rKIN/Cache"
+  - "%LOCALAPPDATA%/rKIN/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rkomics
+  name: Nixpkgs rKOMICS macos cache (wave 23)
+  description: Nixpkgs leftover pname rKOMICS on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rKOMICS"
+  - "$HOME/Library/Logs/rKOMICS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rkomics
+  name: Nixpkgs rKOMICS linux cache (wave 23)
+  description: Nixpkgs leftover pname rKOMICS on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rKOMICS"
+  - "$XDG_CACHE_HOME/rKOMICS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rkomics
+  name: Nixpkgs rKOMICS windows cache (wave 23)
+  description: Nixpkgs leftover pname rKOMICS on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rKOMICS/Cache"
+  - "%LOCALAPPDATA%/rKOMICS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rkenyaforex
+  name: Nixpkgs rKenyaForex macos cache (wave 23)
+  description: Nixpkgs leftover pname rKenyaForex on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rKenyaForex"
+  - "$HOME/Library/Logs/rKenyaForex"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rkenyaforex
+  name: Nixpkgs rKenyaForex linux cache (wave 23)
+  description: Nixpkgs leftover pname rKenyaForex on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rKenyaForex"
+  - "$XDG_CACHE_HOME/rKenyaForex"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rkenyaforex
+  name: Nixpkgs rKenyaForex windows cache (wave 23)
+  description: Nixpkgs leftover pname rKenyaForex on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rKenyaForex/Cache"
+  - "%LOCALAPPDATA%/rKenyaForex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rkolada
+  name: Nixpkgs rKolada macos cache (wave 23)
+  description: Nixpkgs leftover pname rKolada on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rKolada"
+  - "$HOME/Library/Logs/rKolada"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rkolada
+  name: Nixpkgs rKolada linux cache (wave 23)
+  description: Nixpkgs leftover pname rKolada on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rKolada"
+  - "$XDG_CACHE_HOME/rKolada"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rkolada
+  name: Nixpkgs rKolada windows cache (wave 23)
+  description: Nixpkgs leftover pname rKolada on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rKolada/Cache"
+  - "%LOCALAPPDATA%/rKolada/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rldcp
+  name: Nixpkgs rLDCP macos cache (wave 23)
+  description: Nixpkgs leftover pname rLDCP on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLDCP"
+  - "$HOME/Library/Logs/rLDCP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rldcp
+  name: Nixpkgs rLDCP linux cache (wave 23)
+  description: Nixpkgs leftover pname rLDCP on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLDCP"
+  - "$XDG_CACHE_HOME/rLDCP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rldcp
+  name: Nixpkgs rLDCP windows cache (wave 23)
+  description: Nixpkgs leftover pname rLDCP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLDCP/Cache"
+  - "%LOCALAPPDATA%/rLDCP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rlft
+  name: Nixpkgs rLFT macos cache (wave 23)
+  description: Nixpkgs leftover pname rLFT on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLFT"
+  - "$HOME/Library/Logs/rLFT"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rlft
+  name: Nixpkgs rLFT linux cache (wave 23)
+  description: Nixpkgs leftover pname rLFT on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLFT"
+  - "$XDG_CACHE_HOME/rLFT"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rlft
+  name: Nixpkgs rLFT windows cache (wave 23)
+  description: Nixpkgs leftover pname rLFT on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLFT/Cache"
+  - "%LOCALAPPDATA%/rLFT/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rltp
+  name: Nixpkgs rLTP macos cache (wave 23)
+  description: Nixpkgs leftover pname rLTP on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLTP"
+  - "$HOME/Library/Logs/rLTP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rltp
+  name: Nixpkgs rLTP linux cache (wave 23)
+  description: Nixpkgs leftover pname rLTP on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLTP"
+  - "$XDG_CACHE_HOME/rLTP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rltp
+  name: Nixpkgs rLTP windows cache (wave 23)
+  description: Nixpkgs leftover pname rLTP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLTP/Cache"
+  - "%LOCALAPPDATA%/rLTP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rlakeanalyzer
+  name: Nixpkgs rLakeAnalyzer macos cache (wave 23)
+  description: Nixpkgs leftover pname rLakeAnalyzer on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLakeAnalyzer"
+  - "$HOME/Library/Logs/rLakeAnalyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rlakeanalyzer
+  name: Nixpkgs rLakeAnalyzer linux cache (wave 23)
+  description: Nixpkgs leftover pname rLakeAnalyzer on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLakeAnalyzer"
+  - "$XDG_CACHE_HOME/rLakeAnalyzer"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rlakeanalyzer
+  name: Nixpkgs rLakeAnalyzer windows cache (wave 23)
+  description: Nixpkgs leftover pname rLakeAnalyzer on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLakeAnalyzer/Cache"
+  - "%LOCALAPPDATA%/rLakeAnalyzer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rlakehabitat
+  name: Nixpkgs rLakeHabitat macos cache (wave 23)
+  description: Nixpkgs leftover pname rLakeHabitat on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLakeHabitat"
+  - "$HOME/Library/Logs/rLakeHabitat"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rlakehabitat
+  name: Nixpkgs rLakeHabitat linux cache (wave 23)
+  description: Nixpkgs leftover pname rLakeHabitat on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLakeHabitat"
+  - "$XDG_CACHE_HOME/rLakeHabitat"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rlakehabitat
+  name: Nixpkgs rLakeHabitat windows cache (wave 23)
+  description: Nixpkgs leftover pname rLakeHabitat on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLakeHabitat/Cache"
+  - "%LOCALAPPDATA%/rLakeHabitat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rlidar
+  name: Nixpkgs rLiDAR macos cache (wave 23)
+  description: Nixpkgs leftover pname rLiDAR on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLiDAR"
+  - "$HOME/Library/Logs/rLiDAR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rlidar
+  name: Nixpkgs rLiDAR linux cache (wave 23)
+  description: Nixpkgs leftover pname rLiDAR on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLiDAR"
+  - "$XDG_CACHE_HOME/rLiDAR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rlidar
+  name: Nixpkgs rLiDAR windows cache (wave 23)
+  description: Nixpkgs leftover pname rLiDAR on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLiDAR/Cache"
+  - "%LOCALAPPDATA%/rLiDAR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rlifting
+  name: Nixpkgs rLifting macos cache (wave 23)
+  description: Nixpkgs leftover pname rLifting on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rLifting"
+  - "$HOME/Library/Logs/rLifting"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rlifting
+  name: Nixpkgs rLifting linux cache (wave 23)
+  description: Nixpkgs leftover pname rLifting on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rLifting"
+  - "$XDG_CACHE_HOME/rLifting"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rlifting
+  name: Nixpkgs rLifting windows cache (wave 23)
+  description: Nixpkgs leftover pname rLifting on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rLifting/Cache"
+  - "%LOCALAPPDATA%/rLifting/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmea
+  name: Nixpkgs rMEA macos cache (wave 23)
+  description: Nixpkgs leftover pname rMEA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMEA"
+  - "$HOME/Library/Logs/rMEA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmea
+  name: Nixpkgs rMEA linux cache (wave 23)
+  description: Nixpkgs leftover pname rMEA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMEA"
+  - "$XDG_CACHE_HOME/rMEA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmea
+  name: Nixpkgs rMEA windows cache (wave 23)
+  description: Nixpkgs leftover pname rMEA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMEA/Cache"
+  - "%LOCALAPPDATA%/rMEA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmidas
+  name: Nixpkgs rMIDAS macos cache (wave 23)
+  description: Nixpkgs leftover pname rMIDAS on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMIDAS"
+  - "$HOME/Library/Logs/rMIDAS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmidas
+  name: Nixpkgs rMIDAS linux cache (wave 23)
+  description: Nixpkgs leftover pname rMIDAS on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMIDAS"
+  - "$XDG_CACHE_HOME/rMIDAS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmidas
+  name: Nixpkgs rMIDAS windows cache (wave 23)
+  description: Nixpkgs leftover pname rMIDAS on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMIDAS/Cache"
+  - "%LOCALAPPDATA%/rMIDAS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmidas2
+  name: Nixpkgs rMIDAS2 macos cache (wave 23)
+  description: Nixpkgs leftover pname rMIDAS2 on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMIDAS2"
+  - "$HOME/Library/Logs/rMIDAS2"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmidas2
+  name: Nixpkgs rMIDAS2 linux cache (wave 23)
+  description: Nixpkgs leftover pname rMIDAS2 on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMIDAS2"
+  - "$XDG_CACHE_HOME/rMIDAS2"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmidas2
+  name: Nixpkgs rMIDAS2 windows cache (wave 23)
+  description: Nixpkgs leftover pname rMIDAS2 on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMIDAS2/Cache"
+  - "%LOCALAPPDATA%/rMIDAS2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmost
+  name: Nixpkgs rMOST macos cache (wave 23)
+  description: Nixpkgs leftover pname rMOST on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMOST"
+  - "$HOME/Library/Logs/rMOST"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmost
+  name: Nixpkgs rMOST linux cache (wave 23)
+  description: Nixpkgs leftover pname rMOST on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMOST"
+  - "$XDG_CACHE_HOME/rMOST"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmost
+  name: Nixpkgs rMOST windows cache (wave 23)
+  description: Nixpkgs leftover pname rMOST on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMOST/Cache"
+  - "%LOCALAPPDATA%/rMOST/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmr
+  name: Nixpkgs rMR macos cache (wave 23)
+  description: Nixpkgs leftover pname rMR on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMR"
+  - "$HOME/Library/Logs/rMR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmr
+  name: Nixpkgs rMR linux cache (wave 23)
+  description: Nixpkgs leftover pname rMR on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMR"
+  - "$XDG_CACHE_HOME/rMR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmr
+  name: Nixpkgs rMR windows cache (wave 23)
+  description: Nixpkgs leftover pname rMR on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMR/Cache"
+  - "%LOCALAPPDATA%/rMR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmvp
+  name: Nixpkgs rMVP macos cache (wave 23)
+  description: Nixpkgs leftover pname rMVP on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMVP"
+  - "$HOME/Library/Logs/rMVP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmvp
+  name: Nixpkgs rMVP linux cache (wave 23)
+  description: Nixpkgs leftover pname rMVP on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMVP"
+  - "$XDG_CACHE_HOME/rMVP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmvp
+  name: Nixpkgs rMVP windows cache (wave 23)
+  description: Nixpkgs leftover pname rMVP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMVP/Cache"
+  - "%LOCALAPPDATA%/rMVP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmisbeta
+  name: Nixpkgs rMisbeta macos cache (wave 23)
+  description: Nixpkgs leftover pname rMisbeta on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMisbeta"
+  - "$HOME/Library/Logs/rMisbeta"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmisbeta
+  name: Nixpkgs rMisbeta linux cache (wave 23)
+  description: Nixpkgs leftover pname rMisbeta on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMisbeta"
+  - "$XDG_CACHE_HOME/rMisbeta"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmisbeta
+  name: Nixpkgs rMisbeta windows cache (wave 23)
+  description: Nixpkgs leftover pname rMisbeta on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMisbeta/Cache"
+  - "%LOCALAPPDATA%/rMisbeta/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmodeling
+  name: Nixpkgs rModeling macos cache (wave 23)
+  description: Nixpkgs leftover pname rModeling on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rModeling"
+  - "$HOME/Library/Logs/rModeling"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmodeling
+  name: Nixpkgs rModeling linux cache (wave 23)
+  description: Nixpkgs leftover pname rModeling on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rModeling"
+  - "$XDG_CACHE_HOME/rModeling"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmodeling
+  name: Nixpkgs rModeling windows cache (wave 23)
+  description: Nixpkgs leftover pname rModeling on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rModeling/Cache"
+  - "%LOCALAPPDATA%/rModeling/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmosaic
+  name: Nixpkgs rMosaic macos cache (wave 23)
+  description: Nixpkgs leftover pname rMosaic on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMosaic"
+  - "$HOME/Library/Logs/rMosaic"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmosaic
+  name: Nixpkgs rMosaic linux cache (wave 23)
+  description: Nixpkgs leftover pname rMosaic on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMosaic"
+  - "$XDG_CACHE_HOME/rMosaic"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmosaic
+  name: Nixpkgs rMosaic windows cache (wave 23)
+  description: Nixpkgs leftover pname rMosaic on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMosaic/Cache"
+  - "%LOCALAPPDATA%/rMosaic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rmultinet
+  name: Nixpkgs rMultiNet macos cache (wave 23)
+  description: Nixpkgs leftover pname rMultiNet on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rMultiNet"
+  - "$HOME/Library/Logs/rMultiNet"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rmultinet
+  name: Nixpkgs rMultiNet linux cache (wave 23)
+  description: Nixpkgs leftover pname rMultiNet on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rMultiNet"
+  - "$XDG_CACHE_HOME/rMultiNet"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rmultinet
+  name: Nixpkgs rMultiNet windows cache (wave 23)
+  description: Nixpkgs leftover pname rMultiNet on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rMultiNet/Cache"
+  - "%LOCALAPPDATA%/rMultiNet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rnmf
+  name: Nixpkgs rNMF macos cache (wave 23)
+  description: Nixpkgs leftover pname rNMF on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rNMF"
+  - "$HOME/Library/Logs/rNMF"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rnmf
+  name: Nixpkgs rNMF linux cache (wave 23)
+  description: Nixpkgs leftover pname rNMF on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rNMF"
+  - "$XDG_CACHE_HOME/rNMF"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rnmf
+  name: Nixpkgs rNMF windows cache (wave 23)
+  description: Nixpkgs leftover pname rNMF on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rNMF/Cache"
+  - "%LOCALAPPDATA%/rNMF/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rnomads
+  name: Nixpkgs rNOMADS macos cache (wave 23)
+  description: Nixpkgs leftover pname rNOMADS on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rNOMADS"
+  - "$HOME/Library/Logs/rNOMADS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rnomads
+  name: Nixpkgs rNOMADS linux cache (wave 23)
+  description: Nixpkgs leftover pname rNOMADS on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rNOMADS"
+  - "$XDG_CACHE_HOME/rNOMADS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rnomads
+  name: Nixpkgs rNOMADS windows cache (wave 23)
+  description: Nixpkgs leftover pname rNOMADS on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rNOMADS/Cache"
+  - "%LOCALAPPDATA%/rNOMADS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rneighborgwas
+  name: Nixpkgs rNeighborGWAS macos cache (wave 23)
+  description: Nixpkgs leftover pname rNeighborGWAS on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rNeighborGWAS"
+  - "$HOME/Library/Logs/rNeighborGWAS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rneighborgwas
+  name: Nixpkgs rNeighborGWAS linux cache (wave 23)
+  description: Nixpkgs leftover pname rNeighborGWAS on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rNeighborGWAS"
+  - "$XDG_CACHE_HOME/rNeighborGWAS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rneighborgwas
+  name: Nixpkgs rNeighborGWAS windows cache (wave 23)
+  description: Nixpkgs leftover pname rNeighborGWAS on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rNeighborGWAS/Cache"
+  - "%LOCALAPPDATA%/rNeighborGWAS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rneighborqtl
+  name: Nixpkgs rNeighborQTL macos cache (wave 23)
+  description: Nixpkgs leftover pname rNeighborQTL on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rNeighborQTL"
+  - "$HOME/Library/Logs/rNeighborQTL"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rneighborqtl
+  name: Nixpkgs rNeighborQTL linux cache (wave 23)
+  description: Nixpkgs leftover pname rNeighborQTL on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rNeighborQTL"
+  - "$XDG_CACHE_HOME/rNeighborQTL"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rneighborqtl
+  name: Nixpkgs rNeighborQTL windows cache (wave 23)
+  description: Nixpkgs leftover pname rNeighborQTL on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rNeighborQTL/Cache"
+  - "%LOCALAPPDATA%/rNeighborQTL/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rocean
+  name: Nixpkgs rOCEAN macos cache (wave 23)
+  description: Nixpkgs leftover pname rOCEAN on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rOCEAN"
+  - "$HOME/Library/Logs/rOCEAN"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rocean
+  name: Nixpkgs rOCEAN linux cache (wave 23)
+  description: Nixpkgs leftover pname rOCEAN on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rOCEAN"
+  - "$XDG_CACHE_HOME/rOCEAN"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rocean
+  name: Nixpkgs rOCEAN windows cache (wave 23)
+  description: Nixpkgs leftover pname rOCEAN on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rOCEAN/Cache"
+  - "%LOCALAPPDATA%/rOCEAN/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rode
+  name: Nixpkgs rODE macos cache (wave 23)
+  description: Nixpkgs leftover pname rODE on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rODE"
+  - "$HOME/Library/Logs/rODE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rode
+  name: Nixpkgs rODE linux cache (wave 23)
+  description: Nixpkgs leftover pname rODE on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rODE"
+  - "$XDG_CACHE_HOME/rODE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rode
+  name: Nixpkgs rODE windows cache (wave 23)
+  description: Nixpkgs leftover pname rODE on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rODE/Cache"
+  - "%LOCALAPPDATA%/rODE/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpaci
+  name: Nixpkgs rPACI macos cache (wave 23)
+  description: Nixpkgs leftover pname rPACI on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPACI"
+  - "$HOME/Library/Logs/rPACI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpaci
+  name: Nixpkgs rPACI linux cache (wave 23)
+  description: Nixpkgs leftover pname rPACI on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPACI"
+  - "$XDG_CACHE_HOME/rPACI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpaci
+  name: Nixpkgs rPACI windows cache (wave 23)
+  description: Nixpkgs leftover pname rPACI on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPACI/Cache"
+  - "%LOCALAPPDATA%/rPACI/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpaex
+  name: Nixpkgs rPAex macos cache (wave 23)
+  description: Nixpkgs leftover pname rPAex on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPAex"
+  - "$HOME/Library/Logs/rPAex"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpaex
+  name: Nixpkgs rPAex linux cache (wave 23)
+  description: Nixpkgs leftover pname rPAex on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPAex"
+  - "$XDG_CACHE_HOME/rPAex"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpaex
+  name: Nixpkgs rPAex windows cache (wave 23)
+  description: Nixpkgs leftover pname rPAex on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPAex/Cache"
+  - "%LOCALAPPDATA%/rPAex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpbk
+  name: Nixpkgs rPBK macos cache (wave 23)
+  description: Nixpkgs leftover pname rPBK on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPBK"
+  - "$HOME/Library/Logs/rPBK"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpbk
+  name: Nixpkgs rPBK linux cache (wave 23)
+  description: Nixpkgs leftover pname rPBK on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPBK"
+  - "$XDG_CACHE_HOME/rPBK"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpbk
+  name: Nixpkgs rPBK windows cache (wave 23)
+  description: Nixpkgs leftover pname rPBK on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPBK/Cache"
+  - "%LOCALAPPDATA%/rPBK/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpdbapi
+  name: Nixpkgs rPDBapi macos cache (wave 23)
+  description: Nixpkgs leftover pname rPDBapi on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPDBapi"
+  - "$HOME/Library/Logs/rPDBapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpdbapi
+  name: Nixpkgs rPDBapi linux cache (wave 23)
+  description: Nixpkgs leftover pname rPDBapi on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPDBapi"
+  - "$XDG_CACHE_HOME/rPDBapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpdbapi
+  name: Nixpkgs rPDBapi windows cache (wave 23)
+  description: Nixpkgs leftover pname rPDBapi on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPDBapi/Cache"
+  - "%LOCALAPPDATA%/rPDBapi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpackedbar
+  name: Nixpkgs rPackedBar macos cache (wave 23)
+  description: Nixpkgs leftover pname rPackedBar on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPackedBar"
+  - "$HOME/Library/Logs/rPackedBar"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpackedbar
+  name: Nixpkgs rPackedBar linux cache (wave 23)
+  description: Nixpkgs leftover pname rPackedBar on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPackedBar"
+  - "$XDG_CACHE_HOME/rPackedBar"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpackedbar
+  name: Nixpkgs rPackedBar windows cache (wave 23)
+  description: Nixpkgs leftover pname rPackedBar on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPackedBar/Cache"
+  - "%LOCALAPPDATA%/rPackedBar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpandas
+  name: Nixpkgs rPandas macos cache (wave 23)
+  description: Nixpkgs leftover pname rPandas on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPandas"
+  - "$HOME/Library/Logs/rPandas"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpandas
+  name: Nixpkgs rPandas linux cache (wave 23)
+  description: Nixpkgs leftover pname rPandas on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPandas"
+  - "$XDG_CACHE_HOME/rPandas"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpandas
+  name: Nixpkgs rPandas windows cache (wave 23)
+  description: Nixpkgs leftover pname rPandas on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPandas/Cache"
+  - "%LOCALAPPDATA%/rPandas/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpanglaodb
+  name: Nixpkgs rPanglaoDB macos cache (wave 23)
+  description: Nixpkgs leftover pname rPanglaoDB on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPanglaoDB"
+  - "$HOME/Library/Logs/rPanglaoDB"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpanglaodb
+  name: Nixpkgs rPanglaoDB linux cache (wave 23)
+  description: Nixpkgs leftover pname rPanglaoDB on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPanglaoDB"
+  - "$XDG_CACHE_HOME/rPanglaoDB"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpanglaodb
+  name: Nixpkgs rPanglaoDB windows cache (wave 23)
+  description: Nixpkgs leftover pname rPanglaoDB on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPanglaoDB/Cache"
+  - "%LOCALAPPDATA%/rPanglaoDB/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpowersamplesize
+  name: Nixpkgs rPowerSampleSize macos cache (wave 23)
+  description: Nixpkgs leftover pname rPowerSampleSize on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPowerSampleSize"
+  - "$HOME/Library/Logs/rPowerSampleSize"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpowersamplesize
+  name: Nixpkgs rPowerSampleSize linux cache (wave 23)
+  description: Nixpkgs leftover pname rPowerSampleSize on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPowerSampleSize"
+  - "$XDG_CACHE_HOME/rPowerSampleSize"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpowersamplesize
+  name: Nixpkgs rPowerSampleSize windows cache (wave 23)
+  description: Nixpkgs leftover pname rPowerSampleSize on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPowerSampleSize/Cache"
+  - "%LOCALAPPDATA%/rPowerSampleSize/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpraat
+  name: Nixpkgs rPraat macos cache (wave 23)
+  description: Nixpkgs leftover pname rPraat on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPraat"
+  - "$HOME/Library/Logs/rPraat"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpraat
+  name: Nixpkgs rPraat linux cache (wave 23)
+  description: Nixpkgs leftover pname rPraat on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPraat"
+  - "$XDG_CACHE_HOME/rPraat"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpraat
+  name: Nixpkgs rPraat windows cache (wave 23)
+  description: Nixpkgs leftover pname rPraat on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPraat/Cache"
+  - "%LOCALAPPDATA%/rPraat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpref
+  name: Nixpkgs rPref macos cache (wave 23)
+  description: Nixpkgs leftover pname rPref on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPref"
+  - "$HOME/Library/Logs/rPref"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpref
+  name: Nixpkgs rPref linux cache (wave 23)
+  description: Nixpkgs leftover pname rPref on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPref"
+  - "$XDG_CACHE_HOME/rPref"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpref
+  name: Nixpkgs rPref windows cache (wave 23)
+  description: Nixpkgs leftover pname rPref on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPref/Cache"
+  - "%LOCALAPPDATA%/rPref/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rpublic
+  name: Nixpkgs rPublic macos cache (wave 23)
+  description: Nixpkgs leftover pname rPublic on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rPublic"
+  - "$HOME/Library/Logs/rPublic"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rpublic
+  name: Nixpkgs rPublic linux cache (wave 23)
+  description: Nixpkgs leftover pname rPublic on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rPublic"
+  - "$XDG_CACHE_HOME/rPublic"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rpublic
+  name: Nixpkgs rPublic windows cache (wave 23)
+  description: Nixpkgs leftover pname rPublic on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rPublic/Cache"
+  - "%LOCALAPPDATA%/rPublic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rqcc
+  name: Nixpkgs rQCC macos cache (wave 23)
+  description: Nixpkgs leftover pname rQCC on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rQCC"
+  - "$HOME/Library/Logs/rQCC"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rqcc
+  name: Nixpkgs rQCC linux cache (wave 23)
+  description: Nixpkgs leftover pname rQCC on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rQCC"
+  - "$XDG_CACHE_HOME/rQCC"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rqcc
+  name: Nixpkgs rQCC windows cache (wave 23)
+  description: Nixpkgs leftover pname rQCC on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rQCC/Cache"
+  - "%LOCALAPPDATA%/rQCC/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rqsar
+  name: Nixpkgs rQSAR macos cache (wave 23)
+  description: Nixpkgs leftover pname rQSAR on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rQSAR"
+  - "$HOME/Library/Logs/rQSAR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rqsar
+  name: Nixpkgs rQSAR linux cache (wave 23)
+  description: Nixpkgs leftover pname rQSAR on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rQSAR"
+  - "$XDG_CACHE_HOME/rQSAR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rqsar
+  name: Nixpkgs rQSAR windows cache (wave 23)
+  description: Nixpkgs leftover pname rQSAR on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rQSAR/Cache"
+  - "%LOCALAPPDATA%/rQSAR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rrap
+  name: Nixpkgs rRAP macos cache (wave 23)
+  description: Nixpkgs leftover pname rRAP on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rRAP"
+  - "$HOME/Library/Logs/rRAP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rrap
+  name: Nixpkgs rRAP linux cache (wave 23)
+  description: Nixpkgs leftover pname rRAP on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rRAP"
+  - "$XDG_CACHE_HOME/rRAP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rrap
+  name: Nixpkgs rRAP windows cache (wave 23)
+  description: Nixpkgs leftover pname rRAP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rRAP/Cache"
+  - "%LOCALAPPDATA%/rRAP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rrdp
+  name: Nixpkgs rRDP macos cache (wave 23)
+  description: Nixpkgs leftover pname rRDP on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rRDP"
+  - "$HOME/Library/Logs/rRDP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rrdp
+  name: Nixpkgs rRDP linux cache (wave 23)
+  description: Nixpkgs leftover pname rRDP on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rRDP"
+  - "$XDG_CACHE_HOME/rRDP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rrdp
+  name: Nixpkgs rRDP windows cache (wave 23)
+  description: Nixpkgs leftover pname rRDP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rRDP/Cache"
+  - "%LOCALAPPDATA%/rRDP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rrdpdata
+  name: Nixpkgs rRDPData macos cache (wave 23)
+  description: Nixpkgs leftover pname rRDPData on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rRDPData"
+  - "$HOME/Library/Logs/rRDPData"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rrdpdata
+  name: Nixpkgs rRDPData linux cache (wave 23)
+  description: Nixpkgs leftover pname rRDPData on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rRDPData"
+  - "$XDG_CACHE_HOME/rRDPData"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rrdpdata
+  name: Nixpkgs rRDPData windows cache (wave 23)
+  description: Nixpkgs leftover pname rRDPData on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rRDPData/Cache"
+  - "%LOCALAPPDATA%/rRDPData/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rrofex
+  name: Nixpkgs rRofex macos cache (wave 23)
+  description: Nixpkgs leftover pname rRofex on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rRofex"
+  - "$HOME/Library/Logs/rRofex"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rrofex
+  name: Nixpkgs rRofex linux cache (wave 23)
+  description: Nixpkgs leftover pname rRofex on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rRofex"
+  - "$XDG_CACHE_HOME/rRofex"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rrofex
+  name: Nixpkgs rRofex windows cache (wave 23)
+  description: Nixpkgs leftover pname rRofex on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rRofex/Cache"
+  - "%LOCALAPPDATA%/rRofex/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsafe
+  name: Nixpkgs rSAFE macos cache (wave 23)
+  description: Nixpkgs leftover pname rSAFE on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSAFE"
+  - "$HOME/Library/Logs/rSAFE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsafe
+  name: Nixpkgs rSAFE linux cache (wave 23)
+  description: Nixpkgs leftover pname rSAFE on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSAFE"
+  - "$XDG_CACHE_HOME/rSAFE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsafe
+  name: Nixpkgs rSAFE windows cache (wave 23)
+  description: Nixpkgs leftover pname rSAFE on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSAFE/Cache"
+  - "%LOCALAPPDATA%/rSAFE/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsca
+  name: Nixpkgs rSCA macos cache (wave 23)
+  description: Nixpkgs leftover pname rSCA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSCA"
+  - "$HOME/Library/Logs/rSCA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsca
+  name: Nixpkgs rSCA linux cache (wave 23)
+  description: Nixpkgs leftover pname rSCA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSCA"
+  - "$XDG_CACHE_HOME/rSCA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsca
+  name: Nixpkgs rSCA windows cache (wave 23)
+  description: Nixpkgs leftover pname rSCA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSCA/Cache"
+  - "%LOCALAPPDATA%/rSCA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsdi
+  name: Nixpkgs rSDI macos cache (wave 23)
+  description: Nixpkgs leftover pname rSDI on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSDI"
+  - "$HOME/Library/Logs/rSDI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsdi
+  name: Nixpkgs rSDI linux cache (wave 23)
+  description: Nixpkgs leftover pname rSDI on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSDI"
+  - "$XDG_CACHE_HOME/rSDI"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsdi
+  name: Nixpkgs rSDI windows cache (wave 23)
+  description: Nixpkgs leftover pname rSDI on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSDI/Cache"
+  - "%LOCALAPPDATA%/rSDI/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsdr
+  name: Nixpkgs rSDR macos cache (wave 23)
+  description: Nixpkgs leftover pname rSDR on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSDR"
+  - "$HOME/Library/Logs/rSDR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsdr
+  name: Nixpkgs rSDR linux cache (wave 23)
+  description: Nixpkgs leftover pname rSDR on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSDR"
+  - "$XDG_CACHE_HOME/rSDR"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsdr
+  name: Nixpkgs rSDR windows cache (wave 23)
+  description: Nixpkgs leftover pname rSDR on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSDR/Cache"
+  - "%LOCALAPPDATA%/rSDR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsea
+  name: Nixpkgs rSEA macos cache (wave 23)
+  description: Nixpkgs leftover pname rSEA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSEA"
+  - "$HOME/Library/Logs/rSEA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsea
+  name: Nixpkgs rSEA linux cache (wave 23)
+  description: Nixpkgs leftover pname rSEA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSEA"
+  - "$XDG_CACHE_HOME/rSEA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsea
+  name: Nixpkgs rSEA windows cache (wave 23)
+  description: Nixpkgs leftover pname rSEA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSEA/Cache"
+  - "%LOCALAPPDATA%/rSEA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsfa
+  name: Nixpkgs rSFA macos cache (wave 23)
+  description: Nixpkgs leftover pname rSFA on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSFA"
+  - "$HOME/Library/Logs/rSFA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsfa
+  name: Nixpkgs rSFA linux cache (wave 23)
+  description: Nixpkgs leftover pname rSFA on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSFA"
+  - "$XDG_CACHE_HOME/rSFA"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsfa
+  name: Nixpkgs rSFA windows cache (wave 23)
+  description: Nixpkgs leftover pname rSFA on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSFA/Cache"
+  - "%LOCALAPPDATA%/rSFA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsffreader
+  name: Nixpkgs rSFFreader macos cache (wave 23)
+  description: Nixpkgs leftover pname rSFFreader on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSFFreader"
+  - "$HOME/Library/Logs/rSFFreader"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsffreader
+  name: Nixpkgs rSFFreader linux cache (wave 23)
+  description: Nixpkgs leftover pname rSFFreader on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSFFreader"
+  - "$XDG_CACHE_HOME/rSFFreader"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsffreader
+  name: Nixpkgs rSFFreader windows cache (wave 23)
+  description: Nixpkgs leftover pname rSFFreader on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSFFreader/Cache"
+  - "%LOCALAPPDATA%/rSFFreader/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rshape
+  name: Nixpkgs rSHAPE macos cache (wave 23)
+  description: Nixpkgs leftover pname rSHAPE on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSHAPE"
+  - "$HOME/Library/Logs/rSHAPE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rshape
+  name: Nixpkgs rSHAPE linux cache (wave 23)
+  description: Nixpkgs leftover pname rSHAPE on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSHAPE"
+  - "$XDG_CACHE_HOME/rSHAPE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rshape
+  name: Nixpkgs rSHAPE windows cache (wave 23)
+  description: Nixpkgs leftover pname rSHAPE on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSHAPE/Cache"
+  - "%LOCALAPPDATA%/rSHAPE/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsparcs
+  name: Nixpkgs rSPARCS macos cache (wave 23)
+  description: Nixpkgs leftover pname rSPARCS on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSPARCS"
+  - "$HOME/Library/Logs/rSPARCS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsparcs
+  name: Nixpkgs rSPARCS linux cache (wave 23)
+  description: Nixpkgs leftover pname rSPARCS on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSPARCS"
+  - "$XDG_CACHE_HOME/rSPARCS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsparcs
+  name: Nixpkgs rSPARCS windows cache (wave 23)
+  description: Nixpkgs leftover pname rSPARCS on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSPARCS/Cache"
+  - "%LOCALAPPDATA%/rSPARCS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rspde
+  name: Nixpkgs rSPDE macos cache (wave 23)
+  description: Nixpkgs leftover pname rSPDE on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSPDE"
+  - "$HOME/Library/Logs/rSPDE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rspde
+  name: Nixpkgs rSPDE linux cache (wave 23)
+  description: Nixpkgs leftover pname rSPDE on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSPDE"
+  - "$XDG_CACHE_HOME/rSPDE"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rspde
+  name: Nixpkgs rSPDE windows cache (wave 23)
+  description: Nixpkgs leftover pname rSPDE on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSPDE/Cache"
+  - "%LOCALAPPDATA%/rSPDE/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsqm
+  name: Nixpkgs rSQM macos cache (wave 23)
+  description: Nixpkgs leftover pname rSQM on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSQM"
+  - "$HOME/Library/Logs/rSQM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsqm
+  name: Nixpkgs rSQM linux cache (wave 23)
+  description: Nixpkgs leftover pname rSQM on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSQM"
+  - "$XDG_CACHE_HOME/rSQM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsqm
+  name: Nixpkgs rSQM windows cache (wave 23)
+  description: Nixpkgs leftover pname rSQM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSQM/Cache"
+  - "%LOCALAPPDATA%/rSQM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsrd
+  name: Nixpkgs rSRD macos cache (wave 23)
+  description: Nixpkgs leftover pname rSRD on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSRD"
+  - "$HOME/Library/Logs/rSRD"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsrd
+  name: Nixpkgs rSRD linux cache (wave 23)
+  description: Nixpkgs leftover pname rSRD on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSRD"
+  - "$XDG_CACHE_HOME/rSRD"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsrd
+  name: Nixpkgs rSRD windows cache (wave 23)
+  description: Nixpkgs leftover pname rSRD on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSRD/Cache"
+  - "%LOCALAPPDATA%/rSRD/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rsweep
+  name: Nixpkgs rSWeeP macos cache (wave 23)
+  description: Nixpkgs leftover pname rSWeeP on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSWeeP"
+  - "$HOME/Library/Logs/rSWeeP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rsweep
+  name: Nixpkgs rSWeeP linux cache (wave 23)
+  description: Nixpkgs leftover pname rSWeeP on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSWeeP"
+  - "$XDG_CACHE_HOME/rSWeeP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rsweep
+  name: Nixpkgs rSWeeP windows cache (wave 23)
+  description: Nixpkgs leftover pname rSWeeP on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSWeeP/Cache"
+  - "%LOCALAPPDATA%/rSWeeP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rscudo
+  name: Nixpkgs rScudo macos cache (wave 23)
+  description: Nixpkgs leftover pname rScudo on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rScudo"
+  - "$HOME/Library/Logs/rScudo"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rscudo
+  name: Nixpkgs rScudo linux cache (wave 23)
+  description: Nixpkgs leftover pname rScudo on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rScudo"
+  - "$XDG_CACHE_HOME/rScudo"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rscudo
+  name: Nixpkgs rScudo windows cache (wave 23)
+  description: Nixpkgs leftover pname rScudo on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rScudo/Cache"
+  - "%LOCALAPPDATA%/rScudo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rspectral
+  name: Nixpkgs rSpectral macos cache (wave 23)
+  description: Nixpkgs leftover pname rSpectral on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rSpectral"
+  - "$HOME/Library/Logs/rSpectral"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rspectral
+  name: Nixpkgs rSpectral linux cache (wave 23)
+  description: Nixpkgs leftover pname rSpectral on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rSpectral"
+  - "$XDG_CACHE_HOME/rSpectral"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rspectral
+  name: Nixpkgs rSpectral windows cache (wave 23)
+  description: Nixpkgs leftover pname rSpectral on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rSpectral/Cache"
+  - "%LOCALAPPDATA%/rSpectral/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rstrava
+  name: Nixpkgs rStrava macos cache (wave 23)
+  description: Nixpkgs leftover pname rStrava on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rStrava"
+  - "$HOME/Library/Logs/rStrava"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rstrava
+  name: Nixpkgs rStrava linux cache (wave 23)
+  description: Nixpkgs leftover pname rStrava on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rStrava"
+  - "$XDG_CACHE_HOME/rStrava"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rstrava
+  name: Nixpkgs rStrava windows cache (wave 23)
+  description: Nixpkgs leftover pname rStrava on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rStrava/Cache"
+  - "%LOCALAPPDATA%/rStrava/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtandem
+  name: Nixpkgs rTANDEM macos cache (wave 23)
+  description: Nixpkgs leftover pname rTANDEM on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTANDEM"
+  - "$HOME/Library/Logs/rTANDEM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtandem
+  name: Nixpkgs rTANDEM linux cache (wave 23)
+  description: Nixpkgs leftover pname rTANDEM on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTANDEM"
+  - "$XDG_CACHE_HOME/rTANDEM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtandem
+  name: Nixpkgs rTANDEM windows cache (wave 23)
+  description: Nixpkgs leftover pname rTANDEM on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTANDEM/Cache"
+  - "%LOCALAPPDATA%/rTANDEM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtcrbcrr
+  name: Nixpkgs rTCRBCRr macos cache (wave 23)
+  description: Nixpkgs leftover pname rTCRBCRr on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTCRBCRr"
+  - "$HOME/Library/Logs/rTCRBCRr"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtcrbcrr
+  name: Nixpkgs rTCRBCRr linux cache (wave 23)
+  description: Nixpkgs leftover pname rTCRBCRr on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTCRBCRr"
+  - "$XDG_CACHE_HOME/rTCRBCRr"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtcrbcrr
+  name: Nixpkgs rTCRBCRr windows cache (wave 23)
+  description: Nixpkgs leftover pname rTCRBCRr on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTCRBCRr/Cache"
+  - "%LOCALAPPDATA%/rTCRBCRr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtg
+  name: Nixpkgs rTG macos cache (wave 23)
+  description: Nixpkgs leftover pname rTG on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTG"
+  - "$HOME/Library/Logs/rTG"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtg
+  name: Nixpkgs rTG linux cache (wave 23)
+  description: Nixpkgs leftover pname rTG on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTG"
+  - "$XDG_CACHE_HOME/rTG"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtg
+  name: Nixpkgs rTG windows cache (wave 23)
+  description: Nixpkgs leftover pname rTG on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTG/Cache"
+  - "%LOCALAPPDATA%/rTG/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtls
+  name: Nixpkgs rTLS macos cache (wave 23)
+  description: Nixpkgs leftover pname rTLS on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTLS"
+  - "$HOME/Library/Logs/rTLS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtls
+  name: Nixpkgs rTLS linux cache (wave 23)
+  description: Nixpkgs leftover pname rTLS on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTLS"
+  - "$XDG_CACHE_HOME/rTLS"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtls
+  name: Nixpkgs rTLS windows cache (wave 23)
+  description: Nixpkgs leftover pname rTLS on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTLS/Cache"
+  - "%LOCALAPPDATA%/rTLS/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtlsdeep
+  name: Nixpkgs rTLsDeep macos cache (wave 23)
+  description: Nixpkgs leftover pname rTLsDeep on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTLsDeep"
+  - "$HOME/Library/Logs/rTLsDeep"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtlsdeep
+  name: Nixpkgs rTLsDeep linux cache (wave 23)
+  description: Nixpkgs leftover pname rTLsDeep on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTLsDeep"
+  - "$XDG_CACHE_HOME/rTLsDeep"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtlsdeep
+  name: Nixpkgs rTLsDeep windows cache (wave 23)
+  description: Nixpkgs leftover pname rTLsDeep on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTLsDeep/Cache"
+  - "%LOCALAPPDATA%/rTLsDeep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtpc
+  name: Nixpkgs rTPC macos cache (wave 23)
+  description: Nixpkgs leftover pname rTPC on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTPC"
+  - "$HOME/Library/Logs/rTPC"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtpc
+  name: Nixpkgs rTPC linux cache (wave 23)
+  description: Nixpkgs leftover pname rTPC on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTPC"
+  - "$XDG_CACHE_HOME/rTPC"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtpc
+  name: Nixpkgs rTPC windows cache (wave 23)
+  description: Nixpkgs leftover pname rTPC on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTPC/Cache"
+  - "%LOCALAPPDATA%/rTPC/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtriplexcwflux
+  name: Nixpkgs rTRIPLEXCWFlux macos cache (wave 23)
+  description: Nixpkgs leftover pname rTRIPLEXCWFlux on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTRIPLEXCWFlux"
+  - "$HOME/Library/Logs/rTRIPLEXCWFlux"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtriplexcwflux
+  name: Nixpkgs rTRIPLEXCWFlux linux cache (wave 23)
+  description: Nixpkgs leftover pname rTRIPLEXCWFlux on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTRIPLEXCWFlux"
+  - "$XDG_CACHE_HOME/rTRIPLEXCWFlux"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtriplexcwflux
+  name: Nixpkgs rTRIPLEXCWFlux windows cache (wave 23)
+  description: Nixpkgs leftover pname rTRIPLEXCWFlux on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTRIPLEXCWFlux/Cache"
+  - "%LOCALAPPDATA%/rTRIPLEXCWFlux/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtrm
+  name: Nixpkgs rTRM macos cache (wave 23)
+  description: Nixpkgs leftover pname rTRM on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTRM"
+  - "$HOME/Library/Logs/rTRM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtrm
+  name: Nixpkgs rTRM linux cache (wave 23)
+  description: Nixpkgs leftover pname rTRM on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTRM"
+  - "$XDG_CACHE_HOME/rTRM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtrm
+  name: Nixpkgs rTRM windows cache (wave 23)
+  description: Nixpkgs leftover pname rTRM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTRM/Cache"
+  - "%LOCALAPPDATA%/rTRM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtrmui
+  name: Nixpkgs rTRMui macos cache (wave 23)
+  description: Nixpkgs leftover pname rTRMui on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTRMui"
+  - "$HOME/Library/Logs/rTRMui"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtrmui
+  name: Nixpkgs rTRMui linux cache (wave 23)
+  description: Nixpkgs leftover pname rTRMui on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTRMui"
+  - "$XDG_CACHE_HOME/rTRMui"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtrmui
+  name: Nixpkgs rTRMui windows cache (wave 23)
+  description: Nixpkgs leftover pname rTRMui on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTRMui/Cache"
+  - "%LOCALAPPDATA%/rTRMui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtrng
+  name: Nixpkgs rTRNG macos cache (wave 23)
+  description: Nixpkgs leftover pname rTRNG on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTRNG"
+  - "$HOME/Library/Logs/rTRNG"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtrng
+  name: Nixpkgs rTRNG linux cache (wave 23)
+  description: Nixpkgs leftover pname rTRNG on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTRNG"
+  - "$XDG_CACHE_HOME/rTRNG"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtrng
+  name: Nixpkgs rTRNG windows cache (wave 23)
+  description: Nixpkgs leftover pname rTRNG on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTRNG/Cache"
+  - "%LOCALAPPDATA%/rTRNG/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtableicc
+  name: Nixpkgs rTableICC macos cache (wave 23)
+  description: Nixpkgs leftover pname rTableICC on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTableICC"
+  - "$HOME/Library/Logs/rTableICC"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtableicc
+  name: Nixpkgs rTableICC linux cache (wave 23)
+  description: Nixpkgs leftover pname rTableICC on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTableICC"
+  - "$XDG_CACHE_HOME/rTableICC"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtableicc
+  name: Nixpkgs rTableICC windows cache (wave 23)
+  description: Nixpkgs leftover pname rTableICC on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTableICC/Cache"
+  - "%LOCALAPPDATA%/rTableICC/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtensor
+  name: Nixpkgs rTensor macos cache (wave 23)
+  description: Nixpkgs leftover pname rTensor on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTensor"
+  - "$HOME/Library/Logs/rTensor"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtensor
+  name: Nixpkgs rTensor linux cache (wave 23)
+  description: Nixpkgs leftover pname rTensor on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTensor"
+  - "$XDG_CACHE_HOME/rTensor"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtensor
+  name: Nixpkgs rTensor windows cache (wave 23)
+  description: Nixpkgs leftover pname rTensor on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTensor/Cache"
+  - "%LOCALAPPDATA%/rTensor/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtensor2
+  name: Nixpkgs rTensor2 macos cache (wave 23)
+  description: Nixpkgs leftover pname rTensor2 on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTensor2"
+  - "$HOME/Library/Logs/rTensor2"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtensor2
+  name: Nixpkgs rTensor2 linux cache (wave 23)
+  description: Nixpkgs leftover pname rTensor2 on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTensor2"
+  - "$XDG_CACHE_HOME/rTensor2"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtensor2
+  name: Nixpkgs rTensor2 windows cache (wave 23)
+  description: Nixpkgs leftover pname rTensor2 on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTensor2/Cache"
+  - "%LOCALAPPDATA%/rTensor2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtephra
+  name: Nixpkgs rTephra macos cache (wave 23)
+  description: Nixpkgs leftover pname rTephra on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTephra"
+  - "$HOME/Library/Logs/rTephra"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtephra
+  name: Nixpkgs rTephra linux cache (wave 23)
+  description: Nixpkgs leftover pname rTephra on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTephra"
+  - "$XDG_CACHE_HOME/rTephra"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtephra
+  name: Nixpkgs rTephra windows cache (wave 23)
+  description: Nixpkgs leftover pname rTephra on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTephra/Cache"
+  - "%LOCALAPPDATA%/rTephra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtorch
+  name: Nixpkgs rTorch macos cache (wave 23)
+  description: Nixpkgs leftover pname rTorch on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTorch"
+  - "$HOME/Library/Logs/rTorch"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtorch
+  name: Nixpkgs rTorch linux cache (wave 23)
+  description: Nixpkgs leftover pname rTorch on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTorch"
+  - "$XDG_CACHE_HOME/rTorch"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtorch
+  name: Nixpkgs rTorch windows cache (wave 23)
+  description: Nixpkgs leftover pname rTorch on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTorch/Cache"
+  - "%LOCALAPPDATA%/rTorch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rtwig
+  name: Nixpkgs rTwig macos cache (wave 23)
+  description: Nixpkgs leftover pname rTwig on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rTwig"
+  - "$HOME/Library/Logs/rTwig"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rtwig
+  name: Nixpkgs rTwig linux cache (wave 23)
+  description: Nixpkgs leftover pname rTwig on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rTwig"
+  - "$XDG_CACHE_HOME/rTwig"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rtwig
+  name: Nixpkgs rTwig windows cache (wave 23)
+  description: Nixpkgs leftover pname rTwig on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rTwig/Cache"
+  - "%LOCALAPPDATA%/rTwig/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rum
+  name: Nixpkgs rUM macos cache (wave 23)
+  description: Nixpkgs leftover pname rUM on macos (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rUM"
+  - "$HOME/Library/Logs/rUM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rum
+  name: Nixpkgs rUM linux cache (wave 23)
+  description: Nixpkgs leftover pname rUM on linux (wave 23). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rUM"
+  - "$XDG_CACHE_HOME/rUM"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rum
+  name: Nixpkgs rUM windows cache (wave 23)
+  description: Nixpkgs leftover pname rUM on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rUM/Cache"
+  - "%LOCALAPPDATA%/rUM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rwbclimate
+  name: Nixpkgs rWBclimate macos cache (wave 23)
+  description: Nixpkgs leftover pname rWBclimate on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rWBclimate"
+  - "$HOME/Library/Logs/rWBclimate"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rwbclimate
+  name: Nixpkgs rWBclimate linux cache (wave 23)
+  description: Nixpkgs leftover pname rWBclimate on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rWBclimate"
+  - "$XDG_CACHE_HOME/rWBclimate"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rwbclimate
+  name: Nixpkgs rWBclimate windows cache (wave 23)
+  description: Nixpkgs leftover pname rWBclimate on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rWBclimate/Cache"
+  - "%LOCALAPPDATA%/rWBclimate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rwcvp
+  name: Nixpkgs rWCVP macos cache (wave 23)
+  description: Nixpkgs leftover pname rWCVP on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rWCVP"
+  - "$HOME/Library/Logs/rWCVP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rwcvp
+  name: Nixpkgs rWCVP linux cache (wave 23)
+  description: Nixpkgs leftover pname rWCVP on linux (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rWCVP"
+  - "$XDG_CACHE_HOME/rWCVP"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rwcvp
+  name: Nixpkgs rWCVP windows cache (wave 23)
+  description: Nixpkgs leftover pname rWCVP on windows (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rWCVP/Cache"
+  - "%LOCALAPPDATA%/rWCVP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rwikipathways
+  name: Nixpkgs rWikiPathways macos cache (wave 23)
+  description: Nixpkgs leftover pname rWikiPathways on macos (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rWikiPathways"
+  - "$HOME/Library/Logs/rWikiPathways"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-lin-rwikipathways
+  name: Nixpkgs rWikiPathways linux cache (wave 23)
+  description: Nixpkgs leftover pname rWikiPathways on linux (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/rWikiPathways"
+  - "$XDG_CACHE_HOME/rWikiPathways"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-win-rwikipathways
+  name: Nixpkgs rWikiPathways windows cache (wave 23)
+  description: Nixpkgs leftover pname rWikiPathways on windows (wave 23). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/rWikiPathways/Cache"
+  - "%LOCALAPPDATA%/rWikiPathways/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np23-mac-rwind
+  name: Nixpkgs rWind macos cache (wave 23)
+  description: Nixpkgs leftover pname rWind on macos (wave 23). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/rWind"
+  - "$HOME/Library/Logs/rWind"
+  delete_mode: contents
+  max_depth: 6

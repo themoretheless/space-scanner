@@ -1,0 +1,5594 @@
+---
+pack: src-iter53-13
+description: Iterative 10k import wave 53 from leftover AUR names. Chunk 13.
+rules:
+- id: au53-mac-container-transform
+  name: AUR container-transform macos cache (wave 53)
+  description: AUR leftover name container-transform on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/container-transform"
+  - "$HOME/Library/Logs/container-transform"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-container-transform
+  name: AUR container-transform linux cache (wave 53)
+  description: AUR leftover name container-transform on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/container-transform"
+  - "$XDG_CACHE_HOME/container-transform"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-container-transform
+  name: AUR container-transform windows cache (wave 53)
+  description: AUR leftover name container-transform on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/container-transform/Cache"
+  - "%LOCALAPPDATA%/container-transform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-container-use-bin
+  name: AUR container-use-bin macos cache (wave 53)
+  description: AUR leftover name container-use-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/container-use-bin"
+  - "$HOME/Library/Logs/container-use-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-container-use-bin
+  name: AUR container-use-bin linux cache (wave 53)
+  description: AUR leftover name container-use-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/container-use-bin"
+  - "$XDG_CACHE_HOME/container-use-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-container-use-bin
+  name: AUR container-use-bin windows cache (wave 53)
+  description: AUR leftover name container-use-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/container-use-bin/Cache"
+  - "%LOCALAPPDATA%/container-use-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-container2wasm-bin
+  name: AUR container2wasm-bin macos cache (wave 53)
+  description: AUR leftover name container2wasm-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/container2wasm-bin"
+  - "$HOME/Library/Logs/container2wasm-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-container2wasm-bin
+  name: AUR container2wasm-bin linux cache (wave 53)
+  description: AUR leftover name container2wasm-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/container2wasm-bin"
+  - "$XDG_CACHE_HOME/container2wasm-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-container2wasm-bin
+  name: AUR container2wasm-bin windows cache (wave 53)
+  description: AUR leftover name container2wasm-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/container2wasm-bin/Cache"
+  - "%LOCALAPPDATA%/container2wasm-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-container2wasm-git
+  name: AUR container2wasm-git macos cache (wave 53)
+  description: AUR leftover name container2wasm-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/container2wasm-git"
+  - "$HOME/Library/Logs/container2wasm-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-container2wasm-git
+  name: AUR container2wasm-git linux cache (wave 53)
+  description: AUR leftover name container2wasm-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/container2wasm-git"
+  - "$XDG_CACHE_HOME/container2wasm-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-container2wasm-git
+  name: AUR container2wasm-git windows cache (wave 53)
+  description: AUR leftover name container2wasm-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/container2wasm-git/Cache"
+  - "%LOCALAPPDATA%/container2wasm-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-containerd-git
+  name: AUR containerd-git macos cache (wave 53)
+  description: AUR leftover name containerd-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/containerd-git"
+  - "$HOME/Library/Logs/containerd-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-containerd-git
+  name: AUR containerd-git linux cache (wave 53)
+  description: AUR leftover name containerd-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/containerd-git"
+  - "$XDG_CACHE_HOME/containerd-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-containerd-git
+  name: AUR containerd-git windows cache (wave 53)
+  description: AUR leftover name containerd-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/containerd-git/Cache"
+  - "%LOCALAPPDATA%/containerd-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-containerlab-bin
+  name: AUR containerlab-bin macos cache (wave 53)
+  description: AUR leftover name containerlab-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/containerlab-bin"
+  - "$HOME/Library/Logs/containerlab-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-containerlab-bin
+  name: AUR containerlab-bin linux cache (wave 53)
+  description: AUR leftover name containerlab-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/containerlab-bin"
+  - "$XDG_CACHE_HOME/containerlab-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-containerlab-bin
+  name: AUR containerlab-bin windows cache (wave 53)
+  description: AUR leftover name containerlab-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/containerlab-bin/Cache"
+  - "%LOCALAPPDATA%/containerlab-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-containernet-git
+  name: AUR containernet-git macos cache (wave 53)
+  description: AUR leftover name containernet-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/containernet-git"
+  - "$HOME/Library/Logs/containernet-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-containernet-git
+  name: AUR containernet-git linux cache (wave 53)
+  description: AUR leftover name containernet-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/containernet-git"
+  - "$XDG_CACHE_HOME/containernet-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-containernet-git
+  name: AUR containernet-git windows cache (wave 53)
+  description: AUR leftover name containernet-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/containernet-git/Cache"
+  - "%LOCALAPPDATA%/containernet-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-containers-common-git
+  name: AUR containers-common-git macos cache (wave 53)
+  description: AUR leftover name containers-common-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/containers-common-git"
+  - "$HOME/Library/Logs/containers-common-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-containers-common-git
+  name: AUR containers-common-git linux cache (wave 53)
+  description: AUR leftover name containers-common-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/containers-common-git"
+  - "$XDG_CACHE_HOME/containers-common-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-containers-common-git
+  name: AUR containers-common-git windows cache (wave 53)
+  description: AUR leftover name containers-common-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/containers-common-git/Cache"
+  - "%LOCALAPPDATA%/containers-common-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-containerssh
+  name: AUR containerssh macos cache (wave 53)
+  description: AUR leftover name containerssh on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/containerssh"
+  - "$HOME/Library/Logs/containerssh"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-containerssh
+  name: AUR containerssh linux cache (wave 53)
+  description: AUR leftover name containerssh on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/containerssh"
+  - "$XDG_CACHE_HOME/containerssh"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-containerssh
+  name: AUR containerssh windows cache (wave 53)
+  description: AUR leftover name containerssh on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/containerssh/Cache"
+  - "%LOCALAPPDATA%/containerssh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contao
+  name: AUR contao macos cache (wave 53)
+  description: AUR leftover name contao on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contao"
+  - "$HOME/Library/Logs/contao"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contao
+  name: AUR contao linux cache (wave 53)
+  description: AUR leftover name contao on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contao"
+  - "$XDG_CACHE_HOME/contao"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contao
+  name: AUR contao windows cache (wave 53)
+  description: AUR leftover name contao on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contao/Cache"
+  - "%LOCALAPPDATA%/contao/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contemporary-cursors
+  name: AUR contemporary-cursors macos cache (wave 53)
+  description: AUR leftover name contemporary-cursors on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contemporary-cursors"
+  - "$HOME/Library/Logs/contemporary-cursors"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contemporary-cursors
+  name: AUR contemporary-cursors linux cache (wave 53)
+  description: AUR leftover name contemporary-cursors on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contemporary-cursors"
+  - "$XDG_CACHE_HOME/contemporary-cursors"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contemporary-cursors
+  name: AUR contemporary-cursors windows cache (wave 53)
+  description: AUR leftover name contemporary-cursors on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contemporary-cursors/Cache"
+  - "%LOCALAPPDATA%/contemporary-cursors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contemporary-icons
+  name: AUR contemporary-icons macos cache (wave 53)
+  description: AUR leftover name contemporary-icons on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contemporary-icons"
+  - "$HOME/Library/Logs/contemporary-icons"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contemporary-icons
+  name: AUR contemporary-icons linux cache (wave 53)
+  description: AUR leftover name contemporary-icons on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contemporary-icons"
+  - "$XDG_CACHE_HOME/contemporary-icons"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contemporary-icons
+  name: AUR contemporary-icons windows cache (wave 53)
+  description: AUR leftover name contemporary-icons on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contemporary-icons/Cache"
+  - "%LOCALAPPDATA%/contemporary-icons/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contemporary-kwin-decoration
+  name: AUR contemporary-kwin-decoration macos cache (wave 53)
+  description: AUR leftover name contemporary-kwin-decoration on macos (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contemporary-kwin-decoration"
+  - "$HOME/Library/Logs/contemporary-kwin-decoration"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contemporary-kwin-decoration
+  name: AUR contemporary-kwin-decoration linux cache (wave 53)
+  description: AUR leftover name contemporary-kwin-decoration on linux (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contemporary-kwin-decoration"
+  - "$XDG_CACHE_HOME/contemporary-kwin-decoration"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contemporary-kwin-decoration
+  name: AUR contemporary-kwin-decoration windows cache (wave 53)
+  description: AUR leftover name contemporary-kwin-decoration on windows (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contemporary-kwin-decoration/Cache"
+  - "%LOCALAPPDATA%/contemporary-kwin-decoration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contemporary-sounds
+  name: AUR contemporary-sounds macos cache (wave 53)
+  description: AUR leftover name contemporary-sounds on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contemporary-sounds"
+  - "$HOME/Library/Logs/contemporary-sounds"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contemporary-sounds
+  name: AUR contemporary-sounds linux cache (wave 53)
+  description: AUR leftover name contemporary-sounds on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contemporary-sounds"
+  - "$XDG_CACHE_HOME/contemporary-sounds"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contemporary-sounds
+  name: AUR contemporary-sounds windows cache (wave 53)
+  description: AUR leftover name contemporary-sounds on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contemporary-sounds/Cache"
+  - "%LOCALAPPDATA%/contemporary-sounds/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contemporary-widgets
+  name: AUR contemporary-widgets macos cache (wave 53)
+  description: AUR leftover name contemporary-widgets on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contemporary-widgets"
+  - "$HOME/Library/Logs/contemporary-widgets"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contemporary-widgets
+  name: AUR contemporary-widgets linux cache (wave 53)
+  description: AUR leftover name contemporary-widgets on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contemporary-widgets"
+  - "$XDG_CACHE_HOME/contemporary-widgets"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contemporary-widgets
+  name: AUR contemporary-widgets windows cache (wave 53)
+  description: AUR leftover name contemporary-widgets on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contemporary-widgets/Cache"
+  - "%LOCALAPPDATA%/contemporary-widgets/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contemporary-widgets-gtk
+  name: AUR contemporary-widgets-gtk macos cache (wave 53)
+  description: AUR leftover name contemporary-widgets-gtk on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contemporary-widgets-gtk"
+  - "$HOME/Library/Logs/contemporary-widgets-gtk"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contemporary-widgets-gtk
+  name: AUR contemporary-widgets-gtk linux cache (wave 53)
+  description: AUR leftover name contemporary-widgets-gtk on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contemporary-widgets-gtk"
+  - "$XDG_CACHE_HOME/contemporary-widgets-gtk"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contemporary-widgets-gtk
+  name: AUR contemporary-widgets-gtk windows cache (wave 53)
+  description: AUR leftover name contemporary-widgets-gtk on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contemporary-widgets-gtk/Cache"
+  - "%LOCALAPPDATA%/contemporary-widgets-gtk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contentful-cli
+  name: AUR contentful-cli macos cache (wave 53)
+  description: AUR leftover name contentful-cli on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contentful-cli"
+  - "$HOME/Library/Logs/contentful-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contentful-cli
+  name: AUR contentful-cli linux cache (wave 53)
+  description: AUR leftover name contentful-cli on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contentful-cli"
+  - "$XDG_CACHE_HOME/contentful-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contentful-cli
+  name: AUR contentful-cli windows cache (wave 53)
+  description: AUR leftover name contentful-cli on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contentful-cli/Cache"
+  - "%LOCALAPPDATA%/contentful-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contentreader-pdf
+  name: AUR contentreader-pdf macos cache (wave 53)
+  description: AUR leftover name contentreader-pdf on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contentreader-pdf"
+  - "$HOME/Library/Logs/contentreader-pdf"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contentreader-pdf
+  name: AUR contentreader-pdf linux cache (wave 53)
+  description: AUR leftover name contentreader-pdf on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contentreader-pdf"
+  - "$XDG_CACHE_HOME/contentreader-pdf"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contentreader-pdf
+  name: AUR contentreader-pdf windows cache (wave 53)
+  description: AUR leftover name contentreader-pdf on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contentreader-pdf/Cache"
+  - "%LOCALAPPDATA%/contentreader-pdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-content-foundry-bin
+  name: AUR content_foundry-bin macos cache (wave 53)
+  description: AUR leftover name content_foundry-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/content_foundry-bin"
+  - "$HOME/Library/Logs/content_foundry-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-content-foundry-bin
+  name: AUR content_foundry-bin linux cache (wave 53)
+  description: AUR leftover name content_foundry-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/content_foundry-bin"
+  - "$XDG_CACHE_HOME/content_foundry-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-content-foundry-bin
+  name: AUR content_foundry-bin windows cache (wave 53)
+  description: AUR leftover name content_foundry-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/content_foundry-bin/Cache"
+  - "%LOCALAPPDATA%/content_foundry-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conterm-git
+  name: AUR conterm-git macos cache (wave 53)
+  description: AUR leftover name conterm-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conterm-git"
+  - "$HOME/Library/Logs/conterm-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conterm-git
+  name: AUR conterm-git linux cache (wave 53)
+  description: AUR leftover name conterm-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conterm-git"
+  - "$XDG_CACHE_HOME/conterm-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conterm-git
+  name: AUR conterm-git windows cache (wave 53)
+  description: AUR leftover name conterm-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conterm-git/Cache"
+  - "%LOCALAPPDATA%/conterm-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-context-bin
+  name: AUR context-bin macos cache (wave 53)
+  description: AUR leftover name context-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/context-bin"
+  - "$HOME/Library/Logs/context-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-context-bin
+  name: AUR context-bin linux cache (wave 53)
+  description: AUR leftover name context-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/context-bin"
+  - "$XDG_CACHE_HOME/context-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-context-bin
+  name: AUR context-bin windows cache (wave 53)
+  description: AUR leftover name context-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/context-bin/Cache"
+  - "%LOCALAPPDATA%/context-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-context-git
+  name: AUR context-git macos cache (wave 53)
+  description: AUR leftover name context-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/context-git"
+  - "$HOME/Library/Logs/context-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-context-git
+  name: AUR context-git linux cache (wave 53)
+  description: AUR leftover name context-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/context-git"
+  - "$XDG_CACHE_HOME/context-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-context-git
+  name: AUR context-git windows cache (wave 53)
+  description: AUR leftover name context-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/context-git/Cache"
+  - "%LOCALAPPDATA%/context-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-context-lmtx-bin
+  name: AUR context-lmtx-bin macos cache (wave 53)
+  description: AUR leftover name context-lmtx-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/context-lmtx-bin"
+  - "$HOME/Library/Logs/context-lmtx-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-context-lmtx-bin
+  name: AUR context-lmtx-bin linux cache (wave 53)
+  description: AUR leftover name context-lmtx-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/context-lmtx-bin"
+  - "$XDG_CACHE_HOME/context-lmtx-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-context-lmtx-bin
+  name: AUR context-lmtx-bin windows cache (wave 53)
+  description: AUR leftover name context-lmtx-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/context-lmtx-bin/Cache"
+  - "%LOCALAPPDATA%/context-lmtx-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-context-mkiv
+  name: AUR context-mkiv macos cache (wave 53)
+  description: AUR leftover name context-mkiv on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/context-mkiv"
+  - "$HOME/Library/Logs/context-mkiv"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-context-mkiv
+  name: AUR context-mkiv linux cache (wave 53)
+  description: AUR leftover name context-mkiv on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/context-mkiv"
+  - "$XDG_CACHE_HOME/context-mkiv"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-context-mkiv
+  name: AUR context-mkiv windows cache (wave 53)
+  description: AUR leftover name context-mkiv on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/context-mkiv/Cache"
+  - "%LOCALAPPDATA%/context-mkiv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contextfree-git
+  name: AUR contextfree-git macos cache (wave 53)
+  description: AUR leftover name contextfree-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contextfree-git"
+  - "$HOME/Library/Logs/contextfree-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contextfree-git
+  name: AUR contextfree-git linux cache (wave 53)
+  description: AUR leftover name contextfree-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contextfree-git"
+  - "$XDG_CACHE_HOME/contextfree-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contextfree-git
+  name: AUR contextfree-git windows cache (wave 53)
+  description: AUR leftover name contextfree-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contextfree-git/Cache"
+  - "%LOCALAPPDATA%/contextfree-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contextlite
+  name: AUR contextlite macos cache (wave 53)
+  description: AUR leftover name contextlite on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contextlite"
+  - "$HOME/Library/Logs/contextlite"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contextlite
+  name: AUR contextlite linux cache (wave 53)
+  description: AUR leftover name contextlite on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contextlite"
+  - "$XDG_CACHE_HOME/contextlite"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contextlite
+  name: AUR contextlite windows cache (wave 53)
+  description: AUR leftover name contextlite on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contextlite/Cache"
+  - "%LOCALAPPDATA%/contextlite/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contextpilot
+  name: AUR contextpilot macos cache (wave 53)
+  description: AUR leftover name contextpilot on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contextpilot"
+  - "$HOME/Library/Logs/contextpilot"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contextpilot
+  name: AUR contextpilot linux cache (wave 53)
+  description: AUR leftover name contextpilot on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contextpilot"
+  - "$XDG_CACHE_HOME/contextpilot"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contextpilot
+  name: AUR contextpilot windows cache (wave 53)
+  description: AUR leftover name contextpilot on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contextpilot/Cache"
+  - "%LOCALAPPDATA%/contextpilot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contextpilot-git
+  name: AUR contextpilot-git macos cache (wave 53)
+  description: AUR leftover name contextpilot-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contextpilot-git"
+  - "$HOME/Library/Logs/contextpilot-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contextpilot-git
+  name: AUR contextpilot-git linux cache (wave 53)
+  description: AUR leftover name contextpilot-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contextpilot-git"
+  - "$XDG_CACHE_HOME/contextpilot-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contextpilot-git
+  name: AUR contextpilot-git windows cache (wave 53)
+  description: AUR leftover name contextpilot-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contextpilot-git/Cache"
+  - "%LOCALAPPDATA%/contextpilot-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contextzip-bin
+  name: AUR contextzip-bin macos cache (wave 53)
+  description: AUR leftover name contextzip-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contextzip-bin"
+  - "$HOME/Library/Logs/contextzip-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contextzip-bin
+  name: AUR contextzip-bin linux cache (wave 53)
+  description: AUR leftover name contextzip-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contextzip-bin"
+  - "$XDG_CACHE_HOME/contextzip-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contextzip-bin
+  name: AUR contextzip-bin windows cache (wave 53)
+  description: AUR leftover name contextzip-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contextzip-bin/Cache"
+  - "%LOCALAPPDATA%/contextzip-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contiki
+  name: AUR contiki macos cache (wave 53)
+  description: AUR leftover name contiki on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contiki"
+  - "$HOME/Library/Logs/contiki"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contiki
+  name: AUR contiki linux cache (wave 53)
+  description: AUR leftover name contiki on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contiki"
+  - "$XDG_CACHE_HOME/contiki"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contiki
+  name: AUR contiki windows cache (wave 53)
+  description: AUR leftover name contiki on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contiki/Cache"
+  - "%LOCALAPPDATA%/contiki/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-continuity-bin
+  name: AUR continuity-bin macos cache (wave 53)
+  description: AUR leftover name continuity-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/continuity-bin"
+  - "$HOME/Library/Logs/continuity-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-continuity-bin
+  name: AUR continuity-bin linux cache (wave 53)
+  description: AUR leftover name continuity-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/continuity-bin"
+  - "$XDG_CACHE_HOME/continuity-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-continuity-bin
+  name: AUR continuity-bin windows cache (wave 53)
+  description: AUR leftover name continuity-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/continuity-bin/Cache"
+  - "%LOCALAPPDATA%/continuity-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-continuous-testing
+  name: AUR continuous-testing macos cache (wave 53)
+  description: AUR leftover name continuous-testing on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/continuous-testing"
+  - "$HOME/Library/Logs/continuous-testing"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-continuous-testing
+  name: AUR continuous-testing linux cache (wave 53)
+  description: AUR leftover name continuous-testing on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/continuous-testing"
+  - "$XDG_CACHE_HOME/continuous-testing"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-continuous-testing
+  name: AUR continuous-testing windows cache (wave 53)
+  description: AUR leftover name continuous-testing on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/continuous-testing/Cache"
+  - "%LOCALAPPDATA%/continuous-testing/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-continuwuity
+  name: AUR continuwuity macos cache (wave 53)
+  description: AUR leftover name continuwuity on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/continuwuity"
+  - "$HOME/Library/Logs/continuwuity"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-continuwuity
+  name: AUR continuwuity linux cache (wave 53)
+  description: AUR leftover name continuwuity on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/continuwuity"
+  - "$XDG_CACHE_HOME/continuwuity"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-continuwuity
+  name: AUR continuwuity windows cache (wave 53)
+  description: AUR leftover name continuwuity on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/continuwuity/Cache"
+  - "%LOCALAPPDATA%/continuwuity/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-continuwuity-bin
+  name: AUR continuwuity-bin macos cache (wave 53)
+  description: AUR leftover name continuwuity-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/continuwuity-bin"
+  - "$HOME/Library/Logs/continuwuity-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-continuwuity-bin
+  name: AUR continuwuity-bin linux cache (wave 53)
+  description: AUR leftover name continuwuity-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/continuwuity-bin"
+  - "$XDG_CACHE_HOME/continuwuity-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-continuwuity-bin
+  name: AUR continuwuity-bin windows cache (wave 53)
+  description: AUR leftover name continuwuity-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/continuwuity-bin/Cache"
+  - "%LOCALAPPDATA%/continuwuity-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-continuwuity-git
+  name: AUR continuwuity-git macos cache (wave 53)
+  description: AUR leftover name continuwuity-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/continuwuity-git"
+  - "$HOME/Library/Logs/continuwuity-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-continuwuity-git
+  name: AUR continuwuity-git linux cache (wave 53)
+  description: AUR leftover name continuwuity-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/continuwuity-git"
+  - "$XDG_CACHE_HOME/continuwuity-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-continuwuity-git
+  name: AUR continuwuity-git windows cache (wave 53)
+  description: AUR leftover name continuwuity-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/continuwuity-git/Cache"
+  - "%LOCALAPPDATA%/continuwuity-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contour-git
+  name: AUR contour-git macos cache (wave 53)
+  description: AUR leftover name contour-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contour-git"
+  - "$HOME/Library/Logs/contour-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contour-git
+  name: AUR contour-git linux cache (wave 53)
+  description: AUR leftover name contour-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contour-git"
+  - "$XDG_CACHE_HOME/contour-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contour-git
+  name: AUR contour-git windows cache (wave 53)
+  description: AUR leftover name contour-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contour-git/Cache"
+  - "%LOCALAPPDATA%/contour-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contractor-git
+  name: AUR contractor-git macos cache (wave 53)
+  description: AUR leftover name contractor-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contractor-git"
+  - "$HOME/Library/Logs/contractor-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contractor-git
+  name: AUR contractor-git linux cache (wave 53)
+  description: AUR leftover name contractor-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contractor-git"
+  - "$XDG_CACHE_HOME/contractor-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contractor-git
+  name: AUR contractor-git windows cache (wave 53)
+  description: AUR leftover name contractor-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contractor-git/Cache"
+  - "%LOCALAPPDATA%/contractor-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contrafold
+  name: AUR contrafold macos cache (wave 53)
+  description: AUR leftover name contrafold on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contrafold"
+  - "$HOME/Library/Logs/contrafold"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contrafold
+  name: AUR contrafold linux cache (wave 53)
+  description: AUR leftover name contrafold on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contrafold"
+  - "$XDG_CACHE_HOME/contrafold"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contrafold
+  name: AUR contrafold windows cache (wave 53)
+  description: AUR leftover name contrafold on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contrafold/Cache"
+  - "%LOCALAPPDATA%/contrafold/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-contrast-git
+  name: AUR contrast-git macos cache (wave 53)
+  description: AUR leftover name contrast-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/contrast-git"
+  - "$HOME/Library/Logs/contrast-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-contrast-git
+  name: AUR contrast-git linux cache (wave 53)
+  description: AUR leftover name contrast-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/contrast-git"
+  - "$XDG_CACHE_HOME/contrast-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-contrast-git
+  name: AUR contrast-git windows cache (wave 53)
+  description: AUR leftover name contrast-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/contrast-git/Cache"
+  - "%LOCALAPPDATA%/contrast-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-ofc-daemon
+  name: AUR control-ofc-daemon macos cache (wave 53)
+  description: AUR leftover name control-ofc-daemon on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-ofc-daemon"
+  - "$HOME/Library/Logs/control-ofc-daemon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-ofc-daemon
+  name: AUR control-ofc-daemon linux cache (wave 53)
+  description: AUR leftover name control-ofc-daemon on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-ofc-daemon"
+  - "$XDG_CACHE_HOME/control-ofc-daemon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-ofc-daemon
+  name: AUR control-ofc-daemon windows cache (wave 53)
+  description: AUR leftover name control-ofc-daemon on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-ofc-daemon/Cache"
+  - "%LOCALAPPDATA%/control-ofc-daemon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-ofc-gui
+  name: AUR control-ofc-gui macos cache (wave 53)
+  description: AUR leftover name control-ofc-gui on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-ofc-gui"
+  - "$HOME/Library/Logs/control-ofc-gui"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-ofc-gui
+  name: AUR control-ofc-gui linux cache (wave 53)
+  description: AUR leftover name control-ofc-gui on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-ofc-gui"
+  - "$XDG_CACHE_HOME/control-ofc-gui"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-ofc-gui
+  name: AUR control-ofc-gui windows cache (wave 53)
+  description: AUR leftover name control-ofc-gui on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-ofc-gui/Cache"
+  - "%LOCALAPPDATA%/control-ofc-gui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-toolbox
+  name: AUR control-toolbox macos cache (wave 53)
+  description: AUR leftover name control-toolbox on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-toolbox"
+  - "$HOME/Library/Logs/control-toolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-toolbox
+  name: AUR control-toolbox linux cache (wave 53)
+  description: AUR leftover name control-toolbox on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-toolbox"
+  - "$XDG_CACHE_HOME/control-toolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-toolbox
+  name: AUR control-toolbox windows cache (wave 53)
+  description: AUR leftover name control-toolbox on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-toolbox/Cache"
+  - "%LOCALAPPDATA%/control-toolbox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-toolbox-core
+  name: AUR control-toolbox-core macos cache (wave 53)
+  description: AUR leftover name control-toolbox-core on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-toolbox-core"
+  - "$HOME/Library/Logs/control-toolbox-core"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-toolbox-core
+  name: AUR control-toolbox-core linux cache (wave 53)
+  description: AUR leftover name control-toolbox-core on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-toolbox-core"
+  - "$XDG_CACHE_HOME/control-toolbox-core"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-toolbox-core
+  name: AUR control-toolbox-core windows cache (wave 53)
+  description: AUR leftover name control-toolbox-core on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-toolbox-core/Cache"
+  - "%LOCALAPPDATA%/control-toolbox-core/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-toolbox-models
+  name: AUR control-toolbox-models macos cache (wave 53)
+  description: AUR leftover name control-toolbox-models on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-toolbox-models"
+  - "$HOME/Library/Logs/control-toolbox-models"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-toolbox-models
+  name: AUR control-toolbox-models linux cache (wave 53)
+  description: AUR leftover name control-toolbox-models on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-toolbox-models"
+  - "$XDG_CACHE_HOME/control-toolbox-models"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-toolbox-models
+  name: AUR control-toolbox-models windows cache (wave 53)
+  description: AUR leftover name control-toolbox-models on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-toolbox-models/Cache"
+  - "%LOCALAPPDATA%/control-toolbox-models/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-toolbox-optcon
+  name: AUR control-toolbox-optcon macos cache (wave 53)
+  description: AUR leftover name control-toolbox-optcon on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-toolbox-optcon"
+  - "$HOME/Library/Logs/control-toolbox-optcon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-toolbox-optcon
+  name: AUR control-toolbox-optcon linux cache (wave 53)
+  description: AUR leftover name control-toolbox-optcon on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-toolbox-optcon"
+  - "$XDG_CACHE_HOME/control-toolbox-optcon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-toolbox-optcon
+  name: AUR control-toolbox-optcon windows cache (wave 53)
+  description: AUR leftover name control-toolbox-optcon on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-toolbox-optcon/Cache"
+  - "%LOCALAPPDATA%/control-toolbox-optcon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-control-toolbox-rbd
+  name: AUR control-toolbox-rbd macos cache (wave 53)
+  description: AUR leftover name control-toolbox-rbd on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/control-toolbox-rbd"
+  - "$HOME/Library/Logs/control-toolbox-rbd"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-control-toolbox-rbd
+  name: AUR control-toolbox-rbd linux cache (wave 53)
+  description: AUR leftover name control-toolbox-rbd on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/control-toolbox-rbd"
+  - "$XDG_CACHE_HOME/control-toolbox-rbd"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-control-toolbox-rbd
+  name: AUR control-toolbox-rbd windows cache (wave 53)
+  description: AUR leftover name control-toolbox-rbd on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/control-toolbox-rbd/Cache"
+  - "%LOCALAPPDATA%/control-toolbox-rbd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controlcenter
+  name: AUR controlcenter macos cache (wave 53)
+  description: AUR leftover name controlcenter on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controlcenter"
+  - "$HOME/Library/Logs/controlcenter"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controlcenter
+  name: AUR controlcenter linux cache (wave 53)
+  description: AUR leftover name controlcenter on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controlcenter"
+  - "$XDG_CACHE_HOME/controlcenter"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controlcenter
+  name: AUR controlcenter windows cache (wave 53)
+  description: AUR leftover name controlcenter on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controlcenter/Cache"
+  - "%LOCALAPPDATA%/controlcenter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controlcenter-daemon
+  name: AUR controlcenter-daemon macos cache (wave 53)
+  description: AUR leftover name controlcenter-daemon on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controlcenter-daemon"
+  - "$HOME/Library/Logs/controlcenter-daemon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controlcenter-daemon
+  name: AUR controlcenter-daemon linux cache (wave 53)
+  description: AUR leftover name controlcenter-daemon on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controlcenter-daemon"
+  - "$XDG_CACHE_HOME/controlcenter-daemon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controlcenter-daemon
+  name: AUR controlcenter-daemon windows cache (wave 53)
+  description: AUR leftover name controlcenter-daemon on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controlcenter-daemon/Cache"
+  - "%LOCALAPPDATA%/controlcenter-daemon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controlfans-git
+  name: AUR controlfans-git macos cache (wave 53)
+  description: AUR leftover name controlfans-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controlfans-git"
+  - "$HOME/Library/Logs/controlfans-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controlfans-git
+  name: AUR controlfans-git linux cache (wave 53)
+  description: AUR leftover name controlfans-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controlfans-git"
+  - "$XDG_CACHE_HOME/controlfans-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controlfans-git
+  name: AUR controlfans-git windows cache (wave 53)
+  description: AUR leftover name controlfans-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controlfans-git/Cache"
+  - "%LOCALAPPDATA%/controlfans-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controlhub-vortexseries-git
+  name: AUR controlhub-vortexseries-git macos cache (wave 53)
+  description: AUR leftover name controlhub-vortexseries-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controlhub-vortexseries-git"
+  - "$HOME/Library/Logs/controlhub-vortexseries-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controlhub-vortexseries-git
+  name: AUR controlhub-vortexseries-git linux cache (wave 53)
+  description: AUR leftover name controlhub-vortexseries-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controlhub-vortexseries-git"
+  - "$XDG_CACHE_HOME/controlhub-vortexseries-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controlhub-vortexseries-git
+  name: AUR controlhub-vortexseries-git windows cache (wave 53)
+  description: AUR leftover name controlhub-vortexseries-git on windows (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controlhub-vortexseries-git/Cache"
+  - "%LOCALAPPDATA%/controlhub-vortexseries-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controller-manager
+  name: AUR controller-manager macos cache (wave 53)
+  description: AUR leftover name controller-manager on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controller-manager"
+  - "$HOME/Library/Logs/controller-manager"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controller-manager
+  name: AUR controller-manager linux cache (wave 53)
+  description: AUR leftover name controller-manager on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controller-manager"
+  - "$XDG_CACHE_HOME/controller-manager"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controller-manager
+  name: AUR controller-manager windows cache (wave 53)
+  description: AUR leftover name controller-manager on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controller-manager/Cache"
+  - "%LOCALAPPDATA%/controller-manager/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controllermap
+  name: AUR controllermap macos cache (wave 53)
+  description: AUR leftover name controllermap on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controllermap"
+  - "$HOME/Library/Logs/controllermap"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controllermap
+  name: AUR controllermap linux cache (wave 53)
+  description: AUR leftover name controllermap on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controllermap"
+  - "$XDG_CACHE_HOME/controllermap"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controllermap
+  name: AUR controllermap windows cache (wave 53)
+  description: AUR leftover name controllermap on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controllermap/Cache"
+  - "%LOCALAPPDATA%/controllermap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controlloid-server-git
+  name: AUR controlloid-server-git macos cache (wave 53)
+  description: AUR leftover name controlloid-server-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controlloid-server-git"
+  - "$HOME/Library/Logs/controlloid-server-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controlloid-server-git
+  name: AUR controlloid-server-git linux cache (wave 53)
+  description: AUR leftover name controlloid-server-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controlloid-server-git"
+  - "$XDG_CACHE_HOME/controlloid-server-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controlloid-server-git
+  name: AUR controlloid-server-git windows cache (wave 53)
+  description: AUR leftover name controlloid-server-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controlloid-server-git/Cache"
+  - "%LOCALAPPDATA%/controlloid-server-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-controlscontrol
+  name: AUR controlscontrol macos cache (wave 53)
+  description: AUR leftover name controlscontrol on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/controlscontrol"
+  - "$HOME/Library/Logs/controlscontrol"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-controlscontrol
+  name: AUR controlscontrol linux cache (wave 53)
+  description: AUR leftover name controlscontrol on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/controlscontrol"
+  - "$XDG_CACHE_HOME/controlscontrol"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-controlscontrol
+  name: AUR controlscontrol windows cache (wave 53)
+  description: AUR leftover name controlscontrol on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/controlscontrol/Cache"
+  - "%LOCALAPPDATA%/controlscontrol/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convco-bin
+  name: AUR convco-bin macos cache (wave 53)
+  description: AUR leftover name convco-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convco-bin"
+  - "$HOME/Library/Logs/convco-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convco-bin
+  name: AUR convco-bin linux cache (wave 53)
+  description: AUR leftover name convco-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convco-bin"
+  - "$XDG_CACHE_HOME/convco-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convco-bin
+  name: AUR convco-bin windows cache (wave 53)
+  description: AUR leftover name convco-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convco-bin/Cache"
+  - "%LOCALAPPDATA%/convco-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convcommitlint-bin
+  name: AUR convcommitlint-bin macos cache (wave 53)
+  description: AUR leftover name convcommitlint-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convcommitlint-bin"
+  - "$HOME/Library/Logs/convcommitlint-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convcommitlint-bin
+  name: AUR convcommitlint-bin linux cache (wave 53)
+  description: AUR leftover name convcommitlint-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convcommitlint-bin"
+  - "$XDG_CACHE_HOME/convcommitlint-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convcommitlint-bin
+  name: AUR convcommitlint-bin windows cache (wave 53)
+  description: AUR leftover name convcommitlint-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convcommitlint-bin/Cache"
+  - "%LOCALAPPDATA%/convcommitlint-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-converse
+  name: AUR converse macos cache (wave 53)
+  description: AUR leftover name converse on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/converse"
+  - "$HOME/Library/Logs/converse"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-converse
+  name: AUR converse linux cache (wave 53)
+  description: AUR leftover name converse on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/converse"
+  - "$XDG_CACHE_HOME/converse"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-converse
+  name: AUR converse windows cache (wave 53)
+  description: AUR leftover name converse on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/converse/Cache"
+  - "%LOCALAPPDATA%/converse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-converse-git
+  name: AUR converse-git macos cache (wave 53)
+  description: AUR leftover name converse-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/converse-git"
+  - "$HOME/Library/Logs/converse-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-converse-git
+  name: AUR converse-git linux cache (wave 53)
+  description: AUR leftover name converse-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/converse-git"
+  - "$XDG_CACHE_HOME/converse-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-converse-git
+  name: AUR converse-git windows cache (wave 53)
+  description: AUR leftover name converse-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/converse-git/Cache"
+  - "%LOCALAPPDATA%/converse-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conversejs
+  name: AUR conversejs macos cache (wave 53)
+  description: AUR leftover name conversejs on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conversejs"
+  - "$HOME/Library/Logs/conversejs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conversejs
+  name: AUR conversejs linux cache (wave 53)
+  description: AUR leftover name conversejs on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conversejs"
+  - "$XDG_CACHE_HOME/conversejs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conversejs
+  name: AUR conversejs windows cache (wave 53)
+  description: AUR leftover name conversejs on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conversejs/Cache"
+  - "%LOCALAPPDATA%/conversejs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conversejs-git
+  name: AUR conversejs-git macos cache (wave 53)
+  description: AUR leftover name conversejs-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conversejs-git"
+  - "$HOME/Library/Logs/conversejs-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conversejs-git
+  name: AUR conversejs-git linux cache (wave 53)
+  description: AUR leftover name conversejs-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conversejs-git"
+  - "$XDG_CACHE_HOME/conversejs-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conversejs-git
+  name: AUR conversejs-git windows cache (wave 53)
+  description: AUR leftover name conversejs-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conversejs-git/Cache"
+  - "%LOCALAPPDATA%/conversejs-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conversejs-epiphany-git
+  name: AUR conversejs-epiphany-git macos cache (wave 53)
+  description: AUR leftover name conversejs-epiphany-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conversejs-epiphany-git"
+  - "$HOME/Library/Logs/conversejs-epiphany-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conversejs-epiphany-git
+  name: AUR conversejs-epiphany-git linux cache (wave 53)
+  description: AUR leftover name conversejs-epiphany-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conversejs-epiphany-git"
+  - "$XDG_CACHE_HOME/conversejs-epiphany-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conversejs-epiphany-git
+  name: AUR conversejs-epiphany-git windows cache (wave 53)
+  description: AUR leftover name conversejs-epiphany-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conversejs-epiphany-git/Cache"
+  - "%LOCALAPPDATA%/conversejs-epiphany-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conversejs-headless-git
+  name: AUR conversejs-headless-git macos cache (wave 53)
+  description: AUR leftover name conversejs-headless-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conversejs-headless-git"
+  - "$HOME/Library/Logs/conversejs-headless-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conversejs-headless-git
+  name: AUR conversejs-headless-git linux cache (wave 53)
+  description: AUR leftover name conversejs-headless-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conversejs-headless-git"
+  - "$XDG_CACHE_HOME/conversejs-headless-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conversejs-headless-git
+  name: AUR conversejs-headless-git windows cache (wave 53)
+  description: AUR leftover name conversejs-headless-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conversejs-headless-git/Cache"
+  - "%LOCALAPPDATA%/conversejs-headless-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conversor-dolphin
+  name: AUR conversor-dolphin macos cache (wave 53)
+  description: AUR leftover name conversor-dolphin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conversor-dolphin"
+  - "$HOME/Library/Logs/conversor-dolphin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conversor-dolphin
+  name: AUR conversor-dolphin linux cache (wave 53)
+  description: AUR leftover name conversor-dolphin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conversor-dolphin"
+  - "$XDG_CACHE_HOME/conversor-dolphin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conversor-dolphin
+  name: AUR conversor-dolphin windows cache (wave 53)
+  description: AUR leftover name conversor-dolphin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conversor-dolphin/Cache"
+  - "%LOCALAPPDATA%/conversor-dolphin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convert-pgn-bin
+  name: AUR convert-pgn-bin macos cache (wave 53)
+  description: AUR leftover name convert-pgn-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convert-pgn-bin"
+  - "$HOME/Library/Logs/convert-pgn-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convert-pgn-bin
+  name: AUR convert-pgn-bin linux cache (wave 53)
+  description: AUR leftover name convert-pgn-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convert-pgn-bin"
+  - "$XDG_CACHE_HOME/convert-pgn-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convert-pgn-bin
+  name: AUR convert-pgn-bin windows cache (wave 53)
+  description: AUR leftover name convert-pgn-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convert-pgn-bin/Cache"
+  - "%LOCALAPPDATA%/convert-pgn-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convertall-git
+  name: AUR convertall-git macos cache (wave 53)
+  description: AUR leftover name convertall-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convertall-git"
+  - "$HOME/Library/Logs/convertall-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convertall-git
+  name: AUR convertall-git linux cache (wave 53)
+  description: AUR leftover name convertall-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convertall-git"
+  - "$XDG_CACHE_HOME/convertall-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convertall-git
+  name: AUR convertall-git windows cache (wave 53)
+  description: AUR leftover name convertall-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convertall-git/Cache"
+  - "%LOCALAPPDATA%/convertall-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convertall-py
+  name: AUR convertall-py macos cache (wave 53)
+  description: AUR leftover name convertall-py on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convertall-py"
+  - "$HOME/Library/Logs/convertall-py"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convertall-py
+  name: AUR convertall-py linux cache (wave 53)
+  description: AUR leftover name convertall-py on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convertall-py"
+  - "$XDG_CACHE_HOME/convertall-py"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convertall-py
+  name: AUR convertall-py windows cache (wave 53)
+  description: AUR leftover name convertall-py on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convertall-py/Cache"
+  - "%LOCALAPPDATA%/convertall-py/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-converter432hz-appimage
+  name: AUR converter432hz-appimage macos cache (wave 53)
+  description: AUR leftover name converter432hz-appimage on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/converter432hz-appimage"
+  - "$HOME/Library/Logs/converter432hz-appimage"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-converter432hz-appimage
+  name: AUR converter432hz-appimage linux cache (wave 53)
+  description: AUR leftover name converter432hz-appimage on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/converter432hz-appimage"
+  - "$XDG_CACHE_HOME/converter432hz-appimage"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-converter432hz-appimage
+  name: AUR converter432hz-appimage windows cache (wave 53)
+  description: AUR leftover name converter432hz-appimage on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/converter432hz-appimage/Cache"
+  - "%LOCALAPPDATA%/converter432hz-appimage/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-converternow-bin
+  name: AUR converternow-bin macos cache (wave 53)
+  description: AUR leftover name converternow-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/converternow-bin"
+  - "$HOME/Library/Logs/converternow-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-converternow-bin
+  name: AUR converternow-bin linux cache (wave 53)
+  description: AUR leftover name converternow-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/converternow-bin"
+  - "$XDG_CACHE_HOME/converternow-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-converternow-bin
+  name: AUR converternow-bin windows cache (wave 53)
+  description: AUR leftover name converternow-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/converternow-bin/Cache"
+  - "%LOCALAPPDATA%/converternow-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convertlit-nop
+  name: AUR convertlit-nop macos cache (wave 53)
+  description: AUR leftover name convertlit-nop on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convertlit-nop"
+  - "$HOME/Library/Logs/convertlit-nop"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convertlit-nop
+  name: AUR convertlit-nop linux cache (wave 53)
+  description: AUR leftover name convertlit-nop on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convertlit-nop"
+  - "$XDG_CACHE_HOME/convertlit-nop"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convertlit-nop
+  name: AUR convertlit-nop windows cache (wave 53)
+  description: AUR leftover name convertlit-nop on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convertlit-nop/Cache"
+  - "%LOCALAPPDATA%/convertlit-nop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convertwithmoss
+  name: AUR convertwithmoss macos cache (wave 53)
+  description: AUR leftover name convertwithmoss on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convertwithmoss"
+  - "$HOME/Library/Logs/convertwithmoss"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convertwithmoss
+  name: AUR convertwithmoss linux cache (wave 53)
+  description: AUR leftover name convertwithmoss on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convertwithmoss"
+  - "$XDG_CACHE_HOME/convertwithmoss"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convertwithmoss
+  name: AUR convertwithmoss windows cache (wave 53)
+  description: AUR leftover name convertwithmoss on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convertwithmoss/Cache"
+  - "%LOCALAPPDATA%/convertwithmoss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convertwithmoss-git
+  name: AUR convertwithmoss-git macos cache (wave 53)
+  description: AUR leftover name convertwithmoss-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convertwithmoss-git"
+  - "$HOME/Library/Logs/convertwithmoss-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convertwithmoss-git
+  name: AUR convertwithmoss-git linux cache (wave 53)
+  description: AUR leftover name convertwithmoss-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convertwithmoss-git"
+  - "$XDG_CACHE_HOME/convertwithmoss-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convertwithmoss-git
+  name: AUR convertwithmoss-git windows cache (wave 53)
+  description: AUR leftover name convertwithmoss-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convertwithmoss-git/Cache"
+  - "%LOCALAPPDATA%/convertwithmoss-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convolv2
+  name: AUR convolv2 macos cache (wave 53)
+  description: AUR leftover name convolv2 on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convolv2"
+  - "$HOME/Library/Logs/convolv2"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convolv2
+  name: AUR convolv2 linux cache (wave 53)
+  description: AUR leftover name convolv2 on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convolv2"
+  - "$XDG_CACHE_HOME/convolv2"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convolv2
+  name: AUR convolv2 windows cache (wave 53)
+  description: AUR leftover name convolv2 on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convolv2/Cache"
+  - "%LOCALAPPDATA%/convolv2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convoy
+  name: AUR convoy macos cache (wave 53)
+  description: AUR leftover name convoy on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convoy"
+  - "$HOME/Library/Logs/convoy"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convoy
+  name: AUR convoy linux cache (wave 53)
+  description: AUR leftover name convoy on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convoy"
+  - "$XDG_CACHE_HOME/convoy"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convoy
+  name: AUR convoy windows cache (wave 53)
+  description: AUR leftover name convoy on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convoy/Cache"
+  - "%LOCALAPPDATA%/convoy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-convpot
+  name: AUR convpot macos cache (wave 53)
+  description: AUR leftover name convpot on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/convpot"
+  - "$HOME/Library/Logs/convpot"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-convpot
+  name: AUR convpot linux cache (wave 53)
+  description: AUR leftover name convpot on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/convpot"
+  - "$XDG_CACHE_HOME/convpot"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-convpot
+  name: AUR convpot windows cache (wave 53)
+  description: AUR leftover name convpot on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/convpot/Cache"
+  - "%LOCALAPPDATA%/convpot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conway-git
+  name: AUR conway-git macos cache (wave 53)
+  description: AUR leftover name conway-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conway-git"
+  - "$HOME/Library/Logs/conway-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conway-git
+  name: AUR conway-git linux cache (wave 53)
+  description: AUR leftover name conway-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conway-git"
+  - "$XDG_CACHE_HOME/conway-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conway-git
+  name: AUR conway-git windows cache (wave 53)
+  description: AUR leftover name conway-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conway-git/Cache"
+  - "%LOCALAPPDATA%/conway-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conway-gol-git
+  name: AUR conway-gol-git macos cache (wave 53)
+  description: AUR leftover name conway-gol-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conway-gol-git"
+  - "$HOME/Library/Logs/conway-gol-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conway-gol-git
+  name: AUR conway-gol-git linux cache (wave 53)
+  description: AUR leftover name conway-gol-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conway-gol-git"
+  - "$XDG_CACHE_HOME/conway-gol-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conway-gol-git
+  name: AUR conway-gol-git windows cache (wave 53)
+  description: AUR leftover name conway-gol-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conway-gol-git/Cache"
+  - "%LOCALAPPDATA%/conway-gol-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conway-screensaver
+  name: AUR conway-screensaver macos cache (wave 53)
+  description: AUR leftover name conway-screensaver on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conway-screensaver"
+  - "$HOME/Library/Logs/conway-screensaver"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conway-screensaver
+  name: AUR conway-screensaver linux cache (wave 53)
+  description: AUR leftover name conway-screensaver on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conway-screensaver"
+  - "$XDG_CACHE_HOME/conway-screensaver"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conway-screensaver
+  name: AUR conway-screensaver windows cache (wave 53)
+  description: AUR leftover name conway-screensaver on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conway-screensaver/Cache"
+  - "%LOCALAPPDATA%/conway-screensaver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-conze
+  name: AUR conze macos cache (wave 53)
+  description: AUR leftover name conze on macos (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/conze"
+  - "$HOME/Library/Logs/conze"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-conze
+  name: AUR conze linux cache (wave 53)
+  description: AUR leftover name conze on linux (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/conze"
+  - "$XDG_CACHE_HOME/conze"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-conze
+  name: AUR conze windows cache (wave 53)
+  description: AUR leftover name conze on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/conze/Cache"
+  - "%LOCALAPPDATA%/conze/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coo
+  name: AUR coo macos cache (wave 53)
+  description: AUR leftover name coo on macos (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coo"
+  - "$HOME/Library/Logs/coo"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coo
+  name: AUR coo linux cache (wave 53)
+  description: AUR leftover name coo on linux (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coo"
+  - "$XDG_CACHE_HOME/coo"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coo
+  name: AUR coo windows cache (wave 53)
+  description: AUR leftover name coo on windows (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coo/Cache"
+  - "%LOCALAPPDATA%/coo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coo-bin
+  name: AUR coo-bin macos cache (wave 53)
+  description: AUR leftover name coo-bin on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coo-bin"
+  - "$HOME/Library/Logs/coo-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coo-bin
+  name: AUR coo-bin linux cache (wave 53)
+  description: AUR leftover name coo-bin on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coo-bin"
+  - "$XDG_CACHE_HOME/coo-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coo-bin
+  name: AUR coo-bin windows cache (wave 53)
+  description: AUR leftover name coo-bin on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coo-bin/Cache"
+  - "%LOCALAPPDATA%/coo-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cooja-git
+  name: AUR cooja-git macos cache (wave 53)
+  description: AUR leftover name cooja-git on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cooja-git"
+  - "$HOME/Library/Logs/cooja-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cooja-git
+  name: AUR cooja-git linux cache (wave 53)
+  description: AUR leftover name cooja-git on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cooja-git"
+  - "$XDG_CACHE_HOME/cooja-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cooja-git
+  name: AUR cooja-git windows cache (wave 53)
+  description: AUR leftover name cooja-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cooja-git/Cache"
+  - "%LOCALAPPDATA%/cooja-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cookc
+  name: AUR cookc macos cache (wave 53)
+  description: AUR leftover name cookc on macos (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cookc"
+  - "$HOME/Library/Logs/cookc"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cookc
+  name: AUR cookc linux cache (wave 53)
+  description: AUR leftover name cookc on linux (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cookc"
+  - "$XDG_CACHE_HOME/cookc"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cookc
+  name: AUR cookc windows cache (wave 53)
+  description: AUR leftover name cookc on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cookc/Cache"
+  - "%LOCALAPPDATA%/cookc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cookcli
+  name: AUR cookcli macos cache (wave 53)
+  description: AUR leftover name cookcli on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cookcli"
+  - "$HOME/Library/Logs/cookcli"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cookcli
+  name: AUR cookcli linux cache (wave 53)
+  description: AUR leftover name cookcli on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cookcli"
+  - "$XDG_CACHE_HOME/cookcli"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cookcli
+  name: AUR cookcli windows cache (wave 53)
+  description: AUR leftover name cookcli on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cookcli/Cache"
+  - "%LOCALAPPDATA%/cookcli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cookcli-bin
+  name: AUR cookcli-bin macos cache (wave 53)
+  description: AUR leftover name cookcli-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cookcli-bin"
+  - "$HOME/Library/Logs/cookcli-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cookcli-bin
+  name: AUR cookcli-bin linux cache (wave 53)
+  description: AUR leftover name cookcli-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cookcli-bin"
+  - "$XDG_CACHE_HOME/cookcli-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cookcli-bin
+  name: AUR cookcli-bin windows cache (wave 53)
+  description: AUR leftover name cookcli-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cookcli-bin/Cache"
+  - "%LOCALAPPDATA%/cookcli-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cookcli-git
+  name: AUR cookcli-git macos cache (wave 53)
+  description: AUR leftover name cookcli-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cookcli-git"
+  - "$HOME/Library/Logs/cookcli-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cookcli-git
+  name: AUR cookcli-git linux cache (wave 53)
+  description: AUR leftover name cookcli-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cookcli-git"
+  - "$XDG_CACHE_HOME/cookcli-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cookcli-git
+  name: AUR cookcli-git windows cache (wave 53)
+  description: AUR leftover name cookcli-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cookcli-git/Cache"
+  - "%LOCALAPPDATA%/cookcli-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cookie-git
+  name: AUR cookie-git macos cache (wave 53)
+  description: AUR leftover name cookie-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cookie-git"
+  - "$HOME/Library/Logs/cookie-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cookie-git
+  name: AUR cookie-git linux cache (wave 53)
+  description: AUR leftover name cookie-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cookie-git"
+  - "$XDG_CACHE_HOME/cookie-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cookie-git
+  name: AUR cookie-git windows cache (wave 53)
+  description: AUR leftover name cookie-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cookie-git/Cache"
+  - "%LOCALAPPDATA%/cookie-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cookiecloud-api-git
+  name: AUR cookiecloud-api-git macos cache (wave 53)
+  description: AUR leftover name cookiecloud-api-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cookiecloud-api-git"
+  - "$HOME/Library/Logs/cookiecloud-api-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cookiecloud-api-git
+  name: AUR cookiecloud-api-git linux cache (wave 53)
+  description: AUR leftover name cookiecloud-api-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cookiecloud-api-git"
+  - "$XDG_CACHE_HOME/cookiecloud-api-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cookiecloud-api-git
+  name: AUR cookiecloud-api-git windows cache (wave 53)
+  description: AUR leftover name cookiecloud-api-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cookiecloud-api-git/Cache"
+  - "%LOCALAPPDATA%/cookiecloud-api-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cooklang-chef
+  name: AUR cooklang-chef macos cache (wave 53)
+  description: AUR leftover name cooklang-chef on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cooklang-chef"
+  - "$HOME/Library/Logs/cooklang-chef"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cooklang-chef
+  name: AUR cooklang-chef linux cache (wave 53)
+  description: AUR leftover name cooklang-chef on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cooklang-chef"
+  - "$XDG_CACHE_HOME/cooklang-chef"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cooklang-chef
+  name: AUR cooklang-chef windows cache (wave 53)
+  description: AUR leftover name cooklang-chef on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cooklang-chef/Cache"
+  - "%LOCALAPPDATA%/cooklang-chef/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cool-rain
+  name: AUR cool-rain macos cache (wave 53)
+  description: AUR leftover name cool-rain on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cool-rain"
+  - "$HOME/Library/Logs/cool-rain"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cool-rain
+  name: AUR cool-rain linux cache (wave 53)
+  description: AUR leftover name cool-rain on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cool-rain"
+  - "$XDG_CACHE_HOME/cool-rain"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cool-rain
+  name: AUR cool-rain windows cache (wave 53)
+  description: AUR leftover name cool-rain on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cool-rain/Cache"
+  - "%LOCALAPPDATA%/cool-rain/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cool-retro-term-git
+  name: AUR cool-retro-term-git macos cache (wave 53)
+  description: AUR leftover name cool-retro-term-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cool-retro-term-git"
+  - "$HOME/Library/Logs/cool-retro-term-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cool-retro-term-git
+  name: AUR cool-retro-term-git linux cache (wave 53)
+  description: AUR leftover name cool-retro-term-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cool-retro-term-git"
+  - "$XDG_CACHE_HOME/cool-retro-term-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cool-retro-term-git
+  name: AUR cool-retro-term-git windows cache (wave 53)
+  description: AUR leftover name cool-retro-term-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cool-retro-term-git/Cache"
+  - "%LOCALAPPDATA%/cool-retro-term-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolapk-flutter-git
+  name: AUR coolapk_flutter-git macos cache (wave 53)
+  description: AUR leftover name coolapk_flutter-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolapk_flutter-git"
+  - "$HOME/Library/Logs/coolapk_flutter-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolapk-flutter-git
+  name: AUR coolapk_flutter-git linux cache (wave 53)
+  description: AUR leftover name coolapk_flutter-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolapk_flutter-git"
+  - "$XDG_CACHE_HOME/coolapk_flutter-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolapk-flutter-git
+  name: AUR coolapk_flutter-git windows cache (wave 53)
+  description: AUR leftover name coolapk_flutter-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolapk_flutter-git/Cache"
+  - "%LOCALAPPDATA%/coolapk_flutter-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cooldowns-git
+  name: AUR cooldowns-git macos cache (wave 53)
+  description: AUR leftover name cooldowns-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cooldowns-git"
+  - "$HOME/Library/Logs/cooldowns-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cooldowns-git
+  name: AUR cooldowns-git linux cache (wave 53)
+  description: AUR leftover name cooldowns-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cooldowns-git"
+  - "$XDG_CACHE_HOME/cooldowns-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cooldowns-git
+  name: AUR cooldowns-git windows cache (wave 53)
+  description: AUR leftover name cooldowns-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cooldowns-git/Cache"
+  - "%LOCALAPPDATA%/cooldowns-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolercontrol-bin
+  name: AUR coolercontrol-bin macos cache (wave 53)
+  description: AUR leftover name coolercontrol-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolercontrol-bin"
+  - "$HOME/Library/Logs/coolercontrol-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolercontrol-bin
+  name: AUR coolercontrol-bin linux cache (wave 53)
+  description: AUR leftover name coolercontrol-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolercontrol-bin"
+  - "$XDG_CACHE_HOME/coolercontrol-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolercontrol-bin
+  name: AUR coolercontrol-bin windows cache (wave 53)
+  description: AUR leftover name coolercontrol-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolercontrol-bin/Cache"
+  - "%LOCALAPPDATA%/coolercontrol-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolercontrol-git
+  name: AUR coolercontrol-git macos cache (wave 53)
+  description: AUR leftover name coolercontrol-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolercontrol-git"
+  - "$HOME/Library/Logs/coolercontrol-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolercontrol-git
+  name: AUR coolercontrol-git linux cache (wave 53)
+  description: AUR leftover name coolercontrol-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolercontrol-git"
+  - "$XDG_CACHE_HOME/coolercontrol-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolercontrol-git
+  name: AUR coolercontrol-git windows cache (wave 53)
+  description: AUR leftover name coolercontrol-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolercontrol-git/Cache"
+  - "%LOCALAPPDATA%/coolercontrol-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolercontrold-bin
+  name: AUR coolercontrold-bin macos cache (wave 53)
+  description: AUR leftover name coolercontrold-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolercontrold-bin"
+  - "$HOME/Library/Logs/coolercontrold-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolercontrold-bin
+  name: AUR coolercontrold-bin linux cache (wave 53)
+  description: AUR leftover name coolercontrold-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolercontrold-bin"
+  - "$XDG_CACHE_HOME/coolercontrold-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolercontrold-bin
+  name: AUR coolercontrold-bin windows cache (wave 53)
+  description: AUR leftover name coolercontrold-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolercontrold-bin/Cache"
+  - "%LOCALAPPDATA%/coolercontrold-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolercontrold-git
+  name: AUR coolercontrold-git macos cache (wave 53)
+  description: AUR leftover name coolercontrold-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolercontrold-git"
+  - "$HOME/Library/Logs/coolercontrold-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolercontrold-git
+  name: AUR coolercontrold-git linux cache (wave 53)
+  description: AUR leftover name coolercontrold-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolercontrold-git"
+  - "$XDG_CACHE_HOME/coolercontrold-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolercontrold-git
+  name: AUR coolercontrold-git windows cache (wave 53)
+  description: AUR leftover name coolercontrold-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolercontrold-git/Cache"
+  - "%LOCALAPPDATA%/coolercontrold-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolercontrold-runit
+  name: AUR coolercontrold-runit macos cache (wave 53)
+  description: AUR leftover name coolercontrold-runit on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolercontrold-runit"
+  - "$HOME/Library/Logs/coolercontrold-runit"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolercontrold-runit
+  name: AUR coolercontrold-runit linux cache (wave 53)
+  description: AUR leftover name coolercontrold-runit on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolercontrold-runit"
+  - "$XDG_CACHE_HOME/coolercontrold-runit"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolercontrold-runit
+  name: AUR coolercontrold-runit windows cache (wave 53)
+  description: AUR leftover name coolercontrold-runit on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolercontrold-runit/Cache"
+  - "%LOCALAPPDATA%/coolercontrold-runit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolerdash-git
+  name: AUR coolerdash-git macos cache (wave 53)
+  description: AUR leftover name coolerdash-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolerdash-git"
+  - "$HOME/Library/Logs/coolerdash-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolerdash-git
+  name: AUR coolerdash-git linux cache (wave 53)
+  description: AUR leftover name coolerdash-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolerdash-git"
+  - "$XDG_CACHE_HOME/coolerdash-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolerdash-git
+  name: AUR coolerdash-git windows cache (wave 53)
+  description: AUR leftover name coolerdash-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolerdash-git/Cache"
+  - "%LOCALAPPDATA%/coolerdash-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolprop-git
+  name: AUR coolprop-git macos cache (wave 53)
+  description: AUR leftover name coolprop-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolprop-git"
+  - "$HOME/Library/Logs/coolprop-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolprop-git
+  name: AUR coolprop-git linux cache (wave 53)
+  description: AUR leftover name coolprop-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolprop-git"
+  - "$XDG_CACHE_HOME/coolprop-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolprop-git
+  name: AUR coolprop-git windows cache (wave 53)
+  description: AUR leftover name coolprop-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolprop-git/Cache"
+  - "%LOCALAPPDATA%/coolprop-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolreader3-git
+  name: AUR coolreader3-git macos cache (wave 53)
+  description: AUR leftover name coolreader3-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolreader3-git"
+  - "$HOME/Library/Logs/coolreader3-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolreader3-git
+  name: AUR coolreader3-git linux cache (wave 53)
+  description: AUR leftover name coolreader3-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolreader3-git"
+  - "$XDG_CACHE_HOME/coolreader3-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolreader3-git
+  name: AUR coolreader3-git windows cache (wave 53)
+  description: AUR leftover name coolreader3-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolreader3-git/Cache"
+  - "%LOCALAPPDATA%/coolreader3-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolterm-bin
+  name: AUR coolterm-bin macos cache (wave 53)
+  description: AUR leftover name coolterm-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolterm-bin"
+  - "$HOME/Library/Logs/coolterm-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolterm-bin
+  name: AUR coolterm-bin linux cache (wave 53)
+  description: AUR leftover name coolterm-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolterm-bin"
+  - "$XDG_CACHE_HOME/coolterm-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolterm-bin
+  name: AUR coolterm-bin windows cache (wave 53)
+  description: AUR leftover name coolterm-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolterm-bin/Cache"
+  - "%LOCALAPPDATA%/coolterm-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolvlviewer
+  name: AUR coolvlviewer macos cache (wave 53)
+  description: AUR leftover name coolvlviewer on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolvlviewer"
+  - "$HOME/Library/Logs/coolvlviewer"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolvlviewer
+  name: AUR coolvlviewer linux cache (wave 53)
+  description: AUR leftover name coolvlviewer on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolvlviewer"
+  - "$XDG_CACHE_HOME/coolvlviewer"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolvlviewer
+  name: AUR coolvlviewer windows cache (wave 53)
+  description: AUR leftover name coolvlviewer on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolvlviewer/Cache"
+  - "%LOCALAPPDATA%/coolvlviewer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolvlviewer-bin
+  name: AUR coolvlviewer-bin macos cache (wave 53)
+  description: AUR leftover name coolvlviewer-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolvlviewer-bin"
+  - "$HOME/Library/Logs/coolvlviewer-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolvlviewer-bin
+  name: AUR coolvlviewer-bin linux cache (wave 53)
+  description: AUR leftover name coolvlviewer-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolvlviewer-bin"
+  - "$XDG_CACHE_HOME/coolvlviewer-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolvlviewer-bin
+  name: AUR coolvlviewer-bin windows cache (wave 53)
+  description: AUR leftover name coolvlviewer-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolvlviewer-bin/Cache"
+  - "%LOCALAPPDATA%/coolvlviewer-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolvlviewer-experimental
+  name: AUR coolvlviewer-experimental macos cache (wave 53)
+  description: AUR leftover name coolvlviewer-experimental on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolvlviewer-experimental"
+  - "$HOME/Library/Logs/coolvlviewer-experimental"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolvlviewer-experimental
+  name: AUR coolvlviewer-experimental linux cache (wave 53)
+  description: AUR leftover name coolvlviewer-experimental on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolvlviewer-experimental"
+  - "$XDG_CACHE_HOME/coolvlviewer-experimental"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolvlviewer-experimental
+  name: AUR coolvlviewer-experimental windows cache (wave 53)
+  description: AUR leftover name coolvlviewer-experimental on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolvlviewer-experimental/Cache"
+  - "%LOCALAPPDATA%/coolvlviewer-experimental/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coolvlviewer-experimental-bin
+  name: AUR coolvlviewer-experimental-bin macos cache (wave 53)
+  description: AUR leftover name coolvlviewer-experimental-bin on macos (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coolvlviewer-experimental-bin"
+  - "$HOME/Library/Logs/coolvlviewer-experimental-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coolvlviewer-experimental-bin
+  name: AUR coolvlviewer-experimental-bin linux cache (wave 53)
+  description: AUR leftover name coolvlviewer-experimental-bin on linux (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coolvlviewer-experimental-bin"
+  - "$XDG_CACHE_HOME/coolvlviewer-experimental-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coolvlviewer-experimental-bin
+  name: AUR coolvlviewer-experimental-bin windows cache (wave 53)
+  description: AUR leftover name coolvlviewer-experimental-bin on windows (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coolvlviewer-experimental-bin/Cache"
+  - "%LOCALAPPDATA%/coolvlviewer-experimental-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coomer
+  name: AUR coomer macos cache (wave 53)
+  description: AUR leftover name coomer on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coomer"
+  - "$HOME/Library/Logs/coomer"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coomer
+  name: AUR coomer linux cache (wave 53)
+  description: AUR leftover name coomer on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coomer"
+  - "$XDG_CACHE_HOME/coomer"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coomer
+  name: AUR coomer windows cache (wave 53)
+  description: AUR leftover name coomer on windows (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coomer/Cache"
+  - "%LOCALAPPDATA%/coomer/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coomer-bin
+  name: AUR coomer-bin macos cache (wave 53)
+  description: AUR leftover name coomer-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coomer-bin"
+  - "$HOME/Library/Logs/coomer-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coomer-bin
+  name: AUR coomer-bin linux cache (wave 53)
+  description: AUR leftover name coomer-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coomer-bin"
+  - "$XDG_CACHE_HOME/coomer-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coomer-bin
+  name: AUR coomer-bin windows cache (wave 53)
+  description: AUR leftover name coomer-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coomer-bin/Cache"
+  - "%LOCALAPPDATA%/coomer-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coomerdl
+  name: AUR coomerdl macos cache (wave 53)
+  description: AUR leftover name coomerdl on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coomerdl"
+  - "$HOME/Library/Logs/coomerdl"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coomerdl
+  name: AUR coomerdl linux cache (wave 53)
+  description: AUR leftover name coomerdl on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coomerdl"
+  - "$XDG_CACHE_HOME/coomerdl"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coomerdl
+  name: AUR coomerdl windows cache (wave 53)
+  description: AUR leftover name coomerdl on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coomerdl/Cache"
+  - "%LOCALAPPDATA%/coomerdl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coomerdl-bin
+  name: AUR coomerdl-bin macos cache (wave 53)
+  description: AUR leftover name coomerdl-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coomerdl-bin"
+  - "$HOME/Library/Logs/coomerdl-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coomerdl-bin
+  name: AUR coomerdl-bin linux cache (wave 53)
+  description: AUR leftover name coomerdl-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coomerdl-bin"
+  - "$XDG_CACHE_HOME/coomerdl-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coomerdl-bin
+  name: AUR coomerdl-bin windows cache (wave 53)
+  description: AUR leftover name coomerdl-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coomerdl-bin/Cache"
+  - "%LOCALAPPDATA%/coomerdl-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-otf-cooper
+  name: AUR otf-cooper macos cache (wave 53)
+  description: AUR leftover name otf-cooper on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/otf-cooper"
+  - "$HOME/Library/Logs/otf-cooper"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-otf-cooper
+  name: AUR otf-cooper linux cache (wave 53)
+  description: AUR leftover name otf-cooper on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/otf-cooper"
+  - "$XDG_CACHE_HOME/otf-cooper"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-otf-cooper
+  name: AUR otf-cooper windows cache (wave 53)
+  description: AUR leftover name otf-cooper on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/otf-cooper/Cache"
+  - "%LOCALAPPDATA%/otf-cooper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-ttf-cooper
+  name: AUR ttf-cooper macos cache (wave 53)
+  description: AUR leftover name ttf-cooper on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ttf-cooper"
+  - "$HOME/Library/Logs/ttf-cooper"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-ttf-cooper
+  name: AUR ttf-cooper linux cache (wave 53)
+  description: AUR leftover name ttf-cooper on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ttf-cooper"
+  - "$XDG_CACHE_HOME/ttf-cooper"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-ttf-cooper
+  name: AUR ttf-cooper windows cache (wave 53)
+  description: AUR leftover name ttf-cooper on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ttf-cooper/Cache"
+  - "%LOCALAPPDATA%/ttf-cooper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-ttf-cooper-variable
+  name: AUR ttf-cooper-variable macos cache (wave 53)
+  description: AUR leftover name ttf-cooper-variable on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ttf-cooper-variable"
+  - "$HOME/Library/Logs/ttf-cooper-variable"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-ttf-cooper-variable
+  name: AUR ttf-cooper-variable linux cache (wave 53)
+  description: AUR leftover name ttf-cooper-variable on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ttf-cooper-variable"
+  - "$XDG_CACHE_HOME/ttf-cooper-variable"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-ttf-cooper-variable
+  name: AUR ttf-cooper-variable windows cache (wave 53)
+  description: AUR leftover name ttf-cooper-variable on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ttf-cooper-variable/Cache"
+  - "%LOCALAPPDATA%/ttf-cooper-variable/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coopgammad
+  name: AUR coopgammad macos cache (wave 53)
+  description: AUR leftover name coopgammad on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coopgammad"
+  - "$HOME/Library/Logs/coopgammad"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coopgammad
+  name: AUR coopgammad linux cache (wave 53)
+  description: AUR leftover name coopgammad on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coopgammad"
+  - "$XDG_CACHE_HOME/coopgammad"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coopgammad
+  name: AUR coopgammad windows cache (wave 53)
+  description: AUR leftover name coopgammad on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coopgammad/Cache"
+  - "%LOCALAPPDATA%/coopgammad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coopmat-layer-git
+  name: AUR coopmat-layer-git macos cache (wave 53)
+  description: AUR leftover name coopmat-layer-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coopmat-layer-git"
+  - "$HOME/Library/Logs/coopmat-layer-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coopmat-layer-git
+  name: AUR coopmat-layer-git linux cache (wave 53)
+  description: AUR leftover name coopmat-layer-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coopmat-layer-git"
+  - "$XDG_CACHE_HOME/coopmat-layer-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coopmat-layer-git
+  name: AUR coopmat-layer-git windows cache (wave 53)
+  description: AUR leftover name coopmat-layer-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coopmat-layer-git/Cache"
+  - "%LOCALAPPDATA%/coopmat-layer-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coopnet-multimedia-conference
+  name: AUR coopnet-multimedia-conference macos cache (wave 53)
+  description: AUR leftover name coopnet-multimedia-conference on macos (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coopnet-multimedia-conference"
+  - "$HOME/Library/Logs/coopnet-multimedia-conference"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coopnet-multimedia-conference
+  name: AUR coopnet-multimedia-conference linux cache (wave 53)
+  description: AUR leftover name coopnet-multimedia-conference on linux (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coopnet-multimedia-conference"
+  - "$XDG_CACHE_HOME/coopnet-multimedia-conference"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coopnet-multimedia-conference
+  name: AUR coopnet-multimedia-conference windows cache (wave 53)
+  description: AUR leftover name coopnet-multimedia-conference on windows (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coopnet-multimedia-conference/Cache"
+  - "%LOCALAPPDATA%/coopnet-multimedia-conference/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coordcon
+  name: AUR coordcon macos cache (wave 53)
+  description: AUR leftover name coordcon on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coordcon"
+  - "$HOME/Library/Logs/coordcon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coordcon
+  name: AUR coordcon linux cache (wave 53)
+  description: AUR leftover name coordcon on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coordcon"
+  - "$XDG_CACHE_HOME/coordcon"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coordcon
+  name: AUR coordcon windows cache (wave 53)
+  description: AUR leftover name coordcon on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coordcon/Cache"
+  - "%LOCALAPPDATA%/coordcon/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coova-chilli-arch
+  name: AUR coova-chilli-arch macos cache (wave 53)
+  description: AUR leftover name coova-chilli-arch on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coova-chilli-arch"
+  - "$HOME/Library/Logs/coova-chilli-arch"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coova-chilli-arch
+  name: AUR coova-chilli-arch linux cache (wave 53)
+  description: AUR leftover name coova-chilli-arch on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coova-chilli-arch"
+  - "$XDG_CACHE_HOME/coova-chilli-arch"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coova-chilli-arch
+  name: AUR coova-chilli-arch windows cache (wave 53)
+  description: AUR leftover name coova-chilli-arch on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coova-chilli-arch/Cache"
+  - "%LOCALAPPDATA%/coova-chilli-arch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coova-chilli-git
+  name: AUR coova-chilli-git macos cache (wave 53)
+  description: AUR leftover name coova-chilli-git on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coova-chilli-git"
+  - "$HOME/Library/Logs/coova-chilli-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coova-chilli-git
+  name: AUR coova-chilli-git linux cache (wave 53)
+  description: AUR leftover name coova-chilli-git on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coova-chilli-git"
+  - "$XDG_CACHE_HOME/coova-chilli-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coova-chilli-git
+  name: AUR coova-chilli-git windows cache (wave 53)
+  description: AUR leftover name coova-chilli-git on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coova-chilli-git/Cache"
+  - "%LOCALAPPDATA%/coova-chilli-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cop
+  name: AUR cop macos cache (wave 53)
+  description: AUR leftover name cop on macos (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cop"
+  - "$HOME/Library/Logs/cop"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cop
+  name: AUR cop linux cache (wave 53)
+  description: AUR leftover name cop on linux (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cop"
+  - "$XDG_CACHE_HOME/cop"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cop
+  name: AUR cop windows cache (wave 53)
+  description: AUR leftover name cop on windows (wave 53). Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cop/Cache"
+  - "%LOCALAPPDATA%/cop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copacetic-bin
+  name: AUR copacetic-bin macos cache (wave 53)
+  description: AUR leftover name copacetic-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copacetic-bin"
+  - "$HOME/Library/Logs/copacetic-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copacetic-bin
+  name: AUR copacetic-bin linux cache (wave 53)
+  description: AUR leftover name copacetic-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copacetic-bin"
+  - "$XDG_CACHE_HOME/copacetic-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copacetic-bin
+  name: AUR copacetic-bin windows cache (wave 53)
+  description: AUR leftover name copacetic-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copacetic-bin/Cache"
+  - "%LOCALAPPDATA%/copacetic-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copasi-bin
+  name: AUR copasi-bin macos cache (wave 53)
+  description: AUR leftover name copasi-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copasi-bin"
+  - "$HOME/Library/Logs/copasi-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copasi-bin
+  name: AUR copasi-bin linux cache (wave 53)
+  description: AUR leftover name copasi-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copasi-bin"
+  - "$XDG_CACHE_HOME/copasi-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copasi-bin
+  name: AUR copasi-bin windows cache (wave 53)
+  description: AUR leftover name copasi-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copasi-bin/Cache"
+  - "%LOCALAPPDATA%/copasi-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cope-bin
+  name: AUR cope-bin macos cache (wave 53)
+  description: AUR leftover name cope-bin on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cope-bin"
+  - "$HOME/Library/Logs/cope-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cope-bin
+  name: AUR cope-bin linux cache (wave 53)
+  description: AUR leftover name cope-bin on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cope-bin"
+  - "$XDG_CACHE_HOME/cope-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cope-bin
+  name: AUR cope-bin windows cache (wave 53)
+  description: AUR leftover name cope-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cope-bin/Cache"
+  - "%LOCALAPPDATA%/cope-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-cope-git
+  name: AUR cope-git macos cache (wave 53)
+  description: AUR leftover name cope-git on macos (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/cope-git"
+  - "$HOME/Library/Logs/cope-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-cope-git
+  name: AUR cope-git linux cache (wave 53)
+  description: AUR leftover name cope-git on linux (wave 53). Caches/logs only, not
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/cope-git"
+  - "$XDG_CACHE_HOME/cope-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-cope-git
+  name: AUR cope-git windows cache (wave 53)
+  description: AUR leftover name cope-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/cope-git/Cache"
+  - "%LOCALAPPDATA%/cope-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copia-cli-bin
+  name: AUR copia-cli-bin macos cache (wave 53)
+  description: AUR leftover name copia-cli-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copia-cli-bin"
+  - "$HOME/Library/Logs/copia-cli-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copia-cli-bin
+  name: AUR copia-cli-bin linux cache (wave 53)
+  description: AUR leftover name copia-cli-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copia-cli-bin"
+  - "$XDG_CACHE_HOME/copia-cli-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copia-cli-bin
+  name: AUR copia-cli-bin windows cache (wave 53)
+  description: AUR leftover name copia-cli-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copia-cli-bin/Cache"
+  - "%LOCALAPPDATA%/copia-cli-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copicseal-git
+  name: AUR copicseal-git macos cache (wave 53)
+  description: AUR leftover name copicseal-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copicseal-git"
+  - "$HOME/Library/Logs/copicseal-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copicseal-git
+  name: AUR copicseal-git linux cache (wave 53)
+  description: AUR leftover name copicseal-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copicseal-git"
+  - "$XDG_CACHE_HOME/copicseal-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copicseal-git
+  name: AUR copicseal-git windows cache (wave 53)
+  description: AUR leftover name copicseal-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copicseal-git/Cache"
+  - "%LOCALAPPDATA%/copicseal-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copilot-api
+  name: AUR copilot-api macos cache (wave 53)
+  description: AUR leftover name copilot-api on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copilot-api"
+  - "$HOME/Library/Logs/copilot-api"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copilot-api
+  name: AUR copilot-api linux cache (wave 53)
+  description: AUR leftover name copilot-api on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copilot-api"
+  - "$XDG_CACHE_HOME/copilot-api"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copilot-api
+  name: AUR copilot-api windows cache (wave 53)
+  description: AUR leftover name copilot-api on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copilot-api/Cache"
+  - "%LOCALAPPDATA%/copilot-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copilot-cli
+  name: AUR copilot-cli macos cache (wave 53)
+  description: AUR leftover name copilot-cli on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copilot-cli"
+  - "$HOME/Library/Logs/copilot-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copilot-cli
+  name: AUR copilot-cli linux cache (wave 53)
+  description: AUR leftover name copilot-cli on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copilot-cli"
+  - "$XDG_CACHE_HOME/copilot-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copilot-cli
+  name: AUR copilot-cli windows cache (wave 53)
+  description: AUR leftover name copilot-cli on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copilot-cli/Cache"
+  - "%LOCALAPPDATA%/copilot-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copilot-cli-bin
+  name: AUR copilot-cli-bin macos cache (wave 53)
+  description: AUR leftover name copilot-cli-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copilot-cli-bin"
+  - "$HOME/Library/Logs/copilot-cli-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copilot-cli-bin
+  name: AUR copilot-cli-bin linux cache (wave 53)
+  description: AUR leftover name copilot-cli-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copilot-cli-bin"
+  - "$XDG_CACHE_HOME/copilot-cli-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copilot-cli-bin
+  name: AUR copilot-cli-bin windows cache (wave 53)
+  description: AUR leftover name copilot-cli-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copilot-cli-bin/Cache"
+  - "%LOCALAPPDATA%/copilot-cli-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copilot-language-server-bin
+  name: AUR copilot-language-server-bin macos cache (wave 53)
+  description: AUR leftover name copilot-language-server-bin on macos (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copilot-language-server-bin"
+  - "$HOME/Library/Logs/copilot-language-server-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copilot-language-server-bin
+  name: AUR copilot-language-server-bin linux cache (wave 53)
+  description: AUR leftover name copilot-language-server-bin on linux (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copilot-language-server-bin"
+  - "$XDG_CACHE_HOME/copilot-language-server-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copilot-language-server-bin
+  name: AUR copilot-language-server-bin windows cache (wave 53)
+  description: AUR leftover name copilot-language-server-bin on windows (wave 53).
+    Caches/logs only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copilot-language-server-bin/Cache"
+  - "%LOCALAPPDATA%/copilot-language-server-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coppelia-bin
+  name: AUR coppelia-bin macos cache (wave 53)
+  description: AUR leftover name coppelia-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coppelia-bin"
+  - "$HOME/Library/Logs/coppelia-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coppelia-bin
+  name: AUR coppelia-bin linux cache (wave 53)
+  description: AUR leftover name coppelia-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coppelia-bin"
+  - "$XDG_CACHE_HOME/coppelia-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coppelia-bin
+  name: AUR coppelia-bin windows cache (wave 53)
+  description: AUR leftover name coppelia-bin on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coppelia-bin/Cache"
+  - "%LOCALAPPDATA%/coppelia-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coppelia-git
+  name: AUR coppelia-git macos cache (wave 53)
+  description: AUR leftover name coppelia-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coppelia-git"
+  - "$HOME/Library/Logs/coppelia-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coppelia-git
+  name: AUR coppelia-git linux cache (wave 53)
+  description: AUR leftover name coppelia-git on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coppelia-git"
+  - "$XDG_CACHE_HOME/coppelia-git"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coppelia-git
+  name: AUR coppelia-git windows cache (wave 53)
+  description: AUR leftover name coppelia-git on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coppelia-git/Cache"
+  - "%LOCALAPPDATA%/coppelia-git/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-coppeliasim-bin
+  name: AUR coppeliasim-bin macos cache (wave 53)
+  description: AUR leftover name coppeliasim-bin on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/coppeliasim-bin"
+  - "$HOME/Library/Logs/coppeliasim-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-coppeliasim-bin
+  name: AUR coppeliasim-bin linux cache (wave 53)
+  description: AUR leftover name coppeliasim-bin on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/coppeliasim-bin"
+  - "$XDG_CACHE_HOME/coppeliasim-bin"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-coppeliasim-bin
+  name: AUR coppeliasim-bin windows cache (wave 53)
+  description: AUR leftover name coppeliasim-bin on windows (wave 53). Caches/logs
+    only, not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/coppeliasim-bin/Cache"
+  - "%LOCALAPPDATA%/coppeliasim-bin/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copperspice
+  name: AUR copperspice macos cache (wave 53)
+  description: AUR leftover name copperspice on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copperspice"
+  - "$HOME/Library/Logs/copperspice"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-lin-copperspice
+  name: AUR copperspice linux cache (wave 53)
+  description: AUR leftover name copperspice on linux (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/copperspice"
+  - "$XDG_CACHE_HOME/copperspice"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-win-copperspice
+  name: AUR copperspice windows cache (wave 53)
+  description: AUR leftover name copperspice on windows (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/copperspice/Cache"
+  - "%LOCALAPPDATA%/copperspice/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: au53-mac-copperspice-git
+  name: AUR copperspice-git macos cache (wave 53)
+  description: AUR leftover name copperspice-git on macos (wave 53). Caches/logs only,
+    not configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/copperspice-git"
+  - "$HOME/Library/Logs/copperspice-git"
+  delete_mode: contents
+  max_depth: 6

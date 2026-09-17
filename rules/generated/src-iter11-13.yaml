@@ -1,0 +1,5590 @@
+---
+pack: src-iter11-13
+description: Iterative 10k import wave 11 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np11-mac-glmdisc
+  name: Nixpkgs glmdisc macos cache (wave 11)
+  description: Nixpkgs leftover pname glmdisc on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmdisc"
+  - "$HOME/Library/Logs/glmdisc"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmdisc
+  name: Nixpkgs glmdisc linux cache (wave 11)
+  description: Nixpkgs leftover pname glmdisc on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmdisc"
+  - "$XDG_CACHE_HOME/glmdisc"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmdisc
+  name: Nixpkgs glmdisc windows cache (wave 11)
+  description: Nixpkgs leftover pname glmdisc on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmdisc/Cache"
+  - "%LOCALAPPDATA%/glmdisc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmdm
+  name: Nixpkgs glmdm macos cache (wave 11)
+  description: Nixpkgs leftover pname glmdm on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmdm"
+  - "$HOME/Library/Logs/glmdm"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmdm
+  name: Nixpkgs glmdm linux cache (wave 11)
+  description: Nixpkgs leftover pname glmdm on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmdm"
+  - "$XDG_CACHE_HOME/glmdm"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmdm
+  name: Nixpkgs glmdm windows cache (wave 11)
+  description: Nixpkgs leftover pname glmdm on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmdm/Cache"
+  - "%LOCALAPPDATA%/glmdm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glme
+  name: Nixpkgs glme macos cache (wave 11)
+  description: Nixpkgs leftover pname glme on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glme"
+  - "$HOME/Library/Logs/glme"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glme
+  name: Nixpkgs glme linux cache (wave 11)
+  description: Nixpkgs leftover pname glme on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glme"
+  - "$XDG_CACHE_HOME/glme"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glme
+  name: Nixpkgs glme windows cache (wave 11)
+  description: Nixpkgs leftover pname glme on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glme/Cache"
+  - "%LOCALAPPDATA%/glme/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmertree
+  name: Nixpkgs glmertree macos cache (wave 11)
+  description: Nixpkgs leftover pname glmertree on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmertree"
+  - "$HOME/Library/Logs/glmertree"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmertree
+  name: Nixpkgs glmertree linux cache (wave 11)
+  description: Nixpkgs leftover pname glmertree on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmertree"
+  - "$XDG_CACHE_HOME/glmertree"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmertree
+  name: Nixpkgs glmertree windows cache (wave 11)
+  description: Nixpkgs leftover pname glmertree on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmertree/Cache"
+  - "%LOCALAPPDATA%/glmertree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmfitmiss
+  name: Nixpkgs glmfitmiss macos cache (wave 11)
+  description: Nixpkgs leftover pname glmfitmiss on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmfitmiss"
+  - "$HOME/Library/Logs/glmfitmiss"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmfitmiss
+  name: Nixpkgs glmfitmiss linux cache (wave 11)
+  description: Nixpkgs leftover pname glmfitmiss on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmfitmiss"
+  - "$XDG_CACHE_HOME/glmfitmiss"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmfitmiss
+  name: Nixpkgs glmfitmiss windows cache (wave 11)
+  description: Nixpkgs leftover pname glmfitmiss on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmfitmiss/Cache"
+  - "%LOCALAPPDATA%/glmfitmiss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmglrt
+  name: Nixpkgs glmglrt macos cache (wave 11)
+  description: Nixpkgs leftover pname glmglrt on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmglrt"
+  - "$HOME/Library/Logs/glmglrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmglrt
+  name: Nixpkgs glmglrt linux cache (wave 11)
+  description: Nixpkgs leftover pname glmglrt on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmglrt"
+  - "$XDG_CACHE_HOME/glmglrt"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmglrt
+  name: Nixpkgs glmglrt windows cache (wave 11)
+  description: Nixpkgs leftover pname glmglrt on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmglrt/Cache"
+  - "%LOCALAPPDATA%/glmglrt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmlep
+  name: Nixpkgs glmlep macos cache (wave 11)
+  description: Nixpkgs leftover pname glmlep on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmlep"
+  - "$HOME/Library/Logs/glmlep"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmlep
+  name: Nixpkgs glmlep linux cache (wave 11)
+  description: Nixpkgs leftover pname glmlep on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmlep"
+  - "$XDG_CACHE_HOME/glmlep"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmlep
+  name: Nixpkgs glmlep windows cache (wave 11)
+  description: Nixpkgs leftover pname glmlep on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmlep/Cache"
+  - "%LOCALAPPDATA%/glmlep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmm
+  name: Nixpkgs glmm macos cache (wave 11)
+  description: Nixpkgs leftover pname glmm on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmm"
+  - "$HOME/Library/Logs/glmm"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmm
+  name: Nixpkgs glmm linux cache (wave 11)
+  description: Nixpkgs leftover pname glmm on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmm"
+  - "$XDG_CACHE_HOME/glmm"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmm
+  name: Nixpkgs glmm windows cache (wave 11)
+  description: Nixpkgs leftover pname glmm on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmm/Cache"
+  - "%LOCALAPPDATA%/glmm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmm-hp
+  name: Nixpkgs glmm.hp macos cache (wave 11)
+  description: Nixpkgs leftover pname glmm.hp on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmm.hp"
+  - "$HOME/Library/Logs/glmm.hp"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmm-hp
+  name: Nixpkgs glmm.hp linux cache (wave 11)
+  description: Nixpkgs leftover pname glmm.hp on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmm.hp"
+  - "$XDG_CACHE_HOME/glmm.hp"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmm-hp
+  name: Nixpkgs glmm.hp windows cache (wave 11)
+  description: Nixpkgs leftover pname glmm.hp on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmm.hp/Cache"
+  - "%LOCALAPPDATA%/glmm.hp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmep
+  name: Nixpkgs glmmEP macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmEP on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmEP"
+  - "$HOME/Library/Logs/glmmEP"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmep
+  name: Nixpkgs glmmEP linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmEP on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmEP"
+  - "$XDG_CACHE_HOME/glmmEP"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmep
+  name: Nixpkgs glmmEP windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmEP on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmEP/Cache"
+  - "%LOCALAPPDATA%/glmmEP/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmfel
+  name: Nixpkgs glmmFEL macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmFEL on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmFEL"
+  - "$HOME/Library/Logs/glmmFEL"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmfel
+  name: Nixpkgs glmmFEL linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmFEL on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmFEL"
+  - "$XDG_CACHE_HOME/glmmFEL"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmfel
+  name: Nixpkgs glmmFEL windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmFEL on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmFEL/Cache"
+  - "%LOCALAPPDATA%/glmmFEL/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmlasso
+  name: Nixpkgs glmmLasso macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmLasso on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmLasso"
+  - "$HOME/Library/Logs/glmmLasso"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmlasso
+  name: Nixpkgs glmmLasso linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmLasso on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmLasso"
+  - "$XDG_CACHE_HOME/glmmLasso"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmlasso
+  name: Nixpkgs glmmLasso windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmLasso on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmLasso/Cache"
+  - "%LOCALAPPDATA%/glmmLasso/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmml
+  name: Nixpkgs glmmML macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmML on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmML"
+  - "$HOME/Library/Logs/glmmML"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmml
+  name: Nixpkgs glmmML linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmML on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmML"
+  - "$XDG_CACHE_HOME/glmmML"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmml
+  name: Nixpkgs glmmML windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmML on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmML/Cache"
+  - "%LOCALAPPDATA%/glmmML/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmpen
+  name: Nixpkgs glmmPen macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmPen on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmPen"
+  - "$HOME/Library/Logs/glmmPen"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmpen
+  name: Nixpkgs glmmPen linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmPen on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmPen"
+  - "$XDG_CACHE_HOME/glmmPen"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmpen
+  name: Nixpkgs glmmPen windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmPen on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmPen/Cache"
+  - "%LOCALAPPDATA%/glmmPen/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmseq
+  name: Nixpkgs glmmSeq macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmSeq on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmSeq"
+  - "$HOME/Library/Logs/glmmSeq"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmseq
+  name: Nixpkgs glmmSeq linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmSeq on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmSeq"
+  - "$XDG_CACHE_HOME/glmmSeq"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmseq
+  name: Nixpkgs glmmSeq windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmSeq on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmSeq/Cache"
+  - "%LOCALAPPDATA%/glmmSeq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmtmb
+  name: Nixpkgs glmmTMB macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmTMB on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmTMB"
+  - "$HOME/Library/Logs/glmmTMB"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmtmb
+  name: Nixpkgs glmmTMB linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmTMB on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmTMB"
+  - "$XDG_CACHE_HOME/glmmTMB"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmtmb
+  name: Nixpkgs glmmTMB windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmTMB on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmTMB/Cache"
+  - "%LOCALAPPDATA%/glmmTMB/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmfields
+  name: Nixpkgs glmmfields macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmfields on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmfields"
+  - "$HOME/Library/Logs/glmmfields"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmfields
+  name: Nixpkgs glmmfields linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmfields on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmfields"
+  - "$XDG_CACHE_HOME/glmmfields"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmfields
+  name: Nixpkgs glmmfields windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmfields on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmfields/Cache"
+  - "%LOCALAPPDATA%/glmmfields/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmrbase
+  name: Nixpkgs glmmrBase macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmrBase on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmrBase"
+  - "$HOME/Library/Logs/glmmrBase"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmrbase
+  name: Nixpkgs glmmrBase linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmrBase on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmrBase"
+  - "$XDG_CACHE_HOME/glmmrBase"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmrbase
+  name: Nixpkgs glmmrBase windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmrBase on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmrBase/Cache"
+  - "%LOCALAPPDATA%/glmmrBase/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmroptim
+  name: Nixpkgs glmmrOptim macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmrOptim on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmrOptim"
+  - "$HOME/Library/Logs/glmmrOptim"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmroptim
+  name: Nixpkgs glmmrOptim linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmrOptim on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmrOptim"
+  - "$XDG_CACHE_HOME/glmmrOptim"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmroptim
+  name: Nixpkgs glmmrOptim windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmrOptim on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmrOptim/Cache"
+  - "%LOCALAPPDATA%/glmmrOptim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmsel
+  name: Nixpkgs glmmsel macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmsel on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmsel"
+  - "$HOME/Library/Logs/glmmsel"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmsel
+  name: Nixpkgs glmmsel linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmsel on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmsel"
+  - "$XDG_CACHE_HOME/glmmsel"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmsel
+  name: Nixpkgs glmmsel windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmsel on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmsel/Cache"
+  - "%LOCALAPPDATA%/glmmsel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmmsr
+  name: Nixpkgs glmmsr macos cache (wave 11)
+  description: Nixpkgs leftover pname glmmsr on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmmsr"
+  - "$HOME/Library/Logs/glmmsr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmmsr
+  name: Nixpkgs glmmsr linux cache (wave 11)
+  description: Nixpkgs leftover pname glmmsr on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmmsr"
+  - "$XDG_CACHE_HOME/glmmsr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmmsr
+  name: Nixpkgs glmmsr windows cache (wave 11)
+  description: Nixpkgs leftover pname glmmsr on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmmsr/Cache"
+  - "%LOCALAPPDATA%/glmmsr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmnet
+  name: Nixpkgs glmnet macos cache (wave 11)
+  description: Nixpkgs leftover pname glmnet on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmnet"
+  - "$HOME/Library/Logs/glmnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmnet
+  name: Nixpkgs glmnet linux cache (wave 11)
+  description: Nixpkgs leftover pname glmnet on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmnet"
+  - "$XDG_CACHE_HOME/glmnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmnet
+  name: Nixpkgs glmnet windows cache (wave 11)
+  description: Nixpkgs leftover pname glmnet on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmnet/Cache"
+  - "%LOCALAPPDATA%/glmnet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmnetse
+  name: Nixpkgs glmnetSE macos cache (wave 11)
+  description: Nixpkgs leftover pname glmnetSE on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmnetSE"
+  - "$HOME/Library/Logs/glmnetSE"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmnetse
+  name: Nixpkgs glmnetSE linux cache (wave 11)
+  description: Nixpkgs leftover pname glmnetSE on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmnetSE"
+  - "$XDG_CACHE_HOME/glmnetSE"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmnetse
+  name: Nixpkgs glmnetSE windows cache (wave 11)
+  description: Nixpkgs leftover pname glmnetSE on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmnetSE/Cache"
+  - "%LOCALAPPDATA%/glmnetSE/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmnetutils
+  name: Nixpkgs glmnetUtils macos cache (wave 11)
+  description: Nixpkgs leftover pname glmnetUtils on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmnetUtils"
+  - "$HOME/Library/Logs/glmnetUtils"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmnetutils
+  name: Nixpkgs glmnetUtils linux cache (wave 11)
+  description: Nixpkgs leftover pname glmnetUtils on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmnetUtils"
+  - "$XDG_CACHE_HOME/glmnetUtils"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmnetutils
+  name: Nixpkgs glmnetUtils windows cache (wave 11)
+  description: Nixpkgs leftover pname glmnetUtils on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmnetUtils/Cache"
+  - "%LOCALAPPDATA%/glmnetUtils/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmnetcr
+  name: Nixpkgs glmnetcr macos cache (wave 11)
+  description: Nixpkgs leftover pname glmnetcr on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmnetcr"
+  - "$HOME/Library/Logs/glmnetcr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmnetcr
+  name: Nixpkgs glmnetcr linux cache (wave 11)
+  description: Nixpkgs leftover pname glmnetcr on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmnetcr"
+  - "$XDG_CACHE_HOME/glmnetcr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmnetcr
+  name: Nixpkgs glmnetcr windows cache (wave 11)
+  description: Nixpkgs leftover pname glmnetcr on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmnetcr/Cache"
+  - "%LOCALAPPDATA%/glmnetcr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmnetr
+  name: Nixpkgs glmnetr macos cache (wave 11)
+  description: Nixpkgs leftover pname glmnetr on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmnetr"
+  - "$HOME/Library/Logs/glmnetr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmnetr
+  name: Nixpkgs glmnetr linux cache (wave 11)
+  description: Nixpkgs leftover pname glmnetr on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmnetr"
+  - "$XDG_CACHE_HOME/glmnetr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmnetr
+  name: Nixpkgs glmnetr windows cache (wave 11)
+  description: Nixpkgs leftover pname glmnetr on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmnetr/Cache"
+  - "%LOCALAPPDATA%/glmnetr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmpath
+  name: Nixpkgs glmpath macos cache (wave 11)
+  description: Nixpkgs leftover pname glmpath on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmpath"
+  - "$HOME/Library/Logs/glmpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmpath
+  name: Nixpkgs glmpath linux cache (wave 11)
+  description: Nixpkgs leftover pname glmpath on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmpath"
+  - "$XDG_CACHE_HOME/glmpath"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmpath
+  name: Nixpkgs glmpath windows cache (wave 11)
+  description: Nixpkgs leftover pname glmpath on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmpath/Cache"
+  - "%LOCALAPPDATA%/glmpath/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmpathcr
+  name: Nixpkgs glmpathcr macos cache (wave 11)
+  description: Nixpkgs leftover pname glmpathcr on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmpathcr"
+  - "$HOME/Library/Logs/glmpathcr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmpathcr
+  name: Nixpkgs glmpathcr linux cache (wave 11)
+  description: Nixpkgs leftover pname glmpathcr on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmpathcr"
+  - "$XDG_CACHE_HOME/glmpathcr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmpathcr
+  name: Nixpkgs glmpathcr windows cache (wave 11)
+  description: Nixpkgs leftover pname glmpathcr on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmpathcr/Cache"
+  - "%LOCALAPPDATA%/glmpathcr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmpca
+  name: Nixpkgs glmpca macos cache (wave 11)
+  description: Nixpkgs leftover pname glmpca on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmpca"
+  - "$HOME/Library/Logs/glmpca"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmpca
+  name: Nixpkgs glmpca linux cache (wave 11)
+  description: Nixpkgs leftover pname glmpca on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmpca"
+  - "$XDG_CACHE_HOME/glmpca"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmpca
+  name: Nixpkgs glmpca windows cache (wave 11)
+  description: Nixpkgs leftover pname glmpca on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmpca/Cache"
+  - "%LOCALAPPDATA%/glmpca/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmpermu
+  name: Nixpkgs glmpermu macos cache (wave 11)
+  description: Nixpkgs leftover pname glmpermu on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmpermu"
+  - "$HOME/Library/Logs/glmpermu"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmpermu
+  name: Nixpkgs glmpermu linux cache (wave 11)
+  description: Nixpkgs leftover pname glmpermu on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmpermu"
+  - "$XDG_CACHE_HOME/glmpermu"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmpermu
+  name: Nixpkgs glmpermu windows cache (wave 11)
+  description: Nixpkgs leftover pname glmpermu on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmpermu/Cache"
+  - "%LOCALAPPDATA%/glmpermu/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmtlp
+  name: Nixpkgs glmtlp macos cache (wave 11)
+  description: Nixpkgs leftover pname glmtlp on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmtlp"
+  - "$HOME/Library/Logs/glmtlp"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmtlp
+  name: Nixpkgs glmtlp linux cache (wave 11)
+  description: Nixpkgs leftover pname glmtlp on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmtlp"
+  - "$XDG_CACHE_HOME/glmtlp"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmtlp
+  name: Nixpkgs glmtlp windows cache (wave 11)
+  description: Nixpkgs leftover pname glmtlp on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmtlp/Cache"
+  - "%LOCALAPPDATA%/glmtlp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmtoolbox
+  name: Nixpkgs glmtoolbox macos cache (wave 11)
+  description: Nixpkgs leftover pname glmtoolbox on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmtoolbox"
+  - "$HOME/Library/Logs/glmtoolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmtoolbox
+  name: Nixpkgs glmtoolbox linux cache (wave 11)
+  description: Nixpkgs leftover pname glmtoolbox on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmtoolbox"
+  - "$XDG_CACHE_HOME/glmtoolbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmtoolbox
+  name: Nixpkgs glmtoolbox windows cache (wave 11)
+  description: Nixpkgs leftover pname glmtoolbox on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmtoolbox/Cache"
+  - "%LOCALAPPDATA%/glmtoolbox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmtrans
+  name: Nixpkgs glmtrans macos cache (wave 11)
+  description: Nixpkgs leftover pname glmtrans on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmtrans"
+  - "$HOME/Library/Logs/glmtrans"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmtrans
+  name: Nixpkgs glmtrans linux cache (wave 11)
+  description: Nixpkgs leftover pname glmtrans on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmtrans"
+  - "$XDG_CACHE_HOME/glmtrans"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmtrans
+  name: Nixpkgs glmtrans windows cache (wave 11)
+  description: Nixpkgs leftover pname glmtrans on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmtrans/Cache"
+  - "%LOCALAPPDATA%/glmtrans/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmtree
+  name: Nixpkgs glmtree macos cache (wave 11)
+  description: Nixpkgs leftover pname glmtree on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmtree"
+  - "$HOME/Library/Logs/glmtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmtree
+  name: Nixpkgs glmtree linux cache (wave 11)
+  description: Nixpkgs leftover pname glmtree on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmtree"
+  - "$XDG_CACHE_HOME/glmtree"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmtree
+  name: Nixpkgs glmtree windows cache (wave 11)
+  description: Nixpkgs leftover pname glmtree on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmtree/Cache"
+  - "%LOCALAPPDATA%/glmtree/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmulti
+  name: Nixpkgs glmulti macos cache (wave 11)
+  description: Nixpkgs leftover pname glmulti on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmulti"
+  - "$HOME/Library/Logs/glmulti"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmulti
+  name: Nixpkgs glmulti linux cache (wave 11)
+  description: Nixpkgs leftover pname glmulti on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmulti"
+  - "$XDG_CACHE_HOME/glmulti"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmulti
+  name: Nixpkgs glmulti windows cache (wave 11)
+  description: Nixpkgs leftover pname glmulti on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmulti/Cache"
+  - "%LOCALAPPDATA%/glmulti/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmvsd
+  name: Nixpkgs glmvsd macos cache (wave 11)
+  description: Nixpkgs leftover pname glmvsd on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmvsd"
+  - "$HOME/Library/Logs/glmvsd"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmvsd
+  name: Nixpkgs glmvsd linux cache (wave 11)
+  description: Nixpkgs leftover pname glmvsd on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmvsd"
+  - "$XDG_CACHE_HOME/glmvsd"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmvsd
+  name: Nixpkgs glmvsd windows cache (wave 11)
+  description: Nixpkgs leftover pname glmvsd on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmvsd/Cache"
+  - "%LOCALAPPDATA%/glmvsd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmx
+  name: Nixpkgs glmx macos cache (wave 11)
+  description: Nixpkgs leftover pname glmx on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmx"
+  - "$HOME/Library/Logs/glmx"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmx
+  name: Nixpkgs glmx linux cache (wave 11)
+  description: Nixpkgs leftover pname glmx on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmx"
+  - "$XDG_CACHE_HOME/glmx"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmx
+  name: Nixpkgs glmx windows cache (wave 11)
+  description: Nixpkgs leftover pname glmx on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmx/Cache"
+  - "%LOCALAPPDATA%/glmx/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glmxdiag
+  name: Nixpkgs glmxdiag macos cache (wave 11)
+  description: Nixpkgs leftover pname glmxdiag on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glmxdiag"
+  - "$HOME/Library/Logs/glmxdiag"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glmxdiag
+  name: Nixpkgs glmxdiag linux cache (wave 11)
+  description: Nixpkgs leftover pname glmxdiag on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glmxdiag"
+  - "$XDG_CACHE_HOME/glmxdiag"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glmxdiag
+  name: Nixpkgs glmxdiag windows cache (wave 11)
+  description: Nixpkgs leftover pname glmxdiag on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glmxdiag/Cache"
+  - "%LOCALAPPDATA%/glmxdiag/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globfpr
+  name: Nixpkgs gloBFPr macos cache (wave 11)
+  description: Nixpkgs leftover pname gloBFPr on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloBFPr"
+  - "$HOME/Library/Logs/gloBFPr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globfpr
+  name: Nixpkgs gloBFPr linux cache (wave 11)
+  description: Nixpkgs leftover pname gloBFPr on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloBFPr"
+  - "$XDG_CACHE_HOME/gloBFPr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globfpr
+  name: Nixpkgs gloBFPr windows cache (wave 11)
+  description: Nixpkgs leftover pname gloBFPr on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloBFPr/Cache"
+  - "%LOCALAPPDATA%/gloBFPr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloat
+  name: Nixpkgs gloat macos cache (wave 11)
+  description: Nixpkgs leftover pname gloat on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloat"
+  - "$HOME/Library/Logs/gloat"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloat
+  name: Nixpkgs gloat linux cache (wave 11)
+  description: Nixpkgs leftover pname gloat on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloat"
+  - "$XDG_CACHE_HOME/gloat"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloat
+  name: Nixpkgs gloat windows cache (wave 11)
+  description: Nixpkgs leftover pname gloat on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloat/Cache"
+  - "%LOCALAPPDATA%/gloat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glob-imports
+  name: Nixpkgs glob-imports macos cache (wave 11)
+  description: Nixpkgs leftover pname glob-imports on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glob-imports"
+  - "$HOME/Library/Logs/glob-imports"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glob-imports
+  name: Nixpkgs glob-imports linux cache (wave 11)
+  description: Nixpkgs leftover pname glob-imports on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glob-imports"
+  - "$XDG_CACHE_HOME/glob-imports"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glob-imports
+  name: Nixpkgs glob-imports windows cache (wave 11)
+  description: Nixpkgs leftover pname glob-imports on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glob-imports/Cache"
+  - "%LOCALAPPDATA%/glob-imports/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glob-posix
+  name: Nixpkgs glob-posix macos cache (wave 11)
+  description: Nixpkgs leftover pname glob-posix on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glob-posix"
+  - "$HOME/Library/Logs/glob-posix"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glob-posix
+  name: Nixpkgs glob-posix linux cache (wave 11)
+  description: Nixpkgs leftover pname glob-posix on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glob-posix"
+  - "$XDG_CACHE_HOME/glob-posix"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glob-posix
+  name: Nixpkgs glob-posix windows cache (wave 11)
+  description: Nixpkgs leftover pname glob-posix on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glob-posix/Cache"
+  - "%LOCALAPPDATA%/glob-posix/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glob2
+  name: Nixpkgs glob2 macos cache (wave 11)
+  description: Nixpkgs leftover pname glob2 on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glob2"
+  - "$HOME/Library/Logs/glob2"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glob2
+  name: Nixpkgs glob2 linux cache (wave 11)
+  description: Nixpkgs leftover pname glob2 on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glob2"
+  - "$XDG_CACHE_HOME/glob2"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glob2
+  name: Nixpkgs glob2 windows cache (wave 11)
+  description: Nixpkgs leftover pname glob2 on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glob2/Cache"
+  - "%LOCALAPPDATA%/glob2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global
+  name: Nixpkgs global macos cache (wave 11)
+  description: Nixpkgs leftover pname global on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global"
+  - "$HOME/Library/Logs/global"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global
+  name: Nixpkgs global linux cache (wave 11)
+  description: Nixpkgs leftover pname global on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global"
+  - "$XDG_CACHE_HOME/global"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global
+  name: Nixpkgs global windows cache (wave 11)
+  description: Nixpkgs leftover pname global on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global/Cache"
+  - "%LOCALAPPDATA%/global/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-config
+  name: Nixpkgs global-config macos cache (wave 11)
+  description: Nixpkgs leftover pname global-config on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-config"
+  - "$HOME/Library/Logs/global-config"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-config
+  name: Nixpkgs global-config linux cache (wave 11)
+  description: Nixpkgs leftover pname global-config on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-config"
+  - "$XDG_CACHE_HOME/global-config"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-config
+  name: Nixpkgs global-config windows cache (wave 11)
+  description: Nixpkgs leftover pname global-config on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-config/Cache"
+  - "%LOCALAPPDATA%/global-config/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-lock
+  name: Nixpkgs global-lock macos cache (wave 11)
+  description: Nixpkgs leftover pname global-lock on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-lock"
+  - "$HOME/Library/Logs/global-lock"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-lock
+  name: Nixpkgs global-lock linux cache (wave 11)
+  description: Nixpkgs leftover pname global-lock on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-lock"
+  - "$XDG_CACHE_HOME/global-lock"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-lock
+  name: Nixpkgs global-lock windows cache (wave 11)
+  description: Nixpkgs leftover pname global-lock on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-lock/Cache"
+  - "%LOCALAPPDATA%/global-lock/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-platform-pro
+  name: Nixpkgs global-platform-pro macos cache (wave 11)
+  description: Nixpkgs leftover pname global-platform-pro on macos (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-platform-pro"
+  - "$HOME/Library/Logs/global-platform-pro"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-platform-pro
+  name: Nixpkgs global-platform-pro linux cache (wave 11)
+  description: Nixpkgs leftover pname global-platform-pro on linux (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-platform-pro"
+  - "$XDG_CACHE_HOME/global-platform-pro"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-platform-pro
+  name: Nixpkgs global-platform-pro windows cache (wave 11)
+  description: Nixpkgs leftover pname global-platform-pro on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-platform-pro/Cache"
+  - "%LOCALAPPDATA%/global-platform-pro/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-tags
+  name: Nixpkgs global-tags macos cache (wave 11)
+  description: Nixpkgs leftover pname global-tags on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-tags"
+  - "$HOME/Library/Logs/global-tags"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-tags
+  name: Nixpkgs global-tags linux cache (wave 11)
+  description: Nixpkgs leftover pname global-tags on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-tags"
+  - "$XDG_CACHE_HOME/global-tags"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-tags
+  name: Nixpkgs global-tags windows cache (wave 11)
+  description: Nixpkgs leftover pname global-tags on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-tags/Cache"
+  - "%LOCALAPPDATA%/global-tags/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-variables
+  name: Nixpkgs global-variables macos cache (wave 11)
+  description: Nixpkgs leftover pname global-variables on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-variables"
+  - "$HOME/Library/Logs/global-variables"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-variables
+  name: Nixpkgs global-variables linux cache (wave 11)
+  description: Nixpkgs leftover pname global-variables on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-variables"
+  - "$XDG_CACHE_HOME/global-variables"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-variables
+  name: Nixpkgs global-variables windows cache (wave 11)
+  description: Nixpkgs leftover pname global-variables on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-variables/Cache"
+  - "%LOCALAPPDATA%/global-variables/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-vars
+  name: Nixpkgs global-vars macos cache (wave 11)
+  description: Nixpkgs leftover pname global-vars on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-vars"
+  - "$HOME/Library/Logs/global-vars"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-vars
+  name: Nixpkgs global-vars linux cache (wave 11)
+  description: Nixpkgs leftover pname global-vars on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-vars"
+  - "$XDG_CACHE_HOME/global-vars"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-vars
+  name: Nixpkgs global-vars windows cache (wave 11)
+  description: Nixpkgs leftover pname global-vars on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-vars/Cache"
+  - "%LOCALAPPDATA%/global-vars/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-global-vars-test
+  name: Nixpkgs global-vars-test macos cache (wave 11)
+  description: Nixpkgs leftover pname global-vars-test on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/global-vars-test"
+  - "$HOME/Library/Logs/global-vars-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-global-vars-test
+  name: Nixpkgs global-vars-test linux cache (wave 11)
+  description: Nixpkgs leftover pname global-vars-test on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/global-vars-test"
+  - "$XDG_CACHE_HOME/global-vars-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-global-vars-test
+  name: Nixpkgs global-vars-test windows cache (wave 11)
+  description: Nixpkgs leftover pname global-vars-test on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/global-vars-test/Cache"
+  - "%LOCALAPPDATA%/global-vars-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalgsa
+  name: Nixpkgs globalGSA macos cache (wave 11)
+  description: Nixpkgs leftover pname globalGSA on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalGSA"
+  - "$HOME/Library/Logs/globalGSA"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalgsa
+  name: Nixpkgs globalGSA linux cache (wave 11)
+  description: Nixpkgs leftover pname globalGSA on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalGSA"
+  - "$XDG_CACHE_HOME/globalGSA"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalgsa
+  name: Nixpkgs globalGSA windows cache (wave 11)
+  description: Nixpkgs leftover pname globalGSA on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalGSA/Cache"
+  - "%LOCALAPPDATA%/globalGSA/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalkinhom
+  name: Nixpkgs globalKinhom macos cache (wave 11)
+  description: Nixpkgs leftover pname globalKinhom on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalKinhom"
+  - "$HOME/Library/Logs/globalKinhom"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalkinhom
+  name: Nixpkgs globalKinhom linux cache (wave 11)
+  description: Nixpkgs leftover pname globalKinhom on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalKinhom"
+  - "$XDG_CACHE_HOME/globalKinhom"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalkinhom
+  name: Nixpkgs globalKinhom windows cache (wave 11)
+  description: Nixpkgs leftover pname globalKinhom on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalKinhom/Cache"
+  - "%LOCALAPPDATA%/globalKinhom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalopttests
+  name: Nixpkgs globalOptTests macos cache (wave 11)
+  description: Nixpkgs leftover pname globalOptTests on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalOptTests"
+  - "$HOME/Library/Logs/globalOptTests"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalopttests
+  name: Nixpkgs globalOptTests linux cache (wave 11)
+  description: Nixpkgs leftover pname globalOptTests on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalOptTests"
+  - "$XDG_CACHE_HOME/globalOptTests"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalopttests
+  name: Nixpkgs globalOptTests windows cache (wave 11)
+  description: Nixpkgs leftover pname globalOptTests on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalOptTests/Cache"
+  - "%LOCALAPPDATA%/globalOptTests/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalseq
+  name: Nixpkgs globalSeq macos cache (wave 11)
+  description: Nixpkgs leftover pname globalSeq on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalSeq"
+  - "$HOME/Library/Logs/globalSeq"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalseq
+  name: Nixpkgs globalSeq linux cache (wave 11)
+  description: Nixpkgs leftover pname globalSeq on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalSeq"
+  - "$XDG_CACHE_HOME/globalSeq"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalseq
+  name: Nixpkgs globalSeq windows cache (wave 11)
+  description: Nixpkgs leftover pname globalSeq on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalSeq/Cache"
+  - "%LOCALAPPDATA%/globalSeq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalarrays
+  name: Nixpkgs globalarrays macos cache (wave 11)
+  description: Nixpkgs leftover pname globalarrays on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalarrays"
+  - "$HOME/Library/Logs/globalarrays"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalarrays
+  name: Nixpkgs globalarrays linux cache (wave 11)
+  description: Nixpkgs leftover pname globalarrays on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalarrays"
+  - "$XDG_CACHE_HOME/globalarrays"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalarrays
+  name: Nixpkgs globalarrays windows cache (wave 11)
+  description: Nixpkgs leftover pname globalarrays on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalarrays/Cache"
+  - "%LOCALAPPDATA%/globalarrays/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalid
+  name: Nixpkgs globalid macos cache (wave 11)
+  description: Nixpkgs leftover pname globalid on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalid"
+  - "$HOME/Library/Logs/globalid"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalid
+  name: Nixpkgs globalid linux cache (wave 11)
+  description: Nixpkgs leftover pname globalid on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalid"
+  - "$XDG_CACHE_HOME/globalid"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalid
+  name: Nixpkgs globalid windows cache (wave 11)
+  description: Nixpkgs leftover pname globalid on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalid/Cache"
+  - "%LOCALAPPDATA%/globalid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalping-cli
+  name: Nixpkgs globalping-cli macos cache (wave 11)
+  description: Nixpkgs leftover pname globalping-cli on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalping-cli"
+  - "$HOME/Library/Logs/globalping-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalping-cli
+  name: Nixpkgs globalping-cli linux cache (wave 11)
+  description: Nixpkgs leftover pname globalping-cli on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalping-cli"
+  - "$XDG_CACHE_HOME/globalping-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalping-cli
+  name: Nixpkgs globalping-cli windows cache (wave 11)
+  description: Nixpkgs leftover pname globalping-cli on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalping-cli/Cache"
+  - "%LOCALAPPDATA%/globalping-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalplatform
+  name: Nixpkgs globalplatform macos cache (wave 11)
+  description: Nixpkgs leftover pname globalplatform on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalplatform"
+  - "$HOME/Library/Logs/globalplatform"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalplatform
+  name: Nixpkgs globalplatform linux cache (wave 11)
+  description: Nixpkgs leftover pname globalplatform on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalplatform"
+  - "$XDG_CACHE_HOME/globalplatform"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalplatform
+  name: Nixpkgs globalplatform windows cache (wave 11)
+  description: Nixpkgs leftover pname globalplatform on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalplatform/Cache"
+  - "%LOCALAPPDATA%/globalplatform/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globals
+  name: Nixpkgs globals macos cache (wave 11)
+  description: Nixpkgs leftover pname globals on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globals"
+  - "$HOME/Library/Logs/globals"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globals
+  name: Nixpkgs globals linux cache (wave 11)
+  description: Nixpkgs leftover pname globals on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globals"
+  - "$XDG_CACHE_HOME/globals"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globals
+  name: Nixpkgs globals windows cache (wave 11)
+  description: Nixpkgs leftover pname globals on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globals/Cache"
+  - "%LOCALAPPDATA%/globals/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globaltest
+  name: Nixpkgs globaltest macos cache (wave 11)
+  description: Nixpkgs leftover pname globaltest on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globaltest"
+  - "$HOME/Library/Logs/globaltest"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globaltest
+  name: Nixpkgs globaltest linux cache (wave 11)
+  description: Nixpkgs leftover pname globaltest on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globaltest"
+  - "$XDG_CACHE_HOME/globaltest"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globaltest
+  name: Nixpkgs globaltest windows cache (wave 11)
+  description: Nixpkgs leftover pname globaltest on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globaltest/Cache"
+  - "%LOCALAPPDATA%/globaltest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globaltrends
+  name: Nixpkgs globaltrends macos cache (wave 11)
+  description: Nixpkgs leftover pname globaltrends on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globaltrends"
+  - "$HOME/Library/Logs/globaltrends"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globaltrends
+  name: Nixpkgs globaltrends linux cache (wave 11)
+  description: Nixpkgs leftover pname globaltrends on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globaltrends"
+  - "$XDG_CACHE_HOME/globaltrends"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globaltrends
+  name: Nixpkgs globaltrends windows cache (wave 11)
+  description: Nixpkgs leftover pname globaltrends on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globaltrends/Cache"
+  - "%LOCALAPPDATA%/globaltrends/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globalvals
+  name: Nixpkgs globalvals macos cache (wave 11)
+  description: Nixpkgs leftover pname globalvals on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globalvals"
+  - "$HOME/Library/Logs/globalvals"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globalvals
+  name: Nixpkgs globalvals linux cache (wave 11)
+  description: Nixpkgs leftover pname globalvals on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globalvals"
+  - "$XDG_CACHE_HOME/globalvals"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globalvals
+  name: Nixpkgs globalvals windows cache (wave 11)
+  description: Nixpkgs leftover pname globalvals on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globalvals/Cache"
+  - "%LOCALAPPDATA%/globalvals/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globe
+  name: Nixpkgs globe macos cache (wave 11)
+  description: Nixpkgs leftover pname globe on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globe"
+  - "$HOME/Library/Logs/globe"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globe
+  name: Nixpkgs globe linux cache (wave 11)
+  description: Nixpkgs leftover pname globe on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globe"
+  - "$XDG_CACHE_HOME/globe"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globe
+  name: Nixpkgs globe windows cache (wave 11)
+  description: Nixpkgs leftover pname globe on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globe/Cache"
+  - "%LOCALAPPDATA%/globe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globe-cli
+  name: Nixpkgs globe-cli macos cache (wave 11)
+  description: Nixpkgs leftover pname globe-cli on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globe-cli"
+  - "$HOME/Library/Logs/globe-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globe-cli
+  name: Nixpkgs globe-cli linux cache (wave 11)
+  description: Nixpkgs leftover pname globe-cli on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globe-cli"
+  - "$XDG_CACHE_HOME/globe-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globe-cli
+  name: Nixpkgs globe-cli windows cache (wave 11)
+  description: Nixpkgs leftover pname globe-cli on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globe-cli/Cache"
+  - "%LOCALAPPDATA%/globe-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glober
+  name: Nixpkgs glober macos cache (wave 11)
+  description: Nixpkgs leftover pname glober on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glober"
+  - "$HOME/Library/Logs/glober"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glober
+  name: Nixpkgs glober linux cache (wave 11)
+  description: Nixpkgs leftover pname glober on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glober"
+  - "$XDG_CACHE_HOME/glober"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glober
+  name: Nixpkgs glober windows cache (wave 11)
+  description: Nixpkgs leftover pname glober on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glober/Cache"
+  - "%LOCALAPPDATA%/glober/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globpso
+  name: Nixpkgs globpso macos cache (wave 11)
+  description: Nixpkgs leftover pname globpso on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globpso"
+  - "$HOME/Library/Logs/globpso"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globpso
+  name: Nixpkgs globpso linux cache (wave 11)
+  description: Nixpkgs leftover pname globpso on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globpso"
+  - "$XDG_CACHE_HOME/globpso"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globpso
+  name: Nixpkgs globpso windows cache (wave 11)
+  description: Nixpkgs leftover pname globpso on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globpso/Cache"
+  - "%LOCALAPPDATA%/globpso/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globus
+  name: Nixpkgs globus macos cache (wave 11)
+  description: Nixpkgs leftover pname globus on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globus"
+  - "$HOME/Library/Logs/globus"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globus
+  name: Nixpkgs globus linux cache (wave 11)
+  description: Nixpkgs leftover pname globus on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globus"
+  - "$XDG_CACHE_HOME/globus"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globus
+  name: Nixpkgs globus windows cache (wave 11)
+  description: Nixpkgs leftover pname globus on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globus/Cache"
+  - "%LOCALAPPDATA%/globus/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globus-cli
+  name: Nixpkgs globus-cli macos cache (wave 11)
+  description: Nixpkgs leftover pname globus-cli on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globus-cli"
+  - "$HOME/Library/Logs/globus-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globus-cli
+  name: Nixpkgs globus-cli linux cache (wave 11)
+  description: Nixpkgs leftover pname globus-cli on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globus-cli"
+  - "$XDG_CACHE_HOME/globus-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globus-cli
+  name: Nixpkgs globus-cli windows cache (wave 11)
+  description: Nixpkgs leftover pname globus-cli on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globus-cli/Cache"
+  - "%LOCALAPPDATA%/globus-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-globus-sdk
+  name: Nixpkgs globus-sdk macos cache (wave 11)
+  description: Nixpkgs leftover pname globus-sdk on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/globus-sdk"
+  - "$HOME/Library/Logs/globus-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-globus-sdk
+  name: Nixpkgs globus-sdk linux cache (wave 11)
+  description: Nixpkgs leftover pname globus-sdk on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/globus-sdk"
+  - "$XDG_CACHE_HOME/globus-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-globus-sdk
+  name: Nixpkgs globus-sdk windows cache (wave 11)
+  description: Nixpkgs leftover pname globus-sdk on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/globus-sdk/Cache"
+  - "%LOCALAPPDATA%/globus-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glocaltokens
+  name: Nixpkgs glocaltokens macos cache (wave 11)
+  description: Nixpkgs leftover pname glocaltokens on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glocaltokens"
+  - "$HOME/Library/Logs/glocaltokens"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glocaltokens
+  name: Nixpkgs glocaltokens linux cache (wave 11)
+  description: Nixpkgs leftover pname glocaltokens on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glocaltokens"
+  - "$XDG_CACHE_HOME/glocaltokens"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glocaltokens
+  name: Nixpkgs glocaltokens windows cache (wave 11)
+  description: Nixpkgs leftover pname glocaltokens on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glocaltokens/Cache"
+  - "%LOCALAPPDATA%/glocaltokens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glock
+  name: Nixpkgs glock macos cache (wave 11)
+  description: Nixpkgs leftover pname glock on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glock"
+  - "$HOME/Library/Logs/glock"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glock
+  name: Nixpkgs glock linux cache (wave 11)
+  description: Nixpkgs leftover pname glock on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glock"
+  - "$XDG_CACHE_HOME/glock"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glock
+  name: Nixpkgs glock windows cache (wave 11)
+  description: Nixpkgs leftover pname glock on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glock/Cache"
+  - "%LOCALAPPDATA%/glock/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glog
+  name: Nixpkgs glog macos cache (wave 11)
+  description: Nixpkgs leftover pname glog on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glog"
+  - "$HOME/Library/Logs/glog"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glog
+  name: Nixpkgs glog linux cache (wave 11)
+  description: Nixpkgs leftover pname glog on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glog"
+  - "$XDG_CACHE_HOME/glog"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glog
+  name: Nixpkgs glog windows cache (wave 11)
+  description: Nixpkgs leftover pname glog on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glog/Cache"
+  - "%LOCALAPPDATA%/glog/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glogg
+  name: Nixpkgs glogg macos cache (wave 11)
+  description: Nixpkgs leftover pname glogg on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glogg"
+  - "$HOME/Library/Logs/glogg"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glogg
+  name: Nixpkgs glogg linux cache (wave 11)
+  description: Nixpkgs leftover pname glogg on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glogg"
+  - "$XDG_CACHE_HOME/glogg"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glogg
+  name: Nixpkgs glogg windows cache (wave 11)
+  description: Nixpkgs leftover pname glogg on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glogg/Cache"
+  - "%LOCALAPPDATA%/glogg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glogis
+  name: Nixpkgs glogis macos cache (wave 11)
+  description: Nixpkgs leftover pname glogis on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glogis"
+  - "$HOME/Library/Logs/glogis"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glogis
+  name: Nixpkgs glogis linux cache (wave 11)
+  description: Nixpkgs leftover pname glogis on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glogis"
+  - "$XDG_CACHE_HOME/glogis"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glogis
+  name: Nixpkgs glogis windows cache (wave 11)
+  description: Nixpkgs leftover pname glogis on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glogis/Cache"
+  - "%LOCALAPPDATA%/glogis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glom
+  name: Nixpkgs glom macos cache (wave 11)
+  description: Nixpkgs leftover pname glom on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glom"
+  - "$HOME/Library/Logs/glom"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glom
+  name: Nixpkgs glom linux cache (wave 11)
+  description: Nixpkgs leftover pname glom on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glom"
+  - "$XDG_CACHE_HOME/glom"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glom
+  name: Nixpkgs glom windows cache (wave 11)
+  description: Nixpkgs leftover pname glom on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glom/Cache"
+  - "%LOCALAPPDATA%/glom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glome-hs
+  name: Nixpkgs glome-hs macos cache (wave 11)
+  description: Nixpkgs leftover pname glome-hs on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glome-hs"
+  - "$HOME/Library/Logs/glome-hs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glome-hs
+  name: Nixpkgs glome-hs linux cache (wave 11)
+  description: Nixpkgs leftover pname glome-hs on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glome-hs"
+  - "$XDG_CACHE_HOME/glome-hs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glome-hs
+  name: Nixpkgs glome-hs windows cache (wave 11)
+  description: Nixpkgs leftover pname glome-hs on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glome-hs/Cache"
+  - "%LOCALAPPDATA%/glome-hs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glooctl
+  name: Nixpkgs glooctl macos cache (wave 11)
+  description: Nixpkgs leftover pname glooctl on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glooctl"
+  - "$HOME/Library/Logs/glooctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glooctl
+  name: Nixpkgs glooctl linux cache (wave 11)
+  description: Nixpkgs leftover pname glooctl on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glooctl"
+  - "$XDG_CACHE_HOME/glooctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glooctl
+  name: Nixpkgs glooctl windows cache (wave 11)
+  description: Nixpkgs leftover pname glooctl on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glooctl/Cache"
+  - "%LOCALAPPDATA%/glooctl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloox
+  name: Nixpkgs gloox macos cache (wave 11)
+  description: Nixpkgs leftover pname gloox on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloox"
+  - "$HOME/Library/Logs/gloox"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloox
+  name: Nixpkgs gloox linux cache (wave 11)
+  description: Nixpkgs leftover pname gloox on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloox"
+  - "$XDG_CACHE_HOME/gloox"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloox
+  name: Nixpkgs gloox windows cache (wave 11)
+  description: Nixpkgs leftover pname gloox on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloox/Cache"
+  - "%LOCALAPPDATA%/gloox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glop
+  name: Nixpkgs glop macos cache (wave 11)
+  description: Nixpkgs leftover pname glop on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glop"
+  - "$HOME/Library/Logs/glop"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glop
+  name: Nixpkgs glop linux cache (wave 11)
+  description: Nixpkgs leftover pname glop on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glop"
+  - "$XDG_CACHE_HOME/glop"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glop
+  name: Nixpkgs glop windows cache (wave 11)
+  description: Nixpkgs leftover pname glop on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glop/Cache"
+  - "%LOCALAPPDATA%/glop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glop-test
+  name: Nixpkgs glop-test macos cache (wave 11)
+  description: Nixpkgs leftover pname glop-test on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glop-test"
+  - "$HOME/Library/Logs/glop-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glop-test
+  name: Nixpkgs glop-test linux cache (wave 11)
+  description: Nixpkgs leftover pname glop-test on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glop-test"
+  - "$XDG_CACHE_HOME/glop-test"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glop-test
+  name: Nixpkgs glop-test windows cache (wave 11)
+  description: Nixpkgs leftover pname glop-test on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glop-test/Cache"
+  - "%LOCALAPPDATA%/glop-test/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glorenz
+  name: Nixpkgs glorenz macos cache (wave 11)
+  description: Nixpkgs leftover pname glorenz on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glorenz"
+  - "$HOME/Library/Logs/glorenz"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glorenz
+  name: Nixpkgs glorenz linux cache (wave 11)
+  description: Nixpkgs leftover pname glorenz on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glorenz"
+  - "$XDG_CACHE_HOME/glorenz"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glorenz
+  name: Nixpkgs glorenz windows cache (wave 11)
+  description: Nixpkgs leftover pname glorenz on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glorenz/Cache"
+  - "%LOCALAPPDATA%/glorenz/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glosmathtools
+  name: Nixpkgs glosmathtools macos cache (wave 11)
+  description: Nixpkgs leftover pname glosmathtools on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glosmathtools"
+  - "$HOME/Library/Logs/glosmathtools"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glosmathtools
+  name: Nixpkgs glosmathtools linux cache (wave 11)
+  description: Nixpkgs leftover pname glosmathtools on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glosmathtools"
+  - "$XDG_CACHE_HOME/glosmathtools"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glosmathtools
+  name: Nixpkgs glosmathtools windows cache (wave 11)
+  description: Nixpkgs leftover pname glosmathtools on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glosmathtools/Cache"
+  - "%LOCALAPPDATA%/glosmathtools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss
+  name: Nixpkgs gloss macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss"
+  - "$HOME/Library/Logs/gloss"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss
+  name: Nixpkgs gloss linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss"
+  - "$XDG_CACHE_HOME/gloss"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss
+  name: Nixpkgs gloss windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss/Cache"
+  - "%LOCALAPPDATA%/gloss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-accelerate
+  name: Nixpkgs gloss-accelerate macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-accelerate on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-accelerate"
+  - "$HOME/Library/Logs/gloss-accelerate"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-accelerate
+  name: Nixpkgs gloss-accelerate linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-accelerate on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-accelerate"
+  - "$XDG_CACHE_HOME/gloss-accelerate"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-accelerate
+  name: Nixpkgs gloss-accelerate windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-accelerate on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-accelerate/Cache"
+  - "%LOCALAPPDATA%/gloss-accelerate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-algorithms
+  name: Nixpkgs gloss-algorithms macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-algorithms on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-algorithms"
+  - "$HOME/Library/Logs/gloss-algorithms"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-algorithms
+  name: Nixpkgs gloss-algorithms linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-algorithms on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-algorithms"
+  - "$XDG_CACHE_HOME/gloss-algorithms"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-algorithms
+  name: Nixpkgs gloss-algorithms windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-algorithms on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-algorithms/Cache"
+  - "%LOCALAPPDATA%/gloss-algorithms/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-awe
+  name: Nixpkgs gloss-awe macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-awe on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-awe"
+  - "$HOME/Library/Logs/gloss-awe"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-awe
+  name: Nixpkgs gloss-awe linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-awe on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-awe"
+  - "$XDG_CACHE_HOME/gloss-awe"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-awe
+  name: Nixpkgs gloss-awe windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-awe on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-awe/Cache"
+  - "%LOCALAPPDATA%/gloss-awe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-banana
+  name: Nixpkgs gloss-banana macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-banana on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-banana"
+  - "$HOME/Library/Logs/gloss-banana"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-banana
+  name: Nixpkgs gloss-banana linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-banana on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-banana"
+  - "$XDG_CACHE_HOME/gloss-banana"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-banana
+  name: Nixpkgs gloss-banana windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-banana on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-banana/Cache"
+  - "%LOCALAPPDATA%/gloss-banana/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-devil
+  name: Nixpkgs gloss-devil macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-devil on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-devil"
+  - "$HOME/Library/Logs/gloss-devil"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-devil
+  name: Nixpkgs gloss-devil linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-devil on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-devil"
+  - "$XDG_CACHE_HOME/gloss-devil"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-devil
+  name: Nixpkgs gloss-devil windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-devil on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-devil/Cache"
+  - "%LOCALAPPDATA%/gloss-devil/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-examples
+  name: Nixpkgs gloss-examples macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-examples on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-examples"
+  - "$HOME/Library/Logs/gloss-examples"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-examples
+  name: Nixpkgs gloss-examples linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-examples on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-examples"
+  - "$XDG_CACHE_HOME/gloss-examples"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-examples
+  name: Nixpkgs gloss-examples windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-examples on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-examples/Cache"
+  - "%LOCALAPPDATA%/gloss-examples/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-export
+  name: Nixpkgs gloss-export macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-export on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-export"
+  - "$HOME/Library/Logs/gloss-export"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-export
+  name: Nixpkgs gloss-export linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-export on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-export"
+  - "$XDG_CACHE_HOME/gloss-export"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-export
+  name: Nixpkgs gloss-export windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-export on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-export/Cache"
+  - "%LOCALAPPDATA%/gloss-export/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-game
+  name: Nixpkgs gloss-game macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-game on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-game"
+  - "$HOME/Library/Logs/gloss-game"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-game
+  name: Nixpkgs gloss-game linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-game on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-game"
+  - "$XDG_CACHE_HOME/gloss-game"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-game
+  name: Nixpkgs gloss-game windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-game on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-game/Cache"
+  - "%LOCALAPPDATA%/gloss-game/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-juicy
+  name: Nixpkgs gloss-juicy macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-juicy on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-juicy"
+  - "$HOME/Library/Logs/gloss-juicy"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-juicy
+  name: Nixpkgs gloss-juicy linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-juicy on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-juicy"
+  - "$XDG_CACHE_HOME/gloss-juicy"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-juicy
+  name: Nixpkgs gloss-juicy windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-juicy on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-juicy/Cache"
+  - "%LOCALAPPDATA%/gloss-juicy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-occitan
+  name: Nixpkgs gloss-occitan macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-occitan on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-occitan"
+  - "$HOME/Library/Logs/gloss-occitan"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-occitan
+  name: Nixpkgs gloss-occitan linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-occitan on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-occitan"
+  - "$XDG_CACHE_HOME/gloss-occitan"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-occitan
+  name: Nixpkgs gloss-occitan windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-occitan on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-occitan/Cache"
+  - "%LOCALAPPDATA%/gloss-occitan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-raster
+  name: Nixpkgs gloss-raster macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-raster"
+  - "$HOME/Library/Logs/gloss-raster"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-raster
+  name: Nixpkgs gloss-raster linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-raster"
+  - "$XDG_CACHE_HOME/gloss-raster"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-raster
+  name: Nixpkgs gloss-raster windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-raster/Cache"
+  - "%LOCALAPPDATA%/gloss-raster/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-raster-accelerate
+  name: Nixpkgs gloss-raster-accelerate macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster-accelerate on macos (wave 11).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-raster-accelerate"
+  - "$HOME/Library/Logs/gloss-raster-accelerate"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-raster-accelerate
+  name: Nixpkgs gloss-raster-accelerate linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster-accelerate on linux (wave 11).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-raster-accelerate"
+  - "$XDG_CACHE_HOME/gloss-raster-accelerate"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-raster-accelerate
+  name: Nixpkgs gloss-raster-accelerate windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster-accelerate on windows (wave 11).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-raster-accelerate/Cache"
+  - "%LOCALAPPDATA%/gloss-raster-accelerate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-raster-massiv
+  name: Nixpkgs gloss-raster-massiv macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster-massiv on macos (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-raster-massiv"
+  - "$HOME/Library/Logs/gloss-raster-massiv"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-raster-massiv
+  name: Nixpkgs gloss-raster-massiv linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster-massiv on linux (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-raster-massiv"
+  - "$XDG_CACHE_HOME/gloss-raster-massiv"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-raster-massiv
+  name: Nixpkgs gloss-raster-massiv windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-raster-massiv on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-raster-massiv/Cache"
+  - "%LOCALAPPDATA%/gloss-raster-massiv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-relative
+  name: Nixpkgs gloss-relative macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-relative on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-relative"
+  - "$HOME/Library/Logs/gloss-relative"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-relative
+  name: Nixpkgs gloss-relative linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-relative on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-relative"
+  - "$XDG_CACHE_HOME/gloss-relative"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-relative
+  name: Nixpkgs gloss-relative windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-relative on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-relative/Cache"
+  - "%LOCALAPPDATA%/gloss-relative/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-rendering
+  name: Nixpkgs gloss-rendering macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-rendering on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-rendering"
+  - "$HOME/Library/Logs/gloss-rendering"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-rendering
+  name: Nixpkgs gloss-rendering linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-rendering on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-rendering"
+  - "$XDG_CACHE_HOME/gloss-rendering"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-rendering
+  name: Nixpkgs gloss-rendering windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-rendering on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-rendering/Cache"
+  - "%LOCALAPPDATA%/gloss-rendering/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-gloss-sodium
+  name: Nixpkgs gloss-sodium macos cache (wave 11)
+  description: Nixpkgs leftover pname gloss-sodium on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/gloss-sodium"
+  - "$HOME/Library/Logs/gloss-sodium"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-gloss-sodium
+  name: Nixpkgs gloss-sodium linux cache (wave 11)
+  description: Nixpkgs leftover pname gloss-sodium on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/gloss-sodium"
+  - "$XDG_CACHE_HOME/gloss-sodium"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-gloss-sodium
+  name: Nixpkgs gloss-sodium windows cache (wave 11)
+  description: Nixpkgs leftover pname gloss-sodium on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/gloss-sodium/Cache"
+  - "%LOCALAPPDATA%/gloss-sodium/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossa
+  name: Nixpkgs glossa macos cache (wave 11)
+  description: Nixpkgs leftover pname glossa on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossa"
+  - "$HOME/Library/Logs/glossa"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossa
+  name: Nixpkgs glossa linux cache (wave 11)
+  description: Nixpkgs leftover pname glossa on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossa"
+  - "$XDG_CACHE_HOME/glossa"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossa
+  name: Nixpkgs glossa windows cache (wave 11)
+  description: Nixpkgs leftover pname glossa on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossa/Cache"
+  - "%LOCALAPPDATA%/glossa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries
+  name: Nixpkgs glossaries macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries"
+  - "$HOME/Library/Logs/glossaries"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries
+  name: Nixpkgs glossaries linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries"
+  - "$XDG_CACHE_HOME/glossaries"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries
+  name: Nixpkgs glossaries windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries/Cache"
+  - "%LOCALAPPDATA%/glossaries/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-danish
+  name: Nixpkgs glossaries-danish macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-danish on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-danish"
+  - "$HOME/Library/Logs/glossaries-danish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-danish
+  name: Nixpkgs glossaries-danish linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-danish on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-danish"
+  - "$XDG_CACHE_HOME/glossaries-danish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-danish
+  name: Nixpkgs glossaries-danish windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-danish on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-danish/Cache"
+  - "%LOCALAPPDATA%/glossaries-danish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-dutch
+  name: Nixpkgs glossaries-dutch macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-dutch on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-dutch"
+  - "$HOME/Library/Logs/glossaries-dutch"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-dutch
+  name: Nixpkgs glossaries-dutch linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-dutch on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-dutch"
+  - "$XDG_CACHE_HOME/glossaries-dutch"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-dutch
+  name: Nixpkgs glossaries-dutch windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-dutch on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-dutch/Cache"
+  - "%LOCALAPPDATA%/glossaries-dutch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-english
+  name: Nixpkgs glossaries-english macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-english on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-english"
+  - "$HOME/Library/Logs/glossaries-english"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-english
+  name: Nixpkgs glossaries-english linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-english on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-english"
+  - "$XDG_CACHE_HOME/glossaries-english"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-english
+  name: Nixpkgs glossaries-english windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-english on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-english/Cache"
+  - "%LOCALAPPDATA%/glossaries-english/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-estonian
+  name: Nixpkgs glossaries-estonian macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-estonian on macos (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-estonian"
+  - "$HOME/Library/Logs/glossaries-estonian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-estonian
+  name: Nixpkgs glossaries-estonian linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-estonian on linux (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-estonian"
+  - "$XDG_CACHE_HOME/glossaries-estonian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-estonian
+  name: Nixpkgs glossaries-estonian windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-estonian on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-estonian/Cache"
+  - "%LOCALAPPDATA%/glossaries-estonian/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-extra
+  name: Nixpkgs glossaries-extra macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-extra on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-extra"
+  - "$HOME/Library/Logs/glossaries-extra"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-extra
+  name: Nixpkgs glossaries-extra linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-extra on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-extra"
+  - "$XDG_CACHE_HOME/glossaries-extra"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-extra
+  name: Nixpkgs glossaries-extra windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-extra on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-extra/Cache"
+  - "%LOCALAPPDATA%/glossaries-extra/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-finnish
+  name: Nixpkgs glossaries-finnish macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-finnish on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-finnish"
+  - "$HOME/Library/Logs/glossaries-finnish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-finnish
+  name: Nixpkgs glossaries-finnish linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-finnish on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-finnish"
+  - "$XDG_CACHE_HOME/glossaries-finnish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-finnish
+  name: Nixpkgs glossaries-finnish windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-finnish on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-finnish/Cache"
+  - "%LOCALAPPDATA%/glossaries-finnish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-french
+  name: Nixpkgs glossaries-french macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-french on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-french"
+  - "$HOME/Library/Logs/glossaries-french"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-french
+  name: Nixpkgs glossaries-french linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-french on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-french"
+  - "$XDG_CACHE_HOME/glossaries-french"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-french
+  name: Nixpkgs glossaries-french windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-french on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-french/Cache"
+  - "%LOCALAPPDATA%/glossaries-french/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-german
+  name: Nixpkgs glossaries-german macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-german on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-german"
+  - "$HOME/Library/Logs/glossaries-german"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-german
+  name: Nixpkgs glossaries-german linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-german on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-german"
+  - "$XDG_CACHE_HOME/glossaries-german"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-german
+  name: Nixpkgs glossaries-german windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-german on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-german/Cache"
+  - "%LOCALAPPDATA%/glossaries-german/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-irish
+  name: Nixpkgs glossaries-irish macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-irish on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-irish"
+  - "$HOME/Library/Logs/glossaries-irish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-irish
+  name: Nixpkgs glossaries-irish linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-irish on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-irish"
+  - "$XDG_CACHE_HOME/glossaries-irish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-irish
+  name: Nixpkgs glossaries-irish windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-irish on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-irish/Cache"
+  - "%LOCALAPPDATA%/glossaries-irish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-italian
+  name: Nixpkgs glossaries-italian macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-italian on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-italian"
+  - "$HOME/Library/Logs/glossaries-italian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-italian
+  name: Nixpkgs glossaries-italian linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-italian on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-italian"
+  - "$XDG_CACHE_HOME/glossaries-italian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-italian
+  name: Nixpkgs glossaries-italian windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-italian on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-italian/Cache"
+  - "%LOCALAPPDATA%/glossaries-italian/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-magyar
+  name: Nixpkgs glossaries-magyar macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-magyar on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-magyar"
+  - "$HOME/Library/Logs/glossaries-magyar"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-magyar
+  name: Nixpkgs glossaries-magyar linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-magyar on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-magyar"
+  - "$XDG_CACHE_HOME/glossaries-magyar"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-magyar
+  name: Nixpkgs glossaries-magyar windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-magyar on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-magyar/Cache"
+  - "%LOCALAPPDATA%/glossaries-magyar/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-norsk
+  name: Nixpkgs glossaries-norsk macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-norsk on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-norsk"
+  - "$HOME/Library/Logs/glossaries-norsk"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-norsk
+  name: Nixpkgs glossaries-norsk linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-norsk on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-norsk"
+  - "$XDG_CACHE_HOME/glossaries-norsk"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-norsk
+  name: Nixpkgs glossaries-norsk windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-norsk on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-norsk/Cache"
+  - "%LOCALAPPDATA%/glossaries-norsk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-nynorsk
+  name: Nixpkgs glossaries-nynorsk macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-nynorsk on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-nynorsk"
+  - "$HOME/Library/Logs/glossaries-nynorsk"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-nynorsk
+  name: Nixpkgs glossaries-nynorsk linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-nynorsk on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-nynorsk"
+  - "$XDG_CACHE_HOME/glossaries-nynorsk"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-nynorsk
+  name: Nixpkgs glossaries-nynorsk windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-nynorsk on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-nynorsk/Cache"
+  - "%LOCALAPPDATA%/glossaries-nynorsk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-polish
+  name: Nixpkgs glossaries-polish macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-polish on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-polish"
+  - "$HOME/Library/Logs/glossaries-polish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-polish
+  name: Nixpkgs glossaries-polish linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-polish on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-polish"
+  - "$XDG_CACHE_HOME/glossaries-polish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-polish
+  name: Nixpkgs glossaries-polish windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-polish on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-polish/Cache"
+  - "%LOCALAPPDATA%/glossaries-polish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-portuges
+  name: Nixpkgs glossaries-portuges macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-portuges on macos (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-portuges"
+  - "$HOME/Library/Logs/glossaries-portuges"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-portuges
+  name: Nixpkgs glossaries-portuges linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-portuges on linux (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-portuges"
+  - "$XDG_CACHE_HOME/glossaries-portuges"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-portuges
+  name: Nixpkgs glossaries-portuges windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-portuges on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-portuges/Cache"
+  - "%LOCALAPPDATA%/glossaries-portuges/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-serbian
+  name: Nixpkgs glossaries-serbian macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-serbian on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-serbian"
+  - "$HOME/Library/Logs/glossaries-serbian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-serbian
+  name: Nixpkgs glossaries-serbian linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-serbian on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-serbian"
+  - "$XDG_CACHE_HOME/glossaries-serbian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-serbian
+  name: Nixpkgs glossaries-serbian windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-serbian on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-serbian/Cache"
+  - "%LOCALAPPDATA%/glossaries-serbian/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-slovene
+  name: Nixpkgs glossaries-slovene macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-slovene on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-slovene"
+  - "$HOME/Library/Logs/glossaries-slovene"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-slovene
+  name: Nixpkgs glossaries-slovene linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-slovene on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-slovene"
+  - "$XDG_CACHE_HOME/glossaries-slovene"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-slovene
+  name: Nixpkgs glossaries-slovene windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-slovene on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-slovene/Cache"
+  - "%LOCALAPPDATA%/glossaries-slovene/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-spanish
+  name: Nixpkgs glossaries-spanish macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-spanish on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-spanish"
+  - "$HOME/Library/Logs/glossaries-spanish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-spanish
+  name: Nixpkgs glossaries-spanish linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-spanish on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-spanish"
+  - "$XDG_CACHE_HOME/glossaries-spanish"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-spanish
+  name: Nixpkgs glossaries-spanish windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-spanish on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-spanish/Cache"
+  - "%LOCALAPPDATA%/glossaries-spanish/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossaries-ukrainian
+  name: Nixpkgs glossaries-ukrainian macos cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-ukrainian on macos (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossaries-ukrainian"
+  - "$HOME/Library/Logs/glossaries-ukrainian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossaries-ukrainian
+  name: Nixpkgs glossaries-ukrainian linux cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-ukrainian on linux (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossaries-ukrainian"
+  - "$XDG_CACHE_HOME/glossaries-ukrainian"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossaries-ukrainian
+  name: Nixpkgs glossaries-ukrainian windows cache (wave 11)
+  description: Nixpkgs leftover pname glossaries-ukrainian on windows (wave 11). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossaries-ukrainian/Cache"
+  - "%LOCALAPPDATA%/glossaries-ukrainian/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossarium
+  name: Nixpkgs glossarium macos cache (wave 11)
+  description: Nixpkgs leftover pname glossarium on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossarium"
+  - "$HOME/Library/Logs/glossarium"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossarium
+  name: Nixpkgs glossarium linux cache (wave 11)
+  description: Nixpkgs leftover pname glossarium on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossarium"
+  - "$XDG_CACHE_HOME/glossarium"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossarium
+  name: Nixpkgs glossarium windows cache (wave 11)
+  description: Nixpkgs leftover pname glossarium on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossarium/Cache"
+  - "%LOCALAPPDATA%/glossarium/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossary
+  name: Nixpkgs glossary macos cache (wave 11)
+  description: Nixpkgs leftover pname glossary on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossary"
+  - "$HOME/Library/Logs/glossary"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossary
+  name: Nixpkgs glossary linux cache (wave 11)
+  description: Nixpkgs leftover pname glossary on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossary"
+  - "$XDG_CACHE_HOME/glossary"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossary
+  name: Nixpkgs glossary windows cache (wave 11)
+  description: Nixpkgs leftover pname glossary on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossary/Cache"
+  - "%LOCALAPPDATA%/glossary/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossr
+  name: Nixpkgs glossr macos cache (wave 11)
+  description: Nixpkgs leftover pname glossr on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossr"
+  - "$HOME/Library/Logs/glossr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossr
+  name: Nixpkgs glossr linux cache (wave 11)
+  description: Nixpkgs leftover pname glossr on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossr"
+  - "$XDG_CACHE_HOME/glossr"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossr
+  name: Nixpkgs glossr windows cache (wave 11)
+  description: Nixpkgs leftover pname glossr on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossr/Cache"
+  - "%LOCALAPPDATA%/glossr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glossy
+  name: Nixpkgs glossy macos cache (wave 11)
+  description: Nixpkgs leftover pname glossy on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glossy"
+  - "$HOME/Library/Logs/glossy"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glossy
+  name: Nixpkgs glossy linux cache (wave 11)
+  description: Nixpkgs leftover pname glossy on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glossy"
+  - "$XDG_CACHE_HOME/glossy"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glossy
+  name: Nixpkgs glossy windows cache (wave 11)
+  description: Nixpkgs leftover pname glossy on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glossy/Cache"
+  - "%LOCALAPPDATA%/glossy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glotter
+  name: Nixpkgs glotter macos cache (wave 11)
+  description: Nixpkgs leftover pname glotter on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glotter"
+  - "$HOME/Library/Logs/glotter"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glotter
+  name: Nixpkgs glotter linux cache (wave 11)
+  description: Nixpkgs leftover pname glotter on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glotter"
+  - "$XDG_CACHE_HOME/glotter"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glotter
+  name: Nixpkgs glotter windows cache (wave 11)
+  description: Nixpkgs leftover pname glotter on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glotter/Cache"
+  - "%LOCALAPPDATA%/glotter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glottospace
+  name: Nixpkgs glottospace macos cache (wave 11)
+  description: Nixpkgs leftover pname glottospace on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glottospace"
+  - "$HOME/Library/Logs/glottospace"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glottospace
+  name: Nixpkgs glottospace linux cache (wave 11)
+  description: Nixpkgs leftover pname glottospace on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glottospace"
+  - "$XDG_CACHE_HOME/glottospace"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glottospace
+  name: Nixpkgs glottospace windows cache (wave 11)
+  description: Nixpkgs leftover pname glottospace on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glottospace/Cache"
+  - "%LOCALAPPDATA%/glottospace/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glow
+  name: Nixpkgs glow macos cache (wave 11)
+  description: Nixpkgs leftover pname glow on macos (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glow"
+  - "$HOME/Library/Logs/glow"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glow
+  name: Nixpkgs glow linux cache (wave 11)
+  description: Nixpkgs leftover pname glow on linux (wave 11). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glow"
+  - "$XDG_CACHE_HOME/glow"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glow
+  name: Nixpkgs glow windows cache (wave 11)
+  description: Nixpkgs leftover pname glow on windows (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glow/Cache"
+  - "%LOCALAPPDATA%/glow/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glow-lang
+  name: Nixpkgs glow-lang macos cache (wave 11)
+  description: Nixpkgs leftover pname glow-lang on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glow-lang"
+  - "$HOME/Library/Logs/glow-lang"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glow-lang
+  name: Nixpkgs glow-lang linux cache (wave 11)
+  description: Nixpkgs leftover pname glow-lang on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glow-lang"
+  - "$XDG_CACHE_HOME/glow-lang"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glow-lang
+  name: Nixpkgs glow-lang windows cache (wave 11)
+  description: Nixpkgs leftover pname glow-lang on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glow-lang/Cache"
+  - "%LOCALAPPDATA%/glow-lang/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glow-nvim
+  name: Nixpkgs glow.nvim macos cache (wave 11)
+  description: Nixpkgs leftover pname glow.nvim on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glow.nvim"
+  - "$HOME/Library/Logs/glow.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glow-nvim
+  name: Nixpkgs glow.nvim linux cache (wave 11)
+  description: Nixpkgs leftover pname glow.nvim on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glow.nvim"
+  - "$XDG_CACHE_HOME/glow.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glow-nvim
+  name: Nixpkgs glow.nvim windows cache (wave 11)
+  description: Nixpkgs leftover pname glow.nvim on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glow.nvim/Cache"
+  - "%LOCALAPPDATA%/glow.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glow-yazi
+  name: Nixpkgs glow.yazi macos cache (wave 11)
+  description: Nixpkgs leftover pname glow.yazi on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glow.yazi"
+  - "$HOME/Library/Logs/glow.yazi"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glow-yazi
+  name: Nixpkgs glow.yazi linux cache (wave 11)
+  description: Nixpkgs leftover pname glow.yazi on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glow.yazi"
+  - "$XDG_CACHE_HOME/glow.yazi"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glow-yazi
+  name: Nixpkgs glow.yazi windows cache (wave 11)
+  description: Nixpkgs leftover pname glow.yazi on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glow.yazi/Cache"
+  - "%LOCALAPPDATA%/glow.yazi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glowing-bear
+  name: Nixpkgs glowing-bear macos cache (wave 11)
+  description: Nixpkgs leftover pname glowing-bear on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glowing-bear"
+  - "$HOME/Library/Logs/glowing-bear"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glowing-bear
+  name: Nixpkgs glowing-bear linux cache (wave 11)
+  description: Nixpkgs leftover pname glowing-bear on linux (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glowing-bear"
+  - "$XDG_CACHE_HOME/glowing-bear"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glowing-bear
+  name: Nixpkgs glowing-bear windows cache (wave 11)
+  description: Nixpkgs leftover pname glowing-bear on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glowing-bear/Cache"
+  - "%LOCALAPPDATA%/glowing-bear/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glpaper
+  name: Nixpkgs glpaper macos cache (wave 11)
+  description: Nixpkgs leftover pname glpaper on macos (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glpaper"
+  - "$HOME/Library/Logs/glpaper"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-lin-glpaper
+  name: Nixpkgs glpaper linux cache (wave 11)
+  description: Nixpkgs leftover pname glpaper on linux (wave 11). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/glpaper"
+  - "$XDG_CACHE_HOME/glpaper"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-win-glpaper
+  name: Nixpkgs glpaper windows cache (wave 11)
+  description: Nixpkgs leftover pname glpaper on windows (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/glpaper/Cache"
+  - "%LOCALAPPDATA%/glpaper/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np11-mac-glpi-agent
+  name: Nixpkgs glpi-agent macos cache (wave 11)
+  description: Nixpkgs leftover pname glpi-agent on macos (wave 11). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/glpi-agent"
+  - "$HOME/Library/Logs/glpi-agent"
+  delete_mode: contents
+  max_depth: 6

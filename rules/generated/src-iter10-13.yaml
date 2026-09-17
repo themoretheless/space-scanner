@@ -1,0 +1,5594 @@
+---
+pack: src-iter10-13
+description: Iterative 10k import wave 10 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np10-mac-frame-markdown
+  name: Nixpkgs frame-markdown macos cache (wave 10)
+  description: Nixpkgs leftover pname frame-markdown on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frame-markdown"
+  - "$HOME/Library/Logs/frame-markdown"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frame-markdown
+  name: Nixpkgs frame-markdown linux cache (wave 10)
+  description: Nixpkgs leftover pname frame-markdown on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frame-markdown"
+  - "$XDG_CACHE_HOME/frame-markdown"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frame-markdown
+  name: Nixpkgs frame-markdown windows cache (wave 10)
+  description: Nixpkgs leftover pname frame-markdown on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frame-markdown/Cache"
+  - "%LOCALAPPDATA%/frame-markdown/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frame-media-converter
+  name: Nixpkgs frame-media-converter macos cache (wave 10)
+  description: Nixpkgs leftover pname frame-media-converter on macos (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frame-media-converter"
+  - "$HOME/Library/Logs/frame-media-converter"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frame-media-converter
+  name: Nixpkgs frame-media-converter linux cache (wave 10)
+  description: Nixpkgs leftover pname frame-media-converter on linux (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frame-media-converter"
+  - "$XDG_CACHE_HOME/frame-media-converter"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frame-media-converter
+  name: Nixpkgs frame-media-converter windows cache (wave 10)
+  description: Nixpkgs leftover pname frame-media-converter on windows (wave 10).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frame-media-converter/Cache"
+  - "%LOCALAPPDATA%/frame-media-converter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frame-mode
+  name: Nixpkgs frame-mode macos cache (wave 10)
+  description: Nixpkgs leftover pname frame-mode on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frame-mode"
+  - "$HOME/Library/Logs/frame-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frame-mode
+  name: Nixpkgs frame-mode linux cache (wave 10)
+  description: Nixpkgs leftover pname frame-mode on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frame-mode"
+  - "$XDG_CACHE_HOME/frame-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frame-mode
+  name: Nixpkgs frame-mode windows cache (wave 10)
+  description: Nixpkgs leftover pname frame-mode on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frame-mode/Cache"
+  - "%LOCALAPPDATA%/frame-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frame-purpose
+  name: Nixpkgs frame-purpose macos cache (wave 10)
+  description: Nixpkgs leftover pname frame-purpose on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frame-purpose"
+  - "$HOME/Library/Logs/frame-purpose"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frame-purpose
+  name: Nixpkgs frame-purpose linux cache (wave 10)
+  description: Nixpkgs leftover pname frame-purpose on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frame-purpose"
+  - "$XDG_CACHE_HOME/frame-purpose"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frame-purpose
+  name: Nixpkgs frame-purpose windows cache (wave 10)
+  description: Nixpkgs leftover pname frame-purpose on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frame-purpose/Cache"
+  - "%LOCALAPPDATA%/frame-purpose/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frame-tabs
+  name: Nixpkgs frame-tabs macos cache (wave 10)
+  description: Nixpkgs leftover pname frame-tabs on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frame-tabs"
+  - "$HOME/Library/Logs/frame-tabs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frame-tabs
+  name: Nixpkgs frame-tabs linux cache (wave 10)
+  description: Nixpkgs leftover pname frame-tabs on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frame-tabs"
+  - "$XDG_CACHE_HOME/frame-tabs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frame-tabs
+  name: Nixpkgs frame-tabs windows cache (wave 10)
+  description: Nixpkgs leftover pname frame-tabs on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frame-tabs/Cache"
+  - "%LOCALAPPDATA%/frame-tabs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frame-tag
+  name: Nixpkgs frame-tag macos cache (wave 10)
+  description: Nixpkgs leftover pname frame-tag on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frame-tag"
+  - "$HOME/Library/Logs/frame-tag"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frame-tag
+  name: Nixpkgs frame-tag linux cache (wave 10)
+  description: Nixpkgs leftover pname frame-tag on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frame-tag"
+  - "$XDG_CACHE_HOME/frame-tag"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frame-tag
+  name: Nixpkgs frame-tag windows cache (wave 10)
+  description: Nixpkgs leftover pname frame-tag on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frame-tag/Cache"
+  - "%LOCALAPPDATA%/frame-tag/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framecleaner
+  name: Nixpkgs framecleaner macos cache (wave 10)
+  description: Nixpkgs leftover pname framecleaner on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framecleaner"
+  - "$HOME/Library/Logs/framecleaner"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framecleaner
+  name: Nixpkgs framecleaner linux cache (wave 10)
+  description: Nixpkgs leftover pname framecleaner on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framecleaner"
+  - "$XDG_CACHE_HOME/framecleaner"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framecleaner
+  name: Nixpkgs framecleaner windows cache (wave 10)
+  description: Nixpkgs leftover pname framecleaner on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framecleaner/Cache"
+  - "%LOCALAPPDATA%/framecleaner/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framed
+  name: Nixpkgs framed macos cache (wave 10)
+  description: Nixpkgs leftover pname framed on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framed"
+  - "$HOME/Library/Logs/framed"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framed
+  name: Nixpkgs framed linux cache (wave 10)
+  description: Nixpkgs leftover pname framed on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framed"
+  - "$XDG_CACHE_HOME/framed"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framed
+  name: Nixpkgs framed windows cache (wave 10)
+  description: Nixpkgs leftover pname framed on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framed/Cache"
+  - "%LOCALAPPDATA%/framed/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framedsyntax
+  name: Nixpkgs framedsyntax macos cache (wave 10)
+  description: Nixpkgs leftover pname framedsyntax on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framedsyntax"
+  - "$HOME/Library/Logs/framedsyntax"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framedsyntax
+  name: Nixpkgs framedsyntax linux cache (wave 10)
+  description: Nixpkgs leftover pname framedsyntax on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framedsyntax"
+  - "$XDG_CACHE_HOME/framedsyntax"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framedsyntax
+  name: Nixpkgs framedsyntax windows cache (wave 10)
+  description: Nixpkgs leftover pname framedsyntax on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framedsyntax/Cache"
+  - "%LOCALAPPDATA%/framedsyntax/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framefit
+  name: Nixpkgs framefit macos cache (wave 10)
+  description: Nixpkgs leftover pname framefit on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framefit"
+  - "$HOME/Library/Logs/framefit"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framefit
+  name: Nixpkgs framefit linux cache (wave 10)
+  description: Nixpkgs leftover pname framefit on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framefit"
+  - "$XDG_CACHE_HOME/framefit"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framefit
+  name: Nixpkgs framefit windows cache (wave 10)
+  description: Nixpkgs leftover pname framefit on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framefit/Cache"
+  - "%LOCALAPPDATA%/framefit/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framenet-v15
+  name: Nixpkgs framenet_v15 macos cache (wave 10)
+  description: Nixpkgs leftover pname framenet_v15 on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framenet_v15"
+  - "$HOME/Library/Logs/framenet_v15"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framenet-v15
+  name: Nixpkgs framenet_v15 linux cache (wave 10)
+  description: Nixpkgs leftover pname framenet_v15 on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framenet_v15"
+  - "$XDG_CACHE_HOME/framenet_v15"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framenet-v15
+  name: Nixpkgs framenet_v15 windows cache (wave 10)
+  description: Nixpkgs leftover pname framenet_v15 on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framenet_v15/Cache"
+  - "%LOCALAPPDATA%/framenet_v15/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framenet-v17
+  name: Nixpkgs framenet_v17 macos cache (wave 10)
+  description: Nixpkgs leftover pname framenet_v17 on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framenet_v17"
+  - "$HOME/Library/Logs/framenet_v17"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framenet-v17
+  name: Nixpkgs framenet_v17 linux cache (wave 10)
+  description: Nixpkgs leftover pname framenet_v17 on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framenet_v17"
+  - "$XDG_CACHE_HOME/framenet_v17"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framenet-v17
+  name: Nixpkgs framenet_v17 windows cache (wave 10)
+  description: Nixpkgs leftover pname framenet_v17 on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framenet_v17/Cache"
+  - "%LOCALAPPDATA%/framenet_v17/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frames-only-mode
+  name: Nixpkgs frames-only-mode macos cache (wave 10)
+  description: Nixpkgs leftover pname frames-only-mode on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frames-only-mode"
+  - "$HOME/Library/Logs/frames-only-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frames-only-mode
+  name: Nixpkgs frames-only-mode linux cache (wave 10)
+  description: Nixpkgs leftover pname frames-only-mode on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frames-only-mode"
+  - "$XDG_CACHE_HOME/frames-only-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frames-only-mode
+  name: Nixpkgs frames-only-mode windows cache (wave 10)
+  description: Nixpkgs leftover pname frames-only-mode on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frames-only-mode/Cache"
+  - "%LOCALAPPDATA%/frames-only-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framesh
+  name: Nixpkgs framesh macos cache (wave 10)
+  description: Nixpkgs leftover pname framesh on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framesh"
+  - "$HOME/Library/Logs/framesh"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framesh
+  name: Nixpkgs framesh linux cache (wave 10)
+  description: Nixpkgs leftover pname framesh on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framesh"
+  - "$XDG_CACHE_HOME/framesh"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framesh
+  name: Nixpkgs framesh windows cache (wave 10)
+  description: Nixpkgs leftover pname framesh on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framesh/Cache"
+  - "%LOCALAPPDATA%/framesh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frameshot
+  name: Nixpkgs frameshot macos cache (wave 10)
+  description: Nixpkgs leftover pname frameshot on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frameshot"
+  - "$HOME/Library/Logs/frameshot"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frameshot
+  name: Nixpkgs frameshot linux cache (wave 10)
+  description: Nixpkgs leftover pname frameshot on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frameshot"
+  - "$XDG_CACHE_HOME/frameshot"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frameshot
+  name: Nixpkgs frameshot windows cache (wave 10)
+  description: Nixpkgs leftover pname frameshot on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frameshot/Cache"
+  - "%LOCALAPPDATA%/frameshot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framesize
+  name: Nixpkgs framesize macos cache (wave 10)
+  description: Nixpkgs leftover pname framesize on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framesize"
+  - "$HOME/Library/Logs/framesize"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framesize
+  name: Nixpkgs framesize linux cache (wave 10)
+  description: Nixpkgs leftover pname framesize on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framesize"
+  - "$XDG_CACHE_HOME/framesize"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framesize
+  name: Nixpkgs framesize windows cache (wave 10)
+  description: Nixpkgs leftover pname framesize on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framesize/Cache"
+  - "%LOCALAPPDATA%/framesize/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framework
+  name: Nixpkgs framework macos cache (wave 10)
+  description: Nixpkgs leftover pname framework on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framework"
+  - "$HOME/Library/Logs/framework"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framework
+  name: Nixpkgs framework linux cache (wave 10)
+  description: Nixpkgs leftover pname framework on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framework"
+  - "$XDG_CACHE_HOME/framework"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framework
+  name: Nixpkgs framework windows cache (wave 10)
+  description: Nixpkgs leftover pname framework on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framework/Cache"
+  - "%LOCALAPPDATA%/framework/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framework-control
+  name: Nixpkgs framework-control macos cache (wave 10)
+  description: Nixpkgs leftover pname framework-control on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framework-control"
+  - "$HOME/Library/Logs/framework-control"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framework-control
+  name: Nixpkgs framework-control linux cache (wave 10)
+  description: Nixpkgs leftover pname framework-control on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framework-control"
+  - "$XDG_CACHE_HOME/framework-control"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framework-control
+  name: Nixpkgs framework-control windows cache (wave 10)
+  description: Nixpkgs leftover pname framework-control on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framework-control/Cache"
+  - "%LOCALAPPDATA%/framework-control/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framework-laptop-kmod
+  name: Nixpkgs framework-laptop-kmod macos cache (wave 10)
+  description: Nixpkgs leftover pname framework-laptop-kmod on macos (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framework-laptop-kmod"
+  - "$HOME/Library/Logs/framework-laptop-kmod"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framework-laptop-kmod
+  name: Nixpkgs framework-laptop-kmod linux cache (wave 10)
+  description: Nixpkgs leftover pname framework-laptop-kmod on linux (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framework-laptop-kmod"
+  - "$XDG_CACHE_HOME/framework-laptop-kmod"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framework-laptop-kmod
+  name: Nixpkgs framework-laptop-kmod windows cache (wave 10)
+  description: Nixpkgs leftover pname framework-laptop-kmod on windows (wave 10).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framework-laptop-kmod/Cache"
+  - "%LOCALAPPDATA%/framework-laptop-kmod/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framework-tool
+  name: Nixpkgs framework-tool macos cache (wave 10)
+  description: Nixpkgs leftover pname framework-tool on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framework-tool"
+  - "$HOME/Library/Logs/framework-tool"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framework-tool
+  name: Nixpkgs framework-tool linux cache (wave 10)
+  description: Nixpkgs leftover pname framework-tool on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framework-tool"
+  - "$XDG_CACHE_HOME/framework-tool"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framework-tool
+  name: Nixpkgs framework-tool windows cache (wave 10)
+  description: Nixpkgs leftover pname framework-tool on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framework-tool/Cache"
+  - "%LOCALAPPDATA%/framework-tool/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-framework-tool-tui
+  name: Nixpkgs framework-tool-tui macos cache (wave 10)
+  description: Nixpkgs leftover pname framework-tool-tui on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/framework-tool-tui"
+  - "$HOME/Library/Logs/framework-tool-tui"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-framework-tool-tui
+  name: Nixpkgs framework-tool-tui linux cache (wave 10)
+  description: Nixpkgs leftover pname framework-tool-tui on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/framework-tool-tui"
+  - "$XDG_CACHE_HOME/framework-tool-tui"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-framework-tool-tui
+  name: Nixpkgs framework-tool-tui windows cache (wave 10)
+  description: Nixpkgs leftover pname framework-tool-tui on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/framework-tool-tui/Cache"
+  - "%LOCALAPPDATA%/framework-tool-tui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frameworkintegration
+  name: Nixpkgs frameworkintegration macos cache (wave 10)
+  description: Nixpkgs leftover pname frameworkintegration on macos (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frameworkintegration"
+  - "$HOME/Library/Logs/frameworkintegration"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frameworkintegration
+  name: Nixpkgs frameworkintegration linux cache (wave 10)
+  description: Nixpkgs leftover pname frameworkintegration on linux (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frameworkintegration"
+  - "$XDG_CACHE_HOME/frameworkintegration"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frameworkintegration
+  name: Nixpkgs frameworkintegration windows cache (wave 10)
+  description: Nixpkgs leftover pname frameworkintegration on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frameworkintegration/Cache"
+  - "%LOCALAPPDATA%/frameworkintegration/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-franc
+  name: Nixpkgs franc macos cache (wave 10)
+  description: Nixpkgs leftover pname franc on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/franc"
+  - "$HOME/Library/Logs/franc"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-franc
+  name: Nixpkgs franc linux cache (wave 10)
+  description: Nixpkgs leftover pname franc on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/franc"
+  - "$XDG_CACHE_HOME/franc"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-franc
+  name: Nixpkgs franc windows cache (wave 10)
+  description: Nixpkgs leftover pname franc on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/franc/Cache"
+  - "%LOCALAPPDATA%/franc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-francais-bst
+  name: Nixpkgs francais-bst macos cache (wave 10)
+  description: Nixpkgs leftover pname francais-bst on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/francais-bst"
+  - "$HOME/Library/Logs/francais-bst"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-francais-bst
+  name: Nixpkgs francais-bst linux cache (wave 10)
+  description: Nixpkgs leftover pname francais-bst on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/francais-bst"
+  - "$XDG_CACHE_HOME/francais-bst"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-francais-bst
+  name: Nixpkgs francais-bst windows cache (wave 10)
+  description: Nixpkgs leftover pname francais-bst on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/francais-bst/Cache"
+  - "%LOCALAPPDATA%/francais-bst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-franchise
+  name: Nixpkgs franchise macos cache (wave 10)
+  description: Nixpkgs leftover pname franchise on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/franchise"
+  - "$HOME/Library/Logs/franchise"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-franchise
+  name: Nixpkgs franchise linux cache (wave 10)
+  description: Nixpkgs leftover pname franchise on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/franchise"
+  - "$XDG_CACHE_HOME/franchise"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-franchise
+  name: Nixpkgs franchise windows cache (wave 10)
+  description: Nixpkgs leftover pname franchise on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/franchise/Cache"
+  - "%LOCALAPPDATA%/franchise/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-francis
+  name: Nixpkgs francis macos cache (wave 10)
+  description: Nixpkgs leftover pname francis on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/francis"
+  - "$HOME/Library/Logs/francis"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-francis
+  name: Nixpkgs francis linux cache (wave 10)
+  description: Nixpkgs leftover pname francis on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/francis"
+  - "$XDG_CACHE_HOME/francis"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-francis
+  name: Nixpkgs francis windows cache (wave 10)
+  description: Nixpkgs leftover pname francis on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/francis/Cache"
+  - "%LOCALAPPDATA%/francis/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frangipanni
+  name: Nixpkgs frangipanni macos cache (wave 10)
+  description: Nixpkgs leftover pname frangipanni on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frangipanni"
+  - "$HOME/Library/Logs/frangipanni"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frangipanni
+  name: Nixpkgs frangipanni linux cache (wave 10)
+  description: Nixpkgs leftover pname frangipanni on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frangipanni"
+  - "$XDG_CACHE_HOME/frangipanni"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frangipanni
+  name: Nixpkgs frangipanni windows cache (wave 10)
+  description: Nixpkgs leftover pname frangipanni on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frangipanni/Cache"
+  - "%LOCALAPPDATA%/frangipanni/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frankenphp
+  name: Nixpkgs frankenphp macos cache (wave 10)
+  description: Nixpkgs leftover pname frankenphp on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frankenphp"
+  - "$HOME/Library/Logs/frankenphp"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frankenphp
+  name: Nixpkgs frankenphp linux cache (wave 10)
+  description: Nixpkgs leftover pname frankenphp on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frankenphp"
+  - "$XDG_CACHE_HOME/frankenphp"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frankenphp
+  name: Nixpkgs frankenphp windows cache (wave 10)
+  description: Nixpkgs leftover pname frankenphp on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frankenphp/Cache"
+  - "%LOCALAPPDATA%/frankenphp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frankenstein
+  name: Nixpkgs frankenstein macos cache (wave 10)
+  description: Nixpkgs leftover pname frankenstein on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frankenstein"
+  - "$HOME/Library/Logs/frankenstein"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frankenstein
+  name: Nixpkgs frankenstein linux cache (wave 10)
+  description: Nixpkgs leftover pname frankenstein on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frankenstein"
+  - "$XDG_CACHE_HOME/frankenstein"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frankenstein
+  name: Nixpkgs frankenstein windows cache (wave 10)
+  description: Nixpkgs leftover pname frankenstein on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frankenstein/Cache"
+  - "%LOCALAPPDATA%/frankenstein/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-franz
+  name: Nixpkgs franz macos cache (wave 10)
+  description: Nixpkgs leftover pname franz on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/franz"
+  - "$HOME/Library/Logs/franz"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-franz
+  name: Nixpkgs franz linux cache (wave 10)
+  description: Nixpkgs leftover pname franz on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/franz"
+  - "$XDG_CACHE_HOME/franz"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-franz
+  name: Nixpkgs franz windows cache (wave 10)
+  description: Nixpkgs leftover pname franz on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/franz/Cache"
+  - "%LOCALAPPDATA%/franz/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frapplot
+  name: Nixpkgs frapplot macos cache (wave 10)
+  description: Nixpkgs leftover pname frapplot on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frapplot"
+  - "$HOME/Library/Logs/frapplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frapplot
+  name: Nixpkgs frapplot linux cache (wave 10)
+  description: Nixpkgs leftover pname frapplot on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frapplot"
+  - "$XDG_CACHE_HOME/frapplot"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frapplot
+  name: Nixpkgs frapplot windows cache (wave 10)
+  description: Nixpkgs leftover pname frapplot on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frapplot/Cache"
+  - "%LOCALAPPDATA%/frapplot/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-fraq
+  name: Nixpkgs fraq macos cache (wave 10)
+  description: Nixpkgs leftover pname fraq on macos (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/fraq"
+  - "$HOME/Library/Logs/fraq"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-fraq
+  name: Nixpkgs fraq linux cache (wave 10)
+  description: Nixpkgs leftover pname fraq on linux (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/fraq"
+  - "$XDG_CACHE_HOME/fraq"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-fraq
+  name: Nixpkgs fraq windows cache (wave 10)
+  description: Nixpkgs leftover pname fraq on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/fraq/Cache"
+  - "%LOCALAPPDATA%/fraq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-fraunces
+  name: Nixpkgs fraunces macos cache (wave 10)
+  description: Nixpkgs leftover pname fraunces on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/fraunces"
+  - "$HOME/Library/Logs/fraunces"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-fraunces
+  name: Nixpkgs fraunces linux cache (wave 10)
+  description: Nixpkgs leftover pname fraunces on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/fraunces"
+  - "$XDG_CACHE_HOME/fraunces"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-fraunces
+  name: Nixpkgs fraunces windows cache (wave 10)
+  description: Nixpkgs leftover pname fraunces on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/fraunces/Cache"
+  - "%LOCALAPPDATA%/fraunces/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frawk
+  name: Nixpkgs frawk macos cache (wave 10)
+  description: Nixpkgs leftover pname frawk on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frawk"
+  - "$HOME/Library/Logs/frawk"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frawk
+  name: Nixpkgs frawk linux cache (wave 10)
+  description: Nixpkgs leftover pname frawk on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frawk"
+  - "$XDG_CACHE_HOME/frawk"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frawk
+  name: Nixpkgs frawk windows cache (wave 10)
+  description: Nixpkgs leftover pname frawk on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frawk/Cache"
+  - "%LOCALAPPDATA%/frawk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-fraxl
+  name: Nixpkgs fraxl macos cache (wave 10)
+  description: Nixpkgs leftover pname fraxl on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/fraxl"
+  - "$HOME/Library/Logs/fraxl"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-fraxl
+  name: Nixpkgs fraxl linux cache (wave 10)
+  description: Nixpkgs leftover pname fraxl on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/fraxl"
+  - "$XDG_CACHE_HOME/fraxl"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-fraxl
+  name: Nixpkgs fraxl windows cache (wave 10)
+  description: Nixpkgs leftover pname fraxl on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/fraxl/Cache"
+  - "%LOCALAPPDATA%/fraxl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frbinom
+  name: Nixpkgs frbinom macos cache (wave 10)
+  description: Nixpkgs leftover pname frbinom on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frbinom"
+  - "$HOME/Library/Logs/frbinom"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frbinom
+  name: Nixpkgs frbinom linux cache (wave 10)
+  description: Nixpkgs leftover pname frbinom on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frbinom"
+  - "$XDG_CACHE_HOME/frbinom"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frbinom
+  name: Nixpkgs frbinom windows cache (wave 10)
+  description: Nixpkgs leftover pname frbinom on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frbinom/Cache"
+  - "%LOCALAPPDATA%/frbinom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frbs
+  name: Nixpkgs frbs macos cache (wave 10)
+  description: Nixpkgs leftover pname frbs on macos (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frbs"
+  - "$HOME/Library/Logs/frbs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frbs
+  name: Nixpkgs frbs linux cache (wave 10)
+  description: Nixpkgs leftover pname frbs on linux (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frbs"
+  - "$XDG_CACHE_HOME/frbs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frbs
+  name: Nixpkgs frbs windows cache (wave 10)
+  description: Nixpkgs leftover pname frbs on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frbs/Cache"
+  - "%LOCALAPPDATA%/frbs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frcursive
+  name: Nixpkgs frcursive macos cache (wave 10)
+  description: Nixpkgs leftover pname frcursive on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frcursive"
+  - "$HOME/Library/Logs/frcursive"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frcursive
+  name: Nixpkgs frcursive linux cache (wave 10)
+  description: Nixpkgs leftover pname frcursive on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frcursive"
+  - "$XDG_CACHE_HOME/frcursive"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frcursive
+  name: Nixpkgs frcursive windows cache (wave 10)
+  description: Nixpkgs leftover pname frcursive on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frcursive/Cache"
+  - "%LOCALAPPDATA%/frcursive/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-fre
+  name: Nixpkgs fre macos cache (wave 10)
+  description: Nixpkgs leftover pname fre on macos (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/fre"
+  - "$HOME/Library/Logs/fre"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-fre
+  name: Nixpkgs fre linux cache (wave 10)
+  description: Nixpkgs leftover pname fre on linux (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/fre"
+  - "$XDG_CACHE_HOME/fre"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-fre
+  name: Nixpkgs fre windows cache (wave 10)
+  description: Nixpkgs leftover pname fre on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/fre/Cache"
+  - "%LOCALAPPDATA%/fre/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freac
+  name: Nixpkgs freac macos cache (wave 10)
+  description: Nixpkgs leftover pname freac on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freac"
+  - "$HOME/Library/Logs/freac"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freac
+  name: Nixpkgs freac linux cache (wave 10)
+  description: Nixpkgs leftover pname freac on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freac"
+  - "$XDG_CACHE_HOME/freac"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freac
+  name: Nixpkgs freac windows cache (wave 10)
+  description: Nixpkgs leftover pname freac on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freac/Cache"
+  - "%LOCALAPPDATA%/freac/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frece
+  name: Nixpkgs frece macos cache (wave 10)
+  description: Nixpkgs leftover pname frece on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frece"
+  - "$HOME/Library/Logs/frece"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frece
+  name: Nixpkgs frece linux cache (wave 10)
+  description: Nixpkgs leftover pname frece on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frece"
+  - "$XDG_CACHE_HOME/frece"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frece
+  name: Nixpkgs frece windows cache (wave 10)
+  description: Nixpkgs leftover pname frece on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frece/Cache"
+  - "%LOCALAPPDATA%/frece/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frecency
+  name: Nixpkgs frecency macos cache (wave 10)
+  description: Nixpkgs leftover pname frecency on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frecency"
+  - "$HOME/Library/Logs/frecency"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frecency
+  name: Nixpkgs frecency linux cache (wave 10)
+  description: Nixpkgs leftover pname frecency on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frecency"
+  - "$XDG_CACHE_HOME/frecency"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frecency
+  name: Nixpkgs frecency windows cache (wave 10)
+  description: Nixpkgs leftover pname frecency on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frecency/Cache"
+  - "%LOCALAPPDATA%/frecency/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frecentf
+  name: Nixpkgs frecentf macos cache (wave 10)
+  description: Nixpkgs leftover pname frecentf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frecentf"
+  - "$HOME/Library/Logs/frecentf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frecentf
+  name: Nixpkgs frecentf linux cache (wave 10)
+  description: Nixpkgs leftover pname frecentf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frecentf"
+  - "$XDG_CACHE_HOME/frecentf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frecentf
+  name: Nixpkgs frecentf windows cache (wave 10)
+  description: Nixpkgs leftover pname frecentf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frecentf/Cache"
+  - "%LOCALAPPDATA%/frecentf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frecently
+  name: Nixpkgs frecently macos cache (wave 10)
+  description: Nixpkgs leftover pname frecently on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frecently"
+  - "$HOME/Library/Logs/frecently"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frecently
+  name: Nixpkgs frecently linux cache (wave 10)
+  description: Nixpkgs leftover pname frecently on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frecently"
+  - "$XDG_CACHE_HOME/frecently"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frecently
+  name: Nixpkgs frecently windows cache (wave 10)
+  description: Nixpkgs leftover pname frecently on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frecently/Cache"
+  - "%LOCALAPPDATA%/frecently/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frechet
+  name: Nixpkgs frechet macos cache (wave 10)
+  description: Nixpkgs leftover pname frechet on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frechet"
+  - "$HOME/Library/Logs/frechet"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frechet
+  name: Nixpkgs frechet linux cache (wave 10)
+  description: Nixpkgs leftover pname frechet on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frechet"
+  - "$XDG_CACHE_HOME/frechet"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frechet
+  name: Nixpkgs frechet windows cache (wave 10)
+  description: Nixpkgs leftover pname frechet on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frechet/Cache"
+  - "%LOCALAPPDATA%/frechet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-app
+  name: Nixpkgs freckle-app macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-app on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-app"
+  - "$HOME/Library/Logs/freckle-app"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-app
+  name: Nixpkgs freckle-app linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-app on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-app"
+  - "$XDG_CACHE_HOME/freckle-app"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-app
+  name: Nixpkgs freckle-app windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-app on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-app/Cache"
+  - "%LOCALAPPDATA%/freckle-app/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-ecs
+  name: Nixpkgs freckle-ecs macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-ecs on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-ecs"
+  - "$HOME/Library/Logs/freckle-ecs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-ecs
+  name: Nixpkgs freckle-ecs linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-ecs on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-ecs"
+  - "$XDG_CACHE_HOME/freckle-ecs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-ecs
+  name: Nixpkgs freckle-ecs windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-ecs on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-ecs/Cache"
+  - "%LOCALAPPDATA%/freckle-ecs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-env
+  name: Nixpkgs freckle-env macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-env on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-env"
+  - "$HOME/Library/Logs/freckle-env"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-env
+  name: Nixpkgs freckle-env linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-env on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-env"
+  - "$XDG_CACHE_HOME/freckle-env"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-env
+  name: Nixpkgs freckle-env windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-env on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-env/Cache"
+  - "%LOCALAPPDATA%/freckle-env/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-exception
+  name: Nixpkgs freckle-exception macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-exception on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-exception"
+  - "$HOME/Library/Logs/freckle-exception"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-exception
+  name: Nixpkgs freckle-exception linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-exception on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-exception"
+  - "$XDG_CACHE_HOME/freckle-exception"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-exception
+  name: Nixpkgs freckle-exception windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-exception on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-exception/Cache"
+  - "%LOCALAPPDATA%/freckle-exception/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-http
+  name: Nixpkgs freckle-http macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-http on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-http"
+  - "$HOME/Library/Logs/freckle-http"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-http
+  name: Nixpkgs freckle-http linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-http on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-http"
+  - "$XDG_CACHE_HOME/freckle-http"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-http
+  name: Nixpkgs freckle-http windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-http on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-http/Cache"
+  - "%LOCALAPPDATA%/freckle-http/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-kafka
+  name: Nixpkgs freckle-kafka macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-kafka on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-kafka"
+  - "$HOME/Library/Logs/freckle-kafka"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-kafka
+  name: Nixpkgs freckle-kafka linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-kafka on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-kafka"
+  - "$XDG_CACHE_HOME/freckle-kafka"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-kafka
+  name: Nixpkgs freckle-kafka windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-kafka on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-kafka/Cache"
+  - "%LOCALAPPDATA%/freckle-kafka/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-memcached
+  name: Nixpkgs freckle-memcached macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-memcached on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-memcached"
+  - "$HOME/Library/Logs/freckle-memcached"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-memcached
+  name: Nixpkgs freckle-memcached linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-memcached on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-memcached"
+  - "$XDG_CACHE_HOME/freckle-memcached"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-memcached
+  name: Nixpkgs freckle-memcached windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-memcached on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-memcached/Cache"
+  - "%LOCALAPPDATA%/freckle-memcached/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-otel
+  name: Nixpkgs freckle-otel macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-otel on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-otel"
+  - "$HOME/Library/Logs/freckle-otel"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-otel
+  name: Nixpkgs freckle-otel linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-otel on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-otel"
+  - "$XDG_CACHE_HOME/freckle-otel"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-otel
+  name: Nixpkgs freckle-otel windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-otel on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-otel/Cache"
+  - "%LOCALAPPDATA%/freckle-otel/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-prelude
+  name: Nixpkgs freckle-prelude macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-prelude on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-prelude"
+  - "$HOME/Library/Logs/freckle-prelude"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-prelude
+  name: Nixpkgs freckle-prelude linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-prelude on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-prelude"
+  - "$XDG_CACHE_HOME/freckle-prelude"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-prelude
+  name: Nixpkgs freckle-prelude windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-prelude on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-prelude/Cache"
+  - "%LOCALAPPDATA%/freckle-prelude/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freckle-stats
+  name: Nixpkgs freckle-stats macos cache (wave 10)
+  description: Nixpkgs leftover pname freckle-stats on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freckle-stats"
+  - "$HOME/Library/Logs/freckle-stats"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freckle-stats
+  name: Nixpkgs freckle-stats linux cache (wave 10)
+  description: Nixpkgs leftover pname freckle-stats on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freckle-stats"
+  - "$XDG_CACHE_HOME/freckle-stats"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freckle-stats
+  name: Nixpkgs freckle-stats windows cache (wave 10)
+  description: Nixpkgs leftover pname freckle-stats on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freckle-stats/Cache"
+  - "%LOCALAPPDATA%/freckle-stats/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-fred
+  name: Nixpkgs fred macos cache (wave 10)
+  description: Nixpkgs leftover pname fred on macos (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/fred"
+  - "$HOME/Library/Logs/fred"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-fred
+  name: Nixpkgs fred linux cache (wave 10)
+  description: Nixpkgs leftover pname fred on linux (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/fred"
+  - "$XDG_CACHE_HOME/fred"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-fred
+  name: Nixpkgs fred windows cache (wave 10)
+  description: Nixpkgs leftover pname fred on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/fred/Cache"
+  - "%LOCALAPPDATA%/fred/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freddy
+  name: Nixpkgs freddy macos cache (wave 10)
+  description: Nixpkgs leftover pname freddy on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freddy"
+  - "$HOME/Library/Logs/freddy"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freddy
+  name: Nixpkgs freddy linux cache (wave 10)
+  description: Nixpkgs leftover pname freddy on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freddy"
+  - "$XDG_CACHE_HOME/freddy"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freddy
+  name: Nixpkgs freddy windows cache (wave 10)
+  description: Nixpkgs leftover pname freddy on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freddy/Cache"
+  - "%LOCALAPPDATA%/freddy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frederic
+  name: Nixpkgs frederic macos cache (wave 10)
+  description: Nixpkgs leftover pname frederic on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frederic"
+  - "$HOME/Library/Logs/frederic"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frederic
+  name: Nixpkgs frederic linux cache (wave 10)
+  description: Nixpkgs leftover pname frederic on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frederic"
+  - "$XDG_CACHE_HOME/frederic"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frederic
+  name: Nixpkgs frederic windows cache (wave 10)
+  description: Nixpkgs leftover pname frederic on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frederic/Cache"
+  - "%LOCALAPPDATA%/frederic/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-frederika2016
+  name: Nixpkgs frederika2016 macos cache (wave 10)
+  description: Nixpkgs leftover pname frederika2016 on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/frederika2016"
+  - "$HOME/Library/Logs/frederika2016"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-frederika2016
+  name: Nixpkgs frederika2016 linux cache (wave 10)
+  description: Nixpkgs leftover pname frederika2016 on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/frederika2016"
+  - "$XDG_CACHE_HOME/frederika2016"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-frederika2016
+  name: Nixpkgs frederika2016 windows cache (wave 10)
+  description: Nixpkgs leftover pname frederika2016 on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/frederika2016/Cache"
+  - "%LOCALAPPDATA%/frederika2016/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-fredr
+  name: Nixpkgs fredr macos cache (wave 10)
+  description: Nixpkgs leftover pname fredr on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/fredr"
+  - "$HOME/Library/Logs/fredr"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-fredr
+  name: Nixpkgs fredr linux cache (wave 10)
+  description: Nixpkgs leftover pname fredr on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/fredr"
+  - "$XDG_CACHE_HOME/fredr"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-fredr
+  name: Nixpkgs fredr windows cache (wave 10)
+  description: Nixpkgs leftover pname fredr on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/fredr/Cache"
+  - "%LOCALAPPDATA%/fredr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free
+  name: Nixpkgs free macos cache (wave 10)
+  description: Nixpkgs leftover pname free on macos (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free"
+  - "$HOME/Library/Logs/free"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free
+  name: Nixpkgs free linux cache (wave 10)
+  description: Nixpkgs leftover pname free on linux (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free"
+  - "$XDG_CACHE_HOME/free"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free
+  name: Nixpkgs free windows cache (wave 10)
+  description: Nixpkgs leftover pname free on windows (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free/Cache"
+  - "%LOCALAPPDATA%/free/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-alacarte
+  name: Nixpkgs free-alacarte macos cache (wave 10)
+  description: Nixpkgs leftover pname free-alacarte on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-alacarte"
+  - "$HOME/Library/Logs/free-alacarte"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-alacarte
+  name: Nixpkgs free-alacarte linux cache (wave 10)
+  description: Nixpkgs leftover pname free-alacarte on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-alacarte"
+  - "$XDG_CACHE_HOME/free-alacarte"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-alacarte
+  name: Nixpkgs free-alacarte windows cache (wave 10)
+  description: Nixpkgs leftover pname free-alacarte on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-alacarte/Cache"
+  - "%LOCALAPPDATA%/free-alacarte/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-algebras
+  name: Nixpkgs free-algebras macos cache (wave 10)
+  description: Nixpkgs leftover pname free-algebras on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-algebras"
+  - "$HOME/Library/Logs/free-algebras"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-algebras
+  name: Nixpkgs free-algebras linux cache (wave 10)
+  description: Nixpkgs leftover pname free-algebras on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-algebras"
+  - "$XDG_CACHE_HOME/free-algebras"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-algebras
+  name: Nixpkgs free-algebras windows cache (wave 10)
+  description: Nixpkgs leftover pname free-algebras on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-algebras/Cache"
+  - "%LOCALAPPDATA%/free-algebras/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-applicative-t
+  name: Nixpkgs free-applicative-t macos cache (wave 10)
+  description: Nixpkgs leftover pname free-applicative-t on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-applicative-t"
+  - "$HOME/Library/Logs/free-applicative-t"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-applicative-t
+  name: Nixpkgs free-applicative-t linux cache (wave 10)
+  description: Nixpkgs leftover pname free-applicative-t on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-applicative-t"
+  - "$XDG_CACHE_HOME/free-applicative-t"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-applicative-t
+  name: Nixpkgs free-applicative-t windows cache (wave 10)
+  description: Nixpkgs leftover pname free-applicative-t on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-applicative-t/Cache"
+  - "%LOCALAPPDATA%/free-applicative-t/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-categories
+  name: Nixpkgs free-categories macos cache (wave 10)
+  description: Nixpkgs leftover pname free-categories on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-categories"
+  - "$HOME/Library/Logs/free-categories"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-categories
+  name: Nixpkgs free-categories linux cache (wave 10)
+  description: Nixpkgs leftover pname free-categories on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-categories"
+  - "$XDG_CACHE_HOME/free-categories"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-categories
+  name: Nixpkgs free-categories windows cache (wave 10)
+  description: Nixpkgs leftover pname free-categories on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-categories/Cache"
+  - "%LOCALAPPDATA%/free-categories/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-category
+  name: Nixpkgs free-category macos cache (wave 10)
+  description: Nixpkgs leftover pname free-category on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-category"
+  - "$HOME/Library/Logs/free-category"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-category
+  name: Nixpkgs free-category linux cache (wave 10)
+  description: Nixpkgs leftover pname free-category on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-category"
+  - "$XDG_CACHE_HOME/free-category"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-category
+  name: Nixpkgs free-category windows cache (wave 10)
+  description: Nixpkgs leftover pname free-category on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-category/Cache"
+  - "%LOCALAPPDATA%/free-category/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-concurrent
+  name: Nixpkgs free-concurrent macos cache (wave 10)
+  description: Nixpkgs leftover pname free-concurrent on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-concurrent"
+  - "$HOME/Library/Logs/free-concurrent"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-concurrent
+  name: Nixpkgs free-concurrent linux cache (wave 10)
+  description: Nixpkgs leftover pname free-concurrent on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-concurrent"
+  - "$XDG_CACHE_HOME/free-concurrent"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-concurrent
+  name: Nixpkgs free-concurrent windows cache (wave 10)
+  description: Nixpkgs leftover pname free-concurrent on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-concurrent/Cache"
+  - "%LOCALAPPDATA%/free-concurrent/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-cv
+  name: Nixpkgs free-cv macos cache (wave 10)
+  description: Nixpkgs leftover pname free-cv on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-cv"
+  - "$HOME/Library/Logs/free-cv"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-cv
+  name: Nixpkgs free-cv linux cache (wave 10)
+  description: Nixpkgs leftover pname free-cv on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-cv"
+  - "$XDG_CACHE_HOME/free-cv"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-cv
+  name: Nixpkgs free-cv windows cache (wave 10)
+  description: Nixpkgs leftover pname free-cv on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-cv/Cache"
+  - "%LOCALAPPDATA%/free-cv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-er
+  name: Nixpkgs free-er macos cache (wave 10)
+  description: Nixpkgs leftover pname free-er on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-er"
+  - "$HOME/Library/Logs/free-er"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-er
+  name: Nixpkgs free-er linux cache (wave 10)
+  description: Nixpkgs leftover pname free-er on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-er"
+  - "$XDG_CACHE_HOME/free-er"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-er
+  name: Nixpkgs free-er windows cache (wave 10)
+  description: Nixpkgs leftover pname free-er on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-er/Cache"
+  - "%LOCALAPPDATA%/free-er/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-foil
+  name: Nixpkgs free-foil macos cache (wave 10)
+  description: Nixpkgs leftover pname free-foil on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-foil"
+  - "$HOME/Library/Logs/free-foil"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-foil
+  name: Nixpkgs free-foil linux cache (wave 10)
+  description: Nixpkgs leftover pname free-foil on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-foil"
+  - "$XDG_CACHE_HOME/free-foil"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-foil
+  name: Nixpkgs free-foil windows cache (wave 10)
+  description: Nixpkgs leftover pname free-foil on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-foil/Cache"
+  - "%LOCALAPPDATA%/free-foil/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-functors
+  name: Nixpkgs free-functors macos cache (wave 10)
+  description: Nixpkgs leftover pname free-functors on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-functors"
+  - "$HOME/Library/Logs/free-functors"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-functors
+  name: Nixpkgs free-functors linux cache (wave 10)
+  description: Nixpkgs leftover pname free-functors on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-functors"
+  - "$XDG_CACHE_HOME/free-functors"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-functors
+  name: Nixpkgs free-functors windows cache (wave 10)
+  description: Nixpkgs leftover pname free-functors on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-functors/Cache"
+  - "%LOCALAPPDATA%/free-functors/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-game
+  name: Nixpkgs free-game macos cache (wave 10)
+  description: Nixpkgs leftover pname free-game on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-game"
+  - "$HOME/Library/Logs/free-game"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-game
+  name: Nixpkgs free-game linux cache (wave 10)
+  description: Nixpkgs leftover pname free-game on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-game"
+  - "$XDG_CACHE_HOME/free-game"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-game
+  name: Nixpkgs free-game windows cache (wave 10)
+  description: Nixpkgs leftover pname free-game on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-game/Cache"
+  - "%LOCALAPPDATA%/free-game/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-http
+  name: Nixpkgs free-http macos cache (wave 10)
+  description: Nixpkgs leftover pname free-http on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-http"
+  - "$HOME/Library/Logs/free-http"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-http
+  name: Nixpkgs free-http linux cache (wave 10)
+  description: Nixpkgs leftover pname free-http on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-http"
+  - "$XDG_CACHE_HOME/free-http"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-http
+  name: Nixpkgs free-http windows cache (wave 10)
+  description: Nixpkgs leftover pname free-http on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-http/Cache"
+  - "%LOCALAPPDATA%/free-http/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-keys
+  name: Nixpkgs free-keys macos cache (wave 10)
+  description: Nixpkgs leftover pname free-keys on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-keys"
+  - "$HOME/Library/Logs/free-keys"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-keys
+  name: Nixpkgs free-keys linux cache (wave 10)
+  description: Nixpkgs leftover pname free-keys on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-keys"
+  - "$XDG_CACHE_HOME/free-keys"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-keys
+  name: Nixpkgs free-keys windows cache (wave 10)
+  description: Nixpkgs leftover pname free-keys on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-keys/Cache"
+  - "%LOCALAPPDATA%/free-keys/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-listt
+  name: Nixpkgs free-listt macos cache (wave 10)
+  description: Nixpkgs leftover pname free-listt on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-listt"
+  - "$HOME/Library/Logs/free-listt"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-listt
+  name: Nixpkgs free-listt linux cache (wave 10)
+  description: Nixpkgs leftover pname free-listt on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-listt"
+  - "$XDG_CACHE_HOME/free-listt"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-listt
+  name: Nixpkgs free-listt windows cache (wave 10)
+  description: Nixpkgs leftover pname free-listt on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-listt/Cache"
+  - "%LOCALAPPDATA%/free-listt/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-operational
+  name: Nixpkgs free-operational macos cache (wave 10)
+  description: Nixpkgs leftover pname free-operational on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-operational"
+  - "$HOME/Library/Logs/free-operational"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-operational
+  name: Nixpkgs free-operational linux cache (wave 10)
+  description: Nixpkgs leftover pname free-operational on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-operational"
+  - "$XDG_CACHE_HOME/free-operational"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-operational
+  name: Nixpkgs free-operational windows cache (wave 10)
+  description: Nixpkgs leftover pname free-operational on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-operational/Cache"
+  - "%LOCALAPPDATA%/free-operational/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-proxy
+  name: Nixpkgs free-proxy macos cache (wave 10)
+  description: Nixpkgs leftover pname free-proxy on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-proxy"
+  - "$HOME/Library/Logs/free-proxy"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-proxy
+  name: Nixpkgs free-proxy linux cache (wave 10)
+  description: Nixpkgs leftover pname free-proxy on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-proxy"
+  - "$XDG_CACHE_HOME/free-proxy"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-proxy
+  name: Nixpkgs free-proxy windows cache (wave 10)
+  description: Nixpkgs leftover pname free-proxy on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-proxy/Cache"
+  - "%LOCALAPPDATA%/free-proxy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-theorems
+  name: Nixpkgs free-theorems macos cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-theorems"
+  - "$HOME/Library/Logs/free-theorems"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-theorems
+  name: Nixpkgs free-theorems linux cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-theorems"
+  - "$XDG_CACHE_HOME/free-theorems"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-theorems
+  name: Nixpkgs free-theorems windows cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-theorems/Cache"
+  - "%LOCALAPPDATA%/free-theorems/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-theorems-counterexamples
+  name: Nixpkgs free-theorems-counterexamples macos cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-counterexamples on macos (wave
+    10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-theorems-counterexamples"
+  - "$HOME/Library/Logs/free-theorems-counterexamples"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-theorems-counterexamples
+  name: Nixpkgs free-theorems-counterexamples linux cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-counterexamples on linux (wave
+    10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-theorems-counterexamples"
+  - "$XDG_CACHE_HOME/free-theorems-counterexamples"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-theorems-counterexamples
+  name: Nixpkgs free-theorems-counterexamples windows cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-counterexamples on windows (wave
+    10). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-theorems-counterexamples/Cache"
+  - "%LOCALAPPDATA%/free-theorems-counterexamples/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-theorems-seq
+  name: Nixpkgs free-theorems-seq macos cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-seq on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-theorems-seq"
+  - "$HOME/Library/Logs/free-theorems-seq"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-theorems-seq
+  name: Nixpkgs free-theorems-seq linux cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-seq on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-theorems-seq"
+  - "$XDG_CACHE_HOME/free-theorems-seq"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-theorems-seq
+  name: Nixpkgs free-theorems-seq windows cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-seq on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-theorems-seq/Cache"
+  - "%LOCALAPPDATA%/free-theorems-seq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-theorems-seq-webui
+  name: Nixpkgs free-theorems-seq-webui macos cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-seq-webui on macos (wave 10).
+    Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-theorems-seq-webui"
+  - "$HOME/Library/Logs/free-theorems-seq-webui"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-theorems-seq-webui
+  name: Nixpkgs free-theorems-seq-webui linux cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-seq-webui on linux (wave 10).
+    Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-theorems-seq-webui"
+  - "$XDG_CACHE_HOME/free-theorems-seq-webui"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-theorems-seq-webui
+  name: Nixpkgs free-theorems-seq-webui windows cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-seq-webui on windows (wave 10).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-theorems-seq-webui/Cache"
+  - "%LOCALAPPDATA%/free-theorems-seq-webui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-theorems-webui
+  name: Nixpkgs free-theorems-webui macos cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-webui on macos (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-theorems-webui"
+  - "$HOME/Library/Logs/free-theorems-webui"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-theorems-webui
+  name: Nixpkgs free-theorems-webui linux cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-webui on linux (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-theorems-webui"
+  - "$XDG_CACHE_HOME/free-theorems-webui"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-theorems-webui
+  name: Nixpkgs free-theorems-webui windows cache (wave 10)
+  description: Nixpkgs leftover pname free-theorems-webui on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-theorems-webui/Cache"
+  - "%LOCALAPPDATA%/free-theorems-webui/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-v-bucks-generator-no-survey
+  name: Nixpkgs free-v-bucks-generator-no-survey macos cache (wave 10)
+  description: Nixpkgs leftover pname free-v-bucks-generator-no-survey on macos (wave
+    10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-v-bucks-generator-no-survey"
+  - "$HOME/Library/Logs/free-v-bucks-generator-no-survey"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-v-bucks-generator-no-survey
+  name: Nixpkgs free-v-bucks-generator-no-survey linux cache (wave 10)
+  description: Nixpkgs leftover pname free-v-bucks-generator-no-survey on linux (wave
+    10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-v-bucks-generator-no-survey"
+  - "$XDG_CACHE_HOME/free-v-bucks-generator-no-survey"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-v-bucks-generator-no-survey
+  name: Nixpkgs free-v-bucks-generator-no-survey windows cache (wave 10)
+  description: Nixpkgs leftover pname free-v-bucks-generator-no-survey on windows
+    (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-v-bucks-generator-no-survey/Cache"
+  - "%LOCALAPPDATA%/free-v-bucks-generator-no-survey/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-v-bucks-generator-ps4-no-survey
+  name: Nixpkgs free-v-bucks-generator-ps4-no-survey macos cache (wave 10)
+  description: Nixpkgs leftover pname free-v-bucks-generator-ps4-no-survey on macos
+    (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-v-bucks-generator-ps4-no-survey"
+  - "$HOME/Library/Logs/free-v-bucks-generator-ps4-no-survey"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-v-bucks-generator-ps4-no-survey
+  name: Nixpkgs free-v-bucks-generator-ps4-no-survey linux cache (wave 10)
+  description: Nixpkgs leftover pname free-v-bucks-generator-ps4-no-survey on linux
+    (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-v-bucks-generator-ps4-no-survey"
+  - "$XDG_CACHE_HOME/free-v-bucks-generator-ps4-no-survey"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-v-bucks-generator-ps4-no-survey
+  name: Nixpkgs free-v-bucks-generator-ps4-no-survey windows cache (wave 10)
+  description: Nixpkgs leftover pname free-v-bucks-generator-ps4-no-survey on windows
+    (wave 10). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-v-bucks-generator-ps4-no-survey/Cache"
+  - "%LOCALAPPDATA%/free-v-bucks-generator-ps4-no-survey/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-vector-spaces
+  name: Nixpkgs free-vector-spaces macos cache (wave 10)
+  description: Nixpkgs leftover pname free-vector-spaces on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-vector-spaces"
+  - "$HOME/Library/Logs/free-vector-spaces"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-vector-spaces
+  name: Nixpkgs free-vector-spaces linux cache (wave 10)
+  description: Nixpkgs leftover pname free-vector-spaces on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-vector-spaces"
+  - "$XDG_CACHE_HOME/free-vector-spaces"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-vector-spaces
+  name: Nixpkgs free-vector-spaces windows cache (wave 10)
+  description: Nixpkgs leftover pname free-vector-spaces on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-vector-spaces/Cache"
+  - "%LOCALAPPDATA%/free-vector-spaces/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free-vl
+  name: Nixpkgs free-vl macos cache (wave 10)
+  description: Nixpkgs leftover pname free-vl on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free-vl"
+  - "$HOME/Library/Logs/free-vl"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free-vl
+  name: Nixpkgs free-vl linux cache (wave 10)
+  description: Nixpkgs leftover pname free-vl on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free-vl"
+  - "$XDG_CACHE_HOME/free-vl"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free-vl
+  name: Nixpkgs free-vl windows cache (wave 10)
+  description: Nixpkgs leftover pname free-vl on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free-vl/Cache"
+  - "%LOCALAPPDATA%/free-vl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free1way-docreg
+  name: Nixpkgs free1way.docreg macos cache (wave 10)
+  description: Nixpkgs leftover pname free1way.docreg on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free1way.docreg"
+  - "$HOME/Library/Logs/free1way.docreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free1way-docreg
+  name: Nixpkgs free1way.docreg linux cache (wave 10)
+  description: Nixpkgs leftover pname free1way.docreg on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free1way.docreg"
+  - "$XDG_CACHE_HOME/free1way.docreg"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free1way-docreg
+  name: Nixpkgs free1way.docreg windows cache (wave 10)
+  description: Nixpkgs leftover pname free1way.docreg on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free1way.docreg/Cache"
+  - "%LOCALAPPDATA%/free1way.docreg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free42
+  name: Nixpkgs free42 macos cache (wave 10)
+  description: Nixpkgs leftover pname free42 on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free42"
+  - "$HOME/Library/Logs/free42"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free42
+  name: Nixpkgs free42 linux cache (wave 10)
+  description: Nixpkgs leftover pname free42 on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free42"
+  - "$XDG_CACHE_HOME/free42"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free42
+  name: Nixpkgs free42 windows cache (wave 10)
+  description: Nixpkgs leftover pname free42 on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free42/Cache"
+  - "%LOCALAPPDATA%/free42/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-amf
+  name: Nixpkgs free5gc-amf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-amf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-amf"
+  - "$HOME/Library/Logs/free5gc-amf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-amf
+  name: Nixpkgs free5gc-amf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-amf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-amf"
+  - "$XDG_CACHE_HOME/free5gc-amf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-amf
+  name: Nixpkgs free5gc-amf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-amf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-amf/Cache"
+  - "%LOCALAPPDATA%/free5gc-amf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-ausf
+  name: Nixpkgs free5gc-ausf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-ausf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-ausf"
+  - "$HOME/Library/Logs/free5gc-ausf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-ausf
+  name: Nixpkgs free5gc-ausf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-ausf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-ausf"
+  - "$XDG_CACHE_HOME/free5gc-ausf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-ausf
+  name: Nixpkgs free5gc-ausf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-ausf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-ausf/Cache"
+  - "%LOCALAPPDATA%/free5gc-ausf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-bsf
+  name: Nixpkgs free5gc-bsf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-bsf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-bsf"
+  - "$HOME/Library/Logs/free5gc-bsf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-bsf
+  name: Nixpkgs free5gc-bsf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-bsf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-bsf"
+  - "$XDG_CACHE_HOME/free5gc-bsf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-bsf
+  name: Nixpkgs free5gc-bsf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-bsf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-bsf/Cache"
+  - "%LOCALAPPDATA%/free5gc-bsf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-chf
+  name: Nixpkgs free5gc-chf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-chf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-chf"
+  - "$HOME/Library/Logs/free5gc-chf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-chf
+  name: Nixpkgs free5gc-chf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-chf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-chf"
+  - "$XDG_CACHE_HOME/free5gc-chf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-chf
+  name: Nixpkgs free5gc-chf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-chf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-chf/Cache"
+  - "%LOCALAPPDATA%/free5gc-chf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-n3iwf
+  name: Nixpkgs free5gc-n3iwf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-n3iwf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-n3iwf"
+  - "$HOME/Library/Logs/free5gc-n3iwf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-n3iwf
+  name: Nixpkgs free5gc-n3iwf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-n3iwf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-n3iwf"
+  - "$XDG_CACHE_HOME/free5gc-n3iwf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-n3iwf
+  name: Nixpkgs free5gc-n3iwf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-n3iwf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-n3iwf/Cache"
+  - "%LOCALAPPDATA%/free5gc-n3iwf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-nef
+  name: Nixpkgs free5gc-nef macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nef on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-nef"
+  - "$HOME/Library/Logs/free5gc-nef"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-nef
+  name: Nixpkgs free5gc-nef linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nef on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-nef"
+  - "$XDG_CACHE_HOME/free5gc-nef"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-nef
+  name: Nixpkgs free5gc-nef windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nef on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-nef/Cache"
+  - "%LOCALAPPDATA%/free5gc-nef/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-nrf
+  name: Nixpkgs free5gc-nrf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nrf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-nrf"
+  - "$HOME/Library/Logs/free5gc-nrf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-nrf
+  name: Nixpkgs free5gc-nrf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nrf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-nrf"
+  - "$XDG_CACHE_HOME/free5gc-nrf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-nrf
+  name: Nixpkgs free5gc-nrf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nrf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-nrf/Cache"
+  - "%LOCALAPPDATA%/free5gc-nrf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-nssf
+  name: Nixpkgs free5gc-nssf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nssf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-nssf"
+  - "$HOME/Library/Logs/free5gc-nssf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-nssf
+  name: Nixpkgs free5gc-nssf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nssf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-nssf"
+  - "$XDG_CACHE_HOME/free5gc-nssf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-nssf
+  name: Nixpkgs free5gc-nssf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-nssf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-nssf/Cache"
+  - "%LOCALAPPDATA%/free5gc-nssf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-pcf
+  name: Nixpkgs free5gc-pcf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-pcf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-pcf"
+  - "$HOME/Library/Logs/free5gc-pcf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-pcf
+  name: Nixpkgs free5gc-pcf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-pcf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-pcf"
+  - "$XDG_CACHE_HOME/free5gc-pcf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-pcf
+  name: Nixpkgs free5gc-pcf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-pcf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-pcf/Cache"
+  - "%LOCALAPPDATA%/free5gc-pcf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-smf
+  name: Nixpkgs free5gc-smf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-smf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-smf"
+  - "$HOME/Library/Logs/free5gc-smf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-smf
+  name: Nixpkgs free5gc-smf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-smf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-smf"
+  - "$XDG_CACHE_HOME/free5gc-smf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-smf
+  name: Nixpkgs free5gc-smf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-smf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-smf/Cache"
+  - "%LOCALAPPDATA%/free5gc-smf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-tngf
+  name: Nixpkgs free5gc-tngf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-tngf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-tngf"
+  - "$HOME/Library/Logs/free5gc-tngf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-tngf
+  name: Nixpkgs free5gc-tngf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-tngf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-tngf"
+  - "$XDG_CACHE_HOME/free5gc-tngf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-tngf
+  name: Nixpkgs free5gc-tngf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-tngf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-tngf/Cache"
+  - "%LOCALAPPDATA%/free5gc-tngf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-udm
+  name: Nixpkgs free5gc-udm macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-udm on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-udm"
+  - "$HOME/Library/Logs/free5gc-udm"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-udm
+  name: Nixpkgs free5gc-udm linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-udm on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-udm"
+  - "$XDG_CACHE_HOME/free5gc-udm"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-udm
+  name: Nixpkgs free5gc-udm windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-udm on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-udm/Cache"
+  - "%LOCALAPPDATA%/free5gc-udm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-udr
+  name: Nixpkgs free5gc-udr macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-udr on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-udr"
+  - "$HOME/Library/Logs/free5gc-udr"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-udr
+  name: Nixpkgs free5gc-udr linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-udr on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-udr"
+  - "$XDG_CACHE_HOME/free5gc-udr"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-udr
+  name: Nixpkgs free5gc-udr windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-udr on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-udr/Cache"
+  - "%LOCALAPPDATA%/free5gc-udr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-free5gc-upf
+  name: Nixpkgs free5gc-upf macos cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-upf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/free5gc-upf"
+  - "$HOME/Library/Logs/free5gc-upf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-free5gc-upf
+  name: Nixpkgs free5gc-upf linux cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-upf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/free5gc-upf"
+  - "$XDG_CACHE_HOME/free5gc-upf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-free5gc-upf
+  name: Nixpkgs free5gc-upf windows cache (wave 10)
+  description: Nixpkgs leftover pname free5gc-upf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/free5gc-upf/Cache"
+  - "%LOCALAPPDATA%/free5gc-upf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freealg
+  name: Nixpkgs freealg macos cache (wave 10)
+  description: Nixpkgs leftover pname freealg on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freealg"
+  - "$HOME/Library/Logs/freealg"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freealg
+  name: Nixpkgs freealg linux cache (wave 10)
+  description: Nixpkgs leftover pname freealg on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freealg"
+  - "$XDG_CACHE_HOME/freealg"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freealg
+  name: Nixpkgs freealg windows cache (wave 10)
+  description: Nixpkgs leftover pname freealg on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freealg/Cache"
+  - "%LOCALAPPDATA%/freealg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freealign
+  name: Nixpkgs freealign macos cache (wave 10)
+  description: Nixpkgs leftover pname freealign on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freealign"
+  - "$HOME/Library/Logs/freealign"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freealign
+  name: Nixpkgs freealign linux cache (wave 10)
+  description: Nixpkgs leftover pname freealign on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freealign"
+  - "$XDG_CACHE_HOME/freealign"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freealign
+  name: Nixpkgs freealign windows cache (wave 10)
+  description: Nixpkgs leftover pname freealign on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freealign/Cache"
+  - "%LOCALAPPDATA%/freealign/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freealut
+  name: Nixpkgs freealut macos cache (wave 10)
+  description: Nixpkgs leftover pname freealut on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freealut"
+  - "$HOME/Library/Logs/freealut"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freealut
+  name: Nixpkgs freealut linux cache (wave 10)
+  description: Nixpkgs leftover pname freealut on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freealut"
+  - "$XDG_CACHE_HOME/freealut"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freealut
+  name: Nixpkgs freealut windows cache (wave 10)
+  description: Nixpkgs leftover pname freealut on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freealut/Cache"
+  - "%LOCALAPPDATA%/freealut/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebayes
+  name: Nixpkgs freebayes macos cache (wave 10)
+  description: Nixpkgs leftover pname freebayes on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebayes"
+  - "$HOME/Library/Logs/freebayes"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebayes
+  name: Nixpkgs freebayes linux cache (wave 10)
+  description: Nixpkgs leftover pname freebayes on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebayes"
+  - "$XDG_CACHE_HOME/freebayes"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebayes
+  name: Nixpkgs freebayes windows cache (wave 10)
+  description: Nixpkgs leftover pname freebayes on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebayes/Cache"
+  - "%LOCALAPPDATA%/freebayes/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebind
+  name: Nixpkgs freebind macos cache (wave 10)
+  description: Nixpkgs leftover pname freebind on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebind"
+  - "$HOME/Library/Logs/freebind"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebind
+  name: Nixpkgs freebind linux cache (wave 10)
+  description: Nixpkgs leftover pname freebind on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebind"
+  - "$XDG_CACHE_HOME/freebind"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebind
+  name: Nixpkgs freebind windows cache (wave 10)
+  description: Nixpkgs leftover pname freebind on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebind/Cache"
+  - "%LOCALAPPDATA%/freebind/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebird
+  name: Nixpkgs freebird macos cache (wave 10)
+  description: Nixpkgs leftover pname freebird on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebird"
+  - "$HOME/Library/Logs/freebird"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebird
+  name: Nixpkgs freebird linux cache (wave 10)
+  description: Nixpkgs leftover pname freebird on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebird"
+  - "$XDG_CACHE_HOME/freebird"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebird
+  name: Nixpkgs freebird windows cache (wave 10)
+  description: Nixpkgs leftover pname freebird on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebird/Cache"
+  - "%LOCALAPPDATA%/freebird/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebox-api
+  name: Nixpkgs freebox-api macos cache (wave 10)
+  description: Nixpkgs leftover pname freebox-api on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebox-api"
+  - "$HOME/Library/Logs/freebox-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebox-api
+  name: Nixpkgs freebox-api linux cache (wave 10)
+  description: Nixpkgs leftover pname freebox-api on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebox-api"
+  - "$XDG_CACHE_HOME/freebox-api"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebox-api
+  name: Nixpkgs freebox-api windows cache (wave 10)
+  description: Nixpkgs leftover pname freebox-api on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebox-api/Cache"
+  - "%LOCALAPPDATA%/freebox-api/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebsd-locales
+  name: Nixpkgs freebsd-locales macos cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-locales on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebsd-locales"
+  - "$HOME/Library/Logs/freebsd-locales"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebsd-locales
+  name: Nixpkgs freebsd-locales linux cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-locales on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebsd-locales"
+  - "$XDG_CACHE_HOME/freebsd-locales"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebsd-locales
+  name: Nixpkgs freebsd-locales windows cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-locales on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebsd-locales/Cache"
+  - "%LOCALAPPDATA%/freebsd-locales/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebsd-setup-hook
+  name: Nixpkgs freebsd-setup-hook macos cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-setup-hook on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebsd-setup-hook"
+  - "$HOME/Library/Logs/freebsd-setup-hook"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebsd-setup-hook
+  name: Nixpkgs freebsd-setup-hook linux cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-setup-hook on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebsd-setup-hook"
+  - "$XDG_CACHE_HOME/freebsd-setup-hook"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebsd-setup-hook
+  name: Nixpkgs freebsd-setup-hook windows cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-setup-hook on windows (wave 10). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebsd-setup-hook/Cache"
+  - "%LOCALAPPDATA%/freebsd-setup-hook/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebsd-sysctl
+  name: Nixpkgs freebsd-sysctl macos cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-sysctl on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebsd-sysctl"
+  - "$HOME/Library/Logs/freebsd-sysctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebsd-sysctl
+  name: Nixpkgs freebsd-sysctl linux cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-sysctl on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebsd-sysctl"
+  - "$XDG_CACHE_HOME/freebsd-sysctl"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebsd-sysctl
+  name: Nixpkgs freebsd-sysctl windows cache (wave 10)
+  description: Nixpkgs leftover pname freebsd-sysctl on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebsd-sysctl/Cache"
+  - "%LOCALAPPDATA%/freebsd-sysctl/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebsd-wordexp
+  name: Nixpkgs freebsd_wordexp macos cache (wave 10)
+  description: Nixpkgs leftover pname freebsd_wordexp on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebsd_wordexp"
+  - "$HOME/Library/Logs/freebsd_wordexp"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebsd-wordexp
+  name: Nixpkgs freebsd_wordexp linux cache (wave 10)
+  description: Nixpkgs leftover pname freebsd_wordexp on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebsd_wordexp"
+  - "$XDG_CACHE_HOME/freebsd_wordexp"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebsd-wordexp
+  name: Nixpkgs freebsd_wordexp windows cache (wave 10)
+  description: Nixpkgs leftover pname freebsd_wordexp on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebsd_wordexp/Cache"
+  - "%LOCALAPPDATA%/freebsd_wordexp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freebsdcontribs
+  name: Nixpkgs freebsdcontribs macos cache (wave 10)
+  description: Nixpkgs leftover pname freebsdcontribs on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freebsdcontribs"
+  - "$HOME/Library/Logs/freebsdcontribs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freebsdcontribs
+  name: Nixpkgs freebsdcontribs linux cache (wave 10)
+  description: Nixpkgs leftover pname freebsdcontribs on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freebsdcontribs"
+  - "$XDG_CACHE_HOME/freebsdcontribs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freebsdcontribs
+  name: Nixpkgs freebsdcontribs windows cache (wave 10)
+  description: Nixpkgs leftover pname freebsdcontribs on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freebsdcontribs/Cache"
+  - "%LOCALAPPDATA%/freebsdcontribs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freecad
+  name: Nixpkgs freecad macos cache (wave 10)
+  description: Nixpkgs leftover pname freecad on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freecad"
+  - "$HOME/Library/Logs/freecad"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freecad
+  name: Nixpkgs freecad linux cache (wave 10)
+  description: Nixpkgs leftover pname freecad on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freecad"
+  - "$XDG_CACHE_HOME/freecad"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freecad
+  name: Nixpkgs freecad windows cache (wave 10)
+  description: Nixpkgs leftover pname freecad on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freecad/Cache"
+  - "%LOCALAPPDATA%/freecad/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freecell-solver
+  name: Nixpkgs freecell-solver macos cache (wave 10)
+  description: Nixpkgs leftover pname freecell-solver on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freecell-solver"
+  - "$HOME/Library/Logs/freecell-solver"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freecell-solver
+  name: Nixpkgs freecell-solver linux cache (wave 10)
+  description: Nixpkgs leftover pname freecell-solver on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freecell-solver"
+  - "$XDG_CACHE_HOME/freecell-solver"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freecell-solver
+  name: Nixpkgs freecell-solver windows cache (wave 10)
+  description: Nixpkgs leftover pname freecell-solver on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freecell-solver/Cache"
+  - "%LOCALAPPDATA%/freecell-solver/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freeciv
+  name: Nixpkgs freeciv macos cache (wave 10)
+  description: Nixpkgs leftover pname freeciv on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freeciv"
+  - "$HOME/Library/Logs/freeciv"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freeciv
+  name: Nixpkgs freeciv linux cache (wave 10)
+  description: Nixpkgs leftover pname freeciv on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freeciv"
+  - "$XDG_CACHE_HOME/freeciv"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freeciv
+  name: Nixpkgs freeciv windows cache (wave 10)
+  description: Nixpkgs leftover pname freeciv on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freeciv/Cache"
+  - "%LOCALAPPDATA%/freeciv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freecurrencyapi
+  name: Nixpkgs freecurrencyapi macos cache (wave 10)
+  description: Nixpkgs leftover pname freecurrencyapi on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freecurrencyapi"
+  - "$HOME/Library/Logs/freecurrencyapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freecurrencyapi
+  name: Nixpkgs freecurrencyapi linux cache (wave 10)
+  description: Nixpkgs leftover pname freecurrencyapi on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freecurrencyapi"
+  - "$XDG_CACHE_HOME/freecurrencyapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freecurrencyapi
+  name: Nixpkgs freecurrencyapi windows cache (wave 10)
+  description: Nixpkgs leftover pname freecurrencyapi on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freecurrencyapi/Cache"
+  - "%LOCALAPPDATA%/freecurrencyapi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freediameter
+  name: Nixpkgs freediameter macos cache (wave 10)
+  description: Nixpkgs leftover pname freediameter on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freediameter"
+  - "$HOME/Library/Logs/freediameter"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freediameter
+  name: Nixpkgs freediameter linux cache (wave 10)
+  description: Nixpkgs leftover pname freediameter on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freediameter"
+  - "$XDG_CACHE_HOME/freediameter"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freediameter
+  name: Nixpkgs freediameter windows cache (wave 10)
+  description: Nixpkgs leftover pname freediameter on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freediameter/Cache"
+  - "%LOCALAPPDATA%/freediameter/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freedink
+  name: Nixpkgs freedink macos cache (wave 10)
+  description: Nixpkgs leftover pname freedink on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freedink"
+  - "$HOME/Library/Logs/freedink"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freedink
+  name: Nixpkgs freedink linux cache (wave 10)
+  description: Nixpkgs leftover pname freedink on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freedink"
+  - "$XDG_CACHE_HOME/freedink"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freedink
+  name: Nixpkgs freedink windows cache (wave 10)
+  description: Nixpkgs leftover pname freedink on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freedink/Cache"
+  - "%LOCALAPPDATA%/freedink/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freedom
+  name: Nixpkgs freedom macos cache (wave 10)
+  description: Nixpkgs leftover pname freedom on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freedom"
+  - "$HOME/Library/Logs/freedom"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freedom
+  name: Nixpkgs freedom linux cache (wave 10)
+  description: Nixpkgs leftover pname freedom on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freedom"
+  - "$XDG_CACHE_HOME/freedom"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freedom
+  name: Nixpkgs freedom windows cache (wave 10)
+  description: Nixpkgs leftover pname freedom on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freedom/Cache"
+  - "%LOCALAPPDATA%/freedom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freedoom
+  name: Nixpkgs freedoom macos cache (wave 10)
+  description: Nixpkgs leftover pname freedoom on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freedoom"
+  - "$HOME/Library/Logs/freedoom"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freedoom
+  name: Nixpkgs freedoom linux cache (wave 10)
+  description: Nixpkgs leftover pname freedoom on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freedoom"
+  - "$XDG_CACHE_HOME/freedoom"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freedoom
+  name: Nixpkgs freedoom windows cache (wave 10)
+  description: Nixpkgs leftover pname freedoom on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freedoom/Cache"
+  - "%LOCALAPPDATA%/freedoom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freedroid
+  name: Nixpkgs freedroid macos cache (wave 10)
+  description: Nixpkgs leftover pname freedroid on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freedroid"
+  - "$HOME/Library/Logs/freedroid"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freedroid
+  name: Nixpkgs freedroid linux cache (wave 10)
+  description: Nixpkgs leftover pname freedroid on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freedroid"
+  - "$XDG_CACHE_HOME/freedroid"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freedroid
+  name: Nixpkgs freedroid windows cache (wave 10)
+  description: Nixpkgs leftover pname freedroid on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freedroid/Cache"
+  - "%LOCALAPPDATA%/freedroid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freedroidrpg
+  name: Nixpkgs freedroidrpg macos cache (wave 10)
+  description: Nixpkgs leftover pname freedroidrpg on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freedroidrpg"
+  - "$HOME/Library/Logs/freedroidrpg"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freedroidrpg
+  name: Nixpkgs freedroidrpg linux cache (wave 10)
+  description: Nixpkgs leftover pname freedroidrpg on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freedroidrpg"
+  - "$XDG_CACHE_HOME/freedroidrpg"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freedroidrpg
+  name: Nixpkgs freedroidrpg windows cache (wave 10)
+  description: Nixpkgs leftover pname freedroidrpg on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freedroidrpg/Cache"
+  - "%LOCALAPPDATA%/freedroidrpg/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freedv
+  name: Nixpkgs freedv macos cache (wave 10)
+  description: Nixpkgs leftover pname freedv on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freedv"
+  - "$HOME/Library/Logs/freedv"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freedv
+  name: Nixpkgs freedv linux cache (wave 10)
+  description: Nixpkgs leftover pname freedv on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freedv"
+  - "$XDG_CACHE_HOME/freedv"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freedv
+  name: Nixpkgs freedv windows cache (wave 10)
+  description: Nixpkgs leftover pname freedv on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freedv/Cache"
+  - "%LOCALAPPDATA%/freedv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freefall
+  name: Nixpkgs freefall macos cache (wave 10)
+  description: Nixpkgs leftover pname freefall on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freefall"
+  - "$HOME/Library/Logs/freefall"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freefall
+  name: Nixpkgs freefall linux cache (wave 10)
+  description: Nixpkgs leftover pname freefall on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freefall"
+  - "$XDG_CACHE_HOME/freefall"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freefall
+  name: Nixpkgs freefall windows cache (wave 10)
+  description: Nixpkgs leftover pname freefall on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freefall/Cache"
+  - "%LOCALAPPDATA%/freefall/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freefilesync
+  name: Nixpkgs freefilesync macos cache (wave 10)
+  description: Nixpkgs leftover pname freefilesync on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freefilesync"
+  - "$HOME/Library/Logs/freefilesync"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freefilesync
+  name: Nixpkgs freefilesync linux cache (wave 10)
+  description: Nixpkgs leftover pname freefilesync on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freefilesync"
+  - "$XDG_CACHE_HOME/freefilesync"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freefilesync
+  name: Nixpkgs freefilesync windows cache (wave 10)
+  description: Nixpkgs leftover pname freefilesync on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freefilesync/Cache"
+  - "%LOCALAPPDATA%/freefilesync/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freefont-ttf
+  name: Nixpkgs freefont-ttf macos cache (wave 10)
+  description: Nixpkgs leftover pname freefont-ttf on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freefont-ttf"
+  - "$HOME/Library/Logs/freefont-ttf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freefont-ttf
+  name: Nixpkgs freefont-ttf linux cache (wave 10)
+  description: Nixpkgs leftover pname freefont-ttf on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freefont-ttf"
+  - "$XDG_CACHE_HOME/freefont-ttf"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freefont-ttf
+  name: Nixpkgs freefont-ttf windows cache (wave 10)
+  description: Nixpkgs leftover pname freefont-ttf on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freefont-ttf/Cache"
+  - "%LOCALAPPDATA%/freefont-ttf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freeglut
+  name: Nixpkgs freeglut macos cache (wave 10)
+  description: Nixpkgs leftover pname freeglut on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freeglut"
+  - "$HOME/Library/Logs/freeglut"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freeglut
+  name: Nixpkgs freeglut linux cache (wave 10)
+  description: Nixpkgs leftover pname freeglut on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freeglut"
+  - "$XDG_CACHE_HOME/freeglut"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freeglut
+  name: Nixpkgs freeglut windows cache (wave 10)
+  description: Nixpkgs leftover pname freeglut on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freeglut/Cache"
+  - "%LOCALAPPDATA%/freeglut/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freegroup
+  name: Nixpkgs freegroup macos cache (wave 10)
+  description: Nixpkgs leftover pname freegroup on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freegroup"
+  - "$HOME/Library/Logs/freegroup"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freegroup
+  name: Nixpkgs freegroup linux cache (wave 10)
+  description: Nixpkgs leftover pname freegroup on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freegroup"
+  - "$XDG_CACHE_HOME/freegroup"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freegroup
+  name: Nixpkgs freegroup windows cache (wave 10)
+  description: Nixpkgs leftover pname freegroup on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freegroup/Cache"
+  - "%LOCALAPPDATA%/freegroup/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freeipa
+  name: Nixpkgs freeipa macos cache (wave 10)
+  description: Nixpkgs leftover pname freeipa on macos (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freeipa"
+  - "$HOME/Library/Logs/freeipa"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freeipa
+  name: Nixpkgs freeipa linux cache (wave 10)
+  description: Nixpkgs leftover pname freeipa on linux (wave 10). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freeipa"
+  - "$XDG_CACHE_HOME/freeipa"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freeipa
+  name: Nixpkgs freeipa windows cache (wave 10)
+  description: Nixpkgs leftover pname freeipa on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freeipa/Cache"
+  - "%LOCALAPPDATA%/freeipa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freeipmi
+  name: Nixpkgs freeipmi macos cache (wave 10)
+  description: Nixpkgs leftover pname freeipmi on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freeipmi"
+  - "$HOME/Library/Logs/freeipmi"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freeipmi
+  name: Nixpkgs freeipmi linux cache (wave 10)
+  description: Nixpkgs leftover pname freeipmi on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freeipmi"
+  - "$XDG_CACHE_HOME/freeipmi"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freeipmi
+  name: Nixpkgs freeipmi windows cache (wave 10)
+  description: Nixpkgs leftover pname freeipmi on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freeipmi/Cache"
+  - "%LOCALAPPDATA%/freeipmi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freekick2
+  name: Nixpkgs freekick2 macos cache (wave 10)
+  description: Nixpkgs leftover pname freekick2 on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freekick2"
+  - "$HOME/Library/Logs/freekick2"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-lin-freekick2
+  name: Nixpkgs freekick2 linux cache (wave 10)
+  description: Nixpkgs leftover pname freekick2 on linux (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/freekick2"
+  - "$XDG_CACHE_HOME/freekick2"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-win-freekick2
+  name: Nixpkgs freekick2 windows cache (wave 10)
+  description: Nixpkgs leftover pname freekick2 on windows (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/freekick2/Cache"
+  - "%LOCALAPPDATA%/freekick2/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np10-mac-freelens-bin
+  name: Nixpkgs freelens-bin macos cache (wave 10)
+  description: Nixpkgs leftover pname freelens-bin on macos (wave 10). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/freelens-bin"
+  - "$HOME/Library/Logs/freelens-bin"
+  delete_mode: contents
+  max_depth: 6

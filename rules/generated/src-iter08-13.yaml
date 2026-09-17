@@ -1,0 +1,5510 @@
+---
+pack: src-iter08-13
+description: Iterative 10k import wave 8 from leftover Nixpkgs pnames. Chunk 13.
+rules:
+- id: np8-mac-droid
+  name: Nixpkgs droid macos cache (wave 8)
+  description: Nixpkgs leftover pname droid on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droid"
+  - "$HOME/Library/Logs/droid"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droid
+  name: Nixpkgs droid linux cache (wave 8)
+  description: Nixpkgs leftover pname droid on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droid"
+  - "$XDG_CACHE_HOME/droid"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droid
+  name: Nixpkgs droid windows cache (wave 8)
+  description: Nixpkgs leftover pname droid on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droid/Cache"
+  - "%LOCALAPPDATA%/droid/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droidcam
+  name: Nixpkgs droidcam macos cache (wave 8)
+  description: Nixpkgs leftover pname droidcam on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droidcam"
+  - "$HOME/Library/Logs/droidcam"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droidcam
+  name: Nixpkgs droidcam linux cache (wave 8)
+  description: Nixpkgs leftover pname droidcam on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droidcam"
+  - "$XDG_CACHE_HOME/droidcam"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droidcam
+  name: Nixpkgs droidcam windows cache (wave 8)
+  description: Nixpkgs leftover pname droidcam on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droidcam/Cache"
+  - "%LOCALAPPDATA%/droidcam/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droidcam-obs
+  name: Nixpkgs droidcam-obs macos cache (wave 8)
+  description: Nixpkgs leftover pname droidcam-obs on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droidcam-obs"
+  - "$HOME/Library/Logs/droidcam-obs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droidcam-obs
+  name: Nixpkgs droidcam-obs linux cache (wave 8)
+  description: Nixpkgs leftover pname droidcam-obs on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droidcam-obs"
+  - "$XDG_CACHE_HOME/droidcam-obs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droidcam-obs
+  name: Nixpkgs droidcam-obs windows cache (wave 8)
+  description: Nixpkgs leftover pname droidcam-obs on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droidcam-obs/Cache"
+  - "%LOCALAPPDATA%/droidcam-obs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droidmote
+  name: Nixpkgs droidmote macos cache (wave 8)
+  description: Nixpkgs leftover pname droidmote on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droidmote"
+  - "$HOME/Library/Logs/droidmote"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droidmote
+  name: Nixpkgs droidmote linux cache (wave 8)
+  description: Nixpkgs leftover pname droidmote on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droidmote"
+  - "$XDG_CACHE_HOME/droidmote"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droidmote
+  name: Nixpkgs droidmote windows cache (wave 8)
+  description: Nixpkgs leftover pname droidmote on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droidmote/Cache"
+  - "%LOCALAPPDATA%/droidmote/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droit-fr
+  name: Nixpkgs droit-fr macos cache (wave 8)
+  description: Nixpkgs leftover pname droit-fr on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droit-fr"
+  - "$HOME/Library/Logs/droit-fr"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droit-fr
+  name: Nixpkgs droit-fr linux cache (wave 8)
+  description: Nixpkgs leftover pname droit-fr on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droit-fr"
+  - "$XDG_CACHE_HOME/droit-fr"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droit-fr
+  name: Nixpkgs droit-fr windows cache (wave 8)
+  description: Nixpkgs leftover pname droit-fr on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droit-fr/Cache"
+  - "%LOCALAPPDATA%/droit-fr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droll
+  name: Nixpkgs droll macos cache (wave 8)
+  description: Nixpkgs leftover pname droll on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droll"
+  - "$HOME/Library/Logs/droll"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droll
+  name: Nixpkgs droll linux cache (wave 8)
+  description: Nixpkgs leftover pname droll on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droll"
+  - "$XDG_CACHE_HOME/droll"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droll
+  name: Nixpkgs droll windows cache (wave 8)
+  description: Nixpkgs leftover pname droll on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droll/Cache"
+  - "%LOCALAPPDATA%/droll/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drom
+  name: Nixpkgs drom macos cache (wave 8)
+  description: Nixpkgs leftover pname drom on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drom"
+  - "$HOME/Library/Logs/drom"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drom
+  name: Nixpkgs drom linux cache (wave 8)
+  description: Nixpkgs leftover pname drom on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drom"
+  - "$XDG_CACHE_HOME/drom"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drom
+  name: Nixpkgs drom windows cache (wave 8)
+  description: Nixpkgs leftover pname drom on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drom/Cache"
+  - "%LOCALAPPDATA%/drom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone
+  name: Nixpkgs drone macos cache (wave 8)
+  description: Nixpkgs leftover pname drone on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone"
+  - "$HOME/Library/Logs/drone"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone
+  name: Nixpkgs drone linux cache (wave 8)
+  description: Nixpkgs leftover pname drone on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone"
+  - "$XDG_CACHE_HOME/drone"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone
+  name: Nixpkgs drone windows cache (wave 8)
+  description: Nixpkgs leftover pname drone on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone/Cache"
+  - "%LOCALAPPDATA%/drone/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone-cli
+  name: Nixpkgs drone-cli macos cache (wave 8)
+  description: Nixpkgs leftover pname drone-cli on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone-cli"
+  - "$HOME/Library/Logs/drone-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone-cli
+  name: Nixpkgs drone-cli linux cache (wave 8)
+  description: Nixpkgs leftover pname drone-cli on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone-cli"
+  - "$XDG_CACHE_HOME/drone-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone-cli
+  name: Nixpkgs drone-cli windows cache (wave 8)
+  description: Nixpkgs leftover pname drone-cli on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone-cli/Cache"
+  - "%LOCALAPPDATA%/drone-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone-runner-docker
+  name: Nixpkgs drone-runner-docker macos cache (wave 8)
+  description: Nixpkgs leftover pname drone-runner-docker on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone-runner-docker"
+  - "$HOME/Library/Logs/drone-runner-docker"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone-runner-docker
+  name: Nixpkgs drone-runner-docker linux cache (wave 8)
+  description: Nixpkgs leftover pname drone-runner-docker on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone-runner-docker"
+  - "$XDG_CACHE_HOME/drone-runner-docker"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone-runner-docker
+  name: Nixpkgs drone-runner-docker windows cache (wave 8)
+  description: Nixpkgs leftover pname drone-runner-docker on windows (wave 8). Not
+    /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone-runner-docker/Cache"
+  - "%LOCALAPPDATA%/drone-runner-docker/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone-runner-ssh
+  name: Nixpkgs drone-runner-ssh macos cache (wave 8)
+  description: Nixpkgs leftover pname drone-runner-ssh on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone-runner-ssh"
+  - "$HOME/Library/Logs/drone-runner-ssh"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone-runner-ssh
+  name: Nixpkgs drone-runner-ssh linux cache (wave 8)
+  description: Nixpkgs leftover pname drone-runner-ssh on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone-runner-ssh"
+  - "$XDG_CACHE_HOME/drone-runner-ssh"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone-runner-ssh
+  name: Nixpkgs drone-runner-ssh windows cache (wave 8)
+  description: Nixpkgs leftover pname drone-runner-ssh on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone-runner-ssh/Cache"
+  - "%LOCALAPPDATA%/drone-runner-ssh/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone-scp
+  name: Nixpkgs drone-scp macos cache (wave 8)
+  description: Nixpkgs leftover pname drone-scp on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone-scp"
+  - "$HOME/Library/Logs/drone-scp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone-scp
+  name: Nixpkgs drone-scp linux cache (wave 8)
+  description: Nixpkgs leftover pname drone-scp on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone-scp"
+  - "$XDG_CACHE_HOME/drone-scp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone-scp
+  name: Nixpkgs drone-scp windows cache (wave 8)
+  description: Nixpkgs leftover pname drone-scp on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone-scp/Cache"
+  - "%LOCALAPPDATA%/drone-scp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone-io
+  name: Nixpkgs drone.io macos cache (wave 8)
+  description: Nixpkgs leftover pname drone.io on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone.io"
+  - "$HOME/Library/Logs/drone.io"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone-io
+  name: Nixpkgs drone.io linux cache (wave 8)
+  description: Nixpkgs leftover pname drone.io on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone.io"
+  - "$XDG_CACHE_HOME/drone.io"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone-io
+  name: Nixpkgs drone.io windows cache (wave 8)
+  description: Nixpkgs leftover pname drone.io on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone.io/Cache"
+  - "%LOCALAPPDATA%/drone.io/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drone-io-oss
+  name: Nixpkgs drone.io-oss macos cache (wave 8)
+  description: Nixpkgs leftover pname drone.io-oss on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drone.io-oss"
+  - "$HOME/Library/Logs/drone.io-oss"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drone-io-oss
+  name: Nixpkgs drone.io-oss linux cache (wave 8)
+  description: Nixpkgs leftover pname drone.io-oss on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drone.io-oss"
+  - "$XDG_CACHE_HOME/drone.io-oss"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drone-io-oss
+  name: Nixpkgs drone.io-oss windows cache (wave 8)
+  description: Nixpkgs leftover pname drone.io-oss on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drone.io-oss/Cache"
+  - "%LOCALAPPDATA%/drone.io-oss/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dronecan
+  name: Nixpkgs dronecan macos cache (wave 8)
+  description: Nixpkgs leftover pname dronecan on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dronecan"
+  - "$HOME/Library/Logs/dronecan"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dronecan
+  name: Nixpkgs dronecan linux cache (wave 8)
+  description: Nixpkgs leftover pname dronecan on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dronecan"
+  - "$XDG_CACHE_HOME/dronecan"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dronecan
+  name: Nixpkgs dronecan windows cache (wave 8)
+  description: Nixpkgs leftover pname dronecan on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dronecan/Cache"
+  - "%LOCALAPPDATA%/dronecan/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drools
+  name: Nixpkgs drools macos cache (wave 8)
+  description: Nixpkgs leftover pname drools on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drools"
+  - "$HOME/Library/Logs/drools"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drools
+  name: Nixpkgs drools linux cache (wave 8)
+  description: Nixpkgs leftover pname drools on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drools"
+  - "$XDG_CACHE_HOME/drools"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drools
+  name: Nixpkgs drools windows cache (wave 8)
+  description: Nixpkgs leftover pname drools on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drools/Cache"
+  - "%LOCALAPPDATA%/drools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droopy
+  name: Nixpkgs droopy macos cache (wave 8)
+  description: Nixpkgs leftover pname droopy on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droopy"
+  - "$HOME/Library/Logs/droopy"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droopy
+  name: Nixpkgs droopy linux cache (wave 8)
+  description: Nixpkgs leftover pname droopy on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droopy"
+  - "$XDG_CACHE_HOME/droopy"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droopy
+  name: Nixpkgs droopy windows cache (wave 8)
+  description: Nixpkgs leftover pname droopy on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droopy/Cache"
+  - "%LOCALAPPDATA%/droopy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropr
+  name: Nixpkgs dropR macos cache (wave 8)
+  description: Nixpkgs leftover pname dropR on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropR"
+  - "$HOME/Library/Logs/dropR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropr
+  name: Nixpkgs dropR linux cache (wave 8)
+  description: Nixpkgs leftover pname dropR on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropR"
+  - "$XDG_CACHE_HOME/dropR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropr
+  name: Nixpkgs dropR windows cache (wave 8)
+  description: Nixpkgs leftover pname dropR on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropR/Cache"
+  - "%LOCALAPPDATA%/dropR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropbar-nvim
+  name: Nixpkgs dropbar.nvim macos cache (wave 8)
+  description: Nixpkgs leftover pname dropbar.nvim on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropbar.nvim"
+  - "$HOME/Library/Logs/dropbar.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropbar-nvim
+  name: Nixpkgs dropbar.nvim linux cache (wave 8)
+  description: Nixpkgs leftover pname dropbar.nvim on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropbar.nvim"
+  - "$XDG_CACHE_HOME/dropbar.nvim"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropbar-nvim
+  name: Nixpkgs dropbar.nvim windows cache (wave 8)
+  description: Nixpkgs leftover pname dropbar.nvim on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropbar.nvim/Cache"
+  - "%LOCALAPPDATA%/dropbar.nvim/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropbear
+  name: Nixpkgs dropbear macos cache (wave 8)
+  description: Nixpkgs leftover pname dropbear on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropbear"
+  - "$HOME/Library/Logs/dropbear"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropbear
+  name: Nixpkgs dropbear linux cache (wave 8)
+  description: Nixpkgs leftover pname dropbear on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropbear"
+  - "$XDG_CACHE_HOME/dropbear"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropbear
+  name: Nixpkgs dropbear windows cache (wave 8)
+  description: Nixpkgs leftover pname dropbear on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropbear/Cache"
+  - "%LOCALAPPDATA%/dropbear/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropbox
+  name: Nixpkgs dropbox macos cache (wave 8)
+  description: Nixpkgs leftover pname dropbox on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropbox"
+  - "$HOME/Library/Logs/dropbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropbox
+  name: Nixpkgs dropbox linux cache (wave 8)
+  description: Nixpkgs leftover pname dropbox on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropbox"
+  - "$XDG_CACHE_HOME/dropbox"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropbox
+  name: Nixpkgs dropbox windows cache (wave 8)
+  description: Nixpkgs leftover pname dropbox on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropbox/Cache"
+  - "%LOCALAPPDATA%/dropbox/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropbox-cli
+  name: Nixpkgs dropbox-cli macos cache (wave 8)
+  description: Nixpkgs leftover pname dropbox-cli on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropbox-cli"
+  - "$HOME/Library/Logs/dropbox-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropbox-cli
+  name: Nixpkgs dropbox-cli linux cache (wave 8)
+  description: Nixpkgs leftover pname dropbox-cli on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropbox-cli"
+  - "$XDG_CACHE_HOME/dropbox-cli"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropbox-cli
+  name: Nixpkgs dropbox-cli windows cache (wave 8)
+  description: Nixpkgs leftover pname dropbox-cli on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropbox-cli/Cache"
+  - "%LOCALAPPDATA%/dropbox-cli/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropbox-sdk
+  name: Nixpkgs dropbox-sdk macos cache (wave 8)
+  description: Nixpkgs leftover pname dropbox-sdk on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropbox-sdk"
+  - "$HOME/Library/Logs/dropbox-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropbox-sdk
+  name: Nixpkgs dropbox-sdk linux cache (wave 8)
+  description: Nixpkgs leftover pname dropbox-sdk on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropbox-sdk"
+  - "$XDG_CACHE_HOME/dropbox-sdk"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropbox-sdk
+  name: Nixpkgs dropbox-sdk windows cache (wave 8)
+  description: Nixpkgs leftover pname dropbox-sdk on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropbox-sdk/Cache"
+  - "%LOCALAPPDATA%/dropbox-sdk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droplet
+  name: Nixpkgs droplet macos cache (wave 8)
+  description: Nixpkgs leftover pname droplet on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droplet"
+  - "$HOME/Library/Logs/droplet"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droplet
+  name: Nixpkgs droplet linux cache (wave 8)
+  description: Nixpkgs leftover pname droplet on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droplet"
+  - "$XDG_CACHE_HOME/droplet"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droplet
+  name: Nixpkgs droplet windows cache (wave 8)
+  description: Nixpkgs leftover pname droplet on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droplet/Cache"
+  - "%LOCALAPPDATA%/droplet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropmqttapi
+  name: Nixpkgs dropmqttapi macos cache (wave 8)
+  description: Nixpkgs leftover pname dropmqttapi on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropmqttapi"
+  - "$HOME/Library/Logs/dropmqttapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropmqttapi
+  name: Nixpkgs dropmqttapi linux cache (wave 8)
+  description: Nixpkgs leftover pname dropmqttapi on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropmqttapi"
+  - "$XDG_CACHE_HOME/dropmqttapi"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropmqttapi
+  name: Nixpkgs dropmqttapi windows cache (wave 8)
+  description: Nixpkgs leftover pname dropmqttapi on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropmqttapi/Cache"
+  - "%LOCALAPPDATA%/dropmqttapi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropout
+  name: Nixpkgs dropout macos cache (wave 8)
+  description: Nixpkgs leftover pname dropout on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropout"
+  - "$HOME/Library/Logs/dropout"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropout
+  name: Nixpkgs dropout linux cache (wave 8)
+  description: Nixpkgs leftover pname dropout on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropout"
+  - "$XDG_CACHE_HOME/dropout"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropout
+  name: Nixpkgs dropout windows cache (wave 8)
+  description: Nixpkgs leftover pname dropout on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropout/Cache"
+  - "%LOCALAPPDATA%/dropout/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropsolve
+  name: Nixpkgs dropsolve macos cache (wave 8)
+  description: Nixpkgs leftover pname dropsolve on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropsolve"
+  - "$HOME/Library/Logs/dropsolve"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropsolve
+  name: Nixpkgs dropsolve linux cache (wave 8)
+  description: Nixpkgs leftover pname dropsolve on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropsolve"
+  - "$XDG_CACHE_HOME/dropsolve"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropsolve
+  name: Nixpkgs dropsolve windows cache (wave 8)
+  description: Nixpkgs leftover pname dropsolve on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropsolve/Cache"
+  - "%LOCALAPPDATA%/dropsolve/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droptest
+  name: Nixpkgs droptest macos cache (wave 8)
+  description: Nixpkgs leftover pname droptest on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droptest"
+  - "$HOME/Library/Logs/droptest"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droptest
+  name: Nixpkgs droptest linux cache (wave 8)
+  description: Nixpkgs leftover pname droptest on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droptest"
+  - "$XDG_CACHE_HOME/droptest"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droptest
+  name: Nixpkgs droptest windows cache (wave 8)
+  description: Nixpkgs leftover pname droptest on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droptest/Cache"
+  - "%LOCALAPPDATA%/droptest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dropwatch
+  name: Nixpkgs dropwatch macos cache (wave 8)
+  description: Nixpkgs leftover pname dropwatch on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dropwatch"
+  - "$HOME/Library/Logs/dropwatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dropwatch
+  name: Nixpkgs dropwatch linux cache (wave 8)
+  description: Nixpkgs leftover pname dropwatch on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dropwatch"
+  - "$XDG_CACHE_HOME/dropwatch"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dropwatch
+  name: Nixpkgs dropwatch windows cache (wave 8)
+  description: Nixpkgs leftover pname dropwatch on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dropwatch/Cache"
+  - "%LOCALAPPDATA%/dropwatch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drord
+  name: Nixpkgs drord macos cache (wave 8)
+  description: Nixpkgs leftover pname drord on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drord"
+  - "$HOME/Library/Logs/drord"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drord
+  name: Nixpkgs drord linux cache (wave 8)
+  description: Nixpkgs leftover pname drord on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drord"
+  - "$XDG_CACHE_HOME/drord"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drord
+  name: Nixpkgs drord windows cache (wave 8)
+  description: Nixpkgs leftover pname drord on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drord/Cache"
+  - "%LOCALAPPDATA%/drord/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drosgenome1-db
+  name: Nixpkgs drosgenome1.db macos cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1.db on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drosgenome1.db"
+  - "$HOME/Library/Logs/drosgenome1.db"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drosgenome1-db
+  name: Nixpkgs drosgenome1.db linux cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1.db on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drosgenome1.db"
+  - "$XDG_CACHE_HOME/drosgenome1.db"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drosgenome1-db
+  name: Nixpkgs drosgenome1.db windows cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1.db on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drosgenome1.db/Cache"
+  - "%LOCALAPPDATA%/drosgenome1.db/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drosgenome1cdf
+  name: Nixpkgs drosgenome1cdf macos cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1cdf on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drosgenome1cdf"
+  - "$HOME/Library/Logs/drosgenome1cdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drosgenome1cdf
+  name: Nixpkgs drosgenome1cdf linux cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1cdf on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drosgenome1cdf"
+  - "$XDG_CACHE_HOME/drosgenome1cdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drosgenome1cdf
+  name: Nixpkgs drosgenome1cdf windows cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1cdf on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drosgenome1cdf/Cache"
+  - "%LOCALAPPDATA%/drosgenome1cdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drosgenome1probe
+  name: Nixpkgs drosgenome1probe macos cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1probe on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drosgenome1probe"
+  - "$HOME/Library/Logs/drosgenome1probe"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drosgenome1probe
+  name: Nixpkgs drosgenome1probe linux cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1probe on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drosgenome1probe"
+  - "$XDG_CACHE_HOME/drosgenome1probe"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drosgenome1probe
+  name: Nixpkgs drosgenome1probe windows cache (wave 8)
+  description: Nixpkgs leftover pname drosgenome1probe on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drosgenome1probe/Cache"
+  - "%LOCALAPPDATA%/drosgenome1probe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drosophila2-db
+  name: Nixpkgs drosophila2.db macos cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2.db on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drosophila2.db"
+  - "$HOME/Library/Logs/drosophila2.db"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drosophila2-db
+  name: Nixpkgs drosophila2.db linux cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2.db on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drosophila2.db"
+  - "$XDG_CACHE_HOME/drosophila2.db"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drosophila2-db
+  name: Nixpkgs drosophila2.db windows cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2.db on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drosophila2.db/Cache"
+  - "%LOCALAPPDATA%/drosophila2.db/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drosophila2cdf
+  name: Nixpkgs drosophila2cdf macos cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2cdf on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drosophila2cdf"
+  - "$HOME/Library/Logs/drosophila2cdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drosophila2cdf
+  name: Nixpkgs drosophila2cdf linux cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2cdf on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drosophila2cdf"
+  - "$XDG_CACHE_HOME/drosophila2cdf"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drosophila2cdf
+  name: Nixpkgs drosophila2cdf windows cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2cdf on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drosophila2cdf/Cache"
+  - "%LOCALAPPDATA%/drosophila2cdf/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drosophila2probe
+  name: Nixpkgs drosophila2probe macos cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2probe on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drosophila2probe"
+  - "$HOME/Library/Logs/drosophila2probe"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drosophila2probe
+  name: Nixpkgs drosophila2probe linux cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2probe on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drosophila2probe"
+  - "$XDG_CACHE_HOME/drosophila2probe"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drosophila2probe
+  name: Nixpkgs drosophila2probe windows cache (wave 8)
+  description: Nixpkgs leftover pname drosophila2probe on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drosophila2probe/Cache"
+  - "%LOCALAPPDATA%/drosophila2probe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drought
+  name: Nixpkgs drought macos cache (wave 8)
+  description: Nixpkgs leftover pname drought on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drought"
+  - "$HOME/Library/Logs/drought"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drought
+  name: Nixpkgs drought linux cache (wave 8)
+  description: Nixpkgs leftover pname drought on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drought"
+  - "$XDG_CACHE_HOME/drought"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drought
+  name: Nixpkgs drought windows cache (wave 8)
+  description: Nixpkgs leftover pname drought on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drought/Cache"
+  - "%LOCALAPPDATA%/drought/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-droughtevents
+  name: Nixpkgs droughtevents macos cache (wave 8)
+  description: Nixpkgs leftover pname droughtevents on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/droughtevents"
+  - "$HOME/Library/Logs/droughtevents"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-droughtevents
+  name: Nixpkgs droughtevents linux cache (wave 8)
+  description: Nixpkgs leftover pname droughtevents on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/droughtevents"
+  - "$XDG_CACHE_HOME/droughtevents"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-droughtevents
+  name: Nixpkgs droughtevents windows cache (wave 8)
+  description: Nixpkgs leftover pname droughtevents on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/droughtevents/Cache"
+  - "%LOCALAPPDATA%/droughtevents/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drpop
+  name: Nixpkgs drpop macos cache (wave 8)
+  description: Nixpkgs leftover pname drpop on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drpop"
+  - "$HOME/Library/Logs/drpop"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drpop
+  name: Nixpkgs drpop linux cache (wave 8)
+  description: Nixpkgs leftover pname drpop on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drpop"
+  - "$XDG_CACHE_HOME/drpop"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drpop
+  name: Nixpkgs drpop windows cache (wave 8)
+  description: Nixpkgs leftover pname drpop on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drpop/Cache"
+  - "%LOCALAPPDATA%/drpop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drrglm
+  name: Nixpkgs drrglm macos cache (wave 8)
+  description: Nixpkgs leftover pname drrglm on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drrglm"
+  - "$HOME/Library/Logs/drrglm"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drrglm
+  name: Nixpkgs drrglm linux cache (wave 8)
+  description: Nixpkgs leftover pname drrglm on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drrglm"
+  - "$XDG_CACHE_HOME/drrglm"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drrglm
+  name: Nixpkgs drrglm windows cache (wave 8)
+  description: Nixpkgs leftover pname drrglm on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drrglm/Cache"
+  - "%LOCALAPPDATA%/drrglm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drs
+  name: Nixpkgs drs macos cache (wave 8)
+  description: Nixpkgs leftover pname drs on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drs"
+  - "$HOME/Library/Logs/drs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drs
+  name: Nixpkgs drs linux cache (wave 8)
+  description: Nixpkgs leftover pname drs on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drs"
+  - "$XDG_CACHE_HOME/drs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drs
+  name: Nixpkgs drs windows cache (wave 8)
+  description: Nixpkgs leftover pname drs on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drs/Cache"
+  - "%LOCALAPPDATA%/drs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drtmle
+  name: Nixpkgs drtmle macos cache (wave 8)
+  description: Nixpkgs leftover pname drtmle on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drtmle"
+  - "$HOME/Library/Logs/drtmle"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drtmle
+  name: Nixpkgs drtmle linux cache (wave 8)
+  description: Nixpkgs leftover pname drtmle on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drtmle"
+  - "$XDG_CACHE_HOME/drtmle"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drtmle
+  name: Nixpkgs drtmle windows cache (wave 8)
+  description: Nixpkgs leftover pname drtmle on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drtmle/Cache"
+  - "%LOCALAPPDATA%/drtmle/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drugdemand
+  name: Nixpkgs drugDemand macos cache (wave 8)
+  description: Nixpkgs leftover pname drugDemand on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drugDemand"
+  - "$HOME/Library/Logs/drugDemand"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drugdemand
+  name: Nixpkgs drugDemand linux cache (wave 8)
+  description: Nixpkgs leftover pname drugDemand on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drugDemand"
+  - "$XDG_CACHE_HOME/drugDemand"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drugdemand
+  name: Nixpkgs drugDemand windows cache (wave 8)
+  description: Nixpkgs leftover pname drugDemand on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drugDemand/Cache"
+  - "%LOCALAPPDATA%/drugDemand/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drugtargetinteractions
+  name: Nixpkgs drugTargetInteractions macos cache (wave 8)
+  description: Nixpkgs leftover pname drugTargetInteractions on macos (wave 8). Not
+    /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drugTargetInteractions"
+  - "$HOME/Library/Logs/drugTargetInteractions"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drugtargetinteractions
+  name: Nixpkgs drugTargetInteractions linux cache (wave 8)
+  description: Nixpkgs leftover pname drugTargetInteractions on linux (wave 8). Not
+    /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drugTargetInteractions"
+  - "$XDG_CACHE_HOME/drugTargetInteractions"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drugtargetinteractions
+  name: Nixpkgs drugTargetInteractions windows cache (wave 8)
+  description: Nixpkgs leftover pname drugTargetInteractions on windows (wave 8).
+    Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drugTargetInteractions/Cache"
+  - "%LOCALAPPDATA%/drugTargetInteractions/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drugdevelopr
+  name: Nixpkgs drugdevelopR macos cache (wave 8)
+  description: Nixpkgs leftover pname drugdevelopR on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drugdevelopR"
+  - "$HOME/Library/Logs/drugdevelopR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drugdevelopr
+  name: Nixpkgs drugdevelopR linux cache (wave 8)
+  description: Nixpkgs leftover pname drugdevelopR on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drugdevelopR"
+  - "$XDG_CACHE_HOME/drugdevelopR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drugdevelopr
+  name: Nixpkgs drugdevelopR windows cache (wave 8)
+  description: Nixpkgs leftover pname drugdevelopR on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drugdevelopR/Cache"
+  - "%LOCALAPPDATA%/drugdevelopR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drugfindr
+  name: Nixpkgs drugfindR macos cache (wave 8)
+  description: Nixpkgs leftover pname drugfindR on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drugfindR"
+  - "$HOME/Library/Logs/drugfindR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drugfindr
+  name: Nixpkgs drugfindR linux cache (wave 8)
+  description: Nixpkgs leftover pname drugfindR on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drugfindR"
+  - "$XDG_CACHE_HOME/drugfindR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drugfindr
+  name: Nixpkgs drugfindR windows cache (wave 8)
+  description: Nixpkgs leftover pname drugfindR on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drugfindR/Cache"
+  - "%LOCALAPPDATA%/drugfindR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drugprepr
+  name: Nixpkgs drugprepr macos cache (wave 8)
+  description: Nixpkgs leftover pname drugprepr on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drugprepr"
+  - "$HOME/Library/Logs/drugprepr"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drugprepr
+  name: Nixpkgs drugprepr linux cache (wave 8)
+  description: Nixpkgs leftover pname drugprepr on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drugprepr"
+  - "$XDG_CACHE_HOME/drugprepr"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drugprepr
+  name: Nixpkgs drugprepr windows cache (wave 8)
+  description: Nixpkgs leftover pname drugprepr on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drugprepr/Cache"
+  - "%LOCALAPPDATA%/drugprepr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drugsens
+  name: Nixpkgs drugsens macos cache (wave 8)
+  description: Nixpkgs leftover pname drugsens on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drugsens"
+  - "$HOME/Library/Logs/drugsens"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drugsens
+  name: Nixpkgs drugsens linux cache (wave 8)
+  description: Nixpkgs leftover pname drugsens on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drugsens"
+  - "$XDG_CACHE_HOME/drugsens"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drugsens
+  name: Nixpkgs drugsens windows cache (wave 8)
+  description: Nixpkgs leftover pname drugsens on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drugsens/Cache"
+  - "%LOCALAPPDATA%/drugsens/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drum-machine
+  name: Nixpkgs drum-machine macos cache (wave 8)
+  description: Nixpkgs leftover pname drum-machine on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drum-machine"
+  - "$HOME/Library/Logs/drum-machine"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drum-machine
+  name: Nixpkgs drum-machine linux cache (wave 8)
+  description: Nixpkgs leftover pname drum-machine on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drum-machine"
+  - "$XDG_CACHE_HOME/drum-machine"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drum-machine
+  name: Nixpkgs drum-machine windows cache (wave 8)
+  description: Nixpkgs leftover pname drum-machine on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drum-machine/Cache"
+  - "%LOCALAPPDATA%/drum-machine/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drumgizmo
+  name: Nixpkgs drumgizmo macos cache (wave 8)
+  description: Nixpkgs leftover pname drumgizmo on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drumgizmo"
+  - "$HOME/Library/Logs/drumgizmo"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drumgizmo
+  name: Nixpkgs drumgizmo linux cache (wave 8)
+  description: Nixpkgs leftover pname drumgizmo on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drumgizmo"
+  - "$XDG_CACHE_HOME/drumgizmo"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drumgizmo
+  name: Nixpkgs drumgizmo windows cache (wave 8)
+  description: Nixpkgs leftover pname drumgizmo on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drumgizmo/Cache"
+  - "%LOCALAPPDATA%/drumgizmo/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drumkv1
+  name: Nixpkgs drumkv1 macos cache (wave 8)
+  description: Nixpkgs leftover pname drumkv1 on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drumkv1"
+  - "$HOME/Library/Logs/drumkv1"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drumkv1
+  name: Nixpkgs drumkv1 linux cache (wave 8)
+  description: Nixpkgs leftover pname drumkv1 on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drumkv1"
+  - "$XDG_CACHE_HOME/drumkv1"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drumkv1
+  name: Nixpkgs drumkv1 windows cache (wave 8)
+  description: Nixpkgs leftover pname drumkv1 on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drumkv1/Cache"
+  - "%LOCALAPPDATA%/drumkv1/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drumr
+  name: Nixpkgs drumr macos cache (wave 8)
+  description: Nixpkgs leftover pname drumr on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drumr"
+  - "$HOME/Library/Logs/drumr"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drumr
+  name: Nixpkgs drumr linux cache (wave 8)
+  description: Nixpkgs leftover pname drumr on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drumr"
+  - "$XDG_CACHE_HOME/drumr"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drumr
+  name: Nixpkgs drumr windows cache (wave 8)
+  description: Nixpkgs leftover pname drumr on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drumr/Cache"
+  - "%LOCALAPPDATA%/drumr/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drumstick
+  name: Nixpkgs drumstick macos cache (wave 8)
+  description: Nixpkgs leftover pname drumstick on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drumstick"
+  - "$HOME/Library/Logs/drumstick"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drumstick
+  name: Nixpkgs drumstick linux cache (wave 8)
+  description: Nixpkgs leftover pname drumstick on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drumstick"
+  - "$XDG_CACHE_HOME/drumstick"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drumstick
+  name: Nixpkgs drumstick windows cache (wave 8)
+  description: Nixpkgs leftover pname drumstick on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drumstick/Cache"
+  - "%LOCALAPPDATA%/drumstick/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drunken-bishop
+  name: Nixpkgs drunken-bishop macos cache (wave 8)
+  description: Nixpkgs leftover pname drunken-bishop on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drunken-bishop"
+  - "$HOME/Library/Logs/drunken-bishop"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drunken-bishop
+  name: Nixpkgs drunken-bishop linux cache (wave 8)
+  description: Nixpkgs leftover pname drunken-bishop on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drunken-bishop"
+  - "$XDG_CACHE_HOME/drunken-bishop"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drunken-bishop
+  name: Nixpkgs drunken-bishop windows cache (wave 8)
+  description: Nixpkgs leftover pname drunken-bishop on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drunken-bishop/Cache"
+  - "%LOCALAPPDATA%/drunken-bishop/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drupal
+  name: Nixpkgs drupal macos cache (wave 8)
+  description: Nixpkgs leftover pname drupal on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drupal"
+  - "$HOME/Library/Logs/drupal"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drupal
+  name: Nixpkgs drupal linux cache (wave 8)
+  description: Nixpkgs leftover pname drupal on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drupal"
+  - "$XDG_CACHE_HOME/drupal"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drupal
+  name: Nixpkgs drupal windows cache (wave 8)
+  description: Nixpkgs leftover pname drupal on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drupal/Cache"
+  - "%LOCALAPPDATA%/drupal/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drupal-mode
+  name: Nixpkgs drupal-mode macos cache (wave 8)
+  description: Nixpkgs leftover pname drupal-mode on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drupal-mode"
+  - "$HOME/Library/Logs/drupal-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drupal-mode
+  name: Nixpkgs drupal-mode linux cache (wave 8)
+  description: Nixpkgs leftover pname drupal-mode on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drupal-mode"
+  - "$XDG_CACHE_HOME/drupal-mode"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drupal-mode
+  name: Nixpkgs drupal-mode windows cache (wave 8)
+  description: Nixpkgs leftover pname drupal-mode on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drupal-mode/Cache"
+  - "%LOCALAPPDATA%/drupal-mode/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drupal-spell
+  name: Nixpkgs drupal-spell macos cache (wave 8)
+  description: Nixpkgs leftover pname drupal-spell on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drupal-spell"
+  - "$HOME/Library/Logs/drupal-spell"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drupal-spell
+  name: Nixpkgs drupal-spell linux cache (wave 8)
+  description: Nixpkgs leftover pname drupal-spell on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drupal-spell"
+  - "$XDG_CACHE_HOME/drupal-spell"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drupal-spell
+  name: Nixpkgs drupal-spell windows cache (wave 8)
+  description: Nixpkgs leftover pname drupal-spell on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drupal-spell/Cache"
+  - "%LOCALAPPDATA%/drupal-spell/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-drv
+  name: Nixpkgs drv macos cache (wave 8)
+  description: Nixpkgs leftover pname drv on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/drv"
+  - "$HOME/Library/Logs/drv"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-drv
+  name: Nixpkgs drv linux cache (wave 8)
+  description: Nixpkgs leftover pname drv on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/drv"
+  - "$XDG_CACHE_HOME/drv"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-drv
+  name: Nixpkgs drv windows cache (wave 8)
+  description: Nixpkgs leftover pname drv on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/drv/Cache"
+  - "%LOCALAPPDATA%/drv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dry
+  name: Nixpkgs dry macos cache (wave 8)
+  description: Nixpkgs leftover pname dry on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dry"
+  - "$HOME/Library/Logs/dry"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dry
+  name: Nixpkgs dry linux cache (wave 8)
+  description: Nixpkgs leftover pname dry on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dry"
+  - "$XDG_CACHE_HOME/dry"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dry
+  name: Nixpkgs dry windows cache (wave 8)
+  description: Nixpkgs leftover pname dry on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dry/Cache"
+  - "%LOCALAPPDATA%/dry/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds
+  name: Nixpkgs ds macos cache (wave 8)
+  description: Nixpkgs leftover pname ds on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds"
+  - "$HOME/Library/Logs/ds"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds
+  name: Nixpkgs ds linux cache (wave 8)
+  description: Nixpkgs leftover pname ds on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds"
+  - "$XDG_CACHE_HOME/ds"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds
+  name: Nixpkgs ds windows cache (wave 8)
+  description: Nixpkgs leftover pname ds on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds/Cache"
+  - "%LOCALAPPDATA%/ds/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds-analysis-lib
+  name: Nixpkgs ds-analysis-lib macos cache (wave 8)
+  description: Nixpkgs leftover pname ds-analysis-lib on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds-analysis-lib"
+  - "$HOME/Library/Logs/ds-analysis-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds-analysis-lib
+  name: Nixpkgs ds-analysis-lib linux cache (wave 8)
+  description: Nixpkgs leftover pname ds-analysis-lib on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds-analysis-lib"
+  - "$XDG_CACHE_HOME/ds-analysis-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds-analysis-lib
+  name: Nixpkgs ds-analysis-lib windows cache (wave 8)
+  description: Nixpkgs leftover pname ds-analysis-lib on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds-analysis-lib/Cache"
+  - "%LOCALAPPDATA%/ds-analysis-lib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds-kanren
+  name: Nixpkgs ds-kanren macos cache (wave 8)
+  description: Nixpkgs leftover pname ds-kanren on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds-kanren"
+  - "$HOME/Library/Logs/ds-kanren"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds-kanren
+  name: Nixpkgs ds-kanren linux cache (wave 8)
+  description: Nixpkgs leftover pname ds-kanren on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds-kanren"
+  - "$XDG_CACHE_HOME/ds-kanren"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds-kanren
+  name: Nixpkgs ds-kanren windows cache (wave 8)
+  description: Nixpkgs leftover pname ds-kanren on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds-kanren/Cache"
+  - "%LOCALAPPDATA%/ds-kanren/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds-reporting-lib
+  name: Nixpkgs ds-reporting-lib macos cache (wave 8)
+  description: Nixpkgs leftover pname ds-reporting-lib on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds-reporting-lib"
+  - "$HOME/Library/Logs/ds-reporting-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds-reporting-lib
+  name: Nixpkgs ds-reporting-lib linux cache (wave 8)
+  description: Nixpkgs leftover pname ds-reporting-lib on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds-reporting-lib"
+  - "$XDG_CACHE_HOME/ds-reporting-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds-reporting-lib
+  name: Nixpkgs ds-reporting-lib windows cache (wave 8)
+  description: Nixpkgs leftover pname ds-reporting-lib on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds-reporting-lib/Cache"
+  - "%LOCALAPPDATA%/ds-reporting-lib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds-server-lib
+  name: Nixpkgs ds-server-lib macos cache (wave 8)
+  description: Nixpkgs leftover pname ds-server-lib on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds-server-lib"
+  - "$HOME/Library/Logs/ds-server-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds-server-lib
+  name: Nixpkgs ds-server-lib linux cache (wave 8)
+  description: Nixpkgs leftover pname ds-server-lib on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds-server-lib"
+  - "$XDG_CACHE_HOME/ds-server-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds-server-lib
+  name: Nixpkgs ds-server-lib windows cache (wave 8)
+  description: Nixpkgs leftover pname ds-server-lib on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds-server-lib/Cache"
+  - "%LOCALAPPDATA%/ds-server-lib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds-store
+  name: Nixpkgs ds-store macos cache (wave 8)
+  description: Nixpkgs leftover pname ds-store on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds-store"
+  - "$HOME/Library/Logs/ds-store"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds-store
+  name: Nixpkgs ds-store linux cache (wave 8)
+  description: Nixpkgs leftover pname ds-store on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds-store"
+  - "$XDG_CACHE_HOME/ds-store"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds-store
+  name: Nixpkgs ds-store windows cache (wave 8)
+  description: Nixpkgs leftover pname ds-store on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds-store/Cache"
+  - "%LOCALAPPDATA%/ds-store/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds-xbom-lib
+  name: Nixpkgs ds-xbom-lib macos cache (wave 8)
+  description: Nixpkgs leftover pname ds-xbom-lib on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds-xbom-lib"
+  - "$HOME/Library/Logs/ds-xbom-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds-xbom-lib
+  name: Nixpkgs ds-xbom-lib linux cache (wave 8)
+  description: Nixpkgs leftover pname ds-xbom-lib on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds-xbom-lib"
+  - "$XDG_CACHE_HOME/ds-xbom-lib"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds-xbom-lib
+  name: Nixpkgs ds-xbom-lib windows cache (wave 8)
+  description: Nixpkgs leftover pname ds-xbom-lib on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds-xbom-lib/Cache"
+  - "%LOCALAPPDATA%/ds-xbom-lib/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds4drv
+  name: Nixpkgs ds4drv macos cache (wave 8)
+  description: Nixpkgs leftover pname ds4drv on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds4drv"
+  - "$HOME/Library/Logs/ds4drv"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds4drv
+  name: Nixpkgs ds4drv linux cache (wave 8)
+  description: Nixpkgs leftover pname ds4drv on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds4drv"
+  - "$XDG_CACHE_HOME/ds4drv"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds4drv
+  name: Nixpkgs ds4drv windows cache (wave 8)
+  description: Nixpkgs leftover pname ds4drv on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds4drv/Cache"
+  - "%LOCALAPPDATA%/ds4drv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds4psy
+  name: Nixpkgs ds4psy macos cache (wave 8)
+  description: Nixpkgs leftover pname ds4psy on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds4psy"
+  - "$HOME/Library/Logs/ds4psy"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds4psy
+  name: Nixpkgs ds4psy linux cache (wave 8)
+  description: Nixpkgs leftover pname ds4psy on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds4psy"
+  - "$XDG_CACHE_HOME/ds4psy"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds4psy
+  name: Nixpkgs ds4psy windows cache (wave 8)
+  description: Nixpkgs leftover pname ds4psy on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds4psy/Cache"
+  - "%LOCALAPPDATA%/ds4psy/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-ds4u
+  name: Nixpkgs ds4u macos cache (wave 8)
+  description: Nixpkgs leftover pname ds4u on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/ds4u"
+  - "$HOME/Library/Logs/ds4u"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-ds4u
+  name: Nixpkgs ds4u linux cache (wave 8)
+  description: Nixpkgs leftover pname ds4u on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/ds4u"
+  - "$XDG_CACHE_HOME/ds4u"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-ds4u
+  name: Nixpkgs ds4u windows cache (wave 8)
+  description: Nixpkgs leftover pname ds4u on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/ds4u/Cache"
+  - "%LOCALAPPDATA%/ds4u/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsbase
+  name: Nixpkgs dsBase macos cache (wave 8)
+  description: Nixpkgs leftover pname dsBase on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsBase"
+  - "$HOME/Library/Logs/dsBase"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsbase
+  name: Nixpkgs dsBase linux cache (wave 8)
+  description: Nixpkgs leftover pname dsBase on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsBase"
+  - "$XDG_CACHE_HOME/dsBase"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsbase
+  name: Nixpkgs dsBase windows cache (wave 8)
+  description: Nixpkgs leftover pname dsBase on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsBase/Cache"
+  - "%LOCALAPPDATA%/dsBase/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsbaseclient
+  name: Nixpkgs dsBaseClient macos cache (wave 8)
+  description: Nixpkgs leftover pname dsBaseClient on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsBaseClient"
+  - "$HOME/Library/Logs/dsBaseClient"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsbaseclient
+  name: Nixpkgs dsBaseClient linux cache (wave 8)
+  description: Nixpkgs leftover pname dsBaseClient on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsBaseClient"
+  - "$XDG_CACHE_HOME/dsBaseClient"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsbaseclient
+  name: Nixpkgs dsBaseClient windows cache (wave 8)
+  description: Nixpkgs leftover pname dsBaseClient on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsBaseClient/Cache"
+  - "%LOCALAPPDATA%/dsBaseClient/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsqtl
+  name: Nixpkgs dsQTL macos cache (wave 8)
+  description: Nixpkgs leftover pname dsQTL on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsQTL"
+  - "$HOME/Library/Logs/dsQTL"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsqtl
+  name: Nixpkgs dsQTL linux cache (wave 8)
+  description: Nixpkgs leftover pname dsQTL on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsQTL"
+  - "$XDG_CACHE_HOME/dsQTL"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsqtl
+  name: Nixpkgs dsQTL windows cache (wave 8)
+  description: Nixpkgs leftover pname dsQTL on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsQTL/Cache"
+  - "%LOCALAPPDATA%/dsQTL/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsrocrate
+  name: Nixpkgs dsROCrate macos cache (wave 8)
+  description: Nixpkgs leftover pname dsROCrate on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsROCrate"
+  - "$HOME/Library/Logs/dsROCrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsrocrate
+  name: Nixpkgs dsROCrate linux cache (wave 8)
+  description: Nixpkgs leftover pname dsROCrate on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsROCrate"
+  - "$XDG_CACHE_HOME/dsROCrate"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsrocrate
+  name: Nixpkgs dsROCrate windows cache (wave 8)
+  description: Nixpkgs leftover pname dsROCrate on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsROCrate/Cache"
+  - "%LOCALAPPDATA%/dsROCrate/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstidyverse
+  name: Nixpkgs dsTidyverse macos cache (wave 8)
+  description: Nixpkgs leftover pname dsTidyverse on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsTidyverse"
+  - "$HOME/Library/Logs/dsTidyverse"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstidyverse
+  name: Nixpkgs dsTidyverse linux cache (wave 8)
+  description: Nixpkgs leftover pname dsTidyverse on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsTidyverse"
+  - "$XDG_CACHE_HOME/dsTidyverse"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstidyverse
+  name: Nixpkgs dsTidyverse windows cache (wave 8)
+  description: Nixpkgs leftover pname dsTidyverse on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsTidyverse/Cache"
+  - "%LOCALAPPDATA%/dsTidyverse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstidyverseclient
+  name: Nixpkgs dsTidyverseClient macos cache (wave 8)
+  description: Nixpkgs leftover pname dsTidyverseClient on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsTidyverseClient"
+  - "$HOME/Library/Logs/dsTidyverseClient"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstidyverseclient
+  name: Nixpkgs dsTidyverseClient linux cache (wave 8)
+  description: Nixpkgs leftover pname dsTidyverseClient on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsTidyverseClient"
+  - "$XDG_CACHE_HOME/dsTidyverseClient"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstidyverseclient
+  name: Nixpkgs dsTidyverseClient windows cache (wave 8)
+  description: Nixpkgs leftover pname dsTidyverseClient on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsTidyverseClient/Cache"
+  - "%LOCALAPPDATA%/dsTidyverseClient/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsample
+  name: Nixpkgs dsample macos cache (wave 8)
+  description: Nixpkgs leftover pname dsample on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsample"
+  - "$HOME/Library/Logs/dsample"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsample
+  name: Nixpkgs dsample linux cache (wave 8)
+  description: Nixpkgs leftover pname dsample on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsample"
+  - "$XDG_CACHE_HOME/dsample"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsample
+  name: Nixpkgs dsample windows cache (wave 8)
+  description: Nixpkgs leftover pname dsample on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsample/Cache"
+  - "%LOCALAPPDATA%/dsample/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsb
+  name: Nixpkgs dsb macos cache (wave 8)
+  description: Nixpkgs leftover pname dsb on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsb"
+  - "$HOME/Library/Logs/dsb"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsb
+  name: Nixpkgs dsb linux cache (wave 8)
+  description: Nixpkgs leftover pname dsb on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsb"
+  - "$XDG_CACHE_HOME/dsb"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsb
+  name: Nixpkgs dsb windows cache (wave 8)
+  description: Nixpkgs leftover pname dsb on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsb/Cache"
+  - "%LOCALAPPDATA%/dsb/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsc
+  name: Nixpkgs dsc macos cache (wave 8)
+  description: Nixpkgs leftover pname dsc on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsc"
+  - "$HOME/Library/Logs/dsc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsc
+  name: Nixpkgs dsc linux cache (wave 8)
+  description: Nixpkgs leftover pname dsc on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsc"
+  - "$XDG_CACHE_HOME/dsc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsc
+  name: Nixpkgs dsc windows cache (wave 8)
+  description: Nixpkgs leftover pname dsc on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsc/Cache"
+  - "%LOCALAPPDATA%/dsc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dscanner
+  name: Nixpkgs dscanner macos cache (wave 8)
+  description: Nixpkgs leftover pname dscanner on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dscanner"
+  - "$HOME/Library/Logs/dscanner"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dscanner
+  name: Nixpkgs dscanner linux cache (wave 8)
+  description: Nixpkgs leftover pname dscanner on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dscanner"
+  - "$XDG_CACHE_HOME/dscanner"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dscanner
+  name: Nixpkgs dscanner windows cache (wave 8)
+  description: Nixpkgs leftover pname dscanner on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dscanner/Cache"
+  - "%LOCALAPPDATA%/dscanner/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dscheck
+  name: Nixpkgs dscheck macos cache (wave 8)
+  description: Nixpkgs leftover pname dscheck on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dscheck"
+  - "$HOME/Library/Logs/dscheck"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dscheck
+  name: Nixpkgs dscheck linux cache (wave 8)
+  description: Nixpkgs leftover pname dscheck on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dscheck"
+  - "$XDG_CACHE_HOME/dscheck"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dscheck
+  name: Nixpkgs dscheck windows cache (wave 8)
+  description: Nixpkgs leftover pname dscheck on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dscheck/Cache"
+  - "%LOCALAPPDATA%/dscheck/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dscore
+  name: Nixpkgs dscore macos cache (wave 8)
+  description: Nixpkgs leftover pname dscore on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dscore"
+  - "$HOME/Library/Logs/dscore"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dscore
+  name: Nixpkgs dscore linux cache (wave 8)
+  description: Nixpkgs leftover pname dscore on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dscore"
+  - "$XDG_CACHE_HOME/dscore"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dscore
+  name: Nixpkgs dscore windows cache (wave 8)
+  description: Nixpkgs leftover pname dscore on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dscore/Cache"
+  - "%LOCALAPPDATA%/dscore/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dscoremsm
+  name: Nixpkgs dscoreMSM macos cache (wave 8)
+  description: Nixpkgs leftover pname dscoreMSM on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dscoreMSM"
+  - "$HOME/Library/Logs/dscoreMSM"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dscoremsm
+  name: Nixpkgs dscoreMSM linux cache (wave 8)
+  description: Nixpkgs leftover pname dscoreMSM on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dscoreMSM"
+  - "$XDG_CACHE_HOME/dscoreMSM"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dscoremsm
+  name: Nixpkgs dscoreMSM windows cache (wave 8)
+  description: Nixpkgs leftover pname dscoreMSM on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dscoreMSM/Cache"
+  - "%LOCALAPPDATA%/dscoreMSM/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dscribe
+  name: Nixpkgs dscribe macos cache (wave 8)
+  description: Nixpkgs leftover pname dscribe on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dscribe"
+  - "$HOME/Library/Logs/dscribe"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dscribe
+  name: Nixpkgs dscribe linux cache (wave 8)
+  description: Nixpkgs leftover pname dscribe on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dscribe"
+  - "$XDG_CACHE_HOME/dscribe"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dscribe
+  name: Nixpkgs dscribe windows cache (wave 8)
+  description: Nixpkgs leftover pname dscribe on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dscribe/Cache"
+  - "%LOCALAPPDATA%/dscribe/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsda-doom
+  name: Nixpkgs dsda-doom macos cache (wave 8)
+  description: Nixpkgs leftover pname dsda-doom on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsda-doom"
+  - "$HOME/Library/Logs/dsda-doom"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsda-doom
+  name: Nixpkgs dsda-doom linux cache (wave 8)
+  description: Nixpkgs leftover pname dsda-doom on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsda-doom"
+  - "$XDG_CACHE_HOME/dsda-doom"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsda-doom
+  name: Nixpkgs dsda-doom windows cache (wave 8)
+  description: Nixpkgs leftover pname dsda-doom on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsda-doom/Cache"
+  - "%LOCALAPPDATA%/dsda-doom/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsda-launcher
+  name: Nixpkgs dsda-launcher macos cache (wave 8)
+  description: Nixpkgs leftover pname dsda-launcher on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsda-launcher"
+  - "$HOME/Library/Logs/dsda-launcher"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsda-launcher
+  name: Nixpkgs dsda-launcher linux cache (wave 8)
+  description: Nixpkgs leftover pname dsda-launcher on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsda-launcher"
+  - "$XDG_CACHE_HOME/dsda-launcher"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsda-launcher
+  name: Nixpkgs dsda-launcher windows cache (wave 8)
+  description: Nixpkgs leftover pname dsda-launcher on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsda-launcher/Cache"
+  - "%LOCALAPPDATA%/dsda-launcher/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsdcc
+  name: Nixpkgs dsdcc macos cache (wave 8)
+  description: Nixpkgs leftover pname dsdcc on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsdcc"
+  - "$HOME/Library/Logs/dsdcc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsdcc
+  name: Nixpkgs dsdcc linux cache (wave 8)
+  description: Nixpkgs leftover pname dsdcc on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsdcc"
+  - "$XDG_CACHE_HOME/dsdcc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsdcc
+  name: Nixpkgs dsdcc windows cache (wave 8)
+  description: Nixpkgs leftover pname dsdcc on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsdcc/Cache"
+  - "%LOCALAPPDATA%/dsdcc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsdp
+  name: Nixpkgs dsdp macos cache (wave 8)
+  description: Nixpkgs leftover pname dsdp on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsdp"
+  - "$HOME/Library/Logs/dsdp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsdp
+  name: Nixpkgs dsdp linux cache (wave 8)
+  description: Nixpkgs leftover pname dsdp on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsdp"
+  - "$XDG_CACHE_HOME/dsdp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsdp
+  name: Nixpkgs dsdp windows cache (wave 8)
+  description: Nixpkgs leftover pname dsdp on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsdp/Cache"
+  - "%LOCALAPPDATA%/dsdp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dse
+  name: Nixpkgs dse macos cache (wave 8)
+  description: Nixpkgs leftover pname dse on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dse"
+  - "$HOME/Library/Logs/dse"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dse
+  name: Nixpkgs dse linux cache (wave 8)
+  description: Nixpkgs leftover pname dse on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dse"
+  - "$XDG_CACHE_HOME/dse"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dse
+  name: Nixpkgs dse windows cache (wave 8)
+  description: Nixpkgs leftover pname dse on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dse/Cache"
+  - "%LOCALAPPDATA%/dse/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsearch
+  name: Nixpkgs dsearch macos cache (wave 8)
+  description: Nixpkgs leftover pname dsearch on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsearch"
+  - "$HOME/Library/Logs/dsearch"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsearch
+  name: Nixpkgs dsearch linux cache (wave 8)
+  description: Nixpkgs leftover pname dsearch on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsearch"
+  - "$XDG_CACHE_HOME/dsearch"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsearch
+  name: Nixpkgs dsearch windows cache (wave 8)
+  description: Nixpkgs leftover pname dsearch on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsearch/Cache"
+  - "%LOCALAPPDATA%/dsearch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsem
+  name: Nixpkgs dsem macos cache (wave 8)
+  description: Nixpkgs leftover pname dsem on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsem"
+  - "$HOME/Library/Logs/dsem"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsem
+  name: Nixpkgs dsem linux cache (wave 8)
+  description: Nixpkgs leftover pname dsem on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsem"
+  - "$XDG_CACHE_HOME/dsem"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsem
+  name: Nixpkgs dsem windows cache (wave 8)
+  description: Nixpkgs leftover pname dsem on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsem/Cache"
+  - "%LOCALAPPDATA%/dsem/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsf2flac
+  name: Nixpkgs dsf2flac macos cache (wave 8)
+  description: Nixpkgs leftover pname dsf2flac on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsf2flac"
+  - "$HOME/Library/Logs/dsf2flac"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsf2flac
+  name: Nixpkgs dsf2flac linux cache (wave 8)
+  description: Nixpkgs leftover pname dsf2flac on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsf2flac"
+  - "$XDG_CACHE_HOME/dsf2flac"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsf2flac
+  name: Nixpkgs dsf2flac windows cache (wave 8)
+  description: Nixpkgs leftover pname dsf2flac on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsf2flac/Cache"
+  - "%LOCALAPPDATA%/dsf2flac/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsfa
+  name: Nixpkgs dsfa macos cache (wave 8)
+  description: Nixpkgs leftover pname dsfa on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsfa"
+  - "$HOME/Library/Logs/dsfa"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsfa
+  name: Nixpkgs dsfa linux cache (wave 8)
+  description: Nixpkgs leftover pname dsfa on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsfa"
+  - "$XDG_CACHE_HOME/dsfa"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsfa
+  name: Nixpkgs dsfa windows cache (wave 8)
+  description: Nixpkgs leftover pname dsfa on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsfa/Cache"
+  - "%LOCALAPPDATA%/dsfa/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsge
+  name: Nixpkgs dsge macos cache (wave 8)
+  description: Nixpkgs leftover pname dsge on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsge"
+  - "$HOME/Library/Logs/dsge"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsge
+  name: Nixpkgs dsge linux cache (wave 8)
+  description: Nixpkgs leftover pname dsge on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsge"
+  - "$XDG_CACHE_HOME/dsge"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsge
+  name: Nixpkgs dsge windows cache (wave 8)
+  description: Nixpkgs leftover pname dsge on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsge/Cache"
+  - "%LOCALAPPDATA%/dsge/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsh-sql
+  name: Nixpkgs dsh-sql macos cache (wave 8)
+  description: Nixpkgs leftover pname dsh-sql on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsh-sql"
+  - "$HOME/Library/Logs/dsh-sql"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsh-sql
+  name: Nixpkgs dsh-sql linux cache (wave 8)
+  description: Nixpkgs leftover pname dsh-sql on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsh-sql"
+  - "$XDG_CACHE_HOME/dsh-sql"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsh-sql
+  name: Nixpkgs dsh-sql windows cache (wave 8)
+  description: Nixpkgs leftover pname dsh-sql on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsh-sql/Cache"
+  - "%LOCALAPPDATA%/dsh-sql/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsims
+  name: Nixpkgs dsims macos cache (wave 8)
+  description: Nixpkgs leftover pname dsims on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsims"
+  - "$HOME/Library/Logs/dsims"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsims
+  name: Nixpkgs dsims linux cache (wave 8)
+  description: Nixpkgs leftover pname dsims on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsims"
+  - "$XDG_CACHE_HOME/dsims"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsims
+  name: Nixpkgs dsims windows cache (wave 8)
+  description: Nixpkgs leftover pname dsims on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsims/Cache"
+  - "%LOCALAPPDATA%/dsims/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsinternals
+  name: Nixpkgs dsinternals macos cache (wave 8)
+  description: Nixpkgs leftover pname dsinternals on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsinternals"
+  - "$HOME/Library/Logs/dsinternals"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsinternals
+  name: Nixpkgs dsinternals linux cache (wave 8)
+  description: Nixpkgs leftover pname dsinternals on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsinternals"
+  - "$XDG_CACHE_HOME/dsinternals"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsinternals
+  name: Nixpkgs dsinternals windows cache (wave 8)
+  description: Nixpkgs leftover pname dsinternals on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsinternals/Cache"
+  - "%LOCALAPPDATA%/dsinternals/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsl2html
+  name: Nixpkgs dsl2html macos cache (wave 8)
+  description: Nixpkgs leftover pname dsl2html on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsl2html"
+  - "$HOME/Library/Logs/dsl2html"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsl2html
+  name: Nixpkgs dsl2html linux cache (wave 8)
+  description: Nixpkgs leftover pname dsl2html on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsl2html"
+  - "$XDG_CACHE_HOME/dsl2html"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsl2html
+  name: Nixpkgs dsl2html windows cache (wave 8)
+  description: Nixpkgs leftover pname dsl2html on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsl2html/Cache"
+  - "%LOCALAPPDATA%/dsl2html/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dslabs
+  name: Nixpkgs dslabs macos cache (wave 8)
+  description: Nixpkgs leftover pname dslabs on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dslabs"
+  - "$HOME/Library/Logs/dslabs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dslabs
+  name: Nixpkgs dslabs linux cache (wave 8)
+  description: Nixpkgs leftover pname dslabs on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dslabs"
+  - "$XDG_CACHE_HOME/dslabs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dslabs
+  name: Nixpkgs dslabs windows cache (wave 8)
+  description: Nixpkgs leftover pname dslabs on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dslabs/Cache"
+  - "%LOCALAPPDATA%/dslabs/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsld
+  name: Nixpkgs dsld macos cache (wave 8)
+  description: Nixpkgs leftover pname dsld on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsld"
+  - "$HOME/Library/Logs/dsld"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsld
+  name: Nixpkgs dsld linux cache (wave 8)
+  description: Nixpkgs leftover pname dsld on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsld"
+  - "$XDG_CACHE_HOME/dsld"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsld
+  name: Nixpkgs dsld windows cache (wave 8)
+  description: Nixpkgs leftover pname dsld on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsld/Cache"
+  - "%LOCALAPPDATA%/dsld/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dslice
+  name: Nixpkgs dslice macos cache (wave 8)
+  description: Nixpkgs leftover pname dslice on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dslice"
+  - "$HOME/Library/Logs/dslice"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dslice
+  name: Nixpkgs dslice linux cache (wave 8)
+  description: Nixpkgs leftover pname dslice on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dslice"
+  - "$XDG_CACHE_HOME/dslice"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dslice
+  name: Nixpkgs dslice windows cache (wave 8)
+  description: Nixpkgs leftover pname dslice on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dslice/Cache"
+  - "%LOCALAPPDATA%/dslice/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dslide
+  name: Nixpkgs dslide macos cache (wave 8)
+  description: Nixpkgs leftover pname dslide on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dslide"
+  - "$HOME/Library/Logs/dslide"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dslide
+  name: Nixpkgs dslide linux cache (wave 8)
+  description: Nixpkgs leftover pname dslide on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dslide"
+  - "$XDG_CACHE_HOME/dslide"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dslide
+  name: Nixpkgs dslide windows cache (wave 8)
+  description: Nixpkgs leftover pname dslide on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dslide/Cache"
+  - "%LOCALAPPDATA%/dslide/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsm
+  name: Nixpkgs dsm macos cache (wave 8)
+  description: Nixpkgs leftover pname dsm on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsm"
+  - "$HOME/Library/Logs/dsm"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsm
+  name: Nixpkgs dsm linux cache (wave 8)
+  description: Nixpkgs leftover pname dsm on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsm"
+  - "$XDG_CACHE_HOME/dsm"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsm
+  name: Nixpkgs dsm windows cache (wave 8)
+  description: Nixpkgs leftover pname dsm on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsm/Cache"
+  - "%LOCALAPPDATA%/dsm/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsmsearch
+  name: Nixpkgs dsmSearch macos cache (wave 8)
+  description: Nixpkgs leftover pname dsmSearch on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsmSearch"
+  - "$HOME/Library/Logs/dsmSearch"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsmsearch
+  name: Nixpkgs dsmSearch linux cache (wave 8)
+  description: Nixpkgs leftover pname dsmSearch on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsmSearch"
+  - "$XDG_CACHE_HOME/dsmSearch"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsmsearch
+  name: Nixpkgs dsmSearch windows cache (wave 8)
+  description: Nixpkgs leftover pname dsmSearch on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsmSearch/Cache"
+  - "%LOCALAPPDATA%/dsmSearch/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsmc
+  name: Nixpkgs dsmc macos cache (wave 8)
+  description: Nixpkgs leftover pname dsmc on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsmc"
+  - "$HOME/Library/Logs/dsmc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsmc
+  name: Nixpkgs dsmc linux cache (wave 8)
+  description: Nixpkgs leftover pname dsmc on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsmc"
+  - "$XDG_CACHE_HOME/dsmc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsmc
+  name: Nixpkgs dsmc windows cache (wave 8)
+  description: Nixpkgs leftover pname dsmc on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsmc/Cache"
+  - "%LOCALAPPDATA%/dsmc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsmc-tools
+  name: Nixpkgs dsmc-tools macos cache (wave 8)
+  description: Nixpkgs leftover pname dsmc-tools on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsmc-tools"
+  - "$HOME/Library/Logs/dsmc-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsmc-tools
+  name: Nixpkgs dsmc-tools linux cache (wave 8)
+  description: Nixpkgs leftover pname dsmc-tools on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsmc-tools"
+  - "$XDG_CACHE_HOME/dsmc-tools"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsmc-tools
+  name: Nixpkgs dsmc-tools windows cache (wave 8)
+  description: Nixpkgs leftover pname dsmc-tools on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsmc-tools/Cache"
+  - "%LOCALAPPDATA%/dsmc-tools/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsmisc
+  name: Nixpkgs dsmisc macos cache (wave 8)
+  description: Nixpkgs leftover pname dsmisc on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsmisc"
+  - "$HOME/Library/Logs/dsmisc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsmisc
+  name: Nixpkgs dsmisc linux cache (wave 8)
+  description: Nixpkgs leftover pname dsmisc on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsmisc"
+  - "$XDG_CACHE_HOME/dsmisc"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsmisc
+  name: Nixpkgs dsmisc windows cache (wave 8)
+  description: Nixpkgs leftover pname dsmisc on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsmisc/Cache"
+  - "%LOCALAPPDATA%/dsmisc/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsmmr
+  name: Nixpkgs dsmmR macos cache (wave 8)
+  description: Nixpkgs leftover pname dsmmR on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsmmR"
+  - "$HOME/Library/Logs/dsmmR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsmmr
+  name: Nixpkgs dsmmR linux cache (wave 8)
+  description: Nixpkgs leftover pname dsmmR on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsmmR"
+  - "$XDG_CACHE_HOME/dsmmR"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsmmr
+  name: Nixpkgs dsmmR windows cache (wave 8)
+  description: Nixpkgs leftover pname dsmmR on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsmmR/Cache"
+  - "%LOCALAPPDATA%/dsmmR/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsmr-parser
+  name: Nixpkgs dsmr-parser macos cache (wave 8)
+  description: Nixpkgs leftover pname dsmr-parser on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsmr-parser"
+  - "$HOME/Library/Logs/dsmr-parser"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsmr-parser
+  name: Nixpkgs dsmr-parser linux cache (wave 8)
+  description: Nixpkgs leftover pname dsmr-parser on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsmr-parser"
+  - "$XDG_CACHE_HOME/dsmr-parser"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsmr-parser
+  name: Nixpkgs dsmr-parser windows cache (wave 8)
+  description: Nixpkgs leftover pname dsmr-parser on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsmr-parser/Cache"
+  - "%LOCALAPPDATA%/dsmr-parser/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsnap
+  name: Nixpkgs dsnap macos cache (wave 8)
+  description: Nixpkgs leftover pname dsnap on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsnap"
+  - "$HOME/Library/Logs/dsnap"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsnap
+  name: Nixpkgs dsnap linux cache (wave 8)
+  description: Nixpkgs leftover pname dsnap on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsnap"
+  - "$XDG_CACHE_HOME/dsnap"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsnap
+  name: Nixpkgs dsnap windows cache (wave 8)
+  description: Nixpkgs leftover pname dsnap on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsnap/Cache"
+  - "%LOCALAPPDATA%/dsnap/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsnet
+  name: Nixpkgs dsnet macos cache (wave 8)
+  description: Nixpkgs leftover pname dsnet on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsnet"
+  - "$HOME/Library/Logs/dsnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsnet
+  name: Nixpkgs dsnet linux cache (wave 8)
+  description: Nixpkgs leftover pname dsnet on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsnet"
+  - "$XDG_CACHE_HOME/dsnet"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsnet
+  name: Nixpkgs dsnet windows cache (wave 8)
+  description: Nixpkgs leftover pname dsnet on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsnet/Cache"
+  - "%LOCALAPPDATA%/dsnet/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsniff
+  name: Nixpkgs dsniff macos cache (wave 8)
+  description: Nixpkgs leftover pname dsniff on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsniff"
+  - "$HOME/Library/Logs/dsniff"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsniff
+  name: Nixpkgs dsniff linux cache (wave 8)
+  description: Nixpkgs leftover pname dsniff on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsniff"
+  - "$XDG_CACHE_HOME/dsniff"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsniff
+  name: Nixpkgs dsniff windows cache (wave 8)
+  description: Nixpkgs leftover pname dsniff on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsniff/Cache"
+  - "%LOCALAPPDATA%/dsniff/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dson
+  name: Nixpkgs dson macos cache (wave 8)
+  description: Nixpkgs leftover pname dson on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dson"
+  - "$HOME/Library/Logs/dson"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dson
+  name: Nixpkgs dson linux cache (wave 8)
+  description: Nixpkgs leftover pname dson on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dson"
+  - "$XDG_CACHE_HOME/dson"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dson
+  name: Nixpkgs dson windows cache (wave 8)
+  description: Nixpkgs leftover pname dson on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dson/Cache"
+  - "%LOCALAPPDATA%/dson/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dson-parsec
+  name: Nixpkgs dson-parsec macos cache (wave 8)
+  description: Nixpkgs leftover pname dson-parsec on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dson-parsec"
+  - "$HOME/Library/Logs/dson-parsec"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dson-parsec
+  name: Nixpkgs dson-parsec linux cache (wave 8)
+  description: Nixpkgs leftover pname dson-parsec on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dson-parsec"
+  - "$XDG_CACHE_HOME/dson-parsec"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dson-parsec
+  name: Nixpkgs dson-parsec windows cache (wave 8)
+  description: Nixpkgs leftover pname dson-parsec on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dson-parsec/Cache"
+  - "%LOCALAPPDATA%/dson-parsec/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsos
+  name: Nixpkgs dsos macos cache (wave 8)
+  description: Nixpkgs leftover pname dsos on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsos"
+  - "$HOME/Library/Logs/dsos"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsos
+  name: Nixpkgs dsos linux cache (wave 8)
+  description: Nixpkgs leftover pname dsos on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsos"
+  - "$XDG_CACHE_HOME/dsos"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsos
+  name: Nixpkgs dsos windows cache (wave 8)
+  description: Nixpkgs leftover pname dsos on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsos/Cache"
+  - "%LOCALAPPDATA%/dsos/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsp
+  name: Nixpkgs dsp macos cache (wave 8)
+  description: Nixpkgs leftover pname dsp on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsp"
+  - "$HOME/Library/Logs/dsp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsp
+  name: Nixpkgs dsp linux cache (wave 8)
+  description: Nixpkgs leftover pname dsp on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsp"
+  - "$XDG_CACHE_HOME/dsp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsp
+  name: Nixpkgs dsp windows cache (wave 8)
+  description: Nixpkgs leftover pname dsp on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsp/Cache"
+  - "%LOCALAPPDATA%/dsp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dspam
+  name: Nixpkgs dspam macos cache (wave 8)
+  description: Nixpkgs leftover pname dspam on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dspam"
+  - "$HOME/Library/Logs/dspam"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dspam
+  name: Nixpkgs dspam linux cache (wave 8)
+  description: Nixpkgs leftover pname dspam on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dspam"
+  - "$XDG_CACHE_HOME/dspam"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dspam
+  name: Nixpkgs dspam windows cache (wave 8)
+  description: Nixpkgs leftover pname dspam on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dspam/Cache"
+  - "%LOCALAPPDATA%/dspam/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dspline
+  name: Nixpkgs dspline macos cache (wave 8)
+  description: Nixpkgs leftover pname dspline on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dspline"
+  - "$HOME/Library/Logs/dspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dspline
+  name: Nixpkgs dspline linux cache (wave 8)
+  description: Nixpkgs leftover pname dspline on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dspline"
+  - "$XDG_CACHE_HOME/dspline"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dspline
+  name: Nixpkgs dspline windows cache (wave 8)
+  description: Nixpkgs leftover pname dspline on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dspline/Cache"
+  - "%LOCALAPPDATA%/dspline/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsptricks
+  name: Nixpkgs dsptricks macos cache (wave 8)
+  description: Nixpkgs leftover pname dsptricks on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsptricks"
+  - "$HOME/Library/Logs/dsptricks"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsptricks
+  name: Nixpkgs dsptricks linux cache (wave 8)
+  description: Nixpkgs leftover pname dsptricks on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsptricks"
+  - "$XDG_CACHE_HOME/dsptricks"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsptricks
+  name: Nixpkgs dsptricks windows cache (wave 8)
+  description: Nixpkgs leftover pname dsptricks on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsptricks/Cache"
+  - "%LOCALAPPDATA%/dsptricks/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsq
+  name: Nixpkgs dsq macos cache (wave 8)
+  description: Nixpkgs leftover pname dsq on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsq"
+  - "$HOME/Library/Logs/dsq"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsq
+  name: Nixpkgs dsq linux cache (wave 8)
+  description: Nixpkgs leftover pname dsq on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsq"
+  - "$XDG_CACHE_HOME/dsq"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsq
+  name: Nixpkgs dsq windows cache (wave 8)
+  description: Nixpkgs leftover pname dsq on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsq/Cache"
+  - "%LOCALAPPDATA%/dsq/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsrtest
+  name: Nixpkgs dsrTest macos cache (wave 8)
+  description: Nixpkgs leftover pname dsrTest on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsrTest"
+  - "$HOME/Library/Logs/dsrTest"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsrtest
+  name: Nixpkgs dsrTest linux cache (wave 8)
+  description: Nixpkgs leftover pname dsrTest on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsrTest"
+  - "$XDG_CACHE_HOME/dsrTest"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsrtest
+  name: Nixpkgs dsrTest windows cache (wave 8)
+  description: Nixpkgs leftover pname dsrTest on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsrTest/Cache"
+  - "%LOCALAPPDATA%/dsrTest/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsremote
+  name: Nixpkgs dsremote macos cache (wave 8)
+  description: Nixpkgs leftover pname dsremote on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsremote"
+  - "$HOME/Library/Logs/dsremote"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsremote
+  name: Nixpkgs dsremote linux cache (wave 8)
+  description: Nixpkgs leftover pname dsremote on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsremote"
+  - "$XDG_CACHE_HOME/dsremote"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsremote
+  name: Nixpkgs dsremote windows cache (wave 8)
+  description: Nixpkgs leftover pname dsremote on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsremote/Cache"
+  - "%LOCALAPPDATA%/dsremote/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dssd
+  name: Nixpkgs dssd macos cache (wave 8)
+  description: Nixpkgs leftover pname dssd on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dssd"
+  - "$HOME/Library/Logs/dssd"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dssd
+  name: Nixpkgs dssd linux cache (wave 8)
+  description: Nixpkgs leftover pname dssd on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dssd"
+  - "$XDG_CACHE_HOME/dssd"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dssd
+  name: Nixpkgs dssd windows cache (wave 8)
+  description: Nixpkgs leftover pname dssd on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dssd/Cache"
+  - "%LOCALAPPDATA%/dssd/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsserif
+  name: Nixpkgs dsserif macos cache (wave 8)
+  description: Nixpkgs leftover pname dsserif on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsserif"
+  - "$HOME/Library/Logs/dsserif"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsserif
+  name: Nixpkgs dsserif linux cache (wave 8)
+  description: Nixpkgs leftover pname dsserif on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsserif"
+  - "$XDG_CACHE_HOME/dsserif"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsserif
+  name: Nixpkgs dsserif windows cache (wave 8)
+  description: Nixpkgs leftover pname dsserif on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsserif/Cache"
+  - "%LOCALAPPDATA%/dsserif/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dssi
+  name: Nixpkgs dssi macos cache (wave 8)
+  description: Nixpkgs leftover pname dssi on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dssi"
+  - "$HOME/Library/Logs/dssi"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dssi
+  name: Nixpkgs dssi linux cache (wave 8)
+  description: Nixpkgs leftover pname dssi on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dssi"
+  - "$XDG_CACHE_HOME/dssi"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dssi
+  name: Nixpkgs dssi windows cache (wave 8)
+  description: Nixpkgs leftover pname dssi on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dssi/Cache"
+  - "%LOCALAPPDATA%/dssi/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dst
+  name: Nixpkgs dst macos cache (wave 8)
+  description: Nixpkgs leftover pname dst on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dst"
+  - "$HOME/Library/Logs/dst"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dst
+  name: Nixpkgs dst linux cache (wave 8)
+  description: Nixpkgs leftover pname dst on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dst"
+  - "$XDG_CACHE_HOME/dst"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dst
+  name: Nixpkgs dst windows cache (wave 8)
+  description: Nixpkgs leftover pname dst on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dst/Cache"
+  - "%LOCALAPPDATA%/dst/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstabledist
+  name: Nixpkgs dstabledist macos cache (wave 8)
+  description: Nixpkgs leftover pname dstabledist on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstabledist"
+  - "$HOME/Library/Logs/dstabledist"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstabledist
+  name: Nixpkgs dstabledist linux cache (wave 8)
+  description: Nixpkgs leftover pname dstabledist on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstabledist"
+  - "$XDG_CACHE_HOME/dstabledist"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstabledist
+  name: Nixpkgs dstabledist windows cache (wave 8)
+  description: Nixpkgs leftover pname dstabledist on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstabledist/Cache"
+  - "%LOCALAPPDATA%/dstabledist/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstask
+  name: Nixpkgs dstask macos cache (wave 8)
+  description: Nixpkgs leftover pname dstask on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstask"
+  - "$HOME/Library/Logs/dstask"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstask
+  name: Nixpkgs dstask linux cache (wave 8)
+  description: Nixpkgs leftover pname dstask on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstask"
+  - "$XDG_CACHE_HOME/dstask"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstask
+  name: Nixpkgs dstask windows cache (wave 8)
+  description: Nixpkgs leftover pname dstask on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstask/Cache"
+  - "%LOCALAPPDATA%/dstask/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstat
+  name: Nixpkgs dstat macos cache (wave 8)
+  description: Nixpkgs leftover pname dstat on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstat"
+  - "$HOME/Library/Logs/dstat"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstat
+  name: Nixpkgs dstat linux cache (wave 8)
+  description: Nixpkgs leftover pname dstat on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstat"
+  - "$XDG_CACHE_HOME/dstat"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstat
+  name: Nixpkgs dstat windows cache (wave 8)
+  description: Nixpkgs leftover pname dstat on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstat/Cache"
+  - "%LOCALAPPDATA%/dstat/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstat2x2xk
+  name: Nixpkgs dstat2x2xk macos cache (wave 8)
+  description: Nixpkgs leftover pname dstat2x2xk on macos (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstat2x2xk"
+  - "$HOME/Library/Logs/dstat2x2xk"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstat2x2xk
+  name: Nixpkgs dstat2x2xk linux cache (wave 8)
+  description: Nixpkgs leftover pname dstat2x2xk on linux (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstat2x2xk"
+  - "$XDG_CACHE_HOME/dstat2x2xk"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstat2x2xk
+  name: Nixpkgs dstat2x2xk windows cache (wave 8)
+  description: Nixpkgs leftover pname dstat2x2xk on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstat2x2xk/Cache"
+  - "%LOCALAPPDATA%/dstat2x2xk/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstep
+  name: Nixpkgs dstep macos cache (wave 8)
+  description: Nixpkgs leftover pname dstep on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstep"
+  - "$HOME/Library/Logs/dstep"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstep
+  name: Nixpkgs dstep linux cache (wave 8)
+  description: Nixpkgs leftover pname dstep on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstep"
+  - "$XDG_CACHE_HOME/dstep"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstep
+  name: Nixpkgs dstep windows cache (wave 8)
+  description: Nixpkgs leftover pname dstep on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstep/Cache"
+  - "%LOCALAPPDATA%/dstep/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstp
+  name: Nixpkgs dstp macos cache (wave 8)
+  description: Nixpkgs leftover pname dstp on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstp"
+  - "$HOME/Library/Logs/dstp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstp
+  name: Nixpkgs dstp linux cache (wave 8)
+  description: Nixpkgs leftover pname dstp on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstp"
+  - "$XDG_CACHE_HOME/dstp"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstp
+  name: Nixpkgs dstp windows cache (wave 8)
+  description: Nixpkgs leftover pname dstp on windows (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstp/Cache"
+  - "%LOCALAPPDATA%/dstp/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dstring
+  name: Nixpkgs dstring macos cache (wave 8)
+  description: Nixpkgs leftover pname dstring on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dstring"
+  - "$HOME/Library/Logs/dstring"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dstring
+  name: Nixpkgs dstring linux cache (wave 8)
+  description: Nixpkgs leftover pname dstring on linux (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dstring"
+  - "$XDG_CACHE_HOME/dstring"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dstring
+  name: Nixpkgs dstring windows cache (wave 8)
+  description: Nixpkgs leftover pname dstring on windows (wave 8). Not /nix/store
+    or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dstring/Cache"
+  - "%LOCALAPPDATA%/dstring/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsv
+  name: Nixpkgs dsv macos cache (wave 8)
+  description: Nixpkgs leftover pname dsv on macos (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsv"
+  - "$HOME/Library/Logs/dsv"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-lin-dsv
+  name: Nixpkgs dsv linux cache (wave 8)
+  description: Nixpkgs leftover pname dsv on linux (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: linux
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/dsv"
+  - "$XDG_CACHE_HOME/dsv"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-win-dsv
+  name: Nixpkgs dsv windows cache (wave 8)
+  description: Nixpkgs leftover pname dsv on windows (wave 8). Not /nix/store or configs.
+  category: caches
+  platform: windows
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/dsv/Cache"
+  - "%LOCALAPPDATA%/dsv/Logs"
+  delete_mode: contents
+  max_depth: 6
+- id: np8-mac-dsview
+  name: Nixpkgs dsview macos cache (wave 8)
+  description: Nixpkgs leftover pname dsview on macos (wave 8). Not /nix/store or
+    configs.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: false
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/dsview"
+  - "$HOME/Library/Logs/dsview"
+  delete_mode: contents
+  max_depth: 6
