@@ -8,7 +8,7 @@ use std::fs;
 use std::path::{Path, PathBuf};
 
 /// Persisted user overrides on top of YAML `default_enabled`.
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
 pub struct RulePrefs {
     /// Per-rule force on/off. Absent → use YAML `default_enabled` (or category policy).
     #[serde(default)]
@@ -37,6 +37,40 @@ pub struct RulePrefs {
 }
 
 impl RulePrefs {
+    /// Preserve overrides after catalog deduplication. When old copies conflict,
+    /// disabling wins and the longest age threshold wins.
+    fn migrate_aliases(&mut self, aliases: &BTreeMap<String, String>) {
+        for (old, canonical) in aliases {
+            if old == canonical {
+                continue;
+            }
+            if let Some(enabled) = self.rules.remove(old) {
+                self.rules
+                    .entry(canonical.clone())
+                    .and_modify(|current| *current &= enabled)
+                    .or_insert(enabled);
+            }
+            if let Some(age) = self.min_age.remove(old) {
+                self.min_age
+                    .entry(canonical.clone())
+                    .and_modify(|current| *current = (*current).max(age))
+                    .or_insert(age);
+            }
+        }
+    }
+
+    pub fn migrate_catalog_aliases(&mut self, dirs: &[PathBuf]) -> Result<()> {
+        for dir in dirs {
+            let path = dir.join("_rule-aliases.json");
+            if path.is_file() {
+                let aliases = serde_json::from_slice(&fs::read(&path)?)
+                    .with_context(|| format!("parse {}", path.display()))?;
+                self.migrate_aliases(&aliases);
+            }
+        }
+        Ok(())
+    }
+
     pub fn default_path() -> Option<PathBuf> {
         let base = directories::ProjectDirs::from("com", "themoretheless", "SpaceScanner")?;
         Some(base.config_dir().join("rule-prefs.json"))
@@ -161,7 +195,7 @@ impl RulePrefs {
 }
 
 /// Query for listing / managing rules.
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub struct RuleFilter {
     pub query: String,
     pub category: Option<String>,
@@ -197,6 +231,25 @@ impl Default for RuleFilter {
 
 impl RuleFilter {
     pub fn matches(&self, rule: &Rule, prefs: &RulePrefs) -> bool {
+        self.prepared()
+            .matches_prepared(rule, prefs, &mut String::new())
+    }
+
+    fn prepared(&self) -> Self {
+        let mut filter = self.clone();
+        filter.query = self.query.trim().to_ascii_lowercase();
+        filter.tags = self
+            .tags
+            .iter()
+            .map(|tag| crate::tags::normalize_tag(tag))
+            .filter(|tag| !tag.is_empty())
+            .collect::<BTreeSet<_>>()
+            .into_iter()
+            .collect();
+        filter
+    }
+
+    fn matches_prepared(&self, rule: &Rule, prefs: &RulePrefs, text: &mut String) -> bool {
         if self.host_only && !rule.platform.matches_host() {
             return false;
         }
@@ -210,16 +263,12 @@ impl RuleFilter {
                 return false;
             }
         }
-        if !self.tags.is_empty() {
-            let want: BTreeSet<String> = self
-                .tags
-                .iter()
-                .map(|t| crate::tags::normalize_tag(t))
-                .filter(|t| !t.is_empty())
-                .collect();
-            if !want.iter().all(|t| rule.tags.iter().any(|rt| rt == t)) {
-                return false;
-            }
+        if !self
+            .tags
+            .iter()
+            .all(|tag| rule.tags.iter().any(|rule_tag| rule_tag == tag))
+        {
+            return false;
         }
         if let Some(risk) = self.risk {
             if rule.risk != risk {
@@ -237,29 +286,34 @@ impl RuleFilter {
                 return false;
             }
         }
-        let on = prefs.is_enabled(rule);
         if let Some(want) = self.enabled {
-            if on != want {
+            if prefs.is_enabled(rule) != want {
                 return false;
             }
         }
         if self.overridden_only && !prefs.is_overridden(rule) {
             return false;
         }
-        let q = self.query.trim().to_ascii_lowercase();
-        if !q.is_empty() {
-            let tag_hay = rule.tags.join(" ");
-            let hay = format!(
-                "{} {} {} {} {} {}",
-                rule.id,
-                rule.name,
-                rule.category,
+        if !self.query.is_empty() {
+            text.clear();
+            for field in [
+                &rule.id,
+                &rule.name,
+                &rule.category,
                 rule.kind.as_str(),
-                rule.description,
-                tag_hay
-            )
-            .to_ascii_lowercase();
-            if !hay.contains(&q) {
+                &rule.description,
+            ] {
+                text.push_str(field);
+                text.push(' ');
+            }
+            for (index, tag) in rule.tags.iter().enumerate() {
+                if index > 0 {
+                    text.push(' ');
+                }
+                text.push_str(tag);
+            }
+            text.make_ascii_lowercase();
+            if !text.contains(&self.query) {
                 return false;
             }
         }
@@ -328,16 +382,16 @@ pub enum CategoryPolicy {
 /// Pack + prefs: list, filter, toggle, feed scans.
 #[derive(Debug, Clone)]
 pub struct RuleManager {
-    pub pack: RulePack,
+    pub pack: std::sync::Arc<RulePack>,
     pub prefs: RulePrefs,
 }
 
 impl RuleManager {
     pub fn load_default() -> Result<Self> {
-        Ok(Self {
-            pack: crate::load_default_pack()?,
-            prefs: RulePrefs::load(),
-        })
+        let pack = RulePack::load_many_shared(&crate::default_rules_dirs())?;
+        let mut prefs = RulePrefs::load();
+        prefs.migrate_catalog_aliases(&crate::default_rules_dirs())?;
+        Ok(Self { pack, prefs })
     }
 
     pub fn save_prefs(&self) -> Result<()> {
@@ -349,29 +403,45 @@ impl RuleManager {
     }
 
     pub fn list(&self, filter: &RuleFilter) -> Vec<RuleRow> {
-        self.pack
-            .rules
-            .iter()
-            .filter(|r| filter.matches(r, &self.prefs))
-            .map(|r| RuleRow {
-                id: r.id.clone(),
-                name: r.name.clone(),
-                category: r.category.clone(),
-                kind: r.kind.as_str().to_string(),
-                tags: r.tags.clone(),
-                risk: r.risk.as_str().to_string(),
-                danger: r.risk.danger_label().to_string(),
-                platform: r.platform.as_str().to_string(),
-                default_enabled: r.default_enabled,
-                effectively_enabled: self.prefs.is_enabled(r),
-                overridden: self.prefs.is_overridden(r),
-                report_only: r.report_only || r.risk == Risk::ReportOnly,
-                min_age_days: self.prefs.min_age_for(r),
-                paths: r.paths.clone(),
-                description: r.description.clone(),
-                details: detailed_rule_description(r, self.prefs.min_age_for(r)),
-            })
-            .collect()
+        self.list_page(filter, usize::MAX).1
+    }
+
+    /// Count every match but allocate display rows only for the visible page.
+    pub fn list_page(&self, filter: &RuleFilter, limit: usize) -> (usize, Vec<RuleRow>) {
+        let mut total = 0;
+        let mut rows = Vec::new();
+        let filter = filter.prepared();
+        let mut text = String::new();
+        for rule in &self.pack.rules {
+            if filter.matches_prepared(rule, &self.prefs, &mut text) {
+                total += 1;
+                if rows.len() < limit {
+                    rows.push(self.row_for(rule));
+                }
+            }
+        }
+        (total, rows)
+    }
+
+    fn row_for(&self, r: &Rule) -> RuleRow {
+        RuleRow {
+            id: r.id.clone(),
+            name: r.name.clone(),
+            category: r.category.clone(),
+            kind: r.kind.as_str().to_string(),
+            tags: r.tags.clone(),
+            risk: r.risk.as_str().to_string(),
+            danger: r.risk.danger_label().to_string(),
+            platform: r.platform.as_str().to_string(),
+            default_enabled: r.default_enabled,
+            effectively_enabled: self.prefs.is_enabled(r),
+            overridden: self.prefs.is_overridden(r),
+            report_only: r.report_only || r.risk == Risk::ReportOnly,
+            min_age_days: self.prefs.min_age_for(r),
+            paths: r.paths.clone(),
+            description: r.description.clone(),
+            details: detailed_rule_description(r, self.prefs.min_age_for(r)),
+        }
     }
 
     pub fn categories(&self, host_only: bool) -> Vec<CategoryRow> {
@@ -711,4 +781,88 @@ pub struct ManagerStats {
     pub categories: usize,
     pub tags: usize,
     pub kinds: usize,
+}
+
+#[cfg(test)]
+mod alias_tests {
+    use super::*;
+    #[test]
+    fn prepared_search_preserves_case_spacing_tags_and_preference_filters() {
+        let rule: Rule = serde_json::from_value(serde_json::json!({
+            "id": "example", "name": "Tool", "description": "Build Output É",
+            "paths": ["/tmp/fixture"], "platform": "any", "category": "dev",
+            "kind": "dev", "tags": ["alpha", "rust"]
+        }))
+        .unwrap();
+        let hay = format!(
+            "{} {} {} {} {} {}",
+            rule.id,
+            rule.name,
+            rule.category,
+            rule.kind.as_str(),
+            rule.description,
+            rule.tags.join(" ")
+        )
+        .to_ascii_lowercase();
+        let mut manager = RuleManager {
+            pack: std::sync::Arc::new(RulePack {
+                rules: vec![rule],
+                sources: vec![],
+            }),
+            prefs: RulePrefs::default(),
+        };
+        for query in [
+            "TOOL DEV",
+            "É ALPHA",
+            "output  é",
+            "é",
+            " É ",
+            "missing",
+            "",
+            "dev build",
+        ] {
+            let filter = RuleFilter {
+                query: query.into(),
+                ..Default::default()
+            };
+            let expected = usize::from(hay.contains(&query.trim().to_ascii_lowercase()));
+            assert_eq!(manager.list_page(&filter, 1).0, expected, "{query}");
+            assert_eq!(
+                usize::from(filter.matches(&manager.pack.rules[0], &manager.prefs)),
+                expected
+            );
+        }
+        let mut filter = RuleFilter {
+            tags: vec![" RUST ".into(), "ALPHA".into(), "---".into()],
+            ..Default::default()
+        };
+        assert_eq!(manager.list_page(&filter, 1).0, 1);
+        manager.prefs.rules.insert("example".into(), false);
+        filter.enabled = Some(true);
+        assert_eq!(manager.list_page(&filter, 1).0, 0);
+        filter.enabled = Some(false);
+        assert_eq!(manager.list_page(&filter, 1).0, 1);
+        assert_eq!(manager.list_page(&filter, 0).1.len(), 0);
+    }
+
+    #[test]
+    fn duplicate_overrides_migrate_conservatively_and_idempotently() {
+        let aliases = BTreeMap::from([
+            ("old".into(), "kept".into()),
+            ("old2".into(), "kept".into()),
+        ]);
+        let mut prefs = RulePrefs::default();
+        prefs.rules.extend([
+            ("old".into(), false),
+            ("old2".into(), true),
+            ("kept".into(), true),
+        ]);
+        prefs
+            .min_age
+            .extend([("old".into(), 30), ("kept".into(), 7)]);
+        prefs.migrate_aliases(&aliases);
+        prefs.migrate_aliases(&aliases);
+        assert_eq!(prefs.rules, BTreeMap::from([("kept".into(), false)]));
+        assert_eq!(prefs.min_age, BTreeMap::from([("kept".into(), 30)]));
+    }
 }

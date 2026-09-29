@@ -1,6 +1,6 @@
 //! High-throughput parallel disk scanner (work-stealing, same-volume, skiplist).
 
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex};
@@ -52,9 +52,15 @@ struct Entry {
     children: Vec<usize>,
 }
 
-/// Flat record emitted by workers (paths relative to scan root via parent path).
+struct DirTask {
+    path: PathBuf,
+    id: usize,
+}
+
+/// Flat record emitted by workers; directory IDs are assigned before enqueueing.
 struct Rec {
-    parent: PathBuf,
+    parent: usize,
+    id: Option<usize>,
     name: String,
     is_dir: bool,
     synthetic: bool,
@@ -68,6 +74,7 @@ struct Shared {
     root: PathBuf,
     allowed_devs: HashSet<u64>,
     skip_volumes_prefix: bool,
+    next_dir: AtomicUsize,
     files_seen: AtomicU64,
     bytes_seen: AtomicU64,
     skipped_errors: AtomicU64,
@@ -128,10 +135,13 @@ fn run_scan(root: PathBuf, tx: Sender<ScanEvent>, cancel: Arc<AtomicBool>) -> Re
         allowed_devs.insert(device_id(&m));
     }
 
+    // The eight-worker cap outperformed caps of four and sixteen on the
+    // warm macOS metadata fixtures; extra workers add contention and overhead.
+    let max_threads = if cfg!(target_os = "macos") { 8 } else { 16 };
     let threads = std::thread::available_parallelism()
         .map(|n| n.get())
         .unwrap_or(4)
-        .clamp(2, 16);
+        .clamp(2, max_threads);
 
     let mut shards = Vec::with_capacity(threads);
     for _ in 0..threads {
@@ -148,6 +158,7 @@ fn run_scan(root: PathBuf, tx: Sender<ScanEvent>, cancel: Arc<AtomicBool>) -> Re
         root: root.clone(),
         allowed_devs,
         skip_volumes_prefix,
+        next_dir: AtomicUsize::new(1),
         files_seen: AtomicU64::new(0),
         bytes_seen: AtomicU64::new(0),
         skipped_errors: AtomicU64::new(0),
@@ -159,15 +170,18 @@ fn run_scan(root: PathBuf, tx: Sender<ScanEvent>, cancel: Arc<AtomicBool>) -> Re
         shards,
     });
 
-    let injector = Arc::new(Injector::<PathBuf>::new());
-    injector.push(root.clone());
+    let injector = Arc::new(Injector::<DirTask>::new());
+    injector.push(DirTask {
+        path: root.clone(),
+        id: 0,
+    });
 
     let pending = Arc::new(AtomicUsize::new(1)); // root queued
 
     let mut worker_stealers = Vec::with_capacity(threads);
     let mut local_workers = Vec::with_capacity(threads);
     for _ in 0..threads {
-        let w = Worker::<PathBuf>::new_fifo();
+        let w = Worker::<DirTask>::new_fifo();
         worker_stealers.push(w.stealer());
         local_workers.push(Some(w));
     }
@@ -210,10 +224,10 @@ const SMALL_FILE_THRESHOLD: u64 = 512 * 1024;
 
 fn worker_loop(
     wid: usize,
-    local: Worker<PathBuf>,
+    local: Worker<DirTask>,
     shared: Arc<Shared>,
-    injector: Arc<Injector<PathBuf>>,
-    stealers: Arc<Vec<crossbeam_deque::Stealer<PathBuf>>>,
+    injector: Arc<Injector<DirTask>>,
+    stealers: Arc<Vec<crossbeam_deque::Stealer<DirTask>>>,
     pending: Arc<AtomicUsize>,
 ) {
     let mut buf: Vec<Rec> = Vec::with_capacity(8192);
@@ -250,10 +264,10 @@ fn worker_loop(
 }
 
 fn find_task(
-    local: &Worker<PathBuf>,
-    injector: &Injector<PathBuf>,
-    stealers: &[crossbeam_deque::Stealer<PathBuf>],
-) -> Option<PathBuf> {
+    local: &Worker<DirTask>,
+    injector: &Injector<DirTask>,
+    stealers: &[crossbeam_deque::Stealer<DirTask>],
+) -> Option<DirTask> {
     local.pop().or_else(|| match injector.steal() {
         Steal::Success(v) => Some(v),
         _ => {
@@ -280,12 +294,20 @@ fn flush_buf(wid: usize, shared: &Shared, buf: &mut Vec<Rec>) {
 }
 
 fn scan_dir(
-    dir: &Path,
+    task: &DirTask,
     shared: &Shared,
-    injector: &Injector<PathBuf>,
+    injector: &Injector<DirTask>,
     pending: &AtomicUsize,
     buf: &mut Vec<Rec>,
 ) {
+    let dir = &task.path;
+    // Decide once per directory instead of constructing every child path.
+    if shared.skip_volumes_prefix
+        && dir.starts_with("/Volumes")
+        && !shared.root.starts_with("/Volumes")
+    {
+        return;
+    }
     let rd = match std::fs::read_dir(dir) {
         Ok(r) => r,
         Err(_) => {
@@ -294,6 +316,8 @@ fn scan_dir(
         }
     };
 
+    let mut progress_files = 0u64;
+    let mut progress_bytes = 0u64;
     let mut small_count = 0u64;
     let mut small_apparent = 0u64;
     let mut small_allocated = 0u64;
@@ -310,21 +334,8 @@ fn scan_dir(
         };
 
         let name = ent.file_name();
-        let name_str = display_name(&name);
-        if should_skip_name(&name_str) {
+        if name.to_str().is_some_and(should_skip_name) {
             continue;
-        }
-
-        let path = ent.path();
-
-        // Avoid scanning other mounted volumes when walking the system disk
-        if shared.skip_volumes_prefix {
-            if let Ok(rest) = path.strip_prefix("/Volumes/") {
-                if rest.components().count() >= 1 && !shared.root.starts_with("/Volumes") {
-                    // /Volumes/<something>/... — different mount area
-                    continue;
-                }
-            }
         }
 
         let ft = match ent.file_type() {
@@ -352,9 +363,11 @@ fn scan_dir(
             if !shared.allowed_devs.contains(&dev) {
                 continue;
             }
+            let id = shared.next_dir.fetch_add(1, Ordering::Relaxed);
             buf.push(Rec {
-                parent: dir.to_path_buf(),
-                name: name_str,
+                parent: task.id,
+                id: Some(id),
+                name: display_name(&name),
                 is_dir: true,
                 synthetic: false,
                 apparent: 0,
@@ -362,7 +375,10 @@ fn scan_dir(
                 file_count: 0,
             });
             pending.fetch_add(1, Ordering::Release);
-            injector.push(path);
+            injector.push(DirTask {
+                path: ent.path(),
+                id,
+            });
         } else if ft.is_file() {
             let meta = match ent.metadata() {
                 Ok(m) => m,
@@ -392,8 +408,9 @@ fn scan_dir(
                 small_allocated = small_allocated.saturating_add(allocated);
             } else {
                 buf.push(Rec {
-                    parent: dir.to_path_buf(),
-                    name: name_str,
+                    parent: task.id,
+                    id: None,
+                    name: display_name(&name),
                     is_dir: false,
                     synthetic: false,
                     apparent,
@@ -401,15 +418,21 @@ fn scan_dir(
                     file_count: 1,
                 });
             }
-            shared.bytes_seen.fetch_add(allocated, Ordering::Relaxed);
-            let n = shared.files_seen.fetch_add(1, Ordering::Relaxed) + 1;
-            maybe_progress(shared, n, &path);
+            progress_files += 1;
+            progress_bytes += allocated;
+            if progress_files == 256 {
+                publish_progress(shared, progress_files, progress_bytes, dir);
+                progress_files = 0;
+                progress_bytes = 0;
+            }
         }
         // else: sockets/fifos/devices — ignore
     }
+    publish_progress(shared, progress_files, progress_bytes, dir);
     if small_count > 0 {
         buf.push(Rec {
-            parent: dir.to_path_buf(),
+            parent: task.id,
+            id: None,
             name: format!("· {small_count} small files"),
             is_dir: false,
             synthetic: true,
@@ -418,6 +441,15 @@ fn scan_dir(
             file_count: small_count,
         });
     }
+}
+
+fn publish_progress(shared: &Shared, files: u64, bytes: u64, path: &Path) {
+    if files == 0 {
+        return;
+    }
+    shared.bytes_seen.fetch_add(bytes, Ordering::Relaxed);
+    let n = shared.files_seen.fetch_add(files, Ordering::Relaxed) + files;
+    maybe_progress(shared, n, path);
 }
 
 fn maybe_progress(shared: &Shared, n: u64, path: &Path) {
@@ -439,7 +471,12 @@ fn maybe_progress(shared: &Shared, n: u64, path: &Path) {
 
 fn display_name(name: &std::ffi::OsStr) -> String {
     // macOS HFS+/APFS often stores NFD; NFC renders correctly in UI fonts.
-    name.to_string_lossy().nfc().collect()
+    let name = name.to_string_lossy();
+    if name.is_ascii() {
+        name.into_owned()
+    } else {
+        name.nfc().collect()
+    }
 }
 
 fn should_skip_name(name: &str) -> bool {
@@ -487,57 +524,27 @@ fn build_tree(root: &Path, recs: Vec<Rec>, shared: &Shared) -> Result<SpaceTree,
         children: Vec::new(),
     });
 
-    let mut dir_index: HashMap<PathBuf, usize> = HashMap::with_capacity(recs.len() / 4 + 16);
-    dir_index.insert(root.to_path_buf(), 0);
-
-    let (directories, files): (Vec<_>, Vec<_>) = recs.into_iter().partition(|record| record.is_dir);
-
-    // First pass: ensure all directories exist (records may be unordered).
-    for record in directories {
-        let path = record.parent.join(&record.name);
-        if dir_index.contains_key(&path) {
-            continue;
-        }
-        ensure_dirs(root, record.parent.as_path(), &mut entries, &mut dir_index);
-        let Some(&parent_idx) = dir_index.get(record.parent.as_path()) else {
-            continue;
-        };
-        if dir_index.contains_key(&path) {
-            continue;
-        }
+    let (mut directories, files): (Vec<_>, Vec<_>) =
+        recs.into_iter().partition(|record| record.is_dir);
+    // IDs are dense and every parent is assigned before its children. Keeping
+    // that order also makes the reverse aggregation pass valid.
+    directories.sort_unstable_by_key(|record| record.id.unwrap());
+    for record in directories.into_iter().chain(files) {
         let idx = entries.len();
+        if let Some(id) = record.id {
+            debug_assert_eq!(idx, id);
+        }
         entries.push(Entry {
-            parent: Some(parent_idx),
+            parent: Some(record.parent),
             name: record.name,
-            is_dir: true,
-            synthetic: false,
-            apparent: 0,
-            allocated: 0,
-            file_count: 0,
-            children: Vec::new(),
-        });
-        entries[parent_idx].children.push(idx);
-        dir_index.insert(path, idx);
-    }
-
-    // Second pass: consume file records and move their names into the tree.
-    for record in files {
-        ensure_dirs(root, record.parent.as_path(), &mut entries, &mut dir_index);
-        let Some(&parent_idx) = dir_index.get(record.parent.as_path()) else {
-            continue;
-        };
-        let idx = entries.len();
-        entries.push(Entry {
-            parent: Some(parent_idx),
-            name: record.name,
-            is_dir: false,
+            is_dir: record.is_dir,
             synthetic: record.synthetic,
             apparent: record.apparent,
             allocated: record.allocated,
-            file_count: record.file_count.max(1),
+            file_count: record.file_count,
             children: Vec::new(),
         });
-        entries[parent_idx].children.push(idx);
+        entries[record.parent].children.push(idx);
     }
 
     for i in (0..entries.len()).rev() {
@@ -601,57 +608,6 @@ fn build_tree(root: &Path, recs: Vec<Rec>, shared: &Shared) -> Result<SpaceTree,
         hardlinks_deduped: shared.hardlinks_deduped.load(Ordering::Relaxed),
     };
     Ok(tree)
-}
-
-fn ensure_dirs(
-    root: &Path,
-    target: &Path,
-    entries: &mut Vec<Entry>,
-    dir_index: &mut HashMap<PathBuf, usize>,
-) {
-    if dir_index.contains_key(target) {
-        return;
-    }
-
-    let mut missing = Vec::new();
-    let mut cur = target.to_path_buf();
-    while !dir_index.contains_key(&cur) && cur != *root {
-        missing.push(cur.clone());
-        match cur.parent() {
-            Some(p) => cur = p.to_path_buf(),
-            None => break,
-        }
-    }
-    missing.reverse();
-
-    for path in missing {
-        if dir_index.contains_key(&path) {
-            continue;
-        }
-        let Some(parent_path) = path.parent().map(Path::to_path_buf) else {
-            continue;
-        };
-        let Some(&parent_idx) = dir_index.get(&parent_path) else {
-            continue;
-        };
-        let name = path
-            .file_name()
-            .map(display_name)
-            .unwrap_or_else(|| "?".into());
-        let idx = entries.len();
-        entries.push(Entry {
-            parent: Some(parent_idx),
-            name,
-            is_dir: true,
-            synthetic: false,
-            apparent: 0,
-            allocated: 0,
-            file_count: 0,
-            children: Vec::new(),
-        });
-        entries[parent_idx].children.push(idx);
-        dir_index.insert(path, idx);
-    }
 }
 
 fn device_id(meta: &std::fs::Metadata) -> u64 {
@@ -898,6 +854,73 @@ mod tests {
         assert_eq!(tree.hardlink_candidates, 2);
         assert!(tree.hardlinks_deduped >= 1);
         let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn parallel_scan_preserves_hierarchy_and_exact_totals() {
+        let dir = std::env::temp_dir().join(format!("space-scanner-ids-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        let mut apparent = 0;
+        let mut allocated = 0;
+        for i in 0..64 {
+            // Decomposed Unicode names must not create duplicate directories
+            // when workers emit parent and child records in different orders.
+            let leaf = dir.join(format!("e\u{301}-{i}/nested/empty"));
+            fs::create_dir_all(&leaf).unwrap();
+            for (name, size) in [("small", 17), ("large", SMALL_FILE_THRESHOLD + 1)] {
+                let path = leaf.parent().unwrap().join(name);
+                fs::File::create(&path).unwrap().set_len(size).unwrap();
+                let meta = fs::metadata(&path).unwrap();
+                apparent += meta.len();
+                allocated += allocated_bytes(&meta);
+            }
+        }
+        for _ in 0..3 {
+            let tree = scan_blocking(dir.clone()).unwrap();
+            assert_eq!(tree.node(tree.root).file_count, 128);
+            assert_eq!(tree.node(tree.root).apparent_size, apparent);
+            assert_eq!(tree.node(tree.root).allocated_size, allocated);
+            assert_eq!(tree.nodes.len(), 1 + 64 * 5);
+            assert_eq!(tree.children(tree.root).len(), 64);
+            for (i, node) in tree.nodes.iter().enumerate() {
+                for &child in &node.children {
+                    assert_eq!(tree.node(child).parent, Some(NodeId(i as u32)));
+                }
+                if node.is_dir {
+                    assert_eq!(
+                        node.file_count,
+                        node.children
+                            .iter()
+                            .map(|&id| tree.node(id).file_count)
+                            .sum::<u64>()
+                    );
+                    assert_eq!(
+                        node.apparent_size,
+                        node.children
+                            .iter()
+                            .map(|&id| tree.node(id).apparent_size)
+                            .sum::<u64>()
+                    );
+                }
+            }
+        }
+        fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn skips_symlink_cycles_and_excluded_directories() {
+        let dir = std::env::temp_dir().join(format!("space-scanner-skip-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(dir.join(".Trash")).unwrap();
+        fs::write(dir.join(".Trash/ignored"), b"ignored").unwrap();
+        fs::write(dir.join("kept"), b"kept").unwrap();
+        std::os::unix::fs::symlink(&dir, dir.join("cycle")).unwrap();
+        let tree = scan_blocking(dir.clone()).unwrap();
+        assert_eq!(tree.node(tree.root).file_count, 1);
+        assert_eq!(tree.node(tree.root).apparent_size, 4);
+        assert_eq!(tree.nodes.len(), 2);
+        fs::remove_dir_all(dir).unwrap();
     }
 
     #[test]

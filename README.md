@@ -54,8 +54,8 @@ Renderer: **wgpu** (Metal on macOS). Folder navigation and view switches use sho
 ### Benches
 
 ```bash
-cargo bench -p space-core --bench scan -- --profile quick
-cargo bench -p space-core --bench scan -- --profile normal
+cargo bench -p space-core --features bench --bench scan -- --profile quick
+cargo bench -p space-core --features bench --bench scan -- --profile normal
 ```
 
 ### UI tips
@@ -76,7 +76,7 @@ cargo bench -p space-core --bench scan -- --profile normal
 
 ### Junk cleaner (from ppduster)
 
-Rules live in [`rules/`](rules/) — **15 000** total across `categories/`, `platforms/`, and `generated/`. See [`rules/README.md`](rules/README.md).
+Rules live in [`rules/`](rules/) — **933,179** total across `categories/`, `platforms/`, and `generated/`. See [`rules/README.md`](rules/README.md).
 
 **Rule manager** (prefs overlay, does not edit YAML):
 - App: **Rules** button → search / toggle rules & categories / Enable all / Reset

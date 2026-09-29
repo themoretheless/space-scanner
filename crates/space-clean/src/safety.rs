@@ -78,6 +78,8 @@ struct BuiltinProtectionIndex {
     exact: HashSet<PathBuf>,
 }
 
+static NORMALIZED_HOME: OnceLock<Option<PathBuf>> = OnceLock::new();
+
 static BUILTIN_PROTECTED_PATHS: OnceLock<BuiltinProtectionIndex> = OnceLock::new();
 
 fn builtin_protected_paths() -> &'static BuiltinProtectionIndex {
@@ -136,13 +138,14 @@ pub(crate) fn is_never_touch_normalized(canon: &Path) -> bool {
         return true;
     }
 
-    // Block deleting the home directory itself
-    if let Some(home) = home_dir() {
-        if let Ok(h) = normalize(&home) {
-            if canon == h {
-                return true;
-            }
-        }
+    // Like the built-in protected paths, the home boundary is fixed for this
+    // process. Avoid resolving the same home directory for every scanned entry.
+    if NORMALIZED_HOME
+        .get_or_init(|| home_dir().and_then(|home| normalize(&home).ok()))
+        .as_deref()
+        == Some(canon)
+    {
+        return true;
     }
 
     false

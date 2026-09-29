@@ -5372,19 +5372,6 @@ rules:
   - "$HOME/.cache/R"
   delete_mode: contents
   max_depth: 6
-- id: ml-uv-cache
-  name: uv package cache
-  description: "Inventories downloaded package-manager cache data for uv package cache; report only, never deleted."
-  category: package-cache
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/uv"
-  - "$HOME/Library/Caches/uv"
-  delete_mode: contents
-  max_depth: 6
 - id: mobile-buck-bazel-mobile
   name: mobile-buck-bazel-mobile
   description: "Inventories downloaded package-manager cache data for mobile-buck-bazel-mobile; report only, never deleted."

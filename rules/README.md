@@ -104,3 +104,24 @@ space junk -t npm --clean --yes   # dry-run without --yes
 ```
 
 App: **Rules** window — Categories / Kinds / Danger / Tags tabs. On each OS, only matching `platform` rules are active for scans.
+
+## Duplicate audit
+
+The catalog contains 933,179 cleanup rules after removing 1,187 exact duplicates.
+The separate 1,000 protection rules are preserved.
+
+```bash
+python3 scripts/deduplicate_rules.py          # exits 1 if duplicates are found
+python3 scripts/deduplicate_rules.py --apply  # remove duplicates, preserve YAML layout
+```
+
+Run the audit after regenerating packs. It compares the loader's effective rule
+fields: platform, paths, patterns, age, depth, deletion mode, risk, defaults,
+category, kind, and inferred/explicit tags. Display name, description, and ID are
+excluded only after their effects on inferred tags and kind have been evaluated.
+Rules with different effective tags remain separate because tags control prefs.
+
+`_rule-aliases.json` maps removed IDs to retained IDs. The app and CLI migrate
+saved rule overrides in memory when loading preferences. Conflicting overrides
+use disable-first and the larger age threshold. The usual preferences save writes
+the migrated settings; the audit never edits a user's preferences file.

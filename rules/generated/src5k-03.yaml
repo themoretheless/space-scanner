@@ -46,21 +46,6 @@ rules:
   - "$HOME/Library/Saved Application State/net.openra.mod.ra.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-openra-playtest
-  name: Homebrew zap openra@playtest
-  description: Leftover caches/logs listed in Homebrew cask zap for openra@playtest.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/net.openra.mod.cnc.savedState"
-  - "$HOME/Library/Saved Application State/net.openra.mod.d2k.savedState"
-  - "$HOME/Library/Saved Application State/net.openra.mod.ra.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-openrefine
   name: Homebrew zap openrefine
   description: Leftover caches/logs listed in Homebrew cask zap for openrefine. Prefs
@@ -386,22 +371,6 @@ rules:
   - "$HOME/Library/WebKit/com.softfever3d.orca-slicer"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-orcaslicer-nightly
-  name: Homebrew zap orcaslicer@nightly
-  description: Leftover caches/logs listed in Homebrew cask zap for orcaslicer@nightly.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.softfever3d.orca-slicer"
-  - "$HOME/Library/HTTPStorages/com.softfever3d.orcaslicer.binarycookies"
-  - "$HOME/Library/Saved Application State/com.softfever3d.orca-slicer.savedState"
-  - "$HOME/Library/WebKit/com.softfever3d.orca-slicer"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-orchard
   name: Homebrew zap orchard
   description: Leftover caches/logs listed in Homebrew cask zap for orchard. Prefs
@@ -532,19 +501,6 @@ rules:
   name: Homebrew zap osu
   description: Leftover caches/logs listed in Homebrew cask zap for osu. Prefs and
     generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/sh.ppy.osu.lazer.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-osu-tachyon
-  name: Homebrew zap osu@tachyon
-  description: Leftover caches/logs listed in Homebrew cask zap for osu@tachyon. Prefs
-    and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -741,19 +697,6 @@ rules:
   name: Homebrew zap ovito
   description: Leftover caches/logs listed in Homebrew cask zap for ovito. Prefs and
     generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/org.ovito.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-ovito-pro
-  name: Homebrew zap ovito-pro
-  description: Leftover caches/logs listed in Homebrew cask zap for ovito-pro. Prefs
-    and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -1623,20 +1566,6 @@ rules:
   - "$HOME/Library/Containers/com.superhighfives.Pika-LaunchAtLoginHelper"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-pika-beta
-  name: Homebrew zap pika@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for pika@beta. Prefs
-    and generic Application Support omitted.
-  category: logs
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Application Scripts/com.superhighfives.Pika-LaunchAtLoginHelper"
-  - "$HOME/Library/Containers/com.superhighfives.Pika-LaunchAtLoginHelper"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-pimosa
   name: Homebrew zap pimosa
   description: Leftover caches/logs listed in Homebrew cask zap for pimosa. Prefs
@@ -1872,20 +1801,6 @@ rules:
   - "$HOME/Library/Saved Application State/io.playcover.PlayCover.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-playcover-community-beta
-  name: Homebrew zap playcover-community@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for playcover-community@beta.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/io.playcover.PlayCover"
-  - "$HOME/Library/Saved Application State/io.playcover.PlayCover.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-playdate-mirror
   name: Homebrew zap playdate-mirror
   description: Leftover caches/logs listed in Homebrew cask zap for playdate-mirror.
@@ -1985,21 +1900,6 @@ rules:
   name: Homebrew zap plugdata
   description: Leftover caches/logs listed in Homebrew cask zap for plugdata. Prefs
     and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.PlugData.PlugDataStandalone"
-  - "$HOME/Library/Caches/PlugData"
-  - "$HOME/Library/HTTPStorages/com.PlugData.PlugDataStandalone"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-plugdata-nightly
-  name: Homebrew zap plugdata@nightly
-  description: Leftover caches/logs listed in Homebrew cask zap for plugdata@nightly.
-    Prefs and generic Application Support omitted.
   category: app-cache
   platform: macos
   risk: low
@@ -2947,22 +2847,6 @@ rules:
   - "$HOME/Library/Caches/Sessions/ProPresenter 21"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-propresenter-beta
-  name: Homebrew zap propresenter@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for propresenter@beta.
-    Prefs and generic Application Support omitted.
-  category: logs
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "/Library/Caches/com.renewedvision.ProPresenter21"
-  - "$HOME/Library/Caches/com.renewedvision.ProPresenter21"
-  - "$HOME/Library/Caches/KSCrashReports/ProPresenter 21"
-  - "$HOME/Library/Caches/Sessions/ProPresenter 21"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-protege
   name: Homebrew zap protege
   description: Leftover caches/logs listed in Homebrew cask zap for protege. Prefs
@@ -3401,34 +3285,6 @@ rules:
   - "$HOME/Library/Saved Application State/Pynsource.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-qbittorrent
-  name: Homebrew zap qbittorrent
-  description: Leftover caches/logs listed in Homebrew cask zap for qbittorrent. Prefs
-    and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/qBittorrent"
-  - "$HOME/Library/Saved Application State/org.qbittorrent.qBittorrent.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-qbittorrent-lt20
-  name: Homebrew zap qbittorrent@lt20
-  description: Leftover caches/logs listed in Homebrew cask zap for qbittorrent@lt20.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/qBittorrent"
-  - "$HOME/Library/Saved Application State/org.qbittorrent.qBittorrent.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-qblocker
   name: Homebrew zap qblocker
   description: Leftover caches/logs listed in Homebrew cask zap for qblocker. Prefs
@@ -3683,19 +3539,6 @@ rules:
   name: Homebrew zap qt-creator
   description: Leftover caches/logs listed in Homebrew cask zap for qt-creator. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/org.qt-project.qtcreator.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-qt-creator-dev
-  name: Homebrew zap qt-creator@dev
-  description: Leftover caches/logs listed in Homebrew cask zap for qt-creator@dev.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -4818,19 +4661,6 @@ rules:
   - "$HOME/Library/Saved Application State/com.libretro.RetroArch.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-retroarch-metal
-  name: Homebrew zap retroarch-metal
-  description: Leftover caches/logs listed in Homebrew cask zap for retroarch-metal.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/com.libretro.RetroArch.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-retroarch-metal-nightly
   name: Homebrew zap retroarch-metal@nightly
   description: Leftover caches/logs listed in Homebrew cask zap for retroarch-metal@nightly.
@@ -5434,19 +5264,6 @@ rules:
   - "$HOME/Library/Logs/RubyMine2026.2"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-runelite
-  name: Homebrew zap runelite
-  description: Leftover caches/logs listed in Homebrew cask zap for runelite. Prefs
-    and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/jagexcache/oldschool"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-runway
   name: Homebrew zap runway
   description: Leftover caches/logs listed in Homebrew cask zap for runway. Prefs
@@ -5836,19 +5653,6 @@ rules:
   name: Homebrew zap scribus
   description: Leftover caches/logs listed in Homebrew cask zap for scribus. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/net.scribus.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-scribus-devel
-  name: Homebrew zap scribus@devel
-  description: Leftover caches/logs listed in Homebrew cask zap for scribus@devel.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -6279,19 +6083,6 @@ rules:
   - "$HOME/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-shadowsocksx-ng-r
-  name: Homebrew zap shadowsocksx-ng-r
-  description: Leftover caches/logs listed in Homebrew cask zap for shadowsocksx-ng-r.
-    Prefs and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-sharemouse
   name: Homebrew zap sharemouse
   description: Leftover caches/logs listed in Homebrew cask zap for sharemouse. Prefs
@@ -6543,19 +6334,6 @@ rules:
 - id: brew-zap-signal
   name: Homebrew zap signal
   description: Leftover caches/logs listed in Homebrew cask zap for signal. Prefs
-    and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/org.whispersystems.signal-desktop.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-signal-beta
-  name: Homebrew zap signal@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for signal@beta. Prefs
     and generic Application Support omitted.
   category: leftovers
   platform: macos
@@ -6918,19 +6696,6 @@ rules:
   name: Homebrew zap slicer
   description: Leftover caches/logs listed in Homebrew cask zap for slicer. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/org.slicer.slicer.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-slicer-preview
-  name: Homebrew zap slicer@preview
-  description: Leftover caches/logs listed in Homebrew cask zap for slicer@preview.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -7478,21 +7243,6 @@ rules:
   name: Homebrew zap soundsource
   description: Leftover caches/logs listed in Homebrew cask zap for soundsource. Prefs
     and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.rogueamoeba.soundsource"
-  - "$HOME/Library/HTTPStorages/com.rogueamoeba.soundsource"
-  - "$HOME/Library/WebKit/com.rogueamoeba.soundsource"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-soundsource-test
-  name: Homebrew zap soundsource@test
-  description: Leftover caches/logs listed in Homebrew cask zap for soundsource@test.
-    Prefs and generic Application Support omitted.
   category: app-cache
   platform: macos
   risk: low
@@ -9022,22 +8772,6 @@ rules:
   - "$HOME/Library/WebKit/tabularis"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-tabularis-nightly
-  name: Homebrew zap tabularis@nightly
-  description: Leftover caches/logs listed in Homebrew cask zap for tabularis@nightly.
-    Prefs and generic Application Support omitted.
-  category: logs
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/tabularis"
-  - "$HOME/Library/Logs/tabularis"
-  - "$HOME/Library/Saved Application State/com.debba.tabularis.savedState"
-  - "$HOME/Library/WebKit/tabularis"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-tageditor
   name: Homebrew zap tageditor
   description: Leftover caches/logs listed in Homebrew cask zap for tageditor. Prefs
@@ -9451,35 +9185,6 @@ rules:
   - "$HOME/Library/Saved Application State/com.tdesktop.Telegram.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-telegram-desktop-beta
-  name: Homebrew zap telegram-desktop@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for telegram-desktop@beta.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/com.tdesktop.Telegram.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-telegram-beta
-  name: Homebrew zap telegram@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for telegram@beta.
-    Prefs and generic Application Support omitted.
-  category: logs
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.plausiblelabs.crashreporter.data/ru.keepcoder.Telegram"
-  - "$HOME/Library/Caches/ru.keepcoder.Telegram"
-  - "$HOME/Library/HTTPStorages/ru.keepcoder.Telegram"
-  - "$HOME/Library/Saved Application State/ru.keepcoder.Telegram.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-tempbox
   name: Homebrew zap tempbox
   description: Leftover caches/logs listed in Homebrew cask zap for tempbox. Prefs
@@ -9739,21 +9444,6 @@ rules:
   name: Homebrew zap thaw
   description: Leftover caches/logs listed in Homebrew cask zap for thaw. Prefs and
     generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.stonerl.Thaw"
-  - "$HOME/Library/HTTPStorages/com.stonerl.Thaw"
-  - "$HOME/Library/WebKit/com.stonerl.Thaw"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-thaw-beta
-  name: Homebrew zap thaw@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for thaw@beta. Prefs
-    and generic Application Support omitted.
   category: app-cache
   platform: macos
   risk: low

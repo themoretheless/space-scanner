@@ -275,19 +275,6 @@ rules:
   - "$HOME/Library/Logs/amazon-ssm-agent"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-amazon-ssm-agent
-  name: Nixpkgs amazon-ssm-agent Linux cache (wave 3)
-  description: Third Nixpkgs slice for amazon-ssm-agent on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/amazon-ssm-agent"
-  - "$XDG_CACHE_HOME/amazon-ssm-agent"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-amazon-ssm-agent
   name: Nixpkgs amazon-ssm-agent Windows cache (wave 3)
   description: Third Nixpkgs slice for amazon-ssm-agent on Windows.

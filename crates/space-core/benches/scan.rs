@@ -1,8 +1,8 @@
 //! Scan throughput benches (airbug-bench) + sized fixtures for bottleneck report.
 //!
 //! ```bash
-//! cargo bench -p space-core --bench scan -- --profile quick
-//! cargo bench -p space-core --bench scan -- --profile normal
+//! cargo bench -p space-core --features bench --bench scan -- --profile quick
+//! cargo bench -p space-core --features bench --bench scan -- --profile normal
 //! ```
 
 use std::fs;
@@ -49,6 +49,23 @@ fn main() -> airbug_bench::Result<()> {
         || make_fixture(16, 16, 16),
         |root| {
             let tree = scan_blocking(root);
+            black_box(tree.item_count);
+        },
+        DropPolicy::OutsideTiming,
+    );
+
+    // Reuse the large fixture: repeated creation/deletion dwarfs scan time.
+    let large_fixture = std::sync::OnceLock::new();
+    suite.bench_with_input(
+        "scan/tree_65536",
+        move || {
+            std::sync::Arc::clone(
+                large_fixture.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
+            )
+        },
+        |root| {
+            let tree = scan_blocking(root);
+            assert_eq!(tree.node(tree.root).file_count, 65_536);
             black_box(tree.item_count);
         },
         DropPolicy::OutsideTiming,

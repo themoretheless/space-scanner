@@ -7021,20 +7021,6 @@ rules:
   delete_mode: contents
   max_depth: 6
   report_only: true
-- id: macos-textedit-autosave-careful
-  name: TextEdit autosave leftovers (careful)
-  description: 'TextEdit autosave and TemporaryItems. May hold unsaved documents:
-    medium / close app first.'
-  category: leftovers
-  platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
-  paths:
-  - "$HOME/Library/Containers/com.apple.TextEdit/Data/Library/Autosave Information"
-  - "$TMPDIR/TemporaryItems/(A Document Being Saved By TextEdit)"
-  delete_mode: contents
-  max_depth: 4
 - id: macos-trash-old-items-report
   name: Old items in user Trash (report-only)
   description: "Inventories leftover application data for Old items in user Trash (report-only); report only, never deleted."

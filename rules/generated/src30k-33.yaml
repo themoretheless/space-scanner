@@ -2,19 +2,6 @@
 pack: src30k-33
 description: Nixpkgs wave 3 × macOS/Linux/Windows. Chunk 33.
 rules:
-- id: np3-lin-artifact
-  name: Nixpkgs artifact Linux cache (wave 3)
-  description: Third Nixpkgs slice for artifact on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/artifact"
-  - "$XDG_CACHE_HOME/artifact"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-artifact
   name: Nixpkgs artifact Windows cache (wave 3)
   description: Third Nixpkgs slice for artifact on Windows.
@@ -119,19 +106,6 @@ rules:
   - "$HOME/Library/Logs/artikulate"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-artikulate
-  name: Nixpkgs artikulate Linux cache (wave 3)
-  description: Third Nixpkgs slice for artikulate on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/artikulate"
-  - "$XDG_CACHE_HOME/artikulate"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-artikulate
   name: Nixpkgs artikulate Windows cache (wave 3)
   description: Third Nixpkgs slice for artikulate on Windows.
@@ -234,19 +208,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/artix-games-launcher"
   - "$HOME/Library/Logs/artix-games-launcher"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-artix-games-launcher
-  name: Nixpkgs artix-games-launcher Linux cache (wave 3)
-  description: Third Nixpkgs slice for artix-games-launcher on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/artix-games-launcher"
-  - "$XDG_CACHE_HOME/artix-games-launcher"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-artix-games-launcher
@@ -938,19 +899,6 @@ rules:
   - "$HOME/Library/Logs/arx"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-arx
-  name: Nixpkgs arx Linux cache (wave 3)
-  description: Third Nixpkgs slice for arx on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/arx"
-  - "$XDG_CACHE_HOME/arx"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-arx
   name: Nixpkgs arx Windows cache (wave 3)
   description: Third Nixpkgs slice for arx on Windows.
@@ -975,19 +923,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/arx-libertatis"
   - "$HOME/Library/Logs/arx-libertatis"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-arx-libertatis
-  name: Nixpkgs arx-libertatis Linux cache (wave 3)
-  description: Third Nixpkgs slice for arx-libertatis on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/arx-libertatis"
-  - "$XDG_CACHE_HOME/arx-libertatis"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-arx-libertatis
@@ -1133,19 +1068,6 @@ rules:
   - "$HOME/Library/Logs/arxiv-latex-cleaner"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-arxiv-latex-cleaner
-  name: Nixpkgs arxiv-latex-cleaner Linux cache (wave 3)
-  description: Third Nixpkgs slice for arxiv-latex-cleaner on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/arxiv-latex-cleaner"
-  - "$XDG_CACHE_HOME/arxiv-latex-cleaner"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-arxiv-latex-cleaner
   name: Nixpkgs arxiv-latex-cleaner Windows cache (wave 3)
   description: Third Nixpkgs slice for arxiv-latex-cleaner on Windows.
@@ -1289,19 +1211,6 @@ rules:
   - "$HOME/Library/Logs/as-tree"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-as-tree
-  name: Nixpkgs as-tree Linux cache (wave 3)
-  description: Third Nixpkgs slice for as-tree on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/as-tree"
-  - "$XDG_CACHE_HOME/as-tree"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-as-tree
   name: Nixpkgs as-tree Windows cache (wave 3)
   description: Third Nixpkgs slice for as-tree on Windows.
@@ -1326,19 +1235,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/as31"
   - "$HOME/Library/Logs/as31"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-as31
-  name: Nixpkgs as31 Linux cache (wave 3)
-  description: Third Nixpkgs slice for as31 on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/as31"
-  - "$XDG_CACHE_HOME/as31"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-as31
@@ -1404,19 +1300,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asa"
   - "$HOME/Library/Logs/asa"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asa
-  name: Nixpkgs asa Linux cache (wave 3)
-  description: Third Nixpkgs slice for asa on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asa"
-  - "$XDG_CACHE_HOME/asa"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asa
@@ -1601,19 +1484,6 @@ rules:
   - "$HOME/Library/Logs/asahi-fwextract"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asahi-fwextract
-  name: Nixpkgs asahi-fwextract Linux cache (wave 3)
-  description: Third Nixpkgs slice for asahi-fwextract on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asahi-fwextract"
-  - "$XDG_CACHE_HOME/asahi-fwextract"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asahi-fwextract
   name: Nixpkgs asahi-fwextract Windows cache (wave 3)
   description: Third Nixpkgs slice for asahi-fwextract on Windows.
@@ -1757,19 +1627,6 @@ rules:
   - "$HOME/Library/Logs/asak"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asak
-  name: Nixpkgs asak Linux cache (wave 3)
-  description: Third Nixpkgs slice for asak on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asak"
-  - "$XDG_CACHE_HOME/asak"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asak
   name: Nixpkgs asak Windows cache (wave 3)
   description: Third Nixpkgs slice for asak on Windows.
@@ -1872,19 +1729,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asap"
   - "$HOME/Library/Logs/asap"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asap
-  name: Nixpkgs asap Linux cache (wave 3)
-  description: Third Nixpkgs slice for asap on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asap"
-  - "$XDG_CACHE_HOME/asap"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asap
@@ -2067,19 +1911,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asc"
   - "$HOME/Library/Logs/asc"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asc
-  name: Nixpkgs asc Linux cache (wave 3)
-  description: Third Nixpkgs slice for asc on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asc"
-  - "$XDG_CACHE_HOME/asc"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asc
@@ -2301,19 +2132,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/ascii"
   - "$HOME/Library/Logs/ascii"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-ascii
-  name: Nixpkgs ascii Linux cache (wave 3)
-  description: Third Nixpkgs slice for ascii on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/ascii"
-  - "$XDG_CACHE_HOME/ascii"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-ascii
@@ -2576,19 +2394,6 @@ rules:
   - "$HOME/Library/Logs/ascii-draw"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-ascii-draw
-  name: Nixpkgs ascii-draw Linux cache (wave 3)
-  description: Third Nixpkgs slice for ascii-draw on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/ascii-draw"
-  - "$XDG_CACHE_HOME/ascii-draw"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-ascii-draw
   name: Nixpkgs ascii-draw Windows cache (wave 3)
   description: Third Nixpkgs slice for ascii-draw on Windows.
@@ -2769,19 +2574,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/ascii-image-converter"
   - "$HOME/Library/Logs/ascii-image-converter"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-ascii-image-converter
-  name: Nixpkgs ascii-image-converter Linux cache (wave 3)
-  description: Third Nixpkgs slice for ascii-image-converter on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/ascii-image-converter"
-  - "$XDG_CACHE_HOME/ascii-image-converter"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-ascii-image-converter
@@ -3551,19 +3343,6 @@ rules:
   - "$HOME/Library/Logs/asciidoc"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asciidoc
-  name: Nixpkgs asciidoc Linux cache (wave 3)
-  description: Third Nixpkgs slice for asciidoc on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asciidoc"
-  - "$XDG_CACHE_HOME/asciidoc"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asciidoc
   name: Nixpkgs asciidoc Windows cache (wave 3)
   description: Third Nixpkgs slice for asciidoc on Windows.
@@ -3707,19 +3486,6 @@ rules:
   - "$HOME/Library/Logs/asciidoctor"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asciidoctor
-  name: Nixpkgs asciidoctor Linux cache (wave 3)
-  description: Third Nixpkgs slice for asciidoctor on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asciidoctor"
-  - "$XDG_CACHE_HOME/asciidoctor"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asciidoctor
   name: Nixpkgs asciidoctor Windows cache (wave 3)
   description: Third Nixpkgs slice for asciidoctor on Windows.
@@ -3785,19 +3551,6 @@ rules:
   - "$HOME/Library/Logs/asciigraph"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asciigraph
-  name: Nixpkgs asciigraph Linux cache (wave 3)
-  description: Third Nixpkgs slice for asciigraph on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asciigraph"
-  - "$XDG_CACHE_HOME/asciigraph"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asciigraph
   name: Nixpkgs asciigraph Windows cache (wave 3)
   description: Third Nixpkgs slice for asciigraph on Windows.
@@ -3822,19 +3575,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asciijump"
   - "$HOME/Library/Logs/asciijump"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asciijump
-  name: Nixpkgs asciijump Linux cache (wave 3)
-  description: Third Nixpkgs slice for asciijump on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asciijump"
-  - "$XDG_CACHE_HOME/asciijump"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asciijump
@@ -4017,19 +3757,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asciinema"
   - "$HOME/Library/Logs/asciinema"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asciinema
-  name: Nixpkgs asciinema Linux cache (wave 3)
-  description: Third Nixpkgs slice for asciinema on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asciinema"
-  - "$XDG_CACHE_HOME/asciinema"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asciinema
@@ -4446,19 +4173,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asdbctl"
   - "$HOME/Library/Logs/asdbctl"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asdbctl
-  name: Nixpkgs asdbctl Linux cache (wave 3)
-  description: Third Nixpkgs slice for asdbctl on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asdbctl"
-  - "$XDG_CACHE_HOME/asdbctl"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asdbctl
@@ -5189,19 +4903,6 @@ rules:
   - "$HOME/Library/Logs/asdf-vm"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asdf-vm
-  name: Nixpkgs asdf-vm Linux cache (wave 3)
-  description: Third Nixpkgs slice for asdf-vm on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asdf-vm"
-  - "$XDG_CACHE_HOME/asdf-vm"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asdf-vm
   name: Nixpkgs asdf-vm Windows cache (wave 3)
   description: Third Nixpkgs slice for asdf-vm on Windows.
@@ -5343,19 +5044,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/aseprite"
   - "$HOME/Library/Logs/aseprite"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-aseprite
-  name: Nixpkgs aseprite Linux cache (wave 3)
-  description: Third Nixpkgs slice for aseprite on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/aseprite"
-  - "$XDG_CACHE_HOME/aseprite"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-aseprite
@@ -5538,19 +5226,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asfa"
   - "$HOME/Library/Logs/asfa"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asfa
-  name: Nixpkgs asfa Linux cache (wave 3)
-  description: Third Nixpkgs slice for asfa on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asfa"
-  - "$XDG_CACHE_HOME/asfa"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asfa
@@ -5891,19 +5566,6 @@ rules:
   - "$HOME/Library/Logs/ashell"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-ashell
-  name: Nixpkgs ashell Linux cache (wave 3)
-  description: Third Nixpkgs slice for ashell on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/ashell"
-  - "$XDG_CACHE_HOME/ashell"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-ashell
   name: Nixpkgs ashell Windows cache (wave 3)
   description: Third Nixpkgs slice for ashell on Windows.
@@ -5928,19 +5590,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/ashpd-demo"
   - "$HOME/Library/Logs/ashpd-demo"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-ashpd-demo
-  name: Nixpkgs ashpd-demo Linux cache (wave 3)
-  description: Third Nixpkgs slice for ashpd-demo on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/ashpd-demo"
-  - "$XDG_CACHE_HOME/ashpd-demo"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-ashpd-demo
@@ -6045,19 +5694,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/ashuffle"
   - "$HOME/Library/Logs/ashuffle"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-ashuffle
-  name: Nixpkgs ashuffle Linux cache (wave 3)
-  description: Third Nixpkgs slice for ashuffle on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/ashuffle"
-  - "$XDG_CACHE_HOME/ashuffle"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-ashuffle
@@ -6320,19 +5956,6 @@ rules:
   - "$HOME/Library/Logs/askalono"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-askalono
-  name: Nixpkgs askalono Linux cache (wave 3)
-  description: Third Nixpkgs slice for askalono on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/askalono"
-  - "$XDG_CACHE_HOME/askalono"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-askalono
   name: Nixpkgs askalono Windows cache (wave 3)
   description: Third Nixpkgs slice for askalono on Windows.
@@ -6593,19 +6216,6 @@ rules:
   - "$HOME/Library/Logs/asleap"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asleap
-  name: Nixpkgs asleap Linux cache (wave 3)
-  description: Third Nixpkgs slice for asleap on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asleap"
-  - "$XDG_CACHE_HOME/asleap"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asleap
   name: Nixpkgs asleap Windows cache (wave 3)
   description: Third Nixpkgs slice for asleap on Windows.
@@ -6669,19 +6279,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asm"
   - "$HOME/Library/Logs/asm"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asm
-  name: Nixpkgs asm Linux cache (wave 3)
-  description: Third Nixpkgs slice for asm on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asm"
-  - "$XDG_CACHE_HOME/asm"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asm
@@ -6749,19 +6346,6 @@ rules:
   - "$HOME/Library/Logs/asm-lsp"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asm-lsp
-  name: Nixpkgs asm-lsp Linux cache (wave 3)
-  description: Third Nixpkgs slice for asm-lsp on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asm-lsp"
-  - "$XDG_CACHE_HOME/asm-lsp"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asm-lsp
   name: Nixpkgs asm-lsp Windows cache (wave 3)
   description: Third Nixpkgs slice for asm-lsp on Windows.
@@ -6825,19 +6409,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asmc-linux"
   - "$HOME/Library/Logs/asmc-linux"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asmc-linux
-  name: Nixpkgs asmc-linux Linux cache (wave 3)
-  description: Third Nixpkgs slice for asmc-linux on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asmc-linux"
-  - "$XDG_CACHE_HOME/asmc-linux"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asmc-linux
@@ -6944,19 +6515,6 @@ rules:
   - "$HOME/Library/Logs/asmfmt"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asmfmt
-  name: Nixpkgs asmfmt Linux cache (wave 3)
-  description: Third Nixpkgs slice for asmfmt on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asmfmt"
-  - "$XDG_CACHE_HOME/asmfmt"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asmfmt
   name: Nixpkgs asmfmt Windows cache (wave 3)
   description: Third Nixpkgs slice for asmfmt on Windows.
@@ -7059,19 +6617,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/asn"
   - "$HOME/Library/Logs/asn"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-asn
-  name: Nixpkgs asn Linux cache (wave 3)
-  description: Third Nixpkgs slice for asn on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asn"
-  - "$XDG_CACHE_HOME/asn"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-asn
@@ -7451,19 +6996,6 @@ rules:
   - "$HOME/Library/Logs/asn1c"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asn1c
-  name: Nixpkgs asn1c Linux cache (wave 3)
-  description: Third Nixpkgs slice for asn1c on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asn1c"
-  - "$XDG_CACHE_HOME/asn1c"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asn1c
   name: Nixpkgs asn1c Windows cache (wave 3)
   description: Third Nixpkgs slice for asn1c on Windows.
@@ -7763,19 +7295,6 @@ rules:
   - "$HOME/Library/Logs/asnmap"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-asnmap
-  name: Nixpkgs asnmap Linux cache (wave 3)
-  description: Third Nixpkgs slice for asnmap on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/asnmap"
-  - "$XDG_CACHE_HOME/asnmap"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-asnmap
   name: Nixpkgs asnmap Windows cache (wave 3)
   description: Third Nixpkgs slice for asnmap on Windows.
@@ -7880,19 +7399,6 @@ rules:
   - "$HOME/Library/Logs/aspcud"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-aspcud
-  name: Nixpkgs aspcud Linux cache (wave 3)
-  description: Third Nixpkgs slice for aspcud on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/aspcud"
-  - "$XDG_CACHE_HOME/aspcud"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-aspcud
   name: Nixpkgs aspcud Windows cache (wave 3)
   description: Third Nixpkgs slice for aspcud on Windows.
@@ -7919,19 +7425,6 @@ rules:
   - "$HOME/Library/Logs/aspect"
   delete_mode: contents
   max_depth: 6
-- id: np3-lin-aspect
-  name: Nixpkgs aspect Linux cache (wave 3)
-  description: Third Nixpkgs slice for aspect on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/aspect"
-  - "$XDG_CACHE_HOME/aspect"
-  delete_mode: contents
-  max_depth: 6
 - id: np3-win-aspect
   name: Nixpkgs aspect Windows cache (wave 3)
   description: Third Nixpkgs slice for aspect on Windows.
@@ -7956,19 +7449,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/aspectj"
   - "$HOME/Library/Logs/aspectj"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-aspectj
-  name: Nixpkgs aspectj Linux cache (wave 3)
-  description: Third Nixpkgs slice for aspectj on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/aspectj"
-  - "$XDG_CACHE_HOME/aspectj"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-aspectj
@@ -8073,19 +7553,6 @@ rules:
   paths:
   - "$HOME/Library/Caches/aspell"
   - "$HOME/Library/Logs/aspell"
-  delete_mode: contents
-  max_depth: 6
-- id: np3-lin-aspell
-  name: Nixpkgs aspell Linux cache (wave 3)
-  description: Third Nixpkgs slice for aspell on Linux. Not /nix/store.
-  category: caches
-  platform: linux
-  risk: low
-  default_enabled: false
-  min_age_days: 14
-  paths:
-  - "$HOME/.cache/aspell"
-  - "$XDG_CACHE_HOME/aspell"
   delete_mode: contents
   max_depth: 6
 - id: np3-win-aspell

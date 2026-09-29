@@ -1,9 +1,11 @@
-use crate::rules::{expand_path_template, DeleteMode, Risk, Rule, RulePack};
+use crate::rules::{DeleteMode, PathTemplateExpander, Risk, Rule, RulePack};
 use crate::safety::{is_never_touch_normalized, is_old_enough, is_safe_rule_root, normalize};
 use anyhow::Result;
 use globset::{Glob, GlobSet, GlobSetBuilder};
 use serde::Serialize;
+use std::collections::HashMap;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
 use walkdir::WalkDir;
 
 #[derive(Debug, Clone, Default)]
@@ -62,17 +64,57 @@ pub fn scan_rules<'a>(
     rules: impl IntoIterator<Item = &'a Rule>,
     opts: &ScanOptions,
 ) -> Result<ScanReport> {
-    scan_rules_with_progress(rules, opts, |_| {})
+    scan_rules_impl(
+        rules,
+        opts,
+        ProgressReporter::<fn(JunkScanProgress)>::new(None),
+    )
 }
 
 /// Scan rules while periodically reporting rule/root/entry progress.
 pub fn scan_rules_with_progress<'a>(
     rules: impl IntoIterator<Item = &'a Rule>,
     opts: &ScanOptions,
-    mut on_progress: impl FnMut(JunkScanProgress),
+    on_progress: impl FnMut(JunkScanProgress),
+) -> Result<ScanReport> {
+    scan_rules_impl(rules, opts, ProgressReporter::new(Some(on_progress)))
+}
+
+struct ProgressReporter<F> {
+    callback: Option<F>,
+    last: std::time::Instant,
+}
+
+impl<F: FnMut(JunkScanProgress)> ProgressReporter<F> {
+    fn new(callback: Option<F>) -> Self {
+        Self {
+            callback,
+            last: std::time::Instant::now(),
+        }
+    }
+
+    fn emit(&mut self, progress: &JunkScanProgress) {
+        if self.callback.is_some() && self.last.elapsed() >= std::time::Duration::from_millis(50) {
+            self.force(progress);
+        }
+    }
+
+    fn force(&mut self, progress: &JunkScanProgress) {
+        if let Some(callback) = self.callback.as_mut() {
+            callback(progress.clone());
+            self.last = std::time::Instant::now();
+        }
+    }
+}
+
+fn scan_rules_impl<'a>(
+    rules: impl IntoIterator<Item = &'a Rule>,
+    opts: &ScanOptions,
+    mut on_progress: ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Result<ScanReport> {
     let rules: Vec<&Rule> = rules.into_iter().collect();
     let rules_scanned = rules.len();
+    let expander = PathTemplateExpander::new();
     let mut progress = JunkScanProgress {
         rules_total: rules_scanned,
         roots_total: rules.iter().map(|r| r.paths.len()).sum(),
@@ -80,12 +122,17 @@ pub fn scan_rules_with_progress<'a>(
     };
     let mut findings = Vec::new();
     let mut skipped_roots = Vec::new();
+    let mut glob_cache = GlobCache::default();
     let mut matched_rules = std::collections::BTreeSet::new();
+    // Reuse identical traversal predicates, preserving rule order and first-match
+    // attribution. Tags and labels may differ without changing filesystem work.
+    let mut traversals: HashMap<Vec<u8>, std::ops::Range<usize>> = HashMap::new();
 
-    on_progress(progress.clone());
+    on_progress.force(&progress);
     let grouped_rule_indexes = scan_grouped_project_rules(
         &rules,
         opts,
+        &mut glob_cache,
         &mut findings,
         &mut skipped_roots,
         &mut matched_rules,
@@ -95,48 +142,69 @@ pub fn scan_rules_with_progress<'a>(
     for (rule_index, rule) in rules.into_iter().enumerate() {
         progress.current_rule = rule.name.clone();
         progress.rules_done = rule_index;
-        on_progress(progress.clone());
+        on_progress.emit(&progress);
         if grouped_rule_indexes.contains(&rule_index) {
             progress.rules_done = rule_index + 1;
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
             continue;
         }
         let min_age = opts
             .min_age_override
             .or(opts.prefs_min_age.get(&rule.id).copied())
             .unwrap_or(rule.min_age_days);
-        let include = build_globset(&rule.include_globs, true)?;
-        let exclude = build_globset(&rule.exclude_globs, false)?;
-        let exclude_dirs = build_directory_exclude_globset(&rule.exclude_globs)?;
-        let required_ancestor = build_globset(&rule.required_ancestor_globs, false)?;
+        let include = glob_cache.get(&rule.include_globs)?;
+        let exclude = glob_cache.get(&rule.exclude_globs)?;
+        let exclude_dirs = glob_cache.directories(&rule.exclude_globs)?;
+        let required_ancestor = glob_cache.get(&rule.required_ancestor_globs)?;
 
         for template in &rule.paths {
-            let Some(expanded_root) = expand_path_template(template) else {
+            let Some(expanded_root) = expander
+                .as_ref()
+                .and_then(|expander| expander.expand(template))
+            else {
                 skipped_roots.push(format!("{template} (unexpanded)"));
                 progress.roots_done += 1;
-                on_progress(progress.clone());
+                on_progress.emit(&progress);
                 continue;
             };
             progress.current_path = expanded_root.clone();
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
             if !expanded_root.exists() {
                 progress.roots_done += 1;
-                on_progress(progress.clone());
+                on_progress.emit(&progress);
                 continue;
             }
             let Ok(root) = normalize(&expanded_root) else {
                 skipped_roots.push(format!("{} (cannot normalize)", expanded_root.display()));
                 progress.roots_done += 1;
-                on_progress(progress.clone());
+                on_progress.emit(&progress);
                 continue;
             };
             if !is_safe_rule_root(&root) {
                 skipped_roots.push(format!("{} (blocked by safety)", root.display()));
                 progress.roots_done += 1;
-                on_progress(progress.clone());
+                on_progress.emit(&progress);
                 continue;
             }
 
+            let mut traversal_rule = rule.clone();
+            traversal_rule.id.clear();
+            traversal_rule.name.clear();
+            traversal_rule.description.clear();
+            traversal_rule.tags.clear();
+            traversal_rule.paths.clear();
+            let traversal_key = bincode::serialize(&(&root, min_age, &traversal_rule))?;
+            if let Some(previous) = traversals.get(&traversal_key) {
+                if !previous.is_empty() {
+                    matched_rules.insert(rule.id.clone());
+                }
+                // Findings already carry the earlier rule's attribution, which
+                // stable path sorting and deduplication would have retained.
+                progress.roots_done += 1;
+                on_progress.emit(&progress);
+                continue;
+            }
+            let findings_start = findings.len();
             match rule.delete_mode {
                 DeleteMode::Path => {
                     if let Some(f) = consider_path(
@@ -171,11 +239,14 @@ pub fn scan_rules_with_progress<'a>(
                     )?;
                 }
             }
+            if traversals.len() < 256 {
+                traversals.insert(traversal_key, findings_start..findings.len());
+            }
             progress.roots_done += 1;
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
         }
         progress.rules_done = rule_index + 1;
-        on_progress(progress.clone());
+        on_progress.emit(&progress);
     }
 
     findings.sort_by(|a, b| a.path.cmp(&b.path));
@@ -186,6 +257,7 @@ pub fn scan_rules_with_progress<'a>(
         .filter(|f| !f.report_only)
         .map(|f| f.bytes)
         .sum();
+    on_progress.force(&progress);
     Ok(ScanReport {
         findings,
         total_bytes,
@@ -198,10 +270,10 @@ pub fn scan_rules_with_progress<'a>(
 struct CompiledProjectRule<'a> {
     rule: &'a Rule,
     min_age: u64,
-    include: GlobSet,
-    exclude: GlobSet,
-    exclude_dirs: GlobSet,
-    required_ancestor: GlobSet,
+    include: Arc<GlobSet>,
+    exclude: Arc<GlobSet>,
+    exclude_dirs: Arc<GlobSet>,
+    required_ancestor: Arc<GlobSet>,
 }
 
 #[derive(Default)]
@@ -213,11 +285,12 @@ struct GroupedRoot {
 fn scan_grouped_project_rules(
     rules: &[&Rule],
     opts: &ScanOptions,
+    glob_cache: &mut GlobCache,
     findings: &mut Vec<Finding>,
     skipped_roots: &mut Vec<String>,
     matched_rules: &mut std::collections::BTreeSet<String>,
     progress: &mut JunkScanProgress,
-    on_progress: &mut impl FnMut(JunkScanProgress),
+    on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Result<std::collections::BTreeSet<usize>> {
     let grouped_indexes: std::collections::BTreeSet<usize> = rules
         .iter()
@@ -233,6 +306,7 @@ fn scan_grouped_project_rules(
         return Ok(std::collections::BTreeSet::new());
     }
 
+    let expander = PathTemplateExpander::new();
     let mut compiled = std::collections::BTreeMap::new();
     let mut roots: std::collections::BTreeMap<PathBuf, GroupedRoot> =
         std::collections::BTreeMap::new();
@@ -246,14 +320,17 @@ fn scan_grouped_project_rules(
                     .min_age_override
                     .or(opts.prefs_min_age.get(&rule.id).copied())
                     .unwrap_or(rule.min_age_days),
-                include: build_globset(&rule.include_globs, true)?,
-                exclude: build_globset(&rule.exclude_globs, false)?,
-                exclude_dirs: build_directory_exclude_globset(&rule.exclude_globs)?,
-                required_ancestor: build_globset(&rule.required_ancestor_globs, false)?,
+                include: glob_cache.get(&rule.include_globs)?,
+                exclude: glob_cache.get(&rule.exclude_globs)?,
+                exclude_dirs: glob_cache.directories(&rule.exclude_globs)?,
+                required_ancestor: glob_cache.get(&rule.required_ancestor_globs)?,
             },
         );
         for template in &rule.paths {
-            let Some(expanded_root) = expand_path_template(template) else {
+            let Some(expanded_root) = expander
+                .as_ref()
+                .and_then(|expander| expander.expand(template))
+            else {
                 skipped_roots.push(format!("{template} (unexpanded)"));
                 progress.roots_done += 1;
                 continue;
@@ -279,7 +356,7 @@ fn scan_grouped_project_rules(
     }
 
     progress.current_rule = format!("Project outputs ({} rules)", grouped_indexes.len());
-    on_progress(progress.clone());
+    on_progress.emit(&progress);
     let mut pending_sizes = Vec::new();
     for (root, mut group) in roots {
         group.rule_indexes.sort_unstable();
@@ -299,7 +376,7 @@ fn scan_grouped_project_rules(
             on_progress,
         )?;
         progress.roots_done += group.root_occurrences;
-        on_progress(progress.clone());
+        on_progress.emit(&progress);
     }
     size_grouped_findings(findings, &pending_sizes, progress, on_progress);
     Ok(grouped_indexes)
@@ -312,7 +389,7 @@ fn collect_grouped_project_root(
     matched_rules: &mut std::collections::BTreeSet<String>,
     pending_sizes: &mut Vec<(usize, PathBuf)>,
     progress: &mut JunkScanProgress,
-    on_progress: &mut impl FnMut(JunkScanProgress),
+    on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Result<()> {
     let max_depth = rules
         .iter()
@@ -333,7 +410,7 @@ fn collect_grouped_project_root(
         progress.entries_seen = progress.entries_seen.saturating_add(1);
         if progress.entries_seen.is_multiple_of(64) {
             progress.current_path = path.to_path_buf();
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
         }
         if path == root || entry.file_type().is_symlink() {
             continue;
@@ -413,7 +490,7 @@ fn size_grouped_findings(
     findings: &mut [Finding],
     pending: &[(usize, PathBuf)],
     progress: &mut JunkScanProgress,
-    on_progress: &mut impl FnMut(JunkScanProgress),
+    on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) {
     if pending.is_empty() {
         return;
@@ -442,7 +519,7 @@ fn size_grouped_findings(
                 progress.bytes_found = progress.bytes_found.saturating_add(bytes);
             }
             progress.current_path = path;
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
         }
     });
 }
@@ -477,7 +554,7 @@ fn collect_under(
     findings: &mut Vec<Finding>,
     matched_rules: &mut std::collections::BTreeSet<String>,
     progress: &mut JunkScanProgress,
-    on_progress: &mut impl FnMut(JunkScanProgress),
+    on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Result<()> {
     // Prefer top-level cleanable units under the rule root (CleanMyMac/BleachBit style)
     // so sizes are not double-counted across parents and children.
@@ -500,7 +577,7 @@ fn collect_under(
         progress.entries_seen = progress.entries_seen.saturating_add(1);
         if progress.entries_seen.is_multiple_of(64) {
             progress.current_path = path.to_path_buf();
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
         }
         if path == root {
             continue;
@@ -597,7 +674,7 @@ fn consider_path(
     exclude: &GlobSet,
     required_ancestor: &GlobSet,
     progress: &mut JunkScanProgress,
-    on_progress: &mut impl FnMut(JunkScanProgress),
+    on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Option<Finding> {
     if !is_old_enough(path, min_age) {
         return None;
@@ -678,7 +755,7 @@ fn has_required_ancestor_marker(path: &Path, root: &Path, markers: &GlobSet) -> 
 fn dir_size(
     path: &Path,
     progress: &mut JunkScanProgress,
-    on_progress: &mut impl FnMut(JunkScanProgress),
+    on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> u64 {
     let mut bytes = 0u64;
     for entry in WalkDir::new(path)
@@ -698,10 +775,44 @@ fn dir_size(
         }
         if progress.entries_seen.is_multiple_of(128) {
             progress.current_path = entry.path().to_path_buf();
-            on_progress(progress.clone());
+            on_progress.emit(&progress);
         }
     }
     bytes
+}
+
+/// Per-scan cache: share compiled patterns across rules, including empty sets.
+/// Compilation still precedes root checks so malformed patterns remain errors.
+#[derive(Default)]
+struct GlobCache {
+    patterns: HashMap<Vec<String>, Arc<GlobSet>>,
+    directories: HashMap<Vec<String>, Arc<GlobSet>>,
+}
+
+impl GlobCache {
+    fn get(&mut self, patterns: &[String]) -> Result<Arc<GlobSet>> {
+        if let Some(compiled) = self.patterns.get(patterns) {
+            return Ok(Arc::clone(compiled));
+        }
+        let compiled = Arc::new(build_globset(patterns, false)?);
+        if self.patterns.len() < 256 {
+            self.patterns
+                .insert(patterns.to_vec(), Arc::clone(&compiled));
+        }
+        Ok(compiled)
+    }
+
+    fn directories(&mut self, patterns: &[String]) -> Result<Arc<GlobSet>> {
+        if let Some(compiled) = self.directories.get(patterns) {
+            return Ok(Arc::clone(compiled));
+        }
+        let compiled = Arc::new(build_directory_exclude_globset(patterns)?);
+        if self.directories.len() < 256 {
+            self.directories
+                .insert(patterns.to_vec(), Arc::clone(&compiled));
+        }
+        Ok(compiled)
+    }
 }
 
 fn build_globset(patterns: &[String], default_all_if_empty: bool) -> Result<GlobSet> {
@@ -732,6 +843,111 @@ mod tests {
     use crate::rules::{JunkKind, Platform};
     use std::fs;
     use std::time::{SystemTime, UNIX_EPOCH};
+
+    #[test]
+    fn progress_is_rate_limited_and_always_reports_empty_scan_boundaries() {
+        let mut snapshots = Vec::new();
+        let report = scan_rules_with_progress(std::iter::empty(), &ScanOptions::default(), |p| {
+            snapshots.push(p)
+        })
+        .unwrap();
+        assert!(report.findings.is_empty());
+        assert_eq!(snapshots.len(), 2);
+        assert_eq!(snapshots.last().unwrap().rules_done, 0);
+        let mut delivered = Vec::new();
+        let mut reporter =
+            ProgressReporter::new(Some(|p: JunkScanProgress| delivered.push(p.rules_done)));
+        let mut progress = JunkScanProgress::default();
+        reporter.force(&progress);
+        progress.rules_done = 1;
+        reporter.emit(&progress);
+        reporter.last = std::time::Instant::now() - std::time::Duration::from_millis(51);
+        reporter.emit(&progress);
+        progress.rules_done = 2;
+        reporter.force(&progress);
+        assert_eq!(delivered, [0, 1, 2]);
+    }
+
+    #[test]
+    fn cached_patterns_preserve_matching_and_invalid_pattern_errors() {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let root = std::env::temp_dir().join(format!("space-pattern-cache-{unique}"));
+        fs::create_dir_all(&root).unwrap();
+        fs::write(root.join("a.log"), b"log").unwrap();
+        fs::write(root.join("b.tmp"), b"tmp!").unwrap();
+        fs::write(root.join("keep.log"), b"keep").unwrap();
+        let mut rule: Rule = serde_yaml::from_str(
+            r#"
+id: logs
+name: logs
+description: pattern cache regression
+platform: any
+paths: []
+min_age_days: 0
+include_globs: ['**/*.log']
+exclude_globs: ['**/keep.log']
+"#,
+        )
+        .unwrap();
+        rule.paths = vec![root.to_string_lossy().into_owned()];
+        let mut temp = rule.clone();
+        temp.id = "temp".into();
+        temp.include_globs = vec!["**/*.tmp".into()];
+        let report = scan_rules([&rule, &temp], &ScanOptions::default()).unwrap();
+        assert_eq!(report.findings.len(), 2);
+        assert_eq!(report.total_bytes, 7);
+        assert_eq!(report.rules_matched, 2);
+        let duplicate = scan_rules([&rule, &rule], &ScanOptions::default()).unwrap();
+        assert_eq!(duplicate.findings.len(), 1);
+        assert_eq!(duplicate.total_bytes, 3);
+        rule.paths = vec![root.join("missing").to_string_lossy().into_owned()];
+        rule.include_globs = vec!["[".into()];
+        assert!(scan_rules([&rule], &ScanOptions::default()).is_err());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn repeated_traversals_preserve_attribution_preferences_and_exclusions() {
+        let root =
+            std::env::temp_dir().join(format!("space-shared-traversal-{}", std::process::id()));
+        fs::create_dir_all(root.join("excluded")).unwrap();
+        fs::write(root.join("a.log"), b"abc").unwrap();
+        fs::write(root.join("excluded/hidden.log"), b"hidden").unwrap();
+        let mut first: Rule = serde_yaml::from_str("id: first\nname: first\npaths: []\nmin_age_days: 0\ninclude_globs: ['**/*.log']\nexclude_globs: ['**/excluded/**']\n").unwrap();
+        first.paths = vec![root.to_string_lossy().into_owned()];
+        let mut second = first.clone();
+        second.id = "second".into();
+        second.tags = vec!["different-preference-tag".into()];
+        let mut single_progress = JunkScanProgress::default();
+        let single =
+            scan_rules_with_progress([&first], &ScanOptions::default(), |p| single_progress = p)
+                .unwrap();
+        let mut progress = JunkScanProgress::default();
+        let shared =
+            scan_rules_with_progress([&first, &second], &ScanOptions::default(), |p| progress = p)
+                .unwrap();
+        assert_eq!(
+            serde_json::to_value(&single.findings).unwrap(),
+            serde_json::to_value(&shared.findings).unwrap()
+        );
+        assert_eq!(shared.rules_matched, 2);
+        assert_eq!(shared.total_bytes, 3);
+        assert_eq!(progress.entries_seen, single_progress.entries_seen);
+        assert_eq!(progress.rules_done, 2);
+        assert_eq!(progress.roots_done, 2);
+        let mut options = ScanOptions::default();
+        options.prefs_min_age.insert("first".into(), 10);
+        let aged = scan_rules([&first, &second], &options).unwrap();
+        assert_eq!(aged.findings[0].rule_id, "second");
+        assert_eq!(aged.rules_matched, 1);
+        second.exclude_globs.clear();
+        let distinct = scan_rules([&first, &second], &ScanOptions::default()).unwrap();
+        assert_eq!(distinct.findings.len(), 2);
+        fs::remove_dir_all(root).unwrap();
+    }
 
     #[test]
     fn matches_bin_obj_only_inside_dotnet_project() {

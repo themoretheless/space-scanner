@@ -22,6 +22,7 @@ use crate::views::{self, DrawCtx, EntryKindFilter, GeomCache, ViewFilter, ViewMo
 use crate::volumes::{self, VolumeInfo};
 
 enum BgMsg {
+    RuleManagerLoaded(Result<space_clean::RuleManager, String>),
     Volumes(Vec<VolumeInfo>),
     Snapshots(Vec<LocalSnapshot>),
     Recent(Vec<CacheMeta>),
@@ -78,6 +79,7 @@ pub struct SpaceApp {
     junk: JunkPanelState,
     rules: RulesPanelState,
     rule_mgr: Option<space_clean::RuleManager>,
+    rule_mgr_loading: bool,
     bg_rx: Receiver<BgMsg>,
     bg_tx: crossbeam_channel::Sender<BgMsg>,
     /// True while cache load / rescan / delete runs off-thread.
@@ -168,6 +170,7 @@ impl SpaceApp {
             junk: JunkPanelState::default(),
             rules: RulesPanelState::default(),
             rule_mgr: None,
+            rule_mgr_loading: false,
             bg_rx,
             bg_tx,
             busy: false,
@@ -348,6 +351,16 @@ impl SpaceApp {
                     }
                     self.refresh_volumes();
                     self.refresh_snapshots();
+                }
+                BgMsg::RuleManagerLoaded(result) => {
+                    self.rule_mgr_loading = false;
+                    match result {
+                        Ok(manager) => {
+                            self.rule_mgr = Some(manager);
+                            self.rules.error = None;
+                        }
+                        Err(error) => self.rules.error = Some(error),
+                    }
                 }
                 BgMsg::JunkScanProgress(progress) => {
                     if self.junk.loading {
@@ -1210,27 +1223,29 @@ impl SpaceApp {
             .ok();
     }
 
-    fn ensure_rule_mgr(&mut self) -> Result<&mut space_clean::RuleManager, String> {
-        if self.rule_mgr.is_none() {
-            match space_clean::RuleManager::load_default() {
-                Ok(m) => self.rule_mgr = Some(m),
-                Err(e) => return Err(e.to_string()),
-            }
+    fn start_rule_mgr_load(&mut self) {
+        if self.rule_mgr.is_some() || self.rule_mgr_loading {
+            return;
         }
-        Ok(self.rule_mgr.as_mut().expect("rule_mgr"))
+        self.rule_mgr_loading = true;
+        let tx = self.bg_tx.clone();
+        if let Err(error) = thread::Builder::new()
+            .name("space-rule-load".into())
+            .spawn(move || {
+                let result =
+                    space_clean::RuleManager::load_default().map_err(|error| error.to_string());
+                let _ = tx.send(BgMsg::RuleManagerLoaded(result));
+            })
+        {
+            self.rule_mgr_loading = false;
+            self.rules.error = Some(error.to_string());
+        }
     }
 
     fn open_rules_panel(&mut self) {
-        match self.ensure_rule_mgr() {
-            Ok(_) => {
-                self.rules.open = true;
-                self.rules.error = None;
-            }
-            Err(e) => {
-                self.rules.open = true;
-                self.rules.error = Some(e);
-            }
-        }
+        self.rules.open = true;
+        self.rules.error = None;
+        self.start_rule_mgr_load();
     }
 
     fn open_junk_panel(&mut self) {
@@ -1254,7 +1269,10 @@ impl SpaceApp {
             .name("space-junk-scan".into())
             .spawn(move || {
                 let result = (|| {
-                    let pack = space_clean::load_default_pack()?;
+                    let pack = space_clean::RulePack::load_many_shared(
+                        &space_clean::default_rules_dirs(),
+                    )?;
+                    prefs.migrate_catalog_aliases(&space_clean::default_rules_dirs())?;
                     let mgr = space_clean::RuleManager { pack, prefs };
                     let opts = space_clean::ScanOptions {
                         categories: Vec::new(),
@@ -1264,14 +1282,8 @@ impl SpaceApp {
                     };
                     let rules = mgr.scan_rules(&[]);
                     let progress_tx = tx.clone();
-                    let mut last_progress = Instant::now() - Duration::from_millis(100);
                     space_clean::scan_rules_with_progress(rules, &opts, move |progress| {
-                        let finished = progress.rules_done == progress.rules_total
-                            && progress.roots_done == progress.roots_total;
-                        if finished || last_progress.elapsed() >= Duration::from_millis(50) {
-                            let _ = progress_tx.send(BgMsg::JunkScanProgress(progress));
-                            last_progress = Instant::now();
-                        }
+                        let _ = progress_tx.send(BgMsg::JunkScanProgress(progress));
                     })
                 })()
                 .map_err(|e| e.to_string());
@@ -1983,9 +1995,7 @@ impl eframe::App for SpaceApp {
                 .anchor(egui::Align2::CENTER_CENTER, [0.0, 12.0])
                 .show(ctx, |ui| {
                     if self.rule_mgr.is_none() && self.rules.error.is_none() {
-                        if let Err(e) = self.ensure_rule_mgr() {
-                            self.rules.error = Some(e);
-                        }
+                        self.start_rule_mgr_load();
                     }
                     if let Some(mgr) = self.rule_mgr.as_mut() {
                         match rules_panel::draw(ui, &mut self.rules, mgr, &mut self.settings.flags)
@@ -1999,6 +2009,12 @@ impl eframe::App for SpaceApp {
                             }
                             RulesAction::None => {}
                         }
+                    } else if self.rule_mgr_loading {
+                        ui.horizontal(|ui| {
+                            ui.spinner();
+                            ui.label("Loading rules…");
+                        });
+                        ctx.request_repaint_after(Duration::from_millis(50));
                     } else if let Some(err) = &self.rules.error {
                         ui.colored_label(egui::Color32::from_rgb(220, 90, 90), err);
                         if ui.button("Close").clicked() {

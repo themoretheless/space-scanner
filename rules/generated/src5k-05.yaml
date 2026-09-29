@@ -2041,20 +2041,6 @@ rules:
   - "%PROGRAMDATA%/Samsung/Recovery/log"
   delete_mode: contents
   max_depth: 6
-- id: w2-samsung-search
-  name: Samsung Search
-  description: Winapp2.ini FileKey folders for Samsung Search. Cookies/passwords/history
-    sections omitted.
-  category: logs
-  platform: windows
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "%LOCALAPPDATA%/Packages/SAMSUNGELECTRONICSCO.LTD.SamsungQuickSearch_3c1yjt4zspk6g/LocalState/logs"
-  - "%LOCALAPPDATA%/Packages/SAMSUNGELECTRONICSCO.LTD.SamsungQuickSearch_3c1yjt4zspk6g/TempState"
-  delete_mode: contents
-  max_depth: 6
 - id: w2-samsung-settings
   name: Samsung Settings
   description: Winapp2.ini FileKey folders for Samsung Settings. Cookies/passwords/history
@@ -2586,19 +2572,6 @@ rules:
   paths:
   - "%LOCALAPPDATA%/ftopia/SocialFolders/Cache"
   - "%LOCALAPPDATA%/ftopia/SocialFolders/Dumps"
-  delete_mode: contents
-  max_depth: 6
-- id: w2-soda-player
-  name: Soda Player
-  description: Winapp2.ini FileKey folders for Soda Player. Cookies/passwords/history
-    sections omitted.
-  category: app-cache
-  platform: windows
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "%SystemDrive%/_acestream_cache_"
   delete_mode: contents
   max_depth: 6
 - id: w2-softether-vpn

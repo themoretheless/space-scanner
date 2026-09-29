@@ -853,23 +853,6 @@ rules:
   - "$HOME/Library/WebKit/com.mitchellh.ghostty"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-ghostty-tip
-  name: Homebrew zap ghostty@tip
-  description: Leftover caches/logs listed in Homebrew cask zap for ghostty@tip. Prefs
-    and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/.cache/ghostty"
-  - "$HOME/Library/Caches/com.mitchellh.ghostty"
-  - "$HOME/Library/HTTPStorages/com.mitchellh.ghostty"
-  - "$HOME/Library/Saved Application State/com.mitchellh.ghostty.savedState"
-  - "$HOME/Library/WebKit/com.mitchellh.ghostty"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-gifox
   name: Homebrew zap gifox
   description: Leftover caches/logs listed in Homebrew cask zap for gifox. Prefs and
@@ -887,19 +870,6 @@ rules:
   name: Homebrew zap gimp
   description: Leftover caches/logs listed in Homebrew cask zap for gimp. Prefs and
     generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/org.gimp.gimp-3.2.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-gimp-dev
-  name: Homebrew zap gimp@dev
-  description: Leftover caches/logs listed in Homebrew cask zap for gimp@dev. Prefs
-    and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -1026,23 +996,6 @@ rules:
   name: Homebrew zap gitkraken
   description: Leftover caches/logs listed in Homebrew cask zap for gitkraken. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.axosoft.gitkraken"
-  - "$HOME/Library/Caches/com.axosoft.gitkraken.ShipIt"
-  - "$HOME/Library/Caches/GitKraken"
-  - "$HOME/Library/HTTPStorages/com.axosoft.gitkraken"
-  - "$HOME/Library/Saved Application State/com.axosoft.gitkraken.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-gitkraken-on-premise-serverless
-  name: Homebrew zap gitkraken-on-premise-serverless
-  description: Leftover caches/logs listed in Homebrew cask zap for gitkraken-on-premise-serverless.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -1201,34 +1154,6 @@ rules:
   name: Homebrew zap godot
   description: Leftover caches/logs listed in Homebrew cask zap for godot. Prefs and
     generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/Godot"
-  - "$HOME/Library/Saved Application State/org.godotengine.godot.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-godot-mono
-  name: Homebrew zap godot-mono
-  description: Leftover caches/logs listed in Homebrew cask zap for godot-mono. Prefs
-    and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/Godot"
-  - "$HOME/Library/Saved Application State/org.godotengine.godot.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-godot-3
-  name: Homebrew zap godot@3
-  description: Leftover caches/logs listed in Homebrew cask zap for godot@3. Prefs
-    and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -2315,21 +2240,6 @@ rules:
   - "$HOME/Library/WebKit/io.hoppscotch.desktop"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-hoppscotch-selfhost
-  name: Homebrew zap hoppscotch-selfhost
-  description: Leftover caches/logs listed in Homebrew cask zap for hoppscotch-selfhost.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/io.hoppscotch.desktop"
-  - "$HOME/Library/Saved Application State/io.hoppscotch.desktop.savedState"
-  - "$HOME/Library/WebKit/io.hoppscotch.desktop"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-horos
   name: Homebrew zap horos
   description: Leftover caches/logs listed in Homebrew cask zap for horos. Prefs and
@@ -3228,21 +3138,6 @@ rules:
   name: Homebrew zap insomnia
   description: Leftover caches/logs listed in Homebrew cask zap for insomnia. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.insomnia.app"
-  - "$HOME/Library/Caches/com.insomnia.app.ShipIt"
-  - "$HOME/Library/Saved Application State/com.insomnia.app.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-insomnia-alpha
-  name: Homebrew zap insomnia@alpha
-  description: Leftover caches/logs listed in Homebrew cask zap for insomnia@alpha.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -4201,21 +4096,6 @@ rules:
   - "$HOME/Library/WebKit/com.jordanbaird.Ice"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-jordanbaird-ice-beta
-  name: Homebrew zap jordanbaird-ice@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for jordanbaird-ice@beta.
-    Prefs and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.jordanbaird.Ice"
-  - "$HOME/Library/HTTPStorages/com.jordanbaird.Ice"
-  - "$HOME/Library/WebKit/com.jordanbaird.Ice"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-josm
   name: Homebrew zap josm
   description: Leftover caches/logs listed in Homebrew cask zap for josm. Prefs and
@@ -4973,20 +4853,6 @@ rules:
   name: Homebrew zap kitty
   description: Leftover caches/logs listed in Homebrew cask zap for kitty. Prefs and
     generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/kitty"
-  - "$HOME/Library/Saved Application State/net.kovidgoyal.kitty.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-kitty-nightly
-  name: Homebrew zap kitty@nightly
-  description: Leftover caches/logs listed in Homebrew cask zap for kitty@nightly.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -6020,19 +5886,6 @@ rules:
   name: Homebrew zap livebook
   description: Leftover caches/logs listed in Homebrew cask zap for livebook. Prefs
     and generic Application Support omitted.
-  category: logs
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Logs/Livebook.log"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-livebook-nightly
-  name: Homebrew zap livebook@nightly
-  description: Leftover caches/logs listed in Homebrew cask zap for livebook@nightly.
-    Prefs and generic Application Support omitted.
   category: logs
   platform: macos
   risk: low
@@ -8181,19 +8034,6 @@ rules:
   - "$HOME/Library/HTTPStorages/com.tw93.MiaoYan"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-mi-beta
-  name: Homebrew zap mi@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for mi@beta. Prefs
-    and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/net.mimikaki.mi"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-mic-drop
   name: Homebrew zap mic-drop
   description: Leftover caches/logs listed in Homebrew cask zap for mic-drop. Prefs
@@ -8365,58 +8205,6 @@ rules:
 - id: brew-zap-microsoft-openjdk
   name: Homebrew zap microsoft-openjdk
   description: Leftover caches/logs listed in Homebrew cask zap for microsoft-openjdk.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/net.java.openjdk.java.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-microsoft-openjdk-11
-  name: Homebrew zap microsoft-openjdk@11
-  description: Leftover caches/logs listed in Homebrew cask zap for microsoft-openjdk@11.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/net.java.openjdk.java.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-microsoft-openjdk-17
-  name: Homebrew zap microsoft-openjdk@17
-  description: Leftover caches/logs listed in Homebrew cask zap for microsoft-openjdk@17.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/net.java.openjdk.java.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-microsoft-openjdk-21
-  name: Homebrew zap microsoft-openjdk@21
-  description: Leftover caches/logs listed in Homebrew cask zap for microsoft-openjdk@21.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Saved Application State/net.java.openjdk.java.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-microsoft-openjdk-25
-  name: Homebrew zap microsoft-openjdk@25
-  description: Leftover caches/logs listed in Homebrew cask zap for microsoft-openjdk@25.
     Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
@@ -9749,19 +9537,6 @@ rules:
   - "$HOME/Library/Caches/com.fabriceleyne.MxPowerGadget"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-my-image-garden
-  name: Homebrew zap my-image-garden
-  description: Leftover caches/logs listed in Homebrew cask zap for my-image-garden.
-    Prefs and generic Application Support omitted.
-  category: app-cache
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "/Library/Caches/Canon"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-mycrypto
   name: Homebrew zap mycrypto
   description: Leftover caches/logs listed in Homebrew cask zap for mycrypto. Prefs
@@ -10227,21 +10002,6 @@ rules:
   name: Homebrew zap netnewswire
   description: Leftover caches/logs listed in Homebrew cask zap for netnewswire. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/com.ranchero.NetNewsWire-Evergreen"
-  - "$HOME/Library/Saved Application State/com.ranchero.NetNewsWire-Evergreen.savedState"
-  - "$HOME/Library/WebKit/com.ranchero.NetNewsWire-Evergreen"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-netnewswire-beta
-  name: Homebrew zap netnewswire@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for netnewswire@beta.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low
@@ -10873,20 +10633,6 @@ rules:
   - "$HOME/Library/Saved Application State/com.obsproject.obs-studio.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-obs-beta
-  name: Homebrew zap obs@beta
-  description: Leftover caches/logs listed in Homebrew cask zap for obs@beta. Prefs
-    and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/HTTPStorages/com.obsproject.obs-studio"
-  - "$HOME/Library/Saved Application State/com.obsproject.obs-studio.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-obscura-vpn
   name: Homebrew zap obscura-vpn
   description: Leftover caches/logs listed in Homebrew cask zap for obscura-vpn. Prefs
@@ -11007,20 +10753,6 @@ rules:
   name: Homebrew zap omegat
   description: Leftover caches/logs listed in Homebrew cask zap for omegat. Prefs
     and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/OmegaT"
-  - "$HOME/Library/Saved Application State/org.omegat.OmegaT.savedState"
-  delete_mode: contents
-  max_depth: 6
-- id: brew-zap-omegat-latest
-  name: Homebrew zap omegat@latest
-  description: Leftover caches/logs listed in Homebrew cask zap for omegat@latest.
-    Prefs and generic Application Support omitted.
   category: leftovers
   platform: macos
   risk: low

@@ -1,8 +1,9 @@
 use anyhow::{bail, Context, Result};
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
+use std::collections::{BTreeMap, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::sync::{Arc, Mutex};
 
 /// Deletion danger level for a cleaning rule.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
@@ -322,13 +323,135 @@ struct RuleFile {
     pub rules: Vec<Rule>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RulePack {
     pub rules: Vec<Rule>,
     pub sources: Vec<PathBuf>,
 }
 
+type SourceFingerprint = Vec<(PathBuf, blake3::Hash)>;
+static SHARED_PACK: Mutex<Option<(SourceFingerprint, Arc<RulePack>)>> = Mutex::new(None);
+
+fn source_fingerprint(dirs: &[PathBuf]) -> Result<SourceFingerprint> {
+    let mut seen = HashSet::new();
+    let mut fingerprint = Vec::new();
+    for dir in dirs {
+        if !dir.is_dir() {
+            continue;
+        }
+        let mut files = collect_rule_files(dir)?;
+        files.sort();
+        for file in files {
+            let file = file.canonicalize().unwrap_or(file);
+            if seen.insert(file.clone()) {
+                let bytes = fs::read(&file).with_context(|| format!("read {}", file.display()))?;
+                fingerprint.push((file, blake3::hash(&bytes)));
+            }
+        }
+    }
+    Ok(fingerprint)
+}
+
+// Include parser/enrichment sources so changes to defaults or inferred tags invalidate
+// persisted catalogs even when the application version has not changed.
+fn catalog_cache_path(fingerprint: &SourceFingerprint) -> Option<(PathBuf, blake3::Hash)> {
+    let base = directories::ProjectDirs::from("com", "themoretheless", "SpaceScanner")?;
+    let mut hash = blake3::Hasher::new();
+    let mut identity = blake3::Hasher::new();
+    hash.update(b"catalog-bincode-v1");
+    hash.update(include_bytes!("rules.rs"));
+    hash.update(include_bytes!("tags.rs"));
+    for (path, digest) in fingerprint {
+        let path = bincode::serialize(path).ok()?;
+        hash.update(&(path.len() as u64).to_le_bytes());
+        hash.update(&path);
+        identity.update(&(path.len() as u64).to_le_bytes());
+        identity.update(&path);
+        hash.update(digest.as_bytes());
+    }
+    Some((
+        base.cache_dir()
+            .join("catalog")
+            .join(format!("{}.bin", identity.finalize().to_hex())),
+        hash.finalize(),
+    ))
+}
+
+fn read_catalog_cache(path: &Path, key: &blake3::Hash) -> Option<RulePack> {
+    use bincode::Options;
+    let bytes = fs::read(path).ok()?;
+    let (stored_key, bytes) = bytes.split_at_checked(32)?;
+    if stored_key != key.as_bytes() {
+        return None;
+    }
+    let (checksum, payload) = bytes.split_at_checked(32)?;
+    if blake3::hash(payload).as_bytes() != checksum {
+        return None;
+    }
+    bincode::DefaultOptions::new()
+        .with_fixint_encoding()
+        .with_limit(payload.len() as u64)
+        .reject_trailing_bytes()
+        .deserialize(payload)
+        .ok()
+}
+
+fn write_catalog_cache(path: &Path, key: &blake3::Hash, pack: &RulePack) -> Result<()> {
+    use std::io::Write;
+    fs::create_dir_all(path.parent().context("cache parent")?)?;
+    let bytes = bincode::serialize(pack)?;
+    let temporary = path.with_extension(format!("{}.tmp", std::process::id()));
+    let result = (|| -> Result<()> {
+        let mut file = fs::OpenOptions::new()
+            .write(true)
+            .create_new(true)
+            .open(&temporary)?;
+        file.write_all(key.as_bytes())?;
+        file.write_all(blake3::hash(&bytes).as_bytes())?;
+        file.write_all(&bytes)?;
+        drop(file);
+        fs::rename(&temporary, path)?;
+        Ok(())
+    })();
+    if result.is_err() {
+        let _ = fs::remove_file(&temporary);
+    }
+    result
+}
+
 impl RulePack {
+    /// Share immutable catalogs while detecting edits, additions and removals.
+    /// Hash file contents so same-length edits and preserved timestamps invalidate.
+    pub fn load_many_shared(dirs: &[PathBuf]) -> Result<Arc<Self>> {
+        let mut cache = SHARED_PACK
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
+        let fingerprint = source_fingerprint(dirs)?;
+        if let Some((previous, pack)) = cache.as_ref() {
+            if *previous == fingerprint {
+                return Ok(Arc::clone(pack));
+            }
+        }
+        let disk_path = catalog_cache_path(&fingerprint);
+        let cached = disk_path
+            .as_ref()
+            .and_then(|(path, key)| read_catalog_cache(path, key));
+        let disk_hit = cached.is_some();
+        let pack = Arc::new(cached.map(Ok).unwrap_or_else(|| Self::load_many(dirs))?);
+        // Do not cache a catalog if its files changed while it was being parsed.
+        if source_fingerprint(dirs)? == fingerprint {
+            if !disk_hit {
+                if let Some((path, key)) = disk_path.as_ref() {
+                    let _ = write_catalog_cache(path, key, &pack);
+                }
+            }
+            *cache = Some((fingerprint, Arc::clone(&pack)));
+        } else {
+            *cache = None;
+        }
+        Ok(pack)
+    }
+
     pub fn load_many(dirs: &[PathBuf]) -> Result<Self> {
         let mut seen_dirs = Vec::new();
         let mut by_id: BTreeMap<String, Rule> = BTreeMap::new();
@@ -498,90 +621,99 @@ fn path_list(dirs: &[PathBuf]) -> String {
 
 /// Expand path templates to concrete absolute paths.
 pub fn expand_path_template(template: &str) -> Option<PathBuf> {
-    let base_dirs = directories::BaseDirs::new()?;
-    let home = base_dirs.home_dir().to_path_buf();
-    let mut s = template.to_string();
+    PathTemplateExpander::new()?.expand(template)
+}
 
-    let replacements: Vec<(&str, PathBuf)> = {
-        let mut v = vec![
-            ("$HOME", home.clone()),
-            ("~", home.clone()),
-            ("$TMPDIR", std::env::temp_dir()),
-            ("$TEMP", std::env::temp_dir()),
-            ("$TMP", std::env::temp_dir()),
-        ];
-        let cache = base_dirs.cache_dir().to_path_buf();
-        v.push(("$XDG_CACHE_HOME", cache.clone()));
-        v.push(("$CACHE", cache));
-        let data_local = base_dirs.data_local_dir().to_path_buf();
-        v.push(("$XDG_DATA_HOME", data_local.clone()));
-        v.push(("%LOCALAPPDATA%", data_local.clone()));
-        v.push(("$LOCALAPPDATA", data_local));
-        let data = base_dirs.data_dir().to_path_buf();
-        v.push(("$XDG_CONFIG_HOME", base_dirs.config_dir().to_path_buf()));
-        v.push(("%APPDATA%", data.clone()));
-        v.push(("$APPDATA", data));
-        if let Ok(userprofile) = std::env::var("USERPROFILE") {
-            v.push(("%USERPROFILE%", PathBuf::from(userprofile)));
-        }
-        if let Ok(windir) = std::env::var("WINDIR") {
-            v.push(("%WINDIR%", PathBuf::from(windir)));
-        }
-        if let Ok(systemdrive) = std::env::var("SystemDrive") {
-            v.push(("%SystemDrive%", PathBuf::from(systemdrive)));
-        }
-        // Windows env aliases (also useful when cross-compiling paths in YAML).
-        if let Ok(temp) = std::env::var("TEMP").or_else(|_| std::env::var("TMP")) {
-            let t = PathBuf::from(temp);
-            v.push(("%TEMP%", t.clone()));
-            v.push(("%TMP%", t));
-        }
-        if let Ok(pd) = std::env::var("PROGRAMDATA") {
-            v.push(("%PROGRAMDATA%", PathBuf::from(pd)));
-        }
-        if let Ok(pf) = std::env::var("ProgramFiles").or_else(|_| std::env::var("PROGRAMFILES")) {
-            v.push(("%PROGRAMFILES%", PathBuf::from(pf)));
-        }
-        if let Ok(pf86) = std::env::var("ProgramFiles(x86)") {
-            v.push(("%PROGRAMFILES(X86)%", PathBuf::from(pf86)));
-        }
-        // Common Windows defaults when env is missing (path still platform-filtered).
-        #[cfg(windows)]
-        {
-            if std::env::var_os("LOCALAPPDATA").is_none() {
-                v.push(("%LOCALAPPDATA%", home.join("AppData").join("Local")));
-                v.push(("%APPDATA%", home.join("AppData").join("Roaming")));
+/// Snapshot environment-derived substitutions once per scan, not once per root.
+pub(crate) struct PathTemplateExpander {
+    keys: Vec<(&'static str, PathBuf)>,
+}
+
+impl PathTemplateExpander {
+    pub(crate) fn new() -> Option<Self> {
+        let base_dirs = directories::BaseDirs::new()?;
+        let home = base_dirs.home_dir().to_path_buf();
+        let replacements: Vec<(&str, PathBuf)> = {
+            let mut v = vec![
+                ("$HOME", home.clone()),
+                ("~", home.clone()),
+                ("$TMPDIR", std::env::temp_dir()),
+                ("$TEMP", std::env::temp_dir()),
+                ("$TMP", std::env::temp_dir()),
+            ];
+            let cache = base_dirs.cache_dir().to_path_buf();
+            v.push(("$XDG_CACHE_HOME", cache.clone()));
+            v.push(("$CACHE", cache));
+            let data_local = base_dirs.data_local_dir().to_path_buf();
+            v.push(("$XDG_DATA_HOME", data_local.clone()));
+            v.push(("%LOCALAPPDATA%", data_local.clone()));
+            v.push(("$LOCALAPPDATA", data_local));
+            let data = base_dirs.data_dir().to_path_buf();
+            v.push(("$XDG_CONFIG_HOME", base_dirs.config_dir().to_path_buf()));
+            v.push(("%APPDATA%", data.clone()));
+            v.push(("$APPDATA", data));
+            if let Ok(userprofile) = std::env::var("USERPROFILE") {
+                v.push(("%USERPROFILE%", PathBuf::from(userprofile)));
             }
-            if std::env::var_os("TEMP").is_none() {
-                let t = home.join("AppData").join("Local").join("Temp");
+            if let Ok(windir) = std::env::var("WINDIR") {
+                v.push(("%WINDIR%", PathBuf::from(windir)));
+            }
+            if let Ok(systemdrive) = std::env::var("SystemDrive") {
+                v.push(("%SystemDrive%", PathBuf::from(systemdrive)));
+            }
+            // Windows env aliases (also useful when cross-compiling paths in YAML).
+            if let Ok(temp) = std::env::var("TEMP").or_else(|_| std::env::var("TMP")) {
+                let t = PathBuf::from(temp);
                 v.push(("%TEMP%", t.clone()));
                 v.push(("%TMP%", t));
             }
-        }
-        v
-    };
+            if let Ok(pd) = std::env::var("PROGRAMDATA") {
+                v.push(("%PROGRAMDATA%", PathBuf::from(pd)));
+            }
+            if let Ok(pf) = std::env::var("ProgramFiles").or_else(|_| std::env::var("PROGRAMFILES"))
+            {
+                v.push(("%PROGRAMFILES%", PathBuf::from(pf)));
+            }
+            if let Ok(pf86) = std::env::var("ProgramFiles(x86)") {
+                v.push(("%PROGRAMFILES(X86)%", PathBuf::from(pf86)));
+            }
+            // Common Windows defaults when env is missing (path still platform-filtered).
+            #[cfg(windows)]
+            {
+                if std::env::var_os("LOCALAPPDATA").is_none() {
+                    v.push(("%LOCALAPPDATA%", home.join("AppData").join("Local")));
+                    v.push(("%APPDATA%", home.join("AppData").join("Roaming")));
+                }
+                if std::env::var_os("TEMP").is_none() {
+                    let t = home.join("AppData").join("Local").join("Temp");
+                    v.push(("%TEMP%", t.clone()));
+                    v.push(("%TMP%", t));
+                }
+            }
+            v
+        };
 
-    // Longest keys first so %LOCALAPPDATA% beats partials
-    let mut keys = replacements;
-    keys.sort_by_key(|item| std::cmp::Reverse(item.0.len()));
+        // Longest keys first so %LOCALAPPDATA% beats partials
+        let mut keys = replacements;
+        keys.sort_by_key(|item| std::cmp::Reverse(item.0.len()));
 
-    for (key, path) in &keys {
-        if s.contains(key) {
-            s = s.replace(key, &path.to_string_lossy());
-        }
+        Some(Self { keys })
     }
 
-    // Reject unexpanded variables
-    if s.contains('$') || s.contains('%') {
-        return None;
-    }
+    pub(crate) fn expand(&self, template: &str) -> Option<PathBuf> {
+        let mut s = template.to_string();
+        for (key, path) in &self.keys {
+            if s.contains(key) {
+                s = s.replace(key, &path.to_string_lossy());
+            }
+        }
 
-    let p = PathBuf::from(s);
-    if p.exists() {
-        Some(p)
-    } else {
-        // Still return path so scan can report missing roots quietly
-        Some(p)
+        // Reject unexpanded variables
+        if s.contains('$') || s.contains('%') {
+            return None;
+        }
+
+        Some(PathBuf::from(s))
     }
 }
 
@@ -610,6 +742,68 @@ pub fn enrich_rule_kind(rule: &mut Rule) {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn shared_catalog_invalidates_on_content_addition_removal_and_errors() {
+        let root = std::env::temp_dir().join(format!("space-shared-rules-{}", std::process::id()));
+        let _ = fs::remove_dir_all(&root);
+        fs::create_dir_all(&root).unwrap();
+        let path = root.join("rules.yaml");
+        let source = "rules:\n- id: first\n  name: first\n  description: fixture\n  paths: [/tmp/cache]\n  min_age_days: 3\n";
+        fs::write(&path, source).unwrap();
+        let dirs = [root.clone()];
+        let first = RulePack::load_many_shared(&dirs).unwrap();
+        let again = RulePack::load_many_shared(&dirs).unwrap();
+        assert!(Arc::ptr_eq(&first, &again));
+        let modified = fs::metadata(&path).unwrap().modified().unwrap();
+        fs::write(&path, source.replace("days: 3", "days: 4")).unwrap();
+        fs::OpenOptions::new()
+            .write(true)
+            .open(&path)
+            .unwrap()
+            .set_times(fs::FileTimes::new().set_modified(modified))
+            .unwrap();
+        let changed = RulePack::load_many_shared(&dirs).unwrap();
+        assert!(!Arc::ptr_eq(&first, &changed));
+        assert_eq!(changed.rules[0].min_age_days, 4);
+        fs::write(root.join("extra.yaml"), source.replace("first", "second")).unwrap();
+        assert_eq!(RulePack::load_many_shared(&dirs).unwrap().rules.len(), 2);
+        fs::remove_file(root.join("extra.yaml")).unwrap();
+        assert_eq!(RulePack::load_many_shared(&dirs).unwrap().rules.len(), 1);
+        fs::write(&path, "rules: [invalid").unwrap();
+        assert!(RulePack::load_many_shared(&dirs).is_err());
+        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn persisted_catalog_checks_key_payload_and_recovers_by_replacement() {
+        let root = std::env::temp_dir().join(format!("space-binary-cache-{}", std::process::id()));
+        fs::create_dir_all(&root).unwrap();
+        fs::write(
+            root.join("rules.yaml"),
+            "rules:\n- id: cache\n  name: Cache\n  description: fixture\n  paths: [/tmp/cache]\n",
+        )
+        .unwrap();
+        let pack = RulePack::load_many(&[root.clone()]).unwrap();
+        let key = blake3::hash(b"source version one");
+        let path = root.join("catalog.bin");
+        write_catalog_cache(&path, &key, &pack).unwrap();
+        let restored = read_catalog_cache(&path, &key).unwrap();
+        assert_eq!(
+            serde_json::to_value(&pack).unwrap(),
+            serde_json::to_value(&restored).unwrap()
+        );
+        assert!(read_catalog_cache(&path, &blake3::hash(b"source version two")).is_none());
+        let mut bytes = fs::read(&path).unwrap();
+        *bytes.last_mut().unwrap() ^= 1;
+        fs::write(&path, bytes).unwrap();
+        assert!(read_catalog_cache(&path, &key).is_none());
+        fs::write(&path, b"truncated").unwrap();
+        assert!(read_catalog_cache(&path, &key).is_none());
+        write_catalog_cache(&path, &key, &pack).unwrap();
+        assert!(read_catalog_cache(&path, &key).is_some());
+        fs::remove_dir_all(root).unwrap();
+    }
 
     #[test]
     fn expands_home() {

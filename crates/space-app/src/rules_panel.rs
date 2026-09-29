@@ -1,5 +1,7 @@
 //! Flexible rule manager UI — browse / search / toggle categories, tags & rules.
 
+use std::sync::Arc;
+
 use eframe::egui::{self, Align, Layout, RichText};
 use space_clean::{CategoryPolicy, JunkKind, Risk, RuleFilter, RuleManager, RuleRow};
 
@@ -35,6 +37,8 @@ pub struct RulesPanelState {
     pub dirty: bool,
     /// Cap rows drawn per frame for responsiveness with many rules.
     pub page_size: usize,
+    summary: Option<Arc<RuleSummary>>,
+    page: Option<Arc<RulePage>>,
 }
 
 impl Default for RulesPanelState {
@@ -51,7 +55,94 @@ impl Default for RulesPanelState {
             error: None,
             dirty: false,
             page_size: 200,
+            summary: None,
+            page: None,
         }
+    }
+}
+
+struct RuleSummary {
+    pack: Arc<space_clean::RulePack>,
+    prefs: space_clean::RulePrefs,
+    stats: space_clean::ManagerStats,
+    categories: Vec<space_clean::CategoryRow>,
+    tags: Vec<space_clean::TagRow>,
+    kinds: Vec<space_clean::KindRow>,
+    risks: Vec<space_clean::RiskRow>,
+}
+
+struct RulePage {
+    pack: Arc<space_clean::RulePack>,
+    prefs: space_clean::RulePrefs,
+    filter: RuleFilter,
+    limit: usize,
+    total: usize,
+    rows: Vec<RuleRow>,
+}
+
+impl RulesPanelState {
+    fn summary(&mut self, mgr: &RuleManager) -> Arc<RuleSummary> {
+        if let Some(summary) = &self.summary {
+            if Arc::ptr_eq(&summary.pack, &mgr.pack) && summary.prefs == mgr.prefs {
+                return Arc::clone(summary);
+            }
+        }
+        let categories = mgr.categories(true);
+        let tags = mgr.tags(true);
+        let kinds = mgr.kinds(true);
+        let risks = mgr.risks(true);
+        let host = categories.iter().map(|row| row.total).sum::<usize>();
+        let enabled = categories.iter().map(|row| row.enabled).sum::<usize>();
+        let stats = space_clean::ManagerStats {
+            total: mgr.pack.rules.len(),
+            host,
+            enabled,
+            disabled: host - enabled,
+            overridden: mgr
+                .pack
+                .rules
+                .iter()
+                .filter(|rule| rule.platform.matches_host())
+                .filter(|rule| mgr.prefs.is_overridden(rule))
+                .count(),
+            categories: categories.len(),
+            tags: tags.len(),
+            kinds: kinds.len(),
+        };
+        let summary = Arc::new(RuleSummary {
+            pack: Arc::clone(&mgr.pack),
+            prefs: mgr.prefs.clone(),
+            stats,
+            categories,
+            tags,
+            kinds,
+            risks,
+        });
+        self.summary = Some(Arc::clone(&summary));
+        summary
+    }
+
+    fn page(&mut self, mgr: &RuleManager, filter: RuleFilter) -> Arc<RulePage> {
+        if let Some(page) = &self.page {
+            if Arc::ptr_eq(&page.pack, &mgr.pack)
+                && page.prefs == mgr.prefs
+                && page.filter == filter
+                && page.limit == self.page_size
+            {
+                return Arc::clone(page);
+            }
+        }
+        let (total, rows) = mgr.list_page(&filter, self.page_size);
+        let page = Arc::new(RulePage {
+            pack: Arc::clone(&mgr.pack),
+            prefs: mgr.prefs.clone(),
+            filter,
+            limit: self.page_size,
+            total,
+            rows,
+        });
+        self.page = Some(Arc::clone(&page));
+        page
     }
 }
 
@@ -69,7 +160,8 @@ pub fn draw(
     flags: &mut FeatureFlags,
 ) -> RulesAction {
     let mut action = RulesAction::None;
-    let stats = mgr.stats();
+    let summary = state.summary(mgr);
+    let stats = &summary.stats;
 
     ui.horizontal(|ui| {
         ui.label(
@@ -162,12 +254,13 @@ pub fn draw(
 
     ui.add_space(8.0);
 
-    let cats = mgr.categories(true);
-    let tags = mgr.tags(true);
-    let kinds = mgr.kinds(true);
-    let risks = mgr.risks(true);
+    let cats = &summary.categories;
+    let tags = &summary.tags;
+    let kinds = &summary.kinds;
+    let risks = &summary.risks;
     let filter = build_filter(state);
-    let rows = mgr.list(&filter);
+    let page = state.page(mgr, filter);
+    let rows = &page.rows;
 
     ui.columns(2, |cols| {
         cols[0].horizontal(|ui| {
@@ -197,7 +290,7 @@ pub fn draw(
                         state.category = None;
                     }
 
-                    for cat in &cats {
+                    for cat in cats {
                         ui.horizontal(|ui| {
                             let selected = state.category.as_deref() == Some(cat.name.as_str());
                             let policy_mark = match cat.policy {
@@ -260,7 +353,7 @@ pub fn draw(
                     {
                         state.kind = None;
                     }
-                    for kind in &kinds {
+                    for kind in kinds {
                         let parsed = JunkKind::parse(&kind.name);
                         let selected = state.kind == parsed;
                         let label = format!("{}  {}/{}", kind.name, kind.enabled, kind.total);
@@ -276,7 +369,7 @@ pub fn draw(
                     {
                         state.risk = None;
                     }
-                    for risk in &risks {
+                    for risk in risks {
                         let parsed = Risk::parse(&risk.name);
                         let selected = state.risk == parsed;
                         let label = format!(
@@ -296,7 +389,7 @@ pub fn draw(
                         state.tag = None;
                     }
 
-                    for tag in &tags {
+                    for tag in tags {
                         ui.horizontal(|ui| {
                             let selected = state.tag.as_deref() == Some(tag.name.as_str());
                             let policy_mark = match tag.policy {
@@ -352,7 +445,7 @@ pub fn draw(
         cols[1].horizontal(|ui| {
             ui.label(RichText::new("Rules").strong().color(TEXT));
             ui.label(
-                RichText::new(format!("({})", rows.len()))
+                RichText::new(format!("({})", page.total))
                     .size(12.0)
                     .color(MUTED),
             );
@@ -385,12 +478,12 @@ pub fn draw(
                 for row in shown {
                     draw_rule_row(ui, state, mgr, row, &mut action);
                 }
-                if rows.len() > state.page_size {
+                if page.total > state.page_size {
                     ui.add_space(6.0);
                     if ui
                         .button(format!(
                             "Show more ({} hidden)…",
-                            rows.len() - state.page_size
+                            page.total - state.page_size
                         ))
                         .clicked()
                     {
@@ -547,4 +640,61 @@ fn cat_title(cat: &str) -> String {
         c.make_ascii_uppercase();
     }
     s
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn panel_reuses_unchanged_data_and_invalidates_filters_prefs_and_pages() {
+        let template: space_clean::Rule = serde_json::from_value(serde_json::json!({
+            "id": "fixture", "name": "fixture", "description": "fixture",
+            "paths": ["/tmp/space-rules-ui"], "platform": "any"
+        }))
+        .unwrap();
+        let rules = (0..1000)
+            .map(|i| {
+                let mut rule = template.clone();
+                rule.id = format!("rule-{i:04}");
+                rule.name = rule.id.clone();
+                rule
+            })
+            .collect();
+        let mut mgr = RuleManager {
+            pack: Arc::new(space_clean::RulePack {
+                rules,
+                sources: Vec::new(),
+            }),
+            prefs: space_clean::RulePrefs::default(),
+        };
+        let mut state = RulesPanelState::default();
+        let summary = state.summary(&mgr);
+        assert!(Arc::ptr_eq(&summary, &state.summary(&mgr)));
+        let filter = build_filter(&state);
+        let page = state.page(&mgr, filter.clone());
+        assert_eq!(page.total, 1000);
+        assert_eq!(page.rows.len(), 200);
+        for _ in 0..100 {
+            assert!(Arc::ptr_eq(&page, &state.page(&mgr, filter.clone())));
+        }
+        state.page_size = 500;
+        let expanded = state.page(&mgr, filter.clone());
+        assert_eq!(expanded.rows.len(), 500);
+        assert_eq!(expanded.total, 1000);
+        assert_eq!(expanded.rows[199].id, page.rows[199].id);
+        mgr.prefs.rules.insert("rule-0000".into(), false);
+        let updated = state.page(&mgr, filter);
+        assert!(!updated.rows[0].effectively_enabled);
+        assert!(!Arc::ptr_eq(&summary, &state.summary(&mgr)));
+        state.query = "rule-0000".into();
+        let filtered = state.page(&mgr, build_filter(&state));
+        assert_eq!(filtered.total, 1);
+        assert_eq!(filtered.rows[0].id, "rule-0000");
+        mgr.pack = Arc::new(space_clean::RulePack {
+            rules: Vec::new(),
+            sources: Vec::new(),
+        });
+        assert_eq!(state.page(&mgr, build_filter(&state)).total, 0);
+    }
 }
