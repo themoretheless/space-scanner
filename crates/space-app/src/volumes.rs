@@ -3,7 +3,6 @@
 use std::path::{Path, PathBuf};
 use std::process::Command;
 
-use space_core::format_bytes;
 use sysinfo::Disks;
 
 #[derive(Debug, Clone)]
@@ -22,15 +21,6 @@ impl VolumeInfo {
     pub fn used(&self) -> u64 {
         self.apfs_consumed
             .unwrap_or_else(|| self.total.saturating_sub(self.available))
-    }
-
-    pub fn label(&self) -> String {
-        format!(
-            "{}  {} / {}",
-            self.name,
-            format_bytes(self.used()),
-            format_bytes(self.total)
-        )
     }
 }
 

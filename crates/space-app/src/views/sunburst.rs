@@ -389,6 +389,17 @@ fn sibling_colors(
     parent: Option<Color32>,
     circular: bool,
 ) -> Vec<Color32> {
+    if parent.is_none() && circular {
+        // Top ring: same palette as the contents list, so swatches match wedges.
+        let items: Vec<(&str, bool)> = ids
+            .iter()
+            .map(|&id| {
+                let n = ctx.tree.node(id);
+                (n.name.as_str(), n.is_dir)
+            })
+            .collect();
+        return theme::sibling_palette(&items);
+    }
     let mut out = Vec::with_capacity(ids.len());
     for (i, &id) in ids.iter().enumerate() {
         let n = ctx.tree.node(id);
@@ -406,14 +417,6 @@ fn sibling_colors(
             theme::color_for_adjacent(&n.name, false, i, &avoid)
         };
         out.push(c);
-    }
-    if circular && parent.is_none() && out.len() >= 2 {
-        let first = out[0];
-        let prev = out[out.len() - 2];
-        let last_i = out.len() - 1;
-        let last_id = ids[last_i];
-        let n = ctx.tree.node(last_id);
-        out[last_i] = theme::color_for_adjacent(&n.name, n.is_dir, last_i, &[prev, first]);
     }
     out
 }

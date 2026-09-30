@@ -137,26 +137,6 @@ impl ViewFilter {
             || self.kind != EntryKindFilter::All
     }
 
-    pub fn active_count(&self) -> u32 {
-        let mut n = 0;
-        if !self.query.is_empty() {
-            n += 1;
-        }
-        if self.ext.is_some() {
-            n += 1;
-        }
-        if self.min_size > 0 {
-            n += 1;
-        }
-        if self.max_size.is_some() {
-            n += 1;
-        }
-        if self.kind != EntryKindFilter::All {
-            n += 1;
-        }
-        n
-    }
-
     pub fn clear(&mut self) {
         *self = Self::default();
     }
@@ -360,28 +340,6 @@ pub fn draw(ui: &mut Ui, view: ViewMode, ctx: &mut DrawCtx<'_>) -> ViewAction {
         ViewMode::Sunburst => sunburst::draw(ui, ctx),
         ViewMode::Cascade => cascade::draw(ui, ctx),
     }
-}
-
-/// Tree highlight for sunburst hover: the wedge, ancestors up to focus,
-/// and every peer folder on that same circle (same parent).
-pub fn hover_related(tree: &SpaceTree, hover: NodeId, focus: NodeId, id: NodeId) -> bool {
-    if id == hover {
-        return true;
-    }
-    let hover_parent = tree.node(hover).parent;
-    // Ancestors of the wedge (inner rings it belongs to).
-    let mut cur = hover_parent;
-    while let Some(p) = cur {
-        if p == id {
-            return true;
-        }
-        if p == focus {
-            break;
-        }
-        cur = tree.node(p).parent;
-    }
-    // All folders on this circle share the same parent.
-    tree.node(id).parent == hover_parent
 }
 
 /// Prefer borrowed children when filter is idle (no alloc).
