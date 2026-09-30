@@ -198,7 +198,7 @@ Status: `TODO` | `DONE`. Wave: 0–9 per plan.
 | `F1076` | 9 | TODO | bench normal | User-visible or CLI: bench normal works in release build. |
 | `F1077` | 9 | TODO | cli smoke | User-visible or CLI: cli smoke works in release build. |
 | `F1078` | 9 | TODO | ui smoke manual | User-visible or CLI: ui smoke manual works in release build. |
-| `F1101` | 0 | DONE | scripts/run-app.sh | User-visible or CLI: scripts/run-app.sh works in release build. |
+| `F1101` | 0 | DONE | cargo run -p space-tools -- run-app | User-visible or CLI: cargo run -p space-tools -- run-app works in release build. |
 | `F1102` | 8 | TODO | dist SpaceScanner.app | User-visible or CLI: dist SpaceScanner.app works in release build. |
 | `F1103` | 8 | DONE | cargo release profile | User-visible or CLI: cargo release profile works in release build. |
 | `F1104` | 8 | DONE | README run section | User-visible or CLI: README run section works in release build. |

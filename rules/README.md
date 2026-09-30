@@ -22,7 +22,7 @@ matching paths and their children are rejected during scanning and checked again
 immediately before deletion. Regenerate with:
 
 ```bash
-ruby scripts/generate_protected_rules.rb
+cargo run -p space-tools -- protections
 space protections --all
 ```
 
@@ -36,8 +36,8 @@ See `space_clean::JunkKind` and `Risk`.
 ## Expand
 
 ```bash
-RULES_TARGET=15000 ruby scripts/expand_rules_to_target.rb
-ruby scripts/gen_win_linux_rules.rb
+cargo run -p space-tools -- catalog names.txt catalog-wave 15000
+# Maintain OS seeds directly in rules/platforms/*.yaml
 space rules status
 ```
 
@@ -59,9 +59,33 @@ space rules status
 | `generated/src-iter32-*.yaml` … `src-iter49-*.yaml` | Iterative 10k leftover Debian names × macOS/Linux/Windows |
 | `generated/src-iter50-*.yaml` … `src-iter81-*.yaml` | Iterative 10k leftover AUR names × macOS/Linux/Windows |
 | `generated/src-iter82-*.yaml` … `src-iter84-*.yaml` | Iterative 10k leftover mixed catalog names × macOS/Linux/Windows |
+| `generated/src-pypi100k-*.yaml` | 100k inferred PyPI cache probes; disabled and report-only |
+| `generated/src-pypi500k-*.yaml` | Additional 500k inferred PyPI cache probes; disabled and report-only |
 | `generated/*.yaml` | Auto-expanded bulk (`macos` / `windows` / `linux` only) |
 
-No `platform: any` — shared apps are split per OS (`ruby scripts/split_any_rules.rb`).
+No `platform: any` — shared apps are split per OS (`cargo run -p space-tools -- split`).
+
+The PyPI batch adds exactly 100,000 rules: macOS 33,334, Linux 33,333,
+Windows 33,333. Project names come from the 2026-10-01 PyPI Simple API snapshot.
+Cache paths are inferred from names, not verified application layouts. Every rule
+is disabled by default and has both `risk: report-only` and `report_only: true`;
+enabling a probe allows reporting but never deletion. Configs, environments,
+package installations, and project folders are not targeted.
+
+The selected names and source checksum are saved in `scripts/catalogs/`.
+`cargo run -p space-tools -- pypi` reproduces the 125 packs from those names
+when the output packs are absent; it refuses to overwrite existing packs.
+
+The second PyPI batch adds 500,000 rules in 625 packs: macOS 166,667,
+Linux 166,667, Windows 166,666. It uses another 166,667 names from the same
+snapshot, excluding prior PyPI names and names already present in rule path
+components. Paths remain unverified, disabled by default, and report-only.
+Its names and source metadata are saved as `scripts/catalogs/pypi-500k-*`.
+To reproduce this batch when its output packs are absent:
+
+```bash
+cargo run -p space-tools --release -- pypi scripts/catalogs/pypi-500k-names.txt scripts/catalogs/pypi-500k-source.json pypi500k 500000
+```
 
 ## Extend
 
@@ -73,8 +97,8 @@ No `platform: any` — shared apps are split per OS (`ruby scripts/split_any_rul
 6. Optional `risk: low|medium|high|report-only` — deletion danger (aliases: safe/caution/dangerous).
 7. Optional `tags: [browser, electron, …]` — merged with inferred tags on load.
 8. Prefer `default_enabled: false` for medium/high risk.
-9. Category expand: `RULES_TARGET=3000 ruby scripts/reorg_and_expand_rules.rb`
-10. OS packs: `ruby scripts/gen_win_linux_rules.rb`
+9. Category expand: `cargo run -p space-tools -- catalog names.txt category-wave 3000`
+10. Maintain OS seed packs directly in `rules/platforms/*.yaml`.
 
 ## Rule manager (runtime prefs)
 
@@ -107,12 +131,13 @@ App: **Rules** window — Categories / Kinds / Danger / Tags tabs. On each OS, o
 
 ## Duplicate audit
 
-The catalog contains 933,179 cleanup rules after removing 1,187 exact duplicates.
+The catalog contains 1,533,179 rules, including 600,000 report-only PyPI probes,
+after removing 1,187 exact duplicates from earlier batches.
 The separate 1,000 protection rules are preserved.
 
 ```bash
-python3 scripts/deduplicate_rules.py          # exits 1 if duplicates are found
-python3 scripts/deduplicate_rules.py --apply  # remove duplicates, preserve YAML layout
+cargo run -p space-tools -- deduplicate          # exits 1 if duplicates are found
+cargo run -p space-tools -- deduplicate --apply  # remove duplicates, preserve YAML layout
 ```
 
 Run the audit after regenerating packs. It compares the loader's effective rule

@@ -1178,7 +1178,7 @@ Status in this file is backlog-only; execution tracking is [ROADMAP-200.md](ROAD
 
 ## Packaging
 
-- `F1101` [P0] scripts/run-app.sh
+- `F1101` [P0] cargo run -p space-tools -- run-app
 - `F1102` [P0] dist SpaceScanner.app
 - `F1103` [P0] cargo release profile
 - `F1104` [P0] README run section

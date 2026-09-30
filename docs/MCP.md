@@ -58,7 +58,7 @@ operation slot. There is no cleanup tool in this version.
 ## Verification
 
 ```sh
-python3 scripts/test_mcp.py target/release/space-mcp
+cargo test -p space-mcp --test stdio
 ```
 
 This launches a real stdio process with isolated files/rules and checks handshake,

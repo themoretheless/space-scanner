@@ -39,7 +39,7 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 
 ```bash
 # Recommended on macOS (wgpu Metal + Dock .app)
-./scripts/run-app.sh
+cargo run -p space-tools -- run-app
 
 # or
 cargo run -p space-app --release
@@ -76,7 +76,7 @@ cargo bench -p space-core --features bench --bench scan -- --profile normal
 
 ### Junk cleaner (from ppduster)
 
-Rules live in [`rules/`](rules/) — **933,179** total across `categories/`, `platforms/`, and `generated/`. See [`rules/README.md`](rules/README.md).
+Rules live in [`rules/`](rules/) — **1,533,179** total across `categories/`, `platforms/`, and `generated/`, including 600,000 disabled, report-only PyPI cache probes. See [`rules/README.md`](rules/README.md).
 
 **Rule manager** (prefs overlay, does not edit YAML):
 - App: **Rules** button → search / toggle rules & categories / Enable all / Reset
@@ -90,10 +90,10 @@ cargo run -p space-cli --release -- rules list --all -q linux-
 cargo run -p space-cli --release -- junk -c caches,logs
 ```
 
-**`any` is not used.** Cross-OS apps are split into `macos` / `linux` / `windows` rules (paths filtered per OS). Re-split: `ruby scripts/split_any_rules.rb`.
+**`any` is not used.** Cross-OS apps are split into `macos` / `linux` / `windows` rules (paths filtered per OS). Re-split: `cargo run -p space-tools -- split`.
 
-Expand: `RULES_TARGET=15000 ruby scripts/expand_rules_to_target.rb`  
-OS seeds: `ruby scripts/gen_win_linux_rules.rb`
+Expand from a local package-name list: `cargo run -p space-tools -- catalog names.txt catalog-wave 15000`.
+OS seed packs are maintained directly in `rules/platforms/`.
 
 In the app: **Junk** (clean) · **Rules** (manager).
 
