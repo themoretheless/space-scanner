@@ -1,6 +1,7 @@
 //! Smooth hierarchical tree for the left sidebar.
 
 use std::collections::HashSet;
+use std::sync::{Arc, Weak};
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense, Ui};
 use space_core::{format_bytes, NodeId, SizeMode, SpaceTree};
@@ -11,6 +12,34 @@ use crate::views::{self, ViewFilter};
 const MAX_VISIBLE: usize = 220;
 const MAX_CHILDREN: usize = 48;
 const MAX_DEPTH: usize = 6;
+
+/// Derived rows belong to an immutable tree snapshot and a specific filter.
+#[derive(Default)]
+pub struct FolderFiles {
+    tree: Weak<SpaceTree>,
+    key: Option<(NodeId, SizeMode, u64, usize)>,
+    rows: Vec<(NodeId, u64)>,
+}
+
+impl FolderFiles {
+    pub fn get(
+        &mut self,
+        tree: &Arc<SpaceTree>,
+        dir: NodeId,
+        mode: SizeMode,
+        filter: &ViewFilter,
+        limit: usize,
+    ) -> &[(NodeId, u64)] {
+        let key = (dir, mode, filter.hash64(), limit);
+        let snapshot = Arc::downgrade(tree);
+        if self.key != Some(key) || !self.tree.ptr_eq(&snapshot) {
+            self.rows = folder_files(tree, dir, mode, filter, limit);
+            self.tree = snapshot;
+            self.key = Some(key);
+        }
+        &self.rows
+    }
+}
 
 #[derive(Clone, Copy)]
 pub struct TreeRow {
@@ -33,20 +62,6 @@ impl SideTree {
         self.expanded.clear();
         self.rows.clear();
         self.key = None;
-    }
-
-    pub fn ensure_path_expanded(&mut self, tree: &SpaceTree, target: NodeId) {
-        let mut changed = false;
-        let mut cur = Some(target);
-        while let Some(id) = cur {
-            if self.expanded.insert(id) {
-                changed = true;
-            }
-            cur = tree.node(id).parent;
-        }
-        if changed {
-            self.invalidate();
-        }
     }
 
     /// While hovering a ring: show peer folders on that circle (open their parent),
@@ -73,12 +88,8 @@ impl SideTree {
             }
         }
 
-        let before = self.expanded.clone();
-        self.expanded.retain(|id| keep.contains(id));
-        for id in &keep {
-            self.expanded.insert(*id);
-        }
-        if self.expanded != before {
+        if self.expanded != keep {
+            self.expanded = keep;
             self.invalidate();
         }
     }
@@ -261,7 +272,6 @@ pub fn draw_rows(
     mode: SizeMode,
 ) -> TreeAction {
     let mut action = TreeAction::none();
-    let rows: Vec<TreeRow> = side.rows().to_vec();
 
     let old_spacing = ui.spacing().item_spacing;
     ui.spacing_mut().item_spacing = egui::vec2(4.0, 1.0);
@@ -278,7 +288,9 @@ pub fn draw_rows(
         });
     });
 
-    for row in &rows {
+    for index in 0..side.rows().len() {
+        // Expanding a row invalidates the next rebuild; this frame's rows stay fixed.
+        let row = side.rows()[index];
         let node = tree.node(row.id);
         let is_sel = selected == Some(row.id) || row.id == focus;
         let in_q = review.contains(&row.id);
@@ -487,4 +499,177 @@ pub fn draw(
             )
         })
         .inner
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use space_core::Node;
+
+    fn fixture(count: usize) -> Arc<SpaceTree> {
+        let mut nodes = vec![Node {
+            name: "root".into(),
+            apparent_size: 0,
+            allocated_size: 0,
+            file_count: count as u64,
+            is_dir: true,
+            synthetic: false,
+            children: (1..=count).map(|i| NodeId(i as u32)).collect(),
+            parent: None,
+        }];
+        for i in 1..=count {
+            nodes.push(Node {
+                name: format!("file-{i}.log"),
+                apparent_size: (i * 7919 % (count + 1)) as u64,
+                allocated_size: (count - i) as u64,
+                file_count: 1,
+                is_dir: false,
+                synthetic: false,
+                children: vec![],
+                parent: Some(NodeId(0)),
+            });
+        }
+        Arc::new(SpaceTree {
+            root_path: "/fixture".into(),
+            nodes,
+            root: NodeId(0),
+            scanned_at_unix: 0,
+            item_count: count as u64,
+            skipped_errors: 0,
+            hardlink_candidates: 0,
+            hardlinks_deduped: 0,
+        })
+    }
+
+    #[test]
+    fn hover_sync_keeps_focus_ancestors_and_rebuilds_visible_peers() {
+        let mut tree = fixture(4);
+        let nodes = &mut Arc::make_mut(&mut tree).nodes;
+        nodes[0].children = vec![NodeId(1), NodeId(3), NodeId(4)];
+        nodes[1].is_dir = true;
+        nodes[1].children = vec![NodeId(2)];
+        nodes[2].is_dir = true;
+        nodes[2].parent = Some(NodeId(1));
+        nodes[3].is_dir = true;
+        let mut side = SideTree::default();
+        let filter = ViewFilter::default();
+
+        side.sync_for_hover(&tree, tree.root, Some(NodeId(2)));
+        side.rebuild_if_needed(&tree, tree.root, SizeMode::OnDisk, &filter, filter.hash64());
+        assert_eq!(
+            side.rows().iter().map(|row| row.id).collect::<Vec<_>>(),
+            [NodeId(0), NodeId(1), NodeId(2), NodeId(3)],
+        );
+        let rows = side.rows().as_ptr();
+        side.sync_for_hover(&tree, tree.root, Some(NodeId(2)));
+        side.rebuild_if_needed(&tree, tree.root, SizeMode::OnDisk, &filter, filter.hash64());
+        assert_eq!(side.rows().as_ptr(), rows);
+
+        side.sync_for_hover(&tree, tree.root, None);
+        side.rebuild_if_needed(&tree, tree.root, SizeMode::OnDisk, &filter, filter.hash64());
+        assert_eq!(
+            side.rows().iter().map(|row| row.id).collect::<Vec<_>>(),
+            [NodeId(0), NodeId(1), NodeId(3)],
+        );
+        side.sync_for_hover(&tree, NodeId(2), Some(NodeId(3)));
+        assert_eq!(
+            side.expanded,
+            HashSet::from([NodeId(0), NodeId(1), NodeId(2)])
+        );
+    }
+
+    #[test]
+    fn cached_files_follow_filter_mode_limit_and_directory() {
+        let mut tree = fixture(20);
+        let empty = Node {
+            name: "empty".into(),
+            is_dir: true,
+            children: vec![],
+            ..tree.nodes[0].clone()
+        };
+        Arc::make_mut(&mut tree).nodes.push(empty);
+        let mut cache = FolderFiles::default();
+        for mode in [SizeMode::Apparent, SizeMode::OnDisk] {
+            for limit in [0, 1, 10, 100] {
+                for query in ["", "file-1", "missing"] {
+                    let filter = ViewFilter {
+                        query: query.into(),
+                        ..Default::default()
+                    };
+                    for dir in [NodeId(0), NodeId(21)] {
+                        let expected = folder_files(&tree, dir, mode, &filter, limit);
+                        assert_eq!(cache.get(&tree, dir, mode, &filter, limit), expected);
+                        let previous = cache.rows.as_ptr();
+                        assert_eq!(cache.get(&tree, dir, mode, &filter, limit), expected);
+                        assert_eq!(cache.rows.as_ptr(), previous);
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn cached_files_follow_tree_replacement_and_in_place_edits() {
+        let mut tree = fixture(10);
+        let mut cache = FolderFiles::default();
+        let filter = ViewFilter::default();
+        let original = cache
+            .get(&tree, tree.root, SizeMode::Apparent, &filter, 100)
+            .to_vec();
+        // Arc::make_mut detaches the cached Weak even when there is no other strong owner.
+        Arc::make_mut(&mut tree).nodes[1].apparent_size = 999;
+        let edited = cache.get(&tree, tree.root, SizeMode::Apparent, &filter, 100);
+        assert_eq!(edited[0], (NodeId(1), 999));
+        assert_ne!(edited, original);
+        tree = fixture(10);
+        assert_eq!(
+            cache.get(&tree, tree.root, SizeMode::Apparent, &filter, 100),
+            original
+        );
+    }
+
+    #[test]
+    #[ignore = "manual release profile: --release folder_files_profile -- --ignored --nocapture"]
+    fn folder_files_profile() {
+        use std::hint::black_box;
+        use std::time::Instant;
+        let tree = fixture(50_000);
+        let filter = ViewFilter::default();
+        let mut cache = FolderFiles::default();
+        let expected = folder_files(&tree, tree.root, SizeMode::Apparent, &filter, 100);
+        assert_eq!(
+            cache.get(&tree, tree.root, SizeMode::Apparent, &filter, 100),
+            expected
+        );
+        let mut uncached = Vec::new();
+        let mut cached = Vec::new();
+        for _ in 0..31 {
+            let start = Instant::now();
+            black_box(folder_files(
+                black_box(&tree),
+                tree.root,
+                SizeMode::Apparent,
+                &filter,
+                100,
+            ));
+            uncached.push(start.elapsed());
+            let start = Instant::now();
+            for _ in 0..1_000 {
+                black_box(cache.get(
+                    black_box(&tree),
+                    tree.root,
+                    SizeMode::Apparent,
+                    &filter,
+                    100,
+                ));
+            }
+            cached.push(start.elapsed() / 1_000);
+        }
+        uncached.sort();
+        cached.sort();
+        println!(
+            "50,000 files, top 100: uncached {:?}, unchanged cached {:?}",
+            uncached[15], cached[15]
+        );
+    }
 }

@@ -113,6 +113,14 @@ impl ViewFilter {
             }
         }
         if !self.query.is_empty() {
+            // Most filenames and queries are ASCII. Compare borrowed bytes rather
+            // than allocating two lowercase strings for every candidate.
+            if name.is_ascii() && self.query.is_ascii() {
+                return name
+                    .as_bytes()
+                    .windows(self.query.len())
+                    .any(|part| part.eq_ignore_ascii_case(self.query.as_bytes()));
+            }
             let q = self.query.to_lowercase();
             if !name.to_lowercase().contains(&q) {
                 return false;
@@ -506,5 +514,115 @@ mod click_map_tests {
         click_map_node(&tree, NodeId(2), NodeId(1), true, &mut action);
         assert_eq!(action.toggle_review, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
+    }
+}
+
+#[cfg(test)]
+mod filter_tests {
+    use super::*;
+
+    #[test]
+    fn query_matching_preserves_lowercase_substring_semantics() {
+        let names = [
+            "",
+            "Cache.BIN",
+            "a file.log",
+            "abc",
+            "abcABC",
+            "résumé.TXT",
+            "İstanbul",
+            "ΣΟΣ",
+            "Привет.LOG",
+            "😺cache",
+            "cache\0temp",
+        ];
+        let queries = [
+            "",
+            "a",
+            "A",
+            "CACHE",
+            " file",
+            "longer-than-the-name",
+            "abcABC",
+            "résumé",
+            "RÉSUMÉ",
+            "i",
+            "İ",
+            "Σ",
+            "σος",
+            "ПРИ",
+            "😺",
+            "\0",
+        ];
+        for name in names {
+            for query in queries {
+                let filter = ViewFilter {
+                    query: query.into(),
+                    ..Default::default()
+                };
+                assert_eq!(
+                    filter.matches(name, false, 10),
+                    name.to_lowercase().contains(&query.to_lowercase()),
+                    "name={name:?}, query={query:?}",
+                );
+            }
+        }
+    }
+
+    #[test]
+    fn query_optimization_preserves_kind_size_and_extension_filters() {
+        let mut filter = ViewFilter {
+            query: "CACHE".into(),
+            min_size: 10,
+            max_size: Some(20),
+            ext: Some("LOG".into()),
+            kind: EntryKindFilter::FilesOnly,
+        };
+        assert!(filter.matches("cache.log", false, 10));
+        assert!(!filter.matches("cache.log", true, 10));
+        assert!(!filter.matches("cache.log", false, 9));
+        assert!(!filter.matches("cache.log", false, 21));
+        assert!(!filter.matches("cache.bin", false, 15));
+        assert!(!filter.matches("other.log", false, 15));
+        filter.kind = EntryKindFilter::All;
+        // Directory navigation bypasses query matching with an extension filter.
+        assert!(filter.matches("other", true, 15));
+    }
+
+    #[test]
+    #[ignore = "manual release profile: filter_query_profile -- --ignored --nocapture"]
+    fn filter_query_profile() {
+        use std::{hint::black_box, time::Instant};
+        let names: Vec<_> = (0..50_000)
+            .map(|index| format!("Cache_File_{index:05}.bin"))
+            .collect();
+        for query in ["FILE", "missing"] {
+            let filter = ViewFilter {
+                query: query.into(),
+                ..Default::default()
+            };
+            let expected = names
+                .iter()
+                .filter(|name| name.to_lowercase().contains(&query.to_lowercase()))
+                .count();
+            let mut samples = Vec::new();
+            for sample in 0..12 {
+                let start = Instant::now();
+                let count = names
+                    .iter()
+                    .filter(|name| black_box(&filter).matches(black_box(name), false, 10))
+                    .count();
+                black_box(count);
+                assert_eq!(count, expected);
+                if sample > 0 {
+                    samples.push(start.elapsed());
+                }
+            }
+            samples.sort();
+            println!(
+                "query={query}: 50,000 names, {expected} matches, median {:?}",
+                samples[5]
+            );
+        }
     }
 }

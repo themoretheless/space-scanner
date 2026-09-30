@@ -444,85 +444,57 @@ impl RuleManager {
         }
     }
 
-    pub fn categories(&self, host_only: bool) -> Vec<CategoryRow> {
-        let mut totals: BTreeMap<String, (usize, usize)> = BTreeMap::new();
-        for r in &self.pack.rules {
-            if host_only && !r.platform.matches_host() {
+    /// Aggregate borrowed catalog keys and evaluate preferences once per rule.
+    fn facet_totals<'a, K: Ord, I: IntoIterator<Item = K>>(
+        &'a self,
+        host_only: bool,
+        keys: impl Fn(&'a Rule) -> I,
+    ) -> BTreeMap<K, (usize, usize)> {
+        let mut totals = BTreeMap::new();
+        for rule in &self.pack.rules {
+            if host_only && !rule.platform.matches_host() {
                 continue;
             }
-            let e = totals.entry(r.category.clone()).or_insert((0, 0));
-            e.0 += 1;
-            if self.prefs.is_enabled(r) {
-                e.1 += 1;
+            let enabled = usize::from(self.prefs.is_enabled(rule));
+            for key in keys(rule) {
+                let counts = totals.entry(key).or_insert((0, 0));
+                counts.0 += 1;
+                counts.1 += enabled;
             }
         }
         totals
+    }
+
+    pub fn categories(&self, host_only: bool) -> Vec<CategoryRow> {
+        self.facet_totals(host_only, |rule| std::iter::once(rule.category.as_str()))
             .into_iter()
-            .map(|(name, (total, enabled))| {
-                let policy = if self.prefs.categories_off.contains(&name) {
-                    CategoryPolicy::ForceOff
-                } else if self.prefs.categories_on.contains(&name) {
-                    CategoryPolicy::ForceOn
-                } else {
-                    CategoryPolicy::Default
-                };
-                CategoryRow {
+            .map(|(name, (total, enabled))| CategoryRow {
+                name: name.to_string(),
+                total,
+                enabled,
+                policy: category_policy(
                     name,
-                    total,
-                    enabled,
-                    policy,
-                }
+                    &self.prefs.categories_off,
+                    &self.prefs.categories_on,
+                ),
             })
             .collect()
     }
 
     pub fn tags(&self, host_only: bool) -> Vec<TagRow> {
-        let mut totals: BTreeMap<String, (usize, usize)> = BTreeMap::new();
-        for r in &self.pack.rules {
-            if host_only && !r.platform.matches_host() {
-                continue;
-            }
-            for t in &r.tags {
-                let e = totals.entry(t.clone()).or_insert((0, 0));
-                e.0 += 1;
-                if self.prefs.is_enabled(r) {
-                    e.1 += 1;
-                }
-            }
-        }
-        totals
+        self.facet_totals(host_only, |rule| rule.tags.iter().map(String::as_str))
             .into_iter()
-            .map(|(name, (total, enabled))| {
-                let policy = if self.prefs.tags_off.contains(&name) {
-                    CategoryPolicy::ForceOff
-                } else if self.prefs.tags_on.contains(&name) {
-                    CategoryPolicy::ForceOn
-                } else {
-                    CategoryPolicy::Default
-                };
-                TagRow {
-                    name,
-                    total,
-                    enabled,
-                    policy,
-                }
+            .map(|(name, (total, enabled))| TagRow {
+                name: name.to_string(),
+                total,
+                enabled,
+                policy: category_policy(name, &self.prefs.tags_off, &self.prefs.tags_on),
             })
             .collect()
     }
 
     pub fn kinds(&self, host_only: bool) -> Vec<KindRow> {
-        let mut totals: BTreeMap<&'static str, (usize, usize)> = BTreeMap::new();
-        for r in &self.pack.rules {
-            if host_only && !r.platform.matches_host() {
-                continue;
-            }
-            let e = totals.entry(r.kind.as_str()).or_insert((0, 0));
-            e.0 += 1;
-            if self.prefs.is_enabled(r) {
-                e.1 += 1;
-            }
-        }
-        totals
+        self.facet_totals(host_only, |rule| std::iter::once(rule.kind.as_str()))
             .into_iter()
             .map(|(name, (total, enabled))| KindRow {
                 name: name.to_string(),
@@ -533,18 +505,7 @@ impl RuleManager {
     }
 
     pub fn risks(&self, host_only: bool) -> Vec<RiskRow> {
-        let mut totals: BTreeMap<Risk, (usize, usize)> = BTreeMap::new();
-        for r in &self.pack.rules {
-            if host_only && !r.platform.matches_host() {
-                continue;
-            }
-            let e = totals.entry(r.risk).or_insert((0, 0));
-            e.0 += 1;
-            if self.prefs.is_enabled(r) {
-                e.1 += 1;
-            }
-        }
-        totals
+        self.facet_totals(host_only, |rule| std::iter::once(rule.risk))
             .into_iter()
             .map(|(risk, (total, enabled))| RiskRow {
                 name: risk.as_str().to_string(),
@@ -665,24 +626,49 @@ impl RuleManager {
     }
 
     pub fn stats(&self) -> ManagerStats {
-        let host: Vec<_> = self
-            .pack
-            .rules
-            .iter()
-            .filter(|r| r.platform.matches_host())
-            .collect();
-        let enabled = host.iter().filter(|r| self.prefs.is_enabled(r)).count();
-        let overridden = host.iter().filter(|r| self.prefs.is_overridden(r)).count();
-        ManagerStats {
+        let mut stats = ManagerStats {
             total: self.pack.rules.len(),
-            host: host.len(),
-            enabled,
-            disabled: host.len().saturating_sub(enabled),
-            overridden,
-            categories: self.categories(true).len(),
-            tags: self.tags(true).len(),
-            kinds: self.kinds(true).len(),
+            host: 0,
+            enabled: 0,
+            disabled: 0,
+            overridden: 0,
+            categories: 0,
+            tags: 0,
+            kinds: 0,
+        };
+        let mut categories = BTreeSet::new();
+        let mut tags = BTreeSet::new();
+        let mut kinds = BTreeSet::new();
+        for rule in &self.pack.rules {
+            if !rule.platform.matches_host() {
+                continue;
+            }
+            stats.host += 1;
+            stats.enabled += usize::from(self.prefs.is_enabled(rule));
+            stats.overridden += usize::from(self.prefs.is_overridden(rule));
+            categories.insert(rule.category.as_str());
+            tags.extend(rule.tags.iter().map(String::as_str));
+            kinds.insert(rule.kind.as_str());
         }
+        stats.disabled = stats.host - stats.enabled;
+        stats.categories = categories.len();
+        stats.tags = tags.len();
+        stats.kinds = kinds.len();
+        stats
+    }
+}
+
+fn category_policy(
+    name: &str,
+    forced_off: &BTreeSet<String>,
+    forced_on: &BTreeSet<String>,
+) -> CategoryPolicy {
+    if forced_off.contains(name) {
+        CategoryPolicy::ForceOff
+    } else if forced_on.contains(name) {
+        CategoryPolicy::ForceOn
+    } else {
+        CategoryPolicy::Default
     }
 }
 
@@ -786,6 +772,126 @@ pub struct ManagerStats {
 #[cfg(test)]
 mod alias_tests {
     use super::*;
+
+    fn facet_fixture() -> RuleManager {
+        let foreign = if cfg!(target_os = "windows") {
+            "linux"
+        } else {
+            "windows"
+        };
+        let rules = serde_json::from_value(serde_json::json!([
+            {"id": "a", "name": "A", "paths": [], "category": "cache", "kind": "cache",
+             "risk": "low", "default_enabled": true, "tags": ["common", "alpha"]},
+            {"id": "b", "name": "B", "paths": [], "category": "logs", "kind": "logs",
+             "risk": "medium", "default_enabled": false, "tags": ["common", "beta"]},
+            {"id": "c", "name": "C", "paths": [], "category": "cache", "kind": "cache",
+             "risk": "high", "default_enabled": true, "tags": ["beta"]},
+            {"id": "d", "name": "D", "paths": [], "category": "other", "kind": "other",
+             "risk": "report-only", "default_enabled": true, "tags": []},
+            {"id": "e", "name": "E", "paths": [], "category": "foreign", "kind": "models",
+             "platform": foreign, "risk": "low", "default_enabled": true,
+             "tags": ["foreign"]}
+        ]))
+        .unwrap();
+        RuleManager {
+            pack: std::sync::Arc::new(RulePack {
+                rules,
+                sources: vec![],
+            }),
+            prefs: RulePrefs::default(),
+        }
+    }
+
+    #[test]
+    fn facets_preserve_sorted_counts_and_host_filtering() {
+        let manager = facet_fixture();
+        let categories = manager.categories(true);
+        assert_eq!(
+            categories
+                .iter()
+                .map(|r| (r.name.as_str(), r.total, r.enabled, r.policy))
+                .collect::<Vec<_>>(),
+            vec![
+                ("cache", 2, 2, CategoryPolicy::Default),
+                ("logs", 1, 0, CategoryPolicy::Default),
+                ("other", 1, 1, CategoryPolicy::Default),
+            ]
+        );
+        let tags = manager.tags(true);
+        assert_eq!(
+            tags.iter()
+                .map(|r| (r.name.as_str(), r.total, r.enabled))
+                .collect::<Vec<_>>(),
+            vec![("alpha", 1, 1), ("beta", 2, 1), ("common", 2, 1)]
+        );
+        let kinds = manager.kinds(true);
+        assert_eq!(
+            kinds
+                .iter()
+                .map(|r| (r.name.as_str(), r.total, r.enabled))
+                .collect::<Vec<_>>(),
+            vec![("cache", 2, 2), ("logs", 1, 0), ("other", 1, 1)]
+        );
+        let risks = manager.risks(true);
+        assert_eq!(
+            risks
+                .iter()
+                .map(|r| (r.name.as_str(), r.total, r.enabled))
+                .collect::<Vec<_>>(),
+            vec![
+                ("low", 1, 1),
+                ("medium", 1, 0),
+                ("high", 1, 1),
+                ("report-only", 1, 1),
+            ]
+        );
+        assert_eq!(manager.categories(false).len(), 4);
+        assert_eq!(manager.tags(false).len(), 4);
+        assert_eq!(manager.kinds(false).len(), 4);
+        assert_eq!(manager.risks(false)[0].total, 2);
+        let stats = manager.stats();
+        assert_eq!(
+            (stats.total, stats.host, stats.enabled, stats.disabled),
+            (5, 4, 3, 1)
+        );
+        assert_eq!(
+            (stats.overridden, stats.categories, stats.tags, stats.kinds),
+            (0, 3, 3, 3)
+        );
+    }
+
+    #[test]
+    fn facet_preferences_preserve_off_precedence_and_untagged_rules() {
+        let mut manager = facet_fixture();
+        manager.prefs.categories_off.insert("cache".into());
+        manager.prefs.categories_on.insert("cache".into());
+        manager.prefs.categories_on.insert("logs".into());
+        manager.prefs.tags_off.insert("beta".into());
+        manager.prefs.tags_on.insert("beta".into());
+        manager.prefs.tags_on.insert("common".into());
+        manager.prefs.set_rule("a", true);
+        manager.prefs.set_rule("d", false);
+        assert!(manager.categories(true).iter().all(|r| r.enabled == 0));
+        assert!(manager.tags(true).iter().all(|r| r.enabled == 0));
+        assert!(manager.kinds(true).iter().all(|r| r.enabled == 0));
+        assert!(manager.risks(true).iter().all(|r| r.enabled == 0));
+        assert_eq!(manager.categories(true)[0].policy, CategoryPolicy::ForceOff);
+        assert_eq!(manager.categories(true)[1].policy, CategoryPolicy::ForceOn);
+        assert_eq!(manager.tags(true)[1].policy, CategoryPolicy::ForceOff);
+        assert_eq!(manager.tags(true)[2].policy, CategoryPolicy::ForceOn);
+        assert_eq!(manager.stats().enabled, 0);
+        assert_eq!(manager.stats().disabled, 4);
+        assert_eq!(manager.stats().overridden, 4);
+        assert_eq!(
+            manager
+                .categories(false)
+                .iter()
+                .map(|r| r.enabled)
+                .sum::<usize>(),
+            1
+        );
+    }
+
     #[test]
     fn prepared_search_preserves_case_spacing_tags_and_preference_filters() {
         let rule: Rule = serde_json::from_value(serde_json::json!({

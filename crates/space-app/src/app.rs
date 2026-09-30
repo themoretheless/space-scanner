@@ -12,10 +12,11 @@ use space_core::{
 
 use crate::anim::{TransKind, Transition};
 use crate::junk_panel::{self, JunkAction, JunkPanelState};
+use crate::largest_files::{LargestFiles, LargestRequest, LargestRow};
 use crate::review;
 use crate::rules_panel::{self, RulesAction, RulesPanelState};
 use crate::settings::AppSettings;
-use crate::side_tree::SideTree;
+use crate::side_tree::{FolderFiles, SideTree};
 use crate::theme::{self, ACCENT, ACCENT_INK, BG, BORDER, MUTED, PANEL, PANEL_2, SAFE, TEXT};
 use crate::tm_clean::{self, CleanReport, LocalSnapshot};
 use crate::views::{self, DrawCtx, EntryKindFilter, GeomCache, ViewFilter, ViewMode};
@@ -41,9 +42,8 @@ enum BgMsg {
     JunkCleanProgress(space_clean::CleanProgress),
     JunkCleanDone(Result<space_clean::CleanResult, String>),
     Largest {
-        focus: NodeId,
-        mode: SizeMode,
-        rows: Vec<(NodeId, String, u64)>,
+        request: LargestRequest,
+        rows: Vec<LargestRow>,
     },
 }
 
@@ -95,11 +95,10 @@ pub struct SpaceApp {
     bg_tx: crossbeam_channel::Sender<BgMsg>,
     /// True while cache load / rescan / delete runs off-thread.
     busy: bool,
-    largest_key: Option<(NodeId, SizeMode)>,
-    largest_rows: Vec<(NodeId, String, u64)>,
-    largest_loading: bool,
+    largest: LargestFiles,
     /// Hierarchical sidebar tree (smooth expand).
     side_tree: SideTree,
+    folder_files: FolderFiles,
     /// Cached view geometry (sunburst mesh / treemap tiles).
     geom: Option<GeomCache>,
     settings: AppSettings,
@@ -187,10 +186,9 @@ impl SpaceApp {
             bg_rx,
             bg_tx,
             busy: false,
-            largest_key: None,
-            largest_rows: Vec::new(),
-            largest_loading: false,
+            largest: LargestFiles::default(),
             side_tree: SideTree::default(),
+            folder_files: FolderFiles::default(),
             geom: None,
             settings,
             filter_draft: String::new(),
@@ -208,7 +206,6 @@ impl SpaceApp {
             return;
         };
         // Drill-in path stays open; hover shows that circle's peers and collapses extras.
-        self.side_tree.ensure_path_expanded(&tree, self.focus);
         self.side_tree
             .sync_for_hover(&tree, self.focus, self.hovered);
         let fhash = self.filter.hash64();
@@ -388,18 +385,8 @@ impl SpaceApp {
                     self.junk.set_report(report);
                     self.status = format!(
                         "Junk · {} · {} items",
-                        format_bytes(
-                            self.junk
-                                .report
-                                .as_ref()
-                                .map(|r| r.total_bytes)
-                                .unwrap_or(0)
-                        ),
-                        self.junk
-                            .report
-                            .as_ref()
-                            .map(|r| r.findings.len())
-                            .unwrap_or(0)
+                        format_bytes(self.junk.report().map(|r| r.total_bytes).unwrap_or(0)),
+                        self.junk.report().map(|r| r.findings.len()).unwrap_or(0)
                     );
                 }
                 BgMsg::JunkScanDone(Err(e)) => {
@@ -422,7 +409,7 @@ impl SpaceApp {
                         result.deleted.len(),
                         format_bytes(result.processed_bytes)
                     );
-                    self.junk.selected.clear();
+                    self.junk.clear_selection();
                     self.start_junk_scan();
                 }
                 BgMsg::JunkCleanDone(Err(e)) => {
@@ -432,12 +419,8 @@ impl SpaceApp {
                     self.junk.error = Some(e.clone());
                     self.status = format!("Junk clean failed: {e}");
                 }
-                BgMsg::Largest { focus, mode, rows } => {
-                    self.largest_loading = false;
-                    if self.focus == focus && self.size_mode == mode {
-                        self.largest_key = Some((focus, mode));
-                        self.largest_rows = rows;
-                    }
+                BgMsg::Largest { request, rows } => {
+                    self.largest.complete(request, rows);
                 }
             }
         }
@@ -451,7 +434,7 @@ impl SpaceApp {
             || self.junk.loading
         {
             ctx.request_repaint_after(std::time::Duration::from_millis(100));
-        } else if self.largest_loading {
+        } else if self.largest.is_loading() {
             // Don't spin the UI at 20fps while a background walk finishes.
             ctx.request_repaint_after(std::time::Duration::from_millis(250));
         } else if got {
@@ -460,9 +443,7 @@ impl SpaceApp {
     }
 
     fn invalidate_largest(&mut self) {
-        self.largest_key = None;
-        self.largest_rows.clear();
-        self.largest_loading = false;
+        self.largest.invalidate();
         self.side_tree.invalidate();
         self.geom = None;
     }
@@ -473,12 +454,11 @@ impl SpaceApp {
         };
         let focus = self.focus;
         let mode = self.size_mode;
-        if self.largest_key == Some((focus, mode)) {
+        let Some(request) = self.largest.begin(focus, mode) else {
             return;
-        }
-        self.largest_loading = true;
+        };
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
+        let result = thread::Builder::new()
             .name("space-largest".into())
             .spawn(move || {
                 let ids = tree.largest_files_bounded(focus, mode, 12, 8_000);
@@ -489,9 +469,12 @@ impl SpaceApp {
                         (id, n.name.clone(), n.size(mode))
                     })
                     .collect();
-                let _ = tx.send(BgMsg::Largest { focus, mode, rows });
-            })
-            .ok();
+                let _ = tx.send(BgMsg::Largest { request, rows });
+            });
+        if let Err(error) = result {
+            self.largest.failed(request);
+            self.status = format!("Could not start largest-file search: {error}");
+        }
     }
 
     fn save_cache_async(&self, tree: Arc<SpaceTree>) {
@@ -1221,7 +1204,7 @@ impl SpaceApp {
     }
 
     fn set_mode(&mut self, mode: Mode) {
-        if mode == Mode::Clean && self.junk.report.is_none() && !self.junk.loading {
+        if mode == Mode::Clean && self.junk.report().is_none() && !self.junk.loading {
             self.open_junk_panel();
             return;
         }
@@ -1487,7 +1470,7 @@ impl SpaceApp {
 
     /// Items in the Trash queue: Explore picks plus selected junk.
     fn basket_len(&self) -> usize {
-        self.review.len() + self.junk.selected.len()
+        self.review.len() + self.junk.selected_count()
     }
 
     fn basket_bytes(&self) -> u64 {
@@ -1510,7 +1493,7 @@ impl SpaceApp {
 
     /// One confirmation trashes both sources; junk runs after the Explore batch.
     fn apply_basket(&mut self) {
-        let has_junk = !self.junk.selected.is_empty();
+        let has_junk = !(self.junk.selected_count() == 0);
         if !self.review.is_empty() && self.tree.is_some() {
             self.junk_after_delete = has_junk;
             self.apply_delete();
@@ -1882,13 +1865,13 @@ impl SpaceApp {
                             }
                             ui.add_space(10.0);
                         }
-                        if !self.junk.selected.is_empty() {
+                        if !(self.junk.selected_count() == 0) {
                             ui.label(RichText::new("FROM CLEAN").small().color(MUTED));
                             ui.horizontal(|ui| {
                                 ui.label(
                                     RichText::new(format!(
                                         "{} junk items",
-                                        self.junk.selected.len()
+                                        self.junk.selected_count()
                                     ))
                                     .size(13.0),
                                 );
@@ -1898,7 +1881,7 @@ impl SpaceApp {
                                         .on_hover_text("Deselect all junk")
                                         .clicked()
                                     {
-                                        self.junk.selected.clear();
+                                        self.junk.clear_selection();
                                     }
                                     ui.label(
                                         RichText::new(format_bytes(self.junk.selected_bytes()))
@@ -2341,11 +2324,11 @@ impl eframe::App for SpaceApp {
                         self.basket_len(),
                         format_bytes(bytes)
                     ));
-                    if !self.junk.selected.is_empty() {
+                    if !(self.junk.selected_count() == 0) {
                         ui.label(
                             RichText::new(format!(
                                 "· {} junk items  ({})",
-                                self.junk.selected.len(),
+                                self.junk.selected_count(),
                                 format_bytes(self.junk.selected_bytes())
                             ))
                             .color(MUTED),
@@ -2991,29 +2974,29 @@ impl eframe::App for SpaceApp {
                             .strong()
                             .color(MUTED),
                     );
-                    if self.largest_loading && self.largest_rows.is_empty() {
+                    if self.largest.is_loading() && self.largest.rows().is_empty() {
                         ui.horizontal(|ui| {
                             ui.spinner();
                             ui.label(RichText::new("Finding big files…").small().color(MUTED));
                         });
-                    } else if self.largest_rows.is_empty() {
+                    } else if self.largest.rows().is_empty() {
                         ui.label(
                             RichText::new("No files in this folder")
                                 .small()
                                 .color(MUTED),
                         );
                     } else {
-                        let rows = self.largest_rows.clone();
+                        let rows = self.largest.rows();
                         let mut pick = None;
                         let mut reveal = None;
                         let mut queued = None;
-                        let review = self.review.clone();
+                        let review = &self.review;
                         let tree = self.tree.clone();
                         egui::ScrollArea::vertical()
                             .id_salt("largest_files")
                             .max_height(130.0)
                             .show(ui, |ui| {
-                                for (id, name, sz) in &rows {
+                                for (id, name, sz) in rows {
                                     let selected = self.selected == Some(*id);
                                     let in_q = review.contains(id);
                                     let resp = ui.selectable_label(
@@ -3314,8 +3297,12 @@ impl eframe::App for SpaceApp {
                 .map(|n| n.name.clone())
                 .unwrap_or_else(|| "Files".into());
             let file_rows =
-                crate::side_tree::folder_files(&tree, files_dir, self.size_mode, &self.filter, 100);
+                self.folder_files
+                    .get(&tree, files_dir, self.size_mode, &self.filter, 100);
 
+            let mut select_file = None;
+            let mut toggle_file = None;
+            let mut open_file = None;
             ui.scope_builder(egui::UiBuilder::new().max_rect(files_area), |ui| {
                 ui.painter()
                     .rect_filled(files_area, 0.0, theme::PANEL);
@@ -3368,15 +3355,12 @@ impl eframe::App for SpaceApp {
                                 .color(MUTED),
                         );
                     } else {
-                        let mut select_file = None;
-                        let mut toggle_file = None;
-                        let mut open_file = None;
                         egui::ScrollArea::vertical()
                             .id_salt("map_folder_files")
                             .max_height((files_list_h - 4.0).max(0.0))
                             .auto_shrink([false, false])
                             .show(ui, |ui| {
-                                for &(id, sz) in &file_rows {
+                                for &(id, sz) in file_rows {
                                     let node = tree.node(id);
                                     let name = node.name.clone();
                                     let deletable = !node.synthetic;
@@ -3454,20 +3438,20 @@ impl eframe::App for SpaceApp {
                                     });
                                 }
                             });
-                        if let Some(id) = select_file {
-                            self.selected = Some(id);
-                        }
-                        if let Some(id) = toggle_file {
-                            review::toggle(&mut self.review, id);
-                        }
-                        if let Some(id) = open_file {
-                            self.selected = Some(id);
-                            self.reveal_selected();
-                        }
                     }
                     ui.set_opacity(1.0);
                 }
             });
+            if let Some(id) = select_file {
+                self.selected = Some(id);
+            }
+            if let Some(id) = toggle_file {
+                review::toggle(&mut self.review, id);
+            }
+            if let Some(id) = open_file {
+                self.selected = Some(id);
+                self.reveal_selected();
+            }
         });
     }
 }
