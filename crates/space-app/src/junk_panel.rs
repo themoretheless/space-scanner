@@ -8,7 +8,7 @@ use space_clean::{CleanProgress, Finding, JunkScanProgress, ScanReport};
 use space_core::format_bytes;
 
 use crate::settings::FeatureFlags;
-use crate::theme::{self, ACCENT, MUTED, PANEL_2, TEXT};
+use crate::theme::{self, ACCENT, DANGER, MUTED, PANEL_2, SAFE, TEXT};
 
 #[derive(Default)]
 pub struct JunkPanelState {
@@ -50,7 +50,8 @@ impl JunkPanelState {
             .findings
             .iter()
             .enumerate()
-            .filter(|(_, f)| !f.report_only)
+            // Pre-tick only low-risk rules: selection feeds the shared Trash queue.
+            .filter(|(_, f)| !f.report_only && risk_level(&f.risk) == 0)
             .map(|(i, _)| i)
             .collect();
         // Expand the largest cleanable category by default.
@@ -90,7 +91,6 @@ fn largest_category(report: &ScanReport) -> Option<String> {
 pub enum JunkAction {
     None,
     Rescan,
-    Clean,
     Close,
     OpenRules,
     PrefsChanged,
@@ -102,6 +102,40 @@ struct CatAgg {
     cleanable: usize,
     report_only: usize,
     indices: Vec<usize>,
+    /// Highest rule risk among removable items: 0 low, 1 medium, 2 high.
+    risk: u8,
+}
+
+fn risk_level(risk: &str) -> u8 {
+    match risk {
+        "high" => 2,
+        "medium" => 1,
+        _ => 0,
+    }
+}
+
+/// Short badge for a category: what the user should do before trashing it.
+fn risk_badge(cat: &CatAgg) -> (&'static str, egui::Color32, &'static str) {
+    if cat.cleanable == 0 {
+        return (
+            "Report only",
+            MUTED,
+            "Listed for information — never removed",
+        );
+    }
+    match cat.risk {
+        0 => ("Safe", SAFE, "Rebuilt or re-downloaded automatically"),
+        1 => (
+            "Review",
+            ACCENT,
+            "Usually fine — check the list before trashing",
+        ),
+        _ => (
+            "Careful",
+            DANGER,
+            "May hold data you want — check each item",
+        ),
+    }
 }
 
 pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFlags) -> JunkAction {
@@ -305,6 +339,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             cleanable: 0,
             report_only: 0,
             indices: Vec::new(),
+            risk: 0,
         });
         e.indices.push(i);
         if f.report_only {
@@ -312,6 +347,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         } else {
             e.bytes = e.bytes.saturating_add(f.bytes);
             e.cleanable += 1;
+            e.risk = e.risk.max(risk_level(&f.risk));
         }
     }
     let mut cat_list: Vec<CatAgg> = cats.into_values().collect();
@@ -333,7 +369,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     }
 
     egui::ScrollArea::vertical()
-        .max_height(300.0)
+        .max_height((ui.available_height() - 56.0).max(200.0))
         .id_salt("junk_cats")
         .show(ui, |ui| {
             for cat in &cat_list {
@@ -356,6 +392,16 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                             .color(TEXT)
                                             .size(14.0),
                                     );
+                                    let (badge, color, hint) = risk_badge(cat);
+                                    egui::Frame::new()
+                                        .stroke(egui::Stroke::new(1.0, color.gamma_multiply(0.5)))
+                                        .corner_radius(5)
+                                        .inner_margin(egui::Margin::symmetric(6, 1))
+                                        .show(ui, |ui| {
+                                            ui.label(RichText::new(badge).size(11.0).color(color));
+                                        })
+                                        .response
+                                        .on_hover_text(hint);
                                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                         ui.label(
                                             RichText::new(format_bytes(cat.bytes))
@@ -490,62 +536,15 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         }
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             let n = state.selected.len();
-            let bytes = state.selected_bytes();
-            let can = n > 0 && !state.loading && !state.cleaning;
-            if ui
-                .add_enabled(
-                    can,
-                    egui::Button::new(
-                        RichText::new(format!(
-                            "Move to Trash  ·  {}  ·  {}",
-                            n,
-                            format_bytes(bytes)
-                        ))
-                        .color(ACCENT),
-                    ),
-                )
-                .clicked()
-            {
-                state.confirm = true;
-            }
+            ui.label(
+                RichText::new(format!(
+                    "{n} selected · {} — added to the Trash queue",
+                    format_bytes(state.selected_bytes())
+                ))
+                .color(if n > 0 { ACCENT } else { MUTED }),
+            );
         });
     });
-
-    if state.confirm {
-        ui.add_space(8.0);
-        egui::Frame::new()
-            .fill(PANEL_2)
-            .corner_radius(8.0)
-            .inner_margin(egui::Margin::same(12))
-            .show(ui, |ui| {
-                ui.label(
-                    RichText::new(format!(
-                        "Move {} items ({}) to Trash?",
-                        state.selected.len(),
-                        format_bytes(state.selected_bytes())
-                    ))
-                    .strong(),
-                );
-                ui.label(
-                    RichText::new("You can restore from Trash if needed.")
-                        .small()
-                        .color(MUTED),
-                );
-                ui.add_space(6.0);
-                ui.horizontal(|ui| {
-                    if ui.button("Cancel").clicked() {
-                        state.confirm = false;
-                    }
-                    if ui
-                        .button(RichText::new("Move to Trash").color(ACCENT).strong())
-                        .clicked()
-                    {
-                        state.confirm = false;
-                        action = JunkAction::Clean;
-                    }
-                });
-            });
-    }
 
     action
 }

@@ -56,22 +56,39 @@ pub fn apply(ctx: &egui::Context) {
     ctx.set_style(style);
 }
 
-/// System fonts so Cyrillic / symbols render — keep small to avoid atlas/OOM kills.
+/// Geist (bundled, OFL) for UI text; system Arial behind it covers Cyrillic / symbols.
 fn install_fonts(ctx: &egui::Context) {
     let mut fonts = FontDefinitions::default();
+    fonts.font_data.insert(
+        "geist".to_owned(),
+        Arc::new(FontData::from_static(include_bytes!(
+            "../assets/fonts/Geist-Regular.ttf"
+        ))),
+    );
+    fonts.font_data.insert(
+        "geist-mono".to_owned(),
+        Arc::new(FontData::from_static(include_bytes!(
+            "../assets/fonts/GeistMono-Regular.ttf"
+        ))),
+    );
 
     // Arial (~0.7MB) covers Cyrillic without loading SFNS (7.5MB) which can jetsam the process.
-    let path = "/System/Library/Fonts/Supplemental/Arial.ttf";
-    let Ok(bytes) = std::fs::read(path) else {
-        return;
-    };
-    fonts
-        .font_data
-        .insert("arial".to_owned(), Arc::new(FontData::from_owned(bytes)));
+    let fallback = std::fs::read("/System/Library/Fonts/Supplemental/Arial.ttf").ok();
+    if let Some(bytes) = fallback {
+        fonts
+            .font_data
+            .insert("arial".to_owned(), Arc::new(FontData::from_owned(bytes)));
+    }
 
-    for family in [FontFamily::Proportional, FontFamily::Monospace] {
+    for (family, primary) in [
+        (FontFamily::Proportional, "geist"),
+        (FontFamily::Monospace, "geist-mono"),
+    ] {
         if let Some(list) = fonts.families.get_mut(&family) {
-            list.insert(0, "arial".to_owned());
+            list.insert(0, primary.to_owned());
+            if fonts.font_data.contains_key("arial") {
+                list.insert(1, "arial".to_owned());
+            }
         }
     }
 

@@ -57,6 +57,8 @@ enum Mode {
 
 pub struct SpaceApp {
     mode: Mode,
+    /// Junk selection to trash once the Explore queue delete finishes.
+    junk_after_delete: bool,
     tree: Option<Arc<SpaceTree>>,
     focus: NodeId,
     selected: Option<NodeId>,
@@ -170,6 +172,7 @@ impl SpaceApp {
             volumes_loading: true,
             review: Vec::new(),
             mode: Mode::Home,
+            junk_after_delete: false,
             confirm_delete: false,
             delete_progress: None,
             delete_started: None,
@@ -317,6 +320,9 @@ impl SpaceApp {
                     self.review.clear();
                     self.selected = None;
                     self.confirm_delete = false;
+                    if std::mem::take(&mut self.junk_after_delete) {
+                        self.apply_junk_clean();
+                    }
                     if let Some(tree) = &mut self.tree {
                         deleted_ids.sort_by_key(|id| std::cmp::Reverse(tree.path_to(*id).len()));
                         let tree = Arc::make_mut(tree);
@@ -332,6 +338,7 @@ impl SpaceApp {
                 }
                 BgMsg::DeleteDone(Err(e)) => {
                     self.busy = false;
+                    self.junk_after_delete = false;
                     self.delete_progress = None;
                     self.delete_started = None;
                     self.confirm_delete = false;
@@ -933,13 +940,8 @@ impl SpaceApp {
             }
         }
         if enter {
-            if self.confirm_delete && self.delete_progress.is_none() && !self.review.is_empty() {
-                self.apply_delete();
-                return;
-            }
-            if self.junk.confirm && !self.junk.cleaning {
-                self.junk.confirm = false;
-                self.apply_junk_clean();
+            if self.confirm_delete && self.delete_progress.is_none() && self.basket_len() > 0 {
+                self.apply_basket();
                 return;
             }
             if self.confirm_tm_clean {
@@ -1483,12 +1485,33 @@ impl SpaceApp {
             .unwrap_or(0)
     }
 
+    /// Items in the Trash queue: Explore picks plus selected junk.
+    fn basket_len(&self) -> usize {
+        self.review.len() + self.junk.selected.len()
+    }
+
+    fn basket_bytes(&self) -> u64 {
+        self.review_bytes() + self.junk.selected_bytes()
+    }
+
+    /// One confirmation trashes both sources; junk runs after the Explore batch.
+    fn apply_basket(&mut self) {
+        let has_junk = !self.junk.selected.is_empty();
+        if !self.review.is_empty() && self.tree.is_some() {
+            self.junk_after_delete = has_junk;
+            self.apply_delete();
+        } else if has_junk {
+            self.confirm_delete = false;
+            self.apply_junk_clean();
+        }
+    }
+
     /// Always-visible Trash queue — the one place deletions collect.
     fn ui_basket_pill(&mut self, ui: &mut egui::Ui) {
-        if self.review.is_empty() {
+        if self.basket_len() == 0 {
             return;
         }
-        let label = format!("Trash queue · {}", format_bytes(self.review_bytes()));
+        let label = format!("Trash queue · {}", format_bytes(self.basket_bytes()));
         let btn = egui::Button::new(RichText::new(label).color(ACCENT_INK).strong())
             .fill(ACCENT)
             .corner_radius(16)
@@ -1497,7 +1520,7 @@ impl SpaceApp {
             .add(btn)
             .on_hover_text(format!(
                 "{} items — review and move to Trash",
-                self.review.len()
+                self.basket_len()
             ))
             .clicked()
         {
@@ -1764,7 +1787,6 @@ impl SpaceApp {
         ui.add_space(10.0);
         match junk_panel::draw(ui, &mut self.junk, &mut self.settings.flags) {
             JunkAction::Rescan => self.start_junk_scan(),
-            JunkAction::Clean => self.apply_junk_clean(),
             JunkAction::Close => self.leave_clean(),
             JunkAction::OpenRules => self.open_rules_panel(),
             JunkAction::PrefsChanged => {
@@ -1775,7 +1797,7 @@ impl SpaceApp {
         }
     }
 
-    /// Clean mode, right column: the Trash queue collected in Explore.
+    /// Clean mode, right column: the one Trash queue — Explore picks and junk.
     fn ui_basket_panel(&mut self, ctx: &egui::Context) {
         egui::SidePanel::right("basket")
             .default_width(320.0)
@@ -1788,15 +1810,11 @@ impl SpaceApp {
             )
             .show(ctx, |ui| {
                 ui.label(RichText::new("Trash queue").size(17.0).strong());
-                ui.add_space(6.0);
-                let Some(tree) = self.tree.clone() else {
-                    ui.label(RichText::new("Scan a folder, then add big items from Explore.").color(MUTED));
-                    return;
-                };
-                if self.review.is_empty() {
+                ui.add_space(8.0);
+                if self.basket_len() == 0 {
                     ui.label(
                         RichText::new(
-                            "Empty. In Explore, select a file or folder and press “Add to Trash queue”.",
+                            "Empty. Tick junk on the left, or add files and folders from Explore.",
                         )
                         .color(MUTED),
                     );
@@ -1804,23 +1822,53 @@ impl SpaceApp {
                 let mut remove = None;
                 egui::ScrollArea::vertical()
                     .id_salt("basket_list")
-                    .max_height(ui.available_height() - 110.0)
+                    .max_height((ui.available_height() - 120.0).max(80.0))
                     .show(ui, |ui| {
-                        for &id in &self.review {
-                            let n = tree.node(id);
+                        if let (Some(tree), false) = (self.tree.clone(), self.review.is_empty()) {
+                            ui.label(RichText::new("FROM EXPLORE").small().color(MUTED));
+                            for &id in &self.review {
+                                let n = tree.node(id);
+                                ui.horizontal(|ui| {
+                                    ui.label(RichText::new(&n.name).size(13.0))
+                                        .on_hover_text(tree.path_string(id));
+                                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                                        if ui
+                                            .add(egui::Button::new("×").frame(false))
+                                            .on_hover_text("Remove from queue")
+                                            .clicked()
+                                        {
+                                            remove = Some(id);
+                                        }
+                                        ui.label(
+                                            RichText::new(format_bytes(n.size(self.size_mode)))
+                                                .monospace()
+                                                .small(),
+                                        );
+                                    });
+                                });
+                            }
+                            ui.add_space(10.0);
+                        }
+                        if !self.junk.selected.is_empty() {
+                            ui.label(RichText::new("FROM CLEAN").small().color(MUTED));
                             ui.horizontal(|ui| {
-                                ui.label(RichText::new(&n.name).size(13.0))
-                                    .on_hover_text(tree.path_string(id));
+                                ui.label(
+                                    RichText::new(format!(
+                                        "{} junk items",
+                                        self.junk.selected.len()
+                                    ))
+                                    .size(13.0),
+                                );
                                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                     if ui
                                         .add(egui::Button::new("×").frame(false))
-                                        .on_hover_text("Remove from queue")
+                                        .on_hover_text("Deselect all junk")
                                         .clicked()
                                     {
-                                        remove = Some(id);
+                                        self.junk.selected.clear();
                                     }
                                     ui.label(
-                                        RichText::new(format_bytes(n.size(self.size_mode)))
+                                        RichText::new(format_bytes(self.junk.selected_bytes()))
                                             .monospace()
                                             .small(),
                                     );
@@ -1833,9 +1881,10 @@ impl SpaceApp {
                 }
                 ui.with_layout(Layout::bottom_up(Align::Min), |ui| {
                     let wide = egui::vec2(ui.available_width(), 40.0);
+                    let idle = !self.busy && self.scan.is_none() && !self.junk.cleaning;
                     if ui
                         .add_enabled(
-                            !self.review.is_empty() && !self.busy && self.scan.is_none(),
+                            self.basket_len() > 0 && idle,
                             egui::Button::new(
                                 RichText::new("Move to Trash…").color(ACCENT_INK).strong(),
                             )
@@ -1850,14 +1899,14 @@ impl SpaceApp {
                         ui.label(RichText::new("Frees").color(MUTED));
                         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                             ui.label(
-                                RichText::new(format_bytes(self.review_bytes()))
+                                RichText::new(format_bytes(self.basket_bytes()))
                                     .size(24.0)
                                     .strong(),
                             );
                         });
                     });
                     ui.label(
-                        RichText::new("Junk categories are cleaned from the list on the left.")
+                        RichText::new("Everything can be restored from the Trash.")
                             .small()
                             .color(SAFE),
                     );
@@ -1949,69 +1998,31 @@ impl SpaceApp {
         });
 
         ui.add_space(22.0);
-        let col_w = ui.available_width().min(520.0);
+        let col_w = ui.available_width().min(760.0);
         ui.horizontal(|ui| {
             let pad = ((ui.available_width() - col_w) * 0.5).max(0.0);
             ui.add_space(pad);
             ui.vertical(|ui| {
                 ui.set_width(col_w);
-                ui.group(|ui| {
-                    ui.label(RichText::new("Volumes").strong().color(TEXT));
-                    ui.label(
-                        RichText::new("Click a disk to scan the whole volume.")
-                            .small()
-                            .color(MUTED),
-                    );
-                    ui.add_space(8.0);
+                ui.label(RichText::new("Disks").size(15.0).strong());
+                ui.add_space(6.0);
+                let enabled = !self.busy && self.scan.is_none();
+                let gap = 12.0;
+                let card_w = ((col_w - 2.0 * gap) / 3.0).max(180.0);
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(gap, gap);
                     for vol in &self.volumes {
-                        let used = vol.used();
-                        let frac = if vol.total > 0 {
-                            used as f32 / vol.total as f32
-                        } else {
-                            0.0
-                        };
-                        let caption = if vol.total == 0 {
-                            vol.name.clone()
-                        } else {
-                            format!(
-                                "{}  ·  {} free of {}",
-                                vol.name,
-                                format_bytes(vol.available),
-                                format_bytes(vol.total)
-                            )
-                        };
-                        let enabled = !self.busy && self.scan.is_none();
-                        let row = egui::Frame::new()
-                            .fill(theme::PANEL_2)
-                            .corner_radius(8.0)
-                            .inner_margin(egui::Margin::symmetric(10, 8))
-                            .show(ui, |ui| {
-                                ui.add_enabled_ui(enabled, |ui| {
-                                    ui.label(RichText::new(caption).size(13.0).color(TEXT));
-                                    if vol.total > 0 {
-                                        ui.add(
-                                            egui::ProgressBar::new(frac.clamp(0.0, 1.0))
-                                                .desired_width(ui.available_width())
-                                                .fill(ACCENT)
-                                                .show_percentage(),
-                                        );
-                                    }
-                                });
-                            });
-                        let hit = row.response.interact(Sense::click());
-                        hit.clone()
-                            .on_hover_text(format!("Scan {}", vol.mount.display()));
-                        if enabled && hit.clicked() {
-                            scan_path = Some(vol.mount.clone());
+                        if let Some(path) = disk_card(ui, vol, card_w, enabled) {
+                            scan_path = Some(path);
                         }
                     }
-                    if self.volumes_loading {
-                        ui.horizontal(|ui| {
-                            ui.spinner();
-                            ui.label(RichText::new("Reading disks…").small().color(MUTED));
-                        });
-                    }
                 });
+                if self.volumes_loading {
+                    ui.horizontal(|ui| {
+                        ui.spinner();
+                        ui.label(RichText::new("Reading disks…").small().color(MUTED));
+                    });
+                }
 
                 if !self.recent.is_empty() {
                     ui.add_space(16.0);
@@ -2253,11 +2264,7 @@ impl eframe::App for SpaceApp {
                         return;
                     }
 
-                    let bytes = self
-                        .tree
-                        .as_ref()
-                        .map(|t| review::queue_bytes(t, &self.review, self.size_mode))
-                        .unwrap_or(0);
+                    let bytes = self.basket_bytes();
                     ui.label(
                         RichText::new("Files stay in Trash until you empty it. You can restore them in Finder.")
                             .small()
@@ -2266,9 +2273,19 @@ impl eframe::App for SpaceApp {
                     ui.add_space(8.0);
                     ui.label(format!(
                         "Move {} item(s) ({}) to Trash?",
-                        self.review.len(),
+                        self.basket_len(),
                         format_bytes(bytes)
                     ));
+                    if !self.junk.selected.is_empty() {
+                        ui.label(
+                            RichText::new(format!(
+                                "· {} junk items  ({})",
+                                self.junk.selected.len(),
+                                format_bytes(self.junk.selected_bytes())
+                            ))
+                            .color(MUTED),
+                        );
+                    }
                     if let Some(tree) = &self.tree {
                         egui::ScrollArea::vertical()
                             .max_height(140.0)
@@ -2301,7 +2318,7 @@ impl eframe::App for SpaceApp {
                             .button(RichText::new("Move to Trash").color(theme::ACCENT))
                             .clicked()
                         {
-                            self.apply_delete();
+                            self.apply_basket();
                         }
                     });
                 });
@@ -3426,6 +3443,73 @@ fn stat_tile(ui: &mut egui::Ui, value: &str, caption: &str) {
             ui.label(RichText::new(value).size(20.0).strong());
             ui.label(RichText::new(caption).small().color(MUTED));
         });
+}
+
+/// Home screen disk card: free space first, fill bar, click to scan.
+fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> Option<PathBuf> {
+    let frac = if vol.total > 0 {
+        (vol.used() as f32 / vol.total as f32).clamp(0.0, 1.0)
+    } else {
+        0.0
+    };
+    let card = egui::Frame::new()
+        .fill(PANEL)
+        .stroke(egui::Stroke::new(1.0, BORDER))
+        .corner_radius(12)
+        .inner_margin(egui::Margin::same(16))
+        .show(ui, |ui| {
+            ui.set_width(width - 32.0);
+            ui.add_enabled_ui(enabled, |ui| {
+                ui.label(RichText::new(&vol.name).size(15.0).strong());
+                ui.add(
+                    egui::Label::new(
+                        RichText::new(vol.mount.display().to_string())
+                            .small()
+                            .monospace()
+                            .color(MUTED),
+                    )
+                    .truncate(),
+                );
+                ui.add_space(8.0);
+                if vol.total > 0 {
+                    ui.horizontal(|ui| {
+                        ui.label(
+                            RichText::new(format_bytes(vol.available))
+                                .size(22.0)
+                                .strong(),
+                        );
+                        ui.label(
+                            RichText::new(format!("free of {}", format_bytes(vol.total)))
+                                .color(MUTED),
+                        );
+                    });
+                    let (bar, _) = ui
+                        .allocate_exact_size(egui::vec2(ui.available_width(), 6.0), Sense::hover());
+                    ui.painter().rect_filled(bar, 3.0, PANEL_2);
+                    let mut fill = bar;
+                    fill.set_width(bar.width() * frac);
+                    // Amber only when the disk is nearly full.
+                    let color = if frac > 0.85 {
+                        ACCENT
+                    } else {
+                        egui::Color32::from_rgb(106, 169, 255)
+                    };
+                    ui.painter().rect_filled(fill, 3.0, color);
+                }
+                if vol.snapshot_count > 0 {
+                    ui.label(
+                        RichText::new(format!("{} local snapshots", vol.snapshot_count))
+                            .small()
+                            .color(MUTED),
+                    );
+                }
+            });
+        });
+    let hit = card
+        .response
+        .interact(Sense::click())
+        .on_hover_text(format!("Scan {}", vol.mount.display()));
+    (enabled && hit.clicked()).then(|| vol.mount.clone())
 }
 
 fn folder_arg(args: impl IntoIterator<Item = String>) -> Option<PathBuf> {
