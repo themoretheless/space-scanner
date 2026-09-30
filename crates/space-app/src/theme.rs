@@ -97,18 +97,18 @@ fn install_fonts(ctx: &egui::Context) {
 
 /// Well-spaced folder hues — brighter, clearer (charcoal map + amber family).
 const DIR_HUES: &[f32] = &[
-    28.0,  // amber
-    195.0, // teal
-    340.0, // rose
-    145.0, // green
-    250.0, // violet
-    45.0,  // gold
-    210.0, // sky
-    12.0,  // coral
-    165.0, // mint
-    280.0, // purple
-    85.0,  // chartreuse
-    320.0, // magenta
+    35.0,  // amber (accent family) — the largest sibling
+    215.0, // blue
+    162.0, // teal
+    266.0, // violet
+    9.0,   // coral
+    48.0,  // gold
+    195.0, // sky
+    300.0, // magenta
+    140.0, // green
+    235.0, // indigo
+    20.0,  // orange
+    180.0, // cyan
 ];
 
 /// Minimum squared RGB distance so adjacent wedges read as different.
@@ -130,7 +130,7 @@ pub fn color_for_adjacent(
     avoid: &[Color32],
 ) -> Color32 {
     if is_dir {
-        return pick_dir_color(name, sibling_index, avoid);
+        return pick_ranked_color(name, sibling_index, avoid);
     }
     let base = color_for_ext(extension_of(name));
     if avoid
@@ -140,7 +140,7 @@ pub fn color_for_adjacent(
         return base;
     }
     // Same extension as neighbor — nudge hue so wedges still separate.
-    pick_dir_color(name, sibling_index.wrapping_add(3), avoid)
+    pick_ranked_color(name, sibling_index.wrapping_add(3), avoid)
 }
 
 /// Child ring: related to parent, but siblings still clearly distinct.
@@ -163,6 +163,44 @@ pub fn color_child_of(parent: Color32, sibling_index: usize, avoid: &[Color32]) 
         0.58,
         0.66,
     )
+}
+
+/// Colors for one ring of siblings in size order — shared by the map and the contents list.
+pub fn sibling_palette(items: &[(&str, bool)]) -> Vec<Color32> {
+    let mut out: Vec<Color32> = Vec::with_capacity(items.len());
+    for (i, &(name, is_dir)) in items.iter().enumerate() {
+        let mut avoid: Vec<Color32> = Vec::with_capacity(3);
+        if let Some(&prev) = out.last() {
+            avoid.push(prev);
+        }
+        if is_dir {
+            avoid.extend(out.iter().copied().take(2));
+        }
+        out.push(color_for_adjacent(name, is_dir, i, &avoid));
+    }
+    if out.len() >= 2 {
+        let first = out[0];
+        let prev = out[out.len() - 2];
+        let last_i = out.len() - 1;
+        let (name, is_dir) = items[last_i];
+        out[last_i] = color_for_adjacent(name, is_dir, last_i, &[prev, first]);
+    }
+    out
+}
+
+/// Hue by rank among siblings, bright enough to read on the charcoal map.
+fn pick_ranked_color(name: &str, sibling_index: usize, avoid: &[Color32]) -> Color32 {
+    let n = DIR_HUES.len();
+    for offset in 0..n {
+        let slot = (sibling_index + offset) % n;
+        let v = 0.90 - ((sibling_index / n + offset) % 3) as f32 * 0.06;
+        let s = 0.58 + (slot % 3) as f32 * 0.04;
+        let c = hsv(DIR_HUES[slot], s, v);
+        if avoid.iter().all(|a| color_dist2(c, *a) >= MIN_COLOR_DIST2) {
+            return c;
+        }
+    }
+    pick_dir_color(name, sibling_index, avoid)
 }
 
 fn color_for_dir(name: &str) -> Color32 {

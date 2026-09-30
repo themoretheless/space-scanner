@@ -292,23 +292,50 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     let mut action = JunkAction::None;
 
     ui.horizontal(|ui| {
-        ui.label(
-            RichText::new("Caches, logs, and temp. Always to Trash — never deleted immediately.")
-                .size(12.0)
-                .color(MUTED),
-        );
+        ui.vertical(|ui| {
+            let (caption, title) = match state.report.as_ref() {
+                _ if state.loading => ("Looking through caches, logs and temp…".to_string(), None),
+                Some(r) => (
+                    format!(
+                        "{} removable items · {} categories",
+                        r.cleanable_count,
+                        r.categories.len()
+                    ),
+                    Some(r.cleanable_bytes),
+                ),
+                None => ("Caches, logs and temp files".to_string(), None),
+            };
+            ui.label(RichText::new(caption).color(MUTED));
+            ui.horizontal(|ui| {
+                ui.spacing_mut().item_spacing.x = 8.0;
+                match title {
+                    Some(bytes) => {
+                        ui.label(RichText::new("Can free up").size(30.0).strong());
+                        ui.label(
+                            RichText::new(format_bytes(bytes))
+                                .size(30.0)
+                                .strong()
+                                .color(ACCENT),
+                        );
+                    }
+                    None => {
+                        ui.label(RichText::new("Clean up").size(30.0).strong());
+                    }
+                }
+            });
+        });
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
                 .add_enabled(
                     !state.loading && !state.cleaning,
-                    egui::Button::new("Rescan"),
+                    egui::Button::new("Search again").min_size(egui::vec2(0.0, 40.0)),
                 )
                 .clicked()
             {
                 action = JunkAction::Rescan;
             }
             if ui
-                .button("Rules…")
+                .add(egui::Button::new("Rules…").min_size(egui::vec2(0.0, 40.0)))
                 .on_hover_text("Turn individual rules on or off")
                 .clicked()
             {
@@ -457,24 +484,6 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         return action;
     };
 
-    // Totals strip
-    let cleanable_bytes = report.cleanable_bytes;
-    let cleanable_n = report.cleanable_count;
-    ui.horizontal(|ui| {
-        ui.label(
-            RichText::new(format_bytes(cleanable_bytes))
-                .size(22.0)
-                .strong()
-                .color(ACCENT),
-        );
-        ui.label(
-            RichText::new(format!("reclaimable · {cleanable_n} items"))
-                .size(13.0)
-                .color(MUTED),
-        );
-    });
-    ui.add_space(8.0);
-
     // Risk filter chips, with counts per group.
     ui.horizontal(|ui| {
         for (f, label) in [
@@ -513,7 +522,6 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         .iter()
         .filter(|c| filter == RiskFilter::All || RiskFilter::of(c) == filter)
         .collect();
-    let max_bytes = cat_list.first().map(|c| c.bytes).unwrap_or(1).max(1);
 
     if cat_list.is_empty() {
         ui.label(
@@ -529,123 +537,125 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.add_space(8.0);
     }
 
-    egui::ScrollArea::vertical()
-        .max_height(300.0)
-        .id_salt("junk_cats")
+    let findings = &report.scan.findings;
+    egui::Frame::new()
+        .fill(theme::PANEL)
+        .stroke(egui::Stroke::new(1.0_f32, theme::BORDER))
+        .corner_radius(14)
         .show(ui, |ui| {
-            for cat in cat_list {
-                let open = state.expanded_cat.as_deref() == Some(cat.name.as_str());
-                let frac = cat.bytes as f32 / max_bytes as f32;
-
-                let row = egui::Frame::new()
-                    .fill(PANEL_2)
-                    .corner_radius(8.0)
-                    .inner_margin(egui::Margin::symmetric(12, 10))
-                    .show(ui, |ui| {
-                        ui.horizontal(|ui| {
-                            let chev = if open { "▾" } else { "▸" };
-                            ui.label(RichText::new(chev).color(MUTED).monospace());
-                            ui.vertical(|ui| {
+            egui::ScrollArea::vertical()
+                .max_height((ui.available_height() - 64.0).max(160.0))
+                .id_salt("junk_cats")
+                .auto_shrink([false, true])
+                .show(ui, |ui| {
+                    ui.spacing_mut().item_spacing.y = 0.0;
+                    for (row, cat) in cat_list.iter().copied().enumerate() {
+                        if row > 0 {
+                            let (line, _) = ui.allocate_exact_size(
+                                egui::vec2(ui.available_width(), 1.0),
+                                Sense::hover(),
+                            );
+                            ui.painter().rect_filled(line, 0.0, theme::BORDER);
+                        }
+                        let open = state.expanded_cat.as_deref() == Some(cat.name.as_str());
+                        let picked = cat
+                            .indices
+                            .iter()
+                            .filter(|&&i| state.selection.contains(i))
+                            .count();
+                        egui::Frame::new()
+                            .inner_margin(egui::Margin::symmetric(18, 14))
+                            .show(ui, |ui| {
                                 ui.horizontal(|ui| {
-                                    ui.label(
-                                        RichText::new(cat_title(&cat.name))
-                                            .strong()
-                                            .color(TEXT)
-                                            .size(14.0),
-                                    );
+                                    ui.spacing_mut().item_spacing.x = 14.0;
+                                    let mut all = cat.cleanable > 0 && picked == cat.cleanable;
+                                    if ui
+                                        .add_enabled(
+                                            cat.cleanable > 0,
+                                            egui::Checkbox::without_text(&mut all),
+                                        )
+                                        .on_hover_text("Add or remove the whole category")
+                                        .changed()
+                                    {
+                                        state.selection.set_category(cat, findings, all);
+                                    }
                                     let (label, color, hint) = badge(cat.cleanable > 0, cat.risk);
-                                    egui::Frame::new()
-                                        .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
-                                        .corner_radius(5)
-                                        .inner_margin(egui::Margin::symmetric(6, 1))
-                                        .show(ui, |ui| {
-                                            ui.label(RichText::new(label).size(11.0).color(color));
-                                        })
-                                        .response
-                                        .on_hover_text(hint);
+                                    let (icon, _) = ui.allocate_exact_size(
+                                        egui::vec2(34.0, 34.0),
+                                        Sense::hover(),
+                                    );
+                                    ui.painter().rect_filled(icon, 9.0, PANEL_2);
+                                    ui.painter().circle_filled(icon.center(), 5.0, color);
+                                    ui.vertical(|ui| {
+                                        ui.spacing_mut().item_spacing.y = 2.0;
+                                        let chev = if open { "▾" } else { "▸" };
+                                        if ui
+                                            .add(
+                                                egui::Button::new(
+                                                    RichText::new(format!(
+                                                        "{}  {chev}",
+                                                        cat_title(&cat.name)
+                                                    ))
+                                                    .size(15.0)
+                                                    .strong()
+                                                    .color(TEXT),
+                                                )
+                                                .frame(false),
+                                            )
+                                            .on_hover_text(if open {
+                                                "Hide items"
+                                            } else {
+                                                "Show items"
+                                            })
+                                            .clicked()
+                                        {
+                                            state.expanded_cat =
+                                                if open { None } else { Some(cat.name.clone()) };
+                                        }
+                                        let mut sub = format!("{} removable", cat.cleanable);
+                                        if picked > 0 && picked < cat.cleanable {
+                                            sub.push_str(&format!(" · {picked} selected"));
+                                        }
+                                        if cat.report_only > 0 {
+                                            sub.push_str(&format!(
+                                                " · {} listed only",
+                                                cat.report_only
+                                            ));
+                                        }
+                                        ui.label(RichText::new(sub).size(13.0).color(MUTED));
+                                    });
                                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                         ui.label(
                                             RichText::new(format_bytes(cat.bytes))
+                                                .size(15.0)
                                                 .strong()
-                                                .color(ACCENT)
                                                 .monospace(),
                                         );
+                                        egui::Frame::new()
+                                            .stroke(egui::Stroke::new(
+                                                1.0_f32,
+                                                color.gamma_multiply(0.5),
+                                            ))
+                                            .corner_radius(6)
+                                            .inner_margin(egui::Margin::symmetric(8, 3))
+                                            .show(ui, |ui| {
+                                                ui.label(
+                                                    RichText::new(label).size(12.0).color(color),
+                                                );
+                                            })
+                                            .response
+                                            .on_hover_text(hint);
                                     });
                                 });
-                                // Size bar — animate fill when category appears.
-                                let bar_w = ui.available_width().max(40.0);
-                                let bar = egui::Rect::from_min_size(
-                                    ui.cursor().min,
-                                    egui::vec2(bar_w, 4.0),
-                                );
-                                ui.allocate_rect(bar, Sense::hover());
-                                ui.painter().rect_filled(bar, 2.0, theme::BORDER);
-                                let grow = ui.ctx().animate_bool_with_time(
-                                    ui.id().with(("junk_bar", cat.name.as_str())),
-                                    true,
-                                    0.45,
-                                );
-                                let fill_w = bar_w * frac.clamp(0.04, 1.0) * grow;
-                                let fill =
-                                    egui::Rect::from_min_size(bar.min, egui::vec2(fill_w, 4.0));
-                                ui.painter().rect_filled(fill, 2.0, ACCENT);
-                                ui.add_space(2.0);
-                                ui.label(
-                                    RichText::new(format!(
-                                        "{} removable{}",
-                                        cat.cleanable,
-                                        if cat.report_only > 0 {
-                                            format!(
-                                                " · {} listed only (not removable)",
-                                                cat.report_only
-                                            )
-                                        } else {
-                                            String::new()
-                                        }
-                                    ))
-                                    .small()
-                                    .color(MUTED),
-                                );
+                                if open {
+                                    ui.add_space(8.0);
+                                    ui.indent("junk_items", |ui| {
+                                        draw_finding_rows(ui, cat, findings, &mut state.selection);
+                                    });
+                                }
                             });
-                        });
-                    });
-
-                let cat_click = row.response.interact(Sense::click());
-                cat_click.clone().on_hover_text(if open {
-                    "Hide items"
-                } else {
-                    "Click to list items"
-                });
-                if cat_click.clicked() {
-                    if open {
-                        state.expanded_cat = None;
-                    } else {
-                        state.expanded_cat = Some(cat.name.clone());
                     }
-                }
-
-                if open {
-                    ui.add_space(4.0);
-                    ui.indent("junk_items", |ui| {
-                        draw_finding_rows(ui, cat, &report.scan.findings, &mut state.selection);
-                        ui.horizontal(|ui| {
-                            if ui.small_button("Select all").clicked() {
-                                state
-                                    .selection
-                                    .set_category(cat, &report.scan.findings, true);
-                            }
-                            if ui.small_button("Select none").clicked() {
-                                state
-                                    .selection
-                                    .set_category(cat, &report.scan.findings, false);
-                            }
-                        });
-                    });
-                    ui.add_space(6.0);
-                } else {
-                    ui.add_space(6.0);
-                }
-            }
+                });
         });
 
     ui.add_space(10.0);
@@ -951,11 +961,27 @@ mod tests {
         let first = draw_frame(&ctx, &mut state);
         let texts = path_texts(&first);
         assert!(!texts.is_empty());
-        assert!(texts.len() < 20, "only viewport rows should be painted");
+        // The list fills the Clean screen; still only the rows in its viewport are painted.
+        assert!(texts.len() < 40, "only viewport rows should be painted");
         assert_eq!(texts[0].galley.text(), "/tmp/junk-panel/0/cache.bin");
         let first_row_y = texts[0].pos.y + texts[0].galley.size().y / 2.0;
-        // The checkbox starts at the indented content edge (8 px panel + 18 px indent).
-        let checkbox = egui::pos2(35.0, first_row_y);
+        // The checkbox sits just left of the row's size label.
+        let size_label = first
+            .shapes
+            .iter()
+            .filter_map(|shape| match &shape.shape {
+                egui::Shape::Text(text)
+                    if text.galley.text().trim() == format_bytes(4_096)
+                        && (text.pos.y + text.galley.size().y / 2.0 - first_row_y).abs() < 4.0 =>
+                {
+                    Some(text.pos.x)
+                }
+                _ => None,
+            })
+            .next()
+            .expect("size label of the first row");
+        let checkbox_x = size_label - 15.0;
+        let checkbox = egui::pos2(checkbox_x, first_row_y);
         draw_input(
             &ctx,
             &mut state,
@@ -1009,7 +1035,7 @@ mod tests {
             last = draw_frame(&ctx, &mut state);
         }
         let texts = path_texts(&last);
-        assert!(texts.len() < 20);
+        assert!(texts.len() < 40);
         assert!(
             texts
                 .iter()
@@ -1026,7 +1052,10 @@ mod tests {
             .iter()
             .find(|text| text.galley.text() == "/tmp/junk-panel/1999/cache.bin")
             .unwrap();
-        let checkbox = egui::pos2(35.0, final_row.pos.y + final_row.galley.size().y / 2.0);
+        let checkbox = egui::pos2(
+            checkbox_x,
+            final_row.pos.y + final_row.galley.size().y / 2.0,
+        );
         draw_input(
             &ctx,
             &mut state,
