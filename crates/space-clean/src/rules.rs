@@ -784,7 +784,7 @@ mod tests {
             "rules:\n- id: cache\n  name: Cache\n  description: fixture\n  paths: [/tmp/cache]\n",
         )
         .unwrap();
-        let pack = RulePack::load_many(&[root.clone()]).unwrap();
+        let pack = RulePack::load_many(std::slice::from_ref(&root)).unwrap();
         let key = blake3::hash(b"source version one");
         let path = root.join("catalog.bin");
         write_catalog_cache(&path, &key, &pack).unwrap();

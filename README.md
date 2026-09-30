@@ -96,3 +96,9 @@ Expand: `RULES_TARGET=15000 ruby scripts/expand_rules_to_target.rb`
 OS seeds: `ruby scripts/gen_win_linux_rules.rb`
 
 In the app: **Junk** (clean) · **Rules** (manager).
+
+### MCP server
+
+`cargo build -p space-mcp --release` builds `target/release/space-mcp`, a stdio MCP
+server for disk/junk scans and rule inspection. It supports paginated results and
+uses the same scanner and preferences as the app. See [MCP setup and tools](docs/MCP.md).

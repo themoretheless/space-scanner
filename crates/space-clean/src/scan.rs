@@ -107,6 +107,34 @@ impl<F: FnMut(JunkScanProgress)> ProgressReporter<F> {
     }
 }
 
+/// Accumulated results shared by ordinary and grouped rule traversal.
+#[derive(Default)]
+struct ScanResults {
+    findings: Vec<Finding>,
+    skipped_roots: Vec<String>,
+    matched_rules: std::collections::BTreeSet<String>,
+}
+
+impl ScanResults {
+    fn into_report(mut self, rules_scanned: usize) -> ScanReport {
+        self.findings.sort_by(|a, b| a.path.cmp(&b.path));
+        self.findings.dedup_by(|a, b| a.path == b.path);
+        let total_bytes = self
+            .findings
+            .iter()
+            .filter(|finding| !finding.report_only)
+            .map(|finding| finding.bytes)
+            .sum();
+        ScanReport {
+            findings: self.findings,
+            total_bytes,
+            rules_matched: self.matched_rules.len(),
+            rules_scanned,
+            skipped_roots: self.skipped_roots,
+        }
+    }
+}
+
 fn scan_rules_impl<'a>(
     rules: impl IntoIterator<Item = &'a Rule>,
     opts: &ScanOptions,
@@ -120,10 +148,8 @@ fn scan_rules_impl<'a>(
         roots_total: rules.iter().map(|r| r.paths.len()).sum(),
         ..Default::default()
     };
-    let mut findings = Vec::new();
-    let mut skipped_roots = Vec::new();
+    let mut results = ScanResults::default();
     let mut glob_cache = GlobCache::default();
-    let mut matched_rules = std::collections::BTreeSet::new();
     // Reuse identical traversal predicates, preserving rule order and first-match
     // attribution. Tags and labels may differ without changing filesystem work.
     let mut traversals: HashMap<Vec<u8>, std::ops::Range<usize>> = HashMap::new();
@@ -133,12 +159,15 @@ fn scan_rules_impl<'a>(
         &rules,
         opts,
         &mut glob_cache,
-        &mut findings,
-        &mut skipped_roots,
-        &mut matched_rules,
+        &mut results,
         &mut progress,
         &mut on_progress,
     )?;
+    let ScanResults {
+        findings,
+        skipped_roots,
+        matched_rules,
+    } = &mut results;
     for (rule_index, rule) in rules.into_iter().enumerate() {
         progress.current_rule = rule.name.clone();
         progress.rules_done = rule_index;
@@ -232,8 +261,8 @@ fn scan_rules_impl<'a>(
                         &exclude,
                         &exclude_dirs,
                         &required_ancestor,
-                        &mut findings,
-                        &mut matched_rules,
+                        findings,
+                        matched_rules,
                         &mut progress,
                         &mut on_progress,
                     )?;
@@ -249,22 +278,9 @@ fn scan_rules_impl<'a>(
         on_progress.emit(&progress);
     }
 
-    findings.sort_by(|a, b| a.path.cmp(&b.path));
-    findings.dedup_by(|a, b| a.path == b.path);
-
-    let total_bytes = findings
-        .iter()
-        .filter(|f| !f.report_only)
-        .map(|f| f.bytes)
-        .sum();
+    let report = results.into_report(rules_scanned);
     on_progress.force(&progress);
-    Ok(ScanReport {
-        findings,
-        total_bytes,
-        rules_matched: matched_rules.len(),
-        rules_scanned,
-        skipped_roots,
-    })
+    Ok(report)
 }
 
 struct CompiledProjectRule<'a> {
@@ -286,12 +302,15 @@ fn scan_grouped_project_rules(
     rules: &[&Rule],
     opts: &ScanOptions,
     glob_cache: &mut GlobCache,
-    findings: &mut Vec<Finding>,
-    skipped_roots: &mut Vec<String>,
-    matched_rules: &mut std::collections::BTreeSet<String>,
+    results: &mut ScanResults,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Result<std::collections::BTreeSet<usize>> {
+    let ScanResults {
+        findings,
+        skipped_roots,
+        matched_rules,
+    } = results;
     let grouped_indexes: std::collections::BTreeSet<usize> = rules
         .iter()
         .enumerate()
@@ -356,7 +375,7 @@ fn scan_grouped_project_rules(
     }
 
     progress.current_rule = format!("Project outputs ({} rules)", grouped_indexes.len());
-    on_progress.emit(&progress);
+    on_progress.emit(progress);
     let mut pending_sizes = Vec::new();
     for (root, mut group) in roots {
         group.rule_indexes.sort_unstable();
@@ -376,7 +395,7 @@ fn scan_grouped_project_rules(
             on_progress,
         )?;
         progress.roots_done += group.root_occurrences;
-        on_progress.emit(&progress);
+        on_progress.emit(progress);
     }
     size_grouped_findings(findings, &pending_sizes, progress, on_progress);
     Ok(grouped_indexes)
@@ -410,7 +429,7 @@ fn collect_grouped_project_root(
         progress.entries_seen = progress.entries_seen.saturating_add(1);
         if progress.entries_seen.is_multiple_of(64) {
             progress.current_path = path.to_path_buf();
-            on_progress.emit(&progress);
+            on_progress.emit(progress);
         }
         if path == root || entry.file_type().is_symlink() {
             continue;
@@ -519,7 +538,7 @@ fn size_grouped_findings(
                 progress.bytes_found = progress.bytes_found.saturating_add(bytes);
             }
             progress.current_path = path;
-            on_progress.emit(&progress);
+            on_progress.emit(progress);
         }
     });
 }
@@ -577,7 +596,7 @@ fn collect_under(
         progress.entries_seen = progress.entries_seen.saturating_add(1);
         if progress.entries_seen.is_multiple_of(64) {
             progress.current_path = path.to_path_buf();
-            on_progress.emit(&progress);
+            on_progress.emit(progress);
         }
         if path == root {
             continue;
@@ -775,7 +794,7 @@ fn dir_size(
         }
         if progress.entries_seen.is_multiple_of(128) {
             progress.current_path = entry.path().to_path_buf();
-            on_progress.emit(&progress);
+            on_progress.emit(progress);
         }
     }
     bytes
@@ -1057,6 +1076,29 @@ exclude_globs: ['**/keep.log']
         assert_eq!(report_only.total_bytes, 0);
         assert_eq!(report_progress.findings_found, 0);
         assert_eq!(report_progress.bytes_found, 0);
+
+        // Grouped project outputs and ordinary files contribute to the same report.
+        fs::write(root.join("trace.log"), b"log!").unwrap();
+        let mut logs = bin_rule.clone();
+        logs.id = "test-project-logs".into();
+        logs.match_directories = false;
+        logs.required_ancestor_globs.clear();
+        logs.include_globs = vec!["**/*.log".into()];
+        let mut mixed_progress = JunkScanProgress::default();
+        let mixed = scan_rules_with_progress(
+            [&bin_rule, &logs, &obj_rule],
+            &ScanOptions::default(),
+            |progress| mixed_progress = progress,
+        )
+        .unwrap();
+        assert_eq!(mixed.findings.len(), 3);
+        assert_eq!(mixed.total_bytes, 9);
+        assert_eq!(mixed.rules_matched, 3);
+        assert_eq!(mixed.rules_scanned, 3);
+        assert_eq!(mixed_progress.rules_done, 3);
+        assert_eq!(mixed_progress.roots_done, 3);
+        assert_eq!(mixed_progress.bytes_found, 9);
+        assert!(mixed.skipped_roots.is_empty());
         fs::remove_dir_all(root).unwrap();
     }
 }

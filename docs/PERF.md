@@ -184,3 +184,122 @@ Two paired release runs (second pair in reversed order) measured:
 Search returned the same 311,757 / zero matches. The missing-root scan returned
 zero findings and processed all 10,000 rules. These are warm local microbenchmarks;
 the smaller missing-root improvement varied between 4% and 11%.
+
+## Tree queries and UI work (September 30, 2026)
+
+Largest-file queries now select the requested prefix before sorting it. The
+comparator includes discovery order, preserving the previous stable ordering
+when names and sizes tie. The bounded depth-first walk uses an explicit stack;
+tests include a 30,000-level tree. Child sorting reuses its existing allocation,
+and path assembly copies borrowed names directly into the final string.
+
+Paired local release runs, alternating before/after order, with 11 samples after
+warmup on trees in memory:
+
+| Operation | Before | After |
+|---|---:|---:|
+| Largest 50 of 24,999 files, apparent size | 929–936 µs | 155–157 µs |
+| Largest 50 of 24,999 files, allocated size | 913–922 µs | 157 µs |
+| Construct a path with 128 components | 3.27–3.29 µs | 0.69–0.70 µs |
+
+Reference comparisons check exact node IDs, stable ties, both size modes and
+visit budgets. Selection retains each candidate's discovery index, increasing
+temporary storage compared with the previous vector of node IDs. These timings
+measure queries after scanning, not disk traversal.
+
+The app now starts one largest-file task per request instead of repeating it on
+every frame while a result is pending. A generation number rejects responses from
+older trees even when their focus node IDs match. Request state is separate from
+rendering. Tests cover repeated frames, empty results, rescan replacement,
+out-of-order completion and failed thread creation retries.
+
+The file strip caches its rows by immutable tree identity, folder, size mode,
+filter and limit. A weak reference avoids retaining an old tree and invalidates
+the cache on `Arc::make_mut` edits. With 50,000 direct files and a 100-row limit,
+uncached calculation took 550 µs versus 15 ns for unchanged cache access (31 local
+release samples). A cache miss still computes the list; this is not a first-load
+speedup. Tests cover filter changes, empty lists, modes, limits and tree edits.
+
+```bash
+cargo run -p space-core --release --example tree_profile
+cargo test -p space-app --release folder_files_profile -- --ignored --nocapture
+```
+
+## Catalog statistics and facets
+
+Statistics use one pass without constructing display rows or a temporary list of
+host rules. Category, tag, kind and risk lists share one aggregation function,
+borrow keys from the catalog, and evaluate preferences once per rule. Owned names
+are created only for the final rows.
+
+Local release medians on the 933,179-rule catalog, five samples after warmup,
+with output formatting included equally:
+
+| Operation | Default preferences, before → after | Overrides, before → after |
+|---|---:|---:|
+| Statistics | 172.05 → 82.03 ms | 325.57 → 93.89 ms |
+| Tags | 136.23 → 73.81 ms | 262.43 → 80.11 ms |
+| Categories | 13.03 → 7.75 ms | 23.59 → 18.31 ms |
+
+All ten output hashes matched across versions. Kind/risk timings were broadly
+unchanged; the default kind list took about 0.9 ms longer. Tests cover platform
+filtering, row order/counts, preference precedence and untagged rules.
+
+```bash
+cargo run -p space-clean --release --example manager_profile
+```
+
+## Large junk reports
+
+Report aggregates are prepared once when a scan completes. A separate selection
+bitmap maintains count and byte totals on checkbox changes. Read-only findings
+cannot enter the selection, and selection totals handle saturation and subsequent
+deselection. The single category scroller renders only finding rows intersecting
+its viewport; checkbox IDs remain stable while scrolling.
+
+Headless egui release measurements, 900×700 viewport, one expanded category,
+20 frames after warmup (report construction excluded):
+
+| Findings | Before, mean per frame | After, mean per frame |
+|---|---:|---:|
+| 1,000 | 1.537 ms | 0.02868 ms |
+| 20,000 | 54.301 ms | 0.02757 ms |
+
+This measures egui frame construction without GPU rendering. Cached selected-byte
+totals no longer clone findings; the old 20,000-item calculation took 1.804 ms per
+call. Tests click a checkbox, scroll to the final finding, verify selection
+survives scrolling, and cover report replacement and report-only safety.
+
+```bash
+cargo test -p space-app --release junk_panel::tests
+cargo test -p space-app --release benchmark_large_junk_panel -- --ignored --nocapture
+```
+
+## ASCII filtering and scan result ownership
+
+ASCII filename/query matching now compares borrowed byte windows without building
+lowercase strings for every node. Non-ASCII input retains Unicode lowercase
+matching. Tests compare both paths against the previous substring semantics and
+check that kind, size and extension filters retain their behavior.
+
+Local release medians, 50,000 synthetic filenames, 11 samples after warmup:
+
+| Query | Matches | Before | After |
+|---|---:|---:|---:|
+| `FILE` | 50,000 | 2.570 ms | 0.519 ms |
+| `missing` | 0 | 3.851 ms | 0.791 ms |
+
+This measures filename filtering in memory. Unicode queries keep their previous
+allocation cost. The sidebar also stops copying its row vector every frame and
+avoids a redundant ancestor walk and expansion-set clone during hover updates.
+Tests cover visible peers, focus ancestors and collapse when hover ends.
+
+Ordinary and grouped junk traversals share a result accumulator, which owns
+findings, skipped roots and matched rule IDs and constructs the final report.
+The mixed-traversal regression checks findings, totals and final progress. All
+eight existing Clippy warnings were resolved; strict workspace Clippy now passes.
+
+```bash
+cargo test -p space-app --release filter_query_profile -- --ignored --nocapture
+cargo clippy --workspace --all-targets --locked --offline -- -D warnings
+```

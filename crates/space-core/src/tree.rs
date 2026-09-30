@@ -112,16 +112,21 @@ impl SpaceTree {
     }
 
     pub fn path_string(&self, id: NodeId) -> String {
-        let names = self.breadcrumb_names(id);
-        if names.is_empty() {
-            return self.root_path.clone();
+        let chain = self.path_to(id);
+        let root = self.root_path.trim_end_matches('/');
+        let capacity = root.len()
+            + chain
+                .iter()
+                .skip(1)
+                .map(|&node| self.node(node).name.len() + 1)
+                .sum::<usize>();
+        let mut path = String::with_capacity(capacity);
+        path.push_str(root);
+        for &node in chain.iter().skip(1) {
+            path.push('/');
+            path.push_str(&self.node(node).name);
         }
-        let mut parts: Vec<&str> = Vec::new();
-        parts.push(self.root_path.trim_end_matches('/'));
-        for name in names.iter().skip(1) {
-            parts.push(name.as_str());
-        }
-        parts.join("/")
+        path
     }
 
     /// Largest files under `id`, bounded walk (avoids UI freezes on huge trees).
@@ -136,41 +141,54 @@ impl SpaceTree {
         limit: usize,
         max_visit: usize,
     ) -> Vec<NodeId> {
-        let mut files = Vec::new();
-        let mut visited = 0usize;
-        self.collect_files_bounded(id, &mut files, &mut visited, max_visit);
-        files.sort_by(|a, b| {
-            self.node(*b)
-                .size(mode)
-                .cmp(&self.node(*a).size(mode))
-                .then_with(|| self.node(*a).name.cmp(&self.node(*b).name))
-        });
+        if limit == 0 || max_visit == 0 {
+            return Vec::new();
+        }
+        let mut files = self.collect_files_bounded(id, max_visit);
+        // Include discovery order so selection preserves the previous stable
+        // ordering of files with identical sizes and names, even at the cutoff.
+        let compare = |&(a, a_order): &(NodeId, usize), &(b, b_order): &(NodeId, usize)| {
+            self.compare_nodes(a, b, mode)
+                .then_with(|| a_order.cmp(&b_order))
+        };
+        if files.len() > limit {
+            files.select_nth_unstable_by(limit, compare);
+        }
         files.truncate(limit);
+        files.sort_unstable_by(compare);
+        files.into_iter().map(|(id, _)| id).collect()
+    }
+
+    fn collect_files_bounded(&self, id: NodeId, max_visit: usize) -> Vec<(NodeId, usize)> {
+        let mut files = Vec::new();
+        let mut visited = 0;
+        // Retain only one child iterator per level. Deep trees cannot exhaust
+        // the call stack, and wide directories do not enqueue unvisited nodes.
+        let mut stack = vec![std::slice::from_ref(&id).iter()];
+        while visited < max_visit {
+            let Some(children) = stack.last_mut() else {
+                break;
+            };
+            let Some(&child) = children.next() else {
+                stack.pop();
+                continue;
+            };
+            visited += 1;
+            let node = self.node(child);
+            if node.is_dir {
+                stack.push(node.children.iter());
+            } else {
+                files.push((child, files.len()));
+            }
+        }
         files
     }
 
-    fn collect_files_bounded(
-        &self,
-        id: NodeId,
-        out: &mut Vec<NodeId>,
-        visited: &mut usize,
-        max_visit: usize,
-    ) {
-        if *visited >= max_visit {
-            return;
-        }
-        *visited += 1;
-        let node = self.node(id);
-        if !node.is_dir {
-            out.push(id);
-            return;
-        }
-        for &c in &node.children {
-            if *visited >= max_visit {
-                break;
-            }
-            self.collect_files_bounded(c, out, visited, max_visit);
-        }
+    fn compare_nodes(&self, a: NodeId, b: NodeId, mode: SizeMode) -> std::cmp::Ordering {
+        self.node(b)
+            .size(mode)
+            .cmp(&self.node(a).size(mode))
+            .then_with(|| self.node(a).name.cmp(&self.node(b).name))
     }
 
     /// Remove node from parent and subtract sizes up the ancestor chain.
@@ -198,18 +216,185 @@ impl SpaceTree {
             if !self.nodes[i].is_dir {
                 continue;
             }
-            let mut kids = self.nodes[i].children.clone();
-            kids.sort_by(|a, b| {
-                self.nodes[b.0 as usize]
-                    .size(mode)
-                    .cmp(&self.nodes[a.0 as usize].size(mode))
-                    .then_with(|| {
-                        self.nodes[a.0 as usize]
-                            .name
-                            .cmp(&self.nodes[b.0 as usize].name)
-                    })
-            });
+            let mut kids = std::mem::take(&mut self.nodes[i].children);
+            kids.sort_by(|&a, &b| self.compare_nodes(a, b, mode));
             self.nodes[i].children = kids;
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn node(name: &str, parent: Option<NodeId>, is_dir: bool) -> Node {
+        Node {
+            name: name.into(),
+            apparent_size: 0,
+            allocated_size: 0,
+            file_count: u64::from(!is_dir),
+            is_dir,
+            synthetic: false,
+            children: Vec::new(),
+            parent,
+        }
+    }
+
+    fn empty_tree() -> SpaceTree {
+        SpaceTree {
+            root_path: "/tmp/root///".into(),
+            nodes: vec![node("root", None, true)],
+            root: NodeId(0),
+            scanned_at_unix: 0,
+            item_count: 1,
+            skipped_errors: 0,
+            hardlink_candidates: 0,
+            hardlinks_deduped: 0,
+        }
+    }
+
+    fn add_node(tree: &mut SpaceTree, parent: NodeId, node: Node) -> NodeId {
+        let id = NodeId(tree.nodes.len() as u32);
+        tree.nodes.push(node);
+        tree.node_mut(parent).children.push(id);
+        tree.item_count += 1;
+        id
+    }
+
+    fn mixed_tree() -> SpaceTree {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        for directory in 0..7 {
+            let dir = add_node(
+                &mut tree,
+                root,
+                node(&format!("dir-{directory}"), Some(root), true),
+            );
+            for index in 0..37 {
+                let mut file = node(&format!("file-{}", index % 4), Some(dir), false);
+                file.apparent_size = index % 7;
+                file.allocated_size = (index * 3 + 1) % 5;
+                file.synthetic = index % 11 == 0;
+                add_node(&mut tree, dir, file);
+            }
+            tree.node_mut(dir).children.reverse();
+        }
+        tree.node_mut(root).children.reverse();
+        tree
+    }
+
+    // Original bounded depth-first traversal and stable full-sort behavior.
+    fn reference_largest(
+        tree: &SpaceTree,
+        root: NodeId,
+        mode: SizeMode,
+        limit: usize,
+        max_visit: usize,
+    ) -> Vec<NodeId> {
+        fn visit(tree: &SpaceTree, id: NodeId, remaining: &mut usize, files: &mut Vec<NodeId>) {
+            if *remaining == 0 {
+                return;
+            }
+            *remaining -= 1;
+            let node = tree.node(id);
+            if node.is_dir {
+                for &child in &node.children {
+                    visit(tree, child, remaining, files);
+                }
+            } else {
+                files.push(id);
+            }
+        }
+        let mut files = Vec::new();
+        let mut remaining = max_visit;
+        visit(tree, root, &mut remaining, &mut files);
+        files.sort_by(|&a, &b| {
+            tree.node(b)
+                .size(mode)
+                .cmp(&tree.node(a).size(mode))
+                .then_with(|| tree.node(a).name.cmp(&tree.node(b).name))
+        });
+        files.truncate(limit);
+        files
+    }
+
+    #[test]
+    fn largest_files_preserves_visit_budget_modes_and_stable_ties() {
+        let tree = mixed_tree();
+        let directory = tree.children(tree.root)[0];
+        let file = tree.children(directory)[0];
+        for start in [tree.root, directory, file] {
+            for mode in [SizeMode::Apparent, SizeMode::OnDisk] {
+                for limit in [0, 1, 2, 15, 50, 260, usize::MAX] {
+                    for max_visit in [0, 1, 2, 17, 64, 200, 1_000, usize::MAX] {
+                        assert_eq!(
+                            tree.largest_files_bounded(start, mode, limit, max_visit),
+                            reference_largest(&tree, start, mode, limit, max_visit),
+                            "start={start:?}, mode={mode:?}, limit={limit}, budget={max_visit}",
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    #[test]
+    fn largest_files_walks_deep_trees_without_recursion() {
+        let mut tree = empty_tree();
+        let mut parent = tree.root;
+        for _ in 1..30_000 {
+            parent = add_node(&mut tree, parent, node("dir", Some(parent), true));
+        }
+        tree.node_mut(parent).is_dir = false;
+        assert!(tree
+            .largest_files(tree.root, SizeMode::OnDisk, 1)
+            .is_empty());
+        assert!(tree
+            .largest_files_bounded(tree.root, SizeMode::OnDisk, 1, 29_999)
+            .is_empty());
+        assert_eq!(
+            tree.largest_files_bounded(tree.root, SizeMode::OnDisk, 1, 30_000),
+            vec![parent],
+        );
+    }
+
+    #[test]
+    fn path_string_preserves_root_unicode_and_synthetic_names() {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let directory = add_node(&mut tree, root, node("résumé", Some(root), true));
+        let mut file = node("· 3 small files", Some(directory), false);
+        file.synthetic = true;
+        let file = add_node(&mut tree, directory, file);
+        assert_eq!(tree.path_string(root), "/tmp/root");
+        assert_eq!(tree.path_string(directory), "/tmp/root/résumé");
+        assert_eq!(tree.path_string(file), "/tmp/root/résumé/· 3 small files");
+        tree.root_path = "/".into();
+        assert_eq!(tree.path_string(directory), "/résumé");
+    }
+
+    #[test]
+    fn child_sort_preserves_ties_in_each_size_mode() {
+        let mut tree = mixed_tree();
+        for mode in [SizeMode::Apparent, SizeMode::OnDisk, SizeMode::Apparent] {
+            let expected: Vec<_> = tree
+                .nodes
+                .iter()
+                .map(|node| {
+                    let mut children = node.children.clone();
+                    children.sort_by(|&a, &b| {
+                        tree.node(b)
+                            .size(mode)
+                            .cmp(&tree.node(a).size(mode))
+                            .then_with(|| tree.node(a).name.cmp(&tree.node(b).name))
+                    });
+                    children
+                })
+                .collect();
+            tree.sort_children_by(mode);
+            for (node, expected) in tree.nodes.iter().zip(expected) {
+                assert_eq!(node.children, expected);
+            }
         }
     }
 }
