@@ -24,6 +24,27 @@ pub struct JunkPanelState {
     pub confirm: bool,
     pub expanded_cat: Option<String>,
     pub error: Option<String>,
+    pub risk_filter: RiskFilter,
+}
+
+/// Which risk group the category list shows.
+#[derive(Clone, Copy, Default, PartialEq, Eq)]
+pub enum RiskFilter {
+    #[default]
+    All,
+    Safe,
+    Review,
+    ReportOnly,
+}
+
+impl RiskFilter {
+    fn of(cleanable: bool, risk: u8) -> Self {
+        match (cleanable, risk) {
+            (false, _) => Self::ReportOnly,
+            (true, 0) => Self::Safe,
+            _ => Self::Review,
+        }
+    }
 }
 
 impl JunkPanelState {
@@ -114,16 +135,16 @@ fn risk_level(risk: &str) -> u8 {
     }
 }
 
-/// Short badge for a category: what the user should do before trashing it.
-fn risk_badge(cat: &CatAgg) -> (&'static str, egui::Color32, &'static str) {
-    if cat.cleanable == 0 {
+/// Short badge: what the user should do before trashing it.
+fn badge(cleanable: bool, risk: u8) -> (&'static str, egui::Color32, &'static str) {
+    if !cleanable {
         return (
             "Report only",
             MUTED,
             "Listed for information — never removed",
         );
     }
-    match cat.risk {
+    match risk {
         0 => ("Safe", SAFE, "Rebuilt or re-downloaded automatically"),
         1 => (
             "Review",
@@ -135,6 +156,27 @@ fn risk_badge(cat: &CatAgg) -> (&'static str, egui::Color32, &'static str) {
             DANGER,
             "May hold data you want — check each item",
         ),
+    }
+}
+
+fn risk_badge(cat: &CatAgg) -> (&'static str, egui::Color32, &'static str) {
+    badge(cat.cleanable > 0, cat.risk)
+}
+
+impl JunkPanelState {
+    /// Junk rule covering `path` (the path itself or a parent), from the last junk scan.
+    pub fn risk_hint(
+        &self,
+        path: &std::path::Path,
+    ) -> Option<(String, &'static str, egui::Color32, &'static str)> {
+        let report = self.report.as_ref()?;
+        let f = report
+            .findings
+            .iter()
+            .filter(|f| path.starts_with(&f.path))
+            .max_by_key(|f| f.path.as_os_str().len())?;
+        let (label, color, hint) = badge(!f.report_only, risk_level(&f.risk));
+        Some((cat_title(&f.category), label, color, hint))
     }
 }
 
@@ -352,6 +394,42 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     }
     let mut cat_list: Vec<CatAgg> = cats.into_values().collect();
     cat_list.sort_by_key(|category| std::cmp::Reverse(category.bytes));
+
+    // Risk filter chips, with counts per group.
+    let group = |c: &CatAgg| RiskFilter::of(c.cleanable > 0, c.risk);
+    ui.horizontal(|ui| {
+        for (f, label) in [
+            (RiskFilter::All, "All"),
+            (RiskFilter::Safe, "Safe"),
+            (RiskFilter::Review, "Review"),
+            (RiskFilter::ReportOnly, "Report only"),
+        ] {
+            let n = cat_list
+                .iter()
+                .filter(|c| f == RiskFilter::All || group(c) == f)
+                .count();
+            let on = state.risk_filter == f;
+            let chip = egui::Button::new(RichText::new(format!("{label} · {n}")).color(if on {
+                theme::BG
+            } else {
+                MUTED
+            }))
+            .fill(if on { TEXT } else { egui::Color32::TRANSPARENT })
+            .stroke(if on {
+                egui::Stroke::NONE
+            } else {
+                egui::Stroke::new(1.0, theme::BORDER)
+            })
+            .corner_radius(14);
+            if ui.add(chip).clicked() {
+                state.risk_filter = f;
+            }
+        }
+    });
+    ui.add_space(8.0);
+    if state.risk_filter != RiskFilter::All {
+        cat_list.retain(|c| group(c) == state.risk_filter);
+    }
     let max_bytes = cat_list.first().map(|c| c.bytes).unwrap_or(1).max(1);
 
     if cat_list.is_empty() {

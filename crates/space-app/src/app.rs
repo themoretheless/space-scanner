@@ -1494,6 +1494,20 @@ impl SpaceApp {
         self.review_bytes() + self.junk.selected_bytes()
     }
 
+    /// Disk the Trash queue frees space on: the scanned volume, else the boot disk.
+    fn basket_volume(&self) -> Option<&VolumeInfo> {
+        self.tree
+            .as_ref()
+            .and_then(|t| volumes::match_volume(&self.volumes, &t.root_path))
+            .or_else(|| {
+                self.volumes
+                    .iter()
+                    .find(|v| v.mount == std::path::Path::new("/"))
+            })
+            .or_else(|| self.volumes.first())
+            .filter(|v| v.total > 0)
+    }
+
     /// One confirmation trashes both sources; junk runs after the Explore batch.
     fn apply_basket(&mut self) {
         let has_junk = !self.junk.selected.is_empty();
@@ -1672,6 +1686,25 @@ impl SpaceApp {
                     stat_tile(&mut cols[1], &node.file_count.to_string(), "files");
                 });
                 ui.add_space(12.0);
+
+                let path = PathBuf::from(tree.path_string(id));
+                if let Some((category, badge, color, hint)) = self.junk.risk_hint(&path) {
+                    egui::Frame::new()
+                        .fill(PANEL_2)
+                        .stroke(egui::Stroke::new(1.0, color.gamma_multiply(0.5)))
+                        .corner_radius(10)
+                        .inner_margin(egui::Margin::same(12))
+                        .show(ui, |ui| {
+                            ui.set_width(ui.available_width());
+                            ui.label(
+                                RichText::new(format!("{badge} · {category}"))
+                                    .color(color)
+                                    .strong(),
+                            );
+                            ui.label(RichText::new(hint).small().color(MUTED));
+                        });
+                    ui.add_space(10.0);
+                }
 
                 let deletable = !node.synthetic && node.parent.is_some();
                 let queued = self.review.contains(&id);
@@ -1894,6 +1927,38 @@ impl SpaceApp {
                         .clicked()
                     {
                         self.confirm_delete = true;
+                    }
+                    if let Some(vol) = self.basket_volume() {
+                        let now = vol.available;
+                        let after = now.saturating_add(self.basket_bytes()).min(vol.total);
+                        ui.horizontal(|ui| {
+                            ui.label(
+                                RichText::new(format!("free now {}", format_bytes(now)))
+                                    .small()
+                                    .color(MUTED),
+                            );
+                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                                ui.label(
+                                    RichText::new(format!("after {}", format_bytes(after)))
+                                        .small()
+                                        .color(TEXT),
+                                );
+                            });
+                        });
+                        let (bar, _) = ui.allocate_exact_size(
+                            egui::vec2(ui.available_width(), 8.0),
+                            Sense::hover(),
+                        );
+                        let total = vol.total.max(1) as f32;
+                        ui.painter().rect_filled(bar, 4.0, BG);
+                        let mut free = bar;
+                        free.set_width(bar.width() * now as f32 / total);
+                        let mut gained = bar;
+                        gained.min.x = free.max.x;
+                        gained.set_width(bar.width() * (after - now) as f32 / total);
+                        ui.painter()
+                            .rect_filled(free, 4.0, egui::Color32::from_rgb(106, 169, 255));
+                        ui.painter().rect_filled(gained, 4.0, ACCENT);
                     }
                     ui.horizontal(|ui| {
                         ui.label(RichText::new("Frees").color(MUTED));
