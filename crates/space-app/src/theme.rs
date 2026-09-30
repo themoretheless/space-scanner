@@ -4,13 +4,18 @@ use std::sync::Arc;
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
 
-pub const BG: Color32 = Color32::from_rgb(12, 13, 15);
-pub const PANEL: Color32 = Color32::from_rgb(18, 20, 23);
-pub const PANEL_2: Color32 = Color32::from_rgb(24, 27, 31);
-pub const BORDER: Color32 = Color32::from_rgb(40, 44, 50);
-pub const TEXT: Color32 = Color32::from_rgb(228, 226, 220);
-pub const MUTED: Color32 = Color32::from_rgb(120, 126, 134);
-pub const ACCENT: Color32 = Color32::from_rgb(232, 168, 72);
+pub const BG: Color32 = Color32::from_rgb(14, 15, 17);
+pub const PANEL: Color32 = Color32::from_rgb(21, 23, 26);
+pub const PANEL_2: Color32 = Color32::from_rgb(28, 31, 35);
+pub const BORDER: Color32 = Color32::from_rgb(42, 46, 52);
+pub const TEXT: Color32 = Color32::from_rgb(236, 233, 226);
+/// Secondary text — lifted to keep 4.5:1 on PANEL.
+pub const MUTED: Color32 = Color32::from_rgb(154, 160, 168);
+pub const ACCENT: Color32 = Color32::from_rgb(240, 173, 78);
+/// Text on ACCENT fills.
+pub const ACCENT_INK: Color32 = Color32::from_rgb(26, 18, 7);
+/// "Safe to remove" signal.
+pub const SAFE: Color32 = Color32::from_rgb(92, 200, 168);
 pub const DIR: Color32 = Color32::from_rgb(48, 52, 58);
 pub const DANGER: Color32 = Color32::from_rgb(210, 90, 80);
 
@@ -19,14 +24,14 @@ pub fn apply(ctx: &egui::Context) {
 
     let mut visuals = Visuals::dark();
     visuals.window_fill = PANEL;
-    visuals.panel_fill = PANEL;
+    visuals.panel_fill = BG;
     visuals.extreme_bg_color = PANEL_2;
     visuals.override_text_color = Some(TEXT);
     visuals.widgets.noninteractive.bg_fill = PANEL;
     visuals.widgets.inactive.bg_fill = PANEL_2;
     visuals.widgets.hovered.bg_fill = Color32::from_rgb(32, 36, 42);
     visuals.widgets.active.bg_fill = Color32::from_rgb(38, 42, 48);
-    visuals.selection.bg_fill = Color32::from_rgba_unmultiplied(232, 168, 72, 48);
+    visuals.selection.bg_fill = Color32::from_rgba_unmultiplied(240, 173, 78, 48);
     visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED);
     visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT);
     visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT);
@@ -37,14 +42,14 @@ pub fn apply(ctx: &egui::Context) {
     visuals.window_corner_radius = CornerRadius::same(10);
     visuals.menu_corner_radius = CornerRadius::same(8);
     visuals.widgets.noninteractive.corner_radius = CornerRadius::same(6);
-    visuals.widgets.inactive.corner_radius = CornerRadius::same(6);
-    visuals.widgets.hovered.corner_radius = CornerRadius::same(6);
-    visuals.widgets.active.corner_radius = CornerRadius::same(6);
+    visuals.widgets.inactive.corner_radius = CornerRadius::same(8);
+    visuals.widgets.hovered.corner_radius = CornerRadius::same(8);
+    visuals.widgets.active.corner_radius = CornerRadius::same(8);
     ctx.set_visuals(visuals);
 
     let mut style = (*ctx.style()).clone();
     style.spacing.item_spacing = egui::vec2(8.0, 6.0);
-    style.spacing.button_padding = egui::vec2(10.0, 5.0);
+    style.spacing.button_padding = egui::vec2(12.0, 6.0);
     style.spacing.window_margin = Margin::same(14);
     style.spacing.indent = 12.0;
     style.interaction.show_tooltips_only_when_still = false;
