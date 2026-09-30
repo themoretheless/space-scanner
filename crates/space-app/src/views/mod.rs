@@ -36,9 +36,11 @@ impl ViewMode {
 
     pub fn click_hint(self) -> &'static str {
         match self {
-            Self::Sunburst => "Folder click opens · center goes up · ⌘-click queues Trash",
+            Self::Sunburst => {
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to review"
+            }
             Self::Container | Self::Radial | Self::Cascade => {
-                "Folder click opens · current folder goes up · ⌘-click queues Trash"
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to review"
             }
         }
     }
@@ -177,9 +179,9 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     let hint = if n.synthetic {
         "Grouped leftovers · click to select · right-click to filter by type"
     } else if n.is_dir && id == focus {
-        "Click to go up · right-click for more · ⌘-click Trash queue"
+        "Click to select · ↑ to go up · ⌘-click adds to review"
     } else if n.is_dir {
-        "Click to open this folder · right-click for more · ⌘-click Trash queue"
+        "Click to select · double-click to open · ⌘-click adds to review"
     } else {
         "Click to select · double-click Finder · ⌘-click Trash queue"
     };
@@ -199,25 +201,14 @@ pub fn click_map_node(
         action.select = Some(id);
         return;
     }
-    if n.synthetic {
-        action.select = Some(id);
-        return;
-    }
-    if n.is_dir {
-        if id == focus {
-            if let Some(parent) = n.parent {
-                action.navigate = Some(parent);
-            }
-        } else {
-            action.navigate = Some(id);
-        }
-    } else {
-        action.select = Some(id);
-    }
+    let _ = focus;
+    action.select = Some(id);
 }
 
 pub fn double_click_map_node(tree: &SpaceTree, id: NodeId, action: &mut ViewAction) {
-    if tree.node(id).is_dir {
+    if tree.node(id).synthetic {
+        action.select = Some(id);
+    } else if tree.node(id).is_dir {
         action.navigate = Some(id);
     } else {
         action.reveal = Some(id);
@@ -421,20 +412,21 @@ mod click_map_tests {
     }
 
     #[test]
-    fn click_child_folder_opens_it() {
+    fn click_child_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
         click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
-        assert_eq!(action.navigate, Some(NodeId(1)));
-        assert_eq!(action.select, None);
+        assert_eq!(action.navigate, None);
+        assert_eq!(action.select, Some(NodeId(1)));
     }
 
     #[test]
-    fn click_current_folder_goes_up() {
+    fn click_current_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
         click_map_node(&tree, NodeId(1), NodeId(1), false, &mut action);
-        assert_eq!(action.navigate, Some(NodeId(0)));
+        assert_eq!(action.navigate, None);
+        assert_eq!(action.select, Some(NodeId(1)));
     }
 
     #[test]

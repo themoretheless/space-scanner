@@ -4,11 +4,11 @@ use std::sync::Arc;
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
 
-pub const BG: Color32 = Color32::from_rgb(14, 15, 17);
-pub const PANEL: Color32 = Color32::from_rgb(21, 23, 26);
-pub const PANEL_2: Color32 = Color32::from_rgb(28, 31, 35);
+pub const BG: Color32 = Color32::from_rgb(18, 20, 24);
+pub const PANEL: Color32 = Color32::from_rgb(25, 28, 33);
+pub const PANEL_2: Color32 = Color32::from_rgb(34, 38, 45);
 pub const BORDER: Color32 = Color32::from_rgb(42, 46, 52);
-pub const TEXT: Color32 = Color32::from_rgb(236, 233, 226);
+pub const TEXT: Color32 = Color32::from_rgb(234, 238, 244);
 /// Secondary text — lifted to keep 4.5:1 on PANEL.
 pub const MUTED: Color32 = Color32::from_rgb(154, 160, 168);
 pub const ACCENT: Color32 = Color32::from_rgb(240, 173, 78);
@@ -35,7 +35,7 @@ pub fn apply(ctx: &egui::Context) {
     visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED);
     visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT);
     visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT);
-    visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, ACCENT);
+    visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, TEXT);
     visuals.widgets.inactive.weak_bg_fill = PANEL_2;
     visuals.widgets.hovered.weak_bg_fill = Color32::from_rgb(32, 36, 42);
     visuals.window_stroke = Stroke::new(1.0_f32, BORDER);
@@ -53,6 +53,15 @@ pub fn apply(ctx: &egui::Context) {
     style.spacing.window_margin = Margin::same(14);
     style.spacing.indent = 12.0;
     style.interaction.show_tooltips_only_when_still = false;
+    style
+        .text_styles
+        .insert(egui::TextStyle::Heading, egui::FontId::proportional(24.0));
+    style
+        .text_styles
+        .insert(egui::TextStyle::Body, egui::FontId::proportional(14.0));
+    style
+        .text_styles
+        .insert(egui::TextStyle::Button, egui::FontId::proportional(14.0));
     ctx.set_style(style);
 }
 

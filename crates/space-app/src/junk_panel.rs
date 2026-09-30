@@ -128,12 +128,8 @@ impl JunkPanelState {
         self.clean_started = None;
         self.confirm = false;
         self.selection = Selection::from_findings(&report.findings);
-        // Pre-tick only low-risk rules: selection feeds the shared Trash queue.
-        for (index, finding) in report.findings.iter().enumerate() {
-            if risk_level(&finding.risk) > 0 {
-                self.selection.set(index, finding, false);
-            }
-        }
+        // Discovery never authorizes removal, including low-risk candidates.
+        self.selection.clear();
         let report = JunkReport::new(report);
         // Expand the largest cleanable category by default.
         self.expanded_cat = report
@@ -157,6 +153,15 @@ impl JunkPanelState {
             .filter(|(index, finding)| self.selection.contains(*index) && !finding.report_only)
             .map(|(_, finding)| finding.clone())
             .collect()
+    }
+
+    pub fn exclude_paths(&mut self, paths: &[std::path::PathBuf]) {
+        let Some(report) = &self.report else { return };
+        for (index, finding) in report.scan.findings.iter().enumerate() {
+            if paths.iter().any(|path| finding.path.starts_with(path)) {
+                self.selection.set(index, finding, false);
+            }
+        }
     }
 
     pub fn selected_bytes(&self) -> u64 {
@@ -291,7 +296,7 @@ impl JunkReport {
 pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFlags) -> JunkAction {
     let mut action = JunkAction::None;
 
-    ui.horizontal(|ui| {
+    ui.vertical(|ui| {
         ui.vertical(|ui| {
             let (caption, title) = match state.report.as_ref() {
                 _ if state.loading => ("Looking through caches, logs and temp…".to_string(), None),
@@ -310,7 +315,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 ui.spacing_mut().item_spacing.x = 8.0;
                 match title {
                     Some(bytes) => {
-                        ui.label(RichText::new("Can free up").size(30.0).strong());
+                        ui.label(RichText::new("Cleanup candidates").size(30.0).strong());
                         ui.label(
                             RichText::new(format_bytes(bytes))
                                 .size(30.0)
@@ -324,7 +329,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 }
             });
         });
-        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+        ui.horizontal_wrapped(|ui| {
             if ui
                 .add_enabled(
                     !state.loading && !state.cleaning,
@@ -343,7 +348,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             }
         });
     });
-    ui.horizontal(|ui| {
+    ui.horizontal_wrapped(|ui| {
         ui.label(RichText::new("Also scan").small().color(MUTED));
         if ui
             .checkbox(&mut flags.scan_browser_cookies, "Cookies")
@@ -846,6 +851,27 @@ mod tests {
     }
 
     #[test]
+    fn discovery_requires_selection_and_successful_removals_exclude_only_covered_paths() {
+        let mut state = JunkPanelState::default();
+        state.set_report(report(vec![
+            finding("cache", 40, false, 0),
+            finding("cache", 20, false, 1),
+        ]));
+        assert_eq!(state.selected_count(), 0);
+        for index in 0..2 {
+            let finding = state.report().unwrap().findings[index].clone();
+            state.selection.set(index, &finding, true);
+        }
+        state.exclude_paths(&["/tmp/junk-panel/0".into()]);
+        assert_eq!(state.selected_count(), 1);
+        assert_eq!(state.selected_bytes(), 20);
+        assert_eq!(
+            state.selected_findings()[0].path,
+            std::path::Path::new("/tmp/junk-panel/1/cache.bin")
+        );
+    }
+
+    #[test]
     fn report_aggregates_preserve_order_and_exclude_report_only_bytes() {
         let mut state = JunkPanelState::default();
         state.set_report(report(vec![
@@ -868,8 +894,8 @@ mod tests {
         assert_eq!(report.categories[0].report_only, 1);
         // The original largest-category tie break selects the last alphabetical name.
         assert_eq!(state.expanded_cat.as_deref(), Some("temp"));
-        assert_eq!(state.selected_bytes(), 80);
-        assert_eq!(state.selected_findings().len(), 3);
+        assert_eq!(state.selected_bytes(), 0);
+        assert_eq!(state.selected_findings().len(), 0);
     }
 
     #[test]
@@ -904,6 +930,10 @@ mod tests {
             finding("cache", u64::MAX, false, 0),
             finding("temp", 7, false, 1),
         ]));
+        for index in 0..2 {
+            let finding = state.report().unwrap().findings[index].clone();
+            state.selection.set(index, &finding, true);
+        }
         assert_eq!(state.selected_bytes(), u64::MAX);
         state
             .selection
@@ -1006,10 +1036,10 @@ mod tests {
             }],
         );
         assert!(
-            !state.selection.contains(0),
-            "clicking the first visible checkbox deselects its finding"
+            state.selection.contains(0),
+            "clicking the first visible checkbox explicitly selects its finding"
         );
-        assert_eq!(state.selection.count, 1_999);
+        assert_eq!(state.selection.count, 1);
 
         // Simulate a fast wheel gesture over the category scroller.
         draw_input(
@@ -1046,8 +1076,8 @@ mod tests {
                 .map(|text| text.galley.text())
                 .collect::<Vec<_>>()
         );
-        assert!(!state.selection.contains(0));
-        assert_eq!(state.selected_bytes(), 1_999 * 4_096);
+        assert!(state.selection.contains(0));
+        assert_eq!(state.selected_bytes(), 4_096);
         let final_row = texts
             .iter()
             .find(|text| text.galley.text() == "/tmp/junk-panel/1999/cache.bin")
@@ -1080,10 +1110,10 @@ mod tests {
             }],
         );
         assert!(
-            !state.selection.contains(1_999),
+            state.selection.contains(1_999),
             "the final visible checkbox updates the correct finding after scrolling"
         );
-        assert_eq!(state.selection.count, 1_998);
+        assert_eq!(state.selection.count, 2);
     }
 
     #[test]

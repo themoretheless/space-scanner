@@ -227,11 +227,16 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         ui.ctx()
             .animate_bool_with_time(ui.id().with(("sb_focus", focus.0)), true, 0.32);
     let label_a = (0.4 + 0.6 * name_alpha).clamp(0.0, 1.0);
-    painter.text(
-        center + Vec2::new(0.0, -10.0),
-        Align2::CENTER_CENTER,
-        truncate(&focus_node.name, 18),
+    let mut title = egui::text::LayoutJob::simple_singleline(
+        focus_node.name.clone(),
         FontId::proportional(15.0),
+        TEXT,
+    );
+    title.wrap = egui::text::TextWrapping::truncate_at_width((hole * 1.6 - 12.0).max(20.0));
+    let title = painter.layout_job(title);
+    painter.galley(
+        center + Vec2::new(-title.size().x * 0.5, -10.0 - title.size().y * 0.5),
+        title,
         Color32::from_rgba_unmultiplied(TEXT.r(), TEXT.g(), TEXT.b(), (label_a * 255.0) as u8),
     );
     painter.text(

@@ -53,6 +53,7 @@ enum Mode {
     Home,
     Explore,
     Clean,
+    Review,
 }
 
 pub struct SpaceApp {
@@ -106,6 +107,8 @@ pub struct SpaceApp {
     focus_filter: bool,
     transition: Option<Transition>,
     pending_open: Option<PathBuf>,
+    show_largest: bool,
+    compact_map: bool,
 }
 
 impl SpaceApp {
@@ -194,6 +197,8 @@ impl SpaceApp {
             focus_filter: false,
             transition: None,
             pending_open: folder_arg(std::env::args()),
+            show_largest: false,
+            compact_map: false,
         }
     }
 
@@ -298,6 +303,13 @@ impl SpaceApp {
                     } else {
                         format!("Moved {n} item(s) · {} failed", errors.len())
                     };
+                    if let Some(tree) = &self.tree {
+                        let removed_paths: Vec<_> = deleted_ids
+                            .iter()
+                            .map(|&id| PathBuf::from(tree.path_string(id)))
+                            .collect();
+                        self.junk.exclude_paths(&removed_paths);
+                    }
                     self.review.clear();
                     self.selected = None;
                     self.confirm_delete = false;
@@ -444,7 +456,7 @@ impl SpaceApp {
         let result = thread::Builder::new()
             .name("space-largest".into())
             .spawn(move || {
-                let ids = tree.largest_files_bounded(focus, mode, 12, 8_000);
+                let ids = tree.largest_files_bounded(focus, mode, 100, 8_000);
                 let rows: Vec<(NodeId, String, u64)> = ids
                     .into_iter()
                     .map(|id| {
@@ -1285,40 +1297,36 @@ impl SpaceApp {
     /// One-row app bar: modes · location · scan progress · Trash queue.
     fn ui_top_bar(&mut self, ctx: &egui::Context) {
         egui::TopBottomPanel::top("top")
-            .exact_height(52.0)
             .frame(
                 egui::Frame::new()
                     .fill(PANEL)
-                    .inner_margin(egui::Margin::symmetric(14, 0))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
+                    .inner_margin(egui::Margin::symmetric(14, 10)),
             )
             .show(ctx, |ui| {
-                ui.horizontal_centered(|ui| {
-                    ui.label(RichText::new("Space").strong().size(15.0));
-                    ui.add_space(6.0);
+                ui.horizontal_wrapped(|ui| {
+                    ui.label(RichText::new("Space").size(15.0).color(TEXT));
                     self.ui_mode_tabs(ui);
-                    if self.mode == Mode::Explore && self.tree.is_some() {
-                        ui.add_space(6.0);
-                        self.ui_location(ui);
-                        ui.add_space(8.0);
-                        self.ui_search(ui);
-                    }
-                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                        self.ui_more_menu(ui);
-                        self.ui_basket_pill(ui);
-                        self.ui_scan_status(ui);
-                        if self.scan.is_none() && !self.status.is_empty() {
-                            let short: String = self.status.chars().take(48).collect();
-                            let short = if short.len() < self.status.len() {
-                                format!("{short}…")
-                            } else {
-                                short
-                            };
-                            ui.label(RichText::new(short).small().color(MUTED))
-                                .on_hover_text(&self.status);
-                        }
-                    });
+                    self.ui_basket_pill(ui);
+                    self.ui_more_menu(ui);
                 });
+                if self.mode == Mode::Explore && self.tree.is_some() {
+                    ui.add_space(6.0);
+                    ui.horizontal_wrapped(|ui| {
+                        self.ui_location(ui);
+                    });
+                    ui.horizontal_wrapped(|ui| {
+                        self.ui_search(ui);
+                    });
+                }
+                if self.scan.is_some() {
+                    ui.horizontal_wrapped(|ui| {
+                        self.ui_scan_status(ui);
+                    });
+                } else if !self.status.is_empty() && self.mode != Mode::Home {
+                    ui.add(
+                        egui::Label::new(RichText::new(&self.status).small().color(MUTED)).wrap(),
+                    );
+                }
             });
     }
 
@@ -1331,19 +1339,14 @@ impl SpaceApp {
             .show(ui, |ui| {
                 ui.spacing_mut().item_spacing.x = 2.0;
                 for (mode, label, hint, enabled) in [
-                    (Mode::Home, "Home", "Disks and recent scans", true),
+                    (Mode::Home, "Scan", "Choose a folder or disk", true),
                     (
                         Mode::Explore,
-                        "Explore",
-                        "Map of the current scan",
+                        "Disk usage",
+                        "Explore the current scan",
                         has_scan,
                     ),
-                    (
-                        Mode::Clean,
-                        "Clean",
-                        "Junk, snapshots and the Trash queue · ⌘J",
-                        true,
-                    ),
+                    (Mode::Clean, "Cleanup", "Find cleanup candidates · ⌘J", true),
                 ] {
                     let on = self.mode == mode;
                     let btn = egui::Button::new(RichText::new(label).color(if on {
@@ -1415,8 +1418,8 @@ impl SpaceApp {
         if let Some(id) = nav_to {
             self.navigate(id, true);
         }
-        if self.cache_stale {
-            ui.label(RichText::new("stale").small().color(ACCENT))
+        if self.from_cache {
+            ui.label(RichText::new("Saved result").small().color(ACCENT))
                 .on_hover_text("Cached — files may have changed. Rescan to refresh (⌘R).");
         }
     }
@@ -1462,18 +1465,45 @@ impl SpaceApp {
     }
 
     /// Items in the Trash queue: Explore picks plus selected junk.
+    fn basket_items(&self) -> Vec<(PathBuf, u64)> {
+        let mut items = Vec::new();
+        if let Some(tree) = &self.tree {
+            items.extend(self.review.iter().map(|&id| {
+                (
+                    PathBuf::from(tree.path_string(id)),
+                    tree.node(id).size(self.size_mode),
+                )
+            }));
+        }
+        items.extend(
+            self.junk
+                .selected_findings()
+                .into_iter()
+                .map(|finding| (finding.path, finding.bytes)),
+        );
+        space_clean::coalesce_nested_paths(items, |item| item.0.as_path())
+    }
+
     fn basket_len(&self) -> usize {
-        self.review.len() + self.junk.selected_count()
+        self.basket_items().len()
     }
 
     fn basket_bytes(&self) -> u64 {
-        self.review_bytes() + self.junk.selected_bytes()
+        if self.junk.selected_count() == 0 {
+            return self.review_bytes();
+        }
+        self.basket_items()
+            .iter()
+            .fold(0_u64, |sum, item| sum.saturating_add(item.1))
     }
 
     /// "N not in this scan · K snapshots" when the volume holds more than the scan saw.
     fn scan_gap_label(&self) -> Option<String> {
         let tree = self.tree.as_ref()?;
         let vol = volumes::match_volume(&self.volumes, &tree.root_path)?;
+        if tree.root_path != vol.mount {
+            return None;
+        }
         let indexed = tree.total_size_mode(self.size_mode);
         let gap = vol.used().checked_sub(indexed.saturating_add(64 << 20))?;
         let snaps = if self.tm_snapshots.is_empty() {
@@ -1489,20 +1519,6 @@ impl SpaceApp {
         } else {
             format!("{} not in this scan", format_bytes(gap + (64 << 20)))
         })
-    }
-
-    /// Disk the Trash queue frees space on: the scanned volume, else the boot disk.
-    fn basket_volume(&self) -> Option<&VolumeInfo> {
-        self.tree
-            .as_ref()
-            .and_then(|t| volumes::match_volume(&self.volumes, &t.root_path))
-            .or_else(|| {
-                self.volumes
-                    .iter()
-                    .find(|v| v.mount == std::path::Path::new("/"))
-            })
-            .or_else(|| self.volumes.first())
-            .filter(|v| v.total > 0)
     }
 
     /// One confirmation trashes both sources; junk runs after the Explore batch.
@@ -1522,7 +1538,11 @@ impl SpaceApp {
         if self.basket_len() == 0 {
             return;
         }
-        let label = format!("Trash queue · {}", format_bytes(self.basket_bytes()));
+        let label = format!(
+            "Review {} selected · {}",
+            self.basket_len(),
+            format_bytes(self.basket_bytes())
+        );
         let btn = egui::Button::new(RichText::new(label).color(ACCENT_INK).strong())
             .fill(ACCENT)
             .corner_radius(16)
@@ -1535,7 +1555,7 @@ impl SpaceApp {
             ))
             .clicked()
         {
-            self.set_mode(Mode::Clean);
+            self.set_mode(Mode::Review);
         }
     }
 
@@ -1593,12 +1613,18 @@ impl SpaceApp {
                     .inner_margin(egui::Margin::symmetric(12, 8)),
             )
             .show(ctx, |ui| {
-                ui.horizontal(|ui| {
+                ui.horizontal_wrapped(|ui| {
                     let mut view = self.view;
-                    segmented(ui, |ui| {
+                    if ui.ctx().screen_rect().width() < 1000.0 {
+                        ui.selectable_value(&mut self.compact_map, false, "List");
+                        ui.selectable_value(&mut self.compact_map, true, "Map");
+                        ui.separator();
+                    }
+                    ui.menu_button(format!("Map: {}", view.label()), |ui| {
                         for mode in ViewMode::ALL {
-                            if seg_button(ui, view == mode, mode.label()).clicked() {
+                            if ui.selectable_label(view == mode, mode.label()).clicked() {
                                 view = mode;
+                                ui.close_menu();
                             }
                         }
                     });
@@ -1633,7 +1659,7 @@ impl SpaceApp {
                                         .frame(false),
                                 )
                                 .on_hover_text(
-                                    "Disk used on the volume minus this scan — often Time Machine snapshots",
+                                    "Unindexed disk usage can include permissions, snapshots and filesystem accounting",
                                 )
                                 .clicked()
                             {
@@ -1647,223 +1673,162 @@ impl SpaceApp {
 
     /// Right-hand inspector: everything about the selected item in one place.
     fn ui_inspector_panel(&mut self, ctx: &egui::Context) {
-        egui::SidePanel::right("inspector")
-            .default_width(300.0)
-            .min_width(260.0)
-            .frame(
-                egui::Frame::new()
-                    .fill(PANEL)
-                    .inner_margin(egui::Margin::same(18))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
-            )
-            .show(ctx, |ui| {
-                let Some(tree) = self.tree.clone() else {
-                    return;
-                };
-                let id = self.selected.unwrap_or(self.focus);
-                let node = tree.node(id);
-                let size = node.size(self.size_mode);
-
-                ui.label(
-                    RichText::new(if self.selected.is_some() {
-                        "SELECTED"
-                    } else {
-                        "THIS FOLDER"
-                    })
-                    .small()
-                    .color(MUTED),
-                );
-                ui.label(RichText::new(&node.name).size(20.0).strong());
-                ui.add(
-                    egui::Label::new(
-                        RichText::new(tree.path_string(id))
-                            .small()
-                            .monospace()
-                            .color(MUTED),
-                    )
-                    .wrap(),
-                );
-                ui.add_space(10.0);
-
-                ui.columns(2, |cols| {
-                    stat_tile(
-                        &mut cols[0],
-                        &format_bytes(size),
-                        &match self.percent_of_parent(id) {
-                            Some(p) => format!("{p:.0}% of parent"),
-                            None => "whole scan".to_string(),
-                        },
-                    );
-                    stat_tile(&mut cols[1], &node.file_count.to_string(), "files");
+        if ctx.screen_rect().width() < 1100.0 {
+            let mut open = true;
+            egui::Window::new("Item details")
+                .open(&mut open)
+                .default_width(320.0)
+                .max_width((ctx.screen_rect().width() - 32.0).max(240.0))
+                .max_height((ctx.screen_rect().height() - 100.0).max(200.0))
+                .vscroll(true)
+                .resizable(true)
+                .show(ctx, |ui| {
+                    self.ui_inspector_contents(ui);
                 });
-                ui.add_space(12.0);
-
-                let path = PathBuf::from(tree.path_string(id));
-                if let Some((category, badge, color, hint)) = self.junk.risk_hint(&path) {
+            if !open {
+                self.selected = None;
+            }
+        } else {
+            egui::SidePanel::right("inspector")
+                .default_width(300.0)
+                .min_width(260.0)
+                .frame(
                     egui::Frame::new()
-                        .fill(PANEL_2)
-                        .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
-                        .corner_radius(10)
-                        .inner_margin(egui::Margin::same(12))
-                        .show(ui, |ui| {
-                            ui.set_width(ui.available_width());
-                            ui.label(
-                                RichText::new(format!("{badge} · {category}"))
-                                    .color(color)
-                                    .strong(),
-                            );
-                            ui.label(RichText::new(hint).small().color(MUTED));
-                        });
-                    ui.add_space(10.0);
-                }
-
-                let deletable = !node.synthetic && node.parent.is_some();
-                let queued = self.review.contains(&id);
-                let (label, fill, ink) = if queued {
-                    ("Remove from Trash queue", PANEL_2, TEXT)
-                } else {
-                    ("Add to Trash queue", ACCENT, ACCENT_INK)
-                };
-                let wide = egui::vec2(ui.available_width(), 38.0);
-                if ui
-                    .add_enabled(
-                        deletable && !self.busy,
-                        egui::Button::new(RichText::new(label).color(ink).strong())
-                            .fill(fill)
-                            .min_size(wide),
-                    )
-                    .on_hover_text("Nothing is deleted until you confirm in Clean")
-                    .clicked()
-                {
-                    review::toggle(&mut self.review, id);
-                }
-                ui.add_space(4.0);
-                ui.columns(2, |cols| {
-                    let w = egui::vec2(cols[0].available_width(), 32.0);
-                    if cols[0]
-                        .add(egui::Button::new("Show in Finder").min_size(w))
-                        .clicked()
-                    {
-                        self.reveal_selected();
-                    }
-                    if cols[1]
-                        .add_enabled(
-                            self.scan.is_none() && !self.busy,
-                            egui::Button::new("Rescan folder").min_size(w),
-                        )
-                        .on_hover_text("Rebuild the index for the folder in view")
-                        .clicked()
-                    {
-                        self.incremental_rescan_focus();
-                    }
+                        .fill(PANEL)
+                        .inner_margin(egui::Margin::same(18)),
+                )
+                .show(ctx, |ui| {
+                    self.ui_inspector_contents(ui);
                 });
+        }
+    }
 
-                if node.is_dir && !node.children.is_empty() {
-                    ui.add_space(16.0);
-                    ui.separator();
+    fn ui_inspector_contents(&mut self, ui: &mut egui::Ui) {
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
+        let id = self.selected.unwrap_or(self.focus);
+        let node = tree.node(id);
+        let size = node.size(self.size_mode);
+
+        ui.label(
+            RichText::new(if self.selected.is_some() {
+                "SELECTED"
+            } else {
+                "THIS FOLDER"
+            })
+            .small()
+            .color(MUTED),
+        );
+        ui.label(RichText::new(&node.name).size(20.0).strong());
+        ui.add(
+            egui::Label::new(
+                RichText::new(tree.path_string(id))
+                    .small()
+                    .monospace()
+                    .color(MUTED),
+            )
+            .wrap(),
+        );
+        ui.add_space(10.0);
+
+        ui.columns(2, |cols| {
+            stat_tile(
+                &mut cols[0],
+                &format_bytes(size),
+                &match self.percent_of_parent(id) {
+                    Some(p) => format!("{p:.0}% of parent"),
+                    None => "whole scan".to_string(),
+                },
+            );
+            stat_tile(&mut cols[1], &node.file_count.to_string(), "files");
+        });
+        ui.add_space(12.0);
+
+        let path = PathBuf::from(tree.path_string(id));
+        if let Some((category, badge, color, hint)) = self.junk.risk_hint(&path) {
+            egui::Frame::new()
+                .fill(PANEL_2)
+                .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
+                .corner_radius(10)
+                .inner_margin(egui::Margin::same(12))
+                .show(ui, |ui| {
+                    ui.set_width(ui.available_width());
                     ui.label(
-                        RichText::new("Largest inside")
-                            .small()
-                            .strong()
-                            .color(MUTED),
+                        RichText::new(format!("{badge} · {category}"))
+                            .color(color)
+                            .strong(),
                     );
-                    ui.add_space(4.0);
-                    let mut pick = None;
-                    for &child in tree.children(id).iter().take(8) {
-                        let c = tree.node(child);
-                        ui.horizontal(|ui| {
-                            let name = if c.is_dir {
-                                format!("{}/", c.name)
-                            } else {
-                                c.name.clone()
-                            };
-                            if ui
-                                .add(egui::Button::new(RichText::new(name).size(13.0)).frame(false))
-                                .clicked()
-                            {
-                                pick = Some(child);
-                            }
-                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                ui.label(
-                                    RichText::new(format_bytes(c.size(self.size_mode)))
-                                        .small()
-                                        .monospace()
-                                        .color(MUTED),
-                                );
-                            });
-                        });
-                    }
-                    if let Some(child) = pick {
-                        if tree.node(child).is_dir {
-                            self.navigate(child, true);
-                        } else {
-                            self.selected = Some(child);
-                        }
-                    }
-                }
+                    ui.label(RichText::new(hint).small().color(MUTED));
+                });
+            ui.add_space(10.0);
+        }
 
-                // Biggest files anywhere under the folder in view.
-                self.schedule_largest();
-                ui.add_space(14.0);
-                ui.label(
-                    RichText::new("Largest files here")
-                        .small()
-                        .strong()
-                        .color(MUTED),
-                );
-                ui.add_space(4.0);
-                if self.largest.is_loading() && self.largest.rows().is_empty() {
-                    ui.horizontal(|ui| {
-                        ui.spinner();
-                        ui.label(RichText::new("Finding big files…").small().color(MUTED));
-                    });
-                }
-                let mut pick_file = None;
-                egui::ScrollArea::vertical()
-                    .id_salt("largest_files")
-                    .auto_shrink([false, true])
-                    .show(ui, |ui| {
-                        for (fid, name, size) in self.largest.rows().iter().take(12) {
-                            ui.horizontal(|ui| {
-                                let on = self.selected == Some(*fid);
-                                if ui
-                                    .add(
-                                        egui::Button::new(
-                                            RichText::new(name).size(13.0).color(if on {
-                                                ACCENT
-                                            } else {
-                                                TEXT
-                                            }),
-                                        )
-                                        .frame(false)
-                                        .truncate(),
-                                    )
-                                    .on_hover_text(tree.path_string(*fid))
-                                    .clicked()
-                                {
-                                    pick_file = Some(*fid);
-                                }
-                                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                    ui.label(
-                                        RichText::new(format_bytes(*size))
-                                            .small()
-                                            .monospace()
-                                            .color(MUTED),
-                                    );
-                                });
-                            });
-                        }
-                    });
-                if let Some(fid) = pick_file {
-                    self.selected = Some(fid);
-                }
-            });
+        if node.is_dir && !node.synthetic {
+            if ui
+                .add(
+                    egui::Button::new(RichText::new("Open folder").color(ACCENT_INK))
+                        .fill(ACCENT)
+                        .min_size(egui::vec2(ui.available_width(), 38.0)),
+                )
+                .clicked()
+            {
+                self.navigate(id, true);
+            }
+        }
+        if ui.button("Close details").clicked() {
+            self.selected = None;
+        }
+        let deletable = !node.synthetic && node.parent.is_some();
+        let queued = self.review.contains(&id);
+        let (label, fill, ink) = if queued {
+            ("Remove from review", PANEL_2, TEXT)
+        } else {
+            ("Add to review", PANEL_2, TEXT)
+        };
+        let wide = egui::vec2(ui.available_width(), 38.0);
+        if ui
+            .add_enabled(
+                deletable && !self.busy,
+                egui::Button::new(RichText::new(label).color(ink).strong())
+                    .fill(fill)
+                    .min_size(wide),
+            )
+            .on_hover_text("Nothing is removed until you confirm in Review")
+            .clicked()
+        {
+            review::toggle(&mut self.review, id);
+        }
+        ui.add_space(4.0);
+        ui.columns(2, |cols| {
+            let w = egui::vec2(cols[0].available_width(), 32.0);
+            if cols[0]
+                .add(egui::Button::new("Show in Finder").min_size(w))
+                .clicked()
+            {
+                self.reveal_selected();
+            }
+            if cols[1]
+                .add_enabled(
+                    self.scan.is_none() && !self.busy,
+                    egui::Button::new("Rescan folder").min_size(w),
+                )
+                .on_hover_text("Rebuild the index for the folder in view")
+                .clicked()
+            {
+                self.incremental_rescan_focus();
+            }
+        });
     }
 
     /// Clean mode, main column: junk findings inline instead of a modal.
     fn ui_clean(&mut self, ui: &mut egui::Ui) {
         ui.add_space(28.0);
-        let margin = 32.0;
+        let margin = if ui.available_width() < 700.0 {
+            8.0
+        } else {
+            32.0
+        };
         let mut inner = ui.max_rect().shrink2(egui::vec2(margin, 0.0));
         inner.min.y = ui.cursor().min.y;
         let mut child = ui.new_child(egui::UiBuilder::new().max_rect(inner));
@@ -1879,10 +1844,10 @@ impl SpaceApp {
             JunkAction::None => {}
         }
         ui.add_space(12.0);
-        ui.horizontal(|ui| {
+        ui.horizontal_wrapped(|ui| {
             ui.label(
                 RichText::new(
-                    "Nothing is deleted for good — everything can be restored from the Trash.",
+                    "Selected files go to Trash. Snapshot removal is separate and permanent.",
                 )
                 .color(MUTED),
             );
@@ -1906,152 +1871,127 @@ impl SpaceApp {
             .frame(
                 egui::Frame::new()
                     .fill(PANEL)
-                    .inner_margin(egui::Margin::same(18))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
+                    .inner_margin(egui::Margin::same(18)),
             )
             .show(ctx, |ui| {
-                ui.label(RichText::new("Trash queue").size(17.0).strong());
-                ui.add_space(8.0);
-                if self.basket_len() == 0 {
-                    ui.label(
-                        RichText::new(
-                            "Empty. Tick junk on the left, or add files and folders from Explore.",
-                        )
-                        .color(MUTED),
-                    );
-                }
-                let mut remove = None;
-                egui::ScrollArea::vertical()
-                    .id_salt("basket_list")
-                    .max_height((ui.available_height() - 120.0).max(80.0))
-                    .show(ui, |ui| {
-                        if let (Some(tree), false) = (self.tree.clone(), self.review.is_empty()) {
-                            ui.label(RichText::new("FROM EXPLORE").small().color(MUTED));
-                            for &id in &self.review {
-                                let n = tree.node(id);
-                                ui.horizontal(|ui| {
-                                    ui.label(RichText::new(&n.name).size(13.0))
-                                        .on_hover_text(tree.path_string(id));
-                                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                        if ui
-                                            .add(egui::Button::new("×").frame(false))
-                                            .on_hover_text("Remove from queue")
-                                            .clicked()
-                                        {
-                                            remove = Some(id);
-                                        }
-                                        ui.label(
-                                            RichText::new(format_bytes(n.size(self.size_mode)))
-                                                .monospace()
-                                                .small(),
-                                        );
-                                    });
-                                });
-                            }
-                            ui.add_space(10.0);
-                        }
-                        if self.junk.selected_count() != 0 {
-                            ui.label(RichText::new("FROM CLEAN").small().color(MUTED));
-                            ui.horizontal(|ui| {
-                                ui.label(
-                                    RichText::new(format!(
-                                        "{} junk items",
-                                        self.junk.selected_count()
-                                    ))
-                                    .size(13.0),
-                                );
-                                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                    if ui
-                                        .add(egui::Button::new("×").frame(false))
-                                        .on_hover_text("Deselect all junk")
-                                        .clicked()
-                                    {
-                                        self.junk.clear_selection();
-                                    }
-                                    ui.label(
-                                        RichText::new(format_bytes(self.junk.selected_bytes()))
-                                            .monospace()
-                                            .small(),
-                                    );
-                                });
-                            });
-                        }
-                    });
-                if let Some(id) = remove {
-                    review::toggle(&mut self.review, id);
-                }
-                ui.with_layout(Layout::bottom_up(Align::Min), |ui| {
-                    let wide = egui::vec2(ui.available_width(), 40.0);
-                    let idle = !self.busy && self.scan.is_none() && !self.junk.cleaning;
-                    if ui
-                        .add_enabled(
-                            self.basket_len() > 0 && idle,
-                            egui::Button::new(
-                                RichText::new("Move to Trash…").color(ACCENT_INK).strong(),
-                            )
-                            .fill(ACCENT)
-                            .min_size(wide),
-                        )
-                        .clicked()
-                    {
-                        self.confirm_delete = true;
-                    }
-                    if let Some(vol) = self.basket_volume() {
-                        let now = vol.available;
-                        let after = now.saturating_add(self.basket_bytes()).min(vol.total);
+                self.ui_basket_contents(ui);
+            });
+    }
+
+    fn ui_basket_contents(&mut self, ui: &mut egui::Ui) {
+        ui.label(RichText::new("Selected for review").size(17.0).color(TEXT));
+        ui.add_space(8.0);
+        if self.basket_len() > 0 && !self.busy && !self.junk.cleaning {
+            if ui.button("Clear selection").clicked() {
+                self.review.clear();
+                self.junk.clear_selection();
+            }
+        }
+        if self.basket_len() == 0 {
+            ui.label(
+                RichText::new(
+                    "Empty. Tick junk on the left, or add files and folders from Disk usage.",
+                )
+                .color(MUTED),
+            );
+        }
+        let mut remove = None;
+        egui::ScrollArea::vertical()
+            .id_salt("basket_list")
+            .max_height((ui.available_height() - 120.0).max(80.0))
+            .show(ui, |ui| {
+                if let (Some(tree), false) = (self.tree.clone(), self.review.is_empty()) {
+                    ui.label(RichText::new("FROM DISK USAGE").small().color(MUTED));
+                    for &id in &self.review {
+                        let n = tree.node(id);
                         ui.horizontal(|ui| {
-                            ui.label(
-                                RichText::new(format!("free now {}", format_bytes(now)))
-                                    .small()
-                                    .color(MUTED),
-                            );
+                            ui.add(
+                                egui::Label::new(RichText::new(tree.path_string(id)).size(13.0))
+                                    .truncate(),
+                            )
+                            .on_hover_text(tree.path_string(id));
                             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                                if ui
+                                    .add(egui::Button::new("×").frame(false))
+                                    .on_hover_text("Remove from queue")
+                                    .clicked()
+                                {
+                                    remove = Some(id);
+                                }
                                 ui.label(
-                                    RichText::new(format!("after {}", format_bytes(after)))
-                                        .small()
-                                        .color(TEXT),
+                                    RichText::new(format_bytes(n.size(self.size_mode)))
+                                        .monospace()
+                                        .small(),
                                 );
                             });
                         });
-                        let (bar, _) = ui.allocate_exact_size(
-                            egui::vec2(ui.available_width(), 8.0),
-                            Sense::hover(),
-                        );
-                        let total = vol.total.max(1) as f32;
-                        ui.painter().rect_filled(bar, 4.0, BG);
-                        let mut free = bar;
-                        free.set_width(bar.width() * now as f32 / total);
-                        let mut gained = bar;
-                        gained.min.x = free.max.x;
-                        gained.set_width(bar.width() * (after - now) as f32 / total);
-                        ui.painter()
-                            .rect_filled(free, 4.0, egui::Color32::from_rgb(106, 169, 255));
-                        ui.painter().rect_filled(gained, 4.0, ACCENT);
                     }
-                    ui.horizontal(|ui| {
-                        ui.label(RichText::new("Frees").color(MUTED));
-                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                            ui.label(
-                                RichText::new(format_bytes(self.basket_bytes()))
-                                    .size(24.0)
-                                    .strong(),
-                            );
+                    ui.add_space(10.0);
+                }
+                if self.junk.selected_count() != 0 {
+                    ui.label(RichText::new("FROM CLEANUP").small().color(MUTED));
+                    for finding in self.junk.selected_findings() {
+                        ui.horizontal(|ui| {
+                            ui.add(
+                                egui::Label::new(
+                                    RichText::new(finding.path.display().to_string()).size(13.0),
+                                )
+                                .truncate(),
+                            )
+                            .on_hover_text(finding.path.display().to_string());
+                            if ui
+                                .small_button("×")
+                                .on_hover_text("Remove from review")
+                                .clicked()
+                            {
+                                self.junk.exclude_paths(&[finding.path.clone()]);
+                            }
                         });
-                    });
+                        ui.label(
+                            RichText::new(format_bytes(finding.bytes))
+                                .small()
+                                .color(MUTED),
+                        );
+                    }
+                }
+            });
+        if let Some(id) = remove {
+            review::toggle(&mut self.review, id);
+        }
+        ui.with_layout(Layout::bottom_up(Align::Min), |ui| {
+            let wide = egui::vec2(ui.available_width(), 40.0);
+            let idle = !self.busy && self.scan.is_none() && !self.junk.cleaning;
+            if ui
+                .add_enabled(
+                    self.basket_len() > 0 && idle,
+                    egui::Button::new(RichText::new("Move to Trash…").color(ACCENT_INK).strong())
+                        .fill(ACCENT)
+                        .min_size(wide),
+                )
+                .clicked()
+            {
+                self.confirm_delete = true;
+            }
+            ui.horizontal(|ui| {
+                ui.label(RichText::new("Selected size").color(MUTED));
+                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                     ui.label(
-                        RichText::new("Everything can be restored from the Trash.")
-                            .small()
-                            .color(SAFE),
+                        RichText::new(format_bytes(self.basket_bytes()))
+                            .size(24.0)
+                            .strong(),
                     );
                 });
             });
+            ui.label(
+                RichText::new("Space is released after emptying Trash in Finder.")
+                    .small()
+                    .color(SAFE),
+            );
+        });
     }
 
     /// Explore, left column: the focused folder's contents, largest first.
     fn ui_contents_panel(&mut self, ctx: &egui::Context) {
-        let Some(tree) = self.tree.clone() else {
-            return;
-        };
         egui::SidePanel::left("sidebar")
             .default_width(290.0)
             .min_width(240.0)
@@ -2061,230 +2001,255 @@ impl SpaceApp {
                     .stroke(egui::Stroke::new(1.0_f32, BORDER)),
             )
             .show(ctx, |ui| {
-                let focus = self.focus;
-                let mode = self.size_mode;
-                let folder_size = tree.node(focus).size(mode);
+                self.ui_contents(ui);
+            });
+    }
 
-                egui::Frame::new()
-                    .inner_margin(egui::Margin {
-                        left: 16,
-                        right: 16,
-                        top: 14,
-                        bottom: 10,
-                    })
-                    .show(ui, |ui| {
-                        ui.horizontal(|ui| {
-                            ui.label(RichText::new("Contents").strong());
-                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                ui.label(
-                                    RichText::new(format!(
-                                        "{} · by size",
-                                        format_bytes(folder_size)
-                                    ))
-                                    .small()
-                                    .monospace()
-                                    .color(MUTED),
-                                );
-                            });
-                        });
-                        ui.add_space(8.0);
-                        ui.horizontal(|ui| {
-                            ui.spacing_mut().item_spacing.x = 6.0;
-                            let kind = self.filter.kind;
-                            let big = self.filter.min_size >= 1 << 30;
-                            let mut changed = false;
-                            if chip(ui, kind == EntryKindFilter::All && !big, "All").clicked() {
-                                self.filter.kind = EntryKindFilter::All;
-                                self.filter.min_size = 0;
-                                changed = true;
-                            }
-                            if chip(ui, kind == EntryKindFilter::DirsOnly, "Folders").clicked() {
-                                self.filter.kind = EntryKindFilter::DirsOnly;
-                                changed = true;
-                            }
-                            if chip(ui, kind == EntryKindFilter::FilesOnly, "Files").clicked() {
-                                self.filter.kind = EntryKindFilter::FilesOnly;
-                                changed = true;
-                            }
-                            if chip(ui, big, "≥ 1 GB").clicked() {
-                                self.filter.min_size = if big { 0 } else { 1 << 30 };
-                                changed = true;
-                            }
-                            if changed {
-                                self.geom = None;
-                            }
-                        });
+    fn ui_contents(&mut self, ui: &mut egui::Ui) {
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
+        self.schedule_largest();
+        let focus = self.focus;
+        let mode = self.size_mode;
+        let folder_size = tree.node(focus).size(mode);
+
+        egui::Frame::new()
+            .inner_margin(egui::Margin {
+                left: 16,
+                right: 16,
+                top: 14,
+                bottom: 10,
+            })
+            .show(ui, |ui| {
+                ui.horizontal(|ui| {
+                    ui.label(RichText::new("Contents").strong());
+                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                        ui.label(
+                            RichText::new(format!("{} · by size", format_bytes(folder_size)))
+                                .small()
+                                .monospace()
+                                .color(MUTED),
+                        );
                     });
-                let (line, _) =
-                    ui.allocate_exact_size(egui::vec2(ui.available_width(), 1.0), Sense::hover());
-                ui.painter().rect_filled(line, 0.0, BORDER);
+                });
+                ui.horizontal(|ui| {
+                    ui.selectable_value(&mut self.show_largest, false, "Folder contents");
+                    ui.selectable_value(&mut self.show_largest, true, "Largest files");
+                });
+                ui.add_space(8.0);
+                ui.horizontal(|ui| {
+                    ui.spacing_mut().item_spacing.x = 6.0;
+                    let kind = self.filter.kind;
+                    let big = self.filter.min_size >= 1 << 30;
+                    let mut changed = false;
+                    if chip(ui, kind == EntryKindFilter::All && !big, "All").clicked() {
+                        self.filter.kind = EntryKindFilter::All;
+                        self.filter.min_size = 0;
+                        changed = true;
+                    }
+                    if chip(ui, kind == EntryKindFilter::DirsOnly, "Folders").clicked() {
+                        self.filter.kind = EntryKindFilter::DirsOnly;
+                        changed = true;
+                    }
+                    if chip(ui, kind == EntryKindFilter::FilesOnly, "Files").clicked() {
+                        self.filter.kind = EntryKindFilter::FilesOnly;
+                        changed = true;
+                    }
+                    if chip(ui, big, "≥ 1 GB").clicked() {
+                        self.filter.min_size = if big { 0 } else { 1 << 30 };
+                        changed = true;
+                    }
+                    if changed {
+                        self.geom = None;
+                    }
+                });
+            });
+        let (line, _) =
+            ui.allocate_exact_size(egui::vec2(ui.available_width(), 1.0), Sense::hover());
+        ui.painter().rect_filled(line, 0.0, BORDER);
 
-                let mut ids: Vec<NodeId> = tree
-                    .children(focus)
-                    .iter()
-                    .copied()
-                    .filter(|&c| {
-                        let n = tree.node(c);
-                        self.filter.matches(&n.name, n.is_dir, n.size(mode))
-                    })
-                    .collect();
-                ids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
-                let items: Vec<(&str, bool)> = ids
-                    .iter()
-                    .map(|&c| {
-                        let n = tree.node(c);
-                        (n.name.as_str(), n.is_dir)
-                    })
-                    .collect();
-                let colors = theme::sibling_palette(&items);
-                let total = folder_size.max(1) as f32;
+        let mut ids: Vec<NodeId> = tree
+            .children(focus)
+            .iter()
+            .copied()
+            .filter(|&c| {
+                let n = tree.node(c);
+                self.filter.matches(&n.name, n.is_dir, n.size(mode))
+            })
+            .collect();
+        if self.show_largest {
+            ids = self
+                .largest
+                .rows()
+                .iter()
+                .map(|row| row.0)
+                .filter(|&id| {
+                    let n = tree.node(id);
+                    self.filter.matches(&n.name, n.is_dir, n.size(mode))
+                })
+                .collect();
+            if self.largest.is_loading() {
+                ui.spinner();
+            }
+            ui.label(
+                RichText::new("Largest files · up to 100 results, 8,000 folders searched")
+                    .small()
+                    .color(MUTED),
+            );
+        }
+        ids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
+        let items: Vec<(&str, bool)> = ids
+            .iter()
+            .map(|&c| {
+                let n = tree.node(c);
+                (n.name.as_str(), n.is_dir)
+            })
+            .collect();
+        let colors = theme::sibling_palette(&items);
+        let total = folder_size.max(1) as f32;
 
-                let mut pick = None;
-                let mut enter = None;
-                let mut reveal = None;
-                let mut queue = None;
-                egui::ScrollArea::vertical()
-                    .id_salt("contents")
-                    .auto_shrink([false, false])
-                    .show(ui, |ui| {
-                        ui.spacing_mut().item_spacing.y = 0.0;
-                        if ids.is_empty() {
-                            ui.add_space(16.0);
-                            ui.horizontal(|ui| {
-                                ui.add_space(16.0);
-                                ui.label(RichText::new("Nothing matches the filter.").color(MUTED));
-                            });
+        let mut pick = None;
+        let mut enter = None;
+        let mut reveal = None;
+        let mut queue = None;
+        egui::ScrollArea::vertical()
+            .id_salt("contents")
+            .auto_shrink([false, false])
+            .show(ui, |ui| {
+                ui.spacing_mut().item_spacing.y = 0.0;
+                if ids.is_empty() {
+                    ui.add_space(16.0);
+                    ui.horizontal(|ui| {
+                        ui.add_space(16.0);
+                        ui.label(RichText::new("Nothing matches the filter.").color(MUTED));
+                    });
+                }
+                for (i, &id) in ids.iter().enumerate() {
+                    let n = tree.node(id);
+                    let size = n.size(mode);
+                    let selected = self.selected == Some(id);
+                    let queued = self.review.contains(&id);
+                    let (rect, resp) = ui.allocate_exact_size(
+                        egui::vec2(ui.available_width(), 48.0),
+                        Sense::click(),
+                    );
+                    let p = ui.painter();
+                    if selected {
+                        p.rect_filled(rect, 0.0, PANEL_2);
+                        p.rect_filled(
+                            egui::Rect::from_min_size(rect.min, egui::vec2(2.0, rect.height())),
+                            0.0,
+                            ACCENT,
+                        );
+                    } else if resp.hovered() || self.hovered == Some(id) {
+                        p.rect_filled(rect, 0.0, PANEL_2.gamma_multiply(0.6));
+                    }
+                    let pad = 16.0;
+                    let top = rect.top() + 10.0;
+                    let swatch = if n.synthetic { MUTED } else { colors[i] };
+                    p.rect_filled(
+                        egui::Rect::from_min_size(
+                            egui::pos2(rect.left() + pad, top + 4.0),
+                            egui::vec2(8.0, 8.0),
+                        ),
+                        2.0,
+                        swatch,
+                    );
+                    let size_g = p.layout_no_wrap(
+                        format_bytes(size),
+                        egui::FontId::monospace(12.0),
+                        if queued {
+                            ACCENT
+                        } else if selected {
+                            TEXT
+                        } else {
+                            MUTED
+                        },
+                    );
+                    let name_x = rect.left() + pad + 18.0;
+                    let name_w = (rect.right() - pad - size_g.size().x - 10.0 - name_x).max(20.0);
+                    let label = if n.is_dir && !n.synthetic {
+                        format!("{}/", n.name)
+                    } else {
+                        n.name.clone()
+                    };
+                    let mut job = egui::text::LayoutJob::simple_singleline(
+                        label,
+                        egui::FontId::proportional(14.0),
+                        if n.synthetic { MUTED } else { TEXT },
+                    );
+                    job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
+                    let name_g = p.layout_job(job);
+                    p.galley(egui::pos2(name_x, top), name_g, TEXT);
+                    p.galley(
+                        egui::pos2(rect.right() - pad - size_g.size().x, top + 1.0),
+                        size_g,
+                        MUTED,
+                    );
+                    let track = egui::Rect::from_min_max(
+                        egui::pos2(rect.left() + pad, rect.bottom() - 13.0),
+                        egui::pos2(rect.right() - pad, rect.bottom() - 10.0),
+                    );
+                    p.rect_filled(track, 1.5, BORDER);
+                    let mut fill = track;
+                    fill.set_width(track.width() * (size as f32 / total).clamp(0.0, 1.0));
+                    p.rect_filled(fill, 1.5, swatch);
+
+                    let resp = resp.on_hover_text(if n.is_dir {
+                        "Click to select · double-click to open"
+                    } else {
+                        "Click to select · double-click to show in Finder"
+                    });
+                    if resp.clicked() {
+                        if ui.input(|i| i.modifiers.command) && !n.synthetic {
+                            queue = Some(id);
                         }
-                        for (i, &id) in ids.iter().enumerate() {
-                            let n = tree.node(id);
-                            let size = n.size(mode);
-                            let selected = self.selected == Some(id);
-                            let queued = self.review.contains(&id);
-                            let (rect, resp) = ui.allocate_exact_size(
-                                egui::vec2(ui.available_width(), 48.0),
-                                Sense::click(),
-                            );
-                            let p = ui.painter();
-                            if selected {
-                                p.rect_filled(rect, 0.0, PANEL_2);
-                                p.rect_filled(
-                                    egui::Rect::from_min_size(
-                                        rect.min,
-                                        egui::vec2(2.0, rect.height()),
-                                    ),
-                                    0.0,
-                                    ACCENT,
-                                );
-                            } else if resp.hovered() || self.hovered == Some(id) {
-                                p.rect_filled(rect, 0.0, PANEL_2.gamma_multiply(0.6));
-                            }
-                            let pad = 16.0;
-                            let top = rect.top() + 10.0;
-                            let swatch = if n.synthetic { MUTED } else { colors[i] };
-                            p.rect_filled(
-                                egui::Rect::from_min_size(
-                                    egui::pos2(rect.left() + pad, top + 4.0),
-                                    egui::vec2(8.0, 8.0),
-                                ),
-                                2.0,
-                                swatch,
-                            );
-                            let size_g = p.layout_no_wrap(
-                                format_bytes(size),
-                                egui::FontId::monospace(12.0),
-                                if queued {
-                                    ACCENT
-                                } else if selected {
-                                    TEXT
-                                } else {
-                                    MUTED
-                                },
-                            );
-                            let name_x = rect.left() + pad + 18.0;
-                            let name_w =
-                                (rect.right() - pad - size_g.size().x - 10.0 - name_x).max(20.0);
-                            let label = if n.is_dir && !n.synthetic {
-                                format!("{}/", n.name)
+                        pick = Some(id);
+                    }
+                    if resp.double_clicked() {
+                        if n.is_dir && !n.synthetic {
+                            enter = Some(id);
+                        } else {
+                            reveal = Some(id);
+                        }
+                    }
+                    resp.context_menu(|ui| {
+                        if n.is_dir && !n.synthetic && ui.button("Open").clicked() {
+                            enter = Some(id);
+                            ui.close_menu();
+                        }
+                        if !n.synthetic {
+                            let q = if queued {
+                                "Remove from review"
                             } else {
-                                n.name.clone()
+                                "Add to Trash queue"
                             };
-                            let mut job = egui::text::LayoutJob::simple_singleline(
-                                label,
-                                egui::FontId::proportional(14.0),
-                                if n.synthetic { MUTED } else { TEXT },
-                            );
-                            job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
-                            let name_g = p.layout_job(job);
-                            p.galley(egui::pos2(name_x, top), name_g, TEXT);
-                            p.galley(
-                                egui::pos2(rect.right() - pad - size_g.size().x, top + 1.0),
-                                size_g,
-                                MUTED,
-                            );
-                            let track = egui::Rect::from_min_max(
-                                egui::pos2(rect.left() + pad, rect.bottom() - 13.0),
-                                egui::pos2(rect.right() - pad, rect.bottom() - 10.0),
-                            );
-                            p.rect_filled(track, 1.5, BORDER);
-                            let mut fill = track;
-                            fill.set_width(track.width() * (size as f32 / total).clamp(0.0, 1.0));
-                            p.rect_filled(fill, 1.5, swatch);
-
-                            let resp = resp.on_hover_text(if n.is_dir {
-                                "Click to select · double-click to open"
-                            } else {
-                                "Click to select · double-click to show in Finder"
-                            });
-                            if resp.clicked() {
-                                if ui.input(|i| i.modifiers.command) && !n.synthetic {
-                                    queue = Some(id);
-                                }
-                                pick = Some(id);
+                            if ui.button(q).clicked() {
+                                queue = Some(id);
+                                ui.close_menu();
                             }
-                            if resp.double_clicked() {
-                                if n.is_dir && !n.synthetic {
-                                    enter = Some(id);
-                                } else {
-                                    reveal = Some(id);
-                                }
+                            if ui.button("Show in Finder").clicked() {
+                                reveal = Some(id);
+                                ui.close_menu();
                             }
-                            resp.context_menu(|ui| {
-                                if n.is_dir && !n.synthetic && ui.button("Open").clicked() {
-                                    enter = Some(id);
-                                    ui.close_menu();
-                                }
-                                if !n.synthetic {
-                                    let q = if queued {
-                                        "Remove from Trash queue"
-                                    } else {
-                                        "Add to Trash queue"
-                                    };
-                                    if ui.button(q).clicked() {
-                                        queue = Some(id);
-                                        ui.close_menu();
-                                    }
-                                    if ui.button("Show in Finder").clicked() {
-                                        reveal = Some(id);
-                                        ui.close_menu();
-                                    }
-                                }
-                            });
                         }
                     });
-                if let Some(id) = pick {
-                    self.selected = Some(id);
-                }
-                if let Some(id) = queue {
-                    review::toggle(&mut self.review, id);
-                }
-                if let Some(id) = reveal {
-                    self.selected = Some(id);
-                    self.reveal_selected();
-                }
-                if let Some(id) = enter {
-                    self.navigate(id, true);
                 }
             });
+        if let Some(id) = pick {
+            self.selected = Some(id);
+        }
+        if let Some(id) = queue {
+            review::toggle(&mut self.review, id);
+        }
+        if let Some(id) = reveal {
+            self.selected = Some(id);
+            self.reveal_selected();
+        }
+        if let Some(id) = enter {
+            self.navigate(id, true);
+        }
     }
 
     /// Search box in the app bar (Explore): filters the list and the map.
@@ -2330,132 +2295,83 @@ impl SpaceApp {
         let mut scan_path: Option<PathBuf> = None;
         let mut quick_clean = false;
         let enabled = !self.busy && self.scan.is_none();
-        let col_w = (ui.available_width() - 96.0).clamp(320.0, 1136.0);
-
-        ui.add_space(40.0);
-        ui.horizontal(|ui| {
-            ui.add_space(((ui.available_width() - col_w) * 0.5).max(0.0));
-            ui.vertical(|ui| {
-                ui.set_width(col_w);
-
-                ui.horizontal(|ui| {
-                    ui.vertical(|ui| {
-                        ui.label(RichText::new("What to scan?").size(32.0).strong());
-                        ui.label(
-                            RichText::new(if hovering_drop {
-                                "Drop to scan this folder"
-                            } else {
-                                "Pick a disk, or drop a folder into the window."
-                            })
-                            .size(15.0)
-                            .color(if hovering_drop {
-                                ACCENT
-                            } else {
-                                MUTED
-                            }),
-                        );
-                    });
-                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                        if ui
-                            .add_enabled(
-                                enabled,
-                                egui::Button::new("Open folder…  ⌘O")
-                                    .min_size(egui::vec2(0.0, 40.0)),
-                            )
-                            .clicked()
-                        {
-                            if let Some(path) = rfd::FileDialog::new().pick_folder() {
+        let content_w = (ui.available_width() - 40.0).clamp(0.0, 760.0);
+        ui.vertical(|ui| {
+            ui.add_space(28.0);
+            ui.horizontal(|ui| {
+                ui.add_space(((ui.available_width() - content_w) * 0.5).max(0.0));
+                ui.allocate_ui_with_layout(
+                    egui::vec2(content_w, 0.0),
+                    Layout::top_down(Align::Min),
+                    |ui| {
+                        ui.set_width(content_w);
+                        ui.label(RichText::new("Find what's taking up space").size(28.0).color(TEXT));
+                        ui.label(RichText::new(if hovering_drop {
+                            "Drop your folder here to start scanning."
+                        } else {
+                            "Scan a folder or disk, then explore the largest files."
+                        }).color(MUTED));
+                        ui.add_space(20.0);
+                        card_frame().show(ui, |ui| {
+                            ui.set_width((content_w - 36.0).max(0.0));
+                            ui.vertical(|ui| {
+                                ui.label(RichText::new("Start with your files").size(18.0).color(TEXT));
+                                ui.label(RichText::new("Your home folder includes Downloads, Documents and personal app data.").color(MUTED));
+                                ui.add_space(12.0);
+                                ui.horizontal_wrapped(|ui| {
+                                    if ui.add_enabled(enabled, egui::Button::new(
+                                        RichText::new("Scan home folder").color(ACCENT_INK))
+                                        .fill(ACCENT).min_size(egui::vec2(0.0, 36.0))).clicked() {
+                                        scan_path = std::env::var_os("HOME").map(PathBuf::from);
+                                    }
+                                    if ui.add_enabled(enabled, egui::Button::new("Choose folder…  ⌘O")
+                                        .min_size(egui::vec2(0.0, 36.0))).clicked() {
+                                        scan_path = rfd::FileDialog::new().pick_folder();
+                                    }
+                                });
+                                ui.label(RichText::new("You can also drop a folder anywhere in this window.").small().color(MUTED));
+                            });
+                        });
+                        ui.add_space(20.0);
+                        ui.horizontal(|ui| {
+                            ui.label(RichText::new("Disks").size(16.0).color(TEXT));
+                            if self.volumes_loading { ui.spinner(); }
+                            if ui.add_enabled(!self.volumes_loading,
+                                egui::Button::new("Refresh").small().frame(false)).clicked() {
+                                self.refresh_volumes_async();
+                            }
+                        });
+                        for vol in &self.volumes {
+                            if let Some(path) = disk_card(ui, vol, content_w, enabled) {
                                 scan_path = Some(path);
                             }
                         }
-                        if ui
-                            .add_enabled(
-                                !self.volumes_loading,
-                                egui::Button::new("Refresh disks")
-                                    .frame(false)
-                                    .min_size(egui::vec2(0.0, 40.0)),
-                            )
-                            .clicked()
-                        {
-                            self.refresh_volumes_async();
-                        }
-                    });
-                });
-                ui.add_space(24.0);
-
-                let gap = 16.0;
-                let card_w = ((col_w - 2.0 * gap) / 3.0).max(220.0);
-                ui.horizontal_wrapped(|ui| {
-                    ui.spacing_mut().item_spacing = egui::vec2(gap, gap);
-                    if home_card(ui, card_w, enabled) {
-                        scan_path = std::env::var_os("HOME").map(PathBuf::from);
-                    }
-                    for vol in &self.volumes {
-                        if let Some(path) = disk_card(ui, vol, card_w, enabled) {
-                            scan_path = Some(path);
-                        }
-                    }
-                    if self.volumes_loading {
-                        ui.spinner();
-                    }
-                });
-                ui.add_space(24.0);
-
-                let recent_w = ((col_w - gap) * 0.6).floor();
-                let clean_w = col_w - gap - recent_w;
-                ui.horizontal_top(|ui| {
-                    ui.spacing_mut().item_spacing.x = gap;
-                    card_frame().show(ui, |ui| {
-                        ui.set_width(recent_w - 36.0);
-                        ui.set_min_height(220.0);
-                        ui.label(RichText::new("Recent scans").size(15.0).strong());
-                        ui.add_space(6.0);
+                        ui.add_space(20.0);
+                        ui.label(RichText::new("Saved scans").size(16.0).color(TEXT));
+                        ui.label(RichText::new("Reopen a saved result instantly. Rescan to update it.").small().color(MUTED));
                         if self.recent.is_empty() {
-                            ui.label(RichText::new("No scans yet.").color(MUTED));
+                            ui.label(RichText::new("Your scans will appear here.").color(MUTED));
                         }
                         let now = std::time::SystemTime::now()
                             .duration_since(std::time::UNIX_EPOCH)
-                            .map(|d| d.as_secs())
-                            .unwrap_or(0);
+                            .map(|d| d.as_secs()).unwrap_or(0);
                         for meta in self.recent.iter().take(6) {
                             if recent_row(ui, meta, now, enabled) {
                                 scan_path = Some(PathBuf::from(&meta.root_path));
                             }
                         }
-                    });
-                    egui::Frame::new()
-                        .fill(PANEL)
-                        .stroke(egui::Stroke::new(1.0_f32, ACCENT))
-                        .corner_radius(14)
-                        .inner_margin(egui::Margin::same(22))
-                        .show(ui, |ui| {
-                            ui.set_width(clean_w - 44.0);
-                            ui.set_min_height(212.0);
-                            ui.label(RichText::new("Quick clean").size(20.0).strong());
-                            ui.add_space(6.0);
-                            ui.label(
-                                RichText::new(
-                                    "Caches, logs, temp files and old Time Machine snapshots — \
-                                     no full scan needed. Everything goes to the macOS Trash.",
-                                )
-                                .color(MUTED),
-                            );
-                            ui.add_space(14.0);
-                            if ui
-                                .add(
-                                    egui::Button::new(
-                                        RichText::new("Find junk").color(ACCENT_INK).strong(),
-                                    )
-                                    .fill(ACCENT)
-                                    .min_size(egui::vec2(ui.available_width(), 44.0)),
-                                )
-                                .clicked()
-                            {
-                                quick_clean = true;
-                            }
-                        });
-                });
-                ui.add_space(24.0);
+                        ui.add_space(20.0);
+                        ui.separator();
+                        ui.add_space(8.0);
+                        ui.label(RichText::new("Looking for disposable files?").size(16.0).color(TEXT));
+                        ui.label(RichText::new("Find caches, logs and temporary files without a full disk scan. Review the selection before moving files to Trash.").color(MUTED));
+                        if ui.add_enabled(enabled, egui::Button::new("Review cleanup candidates")
+                            .min_size(egui::vec2(0.0, 34.0))).clicked() {
+                            quick_clean = true;
+                        }
+                        ui.add_space(24.0);
+                    },
+                );
             });
         });
 
@@ -2951,18 +2867,21 @@ impl eframe::App for SpaceApp {
             }
         }
 
+        let compact = ctx.screen_rect().width() < 1000.0;
         self.ui_top_bar(ctx);
         if self.mode == Mode::Explore && self.tree.is_some() {
             self.ui_map_bar(ctx);
         }
 
         match self.mode {
-            Mode::Explore if self.tree.is_some() => self.ui_inspector_panel(ctx),
-            Mode::Clean => self.ui_basket_panel(ctx),
+            Mode::Explore if self.tree.is_some() && self.selected.is_some() => {
+                self.ui_inspector_panel(ctx)
+            }
+            Mode::Clean if !compact => self.ui_basket_panel(ctx),
             _ => {}
         }
 
-        if self.mode == Mode::Explore && self.tree.is_some() {
+        if self.mode == Mode::Explore && self.tree.is_some() && !compact {
             self.ui_contents_panel(ctx);
         }
 
@@ -2977,6 +2896,17 @@ impl eframe::App for SpaceApp {
                 }
                 Mode::Clean => {
                     self.ui_clean(ui);
+                    return;
+                }
+                Mode::Review => {
+                    ui.horizontal_wrapped(|ui| {
+                        if ui.button("Back to disk usage").clicked() {
+                            self.mode = if self.tree.is_some() { Mode::Explore } else { Mode::Home };
+                        }
+                        if ui.button("Cleanup candidates").clicked() { self.set_mode(Mode::Clean); }
+                    });
+                    ui.add_space(10.0);
+                    self.ui_basket_contents(ui);
                     return;
                 }
                 Mode::Explore => {}
@@ -2996,6 +2926,11 @@ impl eframe::App for SpaceApp {
                 return;
             };
 
+            if compact && !self.compact_map {
+                self.ui_contents(ui);
+                return;
+            }
+
             let fhash = self.filter.hash64();
             let review_sig = views::review_sig(&self.review);
 
@@ -3012,8 +2947,8 @@ impl eframe::App for SpaceApp {
                 .map(|t| (t.opacity(), t.scale()))
                 .unwrap_or((1.0, 1.0));
 
-            let files_open = self.settings.flags.show_files_under_map;
-            let files_bar_h = 28.0;
+            let files_open = !compact && self.settings.flags.show_files_under_map;
+            let files_bar_h = if compact { 0.0 } else { 28.0 };
             let files_open_t = ctx.animate_bool_with_time(
                 egui::Id::new("files_panel_open"),
                 files_open,
@@ -3059,9 +2994,9 @@ impl eframe::App for SpaceApp {
                 })
                 .inner;
             ui.set_opacity(1.0);
-            map_hint_pill(ui, map_area, self.view.click_hint());
+            if !compact { map_hint_pill(ui, map_area, self.view.click_hint()); }
 
-            if self.scan.is_none() && !self.busy && self.settings.flags.show_shortcuts_hint {
+            if !compact && self.scan.is_none() && !self.busy && self.settings.flags.show_shortcuts_hint {
                 let hint_h = 40.0;
                 let hint_rect = egui::Rect::from_min_size(
                     map_area.min,
@@ -3186,7 +3121,7 @@ impl eframe::App for SpaceApp {
             let mut select_file = None;
             let mut toggle_file = None;
             let mut open_file = None;
-            ui.scope_builder(egui::UiBuilder::new().max_rect(files_area), |ui| {
+            if !compact { ui.scope_builder(egui::UiBuilder::new().max_rect(files_area), |ui| {
                 ui.painter()
                     .rect_filled(files_area, 0.0, theme::PANEL);
                 ui.painter().hline(
@@ -3278,7 +3213,7 @@ impl eframe::App for SpaceApp {
                                             }
                                             if can_del {
                                                 let label = if queued {
-                                                    "Remove from Trash queue"
+                                                    "Remove from review"
                                                 } else {
                                                     "Add to Trash queue"
                                                 };
@@ -3324,7 +3259,7 @@ impl eframe::App for SpaceApp {
                     }
                     ui.set_opacity(1.0);
                 }
-            });
+            }); }
             if let Some(id) = select_file {
                 self.selected = Some(id);
             }
@@ -3377,18 +3312,18 @@ fn stat_tile(ui: &mut egui::Ui, value: &str, caption: &str) {
         });
 }
 
-/// Home screen disk card: free space first, fill bar, click to scan.
+/// A disk is a scan target; capacity provides context, not a separate task.
 fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> Option<PathBuf> {
-    let frac = if vol.total > 0 {
-        (vol.used() as f32 / vol.total as f32).clamp(0.0, 1.0)
-    } else {
-        0.0
-    };
-    let card = card_frame().show(ui, |ui| {
-        ui.set_width(width - 36.0);
-        ui.set_min_height(150.0);
-        ui.add_enabled_ui(enabled, |ui| {
-            ui.label(RichText::new(&vol.name).size(15.0).strong());
+    let mut clicked = false;
+    card_frame().show(ui, |ui| {
+        ui.set_width((width - 36.0).max(0.0));
+        ui.vertical(|ui| {
+            ui.horizontal_wrapped(|ui| {
+                ui.label(RichText::new(&vol.name).size(16.0).color(TEXT));
+                clicked = ui
+                    .add_enabled(enabled, egui::Button::new("Scan disk"))
+                    .clicked();
+            });
             ui.add(
                 egui::Label::new(
                     RichText::new(vol.mount.display().to_string())
@@ -3398,45 +3333,28 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
                 )
                 .truncate(),
             );
-            ui.add_space(8.0);
             if vol.total > 0 {
-                ui.horizontal(|ui| {
-                    ui.label(
-                        RichText::new(format_bytes(vol.available))
-                            .size(22.0)
-                            .strong(),
-                    );
-                    ui.label(
-                        RichText::new(format!("free of {}", format_bytes(vol.total))).color(MUTED),
-                    );
-                });
-                let (bar, _) =
-                    ui.allocate_exact_size(egui::vec2(ui.available_width(), 6.0), Sense::hover());
-                ui.painter().rect_filled(bar, 3.0, PANEL_2);
-                let mut fill = bar;
-                fill.set_width(bar.width() * frac);
-                // Amber only when the disk is nearly full.
-                let color = if frac > 0.85 {
-                    ACCENT
-                } else {
-                    egui::Color32::from_rgb(106, 169, 255)
-                };
-                ui.painter().rect_filled(fill, 3.0, color);
-            }
-            if vol.snapshot_count > 0 {
+                ui.add_space(6.0);
+                let frac = (vol.used() as f32 / vol.total as f32).clamp(0.0, 1.0);
+                ui.add(
+                    egui::ProgressBar::new(frac)
+                        .desired_width(ui.available_width())
+                        .fill(if frac > 0.85 { ACCENT } else { MUTED }),
+                );
                 ui.label(
-                    RichText::new(format!("{} local snapshots", vol.snapshot_count))
-                        .small()
-                        .color(MUTED),
+                    RichText::new(format!(
+                        "{} used · {} free · {} total",
+                        format_bytes(vol.used()),
+                        format_bytes(vol.available),
+                        format_bytes(vol.total)
+                    ))
+                    .small()
+                    .color(MUTED),
                 );
             }
         });
     });
-    let hit = card
-        .response
-        .interact(Sense::click())
-        .on_hover_text(format!("Scan {}", vol.mount.display()));
-    (enabled && hit.clicked()).then(|| vol.mount.clone())
+    clicked.then(|| vol.mount.clone())
 }
 
 /// Filter pill: filled when on, outlined when off.
@@ -3467,38 +3385,15 @@ fn card_frame() -> egui::Frame {
         .inner_margin(egui::Margin::same(18))
 }
 
-/// Home card for the user folder — usually the fastest useful scan.
-fn home_card(ui: &mut egui::Ui, width: f32, enabled: bool) -> bool {
-    let mut clicked = false;
-    card_frame().show(ui, |ui| {
-        ui.set_width(width - 36.0);
-        ui.set_min_height(150.0);
-        ui.label(RichText::new("Home folder").size(17.0).strong());
-        ui.label(RichText::new("~/").small().monospace().color(MUTED));
-        ui.add_space(10.0);
-        ui.label(RichText::new("Usually the fastest useful scan.").color(MUTED));
-        ui.add_space(12.0);
-        clicked = ui
-            .add_enabled(
-                enabled,
-                egui::Button::new(RichText::new("Scan").color(ACCENT_INK).strong())
-                    .fill(ACCENT)
-                    .min_size(egui::vec2(ui.available_width(), 40.0)),
-            )
-            .clicked();
-    });
-    clicked
-}
-
 /// One recent scan: folder, age, size — click to reopen from cache.
 fn recent_row(ui: &mut egui::Ui, meta: &CacheMeta, now: u64, enabled: bool) -> bool {
     let (rect, resp) =
-        ui.allocate_exact_size(egui::vec2(ui.available_width(), 40.0), Sense::click());
+        ui.allocate_exact_size(egui::vec2(ui.available_width(), 58.0), Sense::click());
     let p = ui.painter();
     if resp.hovered() && enabled {
         p.rect_filled(rect, 8.0, PANEL_2);
     }
-    let y = rect.center().y;
+    let y = rect.top() + 40.0;
     let size = p.layout_no_wrap(
         format_bytes(meta.total_size),
         egui::FontId::proportional(14.0),
@@ -3510,19 +3405,15 @@ fn recent_row(ui: &mut egui::Ui, meta: &CacheMeta, now: u64, enabled: bool) -> b
         MUTED,
     );
     let size_x = rect.right() - 8.0 - size.size().x;
-    let age_x = size_x - 16.0 - age.size().x;
+    let age_x = rect.left() + 8.0;
     let mut job = egui::text::LayoutJob::simple_singleline(
         meta.root_path.clone(),
         egui::FontId::monospace(13.0),
         TEXT,
     );
-    job.wrap = egui::text::TextWrapping::truncate_at_width((age_x - rect.left() - 20.0).max(40.0));
+    job.wrap = egui::text::TextWrapping::truncate_at_width((rect.width() - 16.0).max(0.0));
     let path = p.layout_job(job);
-    p.galley(
-        egui::pos2(rect.left() + 8.0, y - path.size().y * 0.5),
-        path,
-        TEXT,
-    );
+    p.galley(egui::pos2(rect.left() + 8.0, rect.top() + 7.0), path, TEXT);
     p.galley(egui::pos2(age_x, y - age.size().y * 0.5), age, MUTED);
     p.galley(egui::pos2(size_x, y - size.size().y * 0.5), size, TEXT);
     enabled && resp.on_hover_text(&meta.root_path).clicked()
