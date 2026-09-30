@@ -498,7 +498,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             .stroke(if on {
                 egui::Stroke::NONE
             } else {
-                egui::Stroke::new(1.0, theme::BORDER)
+                egui::Stroke::new(1.0_f32, theme::BORDER)
             })
             .corner_radius(14);
             if ui.add(chip).clicked() {
@@ -555,7 +555,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                     );
                                     let (label, color, hint) = badge(cat.cleanable > 0, cat.risk);
                                     egui::Frame::new()
-                                        .stroke(egui::Stroke::new(1.0, color.gamma_multiply(0.5)))
+                                        .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
                                         .corner_radius(5)
                                         .inner_margin(egui::Margin::symmetric(6, 1))
                                         .show(ui, |ui| {

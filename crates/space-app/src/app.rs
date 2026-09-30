@@ -1309,7 +1309,7 @@ impl SpaceApp {
                 egui::Frame::new()
                     .fill(PANEL)
                     .inner_margin(egui::Margin::symmetric(14, 0))
-                    .stroke(egui::Stroke::new(1.0, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
             )
             .show(ctx, |ui| {
                 ui.horizontal_centered(|ui| {
@@ -1364,7 +1364,7 @@ impl SpaceApp {
                         egui::Color32::TRANSPARENT
                     })
                     .stroke(if on {
-                        egui::Stroke::new(1.0, BORDER)
+                        egui::Stroke::new(1.0_f32, BORDER)
                     } else {
                         egui::Stroke::NONE
                     })
@@ -1626,7 +1626,7 @@ impl SpaceApp {
                 egui::Frame::new()
                     .fill(PANEL)
                     .inner_margin(egui::Margin::same(18))
-                    .stroke(egui::Stroke::new(1.0, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
             )
             .show(ctx, |ui| {
                 let Some(tree) = self.tree.clone() else {
@@ -1674,7 +1674,7 @@ impl SpaceApp {
                 if let Some((category, badge, color, hint)) = self.junk.risk_hint(&path) {
                     egui::Frame::new()
                         .fill(PANEL_2)
-                        .stroke(egui::Stroke::new(1.0, color.gamma_multiply(0.5)))
+                        .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
                         .corner_radius(10)
                         .inner_margin(egui::Margin::same(12))
                         .show(ui, |ui| {
@@ -1822,7 +1822,7 @@ impl SpaceApp {
                 egui::Frame::new()
                     .fill(PANEL)
                     .inner_margin(egui::Margin::same(18))
-                    .stroke(egui::Stroke::new(1.0, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
             )
             .show(ctx, |ui| {
                 ui.label(RichText::new("Trash queue").size(17.0).strong());
@@ -3460,7 +3460,7 @@ impl eframe::App for SpaceApp {
 fn segmented(ui: &mut egui::Ui, add: impl FnOnce(&mut egui::Ui)) {
     egui::Frame::new()
         .fill(PANEL)
-        .stroke(egui::Stroke::new(1.0, BORDER))
+        .stroke(egui::Stroke::new(1.0_f32, BORDER))
         .corner_radius(9)
         .inner_margin(egui::Margin::same(3))
         .show(ui, |ui| {
@@ -3503,7 +3503,7 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
     };
     let card = egui::Frame::new()
         .fill(PANEL)
-        .stroke(egui::Stroke::new(1.0, BORDER))
+        .stroke(egui::Stroke::new(1.0_f32, BORDER))
         .corner_radius(12)
         .inner_margin(egui::Margin::same(16))
         .show(ui, |ui| {
