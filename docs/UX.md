@@ -47,4 +47,4 @@ The interface layer lives in `crates/space-app/src/app/ui/` (`shell`, `scan`, `u
 
 Checked headless at 1280 × 800, 1000 × 700, 760 × 560 and 720 × 520 with `scripts/ui-shots.sh` (Xvfb with software Vulkan). It does not replace a check on macOS.
 
-Remaining refinements: richer scan coverage and outcome presentation; accessible selection controls for painted rows; icons for the three destinations; a Russian localisation (Geist covers Cyrillic).
+Remaining refinements: richer scan coverage and outcome presentation; accessible selection controls for painted rows. Icons are painter-drawn vectors (`icons.rs`); the interface is localised English/Russian (`i18n.rs`, switch in the ⋯ menu, default from the system locale).
