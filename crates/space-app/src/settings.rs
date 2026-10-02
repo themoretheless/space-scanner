@@ -68,6 +68,9 @@ pub struct AppSettings {
     pub flags: FeatureFlags,
     pub window_width: f32,
     pub window_height: f32,
+    /// Interface language; `None` follows the system locale.
+    #[serde(default)]
+    pub language: Option<crate::i18n::Lang>,
 }
 
 impl Default for AppSettings {
@@ -78,6 +81,7 @@ impl Default for AppSettings {
             flags: FeatureFlags::default(),
             window_width: 1280.0,
             window_height: 800.0,
+            language: None,
         }
     }
 }

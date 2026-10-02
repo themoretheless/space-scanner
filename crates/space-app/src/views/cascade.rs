@@ -1,7 +1,7 @@
 //! Cascade (icicle): stacked horizontal bands by depth, width ∝ size.
 
 use egui::{pos2, Align2, FontId, Rect, Sense, Stroke, Ui, Vec2};
-use space_core::{format_bytes, NodeId};
+use space_core::NodeId;
 
 use crate::theme::{self, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, ViewAction};
@@ -106,9 +106,12 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                 band.rect.left_center() + Vec2::new(8.0, 8.0),
                 Align2::LEFT_CENTER,
                 if band.depth == 0 && node.parent.is_some() {
-                    format!("{}  ·  click to go up", format_bytes(node.size(ctx.mode)))
+                    format!(
+                        "{}  ·  click to go up",
+                        crate::i18n::bytes(node.size(ctx.mode))
+                    )
                 } else {
-                    format_bytes(node.size(ctx.mode))
+                    crate::i18n::bytes(node.size(ctx.mode))
                 },
                 FontId::proportional(11.0),
                 MUTED,

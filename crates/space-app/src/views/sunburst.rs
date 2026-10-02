@@ -3,7 +3,7 @@
 use std::sync::Arc;
 
 use egui::{epaint::Mesh, Align2, Color32, FontId, Pos2, Sense, Shape, Stroke, Ui, Vec2};
-use space_core::{format_bytes, NodeId};
+use space_core::NodeId;
 
 use crate::theme::{self, ACCENT, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, GeomCache, GeomKey, ViewAction};
@@ -242,7 +242,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     painter.text(
         center + Vec2::new(0.0, 10.0),
         Align2::CENTER_CENTER,
-        format_bytes(focus_node.size(ctx.mode)),
+        crate::i18n::bytes(focus_node.size(ctx.mode)),
         FontId::proportional(12.0),
         Color32::from_rgba_unmultiplied(MUTED.r(), MUTED.g(), MUTED.b(), (label_a * 220.0) as u8),
     );
@@ -302,9 +302,9 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             .clone()
             .on_hover_ui(|ui| super::node_hover_ui(ui, tree, id, ctx.focus, ctx.mode));
     } else if hover_other {
-        response
-            .clone()
-            .on_hover_text("Smaller items grouped here. Open a larger folder to see them.");
+        response.clone().on_hover_text(crate::i18n::t(
+            "Smaller items grouped here. Open a larger folder to see them.",
+        ));
     }
     let label_t =
         ui.ctx()
@@ -320,7 +320,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             let label = format!(
                 "{}  ·  {}  ·  {pct:.0}%",
                 truncate(&n.name, 28),
-                format_bytes(n.size(ctx.mode)),
+                crate::i18n::bytes(n.size(ctx.mode)),
             );
             let bar = egui::Rect::from_min_size(
                 egui::pos2(rect.left() + 12.0, rect.bottom() - 28.0),
