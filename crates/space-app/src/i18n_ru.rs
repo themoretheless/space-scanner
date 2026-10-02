@@ -449,4 +449,6 @@ static RU: &[(&str, &str)] = &[
     ("name or description…", "название или описание…"),
     ("tags: {}", "теги: {}"),
     ("… {} more paths", "… ещё путей: {}"),
+    ("OS update", "Обновление ОС"),
+    ("Snapshot", "Снимок"),
 ];
