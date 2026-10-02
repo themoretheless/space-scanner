@@ -1,7 +1,7 @@
 //! Nested squarified treemap with extension legend filter.
 
 use egui::{pos2, Align2, FontId, Rect, Sense, Stroke, Ui, Vec2};
-use space_core::{format_bytes, NodeId};
+use space_core::NodeId;
 
 use crate::theme::{self, ACCENT, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, ViewAction};
@@ -107,11 +107,11 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             if resp.clicked() {
                 action.filter_ext = Some(ext.clone());
             }
-            resp.on_hover_text(if selected {
+            resp.on_hover_text(crate::i18n::t(if selected {
                 "Showing this type — click to show all"
             } else {
                 "Show only this file type on the map"
-            });
+            }));
             ui.painter().rect_filled(
                 egui::Rect::from_center_size(egui::pos2(x + 6.0, y), Vec2::splat(10.0)),
                 2.0,
@@ -184,7 +184,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 painter.text(
                     rect.left_top() + Vec2::new(5.0, 18.0),
                     Align2::LEFT_TOP,
-                    format_bytes(node.size(ctx.mode)),
+                    crate::i18n::bytes(node.size(ctx.mode)),
                     FontId::proportional(10.0),
                     MUTED,
                 );

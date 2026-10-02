@@ -1,8 +1,8 @@
 //! Cleanup: discover candidates. Scanning and selecting are separate actions; the
 //! queue lives on the Review page, this page only shows a summary beside the list.
 
+use crate::i18n::t;
 use eframe::egui::{self, Align, Layout, RichText};
-use space_core::format_bytes;
 
 use super::Density;
 use crate::app::{Mode, SpaceApp};
@@ -55,16 +55,16 @@ impl SpaceApp {
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         if ui
                             .add(ghost("Local snapshots…"))
-                            .on_hover_text("Snapshots hold space a scan can't see")
+                            .on_hover_text(t("Snapshots hold space a scan can't see"))
                             .clicked()
                         {
                             self.open_tm_panel();
                         }
                         if !show_summary && self.basket_len() > 0 {
-                            let label = format!(
+                            let label = crate::tr!(
                                 "Review · {} · {}",
                                 self.basket_len(),
-                                format_bytes(self.basket_bytes())
+                                crate::i18n::bytes(self.basket_bytes())
                             );
                             if ui.add(primary(&label)).clicked() {
                                 self.set_mode(Mode::Review);
@@ -78,7 +78,7 @@ impl SpaceApp {
     /// Where the selection stands, with the way into Review.
     fn selection_summary(&mut self, ui: &mut egui::Ui) {
         ui.label(
-            RichText::new("Selected for review")
+            RichText::new(t("Selected for review"))
                 .size(type_scale::LEAD)
                 .strong(),
         );
@@ -88,20 +88,23 @@ impl SpaceApp {
             stat(
                 &mut cols[0],
                 &self.junk.selected_count().to_string(),
-                &format!("cleanup · {}", format_bytes(self.junk.selected_bytes())),
+                &crate::tr!(
+                    "cleanup · {}",
+                    crate::i18n::bytes(self.junk.selected_bytes())
+                ),
             );
             stat(
                 &mut cols[1],
                 &self.review.len().to_string(),
-                &format!("disk usage · {}", format_bytes(self.review_bytes())),
+                &crate::tr!("disk usage · {}", crate::i18n::bytes(self.review_bytes())),
             );
         });
         ui.add_space(S3);
         ui.horizontal(|ui| {
-            ui.label(RichText::new("Selected size").color(MUTED));
+            ui.label(RichText::new(t("Selected size")).color(MUTED));
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                 ui.label(
-                    RichText::new(format_bytes(self.basket_bytes()))
+                    RichText::new(crate::i18n::bytes(self.basket_bytes()))
                         .size(type_scale::TITLE)
                         .strong(),
                 );
@@ -110,7 +113,7 @@ impl SpaceApp {
         ui.add_space(S3);
         let n = self.basket_len();
         if ui
-            .add_enabled(n > 0, block(ui, primary(&format!("Review {n} items"))))
+            .add_enabled(n > 0, block(ui, primary(&crate::tr!("Review {} items", n))))
             .clicked()
         {
             self.set_mode(Mode::Review);

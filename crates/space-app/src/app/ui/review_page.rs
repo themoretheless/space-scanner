@@ -1,10 +1,11 @@
 //! Review: the one place deletions are checked. It lists both sources, lets any
 //! item be dropped, and is the only route to the Move to Trash confirmation.
 
+use crate::i18n::t;
 use std::path::PathBuf;
 
 use eframe::egui::{self, Align, Layout, RichText};
-use space_core::{format_bytes, NodeId};
+use space_core::NodeId;
 
 use crate::app::{Mode, SpaceApp};
 use crate::review;
@@ -36,9 +37,9 @@ impl SpaceApp {
                     ui.horizontal(|ui| {
                         ui.vertical(|ui| {
                             ui.horizontal(|ui| {
-                                ui.label(RichText::new("Selected size").color(MUTED));
+                                ui.label(RichText::new(t("Selected size")).color(MUTED));
                                 ui.label(
-                                    RichText::new(format_bytes(self.basket_bytes()))
+                                    RichText::new(crate::i18n::bytes(self.basket_bytes()))
                                         .size(type_scale::TITLE)
                                         .strong(),
                                 );
@@ -68,7 +69,7 @@ impl SpaceApp {
                     ui.add_space(S6 + S2);
                     ui.horizontal(|ui| {
                         ui.vertical(|ui| {
-                            ui.label(RichText::new("Review").size(type_scale::DISPLAY).strong());
+                            ui.label(RichText::new(t("Review")).size(type_scale::DISPLAY).strong());
                             ui.label(caption(
                                 "Check what will move to Trash. Overlapping paths are counted once.",
                             ));
@@ -147,7 +148,7 @@ impl SpaceApp {
                                 Layout::left_to_right(Align::Center),
                                 |ui| {
                                     ui.label(
-                                        RichText::new(title.to_uppercase())
+                                        RichText::new(t(title).to_uppercase())
                                             .size(type_scale::CAPTION)
                                             .color(MUTED),
                                     );
@@ -179,7 +180,7 @@ impl SpaceApp {
 
 /// One path with its size and a remove button; returns true when removed.
 fn item_row(ui: &mut egui::Ui, path: &str, size: u64) -> bool {
-    let rect = path_size_row(ui, path, &format_bytes(size), ROW_H, 40.0);
+    let rect = path_size_row(ui, path, &crate::i18n::bytes(size), ROW_H, 40.0);
     let button = egui::Rect::from_center_size(
         egui::pos2(rect.right() - 16.0, rect.center().y),
         egui::vec2(32.0, 32.0),
@@ -189,7 +190,15 @@ fn item_row(ui: &mut egui::Ui, path: &str, size: u64) -> bool {
         rect.bottom(),
         egui::Stroke::new(1.0_f32, BORDER),
     );
-    ui.put(button, ghost("×").min_size(egui::vec2(32.0, 32.0)))
-        .on_hover_text("Remove from review")
+    ui.allocate_new_ui(egui::UiBuilder::new().max_rect(button), |ui| {
+        crate::icons::button(
+            ui,
+            crate::icons::Icon::Close,
+            32.0,
+            "Remove from review",
+            true,
+        )
         .clicked()
+    })
+    .inner
 }

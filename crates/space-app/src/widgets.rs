@@ -3,6 +3,7 @@
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense, Ui};
 
+use crate::i18n::t;
 use crate::theme::metrics::{CONTROL_H, RADIUS_CARD, RADIUS_CONTROL, S2, S3, S4};
 use crate::theme::type_scale;
 use crate::theme::{ACCENT, ACCENT_INK, BORDER, MUTED, PANEL, PANEL_2, TEXT};
@@ -18,12 +19,15 @@ pub fn text_width(ui: &Ui, text: &str, font: egui::FontId) -> f32 {
 
 /// Secondary text at caption size.
 pub fn caption(text: impl Into<String>) -> RichText {
-    RichText::new(text).size(type_scale::CAPTION).color(MUTED)
+    let text: String = text.into();
+    RichText::new(t(&text).to_owned())
+        .size(type_scale::CAPTION)
+        .color(MUTED)
 }
 
 /// Filled accent button — the one primary action on a screen.
 pub fn primary(label: &str) -> egui::Button<'static> {
-    egui::Button::new(RichText::new(label).color(ACCENT_INK).strong())
+    egui::Button::new(RichText::new(t(label)).color(ACCENT_INK).strong())
         .fill(ACCENT)
         .corner_radius(RADIUS_CONTROL)
         .min_size(egui::vec2(0.0, CONTROL_H))
@@ -31,7 +35,7 @@ pub fn primary(label: &str) -> egui::Button<'static> {
 
 /// Bordered neutral button.
 pub fn secondary(label: &str) -> egui::Button<'static> {
-    egui::Button::new(RichText::new(label).color(TEXT))
+    egui::Button::new(RichText::new(t(label)).color(TEXT))
         .fill(PANEL_2)
         .stroke(egui::Stroke::new(1.0_f32, BORDER))
         .corner_radius(RADIUS_CONTROL)
@@ -40,7 +44,7 @@ pub fn secondary(label: &str) -> egui::Button<'static> {
 
 /// Frameless text button for quiet actions.
 pub fn ghost(label: &str) -> egui::Button<'static> {
-    egui::Button::new(RichText::new(label).color(MUTED))
+    egui::Button::new(RichText::new(t(label)).color(MUTED))
         .frame(false)
         .min_size(egui::vec2(0.0, CONTROL_H))
 }
@@ -53,11 +57,11 @@ pub fn block(ui: &Ui, button: egui::Button<'static>) -> egui::Button<'static> {
 /// Filter pill: filled when on, outlined when off.
 pub fn chip(ui: &mut Ui, on: bool, label: &str) -> egui::Response {
     ui.add(
-        egui::Button::new(RichText::new(label).size(type_scale::CAPTION).color(if on {
-            crate::theme::BG
-        } else {
-            MUTED
-        }))
+        egui::Button::new(
+            RichText::new(t(label))
+                .size(type_scale::CAPTION)
+                .color(if on { crate::theme::BG } else { MUTED }),
+        )
         .fill(if on { TEXT } else { Color32::TRANSPARENT })
         .stroke(if on {
             egui::Stroke::NONE
@@ -82,7 +86,7 @@ pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> 
             ui.horizontal(|ui| {
                 for (i, label) in labels.iter().enumerate() {
                     let on = i == current;
-                    let button = egui::Button::new(RichText::new(*label).color(if on {
+                    let button = egui::Button::new(RichText::new(t(label)).color(if on {
                         TEXT
                     } else {
                         MUTED
@@ -121,10 +125,14 @@ pub fn badge(ui: &mut Ui, text: &str, color: Color32, hint: &str) {
         .corner_radius(6)
         .inner_margin(egui::Margin::symmetric(8, 3))
         .show(ui, |ui| {
-            ui.label(RichText::new(text).size(type_scale::CAPTION).color(color));
+            ui.label(
+                RichText::new(t(text))
+                    .size(type_scale::CAPTION)
+                    .color(color),
+            );
         })
         .response
-        .on_hover_text(hint);
+        .on_hover_text(t(hint));
 }
 
 /// Big number with a caption underneath.
@@ -135,8 +143,11 @@ pub fn stat(ui: &mut Ui, value: &str, caption_text: &str) {
         .inner_margin(egui::Margin::symmetric(S3 as i8, S3 as i8))
         .show(ui, |ui| {
             ui.set_width(ui.available_width());
-            ui.label(RichText::new(value).size(type_scale::TITLE).strong());
-            ui.label(caption(caption_text));
+            // `ui.columns` justifies its cells; a plain vertical layout keeps wrapped text left-aligned.
+            ui.vertical(|ui| {
+                ui.label(RichText::new(value).size(type_scale::TITLE).strong());
+                ui.label(caption(caption_text));
+            });
         });
 }
 
@@ -168,7 +179,7 @@ pub fn page_column<R>(ui: &mut Ui, max_w: f32, add: impl FnOnce(&mut Ui) -> R) -
 /// Section heading with an optional right-aligned action.
 pub fn section_header(ui: &mut Ui, title: &str, right: impl FnOnce(&mut Ui)) {
     ui.horizontal(|ui| {
-        ui.label(RichText::new(title).size(type_scale::LEAD).strong());
+        ui.label(RichText::new(t(title)).size(type_scale::LEAD).strong());
         ui.with_layout(Layout::right_to_left(Align::Center), right);
     });
     ui.add_space(S2);
@@ -184,7 +195,7 @@ pub fn divider(ui: &mut Ui) {
 pub fn empty_state(ui: &mut Ui, title: &str, body: &str) {
     ui.add_space(S4 * 2.0);
     ui.vertical_centered(|ui| {
-        ui.label(RichText::new(title).size(type_scale::LEAD).strong());
+        ui.label(RichText::new(t(title)).size(type_scale::LEAD).strong());
         ui.add_space(S1_5);
         ui.label(caption(body));
     });
@@ -192,13 +203,9 @@ pub fn empty_state(ui: &mut Ui, title: &str, body: &str) {
 
 const S1_5: f32 = 6.0;
 
-/// "1 item" / "3 items".
+/// "1 item" / "3 items" (or the Russian forms).
 pub fn count_noun(n: usize, noun: &str) -> String {
-    if n == 1 {
-        format!("1 {noun}")
-    } else {
-        format!("{n} {noun}s")
-    }
+    crate::i18n::count(n, noun)
 }
 
 /// A full-width row: path on the left (shortened with an ellipsis, full path on hover),
@@ -245,11 +252,5 @@ pub fn path_size_row(
 
 /// Age as a short phrase: "3 h ago", "yesterday".
 pub fn format_age(secs: u64) -> String {
-    match secs {
-        0..=59 => "just now".into(),
-        60..=3599 => format!("{} min ago", secs / 60),
-        3600..=86_399 => format!("{} h ago", secs / 3600),
-        86_400..=172_799 => "yesterday".into(),
-        _ => format!("{} days ago", secs / 86_400),
-    }
+    crate::i18n::age(secs)
 }

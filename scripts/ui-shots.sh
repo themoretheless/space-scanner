@@ -41,7 +41,15 @@ xdotool key Escape; sleep 1
 pkill -x space-scanner || true
 
 W=1280; H=800
-launch;                click 300 27 "${CLEANUP_WAIT:-20}"; shot 10-cleanup
+launch;                click "${CLEANUP_TAB_X:-372}" 27 "${CLEANUP_WAIT:-20}"; shot 10-cleanup
 click 58 255;          shot 11-cleanup-selected       # first category checkbox
 click 1126 292;        shot 12-review-wide            # Review N items
+pkill -x space-scanner || true
+
+# 4. Shortcuts dialog and the More menu (with the language switch)
+W=1280; H=800
+launch;                xdotool key shift+slash; sleep 1.5; shot 14-shortcuts
+xdotool key Escape; sleep 1
+click 1234 27;         shot 15-more-menu
+click 1100 213 1;      shot 16-language-menu          # Language submenu
 pkill -x space-scanner || true

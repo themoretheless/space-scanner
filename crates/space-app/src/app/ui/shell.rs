@@ -1,14 +1,16 @@
 //! App bar: one row of global navigation, location, progress and the Review entry.
 
+use crate::i18n::t;
 use eframe::egui::{self, Align, Color32, Layout, RichText};
 
 use super::Density;
 use crate::app::{Mode, SpaceApp};
+use crate::i18n::Lang;
+use crate::icons::{self, Icon};
 use crate::theme::metrics::{APP_BAR_H, CONTROL_H, S2, S3, S4};
 use crate::theme::type_scale;
 use crate::theme::{ACCENT, ACCENT_INK, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
 use crate::widgets::{caption, ghost, secondary, segmented, text_width};
-use space_core::format_bytes;
 
 /// Space reserved for the controls on the right of the bar when fitting breadcrumbs.
 const MORE_W: f32 = 76.0;
@@ -24,10 +26,10 @@ impl SpaceApp {
         let inline_location = explore && d != Density::Narrow;
         let mut reserve = MORE_W + S4;
         if self.basket_len() > 0 {
-            let label = format!(
+            let label = crate::tr!(
                 "Review · {} · {}",
                 self.basket_len(),
-                format_bytes(self.basket_bytes())
+                crate::i18n::bytes(self.basket_bytes())
             );
             let font = egui::FontId::proportional(type_scale::BODY);
             reserve += text_width_ctx(ctx, &label, font) + 40.0 + S2;
@@ -107,37 +109,30 @@ impl SpaceApp {
             .inner_margin(egui::Margin::same(3))
             .show(ui, |ui| {
                 ui.spacing_mut().item_spacing.x = 2.0;
-                for (mode, label, hint, enabled) in [
-                    (Mode::Home, "Scan", "Choose a folder or disk", true),
+                for (mode, icon, label, hint, enabled) in [
+                    (
+                        Mode::Home,
+                        Icon::Scan,
+                        "Scan",
+                        "Choose a folder or disk",
+                        true,
+                    ),
                     (
                         Mode::Explore,
+                        Icon::Usage,
                         "Disk usage",
                         "Explore the current scan",
                         has_scan,
                     ),
-                    (Mode::Clean, "Cleanup", "Find cleanup candidates · ⌘J", true),
+                    (
+                        Mode::Clean,
+                        Icon::Cleanup,
+                        "Cleanup",
+                        "Find cleanup candidates · ⌘J",
+                        true,
+                    ),
                 ] {
-                    let on = self.mode == mode;
-                    let button = egui::Button::new(
-                        RichText::new(label).size(type_scale::BODY).color(if on {
-                            TEXT
-                        } else {
-                            MUTED
-                        }),
-                    )
-                    .fill(if on { PANEL_2 } else { Color32::TRANSPARENT })
-                    .stroke(if on {
-                        egui::Stroke::new(1.0_f32, BORDER)
-                    } else {
-                        egui::Stroke::NONE
-                    })
-                    .corner_radius(8)
-                    .min_size(egui::vec2(0.0, 32.0));
-                    if ui
-                        .add_enabled(enabled, button)
-                        .on_hover_text(hint)
-                        .clicked()
-                    {
+                    if tab(ui, icon, label, self.mode == mode, enabled, hint).clicked() {
                         self.set_mode(mode);
                     }
                 }
@@ -149,28 +144,21 @@ impl SpaceApp {
         let Some(tree) = self.tree.clone() else {
             return;
         };
-        let nav = |ui: &mut egui::Ui, enabled: bool, glyph: &str, hint: &str| {
-            ui.add_enabled(
-                enabled,
-                egui::Button::new(RichText::new(glyph).size(type_scale::LEAD))
-                    .frame(false)
-                    .min_size(egui::vec2(28.0, CONTROL_H)),
-            )
-            .on_hover_text(hint)
-            .clicked()
+        let nav = |ui: &mut egui::Ui, enabled: bool, icon: Icon, hint: &str| {
+            icons::button(ui, icon, 30.0, hint, enabled).clicked()
         };
-        if nav(ui, !self.history_back.is_empty(), "←", "Back") {
+        if nav(ui, !self.history_back.is_empty(), Icon::Back, "Back") {
             self.go_back();
         }
-        if nav(ui, !self.history_fwd.is_empty(), "→", "Forward") {
+        if nav(ui, !self.history_fwd.is_empty(), Icon::Forward, "Forward") {
             self.go_forward();
         }
         let can_up = tree.node(self.focus).parent.is_some();
-        if nav(ui, can_up, "↑", "Parent folder · Esc") {
+        if nav(ui, can_up, Icon::Up, "Parent folder · Esc") {
             self.go_up();
         }
 
-        let avail = budget - 3.0 * 28.0 - 3.0 * S2;
+        let avail = budget - 3.0 * 30.0 - 3.0 * S2;
         let crumbs = tree.breadcrumb_names(self.focus);
         let chain = tree.path_to(self.focus);
         let font = egui::FontId::proportional(type_scale::BODY);
@@ -189,14 +177,14 @@ impl SpaceApp {
         if start > 0
             && ui
                 .add(egui::Button::new(RichText::new("…").color(MUTED)).frame(false))
-                .on_hover_text("Show the path above")
+                .on_hover_text(t("Show the path above"))
                 .clicked()
         {
             go = Some(chain[start - 1]);
         }
         for i in start..crumbs.len() {
             if i > start {
-                ui.label(RichText::new("/").color(MUTED));
+                icons::show(ui, Icon::ChevronRight, 12.0, MUTED);
             }
             let here = i + 1 == crumbs.len();
             let text = RichText::new(&crumbs[i])
@@ -227,10 +215,7 @@ impl SpaceApp {
 
     fn search_box(&mut self, ui: &mut egui::Ui, width: f32) {
         if !self.filter_draft.is_empty()
-            && ui
-                .add(ghost("×").min_size(egui::vec2(28.0, CONTROL_H)))
-                .on_hover_text("Clear search")
-                .clicked()
+            && icons::button(ui, Icon::Close, 28.0, "Clear search", true).clicked()
         {
             self.filter_draft.clear();
             self.filter.query.clear();
@@ -242,11 +227,11 @@ impl SpaceApp {
             egui::TextEdit::singleline(&mut self.filter_draft)
                 .margin(egui::vec2(10.0, 7.0))
                 .hint_text(
-                    RichText::new(if width < 190.0 {
+                    RichText::new(t(if width < 190.0 {
                         "Search"
                     } else {
                         "Search this scan  ⌘F"
-                    })
+                    }))
                     .color(MUTED),
                 ),
         );
@@ -277,12 +262,12 @@ impl SpaceApp {
             }
         }
         let text = match &self.progress {
-            Some(p) => format!(
+            Some(p) => crate::tr!(
                 "Scanning · {} · {} files",
-                format_bytes(p.bytes_seen),
+                crate::i18n::bytes(p.bytes_seen),
                 p.files_seen
             ),
-            None => "Starting scan…".to_string(),
+            None => t("Starting scan…").to_string(),
         };
         ui.add(egui::Label::new(caption(text)).truncate());
         ui.add(
@@ -307,14 +292,18 @@ impl SpaceApp {
         if n == 0 {
             return;
         }
-        let label = format!("Review · {n} · {}", format_bytes(self.basket_bytes()));
+        let label = crate::tr!(
+            "Review · {} · {}",
+            n,
+            crate::i18n::bytes(self.basket_bytes())
+        );
         let pill = egui::Button::new(RichText::new(label).color(ACCENT_INK).strong())
             .fill(ACCENT)
             .corner_radius(18)
             .min_size(egui::vec2(0.0, 34.0));
         if ui
             .add(pill)
-            .on_hover_text("Check what will move to Trash")
+            .on_hover_text(t("Check what will move to Trash"))
             .clicked()
         {
             self.set_mode(Mode::Review);
@@ -322,9 +311,9 @@ impl SpaceApp {
     }
 
     fn more_menu(&mut self, ui: &mut egui::Ui) {
-        ui.menu_button(RichText::new("More").color(TEXT), |ui| {
+        ui.menu_button(RichText::new(t("More")).color(TEXT), |ui| {
             ui.set_min_width(220.0);
-            if ui.button("Choose folder…  ⌘O").clicked() {
+            if ui.button(t("Choose folder…  ⌘O")).clicked() {
                 ui.close_menu();
                 if let Some(path) = rfd::FileDialog::new().pick_folder() {
                     self.start_scan(path, false);
@@ -334,7 +323,7 @@ impl SpaceApp {
             if ui
                 .add_enabled(
                     self.tree.is_some() && idle,
-                    egui::Button::new("Rescan everything  ⌘R"),
+                    egui::Button::new(t("Rescan everything  ⌘R")),
                 )
                 .clicked()
             {
@@ -344,7 +333,7 @@ impl SpaceApp {
             if ui
                 .add_enabled(
                     self.tree.is_some() && idle,
-                    egui::Button::new("Rescan this folder"),
+                    egui::Button::new(t("Rescan this folder")),
                 )
                 .clicked()
             {
@@ -352,18 +341,35 @@ impl SpaceApp {
                 ui.close_menu();
             }
             if ui
-                .add_enabled(self.tree.is_some(), egui::Button::new("Copy path  ⌘⇧C"))
+                .add_enabled(self.tree.is_some(), egui::Button::new(t("Copy path  ⌘⇧C")))
                 .clicked()
             {
                 self.copy_focus_path();
                 ui.close_menu();
             }
             ui.separator();
-            if ui.button("Cleanup rules…").clicked() {
+            ui.menu_button(t("Language"), |ui| {
+                for (choice, label) in [
+                    (None, t("Automatic")),
+                    (Some(Lang::En), Lang::En.native_name()),
+                    (Some(Lang::Ru), Lang::Ru.native_name()),
+                ] {
+                    if ui
+                        .selectable_label(self.settings.language == choice, label)
+                        .clicked()
+                    {
+                        self.settings.language = choice;
+                        crate::i18n::set(choice.unwrap_or_else(crate::i18n::detect));
+                        self.settings.save();
+                        ui.close_menu();
+                    }
+                }
+            });
+            if ui.button(t("Cleanup rules…")).clicked() {
                 self.open_rules_panel();
                 ui.close_menu();
             }
-            if ui.button("Keyboard shortcuts  ?").clicked() {
+            if ui.button(t("Keyboard shortcuts  ?")).clicked() {
                 self.show_shortcuts = true;
                 ui.close_menu();
             }
@@ -377,6 +383,69 @@ fn text_width_ctx(ctx: &egui::Context, text: &str, font: egui::FontId) -> f32 {
             .size()
             .x
     })
+}
+
+/// One destination: icon and label, filled when current.
+fn tab(
+    ui: &mut egui::Ui,
+    icon: Icon,
+    label: &str,
+    on: bool,
+    enabled: bool,
+    hint: &str,
+) -> egui::Response {
+    let label = t(label);
+    let label = t(label);
+    let label = t(label);
+    let label = t(label);
+    let label = t(label);
+    let label = t(label);
+    let font = egui::FontId::proportional(type_scale::BODY);
+    let text_w = text_width(ui, label, font.clone());
+    let size = egui::vec2(12.0 + 16.0 + 8.0 + text_w + 14.0, 32.0);
+    let sense = if enabled {
+        egui::Sense::click()
+    } else {
+        egui::Sense::hover()
+    };
+    let (rect, resp) = ui.allocate_exact_size(size, sense);
+    let hovered = resp.hovered() && enabled;
+    let color = if !enabled {
+        MUTED.gamma_multiply(0.5)
+    } else if on || hovered {
+        TEXT
+    } else {
+        MUTED
+    };
+    let painter = ui.painter();
+    if on {
+        painter.rect(
+            rect,
+            8.0,
+            PANEL_2,
+            egui::Stroke::new(1.0_f32, BORDER),
+            egui::StrokeKind::Inside,
+        );
+    } else if hovered {
+        painter.rect_filled(rect, 8.0, PANEL_2.gamma_multiply(0.5));
+    }
+    icons::paint(
+        painter,
+        icon,
+        egui::Rect::from_center_size(
+            egui::pos2(rect.left() + 12.0 + 8.0, rect.center().y),
+            egui::vec2(16.0, 16.0),
+        ),
+        if on { ACCENT } else { color },
+    );
+    painter.text(
+        egui::pos2(rect.left() + 12.0 + 16.0 + 8.0, rect.center().y),
+        egui::Align2::LEFT_CENTER,
+        label,
+        font,
+        color,
+    );
+    resp.on_hover_text(t(hint))
 }
 
 /// Two-tone ring + name.

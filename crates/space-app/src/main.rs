@@ -1,5 +1,7 @@
 mod anim;
 mod app;
+mod i18n;
+mod icons;
 mod junk_panel;
 mod largest_files;
 mod review;

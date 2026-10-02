@@ -1,12 +1,14 @@
 //! Scan page: one primary choice, a specific-folder alternative, disk targets and
 //! saved results. Cleanup is a quiet secondary entry (docs/UX.md).
 
+use crate::i18n::t;
 use std::path::PathBuf;
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense};
-use space_core::{format_bytes, CacheMeta};
+use space_core::CacheMeta;
 
 use crate::app::SpaceApp;
+use crate::icons::{self, Icon};
 use crate::theme::metrics::{S2, S3, S4, S6, S8};
 use crate::theme::type_scale;
 use crate::theme::{ACCENT, BG, MUTED, PANEL_2, TEXT};
@@ -47,13 +49,13 @@ impl SpaceApp {
         ui.add_space(S8);
         ui.horizontal_wrapped(|ui| {
             ui.vertical(|ui| {
-                ui.label(RichText::new("What do you want to scan?").size(type_scale::DISPLAY).strong());
+                ui.label(RichText::new(t("What do you want to scan?")).size(type_scale::DISPLAY).strong());
                 ui.label(
-                    RichText::new(if hovering_drop {
+                    RichText::new(t(if hovering_drop {
                         "Drop the folder to start scanning."
                     } else {
                         "Pick your home folder or a disk — or drop a folder anywhere in this window."
-                    })
+                    }))
                     .size(type_scale::BODY)
                     .color(if hovering_drop { ACCENT } else { MUTED }),
                 );
@@ -137,7 +139,7 @@ impl SpaceApp {
         ui.add_space(S3);
         ui.horizontal_wrapped(|ui| {
             ui.vertical(|ui| {
-                ui.label(RichText::new("Looking for disposable files?").size(type_scale::LEAD).strong());
+                ui.label(RichText::new(t("Looking for disposable files?")).size(type_scale::LEAD).strong());
                 ui.label(caption(
                     "Caches, logs and temporary files, found without a full scan. Nothing is selected until you choose it.",
                 ));
@@ -164,7 +166,14 @@ fn home_card(ui: &mut egui::Ui, width: f32, enabled: bool) -> bool {
     card(ui, |ui| {
         ui.set_width(width - 36.0);
         ui.set_min_height(168.0);
-        ui.label(RichText::new("Home folder").size(type_scale::LEAD).strong());
+        ui.horizontal(|ui| {
+            icons::show(ui, Icon::Home, 20.0, ACCENT);
+            ui.label(
+                RichText::new(t("Home folder"))
+                    .size(type_scale::LEAD)
+                    .strong(),
+            );
+        });
         ui.label(
             RichText::new("~/")
                 .size(type_scale::MONO)
@@ -193,9 +202,13 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
     card(ui, |ui| {
         ui.set_width(width - 36.0);
         ui.set_min_height(168.0);
-        ui.add(
-            egui::Label::new(RichText::new(&vol.name).size(type_scale::LEAD).strong()).truncate(),
-        );
+        ui.horizontal(|ui| {
+            icons::show(ui, Icon::Disk, 20.0, MUTED);
+            ui.add(
+                egui::Label::new(RichText::new(&vol.name).size(type_scale::LEAD).strong())
+                    .truncate(),
+            );
+        });
         ui.add(
             egui::Label::new(
                 RichText::new(vol.mount.display().to_string())
@@ -209,11 +222,14 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
         if vol.total > 0 {
             ui.horizontal(|ui| {
                 ui.label(
-                    RichText::new(format_bytes(vol.available))
+                    RichText::new(crate::i18n::bytes(vol.available))
                         .size(type_scale::TITLE)
                         .strong(),
                 );
-                ui.label(caption(format!("free of {}", format_bytes(vol.total))));
+                ui.label(caption(crate::tr!(
+                    "free of {}",
+                    crate::i18n::bytes(vol.total)
+                )));
             });
             meter(
                 ui,
@@ -229,12 +245,15 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
             ui.label(caption("Capacity unknown"));
         }
         if vol.snapshot_count > 0 {
-            ui.label(caption(format!("{} local snapshots", vol.snapshot_count)));
+            ui.label(caption(crate::tr!(
+                "{} local snapshots",
+                vol.snapshot_count
+            )));
         }
         ui.add_space(S3);
         clicked = ui
             .add_enabled(enabled, block(ui, secondary("Scan disk")))
-            .on_hover_text(format!("Scan everything on {}", vol.mount.display()))
+            .on_hover_text(crate::tr!("Scan everything on {}", vol.mount.display()))
             .clicked();
     });
     clicked
@@ -250,7 +269,7 @@ fn recent_row(ui: &mut egui::Ui, meta: &CacheMeta, now: u64, enabled: bool) -> b
     }
     let y = rect.center().y;
     let size = p.layout_no_wrap(
-        format_bytes(meta.total_size),
+        crate::i18n::bytes(meta.total_size),
         egui::FontId::proportional(type_scale::BODY),
         TEXT,
     );

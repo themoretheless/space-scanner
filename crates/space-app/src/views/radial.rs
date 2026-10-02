@@ -1,7 +1,6 @@
 //! Orbital bubbles with LOD (top N children).
 
 use egui::{Align2, FontId, Sense, Stroke, Ui, Vec2};
-use space_core::format_bytes;
 
 use crate::theme::{self, ACCENT, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, ViewAction};
@@ -54,9 +53,9 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         center + Vec2::new(0.0, 12.0),
         Align2::CENTER_CENTER,
         if focus_node.parent.is_some() {
-            format!("{}  ·  ↑", format_bytes(focus_node.size(ctx.mode)))
+            format!("{}  ·  ↑", crate::i18n::bytes(focus_node.size(ctx.mode)))
         } else {
-            format_bytes(focus_node.size(ctx.mode))
+            crate::i18n::bytes(focus_node.size(ctx.mode))
         },
         FontId::proportional(13.0),
         MUTED,
@@ -140,7 +139,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                 format!(
                     "{} {}",
                     truncate(&node.name, 14),
-                    format_bytes(node.size(ctx.mode))
+                    crate::i18n::bytes(node.size(ctx.mode))
                 ),
                 FontId::proportional(11.0),
                 TEXT,
@@ -177,7 +176,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             action.navigate = Some(parent);
         }
     }
-    center_resp.on_hover_text("Click to go up");
+    center_resp.on_hover_text(crate::i18n::t("Click to go up"));
 
     action
 }

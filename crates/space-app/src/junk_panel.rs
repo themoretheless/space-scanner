@@ -1,5 +1,6 @@
 //! Junk cleaner panel — category-first, Trash-first (ppduster rules).
 
+use crate::i18n::t;
 use std::collections::BTreeMap;
 use std::time::Instant;
 
@@ -69,7 +70,7 @@ fn badge(cleanable: bool, risk: u8) -> (&'static str, egui::Color32, &'static st
     match risk {
         0 => ("Safe", SAFE, "Rebuilt or re-downloaded automatically"),
         1 => (
-            "Review",
+            "Check",
             ACCENT,
             "Usually fine — check the list before trashing",
         ),
@@ -305,18 +306,18 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 _ if state.loading => ("Looking through caches, logs and temp…".to_string(), None),
                 Some(r) => (
                     if state.selection.count == 0 {
-                        format!(
+                        crate::tr!(
                             "{} removable items in {} categories · nothing selected",
                             r.cleanable_count,
                             r.categories.len()
                         )
                     } else {
-                        format!(
+                        crate::tr!(
                             "{} removable items in {} categories · {} selected ({})",
                             r.cleanable_count,
                             r.categories.len(),
                             state.selection.count,
-                            format_bytes(state.selection.bytes())
+                            crate::i18n::bytes(state.selection.bytes())
                         )
                     },
                     Some(r.cleanable_bytes),
@@ -327,13 +328,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             ui.horizontal(|ui| {
                 ui.spacing_mut().item_spacing.x = 8.0;
                 ui.label(
-                    RichText::new("Cleanup candidates")
+                    RichText::new(t("Cleanup candidates"))
                         .size(type_scale::DISPLAY)
                         .strong(),
                 );
                 if let Some(bytes) = total {
                     ui.label(
-                        RichText::new(format_bytes(bytes))
+                        RichText::new(crate::i18n::bytes(bytes))
                             .size(type_scale::DISPLAY)
                             .strong()
                             .color(ACCENT),
@@ -344,7 +345,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
                 .add(widgets::secondary("Rules…"))
-                .on_hover_text("Turn individual rules on or off")
+                .on_hover_text(t("Turn individual rules on or off"))
                 .clicked()
             {
                 action = JunkAction::OpenRules;
@@ -365,14 +366,16 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.label(widgets::caption("Also scan"));
         if ui
             .checkbox(&mut flags.scan_browser_cookies, "Cookies")
-            .on_hover_text("Off by default — cleaning cookies signs you out of websites")
+            .on_hover_text(t(
+                "Off by default — cleaning cookies signs you out of websites",
+            ))
             .changed()
         {
             action = JunkAction::PrefsChanged;
         }
         if ui
             .checkbox(&mut flags.scan_browser_history, "History")
-            .on_hover_text("Off by default")
+            .on_hover_text(t("Off by default"))
             .changed()
         {
             action = JunkAction::PrefsChanged;
@@ -399,13 +402,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.horizontal(|ui| {
             ui.spinner();
             ui.label(
-                RichText::new(format!(
+                RichText::new(crate::tr!(
                     "Moving to Trash · {}/{} items · {} files · {} folders · {} · {} errors · {}s",
                     p.items_done,
                     p.items_total,
                     p.files_done,
                     p.folders_done,
-                    format_bytes(p.bytes_processed),
+                    crate::i18n::bytes(p.bytes_processed),
                     p.error_count,
                     elapsed
                 ))
@@ -449,16 +452,16 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.horizontal(|ui| {
             ui.spinner();
             ui.label(
-                RichText::new(format!(
+                RichText::new(crate::tr!(
                     "{} · {} removable files · {} folders · {} ({}) · {}s",
                     if p.rules_total == 0 {
-                        "Loading rules…".to_string()
+                        t("Loading rules…").to_string()
                     } else {
-                        format!("Scanning {}/{} rules", p.rules_done, p.rules_total)
+                        crate::tr!("Scanning {}/{} rules", p.rules_done, p.rules_total)
                     },
                     p.files_found,
                     p.folders_found,
-                    format_bytes(p.bytes_found),
+                    crate::i18n::bytes(p.bytes_found),
                     p.findings_found,
                     elapsed
                 ))
@@ -473,7 +476,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         );
         if !p.current_rule.is_empty() {
             ui.label(
-                RichText::new(format!("Looking at {}", p.current_rule))
+                RichText::new(crate::tr!("Looking at {}", p.current_rule))
                     .small()
                     .color(TEXT),
             );
@@ -495,11 +498,13 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
 
     let Some(report) = state.report.as_ref() else {
         ui.label(
-            RichText::new("Still scanning, or press Rescan if this is empty by mistake.")
-                .color(MUTED),
+            RichText::new(t(
+                "Still scanning, or press Rescan if this is empty by mistake.",
+            ))
+            .color(MUTED),
         );
         ui.add_space(12.0);
-        if ui.button("Close").clicked() {
+        if ui.button(t("Close")).clicked() {
             action = JunkAction::Close;
         }
         return action;
@@ -510,7 +515,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         for (f, label) in [
             (RiskFilter::All, "All"),
             (RiskFilter::Safe, "Safe"),
-            (RiskFilter::Review, "Review"),
+            (RiskFilter::Review, "Check"),
             (RiskFilter::ReportOnly, "Report only"),
         ] {
             let n = report
@@ -519,18 +524,19 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 .filter(|c| f == RiskFilter::All || RiskFilter::of(c) == f)
                 .count();
             let on = state.risk_filter == f;
-            let chip = egui::Button::new(RichText::new(format!("{label} · {n}")).color(if on {
-                theme::BG
-            } else {
-                MUTED
-            }))
-            .fill(if on { TEXT } else { egui::Color32::TRANSPARENT })
-            .stroke(if on {
-                egui::Stroke::NONE
-            } else {
-                egui::Stroke::new(1.0_f32, theme::BORDER)
-            })
-            .corner_radius(14);
+            let chip =
+                egui::Button::new(RichText::new(format!("{} · {n}", t(label))).color(if on {
+                    theme::BG
+                } else {
+                    MUTED
+                }))
+                .fill(if on { TEXT } else { egui::Color32::TRANSPARENT })
+                .stroke(if on {
+                    egui::Stroke::NONE
+                } else {
+                    egui::Stroke::new(1.0_f32, theme::BORDER)
+                })
+                .corner_radius(14);
             if ui.add(chip).clicked() {
                 state.risk_filter = f;
             }
@@ -546,12 +552,12 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
 
     if cat_list.is_empty() {
         ui.label(
-            RichText::new("Nothing to clean right now.")
+            RichText::new(t("Nothing to clean right now."))
                 .size(14.0)
                 .color(TEXT),
         );
         ui.label(
-            RichText::new("Try Rules to turn more categories on, or Rescan.")
+            RichText::new(t("Try Rules to turn more categories on, or Rescan."))
                 .small()
                 .color(MUTED),
         );
@@ -595,7 +601,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                             cat.cleanable > 0,
                                             egui::Checkbox::without_text(&mut all),
                                         )
-                                        .on_hover_text("Add or remove the whole category")
+                                        .on_hover_text(t("Add or remove the whole category"))
                                         .changed()
                                     {
                                         state.selection.set_category(cat, findings, all);
@@ -609,36 +615,49 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                     ui.painter().circle_filled(icon.center(), 5.0, color);
                                     ui.vertical(|ui| {
                                         ui.spacing_mut().item_spacing.y = 2.0;
-                                        let chev = if open { "▼" } else { "▶" };
-                                        if ui
-                                            .add(
-                                                egui::Button::new(
-                                                    RichText::new(format!(
-                                                        "{chev}  {}",
-                                                        cat_title(&cat.name)
-                                                    ))
-                                                    .size(15.0)
-                                                    .strong()
-                                                    .color(TEXT),
+                                        let title = ui
+                                            .horizontal(|ui| {
+                                                ui.spacing_mut().item_spacing.x = 6.0;
+                                                crate::icons::show(
+                                                    ui,
+                                                    if open {
+                                                        crate::icons::Icon::ChevronDown
+                                                    } else {
+                                                        crate::icons::Icon::ChevronRight
+                                                    },
+                                                    14.0,
+                                                    MUTED,
+                                                );
+                                                ui.add(
+                                                    egui::Button::new(
+                                                        RichText::new(
+                                                            t(&cat_title(&cat.name)).to_owned(),
+                                                        )
+                                                        .size(15.0)
+                                                        .strong()
+                                                        .color(TEXT),
+                                                    )
+                                                    .frame(false),
                                                 )
-                                                .frame(false),
-                                            )
-                                            .on_hover_text(if open {
+                                            })
+                                            .inner;
+                                        if title
+                                            .on_hover_text(t(if open {
                                                 "Hide items"
                                             } else {
                                                 "Show items"
-                                            })
+                                            }))
                                             .clicked()
                                         {
                                             state.expanded_cat =
                                                 if open { None } else { Some(cat.name.clone()) };
                                         }
-                                        let mut sub = format!("{} removable", cat.cleanable);
+                                        let mut sub = crate::tr!("{} removable", cat.cleanable);
                                         if picked > 0 && picked < cat.cleanable {
-                                            sub.push_str(&format!(" · {picked} selected"));
+                                            sub.push_str(&crate::tr!(" · {} selected", picked));
                                         }
                                         if cat.report_only > 0 {
-                                            sub.push_str(&format!(
+                                            sub.push_str(&crate::tr!(
                                                 " · {} listed only",
                                                 cat.report_only
                                             ));
@@ -647,7 +666,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                     });
                                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                         ui.label(
-                                            RichText::new(format_bytes(cat.bytes))
+                                            RichText::new(crate::i18n::bytes(cat.bytes))
                                                 .size(15.0)
                                                 .strong()
                                                 .monospace(),
@@ -661,11 +680,11 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                             .inner_margin(egui::Margin::symmetric(8, 3))
                                             .show(ui, |ui| {
                                                 ui.label(
-                                                    RichText::new(label).size(12.0).color(color),
+                                                    RichText::new(t(label)).size(12.0).color(color),
                                                 );
                                             })
                                             .response
-                                            .on_hover_text(hint);
+                                            .on_hover_text(t(hint));
                                     });
                                 });
                                 if open {
@@ -728,7 +747,7 @@ fn draw_finding_rows(
             }
             let color = if enabled { TEXT } else { MUTED };
             ui.label(
-                RichText::new(format!("{:>8}", format_bytes(finding.bytes)))
+                RichText::new(format!("{:>8}", crate::i18n::bytes(finding.bytes)))
                     .monospace()
                     .size(type_scale::MONO)
                     .color(color),

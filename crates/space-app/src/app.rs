@@ -114,6 +114,7 @@ pub struct SpaceApp {
 impl SpaceApp {
     pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
         theme::apply(&cc.egui_ctx);
+        crate::i18n::set(settings.language.unwrap_or_else(crate::i18n::detect));
 
         let cache = CacheStore::open().ok();
         let (bg_tx, bg_rx) = unbounded();
@@ -239,16 +240,16 @@ impl SpaceApp {
                             self.cache_stale = stale;
                             self.from_cache = true;
                             self.status = if stale {
-                                format!(
+                                crate::tr!(
                                     "Cached index (stale) · {} items · {} — Rescan recommended",
                                     tree.item_count,
-                                    format_bytes(tree.total_size_mode(self.size_mode))
+                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
                                 )
                             } else {
-                                format!(
+                                crate::tr!(
                                     "Loaded cache · {} items · {}",
                                     tree.item_count,
-                                    format_bytes(tree.total_size_mode(self.size_mode))
+                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
                                 )
                             };
                             self.tree = Some(tree);
@@ -273,10 +274,10 @@ impl SpaceApp {
                     self.history_fwd.clear();
                     self.cache_stale = false;
                     self.from_cache = false;
-                    self.status = format!(
+                    self.status = crate::tr!(
                         "Rescanned · {} items · {}",
                         tree.item_count,
-                        format_bytes(tree.total_size_mode(self.size_mode))
+                        crate::i18n::bytes(tree.total_size_mode(self.size_mode))
                     );
                     self.tree = Some(tree);
                     self.invalidate_largest();
@@ -287,7 +288,7 @@ impl SpaceApp {
                 }
                 BgMsg::RescanDone(Err(e)) => {
                     self.busy = false;
-                    self.status = format!("Incremental rescan failed: {e}");
+                    self.status = crate::tr!("Incremental rescan failed: {}", e);
                 }
                 BgMsg::DeleteProgress(progress) => {
                     self.delete_progress = Some(progress);
@@ -298,9 +299,9 @@ impl SpaceApp {
                     self.delete_started = None;
                     let n = deleted_ids.len();
                     self.status = if errors.is_empty() {
-                        format!("Moved {n} item(s) to Trash")
+                        crate::tr!("Moved {} items to Trash", n)
                     } else {
-                        format!("Moved {n} item(s) · {} failed", errors.len())
+                        crate::tr!("Moved {} items · {} failed", n, errors.len())
                     };
                     if let Some(tree) = &self.tree {
                         let removed_paths: Vec<_> = deleted_ids
@@ -334,7 +335,7 @@ impl SpaceApp {
                     self.delete_progress = None;
                     self.delete_started = None;
                     self.confirm_delete = false;
-                    self.status = format!("Trash failed: {e}");
+                    self.status = crate::tr!("Trash failed: {}", e);
                 }
                 BgMsg::TmCleanDone(report) => {
                     self.busy = false;
@@ -378,9 +379,9 @@ impl SpaceApp {
                 }
                 BgMsg::JunkScanDone(Ok(report)) => {
                     self.junk.set_report(report);
-                    self.status = format!(
+                    self.status = crate::tr!(
                         "Junk · {} · {} items",
-                        format_bytes(self.junk.report().map(|r| r.total_bytes).unwrap_or(0)),
+                        crate::i18n::bytes(self.junk.report().map(|r| r.total_bytes).unwrap_or(0)),
                         self.junk.report().map(|r| r.findings.len()).unwrap_or(0)
                     );
                 }
@@ -388,7 +389,7 @@ impl SpaceApp {
                     self.junk.loading = false;
                     self.junk.scan_started = None;
                     self.junk.error = Some(e.clone());
-                    self.status = format!("Junk scan failed: {e}");
+                    self.status = crate::tr!("Junk scan failed: {}", e);
                 }
                 BgMsg::JunkCleanProgress(progress) => {
                     if self.junk.cleaning {
@@ -399,10 +400,10 @@ impl SpaceApp {
                     self.busy = false;
                     self.junk.cleaning = false;
                     self.junk.clean_started = None;
-                    self.status = format!(
+                    self.status = crate::tr!(
                         "Junk · moved {} to Trash · {}",
                         result.deleted.len(),
-                        format_bytes(result.processed_bytes)
+                        crate::i18n::bytes(result.processed_bytes)
                     );
                     self.junk.clear_selection();
                     self.start_junk_scan();
@@ -412,7 +413,7 @@ impl SpaceApp {
                     self.junk.cleaning = false;
                     self.junk.clean_started = None;
                     self.junk.error = Some(e.clone());
-                    self.status = format!("Junk clean failed: {e}");
+                    self.status = crate::tr!("Junk clean failed: {}", e);
                 }
                 BgMsg::Largest { request, rows } => {
                     self.largest.complete(request, rows);
@@ -501,7 +502,7 @@ impl SpaceApp {
         if !force {
             if let Some(cache) = self.cache.clone() {
                 self.busy = true;
-                self.status = format!("Loading cache for {}…", path.display());
+                self.status = crate::tr!("Loading cache for {}…", path.display());
                 self.tree = None;
                 self.progress = None;
                 self.invalidate_largest();
@@ -542,7 +543,7 @@ impl SpaceApp {
             current_path: path.display().to_string(),
             skipped_errors: 0,
         });
-        self.status = format!("Scanning {}…", path.display());
+        self.status = crate::tr!("Scanning {}…", path.display());
         self.scan = Some(scan_path_with_expect(path, self.expected_items));
     }
 
@@ -560,7 +561,7 @@ impl SpaceApp {
             return;
         }
         self.busy = true;
-        self.status = format!("Incremental rescan of {}…", tree.node(self.focus).name);
+        self.status = crate::tr!("Incremental rescan of {}…", tree.node(self.focus).name);
         let focus = self.focus;
         let tx = self.bg_tx.clone();
         thread::Builder::new()
@@ -599,13 +600,13 @@ impl SpaceApp {
                     )
                 })
                 .unwrap_or_default();
-            self.status = format!(
+            self.status = crate::tr!(
                 "Scanning… {} · {}{}{}",
-                format_bytes(p.bytes_seen),
+                crate::i18n::bytes(p.bytes_seen),
                 p.files_seen,
                 pct,
                 if p.skipped_errors > 0 {
-                    format!(" · {} skipped", p.skipped_errors)
+                    crate::tr!(" · {} skipped", p.skipped_errors)
                 } else {
                     String::new()
                 }
@@ -614,14 +615,14 @@ impl SpaceApp {
         }
 
         if cancelled {
-            self.status = "Scan cancelled.".into();
+            self.status = crate::i18n::t("Scan cancelled.").into();
             self.scan = None;
             self.progress = None;
             return;
         }
 
         if let Some(e) = err {
-            self.status = format!("Scan error: {e}");
+            self.status = crate::tr!("Scan error: {}", e);
             self.scan = None;
             self.progress = None;
             return;
@@ -630,17 +631,17 @@ impl SpaceApp {
         if let Some(tree) = done_tree {
             let skip = tree.skipped_errors;
             let hl = tree.hardlinks_deduped;
-            self.status = format!(
+            self.status = crate::tr!(
                 "Indexed {} items · {}{}{}",
                 tree.item_count,
-                format_bytes(tree.total_size_mode(self.size_mode)),
+                crate::i18n::bytes(tree.total_size_mode(self.size_mode)),
                 if skip > 0 {
-                    format!(" · {skip} skipped")
+                    crate::tr!(" · {} skipped", skip)
                 } else {
                     String::new()
                 },
                 if hl > 0 {
-                    format!(" · {hl} hardlinks deduped")
+                    crate::tr!(" · {} hardlinks deduped", hl)
                 } else {
                     String::new()
                 }
@@ -699,7 +700,7 @@ impl SpaceApp {
         let Some(tree) = &self.tree else { return };
         let id = self.hovered.or(self.selected).unwrap_or(self.focus);
         let path = tree.path_string(id);
-        self.status = format!("Copied {path}");
+        self.status = crate::tr!("Copied {}", path);
         self.clipboard_set(&path);
     }
 
@@ -1029,7 +1030,8 @@ impl SpaceApp {
             })
             .collect();
         if items.is_empty() {
-            self.status = "Aggregated small-file rows cannot be deleted directly".into();
+            self.status =
+                crate::i18n::t("Aggregated small-file rows cannot be deleted directly").into();
             return;
         }
         let items = space_clean::coalesce_nested_paths(items, |item| item.1.as_path());
@@ -1039,7 +1041,7 @@ impl SpaceApp {
             ..Default::default()
         });
         self.delete_started = Some(Instant::now());
-        self.status = "Moving to Trash…".into();
+        self.status = crate::i18n::t("Moving to Trash…").into();
         let tx = self.bg_tx.clone();
         thread::Builder::new()
             .name("space-trash".into())
@@ -1148,7 +1150,7 @@ impl SpaceApp {
             return;
         }
         self.busy = true;
-        self.status = "Deleting old Time Machine snapshots…".into();
+        self.status = crate::i18n::t("Deleting old Time Machine snapshots…").into();
         let tx = self.bg_tx.clone();
         let keep = if self.tm_snapshots.iter().filter(|s| s.is_tm()).count() > 1 {
             1usize
@@ -1271,7 +1273,7 @@ impl SpaceApp {
         };
         self.junk.clean_started = Some(Instant::now());
         self.junk.confirm = false;
-        self.status = "Moving junk to Trash…".into();
+        self.status = crate::i18n::t("Moving junk to Trash…").into();
         let tx = self.bg_tx.clone();
         thread::Builder::new()
             .name("space-junk-clean".into())
@@ -1348,12 +1350,13 @@ impl SpaceApp {
             self.tm_snapshots.len()
         };
         Some(if snaps > 0 {
-            format!(
-                "{} not in this scan · {snaps} snapshots",
-                format_bytes(gap + (64 << 20))
+            crate::tr!(
+                "{} not in this scan · {} snapshots",
+                crate::i18n::bytes(gap + (64 << 20)),
+                snaps
             )
         } else {
-            format!("{} not in this scan", format_bytes(gap + (64 << 20)))
+            crate::tr!("{} not in this scan", crate::i18n::bytes(gap + (64 << 20)))
         })
     }
 
@@ -1382,7 +1385,7 @@ impl eframe::App for SpaceApp {
             if path.exists() {
                 self.start_scan(path, false);
             } else {
-                self.status = format!("Folder not found: {}", path.display());
+                self.status = crate::tr!("Folder not found: {}", path.display());
             }
         }
         let dropped: Vec<PathBuf> = ctx.input(|i| {

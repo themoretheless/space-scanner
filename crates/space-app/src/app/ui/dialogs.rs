@@ -1,9 +1,9 @@
 //! Modal windows: shortcuts, the Move to Trash confirmation, local snapshots, rules.
 
+use crate::i18n::t;
 use std::time::Duration;
 
 use eframe::egui::{self, Align, Layout, RichText};
-use space_core::format_bytes;
 
 use crate::app::SpaceApp;
 use crate::rules_panel::{self, RulesAction};
@@ -40,7 +40,7 @@ impl SpaceApp {
         let mut close = false;
         window("Keyboard shortcuts", ctx).show(ctx, |ui| {
             ui.label(
-                RichText::new("Keyboard shortcuts")
+                RichText::new(t("Keyboard shortcuts"))
                     .size(type_scale::TITLE)
                     .strong(),
             );
@@ -67,8 +67,8 @@ impl SpaceApp {
                         ("⌘⇧C", "Copy the folder path"),
                         ("?", "This list"),
                     ] {
-                        ui.label(RichText::new(keys).monospace().color(ACCENT));
-                        ui.label(action);
+                        ui.label(RichText::new(t(keys)).monospace().color(ACCENT));
+                        ui.label(t(action));
                         ui.end_row();
                     }
                 });
@@ -104,19 +104,21 @@ impl SpaceApp {
                     .map(|t| t.elapsed().as_secs())
                     .unwrap_or(0);
                 ui.label(
-                    RichText::new(format!(
+                    RichText::new(crate::tr!(
                         "Moving to Trash · {}/{} items",
-                        progress.items_done, progress.items_total
+                        progress.items_done,
+                        progress.items_total
                     ))
                     .size(type_scale::LEAD)
                     .strong(),
                 );
-                ui.label(caption(format!(
-                    "{} files · {} folders · {} · {} errors · {elapsed}s",
+                ui.label(caption(crate::tr!(
+                    "{} files · {} folders · {} · {} errors · {}s",
                     progress.files_done,
                     progress.folders_done,
-                    format_bytes(progress.bytes_processed),
+                    crate::i18n::bytes(progress.bytes_processed),
                     progress.error_count,
+                    elapsed
                 )));
                 ui.add_space(S3);
                 ui.add(egui::ProgressBar::new(fraction.clamp(0.0, 1.0)).show_percentage());
@@ -139,17 +141,16 @@ impl SpaceApp {
             let mut items = self.basket_items();
             items.sort_by_key(|item| std::cmp::Reverse(item.1));
             ui.label(
-                RichText::new(format!(
+                RichText::new(crate::tr!(
                     "Move {} ({}) to Trash?",
                     count_noun(items.len(), "item"),
-                    format_bytes(self.basket_bytes())
+                    crate::i18n::bytes(self.basket_bytes())
                 ))
                 .size(type_scale::LEAD)
                 .strong(),
             );
             ui.label(caption(
-                "Items go to the macOS Trash and can be restored from there. Disk space is only \
-                 released after you empty Trash in Finder.",
+                "Items go to the macOS Trash and can be restored from there. Disk space is only released after you empty Trash in Finder.",
             ));
             ui.add_space(S3);
             egui::Frame::new()
@@ -166,13 +167,13 @@ impl SpaceApp {
                                 path_size_row(
                                     ui,
                                     &path.display().to_string(),
-                                    &format_bytes(*size),
+                                    &crate::i18n::bytes(*size),
                                     28.0,
                                     0.0,
                                 );
                             }
                             if items.len() > 40 {
-                                ui.label(caption(format!("…and {} more", items.len() - 40)));
+                                ui.label(caption(crate::tr!("…and {} more", items.len() - 40)));
                             }
                         });
                 });
@@ -185,7 +186,7 @@ impl SpaceApp {
                     if ui
                         .add_enabled(
                             !items.is_empty(),
-                            primary(&format!(
+                            primary(&crate::tr!(
                                 "Move {} to Trash",
                                 count_noun(items.len(), "item")
                             )),
@@ -209,7 +210,7 @@ impl SpaceApp {
             .show(ctx, |ui| {
                 ui.set_width(460.0);
                 ui.label(
-                    RichText::new("Local snapshots")
+                    RichText::new(t("Local snapshots"))
                         .size(type_scale::TITLE)
                         .strong(),
                 );
@@ -217,8 +218,7 @@ impl SpaceApp {
                 let tm_n = self.tm_snapshots.iter().filter(|s| s.is_tm()).count();
                 let other_n = self.tm_snapshots.len().saturating_sub(tm_n);
                 ui.label(caption(
-                    "Snapshots hold disk space that never appears as ordinary files. \
-                 Deleting old Time Machine copies can release it.",
+                    "Snapshots hold disk space that never appears as ordinary files. Deleting old Time Machine copies can release it.",
                 ));
                 ui.add_space(S3);
                 ui.horizontal(|ui| {
@@ -230,7 +230,7 @@ impl SpaceApp {
                     );
                     ui.label("Time Machine");
                     if other_n > 0 {
-                        ui.label(caption(format!("· {other_n} macOS / other")));
+                        ui.label(caption(crate::tr!("· {} macOS / other", other_n)));
                     }
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         if ui
@@ -299,7 +299,7 @@ impl SpaceApp {
                         let label = if tm_n <= 1 {
                             "Delete snapshot…".to_string()
                         } else {
-                            format!("Delete {remove} old…")
+                            crate::tr!("Delete {} old…", remove)
                         };
                         if ui.add_enabled(can, secondary(&label)).clicked() {
                             self.confirm_tm_clean = true;
@@ -319,13 +319,12 @@ impl SpaceApp {
                                 RichText::new(if keep == 0 {
                                     "Permanently delete this snapshot?".to_string()
                                 } else {
-                                    format!("Permanently delete {remove} oldest, keep the newest?")
+                                    crate::tr!("Permanently delete {} oldest, keep the newest?", remove)
                                 })
                                 .strong(),
                             );
                             ui.label(caption(
-                                "Snapshots do not go to Trash — this cannot be undone. \
-                             macOS update snapshots are left alone.",
+                                "Snapshots do not go to Trash — this cannot be undone. macOS update snapshots are left alone.",
                             ));
                             ui.add_space(S2);
                             ui.horizontal(|ui| {
@@ -335,7 +334,7 @@ impl SpaceApp {
                                 if ui
                                     .add(
                                         egui::Button::new(
-                                            RichText::new("Delete permanently")
+                                            RichText::new(t("Delete permanently"))
                                                 .color(TEXT)
                                                 .strong(),
                                         )
@@ -385,7 +384,7 @@ impl SpaceApp {
                 } else if self.rule_mgr_loading {
                     ui.horizontal(|ui| {
                         ui.spinner();
-                        ui.label("Loading rules…");
+                        ui.label(t("Loading rules…"));
                     });
                     ctx.request_repaint_after(Duration::from_millis(50));
                 } else if let Some(err) = &self.rules.error {

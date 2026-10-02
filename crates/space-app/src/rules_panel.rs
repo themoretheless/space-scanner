@@ -1,5 +1,6 @@
 //! Flexible rule manager UI — browse / search / toggle categories, tags & rules.
 
+use crate::i18n::t;
 use std::sync::Arc;
 
 use eframe::egui::{self, Align, Layout, RichText};
@@ -165,17 +166,19 @@ pub fn draw(
 
     ui.horizontal(|ui| {
         ui.label(
-            RichText::new(format!(
+            RichText::new(crate::tr!(
                 "{} of {} rules on · {} off",
-                stats.enabled, stats.host, stats.disabled,
+                stats.enabled,
+                stats.host,
+                stats.disabled,
             ))
             .size(12.0)
             .color(MUTED),
         );
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
-                .button("Reset all")
-                .on_hover_text("Restore built-in defaults for every rule")
+                .button(t("Reset all"))
+                .on_hover_text(t("Restore built-in defaults for every rule"))
                 .clicked()
             {
                 mgr.reset_all();
@@ -185,8 +188,10 @@ pub fn draw(
             }
             let mut all = mgr.prefs.enable_all_by_default;
             if ui
-                .checkbox(&mut all, "Turn every rule on")
-                .on_hover_text("Then you can still turn categories, tags, or single rules off")
+                .checkbox(&mut all, t("Turn every rule on"))
+                .on_hover_text(t(
+                    "Then you can still turn categories, tags, or single rules off",
+                ))
                 .changed()
             {
                 mgr.prefs.enable_all_by_default = all;
@@ -198,7 +203,7 @@ pub fn draw(
     });
 
     ui.horizontal(|ui| {
-        ui.label(RichText::new("Privacy").color(MUTED));
+        ui.label(RichText::new(t("Privacy")).color(MUTED));
         if ui
             .checkbox(&mut flags.scan_browser_cookies, "Cookies")
             .on_hover_text(
@@ -209,8 +214,8 @@ pub fn draw(
             action = RulesAction::PrefsChanged;
         }
         if ui
-            .checkbox(&mut flags.scan_browser_history, "History")
-            .on_hover_text("Scan/clean browser history. Off by default.")
+            .checkbox(&mut flags.scan_browser_history, t("History"))
+            .on_hover_text(t("Scan/clean browser history. Off by default."))
             .changed()
         {
             action = RulesAction::PrefsChanged;
@@ -223,11 +228,11 @@ pub fn draw(
 
     ui.add_space(6.0);
     ui.horizontal(|ui| {
-        ui.label(RichText::new("Search").color(MUTED));
+        ui.label(RichText::new(t("Search")).color(MUTED));
         let resp = ui.add(
             egui::TextEdit::singleline(&mut state.query)
                 .desired_width(220.0)
-                .hint_text("name or description…"),
+                .hint_text(t("name or description…")),
         );
         let _ = resp;
         ui.separator();
@@ -284,7 +289,7 @@ pub fn draw(
                     let all_selected = state.category.is_none();
                     let all_resp = ui.selectable_label(
                         all_selected,
-                        format!("All categories  ({} rules)", stats.host),
+                        crate::tr!("All categories  ({} rules)", stats.host),
                     );
                     if all_resp.clicked() {
                         state.category = None;
@@ -295,8 +300,8 @@ pub fn draw(
                             let selected = state.category.as_deref() == Some(cat.name.as_str());
                             let policy_mark = match cat.policy {
                                 CategoryPolicy::Default => "",
-                                CategoryPolicy::ForceOn => " · always on",
-                                CategoryPolicy::ForceOff => " · always off",
+                                CategoryPolicy::ForceOn => t(" · always on"),
+                                CategoryPolicy::ForceOff => t(" · always off"),
                             };
                             let label = format!(
                                 "{}{}  {}/{}",
@@ -310,8 +315,8 @@ pub fn draw(
                             }
                             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                 if ui
-                                    .small_button("Reset")
-                                    .on_hover_text("Reset this category to defaults")
+                                    .small_button(t("Reset"))
+                                    .on_hover_text(t("Reset this category to defaults"))
                                     .clicked()
                                 {
                                     mgr.reset_category(&cat.name);
@@ -320,8 +325,8 @@ pub fn draw(
                                     action = RulesAction::PrefsChanged;
                                 }
                                 if ui
-                                    .small_button("Off")
-                                    .on_hover_text("Turn this whole category off")
+                                    .small_button(t("Off"))
+                                    .on_hover_text(t("Turn this whole category off"))
                                     .clicked()
                                 {
                                     let _ = mgr.set_category_enabled(&cat.name, false);
@@ -330,8 +335,8 @@ pub fn draw(
                                     action = RulesAction::PrefsChanged;
                                 }
                                 if ui
-                                    .small_button("On")
-                                    .on_hover_text("Turn this whole category on")
+                                    .small_button(t("On"))
+                                    .on_hover_text(t("Turn this whole category on"))
                                     .clicked()
                                 {
                                     let _ = mgr.set_category_enabled(&cat.name, true);
@@ -347,7 +352,7 @@ pub fn draw(
                     if ui
                         .selectable_label(
                             state.kind.is_none(),
-                            format!("All types  ({})", kinds.len()),
+                            crate::tr!("All types  ({})", kinds.len()),
                         )
                         .clicked()
                     {
@@ -364,7 +369,7 @@ pub fn draw(
                 }
                 SideTab::Danger => {
                     if ui
-                        .selectable_label(state.risk.is_none(), "All caution levels")
+                        .selectable_label(state.risk.is_none(), t("All caution levels"))
                         .clicked()
                     {
                         state.risk = None;
@@ -384,7 +389,7 @@ pub fn draw(
                 SideTab::Tags => {
                     let all_selected = state.tag.is_none();
                     let all_resp =
-                        ui.selectable_label(all_selected, format!("All tags  ({})", tags.len()));
+                        ui.selectable_label(all_selected, crate::tr!("All tags  ({})", tags.len()));
                     if all_resp.clicked() {
                         state.tag = None;
                     }
@@ -394,8 +399,8 @@ pub fn draw(
                             let selected = state.tag.as_deref() == Some(tag.name.as_str());
                             let policy_mark = match tag.policy {
                                 CategoryPolicy::Default => "",
-                                CategoryPolicy::ForceOn => " · always on",
-                                CategoryPolicy::ForceOff => " · always off",
+                                CategoryPolicy::ForceOn => t(" · always on"),
+                                CategoryPolicy::ForceOff => t(" · always off"),
                             };
                             let label = format!(
                                 "{}{}  {}/{}",
@@ -406,8 +411,8 @@ pub fn draw(
                             }
                             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                 if ui
-                                    .small_button("Reset")
-                                    .on_hover_text("Stop forcing this tag on or off")
+                                    .small_button(t("Reset"))
+                                    .on_hover_text(t("Stop forcing this tag on or off"))
                                     .clicked()
                                 {
                                     mgr.reset_tag(&tag.name);
@@ -416,8 +421,8 @@ pub fn draw(
                                     action = RulesAction::PrefsChanged;
                                 }
                                 if ui
-                                    .small_button("Off")
-                                    .on_hover_text("Turn off all rules with this tag")
+                                    .small_button(t("Off"))
+                                    .on_hover_text(t("Turn off all rules with this tag"))
                                     .clicked()
                                 {
                                     let _ = mgr.set_tag_enabled(&tag.name, false);
@@ -426,8 +431,8 @@ pub fn draw(
                                     action = RulesAction::PrefsChanged;
                                 }
                                 if ui
-                                    .small_button("On")
-                                    .on_hover_text("Turn on all rules with this tag")
+                                    .small_button(t("On"))
+                                    .on_hover_text(t("Turn on all rules with this tag"))
                                     .clicked()
                                 {
                                     let _ = mgr.set_tag_enabled(&tag.name, true);
@@ -443,7 +448,7 @@ pub fn draw(
 
         // --- rules ---
         cols[1].horizontal(|ui| {
-            ui.label(RichText::new("Rules").strong().color(TEXT));
+            ui.label(RichText::new(t("Rules")).strong().color(TEXT));
             ui.label(
                 RichText::new(format!("({})", page.total))
                     .size(12.0)
@@ -481,7 +486,7 @@ pub fn draw(
                 if page.total > state.page_size {
                     ui.add_space(6.0);
                     if ui
-                        .button(format!(
+                        .button(crate::tr!(
                             "Show more ({} hidden)…",
                             page.total - state.page_size
                         ))
@@ -491,18 +496,18 @@ pub fn draw(
                     }
                 }
                 if rows.is_empty() {
-                    ui.label(RichText::new("No rules match.").color(MUTED));
+                    ui.label(RichText::new(t("No rules match.")).color(MUTED));
                 }
             });
     });
 
     ui.add_space(8.0);
     ui.horizontal(|ui| {
-        if ui.button("Close").clicked() {
+        if ui.button(t("Close")).clicked() {
             action = RulesAction::Close;
         }
         if state.dirty {
-            ui.label(RichText::new("Saved").size(11.0).color(MUTED));
+            ui.label(RichText::new(t("Saved")).size(11.0).color(MUTED));
         }
     });
 
@@ -535,7 +540,7 @@ fn draw_rule_row(
 
         let color = if row.effectively_enabled { TEXT } else { MUTED };
         let name = if row.overridden {
-            format!("Changed · {}", row.name)
+            crate::tr!("Changed · {}", row.name)
         } else {
             row.name.clone()
         };
@@ -544,16 +549,18 @@ fn draw_rule_row(
                 ui.set_max_width(340.0);
                 ui.label(RichText::new(name).size(12.5).color(color));
                 ui.add(
-                    egui::Label::new(RichText::new(&row.description).size(10.5).color(MUTED))
+                    egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED))
                         .truncate(),
                 );
             })
             .response;
         resp.on_hover_ui(|ui| {
             ui.label(RichText::new(&row.id).strong());
-            ui.label(format!(
+            ui.label(crate::tr!(
                 "{} · caution: {} ({})",
-                row.kind, row.danger, row.risk
+                row.kind,
+                row.danger,
+                row.risk
             ));
             if !row.description.is_empty() {
                 ui.label(&row.description);
@@ -564,26 +571,30 @@ fn draw_rule_row(
             }
             if !row.tags.is_empty() {
                 ui.separator();
-                ui.label(RichText::new(format!("tags: {}", row.tags.join(", "))).color(MUTED));
+                ui.label(RichText::new(crate::tr!("tags: {}", row.tags.join(", "))).color(MUTED));
             }
             for p in row.paths.iter().take(6) {
                 ui.monospace(p);
             }
             if row.paths.len() > 6 {
-                ui.label(format!("… {} more paths", row.paths.len() - 6));
+                ui.label(crate::tr!("… {} more paths", row.paths.len() - 6));
             }
-            ui.label(format!(
+            ui.label(crate::tr!(
                 "skip if newer than {} days · default {}",
                 row.min_age_days,
-                if row.default_enabled { "on" } else { "off" }
+                if row.default_enabled {
+                    t("on")
+                } else {
+                    t("off")
+                }
             ));
         });
 
-        ui.label(RichText::new(&row.kind).size(10.0).color(MUTED));
+        ui.label(RichText::new(&row.kind).size(12.0).color(MUTED));
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
-                .small_button("Reset")
-                .on_hover_text("Use the default for this rule")
+                .small_button(t("Reset"))
+                .on_hover_text(t("Use the default for this rule"))
                 .clicked()
             {
                 mgr.reset_rule(&row.id);
@@ -592,14 +603,14 @@ fn draw_rule_row(
                 *action = RulesAction::PrefsChanged;
             }
             if row.report_only {
-                ui.label(RichText::new("list only").size(10.0).color(MUTED));
+                ui.label(RichText::new(t("list only")).size(12.0).color(MUTED));
             }
             let danger_color = match row.danger.as_str() {
                 "dangerous" | "report-only" => DANGER,
                 "caution" => ACCENT,
                 _ => MUTED,
             };
-            ui.label(RichText::new(&row.danger).size(10.0).color(danger_color));
+            ui.label(RichText::new(t(&row.danger)).size(12.0).color(danger_color));
         });
     });
 }

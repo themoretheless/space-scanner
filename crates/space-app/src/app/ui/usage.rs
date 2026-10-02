@@ -1,13 +1,15 @@
 //! Disk usage workspace: the size-ranked contents list is the dependable way to
 //! navigate, the map explains proportions, details appear only on selection.
 
+use crate::i18n::t;
 use std::path::PathBuf;
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense};
-use space_core::{format_bytes, NodeId, SizeMode};
+use space_core::{NodeId, SizeMode};
 
 use super::Density;
 use crate::app::SpaceApp;
+use crate::icons::{self, Icon};
 use crate::review;
 use crate::theme::metrics::{APP_BAR_H, ROW_H, S2, S3, S4, SIDE_W};
 use crate::theme::type_scale;
@@ -15,6 +17,7 @@ use crate::theme::{self, ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
 use crate::views::{self, DrawCtx, EntryKindFilter, ViewMode};
 use crate::widgets::{
     badge, block, caption, chip, divider, empty_state, ghost, primary, secondary, segmented, stat,
+    text_width,
 };
 
 impl SpaceApp {
@@ -102,10 +105,10 @@ impl SpaceApp {
                     .color(TEXT),
             );
             if let Some(p) = &self.progress {
-                ui.label(caption(format!(
+                ui.label(caption(crate::tr!(
                     "{} files · {} so far",
                     p.files_seen,
-                    format_bytes(p.bytes_seen)
+                    crate::i18n::bytes(p.bytes_seen)
                 )));
             }
             ui.add_space(S4);
@@ -152,10 +155,10 @@ impl SpaceApp {
                     );
                     ui.add_space(4.0);
                 }
-                ui.add(egui::Label::new(caption(format!(
+                ui.add(egui::Label::new(caption(crate::tr!(
                     "Indexed {} items · {}",
                     tree.item_count,
-                    format_bytes(tree.total_size_mode(mode))
+                    crate::i18n::bytes(tree.total_size_mode(mode))
                 )))
                 .truncate());
                 if let Some(gap) = self.scan_gap_label() {
@@ -180,10 +183,10 @@ impl SpaceApp {
             })
             .show(ui, |ui| {
                 ui.horizontal(|ui| {
-                    ui.label(RichText::new("Contents").size(type_scale::LEAD).strong());
+                    ui.label(RichText::new(t("Contents")).size(type_scale::LEAD).strong());
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.label(
-                            RichText::new(format_bytes(folder_size))
+                            RichText::new(crate::i18n::bytes(folder_size))
                                 .size(type_scale::MONO)
                                 .monospace()
                                 .color(MUTED),
@@ -248,14 +251,16 @@ impl SpaceApp {
                 .show(ui, |ui| {
                     ui.horizontal(|ui| {
                         let scope = if self.show_largest {
-                            "largest files".to_string()
+                            t("largest files").to_string()
                         } else {
-                            format!("in {}", tree.node(focus).name)
+                            crate::tr!("in {}", tree.node(focus).name)
                         };
                         ui.add(
-                            egui::Label::new(caption(format!(
-                                "{} of {before} shown {scope}",
-                                ids.len()
+                            egui::Label::new(caption(crate::tr!(
+                                "{} of {} shown {}",
+                                ids.len(),
+                                before,
+                                scope
                             )))
                             .truncate(),
                         );
@@ -335,18 +340,28 @@ impl SpaceApp {
                         3.0,
                         swatch,
                     );
-                    let size_text = if queued {
-                        format!("● {}", format_bytes(size))
-                    } else {
-                        format_bytes(size)
-                    };
+                    let size_text = crate::i18n::bytes(size);
                     let size_g = p.layout_no_wrap(
                         size_text,
                         egui::FontId::monospace(type_scale::MONO),
                         if queued { ACCENT } else if selected { TEXT } else { MUTED },
                     );
+                    if queued {
+                        // Vector marker: this item is in review.
+                        let c = egui::pos2(
+                            rect.right() - pad - size_g.size().x - 14.0,
+                            top + 9.0,
+                        );
+                        p.circle_filled(c, 7.0, ACCENT);
+                        icons::paint(
+                            p,
+                            Icon::Check,
+                            egui::Rect::from_center_size(c, egui::vec2(9.0, 9.0)),
+                            theme::ACCENT_INK,
+                        );
+                    }
                     let name_x = rect.left() + pad + 20.0;
-                    let name_w = (rect.right() - pad - size_g.size().x - 10.0 - name_x).max(20.0);
+                    let name_w = (rect.right() - pad - size_g.size().x - 28.0 - name_x).max(20.0);
                     let label = if n.is_dir && !n.synthetic {
                         format!("{}/", n.name)
                     } else {
@@ -393,17 +408,17 @@ impl SpaceApp {
                         }
                     }
                     resp.context_menu(|ui| {
-                        if n.is_dir && !n.synthetic && ui.button("Open folder").clicked() {
+                        if n.is_dir && !n.synthetic && ui.button(t("Open folder")).clicked() {
                             enter = Some(id);
                             ui.close_menu();
                         }
                         if !n.synthetic {
                             let q = if queued { "Remove from review" } else { "Add to review" };
-                            if ui.button(q).clicked() {
+                            if ui.button(t(q)).clicked() {
                                 queue = Some(id);
                                 ui.close_menu();
                             }
-                            if ui.button("Show in Finder").clicked() {
+                            if ui.button(t("Show in Finder")).clicked() {
                                 reveal = Some(id);
                                 ui.close_menu();
                             }
@@ -444,16 +459,22 @@ impl SpaceApp {
         let queued = self.review.contains(&id);
 
         ui.horizontal(|ui| {
+            icons::show(
+                ui,
+                if node.is_dir {
+                    Icon::Folder
+                } else {
+                    Icon::File
+                },
+                18.0,
+                MUTED,
+            );
             ui.label(caption(if node.is_dir { "FOLDER" } else { "FILE" }));
             if queued {
                 badge(ui, "In review", ACCENT, "Will be listed in Review");
             }
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                if ui
-                    .add(ghost("×").min_size(egui::vec2(28.0, 28.0)))
-                    .on_hover_text("Close details")
-                    .clicked()
-                {
+                if icons::button(ui, Icon::Close, 28.0, "Close details", true).clicked() {
                     self.selected = None;
                 }
             });
@@ -473,16 +494,16 @@ impl SpaceApp {
         ui.columns(2, |cols| {
             stat(
                 &mut cols[0],
-                &format_bytes(size),
+                &crate::i18n::bytes(size),
                 &match self.percent_of_parent(id) {
-                    Some(p) => format!("{p:.0}% of parent"),
-                    None => "whole scan".to_string(),
+                    Some(p) => crate::tr!("{}% of parent", format!("{p:.0}")),
+                    None => t("whole scan").to_string(),
                 },
             );
             stat(
                 &mut cols[1],
                 &node.file_count.to_string(),
-                if node.is_dir { "files inside" } else { "file" },
+                t(if node.is_dir { "files inside" } else { "file" }),
             );
         });
         ui.add_space(S3);
@@ -496,12 +517,13 @@ impl SpaceApp {
                 .show(ui, |ui| {
                     ui.set_width(ui.available_width());
                     ui.label(
-                        RichText::new(format!("{label} · {category}"))
+                        RichText::new(format!("{} · {}", t(label), t(&category)))
                             .color(color)
                             .strong(),
                     );
-                    ui.label(caption(format!(
-                        "{hint}. A rule match is guidance, not a guarantee."
+                    ui.label(caption(crate::tr!(
+                        "{}. A rule match is guidance, not a guarantee.",
+                        t(hint)
                     )));
                 });
             ui.add_space(S3);
@@ -524,17 +546,24 @@ impl SpaceApp {
         };
         if ui
             .add_enabled(deletable && !self.busy, block(ui, secondary(label)))
-            .on_hover_text("Selecting never removes anything — you confirm in Review")
+            .on_hover_text(t(
+                "Selecting never removes anything — you confirm in Review",
+            ))
             .clicked()
         {
             review::toggle(&mut self.review, id);
         }
         ui.add_space(S2);
-        ui.horizontal(|ui| {
-            let w = (ui.available_width() - S2) * 0.5;
+        let w = (ui.available_width() - S2) * 0.5;
+        let font = egui::FontId::proportional(type_scale::BODY);
+        let fits = ["Show in Finder", "Rescan folder"]
+            .iter()
+            .all(|l| text_width(ui, t(l), font.clone()) + 28.0 <= w);
+        let row = |ui: &mut egui::Ui| {
+            let w = if fits { w } else { ui.available_width() };
             if is_dir
                 && ui
-                    .add_sized([w, 32.0], egui::Button::new("Show in Finder"))
+                    .add_sized([w, 32.0], egui::Button::new(t("Show in Finder")))
                     .clicked()
             {
                 self.reveal_selected();
@@ -543,14 +572,19 @@ impl SpaceApp {
                 && ui
                     .add_enabled(
                         self.scan.is_none() && !self.busy,
-                        egui::Button::new("Rescan folder").min_size(egui::vec2(w, 32.0)),
+                        egui::Button::new(t("Rescan folder")).min_size(egui::vec2(w, 32.0)),
                     )
-                    .on_hover_text("Rebuild the index for the folder in view")
+                    .on_hover_text(t("Rebuild the index for the folder in view"))
                     .clicked()
             {
                 self.incremental_rescan_focus();
             }
-        });
+        };
+        if fits {
+            ui.horizontal(row);
+        } else {
+            ui.vertical(row);
+        }
     }
 
     // --------------------------------------------------------------------- map
@@ -676,9 +710,10 @@ impl SpaceApp {
                         ui.horizontal(|ui| {
                             ui.spacing_mut().item_spacing.x = 4.0;
                             let mut view = self.view;
-                            ui.menu_button(format!("Map: {}", self.view.label()), |ui| {
+                            ui.menu_button(crate::tr!("Map: {}", t(self.view.label())), |ui| {
                                 for mode in ViewMode::ALL {
-                                    if ui.selectable_label(view == mode, mode.label()).clicked() {
+                                    if ui.selectable_label(view == mode, t(mode.label())).clicked()
+                                    {
                                         view = mode;
                                         ui.close_menu();
                                     }
@@ -710,7 +745,7 @@ impl SpaceApp {
         if !self.settings.flags.show_shortcuts_hint || self.scan.is_some() || self.busy {
             return;
         }
-        let hint = self.view.click_hint();
+        let hint = t(self.view.click_hint());
         let text_w = ctx.fonts(|f| {
             f.layout_no_wrap(
                 hint.to_owned(),
@@ -741,9 +776,7 @@ impl SpaceApp {
                     .show(ui, |ui| {
                         ui.horizontal(|ui| {
                             ui.label(caption(hint));
-                            if ui
-                                .add(ghost("×").min_size(egui::vec2(24.0, 24.0)))
-                                .on_hover_text("Hide this hint")
+                            if icons::button(ui, Icon::Close, 24.0, "Hide this hint", true)
                                 .clicked()
                             {
                                 dismissed = true;

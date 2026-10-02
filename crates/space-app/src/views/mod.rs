@@ -3,6 +3,7 @@ mod radial;
 mod sunburst;
 mod treemap;
 
+use crate::i18n::t;
 use std::borrow::Cow;
 use std::hash::{Hash, Hasher};
 
@@ -10,7 +11,7 @@ use std::sync::Arc;
 
 use egui::epaint::Mesh;
 use egui::{Pos2, RichText, Ui};
-use space_core::{format_bytes, NodeId, SizeMode, SpaceTree};
+use space_core::{NodeId, SizeMode, SpaceTree};
 
 use crate::theme::MUTED;
 
@@ -168,12 +169,12 @@ pub struct ViewAction {
 pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, mode: SizeMode) {
     let n = tree.node(id);
     ui.label(RichText::new(&n.name).strong());
-    let kind = if n.is_dir { "Folder" } else { "File" };
-    let mut line = format!("{kind} · {}", format_bytes(n.size(mode)));
+    let kind = t(if n.is_dir { "Folder" } else { "File" });
+    let mut line = format!("{kind} · {}", crate::i18n::bytes(n.size(mode)));
     if let Some(parent) = n.parent {
         let ps = tree.node(parent).size(mode).max(1) as f32;
         let pct = n.size(mode) as f32 / ps * 100.0;
-        line.push_str(&format!(" · {pct:.0}% of parent"));
+        line.push_str(&crate::tr!(" · {}% of parent", format!("{pct:.0}")));
     }
     ui.label(line);
     let hint = if n.synthetic {
@@ -185,7 +186,7 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     } else {
         "Click to select · double-click Finder · ⌘-click Trash queue"
     };
-    ui.label(RichText::new(hint).small().color(MUTED));
+    ui.label(RichText::new(t(hint)).small().color(MUTED));
 }
 
 pub fn click_map_node(
@@ -224,26 +225,26 @@ pub fn node_context_menu(
 ) {
     resp.context_menu(|ui| {
         let n = tree.node(id);
-        if n.is_dir && ui.button("Open on map").clicked() {
+        if n.is_dir && ui.button(t("Open on map")).clicked() {
             action.navigate = Some(id);
             ui.close_menu();
         }
-        if ui.button("Select").clicked() {
+        if ui.button(t("Select")).clicked() {
             action.select = Some(id);
             ui.close_menu();
         }
         if !n.synthetic {
             let label = if in_review {
-                "Remove from Trash queue"
+                t("Remove from review")
             } else {
-                "Add to Trash queue"
+                t("Add to review")
             };
             if ui.button(label).clicked() {
                 action.toggle_review = Some(id);
                 ui.close_menu();
             }
         }
-        if ui.button("Show in Finder").clicked() {
+        if ui.button(t("Show in Finder")).clicked() {
             action.reveal = Some(id);
             ui.close_menu();
         }
@@ -270,12 +271,12 @@ pub fn empty_filter_prompt(ui: &mut Ui, rect: egui::Rect, action: &mut ViewActio
         ui.centered_and_justified(|ui| {
             ui.vertical_centered(|ui| {
                 ui.label(
-                    RichText::new("Nothing matches this filter")
+                    RichText::new(t("Nothing matches this filter"))
                         .size(15.0)
                         .color(MUTED),
                 );
                 ui.add_space(8.0);
-                if ui.button("Clear filter").clicked() {
+                if ui.button(t("Clear filter")).clicked() {
                     action.clear_filter = true;
                 }
             });
