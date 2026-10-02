@@ -5,11 +5,11 @@ mod largest_files;
 mod review;
 mod rules_panel;
 mod settings;
-mod side_tree;
 mod theme;
 mod tm_clean;
 mod views;
 mod volumes;
+mod widgets;
 
 use app::SpaceApp;
 

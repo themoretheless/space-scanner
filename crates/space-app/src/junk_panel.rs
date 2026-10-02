@@ -8,7 +8,9 @@ use space_clean::{CleanProgress, Finding, JunkScanProgress, ScanReport};
 use space_core::format_bytes;
 
 use crate::settings::FeatureFlags;
+use crate::theme::type_scale;
 use crate::theme::{self, ACCENT, DANGER, MUTED, PANEL_2, SAFE, TEXT};
+use crate::widgets;
 
 #[derive(Default)]
 pub struct JunkPanelState {
@@ -296,60 +298,71 @@ impl JunkReport {
 pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFlags) -> JunkAction {
     let mut action = JunkAction::None;
 
-    ui.vertical(|ui| {
+    // One header row: what this is on the left, the two actions on the right.
+    ui.horizontal(|ui| {
         ui.vertical(|ui| {
-            let (caption, title) = match state.report.as_ref() {
+            let (note, total) = match state.report.as_ref() {
                 _ if state.loading => ("Looking through caches, logs and temp…".to_string(), None),
                 Some(r) => (
-                    format!(
-                        "{} removable items · {} categories",
-                        r.cleanable_count,
-                        r.categories.len()
-                    ),
+                    if state.selection.count == 0 {
+                        format!(
+                            "{} removable items in {} categories · nothing selected",
+                            r.cleanable_count,
+                            r.categories.len()
+                        )
+                    } else {
+                        format!(
+                            "{} removable items in {} categories · {} selected ({})",
+                            r.cleanable_count,
+                            r.categories.len(),
+                            state.selection.count,
+                            format_bytes(state.selection.bytes())
+                        )
+                    },
                     Some(r.cleanable_bytes),
                 ),
-                None => ("Caches, logs and temp files".to_string(), None),
+                None => ("Caches, logs and temporary files".to_string(), None),
             };
-            ui.label(RichText::new(caption).color(MUTED));
+            ui.label(widgets::caption(note));
             ui.horizontal(|ui| {
                 ui.spacing_mut().item_spacing.x = 8.0;
-                match title {
-                    Some(bytes) => {
-                        ui.label(RichText::new("Cleanup candidates").size(30.0).strong());
-                        ui.label(
-                            RichText::new(format_bytes(bytes))
-                                .size(30.0)
-                                .strong()
-                                .color(ACCENT),
-                        );
-                    }
-                    None => {
-                        ui.label(RichText::new("Clean up").size(30.0).strong());
-                    }
+                ui.label(
+                    RichText::new("Cleanup candidates")
+                        .size(type_scale::DISPLAY)
+                        .strong(),
+                );
+                if let Some(bytes) = total {
+                    ui.label(
+                        RichText::new(format_bytes(bytes))
+                            .size(type_scale::DISPLAY)
+                            .strong()
+                            .color(ACCENT),
+                    );
                 }
             });
         });
-        ui.horizontal_wrapped(|ui| {
+        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
-                .add_enabled(
-                    !state.loading && !state.cleaning,
-                    egui::Button::new("Search again").min_size(egui::vec2(0.0, 40.0)),
-                )
-                .clicked()
-            {
-                action = JunkAction::Rescan;
-            }
-            if ui
-                .add(egui::Button::new("Rules…").min_size(egui::vec2(0.0, 40.0)))
+                .add(widgets::secondary("Rules…"))
                 .on_hover_text("Turn individual rules on or off")
                 .clicked()
             {
                 action = JunkAction::OpenRules;
             }
+            if ui
+                .add_enabled(
+                    !state.loading && !state.cleaning,
+                    widgets::secondary("Search again"),
+                )
+                .clicked()
+            {
+                action = JunkAction::Rescan;
+            }
         });
     });
+    ui.add_space(theme::metrics::S2);
     ui.horizontal_wrapped(|ui| {
-        ui.label(RichText::new("Also scan").small().color(MUTED));
+        ui.label(widgets::caption("Also scan"));
         if ui
             .checkbox(&mut flags.scan_browser_cookies, "Cookies")
             .on_hover_text("Off by default — cleaning cookies signs you out of websites")
@@ -437,9 +450,12 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             ui.spinner();
             ui.label(
                 RichText::new(format!(
-                    "Scanning · {}/{} rules · {} removable files · {} folders · {} ({}) · {}s",
-                    p.rules_done,
-                    p.rules_total,
+                    "{} · {} removable files · {} folders · {} ({}) · {}s",
+                    if p.rules_total == 0 {
+                        "Loading rules…".to_string()
+                    } else {
+                        format!("Scanning {}/{} rules", p.rules_done, p.rules_total)
+                    },
                     p.files_found,
                     p.folders_found,
                     format_bytes(p.bytes_found),
@@ -453,7 +469,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.add(
             egui::ProgressBar::new(fraction.clamp(0.0, 1.0))
                 .desired_width(ui.available_width())
-                .show_percentage(),
+                .animate(p.rules_total == 0),
         );
         if !p.current_rule.is_empty() {
             ui.label(
@@ -593,12 +609,12 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                     ui.painter().circle_filled(icon.center(), 5.0, color);
                                     ui.vertical(|ui| {
                                         ui.spacing_mut().item_spacing.y = 2.0;
-                                        let chev = if open { "▾" } else { "▸" };
+                                        let chev = if open { "▼" } else { "▶" };
                                         if ui
                                             .add(
                                                 egui::Button::new(
                                                     RichText::new(format!(
-                                                        "{}  {chev}",
+                                                        "{chev}  {}",
                                                         cat_title(&cat.name)
                                                     ))
                                                     .size(15.0)
@@ -663,26 +679,6 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 });
         });
 
-    ui.add_space(10.0);
-    ui.separator();
-    ui.add_space(6.0);
-
-    ui.horizontal(|ui| {
-        if ui.button("Close").clicked() {
-            action = JunkAction::Close;
-        }
-        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-            let n = state.selection.count;
-            ui.label(
-                RichText::new(format!(
-                    "{n} selected · {} — added to the Trash queue",
-                    format_bytes(state.selected_bytes())
-                ))
-                .color(if n > 0 { ACCENT } else { MUTED }),
-            );
-        });
-    });
-
     action
 }
 
@@ -698,7 +694,7 @@ fn draw_finding_rows(
         .interact_size
         .y
         .max(ui.spacing().icon_width)
-        .max(ui.fonts(|fonts| fonts.row_height(&egui::FontId::monospace(11.0))));
+        .max(ui.fonts(|fonts| fonts.row_height(&egui::FontId::monospace(type_scale::MONO))));
     let stride = row_height + spacing;
     let total_height = (category.indices.len() as f32 * stride - spacing).max(0.0);
     let (_, rows_rect) = ui.allocate_space(egui::vec2(ui.available_width(), total_height));
@@ -734,13 +730,18 @@ fn draw_finding_rows(
             ui.label(
                 RichText::new(format!("{:>8}", format_bytes(finding.bytes)))
                     .monospace()
-                    .size(11.0)
+                    .size(type_scale::MONO)
                     .color(color),
             );
             let path = finding.path.display().to_string();
             ui.add(
-                egui::Label::new(RichText::new(&path).monospace().size(11.0).color(color))
-                    .truncate(),
+                egui::Label::new(
+                    RichText::new(&path)
+                        .monospace()
+                        .size(type_scale::MONO)
+                        .color(color),
+                )
+                .truncate(),
             )
             .on_hover_text(&path);
         });

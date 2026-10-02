@@ -19,6 +19,31 @@ pub const SAFE: Color32 = Color32::from_rgb(92, 200, 168);
 pub const DIR: Color32 = Color32::from_rgb(48, 52, 58);
 pub const DANGER: Color32 = Color32::from_rgb(210, 90, 80);
 
+/// Type scale (px). Captions are the smallest text in the app.
+pub mod type_scale {
+    pub const CAPTION: f32 = 12.0;
+    pub const MONO: f32 = 13.0;
+    pub const BODY: f32 = 14.0;
+    pub const LEAD: f32 = 16.0;
+    pub const TITLE: f32 = 22.0;
+    pub const DISPLAY: f32 = 30.0;
+}
+
+/// Spacing and shape scale (px).
+pub mod metrics {
+    pub const S2: f32 = 8.0;
+    pub const S3: f32 = 12.0;
+    pub const S4: f32 = 16.0;
+    pub const S6: f32 = 24.0;
+    pub const S8: f32 = 32.0;
+    pub const APP_BAR_H: f32 = 52.0;
+    pub const CONTROL_H: f32 = 36.0;
+    pub const ROW_H: f32 = 52.0;
+    pub const RADIUS_CONTROL: u8 = 8;
+    pub const RADIUS_CARD: u8 = 14;
+    pub const SIDE_W: f32 = 300.0;
+}
+
 pub fn apply(ctx: &egui::Context) {
     install_fonts(ctx);
 
@@ -37,6 +62,8 @@ pub fn apply(ctx: &egui::Context) {
     visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT);
     visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, TEXT);
     visuals.widgets.inactive.weak_bg_fill = PANEL_2;
+    visuals.widgets.inactive.bg_stroke = Stroke::new(1.0_f32, Color32::from_rgb(78, 85, 96));
+    visuals.widgets.hovered.bg_stroke = Stroke::new(1.0_f32, Color32::from_rgb(110, 118, 130));
     visuals.widgets.hovered.weak_bg_fill = Color32::from_rgb(32, 36, 42);
     visuals.window_stroke = Stroke::new(1.0_f32, BORDER);
     visuals.window_corner_radius = CornerRadius::same(10);
@@ -53,9 +80,19 @@ pub fn apply(ctx: &egui::Context) {
     style.spacing.window_margin = Margin::same(14);
     style.spacing.indent = 12.0;
     style.interaction.show_tooltips_only_when_still = false;
-    style
-        .text_styles
-        .insert(egui::TextStyle::Heading, egui::FontId::proportional(24.0));
+    // egui's default Small is 9 px; nothing in this app should be smaller than 12.
+    style.text_styles.insert(
+        egui::TextStyle::Small,
+        egui::FontId::proportional(type_scale::CAPTION),
+    );
+    style.text_styles.insert(
+        egui::TextStyle::Monospace,
+        egui::FontId::monospace(type_scale::MONO),
+    );
+    style.text_styles.insert(
+        egui::TextStyle::Heading,
+        egui::FontId::proportional(type_scale::TITLE),
+    );
     style
         .text_styles
         .insert(egui::TextStyle::Body, egui::FontId::proportional(14.0));
