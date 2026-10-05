@@ -314,6 +314,7 @@ mod tests {
             include_str!("app.rs"),
             include_str!("junk_panel.rs"),
             include_str!("rules_panel.rs"),
+            include_str!("widgets.rs"),
             include_str!("views/mod.rs"),
         ];
         let calls = [

@@ -7,7 +7,8 @@ use eframe::egui::{self, Align, Layout, RichText};
 use space_clean::{CategoryPolicy, JunkKind, Risk, RuleFilter, RuleManager, RuleRow};
 
 use crate::settings::FeatureFlags;
-use crate::theme::{ACCENT, DANGER, MUTED, TEXT};
+use crate::theme::{self, ACCENT, DANGER, MUTED, TEXT};
+use crate::widgets;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub(crate) enum EnabledFilter {
@@ -152,6 +153,9 @@ pub enum RulesAction {
     Close,
     /// Prefs changed — junk scan should use new set.
     PrefsChanged,
+    /// Open this rule path in Disk usage (or Finder when it isn't indexed),
+    /// the manual route for list-only matches.
+    Reveal(String),
 }
 
 pub fn draw(
@@ -240,10 +244,9 @@ pub fn draw(
             ("All", EnabledFilter::All),
             ("On", EnabledFilter::On),
             ("Off", EnabledFilter::Off),
-            ("Changed", EnabledFilter::Overridden),
+            ("Changed by you", EnabledFilter::Overridden),
         ] {
-            if ui
-                .selectable_label(state.enabled == mode, label)
+            if crate::widgets::chip(ui, state.enabled == mode, label)
                 .on_hover_text(match mode {
                     EnabledFilter::All => "All rules",
                     EnabledFilter::On => "Rules that will run",
@@ -267,238 +270,148 @@ pub fn draw(
     let page = state.page(mgr, filter);
     let rows = &page.rows;
 
-    ui.columns(2, |cols| {
-        cols[0].horizontal(|ui| {
-            for (label, tab) in [
-                ("Categories", SideTab::Categories),
-                ("Types", SideTab::Kinds),
-                ("Caution", SideTab::Danger),
-                ("Tags", SideTab::Tags),
-            ] {
-                if ui.selectable_label(state.side_tab == tab, label).clicked() {
-                    state.side_tab = tab;
-                }
-            }
-        });
-
-        egui::ScrollArea::vertical()
-            .id_salt("rules_side")
-            .max_height(420.0)
-            .show(&mut cols[0], |ui| match state.side_tab {
-                SideTab::Categories => {
-                    let all_selected = state.category.is_none();
-                    let all_resp = ui.selectable_label(
-                        all_selected,
-                        crate::tr!("All categories  ({} rules)", stats.host),
-                    );
-                    if all_resp.clicked() {
-                        state.category = None;
-                    }
-
-                    for cat in cats {
-                        ui.horizontal(|ui| {
-                            let selected = state.category.as_deref() == Some(cat.name.as_str());
-                            let policy_mark = match cat.policy {
-                                CategoryPolicy::Default => "",
-                                CategoryPolicy::ForceOn => t(" · always on"),
-                                CategoryPolicy::ForceOff => t(" · always off"),
-                            };
-                            let label = format!(
-                                "{}{}  {}/{}",
-                                cat_title(&cat.name),
-                                policy_mark,
-                                cat.enabled,
-                                cat.total
-                            );
-                            if ui.selectable_label(selected, label).clicked() {
-                                state.category = Some(cat.name.clone());
-                            }
-                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                if ui
-                                    .small_button(t("Reset"))
-                                    .on_hover_text(t("Reset this category to defaults"))
-                                    .clicked()
-                                {
-                                    mgr.reset_category(&cat.name);
-                                    state.dirty = true;
-                                    state.error = save(mgr);
-                                    action = RulesAction::PrefsChanged;
-                                }
-                                if ui
-                                    .small_button(t("Off"))
-                                    .on_hover_text(t("Turn this whole category off"))
-                                    .clicked()
-                                {
-                                    let _ = mgr.set_category_enabled(&cat.name, false);
-                                    state.dirty = true;
-                                    state.error = save(mgr);
-                                    action = RulesAction::PrefsChanged;
-                                }
-                                if ui
-                                    .small_button(t("On"))
-                                    .on_hover_text(t("Turn this whole category on"))
-                                    .clicked()
-                                {
-                                    let _ = mgr.set_category_enabled(&cat.name, true);
-                                    state.dirty = true;
-                                    state.error = save(mgr);
-                                    action = RulesAction::PrefsChanged;
-                                }
-                            });
-                        });
-                    }
-                }
-                SideTab::Kinds => {
-                    if ui
-                        .selectable_label(
-                            state.kind.is_none(),
-                            crate::tr!("All types  ({})", kinds.len()),
-                        )
-                        .clicked()
-                    {
-                        state.kind = None;
-                    }
-                    for kind in kinds {
-                        let parsed = JunkKind::parse(&kind.name);
-                        let selected = state.kind == parsed;
-                        let label = format!("{}  {}/{}", kind.name, kind.enabled, kind.total);
-                        if ui.selectable_label(selected, label).clicked() {
-                            state.kind = parsed;
+    let avail_h = (ui.available_height() - 64.0).max(240.0);
+    ui.horizontal_top(|ui| {
+        // Left: categories (with a switch each), then the other ways to slice.
+        ui.allocate_ui_with_layout(
+            egui::vec2(250.0, avail_h),
+            Layout::top_down(Align::Min),
+            |ui| {
+                ui.set_width(250.0);
+                ui.horizontal(|ui| {
+                    for (label, tab) in [
+                        ("Categories", SideTab::Categories),
+                        ("Types", SideTab::Kinds),
+                        ("Caution", SideTab::Danger),
+                        ("Tags", SideTab::Tags),
+                    ] {
+                        if ui.selectable_label(state.side_tab == tab, t(label)).clicked() {
+                            state.side_tab = tab;
                         }
                     }
-                }
-                SideTab::Danger => {
-                    if ui
-                        .selectable_label(state.risk.is_none(), t("All caution levels"))
-                        .clicked()
-                    {
-                        state.risk = None;
-                    }
-                    for risk in risks {
-                        let parsed = Risk::parse(&risk.name);
-                        let selected = state.risk == parsed;
-                        let label = format!(
-                            "{} ({})  {}/{}",
-                            risk.danger, risk.name, risk.enabled, risk.total
-                        );
-                        if ui.selectable_label(selected, label).clicked() {
-                            state.risk = parsed;
-                        }
-                    }
-                }
-                SideTab::Tags => {
-                    let all_selected = state.tag.is_none();
-                    let all_resp =
-                        ui.selectable_label(all_selected, crate::tr!("All tags  ({})", tags.len()));
-                    if all_resp.clicked() {
-                        state.tag = None;
-                    }
-
-                    for tag in tags {
-                        ui.horizontal(|ui| {
-                            let selected = state.tag.as_deref() == Some(tag.name.as_str());
-                            let policy_mark = match tag.policy {
-                                CategoryPolicy::Default => "",
-                                CategoryPolicy::ForceOn => t(" · always on"),
-                                CategoryPolicy::ForceOff => t(" · always off"),
-                            };
-                            let label = format!(
-                                "{}{}  {}/{}",
-                                tag.name, policy_mark, tag.enabled, tag.total
-                            );
-                            if ui.selectable_label(selected, label).clicked() {
-                                state.tag = Some(tag.name.clone());
+                });
+                ui.add_space(4.0);
+                egui::ScrollArea::vertical()
+                    .id_salt("rules_side")
+                    .auto_shrink([false, false])
+                    .show(ui, |ui| match state.side_tab {
+                        SideTab::Categories => {
+                            if side_row(ui, state.category.is_none(), &crate::tr!("All categories  ({} rules)", stats.host), None).0 {
+                                state.category = None;
                             }
-                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                                if ui
-                                    .small_button(t("Reset"))
-                                    .on_hover_text(t("Stop forcing this tag on or off"))
-                                    .clicked()
-                                {
-                                    mgr.reset_tag(&tag.name);
+                            for cat in cats {
+                                let selected = state.category.as_deref() == Some(cat.name.as_str());
+                                let on = cat.enabled > 0;
+                                let label = format!("{}  {}/{}", t(&cat_title(&cat.name)), cat.enabled, cat.total);
+                                let (pick, flip) = side_row(ui, selected, &label, Some(on));
+                                if flip {
+                                    let _ = mgr.set_category_enabled(&cat.name, !on);
                                     state.dirty = true;
                                     state.error = save(mgr);
                                     action = RulesAction::PrefsChanged;
+                                } else if pick {
+                                    state.category = Some(cat.name.clone());
                                 }
-                                if ui
-                                    .small_button(t("Off"))
-                                    .on_hover_text(t("Turn off all rules with this tag"))
-                                    .clicked()
-                                {
-                                    let _ = mgr.set_tag_enabled(&tag.name, false);
-                                    state.dirty = true;
-                                    state.error = save(mgr);
-                                    action = RulesAction::PrefsChanged;
+                            }
+                        }
+                        SideTab::Kinds => {
+                            if side_row(ui, state.kind.is_none(), &crate::tr!("All types  ({})", kinds.len()), None).0 {
+                                state.kind = None;
+                            }
+                            for kind in kinds {
+                                let parsed = JunkKind::parse(&kind.name);
+                                let label = format!("{}  {}/{}", kind.name, kind.enabled, kind.total);
+                                if side_row(ui, state.kind == parsed, &label, None).0 {
+                                    state.kind = parsed;
                                 }
-                                if ui
-                                    .small_button(t("On"))
-                                    .on_hover_text(t("Turn on all rules with this tag"))
-                                    .clicked()
-                                {
-                                    let _ = mgr.set_tag_enabled(&tag.name, true);
+                            }
+                        }
+                        SideTab::Danger => {
+                            if side_row(ui, state.risk.is_none(), t("All caution levels"), None).0 {
+                                state.risk = None;
+                            }
+                            for risk in risks {
+                                let parsed = Risk::parse(&risk.name);
+                                let label = format!("{}  {}/{}", t(&risk.danger), risk.enabled, risk.total);
+                                if side_row(ui, state.risk == parsed, &label, None).0 {
+                                    state.risk = parsed;
+                                }
+                            }
+                        }
+                        SideTab::Tags => {
+                            if side_row(ui, state.tag.is_none(), &crate::tr!("All tags  ({})", tags.len()), None).0 {
+                                state.tag = None;
+                            }
+                            for tag in tags {
+                                let selected = state.tag.as_deref() == Some(tag.name.as_str());
+                                let on = tag.enabled > 0;
+                                let label = format!("{}  {}/{}", tag.name, tag.enabled, tag.total);
+                                let (pick, flip) = side_row(ui, selected, &label, Some(on));
+                                if flip {
+                                    let _ = mgr.set_tag_enabled(&tag.name, !on);
                                     state.dirty = true;
                                     state.error = save(mgr);
                                     action = RulesAction::PrefsChanged;
+                                } else if pick {
+                                    state.tag = Some(tag.name.clone());
+                                }
+                            }
+                        }
+                    });
+            },
+        );
+
+        // Right: the rules as a table, descriptions visible.
+        ui.allocate_ui_with_layout(
+            egui::vec2(ui.available_width(), avail_h),
+            Layout::top_down(Align::Min),
+            |ui| {
+                ui.horizontal(|ui| {
+                    ui.label(RichText::new(t("Rules")).strong().color(TEXT()));
+                    ui.label(RichText::new(format!("({})", page.total)).size(12.0).color(MUTED()));
+                    if let Some(cat) = &state.category {
+                        ui.label(RichText::new(format!("· {}", t(&cat_title(cat)))).size(12.0).color(ACCENT()));
+                    }
+                    if let Some(kind) = state.kind {
+                        ui.label(RichText::new(format!("· {}", kind.as_str())).size(12.0).color(ACCENT()));
+                    }
+                    if let Some(risk) = state.risk {
+                        ui.label(RichText::new(format!("· {}", t(risk.danger_label()))).size(12.0).color(ACCENT()));
+                    }
+                    if let Some(tag) = &state.tag {
+                        ui.label(RichText::new(format!("· #{tag}")).size(12.0).color(ACCENT()));
+                    }
+                });
+                egui::Frame::new()
+                    .fill(theme::PANEL())
+                    .stroke(egui::Stroke::new(1.0_f32, theme::BORDER()))
+                    .corner_radius(if theme::skin() == theme::Skin::Table { 4 } else { 10 })
+                    .show(ui, |ui| {
+                        egui::ScrollArea::vertical()
+                            .id_salt("rules_list")
+                            .auto_shrink([false, false])
+                            .show(ui, |ui| {
+                                ui.spacing_mut().item_spacing.y = 0.0;
+                                for row in rows.iter().take(state.page_size) {
+                                    draw_rule_row(ui, state, mgr, row, &mut action);
+                                }
+                                if page.total > state.page_size {
+                                    ui.add_space(6.0);
+                                    if ui
+                                        .button(crate::tr!("Show more ({} hidden)…", page.total - state.page_size))
+                                        .clicked()
+                                    {
+                                        state.page_size = state.page_size.saturating_add(300);
+                                    }
+                                }
+                                if rows.is_empty() {
+                                    ui.add_space(12.0);
+                                    ui.label(RichText::new(t("No rules match.")).color(MUTED()));
                                 }
                             });
-                        });
-                    }
-                }
-            });
-
-        // --- rules ---
-        cols[1].horizontal(|ui| {
-            ui.label(RichText::new(t("Rules")).strong().color(TEXT()));
-            ui.label(
-                RichText::new(format!("({})", page.total))
-                    .size(12.0)
-                    .color(MUTED()),
-            );
-            if let Some(cat) = &state.category {
-                ui.label(RichText::new(format!("· {cat}")).size(12.0).color(ACCENT()));
-            }
-            if let Some(kind) = state.kind {
-                ui.label(
-                    RichText::new(format!("· {}", kind.as_str()))
-                        .size(12.0)
-                        .color(ACCENT()),
-                );
-            }
-            if let Some(risk) = state.risk {
-                ui.label(
-                    RichText::new(format!("· {}", risk.danger_label()))
-                        .size(12.0)
-                        .color(ACCENT()),
-                );
-            }
-            if let Some(tag) = &state.tag {
-                ui.label(RichText::new(format!("· #{tag}")).size(12.0).color(ACCENT()));
-            }
-        });
-        egui::ScrollArea::vertical()
-            .id_salt("rules_list")
-            .max_height(420.0)
-            .show(&mut cols[1], |ui| {
-                let shown = rows.iter().take(state.page_size);
-                for row in shown {
-                    draw_rule_row(ui, state, mgr, row, &mut action);
-                }
-                if page.total > state.page_size {
-                    ui.add_space(6.0);
-                    if ui
-                        .button(crate::tr!(
-                            "Show more ({} hidden)…",
-                            page.total - state.page_size
-                        ))
-                        .clicked()
-                    {
-                        state.page_size = state.page_size.saturating_add(300);
-                    }
-                }
-                if rows.is_empty() {
-                    ui.label(RichText::new(t("No rules match.")).color(MUTED()));
-                }
-            });
+                    });
+            },
+        );
     });
 
     ui.add_space(8.0);
@@ -509,6 +422,9 @@ pub fn draw(
         if state.dirty {
             ui.label(RichText::new(t("Saved")).size(11.0).color(MUTED()));
         }
+        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+            ui.label(widgets::caption("Lock: listed only — never removed automatically. Open it in Disk usage to remove by hand."));
+        });
     });
 
     action
@@ -521,98 +437,175 @@ fn draw_rule_row(
     row: &RuleRow,
     action: &mut RulesAction,
 ) {
-    ui.horizontal(|ui| {
-        let mut enabled = row.effectively_enabled;
-        if ui
-            .checkbox(&mut enabled, "")
-            .on_hover_text(if row.overridden {
-                "Your setting (not the default)"
-            } else {
-                "Turn this rule on or off for junk cleaning"
-            })
-            .changed()
-        {
-            let _ = mgr.set_rule_enabled(&row.id, enabled);
-            state.dirty = true;
-            state.error = save(mgr);
-            *action = RulesAction::PrefsChanged;
-        }
-
-        let color = if row.effectively_enabled { TEXT() } else { MUTED() };
-        let name = if row.overridden {
-            crate::tr!("Changed · {}", row.name)
-        } else {
-            row.name.clone()
-        };
-        let resp = ui
-            .vertical(|ui| {
-                ui.set_max_width(340.0);
-                ui.label(RichText::new(name).size(12.5).color(color));
-                ui.add(
-                    egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED()))
-                        .truncate(),
-                );
-            })
-            .response;
-        resp.on_hover_ui(|ui| {
-            ui.label(RichText::new(&row.id).strong());
-            ui.label(crate::tr!(
-                "{} · caution: {} ({})",
-                row.kind,
-                row.danger,
-                row.risk
-            ));
-            if !row.description.is_empty() {
-                ui.label(&row.description);
-            }
-            ui.separator();
-            for detail in &row.details {
-                ui.label(detail);
-            }
-            if !row.tags.is_empty() {
-                ui.separator();
-                ui.label(RichText::new(crate::tr!("tags: {}", row.tags.join(", "))).color(MUTED()));
-            }
-            for p in row.paths.iter().take(6) {
-                ui.monospace(p);
-            }
-            if row.paths.len() > 6 {
-                ui.label(crate::tr!("… {} more paths", row.paths.len() - 6));
-            }
-            ui.label(crate::tr!(
-                "skip if newer than {} days · default {}",
-                row.min_age_days,
-                if row.default_enabled {
-                    t("on")
+    let dense = theme::skin() == theme::Skin::Table;
+    let locked = row.report_only;
+    let frame = egui::Frame::new()
+        .fill(if locked { theme::BG() } else { egui::Color32::TRANSPARENT })
+        .inner_margin(egui::Margin::symmetric(14, if dense { 6 } else { 10 }));
+    let resp = frame
+        .show(ui, |ui| {
+            ui.set_width(ui.available_width());
+            ui.horizontal(|ui| {
+                ui.spacing_mut().item_spacing.x = 12.0;
+                // On/off switch, or a lock for list-only rules: those are
+                // shown but never removed automatically, whatever the switch.
+                let (slot, _) = ui.allocate_exact_size(egui::vec2(38.0, 22.0), egui::Sense::hover());
+                if locked {
+                    crate::icons::paint(
+                        ui.painter(),
+                        crate::icons::Icon::Lock,
+                        egui::Rect::from_center_size(slot.center(), egui::vec2(16.0, 16.0)),
+                        MUTED(),
+                    );
+                    ui.interact(slot, ui.id().with(("lock", &row.id)), egui::Sense::hover())
+                        .on_hover_text(t("Listed only — never removed automatically"));
                 } else {
-                    t("off")
+                    let r = ui.interact(slot, ui.id().with(("sw", &row.id)), egui::Sense::click());
+                    paint_switch(ui, slot, row.effectively_enabled, r.hovered());
+                    if r.on_hover_text(t("Turn this rule on or off for junk cleaning")).clicked() {
+                        let _ = mgr.set_rule_enabled(&row.id, !row.effectively_enabled);
+                        state.dirty = true;
+                        state.error = save(mgr);
+                        *action = RulesAction::PrefsChanged;
+                    }
                 }
-            ));
-        });
 
-        ui.label(RichText::new(&row.kind).size(12.0).color(MUTED()));
-        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-            if ui
-                .small_button(t("Reset"))
-                .on_hover_text(t("Use the default for this rule"))
-                .clicked()
-            {
-                mgr.reset_rule(&row.id);
-                state.dirty = true;
-                state.error = save(mgr);
-                *action = RulesAction::PrefsChanged;
-            }
-            if row.report_only {
-                ui.label(RichText::new(t("list only")).size(12.0).color(MUTED()));
-            }
-            let danger_color = match row.danger.as_str() {
-                "dangerous" | "report-only" => DANGER(),
-                "caution" => ACCENT(),
-                _ => MUTED(),
-            };
-            ui.label(RichText::new(t(&row.danger)).size(12.0).color(danger_color));
-        });
+                let color = if row.effectively_enabled || locked { TEXT() } else { MUTED() };
+                let text_w = (ui.available_width() - 330.0).max(160.0);
+                ui.vertical(|ui| {
+                    ui.set_width(text_w);
+                    ui.spacing_mut().item_spacing.y = 2.0;
+                    ui.horizontal(|ui| {
+                        ui.label(RichText::new(&row.name).size(14.0).strong().color(color));
+                        if row.overridden {
+                            ui.label(RichText::new(t("changed by you")).size(11.0).color(ACCENT()));
+                        }
+                    });
+                    if !row.description.is_empty() {
+                        ui.add(egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED())).wrap());
+                    }
+                    if let Some(p) = row.paths.first() {
+                        let more = if row.paths.len() > 1 { crate::tr!("  +{} more", row.paths.len() - 1) } else { String::new() };
+                        ui.add(
+                            egui::Label::new(RichText::new(format!("{p}{more}")).size(11.0).monospace().color(MUTED()))
+                                .truncate(),
+                        )
+                        .on_hover_text(row.paths.join("\n"));
+                    }
+                });
+
+                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                    if locked {
+                        if let Some(p) = row.paths.first() {
+                            if ui
+                                .add(widgets::secondary("Show in Disk usage"))
+                                .on_hover_text(t("Find it in the tree and remove it by hand, with the usual review"))
+                                .clicked()
+                            {
+                                *action = RulesAction::Reveal(p.clone());
+                            }
+                        }
+                    } else if row.overridden
+                        && ui
+                            .small_button(t("Reset"))
+                            .on_hover_text(t("Use the default for this rule"))
+                            .clicked()
+                    {
+                        mgr.reset_rule(&row.id);
+                        state.dirty = true;
+                        state.error = save(mgr);
+                        *action = RulesAction::PrefsChanged;
+                    }
+                    let (label, c) = if locked {
+                        ("Report only", MUTED())
+                    } else {
+                        match row.danger.as_str() {
+                            "dangerous" => ("Careful", DANGER()),
+                            "caution" => ("Check", ACCENT()),
+                            _ => ("Safe", theme::SAFE()),
+                        }
+                    };
+                    egui::Frame::new()
+                        .stroke(egui::Stroke::new(1.0_f32, c.gamma_multiply(0.6)))
+                        .corner_radius(if dense { 3 } else { 10 })
+                        .inner_margin(egui::Margin::symmetric(8, 2))
+                        .show(ui, |ui| ui.label(RichText::new(t(label)).size(11.0).color(c)));
+                    ui.label(RichText::new(t(rule_action(row))).size(12.0).color(MUTED()));
+                });
+            });
+        })
+        .response;
+    ui.painter().hline(
+        resp.rect.x_range(),
+        resp.rect.bottom(),
+        egui::Stroke::new(1.0_f32, theme::BORDER()),
+    );
+    resp.on_hover_ui(|ui| {
+        ui.label(RichText::new(&row.id).strong());
+        for detail in &row.details {
+            ui.label(detail);
+        }
+        if !row.tags.is_empty() {
+            ui.label(RichText::new(crate::tr!("tags: {}", row.tags.join(", "))).color(MUTED()));
+        }
+        ui.label(crate::tr!(
+            "skip if newer than {} days · default {}",
+            row.min_age_days,
+            if row.default_enabled { t("on") } else { t("off") }
+        ));
     });
+}
+
+/// What the rule does with a match, in a few words.
+fn rule_action(row: &RuleRow) -> &'static str {
+    if row.report_only {
+        "Shown only"
+    } else if row.details.iter().any(|d| d.contains("preserving the configured root")) {
+        "Empties the folder"
+    } else {
+        "Moves to Trash"
+    }
+}
+
+/// A list row in the left column: label, optional on/off switch.
+/// Returns (row clicked, switch clicked).
+fn side_row(ui: &mut egui::Ui, selected: bool, label: &str, switch: Option<bool>) -> (bool, bool) {
+    let (rect, resp) = ui.allocate_exact_size(egui::vec2(ui.available_width(), 32.0), egui::Sense::click());
+    let p = ui.painter();
+    if selected {
+        p.rect_filled(rect, 6.0, theme::PANEL_2());
+    } else if resp.hovered() {
+        p.rect_filled(rect, 6.0, theme::PANEL_2().gamma_multiply(0.5));
+    }
+    let right = if switch.is_some() { rect.right() - 48.0 } else { rect.right() - 8.0 };
+    let mut job = egui::text::LayoutJob::simple_singleline(
+        label.to_owned(),
+        egui::FontId::proportional(13.0),
+        if switch == Some(false) { MUTED() } else { TEXT() },
+    );
+    job.wrap = egui::text::TextWrapping::truncate_at_width(right - rect.left() - 18.0);
+    let g = p.layout_job(job);
+    p.galley(egui::pos2(rect.left() + 10.0, rect.center().y - g.size().y / 2.0), g, TEXT());
+    let mut flip = false;
+    if let Some(on) = switch {
+        let slot = egui::Rect::from_center_size(egui::pos2(rect.right() - 26.0, rect.center().y), egui::vec2(34.0, 20.0));
+        let hot = resp.hovered() && ui.input(|i| i.pointer.hover_pos()).is_some_and(|h| slot.contains(h));
+        paint_switch(ui, slot, on, hot);
+        flip = resp.clicked() && ui.input(|i| i.pointer.interact_pos()).is_some_and(|h| slot.expand(4.0).contains(h));
+    }
+    (resp.clicked() && !flip, flip)
+}
+
+fn paint_switch(ui: &egui::Ui, slot: egui::Rect, on: bool, hot: bool) {
+    let p = ui.painter();
+    let r = slot.height() / 2.0;
+    let mut track = if on { ACCENT() } else { theme::BORDER() };
+    if hot {
+        track = track.gamma_multiply(0.85);
+    }
+    p.rect_filled(slot, r, track);
+    let x = if on { slot.right() - r } else { slot.left() + r };
+    p.circle_filled(egui::pos2(x, slot.center().y), r - 2.0, egui::Color32::WHITE);
 }
 
 fn build_filter(state: &RulesPanelState) -> RuleFilter {

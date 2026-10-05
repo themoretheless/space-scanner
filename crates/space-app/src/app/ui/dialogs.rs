@@ -9,7 +9,7 @@ use crate::app::SpaceApp;
 use crate::rules_panel::{self, RulesAction};
 use crate::theme::metrics::{S2, S3, S4, S6};
 use crate::theme::type_scale;
-use crate::theme::{self, ACCENT, DANGER, MUTED, PANEL_2, TEXT};
+use crate::theme::{self, ACCENT, DANGER, MUTED, PANEL_2};
 use crate::widgets::{caption, count_noun, divider, ghost, path_size_row, primary, secondary};
 
 fn window(title: &'static str, ctx: &egui::Context) -> egui::Window<'static> {
@@ -20,7 +20,7 @@ fn window(title: &'static str, ctx: &egui::Context) -> egui::Window<'static> {
         .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
         .frame(
             egui::Frame::window(&ctx.style())
-                .corner_radius(14)
+                .corner_radius(if theme::skin() == theme::Skin::Table { 6 } else { 14 })
                 .inner_margin(egui::Margin::same(S6 as i8)),
         )
 }
@@ -54,12 +54,14 @@ impl SpaceApp {
                         ("⌘R", "Rescan everything"),
                         ("⌘⇧R", "Rescan this folder"),
                         ("⌘F  or  /", "Search this scan"),
-                        ("← →", "Back / forward"),
-                        ("↑  Esc", "Go to the parent folder"),
-                        ("Home", "Jump to the scan root"),
-                        ("↓  End", "Select the largest item"),
+                        ("↑ ↓", "Move through the tree"),
+                        ("→ ←", "Expand or collapse a folder; ← on a closed one goes to its parent"),
+                        ("Space", "Add to review or take out"),
                         ("Enter", "Open a folder, show a file in Finder, or confirm"),
-                        ("Click", "Select"),
+                        ("Esc", "Go to the parent folder"),
+                        ("⌘← ⌘→", "Back / forward"),
+                        ("Home", "Jump to the scan root"),
+                        ("⌥-click ▸", "Expand a whole branch"),
                         ("Double-click", "Open a folder"),
                         ("⌘-click", "Add to review"),
                         ("⌘1–4", "Switch the map style"),
@@ -74,7 +76,7 @@ impl SpaceApp {
                 });
             ui.add_space(S3);
             ui.label(caption(
-                "Esc cancels a scan, closes a panel, clears search, then goes up.",
+                "Esc cancels a scan, closes a panel, clears search, then goes up. It never switches tabs.",
             ));
             ui.add_space(S3);
             if ui.add(secondary("Close")).clicked() {
@@ -152,14 +154,25 @@ impl SpaceApp {
             ui.label(caption(
                 "Items go to the macOS Trash and can be restored from there. Disk space is only released after you empty Trash in Finder.",
             ));
-            ui.add_space(S3);
+            ui.add_space(S2);
+            ui.horizontal(|ui| {
+                for (label, n, bytes) in [
+                    ("From Disk usage", self.review.len(), self.review_bytes()),
+                    ("From Cleanup", self.junk.selected_count(), self.junk.selected_bytes()),
+                ] {
+                    if n > 0 {
+                        ui.label(caption(crate::tr!("{}: {} · {}", t(label), n, crate::i18n::bytes(bytes))));
+                    }
+                }
+            });
+            ui.add_space(S2);
             egui::Frame::new()
                 .fill(PANEL_2())
                 .corner_radius(10)
                 .inner_margin(egui::Margin::symmetric(S3 as i8, S2 as i8))
                 .show(ui, |ui| {
                     egui::ScrollArea::vertical()
-                        .max_height(220.0)
+                        .max_height(260.0)
                         .show(ui, |ui| {
                             ui.set_width(ui.available_width());
                             ui.spacing_mut().item_spacing.y = 0.0;
@@ -335,10 +348,10 @@ impl SpaceApp {
                                     .add(
                                         egui::Button::new(
                                             RichText::new(t("Delete permanently"))
-                                                .color(TEXT())
+                                                .color(egui::Color32::WHITE)
                                                 .strong(),
                                         )
-                                        .fill(DANGER().gamma_multiply(0.55))
+                                        .fill(DANGER())
                                         .corner_radius(8)
                                         .min_size(egui::vec2(0.0, 36.0)),
                                     )
@@ -360,11 +373,12 @@ impl SpaceApp {
             return;
         }
         let mut open = true;
-        egui::Window::new("Cleanup rules")
+        let mut reveal: Option<String> = None;
+        egui::Window::new(t("Cleanup rules"))
             .collapsible(false)
             .resizable(true)
             .open(&mut open)
-            .default_size([820.0, 560.0])
+            .default_size([1040.0, 640.0])
             .anchor(egui::Align2::CENTER_CENTER, [0.0, 12.0])
             .show(ctx, |ui| {
                 if self.rule_mgr.is_none() && self.rules.error.is_none() {
@@ -379,6 +393,7 @@ impl SpaceApp {
                                 self.start_junk_scan();
                             }
                         }
+                        RulesAction::Reveal(path) => reveal = Some(path),
                         RulesAction::None => {}
                     }
                 } else if self.rule_mgr_loading {
@@ -396,6 +411,9 @@ impl SpaceApp {
             });
         if !open {
             self.rules.open = false;
+        }
+        if let Some(path) = reveal {
+            self.reveal_rule_path(&path);
         }
     }
 }
