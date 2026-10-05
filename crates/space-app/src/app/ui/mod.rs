@@ -14,6 +14,7 @@ mod layouts;
 mod review_page;
 mod scan;
 mod shell;
+mod start_skins;
 mod usage;
 
 use eframe::egui;

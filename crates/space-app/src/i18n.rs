@@ -306,6 +306,8 @@ mod tests {
             include_str!("app/ui/shell.rs"),
             include_str!("app/ui/scan.rs"),
             include_str!("app/ui/usage.rs"),
+            include_str!("app/ui/layouts.rs"),
+            include_str!("app/ui/start_skins.rs"),
             include_str!("app/ui/cleanup.rs"),
             include_str!("app/ui/review_page.rs"),
             include_str!("app/ui/dialogs.rs"),
