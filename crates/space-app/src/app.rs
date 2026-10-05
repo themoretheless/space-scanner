@@ -1001,6 +1001,40 @@ impl SpaceApp {
         }
     }
 
+    /// A rule path (may start with `~` or contain a glob): select it in Disk
+    /// usage when the open scan indexed it, otherwise show it in Finder.
+    fn reveal_rule_path(&mut self, raw: &str) {
+        let mut path = raw.to_owned();
+        if let (Some(rest), Some(home)) = (path.strip_prefix('~'), std::env::var_os("HOME")) {
+            path = format!("{}{rest}", home.to_string_lossy());
+        }
+        // Stop at the first glob component: that folder is what exists.
+        let path: PathBuf = PathBuf::from(&path)
+            .components()
+            .take_while(|c| !c.as_os_str().to_string_lossy().contains(['*', '?', '[']))
+            .collect();
+        if let Some(id) = self.tree.as_ref().and_then(|t| find_path(t, &path)) {
+            let parent = self.tree.as_ref().and_then(|t| t.node(id).parent);
+            if let Some(parent) = parent {
+                self.navigate(parent, true);
+            }
+            self.selected = Some(id);
+            self.rules.open = false;
+            self.mode = Mode::Explore;
+            return;
+        }
+        let shown = path.display().to_string();
+        #[cfg(target_os = "macos")]
+        {
+            let _ = std::process::Command::new("open").args(["-R", &shown]).spawn();
+        }
+        #[cfg(not(target_os = "macos"))]
+        {
+            let _ = std::process::Command::new("xdg-open").arg(&shown).spawn();
+        }
+        self.status = crate::tr!("Not in this scan — opened {} in Finder", shown);
+    }
+
     fn reveal_selected(&self) {
         let Some(tree) = &self.tree else { return };
         let id = self.selected.unwrap_or(self.focus);
@@ -1465,4 +1499,18 @@ mod folder_arg_tests {
         let args = ["bin", "--offline"].map(String::from);
         assert_eq!(folder_arg(args), None);
     }
+}
+
+/// Node for an absolute path inside the scanned tree, walking by name.
+fn find_path(tree: &space_core::SpaceTree, path: &std::path::Path) -> Option<NodeId> {
+    let rel = path.strip_prefix(&tree.root_path).ok()?;
+    let mut id = tree.root;
+    for comp in rel.components() {
+        let name = comp.as_os_str().to_string_lossy();
+        id = *tree
+            .children(id)
+            .iter()
+            .find(|&&c| tree.node(c).name == name)?;
+    }
+    Some(id)
 }

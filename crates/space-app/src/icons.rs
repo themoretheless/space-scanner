@@ -20,6 +20,7 @@ pub enum Icon {
     ChevronRight,
     ChevronDown,
     Check,
+    Lock,
 }
 
 /// Draw `icon` filling `rect` (a square) with a 1.7-unit stroke.
@@ -120,6 +121,10 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
         Icon::ChevronRight => line(&[(9.0, 5.0), (16.0, 12.0), (9.0, 19.0)]),
         Icon::ChevronDown => line(&[(5.0, 9.0), (12.0, 16.0), (19.0, 9.0)]),
         Icon::Check => line(&[(4.5, 12.5), (10.0, 18.0), (19.5, 6.5)]),
+        Icon::Lock => {
+            closed(&[(5.0, 11.0), (19.0, 11.0), (19.0, 21.0), (5.0, 21.0)]);
+            line(&[(8.0, 11.0), (8.0, 7.5), (9.5, 4.5), (12.0, 3.5), (14.5, 4.5), (16.0, 7.5), (16.0, 11.0)]);
+        }
         Icon::Home => {
             line(&[(3.0, 11.5), (12.0, 3.5), (21.0, 11.5)]);
             line(&[(5.5, 10.0), (5.5, 20.5), (18.5, 20.5), (18.5, 10.0)]);

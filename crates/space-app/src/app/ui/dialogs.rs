@@ -360,11 +360,12 @@ impl SpaceApp {
             return;
         }
         let mut open = true;
-        egui::Window::new("Cleanup rules")
+        let mut reveal: Option<String> = None;
+        egui::Window::new(t("Cleanup rules"))
             .collapsible(false)
             .resizable(true)
             .open(&mut open)
-            .default_size([820.0, 560.0])
+            .default_size([1040.0, 640.0])
             .anchor(egui::Align2::CENTER_CENTER, [0.0, 12.0])
             .show(ctx, |ui| {
                 if self.rule_mgr.is_none() && self.rules.error.is_none() {
@@ -379,6 +380,7 @@ impl SpaceApp {
                                 self.start_junk_scan();
                             }
                         }
+                        RulesAction::Reveal(path) => reveal = Some(path),
                         RulesAction::None => {}
                     }
                 } else if self.rule_mgr_loading {
@@ -396,6 +398,9 @@ impl SpaceApp {
             });
         if !open {
             self.rules.open = false;
+        }
+        if let Some(path) = reveal {
+            self.reveal_rule_path(&path);
         }
     }
 }
