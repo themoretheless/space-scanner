@@ -27,6 +27,12 @@ impl SpaceApp {
             egui::CentralPanel::default().show(ctx, |ui| self.scan_wait(ui));
             return;
         }
+        // Each skin brings its own workspace layout; Map is the original one.
+        match crate::theme::skin() {
+            crate::theme::Skin::Columns => return self.columns_page(ctx, d),
+            crate::theme::Skin::Table => return self.table_page(ctx, d),
+            crate::theme::Skin::Map => {}
+        }
         let split = d != Density::Narrow;
         if split {
             egui::SidePanel::left("contents")
@@ -414,7 +420,7 @@ impl SpaceApp {
 
     // ----------------------------------------------------------------- details
 
-    fn details(&mut self, ui: &mut egui::Ui) {
+    pub(super) fn details(&mut self, ui: &mut egui::Ui) {
         let Some(tree) = self.tree.clone() else {
             return;
         };
@@ -765,24 +771,24 @@ impl SpaceApp {
 // -------------------------------------------------------------------- tree
 
 /// Hard cap on drawn rows: an opened `node_modules` must not stall a frame.
-const MAX_TREE_ROWS: usize = 2_000;
+pub(super) const MAX_TREE_ROWS: usize = 2_000;
 /// Children shown per folder before the rest fold into "N more".
 const MAX_KIDS: usize = 200;
 
-struct TreeRow {
-    id: NodeId,
-    depth: usize,
-    color: Color32,
-    size: u64,
+pub(super) struct TreeRow {
+    pub(super) id: NodeId,
+    pub(super) depth: usize,
+    pub(super) color: Color32,
+    pub(super) size: u64,
     /// Share of the parent folder, 0..=1.
-    share: f32,
-    has_kids: bool,
-    open: bool,
+    pub(super) share: f32,
+    pub(super) has_kids: bool,
+    pub(super) open: bool,
     /// For each ancestor level: does a later sibling follow (draw a guide)?
     guides: Vec<bool>,
 }
 
-fn tree_rows(
+pub(super) fn tree_rows(
     tree: &Tree,
     top: &[NodeId],
     colors: &[Color32],
@@ -861,7 +867,7 @@ fn tree_rows(
     out
 }
 
-fn expand_all(tree: &Tree, id: NodeId, expanded: &mut HashSet<NodeId>) {
+pub(super) fn expand_all(tree: &Tree, id: NodeId, expanded: &mut HashSet<NodeId>) {
     let mut stack = vec![id];
     let mut budget = 500;
     while let Some(x) = stack.pop() {
