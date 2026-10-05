@@ -28,8 +28,8 @@ impl SpaceApp {
         egui::TopBottomPanel::bottom("review_footer")
             .frame(
                 egui::Frame::new()
-                    .fill(PANEL)
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER))
+                    .fill(PANEL())
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER()))
                     .inner_margin(egui::Margin::symmetric(S6 as i8, S3 as i8)),
             )
             .show(ctx, |ui| {
@@ -37,7 +37,7 @@ impl SpaceApp {
                     ui.horizontal(|ui| {
                         ui.vertical(|ui| {
                             ui.horizontal(|ui| {
-                                ui.label(RichText::new(t("Selected size")).color(MUTED));
+                                ui.label(RichText::new(t("Selected size")).color(MUTED()));
                                 ui.label(
                                     RichText::new(crate::i18n::bytes(self.basket_bytes()))
                                         .size(type_scale::TITLE)
@@ -46,7 +46,7 @@ impl SpaceApp {
                             });
                             ui.label(
                                 caption("Space is released after emptying Trash in Finder.")
-                                    .color(SAFE),
+                                    .color(SAFE()),
                             );
                         });
                         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
@@ -63,7 +63,7 @@ impl SpaceApp {
             });
 
         egui::CentralPanel::default()
-            .frame(egui::Frame::new().fill(BG))
+            .frame(egui::Frame::new().fill(BG()))
             .show(ctx, |ui| {
                 page_column(ui, 880.0, |ui| {
                     ui.add_space(S6 + S2);
@@ -150,7 +150,7 @@ impl SpaceApp {
                                     ui.label(
                                         RichText::new(t(title).to_uppercase())
                                             .size(type_scale::CAPTION)
-                                            .color(MUTED),
+                                            .color(MUTED()),
                                     );
                                     ui.label(caption(format!("· {count}")));
                                 },
@@ -188,7 +188,7 @@ fn item_row(ui: &mut egui::Ui, path: &str, size: u64) -> bool {
     ui.painter().hline(
         rect.x_range(),
         rect.bottom(),
-        egui::Stroke::new(1.0_f32, BORDER),
+        egui::Stroke::new(1.0_f32, BORDER()),
     );
     ui.allocate_new_ui(egui::UiBuilder::new().max_rect(button), |ui| {
         crate::icons::button(

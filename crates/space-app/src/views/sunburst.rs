@@ -119,7 +119,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 hole + ring_w - RING_GAP,
                 angle,
                 angle + other,
-                Color32::from_rgb(52, 56, 62),
+                crate::theme::DIR(),
                 None,
             );
         }
@@ -149,7 +149,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let hole = *hole;
     let max_r = *max_r;
 
-    painter.circle_filled(center, max_r + 2.0, theme::PANEL);
+    painter.circle_filled(center, max_r + 2.0, theme::PANEL());
     painter.add(Shape::Mesh(Arc::clone(mesh)));
 
     if hits.is_empty() && ctx.filter.is_active() {
@@ -195,7 +195,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 hit.outer,
                 hit.a0,
                 hit.a1,
-                Color32::from_rgba_unmultiplied(255, 210, 120, (hov_t * 70.0) as u8),
+                crate::theme::ACCENT().gamma_multiply(hov_t * 0.28),
             );
             painter.add(Shape::Mesh(Arc::new(overlay)));
             stroke_wedge(
@@ -204,7 +204,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 hit,
                 Stroke::new(
                     1.4 + hov_t,
-                    Color32::from_rgba_unmultiplied(255, 200, 100, (hov_t * 230.0) as u8),
+                    crate::theme::ACCENT().gamma_multiply(hov_t * 0.9),
                 ),
             );
         } else if sel_t > 0.01 {
@@ -214,14 +214,14 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 hit,
                 Stroke::new(
                     1.8 + sel_t * 0.6,
-                    Color32::from_rgba_unmultiplied(232, 168, 72, (sel_t * 240.0) as u8),
+                    crate::theme::ACCENT().gamma_multiply(sel_t * 0.94),
                 ),
             );
         }
     }
 
     let focus_node = tree.node(focus);
-    painter.circle_filled(center, hole - 2.0, theme::BG);
+    painter.circle_filled(center, hole - 2.0, theme::BG());
     // Fade-in hub label when focus changes (id-keyed animation resets).
     let name_alpha =
         ui.ctx()
@@ -230,21 +230,21 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let mut title = egui::text::LayoutJob::simple_singleline(
         focus_node.name.clone(),
         FontId::proportional(15.0),
-        TEXT,
+        TEXT(),
     );
     title.wrap = egui::text::TextWrapping::truncate_at_width((hole * 1.6 - 12.0).max(20.0));
     let title = painter.layout_job(title);
     painter.galley(
         center + Vec2::new(-title.size().x * 0.5, -10.0 - title.size().y * 0.5),
         title,
-        Color32::from_rgba_unmultiplied(TEXT.r(), TEXT.g(), TEXT.b(), (label_a * 255.0) as u8),
+        Color32::from_rgba_unmultiplied(TEXT().r(), TEXT().g(), TEXT().b(), (label_a * 255.0) as u8),
     );
     painter.text(
         center + Vec2::new(0.0, 10.0),
         Align2::CENTER_CENTER,
         crate::i18n::bytes(focus_node.size(ctx.mode)),
         FontId::proportional(12.0),
-        Color32::from_rgba_unmultiplied(MUTED.r(), MUTED.g(), MUTED.b(), (label_a * 220.0) as u8),
+        Color32::from_rgba_unmultiplied(MUTED().r(), MUTED().g(), MUTED().b(), (label_a * 220.0) as u8),
     );
     if focus_node.parent.is_some() {
         painter.text(
@@ -253,9 +253,9 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             "↑  click to go up",
             FontId::proportional(10.0),
             Color32::from_rgba_unmultiplied(
-                ACCENT.r(),
-                ACCENT.g(),
-                ACCENT.b(),
+                ACCENT().r(),
+                ACCENT().g(),
+                ACCENT().b(),
                 (label_a * 200.0) as u8,
             ),
         );
@@ -331,9 +331,9 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 bar,
                 4.0,
                 Color32::from_rgba_unmultiplied(
-                    theme::PANEL_2.r(),
-                    theme::PANEL_2.g(),
-                    theme::PANEL_2.b(),
+                    theme::PANEL_2().r(),
+                    theme::PANEL_2().g(),
+                    theme::PANEL_2().b(),
                     a,
                 ),
             );
@@ -342,7 +342,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 Align2::LEFT_CENTER,
                 label,
                 FontId::proportional(13.0),
-                Color32::from_rgba_unmultiplied(TEXT.r(), TEXT.g(), TEXT.b(), a),
+                Color32::from_rgba_unmultiplied(TEXT().r(), TEXT().g(), TEXT().b(), a),
             );
             if n.is_dir {
                 painter.text(
@@ -350,7 +350,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                     Align2::RIGHT_CENTER,
                     format!("{} files", n.file_count),
                     FontId::proportional(11.0),
-                    Color32::from_rgba_unmultiplied(MUTED.r(), MUTED.g(), MUTED.b(), a),
+                    Color32::from_rgba_unmultiplied(MUTED().r(), MUTED().g(), MUTED().b(), a),
                 );
             }
         }
@@ -534,7 +534,7 @@ fn paint_subtree(
             inner + ring_w - RING_GAP,
             a,
             a + other,
-            Color32::from_rgb(48, 52, 58),
+            crate::theme::DIR(),
             None,
         );
     }

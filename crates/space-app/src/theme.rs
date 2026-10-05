@@ -1,23 +1,139 @@
 //! Visual language: deep charcoal + amber accent — map-first, quiet chrome.
 
+use std::sync::atomic::{AtomicU8, Ordering};
 use std::sync::Arc;
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
 
-pub const BG: Color32 = Color32::from_rgb(18, 20, 24);
-pub const PANEL: Color32 = Color32::from_rgb(25, 28, 33);
-pub const PANEL_2: Color32 = Color32::from_rgb(34, 38, 45);
-pub const BORDER: Color32 = Color32::from_rgb(42, 46, 52);
-pub const TEXT: Color32 = Color32::from_rgb(234, 238, 244);
-/// Secondary text — lifted to keep 4.5:1 on PANEL.
-pub const MUTED: Color32 = Color32::from_rgb(154, 160, 168);
-pub const ACCENT: Color32 = Color32::from_rgb(240, 173, 78);
-/// Text on ACCENT fills.
-pub const ACCENT_INK: Color32 = Color32::from_rgb(26, 18, 7);
+/// A skin: one palette plus whether egui's widgets start from light or dark.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+pub enum Skin {
+    /// Dark charcoal, amber accent — the map-first look.
+    #[default]
+    Map,
+    /// Light, system-like — Finder columns.
+    Columns,
+    /// Warm paper, orange accent — dense table.
+    Table,
+}
+
+impl Skin {
+    pub const ALL: [Skin; 3] = [Skin::Map, Skin::Columns, Skin::Table];
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Skin::Map => "Map (dark)",
+            Skin::Columns => "Columns (light)",
+            Skin::Table => "Table (warm)",
+        }
+    }
+
+    fn palette(self) -> &'static Palette {
+        match self {
+            Skin::Map => &MAP,
+            Skin::Columns => &COLUMNS,
+            Skin::Table => &TABLE,
+        }
+    }
+}
+
+struct Palette {
+    dark: bool,
+    bg: Color32,
+    panel: Color32,
+    panel_2: Color32,
+    border: Color32,
+    text: Color32,
+    muted: Color32,
+    accent: Color32,
+    accent_ink: Color32,
+    safe: Color32,
+    dir: Color32,
+    danger: Color32,
+}
+
+const MAP: Palette = Palette {
+    dark: true,
+    bg: Color32::from_rgb(18, 20, 24),
+    panel: Color32::from_rgb(25, 28, 33),
+    panel_2: Color32::from_rgb(34, 38, 45),
+    border: Color32::from_rgb(42, 46, 52),
+    text: Color32::from_rgb(234, 238, 244),
+    // Lifted to keep 4.5:1 on panel.
+    muted: Color32::from_rgb(154, 160, 168),
+    accent: Color32::from_rgb(240, 173, 78),
+    accent_ink: Color32::from_rgb(26, 18, 7),
+    safe: Color32::from_rgb(92, 200, 168),
+    dir: Color32::from_rgb(48, 52, 58),
+    danger: Color32::from_rgb(210, 90, 80),
+};
+
+const COLUMNS: Palette = Palette {
+    dark: false,
+    bg: Color32::from_rgb(245, 245, 247),
+    panel: Color32::from_rgb(255, 255, 255),
+    panel_2: Color32::from_rgb(232, 236, 244),
+    border: Color32::from_rgb(216, 216, 220),
+    text: Color32::from_rgb(29, 29, 31),
+    muted: Color32::from_rgb(106, 106, 112),
+    accent: Color32::from_rgb(10, 102, 255),
+    accent_ink: Color32::from_rgb(255, 255, 255),
+    safe: Color32::from_rgb(30, 123, 52),
+    dir: Color32::from_rgb(199, 199, 204),
+    danger: Color32::from_rgb(196, 43, 28),
+};
+
+const TABLE: Palette = Palette {
+    dark: false,
+    bg: Color32::from_rgb(250, 249, 246),
+    panel: Color32::from_rgb(255, 255, 255),
+    panel_2: Color32::from_rgb(241, 239, 234),
+    border: Color32::from_rgb(228, 225, 218),
+    text: Color32::from_rgb(31, 29, 26),
+    muted: Color32::from_rgb(107, 103, 95),
+    accent: Color32::from_rgb(196, 98, 18),
+    accent_ink: Color32::from_rgb(255, 255, 255),
+    safe: Color32::from_rgb(38, 120, 94),
+    dir: Color32::from_rgb(201, 196, 184),
+    danger: Color32::from_rgb(180, 50, 36),
+};
+
+static SKIN: AtomicU8 = AtomicU8::new(0);
+
+pub fn skin() -> Skin {
+    Skin::ALL[SKIN.load(Ordering::Relaxed) as usize % Skin::ALL.len()]
+}
+
+fn pal() -> &'static Palette {
+    skin().palette()
+}
+
+// Palette accessors keep the old constant names so call sites read the same.
+#[allow(non_snake_case)]
+pub fn BG() -> Color32 { pal().bg }
+#[allow(non_snake_case)]
+pub fn PANEL() -> Color32 { pal().panel }
+#[allow(non_snake_case)]
+pub fn PANEL_2() -> Color32 { pal().panel_2 }
+#[allow(non_snake_case)]
+pub fn BORDER() -> Color32 { pal().border }
+#[allow(non_snake_case)]
+pub fn TEXT() -> Color32 { pal().text }
+/// Secondary text.
+#[allow(non_snake_case)]
+pub fn MUTED() -> Color32 { pal().muted }
+#[allow(non_snake_case)]
+pub fn ACCENT() -> Color32 { pal().accent }
+/// Text on ACCENT() fills.
+#[allow(non_snake_case)]
+pub fn ACCENT_INK() -> Color32 { pal().accent_ink }
 /// "Safe to remove" signal.
-pub const SAFE: Color32 = Color32::from_rgb(92, 200, 168);
-pub const DIR: Color32 = Color32::from_rgb(48, 52, 58);
-pub const DANGER: Color32 = Color32::from_rgb(210, 90, 80);
+#[allow(non_snake_case)]
+pub fn SAFE() -> Color32 { pal().safe }
+#[allow(non_snake_case)]
+pub fn DIR() -> Color32 { pal().dir }
+#[allow(non_snake_case)]
+pub fn DANGER() -> Color32 { pal().danger }
 
 /// Type scale (px). Captions are the smallest text in the app.
 pub mod type_scale {
@@ -47,28 +163,39 @@ pub mod metrics {
     pub const TREE_INDENT: f32 = 16.0;
 }
 
-pub fn apply(ctx: &egui::Context) {
+/// Install fonts and the starting skin. Call once.
+pub fn apply(ctx: &egui::Context, skin: Skin) {
     install_fonts(ctx);
+    base_style(ctx);
+    set_skin(ctx, skin);
+}
 
-    let mut visuals = Visuals::dark();
-    visuals.window_fill = PANEL;
-    visuals.panel_fill = BG;
-    visuals.extreme_bg_color = PANEL_2;
-    visuals.override_text_color = Some(TEXT);
-    visuals.widgets.noninteractive.bg_fill = PANEL;
-    visuals.widgets.inactive.bg_fill = PANEL_2;
-    visuals.widgets.hovered.bg_fill = Color32::from_rgb(32, 36, 42);
-    visuals.widgets.active.bg_fill = Color32::from_rgb(38, 42, 48);
-    visuals.selection.bg_fill = Color32::from_rgba_unmultiplied(240, 173, 78, 48);
-    visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED);
-    visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT);
-    visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT);
-    visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, TEXT);
-    visuals.widgets.inactive.weak_bg_fill = PANEL_2;
-    visuals.widgets.inactive.bg_stroke = Stroke::new(1.0_f32, Color32::from_rgb(78, 85, 96));
-    visuals.widgets.hovered.bg_stroke = Stroke::new(1.0_f32, Color32::from_rgb(110, 118, 130));
-    visuals.widgets.hovered.weak_bg_fill = Color32::from_rgb(32, 36, 42);
-    visuals.window_stroke = Stroke::new(1.0_f32, BORDER);
+/// Switch the palette at runtime; every frame reads it, so nothing restarts.
+pub fn set_skin(ctx: &egui::Context, skin: Skin) {
+    SKIN.store(Skin::ALL.iter().position(|&s| s == skin).unwrap_or(0) as u8, Ordering::Relaxed);
+    let p = pal();
+    let hover = p.panel_2.lerp_to_gamma(p.border, 0.5);
+    let active = p.border;
+    let control_stroke = p.border.lerp_to_gamma(p.muted, 0.35);
+    let mut visuals = if p.dark { Visuals::dark() } else { Visuals::light() };
+    visuals.window_fill = PANEL();
+    visuals.panel_fill = BG();
+    visuals.extreme_bg_color = PANEL_2();
+    visuals.override_text_color = Some(TEXT());
+    visuals.widgets.noninteractive.bg_fill = PANEL();
+    visuals.widgets.inactive.bg_fill = PANEL_2();
+    visuals.widgets.hovered.bg_fill = hover;
+    visuals.widgets.active.bg_fill = active;
+    visuals.selection.bg_fill = p.accent.gamma_multiply(0.25);
+    visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED());
+    visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT());
+    visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT());
+    visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, TEXT());
+    visuals.widgets.inactive.weak_bg_fill = PANEL_2();
+    visuals.widgets.inactive.bg_stroke = Stroke::new(1.0_f32, control_stroke);
+    visuals.widgets.hovered.bg_stroke = Stroke::new(1.0_f32, p.muted);
+    visuals.widgets.hovered.weak_bg_fill = hover;
+    visuals.window_stroke = Stroke::new(1.0_f32, BORDER());
     visuals.window_corner_radius = CornerRadius::same(10);
     visuals.menu_corner_radius = CornerRadius::same(8);
     visuals.widgets.noninteractive.corner_radius = CornerRadius::same(6);
@@ -76,7 +203,9 @@ pub fn apply(ctx: &egui::Context) {
     visuals.widgets.hovered.corner_radius = CornerRadius::same(8);
     visuals.widgets.active.corner_radius = CornerRadius::same(8);
     ctx.set_visuals(visuals);
+}
 
+fn base_style(ctx: &egui::Context) {
     let mut style = (*ctx.style()).clone();
     style.spacing.item_spacing = egui::vec2(8.0, 6.0);
     style.spacing.button_padding = egui::vec2(12.0, 6.0);
@@ -268,7 +397,7 @@ fn pick_dir_color(name: &str, sibling_index: usize, avoid: &[Color32]) -> Color3
             return c;
         }
     }
-    let conflict = avoid.last().copied().unwrap_or(DIR);
+    let conflict = avoid.last().copied().unwrap_or(DIR());
     let h = (fnv1a(name) % 360) as f32;
     let forced = hsv(
         (h + 140.0 + sibling_index as f32 * 37.0) % 360.0,

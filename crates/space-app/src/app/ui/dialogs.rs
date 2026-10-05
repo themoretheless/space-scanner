@@ -67,7 +67,7 @@ impl SpaceApp {
                         ("⌘⇧C", "Copy the folder path"),
                         ("?", "This list"),
                     ] {
-                        ui.label(RichText::new(t(keys)).monospace().color(ACCENT));
+                        ui.label(RichText::new(t(keys)).monospace().color(ACCENT()));
                         ui.label(t(action));
                         ui.end_row();
                     }
@@ -129,7 +129,7 @@ impl SpaceApp {
                             RichText::new(&current)
                                 .size(type_scale::CAPTION)
                                 .monospace()
-                                .color(MUTED),
+                                .color(MUTED()),
                         )
                         .truncate(),
                     )
@@ -154,7 +154,7 @@ impl SpaceApp {
             ));
             ui.add_space(S3);
             egui::Frame::new()
-                .fill(PANEL_2)
+                .fill(PANEL_2())
                 .corner_radius(10)
                 .inner_margin(egui::Margin::symmetric(S3 as i8, S2 as i8))
                 .show(ui, |ui| {
@@ -226,7 +226,7 @@ impl SpaceApp {
                         RichText::new(tm_n.to_string())
                             .size(type_scale::TITLE)
                             .strong()
-                            .color(ACCENT),
+                            .color(ACCENT()),
                     );
                     ui.label("Time Machine");
                     if other_n > 0 {
@@ -255,7 +255,7 @@ impl SpaceApp {
                         .show(ui, |ui| {
                             for snap in &self.tm_snapshots {
                                 egui::Frame::new()
-                                    .fill(PANEL_2)
+                                    .fill(PANEL_2())
                                     .corner_radius(8)
                                     .inner_margin(egui::Margin::symmetric(S3 as i8, S2 as i8))
                                     .show(ui, |ui| {
@@ -269,11 +269,11 @@ impl SpaceApp {
                                                 Layout::right_to_left(Align::Center),
                                                 |ui| {
                                                     let (text, color) = if !snap.is_tm() {
-                                                        ("left alone", MUTED)
+                                                        ("left alone", MUTED())
                                                     } else if snap.purgeable {
-                                                        ("macOS can drop this", MUTED)
+                                                        ("macOS can drop this", MUTED())
                                                     } else {
-                                                        ("keeps disk used", ACCENT)
+                                                        ("keeps disk used", ACCENT())
                                                     };
                                                     ui.label(caption(text).color(color));
                                                 },
@@ -309,8 +309,8 @@ impl SpaceApp {
                 if self.confirm_tm_clean {
                     ui.add_space(S3);
                     egui::Frame::new()
-                        .fill(PANEL_2)
-                        .stroke(egui::Stroke::new(1.0_f32, DANGER.gamma_multiply(0.6)))
+                        .fill(PANEL_2())
+                        .stroke(egui::Stroke::new(1.0_f32, DANGER().gamma_multiply(0.6)))
                         .corner_radius(10)
                         .inner_margin(egui::Margin::same(S3 as i8))
                         .show(ui, |ui| {
@@ -335,10 +335,10 @@ impl SpaceApp {
                                     .add(
                                         egui::Button::new(
                                             RichText::new(t("Delete permanently"))
-                                                .color(TEXT)
+                                                .color(TEXT())
                                                 .strong(),
                                         )
-                                        .fill(DANGER.gamma_multiply(0.55))
+                                        .fill(DANGER().gamma_multiply(0.55))
                                         .corner_radius(8)
                                         .min_size(egui::vec2(0.0, 36.0)),
                                     )
@@ -388,7 +388,7 @@ impl SpaceApp {
                     });
                     ctx.request_repaint_after(Duration::from_millis(50));
                 } else if let Some(err) = &self.rules.error {
-                    ui.colored_label(theme::DANGER, err);
+                    ui.colored_label(theme::DANGER(), err);
                     if ui.add(secondary("Close")).clicked() {
                         self.rules.open = false;
                     }

@@ -186,7 +186,7 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     } else {
         "Click to select · double-click Finder · ⌘-click Trash queue"
     };
-    ui.label(RichText::new(t(hint)).small().color(MUTED));
+    ui.label(RichText::new(t(hint)).small().color(MUTED()));
 }
 
 pub fn click_map_node(
@@ -273,7 +273,7 @@ pub fn empty_filter_prompt(ui: &mut Ui, rect: egui::Rect, action: &mut ViewActio
                 ui.label(
                     RichText::new(t("Nothing matches this filter"))
                         .size(15.0)
-                        .color(MUTED),
+                        .color(MUTED()),
                 );
                 ui.add_space(8.0);
                 if ui.button(t("Clear filter")).clicked() {

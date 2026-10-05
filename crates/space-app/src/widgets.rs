@@ -22,29 +22,29 @@ pub fn caption(text: impl Into<String>) -> RichText {
     let text: String = text.into();
     RichText::new(t(&text).to_owned())
         .size(type_scale::CAPTION)
-        .color(MUTED)
+        .color(MUTED())
 }
 
 /// Filled accent button — the one primary action on a screen.
 pub fn primary(label: &str) -> egui::Button<'static> {
-    egui::Button::new(RichText::new(t(label)).color(ACCENT_INK).strong())
-        .fill(ACCENT)
+    egui::Button::new(RichText::new(t(label)).color(ACCENT_INK()).strong())
+        .fill(ACCENT())
         .corner_radius(RADIUS_CONTROL)
         .min_size(egui::vec2(0.0, CONTROL_H))
 }
 
 /// Bordered neutral button.
 pub fn secondary(label: &str) -> egui::Button<'static> {
-    egui::Button::new(RichText::new(t(label)).color(TEXT))
-        .fill(PANEL_2)
-        .stroke(egui::Stroke::new(1.0_f32, BORDER))
+    egui::Button::new(RichText::new(t(label)).color(TEXT()))
+        .fill(PANEL_2())
+        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
         .corner_radius(RADIUS_CONTROL)
         .min_size(egui::vec2(0.0, CONTROL_H))
 }
 
 /// Frameless text button for quiet actions.
 pub fn ghost(label: &str) -> egui::Button<'static> {
-    egui::Button::new(RichText::new(t(label)).color(MUTED))
+    egui::Button::new(RichText::new(t(label)).color(MUTED()))
         .frame(false)
         .min_size(egui::vec2(0.0, CONTROL_H))
 }
@@ -60,13 +60,13 @@ pub fn chip(ui: &mut Ui, on: bool, label: &str) -> egui::Response {
         egui::Button::new(
             RichText::new(t(label))
                 .size(type_scale::CAPTION)
-                .color(if on { crate::theme::BG } else { MUTED }),
+                .color(if on { crate::theme::BG() } else { MUTED() }),
         )
-        .fill(if on { TEXT } else { Color32::TRANSPARENT })
+        .fill(if on { TEXT() } else { Color32::TRANSPARENT })
         .stroke(if on {
             egui::Stroke::NONE
         } else {
-            egui::Stroke::new(1.0_f32, BORDER)
+            egui::Stroke::new(1.0_f32, BORDER())
         })
         .corner_radius(14)
         .min_size(egui::vec2(0.0, 28.0)),
@@ -77,8 +77,8 @@ pub fn chip(ui: &mut Ui, on: bool, label: &str) -> egui::Response {
 pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> {
     let mut picked = None;
     egui::Frame::new()
-        .fill(PANEL)
-        .stroke(egui::Stroke::new(1.0_f32, BORDER))
+        .fill(PANEL())
+        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
         .corner_radius(9)
         .inner_margin(egui::Margin::same(3))
         .show(ui, |ui| {
@@ -87,11 +87,11 @@ pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> 
                 for (i, label) in labels.iter().enumerate() {
                     let on = i == current;
                     let button = egui::Button::new(RichText::new(t(label)).color(if on {
-                        TEXT
+                        TEXT()
                     } else {
-                        MUTED
+                        MUTED()
                     }))
-                    .fill(if on { PANEL_2 } else { Color32::TRANSPARENT })
+                    .fill(if on { PANEL_2() } else { Color32::TRANSPARENT })
                     .corner_radius(7)
                     .min_size(egui::vec2(0.0, 28.0));
                     if ui.add(button).clicked() {
@@ -106,8 +106,8 @@ pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> 
 /// Bordered surface used for cards on the Scan page and Review.
 pub fn card_frame() -> egui::Frame {
     egui::Frame::new()
-        .fill(PANEL)
-        .stroke(egui::Stroke::new(1.0_f32, BORDER))
+        .fill(PANEL())
+        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
         .corner_radius(RADIUS_CARD)
         .inner_margin(egui::Margin::same(S4 as i8 + 2))
 }
@@ -138,7 +138,7 @@ pub fn badge(ui: &mut Ui, text: &str, color: Color32, hint: &str) {
 /// Big number with a caption underneath.
 pub fn stat(ui: &mut Ui, value: &str, caption_text: &str) {
     egui::Frame::new()
-        .fill(PANEL_2)
+        .fill(PANEL_2())
         .corner_radius(10)
         .inner_margin(egui::Margin::symmetric(S3 as i8, S3 as i8))
         .show(ui, |ui| {
@@ -154,7 +154,7 @@ pub fn stat(ui: &mut Ui, value: &str, caption_text: &str) {
 /// Thin proportion bar.
 pub fn meter(ui: &mut Ui, frac: f32, fill: Color32, height: f32) {
     let (bar, _) = ui.allocate_exact_size(egui::vec2(ui.available_width(), height), Sense::hover());
-    ui.painter().rect_filled(bar, height * 0.5, PANEL_2);
+    ui.painter().rect_filled(bar, height * 0.5, PANEL_2());
     let mut part = bar;
     part.set_width((bar.width() * frac.clamp(0.0, 1.0)).max(if frac > 0.0 { height } else { 0.0 }));
     ui.painter().rect_filled(part, height * 0.5, fill);
@@ -188,7 +188,7 @@ pub fn section_header(ui: &mut Ui, title: &str, right: impl FnOnce(&mut Ui)) {
 /// Hairline divider.
 pub fn divider(ui: &mut Ui) {
     let (line, _) = ui.allocate_exact_size(egui::vec2(ui.available_width(), 1.0), Sense::hover());
-    ui.painter().rect_filled(line, 0.0, BORDER);
+    ui.painter().rect_filled(line, 0.0, BORDER());
 }
 
 /// Centered message for empty or blocked states, with an optional action.
@@ -224,13 +224,13 @@ pub fn path_size_row(
     let size = painter.layout_no_wrap(
         size_text.to_owned(),
         egui::FontId::monospace(type_scale::MONO),
-        MUTED,
+        MUTED(),
     );
     let size_x = rect.right() - reserve_right - size.size().x;
     let mut job = egui::text::LayoutJob::simple_singleline(
         path.to_owned(),
         egui::FontId::monospace(type_scale::MONO),
-        TEXT,
+        TEXT(),
     );
     job.wrap = egui::text::TextWrapping::truncate_at_width((size_x - rect.left() - S3).max(40.0));
     let path_g = painter.layout_job(job);
@@ -238,9 +238,9 @@ pub fn path_size_row(
     painter.galley(
         egui::pos2(rect.left(), y - path_g.size().y * 0.5),
         path_g,
-        TEXT,
+        TEXT(),
     );
-    painter.galley(egui::pos2(size_x, y - size.size().y * 0.5), size, MUTED);
+    painter.galley(egui::pos2(size_x, y - size.size().y * 0.5), size, MUTED());
     ui.interact(
         egui::Rect::from_min_max(rect.min, egui::pos2(size_x, rect.max.y)),
         ui.id().with(("path_row", path)),

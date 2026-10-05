@@ -173,7 +173,7 @@ pub fn draw(
                 stats.disabled,
             ))
             .size(12.0)
-            .color(MUTED),
+            .color(MUTED()),
         );
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
@@ -203,7 +203,7 @@ pub fn draw(
     });
 
     ui.horizontal(|ui| {
-        ui.label(RichText::new(t("Privacy")).color(MUTED));
+        ui.label(RichText::new(t("Privacy")).color(MUTED()));
         if ui
             .checkbox(&mut flags.scan_browser_cookies, "Cookies")
             .on_hover_text(
@@ -223,12 +223,12 @@ pub fn draw(
     });
 
     if let Some(err) = &state.error {
-        ui.colored_label(egui::Color32::from_rgb(220, 90, 90), err);
+        ui.colored_label(crate::theme::DANGER(), err);
     }
 
     ui.add_space(6.0);
     ui.horizontal(|ui| {
-        ui.label(RichText::new(t("Search")).color(MUTED));
+        ui.label(RichText::new(t("Search")).color(MUTED()));
         let resp = ui.add(
             egui::TextEdit::singleline(&mut state.query)
                 .desired_width(220.0)
@@ -448,31 +448,31 @@ pub fn draw(
 
         // --- rules ---
         cols[1].horizontal(|ui| {
-            ui.label(RichText::new(t("Rules")).strong().color(TEXT));
+            ui.label(RichText::new(t("Rules")).strong().color(TEXT()));
             ui.label(
                 RichText::new(format!("({})", page.total))
                     .size(12.0)
-                    .color(MUTED),
+                    .color(MUTED()),
             );
             if let Some(cat) = &state.category {
-                ui.label(RichText::new(format!("· {cat}")).size(12.0).color(ACCENT));
+                ui.label(RichText::new(format!("· {cat}")).size(12.0).color(ACCENT()));
             }
             if let Some(kind) = state.kind {
                 ui.label(
                     RichText::new(format!("· {}", kind.as_str()))
                         .size(12.0)
-                        .color(ACCENT),
+                        .color(ACCENT()),
                 );
             }
             if let Some(risk) = state.risk {
                 ui.label(
                     RichText::new(format!("· {}", risk.danger_label()))
                         .size(12.0)
-                        .color(ACCENT),
+                        .color(ACCENT()),
                 );
             }
             if let Some(tag) = &state.tag {
-                ui.label(RichText::new(format!("· #{tag}")).size(12.0).color(ACCENT));
+                ui.label(RichText::new(format!("· #{tag}")).size(12.0).color(ACCENT()));
             }
         });
         egui::ScrollArea::vertical()
@@ -496,7 +496,7 @@ pub fn draw(
                     }
                 }
                 if rows.is_empty() {
-                    ui.label(RichText::new(t("No rules match.")).color(MUTED));
+                    ui.label(RichText::new(t("No rules match.")).color(MUTED()));
                 }
             });
     });
@@ -507,7 +507,7 @@ pub fn draw(
             action = RulesAction::Close;
         }
         if state.dirty {
-            ui.label(RichText::new(t("Saved")).size(11.0).color(MUTED));
+            ui.label(RichText::new(t("Saved")).size(11.0).color(MUTED()));
         }
     });
 
@@ -538,7 +538,7 @@ fn draw_rule_row(
             *action = RulesAction::PrefsChanged;
         }
 
-        let color = if row.effectively_enabled { TEXT } else { MUTED };
+        let color = if row.effectively_enabled { TEXT() } else { MUTED() };
         let name = if row.overridden {
             crate::tr!("Changed · {}", row.name)
         } else {
@@ -549,7 +549,7 @@ fn draw_rule_row(
                 ui.set_max_width(340.0);
                 ui.label(RichText::new(name).size(12.5).color(color));
                 ui.add(
-                    egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED))
+                    egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED()))
                         .truncate(),
                 );
             })
@@ -571,7 +571,7 @@ fn draw_rule_row(
             }
             if !row.tags.is_empty() {
                 ui.separator();
-                ui.label(RichText::new(crate::tr!("tags: {}", row.tags.join(", "))).color(MUTED));
+                ui.label(RichText::new(crate::tr!("tags: {}", row.tags.join(", "))).color(MUTED()));
             }
             for p in row.paths.iter().take(6) {
                 ui.monospace(p);
@@ -590,7 +590,7 @@ fn draw_rule_row(
             ));
         });
 
-        ui.label(RichText::new(&row.kind).size(12.0).color(MUTED));
+        ui.label(RichText::new(&row.kind).size(12.0).color(MUTED()));
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             if ui
                 .small_button(t("Reset"))
@@ -603,12 +603,12 @@ fn draw_rule_row(
                 *action = RulesAction::PrefsChanged;
             }
             if row.report_only {
-                ui.label(RichText::new(t("list only")).size(12.0).color(MUTED));
+                ui.label(RichText::new(t("list only")).size(12.0).color(MUTED()));
             }
             let danger_color = match row.danger.as_str() {
-                "dangerous" | "report-only" => DANGER,
-                "caution" => ACCENT,
-                _ => MUTED,
+                "dangerous" | "report-only" => DANGER(),
+                "caution" => ACCENT(),
+                _ => MUTED(),
             };
             ui.label(RichText::new(t(&row.danger)).size(12.0).color(danger_color));
         });

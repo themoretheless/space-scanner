@@ -22,15 +22,15 @@ impl SpaceApp {
                 .resizable(false)
                 .frame(
                     egui::Frame::new()
-                        .fill(PANEL)
-                        .stroke(egui::Stroke::new(1.0_f32, BORDER))
+                        .fill(PANEL())
+                        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
                         .inner_margin(egui::Margin::same(S4 as i8 + 2)),
                 )
                 .show(ctx, |ui| self.selection_summary(ui));
         }
         let margin = if d == Density::Narrow { S3 } else { 32.0 };
         egui::CentralPanel::default()
-            .frame(egui::Frame::new().fill(BG).inner_margin(egui::Margin {
+            .frame(egui::Frame::new().fill(BG()).inner_margin(egui::Margin {
                 left: margin as i8,
                 right: margin as i8,
                 top: 24,
@@ -101,7 +101,7 @@ impl SpaceApp {
         });
         ui.add_space(S3);
         ui.horizontal(|ui| {
-            ui.label(RichText::new(t("Selected size")).color(MUTED));
+            ui.label(RichText::new(t("Selected size")).color(MUTED()));
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                 ui.label(
                     RichText::new(crate::i18n::bytes(self.basket_bytes()))
@@ -130,6 +130,6 @@ impl SpaceApp {
             self.junk.clear_selection();
         }
         ui.add_space(S3);
-        ui.label(caption("Space is released after emptying Trash in Finder.").color(SAFE));
+        ui.label(caption("Space is released after emptying Trash in Finder.").color(SAFE()));
     }
 }

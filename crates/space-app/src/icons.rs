@@ -150,14 +150,14 @@ pub fn button(
     let (rect, resp) = ui.allocate_exact_size(egui::vec2(size, size), sense);
     let hovered = resp.hovered() && enabled;
     if hovered {
-        ui.painter().rect_filled(rect, 8.0, crate::theme::PANEL_2);
+        ui.painter().rect_filled(rect, 8.0, crate::theme::PANEL_2());
     }
     let color = if !enabled {
-        crate::theme::MUTED.gamma_multiply(0.45)
+        crate::theme::MUTED().gamma_multiply(0.45)
     } else if hovered {
-        crate::theme::TEXT
+        crate::theme::TEXT()
     } else {
-        crate::theme::MUTED
+        crate::theme::MUTED()
     };
     paint(ui.painter(), icon, rect.shrink(size * 0.22), color);
     resp.on_hover_text(hint)
