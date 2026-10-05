@@ -63,20 +63,20 @@ fn badge(cleanable: bool, risk: u8) -> (&'static str, egui::Color32, &'static st
     if !cleanable {
         return (
             "Report only",
-            MUTED,
+            MUTED(),
             "Listed for information — never removed",
         );
     }
     match risk {
-        0 => ("Safe", SAFE, "Rebuilt or re-downloaded automatically"),
+        0 => ("Safe", SAFE(), "Rebuilt or re-downloaded automatically"),
         1 => (
             "Check",
-            ACCENT,
+            ACCENT(),
             "Usually fine — check the list before trashing",
         ),
         _ => (
             "Careful",
-            DANGER,
+            DANGER(),
             "May hold data you want — check each item",
         ),
     }
@@ -337,7 +337,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                         RichText::new(crate::i18n::bytes(bytes))
                             .size(type_scale::DISPLAY)
                             .strong()
-                            .color(ACCENT),
+                            .color(ACCENT()),
                     );
                 }
             });
@@ -384,7 +384,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     ui.add_space(10.0);
 
     if let Some(err) = &state.error {
-        ui.label(RichText::new(err).color(theme::DANGER));
+        ui.label(RichText::new(err).color(theme::DANGER()));
         ui.add_space(6.0);
     }
 
@@ -412,7 +412,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                     p.error_count,
                     elapsed
                 ))
-                .color(MUTED),
+                .color(MUTED()),
             );
         });
         ui.add_space(6.0);
@@ -427,7 +427,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                     RichText::new(p.current_path.display().to_string())
                         .small()
                         .monospace()
-                        .color(MUTED),
+                        .color(MUTED()),
                 )
                 .truncate(),
             )
@@ -465,7 +465,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                     p.findings_found,
                     elapsed
                 ))
-                .color(MUTED),
+                .color(MUTED()),
             );
         });
         ui.add_space(6.0);
@@ -478,7 +478,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             ui.label(
                 RichText::new(crate::tr!("Looking at {}", p.current_rule))
                     .small()
-                    .color(TEXT),
+                    .color(TEXT()),
             );
         }
         if !p.current_path.as_os_str().is_empty() {
@@ -487,7 +487,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                     RichText::new(p.current_path.display().to_string())
                         .small()
                         .monospace()
-                        .color(MUTED),
+                        .color(MUTED()),
                 )
                 .truncate(),
             )
@@ -501,7 +501,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             RichText::new(t(
                 "Still scanning, or press Rescan if this is empty by mistake.",
             ))
-            .color(MUTED),
+            .color(MUTED()),
         );
         ui.add_space(12.0);
         if ui.button(t("Close")).clicked() {
@@ -526,15 +526,15 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             let on = state.risk_filter == f;
             let chip =
                 egui::Button::new(RichText::new(format!("{} · {n}", t(label))).color(if on {
-                    theme::BG
+                    theme::BG()
                 } else {
-                    MUTED
+                    MUTED()
                 }))
-                .fill(if on { TEXT } else { egui::Color32::TRANSPARENT })
+                .fill(if on { TEXT() } else { egui::Color32::TRANSPARENT })
                 .stroke(if on {
                     egui::Stroke::NONE
                 } else {
-                    egui::Stroke::new(1.0_f32, theme::BORDER)
+                    egui::Stroke::new(1.0_f32, theme::BORDER())
                 })
                 .corner_radius(14);
             if ui.add(chip).clicked() {
@@ -554,20 +554,20 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
         ui.label(
             RichText::new(t("Nothing to clean right now."))
                 .size(14.0)
-                .color(TEXT),
+                .color(TEXT()),
         );
         ui.label(
             RichText::new(t("Try Rules to turn more categories on, or Rescan."))
                 .small()
-                .color(MUTED),
+                .color(MUTED()),
         );
         ui.add_space(8.0);
     }
 
     let findings = &report.scan.findings;
     egui::Frame::new()
-        .fill(theme::PANEL)
-        .stroke(egui::Stroke::new(1.0_f32, theme::BORDER))
+        .fill(theme::PANEL())
+        .stroke(egui::Stroke::new(1.0_f32, theme::BORDER()))
         .corner_radius(14)
         .show(ui, |ui| {
             egui::ScrollArea::vertical()
@@ -582,7 +582,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                 egui::vec2(ui.available_width(), 1.0),
                                 Sense::hover(),
                             );
-                            ui.painter().rect_filled(line, 0.0, theme::BORDER);
+                            ui.painter().rect_filled(line, 0.0, theme::BORDER());
                         }
                         let open = state.expanded_cat.as_deref() == Some(cat.name.as_str());
                         let picked = cat
@@ -611,7 +611,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                         egui::vec2(34.0, 34.0),
                                         Sense::hover(),
                                     );
-                                    ui.painter().rect_filled(icon, 9.0, PANEL_2);
+                                    ui.painter().rect_filled(icon, 9.0, PANEL_2());
                                     ui.painter().circle_filled(icon.center(), 5.0, color);
                                     ui.vertical(|ui| {
                                         ui.spacing_mut().item_spacing.y = 2.0;
@@ -626,7 +626,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                                         crate::icons::Icon::ChevronRight
                                                     },
                                                     14.0,
-                                                    MUTED,
+                                                    MUTED(),
                                                 );
                                                 ui.add(
                                                     egui::Button::new(
@@ -635,7 +635,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                                         )
                                                         .size(15.0)
                                                         .strong()
-                                                        .color(TEXT),
+                                                        .color(TEXT()),
                                                     )
                                                     .frame(false),
                                                 )
@@ -662,7 +662,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                                                 cat.report_only
                                             ));
                                         }
-                                        ui.label(RichText::new(sub).size(13.0).color(MUTED));
+                                        ui.label(RichText::new(sub).size(13.0).color(MUTED()));
                                     });
                                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                                         ui.label(
@@ -745,7 +745,7 @@ fn draw_finding_rows(
             {
                 selection.set(index, finding, included);
             }
-            let color = if enabled { TEXT } else { MUTED };
+            let color = if enabled { TEXT() } else { MUTED() };
             ui.label(
                 RichText::new(format!("{:>8}", crate::i18n::bytes(finding.bytes)))
                     .monospace()

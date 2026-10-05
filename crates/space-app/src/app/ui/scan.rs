@@ -24,13 +24,13 @@ const GAP: f32 = 16.0;
 impl SpaceApp {
     pub(super) fn scan_page(&mut self, ctx: &egui::Context) {
         egui::CentralPanel::default()
-            .frame(egui::Frame::new().fill(BG))
+            .frame(egui::Frame::new().fill(BG()))
             .show(ctx, |ui| {
                 if ui.input(|i| !i.raw.hovered_files.is_empty()) {
                     ui.painter().rect_filled(
                         ui.max_rect(),
                         0.0,
-                        Color32::from_rgba_unmultiplied(240, 173, 78, 28),
+                        crate::theme::ACCENT().gamma_multiply(0.11),
                     );
                 }
                 egui::ScrollArea::vertical()
@@ -57,7 +57,7 @@ impl SpaceApp {
                         "Pick your home folder or a disk — or drop a folder anywhere in this window."
                     }))
                     .size(type_scale::BODY)
-                    .color(if hovering_drop { ACCENT } else { MUTED }),
+                    .color(if hovering_drop { ACCENT() } else { MUTED() }),
                 );
             });
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
@@ -167,7 +167,7 @@ fn home_card(ui: &mut egui::Ui, width: f32, enabled: bool) -> bool {
         ui.set_width(width - 36.0);
         ui.set_min_height(168.0);
         ui.horizontal(|ui| {
-            icons::show(ui, Icon::Home, 20.0, ACCENT);
+            icons::show(ui, Icon::Home, 20.0, ACCENT());
             ui.label(
                 RichText::new(t("Home folder"))
                     .size(type_scale::LEAD)
@@ -178,7 +178,7 @@ fn home_card(ui: &mut egui::Ui, width: f32, enabled: bool) -> bool {
             RichText::new("~/")
                 .size(type_scale::MONO)
                 .monospace()
-                .color(MUTED),
+                .color(MUTED()),
         );
         ui.add_space(S3);
         ui.label(caption(
@@ -203,7 +203,7 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
         ui.set_width(width - 36.0);
         ui.set_min_height(168.0);
         ui.horizontal(|ui| {
-            icons::show(ui, Icon::Disk, 20.0, MUTED);
+            icons::show(ui, Icon::Disk, 20.0, MUTED());
             ui.add(
                 egui::Label::new(RichText::new(&vol.name).size(type_scale::LEAD).strong())
                     .truncate(),
@@ -214,7 +214,7 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
                 RichText::new(vol.mount.display().to_string())
                     .size(type_scale::MONO)
                     .monospace()
-                    .color(MUTED),
+                    .color(MUTED()),
             )
             .truncate(),
         );
@@ -235,7 +235,7 @@ fn disk_card(ui: &mut egui::Ui, vol: &VolumeInfo, width: f32, enabled: bool) -> 
                 ui,
                 frac,
                 if frac > 0.85 {
-                    ACCENT
+                    ACCENT()
                 } else {
                     Color32::from_rgb(106, 169, 255)
                 },
@@ -265,25 +265,25 @@ fn recent_row(ui: &mut egui::Ui, meta: &CacheMeta, now: u64, enabled: bool) -> b
         ui.allocate_exact_size(egui::vec2(ui.available_width(), 44.0), Sense::click());
     let p = ui.painter();
     if resp.hovered() && enabled {
-        p.rect_filled(rect, 8.0, PANEL_2);
+        p.rect_filled(rect, 8.0, PANEL_2());
     }
     let y = rect.center().y;
     let size = p.layout_no_wrap(
         crate::i18n::bytes(meta.total_size),
         egui::FontId::proportional(type_scale::BODY),
-        TEXT,
+        TEXT(),
     );
     let age = p.layout_no_wrap(
         format_age(now.saturating_sub(meta.scanned_at_unix)),
         egui::FontId::proportional(type_scale::BODY),
-        MUTED,
+        MUTED(),
     );
     let size_x = rect.right() - S2 - size.size().x;
     let age_x = size_x - S4 - age.size().x.max(96.0);
     let mut job = egui::text::LayoutJob::simple_singleline(
         meta.root_path.clone(),
         egui::FontId::monospace(type_scale::MONO),
-        TEXT,
+        TEXT(),
     );
     job.wrap =
         egui::text::TextWrapping::truncate_at_width((age_x - rect.left() - S4 - S2).max(40.0));
@@ -291,9 +291,9 @@ fn recent_row(ui: &mut egui::Ui, meta: &CacheMeta, now: u64, enabled: bool) -> b
     p.galley(
         egui::pos2(rect.left() + S2, y - path.size().y * 0.5),
         path,
-        TEXT,
+        TEXT(),
     );
-    p.galley(egui::pos2(age_x, y - age.size().y * 0.5), age, MUTED);
-    p.galley(egui::pos2(size_x, y - size.size().y * 0.5), size, TEXT);
+    p.galley(egui::pos2(age_x, y - age.size().y * 0.5), age, MUTED());
+    p.galley(egui::pos2(size_x, y - size.size().y * 0.5), size, TEXT());
     enabled && resp.on_hover_text(&meta.root_path).clicked()
 }

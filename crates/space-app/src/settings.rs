@@ -71,6 +71,9 @@ pub struct AppSettings {
     /// Interface language; `None` follows the system locale.
     #[serde(default)]
     pub language: Option<crate::i18n::Lang>,
+    /// Visual skin; switched live from the More menu.
+    #[serde(default)]
+    pub skin: crate::theme::Skin,
 }
 
 impl Default for AppSettings {
@@ -82,6 +85,7 @@ impl Default for AppSettings {
             window_width: 1280.0,
             window_height: 800.0,
             language: None,
+            skin: crate::theme::Skin::default(),
         }
     }
 }

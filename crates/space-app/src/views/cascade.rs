@@ -18,7 +18,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     let tree = ctx.tree;
     let (rect, _) = ui.allocate_exact_size(ui.available_size(), Sense::hover());
     let painter = ui.painter_at(rect);
-    painter.rect_filled(rect, 4.0, theme::PANEL);
+    painter.rect_filled(rect, 4.0, theme::PANEL());
 
     let max_depth = 5usize;
     let row_h = ((rect.height() - 8.0) / max_depth as f32).clamp(28.0, 72.0);
@@ -32,14 +32,14 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         id: ctx.focus,
         rect: focus_rect,
         depth: 0,
-        color: theme::PANEL_2,
+        color: theme::PANEL_2(),
     });
 
     layout_children(
         ctx,
         ctx.focus,
         focus_rect,
-        theme::PANEL_2,
+        theme::PANEL_2(),
         1,
         max_depth,
         row_h,
@@ -54,7 +54,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     for band in &bands {
         let node = tree.node(band.id);
         let color = if band.depth == 0 {
-            theme::PANEL_2
+            theme::PANEL_2()
         } else {
             band.color.gamma_multiply(1.0 - band.depth as f32 * 0.08)
         };
@@ -72,7 +72,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             painter.rect_filled(
                 draw,
                 3.0,
-                egui::Color32::from_rgba_unmultiplied(232, 168, 72, (hov_t * 36.0) as u8),
+                crate::theme::ACCENT().gamma_multiply(hov_t * 0.14),
             );
         }
         painter.rect_stroke(
@@ -81,14 +81,9 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             Stroke::new(
                 1.0 + sel_t + hov_t * 0.8,
                 if sel_t > 0.05 || hov_t > 0.05 {
-                    egui::Color32::from_rgba_unmultiplied(
-                        232,
-                        168,
-                        72,
-                        (70.0 + sel_t * 170.0 + hov_t * 120.0) as u8,
-                    )
+                    crate::theme::ACCENT().gamma_multiply(((70.0 + sel_t * 170.0 + hov_t * 120.0) / 255.0).min(1.0))
                 } else {
-                    theme::BG
+                    theme::BG()
                 },
             ),
             egui::StrokeKind::Inside,
@@ -100,7 +95,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                 Align2::LEFT_CENTER,
                 truncate(&node.name, ((band.rect.width() / 7.0) as usize).max(4)),
                 FontId::proportional(12.0),
-                TEXT,
+                TEXT(),
             );
             painter.text(
                 band.rect.left_center() + Vec2::new(8.0, 8.0),
@@ -114,7 +109,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                     crate::i18n::bytes(node.size(ctx.mode))
                 },
                 FontId::proportional(11.0),
-                MUTED,
+                MUTED(),
             );
         }
 

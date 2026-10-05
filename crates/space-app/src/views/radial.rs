@@ -36,18 +36,18 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         painter.circle_stroke(
             center,
             r,
-            Stroke::new(1.0_f32, theme::BORDER.gamma_multiply(0.6)),
+            Stroke::new(1.0_f32, theme::BORDER().gamma_multiply(0.6)),
         );
     }
 
-    painter.circle_filled(center, center_r, theme::PANEL_2);
-    painter.circle_stroke(center, center_r, Stroke::new(2.0_f32, ACCENT));
+    painter.circle_filled(center, center_r, theme::PANEL_2());
+    painter.circle_stroke(center, center_r, Stroke::new(2.0_f32, ACCENT()));
     painter.text(
         center + Vec2::new(0.0, -8.0),
         Align2::CENTER_CENTER,
         truncate(&focus_node.name, 18),
         FontId::proportional(16.0),
-        TEXT,
+        TEXT(),
     );
     painter.text(
         center + Vec2::new(0.0, 12.0),
@@ -58,12 +58,12 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             crate::i18n::bytes(focus_node.size(ctx.mode))
         },
         FontId::proportional(13.0),
-        MUTED,
+        MUTED(),
     );
 
     let show = kids.len().min(MAX_NODES);
     let n = show.max(1) as f32;
-    let parent_color = theme::PANEL_2;
+    let parent_color = theme::PANEL_2();
     let ring_ids: Vec<_> = kids.iter().copied().take(show).collect();
     let mut colors = Vec::with_capacity(ring_ids.len());
     for (i, &id) in ring_ids.iter().enumerate() {
@@ -120,14 +120,9 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             Stroke::new(
                 1.0 + sel_t * 1.5 + hov_t,
                 if sel_t > 0.05 || hov_t > 0.05 {
-                    egui::Color32::from_rgba_unmultiplied(
-                        232,
-                        168,
-                        72,
-                        (80.0 + sel_t * 160.0 + hov_t * 120.0) as u8,
-                    )
+                    crate::theme::ACCENT().gamma_multiply(((80.0 + sel_t * 160.0 + hov_t * 120.0) / 255.0).min(1.0))
                 } else {
-                    theme::BORDER
+                    theme::BORDER()
                 },
             ),
         );
@@ -142,7 +137,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                     crate::i18n::bytes(node.size(ctx.mode))
                 ),
                 FontId::proportional(11.0),
-                TEXT,
+                TEXT(),
             );
         }
 

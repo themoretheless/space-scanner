@@ -122,7 +122,7 @@ pub struct SpaceApp {
 
 impl SpaceApp {
     pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
-        theme::apply(&cc.egui_ctx);
+        theme::apply(&cc.egui_ctx, settings.skin);
         crate::i18n::set(settings.language.unwrap_or_else(crate::i18n::detect));
 
         let cache = CacheStore::open().ok();

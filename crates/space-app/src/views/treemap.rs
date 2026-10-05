@@ -27,7 +27,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     );
     let (legend_rect, _) = ui.allocate_exact_size(egui::vec2(full.x, legend_h), Sense::hover());
     let painter = ui.painter_at(map_rect);
-    painter.rect_filled(map_rect, 4.0, theme::PANEL);
+    painter.rect_filled(map_rect, 4.0, theme::PANEL());
 
     let key = crate::views::GeomKey {
         view: 1,
@@ -76,7 +76,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 Align2::CENTER_CENTER,
                 "This folder has no children to show",
                 FontId::proportional(14.0),
-                MUTED,
+                MUTED(),
             );
         }
         return action;
@@ -94,7 +94,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             Align2::LEFT_CENTER,
             "Types",
             FontId::proportional(11.0),
-            MUTED,
+            MUTED(),
         );
         x += 44.0;
         for (ext, color) in &legend {
@@ -122,7 +122,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 Align2::LEFT_CENTER,
                 format!(".{ext}"),
                 FontId::proportional(11.0),
-                if selected { ACCENT } else { TEXT },
+                if selected { ACCENT() } else { TEXT() },
             );
             x += chip.width() + 4.0;
             if x > legend_rect.right() - 40.0 {
@@ -137,7 +137,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             continue;
         }
         let color = if node.is_dir && depth < MAX_NEST.saturating_sub(1) {
-            theme::DIR
+            theme::DIR()
         } else {
             theme::color_for(&node.name, node.is_dir)
         };
@@ -164,9 +164,9 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             Stroke::new(
                 stroke_w,
                 if sel_t > 0.05 || hov_t > 0.05 {
-                    egui::Color32::from_rgba_unmultiplied(232, 168, 72, stroke_a)
+                    crate::theme::ACCENT().gamma_multiply(stroke_a as f32 / 255.0)
                 } else {
-                    theme::BG
+                    theme::BG()
                 },
             ),
             egui::StrokeKind::Inside,
@@ -178,7 +178,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 Align2::LEFT_TOP,
                 truncate(&node.name, 20),
                 FontId::proportional(11.0),
-                TEXT,
+                TEXT(),
             );
             if rect.height() > 40.0 {
                 painter.text(
@@ -186,7 +186,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                     Align2::LEFT_TOP,
                     crate::i18n::bytes(node.size(ctx.mode)),
                     FontId::proportional(10.0),
-                    MUTED,
+                    MUTED(),
                 );
             }
         }

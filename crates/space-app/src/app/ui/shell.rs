@@ -45,9 +45,9 @@ impl SpaceApp {
             .exact_height(APP_BAR_H)
             .frame(
                 egui::Frame::new()
-                    .fill(PANEL)
+                    .fill(PANEL())
                     .inner_margin(egui::Margin::symmetric(S4 as i8, 0))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER())),
             )
             .show(ctx, |ui| {
                 ui.horizontal_centered(|ui| {
@@ -81,7 +81,7 @@ impl SpaceApp {
                 .exact_height(48.0)
                 .frame(
                     egui::Frame::new()
-                        .fill(BG)
+                        .fill(BG())
                         .inner_margin(egui::Margin::symmetric(S3 as i8, 0)),
                 )
                 .show(ctx, |ui| {
@@ -104,7 +104,7 @@ impl SpaceApp {
     fn mode_tabs(&mut self, ui: &mut egui::Ui) {
         let has_scan = self.tree.is_some() || self.scan.is_some();
         egui::Frame::new()
-            .fill(BG)
+            .fill(BG())
             .corner_radius(10)
             .inner_margin(egui::Margin::same(3))
             .show(ui, |ui| {
@@ -176,7 +176,7 @@ impl SpaceApp {
         let mut go = None;
         if start > 0
             && ui
-                .add(egui::Button::new(RichText::new("…").color(MUTED)).frame(false))
+                .add(egui::Button::new(RichText::new("…").color(MUTED())).frame(false))
                 .on_hover_text(t("Show the path above"))
                 .clicked()
         {
@@ -184,12 +184,12 @@ impl SpaceApp {
         }
         for i in start..crumbs.len() {
             if i > start {
-                icons::show(ui, Icon::ChevronRight, 12.0, MUTED);
+                icons::show(ui, Icon::ChevronRight, 12.0, MUTED());
             }
             let here = i + 1 == crumbs.len();
             let text = RichText::new(&crumbs[i])
                 .size(type_scale::BODY)
-                .color(if here { TEXT } else { MUTED });
+                .color(if here { TEXT() } else { MUTED() });
             let text = if here { text.strong() } else { text };
             let width = if here {
                 (avail - used + 24.0).max(60.0)
@@ -232,7 +232,7 @@ impl SpaceApp {
                     } else {
                         "Search this scan  ⌘F"
                     }))
-                    .color(MUTED),
+                    .color(MUTED()),
                 ),
         );
         if self.focus_filter {
@@ -297,8 +297,8 @@ impl SpaceApp {
             n,
             crate::i18n::bytes(self.basket_bytes())
         );
-        let pill = egui::Button::new(RichText::new(label).color(ACCENT_INK).strong())
-            .fill(ACCENT)
+        let pill = egui::Button::new(RichText::new(label).color(ACCENT_INK()).strong())
+            .fill(ACCENT())
             .corner_radius(18)
             .min_size(egui::vec2(0.0, 34.0));
         if ui
@@ -311,7 +311,7 @@ impl SpaceApp {
     }
 
     fn more_menu(&mut self, ui: &mut egui::Ui) {
-        ui.menu_button(RichText::new(t("More")).color(TEXT), |ui| {
+        ui.menu_button(RichText::new(t("More")).color(TEXT()), |ui| {
             ui.set_min_width(220.0);
             if ui.button(t("Choose folder…  ⌘O")).clicked() {
                 ui.close_menu();
@@ -365,6 +365,20 @@ impl SpaceApp {
                     }
                 }
             });
+            ui.menu_button(t("Skin"), |ui| {
+                for skin in crate::theme::Skin::ALL {
+                    if ui
+                        .selectable_label(self.settings.skin == skin, t(skin.label()))
+                        .clicked()
+                    {
+                        self.settings.skin = skin;
+                        crate::theme::set_skin(ui.ctx(), skin);
+                        self.geom = None;
+                        self.settings.save();
+                        ui.close_menu();
+                    }
+                }
+            });
             if ui.button(t("Cleanup rules…")).clicked() {
                 self.open_rules_panel();
                 ui.close_menu();
@@ -411,23 +425,23 @@ fn tab(
     let (rect, resp) = ui.allocate_exact_size(size, sense);
     let hovered = resp.hovered() && enabled;
     let color = if !enabled {
-        MUTED.gamma_multiply(0.5)
+        MUTED().gamma_multiply(0.5)
     } else if on || hovered {
-        TEXT
+        TEXT()
     } else {
-        MUTED
+        MUTED()
     };
     let painter = ui.painter();
     if on {
         painter.rect(
             rect,
             8.0,
-            PANEL_2,
-            egui::Stroke::new(1.0_f32, BORDER),
+            PANEL_2(),
+            egui::Stroke::new(1.0_f32, BORDER()),
             egui::StrokeKind::Inside,
         );
     } else if hovered {
-        painter.rect_filled(rect, 8.0, PANEL_2.gamma_multiply(0.5));
+        painter.rect_filled(rect, 8.0, PANEL_2().gamma_multiply(0.5));
     }
     icons::paint(
         painter,
@@ -436,7 +450,7 @@ fn tab(
             egui::pos2(rect.left() + 12.0 + 8.0, rect.center().y),
             egui::vec2(16.0, 16.0),
         ),
-        if on { ACCENT } else { color },
+        if on { ACCENT() } else { color },
     );
     painter.text(
         egui::pos2(rect.left() + 12.0 + 16.0 + 8.0, rect.center().y),
@@ -453,7 +467,7 @@ fn brand(ui: &mut egui::Ui, with_name: bool) {
     let (rect, _) = ui.allocate_exact_size(egui::vec2(24.0, 24.0), egui::Sense::hover());
     let c = rect.center();
     let p = ui.painter();
-    p.circle_stroke(c, 8.0, egui::Stroke::new(5.0_f32, ACCENT));
+    p.circle_stroke(c, 8.0, egui::Stroke::new(5.0_f32, ACCENT()));
     let blue = Color32::from_rgb(106, 169, 255);
     let arc: Vec<egui::Pos2> = (-40..=40)
         .step_by(8)

@@ -34,8 +34,8 @@ impl SpaceApp {
                 .resizable(false)
                 .frame(
                     egui::Frame::new()
-                        .fill(PANEL)
-                        .stroke(egui::Stroke::new(1.0_f32, BORDER)),
+                        .fill(PANEL())
+                        .stroke(egui::Stroke::new(1.0_f32, BORDER())),
                 )
                 .show(ctx, |ui| self.contents(ui));
         }
@@ -46,8 +46,8 @@ impl SpaceApp {
                     .resizable(false)
                     .frame(
                         egui::Frame::new()
-                            .fill(PANEL)
-                            .stroke(egui::Stroke::new(1.0_f32, BORDER))
+                            .fill(PANEL())
+                            .stroke(egui::Stroke::new(1.0_f32, BORDER()))
                             .inner_margin(egui::Margin::same(S4 as i8 + 2)),
                     )
                     .show(ctx, |ui| self.details(ui));
@@ -61,8 +61,8 @@ impl SpaceApp {
                     .fixed_pos(egui::pos2(screen.right() - w - S3, top))
                     .show(ctx, |ui| {
                         egui::Frame::new()
-                            .fill(PANEL)
-                            .stroke(egui::Stroke::new(1.0_f32, BORDER))
+                            .fill(PANEL())
+                            .stroke(egui::Stroke::new(1.0_f32, BORDER()))
                             .corner_radius(14)
                             .inner_margin(egui::Margin::same(S4 as i8 + 2))
                             .shadow(egui::Shadow {
@@ -81,10 +81,10 @@ impl SpaceApp {
             }
         }
         egui::CentralPanel::default()
-            .frame(egui::Frame::new().fill(BG))
+            .frame(egui::Frame::new().fill(BG()))
             .show(ctx, |ui| {
                 if !split && !self.compact_map {
-                    egui::Frame::new().fill(PANEL).show(ui, |ui| {
+                    egui::Frame::new().fill(PANEL()).show(ui, |ui| {
                         ui.set_min_size(ui.available_size());
                         self.contents(ui);
                     });
@@ -103,7 +103,7 @@ impl SpaceApp {
             ui.label(
                 RichText::new(&self.status)
                     .size(type_scale::LEAD)
-                    .color(TEXT),
+                    .color(TEXT()),
             );
             if let Some(p) = &self.progress {
                 ui.label(caption(crate::tr!(
@@ -142,16 +142,16 @@ impl SpaceApp {
         egui::TopBottomPanel::bottom("contents_footer")
             .frame(
                 egui::Frame::new()
-                    .fill(PANEL)
+                    .fill(PANEL())
                     .inner_margin(egui::Margin::symmetric(S4 as i8, S3 as i8))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER)),
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER())),
             )
             .show_inside(ui, |ui| {
                 if self.from_cache {
                     badge(
                         ui,
                         "Saved result",
-                        ACCENT,
+                        ACCENT(),
                         "Opened from cache — files may have changed. Rescan to refresh (⌘R).",
                     );
                     ui.add_space(4.0);
@@ -164,7 +164,7 @@ impl SpaceApp {
                 .truncate());
                 if let Some(gap) = self.scan_gap_label() {
                     if ui
-                        .add(egui::Button::new(caption(gap).color(ACCENT)).frame(false))
+                        .add(egui::Button::new(caption(gap).color(ACCENT())).frame(false))
                         .on_hover_text(
                             "Unindexed disk usage can include permissions, snapshots and filesystem accounting",
                         )
@@ -190,7 +190,7 @@ impl SpaceApp {
                             RichText::new(crate::i18n::bytes(folder_size))
                                 .size(type_scale::MONO)
                                 .monospace()
-                                .color(MUTED),
+                                .color(MUTED()),
                         );
                     });
                 });
@@ -247,7 +247,7 @@ impl SpaceApp {
         // Say what the filter is doing: scope, count, and a way out.
         if self.filter.is_active() || !self.filter_draft.is_empty() {
             egui::Frame::new()
-                .fill(PANEL_2)
+                .fill(PANEL_2())
                 .inner_margin(egui::Margin::symmetric(S4 as i8, 6))
                 .show(ui, |ui| {
                     ui.horizontal(|ui| {
@@ -438,11 +438,11 @@ impl SpaceApp {
                     Icon::File
                 },
                 18.0,
-                MUTED,
+                MUTED(),
             );
             ui.label(caption(if node.is_dir { "FOLDER" } else { "FILE" }));
             if queued {
-                badge(ui, "In review", ACCENT, "Will be listed in Review");
+                badge(ui, "In review", ACCENT(), "Will be listed in Review");
             }
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                 if icons::button(ui, Icon::Close, 28.0, "Close details", true).clicked() {
@@ -456,7 +456,7 @@ impl SpaceApp {
                 RichText::new(&path)
                     .size(type_scale::CAPTION)
                     .monospace()
-                    .color(MUTED),
+                    .color(MUTED()),
             )
             .wrap(),
         );
@@ -481,7 +481,7 @@ impl SpaceApp {
 
         if let Some((category, label, color, hint)) = self.junk.risk_hint(&PathBuf::from(&path)) {
             egui::Frame::new()
-                .fill(PANEL_2)
+                .fill(PANEL_2())
                 .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
                 .corner_radius(10)
                 .inner_margin(egui::Margin::same(S3 as i8))
@@ -607,24 +607,24 @@ impl SpaceApp {
 
         if ctx.input(|i| !i.raw.hovered_files.is_empty()) && self.scan.is_none() && !self.busy {
             ui.painter()
-                .rect_filled(map, 0.0, Color32::from_rgba_unmultiplied(240, 173, 78, 40));
+                .rect_filled(map, 0.0, ACCENT().gamma_multiply(0.16));
             ui.painter().text(
                 map.center(),
                 egui::Align2::CENTER_CENTER,
                 "Drop to scan this folder",
                 egui::FontId::proportional(type_scale::TITLE),
-                ACCENT,
+                ACCENT(),
             );
         }
         if self.scan.is_some() || self.busy {
             ui.painter()
-                .rect_filled(map, 0.0, Color32::from_rgba_unmultiplied(14, 15, 17, 150));
+                .rect_filled(map, 0.0, BG().gamma_multiply(0.6));
             ui.painter().text(
                 map.center(),
                 egui::Align2::CENTER_CENTER,
                 &self.status,
                 egui::FontId::proportional(type_scale::LEAD),
-                TEXT,
+                TEXT(),
             );
         }
 
@@ -673,8 +673,8 @@ impl SpaceApp {
             .fixed_pos(map.min + egui::vec2(S3, S3))
             .show(ctx, |ui| {
                 egui::Frame::new()
-                    .fill(Color32::from_rgba_unmultiplied(25, 28, 33, 235))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER))
+                    .fill(PANEL().gamma_multiply(0.92))
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER()))
                     .corner_radius(10)
                     .inner_margin(egui::Margin::same(4))
                     .show(ui, |ui| {
@@ -740,8 +740,8 @@ impl SpaceApp {
             ))
             .show(ctx, |ui| {
                 egui::Frame::new()
-                    .fill(Color32::from_rgba_unmultiplied(25, 28, 33, 235))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER))
+                    .fill(PANEL().gamma_multiply(0.92))
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER()))
                     .corner_radius(18)
                     .inner_margin(egui::Margin::symmetric(S4 as i8, 4))
                     .show(ui, |ui| {
@@ -833,13 +833,13 @@ fn tree_rows(
             for (i, k) in kids.into_iter().enumerate() {
                 let mut g = guides.clone();
                 g.push(i != last);
-                let c = if tree.node(k).synthetic { MUTED } else { color };
+                let c = if tree.node(k).synthetic { MUTED() } else { color };
                 walk(tree, k, depth + 1, c, g, expanded, mode, parent_total, out);
             }
         }
     }
     for (i, &id) in top.iter().enumerate() {
-        let color = if tree.node(id).synthetic { MUTED } else { colors[i] };
+        let color = if tree.node(id).synthetic { MUTED() } else { colors[i] };
         if flat {
             out.push(TreeRow {
                 id,
@@ -895,14 +895,14 @@ fn paint_tree_row(
 ) -> RowOutcome {
     let p = ui.painter();
     if selected {
-        p.rect_filled(rect, 0.0, PANEL_2);
+        p.rect_filled(rect, 0.0, PANEL_2());
         p.rect_filled(
             egui::Rect::from_min_size(rect.min, egui::vec2(2.0, rect.height())),
             0.0,
-            ACCENT,
+            ACCENT(),
         );
     } else if resp.hovered() || linked_hover {
-        p.rect_filled(rect, 0.0, PANEL_2.gamma_multiply(0.6));
+        p.rect_filled(rect, 0.0, PANEL_2().gamma_multiply(0.6));
     }
     let cy = rect.center().y;
     let left = rect.left() + S3;
@@ -914,7 +914,7 @@ fn paint_tree_row(
             let bottom = if more { rect.bottom() } else { cy };
             p.line_segment(
                 [egui::pos2(x, rect.top()), egui::pos2(x, bottom)],
-                egui::Stroke::new(1.0_f32, BORDER),
+                egui::Stroke::new(1.0_f32, BORDER()),
             );
         }
     }
@@ -927,7 +927,7 @@ fn paint_tree_row(
             p,
             if row.open { Icon::ChevronDown } else { Icon::ChevronRight },
             chev.shrink(2.0),
-            if hot { TEXT } else { MUTED },
+            if hot { TEXT() } else { MUTED() },
         );
         chevron = resp.clicked()
             && ui
@@ -944,19 +944,19 @@ fn paint_tree_row(
     let size_g = p.layout_no_wrap(
         crate::i18n::bytes(row.size),
         egui::FontId::monospace(type_scale::MONO),
-        if queued { ACCENT } else if selected { TEXT } else { MUTED },
+        if queued { ACCENT() } else if selected { TEXT() } else { MUTED() },
     );
     let size_x = rect.right() - pad - 72.0;
-    p.galley(egui::pos2(rect.right() - pad - size_g.size().x, cy - size_g.size().y / 2.0), size_g, MUTED);
+    p.galley(egui::pos2(rect.right() - pad - size_g.size().x, cy - size_g.size().y / 2.0), size_g, MUTED());
     if queued {
-        p.circle_filled(egui::pos2(rect.right() - 7.0, cy), 3.0, ACCENT);
+        p.circle_filled(egui::pos2(rect.right() - 7.0, cy), 3.0, ACCENT());
     }
 
     // Share of parent: a mini bar plus percent.
     let bar_w = 40.0;
     let bar_x = size_x - 8.0 - 32.0 - bar_w;
     let track = egui::Rect::from_min_size(egui::pos2(bar_x, cy - 2.0), egui::vec2(bar_w, 4.0));
-    p.rect_filled(track, 2.0, BORDER);
+    p.rect_filled(track, 2.0, BORDER());
     let mut fill = track;
     fill.set_width(bar_w * row.share.clamp(0.0, 1.0));
     p.rect_filled(fill, 2.0, row.color);
@@ -964,20 +964,20 @@ fn paint_tree_row(
     let pct_g = p.layout_no_wrap(
         if pct == 0 { "<1%".into() } else { format!("{pct}%") },
         egui::FontId::monospace(type_scale::MONO - 1.0),
-        MUTED,
+        MUTED(),
     );
-    p.galley(egui::pos2(bar_x + bar_w + 6.0, cy - pct_g.size().y / 2.0), pct_g, MUTED);
+    p.galley(egui::pos2(bar_x + bar_w + 6.0, cy - pct_g.size().y / 2.0), pct_g, MUTED());
 
     let name_x = x0 + 36.0;
     let name_w = (bar_x - 10.0 - name_x).max(20.0);
     let mut job = egui::text::LayoutJob::simple_singleline(
         n.name.clone(),
         egui::FontId::proportional(type_scale::BODY),
-        if n.synthetic { MUTED } else { TEXT },
+        if n.synthetic { MUTED() } else { TEXT() },
     );
     job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
     let g = p.layout_job(job);
-    p.galley(egui::pos2(name_x, cy - g.size().y / 2.0), g, TEXT);
+    p.galley(egui::pos2(name_x, cy - g.size().y / 2.0), g, TEXT());
     RowOutcome { chevron }
 }
 
