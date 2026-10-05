@@ -2,16 +2,17 @@
 //! navigate, the map explains proportions, details appear only on selection.
 
 use crate::i18n::t;
+use std::collections::HashSet;
 use std::path::PathBuf;
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense};
-use space_core::{NodeId, SizeMode};
+use space_core::{NodeId, SizeMode, SpaceTree as Tree};
 
 use super::Density;
 use crate::app::SpaceApp;
 use crate::icons::{self, Icon};
 use crate::review;
-use crate::theme::metrics::{APP_BAR_H, ROW_H, S2, S3, S4, SIDE_W};
+use crate::theme::metrics::{APP_BAR_H, S2, S3, S4, SIDE_W, TREE_INDENT, TREE_ROW_H, TREE_W};
 use crate::theme::type_scale;
 use crate::theme::{self, ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
 use crate::views::{self, DrawCtx, EntryKindFilter, ViewMode};
@@ -29,7 +30,7 @@ impl SpaceApp {
         let split = d != Density::Narrow;
         if split {
             egui::SidePanel::left("contents")
-                .exact_width(SIDE_W)
+                .exact_width(TREE_W)
                 .resizable(false)
                 .frame(
                     egui::Frame::new()
@@ -296,14 +297,25 @@ impl SpaceApp {
             })
             .collect();
         let colors = theme::sibling_palette(&items);
-        let total = folder_size.max(1) as f32;
 
-        let (mut pick, mut enter, mut reveal, mut queue) = (None, None, None, None);
+        // A flat list while filtering or browsing largest files; otherwise a
+        // tree rooted at the focus, with folders opened inline.
+        let flat = self.show_largest || self.filter.is_active();
+        if !flat {
+            self.reveal_in_tree(&tree);
+        }
+        let rows = tree_rows(&tree, &ids, &colors, &self.expanded, flat, mode);
+        self.tree_rows = rows.iter().map(|r| r.id).collect();
+        let scroll_to = std::mem::take(&mut self.tree_scroll);
+
+        let (mut pick, mut enter, mut reveal, mut queue, mut toggle) =
+            (None, None, None, None, None);
         egui::ScrollArea::vertical()
             .id_salt("contents_list")
             .auto_shrink([false, false])
             .show(ui, |ui| {
                 ui.spacing_mut().item_spacing.y = 0.0;
+                ui.add_space(4.0);
                 if ids.is_empty() {
                     empty_state(
                         ui,
@@ -311,90 +323,29 @@ impl SpaceApp {
                         if before == 0 { "No indexed items here." } else { "Change or clear the filter." },
                     );
                 }
-                for (i, &id) in ids.iter().enumerate() {
+                for row in &rows {
+                    let id = row.id;
                     let n = tree.node(id);
-                    let size = n.size(mode);
                     let selected = self.selected == Some(id);
                     let queued = self.review.contains(&id);
-                    let (rect, resp) =
-                        ui.allocate_exact_size(egui::vec2(ui.available_width(), ROW_H), Sense::click());
-                    let p = ui.painter();
-                    if selected {
-                        p.rect_filled(rect, 0.0, PANEL_2);
-                        p.rect_filled(
-                            egui::Rect::from_min_size(rect.min, egui::vec2(3.0, rect.height())),
-                            0.0,
-                            ACCENT,
-                        );
-                    } else if resp.hovered() || self.hovered == Some(id) {
-                        p.rect_filled(rect, 0.0, PANEL_2.gamma_multiply(0.6));
+                    let (rect, resp) = ui.allocate_exact_size(
+                        egui::vec2(ui.available_width(), TREE_ROW_H),
+                        Sense::click(),
+                    );
+                    if selected && scroll_to {
+                        resp.scroll_to_me(None);
                     }
-                    let pad = S4;
-                    let top = rect.top() + 11.0;
-                    let swatch = if n.synthetic { MUTED } else { colors[i] };
-                    p.rect_filled(
-                        egui::Rect::from_min_size(
-                            egui::pos2(rect.left() + pad, top + 4.0),
-                            egui::vec2(10.0, 10.0),
-                        ),
-                        3.0,
-                        swatch,
-                    );
-                    let size_text = crate::i18n::bytes(size);
-                    let size_g = p.layout_no_wrap(
-                        size_text,
-                        egui::FontId::monospace(type_scale::MONO),
-                        if queued { ACCENT } else if selected { TEXT } else { MUTED },
-                    );
-                    if queued {
-                        // Vector marker: this item is in review.
-                        let c = egui::pos2(
-                            rect.right() - pad - size_g.size().x - 14.0,
-                            top + 9.0,
-                        );
-                        p.circle_filled(c, 7.0, ACCENT);
-                        icons::paint(
-                            p,
-                            Icon::Check,
-                            egui::Rect::from_center_size(c, egui::vec2(9.0, 9.0)),
-                            theme::ACCENT_INK,
-                        );
+                    let outcome = paint_tree_row(ui, rect, &resp, row, n, selected, queued, self.hovered == Some(id));
+                    if outcome.chevron {
+                        toggle = Some(id);
                     }
-                    let name_x = rect.left() + pad + 20.0;
-                    let name_w = (rect.right() - pad - size_g.size().x - 28.0 - name_x).max(20.0);
-                    let label = if n.is_dir && !n.synthetic {
-                        format!("{}/", n.name)
-                    } else {
-                        n.name.clone()
-                    };
-                    let mut job = egui::text::LayoutJob::simple_singleline(
-                        label,
-                        egui::FontId::proportional(type_scale::BODY),
-                        if n.synthetic { MUTED } else { TEXT },
-                    );
-                    job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
-                    let name_g = p.layout_job(job);
-                    p.galley(egui::pos2(name_x, top), name_g, TEXT);
-                    p.galley(
-                        egui::pos2(rect.right() - pad - size_g.size().x, top + 1.0),
-                        size_g,
-                        MUTED,
-                    );
-                    let track = egui::Rect::from_min_max(
-                        egui::pos2(rect.left() + pad, rect.bottom() - 14.0),
-                        egui::pos2(rect.right() - pad, rect.bottom() - 10.0),
-                    );
-                    p.rect_filled(track, 2.0, BORDER);
-                    let mut fill = track;
-                    fill.set_width(track.width() * (size as f32 / total).clamp(0.0, 1.0));
-                    p.rect_filled(fill, 2.0, swatch);
 
                     let resp = resp.on_hover_text(if n.is_dir {
                         "Click to select · double-click to open · ⌘-click to add to review"
                     } else {
                         "Click to select · double-click to show in Finder · ⌘-click to add to review"
                     });
-                    if resp.clicked() {
+                    if resp.clicked() && !outcome.chevron {
                         if ui.input(|i| i.modifiers.command) && !n.synthetic {
                             queue = Some(id);
                         }
@@ -408,6 +359,10 @@ impl SpaceApp {
                         }
                     }
                     resp.context_menu(|ui| {
+                        if row.has_kids && ui.button(t(if row.open { "Collapse" } else { "Expand" })).clicked() {
+                            toggle = Some(id);
+                            ui.close_menu();
+                        }
                         if n.is_dir && !n.synthetic && ui.button(t("Open folder")).clicked() {
                             enter = Some(id);
                             ui.close_menu();
@@ -425,7 +380,23 @@ impl SpaceApp {
                         }
                     });
                 }
+                if rows.len() >= MAX_TREE_ROWS {
+                    ui.add_space(S2);
+                    ui.horizontal(|ui| {
+                        ui.add_space(S4);
+                        ui.label(caption("Collapse folders to see the rest"));
+                    });
+                }
             });
+        if let Some(id) = toggle {
+            if !self.expanded.remove(&id) {
+                if ui.input(|i| i.modifiers.alt) {
+                    expand_all(&tree, id, &mut self.expanded);
+                } else {
+                    self.expanded.insert(id);
+                }
+            }
+        }
         if let Some(id) = pick {
             self.selected = Some(id);
         }
@@ -788,5 +759,298 @@ impl SpaceApp {
             self.settings.flags.show_shortcuts_hint = false;
             self.settings.save();
         }
+    }
+}
+
+// -------------------------------------------------------------------- tree
+
+/// Hard cap on drawn rows: an opened `node_modules` must not stall a frame.
+const MAX_TREE_ROWS: usize = 2_000;
+/// Children shown per folder before the rest fold into "N more".
+const MAX_KIDS: usize = 200;
+
+struct TreeRow {
+    id: NodeId,
+    depth: usize,
+    color: Color32,
+    size: u64,
+    /// Share of the parent folder, 0..=1.
+    share: f32,
+    has_kids: bool,
+    open: bool,
+    /// For each ancestor level: does a later sibling follow (draw a guide)?
+    guides: Vec<bool>,
+}
+
+fn tree_rows(
+    tree: &Tree,
+    top: &[NodeId],
+    colors: &[Color32],
+    expanded: &HashSet<NodeId>,
+    flat: bool,
+    mode: SizeMode,
+) -> Vec<TreeRow> {
+    let mut out = Vec::new();
+    let parent_total = |id: NodeId| {
+        tree.node(id)
+            .parent
+            .map(|p| tree.node(p).size(mode))
+            .unwrap_or(0)
+            .max(1) as f32
+    };
+    fn walk(
+        tree: &Tree,
+        id: NodeId,
+        depth: usize,
+        color: Color32,
+        guides: Vec<bool>,
+        expanded: &HashSet<NodeId>,
+        mode: SizeMode,
+        parent_total: &dyn Fn(NodeId) -> f32,
+        out: &mut Vec<TreeRow>,
+    ) {
+        if out.len() >= MAX_TREE_ROWS {
+            return;
+        }
+        let n = tree.node(id);
+        let kids = if n.is_dir && !n.synthetic { tree.children(id) } else { &[] };
+        let open = !kids.is_empty() && expanded.contains(&id);
+        out.push(TreeRow {
+            id,
+            depth,
+            color,
+            size: n.size(mode),
+            share: n.size(mode) as f32 / parent_total(id),
+            has_kids: !kids.is_empty(),
+            open,
+            guides: guides.clone(),
+        });
+        if open {
+            let mut kids = kids.to_vec();
+            kids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
+            kids.truncate(MAX_KIDS);
+            let last = kids.len().saturating_sub(1);
+            for (i, k) in kids.into_iter().enumerate() {
+                let mut g = guides.clone();
+                g.push(i != last);
+                let c = if tree.node(k).synthetic { MUTED } else { color };
+                walk(tree, k, depth + 1, c, g, expanded, mode, parent_total, out);
+            }
+        }
+    }
+    for (i, &id) in top.iter().enumerate() {
+        let color = if tree.node(id).synthetic { MUTED } else { colors[i] };
+        if flat {
+            out.push(TreeRow {
+                id,
+                depth: 0,
+                color,
+                size: tree.node(id).size(mode),
+                share: tree.node(id).size(mode) as f32 / parent_total(id),
+                has_kids: false,
+                open: false,
+                guides: Vec::new(),
+            });
+        } else {
+            walk(tree, id, 0, color, Vec::new(), expanded, mode, &parent_total, &mut out);
+        }
+        if out.len() >= MAX_TREE_ROWS {
+            break;
+        }
+    }
+    out
+}
+
+fn expand_all(tree: &Tree, id: NodeId, expanded: &mut HashSet<NodeId>) {
+    let mut stack = vec![id];
+    let mut budget = 500;
+    while let Some(x) = stack.pop() {
+        if budget == 0 {
+            break;
+        }
+        let n = tree.node(x);
+        if n.is_dir && !n.synthetic && !tree.children(x).is_empty() {
+            expanded.insert(x);
+            budget -= 1;
+            stack.extend_from_slice(tree.children(x));
+        }
+    }
+}
+
+struct RowOutcome {
+    chevron: bool,
+}
+
+/// One tree row: guides · chevron · swatch · name · share bar + % · size · review mark.
+#[allow(clippy::too_many_arguments)]
+fn paint_tree_row(
+    ui: &egui::Ui,
+    rect: egui::Rect,
+    resp: &egui::Response,
+    row: &TreeRow,
+    n: &space_core::Node,
+    selected: bool,
+    queued: bool,
+    linked_hover: bool,
+) -> RowOutcome {
+    let p = ui.painter();
+    if selected {
+        p.rect_filled(rect, 0.0, PANEL_2);
+        p.rect_filled(
+            egui::Rect::from_min_size(rect.min, egui::vec2(2.0, rect.height())),
+            0.0,
+            ACCENT,
+        );
+    } else if resp.hovered() || linked_hover {
+        p.rect_filled(rect, 0.0, PANEL_2.gamma_multiply(0.6));
+    }
+    let cy = rect.center().y;
+    let left = rect.left() + S3;
+    // Indent guides: a hairline per ancestor level that still has siblings below.
+    for (lvl, &more) in row.guides.iter().enumerate() {
+        let x = left + lvl as f32 * TREE_INDENT + 8.0;
+        let last = lvl + 1 == row.guides.len();
+        if more || last {
+            let bottom = if more { rect.bottom() } else { cy };
+            p.line_segment(
+                [egui::pos2(x, rect.top()), egui::pos2(x, bottom)],
+                egui::Stroke::new(1.0_f32, BORDER),
+            );
+        }
+    }
+    let x0 = left + row.depth as f32 * TREE_INDENT;
+    let chev = egui::Rect::from_center_size(egui::pos2(x0 + 8.0, cy), egui::vec2(16.0, 16.0));
+    let mut chevron = false;
+    if row.has_kids {
+        let hot = resp.hovered() && ui.input(|i| i.pointer.hover_pos()).is_some_and(|h| chev.expand(4.0).contains(h));
+        icons::paint(
+            p,
+            if row.open { Icon::ChevronDown } else { Icon::ChevronRight },
+            chev.shrink(2.0),
+            if hot { TEXT } else { MUTED },
+        );
+        chevron = resp.clicked()
+            && ui
+                .input(|i| i.pointer.interact_pos())
+                .is_some_and(|h| chev.expand(4.0).contains(h));
+    }
+    p.rect_filled(
+        egui::Rect::from_center_size(egui::pos2(x0 + 24.0, cy), egui::vec2(10.0, 10.0)),
+        3.0,
+        row.color,
+    );
+
+    let pad = S4;
+    let size_g = p.layout_no_wrap(
+        crate::i18n::bytes(row.size),
+        egui::FontId::monospace(type_scale::MONO),
+        if queued { ACCENT } else if selected { TEXT } else { MUTED },
+    );
+    let size_x = rect.right() - pad - 72.0;
+    p.galley(egui::pos2(rect.right() - pad - size_g.size().x, cy - size_g.size().y / 2.0), size_g, MUTED);
+    if queued {
+        p.circle_filled(egui::pos2(rect.right() - 7.0, cy), 3.0, ACCENT);
+    }
+
+    // Share of parent: a mini bar plus percent.
+    let bar_w = 40.0;
+    let bar_x = size_x - 8.0 - 32.0 - bar_w;
+    let track = egui::Rect::from_min_size(egui::pos2(bar_x, cy - 2.0), egui::vec2(bar_w, 4.0));
+    p.rect_filled(track, 2.0, BORDER);
+    let mut fill = track;
+    fill.set_width(bar_w * row.share.clamp(0.0, 1.0));
+    p.rect_filled(fill, 2.0, row.color);
+    let pct = (row.share * 100.0).round().clamp(0.0, 100.0) as u32;
+    let pct_g = p.layout_no_wrap(
+        if pct == 0 { "<1%".into() } else { format!("{pct}%") },
+        egui::FontId::monospace(type_scale::MONO - 1.0),
+        MUTED,
+    );
+    p.galley(egui::pos2(bar_x + bar_w + 6.0, cy - pct_g.size().y / 2.0), pct_g, MUTED);
+
+    let name_x = x0 + 36.0;
+    let name_w = (bar_x - 10.0 - name_x).max(20.0);
+    let mut job = egui::text::LayoutJob::simple_singleline(
+        n.name.clone(),
+        egui::FontId::proportional(type_scale::BODY),
+        if n.synthetic { MUTED } else { TEXT },
+    );
+    job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
+    let g = p.layout_job(job);
+    p.galley(egui::pos2(name_x, cy - g.size().y / 2.0), g, TEXT);
+    RowOutcome { chevron }
+}
+
+impl SpaceApp {
+    /// Open every ancestor of a selection made elsewhere (map, search) so the
+    /// tree shows it.
+    fn reveal_in_tree(&mut self, tree: &Tree) {
+        if self.selected == self.tree_revealed {
+            return;
+        }
+        self.tree_revealed = self.selected;
+        let Some(sel) = self.selected else { return };
+        let path = tree.path_to(sel);
+        if let Some(at) = path.iter().position(|&x| x == self.focus) {
+            for &a in &path[at + 1..path.len().saturating_sub(1)] {
+                self.expanded.insert(a);
+            }
+            self.tree_scroll = true;
+        }
+    }
+
+    /// Arrow keys walk the visible tree; Space toggles review. Returns true
+    /// when the key was consumed.
+    pub(in crate::app) fn tree_keys(
+        &mut self,
+        up: bool,
+        down: bool,
+        left: bool,
+        right: bool,
+        space: bool,
+    ) -> bool {
+        let Some(tree) = self.tree.clone() else { return false };
+        if self.tree_rows.is_empty() || !(up || down || left || right || space) {
+            return false;
+        }
+        let pos = self.selected.and_then(|s| self.tree_rows.iter().position(|&r| r == s));
+        let Some(i) = pos else {
+            if up || down {
+                self.selected = self.tree_rows.first().copied();
+                self.tree_revealed = self.selected;
+                self.tree_scroll = true;
+                return true;
+            }
+            return false;
+        };
+        let id = self.tree_rows[i];
+        let n = tree.node(id);
+        let can_open = n.is_dir && !n.synthetic && !tree.children(id).is_empty();
+        let mut next = None;
+        if up && i > 0 {
+            next = Some(self.tree_rows[i - 1]);
+        } else if down && i + 1 < self.tree_rows.len() {
+            next = Some(self.tree_rows[i + 1]);
+        } else if right && can_open {
+            if !self.expanded.insert(id) {
+                next = self.tree_rows.get(i + 1).copied();
+            }
+        } else if left {
+            if !self.expanded.remove(&id) {
+                next = n.parent.filter(|p| self.tree_rows.contains(p));
+            }
+        } else if space && !n.synthetic {
+            review::toggle(&mut self.review, id);
+        } else if up || down {
+            // At an end of the list: consume so the map does not jump.
+        } else {
+            return left || right;
+        }
+        if let Some(x) = next {
+            self.selected = Some(x);
+            self.tree_revealed = Some(x);
+            self.tree_scroll = true;
+        }
+        true
     }
 }
