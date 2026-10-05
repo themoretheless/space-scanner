@@ -1,0 +1,120 @@
+[
+  {
+    "label": "Space Scanner: Run app (macOS bundle)",
+    "command": "cargo",
+    "args": [
+      "run",
+      "-p",
+      "space-tools",
+      "--",
+      "run-app"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Run app (debug)",
+    "command": "cargo",
+    "args": [
+      "run",
+      "-p",
+      "space-app"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Run app (release)",
+    "command": "cargo",
+    "args": [
+      "run",
+      "-p",
+      "space-app",
+      "--release"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Build workspace",
+    "command": "cargo",
+    "args": [
+      "build",
+      "--workspace"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Check workspace",
+    "command": "cargo",
+    "args": [
+      "check",
+      "--workspace",
+      "--all-targets"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Test workspace",
+    "command": "cargo",
+    "args": [
+      "test",
+      "--workspace"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Clippy workspace",
+    "command": "cargo",
+    "args": [
+      "clippy",
+      "--workspace",
+      "--all-targets"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Format workspace",
+    "command": "cargo",
+    "args": [
+      "fmt",
+      "--all"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  },
+  {
+    "label": "Space Scanner: Build MCP (release)",
+    "command": "cargo",
+    "args": [
+      "build",
+      "-p",
+      "space-mcp",
+      "--release"
+    ],
+    "cwd": "$ZED_WORKTREE_ROOT",
+    "allow_concurrent_runs": false,
+    "use_new_terminal": false,
+    "reveal": "always"
+  }
+]
