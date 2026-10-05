@@ -154,9 +154,7 @@ pub mod metrics {
     pub const S8: f32 = 32.0;
     pub const APP_BAR_H: f32 = 52.0;
     pub const CONTROL_H: f32 = 36.0;
-    pub const ROW_H: f32 = 52.0;
     pub const RADIUS_CONTROL: u8 = 8;
-    pub const RADIUS_CARD: u8 = 14;
     pub const SIDE_W: f32 = 300.0;
     pub const TREE_W: f32 = 400.0;
     pub const TREE_ROW_H: f32 = 30.0;

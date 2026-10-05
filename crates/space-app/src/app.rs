@@ -891,8 +891,6 @@ impl SpaceApp {
                 self.confirm_delete = false;
             } else if self.junk.confirm {
                 self.junk.confirm = false;
-            } else if self.junk.open {
-                self.leave_clean();
             } else if self.rules.open {
                 self.rules.open = false;
             } else if self.show_tm_panel {
@@ -901,7 +899,8 @@ impl SpaceApp {
                 self.filter.clear();
                 self.filter_draft.clear();
                 self.geom = None;
-            } else {
+            } else if self.mode == Mode::Explore {
+                // Esc never switches tabs; going up only means something here.
                 self.go_up();
             }
         }
