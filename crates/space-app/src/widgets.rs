@@ -1,10 +1,10 @@
 //! Shared widgets. Every screen is built from these so type, spacing, radii and
 //! states stay consistent; nothing here is specific to one page.
 
-use eframe::egui::{self, Align, Color32, Layout, RichText, Sense, Ui};
+use eframe::egui::{self, Color32, RichText, Sense, Ui};
 
 use crate::i18n::t;
-use crate::theme::metrics::{CONTROL_H, RADIUS_CARD, RADIUS_CONTROL, S2, S3, S4};
+use crate::theme::metrics::{CONTROL_H, RADIUS_CONTROL, S3, S4};
 use crate::theme::type_scale;
 use crate::theme::{ACCENT, ACCENT_INK, BORDER, MUTED, PANEL, PANEL_2, TEXT};
 
@@ -103,21 +103,6 @@ pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> 
     picked
 }
 
-/// Bordered surface used for cards on the Scan page and Review.
-pub fn card_frame() -> egui::Frame {
-    egui::Frame::new()
-        .fill(PANEL())
-        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-        .corner_radius(RADIUS_CARD)
-        .inner_margin(egui::Margin::same(S4 as i8 + 2))
-}
-
-/// A card whose content is laid out top-down regardless of the parent's layout
-/// (frames inherit the layout of the ui they are added to).
-pub fn card<R>(ui: &mut Ui, add: impl FnOnce(&mut Ui) -> R) -> R {
-    card_frame().show(ui, |ui| ui.vertical(add).inner).inner
-}
-
 /// Small outlined label, e.g. a risk class.
 pub fn badge(ui: &mut Ui, text: &str, color: Color32, hint: &str) {
     egui::Frame::new()
@@ -174,15 +159,6 @@ pub fn page_column<R>(ui: &mut Ui, max_w: f32, add: impl FnOnce(&mut Ui) -> R) -
         .inner
     })
     .inner
-}
-
-/// Section heading with an optional right-aligned action.
-pub fn section_header(ui: &mut Ui, title: &str, right: impl FnOnce(&mut Ui)) {
-    ui.horizontal(|ui| {
-        ui.label(RichText::new(t(title)).size(type_scale::LEAD).strong());
-        ui.with_layout(Layout::right_to_left(Align::Center), right);
-    });
-    ui.add_space(S2);
 }
 
 /// Hairline divider.
