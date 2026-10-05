@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::path::PathBuf;
 use std::sync::Arc;
 use std::thread;
@@ -108,6 +109,14 @@ pub struct SpaceApp {
     transition: Option<Transition>,
     pending_open: Option<PathBuf>,
     show_largest: bool,
+    /// Folders opened inline in the contents tree.
+    expanded: HashSet<NodeId>,
+    /// Visible tree rows in display order, as drawn last frame (keyboard nav).
+    tree_rows: Vec<NodeId>,
+    /// Selection the tree last revealed; a change expands its ancestors.
+    tree_revealed: Option<NodeId>,
+    /// Scroll the selected row into view on the next frame.
+    tree_scroll: bool,
     compact_map: bool,
 }
 
@@ -198,6 +207,10 @@ impl SpaceApp {
             transition: None,
             pending_open: folder_arg(std::env::args()),
             show_largest: false,
+            expanded: HashSet::new(),
+            tree_rows: Vec::new(),
+            tree_revealed: None,
+            tree_scroll: false,
             compact_map: false,
         }
     }
@@ -772,6 +785,7 @@ impl SpaceApp {
                 i.key_pressed(Key::J),
                 i.key_pressed(Key::Delete),
                 i.key_pressed(Key::Backspace),
+                i.key_pressed(Key::Space),
             )
         });
         let (
@@ -797,6 +811,7 @@ impl SpaceApp {
             key_j,
             key_del,
             key_back,
+            space,
         ) = input;
 
         if question || (mods.shift && slash) {
@@ -889,6 +904,9 @@ impl SpaceApp {
             } else {
                 self.go_up();
             }
+        }
+        if !ctx.wants_keyboard_input() && self.tree_keys(up, down, left, right, space) {
+            return;
         }
         if left {
             self.go_back();

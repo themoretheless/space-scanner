@@ -42,6 +42,9 @@ pub mod metrics {
     pub const RADIUS_CONTROL: u8 = 8;
     pub const RADIUS_CARD: u8 = 14;
     pub const SIDE_W: f32 = 300.0;
+    pub const TREE_W: f32 = 400.0;
+    pub const TREE_ROW_H: f32 = 30.0;
+    pub const TREE_INDENT: f32 = 16.0;
 }
 
 pub fn apply(ctx: &egui::Context) {
