@@ -29,6 +29,21 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Persisted settings (`~/Library/Application Support/…/settings.json`)
 - CLI: `space scan|ls|du|junk|rules|categories`
 
+## Scenario: disk full, Docker volumes need review
+
+Run `cargo run -p space-cli -- scenario docker-volumes` (or
+`space scenario docker-volumes` with the CLI installed). Use `--json` for the
+complete machine-readable volume inventory. This read-only scenario queries the
+current Docker context and lists sizes, labels, drivers and container reference
+counts, including references from stopped containers.
+
+Volumes without references are candidates for **review**, not automatic deletion.
+Check ownership using `docker volume inspect VOLUME`, inspect or back up contents
+through a read-only mount, and recheck references before explicitly removing any
+selected volume. Named database volumes and anonymous volumes can both contain
+valuable data. The scenario never runs prune or removes Docker.raw. Docker's
+reclaimable bytes do not promise immediate recovery of the same host disk space.
+
 ## Roadmap
 
 - Full catalog (~1000): [docs/FEATURES.md](docs/FEATURES.md)

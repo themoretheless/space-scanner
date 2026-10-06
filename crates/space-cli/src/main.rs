@@ -2,6 +2,8 @@
 
 use std::path::PathBuf;
 
+mod docker_scenario;
+
 use clap::{Parser, Subcommand};
 use space_clean::{clean, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions};
 use space_core::{format_bytes, scan_path, CacheStore, NodeId, ScanEvent, SizeMode, SpaceTree};
@@ -15,6 +17,11 @@ struct Cli {
 
 #[derive(Subcommand)]
 enum Cmd {
+    /// Guided diagnostic scenarios (report only)
+    Scenario {
+        #[command(subcommand)]
+        cmd: ScenarioCmd,
+    },
     /// Index a path and save to cache
     Scan { path: PathBuf },
     /// List children of a path from cache (or scan if missing)
@@ -98,6 +105,16 @@ enum Cmd {
 }
 
 #[derive(Subcommand)]
+enum ScenarioCmd {
+    /// Review Docker volumes before cleanup; never deletes data
+    DockerVolumes {
+        /// Print the complete inventory as JSON
+        #[arg(long)]
+        json: bool,
+    },
+}
+
+#[derive(Subcommand)]
 enum RulesCmd {
     /// List rules (search / filter)
     List {
@@ -157,6 +174,14 @@ enum CatAction {
 fn main() {
     let cli = Cli::parse();
     match cli.cmd {
+        Cmd::Scenario {
+            cmd: ScenarioCmd::DockerVolumes { json },
+        } => {
+            if let Err(error) = docker_scenario::run(json) {
+                eprintln!("Docker volume scenario failed: {error}");
+                std::process::exit(1);
+            }
+        }
         Cmd::Scan { path } => {
             let tree = scan_blocking(&path);
             let cache = CacheStore::open().expect("cache dir");
