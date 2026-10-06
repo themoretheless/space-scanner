@@ -1279,7 +1279,7 @@ impl SpaceApp {
             .as_ref()
             .map(|m| m.prefs.clone())
             .unwrap_or_else(space_clean::RulePrefs::load);
-        self.settings.flags.apply_to_rule_prefs(&mut prefs);
+        let flags = self.settings.flags.clone();
         let tx = self.bg_tx.clone();
         thread::Builder::new()
             .name("space-junk-scan".into())
@@ -1289,6 +1289,7 @@ impl SpaceApp {
                         &space_clean::default_rules_dirs(),
                     )?;
                     prefs.migrate_catalog_aliases(&space_clean::default_rules_dirs())?;
+                    flags.apply_to_rule_prefs(&mut prefs, &pack);
                     let mgr = space_clean::RuleManager { pack, prefs };
                     let opts = space_clean::ScanOptions {
                         categories: Vec::new(),

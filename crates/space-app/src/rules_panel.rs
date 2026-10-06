@@ -242,17 +242,17 @@ pub fn draw(
         ui.separator();
         for (label, mode) in [
             ("All", EnabledFilter::All),
-            ("On", EnabledFilter::On),
-            ("Off", EnabledFilter::Off),
+            ("Enabled rules", EnabledFilter::On),
+            ("Disabled rules", EnabledFilter::Off),
             ("Changed by you", EnabledFilter::Overridden),
         ] {
             if crate::widgets::chip(ui, state.enabled == mode, label)
-                .on_hover_text(match mode {
+                .on_hover_text(t(match mode {
                     EnabledFilter::All => "All rules",
                     EnabledFilter::On => "Rules that will run",
                     EnabledFilter::Off => "Rules that will not run",
                     EnabledFilter::Overridden => "Rules you turned on or off yourself",
-                })
+                }))
                 .clicked()
             {
                 state.enabled = mode;
@@ -301,9 +301,9 @@ pub fn draw(
                             }
                             for cat in cats {
                                 let selected = state.category.as_deref() == Some(cat.name.as_str());
-                                let on = cat.enabled > 0;
+                                let on = cat.enabled == cat.total;
                                 let label = format!("{}  {}/{}", t(&cat_title(&cat.name)), cat.enabled, cat.total);
-                                let (pick, flip) = side_row(ui, selected, &label, Some(on));
+                                let (pick, flip) = side_row(ui, selected, &label, Some((cat.enabled, cat.total)));
                                 if flip {
                                     let _ = mgr.set_category_enabled(&cat.name, !on);
                                     state.dirty = true;
@@ -344,9 +344,9 @@ pub fn draw(
                             }
                             for tag in tags {
                                 let selected = state.tag.as_deref() == Some(tag.name.as_str());
-                                let on = tag.enabled > 0;
+                                let on = tag.enabled == tag.total;
                                 let label = format!("{}  {}/{}", tag.name, tag.enabled, tag.total);
-                                let (pick, flip) = side_row(ui, selected, &label, Some(on));
+                                let (pick, flip) = side_row(ui, selected, &label, Some((tag.enabled, tag.total)));
                                 if flip {
                                     let _ = mgr.set_tag_enabled(&tag.name, !on);
                                     state.dirty = true;
@@ -371,6 +371,24 @@ pub fn draw(
                     ui.label(RichText::new(format!("({})", page.total)).size(12.0).color(MUTED()));
                     if let Some(cat) = &state.category {
                         ui.label(RichText::new(format!("· {}", t(&cat_title(cat)))).size(12.0).color(ACCENT()));
+                    }
+                    if let Some(cat) = cats.iter().find(|cat| {
+                        state.category.as_deref() == Some(cat.name.as_str())
+                            && cat.enabled > 0 && cat.enabled < cat.total
+                    }) {
+                        ui.label(RichText::new(crate::tr!("Partially enabled: {} of {}", cat.enabled, cat.total)).size(12.0).color(ACCENT()));
+                    }
+                    if let Some(cat) = cats.iter().find(|cat| {
+                        state.category.as_deref() == Some(cat.name.as_str())
+                            && cat.policy == CategoryPolicy::ForceOff
+                            && cat.enabled > cat.total / 2
+                    }) {
+                        if ui.button(t("Enable category")).on_hover_text(t("Enable defaults for this category, keeping individual exceptions. New rules will follow the category setting.")).clicked() {
+                            let _ = mgr.set_category_enabled(&cat.name, true);
+                            state.dirty = true;
+                            state.error = save(mgr);
+                            action = RulesAction::PrefsChanged;
+                        }
                     }
                     if let Some(kind) = state.kind {
                         ui.label(RichText::new(format!("· {}", kind.as_str())).size(12.0).color(ACCENT()));
@@ -419,7 +437,7 @@ pub fn draw(
         if ui.button(t("Close")).clicked() {
             action = RulesAction::Close;
         }
-        if state.dirty {
+        if state.dirty && state.error.is_none() {
             ui.label(RichText::new(t("Saved")).size(11.0).color(MUTED()));
         }
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
@@ -498,7 +516,7 @@ fn draw_rule_row(
                     if locked {
                         if let Some(p) = row.paths.first() {
                             if ui
-                                .add(widgets::secondary("Show in Disk usage"))
+                                .add(widgets::secondary("Remove manually…"))
                                 .on_hover_text(t("Find it in the tree and remove it by hand, with the usual review"))
                                 .clicked()
                             {
@@ -517,7 +535,7 @@ fn draw_rule_row(
                         *action = RulesAction::PrefsChanged;
                     }
                     let (label, c) = if locked {
-                        ("Report only", MUTED())
+                        ("Manual removal", MUTED())
                     } else {
                         match row.danger.as_str() {
                             "dangerous" => ("Careful", DANGER()),
@@ -559,7 +577,7 @@ fn draw_rule_row(
 /// What the rule does with a match, in a few words.
 fn rule_action(row: &RuleRow) -> &'static str {
     if row.report_only {
-        "Shown only"
+        "Automatic cleaning disabled"
     } else if row.details.iter().any(|d| d.contains("preserving the configured root")) {
         "Empties the folder"
     } else {
@@ -569,7 +587,7 @@ fn rule_action(row: &RuleRow) -> &'static str {
 
 /// A list row in the left column: label, optional on/off switch.
 /// Returns (row clicked, switch clicked).
-fn side_row(ui: &mut egui::Ui, selected: bool, label: &str, switch: Option<bool>) -> (bool, bool) {
+fn side_row(ui: &mut egui::Ui, selected: bool, label: &str, switch: Option<(usize, usize)>) -> (bool, bool) {
     let (rect, resp) = ui.allocate_exact_size(egui::vec2(ui.available_width(), 32.0), egui::Sense::click());
     let p = ui.painter();
     if selected {
@@ -581,16 +599,28 @@ fn side_row(ui: &mut egui::Ui, selected: bool, label: &str, switch: Option<bool>
     let mut job = egui::text::LayoutJob::simple_singleline(
         label.to_owned(),
         egui::FontId::proportional(13.0),
-        if switch == Some(false) { MUTED() } else { TEXT() },
+        if switch.is_some_and(|(enabled, _)| enabled == 0) { MUTED() } else { TEXT() },
     );
     job.wrap = egui::text::TextWrapping::truncate_at_width(right - rect.left() - 18.0);
     let g = p.layout_job(job);
     p.galley(egui::pos2(rect.left() + 10.0, rect.center().y - g.size().y / 2.0), g, TEXT());
     let mut flip = false;
-    if let Some(on) = switch {
+    if let Some((enabled, total)) = switch {
         let slot = egui::Rect::from_center_size(egui::pos2(rect.right() - 26.0, rect.center().y), egui::vec2(34.0, 20.0));
         let hot = resp.hovered() && ui.input(|i| i.pointer.hover_pos()).is_some_and(|h| slot.contains(h));
-        paint_switch(ui, slot, on, hot);
+        let partial = enabled > 0 && enabled < total;
+        paint_switch(ui, slot, enabled == total, hot);
+        if partial {
+            p.rect_filled(slot, 10.0, ACCENT().gamma_multiply(0.45));
+            p.circle_filled(slot.center(), 8.0, egui::Color32::WHITE);
+        }
+        resp.clone().on_hover_text(if partial {
+            crate::tr!("Partially enabled: {} of {}. Click the switch to enable the group; individual exceptions stay unchanged.", enabled, total)
+        } else if enabled == 0 {
+            t("Disabled. Click the switch to enable the group.").to_owned()
+        } else {
+            t("Enabled. Individual exceptions stay unchanged.").to_owned()
+        });
         flip = resp.clicked() && ui.input(|i| i.pointer.interact_pos()).is_some_and(|h| slot.expand(4.0).contains(h));
     }
     (resp.clicked() && !flip, flip)

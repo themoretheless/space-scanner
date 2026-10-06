@@ -45,7 +45,7 @@ impl Default for FeatureFlags {
 
 impl FeatureFlags {
     /// Master switches for cookies/history: off keeps those tags disabled even if Enable all is on.
-    pub fn apply_to_rule_prefs(&self, prefs: &mut space_clean::RulePrefs) {
+    pub fn apply_to_rule_prefs(&self, prefs: &mut space_clean::RulePrefs, pack: &space_clean::RulePack) {
         for (on, tag) in [
             (self.scan_browser_cookies, "cookies"),
             (self.scan_browser_history, "history"),
@@ -56,6 +56,11 @@ impl FeatureFlags {
                 prefs.tags_on.insert(tag.into());
             } else {
                 prefs.tags_off.insert(tag.into());
+                for rule in &pack.rules {
+                    if rule.tags.iter().any(|value| value == tag) {
+                        prefs.set_rule(&rule.id, false);
+                    }
+                }
             }
         }
     }

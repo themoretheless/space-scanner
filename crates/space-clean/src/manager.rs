@@ -13,7 +13,7 @@ pub struct RulePrefs {
     /// Per-rule force on/off. Absent → use YAML `default_enabled` (or category policy).
     #[serde(default)]
     pub rules: BTreeMap<String, bool>,
-    /// Categories forced off (wins over per-rule on).
+    /// Categories forced off unless a rule has an explicit override.
     #[serde(default)]
     pub categories_off: BTreeSet<String>,
     /// Categories forced on (all host rules in category, unless per-rule off).
@@ -105,14 +105,14 @@ impl RulePrefs {
     }
 
     pub fn is_enabled(&self, rule: &Rule) -> bool {
+        if let Some(&forced) = self.rules.get(&rule.id) {
+            return forced;
+        }
         if self.categories_off.contains(&rule.category) {
             return false;
         }
         if rule.tags.iter().any(|t| self.tags_off.contains(t)) {
             return false;
-        }
-        if let Some(&forced) = self.rules.get(&rule.id) {
-            return forced;
         }
         if self.categories_on.contains(&rule.category) {
             return true;
@@ -773,6 +773,46 @@ pub struct ManagerStats {
 mod alias_tests {
     use super::*;
 
+    #[test]
+    fn individual_toggle_overrides_disabled_groups_and_survives_reload() {
+        let mut manager = facet_fixture();
+        manager.prefs.set_category("cache", false);
+        manager.prefs.set_tag("alpha", false);
+        let filter = RuleFilter { enabled: Some(false), host_only: true, ..Default::default() };
+        assert!(manager.list_page(&filter, 100).1.iter().any(|r| r.id == "a"));
+        manager.set_rule_enabled("a", true).unwrap();
+        assert!(!manager.list_page(&filter, 100).1.iter().any(|r| r.id == "a"));
+        assert!(manager.list_page(&RuleFilter { enabled: Some(true), ..filter.clone() }, 100).1.iter().any(|r| r.id == "a"));
+        let root = std::env::temp_dir().join(format!("space-rule-prefs-{}", std::process::id()));
+        let path = root.join("prefs.json");
+        manager.prefs.save_to(&path).unwrap();
+        manager.prefs = RulePrefs::load_from(&path).unwrap();
+        assert!(manager.prefs.is_enabled(manager.pack.get("a").unwrap()));
+        manager.set_rule_enabled("a", false).unwrap();
+        manager.prefs.save_to(&path).unwrap();
+        manager.prefs = RulePrefs::load_from(&path).unwrap();
+        assert!(!manager.prefs.is_enabled(manager.pack.get("a").unwrap()));
+        std::fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn enabling_category_preserves_exceptions_and_reset_restores_inheritance() {
+        let mut manager = facet_fixture();
+        manager.set_category_enabled("cache", false).unwrap();
+        manager.set_rule_enabled("a", true).unwrap();
+        let category = manager.categories(true).into_iter().find(|c| c.name == "cache").unwrap();
+        assert_eq!((category.enabled, category.total), (1, 2));
+        assert_eq!(category.policy, CategoryPolicy::ForceOff);
+        manager.set_rule_enabled("c", false).unwrap();
+        manager.set_category_enabled("cache", true).unwrap();
+        assert!(manager.prefs.is_enabled(manager.pack.get("a").unwrap()));
+        assert!(!manager.prefs.is_enabled(manager.pack.get("c").unwrap()));
+        manager.reset_rule("c");
+        assert!(manager.prefs.is_enabled(manager.pack.get("c").unwrap()));
+        assert_eq!(manager.prefs.rules.get("a"), Some(&true));
+        assert!(!manager.prefs.categories_off.contains("cache"));
+    }
+
     fn facet_fixture() -> RuleManager {
         let foreign = if cfg!(target_os = "windows") {
             "linux"
@@ -869,7 +909,6 @@ mod alias_tests {
         manager.prefs.tags_off.insert("beta".into());
         manager.prefs.tags_on.insert("beta".into());
         manager.prefs.tags_on.insert("common".into());
-        manager.prefs.set_rule("a", true);
         manager.prefs.set_rule("d", false);
         assert!(manager.categories(true).iter().all(|r| r.enabled == 0));
         assert!(manager.tags(true).iter().all(|r| r.enabled == 0));
