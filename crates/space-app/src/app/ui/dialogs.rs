@@ -20,7 +20,7 @@ fn window(title: &'static str, ctx: &egui::Context) -> egui::Window<'static> {
         .anchor(egui::Align2::CENTER_CENTER, [0.0, 0.0])
         .frame(
             egui::Frame::window(&ctx.style())
-                .corner_radius(if theme::skin() == theme::Skin::Table { 6 } else { 14 })
+                .corner_radius(8)
                 .inner_margin(egui::Margin::same(S6 as i8)),
         )
 }
@@ -44,7 +44,11 @@ impl SpaceApp {
                     .size(type_scale::TITLE)
                     .strong(),
             );
+            ui.set_width((ctx.screen_rect().width() - 80.0).min(620.0));
             ui.add_space(S3);
+            egui::ScrollArea::vertical()
+                .max_height((ctx.screen_rect().height() - 220.0).max(120.0))
+                .show(ui, |ui| {
             egui::Grid::new("shortcut_grid")
                 .num_columns(2)
                 .spacing([S6, S2])
@@ -74,6 +78,7 @@ impl SpaceApp {
                         ui.end_row();
                     }
                 });
+                });
             ui.add_space(S3);
             ui.label(caption(
                 "Esc cancels a scan, closes a panel, clears search, then goes up. It never switches tabs.",
@@ -94,7 +99,7 @@ impl SpaceApp {
             return;
         }
         window("Move to Trash", ctx).show(ctx, |ui| {
-            ui.set_width(520.0);
+            ui.set_width((ctx.screen_rect().width() - 80.0).min(520.0));
             if let Some(progress) = &self.delete_progress {
                 let fraction = if progress.items_total > 0 {
                     progress.items_done as f32 / progress.items_total as f32
@@ -172,7 +177,7 @@ impl SpaceApp {
                 .inner_margin(egui::Margin::symmetric(S3 as i8, S2 as i8))
                 .show(ui, |ui| {
                     egui::ScrollArea::vertical()
-                        .max_height(260.0)
+                        .max_height((ctx.screen_rect().height() - 280.0).clamp(100.0, 260.0))
                         .show(ui, |ui| {
                             ui.set_width(ui.available_width());
                             ui.spacing_mut().item_spacing.y = 0.0;
@@ -221,7 +226,7 @@ impl SpaceApp {
         window("Local snapshots", ctx)
             .open(&mut open)
             .show(ctx, |ui| {
-                ui.set_width(460.0);
+                ui.set_width((ctx.screen_rect().width() - 80.0).min(460.0));
                 ui.label(
                     RichText::new(t("Local snapshots"))
                         .size(type_scale::TITLE)
@@ -273,7 +278,7 @@ impl SpaceApp {
                                     .inner_margin(egui::Margin::symmetric(S3 as i8, S2 as i8))
                                     .show(ui, |ui| {
                                         ui.set_width(ui.available_width());
-                                        ui.horizontal(|ui| {
+                                        ui.horizontal_wrapped(|ui| {
                                             ui.vertical(|ui| {
                                                 ui.label(RichText::new(snap.label()).strong());
                                                 ui.label(caption(snap.kind_label()));
@@ -352,8 +357,8 @@ impl SpaceApp {
                                                 .strong(),
                                         )
                                         .fill(DANGER())
-                                        .corner_radius(8)
-                                        .min_size(egui::vec2(0.0, 36.0)),
+                                        .corner_radius(theme::metrics::RADIUS_CONTROL)
+                                        .min_size(egui::vec2(0.0, theme::metrics::CONTROL_H)),
                                     )
                                     .clicked()
                                 {
@@ -378,7 +383,11 @@ impl SpaceApp {
             .collapsible(false)
             .resizable(true)
             .open(&mut open)
-            .default_size([1040.0, 640.0])
+            .default_size([
+                (ctx.screen_rect().width() - 48.0).min(1040.0),
+                (ctx.screen_rect().height() - 80.0).min(640.0),
+            ])
+            .min_width(640.0)
             .anchor(egui::Align2::CENTER_CENTER, [0.0, 12.0])
             .show(ctx, |ui| {
                 if self.rule_mgr.is_none() && self.rules.error.is_none() {

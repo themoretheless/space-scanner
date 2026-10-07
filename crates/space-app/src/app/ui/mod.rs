@@ -4,9 +4,9 @@
 //!
 //! - wide (>= 1180 pt): contents list + map + inspector side by side;
 //! - medium (900–1180): contents list + map, details as a drawer over the map;
-//! - narrow (< 900): one pane at a time (List | Map), location and search on a sub-bar.
+//! - narrow (< 900): one pane at a time (List | Map), location and search on a sub-bar in every width class.
 //!
-//! Global chrome is one row; it never wraps.
+//! Global navigation is one row; location, search and progress have their own rows.
 
 mod cleanup;
 mod dialogs;

@@ -9,37 +9,12 @@ use crate::i18n::Lang;
 use crate::icons::{self, Icon};
 use crate::theme::metrics::{APP_BAR_H, CONTROL_H, S2, S3, S4};
 use crate::theme::type_scale;
-use crate::theme::{ACCENT, ACCENT_INK, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
-use crate::widgets::{caption, ghost, secondary, segmented, text_width};
-
-/// Space reserved for the controls on the right of the bar when fitting breadcrumbs.
-const MORE_W: f32 = 76.0;
-const SCAN_W: f32 = 300.0;
+use crate::theme::{ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
+use crate::widgets::{caption, secondary, segmented, text_width};
 
 impl SpaceApp {
     pub(super) fn app_bar(&mut self, ctx: &egui::Context, d: Density) {
         let explore = self.mode == Mode::Explore && self.tree.is_some();
-        let search_w = match d {
-            Density::Wide => 240.0,
-            _ => 160.0,
-        };
-        let inline_location = explore && d != Density::Narrow;
-        let mut reserve = MORE_W + S4;
-        if self.basket_len() > 0 {
-            let label = crate::tr!(
-                "Review · {} · {}",
-                self.basket_len(),
-                crate::i18n::bytes(self.basket_bytes())
-            );
-            let font = egui::FontId::proportional(type_scale::BODY);
-            reserve += text_width_ctx(ctx, &label, font) + 40.0 + S2;
-        }
-        if self.scan.is_some() {
-            reserve += SCAN_W + S2;
-        }
-        if inline_location {
-            reserve += search_w + S3;
-        }
 
         egui::TopBottomPanel::top("app_bar")
             .exact_height(APP_BAR_H)
@@ -53,19 +28,11 @@ impl SpaceApp {
                 ui.horizontal_centered(|ui| {
                     ui.spacing_mut().item_spacing.x = S2;
                     brand(ui, d != Density::Narrow);
-                    self.mode_tabs(ui);
-                    if inline_location {
-                        ui.add_space(S3);
-                        let budget = (ui.available_width() - reserve).max(0.0);
-                        self.location(ui, budget);
-                    }
+                    self.mode_tabs(ui, d == Density::Narrow);
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         self.more_menu(ui);
                         self.review_pill(ui);
-                        self.scan_progress(ui);
-                        if inline_location {
-                            self.search_box(ui, search_w);
-                        }
+
                         if d == Density::Wide
                             && self.scan.is_none()
                             && matches!(self.mode, Mode::Review | Mode::Clean)
@@ -76,7 +43,7 @@ impl SpaceApp {
                 });
             });
 
-        if explore && d == Density::Narrow {
+        if explore {
             egui::TopBottomPanel::top("sub_bar")
                 .exact_height(48.0)
                 .frame(
@@ -87,25 +54,40 @@ impl SpaceApp {
                 .show(ctx, |ui| {
                     ui.horizontal_centered(|ui| {
                         ui.spacing_mut().item_spacing.x = S2;
-                        if let Some(i) = segmented(ui, &["List", "Map"], self.compact_map as usize)
-                        {
-                            self.compact_map = i == 1;
+                        if d == Density::Narrow && crate::theme::skin() == crate::theme::Skin::Map {
+                            if let Some(i) =
+                                segmented(ui, &["List", "Map"], self.compact_map as usize)
+                            {
+                                self.compact_map = i == 1;
+                            }
                         }
-                        let budget = (ui.available_width() - 150.0 - S4).max(0.0);
+                        let search_w = if d == Density::Narrow { 150.0 } else { 220.0 };
+                        let budget = (ui.available_width() - search_w - 40.0 - S4).max(0.0);
                         self.location(ui, budget);
                         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                            self.search_box(ui, 140.0);
+                            self.search_box(ui, search_w);
                         });
                     });
                 });
         }
+        if self.scan.is_some() {
+            egui::TopBottomPanel::top("scan_progress_bar")
+                .frame(
+                    egui::Frame::new()
+                        .fill(PANEL())
+                        .inner_margin(egui::Margin::symmetric(16, 4)),
+                )
+                .show(ctx, |ui| {
+                    ui.horizontal(|ui| self.scan_progress(ui));
+                });
+        }
     }
 
-    fn mode_tabs(&mut self, ui: &mut egui::Ui) {
+    fn mode_tabs(&mut self, ui: &mut egui::Ui, compact: bool) {
         let has_scan = self.tree.is_some() || self.scan.is_some();
         egui::Frame::new()
             .fill(BG())
-            .corner_radius(10)
+            .corner_radius(crate::theme::metrics::RADIUS_CONTROL)
             .inner_margin(egui::Margin::same(3))
             .show(ui, |ui| {
                 ui.spacing_mut().item_spacing.x = 2.0;
@@ -132,7 +114,16 @@ impl SpaceApp {
                         true,
                     ),
                 ] {
-                    if tab(ui, icon, label, self.mode == mode, enabled, hint).clicked() {
+                    if tab(
+                        ui,
+                        icon,
+                        if compact { "" } else { label },
+                        self.mode == mode,
+                        enabled,
+                        hint,
+                    )
+                    .clicked()
+                    {
                         self.set_mode(mode);
                     }
                 }
@@ -158,7 +149,7 @@ impl SpaceApp {
             self.go_up();
         }
 
-        let avail = budget - 3.0 * 30.0 - 3.0 * S2;
+        let avail = (budget - 3.0 * 30.0 - 3.0 * S2).max(0.0);
         let crumbs = tree.breadcrumb_names(self.focus);
         let chain = tree.path_to(self.focus);
         let font = egui::FontId::proportional(type_scale::BODY);
@@ -182,6 +173,7 @@ impl SpaceApp {
         {
             go = Some(chain[start - 1]);
         }
+        let mut remaining = (avail - if start > 0 { 28.0 } else { 0.0 }).max(0.0);
         for i in start..crumbs.len() {
             if i > start {
                 icons::show(ui, Icon::ChevronRight, 12.0, MUTED());
@@ -192,12 +184,12 @@ impl SpaceApp {
                 .color(if here { TEXT() } else { MUTED() });
             let text = if here { text.strong() } else { text };
             let width = if here {
-                (avail - used + 24.0).max(60.0)
+                remaining.max(24.0)
             } else {
                 f32::INFINITY
             };
             ui.scope(|ui| {
-                ui.set_max_width(width.min(avail.max(60.0)));
+                ui.set_max_width(width.min(remaining.max(24.0)));
                 if ui
                     .add(egui::Button::new(text).frame(false).truncate())
                     .on_hover_text(tree.path_string(chain[i]))
@@ -207,6 +199,7 @@ impl SpaceApp {
                     go = Some(chain[i]);
                 }
             });
+            remaining = (remaining - text_width(ui, &crumbs[i], font.clone()) - 24.0).max(0.0);
         }
         if let Some(id) = go {
             self.navigate(id, true);
@@ -225,7 +218,7 @@ impl SpaceApp {
         let edit = ui.add_sized(
             [width, CONTROL_H - 2.0],
             egui::TextEdit::singleline(&mut self.filter_draft)
-                .margin(egui::vec2(10.0, 7.0))
+                .margin(egui::vec2(8.0, 5.0))
                 .hint_text(
                     RichText::new(t(if width < 190.0 {
                         "Search"
@@ -297,10 +290,7 @@ impl SpaceApp {
             n,
             crate::i18n::bytes(self.basket_bytes())
         );
-        let pill = egui::Button::new(RichText::new(label).color(ACCENT_INK()).strong())
-            .fill(ACCENT())
-            .corner_radius(18)
-            .min_size(egui::vec2(0.0, 34.0));
+        let pill = crate::widgets::primary(&label);
         if ui
             .add(pill)
             .on_hover_text(t("Check what will move to Trash"))
@@ -391,14 +381,6 @@ impl SpaceApp {
     }
 }
 
-fn text_width_ctx(ctx: &egui::Context, text: &str, font: egui::FontId) -> f32 {
-    ctx.fonts(|f| {
-        f.layout_no_wrap(text.to_owned(), font, Color32::WHITE)
-            .size()
-            .x
-    })
-}
-
 /// One destination: icon and label, filled when current.
 fn tab(
     ui: &mut egui::Ui,
@@ -408,11 +390,6 @@ fn tab(
     enabled: bool,
     hint: &str,
 ) -> egui::Response {
-    let label = t(label);
-    let label = t(label);
-    let label = t(label);
-    let label = t(label);
-    let label = t(label);
     let label = t(label);
     let font = egui::FontId::proportional(type_scale::BODY);
     let text_w = text_width(ui, label, font.clone());
@@ -435,13 +412,17 @@ fn tab(
     if on {
         painter.rect(
             rect,
-            8.0,
+            crate::theme::metrics::RADIUS_CONTROL as f32,
             PANEL_2(),
             egui::Stroke::new(1.0_f32, BORDER()),
             egui::StrokeKind::Inside,
         );
     } else if hovered {
-        painter.rect_filled(rect, 8.0, PANEL_2().gamma_multiply(0.5));
+        painter.rect_filled(
+            rect,
+            crate::theme::metrics::RADIUS_CONTROL as f32,
+            PANEL_2().gamma_multiply(0.5),
+        );
     }
     icons::paint(
         painter,

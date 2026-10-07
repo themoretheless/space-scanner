@@ -26,8 +26,13 @@ impl SpaceApp {
     // ------------------------------------------------------------- columns
 
     pub(super) fn columns_page(&mut self, ctx: &egui::Context, d: Density) {
-        let Some(tree) = self.tree.clone() else { return };
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
         self.tree_rows.clear();
+        if d == Density::Narrow {
+            self.details_drawer(ctx);
+        }
         self.basket_bar(ctx);
         if d != Density::Narrow {
             egui::SidePanel::right("columns_inspector")
@@ -43,7 +48,11 @@ impl SpaceApp {
                     if self.selected.is_some() {
                         self.details(ui);
                     } else {
-                        empty_state(ui, "Nothing selected", "Click an item in a column to see what it is.");
+                        empty_state(
+                            ui,
+                            "Nothing selected",
+                            "Click an item in a column to see what it is.",
+                        );
                     }
                 });
         }
@@ -121,68 +130,156 @@ impl SpaceApp {
                                                         Sense::click(),
                                                     );
                                                     let p = ui.painter();
-                                                    let fg = if hot { ACCENT_INK() } else { TEXT() };
+                                                    let fg =
+                                                        if hot { ACCENT_INK() } else { TEXT() };
                                                     if hot {
-                                                        p.rect_filled(rect.shrink2(egui::vec2(4.0, 1.0)), 6.0, ACCENT());
+                                                        p.rect_filled(
+                                                            rect.shrink2(egui::vec2(4.0, 1.0)),
+                                                            6.0,
+                                                            ACCENT(),
+                                                        );
                                                     } else if resp.hovered() {
-                                                        p.rect_filled(rect.shrink2(egui::vec2(4.0, 1.0)), 6.0, PANEL_2());
+                                                        p.rect_filled(
+                                                            rect.shrink2(egui::vec2(4.0, 1.0)),
+                                                            6.0,
+                                                            PANEL_2(),
+                                                        );
                                                     }
-                                                    let swatch = if n.synthetic { MUTED() } else { colors[i] };
+                                                    let swatch = if n.synthetic {
+                                                        MUTED()
+                                                    } else {
+                                                        colors[i]
+                                                    };
                                                     let cy = rect.top() + 16.0;
                                                     p.rect_filled(
-                                                        egui::Rect::from_center_size(egui::pos2(rect.left() + 18.0, cy), egui::vec2(10.0, 10.0)),
+                                                        egui::Rect::from_center_size(
+                                                            egui::pos2(rect.left() + 18.0, cy),
+                                                            egui::vec2(10.0, 10.0),
+                                                        ),
                                                         3.0,
                                                         swatch,
                                                     );
                                                     let size_g = p.layout_no_wrap(
                                                         crate::i18n::bytes(size),
-                                                        egui::FontId::monospace(type_scale::MONO - 1.0),
+                                                        egui::FontId::monospace(
+                                                            type_scale::MONO - 1.0,
+                                                        ),
                                                         if hot { ACCENT_INK() } else { MUTED() },
                                                     );
                                                     let right = rect.right() - 26.0;
                                                     let sw = size_g.size().x;
-                                                    p.galley(egui::pos2(right - sw, cy - size_g.size().y / 2.0), size_g, MUTED());
+                                                    p.galley(
+                                                        egui::pos2(
+                                                            right - sw,
+                                                            cy - size_g.size().y / 2.0,
+                                                        ),
+                                                        size_g,
+                                                        MUTED(),
+                                                    );
                                                     if n.is_dir && !n.synthetic {
                                                         icons::paint(
                                                             p,
                                                             Icon::ChevronRight,
-                                                            egui::Rect::from_center_size(egui::pos2(rect.right() - 14.0, cy), egui::vec2(12.0, 12.0)),
-                                                            if hot { ACCENT_INK() } else { MUTED() },
+                                                            egui::Rect::from_center_size(
+                                                                egui::pos2(rect.right() - 14.0, cy),
+                                                                egui::vec2(12.0, 12.0),
+                                                            ),
+                                                            if hot {
+                                                                ACCENT_INK()
+                                                            } else {
+                                                                MUTED()
+                                                            },
                                                         );
                                                     }
                                                     if self.review.contains(&id) {
-                                                        p.circle_filled(egui::pos2(rect.left() + 8.0, cy), 3.0, if hot { ACCENT_INK() } else { ACCENT() });
+                                                        p.circle_filled(
+                                                            egui::pos2(rect.left() + 8.0, cy),
+                                                            3.0,
+                                                            if hot {
+                                                                ACCENT_INK()
+                                                            } else {
+                                                                ACCENT()
+                                                            },
+                                                        );
                                                     }
-                                                    let mut job = egui::text::LayoutJob::simple_singleline(
-                                                        n.name.clone(),
-                                                        egui::FontId::proportional(type_scale::BODY),
-                                                        if n.synthetic && !hot { MUTED() } else { fg },
-                                                    );
-                                                    job.wrap = egui::text::TextWrapping::truncate_at_width((right - sw - 10.0 - (rect.left() + 30.0)).max(20.0));
+                                                    let mut job =
+                                                        egui::text::LayoutJob::simple_singleline(
+                                                            n.name.clone(),
+                                                            egui::FontId::proportional(
+                                                                type_scale::BODY,
+                                                            ),
+                                                            if n.synthetic && !hot {
+                                                                MUTED()
+                                                            } else {
+                                                                fg
+                                                            },
+                                                        );
+                                                    job.wrap =
+                                                        egui::text::TextWrapping::truncate_at_width(
+                                                            (right
+                                                                - sw
+                                                                - 10.0
+                                                                - (rect.left() + 30.0))
+                                                                .max(20.0),
+                                                        );
                                                     let g = p.layout_job(job);
-                                                    p.galley(egui::pos2(rect.left() + 30.0, cy - g.size().y / 2.0), g, fg);
+                                                    p.galley(
+                                                        egui::pos2(
+                                                            rect.left() + 30.0,
+                                                            cy - g.size().y / 2.0,
+                                                        ),
+                                                        g,
+                                                        fg,
+                                                    );
                                                     // Share of this column's folder.
                                                     let track = egui::Rect::from_min_max(
-                                                        egui::pos2(rect.left() + 30.0, rect.bottom() - 9.0),
-                                                        egui::pos2(rect.right() - 14.0, rect.bottom() - 6.0),
+                                                        egui::pos2(
+                                                            rect.left() + 30.0,
+                                                            rect.bottom() - 9.0,
+                                                        ),
+                                                        egui::pos2(
+                                                            rect.right() - 14.0,
+                                                            rect.bottom() - 6.0,
+                                                        ),
                                                     );
-                                                    p.rect_filled(track, 1.5, if hot { ACCENT_INK().gamma_multiply(0.25) } else { BORDER() });
+                                                    p.rect_filled(
+                                                        track,
+                                                        1.5,
+                                                        if hot {
+                                                            ACCENT_INK().gamma_multiply(0.25)
+                                                        } else {
+                                                            BORDER()
+                                                        },
+                                                    );
                                                     let mut fill = track;
-                                                    fill.set_width(track.width() * (size as f32 / total).clamp(0.0, 1.0));
-                                                    p.rect_filled(fill, 1.5, if hot { ACCENT_INK() } else { swatch });
+                                                    fill.set_width(
+                                                        track.width()
+                                                            * (size as f32 / total).clamp(0.0, 1.0),
+                                                    );
+                                                    p.rect_filled(
+                                                        fill,
+                                                        1.5,
+                                                        if hot { ACCENT_INK() } else { swatch },
+                                                    );
 
                                                     if resp.clicked() {
-                                                        if ui.input(|i| i.modifiers.command) && !n.synthetic {
+                                                        if ui.input(|i| i.modifiers.command)
+                                                            && !n.synthetic
+                                                        {
                                                             queue = Some(id);
                                                         }
                                                         pick = Some(id);
                                                     }
-                                                    if resp.double_clicked() && n.is_dir && !n.synthetic {
+                                                    if resp.double_clicked() && !n.synthetic {
                                                         enter = Some(id);
                                                     }
                                                     resp.context_menu(|ui| {
                                                         if !n.synthetic {
-                                                            let q = if self.review.contains(&id) { "Remove from review" } else { "Add to review" };
+                                                            let q = if self.review.contains(&id) {
+                                                                "Remove from review"
+                                                            } else {
+                                                                "Add to review"
+                                                            };
                                                             if ui.button(t(q)).clicked() {
                                                                 queue = Some(id);
                                                                 ui.close_menu();
@@ -211,15 +308,25 @@ impl SpaceApp {
             review::toggle(&mut self.review, id);
         }
         if let Some(id) = enter {
-            self.navigate(id, true);
+            if tree.node(id).is_dir {
+                self.navigate(id, true);
+            } else {
+                self.selected = Some(id);
+                self.reveal_selected();
+            }
         }
     }
 
     // --------------------------------------------------------------- table
 
     pub(super) fn table_page(&mut self, ctx: &egui::Context, d: Density) {
-        let Some(tree) = self.tree.clone() else { return };
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
         self.basket_bar(ctx);
+        if d != Density::Wide {
+            self.details_drawer(ctx);
+        }
         if d == Density::Wide && self.selected.is_some() {
             egui::SidePanel::right("table_inspector")
                 .exact_width(SIDE_W + 10.0)
@@ -256,7 +363,8 @@ impl SpaceApp {
             .frame(egui::Frame::new().fill(BG()))
             .show(ctx, |ui| {
                 // Header.
-                let (head, _) = ui.allocate_exact_size(egui::vec2(ui.available_width(), 28.0), Sense::hover());
+                let (head, _) =
+                    ui.allocate_exact_size(egui::vec2(ui.available_width(), 28.0), Sense::hover());
                 ui.painter().rect_filled(head, 0.0, PANEL_2());
                 let cols = TableCols::new(head);
                 let hp = ui.painter();
@@ -269,7 +377,11 @@ impl SpaceApp {
                 ] {
                     let g = hp.layout_no_wrap(label.to_string(), f.clone(), MUTED());
                     let px = if right { x - g.size().x } else { x };
-                    hp.galley(egui::pos2(px, head.center().y - g.size().y / 2.0), g, MUTED());
+                    hp.galley(
+                        egui::pos2(px, head.center().y - g.size().y / 2.0),
+                        g,
+                        MUTED(),
+                    );
                 }
 
                 egui::ScrollArea::vertical()
@@ -278,7 +390,11 @@ impl SpaceApp {
                     .show(ui, |ui| {
                         ui.spacing_mut().item_spacing.y = 0.0;
                         if rows.is_empty() {
-                            empty_state(ui, "Nothing here", "This folder is empty or the filter hides everything.");
+                            empty_state(
+                                ui,
+                                "Nothing here",
+                                "This folder is empty or the filter hides everything.",
+                            );
                         }
                         for row in &rows {
                             let id = row.id;
@@ -306,7 +422,7 @@ impl SpaceApp {
                             } else if resp.clicked() {
                                 pick = Some(id);
                             }
-                            if resp.double_clicked() && n.is_dir && !n.synthetic {
+                            if resp.double_clicked() && !n.synthetic {
                                 enter = Some(id);
                             }
                         }
@@ -335,12 +451,20 @@ impl SpaceApp {
             review::toggle(&mut self.review, id);
         }
         if let Some(id) = enter {
-            self.navigate(id, true);
+            if tree.node(id).is_dir {
+                self.navigate(id, true);
+            } else {
+                self.selected = Some(id);
+                self.reveal_selected();
+            }
         }
     }
 
     /// Bottom bar shared by Columns and Table: what is selected for removal.
     fn basket_bar(&mut self, ctx: &egui::Context) {
+        if self.basket_len() == 0 {
+            return;
+        }
         egui::TopBottomPanel::bottom("basket_bar")
             .frame(
                 egui::Frame::new()
@@ -359,7 +483,7 @@ impl SpaceApp {
                             .color(if n > 0 { ACCENT() } else { MUTED() }),
                     );
                     ui.label(caption(crate::tr!("{} items", n)));
-                    ui.label(caption("· Space or ☐ to mark · → expand · ↵ open"));
+
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         if ui
                             .add_enabled(n > 0, primary(&crate::tr!("Review {} items", n)))
@@ -386,7 +510,13 @@ impl TableCols {
         let files_r = r.right() - S4;
         let share = files_r - 90.0 - 150.0;
         let size_r = share - 16.0;
-        Self { left: r.left() + S4, name: r.left() + S4 + 28.0, size_r: size_r.max(r.left() + 300.0), share, files_r }
+        Self {
+            left: r.left() + S4,
+            name: r.left() + S4 + 28.0,
+            size_r: size_r.max(r.left() + 300.0),
+            share,
+            files_r,
+        }
     }
 }
 
@@ -409,16 +539,27 @@ fn paint_table_row(
     let cols = TableCols::new(rect);
     if selected {
         p.rect_filled(rect, 0.0, PANEL_2());
-        p.rect_filled(egui::Rect::from_min_size(rect.min, egui::vec2(3.0, rect.height())), 0.0, ACCENT());
+        p.rect_filled(
+            egui::Rect::from_min_size(rect.min, egui::vec2(3.0, rect.height())),
+            0.0,
+            ACCENT(),
+        );
     } else if queued {
         p.rect_filled(rect, 0.0, ACCENT().gamma_multiply(0.08));
     } else if resp.hovered() {
         p.rect_filled(rect, 0.0, PANEL_2().gamma_multiply(0.6));
     }
-    p.hline(rect.x_range(), rect.bottom() - 0.5, egui::Stroke::new(1.0_f32, BORDER().gamma_multiply(0.5)));
+    p.hline(
+        rect.x_range(),
+        rect.bottom() - 0.5,
+        egui::Stroke::new(1.0_f32, BORDER().gamma_multiply(0.5)),
+    );
     let cy = rect.center().y;
     let hit = |r: egui::Rect| {
-        resp.clicked() && ui.input(|i| i.pointer.interact_pos()).is_some_and(|h| r.expand(4.0).contains(h))
+        resp.clicked()
+            && ui
+                .input(|i| i.pointer.interact_pos())
+                .is_some_and(|h| r.expand(4.0).contains(h))
     };
 
     // Checkbox = in review.
@@ -428,16 +569,34 @@ fn paint_table_row(
             p.rect_filled(cb, 3.0, ACCENT());
             icons::paint(p, Icon::Check, cb.shrink(2.0), ACCENT_INK());
         } else {
-            p.rect_stroke(cb, 3.0, egui::Stroke::new(1.5_f32, MUTED()), egui::StrokeKind::Inside);
+            p.rect_stroke(
+                cb,
+                3.0,
+                egui::Stroke::new(1.5_f32, MUTED()),
+                egui::StrokeKind::Inside,
+            );
         }
     }
 
     let x0 = cols.name + row.depth as f32 * TREE_INDENT;
     let chev = egui::Rect::from_center_size(egui::pos2(x0 + 6.0, cy), egui::vec2(14.0, 14.0));
     if row.has_kids {
-        icons::paint(p, if row.open { Icon::ChevronDown } else { Icon::ChevronRight }, chev.shrink(2.0), MUTED());
+        icons::paint(
+            p,
+            if row.open {
+                Icon::ChevronDown
+            } else {
+                Icon::ChevronRight
+            },
+            chev.shrink(2.0),
+            MUTED(),
+        );
     }
-    p.rect_filled(egui::Rect::from_center_size(egui::pos2(x0 + 22.0, cy), egui::vec2(12.0, 10.0)), 2.0, row.color);
+    p.rect_filled(
+        egui::Rect::from_center_size(egui::pos2(x0 + 22.0, cy), egui::vec2(12.0, 10.0)),
+        2.0,
+        row.color,
+    );
 
     let mono = egui::FontId::monospace(type_scale::MONO - 1.0);
     let size_g = p.layout_no_wrap(crate::i18n::bytes(row.size), mono.clone(), TEXT());
@@ -450,7 +609,11 @@ fn paint_table_row(
     job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
     let g = p.layout_job(job);
     p.galley(egui::pos2(x0 + 34.0, cy - g.size().y / 2.0), g, TEXT());
-    p.galley(egui::pos2(cols.size_r - size_g.size().x, cy - size_g.size().y / 2.0), size_g, TEXT());
+    p.galley(
+        egui::pos2(cols.size_r - size_g.size().x, cy - size_g.size().y / 2.0),
+        size_g,
+        TEXT(),
+    );
 
     let track = egui::Rect::from_min_size(egui::pos2(cols.share, cy - 4.0), egui::vec2(90.0, 8.0));
     p.rect_filled(track, 0.0, BORDER());
@@ -458,11 +621,30 @@ fn paint_table_row(
     fill.set_width(90.0 * row.share.clamp(0.0, 1.0));
     p.rect_filled(fill, 0.0, row.color);
     let pct = (row.share * 100.0).round() as u32;
-    let pct_g = p.layout_no_wrap(if pct == 0 { "<1%".into() } else { format!("{pct}%") }, mono.clone(), MUTED());
-    p.galley(egui::pos2(track.right() + 8.0, cy - pct_g.size().y / 2.0), pct_g, MUTED());
+    let pct_g = p.layout_no_wrap(
+        if pct == 0 {
+            "<1%".into()
+        } else {
+            format!("{pct}%")
+        },
+        mono.clone(),
+        MUTED(),
+    );
+    p.galley(
+        egui::pos2(track.right() + 8.0, cy - pct_g.size().y / 2.0),
+        pct_g,
+        MUTED(),
+    );
 
     let files_g = p.layout_no_wrap(n.file_count.to_string(), mono, MUTED());
-    p.galley(egui::pos2(cols.files_r - files_g.size().x, cy - files_g.size().y / 2.0), files_g, MUTED());
+    p.galley(
+        egui::pos2(cols.files_r - files_g.size().x, cy - files_g.size().y / 2.0),
+        files_g,
+        MUTED(),
+    );
 
-    TableOutcome { check: hit(cb), chevron: row.has_kids && hit(chev) }
+    TableOutcome {
+        check: hit(cb),
+        chevron: row.has_kids && hit(chev),
+    }
 }

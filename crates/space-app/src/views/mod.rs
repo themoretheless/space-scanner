@@ -251,6 +251,34 @@ pub fn node_context_menu(
     });
 }
 
+/// Maps with one hit surface must retain the clicked node while the pointer is
+/// over the popup, where the surface no longer reports a hovered node.
+pub fn hovered_node_context_menu(
+    resp: &egui::Response,
+    tree: &SpaceTree,
+    hovered: Option<NodeId>,
+    review: &[NodeId],
+    action: &mut ViewAction,
+) {
+    let target_key = resp.id.with("context_menu_target");
+    if resp.secondary_clicked() {
+        resp.ctx.data_mut(|data| {
+            if let Some(id) = hovered {
+                data.insert_temp(target_key, id);
+            } else {
+                data.remove::<NodeId>(target_key);
+            }
+        });
+    } else if !resp.context_menu_opened() {
+        resp.ctx.data_mut(|data| data.remove::<NodeId>(target_key));
+        return;
+    }
+    let target = resp.ctx.data(|data| data.get_temp::<NodeId>(target_key));
+    if let Some(id) = target.filter(|&id| tree.try_node(id).is_some()) {
+        node_context_menu(resp, tree, id, review.contains(&id), action);
+    }
+}
+
 impl ViewAction {
     pub fn none() -> Self {
         Self {
@@ -410,6 +438,88 @@ mod click_map_tests {
             hardlink_candidates: 0,
             hardlinks_deduped: 0,
         }
+    }
+
+    #[test]
+    fn ring_context_menu_survives_pointer_entering_popup_and_keeps_clicked_target() {
+        let tree = sample();
+        let ctx = egui::Context::default();
+        let mut geom = None;
+        let filter = ViewFilter::default();
+        let mut action = ViewAction::none();
+        let mut frame = |events: Vec<egui::Event>| {
+            ctx.run(
+                egui::RawInput {
+                    screen_rect: Some(egui::Rect::from_min_size(
+                        egui::Pos2::ZERO,
+                        egui::vec2(800.0, 600.0),
+                    )),
+                    events,
+                    ..Default::default()
+                },
+                |ctx| {
+                    egui::CentralPanel::default().show(ctx, |ui| {
+                        action = draw(
+                            ui,
+                            ViewMode::Sunburst,
+                            &mut DrawCtx {
+                                tree: &tree,
+                                focus: tree.root,
+                                selected: None,
+                                hovered: None,
+                                review: &[],
+                                mode: SizeMode::OnDisk,
+                                filter: &filter,
+                                filter_hash: filter.hash64(),
+                                review_sig: 0,
+                                geom: &mut geom,
+                            },
+                        );
+                    });
+                },
+            )
+        };
+        // The single child occupies the entire first ring.
+        frame(vec![]);
+        let origin = egui::pos2(520.0, 300.0);
+        let button = |pos, button, pressed| egui::Event::PointerButton {
+            pos,
+            button,
+            pressed,
+            modifiers: egui::Modifiers::NONE,
+        };
+        frame(vec![
+            egui::Event::PointerMoved(origin),
+            button(origin, egui::PointerButton::Secondary, true),
+        ]);
+        frame(vec![button(origin, egui::PointerButton::Secondary, false)]);
+        let output = frame(vec![]);
+        let select = output
+            .shapes
+            .iter()
+            .find_map(|shape| match &shape.shape {
+                egui::Shape::Text(text) if text.galley.job.text == "Select" => {
+                    Some(text.pos + text.galley.size() * 0.5)
+                }
+                _ => None,
+            })
+            .expect("right click opens the node menu");
+        for _ in 0..3 {
+            let output = frame(vec![egui::Event::PointerMoved(select)]);
+            assert!(
+                output.shapes.iter().any(|shape| matches!(&shape.shape,
+                egui::Shape::Text(text) if text.galley.job.text == "Select")),
+                "menu must stay drawn while the pointer is over its items"
+            );
+        }
+        frame(vec![button(select, egui::PointerButton::Primary, true)]);
+        frame(vec![button(select, egui::PointerButton::Primary, false)]);
+        drop(frame);
+        assert_eq!(
+            action.select,
+            Some(NodeId(1)),
+            "action uses the right-clicked node, not the node behind the menu"
+        );
     }
 
     #[test]

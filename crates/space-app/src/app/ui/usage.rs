@@ -36,7 +36,7 @@ impl SpaceApp {
         let split = d != Density::Narrow;
         if split {
             egui::SidePanel::left("contents")
-                .exact_width(TREE_W)
+                .exact_width(if d == Density::Medium { 320.0 } else { TREE_W })
                 .resizable(false)
                 .frame(
                     egui::Frame::new()
@@ -58,32 +58,7 @@ impl SpaceApp {
                     )
                     .show(ctx, |ui| self.details(ui));
             } else {
-                // A drawer over the map: no title bar, never taller than the window.
-                let screen = ctx.screen_rect();
-                let w = (screen.width() - 2.0 * S3).clamp(240.0, 340.0);
-                let top = APP_BAR_H + if d == Density::Narrow { 48.0 } else { 0.0 } + S3;
-                egui::Area::new(egui::Id::new("details_drawer"))
-                    .order(egui::Order::Foreground)
-                    .fixed_pos(egui::pos2(screen.right() - w - S3, top))
-                    .show(ctx, |ui| {
-                        egui::Frame::new()
-                            .fill(PANEL())
-                            .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                            .corner_radius(14)
-                            .inner_margin(egui::Margin::same(S4 as i8 + 2))
-                            .shadow(egui::Shadow {
-                                offset: [0, 8],
-                                blur: 24,
-                                spread: 0,
-                                color: Color32::from_black_alpha(110),
-                            })
-                            .show(ui, |ui| {
-                                ui.set_width(w - 36.0);
-                                egui::ScrollArea::vertical()
-                                    .max_height((screen.height() - top - S3 - 36.0).max(160.0))
-                                    .show(ui, |ui| self.details(ui));
-                            });
-                    });
+                self.details_drawer(ctx);
             }
         }
         egui::CentralPanel::default()
@@ -97,6 +72,37 @@ impl SpaceApp {
                 } else {
                     self.map_area(ctx, ui);
                 }
+            });
+    }
+
+    pub(super) fn details_drawer(&mut self, ctx: &egui::Context) {
+        if self.selected.is_none() {
+            return;
+        }
+        let screen = ctx.screen_rect();
+        let w = (screen.width() - 2.0 * S3).clamp(240.0, 340.0);
+        let top = APP_BAR_H + 48.0 + S3;
+        egui::Area::new(egui::Id::new("details_drawer"))
+            .order(egui::Order::Foreground)
+            .fixed_pos(egui::pos2(screen.right() - w - S3, top))
+            .show(ctx, |ui| {
+                egui::Frame::new()
+                    .fill(PANEL())
+                    .stroke(egui::Stroke::new(1.0_f32, BORDER()))
+                    .corner_radius(8)
+                    .inner_margin(egui::Margin::same(S4 as i8 + 2))
+                    .shadow(egui::Shadow {
+                        offset: [0, 8],
+                        blur: 24,
+                        spread: 0,
+                        color: Color32::from_black_alpha(110),
+                    })
+                    .show(ui, |ui| {
+                        ui.set_width(w - 36.0);
+                        egui::ScrollArea::vertical()
+                            .max_height((screen.height() - top - S3 - 36.0).max(160.0))
+                            .show(ui, |ui| self.details(ui));
+                    });
             });
     }
 
@@ -456,7 +462,10 @@ impl SpaceApp {
                 }
             });
         });
-        ui.label(RichText::new(&node.name).size(type_scale::TITLE).strong());
+        ui.add(
+            egui::Label::new(RichText::new(&node.name).size(type_scale::TITLE).strong()).truncate(),
+        )
+        .on_hover_text(&node.name);
         ui.add(
             egui::Label::new(
                 RichText::new(&path)
@@ -570,6 +579,7 @@ impl SpaceApp {
         let Some(tree) = self.tree.clone() else {
             return;
         };
+        self.map_controls(ui);
         let map = ui.available_rect_before_wrap();
         let fhash = self.filter.hash64();
         let review_sig = views::review_sig(&self.review);
@@ -623,8 +633,7 @@ impl SpaceApp {
             );
         }
         if self.scan.is_some() || self.busy {
-            ui.painter()
-                .rect_filled(map, 0.0, BG().gamma_multiply(0.6));
+            ui.painter().rect_filled(map, 0.0, BG().gamma_multiply(0.6));
             ui.painter().text(
                 map.center(),
                 egui::Align2::CENTER_CENTER,
@@ -634,7 +643,6 @@ impl SpaceApp {
             );
         }
 
-        self.map_controls(ctx, map);
         self.map_hint(ctx, map);
 
         if self.hovered != action.hover {
@@ -672,49 +680,56 @@ impl SpaceApp {
         }
     }
 
-    /// Map style and size accounting: secondary settings, floated over the map's corner.
-    fn map_controls(&mut self, ctx: &egui::Context, map: egui::Rect) {
-        egui::Area::new(egui::Id::new("map_controls"))
-            .order(egui::Order::Foreground)
-            .fixed_pos(map.min + egui::vec2(S3, S3))
-            .show(ctx, |ui| {
-                egui::Frame::new()
-                    .fill(PANEL().gamma_multiply(0.92))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                    .corner_radius(10)
-                    .inner_margin(egui::Margin::same(4))
-                    .show(ui, |ui| {
-                        ui.horizontal(|ui| {
-                            ui.spacing_mut().item_spacing.x = 4.0;
-                            let mut view = self.view;
-                            ui.menu_button(crate::tr!("Map: {}", t(self.view.label())), |ui| {
-                                for mode in ViewMode::ALL {
-                                    if ui.selectable_label(view == mode, t(mode.label())).clicked()
-                                    {
-                                        view = mode;
-                                        ui.close_menu();
-                                    }
-                                }
-                            });
-                            if view != self.view {
-                                self.set_view(view);
-                            }
-                            let cur = (self.size_mode == SizeMode::Apparent) as usize;
-                            if let Some(i) = segmented(ui, &["On disk", "Files"], cur) {
-                                let mode = if i == 1 {
-                                    SizeMode::Apparent
-                                } else {
-                                    SizeMode::OnDisk
-                                };
-                                if mode != self.size_mode {
-                                    self.size_mode = mode;
-                                    self.invalidate_largest();
-                                    self.schedule_largest();
-                                }
-                            }
-                        });
-                    });
+    /// Quiet workspace settings outside the map's interactive drawing area.
+    fn map_controls(&mut self, ui: &mut egui::Ui) {
+        ui.scope(|ui| {
+            let widgets = &mut ui.visuals_mut().widgets;
+            for visual in [
+                &mut widgets.inactive,
+                &mut widgets.hovered,
+                &mut widgets.active,
+            ] {
+                visual.bg_stroke = egui::Stroke::NONE;
+                visual.weak_bg_fill = Color32::TRANSPARENT;
+            }
+            ui.horizontal(|ui| {
+                let mut view = self.view;
+                ui.menu_button(caption(format!("{} ▾", t(self.view.label()))), |ui| {
+                    for mode in ViewMode::ALL {
+                        if ui.selectable_label(view == mode, t(mode.label())).clicked() {
+                            view = mode;
+                            ui.close_menu();
+                        }
+                    }
+                });
+                if view != self.view {
+                    self.set_view(view);
+                }
+                let mut size_mode = self.size_mode;
+                let size_label = t(if size_mode == SizeMode::OnDisk {
+                    "On disk"
+                } else {
+                    "File size"
+                });
+                ui.menu_button(caption(format!("{size_label} ▾")), |ui| {
+                    for (mode, label) in [
+                        (SizeMode::OnDisk, "On disk"),
+                        (SizeMode::Apparent, "File size"),
+                    ] {
+                        if ui.selectable_label(size_mode == mode, t(label)).clicked() {
+                            size_mode = mode;
+                            ui.close_menu();
+                        }
+                    }
+                });
+                if size_mode != self.size_mode {
+                    self.size_mode = size_mode;
+                    self.invalidate_largest();
+                    self.schedule_largest();
+                }
             });
+        });
+        ui.add_space(4.0);
     }
 
     /// One dismissible hint, bottom-centre.
@@ -748,7 +763,7 @@ impl SpaceApp {
                 egui::Frame::new()
                     .fill(PANEL().gamma_multiply(0.92))
                     .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                    .corner_radius(18)
+                    .corner_radius(crate::theme::metrics::RADIUS_CONTROL)
                     .inner_margin(egui::Margin::symmetric(S4 as i8, 4))
                     .show(ui, |ui| {
                         ui.horizontal(|ui| {
@@ -819,7 +834,11 @@ pub(super) fn tree_rows(
             return;
         }
         let n = tree.node(id);
-        let kids = if n.is_dir && !n.synthetic { tree.children(id) } else { &[] };
+        let kids = if n.is_dir && !n.synthetic {
+            tree.children(id)
+        } else {
+            &[]
+        };
         let open = !kids.is_empty() && expanded.contains(&id);
         out.push(TreeRow {
             id,
@@ -839,13 +858,21 @@ pub(super) fn tree_rows(
             for (i, k) in kids.into_iter().enumerate() {
                 let mut g = guides.clone();
                 g.push(i != last);
-                let c = if tree.node(k).synthetic { MUTED() } else { color };
+                let c = if tree.node(k).synthetic {
+                    MUTED()
+                } else {
+                    color
+                };
                 walk(tree, k, depth + 1, c, g, expanded, mode, parent_total, out);
             }
         }
     }
     for (i, &id) in top.iter().enumerate() {
-        let color = if tree.node(id).synthetic { MUTED() } else { colors[i] };
+        let color = if tree.node(id).synthetic {
+            MUTED()
+        } else {
+            colors[i]
+        };
         if flat {
             out.push(TreeRow {
                 id,
@@ -858,7 +885,17 @@ pub(super) fn tree_rows(
                 guides: Vec::new(),
             });
         } else {
-            walk(tree, id, 0, color, Vec::new(), expanded, mode, &parent_total, &mut out);
+            walk(
+                tree,
+                id,
+                0,
+                color,
+                Vec::new(),
+                expanded,
+                mode,
+                &parent_total,
+                &mut out,
+            );
         }
         if out.len() >= MAX_TREE_ROWS {
             break;
@@ -928,10 +965,17 @@ fn paint_tree_row(
     let chev = egui::Rect::from_center_size(egui::pos2(x0 + 8.0, cy), egui::vec2(16.0, 16.0));
     let mut chevron = false;
     if row.has_kids {
-        let hot = resp.hovered() && ui.input(|i| i.pointer.hover_pos()).is_some_and(|h| chev.expand(4.0).contains(h));
+        let hot = resp.hovered()
+            && ui
+                .input(|i| i.pointer.hover_pos())
+                .is_some_and(|h| chev.expand(4.0).contains(h));
         icons::paint(
             p,
-            if row.open { Icon::ChevronDown } else { Icon::ChevronRight },
+            if row.open {
+                Icon::ChevronDown
+            } else {
+                Icon::ChevronRight
+            },
             chev.shrink(2.0),
             if hot { TEXT() } else { MUTED() },
         );
@@ -950,29 +994,44 @@ fn paint_tree_row(
     let size_g = p.layout_no_wrap(
         crate::i18n::bytes(row.size),
         egui::FontId::monospace(type_scale::MONO),
-        if queued { ACCENT() } else if selected { TEXT() } else { MUTED() },
+        if queued {
+            ACCENT()
+        } else if selected {
+            TEXT()
+        } else {
+            MUTED()
+        },
     );
-    let size_x = rect.right() - pad - 72.0;
-    p.galley(egui::pos2(rect.right() - pad - size_g.size().x, cy - size_g.size().y / 2.0), size_g, MUTED());
+    let size_x = rect.right() - pad - size_g.size().x;
+    p.galley(
+        egui::pos2(size_x, cy - size_g.size().y / 2.0),
+        size_g,
+        MUTED(),
+    );
     if queued {
         p.circle_filled(egui::pos2(rect.right() - 7.0, cy), 3.0, ACCENT());
     }
 
-    // Share of parent: a mini bar plus percent.
-    let bar_w = 40.0;
-    let bar_x = size_x - 8.0 - 32.0 - bar_w;
+    // Reserve the measured widths of both numbers, including 100% and TiB sizes.
+    let pct = (row.share * 100.0).round().clamp(0.0, 100.0) as u32;
+    let pct_g = p.layout_no_wrap(
+        if pct == 0 {
+            "<1%".into()
+        } else {
+            format!("{pct}%")
+        },
+        egui::FontId::monospace(type_scale::MONO - 1.0),
+        MUTED(),
+    );
+    let pct_x = size_x - 10.0 - pct_g.size().x;
+    let bar_w = 28.0;
+    let bar_x = pct_x - 8.0 - bar_w;
     let track = egui::Rect::from_min_size(egui::pos2(bar_x, cy - 2.0), egui::vec2(bar_w, 4.0));
     p.rect_filled(track, 2.0, BORDER());
     let mut fill = track;
     fill.set_width(bar_w * row.share.clamp(0.0, 1.0));
     p.rect_filled(fill, 2.0, row.color);
-    let pct = (row.share * 100.0).round().clamp(0.0, 100.0) as u32;
-    let pct_g = p.layout_no_wrap(
-        if pct == 0 { "<1%".into() } else { format!("{pct}%") },
-        egui::FontId::monospace(type_scale::MONO - 1.0),
-        MUTED(),
-    );
-    p.galley(egui::pos2(bar_x + bar_w + 6.0, cy - pct_g.size().y / 2.0), pct_g, MUTED());
+    p.galley(egui::pos2(pct_x, cy - pct_g.size().y / 2.0), pct_g, MUTED());
 
     let name_x = x0 + 36.0;
     let name_w = (bar_x - 10.0 - name_x).max(20.0);
@@ -983,7 +1042,11 @@ fn paint_tree_row(
     );
     job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
     let g = p.layout_job(job);
-    p.galley(egui::pos2(name_x, cy - g.size().y / 2.0), g, TEXT());
+    p.with_clip_rect(egui::Rect::from_min_max(
+        rect.min,
+        egui::pos2((bar_x - 10.0).max(rect.left()), rect.bottom()),
+    ))
+    .galley(egui::pos2(name_x, cy - g.size().y / 2.0), g, TEXT());
     RowOutcome { chevron }
 }
 
@@ -1015,11 +1078,15 @@ impl SpaceApp {
         right: bool,
         space: bool,
     ) -> bool {
-        let Some(tree) = self.tree.clone() else { return false };
+        let Some(tree) = self.tree.clone() else {
+            return false;
+        };
         if self.tree_rows.is_empty() || !(up || down || left || right || space) {
             return false;
         }
-        let pos = self.selected.and_then(|s| self.tree_rows.iter().position(|&r| r == s));
+        let pos = self
+            .selected
+            .and_then(|s| self.tree_rows.iter().position(|&r| r == s));
         let Some(i) = pos else {
             if up || down {
                 self.selected = self.tree_rows.first().copied();

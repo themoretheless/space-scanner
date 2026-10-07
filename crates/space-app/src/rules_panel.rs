@@ -168,7 +168,7 @@ pub fn draw(
     let summary = state.summary(mgr);
     let stats = &summary.stats;
 
-    ui.horizontal(|ui| {
+    ui.horizontal_wrapped(|ui| {
         ui.label(
             RichText::new(crate::tr!(
                 "{} of {} rules on · {} off",
@@ -231,7 +231,7 @@ pub fn draw(
     }
 
     ui.add_space(6.0);
-    ui.horizontal(|ui| {
+    ui.horizontal_wrapped(|ui| {
         ui.label(RichText::new(t("Search")).color(MUTED()));
         let resp = ui.add(
             egui::TextEdit::singleline(&mut state.query)
@@ -270,7 +270,7 @@ pub fn draw(
     let page = state.page(mgr, filter);
     let rows = &page.rows;
 
-    let avail_h = (ui.available_height() - 64.0).max(240.0);
+    let avail_h = (ui.available_height() - 64.0).max(160.0);
     ui.horizontal_top(|ui| {
         // Left: categories (with a switch each), then the other ways to slice.
         ui.allocate_ui_with_layout(
@@ -278,7 +278,15 @@ pub fn draw(
             Layout::top_down(Align::Min),
             |ui| {
                 ui.set_width(250.0);
-                ui.horizontal(|ui| {
+                egui::ComboBox::from_id_salt("rule_filter_dimension")
+                    .width(230.0)
+                    .selected_text(t(match state.side_tab {
+                        SideTab::Categories => "Categories",
+                        SideTab::Kinds => "Types",
+                        SideTab::Danger => "Caution",
+                        SideTab::Tags => "Tags",
+                    }))
+                    .show_ui(ui, |ui| {
                     for (label, tab) in [
                         ("Categories", SideTab::Categories),
                         ("Types", SideTab::Kinds),
@@ -433,12 +441,12 @@ pub fn draw(
     });
 
     ui.add_space(8.0);
-    ui.horizontal(|ui| {
-        if ui.button(t("Close")).clicked() {
+    ui.horizontal_wrapped(|ui| {
+        if ui.add(widgets::secondary("Close")).clicked() {
             action = RulesAction::Close;
         }
         if state.dirty && state.error.is_none() {
-            ui.label(RichText::new(t("Saved")).size(11.0).color(MUTED()));
+            ui.label(RichText::new(t("Saved")).size(theme::type_scale::CAPTION).color(MUTED()));
         }
         ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
             ui.label(widgets::caption("Lock: listed only — never removed automatically. Open it in Disk usage to remove by hand."));
@@ -455,16 +463,19 @@ fn draw_rule_row(
     row: &RuleRow,
     action: &mut RulesAction,
 ) {
-    let dense = theme::skin() == theme::Skin::Table;
     let locked = row.report_only;
     let frame = egui::Frame::new()
-        .fill(if locked { theme::BG() } else { egui::Color32::TRANSPARENT })
-        .inner_margin(egui::Margin::symmetric(14, if dense { 6 } else { 10 }));
+        .fill(if locked {
+            theme::BG()
+        } else {
+            egui::Color32::TRANSPARENT
+        })
+        .inner_margin(egui::Margin::symmetric(10, 8));
     let resp = frame
         .show(ui, |ui| {
             ui.set_width(ui.available_width());
-            ui.horizontal(|ui| {
-                ui.spacing_mut().item_spacing.x = 12.0;
+            ui.horizontal_top(|ui| {
+                ui.spacing_mut().item_spacing.x = 10.0;
                 // On/off switch, or a lock for list-only rules: those are
                 // shown but never removed automatically, whatever the switch.
                 let (slot, _) = ui.allocate_exact_size(egui::vec2(38.0, 22.0), egui::Sense::hover());
@@ -489,27 +500,45 @@ fn draw_rule_row(
                 }
 
                 let color = if row.effectively_enabled || locked { TEXT() } else { MUTED() };
-                let text_w = (ui.available_width() - 330.0).max(160.0);
+                let action_w = widgets::text_width(
+                    ui,
+                    t(if locked { "Remove manually…" } else { "Reset" }),
+                    egui::FontId::proportional(theme::type_scale::BODY),
+                ) + 24.0;
+                let text_w = (ui.available_width() - action_w - 10.0).max(80.0);
                 ui.vertical(|ui| {
                     ui.set_width(text_w);
                     ui.spacing_mut().item_spacing.y = 2.0;
-                    ui.horizontal(|ui| {
-                        ui.label(RichText::new(&row.name).size(14.0).strong().color(color));
-                        if row.overridden {
-                            ui.label(RichText::new(t("changed by you")).size(11.0).color(ACCENT()));
-                        }
-                    });
+                    ui.add(egui::Label::new(RichText::new(&row.name).size(14.0).strong().color(color)).truncate())
+                        .on_hover_text(&row.name);
                     if !row.description.is_empty() {
-                        ui.add(egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED())).wrap());
+                        ui.add(egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED())).truncate()).on_hover_text(&row.description);
                     }
                     if let Some(p) = row.paths.first() {
                         let more = if row.paths.len() > 1 { crate::tr!("  +{} more", row.paths.len() - 1) } else { String::new() };
                         ui.add(
-                            egui::Label::new(RichText::new(format!("{p}{more}")).size(11.0).monospace().color(MUTED()))
+                            egui::Label::new(RichText::new(format!("{p}{more}")).size(theme::type_scale::CAPTION).monospace().color(MUTED()))
                                 .truncate(),
                         )
                         .on_hover_text(row.paths.join("\n"));
                     }
+                    ui.horizontal_wrapped(|ui| {
+                        let (label, color) = if locked {
+                            ("Manual removal", MUTED())
+                        } else {
+                            match row.danger.as_str() {
+                                "dangerous" => ("Careful", DANGER()),
+                                "caution" => ("Check", ACCENT()),
+                                _ => ("Safe", theme::SAFE()),
+                            }
+                        };
+                        ui.label(widgets::caption(label).color(color));
+                        ui.label(widgets::caption(rule_action(row)));
+                        if row.overridden {
+                            ui.label(widgets::caption("changed by you").color(ACCENT()));
+                        }
+                    });
+
                 });
 
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
@@ -525,7 +554,7 @@ fn draw_rule_row(
                         }
                     } else if row.overridden
                         && ui
-                            .small_button(t("Reset"))
+                            .add(widgets::secondary("Reset"))
                             .on_hover_text(t("Use the default for this rule"))
                             .clicked()
                     {
@@ -534,21 +563,7 @@ fn draw_rule_row(
                         state.error = save(mgr);
                         *action = RulesAction::PrefsChanged;
                     }
-                    let (label, c) = if locked {
-                        ("Manual removal", MUTED())
-                    } else {
-                        match row.danger.as_str() {
-                            "dangerous" => ("Careful", DANGER()),
-                            "caution" => ("Check", ACCENT()),
-                            _ => ("Safe", theme::SAFE()),
-                        }
-                    };
-                    egui::Frame::new()
-                        .stroke(egui::Stroke::new(1.0_f32, c.gamma_multiply(0.6)))
-                        .corner_radius(if dense { 3 } else { 10 })
-                        .inner_margin(egui::Margin::symmetric(8, 2))
-                        .show(ui, |ui| ui.label(RichText::new(t(label)).size(11.0).color(c)));
-                    ui.label(RichText::new(t(rule_action(row))).size(12.0).color(MUTED()));
+
                 });
             });
         })
@@ -569,7 +584,11 @@ fn draw_rule_row(
         ui.label(crate::tr!(
             "skip if newer than {} days · default {}",
             row.min_age_days,
-            if row.default_enabled { t("on") } else { t("off") }
+            if row.default_enabled {
+                t("on")
+            } else {
+                t("off")
+            }
         ));
     });
 }
@@ -578,7 +597,11 @@ fn draw_rule_row(
 fn rule_action(row: &RuleRow) -> &'static str {
     if row.report_only {
         "Automatic cleaning disabled"
-    } else if row.details.iter().any(|d| d.contains("preserving the configured root")) {
+    } else if row
+        .details
+        .iter()
+        .any(|d| d.contains("preserving the configured root"))
+    {
         "Empties the folder"
     } else {
         "Moves to Trash"
@@ -587,27 +610,51 @@ fn rule_action(row: &RuleRow) -> &'static str {
 
 /// A list row in the left column: label, optional on/off switch.
 /// Returns (row clicked, switch clicked).
-fn side_row(ui: &mut egui::Ui, selected: bool, label: &str, switch: Option<(usize, usize)>) -> (bool, bool) {
-    let (rect, resp) = ui.allocate_exact_size(egui::vec2(ui.available_width(), 32.0), egui::Sense::click());
+fn side_row(
+    ui: &mut egui::Ui,
+    selected: bool,
+    label: &str,
+    switch: Option<(usize, usize)>,
+) -> (bool, bool) {
+    let (rect, resp) =
+        ui.allocate_exact_size(egui::vec2(ui.available_width(), 32.0), egui::Sense::click());
     let p = ui.painter();
     if selected {
         p.rect_filled(rect, 6.0, theme::PANEL_2());
     } else if resp.hovered() {
         p.rect_filled(rect, 6.0, theme::PANEL_2().gamma_multiply(0.5));
     }
-    let right = if switch.is_some() { rect.right() - 48.0 } else { rect.right() - 8.0 };
+    let right = if switch.is_some() {
+        rect.right() - 48.0
+    } else {
+        rect.right() - 8.0
+    };
     let mut job = egui::text::LayoutJob::simple_singleline(
         label.to_owned(),
         egui::FontId::proportional(13.0),
-        if switch.is_some_and(|(enabled, _)| enabled == 0) { MUTED() } else { TEXT() },
+        if switch.is_some_and(|(enabled, _)| enabled == 0) {
+            MUTED()
+        } else {
+            TEXT()
+        },
     );
     job.wrap = egui::text::TextWrapping::truncate_at_width(right - rect.left() - 18.0);
     let g = p.layout_job(job);
-    p.galley(egui::pos2(rect.left() + 10.0, rect.center().y - g.size().y / 2.0), g, TEXT());
+    p.galley(
+        egui::pos2(rect.left() + 10.0, rect.center().y - g.size().y / 2.0),
+        g,
+        TEXT(),
+    );
     let mut flip = false;
     if let Some((enabled, total)) = switch {
-        let slot = egui::Rect::from_center_size(egui::pos2(rect.right() - 26.0, rect.center().y), egui::vec2(34.0, 20.0));
-        let hot = resp.hovered() && ui.input(|i| i.pointer.hover_pos()).is_some_and(|h| slot.contains(h));
+        let slot = egui::Rect::from_center_size(
+            egui::pos2(rect.right() - 26.0, rect.center().y),
+            egui::vec2(34.0, 20.0),
+        );
+        let hot = resp.hovered()
+            && ui
+                .input(|i| i.pointer.hover_pos())
+                .is_some_and(|h| slot.contains(h));
         let partial = enabled > 0 && enabled < total;
         paint_switch(ui, slot, enabled == total, hot);
         if partial {
@@ -621,7 +668,10 @@ fn side_row(ui: &mut egui::Ui, selected: bool, label: &str, switch: Option<(usiz
         } else {
             t("Enabled. Individual exceptions stay unchanged.").to_owned()
         });
-        flip = resp.clicked() && ui.input(|i| i.pointer.interact_pos()).is_some_and(|h| slot.expand(4.0).contains(h));
+        flip = resp.clicked()
+            && ui
+                .input(|i| i.pointer.interact_pos())
+                .is_some_and(|h| slot.expand(4.0).contains(h));
     }
     (resp.clicked() && !flip, flip)
 }
@@ -634,8 +684,16 @@ fn paint_switch(ui: &egui::Ui, slot: egui::Rect, on: bool, hot: bool) {
         track = track.gamma_multiply(0.85);
     }
     p.rect_filled(slot, r, track);
-    let x = if on { slot.right() - r } else { slot.left() + r };
-    p.circle_filled(egui::pos2(x, slot.center().y), r - 2.0, egui::Color32::WHITE);
+    let x = if on {
+        slot.right() - r
+    } else {
+        slot.left() + r
+    };
+    p.circle_filled(
+        egui::pos2(x, slot.center().y),
+        r - 2.0,
+        egui::Color32::WHITE,
+    );
 }
 
 fn build_filter(state: &RulesPanelState) -> RuleFilter {

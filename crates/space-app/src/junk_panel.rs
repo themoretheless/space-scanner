@@ -300,7 +300,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     let mut action = JunkAction::None;
 
     // One header row: what this is on the left, the two actions on the right.
-    ui.horizontal(|ui| {
+    ui.vertical(|ui| {
         ui.vertical(|ui| {
             let (note, total) = match state.report.as_ref() {
                 _ if state.loading => ("Looking through caches, logs and temp…".to_string(), None),
@@ -342,7 +342,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 }
             });
         });
-        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+        ui.horizontal_wrapped(|ui| {
             if ui
                 .add(widgets::secondary("Rules…"))
                 .on_hover_text(t("Turn individual rules on or off"))
@@ -511,7 +511,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     };
 
     // Risk filter chips, with counts per group.
-    ui.horizontal(|ui| {
+    ui.horizontal_wrapped(|ui| {
         for (f, label) in [
             (RiskFilter::All, "All"),
             (RiskFilter::Safe, "Safe"),
@@ -530,13 +530,17 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 } else {
                     MUTED()
                 }))
-                .fill(if on { TEXT() } else { egui::Color32::TRANSPARENT })
+                .fill(if on {
+                    TEXT()
+                } else {
+                    egui::Color32::TRANSPARENT
+                })
                 .stroke(if on {
                     egui::Stroke::NONE
                 } else {
                     egui::Stroke::new(1.0_f32, theme::BORDER())
                 })
-                .corner_radius(14);
+                .corner_radius(theme::metrics::RADIUS_CONTROL);
             if ui.add(chip).clicked() {
                 state.risk_filter = f;
             }
@@ -566,9 +570,8 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
 
     let findings = &report.scan.findings;
     // Density follows the skin: Table is a tight grid, the others breathe.
-    let skin = theme::skin();
-    let row_h = if skin == theme::Skin::Table { 34.0 } else { 46.0 };
-    let radius: u8 = if skin == theme::Skin::Table { 4 } else { 14 };
+    let row_h = 46.0;
+    let radius: u8 = 6;
     egui::Frame::new()
         .fill(theme::PANEL())
         .stroke(egui::Stroke::new(1.0_f32, theme::BORDER()))
@@ -586,10 +589,15 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 (cols.risk, t("RISK"), false),
                 (cols.size_r, t("SIZE"), true),
             ] {
-                let g = ui.painter().layout_no_wrap(label.to_string(), f.clone(), MUTED());
+                let g = ui
+                    .painter()
+                    .layout_no_wrap(label.to_string(), f.clone(), MUTED());
                 let px = if right { x - g.size().x } else { x };
-                ui.painter()
-                    .galley(egui::pos2(px, head.center().y - g.size().y / 2.0), g, MUTED());
+                ui.painter().galley(
+                    egui::pos2(px, head.center().y - g.size().y / 2.0),
+                    g,
+                    MUTED(),
+                );
             }
 
             egui::ScrollArea::vertical()
@@ -632,9 +640,19 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                         if cat.cleanable > 0 {
                             if all {
                                 p.rect_filled(cb, 4.0, ACCENT());
-                                crate::icons::paint(p, crate::icons::Icon::Check, cb.shrink(2.5), theme::ACCENT_INK());
+                                crate::icons::paint(
+                                    p,
+                                    crate::icons::Icon::Check,
+                                    cb.shrink(2.5),
+                                    theme::ACCENT_INK(),
+                                );
                             } else {
-                                p.rect_stroke(cb, 4.0, egui::Stroke::new(1.5_f32, MUTED()), egui::StrokeKind::Inside);
+                                p.rect_stroke(
+                                    cb,
+                                    4.0,
+                                    egui::Stroke::new(1.5_f32, MUTED()),
+                                    egui::StrokeKind::Inside,
+                                );
                                 if picked > 0 {
                                     p.rect_filled(cb.shrink(4.5), 1.0, ACCENT());
                                 }
@@ -642,17 +660,27 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                         }
                         crate::icons::paint(
                             p,
-                            if open { crate::icons::Icon::ChevronDown } else { crate::icons::Icon::ChevronRight },
-                            egui::Rect::from_center_size(egui::pos2(cols.name - 12.0, cy), egui::vec2(12.0, 12.0)),
+                            if open {
+                                crate::icons::Icon::ChevronDown
+                            } else {
+                                crate::icons::Icon::ChevronRight
+                            },
+                            egui::Rect::from_center_size(
+                                egui::pos2(cols.name - 12.0, cy),
+                                egui::vec2(12.0, 12.0),
+                            ),
                             MUTED(),
                         );
 
                         let (label, color, hint) = badge(cat.cleanable > 0, cat.risk);
-                        let title_g = p.layout_no_wrap(
+                        let title_w = (cols.source - cols.name - 12.0).max(20.0);
+                        let mut title_job = egui::text::LayoutJob::simple_singleline(
                             t(&cat_title(&cat.name)).to_owned(),
-                            egui::FontId::proportional(type_scale::BODY + 1.0),
+                            egui::FontId::proportional(type_scale::BODY),
                             TEXT(),
                         );
+                        title_job.wrap = egui::text::TextWrapping::truncate_at_width(title_w);
+                        let title_g = p.layout_job(title_job);
                         let mut sub = crate::tr!("{} removable", cat.cleanable);
                         if picked > 0 && picked < cat.cleanable {
                             sub.push_str(&crate::tr!(" · {} selected", picked));
@@ -660,27 +688,34 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                         if cat.report_only > 0 {
                             sub.push_str(&crate::tr!(" · {} listed only", cat.report_only));
                         }
-                        let tw = title_g.size().x;
-                        p.galley(egui::pos2(cols.name, cy - title_g.size().y / 2.0), title_g, TEXT());
+                        p.galley(egui::pos2(cols.name, rect.top() + 5.0), title_g, TEXT());
                         let mut job = egui::text::LayoutJob::simple_singleline(
                             sub,
                             egui::FontId::proportional(type_scale::CAPTION),
                             MUTED(),
                         );
-                        job.wrap = egui::text::TextWrapping::truncate_at_width(
-                            (cols.source - 12.0 - (cols.name + tw + 10.0)).max(10.0),
-                        );
+                        job.wrap = egui::text::TextWrapping::truncate_at_width(title_w);
                         let sub_g = p.layout_job(job);
-                        p.galley(egui::pos2(cols.name + tw + 10.0, cy - sub_g.size().y / 2.0), sub_g, MUTED());
+                        p.galley(
+                            egui::pos2(cols.name, rect.bottom() - sub_g.size().y - 5.0),
+                            sub_g,
+                            MUTED(),
+                        );
 
                         let mut job = egui::text::LayoutJob::simple_singleline(
                             sources(cat, findings),
                             egui::FontId::proportional(type_scale::CAPTION + 1.0),
                             MUTED(),
                         );
-                        job.wrap = egui::text::TextWrapping::truncate_at_width(cols.risk - cols.source - 12.0);
+                        job.wrap = egui::text::TextWrapping::truncate_at_width(
+                            cols.risk - cols.source - 12.0,
+                        );
                         let src_g = p.layout_job(job);
-                        p.galley(egui::pos2(cols.source, cy - src_g.size().y / 2.0), src_g, MUTED());
+                        p.galley(
+                            egui::pos2(cols.source, cy - src_g.size().y / 2.0),
+                            src_g,
+                            MUTED(),
+                        );
 
                         let risk_g = p.layout_no_wrap(
                             t(label).to_owned(),
@@ -691,17 +726,25 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                             egui::pos2(cols.risk, cy - 10.0),
                             egui::vec2(risk_g.size().x + 16.0, 20.0),
                         );
-                        p.rect_stroke(pill, if skin == theme::Skin::Table { 3.0 } else { 10.0 }, egui::Stroke::new(1.0_f32, color.gamma_multiply(0.6)), egui::StrokeKind::Inside);
-                        p.galley(egui::pos2(pill.left() + 8.0, cy - risk_g.size().y / 2.0), risk_g, color);
+                        p.galley(
+                            egui::pos2(pill.left() + 8.0, cy - risk_g.size().y / 2.0),
+                            risk_g,
+                            color,
+                        );
 
                         let size_g = p.layout_no_wrap(
                             crate::i18n::bytes(cat.bytes),
                             egui::FontId::monospace(type_scale::MONO + 1.0),
                             TEXT(),
                         );
-                        p.galley(egui::pos2(cols.size_r - size_g.size().x, cy - size_g.size().y / 2.0), size_g, TEXT());
+                        p.galley(
+                            egui::pos2(cols.size_r - size_g.size().x, cy - size_g.size().y / 2.0),
+                            size_g,
+                            TEXT(),
+                        );
 
-                        let resp = resp.on_hover_text(t(if open { "Hide items" } else { "Show items" }));
+                        let resp =
+                            resp.on_hover_text(t(if open { "Hide items" } else { "Show items" }));
                         if resp.clicked() {
                             let on_cb = ui
                                 .input(|i| i.pointer.interact_pos())
@@ -709,13 +752,19 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                             if on_cb && cat.cleanable > 0 {
                                 state.selection.set_category(cat, findings, !all);
                             } else {
-                                state.expanded_cat = if open { None } else { Some(cat.name.clone()) };
+                                state.expanded_cat =
+                                    if open { None } else { Some(cat.name.clone()) };
                             }
                         }
                         if open {
                             egui::Frame::new()
                                 .fill(theme::BG())
-                                .inner_margin(egui::Margin { left: 52, right: 16, top: 8, bottom: 10 })
+                                .inner_margin(egui::Margin {
+                                    left: 52,
+                                    right: 16,
+                                    top: 8,
+                                    bottom: 10,
+                                })
                                 .show(ui, |ui| {
                                     ui.set_width(ui.available_width());
                                     ui.label(widgets::caption(t(hint).to_owned()));
@@ -744,7 +793,13 @@ impl CatCols {
         let size_r = r.right() - 18.0;
         let risk = size_r - 100.0 - 120.0;
         let source = (risk - 170.0).max(r.left() + 260.0);
-        Self { left: r.left() + 16.0, name: r.left() + 62.0, source, risk, size_r }
+        Self {
+            left: r.left() + 16.0,
+            name: r.left() + 62.0,
+            source,
+            risk,
+            size_r,
+        }
     }
 }
 

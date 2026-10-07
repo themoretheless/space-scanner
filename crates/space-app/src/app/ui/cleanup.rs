@@ -28,12 +28,12 @@ impl SpaceApp {
                 )
                 .show(ctx, |ui| self.selection_summary(ui));
         }
-        let margin = if d == Density::Narrow { S3 } else { 32.0 };
+        let margin = if d == Density::Narrow { S3 } else { S4 };
         egui::CentralPanel::default()
             .frame(egui::Frame::new().fill(BG()).inner_margin(egui::Margin {
                 left: margin as i8,
                 right: margin as i8,
-                top: 24,
+                top: 16,
                 bottom: 12,
             }))
             .show(ctx, |ui| {

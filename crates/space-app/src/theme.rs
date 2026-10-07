@@ -110,30 +110,52 @@ fn pal() -> &'static Palette {
 
 // Palette accessors keep the old constant names so call sites read the same.
 #[allow(non_snake_case)]
-pub fn BG() -> Color32 { pal().bg }
+pub fn BG() -> Color32 {
+    pal().bg
+}
 #[allow(non_snake_case)]
-pub fn PANEL() -> Color32 { pal().panel }
+pub fn PANEL() -> Color32 {
+    pal().panel
+}
 #[allow(non_snake_case)]
-pub fn PANEL_2() -> Color32 { pal().panel_2 }
+pub fn PANEL_2() -> Color32 {
+    pal().panel_2
+}
 #[allow(non_snake_case)]
-pub fn BORDER() -> Color32 { pal().border }
+pub fn BORDER() -> Color32 {
+    pal().border
+}
 #[allow(non_snake_case)]
-pub fn TEXT() -> Color32 { pal().text }
+pub fn TEXT() -> Color32 {
+    pal().text
+}
 /// Secondary text.
 #[allow(non_snake_case)]
-pub fn MUTED() -> Color32 { pal().muted }
+pub fn MUTED() -> Color32 {
+    pal().muted
+}
 #[allow(non_snake_case)]
-pub fn ACCENT() -> Color32 { pal().accent }
+pub fn ACCENT() -> Color32 {
+    pal().accent
+}
 /// Text on ACCENT() fills.
 #[allow(non_snake_case)]
-pub fn ACCENT_INK() -> Color32 { pal().accent_ink }
+pub fn ACCENT_INK() -> Color32 {
+    pal().accent_ink
+}
 /// "Safe to remove" signal.
 #[allow(non_snake_case)]
-pub fn SAFE() -> Color32 { pal().safe }
+pub fn SAFE() -> Color32 {
+    pal().safe
+}
 #[allow(non_snake_case)]
-pub fn DIR() -> Color32 { pal().dir }
+pub fn DIR() -> Color32 {
+    pal().dir
+}
 #[allow(non_snake_case)]
-pub fn DANGER() -> Color32 { pal().danger }
+pub fn DANGER() -> Color32 {
+    pal().danger
+}
 
 /// Type scale (px). Captions are the smallest text in the app.
 pub mod type_scale {
@@ -141,8 +163,8 @@ pub mod type_scale {
     pub const MONO: f32 = 13.0;
     pub const BODY: f32 = 14.0;
     pub const LEAD: f32 = 16.0;
-    pub const TITLE: f32 = 22.0;
-    pub const DISPLAY: f32 = 30.0;
+    pub const TITLE: f32 = 18.0;
+    pub const DISPLAY: f32 = 22.0;
 }
 
 /// Spacing and shape scale (px).
@@ -151,10 +173,9 @@ pub mod metrics {
     pub const S3: f32 = 12.0;
     pub const S4: f32 = 16.0;
     pub const S6: f32 = 24.0;
-    pub const S8: f32 = 32.0;
     pub const APP_BAR_H: f32 = 52.0;
-    pub const CONTROL_H: f32 = 36.0;
-    pub const RADIUS_CONTROL: u8 = 8;
+    pub const CONTROL_H: f32 = 30.0;
+    pub const RADIUS_CONTROL: u8 = 5;
     pub const SIDE_W: f32 = 300.0;
     pub const TREE_W: f32 = 400.0;
     pub const TREE_ROW_H: f32 = 30.0;
@@ -170,12 +191,19 @@ pub fn apply(ctx: &egui::Context, skin: Skin) {
 
 /// Switch the palette at runtime; every frame reads it, so nothing restarts.
 pub fn set_skin(ctx: &egui::Context, skin: Skin) {
-    SKIN.store(Skin::ALL.iter().position(|&s| s == skin).unwrap_or(0) as u8, Ordering::Relaxed);
+    SKIN.store(
+        Skin::ALL.iter().position(|&s| s == skin).unwrap_or(0) as u8,
+        Ordering::Relaxed,
+    );
     let p = pal();
     let hover = p.panel_2.lerp_to_gamma(p.border, 0.5);
     let active = p.border;
     let control_stroke = p.border.lerp_to_gamma(p.muted, 0.35);
-    let mut visuals = if p.dark { Visuals::dark() } else { Visuals::light() };
+    let mut visuals = if p.dark {
+        Visuals::dark()
+    } else {
+        Visuals::light()
+    };
     visuals.window_fill = PANEL();
     visuals.panel_fill = BG();
     visuals.extreme_bg_color = PANEL_2();
@@ -195,18 +223,18 @@ pub fn set_skin(ctx: &egui::Context, skin: Skin) {
     visuals.widgets.hovered.weak_bg_fill = hover;
     visuals.window_stroke = Stroke::new(1.0_f32, BORDER());
     visuals.window_corner_radius = CornerRadius::same(10);
-    visuals.menu_corner_radius = CornerRadius::same(8);
+    visuals.menu_corner_radius = CornerRadius::same(5);
     visuals.widgets.noninteractive.corner_radius = CornerRadius::same(6);
-    visuals.widgets.inactive.corner_radius = CornerRadius::same(8);
-    visuals.widgets.hovered.corner_radius = CornerRadius::same(8);
-    visuals.widgets.active.corner_radius = CornerRadius::same(8);
+    visuals.widgets.inactive.corner_radius = CornerRadius::same(5);
+    visuals.widgets.hovered.corner_radius = CornerRadius::same(5);
+    visuals.widgets.active.corner_radius = CornerRadius::same(5);
     ctx.set_visuals(visuals);
 }
 
 fn base_style(ctx: &egui::Context) {
     let mut style = (*ctx.style()).clone();
     style.spacing.item_spacing = egui::vec2(8.0, 6.0);
-    style.spacing.button_padding = egui::vec2(12.0, 6.0);
+    style.spacing.button_padding = egui::vec2(10.0, 5.0);
     style.spacing.window_margin = Margin::same(14);
     style.spacing.indent = 12.0;
     style.interaction.show_tooltips_only_when_still = false;

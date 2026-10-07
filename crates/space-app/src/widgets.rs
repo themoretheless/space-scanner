@@ -6,7 +6,7 @@ use eframe::egui::{self, Color32, RichText, Sense, Ui};
 use crate::i18n::t;
 use crate::theme::metrics::{CONTROL_H, RADIUS_CONTROL, S3, S4};
 use crate::theme::type_scale;
-use crate::theme::{ACCENT, ACCENT_INK, BORDER, MUTED, PANEL, PANEL_2, TEXT};
+use crate::theme::{ACCENT, ACCENT_INK, BORDER, MUTED, PANEL_2, TEXT};
 
 /// Width of `text` in `font`, for fitting breadcrumbs and labels without wrapping.
 pub fn text_width(ui: &Ui, text: &str, font: egui::FontId) -> f32 {
@@ -68,38 +68,29 @@ pub fn chip(ui: &mut Ui, on: bool, label: &str) -> egui::Response {
         } else {
             egui::Stroke::new(1.0_f32, BORDER())
         })
-        .corner_radius(14)
+        .corner_radius(RADIUS_CONTROL)
         .min_size(egui::vec2(0.0, 28.0)),
     )
 }
 
-/// Mutually exclusive choices in one outlined group. Returns the picked index.
+/// Flat mutually exclusive choices; only the current choice has a background.
 pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> {
     let mut picked = None;
-    egui::Frame::new()
-        .fill(PANEL())
-        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-        .corner_radius(9)
-        .inner_margin(egui::Margin::same(3))
-        .show(ui, |ui| {
-            ui.spacing_mut().item_spacing.x = 2.0;
-            ui.horizontal(|ui| {
-                for (i, label) in labels.iter().enumerate() {
-                    let on = i == current;
-                    let button = egui::Button::new(RichText::new(t(label)).color(if on {
-                        TEXT()
-                    } else {
-                        MUTED()
-                    }))
+    ui.horizontal(|ui| {
+        ui.spacing_mut().item_spacing.x = 2.0;
+        for (i, label) in labels.iter().enumerate() {
+            let on = i == current;
+            let button =
+                egui::Button::new(RichText::new(t(label)).color(if on { TEXT() } else { MUTED() }))
                     .fill(if on { PANEL_2() } else { Color32::TRANSPARENT })
-                    .corner_radius(7)
+                    .stroke(egui::Stroke::NONE)
+                    .corner_radius(RADIUS_CONTROL)
                     .min_size(egui::vec2(0.0, 28.0));
-                    if ui.add(button).clicked() {
-                        picked = Some(i);
-                    }
-                }
-            });
-        });
+            if ui.add(button).clicked() {
+                picked = Some(i);
+            }
+        }
+    });
     picked
 }
 

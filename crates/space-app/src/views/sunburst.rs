@@ -237,14 +237,24 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     painter.galley(
         center + Vec2::new(-title.size().x * 0.5, -10.0 - title.size().y * 0.5),
         title,
-        Color32::from_rgba_unmultiplied(TEXT().r(), TEXT().g(), TEXT().b(), (label_a * 255.0) as u8),
+        Color32::from_rgba_unmultiplied(
+            TEXT().r(),
+            TEXT().g(),
+            TEXT().b(),
+            (label_a * 255.0) as u8,
+        ),
     );
     painter.text(
         center + Vec2::new(0.0, 10.0),
         Align2::CENTER_CENTER,
         crate::i18n::bytes(focus_node.size(ctx.mode)),
         FontId::proportional(12.0),
-        Color32::from_rgba_unmultiplied(MUTED().r(), MUTED().g(), MUTED().b(), (label_a * 220.0) as u8),
+        Color32::from_rgba_unmultiplied(
+            MUTED().r(),
+            MUTED().g(),
+            MUTED().b(),
+            (label_a * 220.0) as u8,
+        ),
     );
     if focus_node.parent.is_some() {
         painter.text(
@@ -291,9 +301,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             super::double_click_map_node(tree, id, &mut action);
         }
     }
-    if let Some(id) = hover_id {
-        super::node_context_menu(&response, tree, id, ctx.review.contains(&id), &mut action);
-    }
+    super::hovered_node_context_menu(&response, tree, hover_id, ctx.review, &mut action);
 
     action.hover = hover_id;
     if let Some(id) = hover_id {

@@ -23,15 +23,15 @@ Review is a separate destination. It preserves selections while switching betwee
 
 ## Layout and input
 
-Global chrome is one 52-point row that never wraps: brand, the three destinations (Scan, Disk usage, Cleanup), location and search while exploring, scan progress, the Review entry once something is selected, and a More menu. Below 900 points the location and search move to a sub-bar and the pane becomes List or Map.
+Global navigation is one 52-point row: brand, the three destinations (Scan, Disk usage, Cleanup), the Review entry once something is selected, and a More menu. Location and search always use a separate 48-point workspace toolbar. Scan progress uses its own row. Below 900 points the Map workspace becomes List or Map. All workspace styles retain the selected-item actions at narrow widths through a scrollable drawer.
 
 Width classes (`app/ui/mod.rs`):
 
-- wide, 1180 points and up: size-ranked contents (300) beside the map, details in a right panel only when an item is selected;
+- wide, 1180 points and up: size-ranked contents (400; 320 at medium widths) beside the map, details in a right panel only when an item is selected;
 - medium, 900 to 1180: contents beside the map, details as a drawer over the map;
 - narrow, under 900: one pane at a time, details as a drawer. Cleanup hides its summary panel below 1000.
 
-Map style and size accounting are one small control floated over the map's corner. A single dismissible hint sits at the bottom of the map. Paths truncate with full-path tooltips. Essential actions remain reachable by keyboard and visible controls. Nothing is smaller than 12 points; the type scale and spacing live in `theme::type_scale` and `theme::metrics`, shared widgets in `widgets.rs`.
+Map style and size accounting are two compact text menus in a toolbar above the map, outside its interactive area. Segmented choices have no outer frame; only the current choice has a background. A single dismissible hint sits at the bottom of the map. Paths truncate with full-path tooltips. Essential actions remain reachable by keyboard and visible controls. Nothing is smaller than 12 points; the type scale and spacing live in `theme::type_scale` and `theme::metrics`, shared widgets in `widgets.rs`.
 
 The same selection and open semantics apply to the map, the contents list and largest-file results: single click selects, double-click opens, command-click adds to review. Hover previews do not change the persistent selection or move keyboard focus. The parent action and breadcrumbs are explicit; breadcrumbs shorten from the left. Search states its scope and result count and offers a way to clear.
 
@@ -43,8 +43,12 @@ For a folder scan, disk usage outside the folder is expected. Do not attribute i
 
 ## Implementation status
 
-The interface layer lives in `crates/space-app/src/app/ui/` (`shell`, `scan`, `usage`, `cleanup`, `review_page`, `dialogs`); `app.rs` keeps state, background work and key handling. Implemented: one-row app bar; Scan page as a card grid with one primary choice, explicit disk scans and saved results; Disk usage with contents list, full-height map, selection-only details and no second file list under the map; Cleanup with a one-row header, risk filter, category table and a selection summary; Review as its own page with per-item removal, overlap-aware totals and a confirmation that lists every path; no free-space prediction and no cleanup preselection; local snapshots behind their own permanent-removal confirmation.
+The interface layer lives in `crates/space-app/src/app/ui/` (`shell`, `scan`, `usage`, `cleanup`, `review_page`, `dialogs`); `app.rs` keeps state, background work and key handling. Implemented: one-row app bar; one scrollable Scan page across palettes, with a home-folder primary action, specific-folder alternative, all disks and individually actionable saved results; Disk usage with contents list, full-height map, selection-only details and no second file list under the map; Cleanup with compact title and a separate action row, risk filter, category table and a selection summary; Review as its own page with per-item removal, overlap-aware totals and a confirmation that lists every path; no free-space prediction and no cleanup preselection; local snapshots behind their own permanent-removal confirmation.
 
 Checked headless at 1280 × 800, 1000 × 700, 760 × 560 and 720 × 520 with `scripts/ui-shots.sh` (Xvfb with software Vulkan). It does not replace a check on macOS.
 
 Remaining refinements: richer scan coverage and outcome presentation; accessible selection controls for painted rows. Icons are painter-drawn vectors (`icons.rs`); the interface is localised English/Russian (`i18n.rs`, switch in the ⋯ menu, default from the system locale).
+
+## Interface revision
+
+Start and Review share one interaction model across palettes. Disk occupancy is a small meter, never a decorative scan-progress ring. Review prioritizes paths and removal scope, without a second giant total or proportional artwork. Page titles use 18-point type; prominent cleanup totals use at most 22 points. Buttons and filters share a five-point corner radius and 30-point control height. Rule classifications are text status, distinct from actions. Long names and descriptions truncate with full text on hover; category counts use a second line so they cannot overlap source labels. Shortcut lists scroll to retain their Close action in short windows.

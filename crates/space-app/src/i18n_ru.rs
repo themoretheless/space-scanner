@@ -222,6 +222,7 @@ static RU: &[(&str, &str)] = &[
     ("Drop to scan this folder", "Отпустите, чтобы сканировать эту папку"),
     ("Map: {}", "Карта: {}"),
     ("On disk", "На диске"),
+    ("File size", "Размер файлов"),
     ("Hide this hint", "Скрыть подсказку"),
     // --- cleanup
     ("Cleanup candidates", "Кандидаты на очистку"),
