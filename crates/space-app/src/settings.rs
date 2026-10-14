@@ -38,6 +38,12 @@ pub struct FeatureFlags {
     pub show_shortcuts_hint: bool,
     /// Rings drawn by the sunburst (1..=4).
     pub sunburst_depth: u8,
+    /// Folder levels nested inside treemap tiles (1..=4).
+    pub treemap_nest: u8,
+    /// Rows of bands the cascade draws below the focus (2..=8).
+    pub cascade_depth: u8,
+    /// Band height multiplier for the cascade (0.6..=1.6).
+    pub cascade_row_scale: f32,
     /// Reserved: the file list under the map was folded into the contents pane.
     pub show_files_under_map: bool,
     /// Include browser cookie rules in junk scans (off by default; signs you out of sites).
@@ -55,6 +61,9 @@ impl Default for FeatureFlags {
             debounce_filter_ms: 150,
             show_shortcuts_hint: true,
             sunburst_depth: 2,
+            treemap_nest: 2,
+            cascade_depth: 5,
+            cascade_row_scale: 1.0,
             show_files_under_map: true,
             scan_browser_cookies: false,
             scan_browser_history: false,

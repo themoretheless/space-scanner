@@ -240,6 +240,43 @@ impl SpaceApp {
                         self.filter.min_size = if big { 0 } else { 1 << 30 };
                         changed = true;
                     }
+                    // Upper bound: presets, since typing bytes is rarely what anyone wants.
+                    let max = self.filter.max_size;
+                    let max_label = match max {
+                        Some(bytes) => crate::tr!("≤ {}", crate::i18n::bytes(bytes)),
+                        None => t("Max size").to_string(),
+                    };
+                    ui.menu_button(
+                        RichText::new(format!("{max_label} ▾"))
+                            .size(type_scale::CAPTION)
+                            .color(if max.is_some() { TEXT() } else { MUTED() }),
+                        |ui| {
+                            for (label, value) in [
+                                ("Any size", None),
+                                ("≤ 1 MB", Some(1u64 << 20)),
+                                ("≤ 10 MB", Some(10u64 << 20)),
+                                ("≤ 100 MB", Some(100u64 << 20)),
+                                ("≤ 1 GB", Some(1u64 << 30)),
+                            ] {
+                                if ui.selectable_label(max == value, t(label)).clicked() {
+                                    self.filter.max_size = value;
+                                    changed = true;
+                                    ui.close_menu();
+                                }
+                            }
+                        },
+                    );
+                    // One chip per selected file type; clicking takes it out.
+                    let exts: Vec<String> = self.filter.ext.iter().cloned().collect();
+                    for ext in exts {
+                        if chip(ui, true, &format!(".{ext}"))
+                            .on_hover_text(t("Take this file type out of the filter"))
+                            .clicked()
+                        {
+                            self.filter.toggle_ext(&ext);
+                            changed = true;
+                        }
+                    }
                     if changed {
                         self.geom = None;
                         self.settings.filter_kind = self.filter.kind;
@@ -307,6 +344,12 @@ impl SpaceApp {
             });
         }
 
+        // Rows that lead to the node under the pointer on the map light up
+        // faintly, so a deep tile can be placed in the tree at a glance.
+        let hover_path: HashSet<NodeId> = self
+            .hovered
+            .map(|h| tree.path_to(h).into_iter().collect())
+            .unwrap_or_default();
         let (mut pick, mut enter, mut reveal, mut queue, mut toggle) =
             (None, None, None, None, None);
         if ids.is_empty() {
@@ -339,7 +382,19 @@ impl SpaceApp {
                         egui::vec2(ui.available_width(), TREE_ROW_H),
                         Sense::click(),
                     );
-                    let outcome = paint_tree_row(ui, rect, &resp, row, n, selected, queued, self.hovered == Some(id));
+                    let outcome = paint_tree_row(
+                        ui,
+                        rect,
+                        &resp,
+                        row,
+                        n,
+                        RowState {
+                            selected,
+                            queued,
+                            linked_hover: self.hovered == Some(id),
+                            hover_ancestor: self.hovered != Some(id) && hover_path.contains(&id),
+                        },
+                    );
                     if outcome.chevron {
                         toggle = Some(id);
                     }
@@ -607,6 +662,9 @@ impl SpaceApp {
                         filter: &self.filter,
                         filter_hash: fhash,
                         sunburst_depth: self.settings.flags.sunburst_depth as usize,
+                        treemap_nest: self.settings.flags.treemap_nest as usize,
+                        cascade_depth: self.settings.flags.cascade_depth as usize,
+                        cascade_row_scale: self.settings.flags.cascade_row_scale,
                         scale,
                         geom: &mut self.geom,
                     },
@@ -659,11 +717,7 @@ impl SpaceApp {
             self.reveal_selected();
         }
         if let Some(ext) = action.filter_ext {
-            self.filter.ext = if self.filter.ext.as_deref() == Some(ext.as_str()) {
-                None
-            } else {
-                Some(ext)
-            };
+            self.filter.toggle_ext(&ext);
             self.geom = None;
         }
         if action.clear_filter {
@@ -721,6 +775,15 @@ impl SpaceApp {
                     self.invalidate_largest();
                     self.schedule_largest();
                 }
+                let mut changed = false;
+                ui.menu_button(caption(format!("{} ▾", t("Map options"))), |ui| {
+                    ui.set_min_width(260.0);
+                    changed = map_options_ui(ui, &mut self.settings.flags, Some(self.view));
+                });
+                if changed {
+                    self.geom = None;
+                    self.mark_settings_dirty();
+                }
             });
         });
         ui.add_space(4.0);
@@ -775,6 +838,49 @@ impl SpaceApp {
             self.mark_settings_dirty();
         }
     }
+}
+
+/// Depth and density controls for the maps (F0242, F0293, F0377, F0378).
+/// Shown in the map toolbar and the settings window; returns true on change.
+pub(in crate::app) fn map_options_ui(
+    ui: &mut egui::Ui,
+    flags: &mut crate::settings::FeatureFlags,
+    current: Option<ViewMode>,
+) -> bool {
+    let mut changed = false;
+    let row = |ui: &mut egui::Ui, label: &str, view: ViewMode, add: &mut dyn FnMut(&mut egui::Ui) -> bool| {
+        ui.horizontal(|ui| {
+            let text = RichText::new(t(label)).color(if current == Some(view) {
+                TEXT()
+            } else {
+                MUTED()
+            });
+            ui.add_sized([120.0, 20.0], egui::Label::new(text).truncate());
+            add(ui)
+        })
+        .inner
+    };
+    changed |= row(ui, "Rings", ViewMode::Sunburst, &mut |ui| {
+        ui.add(egui::Slider::new(&mut flags.sunburst_depth, 1..=4).text(t("rings")))
+            .changed()
+    });
+    changed |= row(ui, "Rectangles", ViewMode::Container, &mut |ui| {
+        ui.add(egui::Slider::new(&mut flags.treemap_nest, 1..=4).text(t("levels")))
+            .changed()
+    });
+    changed |= row(ui, "Bands", ViewMode::Cascade, &mut |ui| {
+        ui.add(egui::Slider::new(&mut flags.cascade_depth, 2..=8).text(t("rows")))
+            .changed()
+    });
+    changed |= row(ui, "Band height", ViewMode::Cascade, &mut |ui| {
+        ui.add(
+            egui::Slider::new(&mut flags.cascade_row_scale, 0.6..=1.6)
+                .fixed_decimals(1)
+                .text("×"),
+        )
+        .changed()
+    });
+    changed
 }
 
 // ----------------------------------------------------------------- listing
@@ -1027,18 +1133,32 @@ struct RowOutcome {
     chevron: bool,
 }
 
+/// How a tree row relates to the selection, the review queue and the map hover.
+#[derive(Clone, Copy)]
+struct RowState {
+    selected: bool,
+    queued: bool,
+    /// The map hovers this very node.
+    linked_hover: bool,
+    /// The map hovers a descendant of this node.
+    hover_ancestor: bool,
+}
+
 /// One tree row: guides · chevron · swatch · name · share bar + % · size · review mark.
-#[allow(clippy::too_many_arguments)]
 fn paint_tree_row(
     ui: &egui::Ui,
     rect: egui::Rect,
     resp: &egui::Response,
     row: &TreeRow,
     n: &space_core::Node,
-    selected: bool,
-    queued: bool,
-    linked_hover: bool,
+    state: RowState,
 ) -> RowOutcome {
+    let RowState {
+        selected,
+        queued,
+        linked_hover,
+        hover_ancestor,
+    } = state;
     let p = ui.painter();
     if selected {
         p.rect_filled(rect, 0.0, PANEL_2());
@@ -1049,6 +1169,8 @@ fn paint_tree_row(
         );
     } else if resp.hovered() || linked_hover {
         p.rect_filled(rect, 0.0, PANEL_2().gamma_multiply(0.6));
+    } else if hover_ancestor {
+        p.rect_filled(rect, 0.0, ACCENT().gamma_multiply(0.07));
     }
     let cy = rect.center().y;
     let left = rect.left() + S3;
@@ -1145,11 +1267,23 @@ fn paint_tree_row(
     );
     job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
     let g = p.layout_job(job);
+    let name_size = g.size();
     p.with_clip_rect(egui::Rect::from_min_max(
         rect.min,
         egui::pos2((bar_x - 10.0).max(rect.left()), rect.bottom()),
     ))
-    .galley(egui::pos2(name_x, cy - g.size().y / 2.0), g, TEXT());
+    .galley(egui::pos2(name_x, cy - name_size.y / 2.0), g, TEXT());
+    // Pointer hover underlines the name: the row is a link to that item.
+    if resp.hovered() && !n.synthetic {
+        let y = cy + name_size.y / 2.0 - 1.0;
+        p.line_segment(
+            [
+                egui::pos2(name_x, y),
+                egui::pos2(name_x + name_size.x.min(name_w), y),
+            ],
+            egui::Stroke::new(1.0_f32, MUTED()),
+        );
+    }
     RowOutcome { chevron }
 }
 

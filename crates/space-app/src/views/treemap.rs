@@ -7,7 +7,7 @@ use crate::theme::type_scale::CAPTION;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
 use crate::views::{child_ids, truncate, DrawCtx, GeomCache, GeomKey, ViewAction};
 
-const MAX_NEST: usize = 2;
+const DEFAULT_NEST: usize = 2;
 const MIN_PX: f32 = 10.0;
 const MAX_TILES: usize = 180;
 
@@ -36,11 +36,12 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         _ => true,
     };
 
+    let nest = nest_depth(ctx);
     if need {
         let kids = child_ids(ctx, ctx.focus);
         let mut tiles = Vec::new();
         if !kids.is_empty() {
-            layout_nested(ctx, &kids, map_rect.shrink(3.0), 0, &mut tiles);
+            layout_nested(ctx, &kids, map_rect.shrink(3.0), 0, nest, &mut tiles);
         }
         let legend = theme::legend_for_names(tiles.iter().map(|t| {
             let n = tree.node(t.id);
@@ -88,15 +89,15 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 egui::pos2(x, y - 10.0),
                 Vec2::new(12.0 + ext.len() as f32 * 7.0 + 16.0, 20.0),
             );
-            let selected = ctx.filter.ext.as_deref() == Some(ext.as_str());
+            let selected = ctx.filter.has_ext(ext);
             let resp = ui.interact(chip, ui.id().with(("leg", ext.as_str())), Sense::click());
             if resp.clicked() {
                 action.filter_ext = Some(ext.clone());
             }
             resp.on_hover_text(crate::i18n::t(if selected {
-                "Showing this type — click to show all"
+                "Showing this type — click to take it out of the filter"
             } else {
-                "Show only this file type on the map"
+                "Add this file type to the filter"
             }));
             ui.painter().rect_filled(
                 Rect::from_center_size(egui::pos2(x + 6.0, y), Vec2::splat(10.0)),
@@ -125,7 +126,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         if rect.width() < 2.0 || rect.height() < 2.0 {
             continue;
         }
-        let color = if node.is_dir && depth < MAX_NEST.saturating_sub(1) {
+        let color = if node.is_dir && depth < nest.saturating_sub(1) {
             theme::DIR()
         } else {
             theme::color_for(&node.name, node.is_dir)
@@ -172,7 +173,23 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     action
 }
 
-fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, out: &mut Vec<Tile>) {
+/// Nesting levels from the settings, within what stays readable.
+fn nest_depth(ctx: &DrawCtx<'_>) -> usize {
+    if (1..=4).contains(&ctx.treemap_nest) {
+        ctx.treemap_nest
+    } else {
+        DEFAULT_NEST
+    }
+}
+
+fn layout_nested(
+    ctx: &DrawCtx<'_>,
+    ids: &[NodeId],
+    rect: Rect,
+    depth: usize,
+    nest: usize,
+    out: &mut Vec<Tile>,
+) {
     if ids.is_empty() || rect.width() < MIN_PX || rect.height() < MIN_PX || out.len() >= MAX_TILES {
         return;
     }
@@ -192,13 +209,13 @@ fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, ou
             rect: tile.rect,
             depth,
         });
-        if node.is_dir && depth + 1 < MAX_NEST {
+        if node.is_dir && depth + 1 < nest {
             let kids = child_ids(ctx, tile.id);
             if !kids.is_empty()
                 && tile.rect.width() > MIN_PX * 2.0
                 && tile.rect.height() > MIN_PX * 2.0
             {
-                layout_nested(ctx, &kids, tile.rect.shrink(2.0), depth + 1, out);
+                layout_nested(ctx, &kids, tile.rect.shrink(2.0), depth + 1, nest, out);
             }
         }
     }

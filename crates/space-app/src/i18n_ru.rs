@@ -409,14 +409,6 @@ static RU: &[(&str, &str)] = &[
     ("{} not in this scan · {} snapshots", "Не вошло в скан: {} · снимков: {}"),
     ("{} not in this scan", "Не вошло в скан: {}"),
     (" · {}% of parent", " · {}% от родителя"),
-    (
-        "Showing this type — click to show all",
-        "Показан этот тип — клик, чтобы показать все",
-    ),
-    (
-        "Show only this file type on the map",
-        "Показать на карте только этот тип файлов",
-    ),
     ("Click to go up", "Клик — наверх"),
     (
         "Smaller items grouped here. Open a larger folder to see them.",
@@ -482,4 +474,20 @@ static RU: &[(&str, &str)] = &[
     ("Rules that will run", "Правила, которые сработают"),
     ("Rules that will not run", "Правила, которые не сработают"),
     ("Rules you turned on or off yourself", "Правила, которые вы включили или выключили сами"),
+    // --- wave 9: map options, filter, hover
+    ("Showing this type — click to take it out of the filter", "Этот тип показан — клик уберёт его из фильтра"),
+    ("Add this file type to the filter", "Добавить этот тип файлов в фильтр"),
+    ("Take this file type out of the filter", "Убрать этот тип файлов из фильтра"),
+    ("Map options", "Параметры карты"),
+    ("Max size", "Макс. размер"),
+    ("≤ {}", "≤ {}"),
+    ("Any size", "Любой размер"),
+    ("≤ 1 MB", "≤ 1 МБ"),
+    ("≤ 10 MB", "≤ 10 МБ"),
+    ("≤ 100 MB", "≤ 100 МБ"),
+    ("≤ 1 GB", "≤ 1 ГБ"),
+    ("Band height", "Высота полос"),
+    ("rings", "колец"),
+    ("levels", "уровней"),
+    ("rows", "рядов"),
 ];

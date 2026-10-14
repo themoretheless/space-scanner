@@ -7,7 +7,23 @@ use crate::theme::type_scale::CAPTION;
 use crate::theme::{self, MUTED, TEXT};
 use crate::views::{child_ids, truncate, DrawCtx, GeomCache, GeomKey, ViewAction};
 
-const MAX_DEPTH: usize = 5;
+/// Band rows when the setting is out of range.
+const DEFAULT_DEPTH: usize = 5;
+
+/// Depth and row scale from the settings, clamped to what fits on screen.
+fn options(ctx: &DrawCtx<'_>) -> (usize, f32) {
+    let depth = if (2..=8).contains(&ctx.cascade_depth) {
+        ctx.cascade_depth
+    } else {
+        DEFAULT_DEPTH
+    };
+    let scale = if ctx.cascade_row_scale.is_finite() {
+        ctx.cascade_row_scale.clamp(0.6, 1.6)
+    } else {
+        1.0
+    };
+    (depth, scale)
+}
 
 struct Band {
     id: NodeId,
@@ -120,7 +136,8 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
 }
 
 fn layout(ctx: &DrawCtx<'_>, rect: Rect) -> Vec<Band> {
-    let row_h = ((rect.height() - 8.0) / MAX_DEPTH as f32).clamp(28.0, 72.0);
+    let (max_depth, scale) = options(ctx);
+    let row_h = (((rect.height() - 8.0) / max_depth as f32) * scale).clamp(28.0, 96.0);
     let mut bands = Vec::new();
     let focus_rect = Rect::from_min_size(
         pos2(rect.left() + 4.0, rect.top() + 4.0),
@@ -132,20 +149,22 @@ fn layout(ctx: &DrawCtx<'_>, rect: Rect) -> Vec<Band> {
         depth: 0,
         color: theme::PANEL_2(),
     });
-    layout_children(ctx, ctx.focus, focus_rect, theme::PANEL_2(), 1, row_h, &mut bands);
+    layout_children(ctx, ctx.focus, focus_rect, theme::PANEL_2(), 1, max_depth, row_h, &mut bands);
     bands
 }
 
+#[allow(clippy::too_many_arguments)]
 fn layout_children(
     ctx: &DrawCtx<'_>,
     parent: NodeId,
     parent_rect: Rect,
     parent_color: Color32,
     depth: usize,
+    max_depth: usize,
     row_h: f32,
     out: &mut Vec<Band>,
 ) {
-    if depth >= MAX_DEPTH {
+    if depth >= max_depth {
         return;
     }
     let kids = child_ids(ctx, parent);
@@ -180,7 +199,7 @@ fn layout_children(
             color,
         });
         if node.is_dir && w > 24.0 {
-            layout_children(ctx, id, r, color, depth + 1, row_h, out);
+            layout_children(ctx, id, r, color, depth + 1, max_depth, row_h, out);
         }
         x += w;
         if x > parent_rect.right() {

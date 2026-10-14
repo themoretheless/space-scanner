@@ -5,7 +5,7 @@ mod treemap;
 
 use crate::i18n::t;
 use std::borrow::Cow;
-use std::collections::HashSet;
+use std::collections::{BTreeSet, HashSet};
 use std::hash::{Hash, Hasher};
 
 use std::sync::Arc;
@@ -79,7 +79,8 @@ pub enum EntryKindFilter {
 #[derive(Debug, Clone, Default)]
 pub struct ViewFilter {
     pub query: String,
-    pub ext: Option<String>,
+    /// File extensions to show (lower-case, without the dot); empty = all.
+    pub ext: BTreeSet<String>,
     pub min_size: u64,
     pub max_size: Option<u64>,
     pub kind: EntryKindFilter,
@@ -100,12 +101,12 @@ impl ViewFilter {
                 return false;
             }
         }
-        if let Some(ext) = &self.ext {
+        if !self.ext.is_empty() {
             if is_dir {
                 return true;
             }
             let e = crate::theme::extension_of(name);
-            if !e.eq_ignore_ascii_case(ext) {
+            if !self.has_ext(e) {
                 return false;
             }
         }
@@ -126,9 +127,22 @@ impl ViewFilter {
         true
     }
 
+    /// Is `ext` (any case) one of the selected extensions?
+    pub fn has_ext(&self, ext: &str) -> bool {
+        self.ext.iter().any(|e| e.eq_ignore_ascii_case(ext))
+    }
+
+    /// Add `ext` to the selected extensions, or remove it when present.
+    pub fn toggle_ext(&mut self, ext: &str) {
+        let key = ext.to_ascii_lowercase();
+        if !self.ext.remove(&key) {
+            self.ext.insert(key);
+        }
+    }
+
     pub fn is_active(&self) -> bool {
         !self.query.is_empty()
-            || self.ext.is_some()
+            || !self.ext.is_empty()
             || self.min_size > 0
             || self.max_size.is_some()
             || self.kind != EntryKindFilter::All
@@ -165,6 +179,10 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     ui.label(RichText::new(&n.name).strong());
     let kind = t(if n.is_dir { "Folder" } else { "File" });
     let mut line = format!("{kind} · {}", crate::i18n::bytes(n.size(mode)));
+    if n.is_dir {
+        line.push_str(" · ");
+        line.push_str(&crate::i18n::count(n.file_count as usize, "file"));
+    }
     if let Some(parent) = n.parent {
         let ps = tree.node(parent).size(mode).max(1) as f32;
         let pct = n.size(mode) as f32 / ps * 100.0;
@@ -375,6 +393,10 @@ pub struct GeomKey {
     pub mode: SizeMode,
     pub filter: u64,
     pub depth: u8,
+    pub nest: u8,
+    pub cascade_depth: u8,
+    /// Row scale × 100.
+    pub row_scale: u16,
     pub x: i16,
     pub y: i16,
     pub w: u16,
@@ -390,6 +412,9 @@ impl GeomKey {
             mode: ctx.mode,
             filter: ctx.filter_hash,
             depth: ctx.sunburst_depth as u8,
+            nest: ctx.treemap_nest as u8,
+            cascade_depth: ctx.cascade_depth as u8,
+            row_scale: (ctx.cascade_row_scale * 100.0).round() as u16,
             x: q(rect.min.x) as i16,
             y: q(rect.min.y) as i16,
             w: q(rect.width()) as u16,
@@ -429,6 +454,12 @@ pub struct DrawCtx<'a> {
     pub filter_hash: u64,
     /// Rings the sunburst draws (1..=4).
     pub sunburst_depth: usize,
+    /// Folder levels nested inside treemap tiles (1..=4).
+    pub treemap_nest: usize,
+    /// Band rows below the cascade focus (2..=8).
+    pub cascade_depth: usize,
+    /// Cascade band height multiplier.
+    pub cascade_row_scale: f32,
     /// Zoom transition: geometry is built for the final rect and drawn
     /// scaled about its centre, so nothing is rebuilt per frame.
     pub scale: f32,
@@ -545,6 +576,9 @@ mod click_map_tests {
                                 filter: &filter,
                                 filter_hash: filter.hash64(),
                                 sunburst_depth: 2,
+                                treemap_nest: 2,
+                                cascade_depth: 5,
+                                cascade_row_scale: 1.0,
                                 scale: 1.0,
                                 geom: &mut geom,
                             },
@@ -709,7 +743,7 @@ mod filter_tests {
             query: "CACHE".into(),
             min_size: 10,
             max_size: Some(20),
-            ext: Some("LOG".into()),
+            ext: BTreeSet::from(["log".to_string()]),
             kind: EntryKindFilter::FilesOnly,
         };
         assert!(filter.matches("cache.log", false, 10));
@@ -721,6 +755,22 @@ mod filter_tests {
         filter.kind = EntryKindFilter::All;
         // Directory navigation bypasses query matching with an extension filter.
         assert!(filter.matches("other", true, 15));
+    }
+
+    #[test]
+    fn several_extensions_combine_and_toggle() {
+        let mut filter = ViewFilter::default();
+        filter.toggle_ext("LOG");
+        filter.toggle_ext("bin");
+        assert!(filter.has_ext("log") && filter.has_ext("BIN"));
+        assert!(filter.matches("a.log", false, 1) && filter.matches("b.Bin", false, 1));
+        assert!(!filter.matches("c.txt", false, 1));
+        let before = filter.hash64();
+        filter.toggle_ext("log");
+        assert!(!filter.has_ext("log") && filter.matches("b.bin", false, 1));
+        assert_ne!(before, filter.hash64());
+        filter.toggle_ext("bin");
+        assert!(!filter.is_active());
     }
 
     #[test]
