@@ -59,6 +59,8 @@ enum BgMsg {
         request: LargestRequest,
         rows: Vec<LargestRow>,
     },
+    /// A text export finished: the file written, `None` when cancelled.
+    Exported(Result<Option<PathBuf>, String>),
 }
 
 /// Top-level screens: pick a target, explore a scan, reclaim space.
@@ -139,6 +141,8 @@ pub struct SpaceApp {
     pending_removals: Option<(Vec<NodeId>, Instant)>,
     /// A native folder picker is open on a background thread.
     picking_folder: bool,
+    /// A save dialog for an export is open on a background thread.
+    exporting: bool,
     /// Settings changed; written after a short quiet period, not per toggle.
     settings_dirty: Option<Instant>,
     /// Panic message from the previous run, shown once on the Scan page.
@@ -257,6 +261,7 @@ impl SpaceApp {
             tree_gen: 0,
             pending_removals: None,
             picking_folder: false,
+            exporting: false,
             settings_dirty: None,
             crash_notice: None,
             title_for: None,
@@ -653,6 +658,14 @@ impl SpaceApp {
                 BgMsg::Largest { request, rows } => {
                     self.largest.complete(request, rows);
                 }
+                BgMsg::Exported(result) => {
+                    self.exporting = false;
+                    self.status = match result {
+                        Ok(Some(path)) => crate::tr!("Saved {}", path.display()),
+                        Ok(None) => String::new(),
+                        Err(e) => crate::tr!("Export failed: {}", e),
+                    };
+                }
             }
         }
         if let Some(path) = start_scan_path {
@@ -668,6 +681,7 @@ impl SpaceApp {
             || self.busy
             || self.junk.loading
             || self.picking_folder
+            || self.exporting
         {
             ctx.request_repaint_after(std::time::Duration::from_millis(100));
         } else if self.largest.is_loading() {
@@ -689,12 +703,18 @@ impl SpaceApp {
         };
         let focus = self.focus;
         let mode = self.size_mode;
-        let Some(request) = self.largest.begin(focus, mode) else {
+        let dirs = self.settings.largest_dirs;
+        let limit = self.settings.largest_limit.clamp(10, 1_000);
+        let Some(request) = self.largest.begin_with(focus, mode, dirs, limit) else {
             return;
         };
         let tx = self.bg_tx.clone();
         let result = spawn_bg("space-largest", move || {
-                let ids = tree.largest_files_bounded(focus, mode, 100, 8_000);
+                let ids = if dirs {
+                    largest_dirs_under(&tree, focus, mode, limit)
+                } else {
+                    tree.largest_files_bounded(focus, mode, limit, 8_000)
+                };
                 let rows: Vec<(NodeId, String, u64)> = ids
                     .into_iter()
                     .map(|id| {
@@ -1003,6 +1023,89 @@ impl SpaceApp {
             });
         if spawned.is_err() {
             self.picking_folder = false;
+        }
+    }
+
+    /// Write `text` where the user chooses, on a background thread; the
+    /// outcome arrives as `BgMsg::Exported`.
+    pub(crate) fn export_text(&mut self, file_name: &str, text: String) {
+        if self.exporting {
+            return;
+        }
+        self.exporting = true;
+        let tx = self.bg_tx.clone();
+        let file_name = file_name.to_owned();
+        let spawned = spawn_bg("space-export", move || {
+            let result = (|| {
+                let Some(handle) = block_on(
+                    rfd::AsyncFileDialog::new()
+                        .set_file_name(&file_name)
+                        .save_file(),
+                ) else {
+                    return Ok(None);
+                };
+                let path = handle.path().to_path_buf();
+                std::fs::write(&path, text).map_err(|e| format!("{}: {e}", path.display()))?;
+                Ok(Some(path))
+            })();
+            let _ = tx.send(BgMsg::Exported(result));
+        });
+        if spawned.is_err() {
+            self.exporting = false;
+        }
+    }
+
+    /// Largest-list rows of the focus folder as CSV (F0651, F0874).
+    pub(crate) fn export_largest_csv(&mut self) {
+        let Some(tree) = self.tree.clone() else { return };
+        let ids: Vec<NodeId> = self.largest.rows().iter().map(|r| r.0).collect();
+        let text = crate::export::nodes_csv(&tree, &ids, self.size_mode);
+        let what = if self.settings.largest_dirs { "largest-folders" } else { "largest-files" };
+        self.export_text(&format!("{what}.csv"), text);
+    }
+
+    /// Children of the focus folder as CSV (F0873).
+    pub(crate) fn export_children_csv(&mut self) {
+        let Some(tree) = self.tree.clone() else { return };
+        let text = crate::export::children_csv(&tree, self.focus, self.size_mode);
+        let name = export_stem(&tree.node(self.focus).name);
+        self.export_text(&format!("{name}.csv"), text);
+    }
+
+    /// The focus folder one level deep as JSON (F0875).
+    pub(crate) fn export_shallow_json(&mut self) {
+        let Some(tree) = self.tree.clone() else { return };
+        let text = crate::export::shallow_json(&tree, self.focus, self.size_mode);
+        let name = export_stem(&tree.node(self.focus).name);
+        self.export_text(&format!("{name}.json"), text);
+    }
+
+    /// The review queue as CSV (F0603).
+    pub(crate) fn export_review_csv(&mut self) {
+        let items = self.basket_items();
+        let text = crate::export::review_csv(&items);
+        self.export_text("review.csv", text);
+    }
+
+    /// The visible contents listing as tab-separated text on the clipboard (F0877).
+    pub(crate) fn copy_listing_tsv(&mut self, ctx: &egui::Context) {
+        let Some(tree) = self.tree.clone() else { return };
+        let flat = self.show_largest || self.filter.is_active();
+        let listing = self.listing(self.focus, self.show_largest, flat, false);
+        let text = crate::export::listing_tsv(&tree, &listing.ids, self.size_mode);
+        self.status = crate::tr!("Copied {}", crate::i18n::count(listing.ids.len(), "item"));
+        ctx.copy_text(text);
+    }
+
+    /// Open the Trash folder in the file browser (F0601).
+    pub(crate) fn reveal_trash(&mut self) {
+        match crate::export::trash_dir() {
+            Some(dir) => {
+                if let Err(e) = crate::export::open_in_file_browser(&dir) {
+                    self.status = crate::tr!("Could not open {}: {}", dir.display(), e);
+                }
+            }
+            None => self.status = crate::i18n::t("No Trash folder on this system").into(),
         }
     }
 
@@ -1841,6 +1944,45 @@ fn block_on<F: std::future::Future>(future: F) -> F::Output {
     }
 }
 
+/// A file-name stem from a folder name: letters, digits, dash and underscore.
+fn export_stem(name: &str) -> String {
+    let stem: String = name
+        .chars()
+        .map(|c| if c.is_alphanumeric() || c == '-' || c == '_' { c } else { '_' })
+        .take(60)
+        .collect();
+    if stem.trim_matches('_').is_empty() {
+        "folder".into()
+    } else {
+        stem
+    }
+}
+
+/// The `limit` largest folders inside `focus` by subtree total, largest
+/// first. The whole tree uses the core heap; a sub-folder walks its subtree.
+fn largest_dirs_under(tree: &SpaceTree, focus: NodeId, mode: SizeMode, limit: usize) -> Vec<NodeId> {
+    if focus == tree.root {
+        return space_core::largest_entries(tree, mode, limit, true, false);
+    }
+    use std::cmp::Reverse;
+    let mut heap = std::collections::BinaryHeap::with_capacity(limit + 1);
+    let mut stack: Vec<NodeId> = tree.children(focus).to_vec();
+    while let Some(id) = stack.pop() {
+        let n = tree.node(id);
+        if !n.is_dir || n.synthetic {
+            continue;
+        }
+        heap.push(Reverse((n.size(mode), Reverse(id.0))));
+        if heap.len() > limit {
+            heap.pop();
+        }
+        stack.extend_from_slice(tree.children(id));
+    }
+    let mut ranked: Vec<_> = heap.into_iter().map(|Reverse(v)| v).collect();
+    ranked.sort_unstable_by(|a, b| b.cmp(a));
+    ranked.into_iter().map(|(_, Reverse(i))| NodeId(i)).collect()
+}
+
 fn folder_arg(args: impl IntoIterator<Item = String>) -> Option<PathBuf> {
     args.into_iter()
         .skip(1)
@@ -2056,6 +2198,63 @@ mod state_tests {
         assert_eq!(app.focus, NodeId(1), "focus follows /r/a/b");
         assert_eq!(app.review, vec![NodeId(3)]);
         assert!(app.expanded.contains(&NodeId(2)), "expansion follows /r/a");
+    }
+}
+
+#[cfg(test)]
+mod largest_dirs_tests {
+    use super::*;
+    use space_core::Node;
+
+    fn node(name: &str, size: u64, is_dir: bool, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
+        Node {
+            name: name.into(),
+            apparent_size: size,
+            allocated_size: size,
+            file_count: 1,
+            is_dir,
+            synthetic: false,
+            children,
+            parent,
+            raw_name: None,
+        }
+    }
+
+    /// `/r` → `a/`(30) → {`b/`(20) → `f`(20), `c/`(5)}, `d/`(8)
+    fn tree() -> SpaceTree {
+        SpaceTree {
+            root_path: "/r".into(),
+            nodes: vec![
+                node("r", 38, true, None, vec![NodeId(1), NodeId(5)]),
+                node("a", 30, true, Some(NodeId(0)), vec![NodeId(2), NodeId(4)]),
+                node("b", 20, true, Some(NodeId(1)), vec![NodeId(3)]),
+                node("f", 20, false, Some(NodeId(2)), vec![]),
+                node("c", 5, true, Some(NodeId(1)), vec![]),
+                node("d", 8, true, Some(NodeId(0)), vec![]),
+            ],
+            root: NodeId(0),
+            scanned_at_unix: 0,
+            item_count: 6,
+            skipped_errors: 0,
+            hardlink_candidates: 0,
+            hardlinks_deduped: 0,
+        }
+    }
+
+    #[test]
+    fn largest_folders_rank_subtree_totals_within_the_focus() {
+        let t = tree();
+        assert_eq!(
+            largest_dirs_under(&t, t.root, SizeMode::OnDisk, 10),
+            vec![NodeId(1), NodeId(2), NodeId(5), NodeId(4)]
+        );
+        assert_eq!(
+            largest_dirs_under(&t, NodeId(1), SizeMode::OnDisk, 10),
+            vec![NodeId(2), NodeId(4)]
+        );
+        assert_eq!(largest_dirs_under(&t, NodeId(1), SizeMode::OnDisk, 1), vec![NodeId(2)]);
+        assert_eq!(export_stem("My Folder/2"), "My_Folder_2");
+        assert_eq!(export_stem("///"), "folder");
     }
 }
 

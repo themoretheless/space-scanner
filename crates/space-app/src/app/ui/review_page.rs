@@ -90,6 +90,20 @@ impl SpaceApp {
                                 self.review.clear();
                                 self.junk.clear_selection();
                             }
+                            if ui
+                                .add_enabled(total > 0 && !self.exporting, secondary("Export list…"))
+                                .on_hover_text(t("Save the paths and sizes below as CSV"))
+                                .clicked()
+                            {
+                                self.export_review_csv();
+                            }
+                            if ui
+                                .add(secondary("Reveal in Trash"))
+                                .on_hover_text(t("Open the Trash folder, where moved items wait"))
+                                .clicked()
+                            {
+                                self.reveal_trash();
+                            }
                         });
                     });
                     ui.add_space(S4);

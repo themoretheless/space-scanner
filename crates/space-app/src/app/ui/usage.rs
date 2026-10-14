@@ -337,10 +337,43 @@ impl SpaceApp {
         if self.show_largest {
             ui.horizontal(|ui| {
                 ui.add_space(S4);
+                ui.spacing_mut().item_spacing.x = 6.0;
+                let dirs = self.settings.largest_dirs;
+                if chip(ui, !dirs, "Files").clicked() && dirs {
+                    self.settings.largest_dirs = false;
+                    self.mark_settings_dirty();
+                    self.schedule_largest();
+                }
+                if chip(ui, dirs, "Folders")
+                    .on_hover_text(t("Folders ranked by their total size; totals overlap"))
+                    .clicked()
+                    && !dirs
+                {
+                    self.settings.largest_dirs = true;
+                    self.mark_settings_dirty();
+                    self.schedule_largest();
+                }
                 if self.largest.is_loading() {
                     ui.spinner();
                 }
-                ui.label(caption("Up to 100 results · searches 8,000 folders"));
+                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                    ui.add_space(S3);
+                    if ui
+                        .add_enabled(!self.largest.is_loading() && !self.exporting, ghost("CSV…"))
+                        .on_hover_text(t("Save this list as CSV"))
+                        .clicked()
+                    {
+                        self.export_largest_csv();
+                    }
+                });
+            });
+            ui.horizontal(|ui| {
+                ui.add_space(S4);
+                ui.label(caption(if self.settings.largest_dirs {
+                    crate::tr!("Up to {} · folders inside this one", crate::i18n::count(self.settings.largest_limit, "result"))
+                } else {
+                    crate::tr!("Up to {} · searches 8,000 folders", crate::i18n::count(self.settings.largest_limit, "result"))
+                }));
             });
         }
 
@@ -932,7 +965,7 @@ fn expanded_signature(expanded: &HashSet<NodeId>) -> u64 {
 impl SpaceApp {
     /// The listing for `dir` (or the largest-file results), reused across
     /// frames until the folder, filter, size mode, expansion or tree changes.
-    pub(super) fn listing(&mut self, dir: NodeId, largest: bool, flat: bool, with_rows: bool) -> Arc<Listing> {
+    pub(in crate::app) fn listing(&mut self, dir: NodeId, largest: bool, flat: bool, with_rows: bool) -> Arc<Listing> {
         let key = ListKey {
             dir,
             mode: self.size_mode,
@@ -1004,7 +1037,7 @@ pub(super) const MAX_TREE_ROWS: usize = 2_000;
 /// Children shown per folder before the rest fold into "N more".
 const MAX_KIDS: usize = 200;
 
-pub(super) struct TreeRow {
+pub(in crate::app) struct TreeRow {
     pub(super) id: NodeId,
     pub(super) depth: usize,
     pub(super) color: Color32,

@@ -340,6 +340,37 @@ impl SpaceApp {
                 self.copy_focus_path(ui.ctx());
                 ui.close_menu();
             }
+            ui.menu_button(t("Export"), |ui| {
+                let can = self.tree.is_some() && !self.exporting;
+                if ui
+                    .add_enabled(can, egui::Button::new(t("Folder contents as CSV…")))
+                    .clicked()
+                {
+                    self.export_children_csv();
+                    ui.close_menu();
+                }
+                if ui
+                    .add_enabled(can, egui::Button::new(t("Largest list as CSV…")))
+                    .clicked()
+                {
+                    self.export_largest_csv();
+                    ui.close_menu();
+                }
+                if ui
+                    .add_enabled(can, egui::Button::new(t("Folder as JSON (one level)…")))
+                    .clicked()
+                {
+                    self.export_shallow_json();
+                    ui.close_menu();
+                }
+                if ui
+                    .add_enabled(self.tree.is_some(), egui::Button::new(t("Copy visible list as TSV")))
+                    .clicked()
+                {
+                    self.copy_listing_tsv(ui.ctx());
+                    ui.close_menu();
+                }
+            });
             ui.separator();
             ui.menu_button(t("Language"), |ui| {
                 for (choice, label) in [

@@ -120,6 +120,10 @@ pub struct AppSettings {
     pub reduce_motion: bool,
     /// How long the pointer rests before a hover hint appears.
     pub tooltip_delay_ms: u64,
+    /// Rows in the largest-files list.
+    pub largest_limit: usize,
+    /// Largest list shows folders (subtree totals) instead of files.
+    pub largest_dirs: bool,
 }
 
 impl Default for AppSettings {
@@ -139,6 +143,8 @@ impl Default for AppSettings {
             size_units: SizeUnits::Iec,
             reduce_motion: false,
             tooltip_delay_ms: 350,
+            largest_limit: 100,
+            largest_dirs: false,
         }
     }
 }
