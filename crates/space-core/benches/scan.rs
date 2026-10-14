@@ -10,10 +10,10 @@ use std::hint::black_box;
 use std::io::Write;
 use std::ops::Deref;
 use std::path::{Path, PathBuf};
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 use airbug_bench::{DropPolicy, Suite};
-use space_core::{rescan_subtree, scan_path, NodeId, ScanEvent, SpaceTree};
+use space_core::{format_bytes, rescan_subtree, scan_path, NodeId, SpaceTree};
 
 fn main() -> airbug_bench::Result<()> {
     // `cargo bench` appends `--bench`; airbug-bench rejects unknown flags.
@@ -71,16 +71,6 @@ fn main() -> airbug_bench::Result<()> {
         DropPolicy::OutsideTiming,
     );
 
-    suite.bench_with_input(
-        "scan/sums_4096",
-        || make_fixture(16, 16, 16),
-        |root| {
-            let tree = scan_blocking(root);
-            black_box(tree.total_size());
-            black_box(tree.node(tree.root).file_count);
-        },
-        DropPolicy::OutsideTiming,
-    );
 
     suite.bench_with_input(
         "rescan/subtree_256_of_4096",
@@ -111,7 +101,7 @@ fn run_phase_profile() {
     let bytes = tree.total_size();
     eprintln!(
         "items={items} files={files} size={} wall={wall:?} ({:.0} files/s)",
-        humansize_ish(bytes),
+        format_bytes(bytes),
         files as f64 / wall.as_secs_f64().max(1e-9)
     );
     eprintln!(
@@ -121,18 +111,6 @@ fn run_phase_profile() {
     );
     eprintln!("--- end phase profile ---\n");
     drop(fix);
-}
-
-fn humansize_ish(n: u64) -> String {
-    if n >= 1 << 30 {
-        format!("{:.1} GiB", n as f64 / (1u64 << 30) as f64)
-    } else if n >= 1 << 20 {
-        format!("{:.1} MiB", n as f64 / (1u64 << 20) as f64)
-    } else if n >= 1 << 10 {
-        format!("{:.1} KiB", n as f64 / (1u64 << 10) as f64)
-    } else {
-        format!("{n} B")
-    }
 }
 
 /// Temp tree that deletes itself when dropped.
@@ -182,16 +160,7 @@ fn make_fixture(tops: u8, mids: u8, files: u8) -> Fixture {
 }
 
 fn scan_blocking(path: &Path) -> SpaceTree {
-    let handle = scan_path(path);
-    loop {
-        match handle.events.recv_timeout(Duration::from_secs(120)) {
-            Ok(ScanEvent::Done(t)) => return *t,
-            Ok(ScanEvent::Progress(_)) => continue,
-            Ok(ScanEvent::Cancelled) => panic!("scan cancelled"),
-            Ok(ScanEvent::Error(e)) => panic!("scan error: {e}"),
-            Err(e) => panic!("scan recv: {e}"),
-        }
-    }
+    scan_path(path).wait().expect("scan")
 }
 
 fn child_named(tree: &SpaceTree, parent: NodeId, name: &str) -> NodeId {

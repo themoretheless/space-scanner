@@ -1,6 +1,6 @@
 //! Repeat scans of an existing tree without including fixture creation or cleanup.
-use space_core::{scan_path, ScanEvent};
-use std::time::{Duration, Instant};
+use space_core::scan_path;
+use std::time::Instant;
 
 fn main() {
     let path = std::env::args_os()
@@ -10,14 +10,9 @@ fn main() {
     let mut totals = None;
     for iteration in 0..12 {
         let start = Instant::now();
-        let scan = scan_path(&path);
-        let tree = loop {
-            match scan.events.recv_timeout(Duration::from_secs(120)).unwrap() {
-                ScanEvent::Done(tree) => break tree,
-                ScanEvent::Progress(_) => {}
-                event => panic!("scan failed: {event:?}"),
-            }
-        };
+        let tree = scan_path(&path)
+            .wait()
+            .unwrap_or_else(|err| panic!("scan failed: {err}"));
         let elapsed = start.elapsed().as_secs_f64() * 1000.0;
         let root = tree.node(tree.root);
         let observed = (
