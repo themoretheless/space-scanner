@@ -146,5 +146,9 @@ pub fn button(
         crate::theme::MUTED()
     };
     paint(ui.painter(), icon, rect.shrink(size * 0.22), color);
+    let hint = crate::i18n::t(hint);
+    resp.widget_info(|| {
+        egui::WidgetInfo::labeled(egui::WidgetType::Button, enabled, hint)
+    });
     resp.on_hover_text(hint)
 }

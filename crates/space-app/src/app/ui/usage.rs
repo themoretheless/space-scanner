@@ -178,9 +178,9 @@ impl SpaceApp {
                 if let Some(gap) = self.scan_gap_label() {
                     if ui
                         .add(egui::Button::new(caption(gap).color(ACCENT())).frame(false))
-                        .on_hover_text(
+                        .on_hover_text(t(
                             "Unindexed disk usage can include permissions, snapshots and filesystem accounting",
-                        )
+                        ))
                         .clicked()
                     {
                         self.open_tm_panel();
@@ -344,13 +344,13 @@ impl SpaceApp {
                         toggle = Some(id);
                     }
 
-                    let resp = resp.on_hover_text(if n.is_dir {
+                    let resp = resp.on_hover_text(t(if n.is_dir {
                         "Click to select · double-click to open · ⌘-click to add to review"
                     } else {
                         "Click to select · double-click to show in Finder · ⌘-click to add to review"
-                    });
+                    }));
                     if resp.clicked() && !outcome.chevron {
-                        if ui.input(|i| i.modifiers.command) && !n.synthetic {
+                        if ui.input(|i| i.modifiers.command || i.modifiers.ctrl) && !n.synthetic {
                             queue = Some(id);
                         }
                         pick = Some(id);
@@ -621,7 +621,7 @@ impl SpaceApp {
             ui.painter().text(
                 map.center(),
                 egui::Align2::CENTER_CENTER,
-                "Drop to scan this folder",
+                t("Drop to scan this folder"),
                 egui::FontId::proportional(type_scale::TITLE),
                 ACCENT(),
             );

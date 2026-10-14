@@ -268,7 +268,7 @@ pub fn delete_old_tm_locals(keep_newest: usize) -> CleanReport {
 
     #[cfg(not(target_os = "macos"))]
     {
-        errors.push("Time Machine cleanup is only available on macOS".into());
+        errors.push(crate::i18n::t("Time Machine cleanup is only available on macOS").into());
     }
 
     let kept = before.saturating_sub(deleted);

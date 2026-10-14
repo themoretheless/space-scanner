@@ -164,8 +164,14 @@ type RiskHint = (String, &'static str, egui::Color32, &'static str);
 
 impl SpaceApp {
     pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
-        theme::apply(&cc.egui_ctx, settings.skin);
+        theme::apply(
+            &cc.egui_ctx,
+            settings.skin,
+            settings.reduce_motion,
+            settings.tooltip_delay_ms,
+        );
         crate::i18n::set(settings.language.unwrap_or_else(crate::i18n::detect));
+        crate::i18n::set_units(settings.size_units);
 
         let mut app = Self::build(CacheStore::open().ok(), settings);
         app.crash_notice = crate::settings::take_crash_notice();
@@ -404,9 +410,9 @@ impl SpaceApp {
         self.delete_started = None;
         let n = deleted_ids.len();
         self.status = if errors.is_empty() {
-            crate::tr!("Moved {} items to Trash", n)
+            crate::tr!("Moved {} to Trash", crate::i18n::count(n, "item"))
         } else {
-            crate::tr!("Moved {} items · {} failed", n, errors.len())
+            crate::tr!("Moved {} · {} failed", crate::i18n::count(n, "item"), errors.len())
         };
         self.review.clear();
         self.selected = None;
@@ -567,19 +573,21 @@ impl SpaceApp {
                     self.busy = false;
                     self.confirm_tm_clean = false;
                     if report.deleted == 0 && report.errors.is_empty() {
-                        self.status = format!(
+                        self.status = crate::tr!(
                             "Snapshots: nothing to remove ({}/{} kept)",
-                            report.kept, report.before
+                            report.kept,
+                            report.before
                         );
                     } else if report.errors.is_empty() {
-                        self.status = format!(
-                            "Removed {} snapshot(s), kept {} · reclaiming APFS space…",
-                            report.deleted, report.kept
+                        self.status = crate::tr!(
+                            "Removed {}, kept {} · reclaiming APFS space…",
+                            crate::i18n::count(report.deleted as usize, "snapshot"),
+                            report.kept
                         );
                         self.show_tm_panel = false;
                     } else {
-                        self.status = format!(
-                            "Snapshot cleanup: deleted {} of {}, {} error(s)",
+                        self.status = crate::tr!(
+                            "Snapshot cleanup: deleted {} of {}, {} errors",
                             report.deleted,
                             report.before,
                             report.errors.len()
@@ -1006,9 +1014,11 @@ impl SpaceApp {
         }
     }
 
+    /// Copies the selection, or the focused folder: hover is only a hint and
+    /// never decides what an action applies to.
     fn copy_focus_path(&mut self, ctx: &egui::Context) {
         let Some(tree) = &self.tree else { return };
-        let id = self.hovered.or(self.selected).unwrap_or(self.focus);
+        let id = self.selected.unwrap_or(self.focus);
         let path = tree.path_string(id);
         self.status = crate::tr!("Copied {}", path);
         ctx.copy_text(path);
@@ -1221,8 +1231,8 @@ impl SpaceApp {
             }
         }
         if enter {
-            let id = self.selected.or(self.hovered);
-            if let Some(id) = id {
+            // Enter acts on the selection only; a hovered map node is a hint.
+            if let Some(id) = self.selected {
                 let is_dir = self
                     .tree
                     .as_ref()
@@ -1385,7 +1395,7 @@ impl SpaceApp {
                     for item in items {
                         progress.current_path = item.1.clone();
                         if space_clean::safety::is_never_touch(&item.1) {
-                            errors.push(format!("Protected: {}", item.1.display()));
+                            errors.push(crate::tr!("Protected: {}", item.1.display()));
                             progress.items_done += 1;
                             progress.error_count = errors.len();
                             let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));

@@ -220,10 +220,10 @@ pub fn highlight(ui: &Ui, view: &'static str, id: Option<NodeId>, is_hov: bool, 
     let key = id.map_or(u32::MAX, |id| id.0);
     let hov = ui
         .ctx()
-        .animate_bool_with_time(ui.id().with((view, "hov", key)), is_hov, 0.14);
+        .animate_bool_with_time(ui.id().with((view, "hov", key)), is_hov, crate::anim::ease_time(0.14));
     let sel = ui
         .ctx()
-        .animate_bool_with_time(ui.id().with((view, "sel", key)), is_sel, 0.18);
+        .animate_bool_with_time(ui.id().with((view, "sel", key)), is_sel, crate::anim::ease_time(0.18));
     (hov, sel)
 }
 

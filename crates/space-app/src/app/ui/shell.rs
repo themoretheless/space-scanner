@@ -210,7 +210,7 @@ impl SpaceApp {
 
     fn search_box(&mut self, ui: &mut egui::Ui, width: f32) {
         if !self.filter_draft.is_empty()
-            && icons::button(ui, Icon::Close, 28.0, "Clear search", true).clicked()
+            && icons::button(ui, Icon::Close, 28.0, "Clear filter", true).clicked()
         {
             self.filter_draft.clear();
             self.filter.query.clear();
@@ -223,9 +223,9 @@ impl SpaceApp {
                 .margin(egui::vec2(8.0, 5.0))
                 .hint_text(
                     RichText::new(t(if width < 190.0 {
-                        "Search"
+                        "Filter"
                     } else {
-                        "Search this scan  ⌘F"
+                        "Filter this folder  ⌘F"
                     }))
                     .color(MUTED()),
                 ),
@@ -353,6 +353,19 @@ impl SpaceApp {
                     {
                         self.settings.language = choice;
                         crate::i18n::set(choice.unwrap_or_else(crate::i18n::detect));
+                        self.mark_settings_dirty();
+                        ui.close_menu();
+                    }
+                }
+            });
+            ui.menu_button(t("Size units"), |ui| {
+                for units in crate::settings::SizeUnits::ALL {
+                    if ui
+                        .selectable_label(self.settings.size_units == units, t(units.label()))
+                        .clicked()
+                    {
+                        self.settings.size_units = units;
+                        crate::i18n::set_units(units);
                         self.mark_settings_dirty();
                         ui.close_menu();
                     }

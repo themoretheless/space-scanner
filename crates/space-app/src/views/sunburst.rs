@@ -230,7 +230,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     // Fade-in hub label when focus changes (id-keyed animation resets).
     let name_alpha =
         ui.ctx()
-            .animate_bool_with_time(ui.id().with(("sb_focus", focus.0)), true, 0.32);
+            .animate_bool_with_time(ui.id().with(("sb_focus", focus.0)), true, crate::anim::ease_time(0.32));
     let label_a = (0.4 + 0.6 * name_alpha).clamp(0.0, 1.0);
     let mut title = egui::text::LayoutJob::simple_singleline(
         focus_node.name.clone(),
@@ -265,7 +265,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         painter.text(
             center + Vec2::new(0.0, 27.0),
             Align2::CENTER_CENTER,
-            "↑  click to go up",
+            crate::i18n::t("↑  click to go up"),
             FontId::proportional(CAPTION),
             Color32::from_rgba_unmultiplied(
                 ACCENT().r(),
@@ -320,7 +320,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     }
     let label_t =
         ui.ctx()
-            .animate_bool_with_time(ui.id().with("sb_label"), hover_id.is_some(), 0.18);
+            .animate_bool_with_time(ui.id().with("sb_label"), hover_id.is_some(), crate::anim::ease_time(0.18));
     if let Some(id) = hover_id {
         if label_t > 0.02 {
             let n = tree.node(id);
@@ -360,7 +360,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 painter.text(
                     bar.right_center() - Vec2::new(10.0, 0.0),
                     Align2::RIGHT_CENTER,
-                    format!("{} files", n.file_count),
+                    crate::i18n::count(n.file_count as usize, "file"),
                     FontId::proportional(CAPTION),
                     Color32::from_rgba_unmultiplied(MUTED().r(), MUTED().g(), MUTED().b(), a),
                 );

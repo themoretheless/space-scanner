@@ -264,8 +264,9 @@ impl SpaceApp {
                                                     );
 
                                                     if resp.clicked() {
-                                                        if ui.input(|i| i.modifiers.command)
-                                                            && !n.synthetic
+                                                        if ui.input(|i| {
+                                                            i.modifiers.command || i.modifiers.ctrl
+                                                        }) && !n.synthetic
                                                         {
                                                             queue = Some(id);
                                                         }
@@ -414,6 +415,12 @@ impl SpaceApp {
                             } else if out.chevron {
                                 toggle = Some(id);
                             } else if resp.clicked() {
+                                // ⌘/Ctrl-click marks for review here too, like every other list.
+                                if ui.input(|i| i.modifiers.command || i.modifiers.ctrl)
+                                    && !n.synthetic
+                                {
+                                    queue = Some(id);
+                                }
                                 pick = Some(id);
                             }
                             if resp.double_clicked() && !n.synthetic {
@@ -476,7 +483,7 @@ impl SpaceApp {
                             .strong()
                             .color(if n > 0 { ACCENT() } else { MUTED() }),
                     );
-                    ui.label(caption(crate::tr!("{} items", n)));
+                    ui.label(caption(crate::i18n::count(n, "item")));
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         if ui

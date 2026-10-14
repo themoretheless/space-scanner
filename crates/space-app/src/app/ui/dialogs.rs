@@ -57,7 +57,7 @@ impl SpaceApp {
                         ("⌘O", "Choose a folder to scan"),
                         ("⌘R", "Rescan everything"),
                         ("⌘⇧R", "Rescan this folder"),
-                        ("⌘F  or  /", "Search this scan"),
+                        ("⌘F  or  /", "Filter this folder"),
                         ("↑ ↓", "Move through the tree"),
                         ("→ ←", "Expand or collapse a folder; ← on a closed one goes to its parent"),
                         ("Space", "Add to review or take out"),

@@ -335,15 +335,15 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 Some(r) => (
                     if state.selection.count == 0 {
                         crate::tr!(
-                            "{} removable items in {} categories · nothing selected",
-                            r.cleanable_count,
-                            r.categories.len()
+                            "{} removable in {} · nothing selected",
+                            crate::i18n::count(r.cleanable_count, "item"),
+                            crate::i18n::count(r.categories.len(), "category")
                         )
                     } else {
                         crate::tr!(
-                            "{} removable items in {} categories · {} selected ({})",
-                            r.cleanable_count,
-                            r.categories.len(),
+                            "{} removable in {} · {} selected ({})",
+                            crate::i18n::count(r.cleanable_count, "item"),
+                            crate::i18n::count(r.categories.len(), "category"),
                             state.selection.count,
                             crate::i18n::bytes(state.selection.bytes())
                         )
@@ -393,7 +393,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
     ui.horizontal_wrapped(|ui| {
         ui.label(widgets::caption("Also scan"));
         if ui
-            .checkbox(&mut flags.scan_browser_cookies, "Cookies")
+            .checkbox(&mut flags.scan_browser_cookies, t("Cookies"))
             .on_hover_text(t(
                 "Off by default — cleaning cookies signs you out of websites",
             ))
@@ -402,7 +402,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             action = JunkAction::PrefsChanged;
         }
         if ui
-            .checkbox(&mut flags.scan_browser_history, "History")
+            .checkbox(&mut flags.scan_browser_history, t("History"))
             .on_hover_text(t("Off by default"))
             .changed()
         {

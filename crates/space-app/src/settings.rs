@@ -9,6 +9,26 @@ use space_core::SizeMode;
 
 use crate::views::{EntryKindFilter, ViewMode};
 
+/// How sizes are written: binary (KiB, 1024) or decimal (kB, 1000).
+#[derive(Clone, Copy, PartialEq, Eq, Debug, Default, Serialize, Deserialize)]
+#[repr(u8)]
+pub enum SizeUnits {
+    #[default]
+    Iec = 0,
+    Si = 1,
+}
+
+impl SizeUnits {
+    pub const ALL: [SizeUnits; 2] = [SizeUnits::Iec, SizeUnits::Si];
+
+    pub fn label(self) -> &'static str {
+        match self {
+            SizeUnits::Iec => "Binary (KiB, MiB)",
+            SizeUnits::Si => "Decimal (kB, MB)",
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
 pub struct FeatureFlags {
@@ -85,6 +105,12 @@ pub struct AppSettings {
     pub filter_kind: EntryKindFilter,
     /// Last viewed folder per scan root (root path → folder path).
     pub last_focus: BTreeMap<String, String>,
+    /// Binary or decimal size units everywhere sizes are shown.
+    pub size_units: SizeUnits,
+    /// No zoom, crossfade or hover animation.
+    pub reduce_motion: bool,
+    /// How long the pointer rests before a hover hint appears.
+    pub tooltip_delay_ms: u64,
 }
 
 impl Default for AppSettings {
@@ -101,6 +127,9 @@ impl Default for AppSettings {
             compact_map: false,
             filter_kind: EntryKindFilter::All,
             last_focus: BTreeMap::new(),
+            size_units: SizeUnits::Iec,
+            reduce_motion: false,
+            tooltip_delay_ms: 350,
         }
     }
 }

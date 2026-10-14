@@ -180,9 +180,9 @@ pub fn draw(
     ui.horizontal_wrapped(|ui| {
         ui.label(
             RichText::new(crate::tr!(
-                "{} of {} rules on · {} off",
+                "{} of {} on · {} off",
                 stats.enabled,
-                stats.host,
+                crate::i18n::count(stats.host, "rule"),
                 stats.disabled,
             ))
             .size(12.0)
@@ -218,10 +218,10 @@ pub fn draw(
     ui.horizontal(|ui| {
         ui.label(RichText::new(t("Privacy")).color(MUTED()));
         if ui
-            .checkbox(&mut flags.scan_browser_cookies, "Cookies")
-            .on_hover_text(
+            .checkbox(&mut flags.scan_browser_cookies, t("Cookies"))
+            .on_hover_text(t(
                 "Scan/clean browser cookies. Off by default — signs you out of websites.",
-            )
+            ))
             .changed()
         {
             action = RulesAction::PrefsChanged;
@@ -313,7 +313,7 @@ pub fn draw(
                     .auto_shrink([false, false])
                     .show(ui, |ui| match state.side_tab {
                         SideTab::Categories => {
-                            if side_row(ui, state.category.is_none(), &crate::tr!("All categories  ({} rules)", stats.host), None).0 {
+                            if side_row(ui, state.category.is_none(), &crate::tr!("All categories  ({})", crate::i18n::count(stats.host, "rule")), None).0 {
                                 state.category = None;
                             }
                             for cat in cats {
