@@ -1,3 +1,4 @@
+use std::cell::{Cell, RefCell};
 use std::collections::HashSet;
 use std::path::PathBuf;
 use std::sync::Arc;
@@ -144,7 +145,22 @@ pub struct SpaceApp {
     crash_notice: Option<String>,
     /// (tree generation, focus) the window title was last built for.
     title_for: Option<(u64, NodeId)>,
+    /// `review_bytes()` for (queue signature, size mode, tree generation).
+    review_bytes_cache: Cell<Option<(u64, SizeMode, u64, u64)>>,
+    /// `basket_items()` for (queue signature, junk selection version, size
+    /// mode, tree generation): the app bar, Cleanup, Review and the Trash
+    /// dialog all ask several times per frame.
+    basket_cache: RefCell<Option<(BasketKey, BasketItems)>>,
+    /// Junk rule covering the selected node, per (node, tree generation,
+    /// junk report version).
+    risk_hint_cache: Option<((NodeId, u64, u64), Option<RiskHint>)>,
+    /// Contents-pane pipeline results (children → filter → sort → palette → rows).
+    listings: ui::ListingCache,
 }
+
+type BasketKey = (u64, u64, SizeMode, u64);
+type BasketItems = Arc<Vec<(PathBuf, u64)>>;
+type RiskHint = (String, &'static str, egui::Color32, &'static str);
 
 impl SpaceApp {
     pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
@@ -159,13 +175,10 @@ impl SpaceApp {
         app.refresh_snapshots();
         if let Some(cache) = app.cache.clone() {
             let tx = app.bg_tx.clone();
-            thread::Builder::new()
-                .name("space-recent".into())
-                .spawn(move || {
-                    let recent = cache.list_recent().unwrap_or_default();
-                    let _ = tx.send(BgMsg::Recent(recent));
-                })
-                .ok();
+            let _ = spawn_bg("space-recent", move || {
+                let recent = cache.list_recent().unwrap_or_default();
+                let _ = tx.send(BgMsg::Recent(recent));
+            });
         }
         app
     }
@@ -241,7 +254,28 @@ impl SpaceApp {
             settings_dirty: None,
             crash_notice: None,
             title_for: None,
+            review_bytes_cache: Cell::new(None),
+            basket_cache: RefCell::new(None),
+            risk_hint_cache: None,
+            listings: ui::ListingCache::default(),
         }
+    }
+
+    /// Junk-rule hint for a node, computed once per node/report rather than
+    /// by scanning every finding on every frame the details panel is open.
+    pub(crate) fn risk_hint_for(&mut self, id: NodeId) -> Option<RiskHint> {
+        let key = (id, self.tree_gen, self.junk.report_version());
+        if let Some((k, hint)) = &self.risk_hint_cache {
+            if *k == key {
+                return hint.clone();
+            }
+        }
+        let hint = self
+            .tree
+            .as_ref()
+            .and_then(|tree| self.junk.risk_hint(&PathBuf::from(tree.path_string(id))));
+        self.risk_hint_cache = Some((key, hint.clone()));
+        hint
     }
 
     /// The title names the focused folder; rebuilding the string every frame
@@ -651,9 +685,7 @@ impl SpaceApp {
             return;
         };
         let tx = self.bg_tx.clone();
-        let result = thread::Builder::new()
-            .name("space-largest".into())
-            .spawn(move || {
+        let result = spawn_bg("space-largest", move || {
                 let ids = tree.largest_files_bounded(focus, mode, 100, 8_000);
                 let rows: Vec<(NodeId, String, u64)> = ids
                     .into_iter()
@@ -666,7 +698,7 @@ impl SpaceApp {
             });
         if let Err(error) = result {
             self.largest.failed(request);
-            self.status = format!("Could not start largest-file search: {error}");
+            self.status = error;
         }
     }
 
@@ -675,14 +707,11 @@ impl SpaceApp {
             return;
         };
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-cache-save".into())
-            .spawn(move || {
-                let _ = cache.save(tree.as_ref());
-                let recent = cache.list_recent().unwrap_or_default();
-                let _ = tx.send(BgMsg::CacheSaved(recent));
-            })
-            .ok();
+        let _ = spawn_bg("space-cache-save", move || {
+            let _ = cache.save(tree.as_ref());
+            let recent = cache.list_recent().unwrap_or_default();
+            let _ = tx.send(BgMsg::CacheSaved(recent));
+        });
     }
 
     fn start_scan(&mut self, path: PathBuf, force: bool) {
@@ -706,9 +735,7 @@ impl SpaceApp {
                 let tx = self.bg_tx.clone();
                 let path_bg = path.clone();
                 let generation = self.cache_gen;
-                let spawned = thread::Builder::new()
-                    .name("space-cache-load".into())
-                    .spawn(move || {
+                let spawned = spawn_bg("space-cache-load", move || {
                         let loaded = cache
                             .load(&path_bg)
                             .ok()
@@ -786,15 +813,13 @@ impl SpaceApp {
         self.busy = true;
         self.status = crate::tr!("Incremental rescan of {}…", node.name);
         let tx = self.bg_tx.clone();
-        let spawned = thread::Builder::new()
-            .name("space-rescan".into())
-            .spawn(move || {
+        let spawned = spawn_bg("space-rescan", move || {
                 let result = rescan_subtree(tree.as_ref(), id).map(Arc::new);
                 let _ = tx.send(BgMsg::RescanDone(result));
             });
         if let Err(error) = spawned {
             self.busy = false;
-            self.status = crate::tr!("Incremental rescan failed: {}", error);
+            self.status = error;
         }
     }
 
@@ -946,14 +971,12 @@ impl SpaceApp {
             return;
         };
         let tx = self.bg_tx.clone();
-        let spawned = thread::Builder::new()
-            .name("space-prefs-save".into())
-            .spawn(move || {
+        let spawned = spawn_bg("space-prefs-save", move || {
                 let error = prefs.save().err().map(|e| e.to_string());
                 let _ = tx.send(BgMsg::PrefsSaved(error));
             });
         if let Err(error) = spawned {
-            self.rules.error = Some(error.to_string());
+            self.rules.error = Some(error);
         }
     }
 
@@ -965,9 +988,7 @@ impl SpaceApp {
         }
         self.picking_folder = true;
         let tx = self.bg_tx.clone();
-        let spawned = thread::Builder::new()
-            .name("space-pick-folder".into())
-            .spawn(move || {
+        let spawned = spawn_bg("space-pick-folder", move || {
                 let picked = block_on(rfd::AsyncFileDialog::new().pick_folder())
                     .map(|h| h.path().to_path_buf());
                 let _ = tx.send(BgMsg::FolderPicked(picked));
@@ -1351,9 +1372,7 @@ impl SpaceApp {
         self.status = crate::i18n::t("Moving to Trash…").into();
         let tx = self.bg_tx.clone();
         let tree_gen = self.tree_gen;
-        let spawned = thread::Builder::new()
-            .name("space-trash".into())
-            .spawn(move || {
+        let spawned = spawn_bg("space-trash", move || {
                 let result = (|| {
                     let mut deleted_ids = Vec::new();
                     let mut errors = Vec::new();
@@ -1428,30 +1447,32 @@ impl SpaceApp {
             self.delete_progress = None;
             self.delete_started = None;
             self.junk_after_delete = false;
-            self.status = crate::tr!("Trash failed: {}", error);
+            self.status = error;
         }
     }
 
     fn refresh_volumes(&mut self) {
         self.volumes_loading = true;
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-vols".into())
-            .spawn(move || {
-                let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
-            })
-            .ok();
+        if spawn_bg("space-vols", move || {
+            let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
+        })
+        .is_err()
+        {
+            self.volumes_loading = false;
+        }
     }
 
     fn refresh_snapshots(&mut self) {
         self.tm_loading = true;
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-snaps".into())
-            .spawn(move || {
-                let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
-            })
-            .ok();
+        if spawn_bg("space-snaps", move || {
+            let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
+        })
+        .is_err()
+        {
+            self.tm_loading = false;
+        }
     }
 
     fn open_tm_panel(&mut self) {
@@ -1471,13 +1492,13 @@ impl SpaceApp {
         } else {
             0usize
         };
-        thread::Builder::new()
-            .name("space-tm-clean".into())
-            .spawn(move || {
-                let report = tm_clean::delete_old_tm_locals(keep);
-                let _ = tx.send(BgMsg::TmCleanDone(report));
-            })
-            .ok();
+        if let Err(error) = spawn_bg("space-tm-clean", move || {
+            let report = tm_clean::delete_old_tm_locals(keep);
+            let _ = tx.send(BgMsg::TmCleanDone(report));
+        }) {
+            self.busy = false;
+            self.status = error;
+        }
     }
 
     fn start_rule_mgr_load(&mut self) {
@@ -1486,16 +1507,14 @@ impl SpaceApp {
         }
         self.rule_mgr_loading = true;
         let tx = self.bg_tx.clone();
-        if let Err(error) = thread::Builder::new()
-            .name("space-rule-load".into())
-            .spawn(move || {
+        if let Err(error) = spawn_bg("space-rule-load", move || {
                 let result =
                     space_clean::RuleManager::load_default().map_err(|error| error.to_string());
                 let _ = tx.send(BgMsg::RuleManagerLoaded(result));
             })
         {
             self.rule_mgr_loading = false;
-            self.rules.error = Some(error.to_string());
+            self.rules.error = Some(error);
         }
     }
 
@@ -1544,9 +1563,7 @@ impl SpaceApp {
             .unwrap_or_else(space_clean::RulePrefs::load);
         let flags = self.settings.flags.clone();
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-junk-scan".into())
-            .spawn(move || {
+        let spawned = spawn_bg("space-junk-scan", move || {
                 let result = (|| {
                     let pack = space_clean::RulePack::load_many_shared(
                         &space_clean::default_rules_dirs(),
@@ -1568,8 +1585,13 @@ impl SpaceApp {
                 })()
                 .map_err(|e| e.to_string());
                 let _ = tx.send(BgMsg::JunkScanDone(result));
-            })
-            .ok();
+            });
+        if let Err(error) = spawned {
+            self.junk.loading = false;
+            self.junk.scan_started = None;
+            self.junk.error = Some(error.clone());
+            self.status = error;
+        }
     }
 
     fn apply_junk_clean(&mut self) {
@@ -1590,9 +1612,7 @@ impl SpaceApp {
         self.junk.confirm = false;
         self.status = crate::i18n::t("Moving junk to Trash…").into();
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-junk-clean".into())
-            .spawn(move || {
+        let spawned = spawn_bg("space-junk-clean", move || {
                 let report = space_clean::ScanReport {
                     findings,
                     total_bytes: 0,
@@ -1606,26 +1626,53 @@ impl SpaceApp {
                 })
                 .map_err(|e| e.to_string());
                 let _ = tx.send(BgMsg::JunkCleanDone(result));
-            })
-            .ok();
+            });
+        if let Err(error) = spawned {
+            self.busy = false;
+            self.junk.cleaning = false;
+            self.junk.clean_started = None;
+            self.junk.error = Some(error.clone());
+            self.status = error;
+        }
     }
 
     fn review_bytes(&self) -> u64 {
-        self.tree
-            .as_ref()
-            .map(|t| review::queue_bytes(t, &self.review, self.size_mode))
-            .unwrap_or(0)
+        let Some(tree) = &self.tree else { return 0 };
+        let sig = review::signature(&self.review);
+        if let Some((s, mode, gen, bytes)) = self.review_bytes_cache.get() {
+            if s == sig && mode == self.size_mode && gen == self.tree_gen {
+                return bytes;
+            }
+        }
+        let bytes = review::queue_bytes(tree, &self.review, self.size_mode);
+        self.review_bytes_cache
+            .set(Some((sig, self.size_mode, self.tree_gen, bytes)));
+        bytes
     }
 
-    /// Items in the Trash queue: Explore picks plus selected junk.
-    fn basket_items(&self) -> Vec<(PathBuf, u64)> {
+    /// Items in the Trash queue: Explore picks plus selected junk, nested
+    /// paths coalesced. Cached until the queue, the junk selection, the size
+    /// mode or the tree changes.
+    fn basket_items(&self) -> BasketItems {
+        let key: BasketKey = (
+            review::signature(&self.review),
+            self.junk.selection_version(),
+            self.size_mode,
+            self.tree_gen,
+        );
+        if let Some((k, items)) = self.basket_cache.borrow().as_ref() {
+            if *k == key {
+                return Arc::clone(items);
+            }
+        }
         let mut items = Vec::new();
         if let Some(tree) = &self.tree {
-            items.extend(self.review.iter().map(|&id| {
-                (
+            items.extend(self.review.iter().filter_map(|&id| {
+                let node = tree.try_node(id)?;
+                Some((
                     PathBuf::from(tree.path_string(id)),
-                    tree.node(id).size(self.size_mode),
-                )
+                    node.size(self.size_mode),
+                ))
             }));
         }
         items.extend(
@@ -1634,7 +1681,11 @@ impl SpaceApp {
                 .into_iter()
                 .map(|finding| (finding.path, finding.bytes)),
         );
-        space_clean::coalesce_nested_paths(items, |item| item.0.as_path())
+        let items = Arc::new(space_clean::coalesce_nested_paths(items, |item| {
+            item.0.as_path()
+        }));
+        *self.basket_cache.borrow_mut() = Some((key, Arc::clone(&items)));
+        items
     }
 
     fn basket_len(&self) -> usize {
@@ -1739,6 +1790,16 @@ impl eframe::App for SpaceApp {
 
         self.ui(ctx);
     }
+}
+
+/// Start a named worker thread. Every caller resets its own busy/loading
+/// flag on `Err`, so a failed spawn never leaves the UI waiting forever.
+fn spawn_bg<F: FnOnce() + Send + 'static>(name: &'static str, f: F) -> Result<(), String> {
+    thread::Builder::new()
+        .name(name.into())
+        .spawn(f)
+        .map(|_| ())
+        .map_err(|e| crate::tr!("Could not start background work ({}): {}", name, e))
 }
 
 /// Drive a future to completion on the current (background) thread. Enough

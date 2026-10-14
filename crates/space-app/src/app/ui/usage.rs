@@ -3,7 +3,8 @@
 
 use crate::i18n::t;
 use std::collections::HashSet;
-use std::path::PathBuf;
+use std::hash::{Hash, Hasher};
+use std::sync::Arc;
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense};
 use space_core::{NodeId, SizeMode, SpaceTree as Tree};
@@ -248,17 +249,18 @@ impl SpaceApp {
             });
         divider(ui);
 
-        let mut ids: Vec<NodeId> = if self.show_largest {
-            self.largest.rows().iter().map(|row| row.0).collect()
-        } else {
-            tree.children(focus).to_vec()
-        };
-        let before = ids.len();
-        ids.retain(|&c| {
-            let n = tree.node(c);
-            self.filter.matches(&n.name, n.is_dir, n.size(mode))
-        });
-        ids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
+        // A flat list while filtering or browsing largest files; otherwise a
+        // tree rooted at the focus, with folders opened inline.
+        let flat = self.show_largest || self.filter.is_active();
+        if !flat {
+            self.reveal_in_tree(&tree);
+        }
+        let listing = self.listing(focus, self.show_largest, flat, true);
+        let ids = &listing.ids;
+        let before = listing.before;
+        let rows = &listing.rows;
+        self.tree_rows = rows.iter().map(|r| r.id).collect();
+        let scroll_to = std::mem::take(&mut self.tree_scroll);
 
         // Say what the filter is doing: scope, count, and a way out.
         if self.filter.is_active() || !self.filter_draft.is_empty() {
@@ -305,41 +307,30 @@ impl SpaceApp {
             });
         }
 
-        let items: Vec<(&str, bool)> = ids
-            .iter()
-            .map(|&c| {
-                let n = tree.node(c);
-                (n.name.as_str(), n.is_dir)
-            })
-            .collect();
-        let colors = theme::sibling_palette(&items);
-
-        // A flat list while filtering or browsing largest files; otherwise a
-        // tree rooted at the focus, with folders opened inline.
-        let flat = self.show_largest || self.filter.is_active();
-        if !flat {
-            self.reveal_in_tree(&tree);
-        }
-        let rows = tree_rows(&tree, &ids, &colors, &self.expanded, flat, mode);
-        self.tree_rows = rows.iter().map(|r| r.id).collect();
-        let scroll_to = std::mem::take(&mut self.tree_scroll);
-
         let (mut pick, mut enter, mut reveal, mut queue, mut toggle) =
             (None, None, None, None, None);
-        egui::ScrollArea::vertical()
+        if ids.is_empty() {
+            ui.add_space(4.0);
+            empty_state(
+                ui,
+                if before == 0 { "This folder is empty" } else { "Nothing matches" },
+                if before == 0 { "No indexed items here." } else { "Change or clear the filter." },
+            );
+        }
+        // Only the rows in view are laid out; an opened node_modules stays cheap.
+        ui.spacing_mut().item_spacing.y = 0.0;
+        let mut area = egui::ScrollArea::vertical()
             .id_salt("contents_list")
-            .auto_shrink([false, false])
-            .show(ui, |ui| {
+            .auto_shrink([false, false]);
+        if scroll_to {
+            if let Some(i) = rows.iter().position(|r| Some(r.id) == self.selected) {
+                let offset = i as f32 * TREE_ROW_H - ui.available_height() * 0.5;
+                area = area.vertical_scroll_offset(offset.max(0.0));
+            }
+        }
+        area.show_rows(ui, TREE_ROW_H, rows.len(), |ui, range| {
                 ui.spacing_mut().item_spacing.y = 0.0;
-                ui.add_space(4.0);
-                if ids.is_empty() {
-                    empty_state(
-                        ui,
-                        if before == 0 { "This folder is empty" } else { "Nothing matches" },
-                        if before == 0 { "No indexed items here." } else { "Change or clear the filter." },
-                    );
-                }
-                for row in &rows {
+                for row in &rows[range] {
                     let id = row.id;
                     let n = tree.node(id);
                     let selected = self.selected == Some(id);
@@ -348,9 +339,6 @@ impl SpaceApp {
                         egui::vec2(ui.available_width(), TREE_ROW_H),
                         Sense::click(),
                     );
-                    if selected && scroll_to {
-                        resp.scroll_to_me(None);
-                    }
                     let outcome = paint_tree_row(ui, rect, &resp, row, n, selected, queued, self.hovered == Some(id));
                     if outcome.chevron {
                         toggle = Some(id);
@@ -396,14 +384,14 @@ impl SpaceApp {
                         }
                     });
                 }
-                if rows.len() >= MAX_TREE_ROWS {
-                    ui.add_space(S2);
-                    ui.horizontal(|ui| {
-                        ui.add_space(S4);
-                        ui.label(caption("Collapse folders to see the rest"));
-                    });
-                }
             });
+        if rows.len() >= MAX_TREE_ROWS {
+            ui.add_space(S2);
+            ui.horizontal(|ui| {
+                ui.add_space(S4);
+                ui.label(caption("Collapse folders to see the rest"));
+            });
+        }
         if let Some(id) = toggle {
             if !self.expanded.remove(&id) {
                 if ui.input(|i| i.modifiers.alt) {
@@ -498,7 +486,7 @@ impl SpaceApp {
         });
         ui.add_space(S3);
 
-        if let Some((category, label, color, hint)) = self.junk.risk_hint(&PathBuf::from(&path)) {
+        if let Some((category, label, color, hint)) = self.risk_hint_for(id) {
             egui::Frame::new()
                 .fill(PANEL_2())
                 .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
@@ -786,6 +774,120 @@ impl SpaceApp {
             self.settings.flags.show_shortcuts_hint = false;
             self.mark_settings_dirty();
         }
+    }
+}
+
+// ----------------------------------------------------------------- listing
+
+/// What a contents listing was built for.
+#[derive(Clone, Copy, PartialEq, Eq)]
+struct ListKey {
+    dir: NodeId,
+    mode: SizeMode,
+    filter: u64,
+    expanded: u64,
+    tree_gen: u64,
+    /// Largest-file source: its query generation and whether it answered.
+    largest: Option<(u64, bool)>,
+    flat: bool,
+    with_rows: bool,
+}
+
+/// One pass of children → filter → sort → palette → tree rows, shared by the
+/// Map contents pane, the Columns browser and the Table.
+pub(in crate::app) struct Listing {
+    pub ids: Vec<NodeId>,
+    /// Children before the filter, for "N of M shown".
+    pub before: usize,
+    pub colors: Vec<Color32>,
+    pub rows: Vec<TreeRow>,
+}
+
+/// A few recent listings (the Columns view shows several folders at once).
+#[derive(Default)]
+pub(in crate::app) struct ListingCache {
+    entries: Vec<(ListKey, Arc<Listing>)>,
+}
+
+const LISTING_CACHE: usize = 8;
+
+fn expanded_signature(expanded: &HashSet<NodeId>) -> u64 {
+    let mut h = std::collections::hash_map::DefaultHasher::new();
+    expanded.len().hash(&mut h);
+    // Order-independent fold so the set's iteration order does not matter.
+    let mut acc = 0u64;
+    for id in expanded {
+        acc = acc.wrapping_add((id.0 as u64).wrapping_mul(0x9E37_79B9_7F4A_7C15));
+    }
+    acc.hash(&mut h);
+    h.finish()
+}
+
+impl SpaceApp {
+    /// The listing for `dir` (or the largest-file results), reused across
+    /// frames until the folder, filter, size mode, expansion or tree changes.
+    pub(super) fn listing(&mut self, dir: NodeId, largest: bool, flat: bool, with_rows: bool) -> Arc<Listing> {
+        let key = ListKey {
+            dir,
+            mode: self.size_mode,
+            filter: self.filter.hash64(),
+            expanded: if flat || !with_rows { 0 } else { expanded_signature(&self.expanded) },
+            tree_gen: self.tree_gen,
+            largest: largest.then(|| self.largest.version()),
+            flat,
+            with_rows,
+        };
+        if let Some(i) = self.listings.entries.iter().position(|(k, _)| *k == key) {
+            // Keep the hit at the back so the oldest entry is evicted first.
+            let entry = self.listings.entries.remove(i);
+            let listing = Arc::clone(&entry.1);
+            self.listings.entries.push(entry);
+            return listing;
+        }
+        let Some(tree) = self.tree.clone() else {
+            return Arc::new(Listing {
+                ids: Vec::new(),
+                before: 0,
+                colors: Vec::new(),
+                rows: Vec::new(),
+            });
+        };
+        let mode = self.size_mode;
+        let mut ids: Vec<NodeId> = if largest {
+            self.largest.rows().iter().map(|row| row.0).collect()
+        } else {
+            tree.children(dir).to_vec()
+        };
+        let before = ids.len();
+        ids.retain(|&c| {
+            let n = tree.node(c);
+            self.filter.matches(&n.name, n.is_dir, n.size(mode))
+        });
+        ids.sort_by_cached_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
+        let items: Vec<(&str, bool)> = ids
+            .iter()
+            .map(|&c| {
+                let n = tree.node(c);
+                (n.name.as_str(), n.is_dir)
+            })
+            .collect();
+        let colors = theme::sibling_palette(&items);
+        let rows = if with_rows {
+            tree_rows(&tree, &ids, &colors, &self.expanded, flat, mode)
+        } else {
+            Vec::new()
+        };
+        let listing = Arc::new(Listing {
+            ids,
+            before,
+            colors,
+            rows,
+        });
+        if self.listings.entries.len() >= LISTING_CACHE {
+            self.listings.entries.remove(0);
+        }
+        self.listings.entries.push((key, Arc::clone(&listing)));
+        listing
     }
 }
 

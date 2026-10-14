@@ -18,6 +18,7 @@ pub struct JunkPanelState {
     pub loading: bool,
     pub cleaning: bool,
     report: Option<JunkReport>,
+    report_version: u64,
     pub progress: JunkScanProgress,
     pub scan_started: Option<Instant>,
     pub clean_progress: CleanProgress,
@@ -90,6 +91,17 @@ impl JunkPanelState {
         self.selection.count
     }
 
+    /// Bumps on every selection change and on a new report; cache key for
+    /// anything derived from the selected findings.
+    pub fn selection_version(&self) -> u64 {
+        self.selection.version
+    }
+
+    /// Bumps when a new report arrives.
+    pub fn report_version(&self) -> u64 {
+        self.report_version
+    }
+
     /// Junk rule covering `path` (the path itself or a parent), from the last junk scan.
     pub fn risk_hint(
         &self,
@@ -129,9 +141,12 @@ impl JunkPanelState {
         self.scan_started = None;
         self.clean_started = None;
         self.confirm = false;
+        let version = self.selection.version.wrapping_add(1);
         self.selection = Selection::from_findings(&report.findings);
         // Discovery never authorizes removal, including low-risk candidates.
         self.selection.clear();
+        self.selection.version = version;
+        self.report_version = self.report_version.wrapping_add(1);
         let report = JunkReport::new(report);
         // Expand the largest cleanable category by default.
         self.expanded_cat = report
@@ -189,6 +204,7 @@ struct Selection {
     count: usize,
     // Retain the exact sum so deselection stays correct even if the display saturates.
     bytes: u128,
+    version: u64,
 }
 
 impl Selection {
@@ -216,6 +232,7 @@ impl Selection {
             return;
         }
         *current = included;
+        self.version = self.version.wrapping_add(1);
         if included {
             self.count += 1;
             self.bytes += u128::from(finding.bytes);
@@ -235,6 +252,7 @@ impl Selection {
         self.included.fill(false);
         self.count = 0;
         self.bytes = 0;
+        self.version = self.version.wrapping_add(1);
     }
 
     fn bytes(&self) -> u64 {

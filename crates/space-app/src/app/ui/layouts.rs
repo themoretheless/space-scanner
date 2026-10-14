@@ -8,14 +8,16 @@ use crate::i18n::t;
 use eframe::egui::{self, Align, Layout, RichText, Sense};
 use space_core::NodeId;
 
-use super::usage::{expand_all, tree_rows, TreeRow, MAX_TREE_ROWS};
+use std::collections::HashSet;
+
+use super::usage::{expand_all, TreeRow, MAX_TREE_ROWS};
 use super::Density;
 use crate::app::{Mode, SpaceApp};
 use crate::icons::{self, Icon};
 use crate::review;
 use crate::theme::metrics::{S2, S3, S4, SIDE_W, TREE_INDENT};
 use crate::theme::type_scale;
-use crate::theme::{self, ACCENT, ACCENT_INK, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
+use crate::theme::{ACCENT, ACCENT_INK, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
 use crate::widgets::{caption, empty_state, primary};
 
 const COL_W: f32 = 300.0;
@@ -70,11 +72,19 @@ impl SpaceApp {
                 }
             }
         }
-        let on_path = |id: NodeId, sel: Option<NodeId>| {
-            sel.is_some_and(|s| s == id || tree.path_to(s).contains(&id))
-        };
+        // One set of the selection's ancestors per frame instead of a
+        // path walk per row.
+        let path_set: HashSet<NodeId> = self
+            .selected
+            .map(|s| tree.path_to(s).into_iter().collect())
+            .unwrap_or_default();
+        let on_path = |id: NodeId| path_set.contains(&id);
         let mode = self.size_mode;
         let (mut pick, mut enter, mut queue) = (None, None, None);
+        let listings: Vec<std::sync::Arc<super::usage::Listing>> = dirs
+            .iter()
+            .map(|&dir| self.listing(dir, false, true, false))
+            .collect();
 
         egui::CentralPanel::default()
             .frame(egui::Frame::new().fill(PANEL()))
@@ -86,19 +96,10 @@ impl SpaceApp {
                     .show(ui, |ui| {
                         ui.horizontal_top(|ui| {
                             ui.spacing_mut().item_spacing.x = 0.0;
-                            for &dir in &dirs {
+                            for (&dir, listing) in dirs.iter().zip(&listings) {
                                 let total = tree.node(dir).size(mode).max(1) as f32;
-                                let mut kids = tree.children(dir).to_vec();
-                                kids.retain(|&c| {
-                                    let n = tree.node(c);
-                                    self.filter.matches(&n.name, n.is_dir, n.size(mode))
-                                });
-                                kids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
-                                let items: Vec<(&str, bool)> = kids
-                                    .iter()
-                                    .map(|&c| (tree.node(c).name.as_str(), tree.node(c).is_dir))
-                                    .collect();
-                                let colors = theme::sibling_palette(&items);
+                                let kids = &listing.ids;
+                                let colors = &listing.colors;
                                 ui.allocate_ui_with_layout(
                                     egui::vec2(COL_W, ui.available_height()),
                                     Layout::top_down(Align::Min),
@@ -123,7 +124,7 @@ impl SpaceApp {
                                                 ui.spacing_mut().item_spacing.y = 0.0;
                                                 for (i, &id) in kids.iter().enumerate() {
                                                     let n = tree.node(id);
-                                                    let hot = on_path(id, self.selected);
+                                                    let hot = on_path(id);
                                                     let size = n.size(mode);
                                                     let (rect, resp) = ui.allocate_exact_size(
                                                         egui::vec2(COL_W - 1.0, COL_ROW_H),
@@ -340,21 +341,10 @@ impl SpaceApp {
                 .show(ctx, |ui| self.details(ui));
         }
 
-        let mode = self.size_mode;
         let focus = self.focus;
-        let mut ids: Vec<NodeId> = tree.children(focus).to_vec();
-        ids.retain(|&c| {
-            let n = tree.node(c);
-            self.filter.matches(&n.name, n.is_dir, n.size(mode))
-        });
-        ids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
-        let items: Vec<(&str, bool)> = ids
-            .iter()
-            .map(|&c| (tree.node(c).name.as_str(), tree.node(c).is_dir))
-            .collect();
-        let colors = theme::sibling_palette(&items);
         let flat = self.filter.is_active();
-        let rows = tree_rows(&tree, &ids, &colors, &self.expanded, flat, mode);
+        let listing = self.listing(focus, false, flat, true);
+        let rows = &listing.rows;
         self.tree_rows = rows.iter().map(|r| r.id).collect();
         let scroll_to = std::mem::take(&mut self.tree_scroll);
 
@@ -384,28 +374,32 @@ impl SpaceApp {
                     );
                 }
 
-                egui::ScrollArea::vertical()
+                if rows.is_empty() {
+                    empty_state(
+                        ui,
+                        "Nothing here",
+                        "This folder is empty or the filter hides everything.",
+                    );
+                }
+                ui.spacing_mut().item_spacing.y = 0.0;
+                let mut area = egui::ScrollArea::vertical()
                     .id_salt("table_rows")
-                    .auto_shrink([false, false])
-                    .show(ui, |ui| {
+                    .auto_shrink([false, false]);
+                if scroll_to {
+                    if let Some(i) = rows.iter().position(|r| Some(r.id) == self.selected) {
+                        let offset = i as f32 * TABLE_ROW_H - ui.available_height() * 0.5;
+                        area = area.vertical_scroll_offset(offset.max(0.0));
+                    }
+                }
+                area.show_rows(ui, TABLE_ROW_H, rows.len(), |ui, range| {
                         ui.spacing_mut().item_spacing.y = 0.0;
-                        if rows.is_empty() {
-                            empty_state(
-                                ui,
-                                "Nothing here",
-                                "This folder is empty or the filter hides everything.",
-                            );
-                        }
-                        for row in &rows {
+                        for row in &rows[range] {
                             let id = row.id;
                             let n = tree.node(id);
                             let (rect, resp) = ui.allocate_exact_size(
                                 egui::vec2(ui.available_width(), TABLE_ROW_H),
                                 Sense::click(),
                             );
-                            if self.selected == Some(id) && scroll_to {
-                                resp.scroll_to_me(None);
-                            }
                             let out = paint_table_row(
                                 ui,
                                 rect,
@@ -426,14 +420,14 @@ impl SpaceApp {
                                 enter = Some(id);
                             }
                         }
-                        if rows.len() >= MAX_TREE_ROWS {
-                            ui.add_space(S2);
-                            ui.horizontal(|ui| {
-                                ui.add_space(S4);
-                                ui.label(caption("Collapse folders to see the rest"));
-                            });
-                        }
                     });
+                if rows.len() >= MAX_TREE_ROWS {
+                    ui.add_space(S2);
+                    ui.horizontal(|ui| {
+                        ui.add_space(S4);
+                        ui.label(caption("Collapse folders to see the rest"));
+                    });
+                }
             });
         if let Some(id) = toggle {
             if !self.expanded.remove(&id) {

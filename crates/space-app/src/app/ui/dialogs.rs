@@ -145,7 +145,7 @@ impl SpaceApp {
                 return;
             }
 
-            let mut items = self.basket_items();
+            let mut items: Vec<(std::path::PathBuf, u64)> = self.basket_items().as_ref().clone();
             items.sort_by_key(|item| std::cmp::Reverse(item.1));
             ui.label(
                 RichText::new(crate::tr!(

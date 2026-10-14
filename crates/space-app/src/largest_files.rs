@@ -64,6 +64,11 @@ impl LargestFiles {
         self.request.is_some() && !self.ready
     }
 
+    /// Changes whenever the rows may have changed (new query or result).
+    pub fn version(&self) -> (u64, bool) {
+        (self.generation, self.ready)
+    }
+
     pub fn rows(&self) -> &[LargestRow] {
         &self.rows
     }

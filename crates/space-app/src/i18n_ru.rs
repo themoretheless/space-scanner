@@ -129,6 +129,7 @@ static RU: &[(&str, &str)] = &[
     ("Busy — wait for the current scan before dropping a folder", "Занято — дождитесь текущего сканирования, прежде чем перетаскивать папку"),
     ("The last session ended with an error", "Прошлый сеанс завершился ошибкой"),
     ("Dismiss", "Скрыть"),
+    ("Could not start background work ({}): {}", "Не удалось запустить фоновую задачу ({}): {}"),
     ("Partially enabled: {} of {}", "Частично включена: {} из {}"),
     ("Enable category", "Включить категорию"),
     ("Enable defaults for this category, keeping individual exceptions. New rules will follow the category setting.", "Включить категорию, сохранив исключения. Новые правила будут следовать настройке категории."),
