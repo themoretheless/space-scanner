@@ -150,6 +150,8 @@ static RU: &[(&str, &str)] = &[
     ("Moves to Trash", "В Корзину"),
     ("Categories", "Категории"),
     ("Types", "Типы"),
+    ("click to go up", "клик — наверх"),
+    ("This folder has no children to show", "В этой папке нечего показать"),
     ("Caution", "Риск"),
     ("Tags", "Теги"),
     ("Continue", "Продолжить"),

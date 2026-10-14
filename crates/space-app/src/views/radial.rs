@@ -2,8 +2,9 @@
 
 use egui::{Align2, FontId, Sense, Stroke, Ui, Vec2};
 
+use crate::theme::type_scale::CAPTION;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
-use crate::views::{child_ids, DrawCtx, ViewAction};
+use crate::views::{child_ids, truncate, DrawCtx, ViewAction};
 
 const MAX_NODES: usize = 36;
 
@@ -106,26 +107,10 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         let color = colors.get(i).copied().unwrap_or(parent_color);
         let is_hov = ctx.hovered == Some(id);
         let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
-        let hov_t = ui
-            .ctx()
-            .animate_bool_with_time(ui.id().with(("rad_hov", id.0)), is_hov, 0.16);
-        let sel_t = ui
-            .ctx()
-            .animate_bool_with_time(ui.id().with(("rad_sel", id.0)), is_sel, 0.2);
+        let (hov_t, sel_t) = super::highlight(ui, "rad", Some(id), is_hov, is_sel);
         let r = r * (1.0 + hov_t * 0.12);
         painter.circle_filled(pos, r, color);
-        painter.circle_stroke(
-            pos,
-            r,
-            Stroke::new(
-                1.0 + sel_t * 1.5 + hov_t,
-                if sel_t > 0.05 || hov_t > 0.05 {
-                    crate::theme::ACCENT().gamma_multiply(((80.0 + sel_t * 160.0 + hov_t * 120.0) / 255.0).min(1.0))
-                } else {
-                    theme::BORDER()
-                },
-            ),
-        );
+        painter.circle_stroke(pos, r, super::highlight_stroke(hov_t, sel_t, theme::BORDER()));
 
         if r >= 22.0 || i < 10 {
             painter.text(
@@ -136,32 +121,14 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                     truncate(&node.name, 14),
                     crate::i18n::bytes(node.size(ctx.mode))
                 ),
-                FontId::proportional(11.0),
+                FontId::proportional(CAPTION),
                 TEXT(),
             );
         }
 
         let hit = egui::Rect::from_center_size(pos, Vec2::splat(r * 2.2));
         let resp = ui.interact(hit, ui.id().with(("radial", id.0)), Sense::click());
-        if resp.clicked() {
-            super::click_map_node(
-                tree,
-                id,
-                focus,
-                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
-                &mut action,
-            );
-        }
-        if resp.double_clicked() {
-            super::double_click_map_node(tree, id, &mut action);
-        }
-        let in_q = ctx.review.contains(&id);
-        super::node_context_menu(&resp, tree, id, in_q, &mut action);
-        if resp.hovered() {
-            action.hover = Some(id);
-            ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
-            resp.on_hover_ui(|ui| super::node_hover_ui(ui, tree, id, ctx.focus, ctx.mode));
-        }
+        super::node_response(ui, &resp, ctx, id, &mut action);
     }
 
     let center_hit = egui::Rect::from_center_size(center, Vec2::splat(center_r * 2.0));
@@ -176,11 +143,3 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     action
 }
 
-fn truncate(s: &str, max: usize) -> String {
-    if s.chars().count() <= max {
-        s.to_string()
-    } else {
-        let t: String = s.chars().take(max.saturating_sub(1)).collect();
-        format!("{t}…")
-    }
-}

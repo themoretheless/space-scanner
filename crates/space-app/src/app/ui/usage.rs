@@ -586,7 +586,7 @@ impl SpaceApp {
         self.map_controls(ui);
         let map = ui.available_rect_before_wrap();
         let fhash = self.filter.hash64();
-        let review_sig = views::review_sig(&self.review);
+        let review_set: HashSet<NodeId> = self.review.iter().copied().collect();
 
         if let Some(tr) = &self.transition {
             if tr.done() {
@@ -600,11 +600,12 @@ impl SpaceApp {
             .as_ref()
             .map(|t| (t.opacity(), t.scale()))
             .unwrap_or((1.0, 1.0));
-        let draw_rect = egui::Rect::from_center_size(map.center(), map.size() * scale);
 
+        // The map always lays out for its final rect; a zoom transition only
+        // scales the cached geometry, so nothing is rebuilt per frame.
         ui.set_opacity(opacity);
         let action = ui
-            .allocate_new_ui(egui::UiBuilder::new().max_rect(draw_rect), |ui| {
+            .allocate_new_ui(egui::UiBuilder::new().max_rect(map), |ui| {
                 views::draw(
                     ui,
                     self.view,
@@ -613,11 +614,12 @@ impl SpaceApp {
                         focus: self.focus,
                         selected: self.selected,
                         hovered: self.hovered,
-                        review: &self.review,
+                        review: &review_set,
                         mode: self.size_mode,
                         filter: &self.filter,
                         filter_hash: fhash,
-                        review_sig,
+                        sunburst_depth: self.settings.flags.sunburst_depth as usize,
+                        scale,
                         geom: &mut self.geom,
                     },
                 )
