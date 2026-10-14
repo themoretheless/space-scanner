@@ -35,13 +35,36 @@ struct Inventory {
 }
 
 pub fn run(json: bool) -> Result<(), Box<dyn std::error::Error>> {
-    let output = Command::new("docker")
+    let output = match Command::new("docker")
         .args(["system", "df", "-v", "--format", "{{json .}}"])
-        .output()?;
+        .output()
+    {
+        Ok(output) => output,
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
+            return Err("Docker CLI not found in PATH. Install Docker Desktop / docker-cli, \
+                 or run this scenario on the machine where Docker is installed."
+                .into())
+        }
+        Err(error) => return Err(format!("cannot run docker: {error}").into()),
+    };
     if !output.status.success() {
-        return Err(format!("docker: {}", String::from_utf8_lossy(&output.stderr).trim()).into());
+        let stderr = String::from_utf8_lossy(&output.stderr);
+        let stderr = stderr.trim();
+        if unsupported_version(stderr) {
+            return Err(format!(
+                "this Docker version does not support `docker system df -v --format`; \
+                 upgrade Docker (CLI 23+ is required). Docker said: {stderr}"
+            )
+            .into());
+        }
+        if stderr.contains("Cannot connect") || stderr.contains("daemon") {
+            return Err(format!("Docker daemon is not running or not reachable: {stderr}").into());
+        }
+        return Err(format!("docker: {stderr}").into());
     }
-    let inventory: Inventory = serde_json::from_slice(&output.stdout)?;
+    let inventory: Inventory = serde_json::from_slice(&output.stdout).map_err(|error| {
+        format!("unexpected `docker system df` output (unsupported Docker version?): {error}")
+    })?;
     if json {
         println!("{}", serde_json::to_string_pretty(&inventory.volumes)?);
         return Ok(());
@@ -89,9 +112,26 @@ pub fn run(json: bool) -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
+/// `--format` on `system df -v` arrived with Docker CLI 23; older CLIs reject
+/// the flag or the verbose/format combination.
+fn unsupported_version(stderr: &str) -> bool {
+    let lower = stderr.to_ascii_lowercase();
+    lower.contains("unknown flag")
+        || lower.contains("unknown shorthand flag")
+        || lower.contains("conflicting options")
+        || (lower.contains("format") && lower.contains("not supported"))
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn old_docker_errors_are_recognised() {
+        assert!(unsupported_version("unknown flag: --format"));
+        assert!(unsupported_version("Error: conflicting options: --verbose and --format"));
+        assert!(!unsupported_version("Cannot connect to the Docker daemon"));
+    }
 
     #[test]
     fn reference_counts_and_labels_do_not_infer_disposability_from_names() {
