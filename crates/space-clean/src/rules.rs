@@ -302,7 +302,7 @@ pub struct Rule {
     pub tags: Vec<String>,
     /// Tags derived from id / category / paths at load time. Kept apart from the
     /// explicit tags so a persisted catalog can re-infer instead of freezing them.
-    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    #[serde(default)]
     pub inferred_tags: Vec<String>,
 }
 
@@ -542,7 +542,7 @@ fn catalog_cache_path(fingerprint: &SourceFingerprint) -> Option<(PathBuf, blake
     let base = app_dirs()?;
     let mut hash = blake3::Hasher::new();
     let mut identity = blake3::Hasher::new();
-    hash.update(b"catalog-bincode-v2");
+    hash.update(b"catalog-bincode-v4");
     hash.update(include_bytes!("rules.rs"));
     hash.update(include_bytes!("tags.rs"));
     for entry in fingerprint {
@@ -561,6 +561,78 @@ fn catalog_cache_path(fingerprint: &SourceFingerprint) -> Option<(PathBuf, blake
     ))
 }
 
+/// On-disk catalog: inferred tags are a per-rule index list into a small
+/// dictionary (a few hundred distinct names) instead of 1.5M repeated strings.
+#[derive(Serialize, Deserialize)]
+struct CompactCatalog {
+    pack: RulePack,
+    inferred_names: Vec<String>,
+    inferred: Vec<Vec<u32>>,
+}
+
+impl CompactCatalog {
+    fn from_pack(pack: &RulePack) -> Self {
+        let mut names: Vec<String> = Vec::new();
+        let mut positions: HashMap<&str, u32> = HashMap::new();
+        let mut inferred = Vec::with_capacity(pack.rules.len());
+        for rule in &pack.rules {
+            inferred.push(
+                rule.inferred_tags
+                    .iter()
+                    .map(|tag| {
+                        *positions.entry(tag.as_str()).or_insert_with(|| {
+                            names.push(tag.clone());
+                            (names.len() - 1) as u32
+                        })
+                    })
+                    .collect::<Vec<u32>>(),
+            );
+        }
+        let rules = pack
+            .rules
+            .par_iter()
+            .map(|rule| Rule {
+                inferred_tags: Vec::new(),
+                ..rule.clone()
+            })
+            .collect();
+        Self {
+            pack: RulePack {
+                rules,
+                sources: pack.sources.clone(),
+            },
+            inferred_names: names,
+            inferred,
+        }
+    }
+
+    fn into_pack(self) -> Option<RulePack> {
+        let Self {
+            mut pack,
+            inferred_names,
+            inferred,
+        } = self;
+        if inferred.len() != pack.rules.len() {
+            return None;
+        }
+        let names = &inferred_names;
+        let ok = pack
+            .rules
+            .par_iter_mut()
+            .zip(inferred.into_par_iter())
+            .map(|(rule, indices)| {
+                let mut tags = Vec::with_capacity(indices.len());
+                for index in indices {
+                    tags.push(names.get(index as usize)?.clone());
+                }
+                rule.inferred_tags = tags;
+                Some(())
+            })
+            .all(|outcome| outcome.is_some());
+        ok.then_some(pack)
+    }
+}
+
 fn read_catalog_cache(path: &Path, key: &blake3::Hash) -> Option<RulePack> {
     use bincode::Options;
     let bytes = fs::read(path).ok()?;
@@ -572,16 +644,17 @@ fn read_catalog_cache(path: &Path, key: &blake3::Hash) -> Option<RulePack> {
     if blake3::hash(payload).as_bytes() != checksum {
         return None;
     }
-    bincode::DefaultOptions::new()
+    let catalog: CompactCatalog = bincode::DefaultOptions::new()
         .with_fixint_encoding()
         .with_limit(payload.len() as u64)
         .reject_trailing_bytes()
         .deserialize(payload)
-        .ok()
+        .ok()?;
+    catalog.into_pack()
 }
 
 fn write_catalog_cache(path: &Path, key: &blake3::Hash, pack: &RulePack) -> Result<()> {
-    let payload = bincode::serialize(pack)?;
+    let payload = bincode::serialize(&CompactCatalog::from_pack(pack))?;
     let mut bytes = Vec::with_capacity(payload.len() + 64);
     bytes.extend_from_slice(key.as_bytes());
     bytes.extend_from_slice(blake3::hash(&payload).as_bytes());
@@ -622,19 +695,21 @@ impl RuleIndex {
                 .map(|(index, rule)| (rule.id.clone(), index))
                 .collect()
         };
-        let mut by_category: BTreeMap<String, Vec<usize>> = BTreeMap::new();
-        let mut tag_counts: BTreeMap<String, (usize, usize)> = BTreeMap::new();
+        // Tally with borrowed keys (22M tag occurrences for 1.5M rules), then
+        // own the few hundred distinct names once.
+        let mut by_category: HashMap<&str, Vec<usize>> = HashMap::new();
+        let mut tag_counts: HashMap<&str, (usize, usize)> = HashMap::new();
         let mut host = Vec::new();
         let mut host_categories = HashSet::new();
         let mut host_kinds = HashSet::new();
         for (index, rule) in rules.iter().enumerate() {
             let on_host = rule.platform.matches_host();
             by_category
-                .entry(rule.category.clone())
+                .entry(rule.category.as_str())
                 .or_default()
                 .push(index);
             for tag in &rule.tags {
-                let counts = tag_counts.entry(tag.clone()).or_insert((0, 0));
+                let counts = tag_counts.entry(tag.as_str()).or_insert((0, 0));
                 counts.0 += 1;
                 counts.1 += usize::from(on_host);
             }
@@ -647,8 +722,14 @@ impl RuleIndex {
         Self {
             sorted_by_id,
             by_id,
-            by_category,
-            tag_counts,
+            by_category: by_category
+                .into_iter()
+                .map(|(name, positions)| (name.to_string(), positions))
+                .collect(),
+            tag_counts: tag_counts
+                .into_iter()
+                .map(|(name, counts)| (name.to_string(), counts))
+                .collect(),
             host,
             host_categories: host_categories.len(),
             host_kinds: host_kinds.len(),
