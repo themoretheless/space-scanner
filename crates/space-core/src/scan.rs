@@ -1290,14 +1290,18 @@ mod tests {
         let nfd = dir.join("e\u{301}-dir");
         let raw = dir.join(OsString::from_vec(b"raw-\xff\xfe".to_vec()));
         fs::create_dir_all(nfd.join("inner")).unwrap();
-        fs::create_dir_all(&raw).unwrap();
         fs::write(nfd.join("inner/one"), b"1").unwrap();
-        fs::write(raw.join("one"), b"1").unwrap();
+        // APFS (macOS) rejects names that are not valid UTF-8 with EILSEQ;
+        // only exercise the raw-bytes path on filesystems that accept them.
+        let raw_supported = fs::create_dir_all(&raw).is_ok();
         let big = raw.join(OsString::from_vec(b"big-\xff".to_vec()));
-        fs::File::create(&big)
-            .unwrap()
-            .set_len(SMALL_FILE_THRESHOLD + 1)
-            .unwrap();
+        if raw_supported {
+            fs::write(raw.join("one"), b"1").unwrap();
+            fs::File::create(&big)
+                .unwrap()
+                .set_len(SMALL_FILE_THRESHOLD + 1)
+                .unwrap();
+        }
 
         let tree = scan_blocking(dir).unwrap();
         let nfd_id = child_named(&tree, tree.root, "é-dir");
@@ -1306,18 +1310,25 @@ mod tests {
             Some("e\u{301}-dir".as_bytes())
         );
         assert_eq!(tree.path_os(nfd_id), nfd);
-        let raw_id = child_named(&tree, tree.root, "raw-\u{FFFD}\u{FFFD}");
-        assert_eq!(tree.path_os(raw_id), raw);
-        let big_id = child_named(&tree, raw_id, "big-\u{FFFD}");
-        assert_eq!(tree.path_os(big_id).as_os_str().as_bytes(), big.as_os_str().as_bytes());
-        assert!(tree.path_string(big_id).ends_with("big-\u{FFFD}"));
+        if raw_supported {
+            let raw_id = child_named(&tree, tree.root, "raw-\u{FFFD}\u{FFFD}");
+            assert_eq!(tree.path_os(raw_id), raw);
+            let big_id = child_named(&tree, raw_id, "big-\u{FFFD}");
+            assert_eq!(tree.path_os(big_id).as_os_str().as_bytes(), big.as_os_str().as_bytes());
+            assert!(tree.path_string(big_id).ends_with("big-\u{FFFD}"));
+        }
 
         fs::write(nfd.join("inner/two"), b"2").unwrap();
-        fs::write(raw.join("two"), b"2").unwrap();
         let tree = rescan_subtree(&tree, nfd_id).unwrap();
         let nfd_id = child_named(&tree, tree.root, "é-dir");
         assert_eq!(tree.node(nfd_id).file_count, 2);
         assert_eq!(tree.path_os(nfd_id), nfd);
+        if !raw_supported {
+            assert_eq!(tree.node(tree.root).file_count, 2);
+            assert!(tree.validate().is_ok());
+            return;
+        }
+        fs::write(raw.join("two"), b"2").unwrap();
         let raw_id = child_named(&tree, tree.root, "raw-\u{FFFD}\u{FFFD}");
         assert_eq!(tree.node(raw_id).file_count, 2);
         let tree = rescan_subtree(&tree, raw_id).unwrap();

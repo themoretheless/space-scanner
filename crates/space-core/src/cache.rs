@@ -116,8 +116,7 @@ impl CacheStore {
     }
 
     fn key_for(root: &Path) -> String {
-        let canonical = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
-        blake3::hash(&os_path_bytes(canonical.as_os_str()))
+        blake3::hash(&os_path_bytes(canonical_or_partial(root).as_os_str()))
             .to_hex()
             .to_string()
     }
@@ -366,6 +365,32 @@ fn touch(path: &Path) {
 }
 
 #[cfg(unix)]
+/// Canonicalize `root`, or, when it no longer exists, canonicalize its
+/// deepest existing ancestor and re-append the missing tail. This keeps the
+/// cache key stable for a root that vanished after it was scanned, even on
+/// platforms where the temp directory itself is a symlink (macOS `/var`).
+fn canonical_or_partial(root: &Path) -> PathBuf {
+    if let Ok(canonical) = root.canonicalize() {
+        return canonical;
+    }
+    let mut tail: Vec<std::ffi::OsString> = Vec::new();
+    let mut cur = root.to_path_buf();
+    while let Some(parent) = cur.parent() {
+        if let Some(name) = cur.file_name() {
+            tail.push(name.to_os_string());
+        }
+        cur = parent.to_path_buf();
+        if let Ok(canonical) = cur.canonicalize() {
+            let mut out = canonical;
+            for part in tail.iter().rev() {
+                out.push(part);
+            }
+            return out;
+        }
+    }
+    root.to_path_buf()
+}
+
 fn os_path_bytes(path: &std::ffi::OsStr) -> Vec<u8> {
     use std::os::unix::ffi::OsStrExt;
     path.as_bytes().to_vec()
@@ -693,6 +718,33 @@ mod tests {
         let fx = saved(now_unix());
         fs::remove_dir_all(&fx.root).unwrap();
         let loaded = fx.store.load(&fx.root).unwrap();
+        assert!(loaded.stale);
+    }
+
+    /// macOS temp dirs live under `/var`, a symlink to `/private/var`: once
+    /// the root is gone it can't be canonicalized, so the key must fall back
+    /// to the deepest existing ancestor instead of changing (and missing).
+    #[cfg(unix)]
+    #[test]
+    fn vanished_root_behind_symlinked_parent_keeps_its_key() {
+        let tmp = TempDir::new().unwrap();
+        let real = tmp.path().join("real");
+        fs::create_dir_all(real.join("root")).unwrap();
+        let link = tmp.path().join("link");
+        std::os::unix::fs::symlink(&real, &link).unwrap();
+        let root = link.join("root");
+        let store = CacheStore::with_dir(tmp.path().join("cache")).unwrap();
+        store.save(&tree_for(&root, now_unix())).unwrap();
+        assert_eq!(
+            canonical_or_partial(&root),
+            real.canonicalize().unwrap().join("root")
+        );
+        fs::remove_dir_all(&root).unwrap();
+        assert_eq!(
+            canonical_or_partial(&root),
+            real.canonicalize().unwrap().join("root")
+        );
+        let loaded = store.load(&root).unwrap();
         assert!(loaded.stale);
     }
 
