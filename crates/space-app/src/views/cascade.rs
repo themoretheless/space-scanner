@@ -113,7 +113,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             );
         }
 
-        let resp = ui.interact(band.rect, ui.id().with(("cas", band.id.0)), Sense::click());
+        let resp = ui.interact(band.rect, ui.id().with(("cas", band.id.0)), Sense::CLICK);
         if resp.clicked() {
             super::click_map_node(
                 ctx.tree,

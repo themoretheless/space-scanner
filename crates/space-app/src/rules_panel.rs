@@ -375,7 +375,7 @@ pub fn draw(
             Layout::top_down(Align::Min),
             |ui| {
                 ui.horizontal(|ui| {
-                    ui.label(RichText::new(t("Rules")).strong().color(TEXT()));
+                    ui.label(RichText::new(t("Rules")).family(crate::theme::bold()).color(TEXT()));
                     ui.label(RichText::new(format!("({})", page.total)).size(12.0).color(MUTED()));
                     if let Some(cat) = &state.category {
                         ui.label(RichText::new(format!("· {}", t(&cat_title(cat)))).size(12.0).color(ACCENT()));
@@ -411,7 +411,7 @@ pub fn draw(
                 egui::Frame::new()
                     .fill(theme::PANEL())
                     .stroke(egui::Stroke::new(1.0_f32, theme::BORDER()))
-                    .corner_radius(if theme::skin() == theme::Skin::Table { 4 } else { 10 })
+                    .corner_radius(theme::metrics::RADIUS_CARD)
                     .show(ui, |ui| {
                         egui::ScrollArea::vertical()
                             .id_salt("rules_list")
@@ -509,7 +509,7 @@ fn draw_rule_row(
                 ui.vertical(|ui| {
                     ui.set_width(text_w);
                     ui.spacing_mut().item_spacing.y = 2.0;
-                    ui.add(egui::Label::new(RichText::new(&row.name).size(14.0).strong().color(color)).truncate())
+                    ui.add(egui::Label::new(RichText::new(&row.name).size(14.0).family(crate::theme::bold()).color(color)).truncate())
                         .on_hover_text(&row.name);
                     if !row.description.is_empty() {
                         ui.add(egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED())).truncate()).on_hover_text(&row.description);
@@ -546,7 +546,7 @@ fn draw_rule_row(
                         if let Some(p) = row.paths.first() {
                             if ui
                                 .add(widgets::secondary("Remove manually…"))
-                                .on_hover_text(t("Find it in the tree and remove it by hand, with the usual review"))
+                                .on_hover_text(t("Find it in Disk usage and add it to the Trash list by hand"))
                                 .clicked()
                             {
                                 *action = RulesAction::Reveal(p.clone());
@@ -574,7 +574,7 @@ fn draw_rule_row(
         egui::Stroke::new(1.0_f32, theme::BORDER()),
     );
     resp.on_hover_ui(|ui| {
-        ui.label(RichText::new(&row.id).strong());
+        ui.label(RichText::new(&row.id).family(crate::theme::bold()));
         for detail in &row.details {
             ui.label(detail);
         }

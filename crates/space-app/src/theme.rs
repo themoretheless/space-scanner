@@ -1,38 +1,37 @@
-//! Visual language: deep charcoal + amber accent — map-first, quiet chrome.
+//! Visual language: graphite or paper ground, one amber accent, quiet chrome.
+//!
+//! Appearance (dark or light) only changes colours. The Disk usage layout is a
+//! separate setting (`settings::WorkspaceLayout`), so every layout works in both.
 
 use std::sync::atomic::{AtomicU8, Ordering};
 use std::sync::Arc;
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
 
-/// A skin: one palette plus whether egui's widgets start from light or dark.
+/// Colour scheme of the whole interface.
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
-pub enum Skin {
-    /// Dark charcoal, amber accent — the map-first look.
+pub enum Appearance {
+    /// Graphite ground, amber accent.
     #[default]
-    Map,
-    /// Light, system-like — Finder columns.
-    Columns,
-    /// Warm paper, orange accent — dense table.
-    Table,
+    Dark,
+    /// Paper ground, darker amber accent for contrast on white.
+    Light,
 }
 
-impl Skin {
-    pub const ALL: [Skin; 3] = [Skin::Map, Skin::Columns, Skin::Table];
+impl Appearance {
+    pub const ALL: [Appearance; 2] = [Appearance::Dark, Appearance::Light];
 
     pub fn label(self) -> &'static str {
         match self {
-            Skin::Map => "Map (dark)",
-            Skin::Columns => "Columns (light)",
-            Skin::Table => "Table (warm)",
+            Appearance::Dark => "Dark",
+            Appearance::Light => "Light",
         }
     }
 
     fn palette(self) -> &'static Palette {
         match self {
-            Skin::Map => &MAP,
-            Skin::Columns => &COLUMNS,
-            Skin::Table => &TABLE,
+            Appearance::Dark => &DARK,
+            Appearance::Light => &LIGHT,
         }
     }
 }
@@ -52,60 +51,51 @@ struct Palette {
     danger: Color32,
 }
 
-const MAP: Palette = Palette {
+const DARK: Palette = Palette {
     dark: true,
-    bg: Color32::from_rgb(18, 20, 24),
-    panel: Color32::from_rgb(25, 28, 33),
-    panel_2: Color32::from_rgb(34, 38, 45),
-    border: Color32::from_rgb(42, 46, 52),
-    text: Color32::from_rgb(234, 238, 244),
-    // Lifted to keep 4.5:1 on panel.
-    muted: Color32::from_rgb(154, 160, 168),
-    accent: Color32::from_rgb(240, 173, 78),
-    accent_ink: Color32::from_rgb(26, 18, 7),
-    safe: Color32::from_rgb(92, 200, 168),
-    dir: Color32::from_rgb(48, 52, 58),
-    danger: Color32::from_rgb(210, 90, 80),
+    bg: Color32::from_rgb(0x12, 0x14, 0x18),
+    panel: Color32::from_rgb(0x18, 0x1B, 0x20),
+    panel_2: Color32::from_rgb(0x22, 0x26, 0x2D),
+    border: Color32::from_rgb(0x2A, 0x2F, 0x37),
+    text: Color32::from_rgb(0xEC, 0xEF, 0xF4),
+    // 4.5:1 on the panel colour.
+    muted: Color32::from_rgb(0x9C, 0xA3, 0xAD),
+    accent: Color32::from_rgb(0xF0, 0xAD, 0x4E),
+    accent_ink: Color32::from_rgb(0x1B, 0x13, 0x07),
+    safe: Color32::from_rgb(0x5C, 0xC8, 0xA8),
+    dir: Color32::from_rgb(0x30, 0x34, 0x3A),
+    danger: Color32::from_rgb(0xE8, 0x70, 0x5F),
 };
 
-const COLUMNS: Palette = Palette {
+const LIGHT: Palette = Palette {
     dark: false,
-    bg: Color32::from_rgb(245, 245, 247),
-    panel: Color32::from_rgb(255, 255, 255),
-    panel_2: Color32::from_rgb(232, 236, 244),
-    border: Color32::from_rgb(216, 216, 220),
-    text: Color32::from_rgb(29, 29, 31),
-    muted: Color32::from_rgb(106, 106, 112),
-    accent: Color32::from_rgb(10, 102, 255),
-    accent_ink: Color32::from_rgb(255, 255, 255),
-    safe: Color32::from_rgb(30, 123, 52),
-    dir: Color32::from_rgb(199, 199, 204),
-    danger: Color32::from_rgb(196, 43, 28),
+    bg: Color32::from_rgb(0xF6, 0xF5, 0xF1),
+    panel: Color32::from_rgb(0xFF, 0xFF, 0xFF),
+    panel_2: Color32::from_rgb(0xEF, 0xED, 0xE8),
+    border: Color32::from_rgb(0xE1, 0xDD, 0xD5),
+    text: Color32::from_rgb(0x1E, 0x1C, 0x19),
+    muted: Color32::from_rgb(0x67, 0x63, 0x5B),
+    // Darker than the dark-mode amber so white text on it keeps 4.5:1.
+    accent: Color32::from_rgb(0xA8, 0x5A, 0x0B),
+    accent_ink: Color32::from_rgb(0xFF, 0xFF, 0xFF),
+    safe: Color32::from_rgb(0x1F, 0x74, 0x58),
+    dir: Color32::from_rgb(0xC9, 0xC4, 0xBA),
+    danger: Color32::from_rgb(0xB3, 0x32, 0x1F),
 };
 
-const TABLE: Palette = Palette {
-    dark: false,
-    bg: Color32::from_rgb(250, 249, 246),
-    panel: Color32::from_rgb(255, 255, 255),
-    panel_2: Color32::from_rgb(241, 239, 234),
-    border: Color32::from_rgb(228, 225, 218),
-    text: Color32::from_rgb(31, 29, 26),
-    muted: Color32::from_rgb(107, 103, 95),
-    accent: Color32::from_rgb(196, 98, 18),
-    accent_ink: Color32::from_rgb(255, 255, 255),
-    safe: Color32::from_rgb(38, 120, 94),
-    dir: Color32::from_rgb(201, 196, 184),
-    danger: Color32::from_rgb(180, 50, 36),
-};
+static APPEARANCE: AtomicU8 = AtomicU8::new(0);
 
-static SKIN: AtomicU8 = AtomicU8::new(0);
-
-pub fn skin() -> Skin {
-    Skin::ALL[SKIN.load(Ordering::Relaxed) as usize % Skin::ALL.len()]
+pub fn appearance() -> Appearance {
+    Appearance::ALL[APPEARANCE.load(Ordering::Relaxed) as usize % Appearance::ALL.len()]
 }
 
 fn pal() -> &'static Palette {
-    skin().palette()
+    appearance().palette()
+}
+
+/// True for the dark appearance; map colours use it to keep contrast on each ground.
+pub fn is_dark() -> bool {
+    pal().dark
 }
 
 // Palette accessors keep the old constant names so call sites read the same.
@@ -117,6 +107,7 @@ pub fn BG() -> Color32 {
 pub fn PANEL() -> Color32 {
     pal().panel
 }
+/// Raised surfaces: hover fills, stat tiles, the selected nav item.
 #[allow(non_snake_case)]
 pub fn PANEL_2() -> Color32 {
     pal().panel_2
@@ -156,6 +147,15 @@ pub fn DIR() -> Color32 {
 pub fn DANGER() -> Color32 {
     pal().danger
 }
+/// Dims everything behind a modal dialog or a bottom sheet.
+#[allow(non_snake_case)]
+pub fn SCRIM() -> Color32 {
+    if pal().dark {
+        Color32::from_black_alpha(168)
+    } else {
+        Color32::from_black_alpha(96)
+    }
+}
 
 /// Type scale (px). Captions are the smallest text in the app.
 pub mod type_scale {
@@ -164,7 +164,8 @@ pub mod type_scale {
     pub const BODY: f32 = 14.0;
     pub const LEAD: f32 = 16.0;
     pub const TITLE: f32 = 18.0;
-    pub const DISPLAY: f32 = 22.0;
+    pub const PAGE: f32 = 22.0;
+    pub const DISPLAY: f32 = 28.0;
 }
 
 /// Spacing and shape scale (px).
@@ -173,26 +174,47 @@ pub mod metrics {
     pub const S3: f32 = 12.0;
     pub const S4: f32 = 16.0;
     pub const S6: f32 = 24.0;
-    pub const APP_BAR_H: f32 = 52.0;
-    pub const CONTROL_H: f32 = 30.0;
-    pub const RADIUS_CONTROL: u8 = 5;
-    pub const SIDE_W: f32 = 300.0;
-    pub const TREE_W: f32 = 400.0;
-    pub const TREE_ROW_H: f32 = 30.0;
+    /// Workspace toolbar (location, search, layout).
+    pub const APP_BAR_H: f32 = 56.0;
+    /// Filter chips under the toolbar.
+    pub const FILTER_BAR_H: f32 = 44.0;
+    pub const CONTROL_H: f32 = 32.0;
+    pub const CHIP_H: f32 = 28.0;
+    pub const RADIUS_CONTROL: u8 = 6;
+    pub const RADIUS_CARD: u8 = 10;
+    pub const RADIUS_DIALOG: u8 = 14;
+    pub const SIDEBAR_W: f32 = 224.0;
+    pub const RAIL_W: f32 = 60.0;
+    pub const SIDE_W: f32 = 288.0;
+    pub const TREE_W: f32 = 360.0;
+    pub const TREE_ROW_H: f32 = 32.0;
     pub const TREE_INDENT: f32 = 16.0;
 }
 
-/// Install fonts and the starting skin. Call once.
-pub fn apply(ctx: &egui::Context, skin: Skin) {
+/// Medium weight, for labels that need a little more presence than body text.
+pub fn medium() -> FontFamily {
+    FontFamily::Name("medium".into())
+}
+
+/// Semibold weight, for titles, numbers that matter and the current location.
+pub fn bold() -> FontFamily {
+    FontFamily::Name("semibold".into())
+}
+
+/// Install fonts and the starting appearance. Call once.
+pub fn apply(ctx: &egui::Context, appearance: Appearance) {
     install_fonts(ctx);
     base_style(ctx);
-    set_skin(ctx, skin);
+    set_appearance(ctx, appearance);
 }
 
 /// Switch the palette at runtime; every frame reads it, so nothing restarts.
-pub fn set_skin(ctx: &egui::Context, skin: Skin) {
-    SKIN.store(
-        Skin::ALL.iter().position(|&s| s == skin).unwrap_or(0) as u8,
+pub fn set_appearance(ctx: &egui::Context, appearance: Appearance) {
+    APPEARANCE.store(
+        Appearance::ALL
+            .iter()
+            .position(|&a| a == appearance)
+            .unwrap_or(0) as u8,
         Ordering::Relaxed,
     );
     let p = pal();
@@ -204,40 +226,77 @@ pub fn set_skin(ctx: &egui::Context, skin: Skin) {
     } else {
         Visuals::light()
     };
-    visuals.window_fill = PANEL();
+    visuals.window_fill = if p.dark {
+        Color32::from_rgb(0x1C, 0x1F, 0x25)
+    } else {
+        PANEL()
+    };
     visuals.panel_fill = BG();
-    visuals.extreme_bg_color = PANEL_2();
+    visuals.extreme_bg_color = if p.dark { PANEL() } else { BG() };
+    visuals.faint_bg_color = PANEL_2();
     visuals.override_text_color = Some(TEXT());
+    visuals.hyperlink_color = ACCENT();
     visuals.widgets.noninteractive.bg_fill = PANEL();
+    visuals.widgets.noninteractive.bg_stroke = Stroke::new(1.0_f32, BORDER());
     visuals.widgets.inactive.bg_fill = PANEL_2();
     visuals.widgets.hovered.bg_fill = hover;
     visuals.widgets.active.bg_fill = active;
-    visuals.selection.bg_fill = p.accent.gamma_multiply(0.25);
+    visuals.selection.bg_fill = p.accent.gamma_multiply(0.28);
+    visuals.selection.stroke = Stroke::new(1.0_f32, p.accent);
     visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED());
     visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT());
-    visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT());
+    visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, TEXT());
     visuals.widgets.active.fg_stroke = Stroke::new(1.0_f32, TEXT());
     visuals.widgets.inactive.weak_bg_fill = PANEL_2();
     visuals.widgets.inactive.bg_stroke = Stroke::new(1.0_f32, control_stroke);
     visuals.widgets.hovered.bg_stroke = Stroke::new(1.0_f32, p.muted);
     visuals.widgets.hovered.weak_bg_fill = hover;
-    visuals.window_stroke = Stroke::new(1.0_f32, BORDER());
-    visuals.window_corner_radius = CornerRadius::same(10);
-    visuals.menu_corner_radius = CornerRadius::same(5);
-    visuals.widgets.noninteractive.corner_radius = CornerRadius::same(6);
-    visuals.widgets.inactive.corner_radius = CornerRadius::same(5);
-    visuals.widgets.hovered.corner_radius = CornerRadius::same(5);
-    visuals.widgets.active.corner_radius = CornerRadius::same(5);
+    visuals.widgets.open.weak_bg_fill = PANEL_2();
+    visuals.window_stroke = Stroke::new(
+        1.0_f32,
+        if p.dark {
+            Color32::from_rgb(0x3A, 0x3F, 0x48)
+        } else {
+            BORDER()
+        },
+    );
+    visuals.window_corner_radius = CornerRadius::same(metrics::RADIUS_DIALOG);
+    visuals.menu_corner_radius = CornerRadius::same(metrics::RADIUS_CARD);
+    visuals.window_shadow = egui::Shadow {
+        offset: [0, 16],
+        blur: 48,
+        spread: 0,
+        color: Color32::from_black_alpha(if p.dark { 150 } else { 40 }),
+    };
+    visuals.popup_shadow = egui::Shadow {
+        offset: [0, 8],
+        blur: 24,
+        spread: 0,
+        color: Color32::from_black_alpha(if p.dark { 120 } else { 30 }),
+    };
+    for w in [
+        &mut visuals.widgets.noninteractive,
+        &mut visuals.widgets.inactive,
+        &mut visuals.widgets.hovered,
+        &mut visuals.widgets.active,
+        &mut visuals.widgets.open,
+    ] {
+        w.corner_radius = CornerRadius::same(metrics::RADIUS_CONTROL);
+    }
     ctx.set_visuals(visuals);
 }
 
 fn base_style(ctx: &egui::Context) {
     let mut style = (*ctx.style()).clone();
     style.spacing.item_spacing = egui::vec2(8.0, 6.0);
-    style.spacing.button_padding = egui::vec2(10.0, 5.0);
-    style.spacing.window_margin = Margin::same(14);
+    style.spacing.button_padding = egui::vec2(12.0, 6.0);
+    style.spacing.window_margin = Margin::same(20);
+    style.spacing.menu_margin = Margin::same(6);
     style.spacing.indent = 12.0;
-    style.interaction.show_tooltips_only_when_still = false;
+    style.spacing.interact_size.y = 28.0;
+    // Tooltips wait for the pointer to rest, so scrolling a list stays quiet.
+    style.interaction.show_tooltips_only_when_still = true;
+    style.interaction.tooltip_delay = 0.35;
     // egui's default Small is 9 px; nothing in this app should be smaller than 12.
     style.text_styles.insert(
         egui::TextStyle::Small,
@@ -249,51 +308,63 @@ fn base_style(ctx: &egui::Context) {
     );
     style.text_styles.insert(
         egui::TextStyle::Heading,
-        egui::FontId::proportional(type_scale::TITLE),
+        egui::FontId::new(type_scale::TITLE, bold()),
     );
-    style
-        .text_styles
-        .insert(egui::TextStyle::Body, egui::FontId::proportional(14.0));
-    style
-        .text_styles
-        .insert(egui::TextStyle::Button, egui::FontId::proportional(14.0));
+    style.text_styles.insert(
+        egui::TextStyle::Body,
+        egui::FontId::proportional(type_scale::BODY),
+    );
+    style.text_styles.insert(
+        egui::TextStyle::Button,
+        egui::FontId::new(type_scale::BODY, medium()),
+    );
     ctx.set_style(style);
 }
 
-/// Geist (bundled, OFL) for UI text; system Arial behind it covers Cyrillic / symbols.
+/// Geist (bundled, OFL) in three weights; it covers Latin and Cyrillic. egui's
+/// built-in fonts stay behind it for symbols and emoji.
 fn install_fonts(ctx: &egui::Context) {
     let mut fonts = FontDefinitions::default();
-    fonts.font_data.insert(
-        "geist".to_owned(),
-        Arc::new(FontData::from_static(include_bytes!(
-            "../assets/fonts/Geist-Regular.ttf"
-        ))),
-    );
-    fonts.font_data.insert(
-        "geist-mono".to_owned(),
-        Arc::new(FontData::from_static(include_bytes!(
-            "../assets/fonts/GeistMono-Regular.ttf"
-        ))),
-    );
-
-    // Arial (~0.7MB) covers Cyrillic without loading SFNS (7.5MB) which can jetsam the process.
-    let fallback = std::fs::read("/System/Library/Fonts/Supplemental/Arial.ttf").ok();
-    if let Some(bytes) = fallback {
+    for (name, bytes) in [
+        (
+            "geist",
+            &include_bytes!("../assets/fonts/Geist-Regular.ttf")[..],
+        ),
+        (
+            "geist-medium",
+            &include_bytes!("../assets/fonts/Geist-Medium.ttf")[..],
+        ),
+        (
+            "geist-semibold",
+            &include_bytes!("../assets/fonts/Geist-SemiBold.ttf")[..],
+        ),
+        (
+            "geist-mono",
+            &include_bytes!("../assets/fonts/GeistMono-Regular.ttf")[..],
+        ),
+    ] {
         fonts
             .font_data
-            .insert("arial".to_owned(), Arc::new(FontData::from_owned(bytes)));
+            .insert(name.to_owned(), Arc::new(FontData::from_static(bytes)));
     }
 
+    let fallback = fonts
+        .families
+        .get(&FontFamily::Proportional)
+        .cloned()
+        .unwrap_or_default();
     for (family, primary) in [
         (FontFamily::Proportional, "geist"),
         (FontFamily::Monospace, "geist-mono"),
     ] {
         if let Some(list) = fonts.families.get_mut(&family) {
             list.insert(0, primary.to_owned());
-            if fonts.font_data.contains_key("arial") {
-                list.insert(1, "arial".to_owned());
-            }
         }
+    }
+    for (family, primary) in [(medium(), "geist-medium"), (bold(), "geist-semibold")] {
+        let mut list = vec![primary.to_owned()];
+        list.extend(fallback.iter().cloned());
+        fonts.families.insert(family, list);
     }
 
     ctx.set_fonts(fonts);
@@ -392,13 +463,19 @@ pub fn sibling_palette(items: &[(&str, bool)]) -> Vec<Color32> {
     out
 }
 
-/// Hue by rank among siblings, bright enough to read on the charcoal map.
+/// Hue by rank among siblings: bright on graphite, deeper on paper so tiles and
+/// swatches keep their edge against a white ground.
 fn pick_ranked_color(name: &str, sibling_index: usize, avoid: &[Color32]) -> Color32 {
     let n = DIR_HUES.len();
+    let (top, sat) = if is_dark() {
+        (0.90, 0.58)
+    } else {
+        (0.80, 0.66)
+    };
     for offset in 0..n {
         let slot = (sibling_index + offset) % n;
-        let v = 0.90 - ((sibling_index / n + offset) % 3) as f32 * 0.06;
-        let s = 0.58 + (slot % 3) as f32 * 0.04;
+        let v = top - ((sibling_index / n + offset) % 3) as f32 * 0.06;
+        let s = sat + (slot % 3) as f32 * 0.04;
         let c = hsv(DIR_HUES[slot], s, v);
         if avoid.iter().all(|a| color_dist2(c, *a) >= MIN_COLOR_DIST2) {
             return c;

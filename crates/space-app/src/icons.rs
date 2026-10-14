@@ -5,7 +5,6 @@ use eframe::egui::{self, Color32, Painter, Pos2, Rect, Shape, Stroke};
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Icon {
-    Scan,
     Usage,
     Cleanup,
     Review,
@@ -21,6 +20,16 @@ pub enum Icon {
     ChevronDown,
     Check,
     Lock,
+    Overview,
+    Trash,
+    Settings,
+    Search,
+    Reveal,
+    LayoutSplit,
+    LayoutColumns,
+    LayoutTable,
+    Alert,
+    Pause,
 }
 
 /// Draw `icon` filling `rect` (a square) with a 1.7-unit stroke.
@@ -42,14 +51,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
         ));
     };
     match icon {
-        Icon::Scan => {
-            painter.circle_stroke(p(12.0, 12.0), 8.0 * unit, stroke);
-            painter.circle_stroke(p(12.0, 12.0), 3.0 * unit, stroke);
-            line(&[(12.0, 1.5), (12.0, 5.0)]);
-            line(&[(12.0, 19.0), (12.0, 22.5)]);
-            line(&[(1.5, 12.0), (5.0, 12.0)]);
-            line(&[(19.0, 12.0), (22.5, 12.0)]);
-        }
         Icon::Usage => {
             painter.circle_stroke(p(12.0, 12.0), 9.0 * unit, stroke);
             painter.circle_stroke(p(12.0, 12.0), 3.5 * unit, stroke);
@@ -123,7 +124,84 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
         Icon::Check => line(&[(4.5, 12.5), (10.0, 18.0), (19.5, 6.5)]),
         Icon::Lock => {
             closed(&[(5.0, 11.0), (19.0, 11.0), (19.0, 21.0), (5.0, 21.0)]);
-            line(&[(8.0, 11.0), (8.0, 7.5), (9.5, 4.5), (12.0, 3.5), (14.5, 4.5), (16.0, 7.5), (16.0, 11.0)]);
+            line(&[
+                (8.0, 11.0),
+                (8.0, 7.5),
+                (9.5, 4.5),
+                (12.0, 3.5),
+                (14.5, 4.5),
+                (16.0, 7.5),
+                (16.0, 11.0),
+            ]);
+        }
+        Icon::Overview => {
+            // Gauge: an open arc and a needle.
+            let arc: Vec<Pos2> = (0..=16)
+                .map(|i| {
+                    let a = std::f32::consts::PI * (1.0 + i as f32 / 16.0);
+                    p(12.0 + 8.5 * a.cos(), 16.0 + 8.5 * a.sin())
+                })
+                .collect();
+            painter.add(Shape::line(arc, stroke));
+            line(&[(12.0, 16.0), (16.0, 10.0)]);
+            painter.circle_filled(p(12.0, 16.0), 1.4 * unit, color);
+        }
+        Icon::Trash => {
+            line(&[(4.0, 7.0), (20.0, 7.0)]);
+            line(&[(9.0, 7.0), (9.0, 4.0), (15.0, 4.0), (15.0, 7.0)]);
+            line(&[(6.0, 7.0), (7.0, 20.0), (17.0, 20.0), (18.0, 7.0)]);
+            line(&[(10.0, 11.0), (10.0, 16.0)]);
+            line(&[(14.0, 11.0), (14.0, 16.0)]);
+        }
+        Icon::Settings => {
+            painter.circle_stroke(p(12.0, 12.0), 3.2 * unit, stroke);
+            for i in 0..8 {
+                let a = i as f32 * std::f32::consts::FRAC_PI_4;
+                let (c, s) = (a.cos(), a.sin());
+                line(&[
+                    (12.0 + 6.2 * c, 12.0 + 6.2 * s),
+                    (12.0 + 9.2 * c, 12.0 + 9.2 * s),
+                ]);
+            }
+            painter.circle_stroke(p(12.0, 12.0), 6.2 * unit, stroke);
+        }
+        Icon::Search => {
+            painter.circle_stroke(p(10.5, 10.5), 6.5 * unit, stroke);
+            line(&[(15.5, 15.5), (20.5, 20.5)]);
+        }
+        Icon::Reveal => {
+            line(&[(14.0, 4.0), (20.0, 4.0), (20.0, 10.0)]);
+            line(&[(20.0, 4.0), (11.0, 13.0)]);
+            line(&[
+                (18.0, 14.0),
+                (18.0, 20.0),
+                (4.0, 20.0),
+                (4.0, 6.0),
+                (10.0, 6.0),
+            ]);
+        }
+        Icon::LayoutSplit | Icon::LayoutColumns | Icon::LayoutTable => {
+            closed(&[(3.0, 4.5), (21.0, 4.5), (21.0, 19.5), (3.0, 19.5)]);
+            match icon {
+                Icon::LayoutSplit => line(&[(10.0, 4.5), (10.0, 19.5)]),
+                Icon::LayoutColumns => {
+                    line(&[(9.0, 4.5), (9.0, 19.5)]);
+                    line(&[(15.0, 4.5), (15.0, 19.5)]);
+                }
+                _ => {
+                    line(&[(3.0, 9.5), (21.0, 9.5)]);
+                    line(&[(3.0, 14.5), (21.0, 14.5)]);
+                }
+            }
+        }
+        Icon::Alert => {
+            painter.circle_stroke(p(12.0, 12.0), 9.0 * unit, stroke);
+            line(&[(12.0, 7.5), (12.0, 13.0)]);
+            painter.circle_filled(p(12.0, 16.5), 1.2 * unit, color);
+        }
+        Icon::Pause => {
+            line(&[(9.0, 6.0), (9.0, 18.0)]);
+            line(&[(15.0, 6.0), (15.0, 18.0)]);
         }
         Icon::Home => {
             line(&[(3.0, 11.5), (12.0, 3.5), (21.0, 11.5)]);
@@ -165,5 +243,5 @@ pub fn button(
         crate::theme::MUTED()
     };
     paint(ui.painter(), icon, rect.shrink(size * 0.22), color);
-    resp.on_hover_text(hint)
+    resp.on_hover_text(crate::i18n::t(hint))
 }

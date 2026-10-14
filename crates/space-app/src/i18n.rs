@@ -307,7 +307,8 @@ mod tests {
             include_str!("app/ui/scan.rs"),
             include_str!("app/ui/usage.rs"),
             include_str!("app/ui/layouts.rs"),
-            include_str!("app/ui/start_skins.rs"),
+            include_str!("app/ui/overview.rs"),
+            include_str!("app/ui/toast.rs"),
             include_str!("app/ui/cleanup.rs"),
             include_str!("app/ui/review_page.rs"),
             include_str!("app/ui/dialogs.rs"),
@@ -316,6 +317,9 @@ mod tests {
             include_str!("rules_panel.rs"),
             include_str!("widgets.rs"),
             include_str!("views/mod.rs"),
+            include_str!("settings.rs"),
+            include_str!("theme.rs"),
+            include_str!("icons.rs"),
         ];
         let calls = [
             "t(\"",
@@ -324,6 +328,13 @@ mod tests {
             "secondary(\"",
             "ghost(\"",
             "caption(\"",
+            "strong(\"",
+            "title(\"",
+            "section_label(\"",
+            "danger(\"",
+            "empty_state(ui, \"",
+            "badge(ui, \"",
+            "label: \"",
         ];
         let known: std::collections::HashSet<&str> = RU.iter().map(|(en, _)| *en).collect();
         let mut missing = Vec::new();

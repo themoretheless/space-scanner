@@ -191,7 +191,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             }
         }
 
-        let resp = ui.interact(rect, ui.id().with(("tm", id.0, depth)), Sense::click());
+        let resp = ui.interact(rect, ui.id().with(("tm", id.0, depth)), Sense::CLICK);
         if resp.clicked() {
             super::click_map_node(
                 ctx.tree,
