@@ -424,6 +424,10 @@ impl SpaceApp {
                 self.show_shortcuts = true;
                 ui.close_menu();
             }
+            if ui.button(t("Settings…  ⌘,")).clicked() {
+                self.open_settings();
+                ui.close_menu();
+            }
         });
     }
 }

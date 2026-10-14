@@ -31,6 +31,7 @@ impl SpaceApp {
         self.trash_dialog(ctx);
         self.snapshots_dialog(ctx);
         self.rules_dialog(ctx);
+        self.settings_dialog(ctx);
     }
 
     fn shortcuts_dialog(&mut self, ctx: &egui::Context) {
@@ -71,6 +72,7 @@ impl SpaceApp {
                         ("⌘1–4", "Switch the map style"),
                         ("⌘J", "Cleanup candidates"),
                         ("⌘⇧C", "Copy the folder path"),
+                        ("⌘,", "Settings"),
                         ("?", "This list"),
                     ] {
                         ui.label(RichText::new(t(keys)).monospace().color(ACCENT()));

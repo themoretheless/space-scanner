@@ -13,6 +13,7 @@ mod dialogs;
 mod layouts;
 mod review_page;
 mod scan;
+mod settings_page;
 mod shell;
 mod start_skins;
 mod usage;

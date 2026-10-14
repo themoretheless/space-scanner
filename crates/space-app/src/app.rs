@@ -61,6 +61,8 @@ enum BgMsg {
     },
     /// A text export finished: the file written, `None` when cancelled.
     Exported(Result<Option<PathBuf>, String>),
+    /// Bytes the saved-scan cache occupies (settings window).
+    CacheSize(u64),
 }
 
 /// Top-level screens: pick a target, explore a scan, reclaim space.
@@ -143,6 +145,10 @@ pub struct SpaceApp {
     picking_folder: bool,
     /// A save dialog for an export is open on a background thread.
     exporting: bool,
+    /// The settings window is open.
+    show_settings: bool,
+    /// Size of the saved-scan cache, measured when the settings window opens.
+    cache_bytes: Option<u64>,
     /// Settings changed; written after a short quiet period, not per toggle.
     settings_dirty: Option<Instant>,
     /// Panic message from the previous run, shown once on the Scan page.
@@ -177,8 +183,10 @@ impl SpaceApp {
         crate::i18n::set(settings.language.unwrap_or_else(crate::i18n::detect));
         crate::i18n::set_units(settings.size_units);
 
-        let mut app = Self::build(CacheStore::open().ok(), settings);
+        let cache = configured_cache(&settings);
+        let mut app = Self::build(cache, settings);
         app.crash_notice = crate::settings::take_crash_notice();
+        app.maintain_cache();
         app.volumes_loading = true;
         app.tm_loading = true;
         app.refresh_volumes();
@@ -196,8 +204,14 @@ impl SpaceApp {
     /// State without any background work (shared by `new` and tests).
     fn build(cache: Option<CacheStore>, settings: AppSettings) -> Self {
         let (bg_tx, bg_rx) = unbounded();
-        let view = settings.default_view;
-        let size_mode = settings.default_size_mode;
+        let (view, size_mode) = if settings.remember_last_view {
+            (
+                settings.last_view.unwrap_or(settings.default_view),
+                settings.last_size_mode.unwrap_or(settings.default_size_mode),
+            )
+        } else {
+            (settings.default_view, settings.default_size_mode)
+        };
         let filter = ViewFilter {
             kind: settings.filter_kind,
             ..ViewFilter::default()
@@ -262,6 +276,8 @@ impl SpaceApp {
             pending_removals: None,
             picking_folder: false,
             exporting: false,
+            show_settings: false,
+            cache_bytes: None,
             settings_dirty: None,
             crash_notice: None,
             title_for: None,
@@ -658,6 +674,7 @@ impl SpaceApp {
                 BgMsg::Largest { request, rows } => {
                     self.largest.complete(request, rows);
                 }
+                BgMsg::CacheSize(bytes) => self.cache_bytes = Some(bytes),
                 BgMsg::Exported(result) => {
                     self.exporting = false;
                     self.status = match result {
@@ -737,9 +754,57 @@ impl SpaceApp {
         let tx = self.bg_tx.clone();
         let _ = spawn_bg("space-cache-save", move || {
             let _ = cache.save(tree.as_ref());
+            // Each save is the moment the cache can grow past its budget.
+            let _ = cache.prune_expired();
+            let _ = cache.evict_to_budget();
             let recent = cache.list_recent().unwrap_or_default();
             let _ = tx.send(BgMsg::CacheSaved(recent));
         });
+    }
+
+    /// Apply the TTL and size budget from the settings and refresh the
+    /// saved-result list (startup, and after the cache settings change).
+    pub(crate) fn maintain_cache(&mut self) {
+        let Some(cache) = self.cache.clone() else { return };
+        let tx = self.bg_tx.clone();
+        let _ = spawn_bg("space-cache-maintain", move || {
+            let _ = cache.prune_expired();
+            let _ = cache.evict_to_budget();
+            let recent = cache.list_recent().unwrap_or_default();
+            let _ = tx.send(BgMsg::CacheSaved(recent));
+            let _ = tx.send(BgMsg::CacheSize(cache.total_bytes().unwrap_or(0)));
+        });
+    }
+
+    /// Rebuild the cache handle after the TTL or budget changed.
+    pub(crate) fn reconfigure_cache(&mut self) {
+        self.cache = configured_cache(&self.settings);
+        self.maintain_cache();
+    }
+
+    /// Measure the cache off-thread; the answer lands in `cache_bytes`.
+    pub(crate) fn measure_cache(&mut self) {
+        let Some(cache) = self.cache.clone() else {
+            self.cache_bytes = Some(0);
+            return;
+        };
+        let tx = self.bg_tx.clone();
+        let _ = spawn_bg("space-cache-size", move || {
+            let _ = tx.send(BgMsg::CacheSize(cache.total_bytes().unwrap_or(0)));
+        });
+    }
+
+    /// Remove every saved scan (the open tree stays).
+    pub(crate) fn clear_cache(&mut self) {
+        let Some(cache) = self.cache.clone() else { return };
+        let tx = self.bg_tx.clone();
+        let _ = spawn_bg("space-cache-wipe", move || {
+            let _ = cache.wipe_all();
+            let _ = tx.send(BgMsg::CacheSaved(Vec::new()));
+            let _ = tx.send(BgMsg::CacheSize(cache.total_bytes().unwrap_or(0)));
+        });
+        self.from_cache = false;
+        self.cache_stale = false;
     }
 
     fn start_scan(&mut self, path: PathBuf, force: bool) {
@@ -1174,6 +1239,7 @@ impl SpaceApp {
                 i.key_pressed(Key::Delete),
                 i.key_pressed(Key::Backspace),
                 i.key_pressed(Key::Space),
+                i.key_pressed(Key::Comma),
             )
         });
         let (
@@ -1200,6 +1266,7 @@ impl SpaceApp {
             key_del,
             key_back,
             space,
+            comma,
         ) = input;
 
         if question || (mods.shift && slash) {
@@ -1239,6 +1306,9 @@ impl SpaceApp {
             if key_j {
                 self.open_junk_panel();
             }
+            if comma {
+                self.open_settings();
+            }
             if (key_del || key_back) && !ctx.wants_keyboard_input() && self.mode == Mode::Explore
             {
                 let selected_deletable = self.selected.is_some_and(|id| {
@@ -1274,6 +1344,8 @@ impl SpaceApp {
                 }
             } else if self.show_shortcuts {
                 self.show_shortcuts = false;
+            } else if self.show_settings {
+                self.show_settings = false;
             } else if self.confirm_delete && self.delete_progress.is_none() {
                 self.confirm_delete = false;
             } else if self.junk.confirm {
@@ -1357,8 +1429,14 @@ impl SpaceApp {
                 self.settings.window_height = rect.height();
             }
         });
-        self.settings.default_view = self.view;
-        self.settings.default_size_mode = self.size_mode;
+        self.settings.last_view = Some(self.view);
+        self.settings.last_size_mode = Some(self.size_mode);
+    }
+
+    /// Settings window (More → Settings…, ⌘,).
+    pub(crate) fn open_settings(&mut self) {
+        self.show_settings = true;
+        self.measure_cache();
     }
 
     fn go_up(&mut self) {
@@ -1854,8 +1932,8 @@ impl SpaceApp {
 
 impl eframe::App for SpaceApp {
     fn save(&mut self, _storage: &mut dyn eframe::Storage) {
-        self.settings.default_view = self.view;
-        self.settings.default_size_mode = self.size_mode;
+        self.settings.last_view = Some(self.view);
+        self.settings.last_size_mode = Some(self.size_mode);
         self.settings_dirty = Some(Instant::now());
         self.flush_settings(true);
         self.flush_rule_prefs(true);
@@ -1942,6 +2020,15 @@ fn block_on<F: std::future::Future>(future: F) -> F::Output {
         }
         *woken = false;
     }
+}
+
+/// The saved-scan cache with the TTL and size budget from the settings.
+fn configured_cache(settings: &AppSettings) -> Option<CacheStore> {
+    CacheStore::open().ok().map(|cache| {
+        cache
+            .with_ttl_days(settings.cache_ttl_days)
+            .with_max_bytes(settings.cache_max_mb.saturating_mul(1 << 20))
+    })
 }
 
 /// A file-name stem from a folder name: letters, digits, dash and underscore.

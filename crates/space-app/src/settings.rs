@@ -120,6 +120,16 @@ pub struct AppSettings {
     pub reduce_motion: bool,
     /// How long the pointer rests before a hover hint appears.
     pub tooltip_delay_ms: u64,
+    /// Open with the view and size mode last used instead of the defaults.
+    pub remember_last_view: bool,
+    /// View and size mode at the last exit (used when `remember_last_view`).
+    pub last_view: Option<ViewMode>,
+    pub last_size_mode: Option<SizeMode>,
+    /// Saved scans older than this are removed at startup (0 = keep forever).
+    pub cache_ttl_days: u64,
+    /// Least-recently-used saved scans are removed once the cache exceeds
+    /// this many MB (0 = no limit).
+    pub cache_max_mb: u64,
     /// Rows in the largest-files list.
     pub largest_limit: usize,
     /// Largest list shows folders (subtree totals) instead of files.
@@ -143,6 +153,11 @@ impl Default for AppSettings {
             size_units: SizeUnits::Iec,
             reduce_motion: false,
             tooltip_delay_ms: 350,
+            remember_last_view: true,
+            last_view: None,
+            last_size_mode: None,
+            cache_ttl_days: 90,
+            cache_max_mb: 0,
             largest_limit: 100,
             largest_dirs: false,
         }

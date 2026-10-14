@@ -400,6 +400,7 @@ mod tests {
         ("app/ui/cleanup.rs", include_str!("app/ui/cleanup.rs")),
         ("app/ui/review_page.rs", include_str!("app/ui/review_page.rs")),
         ("app/ui/dialogs.rs", include_str!("app/ui/dialogs.rs")),
+        ("app/ui/settings_page.rs", include_str!("app/ui/settings_page.rs")),
         ("app.rs", include_str!("app.rs")),
         ("export.rs", include_str!("export.rs")),
         ("junk_panel.rs", include_str!("junk_panel.rs")),
