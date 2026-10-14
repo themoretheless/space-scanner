@@ -1,37 +1,59 @@
 //! Repository maintenance without interpreter dependencies.
-use anyhow::{bail, ensure, Context, Result};
+use anyhow::{ensure, Context, Result};
+use clap::{Parser, Subcommand};
 use serde_json::{json, Value};
-use space_clean::{enrich_rule_kind, enrich_rule_tags, Rule};
+use space_clean::{enrich_rule_kind, enrich_rule_tags, yaml_files_under, Rule};
 use std::{
     collections::{BTreeMap, HashMap, HashSet},
     fs,
+    io::Write as _,
     path::{Path, PathBuf},
 };
 
+/// Cleanup rule files under `root`: every YAML except `_*.yaml` drafts /
+/// protection packs (same walker as the rule loader).
 fn files(root: &Path) -> Result<Vec<PathBuf>> {
-    let mut paths = Vec::new();
-    for entry in walkdir::WalkDir::new(root) {
-        let entry = entry?;
-        let p = entry.path();
-        if entry.file_type().is_file()
-            && matches!(p.extension().and_then(|s| s.to_str()), Some("yaml" | "yml"))
-            && !p.file_name().unwrap().to_string_lossy().starts_with('_')
-        {
-            paths.push(p.to_owned());
-        }
-    }
-    paths.sort();
-    Ok(paths)
+    ensure!(root.is_dir(), "rules directory not found: {}", root.display());
+    Ok(yaml_files_under(root)
+        .into_iter()
+        .filter(|p| {
+            !p.file_name()
+                .map(|n| n.to_string_lossy().starts_with('_'))
+                .unwrap_or(true)
+        })
+        .collect())
 }
 fn read(path: &Path) -> Result<Value> {
     serde_yaml::from_str(&fs::read_to_string(path)?).with_context(|| path.display().to_string())
 }
-fn write(path: &Path, value: &Value) -> Result<()> {
-    if let Some(parent) = path.parent() {
+/// Write a file atomically: the bytes go to a sibling temporary file which is
+/// then renamed over `path`, so a crash never leaves a half-written pack.
+fn write_atomic(path: &Path, bytes: &[u8]) -> Result<()> {
+    let parent = path.parent().filter(|p| !p.as_os_str().is_empty());
+    if let Some(parent) = parent {
         fs::create_dir_all(parent)?;
     }
-    fs::write(path, serde_yaml::to_string(value)?)?;
-    Ok(())
+    let name = path
+        .file_name()
+        .context("output path has no file name")?
+        .to_string_lossy();
+    let tmp = parent
+        .unwrap_or(Path::new("."))
+        .join(format!(".{name}.{}.tmp", std::process::id()));
+    let result = (|| -> Result<()> {
+        let mut file = fs::File::create(&tmp)?;
+        file.write_all(bytes)?;
+        file.sync_all()?;
+        fs::rename(&tmp, path)?;
+        Ok(())
+    })();
+    if result.is_err() {
+        let _ = fs::remove_file(&tmp);
+    }
+    result.with_context(|| format!("writing {}", path.display()))
+}
+fn write(path: &Path, value: &Value) -> Result<()> {
+    write_atomic(path, serde_yaml::to_string(value)?.as_bytes())
 }
 fn duplicates(root: &Path) -> Result<BTreeMap<String, String>> {
     let mut seen = HashMap::new();
@@ -160,10 +182,13 @@ fn deduplicate(root: &Path, apply: bool) -> Result<()> {
         "stale alias targets; no files changed"
     );
     for (path, output) in &edits {
-        fs::write(path, output)?;
+        write_atomic(path, output.as_bytes())?;
     }
     if !previous.is_empty() {
-        fs::write(alias_path, serde_json::to_string_pretty(&previous)? + "\n")?;
+        write_atomic(
+            &alias_path,
+            (serde_json::to_string_pretty(&previous)? + "\n").as_bytes(),
+        )?;
     }
     println!("Removed {} rules from {} files", removed.len(), edits.len());
     Ok(())
@@ -423,69 +448,99 @@ fn features(root: &Path) -> Result<()> {
         "\n---\n\n**Total: {} features** across {count} categories.\n",
         items.len()
     ));
-    fs::write(root.join("docs/FEATURES.md"), out)?;
+    write_atomic(&root.join("docs/FEATURES.md"), out.as_bytes())?;
     Ok(())
 }
+#[derive(Parser)]
+#[command(name = "space-tools", about = "Repository maintenance for the rule catalog")]
+struct Cli {
+    /// Rule catalog directory (default: <repo>/rules)
+    #[arg(long, global = true, value_name = "DIR")]
+    root: Option<PathBuf>,
+    #[command(subcommand)]
+    cmd: Cmd,
+}
+
+#[derive(Subcommand)]
+enum Cmd {
+    /// Report duplicate rules (identical conditions); --apply removes them
+    Deduplicate {
+        /// Remove duplicates and record aliases in _rule-aliases.json
+        #[arg(long)]
+        apply: bool,
+    },
+    /// Split platform "any" rules into per-platform rules by path shape
+    Split,
+    /// Generate disabled cache/log rules from a list of application names
+    Catalog {
+        names: PathBuf,
+        prefix: String,
+        target: usize,
+    },
+    /// Regenerate the protection packs (1000 hard deletion guards)
+    Protections,
+    /// Regenerate docs/FEATURES.md from docs/features_items.json
+    Features,
+    /// Print cargo's target directory
+    TargetDir,
+    /// Generate report-only PyPI cache probes (bundled snapshot, or a custom batch)
+    Pypi {
+        /// Custom batch: names file, source JSON, prefix and target count
+        #[arg(num_args = 4, value_names = ["NAMES", "SOURCE", "PREFIX", "TARGET"])]
+        batch: Vec<String>,
+    },
+    /// Build the release app, bundle it as SpaceScanner.app and launch it (macOS)
+    RunApp,
+}
+
 fn main() -> Result<()> {
+    let cli = Cli::parse();
     let repo = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let args: Vec<String> = std::env::args().skip(1).collect();
-    let cmd = args.first().map(String::as_str).unwrap_or("help");
-    let rules = args
-        .windows(2)
-        .find(|a| a[0] == "--root")
-        .map(|a| PathBuf::from(&a[1]))
-        .unwrap_or_else(|| repo.join("rules"));
-    match cmd {
-        "deduplicate" => deduplicate(&rules, args.iter().any(|a| a == "--apply")),
-        "split" => split(&rules),
-        "catalog" => {
-            ensure!(
-                args.len() >= 4,
-                "catalog <names.txt> <prefix> <target> [--root rules]"
-            );
-            catalog(&rules, Path::new(&args[1]), &args[2], args[3].parse()?)
-        }
-        "features" => features(&repo),
-        "target-dir" => {
-            let output = std::process::Command::new("cargo")
-                .args(["metadata", "--format-version", "1", "--no-deps"])
-                .current_dir(&repo)
-                .output()?;
-            ensure!(output.status.success(), "cargo metadata failed");
-            let v: Value = serde_json::from_slice(&output.stdout)?;
-            println!(
-                "{}",
-                v["target_directory"]
-                    .as_str()
-                    .context("missing target directory")?
-            );
+    let rules = cli.root.unwrap_or_else(|| repo.join("rules"));
+    match cli.cmd {
+        Cmd::Deduplicate { apply } => deduplicate(&rules, apply),
+        Cmd::Split => split(&rules),
+        Cmd::Catalog {
+            names,
+            prefix,
+            target,
+        } => catalog(&rules, &names, &prefix, target),
+        Cmd::Features => features(&repo),
+        Cmd::TargetDir => {
+            println!("{}", target_dir(&repo)?.display());
             Ok(())
         }
-        "protections" => protections(&rules),
-        "pypi" => {
-            if args.get(1).is_some_and(|arg| arg != "--root") {
-                ensure!(
-                    args.len() >= 5,
-                    "pypi <names.txt> <source.json> <prefix> <target> [--root rules]"
-                );
+        Cmd::Protections => protections(&rules),
+        Cmd::Pypi { batch } => {
+            if batch.is_empty() {
+                pypi(&repo, &rules)
+            } else {
                 pypi_batch(
                     &rules,
-                    Path::new(&args[1]),
-                    Path::new(&args[2]),
-                    &args[3],
-                    args[4].parse()?,
+                    Path::new(&batch[0]),
+                    Path::new(&batch[1]),
+                    &batch[2],
+                    batch[3]
+                        .parse()
+                        .with_context(|| format!("invalid target count '{}'", batch[3]))?,
                 )
-            } else {
-                pypi(&repo, &rules)
             }
         }
-        "run-app" => launch(&repo),
-        "help" | "--help" => {
-            println!("cargo run -p space-tools -- <command>\nCommands: deduplicate [--apply] [--root rules], split [--root rules], catalog <names.txt> <prefix> <target> [--root rules], protections [--root rules], features, target-dir, pypi [--root rules], run-app");
-            Ok(())
-        }
-        _ => bail!("unknown command: {cmd}"),
+        Cmd::RunApp => launch(&repo),
     }
+}
+fn target_dir(repo: &Path) -> Result<PathBuf> {
+    let output = std::process::Command::new("cargo")
+        .args(["metadata", "--format-version", "1", "--no-deps"])
+        .current_dir(repo)
+        .output()?;
+    ensure!(output.status.success(), "cargo metadata failed");
+    let v: Value = serde_json::from_slice(&output.stdout)?;
+    Ok(PathBuf::from(
+        v["target_directory"]
+            .as_str()
+            .context("missing target directory")?,
+    ))
 }
 fn protections(root: &Path) -> Result<()> {
     let apps = "1password bitwarden keepassxc lastpass authy microsoft-authenticator google-authenticator proton-pass dashlane nordpass keeper enpass yubico electrum exodus metamask ledger-live trezor-suite phantom solflare sparrow-wallet wasabi-wallet monero-wallet bitcoin-core ethereum chrome chromium firefox safari edge brave vivaldi opera tor-browser arc thunderbird outlook proton-mail mailbird spark-mail airmail mailspring signal telegram whatsapp element discord slack teams zoom skype messages facetime contacts calendars reminders notes notion obsidian evernote onenote bear craft todoist things omnifocus logseq roam vscode cursor zed jetbrains xcode android-studio visual-studio github-desktop sourcetree tower fork gitkraken docker-desktop dropbox onedrive google-drive icloud-drive nextcloud syncthing box-drive photos lightroom photoshop affinity-photo capture-one davinci-resolve final-cut-pro logic-pro ableton-live pro-tools premiere-pro blender";
@@ -622,17 +677,7 @@ fn launch(repo: &Path) -> Result<()> {
         .current_dir(repo)
         .status()?;
     ensure!(status.success(), "app build failed");
-    let output = std::process::Command::new("cargo")
-        .args(["metadata", "--format-version", "1", "--no-deps"])
-        .current_dir(repo)
-        .output()?;
-    ensure!(output.status.success(), "cargo metadata failed");
-    let metadata: Value = serde_json::from_slice(&output.stdout)?;
-    let target = PathBuf::from(
-        metadata["target_directory"]
-            .as_str()
-            .context("missing target directory")?,
-    );
+    let target = target_dir(repo)?;
     let app = std::env::temp_dir().join("SpaceScanner.app");
     for name in ["SpaceScanner", "space-scanner"] {
         let _ = std::process::Command::new("pkill")
@@ -659,9 +704,9 @@ fn launch(repo: &Path) -> Result<()> {
             fs::copy(entry.path(), dest)?;
         }
     }
-    fs::write(
-        app.join("Contents/Info.plist"),
-        r#"<?xml version="1.0" encoding="UTF-8"?>
+    write_atomic(
+        &app.join("Contents/Info.plist"),
+        br#"<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0"><dict>
 <key>CFBundleName</key><string>Space Scanner</string>
@@ -805,6 +850,36 @@ mod tests {
             );
         }
         assert!(pypi(&repo, &f.0).is_err());
+    }
+    #[test]
+    fn clap_definition_is_consistent() {
+        use clap::CommandFactory;
+        Cli::command().debug_assert();
+    }
+    #[test]
+    fn atomic_write_leaves_no_temporaries_and_replaces_content() {
+        let f = Fixture::new();
+        let path = f.0.join("nested/out.yaml");
+        write_atomic(&path, b"first").unwrap();
+        write_atomic(&path, b"second").unwrap();
+        assert_eq!(fs::read_to_string(&path).unwrap(), "second");
+        let names: Vec<_> = fs::read_dir(path.parent().unwrap())
+            .unwrap()
+            .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
+            .collect();
+        assert_eq!(names, vec!["out.yaml"]);
+        assert!(write_atomic(&f.0.join("nested"), b"dir").is_err());
+    }
+    #[test]
+    fn rule_files_skip_drafts_and_protection_packs() {
+        let f = Fixture::new();
+        fs::create_dir_all(f.0.join("protected")).unwrap();
+        fs::write(f.0.join("a.yaml"), "rules: []").unwrap();
+        fs::write(f.0.join("_draft.yaml"), "rules: []").unwrap();
+        fs::write(f.0.join("protected/_protected-linux.yaml"), "protections: []").unwrap();
+        fs::write(f.0.join("notes.txt"), "x").unwrap();
+        assert_eq!(files(&f.0).unwrap(), vec![f.0.join("a.yaml")]);
+        assert!(files(&f.0.join("missing")).is_err());
     }
     #[test]
     fn split_shared_and_specific_paths() {
