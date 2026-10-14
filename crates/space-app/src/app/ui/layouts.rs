@@ -10,13 +10,12 @@ use space_core::NodeId;
 
 use super::usage::{expand_all, tree_rows, TreeRow, MAX_TREE_ROWS};
 use super::Density;
-use crate::app::{Mode, SpaceApp};
+use crate::app::SpaceApp;
 use crate::icons::{self, Icon};
-use crate::review;
 use crate::theme::metrics::{S2, S3, S4, SIDE_W, TREE_INDENT};
 use crate::theme::type_scale;
 use crate::theme::{self, ACCENT, ACCENT_INK, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
-use crate::widgets::{caption, empty_state, primary};
+use crate::widgets::{caption, empty_state};
 
 const COL_W: f32 = 300.0;
 const COL_ROW_H: f32 = 40.0;
@@ -33,9 +32,9 @@ impl SpaceApp {
         if d == Density::Narrow {
             self.details_drawer(ctx);
         }
-        self.basket_bar(ctx);
         if d != Density::Narrow {
             egui::SidePanel::right("columns_inspector")
+                .show_separator_line(false)
                 .exact_width(SIDE_W + 20.0)
                 .resizable(false)
                 .frame(
@@ -112,7 +111,11 @@ impl SpaceApp {
                                         );
                                         ui.horizontal(|ui| {
                                             ui.add_space(S3);
-                                            ui.label(RichText::new(&tree.node(dir).name).strong());
+                                            ui.label(
+                                                RichText::new(&tree.node(dir).name)
+                                                    .family(crate::theme::bold()),
+                                            );
+                                            ui.add_space(6.0);
                                             ui.label(caption(crate::i18n::bytes(total as u64)));
                                         });
                                         ui.add_space(4.0);
@@ -127,7 +130,7 @@ impl SpaceApp {
                                                     let size = n.size(mode);
                                                     let (rect, resp) = ui.allocate_exact_size(
                                                         egui::vec2(COL_W - 1.0, COL_ROW_H),
-                                                        Sense::click(),
+                                                        Sense::CLICK,
                                                     );
                                                     let p = ui.painter();
                                                     let fg =
@@ -276,9 +279,9 @@ impl SpaceApp {
                                                     resp.context_menu(|ui| {
                                                         if !n.synthetic {
                                                             let q = if self.review.contains(&id) {
-                                                                "Remove from review"
+                                                                "Take out of Trash list"
                                                             } else {
-                                                                "Add to review"
+                                                                "Add to Trash list"
                                                             };
                                                             if ui.button(t(q)).clicked() {
                                                                 queue = Some(id);
@@ -305,7 +308,7 @@ impl SpaceApp {
             self.selected = Some(id);
         }
         if let Some(id) = queue {
-            review::toggle(&mut self.review, id);
+            self.queue_toggle(&[id]);
         }
         if let Some(id) = enter {
             if tree.node(id).is_dir {
@@ -323,12 +326,12 @@ impl SpaceApp {
         let Some(tree) = self.tree.clone() else {
             return;
         };
-        self.basket_bar(ctx);
         if d != Density::Wide {
             self.details_drawer(ctx);
         }
         if d == Density::Wide && self.selected.is_some() {
             egui::SidePanel::right("table_inspector")
+                .show_separator_line(false)
                 .exact_width(SIDE_W + 10.0)
                 .resizable(false)
                 .frame(
@@ -401,7 +404,7 @@ impl SpaceApp {
                             let n = tree.node(id);
                             let (rect, resp) = ui.allocate_exact_size(
                                 egui::vec2(ui.available_width(), TABLE_ROW_H),
-                                Sense::click(),
+                                Sense::CLICK,
                             );
                             if self.selected == Some(id) && scroll_to {
                                 resp.scroll_to_me(None);
@@ -448,7 +451,7 @@ impl SpaceApp {
             self.selected = Some(id);
         }
         if let Some(id) = queue {
-            review::toggle(&mut self.review, id);
+            self.queue_toggle(&[id]);
         }
         if let Some(id) = enter {
             if tree.node(id).is_dir {
@@ -458,42 +461,6 @@ impl SpaceApp {
                 self.reveal_selected();
             }
         }
-    }
-
-    /// Bottom bar shared by Columns and Table: what is selected for removal.
-    fn basket_bar(&mut self, ctx: &egui::Context) {
-        if self.basket_len() == 0 {
-            return;
-        }
-        egui::TopBottomPanel::bottom("basket_bar")
-            .frame(
-                egui::Frame::new()
-                    .fill(PANEL())
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                    .inner_margin(egui::Margin::symmetric(S4 as i8, S2 as i8)),
-            )
-            .show(ctx, |ui| {
-                ui.horizontal(|ui| {
-                    let n = self.basket_len();
-                    ui.label(caption("Selected for review"));
-                    ui.label(
-                        RichText::new(crate::i18n::bytes(self.basket_bytes()))
-                            .monospace()
-                            .strong()
-                            .color(if n > 0 { ACCENT() } else { MUTED() }),
-                    );
-                    ui.label(caption(crate::tr!("{} items", n)));
-
-                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                        if ui
-                            .add_enabled(n > 0, primary(&crate::tr!("Review {} items", n)))
-                            .clicked()
-                        {
-                            self.set_mode(Mode::Review);
-                        }
-                    });
-                });
-            });
     }
 }
 
