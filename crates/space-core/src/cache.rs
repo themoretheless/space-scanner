@@ -209,7 +209,7 @@ impl CacheStore {
             return Err(err);
         }
         if self.max_bytes.is_some() {
-            let _ = self.evict_to_budget();
+            let _ = self.evict_to_budget_keeping(Some(&meta_path));
         }
         Ok(meta)
     }
@@ -283,6 +283,13 @@ impl CacheStore {
     /// Evict least-recently-loaded entries until the cache fits the budget.
     /// Returns `(entries removed, bytes freed)`; `(0, 0)` without a budget.
     pub fn evict_to_budget(&self) -> io::Result<(usize, u64)> {
+        self.evict_to_budget_keeping(None)
+    }
+
+    /// Like [`CacheStore::evict_to_budget`], but never removes the entry whose
+    /// meta file is `keep`: a save must not evict the tree it just wrote when
+    /// several entries share the same mtime second.
+    fn evict_to_budget_keeping(&self, keep: Option<&Path>) -> io::Result<(usize, u64)> {
         let Some(budget) = self.max_bytes else {
             return Ok((0, 0));
         };
@@ -292,10 +299,21 @@ impl CacheStore {
         if total <= budget {
             return Ok(removed);
         }
-        entries.sort_by_key(|e| (e.last_used, e.scanned_at_unix));
+        // Oldest first; ties (same mtime second) broken by scan time, then by
+        // path so the order is deterministic across runs and platforms.
+        entries.sort_by(|a, b| {
+            (a.last_used, a.scanned_at_unix, &a.meta_path).cmp(&(
+                b.last_used,
+                b.scanned_at_unix,
+                &b.meta_path,
+            ))
+        });
         for entry in entries {
             if total <= budget {
                 break;
+            }
+            if keep.is_some_and(|k| k == entry.meta_path) {
+                continue;
             }
             let freed = remove_entry(&entry)?;
             total = total.saturating_sub(entry.bytes);
