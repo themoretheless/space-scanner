@@ -44,6 +44,7 @@ mod tests {
             synthetic: false,
             children: vec![NodeId(1)],
             parent: None,
+            raw_name: None,
         };
         let mut child = parent.clone();
         child.name = "file".into();

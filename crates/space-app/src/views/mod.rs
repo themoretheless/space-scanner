@@ -73,7 +73,7 @@ impl<'de> serde::Deserialize<'de> for ViewMode {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
 #[repr(u8)]
 pub enum EntryKindFilter {
     #[default]
@@ -407,6 +407,7 @@ mod click_map_tests {
             synthetic: false,
             children,
             parent,
+            raw_name: None,
         }
     }
 
@@ -420,6 +421,7 @@ mod click_map_tests {
             synthetic: false,
             children: Vec::new(),
             parent: Some(parent),
+            raw_name: None,
         }
     }
 

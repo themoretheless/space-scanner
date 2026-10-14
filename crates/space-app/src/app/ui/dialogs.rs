@@ -397,7 +397,7 @@ impl SpaceApp {
                     match rules_panel::draw(ui, &mut self.rules, mgr, &mut self.settings.flags) {
                         RulesAction::Close => self.rules.open = false,
                         RulesAction::PrefsChanged => {
-                            self.settings.save();
+                            self.mark_settings_dirty();
                             if self.junk.open {
                                 self.start_junk_scan();
                             }

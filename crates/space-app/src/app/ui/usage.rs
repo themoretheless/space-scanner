@@ -213,6 +213,8 @@ impl SpaceApp {
                     self.show_largest as usize,
                 ) {
                     self.show_largest = i == 1;
+                    self.settings.show_largest = self.show_largest;
+                    self.mark_settings_dirty();
                 }
                 ui.add_space(S2);
                 ui.horizontal_wrapped(|ui| {
@@ -239,6 +241,8 @@ impl SpaceApp {
                     }
                     if changed {
                         self.geom = None;
+                        self.settings.filter_kind = self.filter.kind;
+                        self.mark_settings_dirty();
                     }
                 });
             });
@@ -560,10 +564,10 @@ impl SpaceApp {
                         self.scan.is_none() && !self.busy,
                         egui::Button::new(t("Rescan folder")).min_size(egui::vec2(w, 32.0)),
                     )
-                    .on_hover_text(t("Rebuild the index for the folder in view"))
+                    .on_hover_text(t("Rebuild the index for this folder"))
                     .clicked()
             {
-                self.incremental_rescan_focus();
+                self.incremental_rescan(id);
             }
         };
         if fits {
@@ -778,7 +782,7 @@ impl SpaceApp {
             });
         if dismissed {
             self.settings.flags.show_shortcuts_hint = false;
-            self.settings.save();
+            self.mark_settings_dirty();
         }
     }
 }

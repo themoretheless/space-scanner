@@ -47,7 +47,7 @@ pub fn list_volumes_fast() -> Vec<VolumeInfo> {
                 continue;
             }
             let name = entry.file_name().to_string_lossy().into_owned();
-            if name == "Macintosh HD" || is_same_file(&path, Path::new("/")) {
+            if name == "Macintosh HD" || is_same_inode(&path, Path::new("/")) {
                 continue;
             }
             out.push(VolumeInfo {
@@ -61,18 +61,26 @@ pub fn list_volumes_fast() -> Vec<VolumeInfo> {
         }
     }
 
+    push_home(&mut out);
+    out
+}
+
+/// The personal-files target, listed after the disks in both listings.
+fn push_home(out: &mut Vec<VolumeInfo>) {
     if let Some(home) = std::env::var_os("HOME") {
+        let mount = PathBuf::from(home);
+        if out.iter().any(|v| v.mount == mount) {
+            return;
+        }
         out.push(VolumeInfo {
             name: "Home".into(),
-            mount: PathBuf::from(home),
+            mount,
             total: 0,
             available: 0,
             apfs_consumed: None,
             snapshot_count: 0,
         });
     }
-
-    out
 }
 
 /// Full disk stats — can take seconds on macOS; call off the UI thread.
@@ -127,6 +135,7 @@ pub fn list_volumes() -> Vec<VolumeInfo> {
     }
 
     unique.sort_by_key(|volume| std::cmp::Reverse(volume.used()));
+    push_home(&mut unique);
     unique
 }
 
@@ -170,7 +179,8 @@ fn apfs_volume_stats(mount: &str) -> Option<(u64, u32)> {
     let txt = String::from_utf8_lossy(&out.stdout);
     let consumed =
         plist_u64(&txt, "VolumeUsedSpace").or_else(|| plist_u64(&txt, "CapacityInUse"))?;
-    let snaps = snapshot_count_for_mount(mount);
+    // One `diskutil info` per volume: the device id comes from the same plist.
+    let snaps = snapshot_count_for_device(plist_string(&txt, "DeviceIdentifier").unwrap_or_default());
     Some((consumed, snaps))
 }
 
@@ -185,18 +195,7 @@ fn plist_u64(plist: &str, key: &str) -> Option<u64> {
 }
 
 #[cfg(target_os = "macos")]
-fn snapshot_count_for_mount(mount: &str) -> u32 {
-    let info = Command::new("diskutil")
-        .args(["info", "-plist", mount])
-        .output()
-        .ok();
-    let device = info
-        .as_ref()
-        .and_then(|o| {
-            let t = String::from_utf8_lossy(&o.stdout);
-            plist_string(&t, "DeviceIdentifier")
-        })
-        .unwrap_or_default();
+fn snapshot_count_for_device(device: String) -> u32 {
     if device.is_empty() {
         return tmutil_snapshot_lines();
     }
@@ -286,9 +285,19 @@ fn same_disk(a: &VolumeInfo, b: &VolumeInfo) -> bool {
     root_pair && a.total > 0 && a.total == b.total
 }
 
-fn is_same_file(a: &Path, b: &Path) -> bool {
-    match (std::fs::canonicalize(a), std::fs::canonicalize(b)) {
-        (Ok(ca), Ok(cb)) => ca == cb,
-        _ => false,
+/// Same filesystem object, without `canonicalize` (which resolves every
+/// component and can stall on a slow network mount).
+fn is_same_inode(a: &Path, b: &Path) -> bool {
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::MetadataExt;
+        match (std::fs::metadata(a), std::fs::metadata(b)) {
+            (Ok(ma), Ok(mb)) => ma.dev() == mb.dev() && ma.ino() == mb.ino(),
+            _ => false,
+        }
+    }
+    #[cfg(not(unix))]
+    {
+        a == b
     }
 }

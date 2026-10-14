@@ -178,7 +178,7 @@ impl SpaceApp {
             review::toggle(&mut self.review, id);
         }
         if let Some(path) = drop_junk {
-            self.junk.exclude_paths(&[path]);
+            self.junk.exclude_exact(&path);
         }
     }
 }

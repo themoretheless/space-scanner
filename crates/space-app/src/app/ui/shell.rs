@@ -59,6 +59,8 @@ impl SpaceApp {
                                 segmented(ui, &["List", "Map"], self.compact_map as usize)
                             {
                                 self.compact_map = i == 1;
+                                self.settings.compact_map = self.compact_map;
+                                self.mark_settings_dirty();
                             }
                         }
                         let search_w = if d == Density::Narrow { 150.0 } else { 220.0 };
@@ -303,13 +305,14 @@ impl SpaceApp {
     fn more_menu(&mut self, ui: &mut egui::Ui) {
         ui.menu_button(RichText::new(t("More")).color(TEXT()), |ui| {
             ui.set_min_width(220.0);
-            if ui.button(t("Choose folder…  ⌘O")).clicked() {
-                ui.close_menu();
-                if let Some(path) = rfd::FileDialog::new().pick_folder() {
-                    self.start_scan(path, false);
-                }
-            }
             let idle = self.scan.is_none() && !self.busy;
+            if ui
+                .add_enabled(idle && !self.picking_folder, egui::Button::new(t("Choose folder…  ⌘O")))
+                .clicked()
+            {
+                ui.close_menu();
+                self.pick_folder();
+            }
             if ui
                 .add_enabled(
                     self.tree.is_some() && idle,
@@ -334,7 +337,7 @@ impl SpaceApp {
                 .add_enabled(self.tree.is_some(), egui::Button::new(t("Copy path  ⌘⇧C")))
                 .clicked()
             {
-                self.copy_focus_path();
+                self.copy_focus_path(ui.ctx());
                 ui.close_menu();
             }
             ui.separator();
@@ -350,7 +353,7 @@ impl SpaceApp {
                     {
                         self.settings.language = choice;
                         crate::i18n::set(choice.unwrap_or_else(crate::i18n::detect));
-                        self.settings.save();
+                        self.mark_settings_dirty();
                         ui.close_menu();
                     }
                 }
@@ -364,7 +367,7 @@ impl SpaceApp {
                         self.settings.skin = skin;
                         crate::theme::set_skin(ui.ctx(), skin);
                         self.geom = None;
-                        self.settings.save();
+                        self.mark_settings_dirty();
                         ui.close_menu();
                     }
                 }

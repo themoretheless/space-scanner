@@ -37,6 +37,8 @@ pub struct RulesPanelState {
     pub side_tab: SideTab,
     pub error: Option<String>,
     pub dirty: bool,
+    /// Preferences changed; the app writes them after a quiet period.
+    pub save_pending: Option<std::time::Instant>,
     /// Cap rows drawn per frame for responsiveness with many rules.
     pub page_size: usize,
     summary: Option<Arc<RuleSummary>>,
@@ -56,6 +58,7 @@ impl Default for RulesPanelState {
             side_tab: SideTab::Categories,
             error: None,
             dirty: false,
+            save_pending: None,
             page_size: 200,
             summary: None,
             page: None,
@@ -83,6 +86,12 @@ struct RulePage {
 }
 
 impl RulesPanelState {
+    /// Queue a preferences write; `app.rs` debounces and runs it off-thread.
+    pub fn mark_save(&mut self) {
+        self.error = None;
+        self.save_pending = Some(std::time::Instant::now());
+    }
+
     fn summary(&mut self, mgr: &RuleManager) -> Arc<RuleSummary> {
         if let Some(summary) = &self.summary {
             if Arc::ptr_eq(&summary.pack, &mgr.pack) && summary.prefs == mgr.prefs {
@@ -187,7 +196,7 @@ pub fn draw(
             {
                 mgr.reset_all();
                 state.dirty = true;
-                state.error = save(mgr);
+                state.mark_save();
                 action = RulesAction::PrefsChanged;
             }
             let mut all = mgr.prefs.enable_all_by_default;
@@ -200,7 +209,7 @@ pub fn draw(
             {
                 mgr.prefs.enable_all_by_default = all;
                 state.dirty = true;
-                state.error = save(mgr);
+                state.mark_save();
                 action = RulesAction::PrefsChanged;
             }
         });
@@ -315,7 +324,7 @@ pub fn draw(
                                 if flip {
                                     let _ = mgr.set_category_enabled(&cat.name, !on);
                                     state.dirty = true;
-                                    state.error = save(mgr);
+                                    state.mark_save();
                                     action = RulesAction::PrefsChanged;
                                 } else if pick {
                                     state.category = Some(cat.name.clone());
@@ -358,7 +367,7 @@ pub fn draw(
                                 if flip {
                                     let _ = mgr.set_tag_enabled(&tag.name, !on);
                                     state.dirty = true;
-                                    state.error = save(mgr);
+                                    state.mark_save();
                                     action = RulesAction::PrefsChanged;
                                 } else if pick {
                                     state.tag = Some(tag.name.clone());
@@ -394,7 +403,7 @@ pub fn draw(
                         if ui.button(t("Enable category")).on_hover_text(t("Enable defaults for this category, keeping individual exceptions. New rules will follow the category setting.")).clicked() {
                             let _ = mgr.set_category_enabled(&cat.name, true);
                             state.dirty = true;
-                            state.error = save(mgr);
+                            state.mark_save();
                             action = RulesAction::PrefsChanged;
                         }
                     }
@@ -494,7 +503,7 @@ fn draw_rule_row(
                     if r.on_hover_text(t("Turn this rule on or off for junk cleaning")).clicked() {
                         let _ = mgr.set_rule_enabled(&row.id, !row.effectively_enabled);
                         state.dirty = true;
-                        state.error = save(mgr);
+                        state.mark_save();
                         *action = RulesAction::PrefsChanged;
                     }
                 }
@@ -560,7 +569,7 @@ fn draw_rule_row(
                     {
                         mgr.reset_rule(&row.id);
                         state.dirty = true;
-                        state.error = save(mgr);
+                        state.mark_save();
                         *action = RulesAction::PrefsChanged;
                     }
 
@@ -722,9 +731,6 @@ fn build_filter(state: &RulesPanelState) -> RuleFilter {
     }
 }
 
-fn save(mgr: &RuleManager) -> Option<String> {
-    mgr.save_prefs().err().map(|e| e.to_string())
-}
 
 fn cat_title(cat: &str) -> String {
     let mut s = cat.replace('-', " ");

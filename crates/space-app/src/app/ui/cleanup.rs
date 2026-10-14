@@ -42,7 +42,7 @@ impl SpaceApp {
                     JunkAction::Close => self.leave_clean(),
                     JunkAction::OpenRules => self.open_rules_panel(),
                     JunkAction::PrefsChanged => {
-                        self.settings.save();
+                        self.mark_settings_dirty();
                         self.start_junk_scan();
                     }
                     JunkAction::None => {}

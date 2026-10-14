@@ -157,6 +157,17 @@ impl JunkPanelState {
             .collect()
     }
 
+    /// Take one row out of the selection without touching other findings
+    /// under the same prefix (the Review page's "×").
+    pub fn exclude_exact(&mut self, path: &std::path::Path) {
+        let Some(report) = &self.report else { return };
+        for (index, finding) in report.scan.findings.iter().enumerate() {
+            if finding.path == path {
+                self.selection.set(index, finding, false);
+            }
+        }
+    }
+
     pub fn exclude_paths(&mut self, paths: &[std::path::PathBuf]) {
         let Some(report) = &self.report else { return };
         for (index, finding) in report.scan.findings.iter().enumerate() {
@@ -949,6 +960,8 @@ mod tests {
             bytes,
             is_dir: false,
             report_only,
+            root: None,
+            min_age_days: 0,
         }
     }
 

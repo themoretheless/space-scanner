@@ -13,7 +13,7 @@ use crate::widgets::{caption, format_age, ghost, page_column, primary, secondary
 
 impl SpaceApp {
     pub(super) fn start_page(&mut self, ctx: &egui::Context) {
-        let enabled = !self.busy && self.scan.is_none();
+        let enabled = !self.busy && self.scan.is_none() && !self.picking_folder;
         let mut target = None;
         let mut choose_folder = false;
         let mut resume = false;
@@ -26,6 +26,22 @@ impl SpaceApp {
                     .show(ui, |ui| {
                         page_column(ui, 860.0, |ui| {
                             ui.add_space(S4);
+                            if let Some(notice) = self.crash_notice.clone() {
+                                egui::Frame::new()
+                                    .fill(PANEL())
+                                    .stroke(egui::Stroke::new(1.0_f32, crate::theme::DANGER().gamma_multiply(0.6)))
+                                    .corner_radius(6)
+                                    .inner_margin(egui::Margin::same(12))
+                                    .show(ui, |ui| {
+                                        ui.set_width(ui.available_width());
+                                        ui.label(RichText::new(t("The last session ended with an error")).strong());
+                                        ui.add(egui::Label::new(caption(notice).monospace()).wrap());
+                                        if ui.add(ghost("Dismiss")).clicked() {
+                                            self.crash_notice = None;
+                                        }
+                                    });
+                                ui.add_space(S3);
+                            }
                             ui.label(RichText::new(t("Where to look for space?")).size(type_scale::TITLE).strong());
                             ui.label(caption("The last result opens instantly. Rescan when you want fresh numbers."));
                             ui.add_space(S3);
@@ -104,15 +120,13 @@ impl SpaceApp {
                     });
             });
         if refresh {
-            self.refresh_volumes_async();
+            self.refresh_volumes();
         }
         if resume {
             self.set_mode(Mode::Explore);
         }
         if choose_folder {
-            if let Some(path) = rfd::FileDialog::new().pick_folder() {
-                target = Some(path);
-            }
+            self.pick_folder();
         }
         if let Some(path) = target {
             self.start_scan(path, false);

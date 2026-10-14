@@ -16,10 +16,16 @@ mod widgets;
 use app::SpaceApp;
 
 fn main() -> eframe::Result<()> {
+    // The message lands in the app-support folder and is shown on the next start.
     let default_hook = std::panic::take_hook();
     std::panic::set_hook(Box::new(move |info| {
         let msg = format!("{info}");
-        let _ = std::fs::write("/tmp/space-scanner-panic.log", &msg);
+        if let Some(path) = settings::panic_log_path() {
+            if let Some(dir) = path.parent() {
+                let _ = std::fs::create_dir_all(dir);
+            }
+            let _ = std::fs::write(path, &msg);
+        }
         eprintln!("space-scanner panic: {msg}");
         default_hook(info);
     }));

@@ -29,15 +29,26 @@ enum BgMsg {
     Volumes(Vec<VolumeInfo>),
     Snapshots(Vec<LocalSnapshot>),
     Recent(Vec<CacheMeta>),
-    /// Cache hit (or forced miss path will scan).
+    /// Cache hit (or forced miss path will scan). `generation` ties the
+    /// answer to the `start_scan` call that asked, so a late answer for a
+    /// target the user already moved away from is dropped.
     CacheResult {
+        generation: u64,
         path: PathBuf,
         loaded: Option<(Arc<SpaceTree>, bool /*stale*/)>,
     },
     CacheSaved(Vec<CacheMeta>),
     RescanDone(Result<Arc<SpaceTree>, String>),
     DeleteProgress(space_clean::CleanProgress),
-    DeleteDone(Result<(Vec<NodeId>, Vec<String>), String>),
+    /// Trash outcome: ids removed from the tree of generation `tree_gen`.
+    DeleteDone {
+        tree_gen: u64,
+        result: Result<(Vec<NodeId>, Vec<String>), String>,
+    },
+    /// Folder chosen in the native picker (`None` = cancelled).
+    FolderPicked(Option<PathBuf>),
+    /// Rule preferences written in the background; `Some` is the error text.
+    PrefsSaved(Option<String>),
     TmCleanDone(CleanReport),
     JunkScanProgress(space_clean::JunkScanProgress),
     JunkScanDone(Result<space_clean::ScanReport, String>),
@@ -118,6 +129,21 @@ pub struct SpaceApp {
     /// Scroll the selected row into view on the next frame.
     tree_scroll: bool,
     compact_map: bool,
+    /// Bumped by every `start_scan`; answers for older generations are dropped.
+    cache_gen: u64,
+    /// Bumped by every `install_tree`; worker results for older trees are dropped.
+    tree_gen: u64,
+    /// Nodes to remove once no worker holds the tree (`Arc::get_mut` succeeds),
+    /// with a deadline after which the tree is copied instead.
+    pending_removals: Option<(Vec<NodeId>, Instant)>,
+    /// A native folder picker is open on a background thread.
+    picking_folder: bool,
+    /// Settings changed; written after a short quiet period, not per toggle.
+    settings_dirty: Option<Instant>,
+    /// Panic message from the previous run, shown once on the Scan page.
+    crash_notice: Option<String>,
+    /// (tree generation, focus) the window title was last built for.
+    title_for: Option<(u64, NodeId)>,
 }
 
 impl SpaceApp {
@@ -125,29 +151,14 @@ impl SpaceApp {
         theme::apply(&cc.egui_ctx, settings.skin);
         crate::i18n::set(settings.language.unwrap_or_else(crate::i18n::detect));
 
-        let cache = CacheStore::open().ok();
-        let (bg_tx, bg_rx) = unbounded();
-
-        {
-            let tx = bg_tx.clone();
-            thread::Builder::new()
-                .name("space-vols".into())
-                .spawn(move || {
-                    let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
-                })
-                .ok();
-        }
-        {
-            let tx = bg_tx.clone();
-            thread::Builder::new()
-                .name("space-snaps".into())
-                .spawn(move || {
-                    let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
-                })
-                .ok();
-        }
-        if let Some(cache) = cache.clone() {
-            let tx = bg_tx.clone();
+        let mut app = Self::build(CacheStore::open().ok(), settings);
+        app.crash_notice = crate::settings::take_crash_notice();
+        app.volumes_loading = true;
+        app.tm_loading = true;
+        app.refresh_volumes();
+        app.refresh_snapshots();
+        if let Some(cache) = app.cache.clone() {
+            let tx = app.bg_tx.clone();
             thread::Builder::new()
                 .name("space-recent".into())
                 .spawn(move || {
@@ -156,9 +167,20 @@ impl SpaceApp {
                 })
                 .ok();
         }
+        app
+    }
 
+    /// State without any background work (shared by `new` and tests).
+    fn build(cache: Option<CacheStore>, settings: AppSettings) -> Self {
+        let (bg_tx, bg_rx) = unbounded();
         let view = settings.default_view;
         let size_mode = settings.default_size_mode;
+        let filter = ViewFilter {
+            kind: settings.filter_kind,
+            ..ViewFilter::default()
+        };
+        let show_largest = settings.show_largest;
+        let compact_map = settings.compact_map;
 
         Self {
             tree: None,
@@ -175,11 +197,11 @@ impl SpaceApp {
             recent: Vec::new(),
             from_cache: false,
             cache_stale: false,
-            filter: ViewFilter::default(),
+            filter,
             history_back: Vec::new(),
             history_fwd: Vec::new(),
             volumes: volumes::list_volumes_fast(),
-            volumes_loading: true,
+            volumes_loading: false,
             review: Vec::new(),
             mode: Mode::Home,
             junk_after_delete: false,
@@ -189,7 +211,7 @@ impl SpaceApp {
             show_tm_panel: false,
             confirm_tm_clean: false,
             tm_snapshots: Vec::new(),
-            tm_loading: true,
+            tm_loading: false,
             junk: JunkPanelState::default(),
             rules: RulesPanelState::default(),
             rule_mgr: None,
@@ -206,24 +228,228 @@ impl SpaceApp {
             focus_filter: false,
             transition: None,
             pending_open: folder_arg(std::env::args()),
-            show_largest: false,
+            show_largest,
             expanded: HashSet::new(),
             tree_rows: Vec::new(),
             tree_revealed: None,
             tree_scroll: false,
-            compact_map: false,
+            compact_map,
+            cache_gen: 0,
+            tree_gen: 0,
+            pending_removals: None,
+            picking_folder: false,
+            settings_dirty: None,
+            crash_notice: None,
+            title_for: None,
         }
     }
 
-    fn refresh_volumes_async(&mut self) {
-        self.volumes_loading = true;
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-vols".into())
-            .spawn(move || {
-                let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
-            })
-            .ok();
+    /// The title names the focused folder; rebuilding the string every frame
+    /// would send a viewport command per frame for nothing.
+    fn update_window_title(&mut self, ctx: &egui::Context) {
+        let key = self.tree.as_ref().map(|_| (self.tree_gen, self.focus));
+        if self.title_for == key && key.is_some() {
+            return;
+        }
+        if self.title_for.is_none() && key.is_none() {
+            return;
+        }
+        self.title_for = key;
+        let title = match &self.tree {
+            Some(tree) => format!("Space Scanner — {}", tree.path_string(self.focus)),
+            None => "Space Scanner".to_string(),
+        };
+        ctx.send_viewport_cmd(egui::ViewportCommand::Title(title));
+    }
+
+    /// Replace the explored tree and reset every piece of per-tree state:
+    /// focus, selection, hover, review queue, history, expansion, tree rows,
+    /// cached geometry and the largest-file query. The focus returns to the
+    /// folder last viewed under this root when the settings remember one.
+    fn install_tree(&mut self, tree: Arc<SpaceTree>) {
+        self.tree_gen = self.tree_gen.wrapping_add(1);
+        self.pending_removals = None;
+        self.focus = tree.root;
+        self.selected = None;
+        self.hovered = None;
+        self.review.clear();
+        self.history_back.clear();
+        self.history_fwd.clear();
+        self.expanded.clear();
+        self.tree_rows.clear();
+        self.tree_revealed = None;
+        self.tree_scroll = false;
+        self.transition = None;
+        self.progress = None;
+        if let Some(path) = self.settings.last_focus.get(&tree.root_path) {
+            if let Some(id) = find_path(&tree, std::path::Path::new(path)) {
+                if tree.node(id).is_dir {
+                    self.focus = id;
+                }
+            }
+        }
+        self.tree = Some(tree);
+        self.invalidate_largest();
+        self.schedule_largest();
+    }
+
+    /// Paths of the state worth carrying across an incremental rescan, where
+    /// node ids change but the folders mostly do not.
+    fn keep_by_paths(&self) -> Option<(String, Vec<String>, Vec<String>)> {
+        let tree = self.tree.as_ref()?;
+        let focus = tree.path_string(self.focus);
+        let review = self.review.iter().map(|&id| tree.path_string(id)).collect();
+        let expanded = self.expanded.iter().map(|&id| tree.path_string(id)).collect();
+        Some((focus, review, expanded))
+    }
+
+    fn restore_by_paths(&mut self, kept: (String, Vec<String>, Vec<String>)) {
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
+        let (focus, review, expanded) = kept;
+        if let Some(id) = find_path(&tree, std::path::Path::new(&focus)) {
+            if tree.node(id).is_dir {
+                self.focus = id;
+            }
+        }
+        self.review = review
+            .iter()
+            .filter_map(|p| find_path(&tree, std::path::Path::new(p)))
+            .collect();
+        self.expanded = expanded
+            .iter()
+            .filter_map(|p| find_path(&tree, std::path::Path::new(p)))
+            .collect();
+        self.invalidate_largest();
+        self.schedule_largest();
+    }
+
+    /// Answer to a cache lookup. Returns the path to scan on a miss. Answers
+    /// for an older generation belong to a target the user left behind.
+    fn on_cache_result(
+        &mut self,
+        generation: u64,
+        path: PathBuf,
+        loaded: Option<(Arc<SpaceTree>, bool)>,
+    ) -> Option<PathBuf> {
+        if generation != self.cache_gen {
+            return None;
+        }
+        self.busy = false;
+        match loaded {
+            Some((tree, stale)) => {
+                self.cache_stale = stale;
+                self.from_cache = true;
+                self.status = if stale {
+                    crate::tr!(
+                        "Cached index (stale) · {} items · {} — Rescan recommended",
+                        tree.item_count,
+                        crate::i18n::bytes(tree.total_size_mode(self.size_mode))
+                    )
+                } else {
+                    crate::tr!(
+                        "Loaded cache · {} items · {}",
+                        tree.item_count,
+                        crate::i18n::bytes(tree.total_size_mode(self.size_mode))
+                    )
+                };
+                self.install_tree(tree);
+                None
+            }
+            None => Some(path),
+        }
+    }
+
+    /// Trash finished: drop the removed nodes from the tree, keep the focus on
+    /// the nearest surviving ancestor and forget history/expansion entries that
+    /// point at removed folders. Nodes are removed only once no worker shares
+    /// the tree (see `apply_pending_removals`).
+    fn on_delete_done(&mut self, tree_gen: u64, deleted_ids: Vec<NodeId>, errors: Vec<String>) {
+        self.delete_progress = None;
+        self.delete_started = None;
+        let n = deleted_ids.len();
+        self.status = if errors.is_empty() {
+            crate::tr!("Moved {} items to Trash", n)
+        } else {
+            crate::tr!("Moved {} items · {} failed", n, errors.len())
+        };
+        self.review.clear();
+        self.selected = None;
+        self.hovered = None;
+        self.tree_revealed = None;
+        self.confirm_delete = false;
+        if std::mem::take(&mut self.junk_after_delete) {
+            self.busy = false;
+            self.apply_junk_clean();
+        }
+        self.refresh_volumes();
+        if tree_gen != self.tree_gen {
+            // The tree changed underneath the worker; its ids mean nothing now.
+            self.busy = self.busy && self.junk.cleaning;
+            return;
+        }
+        let Some(tree) = &self.tree else {
+            self.busy = self.busy && self.junk.cleaning;
+            return;
+        };
+        let removed_paths: Vec<_> = deleted_ids
+            .iter()
+            .map(|&id| PathBuf::from(tree.path_string(id)))
+            .collect();
+        self.junk.exclude_paths(&removed_paths);
+
+        let gone: HashSet<NodeId> = deleted_ids.iter().copied().collect();
+        let survives = |id: NodeId| !tree.path_to(id).iter().any(|a| gone.contains(a));
+        if !survives(self.focus) {
+            let path = tree.path_to(self.focus);
+            self.focus = path
+                .iter()
+                .copied()
+                .take_while(|a| !gone.contains(a))
+                .last()
+                .unwrap_or(tree.root);
+        }
+        self.history_back.retain(|&id| survives(id));
+        self.history_fwd.retain(|&id| survives(id));
+        self.history_back.dedup();
+        self.history_fwd.dedup();
+        self.expanded.retain(|&id| survives(id));
+        self.pending_removals = Some((deleted_ids, Instant::now() + Duration::from_secs(2)));
+        self.apply_pending_removals();
+    }
+
+    /// Mutate the tree in place when this is the only reference; a worker
+    /// (largest-file walk, cache save) that still holds it finishes within
+    /// a moment, so wait rather than copy a multi-million-node tree on the UI
+    /// thread. After the deadline the copy happens anyway.
+    fn apply_pending_removals(&mut self) {
+        let Some((ids, deadline)) = self.pending_removals.take() else {
+            return;
+        };
+        let Some(tree) = &mut self.tree else {
+            self.busy = self.busy && self.junk.cleaning;
+            return;
+        };
+        if Arc::get_mut(tree).is_none() && Instant::now() < deadline {
+            self.pending_removals = Some((ids, deadline));
+            self.busy = true;
+            return;
+        }
+        let mut ids = ids;
+        let tree = Arc::make_mut(tree);
+        ids.sort_by_cached_key(|id| std::cmp::Reverse(tree.path_to(*id).len()));
+        for id in ids {
+            if tree.try_node(id).is_some() {
+                tree.remove_node(id);
+            }
+        }
+        self.busy = self.junk.cleaning;
+        self.invalidate_largest();
+        self.schedule_largest();
+        if let Some(tree) = self.tree.clone() {
+            self.save_cache_async(tree);
+        }
     }
 
     fn poll_bg(&mut self, ctx: &egui::Context) {
@@ -241,38 +467,13 @@ impl SpaceApp {
                     self.tm_loading = false;
                 }
                 BgMsg::Recent(r) => self.recent = r,
-                BgMsg::CacheResult { path, loaded } => {
-                    self.busy = false;
-                    match loaded {
-                        Some((tree, stale)) => {
-                            self.focus = tree.root;
-                            self.selected = None;
-                            self.review.clear();
-                            self.history_back.clear();
-                            self.history_fwd.clear();
-                            self.cache_stale = stale;
-                            self.from_cache = true;
-                            self.status = if stale {
-                                crate::tr!(
-                                    "Cached index (stale) · {} items · {} — Rescan recommended",
-                                    tree.item_count,
-                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
-                                )
-                            } else {
-                                crate::tr!(
-                                    "Loaded cache · {} items · {}",
-                                    tree.item_count,
-                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
-                                )
-                            };
-                            self.tree = Some(tree);
-                            self.progress = None;
-                            self.invalidate_largest();
-                            self.schedule_largest();
-                        }
-                        None => {
-                            start_scan_path = Some(path);
-                        }
+                BgMsg::CacheResult {
+                    generation,
+                    path,
+                    loaded,
+                } => {
+                    if let Some(path) = self.on_cache_result(generation, path, loaded) {
+                        start_scan_path = Some(path);
                     }
                 }
                 BgMsg::CacheSaved(recent) => {
@@ -280,11 +481,6 @@ impl SpaceApp {
                 }
                 BgMsg::RescanDone(Ok(tree)) => {
                     self.busy = false;
-                    self.focus = tree.root;
-                    self.selected = None;
-                    self.review.clear();
-                    self.history_back.clear();
-                    self.history_fwd.clear();
                     self.cache_stale = false;
                     self.from_cache = false;
                     self.status = crate::tr!(
@@ -292,9 +488,11 @@ impl SpaceApp {
                         tree.item_count,
                         crate::i18n::bytes(tree.total_size_mode(self.size_mode))
                     );
-                    self.tree = Some(tree);
-                    self.invalidate_largest();
-                    self.schedule_largest();
+                    let kept = self.keep_by_paths();
+                    self.install_tree(tree);
+                    if let Some(kept) = kept {
+                        self.restore_by_paths(kept);
+                    }
                     if let Some(tree) = self.tree.clone() {
                         self.save_cache_async(tree);
                     }
@@ -306,49 +504,30 @@ impl SpaceApp {
                 BgMsg::DeleteProgress(progress) => {
                     self.delete_progress = Some(progress);
                 }
-                BgMsg::DeleteDone(Ok((mut deleted_ids, errors))) => {
-                    self.busy = false;
-                    self.delete_progress = None;
-                    self.delete_started = None;
-                    let n = deleted_ids.len();
-                    self.status = if errors.is_empty() {
-                        crate::tr!("Moved {} items to Trash", n)
-                    } else {
-                        crate::tr!("Moved {} items · {} failed", n, errors.len())
-                    };
-                    if let Some(tree) = &self.tree {
-                        let removed_paths: Vec<_> = deleted_ids
-                            .iter()
-                            .map(|&id| PathBuf::from(tree.path_string(id)))
-                            .collect();
-                        self.junk.exclude_paths(&removed_paths);
-                    }
-                    self.review.clear();
-                    self.selected = None;
-                    self.confirm_delete = false;
-                    if std::mem::take(&mut self.junk_after_delete) {
-                        self.apply_junk_clean();
-                    }
-                    if let Some(tree) = &mut self.tree {
-                        deleted_ids.sort_by_key(|id| std::cmp::Reverse(tree.path_to(*id).len()));
-                        let tree = Arc::make_mut(tree);
-                        for id in deleted_ids {
-                            tree.remove_node(id);
-                        }
-                    }
-                    self.invalidate_largest();
-                    self.schedule_largest();
-                    if let Some(tree) = self.tree.clone() {
-                        self.save_cache_async(tree);
-                    }
+                BgMsg::DeleteDone {
+                    tree_gen,
+                    result: Ok((deleted_ids, errors)),
+                } => {
+                    self.on_delete_done(tree_gen, deleted_ids, errors);
                 }
-                BgMsg::DeleteDone(Err(e)) => {
+                BgMsg::DeleteDone {
+                    result: Err(e), ..
+                } => {
                     self.busy = false;
                     self.junk_after_delete = false;
                     self.delete_progress = None;
                     self.delete_started = None;
                     self.confirm_delete = false;
                     self.status = crate::tr!("Trash failed: {}", e);
+                }
+                BgMsg::FolderPicked(path) => {
+                    self.picking_folder = false;
+                    if let Some(path) = path {
+                        self.start_scan(path, false);
+                    }
+                }
+                BgMsg::PrefsSaved(error) => {
+                    self.rules.error = error;
                 }
                 BgMsg::TmCleanDone(report) => {
                     self.busy = false;
@@ -419,6 +598,7 @@ impl SpaceApp {
                         crate::i18n::bytes(result.processed_bytes)
                     );
                     self.junk.clear_selection();
+                    self.refresh_volumes();
                     self.start_junk_scan();
                 }
                 BgMsg::JunkCleanDone(Err(e)) => {
@@ -436,11 +616,16 @@ impl SpaceApp {
         if let Some(path) = start_scan_path {
             self.begin_filesystem_scan(path);
         }
-        if self.volumes_loading
+        if self.pending_removals.is_some() {
+            self.apply_pending_removals();
+        }
+        if self.scan.is_some() {
+            ctx.request_repaint_after(std::time::Duration::from_millis(50));
+        } else if self.volumes_loading
             || self.tm_loading
             || self.busy
-            || self.scan.is_some()
             || self.junk.loading
+            || self.picking_folder
         {
             ctx.request_repaint_after(std::time::Duration::from_millis(100));
         } else if self.largest.is_loading() {
@@ -512,16 +697,16 @@ impl SpaceApp {
             .and_then(|c| c.peek_meta(&path))
             .map(|m| m.item_count);
 
+        self.cache_gen = self.cache_gen.wrapping_add(1);
         if !force {
             if let Some(cache) = self.cache.clone() {
                 self.busy = true;
                 self.status = crate::tr!("Loading cache for {}…", path.display());
-                self.tree = None;
-                self.progress = None;
-                self.invalidate_largest();
+                self.drop_tree();
                 let tx = self.bg_tx.clone();
                 let path_bg = path.clone();
-                thread::Builder::new()
+                let generation = self.cache_gen;
+                let spawned = thread::Builder::new()
                     .name("space-cache-load".into())
                     .spawn(move || {
                         let loaded = cache
@@ -529,27 +714,44 @@ impl SpaceApp {
                             .ok()
                             .map(|l| (Arc::new(l.tree), l.stale));
                         let _ = tx.send(BgMsg::CacheResult {
+                            generation,
                             path: path_bg,
                             loaded,
                         });
-                    })
-                    .ok();
-                return;
+                    });
+                if spawned.is_ok() {
+                    return;
+                }
+                self.busy = false;
             }
         }
 
         self.begin_filesystem_scan(path);
     }
 
+    /// Forget the explored tree and everything that pointed into it.
+    fn drop_tree(&mut self) {
+        self.tree_gen = self.tree_gen.wrapping_add(1);
+        self.pending_removals = None;
+        self.tree = None;
+        self.focus = NodeId(0);
+        self.selected = None;
+        self.hovered = None;
+        self.review.clear();
+        self.history_back.clear();
+        self.history_fwd.clear();
+        self.expanded.clear();
+        self.tree_rows.clear();
+        self.tree_revealed = None;
+        self.progress = None;
+        self.invalidate_largest();
+    }
+
     fn begin_filesystem_scan(&mut self, path: PathBuf) {
         self.from_cache = false;
         self.cache_stale = false;
         self.busy = false;
-        self.tree = None;
-        self.review.clear();
-        self.history_back.clear();
-        self.history_fwd.clear();
-        self.invalidate_largest();
+        self.drop_tree();
         self.progress = Some(ScanProgress {
             files_seen: 0,
             bytes_seen: 0,
@@ -567,23 +769,33 @@ impl SpaceApp {
     }
 
     fn incremental_rescan_focus(&mut self) {
+        self.incremental_rescan(self.focus);
+    }
+
+    /// Rebuild one folder's subtree in place of the whole index.
+    fn incremental_rescan(&mut self, id: NodeId) {
         let Some(tree) = self.tree.clone() else {
             return;
         };
-        if self.busy {
+        if self.busy || self.scan.is_some() {
             return;
         }
+        let Some(node) = tree.try_node(id).filter(|n| n.is_dir && !n.synthetic) else {
+            return;
+        };
         self.busy = true;
-        self.status = crate::tr!("Incremental rescan of {}…", tree.node(self.focus).name);
-        let focus = self.focus;
+        self.status = crate::tr!("Incremental rescan of {}…", node.name);
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
+        let spawned = thread::Builder::new()
             .name("space-rescan".into())
             .spawn(move || {
-                let result = rescan_subtree(tree.as_ref(), focus).map(Arc::new);
+                let result = rescan_subtree(tree.as_ref(), id).map(Arc::new);
                 let _ = tx.send(BgMsg::RescanDone(result));
-            })
-            .ok();
+            });
+        if let Err(error) = spawned {
+            self.busy = false;
+            self.status = crate::tr!("Incremental rescan failed: {}", error);
+        }
     }
 
     fn poll_scan(&mut self, ctx: &egui::Context) {
@@ -603,12 +815,13 @@ impl SpaceApp {
         }
 
         if let Some(p) = last_prog {
+            // Measured against an earlier index: an estimate, never an exact figure.
             let pct = self
                 .expected_items
                 .filter(|e| *e > 0)
                 .map(|e| {
                     format!(
-                        " ({:.0}%)",
+                        " (~{:.0}%)",
                         (p.files_seen as f64 / e as f64 * 100.0).min(99.0)
                     )
                 })
@@ -659,17 +872,12 @@ impl SpaceApp {
                     String::new()
                 }
             );
-            self.focus = tree.root;
-            self.selected = None;
             self.from_cache = false;
             self.cache_stale = false;
             let arc = Arc::new(*tree);
             self.save_cache_async(arc.clone());
-            self.tree = Some(arc);
             self.scan = None;
-            self.progress = None;
-            self.invalidate_largest();
-            self.schedule_largest();
+            self.install_tree(arc);
         } else {
             ctx.request_repaint();
         }
@@ -698,6 +906,74 @@ impl SpaceApp {
             self.transition = Some(Transition::start(kind));
             self.invalidate_largest();
             self.schedule_largest();
+            self.remember_focus();
+        }
+    }
+
+    /// Keep the last viewed folder per scan root so reopening lands there.
+    fn remember_focus(&mut self) {
+        let Some(tree) = &self.tree else { return };
+        let path = tree.path_string(self.focus);
+        if self.settings.last_focus.get(&tree.root_path) != Some(&path) {
+            self.settings
+                .last_focus
+                .insert(tree.root_path.clone(), path);
+            self.mark_settings_dirty();
+        }
+    }
+
+    /// Settings are written after a quiet period, not on every toggle.
+    pub(crate) fn mark_settings_dirty(&mut self) {
+        self.settings_dirty.get_or_insert_with(Instant::now);
+    }
+
+    fn flush_settings(&mut self, force: bool) {
+        let Some(at) = self.settings_dirty else { return };
+        if force || at.elapsed() >= Duration::from_millis(800) {
+            self.settings_dirty = None;
+            self.settings.save();
+        }
+    }
+
+    /// Rule preferences: debounced, written off the UI thread.
+    fn flush_rule_prefs(&mut self, force: bool) {
+        let Some(at) = self.rules.save_pending else { return };
+        if !(force || !self.rules.open || at.elapsed() >= Duration::from_millis(500)) {
+            return;
+        }
+        self.rules.save_pending = None;
+        let Some(prefs) = self.rule_mgr.as_ref().map(|m| m.prefs.clone()) else {
+            return;
+        };
+        let tx = self.bg_tx.clone();
+        let spawned = thread::Builder::new()
+            .name("space-prefs-save".into())
+            .spawn(move || {
+                let error = prefs.save().err().map(|e| e.to_string());
+                let _ = tx.send(BgMsg::PrefsSaved(error));
+            });
+        if let Err(error) = spawned {
+            self.rules.error = Some(error.to_string());
+        }
+    }
+
+    /// Native folder picker on a background thread; the answer arrives as
+    /// `BgMsg::FolderPicked` so the UI keeps painting meanwhile.
+    pub(crate) fn pick_folder(&mut self) {
+        if self.picking_folder || self.scan.is_some() || self.busy {
+            return;
+        }
+        self.picking_folder = true;
+        let tx = self.bg_tx.clone();
+        let spawned = thread::Builder::new()
+            .name("space-pick-folder".into())
+            .spawn(move || {
+                let picked = block_on(rfd::AsyncFileDialog::new().pick_folder())
+                    .map(|h| h.path().to_path_buf());
+                let _ = tx.send(BgMsg::FolderPicked(picked));
+            });
+        if spawned.is_err() {
+            self.picking_folder = false;
         }
     }
 
@@ -709,34 +985,12 @@ impl SpaceApp {
         }
     }
 
-    fn copy_focus_path(&mut self) {
+    fn copy_focus_path(&mut self, ctx: &egui::Context) {
         let Some(tree) = &self.tree else { return };
         let id = self.hovered.or(self.selected).unwrap_or(self.focus);
         let path = tree.path_string(id);
         self.status = crate::tr!("Copied {}", path);
-        self.clipboard_set(&path);
-    }
-
-    fn clipboard_set(&self, text: &str) {
-        // egui context clipboard is set from update; stash via arboard-less cmd on macOS.
-        #[cfg(target_os = "macos")]
-        {
-            let _ = std::process::Command::new("pbcopy")
-                .stdin(std::process::Stdio::piped())
-                .spawn()
-                .and_then(|mut c| {
-                    use std::io::Write;
-                    if let Some(mut stdin) = c.stdin.take() {
-                        stdin.write_all(text.as_bytes())?;
-                    }
-                    c.wait()?;
-                    Ok(())
-                });
-        }
-        #[cfg(not(target_os = "macos"))]
-        {
-            let _ = text;
-        }
+        ctx.copy_text(path);
     }
 
     fn percent_of_parent(&self, id: NodeId) -> Option<f32> {
@@ -833,27 +1087,26 @@ impl SpaceApp {
                 }
             }
             if key_c && mods.shift {
-                self.copy_focus_path();
+                self.copy_focus_path(ctx);
             }
             if key_f {
                 self.focus_filter = true;
             }
-            if key_r && self.scan.is_none() {
+            if key_r && self.scan.is_none() && !self.busy {
                 if mods.shift {
                     self.incremental_rescan_focus();
                 } else {
                     self.rescan_current();
                 }
             }
-            if key_o && self.scan.is_none() && !self.busy {
-                if let Some(path) = rfd::FileDialog::new().pick_folder() {
-                    self.start_scan(path, false);
-                }
+            if key_o {
+                self.pick_folder();
             }
             if key_j {
                 self.open_junk_panel();
             }
-            if (key_del || key_back) && !ctx.wants_keyboard_input() {
+            if (key_del || key_back) && !ctx.wants_keyboard_input() && self.mode == Mode::Explore
+            {
                 let selected_deletable = self.selected.is_some_and(|id| {
                     self.tree
                         .as_ref()
@@ -899,10 +1152,27 @@ impl SpaceApp {
                 self.filter.clear();
                 self.filter_draft.clear();
                 self.geom = None;
+            } else if self.mode == Mode::Explore && self.selected.is_some() {
+                // Open details close first; the next Esc goes up.
+                self.selected = None;
             } else if self.mode == Mode::Explore {
                 // Esc never switches tabs; going up only means something here.
                 self.go_up();
             }
+        }
+        if enter && self.show_shortcuts {
+            self.show_shortcuts = false;
+            return;
+        }
+        // Confirmations answer Enter only through their focused button, never
+        // through a global key, so a stray Enter cannot move files to Trash.
+        if self.confirm_delete || self.confirm_tm_clean || self.junk.confirm {
+            return;
+        }
+        // Tree and map navigation belongs to Disk usage; other pages have their
+        // own lists and dialogs.
+        if self.mode != Mode::Explore {
+            return;
         }
         if !ctx.wants_keyboard_input() && self.tree_keys(up, down, left, right, space) {
             return;
@@ -922,29 +1192,14 @@ impl SpaceApp {
             }
         }
         if end || down {
-            // Select / focus largest child
+            // Select the largest child; Enter then opens it.
             if let Some(tree) = &self.tree {
                 if let Some(&first) = tree.children(self.focus).first() {
                     self.selected = Some(first);
-                    if down && tree.node(first).is_dir && enter {
-                        // no-op; enter handles open
-                    }
                 }
             }
         }
         if enter {
-            if self.confirm_delete && self.delete_progress.is_none() && self.basket_len() > 0 {
-                self.apply_basket();
-                return;
-            }
-            if self.confirm_tm_clean {
-                self.apply_tm_clean();
-                return;
-            }
-            if self.show_shortcuts {
-                self.show_shortcuts = false;
-                return;
-            }
             let id = self.selected.or(self.hovered);
             if let Some(id) = id {
                 let is_dir = self
@@ -1026,12 +1281,13 @@ impl SpaceApp {
         #[cfg(target_os = "macos")]
         {
             let _ = std::process::Command::new("open").args(["-R", &shown]).spawn();
+            self.status = crate::tr!("Not in this scan — opened {} in Finder", shown);
         }
         #[cfg(not(target_os = "macos"))]
         {
             let _ = std::process::Command::new("xdg-open").arg(&shown).spawn();
+            self.status = crate::tr!("Not in this scan — opened {} in the file manager", shown);
         }
-        self.status = crate::tr!("Not in this scan — opened {} in Finder", shown);
     }
 
     fn reveal_selected(&self) {
@@ -1094,7 +1350,8 @@ impl SpaceApp {
         self.delete_started = Some(Instant::now());
         self.status = crate::i18n::t("Moving to Trash…").into();
         let tx = self.bg_tx.clone();
-        thread::Builder::new()
+        let tree_gen = self.tree_gen;
+        let spawned = thread::Builder::new()
             .name("space-trash".into())
             .spawn(move || {
                 let result = (|| {
@@ -1164,9 +1421,15 @@ impl SpaceApp {
 
                     Ok((deleted_ids, errors))
                 })();
-                let _ = tx.send(BgMsg::DeleteDone(result));
-            })
-            .ok();
+                let _ = tx.send(BgMsg::DeleteDone { tree_gen, result });
+            });
+        if let Err(error) = spawned {
+            self.busy = false;
+            self.delete_progress = None;
+            self.delete_started = None;
+            self.junk_after_delete = false;
+            self.status = crate::tr!("Trash failed: {}", error);
+        }
     }
 
     fn refresh_volumes(&mut self) {
@@ -1429,7 +1692,9 @@ impl eframe::App for SpaceApp {
     fn save(&mut self, _storage: &mut dyn eframe::Storage) {
         self.settings.default_view = self.view;
         self.settings.default_size_mode = self.size_mode;
-        self.settings.save();
+        self.settings_dirty = Some(Instant::now());
+        self.flush_settings(true);
+        self.flush_rule_prefs(true);
     }
 
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
@@ -1440,6 +1705,7 @@ impl eframe::App for SpaceApp {
                 self.status = crate::tr!("Folder not found: {}", path.display());
             }
         }
+        let idle = self.scan.is_none() && !self.busy;
         let dropped: Vec<PathBuf> = ctx.input(|i| {
             i.raw
                 .dropped_files
@@ -1448,12 +1714,17 @@ impl eframe::App for SpaceApp {
                 .collect()
         });
         if let Some(path) = dropped.into_iter().next() {
-            let dir = if path.is_dir() {
-                path
+            // A drop while a scan or cache load runs would silently replace it.
+            if idle {
+                let dir = if path.is_dir() {
+                    path
+                } else {
+                    path.parent().map(PathBuf::from).unwrap_or(path)
+                };
+                self.start_scan(dir, false);
             } else {
-                path.parent().map(PathBuf::from).unwrap_or(path)
-            };
-            self.start_scan(dir, false);
+                self.status = crate::i18n::t("Busy — wait for the current scan before dropping a folder").into();
+            }
         } else if ctx.input(|i| !i.raw.hovered_files.is_empty()) {
             ctx.request_repaint();
         }
@@ -1462,17 +1733,40 @@ impl eframe::App for SpaceApp {
         self.apply_filter_debounce();
         self.handle_keys(ctx);
         self.persist_settings_from_viewport(ctx);
-
-        if let Some(tree) = &self.tree {
-            let path = tree.path_string(self.focus);
-            ctx.send_viewport_cmd(egui::ViewportCommand::Title(format!(
-                "Space Scanner — {path}"
-            )));
-        } else {
-            ctx.send_viewport_cmd(egui::ViewportCommand::Title("Space Scanner".into()));
-        }
+        self.update_window_title(ctx);
+        self.flush_settings(false);
+        self.flush_rule_prefs(false);
 
         self.ui(ctx);
+    }
+}
+
+/// Drive a future to completion on the current (background) thread. Enough
+/// for `rfd::AsyncFileDialog`, which resolves from the platform's own thread.
+fn block_on<F: std::future::Future>(future: F) -> F::Output {
+    use std::sync::{Condvar, Mutex};
+    use std::task::{Context, Poll, Wake, Waker};
+
+    struct Parker(Mutex<bool>, Condvar);
+    impl Wake for Parker {
+        fn wake(self: Arc<Self>) {
+            *self.0.lock().unwrap_or_else(|e| e.into_inner()) = true;
+            self.1.notify_one();
+        }
+    }
+    let parker = Arc::new(Parker(Mutex::new(false), Condvar::new()));
+    let waker = Waker::from(parker.clone());
+    let mut cx = Context::from_waker(&waker);
+    let mut future = std::pin::pin!(future);
+    loop {
+        if let Poll::Ready(out) = future.as_mut().poll(&mut cx) {
+            return out;
+        }
+        let mut woken = parker.0.lock().unwrap_or_else(|e| e.into_inner());
+        while !*woken {
+            woken = parker.1.wait(woken).unwrap_or_else(|e| e.into_inner());
+        }
+        *woken = false;
     }
 }
 
@@ -1495,6 +1789,203 @@ fn find_path(tree: &space_core::SpaceTree, path: &std::path::Path) -> Option<Nod
             .find(|&&c| tree.node(c).name == name)?;
     }
     Some(id)
+}
+
+#[cfg(test)]
+mod state_tests {
+    use super::*;
+    use space_core::Node;
+
+    fn node(name: &str, is_dir: bool, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
+        Node {
+            name: name.into(),
+            apparent_size: 10,
+            allocated_size: 10,
+            file_count: 1,
+            is_dir,
+            synthetic: false,
+            children,
+            parent,
+            raw_name: None,
+        }
+    }
+
+    /// `/r` → `a/` → `b/` → `f`
+    fn sample() -> Arc<SpaceTree> {
+        Arc::new(SpaceTree {
+            root_path: "/r".into(),
+            nodes: vec![
+                node("r", true, None, vec![NodeId(1)]),
+                node("a", true, Some(NodeId(0)), vec![NodeId(2)]),
+                node("b", true, Some(NodeId(1)), vec![NodeId(3)]),
+                node("f", false, Some(NodeId(2)), vec![]),
+            ],
+            root: NodeId(0),
+            scanned_at_unix: 0,
+            item_count: 4,
+            skipped_errors: 0,
+            hardlink_candidates: 0,
+            hardlinks_deduped: 0,
+        })
+    }
+
+    fn app() -> SpaceApp {
+        SpaceApp::build(None, AppSettings::default())
+    }
+
+    /// The largest-file worker started by `install_tree` may still hold the
+    /// tree for a moment; the UI retries each frame until it is free.
+    fn settle(app: &mut SpaceApp) {
+        for _ in 0..300 {
+            app.apply_pending_removals();
+            if app.pending_removals.is_none() {
+                return;
+            }
+            std::thread::sleep(Duration::from_millis(10));
+        }
+    }
+
+    #[test]
+    fn install_tree_resets_every_piece_of_per_tree_state() {
+        let mut app = app();
+        app.install_tree(sample());
+        app.focus = NodeId(2);
+        app.selected = Some(NodeId(3));
+        app.hovered = Some(NodeId(3));
+        app.review.push(NodeId(3));
+        app.history_back.push(NodeId(1));
+        app.history_fwd.push(NodeId(1));
+        app.expanded.insert(NodeId(1));
+        app.tree_rows.push(NodeId(1));
+        app.tree_revealed = Some(NodeId(3));
+        app.tree_scroll = true;
+        let gen_before = app.tree_gen;
+
+        app.install_tree(sample());
+        assert_eq!(app.focus, NodeId(0));
+        assert_eq!(app.selected, None);
+        assert_eq!(app.hovered, None);
+        assert!(app.review.is_empty());
+        assert!(app.history_back.is_empty() && app.history_fwd.is_empty());
+        assert!(app.expanded.is_empty() && app.tree_rows.is_empty());
+        assert_eq!(app.tree_revealed, None);
+        assert!(!app.tree_scroll);
+        assert!(app.geom.is_none());
+        assert_ne!(app.tree_gen, gen_before);
+    }
+
+    #[test]
+    fn install_tree_returns_to_the_remembered_folder_of_that_root() {
+        let mut app = app();
+        app.settings.last_focus.insert("/r".into(), "/r/a/b".into());
+        app.install_tree(sample());
+        assert_eq!(app.focus, NodeId(2));
+        // A file or an unknown path falls back to the root.
+        app.settings.last_focus.insert("/r".into(), "/r/a/b/f".into());
+        app.install_tree(sample());
+        assert_eq!(app.focus, NodeId(0));
+    }
+
+    #[test]
+    fn stale_cache_results_are_dropped() {
+        let mut app = app();
+        app.cache_gen = 7;
+        app.busy = true;
+        let none = app.on_cache_result(6, PathBuf::from("/old"), Some((sample(), false)));
+        assert_eq!(none, None);
+        assert!(app.tree.is_none(), "an answer for an older request must not install a tree");
+        assert!(app.busy, "the current request is still in flight");
+        // A stale miss must not start a scan of the abandoned target either.
+        assert_eq!(app.on_cache_result(6, PathBuf::from("/old"), None), None);
+
+        assert_eq!(
+            app.on_cache_result(7, PathBuf::from("/r"), Some((sample(), true))),
+            None
+        );
+        assert!(app.tree.is_some() && !app.busy && app.cache_stale);
+    }
+
+    #[test]
+    fn cache_miss_of_the_current_generation_scans_that_path() {
+        let mut app = app();
+        app.cache_gen = 3;
+        assert_eq!(
+            app.on_cache_result(3, PathBuf::from("/r"), None),
+            Some(PathBuf::from("/r"))
+        );
+    }
+
+    #[test]
+    fn delete_moves_focus_to_the_nearest_surviving_ancestor_and_prunes_history() {
+        let mut app = app();
+        app.install_tree(sample());
+        app.focus = NodeId(2);
+        app.history_back = vec![NodeId(0), NodeId(1)];
+        app.history_fwd = vec![NodeId(2)];
+        app.expanded.extend([NodeId(1), NodeId(2)]);
+        app.review = vec![NodeId(1)];
+        app.selected = Some(NodeId(3));
+
+        app.on_delete_done(app.tree_gen, vec![NodeId(1)], vec![]);
+        settle(&mut app);
+        assert_eq!(app.focus, NodeId(0));
+        assert_eq!(app.history_back, vec![NodeId(0)]);
+        assert!(app.history_fwd.is_empty());
+        assert!(app.expanded.is_empty());
+        assert!(app.review.is_empty() && app.selected.is_none());
+        let tree = app.tree.as_ref().unwrap();
+        assert!(tree.children(NodeId(0)).is_empty(), "node removed in place");
+        assert!(app.pending_removals.is_none() && !app.busy);
+    }
+
+    #[test]
+    fn delete_results_for_an_older_tree_never_touch_the_new_one() {
+        let mut app = app();
+        app.install_tree(sample());
+        let old_gen = app.tree_gen;
+        app.install_tree(sample());
+        app.on_delete_done(old_gen, vec![NodeId(1)], vec![]);
+        let tree = app.tree.as_ref().unwrap();
+        assert_eq!(tree.children(NodeId(0)), &[NodeId(1)]);
+    }
+
+    #[test]
+    fn removals_wait_while_a_worker_shares_the_tree() {
+        let mut app = app();
+        app.install_tree(sample());
+        let worker = app.tree.clone().unwrap();
+        app.on_delete_done(app.tree_gen, vec![NodeId(1)], vec![]);
+        assert!(app.pending_removals.is_some(), "deferred rather than deep-copied");
+        assert!(app.busy);
+        drop(worker);
+        settle(&mut app);
+        assert!(app.pending_removals.is_none() && !app.busy);
+        assert!(app.tree.as_ref().unwrap().children(NodeId(0)).is_empty());
+    }
+
+    #[test]
+    fn incremental_rescan_keeps_focus_and_review_by_path() {
+        let mut app = app();
+        app.install_tree(sample());
+        app.focus = NodeId(2);
+        app.review = vec![NodeId(3)];
+        app.expanded.insert(NodeId(1));
+        let kept = app.keep_by_paths().unwrap();
+        // The rescanned tree numbers the same folders differently.
+        let mut tree = (*sample()).clone();
+        tree.nodes.swap(1, 2);
+        tree.nodes[0].children = vec![NodeId(2)];
+        tree.nodes[2].parent = Some(NodeId(0));
+        tree.nodes[2].children = vec![NodeId(1)];
+        tree.nodes[1].parent = Some(NodeId(2));
+        tree.nodes[1].children = vec![NodeId(3)];
+        tree.nodes[3].parent = Some(NodeId(1));
+        app.install_tree(Arc::new(tree));
+        app.restore_by_paths(kept);
+        assert_eq!(app.focus, NodeId(1), "focus follows /r/a/b");
+        assert_eq!(app.review, vec![NodeId(3)]);
+        assert!(app.expanded.contains(&NodeId(2)), "expansion follows /r/a");
+    }
 }
 
 #[cfg(test)]
