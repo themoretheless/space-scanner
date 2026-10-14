@@ -27,7 +27,7 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Cancelable scan with progress vs previous index
 - Incremental **Rescan folder** (rebuilds index for current root path)
 - Persisted settings (`~/Library/Application Support/…/settings.json`)
-- CLI: `space scan|ls|du|junk|rules|categories`
+- CLI: `space scan|ls|du|largest|find|export|cache|junk|rules|categories` (exit codes: 0 ok, 1 failure, 2 usage, 3 partial clean)
 
 ## Scenario: disk full, Docker volumes need review
 
@@ -62,6 +62,10 @@ cargo run -p space-app --release
 cargo run -p space-cli --release -- scan ~/Downloads
 cargo run -p space-cli --release -- ls ~/Downloads
 cargo run -p space-cli --release -- du ~/Downloads
+cargo run -p space-cli --release -- largest ~/Downloads --files --limit 20
+cargo run -p space-cli --release -- find ~/Downloads --name '*.dmg' --min-size 100M
+cargo run -p space-cli --release -- export csv ~/Downloads --depth 2 --out downloads.csv
+cargo run -p space-cli --release -- cache ls          # also: cache rm <path> | wipe | prune --ttl-days N
 ```
 
 Renderer: **wgpu** (Metal on macOS). Folder navigation and view switches use short zoom/fade transitions.
@@ -102,7 +106,14 @@ Rules live in [`rules/`](rules/) — **1,533,179** total across `categories/`, `
 cargo run -p space-cli --release -- rules status
 cargo run -p space-cli --release -- rules list --all -q win-
 cargo run -p space-cli --release -- rules list --all -q linux-
-cargo run -p space-cli --release -- junk -c caches,logs
+cargo run -p space-cli --release -- junk -c caches,logs      # --json, --limit N, --all, --clean --yes
+```
+
+Global flags: `--rules <dir>` (or `SPACE_RULES_DIR`) picks the rule pack,
+`--cache-dir <dir>` (or `SPACE_CACHE_DIR`) the index cache. Exit codes:
+`0` success, `1` failure, `2` usage error, `3` partial clean (`junk --clean`
+with errors). Files under 512 KiB are aggregated by the indexer and do not
+appear in `largest` / `find`.
 ```
 
 **`any` is not used.** Cross-OS apps are split into `macos` / `linux` / `windows` rules (paths filtered per OS). Re-split: `cargo run -p space-tools -- split`.
