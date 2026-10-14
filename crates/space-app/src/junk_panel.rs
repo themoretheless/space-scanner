@@ -7,7 +7,6 @@ use std::time::Instant;
 use eframe::egui::{self, Align, Layout, RichText, Sense};
 use space_clean::{CleanProgress, Finding, JunkScanProgress, ScanReport};
 
-use crate::settings::FeatureFlags;
 use crate::theme::type_scale;
 use crate::theme::{self, ACCENT, DANGER, MUTED, PANEL_2, SAFE, TEXT};
 use crate::widgets;
@@ -28,6 +27,8 @@ pub struct JunkPanelState {
     pub expanded_cat: Option<String>,
     pub error: Option<String>,
     pub risk_filter: RiskFilter,
+    /// When the last check finished.
+    pub checked_at: Option<Instant>,
 }
 
 /// Which risk group the category list shows.
@@ -136,6 +137,7 @@ impl JunkPanelState {
     }
 
     pub fn set_report(&mut self, report: ScanReport) {
+        self.checked_at = Some(Instant::now());
         self.loading = false;
         self.cleaning = false;
         self.scan_started = None;
@@ -194,6 +196,62 @@ impl JunkPanelState {
 
     pub fn selected_bytes(&self) -> u64 {
         self.selection.bytes()
+    }
+
+    /// Items that could go to the Trash, once a check has finished.
+    pub fn cleanable_count(&self) -> usize {
+        self.report.as_ref().map_or(0, |r| r.cleanable_count)
+    }
+
+    /// Bytes that could go to the Trash, once a check has finished.
+    pub fn cleanable_bytes(&self) -> Option<u64> {
+        self.report.as_ref().map(|r| r.cleanable_bytes)
+    }
+
+    /// Removable bytes in categories that rebuild themselves (risk "Safe").
+    pub fn safe_bytes(&self) -> u64 {
+        self.report.as_ref().map_or(0, |r| {
+            r.categories
+                .iter()
+                .filter(|c| RiskFilter::of(c) == RiskFilter::Safe)
+                .fold(0_u64, |sum, c| sum.saturating_add(c.bytes))
+        })
+    }
+
+    /// True when every removable item in a Safe category is selected.
+    pub fn all_safe_selected(&self) -> bool {
+        let Some(r) = &self.report else { return false };
+        let mut any = false;
+        for c in r.categories.iter().filter(|c| RiskFilter::of(c) == RiskFilter::Safe) {
+            for &i in &c.indices {
+                if !r.scan.findings[i].report_only {
+                    any = true;
+                    if !self.selection.contains(i) {
+                        return false;
+                    }
+                }
+            }
+        }
+        any
+    }
+
+    /// Select (or clear) every removable item in the Safe categories.
+    pub fn select_safe(&mut self, on: bool) {
+        let Some(r) = &self.report else { return };
+        for c in r.categories.iter().filter(|c| RiskFilter::of(c) == RiskFilter::Safe) {
+            self.selection.set_category(c, &r.scan.findings, on);
+        }
+    }
+
+    /// Category title and risk badge for a selected finding path, for the Trash list.
+    pub fn finding_badge(
+        &self,
+        path: &std::path::Path,
+    ) -> Option<(String, &'static str, egui::Color32)> {
+        let r = self.report.as_ref()?;
+        let f = r.scan.findings.iter().find(|f| f.path == path)?;
+        let (label, color, _) = badge(!f.report_only, risk_level(&f.risk));
+        Some((cat_title(&f.category), label, color))
     }
 }
 
@@ -260,14 +318,6 @@ impl Selection {
     }
 }
 
-pub enum JunkAction {
-    None,
-    Rescan,
-    Close,
-    OpenRules,
-    PrefsChanged,
-}
-
 struct CatAgg {
     name: String,
     bytes: u64,
@@ -324,93 +374,9 @@ impl JunkReport {
     }
 }
 
-pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFlags) -> JunkAction {
-    let mut action = JunkAction::None;
-
-    // One header row: what this is on the left, the two actions on the right.
-    ui.vertical(|ui| {
-        ui.vertical(|ui| {
-            let (note, total) = match state.report.as_ref() {
-                _ if state.loading => ("Looking through caches, logs and temp…".to_string(), None),
-                Some(r) => (
-                    if state.selection.count == 0 {
-                        crate::tr!(
-                            "{} removable in {} · nothing selected",
-                            crate::i18n::count(r.cleanable_count, "item"),
-                            crate::i18n::count(r.categories.len(), "category")
-                        )
-                    } else {
-                        crate::tr!(
-                            "{} removable in {} · {} selected ({})",
-                            crate::i18n::count(r.cleanable_count, "item"),
-                            crate::i18n::count(r.categories.len(), "category"),
-                            state.selection.count,
-                            crate::i18n::bytes(state.selection.bytes())
-                        )
-                    },
-                    Some(r.cleanable_bytes),
-                ),
-                None => ("Caches, logs and temporary files".to_string(), None),
-            };
-            ui.label(widgets::caption(note));
-            ui.horizontal(|ui| {
-                ui.spacing_mut().item_spacing.x = 8.0;
-                ui.label(
-                    RichText::new(t("Cleanup candidates"))
-                        .size(type_scale::DISPLAY)
-                        .strong(),
-                );
-                if let Some(bytes) = total {
-                    ui.label(
-                        RichText::new(crate::i18n::bytes(bytes))
-                            .size(type_scale::DISPLAY)
-                            .strong()
-                            .color(ACCENT()),
-                    );
-                }
-            });
-        });
-        ui.horizontal_wrapped(|ui| {
-            if ui
-                .add(widgets::secondary("Rules…"))
-                .on_hover_text(t("Turn individual rules on or off"))
-                .clicked()
-            {
-                action = JunkAction::OpenRules;
-            }
-            if ui
-                .add_enabled(
-                    !state.loading && !state.cleaning,
-                    widgets::secondary("Search again"),
-                )
-                .clicked()
-            {
-                action = JunkAction::Rescan;
-            }
-        });
-    });
-    ui.add_space(theme::metrics::S2);
-    ui.horizontal_wrapped(|ui| {
-        ui.label(widgets::caption("Also scan"));
-        if ui
-            .checkbox(&mut flags.scan_browser_cookies, t("Cookies"))
-            .on_hover_text(t(
-                "Off by default — cleaning cookies signs you out of websites",
-            ))
-            .changed()
-        {
-            action = JunkAction::PrefsChanged;
-        }
-        if ui
-            .checkbox(&mut flags.scan_browser_history, t("History"))
-            .on_hover_text(t("Off by default"))
-            .changed()
-        {
-            action = JunkAction::PrefsChanged;
-        }
-    });
-    ui.add_space(10.0);
-
+/// Progress, the risk filter and the category table. The page owns the header,
+/// the summary and the options; this draws the findings themselves.
+pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState) {
     if let Some(err) = &state.error {
         ui.label(RichText::new(err).color(theme::DANGER()));
         ui.add_space(6.0);
@@ -461,7 +427,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             )
             .on_hover_text(p.current_path.display().to_string());
         }
-        return action;
+        return;
     }
 
     if state.loading {
@@ -521,21 +487,11 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
             )
             .on_hover_text(p.current_path.display().to_string());
         }
-        return action;
+        return;
     }
 
     let Some(report) = state.report.as_ref() else {
-        ui.label(
-            RichText::new(t(
-                "Still scanning, or press Rescan if this is empty by mistake.",
-            ))
-            .color(MUTED()),
-        );
-        ui.add_space(12.0);
-        if ui.button(t("Close")).clicked() {
-            action = JunkAction::Close;
-        }
-        return action;
+        return;
     };
 
     // Risk filter chips, with counts per group.
@@ -589,7 +545,7 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 .color(TEXT()),
         );
         ui.label(
-            RichText::new(t("Try Rules to turn more categories on, or Rescan."))
+            RichText::new(t("Turn on more categories in Rules, or check again."))
                 .small()
                 .color(MUTED()),
         );
@@ -804,7 +760,6 @@ pub fn draw(ui: &mut egui::Ui, state: &mut JunkPanelState, flags: &mut FeatureFl
                 });
         });
 
-    action
 }
 
 /// Column x positions for the category table.
@@ -1015,7 +970,8 @@ mod tests {
         };
         ctx.run(input, |ctx| {
             egui::CentralPanel::default().show(ctx, |ui| {
-                black_box(draw(ui, state, &mut FeatureFlags::default()));
+                draw(ui, state);
+                black_box(());
             });
         })
     }
@@ -1158,6 +1114,7 @@ mod tests {
                 .collect(),
         ));
         let ctx = egui::Context::default();
+        crate::theme::apply(&ctx, crate::theme::Appearance::default(), false, 350);
         let first = draw_frame(&ctx, &mut state);
         let texts = path_texts(&first);
         assert!(!texts.is_empty());
@@ -1297,6 +1254,8 @@ mod tests {
                     .collect(),
             ));
             let ctx = egui::Context::default();
+            crate::theme::apply(&ctx, crate::theme::Appearance::default(), false, 350);
+        crate::theme::apply(&ctx, crate::theme::Appearance::default(), false, 350);
             black_box(draw_frame(&ctx, &mut state));
             let started = Instant::now();
             for _ in 0..100 {

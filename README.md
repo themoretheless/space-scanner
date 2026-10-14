@@ -20,8 +20,10 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Zstd-compressed on-disk cache (v3) with **stale** badge
 - Volumes list, Back/Forward, filter (debounce, dirs/files, size presets), largest files, Reveal in Finder
 - Hover tooltips + sidebar highlight/scroll; path + % of parent
-- Keyboard nav (arrows, Enter, Esc, ⌘1–4 views, ⌘⇧C copy path) — press **?**
-- Review queue + **Move to Trash** (right-click to queue)
+- Keyboard nav (arrows, Enter, Esc, ⌘1–4 views, ⌘⇧C copy path, ⌘, settings) — press **?**
+- **Trash list** + **Move to Trash**: Space, ⌘-click, Shift-click ranges or row checkboxes; nothing moves without a confirmation that lists every path; a result page reports what moved and what was skipped
+- Search a folder or the **whole scan**, then add every match to the Trash list
+- Dark and light appearance, independent of the Disk usage layout (List and map, Columns, Table)
 - **Junk cleaner** (ppduster rule packs): caches / logs / temp → Trash (`space junk`)
 - Local Time Machine snapshots list + delete old
 - Cancelable scan with progress vs previous index
@@ -79,12 +81,12 @@ cargo bench -p space-core --features bench --bench scan -- --profile normal
 
 ### UI tips
 
-- Click sunburst segment to zoom; center / **↑** to go up; **← →** history
-- Hover a wedge for tooltip + sidebar sync
-- Right-click items to add to Review; **Review and Remove** → Trash
-- Toggle **On disk / Apparent** in the top-right
-- Container legend chips filter by extension
-- Filter: All/Dirs/Files, min-size presets, **Clear**, badge count
+- Start on **Overview**: free space of the startup disk, **Scan home folder** or **Find junk**, recent scans, other disks
+- Click selects, double-click or **Enter** opens; center / **↑** goes up; **⌘← ⌘→** history
+- **Space**, ⌘-click or the row checkbox adds to the **Trash list**; Shift-click adds a range; every addition can be undone from the notification
+- **Trash list** in the sidebar shows the count; it is the only way to **Move to Trash**
+- Map style and **On disk / File size** sit above the map; layout and search scope in the toolbar; appearance in **Settings** (⌘,)
+- Filter bar: All/Folders/Files, ≥ 100 MB, ≥ 1 GB, the extension picked on the map legend, **Clear filters**
 
 ## Crates
 
@@ -121,7 +123,7 @@ appear in `largest` / `find`.
 Expand from a local package-name list: `cargo run -p space-tools -- catalog names.txt catalog-wave 15000`.
 OS seed packs are maintained directly in `rules/platforms/`.
 
-In the app: **Junk** (clean) · **Rules** (manager).
+In the app: **Cleanup** (check, Select all safe) · **Rules…** (manager, also in Settings).
 
 ### MCP server
 

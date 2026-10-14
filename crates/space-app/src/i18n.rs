@@ -396,11 +396,11 @@ mod tests {
         ("app/ui/scan.rs", include_str!("app/ui/scan.rs")),
         ("app/ui/usage.rs", include_str!("app/ui/usage.rs")),
         ("app/ui/layouts.rs", include_str!("app/ui/layouts.rs")),
-        ("app/ui/start_skins.rs", include_str!("app/ui/start_skins.rs")),
+        ("app/ui/overview.rs", include_str!("app/ui/overview.rs")),
+        ("app/ui/toast.rs", include_str!("app/ui/toast.rs")),
         ("app/ui/cleanup.rs", include_str!("app/ui/cleanup.rs")),
         ("app/ui/review_page.rs", include_str!("app/ui/review_page.rs")),
         ("app/ui/dialogs.rs", include_str!("app/ui/dialogs.rs")),
-        ("app/ui/settings_page.rs", include_str!("app/ui/settings_page.rs")),
         ("app.rs", include_str!("app.rs")),
         ("export.rs", include_str!("export.rs")),
         ("junk_panel.rs", include_str!("junk_panel.rs")),
@@ -480,7 +480,10 @@ mod tests {
     #[test]
     fn every_interface_string_in_the_source_is_translated() {
         // The first literal is the template; later ones are arguments.
-        let first_literal = ["t(", "tr!(", "primary(", "secondary(", "ghost(", "caption("];
+        let first_literal = [
+            "t(", "tr!(", "primary(", "secondary(", "ghost(", "caption(", "strong(", "title(",
+            "section_label(", "danger(", "label: ",
+        ];
         // Every literal argument is interface text.
         let every_literal = ["empty_state(", "badge(", "segmented(", "chip(", "stat(", "icons::button("];
         let known: std::collections::HashSet<&str> = RU.iter().map(|(en, _)| *en).collect();

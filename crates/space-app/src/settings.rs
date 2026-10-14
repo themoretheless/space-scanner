@@ -73,7 +73,11 @@ impl Default for FeatureFlags {
 
 impl FeatureFlags {
     /// Master switches for cookies/history: off keeps those tags disabled even if Enable all is on.
-    pub fn apply_to_rule_prefs(&self, prefs: &mut space_clean::RulePrefs, pack: &space_clean::RulePack) {
+    pub fn apply_to_rule_prefs(
+        &self,
+        prefs: &mut space_clean::RulePrefs,
+        pack: &space_clean::RulePack,
+    ) {
         for (on, tag) in [
             (self.scan_browser_cookies, "cookies"),
             (self.scan_browser_history, "history"),
@@ -94,6 +98,30 @@ impl FeatureFlags {
     }
 }
 
+/// How the Disk usage workspace arranges the same data.
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, Serialize, Deserialize)]
+pub enum WorkspaceLayout {
+    /// Size-ranked tree beside the map, details on the right.
+    #[default]
+    Split,
+    /// Finder-style columns with details on the right.
+    Columns,
+    /// One dense tree table with checkboxes, no map.
+    Table,
+}
+
+impl WorkspaceLayout {
+    pub const ALL: [WorkspaceLayout; 3] = [Self::Split, Self::Columns, Self::Table];
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::Split => "List and map",
+            Self::Columns => "Columns",
+            Self::Table => "Table",
+        }
+    }
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(default)]
 pub struct AppSettings {
@@ -104,8 +132,15 @@ pub struct AppSettings {
     pub window_height: f32,
     /// Interface language; `None` follows the system locale.
     pub language: Option<crate::i18n::Lang>,
-    /// Visual skin; switched live from the More menu.
-    pub skin: crate::theme::Skin,
+    /// Dark or light colours.
+    #[serde(default)]
+    pub appearance: crate::theme::Appearance,
+    /// Disk usage arrangement, independent of the colours.
+    #[serde(default)]
+    pub layout: WorkspaceLayout,
+    /// Pre-redesign "skin" (it set colours and layout together). Read once, never written.
+    #[serde(default, rename = "skin", skip_serializing)]
+    legacy_skin: Option<String>,
     /// Contents pane shows the largest-file list instead of the folder.
     pub show_largest: bool,
     /// Narrow windows show the map instead of the list.
@@ -145,7 +180,9 @@ impl Default for AppSettings {
             window_width: 1280.0,
             window_height: 800.0,
             language: None,
-            skin: crate::theme::Skin::default(),
+            appearance: crate::theme::Appearance::default(),
+            layout: WorkspaceLayout::default(),
+            legacy_skin: None,
             show_largest: false,
             compact_map: false,
             filter_kind: EntryKindFilter::All,
@@ -161,6 +198,21 @@ impl Default for AppSettings {
             largest_limit: 100,
             largest_dirs: false,
         }
+    }
+}
+
+impl AppSettings {
+    /// Map an old skin onto the two settings that replaced it.
+    fn migrate(mut self) -> Self {
+        use crate::theme::Appearance;
+        if let Some(skin) = self.legacy_skin.take() {
+            (self.appearance, self.layout) = match skin.as_str() {
+                "Columns" => (Appearance::Light, WorkspaceLayout::Columns),
+                "Table" => (Appearance::Light, WorkspaceLayout::Table),
+                _ => (Appearance::Dark, WorkspaceLayout::Split),
+            };
+        }
+        self
     }
 }
 
@@ -201,8 +253,8 @@ impl AppSettings {
         let Ok(bytes) = fs::read(path) else {
             return Self::default();
         };
-        match serde_json::from_slice(&bytes) {
-            Ok(settings) => settings,
+        match serde_json::from_slice::<Self>(&bytes) {
+            Ok(settings) => settings.migrate(),
             Err(_) => {
                 let mut bad = path.as_os_str().to_owned();
                 bad.push(".bad");
@@ -276,5 +328,35 @@ mod tests {
         assert!(!path.exists());
         assert_eq!(fs::read(dir.join("settings.json.bad")).unwrap(), b"{not json");
         let _ = fs::remove_dir_all(&dir);
+    }
+
+    use crate::theme::Appearance;
+
+    #[test]
+    fn old_skins_become_appearance_and_layout() {
+        let json = r#"{"default_view":"sunburst","default_size_mode":"OnDisk","flags":{"show_percent_parent":true,"debounce_filter_ms":150,"show_shortcuts_hint":true,"sunburst_depth":2},"window_width":1280.0,"window_height":800.0,"skin":"Table"}"#;
+        let s = serde_json::from_str::<AppSettings>(json).unwrap().migrate();
+        assert_eq!(s.appearance, Appearance::Light);
+        assert_eq!(s.layout, WorkspaceLayout::Table);
+        let saved = serde_json::to_string(&s).unwrap();
+        assert!(
+            !saved.contains("\"skin\""),
+            "legacy key is not written back"
+        );
+    }
+
+    #[test]
+    fn new_settings_keep_their_values() {
+        let s = AppSettings {
+            appearance: Appearance::Light,
+            layout: WorkspaceLayout::Columns,
+            ..AppSettings::default()
+        };
+        let back: AppSettings =
+            serde_json::from_str::<AppSettings>(&serde_json::to_string(&s).unwrap())
+                .unwrap()
+                .migrate();
+        assert_eq!(back.appearance, Appearance::Light);
+        assert_eq!(back.layout, WorkspaceLayout::Columns);
     }
 }

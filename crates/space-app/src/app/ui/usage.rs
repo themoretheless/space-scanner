@@ -12,31 +12,34 @@ use space_core::{NodeId, SizeMode, SpaceTree as Tree};
 use super::Density;
 use crate::app::SpaceApp;
 use crate::icons::{self, Icon};
-use crate::review;
-use crate::theme::metrics::{APP_BAR_H, S2, S3, S4, SIDE_W, TREE_INDENT, TREE_ROW_H, TREE_W};
+use crate::settings::WorkspaceLayout;
+use crate::theme::metrics::{S2, S3, S4, SIDE_W, TREE_INDENT, TREE_ROW_H, TREE_W};
 use crate::theme::type_scale;
 use crate::theme::{self, ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
-use crate::views::{self, DrawCtx, EntryKindFilter, ViewMode};
+use crate::views::{self, DrawCtx, ViewMode};
 use crate::widgets::{
-    badge, block, caption, chip, divider, empty_state, ghost, primary, secondary, segmented, stat,
-    text_width,
+    block, caption, chip, divider, empty_state, ghost, primary, secondary, segmented, stat,
 };
 
 impl SpaceApp {
     pub(super) fn usage_page(&mut self, ctx: &egui::Context, d: Density) {
         if self.tree.is_none() {
-            egui::CentralPanel::default().show(ctx, |ui| self.scan_wait(ui));
+            self.scan_state_page(ctx);
             return;
         }
-        // Each skin brings its own workspace layout; Map is the original one.
-        match crate::theme::skin() {
-            crate::theme::Skin::Columns => return self.columns_page(ctx, d),
-            crate::theme::Skin::Table => return self.table_page(ctx, d),
-            crate::theme::Skin::Map => {}
+        // Toolbar, filters and footer are the same in every layout.
+        self.workspace_bar(ctx, d);
+        self.filter_bar(ctx, d);
+        self.workspace_footer(ctx);
+        match self.settings.layout {
+            WorkspaceLayout::Columns => return self.columns_page(ctx, d),
+            WorkspaceLayout::Table => return self.table_page(ctx, d),
+            WorkspaceLayout::Split => {}
         }
         let split = d != Density::Narrow;
         if split {
             egui::SidePanel::left("contents")
+                .show_separator_line(false)
                 .exact_width(if d == Density::Medium { 320.0 } else { TREE_W })
                 .resizable(false)
                 .frame(
@@ -49,6 +52,7 @@ impl SpaceApp {
         if self.selected.is_some() {
             if d == Density::Wide {
                 egui::SidePanel::right("details")
+                    .show_separator_line(false)
                     .exact_width(SIDE_W + 10.0)
                     .resizable(false)
                     .frame(
@@ -76,69 +80,72 @@ impl SpaceApp {
             });
     }
 
+    /// Details without a side panel: a drawer on the right at medium widths,
+    /// a bottom sheet over a scrim when the window is narrow. Esc closes both.
     pub(super) fn details_drawer(&mut self, ctx: &egui::Context) {
         if self.selected.is_none() {
             return;
         }
         let screen = ctx.screen_rect();
-        let w = (screen.width() - 2.0 * S3).clamp(240.0, 340.0);
-        let top = APP_BAR_H + 48.0 + S3;
+        let left = ctx.available_rect().left();
+        let narrow = Density::of(screen.width()) == Density::Narrow;
+        if narrow {
+            let mut close = false;
+            let scrim = egui::Rect::from_min_max(egui::pos2(left, screen.top()), screen.max);
+            egui::Area::new(egui::Id::new("details_scrim"))
+                .order(egui::Order::Middle)
+                .fixed_pos(scrim.min)
+                .show(ctx, |ui| {
+                    let (r, resp) = ui.allocate_exact_size(scrim.size(), Sense::click());
+                    ui.painter().rect_filled(r, 0.0, crate::theme::SCRIM());
+                    close = resp.clicked();
+                });
+            let h = (screen.height() * 0.55).clamp(220.0, 420.0);
+            egui::Area::new(egui::Id::new("details_sheet"))
+                .order(egui::Order::Foreground)
+                .fixed_pos(egui::pos2(left, screen.bottom() - h))
+                .show(ctx, |ui| {
+                    egui::Frame::new()
+                        .fill(ctx.style().visuals.window_fill)
+                        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
+                        .corner_radius(egui::CornerRadius {
+                            nw: 14,
+                            ne: 14,
+                            sw: 0,
+                            se: 0,
+                        })
+                        .inner_margin(egui::Margin::symmetric(20, 14))
+                        .shadow(ctx.style().visuals.window_shadow)
+                        .show(ui, |ui| {
+                            ui.set_width(screen.right() - left - 40.0);
+                            ui.set_height(h - 28.0);
+                            egui::ScrollArea::vertical().show(ui, |ui| self.details(ui));
+                        });
+                });
+            if close {
+                self.selected = None;
+            }
+            return;
+        }
+        let w = (screen.width() - 2.0 * S3).clamp(240.0, 320.0);
+        let top = ctx.available_rect().top() + S3;
         egui::Area::new(egui::Id::new("details_drawer"))
             .order(egui::Order::Foreground)
             .fixed_pos(egui::pos2(screen.right() - w - S3, top))
             .show(ctx, |ui| {
                 egui::Frame::new()
-                    .fill(PANEL())
+                    .fill(ctx.style().visuals.window_fill)
                     .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                    .corner_radius(8)
+                    .corner_radius(crate::theme::metrics::RADIUS_CARD)
                     .inner_margin(egui::Margin::same(S4 as i8 + 2))
-                    .shadow(egui::Shadow {
-                        offset: [0, 8],
-                        blur: 24,
-                        spread: 0,
-                        color: Color32::from_black_alpha(110),
-                    })
+                    .shadow(ctx.style().visuals.window_shadow)
                     .show(ui, |ui| {
                         ui.set_width(w - 36.0);
                         egui::ScrollArea::vertical()
-                            .max_height((screen.height() - top - S3 - 36.0).max(160.0))
+                            .max_height((screen.bottom() - top - S3 - 70.0).max(160.0))
                             .show(ui, |ui| self.details(ui));
                     });
             });
-    }
-
-    /// While the first scan runs there is nothing to explore yet.
-    pub(super) fn scan_wait(&mut self, ui: &mut egui::Ui) {
-        ui.vertical_centered(|ui| {
-            ui.add_space(72.0);
-            ui.spinner();
-            ui.add_space(S3);
-            ui.label(
-                RichText::new(&self.status)
-                    .size(type_scale::LEAD)
-                    .color(TEXT()),
-            );
-            if let Some(p) = &self.progress {
-                ui.label(caption(crate::tr!(
-                    "{} files · {} so far",
-                    p.files_seen,
-                    crate::i18n::bytes(p.bytes_seen)
-                )));
-            }
-            ui.add_space(S4);
-            if ui
-                .add(secondary("Cancel scan").min_size(egui::vec2(160.0, 36.0)))
-                .clicked()
-            {
-                if let Some(s) = &self.scan {
-                    s.cancel();
-                }
-            }
-            ui.add_space(S2);
-            ui.label(caption(
-                "Wrong folder? Cancel, then pick another on the Scan tab.",
-            ));
-        });
     }
 
     // ---------------------------------------------------------------- contents
@@ -152,42 +159,6 @@ impl SpaceApp {
         let mode = self.size_mode;
         let folder_size = tree.node(focus).size(mode);
 
-        egui::TopBottomPanel::bottom("contents_footer")
-            .frame(
-                egui::Frame::new()
-                    .fill(PANEL())
-                    .inner_margin(egui::Margin::symmetric(S4 as i8, S3 as i8))
-                    .stroke(egui::Stroke::new(1.0_f32, BORDER())),
-            )
-            .show_inside(ui, |ui| {
-                if self.from_cache {
-                    badge(
-                        ui,
-                        "Saved result",
-                        ACCENT(),
-                        "Opened from cache — files may have changed. Rescan to refresh (⌘R).",
-                    );
-                    ui.add_space(4.0);
-                }
-                ui.add(egui::Label::new(caption(crate::tr!(
-                    "Indexed {} items · {}",
-                    tree.item_count,
-                    crate::i18n::bytes(tree.total_size_mode(mode))
-                )))
-                .truncate());
-                if let Some(gap) = self.scan_gap_label() {
-                    if ui
-                        .add(egui::Button::new(caption(gap).color(ACCENT())).frame(false))
-                        .on_hover_text(t(
-                            "Unindexed disk usage can include permissions, snapshots and filesystem accounting",
-                        ))
-                        .clicked()
-                    {
-                        self.open_tm_panel();
-                    }
-                }
-            });
-
         egui::Frame::new()
             .inner_margin(egui::Margin {
                 left: 16,
@@ -197,7 +168,12 @@ impl SpaceApp {
             })
             .show(ui, |ui| {
                 ui.horizontal(|ui| {
-                    ui.label(RichText::new(t("Contents")).size(type_scale::LEAD).strong());
+                    let title = if self.search_hits.is_some() {
+                        "Matches"
+                    } else {
+                        "Contents"
+                    };
+                    ui.label(crate::widgets::strong(title, type_scale::LEAD));
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         ui.label(
                             RichText::new(crate::i18n::bytes(folder_size))
@@ -208,133 +184,42 @@ impl SpaceApp {
                     });
                 });
                 ui.add_space(S2);
-                if let Some(i) = segmented(
-                    ui,
-                    &["Folder contents", "Largest files"],
-                    self.show_largest as usize,
-                ) {
-                    self.show_largest = i == 1;
-                    self.settings.show_largest = self.show_largest;
-                    self.mark_settings_dirty();
-                }
-                ui.add_space(S2);
-                ui.horizontal_wrapped(|ui| {
-                    ui.spacing_mut().item_spacing = egui::vec2(6.0, 6.0);
-                    let kind = self.filter.kind;
-                    let big = self.filter.min_size >= 1 << 30;
-                    let mut changed = false;
-                    if chip(ui, kind == EntryKindFilter::All && !big, "All").clicked() {
-                        self.filter.kind = EntryKindFilter::All;
-                        self.filter.min_size = 0;
-                        changed = true;
-                    }
-                    if chip(ui, kind == EntryKindFilter::DirsOnly, "Folders").clicked() {
-                        self.filter.kind = EntryKindFilter::DirsOnly;
-                        changed = true;
-                    }
-                    if chip(ui, kind == EntryKindFilter::FilesOnly, "Files").clicked() {
-                        self.filter.kind = EntryKindFilter::FilesOnly;
-                        changed = true;
-                    }
-                    if chip(ui, big, "≥ 1 GB").clicked() {
-                        self.filter.min_size = if big { 0 } else { 1 << 30 };
-                        changed = true;
-                    }
-                    // Upper bound: presets, since typing bytes is rarely what anyone wants.
-                    let max = self.filter.max_size;
-                    let max_label = match max {
-                        Some(bytes) => crate::tr!("≤ {}", crate::i18n::bytes(bytes)),
-                        None => t("Max size").to_string(),
-                    };
-                    ui.menu_button(
-                        RichText::new(format!("{max_label} ▾"))
-                            .size(type_scale::CAPTION)
-                            .color(if max.is_some() { TEXT() } else { MUTED() }),
-                        |ui| {
-                            for (label, value) in [
-                                ("Any size", None),
-                                ("≤ 1 MB", Some(1u64 << 20)),
-                                ("≤ 10 MB", Some(10u64 << 20)),
-                                ("≤ 100 MB", Some(100u64 << 20)),
-                                ("≤ 1 GB", Some(1u64 << 30)),
-                            ] {
-                                if ui.selectable_label(max == value, t(label)).clicked() {
-                                    self.filter.max_size = value;
-                                    changed = true;
-                                    ui.close_menu();
-                                }
-                            }
-                        },
-                    );
-                    // One chip per selected file type; clicking takes it out.
-                    let exts: Vec<String> = self.filter.ext.iter().cloned().collect();
-                    for ext in exts {
-                        if chip(ui, true, &format!(".{ext}"))
-                            .on_hover_text(t("Take this file type out of the filter"))
-                            .clicked()
-                        {
-                            self.filter.toggle_ext(&ext);
-                            changed = true;
-                        }
-                    }
-                    if changed {
-                        self.geom = None;
-                        self.settings.filter_kind = self.filter.kind;
+                if self.search_hits.is_none() {
+                    if let Some(i) = segmented(
+                        ui,
+                        &["Folder contents", "Largest files"],
+                        self.show_largest as usize,
+                    ) {
+                        self.show_largest = i == 1;
+                        self.settings.show_largest = self.show_largest;
                         self.mark_settings_dirty();
                     }
-                });
+                }
             });
         divider(ui);
 
-        // A flat list while filtering or browsing largest files; otherwise a
-        // tree rooted at the focus, with folders opened inline.
-        let flat = self.show_largest || self.filter.is_active();
+        // A flat list while searching the whole scan, filtering or browsing
+        // largest files; otherwise a tree rooted at the focus, with folders
+        // opened inline.
+        let everywhere = self.search_hits.is_some();
+        let flat = self.show_largest || self.filter.is_active() || everywhere;
         if !flat {
             self.reveal_in_tree(&tree);
         }
-        let listing = self.listing(focus, self.show_largest, flat, true);
+        let listing = if let Some(hits) = &self.search_hits {
+            // Whole-scan matches are already filtered and change with every
+            // keystroke, so they bypass the per-folder cache.
+            Arc::new(build_listing(&tree, hits.ids.clone(), None, &self.expanded, true, true, mode, true))
+        } else {
+            self.listing(focus, self.show_largest, flat, true)
+        };
         let ids = &listing.ids;
         let before = listing.before;
         let rows = &listing.rows;
         self.tree_rows = rows.iter().map(|r| r.id).collect();
         let scroll_to = std::mem::take(&mut self.tree_scroll);
 
-        // Say what the filter is doing: scope, count, and a way out.
-        if self.filter.is_active() || !self.filter_draft.is_empty() {
-            egui::Frame::new()
-                .fill(PANEL_2())
-                .inner_margin(egui::Margin::symmetric(S4 as i8, 6))
-                .show(ui, |ui| {
-                    ui.horizontal(|ui| {
-                        let scope = if self.show_largest {
-                            t("largest files").to_string()
-                        } else {
-                            crate::tr!("in {}", tree.node(focus).name)
-                        };
-                        ui.add(
-                            egui::Label::new(caption(crate::tr!(
-                                "{} of {} shown {}",
-                                ids.len(),
-                                before,
-                                scope
-                            )))
-                            .truncate(),
-                        );
-                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                            if ui
-                                .add(ghost("Clear").min_size(egui::vec2(0.0, 24.0)))
-                                .clicked()
-                            {
-                                self.filter.clear();
-                                self.filter_draft.clear();
-                                self.filter_edited_at = None;
-                                self.geom = None;
-                            }
-                        });
-                    });
-                });
-        }
-        if self.show_largest {
+        if self.show_largest && !everywhere {
             ui.horizontal(|ui| {
                 ui.add_space(S4);
                 ui.spacing_mut().item_spacing.x = 6.0;
@@ -384,14 +269,25 @@ impl SpaceApp {
             .map(|h| tree.path_to(h).into_iter().collect())
             .unwrap_or_default();
         let (mut pick, mut enter, mut reveal, mut queue, mut toggle) =
-            (None, None, None, None, None);
+            (None, None, None, None::<Vec<NodeId>>, None);
         if ids.is_empty() {
             ui.add_space(4.0);
-            empty_state(
-                ui,
-                if before == 0 { "This folder is empty" } else { "Nothing matches" },
-                if before == 0 { "No indexed items here." } else { "Change or clear the filter." },
-            );
+            if self.show_largest && !everywhere && self.largest.is_loading() {
+                ui.add_space(S4);
+                ui.vertical_centered(|ui| ui.spinner());
+            } else if everywhere {
+                empty_state(
+                    ui,
+                    "Nothing matches",
+                    "No item in the whole scan has this name.",
+                );
+            } else {
+                empty_state(
+                    ui,
+                    if before == 0 { "This folder is empty" } else { "Nothing matches" },
+                    if before == 0 { "No indexed items here." } else { "Change or clear the filter." },
+                );
+            }
         }
         // Only the rows in view are laid out; an opened node_modules stays cheap.
         ui.spacing_mut().item_spacing.y = 0.0;
@@ -413,8 +309,11 @@ impl SpaceApp {
                     let queued = self.review.contains(&id);
                     let (rect, resp) = ui.allocate_exact_size(
                         egui::vec2(ui.available_width(), TREE_ROW_H),
-                        Sense::click(),
+                        Sense::CLICK,
                     );
+                    if selected && scroll_to {
+                        resp.scroll_to_me(None);
+                    }
                     let outcome = paint_tree_row(
                         ui,
                         rect,
@@ -431,16 +330,32 @@ impl SpaceApp {
                     if outcome.chevron {
                         toggle = Some(id);
                     }
-
-                    let resp = resp.on_hover_text(t(if n.is_dir {
-                        "Click to select · double-click to open · ⌘-click to add to review"
-                    } else {
-                        "Click to select · double-click to show in Finder · ⌘-click to add to review"
-                    }));
-                    if resp.clicked() && !outcome.chevron {
-                        if ui.input(|i| i.modifiers.command || i.modifiers.ctrl) && !n.synthetic {
-                            queue = Some(id);
+                    if outcome.check {
+                        queue = Some(vec![id]);
+                    }
+                    if resp.clicked() && !outcome.chevron && !outcome.check {
+                        let mods = ui.input(|i| i.modifiers);
+                        if mods.shift && !n.synthetic {
+                            // Shift-click adds the whole range to the Trash list.
+                            let from = self
+                                .range_anchor
+                                .and_then(|a| self.tree_rows.iter().position(|&r| r == a));
+                            let to = self.tree_rows.iter().position(|&r| r == id);
+                            if let (Some(a), Some(b)) = (from, to) {
+                                let (lo, hi) = (a.min(b), a.max(b));
+                                let range: Vec<NodeId> = self.tree_rows[lo..=hi]
+                                    .iter()
+                                    .copied()
+                                    .filter(|r| !self.review.contains(r))
+                                    .collect();
+                                queue = Some(range);
+                            } else {
+                                queue = Some(vec![id]);
+                            }
+                        } else if mods.command && !n.synthetic {
+                            queue = Some(vec![id]);
                         }
+                        self.range_anchor = Some(id);
                         pick = Some(id);
                     }
                     if resp.double_clicked() {
@@ -451,7 +366,11 @@ impl SpaceApp {
                         }
                     }
                     resp.context_menu(|ui| {
-                        if row.has_kids && ui.button(t(if row.open { "Collapse" } else { "Expand" })).clicked() {
+                        if row.has_kids
+                            && ui
+                                .button(t(if row.open { "Collapse" } else { "Expand" }))
+                                .clicked()
+                        {
                             toggle = Some(id);
                             ui.close_menu();
                         }
@@ -460,9 +379,13 @@ impl SpaceApp {
                             ui.close_menu();
                         }
                         if !n.synthetic {
-                            let q = if queued { "Remove from review" } else { "Add to review" };
+                            let q = if queued {
+                                "Take out of Trash list"
+                            } else {
+                                "Add to Trash list"
+                            };
                             if ui.button(t(q)).clicked() {
-                                queue = Some(id);
+                                queue = Some(vec![id]);
                                 ui.close_menu();
                             }
                             if ui.button(t("Show in Finder")).clicked() {
@@ -492,8 +415,8 @@ impl SpaceApp {
         if let Some(id) = pick {
             self.selected = Some(id);
         }
-        if let Some(id) = queue {
-            review::toggle(&mut self.review, id);
+        if let Some(ids) = queue {
+            self.queue_toggle(&ids);
         }
         if let Some(id) = reveal {
             self.selected = Some(id);
@@ -520,6 +443,7 @@ impl SpaceApp {
         let size = node.size(self.size_mode);
         let path = tree.path_string(id);
         let queued = self.review.contains(&id);
+        let protected = space_clean::safety::is_never_touch(std::path::Path::new(&path));
 
         ui.horizontal(|ui| {
             icons::show(
@@ -529,23 +453,24 @@ impl SpaceApp {
                 } else {
                     Icon::File
                 },
-                18.0,
+                16.0,
                 MUTED(),
             );
-            ui.label(caption(if node.is_dir { "FOLDER" } else { "FILE" }));
-            if queued {
-                badge(ui, "In review", ACCENT(), "Will be listed in Review");
-            }
+            ui.label(crate::widgets::section_label(if node.synthetic {
+                "Small files"
+            } else if node.is_dir {
+                "Folder"
+            } else {
+                "File"
+            }));
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                if icons::button(ui, Icon::Close, 28.0, "Close details", true).clicked() {
+                if icons::button(ui, Icon::Close, 28.0, "Close details · Esc", true).clicked() {
                     self.selected = None;
                 }
             });
         });
-        ui.add(
-            egui::Label::new(RichText::new(&node.name).size(type_scale::TITLE).strong()).truncate(),
-        )
-        .on_hover_text(&node.name);
+        ui.add(egui::Label::new(crate::widgets::strong(node.name.clone(), 20.0)).truncate())
+            .on_hover_text(&node.name);
         ui.add(
             egui::Label::new(
                 RichText::new(&path)
@@ -561,9 +486,11 @@ impl SpaceApp {
             stat(
                 &mut cols[0],
                 &crate::i18n::bytes(size),
-                &match self.percent_of_parent(id) {
-                    Some(p) => crate::tr!("{}% of parent", format!("{p:.0}")),
-                    None => t("whole scan").to_string(),
+                &match (self.percent_of_parent(id), node.parent) {
+                    (Some(p), Some(parent)) => {
+                        crate::tr!("{}% of {}", format!("{p:.0}"), tree.node(parent).name)
+                    }
+                    _ => t("whole scan").to_string(),
                 },
             );
             stat(
@@ -574,29 +501,28 @@ impl SpaceApp {
         });
         ui.add_space(S3);
 
-        if let Some((category, label, color, hint)) = self.risk_hint_for(id) {
-            egui::Frame::new()
-                .fill(PANEL_2())
-                .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
-                .corner_radius(10)
-                .inner_margin(egui::Margin::same(S3 as i8))
-                .show(ui, |ui| {
-                    ui.set_width(ui.available_width());
-                    ui.label(
-                        RichText::new(format!("{} · {}", t(label), t(&category)))
-                            .color(color)
-                            .strong(),
-                    );
-                    ui.label(caption(crate::tr!(
-                        "{}. A rule match is guidance, not a guarantee.",
-                        t(hint)
-                    )));
-                });
+        if protected {
+            note_card(
+                ui,
+                crate::theme::DANGER(),
+                Icon::Lock,
+                "Protected",
+                "The system or your personal data lives here. It cannot go to the Trash list.",
+            );
+            ui.add_space(S3);
+        } else if let Some((category, label, color, hint)) = self.risk_hint_for(id) {
+            note_card(
+                ui,
+                color,
+                Icon::Check,
+                &format!("{} · {}", t(label), t(&category)),
+                &crate::tr!("{}. A rule match is guidance, not a guarantee.", t(hint)),
+            );
             ui.add_space(S3);
         }
 
         let is_dir = node.is_dir && !node.synthetic;
-        let deletable = !node.synthetic && node.parent.is_some();
+        let listable = !node.synthetic && node.parent.is_some() && !protected;
         if is_dir {
             if ui.add(block(ui, primary("Open folder"))).clicked() {
                 self.navigate(id, true);
@@ -606,51 +532,50 @@ impl SpaceApp {
         }
         ui.add_space(S2);
         let label = if queued {
-            "Remove from review"
+            "Take out of Trash list"
         } else {
-            "Add to review"
+            "Add to Trash list"
         };
         if ui
-            .add_enabled(deletable && !self.busy, block(ui, secondary(label)))
-            .on_hover_text(t(
-                "Selecting never removes anything — you confirm in Review",
-            ))
+            .add_enabled(listable && !self.busy, block(ui, secondary(label)))
+            .on_hover_text(t("Nothing moves until you confirm on the Trash list"))
+            .on_disabled_hover_text(t(if node.synthetic {
+                "Grouped small files can't be listed one by one"
+            } else {
+                "This item can't go to the Trash"
+            }))
             .clicked()
         {
-            review::toggle(&mut self.review, id);
+            self.queue_toggle(&[id]);
         }
         ui.add_space(S2);
-        let w = (ui.available_width() - S2) * 0.5;
-        let font = egui::FontId::proportional(type_scale::BODY);
-        let fits = ["Show in Finder", "Rescan folder"]
-            .iter()
-            .all(|l| text_width(ui, t(l), font.clone()) + 28.0 <= w);
-        let row = |ui: &mut egui::Ui| {
-            let w = if fits { w } else { ui.available_width() };
-            if is_dir
-                && ui
-                    .add_sized([w, 32.0], egui::Button::new(t("Show in Finder")))
-                    .clicked()
-            {
+        let mut copy = false;
+        ui.horizontal_wrapped(|ui| {
+            ui.spacing_mut().item_spacing.x = 14.0;
+            if is_dir && ui.add(ghost("Show in Finder")).clicked() {
                 self.reveal_selected();
             }
             if is_dir
                 && ui
-                    .add_enabled(
-                        self.scan.is_none() && !self.busy,
-                        egui::Button::new(t("Rescan folder")).min_size(egui::vec2(w, 32.0)),
-                    )
-                    .on_hover_text(t("Rebuild the index for this folder"))
+                    .add_enabled(self.scan.is_none() && !self.busy, ghost("Rescan"))
+                    .on_hover_text(t("Scan this folder again · ⌘⇧R"))
                     .clicked()
             {
                 self.incremental_rescan(id);
             }
-        };
-        if fits {
-            ui.horizontal(row);
-        } else {
-            ui.vertical(row);
+            if ui.add(ghost("Copy path")).on_hover_text("⌘⇧C").clicked() {
+                copy = true;
+            }
+        });
+        if copy {
+            self.copy_text(path);
         }
+        ui.add_space(S3);
+        ui.label(caption(if is_dir {
+            "Enter opens · Space adds to the Trash list · Shift-click adds a range"
+        } else {
+            "Space adds to the Trash list · Shift-click adds a range"
+        }));
     }
 
     // --------------------------------------------------------------------- map
@@ -706,17 +631,6 @@ impl SpaceApp {
             .inner;
         ui.set_opacity(1.0);
 
-        if ctx.input(|i| !i.raw.hovered_files.is_empty()) && self.scan.is_none() && !self.busy {
-            ui.painter()
-                .rect_filled(map, 0.0, ACCENT().gamma_multiply(0.16));
-            ui.painter().text(
-                map.center(),
-                egui::Align2::CENTER_CENTER,
-                t("Drop to scan this folder"),
-                egui::FontId::proportional(type_scale::TITLE),
-                ACCENT(),
-            );
-        }
         if self.scan.is_some() || self.busy {
             ui.painter().rect_filled(map, 0.0, BG().gamma_multiply(0.6));
             ui.painter().text(
@@ -741,9 +655,7 @@ impl SpaceApp {
             self.navigate(id, true);
         }
         if let Some(id) = action.toggle_review {
-            if !tree.node(id).synthetic {
-                review::toggle(&mut self.review, id);
-            }
+            self.queue_toggle(&[id]);
         }
         if let Some(id) = action.reveal {
             self.selected = Some(id);
@@ -761,52 +673,62 @@ impl SpaceApp {
         }
     }
 
-    /// Quiet workspace settings outside the map's interactive drawing area.
+    /// Map style and size accounting, above the map and outside its drawing area.
+    /// Segmented when there is room, compact pickers when the map is narrow.
     fn map_controls(&mut self, ui: &mut egui::Ui) {
-        ui.scope(|ui| {
-            let widgets = &mut ui.visuals_mut().widgets;
-            for visual in [
-                &mut widgets.inactive,
-                &mut widgets.hovered,
-                &mut widgets.active,
-            ] {
-                visual.bg_stroke = egui::Stroke::NONE;
-                visual.weak_bg_fill = Color32::TRANSPARENT;
+        ui.add_space(6.0);
+        let roomy = ui.available_width() >= 600.0;
+        let mut view = self.view;
+        let mut size_mode = self.size_mode;
+        let size_label = |m: SizeMode| {
+            if m == SizeMode::OnDisk {
+                "On disk"
+            } else {
+                "File size"
             }
-            ui.horizontal(|ui| {
-                let mut view = self.view;
-                ui.menu_button(caption(format!("{} ▾", t(self.view.label()))), |ui| {
-                    for mode in ViewMode::ALL {
-                        if ui.selectable_label(view == mode, t(mode.label())).clicked() {
-                            view = mode;
-                            ui.close_menu();
-                        }
-                    }
-                });
-                if view != self.view {
-                    self.set_view(view);
+        };
+        ui.horizontal(|ui| {
+            ui.add_space(S2);
+            if roomy {
+                let labels: Vec<&str> = ViewMode::ALL.iter().map(|m| m.label()).collect();
+                let current = ViewMode::ALL.iter().position(|&m| m == view).unwrap_or(0);
+                if let Some(i) = segmented(ui, &labels, current) {
+                    view = ViewMode::ALL[i];
                 }
-                let mut size_mode = self.size_mode;
-                let size_label = t(if size_mode == SizeMode::OnDisk {
-                    "On disk"
-                } else {
-                    "File size"
-                });
-                ui.menu_button(caption(format!("{size_label} ▾")), |ui| {
-                    for (mode, label) in [
-                        (SizeMode::OnDisk, "On disk"),
-                        (SizeMode::Apparent, "File size"),
-                    ] {
-                        if ui.selectable_label(size_mode == mode, t(label)).clicked() {
-                            size_mode = mode;
-                            ui.close_menu();
+            } else {
+                egui::ComboBox::from_id_salt("map_view")
+                    .selected_text(t(view.label()))
+                    .width(120.0)
+                    .show_ui(ui, |ui| {
+                        for m in ViewMode::ALL {
+                            ui.selectable_value(&mut view, m, t(m.label()));
                         }
+                    });
+            }
+            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                ui.add_space(S2);
+                if roomy {
+                    // Drawn right to left.
+                    if let Some(i) = segmented(
+                        ui,
+                        &["File size", "On disk"],
+                        (size_mode == SizeMode::OnDisk) as usize,
+                    ) {
+                        size_mode = if i == 1 {
+                            SizeMode::OnDisk
+                        } else {
+                            SizeMode::Apparent
+                        };
                     }
-                });
-                if size_mode != self.size_mode {
-                    self.size_mode = size_mode;
-                    self.invalidate_largest();
-                    self.schedule_largest();
+                } else {
+                    egui::ComboBox::from_id_salt("map_size")
+                        .selected_text(t(size_label(size_mode)))
+                        .width(100.0)
+                        .show_ui(ui, |ui| {
+                            for m in [SizeMode::OnDisk, SizeMode::Apparent] {
+                                ui.selectable_value(&mut size_mode, m, t(size_label(m)));
+                            }
+                        });
                 }
                 let mut changed = false;
                 ui.menu_button(caption(format!("{} ▾", t("Map options"))), |ui| {
@@ -819,12 +741,25 @@ impl SpaceApp {
                 }
             });
         });
-        ui.add_space(4.0);
+        if view != self.view {
+            self.set_view(view);
+        }
+        if size_mode != self.size_mode {
+            self.size_mode = size_mode;
+            self.search_hits = None;
+            self.invalidate_largest();
+            self.schedule_largest();
+        }
+        ui.add_space(6.0);
     }
 
     /// One dismissible hint, bottom-centre.
     fn map_hint(&mut self, ctx: &egui::Context, map: egui::Rect) {
-        if !self.settings.flags.show_shortcuts_hint || self.scan.is_some() || self.busy {
+        if !self.settings.flags.show_shortcuts_hint
+            || self.scan.is_some()
+            || self.busy
+            || self.hovered.is_some()
+        {
             return;
         }
         let hint = t(self.view.click_hint());
@@ -844,7 +779,6 @@ impl SpaceApp {
         let mut dismissed = false;
         egui::Area::new(egui::Id::new("map_hint"))
             .order(egui::Order::Foreground)
-            .anchor(egui::Align2::CENTER_BOTTOM, [0.0, 0.0])
             .fixed_pos(egui::pos2(
                 map.center().x - (text_w + 64.0) * 0.5,
                 map.bottom() - 52.0,
@@ -991,42 +925,76 @@ impl SpaceApp {
                 rows: Vec::new(),
             });
         };
-        let mode = self.size_mode;
-        let mut ids: Vec<NodeId> = if largest {
+        let ids: Vec<NodeId> = if largest {
             self.largest.rows().iter().map(|row| row.0).collect()
         } else {
             tree.children(dir).to_vec()
         };
-        let before = ids.len();
-        ids.retain(|&c| {
-            let n = tree.node(c);
-            self.filter.matches(&n.name, n.is_dir, n.size(mode))
-        });
-        ids.sort_by_cached_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
-        let items: Vec<(&str, bool)> = ids
-            .iter()
-            .map(|&c| {
-                let n = tree.node(c);
-                (n.name.as_str(), n.is_dir)
-            })
-            .collect();
-        let colors = theme::sibling_palette(&items);
-        let rows = if with_rows {
-            tree_rows(&tree, &ids, &colors, &self.expanded, flat, mode)
-        } else {
-            Vec::new()
-        };
-        let listing = Arc::new(Listing {
+        let listing = Arc::new(build_listing(
+            &tree,
             ids,
-            before,
-            colors,
-            rows,
-        });
+            Some(&self.filter),
+            &self.expanded,
+            flat,
+            with_rows,
+            self.size_mode,
+            largest,
+        ));
         if self.listings.entries.len() >= LISTING_CACHE {
             self.listings.entries.remove(0);
         }
         self.listings.entries.push((key, Arc::clone(&listing)));
         listing
+    }
+}
+
+/// One pass of children → filter → sort → palette → tree rows. `filter` is
+/// `None` for whole-scan search hits, which arrive already matched. Flat
+/// lists drawn from many folders (`noted`) say where each row lives.
+#[allow(clippy::too_many_arguments)]
+fn build_listing(
+    tree: &Tree,
+    mut ids: Vec<NodeId>,
+    filter: Option<&crate::views::ViewFilter>,
+    expanded: &HashSet<NodeId>,
+    flat: bool,
+    with_rows: bool,
+    mode: SizeMode,
+    noted: bool,
+) -> Listing {
+    let before = ids.len();
+    if let Some(filter) = filter {
+        ids.retain(|&c| {
+            let n = tree.node(c);
+            filter.matches(&n.name, n.is_dir, n.size(mode))
+        });
+    }
+    ids.sort_by_cached_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
+    let items: Vec<(&str, bool)> = ids
+        .iter()
+        .map(|&c| {
+            let n = tree.node(c);
+            (n.name.as_str(), n.is_dir)
+        })
+        .collect();
+    let colors = theme::sibling_palette(&items);
+    let mut rows = if with_rows {
+        tree_rows(tree, &ids, &colors, expanded, flat, mode)
+    } else {
+        Vec::new()
+    };
+    if noted {
+        for row in &mut rows {
+            if let Some(parent) = tree.node(row.id).parent {
+                row.note = Some(short_path(tree, parent));
+            }
+        }
+    }
+    Listing {
+        ids,
+        before,
+        colors,
+        rows,
     }
 }
 
@@ -1046,6 +1014,8 @@ pub(in crate::app) struct TreeRow {
     pub(super) share: f32,
     pub(super) has_kids: bool,
     pub(super) open: bool,
+    /// Where a flat result lives, drawn after the name.
+    pub(super) note: Option<String>,
     /// For each ancestor level: does a later sibling follow (draw a guide)?
     guides: Vec<bool>,
 }
@@ -1099,6 +1069,7 @@ pub(super) fn tree_rows(
             share: n.size(mode) as f32 / parent_total(id),
             has_kids: !kids.is_empty(),
             open,
+            note: None,
             guides: guides.clone(),
         });
         if open {
@@ -1133,6 +1104,7 @@ pub(super) fn tree_rows(
                 share: tree.node(id).size(mode) as f32 / parent_total(id),
                 has_kids: false,
                 open: false,
+                note: None,
                 guides: Vec::new(),
             });
         } else {
@@ -1164,6 +1136,8 @@ pub(super) fn expand_all(tree: &Tree, id: NodeId, expanded: &mut HashSet<NodeId>
 
 struct RowOutcome {
     chevron: bool,
+    /// The Trash list checkbox was clicked.
+    check: bool,
 }
 
 /// How a tree row relates to the selection, the review queue and the map hover.
@@ -1206,7 +1180,30 @@ fn paint_tree_row(
         p.rect_filled(rect, 0.0, ACCENT().gamma_multiply(0.07));
     }
     let cy = rect.center().y;
-    let left = rect.left() + S3;
+    // Trash list checkbox, in the same place on every row.
+    let mut check = false;
+    if !n.synthetic && n.parent.is_some() {
+        let cb = egui::Rect::from_center_size(
+            egui::pos2(rect.left() + 18.0, cy),
+            egui::vec2(14.0, 14.0),
+        );
+        let hot = ui
+            .input(|i| i.pointer.hover_pos())
+            .is_some_and(|h| cb.expand(5.0).contains(h));
+        let state = if queued {
+            crate::widgets::Check::On
+        } else {
+            crate::widgets::Check::Off
+        };
+        if queued || hot || resp.hovered() || selected {
+            crate::widgets::paint_check(p, cb, state);
+        }
+        check = resp.clicked()
+            && ui
+                .input(|i| i.pointer.interact_pos())
+                .is_some_and(|h| cb.expand(5.0).contains(h));
+    }
+    let left = rect.left() + 32.0;
     // Indent guides: a hairline per ancestor level that still has siblings below.
     for (lvl, &more) in row.guides.iter().enumerate() {
         let x = left + lvl as f32 * TREE_INDENT + 8.0;
@@ -1266,9 +1263,6 @@ fn paint_tree_row(
         size_g,
         MUTED(),
     );
-    if queued {
-        p.circle_filled(egui::pos2(rect.right() - 7.0, cy), 3.0, ACCENT());
-    }
 
     // Reserve the measured widths of both numbers, including 100% and TiB sizes.
     let pct = (row.share * 100.0).round().clamp(0.0, 100.0) as u32;
@@ -1293,11 +1287,22 @@ fn paint_tree_row(
 
     let name_x = x0 + 36.0;
     let name_w = (bar_x - 10.0 - name_x).max(20.0);
-    let mut job = egui::text::LayoutJob::simple_singleline(
-        n.name.clone(),
-        egui::FontId::proportional(type_scale::BODY),
-        if n.synthetic { MUTED() } else { TEXT() },
+    let mut job = egui::text::LayoutJob::default();
+    job.append(
+        &n.name,
+        0.0,
+        egui::TextFormat::simple(
+            egui::FontId::proportional(type_scale::BODY),
+            if n.synthetic { MUTED() } else { TEXT() },
+        ),
     );
+    if let Some(note) = &row.note {
+        job.append(
+            note,
+            8.0,
+            egui::TextFormat::simple(egui::FontId::proportional(type_scale::CAPTION), MUTED()),
+        );
+    }
     job.wrap = egui::text::TextWrapping::truncate_at_width(name_w);
     let g = p.layout_job(job);
     let name_size = g.size();
@@ -1317,7 +1322,40 @@ fn paint_tree_row(
             egui::Stroke::new(1.0_f32, MUTED()),
         );
     }
-    RowOutcome { chevron }
+    RowOutcome { chevron, check }
+}
+
+/// A folder path for a flat result row: "~/code/app".
+pub(super) fn short_path(tree: &Tree, id: NodeId) -> String {
+    let full = tree.path_string(id);
+    if let Some(home) = std::env::var_os("HOME") {
+        let home = home.to_string_lossy();
+        if let Some(rest) = full.strip_prefix(home.as_ref()) {
+            return format!("~{rest}");
+        }
+    }
+    full
+}
+
+/// A tinted note in the inspector: rule match, protection.
+fn note_card(ui: &mut egui::Ui, color: Color32, icon: Icon, title: &str, body: &str) {
+    egui::Frame::new()
+        .fill(color.gamma_multiply(0.08))
+        .stroke(egui::Stroke::new(1.0_f32, color.gamma_multiply(0.5)))
+        .corner_radius(8)
+        .inner_margin(egui::Margin::symmetric(S3 as i8, 10))
+        .show(ui, |ui| {
+            ui.set_width(ui.available_width());
+            ui.horizontal(|ui| {
+                icons::show(ui, icon, 14.0, color);
+                ui.label(
+                    RichText::new(t(title))
+                        .color(color)
+                        .family(crate::theme::medium()),
+                );
+            });
+            ui.add(egui::Label::new(caption(body.to_owned())).wrap());
+        });
 }
 
 impl SpaceApp {
@@ -1383,7 +1421,7 @@ impl SpaceApp {
                 next = n.parent.filter(|p| self.tree_rows.contains(p));
             }
         } else if space && !n.synthetic {
-            review::toggle(&mut self.review, id);
+            self.queue_toggle(&[id]);
         } else if up || down {
             // At an end of the list: consume so the map does not jump.
         } else {

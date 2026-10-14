@@ -35,7 +35,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let mut action = ViewAction::none();
     let tree = ctx.tree;
     let focus = ctx.focus;
-    let (rect, response) = ui.allocate_exact_size(ui.available_size(), Sense::click());
+    let (rect, response) = ui.allocate_exact_size(ui.available_size(), Sense::CLICK);
     let painter = ui.painter_at(rect);
     let center = rect.center();
     let max_r = rect.width().min(rect.height()) * 0.46;

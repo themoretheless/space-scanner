@@ -37,7 +37,14 @@ impl ViewMode {
     }
 
     pub fn click_hint(self) -> &'static str {
-        "Click selects · double-click opens · ↑ parent · ⌘-click adds to review"
+        match self {
+            Self::Sunburst => {
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the Trash list"
+            }
+            Self::Container | Self::Radial | Self::Cascade => {
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the Trash list"
+            }
+        }
     }
 
     pub const ALL: [ViewMode; 4] = [Self::Sunburst, Self::Container, Self::Radial, Self::Cascade];
@@ -176,7 +183,7 @@ pub struct ViewAction {
 /// Same hover card in every map view so gestures stay discoverable.
 pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, mode: SizeMode) {
     let n = tree.node(id);
-    ui.label(RichText::new(&n.name).strong());
+    ui.label(RichText::new(&n.name).family(crate::theme::bold()));
     let kind = t(if n.is_dir { "Folder" } else { "File" });
     let mut line = format!("{kind} · {}", crate::i18n::bytes(n.size(mode)));
     if n.is_dir {
@@ -192,11 +199,11 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     let hint = if n.synthetic {
         "Grouped leftovers · click to select · right-click to filter by type"
     } else if n.is_dir && id == focus {
-        "Click to select · ↑ to go up · ⌘-click adds to review"
+        "Click to select · ↑ to go up · ⌘-click adds to the Trash list"
     } else if n.is_dir {
-        "Click to select · double-click to open · ⌘-click adds to review"
+        "Click to select · double-click to open · ⌘-click adds to the Trash list"
     } else {
-        "Click to select · double-click Finder · ⌘-click Trash queue"
+        "Click to select · double-click shows it in Finder · ⌘-click adds to the Trash list"
     };
     ui.label(RichText::new(t(hint)).small().color(MUTED()));
 }
@@ -307,9 +314,9 @@ pub fn node_context_menu(
         }
         if !n.synthetic {
             let label = if in_review {
-                t("Remove from review")
+                t("Take out of Trash list")
             } else {
-                t("Add to review")
+                t("Add to Trash list")
             };
             if ui.button(label).clicked() {
                 action.toggle_review = Some(id);
@@ -547,6 +554,7 @@ mod click_map_tests {
     fn ring_context_menu_survives_pointer_entering_popup_and_keeps_clicked_target() {
         let tree = sample();
         let ctx = egui::Context::default();
+        crate::theme::apply(&ctx, crate::theme::Appearance::default(), false, 350);
         let mut geom = None;
         let filter = ViewFilter::default();
         let review = HashSet::new();

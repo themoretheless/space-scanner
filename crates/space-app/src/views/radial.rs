@@ -132,7 +132,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     }
 
     let center_hit = egui::Rect::from_center_size(center, Vec2::splat(center_r * 2.0));
-    let center_resp = ui.interact(center_hit, ui.id().with("radial-center"), Sense::click());
+    let center_resp = ui.interact(center_hit, ui.id().with("radial-center"), Sense::CLICK);
     if center_resp.clicked() || center_resp.double_clicked() {
         if let Some(parent) = focus_node.parent {
             action.navigate = Some(parent);

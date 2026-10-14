@@ -8,8 +8,8 @@ use std::time::{Duration, Instant};
 use crossbeam_channel::{unbounded, Receiver};
 use eframe::egui::{self, Key};
 use space_core::{
-    rescan_subtree, scan_path_with_expect, CacheMeta, CacheStore, NodeId, ScanEvent,
-    ScanHandle, ScanProgress, SizeMode, SpaceTree,
+    rescan_subtree, scan_path_with_expect, CacheMeta, CacheStore, NodeId, ScanEvent, ScanHandle,
+    ScanProgress, SizeMode, SpaceTree,
 };
 
 use crate::anim::{TransKind, Transition};
@@ -65,14 +65,46 @@ enum BgMsg {
     CacheSize(u64),
 }
 
-/// Top-level screens: pick a target, explore a scan, reclaim space.
+/// Top-level screens: overview, explore a scan, find junk, the Trash list.
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 enum Mode {
+    /// Overview: disk health, what to do next, saved scans.
     Home,
     Explore,
     Clean,
+    /// The Trash list: the only route to Move to Trash.
     Review,
 }
+
+/// How a scan that produced no result ended, so the page can offer a way on.
+#[derive(Clone, Debug)]
+pub(crate) struct ScanOutcome {
+    pub path: PathBuf,
+    pub bytes_seen: u64,
+    pub files_seen: u64,
+    /// `None` when the user cancelled.
+    pub error: Option<String>,
+}
+
+/// What the last Move to Trash did, shown on the Trash list page afterwards.
+#[derive(Clone, Debug, Default)]
+pub(crate) struct TrashResult {
+    pub moved: usize,
+    pub bytes: u64,
+    pub failures: Vec<String>,
+}
+
+/// Whole-scan search results for one query.
+pub(crate) struct SearchHits {
+    pub key: (String, u64, SizeMode, usize),
+    pub ids: Vec<NodeId>,
+    pub bytes: u64,
+    /// More matches exist than are listed.
+    pub truncated: bool,
+}
+
+/// Matches listed by a whole-scan search; the rest are counted.
+pub(crate) const MAX_SEARCH_HITS: usize = 2_000;
 
 pub struct SpaceApp {
     mode: Mode,
@@ -166,6 +198,24 @@ pub struct SpaceApp {
     risk_hint_cache: Option<((NodeId, u64, u64), Option<RiskHint>)>,
     /// Contents-pane pipeline results (children → filter → sort → palette → rows).
     listings: ui::ListingCache,
+    /// Transient messages in the corner: results, errors, undo.
+    toasts: ui::Toasts,
+    /// Set when a scan ended without a result (cancelled or failed).
+    scan_outcome: Option<ScanOutcome>,
+    /// Folder of the scan in progress, for Try again.
+    scan_target: Option<PathBuf>,
+    /// Trash list paths to restore after a rescan of the same folder.
+    keep_review: Option<Vec<PathBuf>>,
+    trash_result: Option<TrashResult>,
+    /// Search the whole scan instead of the folder in view.
+    search_everywhere: bool,
+    search_hits: Option<SearchHits>,
+    /// Last row clicked in a list; shift-click adds the range from here.
+    range_anchor: Option<NodeId>,
+    /// Text to put on the clipboard on the next frame.
+    pending_copy: Option<String>,
+    /// The search field had keyboard focus last frame.
+    search_focused: bool,
 }
 
 type BasketKey = (u64, u64, SizeMode, u64);
@@ -176,7 +226,7 @@ impl SpaceApp {
     pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
         theme::apply(
             &cc.egui_ctx,
-            settings.skin,
+            settings.appearance,
             settings.reduce_motion,
             settings.tooltip_delay_ms,
         );
@@ -285,6 +335,16 @@ impl SpaceApp {
             basket_cache: RefCell::new(None),
             risk_hint_cache: None,
             listings: ui::ListingCache::default(),
+            toasts: ui::Toasts::default(),
+            scan_outcome: None,
+            scan_target: None,
+            keep_review: None,
+            trash_result: None,
+            search_everywhere: false,
+            search_hits: None,
+            range_anchor: None,
+            pending_copy: None,
+            search_focused: false,
         }
     }
 
@@ -342,6 +402,9 @@ impl SpaceApp {
         self.tree_scroll = false;
         self.transition = None;
         self.progress = None;
+        self.search_hits = None;
+        self.scan_outcome = None;
+        self.range_anchor = None;
         if let Some(path) = self.settings.last_focus.get(&tree.root_path) {
             if let Some(id) = find_path(&tree, std::path::Path::new(path)) {
                 if tree.node(id).is_dir {
@@ -402,6 +465,16 @@ impl SpaceApp {
             Some((tree, stale)) => {
                 self.cache_stale = stale;
                 self.from_cache = true;
+                if stale {
+                    self.toasts.push(
+                        ui::ToastLevel::Info,
+                        crate::tr!(
+                            "Opened the saved result from {}. Files changed since then.",
+                            crate::i18n::age(now_unix().saturating_sub(tree.scanned_at_unix))
+                        ),
+                        Some(ui::ToastAction::Rescan),
+                    );
+                }
                 self.status = if stale {
                     crate::tr!(
                         "Cached index (stale) · {} items · {} — Rescan recommended",
@@ -430,8 +503,18 @@ impl SpaceApp {
         self.delete_progress = None;
         self.delete_started = None;
         let n = deleted_ids.len();
+        let bytes = self
+            .tree
+            .as_ref()
+            .filter(|_| tree_gen == self.tree_gen)
+            .map(|t| review::queue_bytes(t, &deleted_ids, self.size_mode))
+            .unwrap_or(0);
+        let result = self.trash_result.get_or_insert_with(TrashResult::default);
+        result.moved += n;
+        result.bytes = result.bytes.saturating_add(bytes);
+        result.failures.extend(errors.iter().cloned());
         self.status = if errors.is_empty() {
-            crate::tr!("Moved {} to Trash", crate::i18n::count(n, "item"))
+            crate::tr!("Moved {} to the Trash", crate::i18n::count(n, "item"))
         } else {
             crate::tr!("Moved {} · {} failed", crate::i18n::count(n, "item"), errors.len())
         };
@@ -440,6 +523,7 @@ impl SpaceApp {
         self.hovered = None;
         self.tree_revealed = None;
         self.confirm_delete = false;
+        self.search_hits = None;
         if std::mem::take(&mut self.junk_after_delete) {
             self.busy = false;
             self.apply_junk_clean();
@@ -513,6 +597,23 @@ impl SpaceApp {
         }
     }
 
+    /// Show a result or error to the user and keep it as the status line.
+    fn notify(&mut self, level: ui::ToastLevel, text: String) {
+        self.toasts.push(level, text.clone(), None);
+        self.status = text;
+    }
+
+    fn refresh_volumes_async(&mut self) {
+        self.volumes_loading = true;
+        let tx = self.bg_tx.clone();
+        thread::Builder::new()
+            .name("space-vols".into())
+            .spawn(move || {
+                let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
+            })
+            .ok();
+    }
+
     fn poll_bg(&mut self, ctx: &egui::Context) {
         let mut got = false;
         let mut start_scan_path = None;
@@ -544,10 +645,13 @@ impl SpaceApp {
                     self.busy = false;
                     self.cache_stale = false;
                     self.from_cache = false;
-                    self.status = crate::tr!(
-                        "Rescanned · {} items · {}",
-                        tree.item_count,
-                        crate::i18n::bytes(tree.total_size_mode(self.size_mode))
+                    self.notify(
+                        ui::ToastLevel::Success,
+                        crate::tr!(
+                            "Rescanned · {} items · {}",
+                            tree.item_count,
+                            crate::i18n::bytes(tree.total_size_mode(self.size_mode))
+                        ),
                     );
                     let kept = self.keep_by_paths();
                     self.install_tree(tree);
@@ -560,7 +664,10 @@ impl SpaceApp {
                 }
                 BgMsg::RescanDone(Err(e)) => {
                     self.busy = false;
-                    self.status = crate::tr!("Incremental rescan failed: {}", e);
+                    self.notify(
+                        ui::ToastLevel::Error,
+                        crate::tr!("Incremental rescan failed: {}", e),
+                    );
                 }
                 BgMsg::DeleteProgress(progress) => {
                     self.delete_progress = Some(progress);
@@ -579,7 +686,15 @@ impl SpaceApp {
                     self.delete_progress = None;
                     self.delete_started = None;
                     self.confirm_delete = false;
-                    self.status = crate::tr!("Trash failed: {}", e);
+                    let result = self.trash_result.get_or_insert_with(TrashResult::default);
+                    result.failures.extend(e.lines().map(str::to_owned));
+                    self.notify(
+                        ui::ToastLevel::Error,
+                        crate::tr!(
+                            "Nothing was moved: {}",
+                            e.lines().next().unwrap_or_default()
+                        ),
+                    );
                 }
                 BgMsg::FolderPicked(path) => {
                     self.picking_folder = false;
@@ -594,24 +709,33 @@ impl SpaceApp {
                     self.busy = false;
                     self.confirm_tm_clean = false;
                     if report.deleted == 0 && report.errors.is_empty() {
-                        self.status = crate::tr!(
-                            "Snapshots: nothing to remove ({}/{} kept)",
-                            report.kept,
-                            report.before
+                        self.notify(
+                            ui::ToastLevel::Info,
+                            crate::tr!(
+                                "Snapshots: nothing to remove ({}/{} kept)",
+                                report.kept,
+                                report.before
+                            ),
                         );
                     } else if report.errors.is_empty() {
-                        self.status = crate::tr!(
-                            "Removed {}, kept {} · reclaiming APFS space…",
-                            crate::i18n::count(report.deleted as usize, "snapshot"),
-                            report.kept
+                        self.notify(
+                            ui::ToastLevel::Success,
+                            crate::tr!(
+                                "Removed {} snapshots, kept {}. macOS is releasing the space.",
+                                report.deleted,
+                                report.kept
+                            ),
                         );
                         self.show_tm_panel = false;
                     } else {
-                        self.status = crate::tr!(
-                            "Snapshot cleanup: deleted {} of {}, {} errors",
-                            report.deleted,
-                            report.before,
-                            report.errors.len()
+                        self.notify(
+                            ui::ToastLevel::Error,
+                            crate::tr!(
+                                "Deleted {} of {} snapshots, {} failed",
+                                report.deleted,
+                                report.before,
+                                report.errors.len()
+                            ),
                         );
                     }
                     self.refresh_volumes();
@@ -644,7 +768,7 @@ impl SpaceApp {
                     self.junk.loading = false;
                     self.junk.scan_started = None;
                     self.junk.error = Some(e.clone());
-                    self.status = crate::tr!("Junk scan failed: {}", e);
+                    self.notify(ui::ToastLevel::Error, crate::tr!("Junk scan failed: {}", e));
                 }
                 BgMsg::JunkCleanProgress(progress) => {
                     if self.junk.cleaning {
@@ -655,11 +779,16 @@ impl SpaceApp {
                     self.busy = false;
                     self.junk.cleaning = false;
                     self.junk.clean_started = None;
+                    let summary = self.trash_result.get_or_insert_with(TrashResult::default);
+                    summary.moved += result.deleted.len();
+                    summary.bytes = summary.bytes.saturating_add(result.processed_bytes);
+                    summary.failures.extend(result.errors.iter().cloned());
                     self.status = crate::tr!(
                         "Junk · moved {} to Trash · {}",
                         result.deleted.len(),
                         crate::i18n::bytes(result.processed_bytes)
                     );
+                    self.confirm_delete = false;
                     self.junk.clear_selection();
                     self.refresh_volumes();
                     self.start_junk_scan();
@@ -669,7 +798,15 @@ impl SpaceApp {
                     self.junk.cleaning = false;
                     self.junk.clean_started = None;
                     self.junk.error = Some(e.clone());
-                    self.status = crate::tr!("Junk clean failed: {}", e);
+                    self.confirm_delete = false;
+                    self.trash_result
+                        .get_or_insert_with(TrashResult::default)
+                        .failures
+                        .push(e.clone());
+                    self.notify(
+                        ui::ToastLevel::Error,
+                        crate::tr!("Junk clean failed: {}", e),
+                    );
                 }
                 BgMsg::Largest { request, rows } => {
                     self.largest.complete(request, rows);
@@ -743,7 +880,7 @@ impl SpaceApp {
             });
         if let Err(error) = result {
             self.largest.failed(request);
-            self.status = error;
+            self.status = crate::tr!("Could not start largest-file search: {}", error);
         }
     }
 
@@ -809,6 +946,8 @@ impl SpaceApp {
 
     fn start_scan(&mut self, path: PathBuf, force: bool) {
         self.mode = Mode::Explore;
+        self.scan_outcome = None;
+        self.scan_target = Some(path.clone());
         if let Some(scan) = self.scan.take() {
             scan.cancel();
         }
@@ -864,14 +1003,31 @@ impl SpaceApp {
         self.tree_rows.clear();
         self.tree_revealed = None;
         self.progress = None;
+        self.search_hits = None;
+        self.range_anchor = None;
+        self.from_cache = false;
+        self.cache_stale = false;
         self.invalidate_largest();
     }
 
     fn begin_filesystem_scan(&mut self, path: PathBuf) {
-        self.from_cache = false;
-        self.cache_stale = false;
         self.busy = false;
-        self.drop_tree();
+        self.scan_outcome = None;
+        self.scan_target = Some(path.clone());
+        let same_root = self
+            .tree
+            .as_ref()
+            .is_some_and(|t| std::path::Path::new(&t.root_path) == path);
+        if same_root {
+            // Rescan in place: the old result stays open (dimmed) until the new one lands,
+            // and the Trash list follows by path.
+            let (_, review_paths) = self.paths_to_keep();
+            self.keep_review = Some(review_paths);
+        } else {
+            self.drop_tree();
+            self.keep_review = None;
+        }
+        self.search_hits = None;
         self.progress = Some(ScanProgress {
             files_seen: 0,
             bytes_seen: 0,
@@ -883,31 +1039,51 @@ impl SpaceApp {
     }
 
     fn rescan_current(&mut self) {
+        if self.busy {
+            return;
+        }
         let Some(tree) = &self.tree else { return };
         let path = PathBuf::from(&tree.root_path);
         self.start_scan(path, true);
     }
 
-    fn incremental_rescan_focus(&mut self) {
-        self.incremental_rescan(self.focus);
+    /// Focus path and Trash list paths, to find them again in a rebuilt tree.
+    fn paths_to_keep(&self) -> (Option<PathBuf>, Vec<PathBuf>) {
+        let Some(tree) = &self.tree else {
+            return (None, Vec::new());
+        };
+        let focus = Some(PathBuf::from(tree.path_string(self.focus)));
+        let review = self
+            .review
+            .iter()
+            .filter(|id| tree.try_node(**id).is_some())
+            .map(|&id| PathBuf::from(tree.path_string(id)))
+            .collect();
+        (focus, review)
     }
 
-    /// Rebuild one folder's subtree in place of the whole index.
-    fn incremental_rescan(&mut self, id: NodeId) {
+    /// Rebuild the index under one folder; the rest of the tree is kept.
+    fn incremental_rescan(&mut self, folder: NodeId) {
         let Some(tree) = self.tree.clone() else {
             return;
         };
         if self.busy || self.scan.is_some() {
             return;
         }
-        let Some(node) = tree.try_node(id).filter(|n| n.is_dir && !n.synthetic) else {
+        let Some(node) = tree.try_node(folder) else {
             return;
         };
+        let folder = if node.is_dir && !node.synthetic {
+            folder
+        } else {
+            node.parent.unwrap_or(tree.root)
+        };
         self.busy = true;
-        self.status = crate::tr!("Incremental rescan of {}…", node.name);
+        self.status = crate::tr!("Incremental rescan of {}…", tree.node(folder).name);
+        let focus = folder;
         let tx = self.bg_tx.clone();
         let spawned = spawn_bg("space-rescan", move || {
-                let result = rescan_subtree(tree.as_ref(), id).map(Arc::new);
+                let result = rescan_subtree(tree.as_ref(), focus).map(Arc::new);
                 let _ = tx.send(BgMsg::RescanDone(result));
             });
         if let Err(error) = spawned {
@@ -958,17 +1134,26 @@ impl SpaceApp {
             self.progress = Some(p);
         }
 
-        if cancelled {
-            self.status = crate::i18n::t("Scan cancelled.").into();
+        if cancelled || err.is_some() {
+            let seen = self.progress.take();
             self.scan = None;
-            self.progress = None;
-            return;
-        }
-
-        if let Some(e) = err {
-            self.status = crate::tr!("Scan error: {}", e);
-            self.scan = None;
-            self.progress = None;
+            self.keep_review = None;
+            match &err {
+                Some(e) => self.status = crate::tr!("Scan error: {}", e),
+                None => self.status = crate::i18n::t("Scan cancelled.").into(),
+            }
+            if self.tree.is_some() {
+                // A rescan was stopped: the previous result is still open.
+                let text = self.status.clone();
+                self.toasts.push(ui::ToastLevel::Info, text, None);
+            } else {
+                self.scan_outcome = Some(ScanOutcome {
+                    path: self.scan_target.clone().unwrap_or_default(),
+                    bytes_seen: seen.as_ref().map(|p| p.bytes_seen).unwrap_or(0),
+                    files_seen: seen.as_ref().map(|p| p.files_seen).unwrap_or(0),
+                    error: err,
+                });
+            }
             return;
         }
 
@@ -992,10 +1177,22 @@ impl SpaceApp {
             );
             self.from_cache = false;
             self.cache_stale = false;
+            // A rescan of the same root: node ids change, so the location and
+            // the Trash list come back by path.
+            let (focus_path, _) = self.paths_to_keep();
+            let kept = self.keep_review.take();
             let arc = Arc::new(*tree);
             self.save_cache_async(arc.clone());
             self.scan = None;
-            self.install_tree(arc);
+            self.install_tree(arc.clone());
+            if let Some(kept) = kept {
+                if let Some(id) = focus_path.and_then(|p| find_path(&arc, &p)) {
+                    if arc.node(id).is_dir {
+                        self.focus = id;
+                    }
+                }
+                self.review = kept.iter().filter_map(|p| find_path(&arc, p)).collect();
+            }
         } else {
             ctx.request_repaint();
         }
@@ -1153,13 +1350,16 @@ impl SpaceApp {
     }
 
     /// The visible contents listing as tab-separated text on the clipboard (F0877).
-    pub(crate) fn copy_listing_tsv(&mut self, ctx: &egui::Context) {
+    pub(crate) fn copy_listing_tsv(&mut self) {
         let Some(tree) = self.tree.clone() else { return };
         let flat = self.show_largest || self.filter.is_active();
         let listing = self.listing(self.focus, self.show_largest, flat, false);
         let text = crate::export::listing_tsv(&tree, &listing.ids, self.size_mode);
-        self.status = crate::tr!("Copied {}", crate::i18n::count(listing.ids.len(), "item"));
-        ctx.copy_text(text);
+        self.notify(
+            ui::ToastLevel::Success,
+            crate::tr!("Copied {}", crate::i18n::count(listing.ids.len(), "item")),
+        );
+        self.pending_copy = Some(text);
     }
 
     /// Open the Trash folder in the file browser (F0601).
@@ -1182,14 +1382,95 @@ impl SpaceApp {
         }
     }
 
-    /// Copies the selection, or the focused folder: hover is only a hint and
-    /// never decides what an action applies to.
-    fn copy_focus_path(&mut self, ctx: &egui::Context) {
+    /// Copy the selected item's path (or the folder in view).
+    fn copy_focus_path(&mut self) {
         let Some(tree) = &self.tree else { return };
         let id = self.selected.unwrap_or(self.focus);
         let path = tree.path_string(id);
-        self.status = crate::tr!("Copied {}", path);
-        ctx.copy_text(path);
+        self.copy_text(path);
+    }
+
+    fn copy_text(&mut self, text: String) {
+        self.notify(ui::ToastLevel::Success, crate::tr!("Copied {}", text));
+        self.pending_copy = Some(text);
+    }
+
+    /// Add or take out items of the Trash list, with an undo in the corner.
+    fn queue_toggle(&mut self, ids: &[NodeId]) {
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
+        let mut protected = None;
+        let ids: Vec<NodeId> = ids
+            .iter()
+            .copied()
+            .filter(|&id| {
+                tree.try_node(id)
+                    .is_some_and(|n| !n.synthetic && n.parent.is_some())
+            })
+            .filter(|&id| {
+                // System and personal-data folders never enter the list, by any route.
+                let path = PathBuf::from(tree.path_string(id));
+                if !self.review.contains(&id) && space_clean::safety::is_never_touch(&path) {
+                    protected.get_or_insert(tree.node(id).name.clone());
+                    return false;
+                }
+                true
+            })
+            .collect();
+        if let Some(name) = protected {
+            self.toasts.push(
+                ui::ToastLevel::Info,
+                crate::tr!("{} is protected and stays where it is", name),
+                None,
+            );
+        }
+        if ids.is_empty() {
+            return;
+        }
+        let adding = ids.iter().any(|id| !self.review.contains(id));
+        let mut changed = Vec::new();
+        for id in ids {
+            let has = self.review.contains(&id);
+            if adding && !has {
+                self.review.push(id);
+                changed.push(id);
+            } else if !adding && has {
+                self.review.retain(|x| *x != id);
+                changed.push(id);
+            }
+        }
+        if changed.is_empty() {
+            return;
+        }
+        let bytes = review::queue_bytes(&tree, &changed, self.size_mode);
+        let what = if changed.len() == 1 {
+            tree.node(changed[0]).name.clone()
+        } else {
+            crate::i18n::count(changed.len(), "item")
+        };
+        let text = if adding {
+            crate::tr!(
+                "Added {} to the Trash list · {}",
+                what,
+                crate::i18n::bytes(bytes)
+            )
+        } else {
+            crate::tr!("Took {} out of the Trash list", what)
+        };
+        self.toasts.push(
+            ui::ToastLevel::Success,
+            text,
+            Some(ui::ToastAction::UndoQueue(changed)),
+        );
+        self.trash_result = None;
+    }
+
+    /// Undo a Trash list change: flip each id back.
+    fn undo_queue(&mut self, ids: &[NodeId]) {
+        for &id in ids {
+            review::toggle(&mut self.review, id);
+        }
     }
 
     fn percent_of_parent(&self, id: NodeId) -> Option<f32> {
@@ -1216,127 +1497,65 @@ impl SpaceApp {
     fn handle_keys(&mut self, ctx: &egui::Context) {
         let input = ctx.input(|i| {
             (
-                i.key_pressed(Key::ArrowUp),
-                i.key_pressed(Key::ArrowDown),
-                i.key_pressed(Key::ArrowLeft),
-                i.key_pressed(Key::ArrowRight),
-                i.key_pressed(Key::Enter),
-                i.key_pressed(Key::Escape),
-                i.key_pressed(Key::Home),
-                i.key_pressed(Key::End),
-                i.key_pressed(Key::Slash),
-                i.key_pressed(Key::Questionmark),
+                [
+                    i.key_pressed(Key::ArrowUp),
+                    i.key_pressed(Key::ArrowDown),
+                    i.key_pressed(Key::ArrowLeft),
+                    i.key_pressed(Key::ArrowRight),
+                ],
+                [
+                    i.key_pressed(Key::Enter),
+                    i.key_pressed(Key::Escape),
+                    i.key_pressed(Key::Home),
+                    i.key_pressed(Key::End),
+                    i.key_pressed(Key::Slash),
+                    i.key_pressed(Key::Questionmark),
+                    i.key_pressed(Key::Space),
+                ],
                 i.modifiers,
-                i.key_pressed(Key::Num1),
-                i.key_pressed(Key::Num2),
-                i.key_pressed(Key::Num3),
-                i.key_pressed(Key::Num4),
-                i.key_pressed(Key::C),
-                i.key_pressed(Key::F),
-                i.key_pressed(Key::R),
-                i.key_pressed(Key::O),
-                i.key_pressed(Key::J),
-                i.key_pressed(Key::Delete),
-                i.key_pressed(Key::Backspace),
-                i.key_pressed(Key::Space),
-                i.key_pressed(Key::Comma),
+                [
+                    i.key_pressed(Key::Num1),
+                    i.key_pressed(Key::Num2),
+                    i.key_pressed(Key::Num3),
+                    i.key_pressed(Key::Num4),
+                ],
+                [
+                    i.key_pressed(Key::C),
+                    i.key_pressed(Key::F),
+                    i.key_pressed(Key::R),
+                    i.key_pressed(Key::O),
+                    i.key_pressed(Key::J),
+                    i.key_pressed(Key::Delete) || i.key_pressed(Key::Backspace),
+                    i.key_pressed(Key::Comma),
+                ],
             )
         });
         let (
-            up,
-            down,
-            left,
-            right,
-            enter,
-            esc,
-            home,
-            end,
-            slash,
-            question,
+            [up, down, left, right],
+            [enter, esc, home, end, slash, question, space],
             mods,
-            n1,
-            n2,
-            n3,
-            n4,
-            key_c,
-            key_f,
-            key_r,
-            key_o,
-            key_j,
-            key_del,
-            key_back,
-            space,
-            comma,
+            views,
+            letters,
         ) = input;
+        let [key_c, key_f, key_r, key_o, key_j, key_del, key_comma] = letters;
+        // While a text field has focus, keys belong to it: no navigation behind the caret.
+        // (egui also reports focus for a clicked row, so ask about text fields only.)
+        let typing = self.search_focused && ctx.wants_keyboard_input();
+        // A focused button takes Space and Enter as a click (egui does that), so the
+        // app must not act on them a second time. Rows and the map never take focus.
+        let button_focus = ctx.wants_keyboard_input() && !typing;
+        let (enter, space) = if button_focus {
+            (false, false)
+        } else {
+            (enter, space)
+        };
+        let modal = self.confirm_delete
+            || self.show_settings
+            || self.show_shortcuts
+            || self.show_tm_panel
+            || self.rules.open;
 
-        if question || (mods.shift && slash) {
-            self.show_shortcuts = !self.show_shortcuts;
-        }
-        if mods.command || mods.ctrl {
-            if self.tree.is_some() {
-                if n1 {
-                    self.set_view(ViewMode::Sunburst);
-                }
-                if n2 {
-                    self.set_view(ViewMode::Container);
-                }
-                if n3 {
-                    self.set_view(ViewMode::Radial);
-                }
-                if n4 {
-                    self.set_view(ViewMode::Cascade);
-                }
-            }
-            if key_c && mods.shift {
-                self.copy_focus_path(ctx);
-            }
-            if key_f {
-                self.focus_filter = true;
-            }
-            if key_r && self.scan.is_none() && !self.busy {
-                if mods.shift {
-                    self.incremental_rescan_focus();
-                } else {
-                    self.rescan_current();
-                }
-            }
-            if key_o {
-                self.pick_folder();
-            }
-            if key_j {
-                self.open_junk_panel();
-            }
-            if comma {
-                self.open_settings();
-            }
-            if (key_del || key_back) && !ctx.wants_keyboard_input() && self.mode == Mode::Explore
-            {
-                let selected_deletable = self.selected.is_some_and(|id| {
-                    self.tree
-                        .as_ref()
-                        .is_some_and(|tree| !tree.node(id).synthetic)
-                });
-                if !self.review.is_empty() || selected_deletable {
-                    if self.review.is_empty() {
-                        if let Some(id) = self.selected.filter(|_| selected_deletable) {
-                            self.review.push(id);
-                        }
-                    }
-                    self.confirm_delete = true;
-                }
-            }
-            if left {
-                self.go_back();
-            }
-            if right {
-                self.go_forward();
-            }
-            return;
-        }
-
-        if slash {
-            self.focus_filter = true;
-        }
+        // Escape closes the innermost thing first. It never switches pages.
         if esc {
             if self.scan.is_some() {
                 if let Some(s) = &self.scan {
@@ -1346,41 +1565,117 @@ impl SpaceApp {
                 self.show_shortcuts = false;
             } else if self.show_settings {
                 self.show_settings = false;
-            } else if self.confirm_delete && self.delete_progress.is_none() {
-                self.confirm_delete = false;
+            } else if self.confirm_delete {
+                if self.delete_progress.is_none() && !self.junk.cleaning {
+                    self.confirm_delete = false;
+                }
             } else if self.junk.confirm {
                 self.junk.confirm = false;
             } else if self.rules.open {
                 self.rules.open = false;
             } else if self.show_tm_panel {
                 self.show_tm_panel = false;
+                self.confirm_tm_clean = false;
+            } else if typing {
+                // The text field gives up focus on its own.
+            } else if self.mode == Mode::Explore && self.selected.is_some() {
+                self.selected = None;
             } else if self.filter.is_active() || !self.filter_draft.is_empty() {
                 self.filter.clear();
                 self.filter_draft.clear();
+                self.search_hits = None;
                 self.geom = None;
             } else if self.mode == Mode::Explore && self.selected.is_some() {
                 // Open details close first; the next Esc goes up.
                 self.selected = None;
             } else if self.mode == Mode::Explore {
-                // Esc never switches tabs; going up only means something here.
                 self.go_up();
             }
-        }
-        if enter && self.show_shortcuts {
-            self.show_shortcuts = false;
             return;
         }
-        // Confirmations answer Enter only through their focused button, never
-        // through a global key, so a stray Enter cannot move files to Trash.
-        if self.confirm_delete || self.confirm_tm_clean || self.junk.confirm {
+
+        if mods.command || mods.ctrl {
+            if self.tree.is_some() && !modal {
+                for (pressed, view) in views.into_iter().zip(ViewMode::ALL) {
+                    if pressed {
+                        self.set_view(view);
+                    }
+                }
+            }
+            if key_comma {
+                if self.show_settings {
+                    self.show_settings = false;
+                } else {
+                    self.open_settings();
+                }
+            }
+            if modal {
+                return;
+            }
+            if key_c && mods.shift {
+                self.copy_focus_path();
+            }
+            if key_f {
+                if self.tree.is_some() {
+                    self.mode = Mode::Explore;
+                }
+                self.focus_filter = true;
+            }
+            if key_r && self.scan.is_none() {
+                if mods.shift {
+                    let folder = self.selected.unwrap_or(self.focus);
+                    self.incremental_rescan(folder);
+                } else {
+                    self.rescan_current();
+                }
+            }
+            if key_o && self.scan.is_none() && !self.busy {
+                self.pick_folder_and_scan();
+            }
+            if key_j {
+                self.find_junk();
+            }
+            if key_del && !typing {
+                // Add the selection if it is not listed yet, then open the Trash list.
+                // The confirmation itself is always one more explicit step.
+                if let Some(id) = self.selected {
+                    if self.mode == Mode::Explore && !self.review.contains(&id) {
+                        self.queue_toggle(&[id]);
+                    }
+                }
+                self.set_mode(Mode::Review);
+            }
+            if !typing && left {
+                self.go_back();
+            }
+            if !typing && right {
+                self.go_forward();
+            }
             return;
         }
-        // Tree and map navigation belongs to Disk usage; other pages have their
-        // own lists and dialogs.
+
+        if enter && !typing && self.confirm_delete {
+            if self.delete_progress.is_none() && !self.junk.cleaning && self.basket_len() > 0 {
+                self.apply_basket();
+            }
+            return;
+        }
+        if typing || modal {
+            return;
+        }
+
+        if question || (mods.shift && slash) {
+            self.show_shortcuts = true;
+            return;
+        }
+        if slash {
+            self.focus_filter = true;
+            return;
+        }
         if self.mode != Mode::Explore {
             return;
         }
-        if !ctx.wants_keyboard_input() && self.tree_keys(up, down, left, right, space) {
+        if self.tree_keys(up, down, left, right, space) {
             return;
         }
         if left {
@@ -1398,7 +1693,7 @@ impl SpaceApp {
             }
         }
         if end || down {
-            // Select the largest child; Enter then opens it.
+            // Select the largest item in view.
             if let Some(tree) = &self.tree {
                 if let Some(&first) = tree.children(self.focus).first() {
                     self.selected = Some(first);
@@ -1406,19 +1701,103 @@ impl SpaceApp {
             }
         }
         if enter {
-            // Enter acts on the selection only; a hovered map node is a hint.
             if let Some(id) = self.selected {
                 let is_dir = self
                     .tree
                     .as_ref()
-                    .is_some_and(|t| t.try_node(id).is_some_and(|n| n.is_dir));
+                    .is_some_and(|t| t.try_node(id).is_some_and(|n| n.is_dir && !n.synthetic));
                 if is_dir {
                     self.navigate(id, true);
                 } else {
-                    self.selected = Some(id);
                     self.reveal_selected();
                 }
             }
+        }
+    }
+
+    /// The native picker runs on a background thread; the choice arrives as
+    /// `BgMsg::FolderPicked` and starts the scan.
+    fn pick_folder_and_scan(&mut self) {
+        self.pick_folder();
+    }
+
+    /// Whole-scan search: every indexed item that matches the filter, largest first.
+    fn refresh_search_hits(&mut self) {
+        let Some(tree) = self.tree.clone() else {
+            self.search_hits = None;
+            return;
+        };
+        if !self.search_everywhere || self.filter.query.is_empty() {
+            self.search_hits = None;
+            return;
+        }
+        let key = (
+            self.filter.query.clone(),
+            self.filter.hash64(),
+            self.size_mode,
+            Arc::as_ptr(&tree) as usize,
+        );
+        if self.search_hits.as_ref().is_some_and(|h| h.key == key) {
+            return;
+        }
+        let mode = self.size_mode;
+        let mut hits = Vec::new();
+        // Walk from the root so items already moved to the Trash are skipped.
+        let mut stack = tree.children(tree.root).to_vec();
+        while let Some(id) = stack.pop() {
+            let n = tree.node(id);
+            if self.filter.matches(&n.name, n.is_dir, n.size(mode)) && !n.synthetic {
+                hits.push(id);
+            }
+            stack.extend_from_slice(tree.children(id));
+        }
+        hits.sort_by_key(|&id| std::cmp::Reverse(tree.node(id).size(mode)));
+        let truncated = hits.len() > MAX_SEARCH_HITS;
+        hits.truncate(MAX_SEARCH_HITS);
+        let set: HashSet<NodeId> = hits.iter().copied().collect();
+        let bytes = hits
+            .iter()
+            .filter(|&&id| {
+                let mut p = tree.node(id).parent;
+                while let Some(a) = p {
+                    if set.contains(&a) {
+                        return false;
+                    }
+                    p = tree.node(a).parent;
+                }
+                true
+            })
+            .fold(0_u64, |sum, &id| {
+                sum.saturating_add(tree.node(id).size(mode))
+            });
+        self.search_hits = Some(SearchHits {
+            key,
+            ids: hits,
+            bytes,
+            truncated,
+        });
+    }
+
+    /// Show the system Trash in the file manager.
+    fn open_trash(&mut self) {
+        #[cfg(target_os = "macos")]
+        let result = std::env::var_os("HOME")
+            .map(|h| PathBuf::from(h).join(".Trash"))
+            .ok_or_else(|| std::io::Error::other("no HOME"))
+            .and_then(|p| std::process::Command::new("open").arg(p).spawn());
+        #[cfg(target_os = "windows")]
+        let result = std::process::Command::new("explorer")
+            .arg("shell:RecycleBinFolder")
+            .spawn();
+        #[cfg(not(any(target_os = "macos", target_os = "windows")))]
+        let result = std::process::Command::new("xdg-open")
+            .arg("trash:///")
+            .spawn();
+        if let Err(e) = result {
+            self.notify(
+                ui::ToastLevel::Error,
+                crate::tr!("Could not open the Trash: {}", e),
+            );
         }
     }
 
@@ -1492,38 +1871,25 @@ impl SpaceApp {
         let shown = path.display().to_string();
         #[cfg(target_os = "macos")]
         {
-            let _ = std::process::Command::new("open").args(["-R", &shown]).spawn();
-            self.status = crate::tr!("Not in this scan — opened {} in Finder", shown);
+            let _ = std::process::Command::new("open")
+                .args(["-R", &shown])
+                .spawn();
         }
         #[cfg(not(target_os = "macos"))]
         {
             let _ = std::process::Command::new("xdg-open").arg(&shown).spawn();
             self.status = crate::tr!("Not in this scan — opened {} in the file manager", shown);
         }
+        self.notify(
+            ui::ToastLevel::Info,
+            crate::tr!("Not in this scan — opened {} in Finder", shown),
+        );
     }
 
     fn reveal_selected(&self) {
         let Some(tree) = &self.tree else { return };
         let id = self.selected.unwrap_or(self.focus);
-        let path = tree.path_string(id);
-        #[cfg(target_os = "macos")]
-        {
-            let _ = std::process::Command::new("open")
-                .args(["-R", &path])
-                .spawn();
-        }
-        #[cfg(target_os = "linux")]
-        {
-            let p = PathBuf::from(&path);
-            let target = p.parent().unwrap_or(p.as_path());
-            let _ = std::process::Command::new("xdg-open").arg(target).spawn();
-        }
-        #[cfg(target_os = "windows")]
-        {
-            let _ = std::process::Command::new("explorer")
-                .args(["/select,", &path])
-                .spawn();
-        }
+        reveal_path(&tree.path_string(id));
     }
 
     fn apply_delete(&mut self) {
@@ -1715,31 +2081,29 @@ impl SpaceApp {
         self.start_rule_mgr_load();
     }
 
-    fn open_junk_panel(&mut self) {
-        self.mode = Mode::Clean;
+    /// Open Cleanup and check for junk unless a result is already there.
+    fn find_junk(&mut self) {
+        self.set_mode(Mode::Clean);
+        if self.junk.report().is_none() && !self.junk.loading {
+            self.check_junk();
+        }
+    }
+
+    /// Start a fresh junk check (the user asked for it).
+    fn check_junk(&mut self) {
         self.junk.open_and_scan();
         self.start_junk_scan();
     }
 
+    /// Switch pages. Opening Cleanup does not start a check by itself.
     fn set_mode(&mut self, mode: Mode) {
-        if mode == Mode::Clean && self.junk.report().is_none() && !self.junk.loading {
-            self.open_junk_panel();
-            return;
-        }
         if mode == Mode::Clean {
             self.junk.open = true;
         }
+        if mode != Mode::Review && self.basket_len() == 0 {
+            self.trash_result = None;
+        }
         self.mode = mode;
-    }
-
-    fn leave_clean(&mut self) {
-        self.junk.open = false;
-        self.junk.confirm = false;
-        self.mode = if self.tree.is_some() {
-            Mode::Explore
-        } else {
-            Mode::Home
-        };
     }
 
     fn start_junk_scan(&mut self) {
@@ -1919,6 +2283,8 @@ impl SpaceApp {
 
     /// One confirmation trashes both sources; junk runs after the Explore batch.
     fn apply_basket(&mut self) {
+        // A fresh result for this move; both workers add to it.
+        self.trash_result = Some(TrashResult::default());
         let has_junk = self.junk.selected_count() != 0;
         if !self.review.is_empty() && self.tree.is_some() {
             self.junk_after_delete = has_junk;
@@ -1931,6 +2297,11 @@ impl SpaceApp {
 }
 
 impl eframe::App for SpaceApp {
+    /// Pixel seams between panels show the clear colour; make it the page ground.
+    fn clear_color(&self, visuals: &egui::Visuals) -> [f32; 4] {
+        visuals.panel_fill.to_normalized_gamma_f32()
+    }
+
     fn save(&mut self, _storage: &mut dyn eframe::Storage) {
         self.settings.last_view = Some(self.view);
         self.settings.last_size_mode = Some(self.size_mode);
@@ -1944,7 +2315,10 @@ impl eframe::App for SpaceApp {
             if path.exists() {
                 self.start_scan(path, false);
             } else {
-                self.status = crate::tr!("Folder not found: {}", path.display());
+                self.notify(
+                    ui::ToastLevel::Error,
+                    crate::tr!("Folder not found: {}", path.display()),
+                );
             }
         }
         let idle = self.scan.is_none() && !self.busy;
@@ -1974,12 +2348,21 @@ impl eframe::App for SpaceApp {
         self.poll_scan(ctx);
         self.apply_filter_debounce();
         self.handle_keys(ctx);
+        self.refresh_search_hits();
+        if let Some(text) = self.pending_copy.take() {
+            ctx.copy_text(text);
+        }
         self.persist_settings_from_viewport(ctx);
         self.update_window_title(ctx);
         self.flush_settings(false);
         self.flush_rule_prefs(false);
 
+        let before = (self.selected, self.mode, self.focus, self.review.len());
         self.ui(ctx);
+        // State changed by a click in this frame: draw it now, not on the next input.
+        if before != (self.selected, self.mode, self.focus, self.review.len()) {
+            ctx.request_repaint();
+        }
     }
 }
 
@@ -2068,6 +2451,39 @@ fn largest_dirs_under(tree: &SpaceTree, focus: NodeId, mode: SizeMode, limit: us
     let mut ranked: Vec<_> = heap.into_iter().map(|Reverse(v)| v).collect();
     ranked.sort_unstable_by(|a, b| b.cmp(a));
     ranked.into_iter().map(|(_, Reverse(i))| NodeId(i)).collect()
+}
+
+/// Show a file or folder in the system file manager.
+pub(crate) fn reveal_path(path: &str) {
+    #[cfg(target_os = "macos")]
+    {
+        let _ = std::process::Command::new("open")
+            .args(["-R", path])
+            .spawn();
+    }
+    #[cfg(target_os = "linux")]
+    {
+        let p = PathBuf::from(path);
+        let target = if p.is_dir() {
+            p.as_path()
+        } else {
+            p.parent().unwrap_or(p.as_path())
+        };
+        let _ = std::process::Command::new("xdg-open").arg(target).spawn();
+    }
+    #[cfg(target_os = "windows")]
+    {
+        let _ = std::process::Command::new("explorer")
+            .args(["/select,", path])
+            .spawn();
+    }
+}
+
+pub(crate) fn now_unix() -> u64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0)
 }
 
 fn folder_arg(args: impl IntoIterator<Item = String>) -> Option<PathBuf> {
