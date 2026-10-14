@@ -514,7 +514,6 @@ mod click_map_tests {
         }
         frame(vec![button(select, egui::PointerButton::Primary, true)]);
         frame(vec![button(select, egui::PointerButton::Primary, false)]);
-        drop(frame);
         assert_eq!(
             action.select,
             Some(NodeId(1)),

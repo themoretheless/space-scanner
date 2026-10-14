@@ -91,7 +91,7 @@ pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
     }
     match trash::delete_all(paths) {
         Ok(()) => paths.iter().map(|_| Ok(())).collect(),
-        Err(batch_error) => paths
+        Err(_batch_error) => paths
             .iter()
             .map(|path| {
                 // A platform batch may have moved some entries before reporting

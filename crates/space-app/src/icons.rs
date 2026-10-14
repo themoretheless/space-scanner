@@ -8,11 +8,8 @@ pub enum Icon {
     Scan,
     Usage,
     Cleanup,
-    Review,
     Folder,
     File,
-    Disk,
-    Home,
     Back,
     Forward,
     Up,
@@ -71,12 +68,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
             line(&[(19.0, 3.0), (19.0, 8.0)]);
             line(&[(16.5, 5.5), (21.5, 5.5)]);
         }
-        Icon::Review => {
-            closed(&[(4.0, 3.0), (20.0, 3.0), (20.0, 21.0), (4.0, 21.0)]);
-            line(&[(8.0, 8.0), (16.0, 8.0)]);
-            line(&[(8.0, 12.0), (12.0, 12.0)]);
-            line(&[(8.0, 16.5), (10.5, 19.0), (16.0, 13.5)]);
-        }
         Icon::Folder => {
             closed(&[
                 (2.5, 5.0),
@@ -96,11 +87,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
                 (5.0, 21.5),
             ]);
             line(&[(14.0, 2.5), (14.0, 7.5), (19.0, 7.5)]);
-        }
-        Icon::Disk => {
-            closed(&[(3.0, 14.0), (21.0, 14.0), (21.0, 20.0), (3.0, 20.0)]);
-            line(&[(3.0, 14.0), (6.0, 5.0), (18.0, 5.0), (21.0, 14.0)]);
-            painter.circle_filled(p(17.0, 17.0), 1.2 * unit, color);
         }
         Icon::Back => {
             line(&[(20.0, 12.0), (4.5, 12.0)]);
@@ -124,11 +110,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
         Icon::Lock => {
             closed(&[(5.0, 11.0), (19.0, 11.0), (19.0, 21.0), (5.0, 21.0)]);
             line(&[(8.0, 11.0), (8.0, 7.5), (9.5, 4.5), (12.0, 3.5), (14.5, 4.5), (16.0, 7.5), (16.0, 11.0)]);
-        }
-        Icon::Home => {
-            line(&[(3.0, 11.5), (12.0, 3.5), (21.0, 11.5)]);
-            line(&[(5.5, 10.0), (5.5, 20.5), (18.5, 20.5), (18.5, 10.0)]);
-            line(&[(10.0, 20.5), (10.0, 14.5), (14.0, 14.5), (14.0, 20.5)]);
         }
     }
 }

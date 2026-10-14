@@ -819,17 +819,21 @@ pub(super) fn tree_rows(
             .unwrap_or(0)
             .max(1) as f32
     };
+    struct WalkCtx<'a> {
+        tree: &'a Tree,
+        expanded: &'a HashSet<NodeId>,
+        mode: SizeMode,
+        parent_total: &'a dyn Fn(NodeId) -> f32,
+    }
     fn walk(
-        tree: &Tree,
+        cx: &WalkCtx<'_>,
         id: NodeId,
         depth: usize,
         color: Color32,
         guides: Vec<bool>,
-        expanded: &HashSet<NodeId>,
-        mode: SizeMode,
-        parent_total: &dyn Fn(NodeId) -> f32,
         out: &mut Vec<TreeRow>,
     ) {
+        let WalkCtx { tree, expanded, mode, parent_total } = *cx;
         if out.len() >= MAX_TREE_ROWS {
             return;
         }
@@ -863,7 +867,7 @@ pub(super) fn tree_rows(
                 } else {
                     color
                 };
-                walk(tree, k, depth + 1, c, g, expanded, mode, parent_total, out);
+                walk(cx, k, depth + 1, c, g, out);
             }
         }
     }
@@ -885,17 +889,8 @@ pub(super) fn tree_rows(
                 guides: Vec::new(),
             });
         } else {
-            walk(
-                tree,
-                id,
-                0,
-                color,
-                Vec::new(),
-                expanded,
-                mode,
-                &parent_total,
-                &mut out,
-            );
+            let cx = WalkCtx { tree, expanded, mode, parent_total: &parent_total };
+            walk(&cx, id, 0, color, Vec::new(), &mut out);
         }
         if out.len() >= MAX_TREE_ROWS {
             break;

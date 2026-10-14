@@ -7,7 +7,7 @@ use std::time::{Duration, Instant};
 use crossbeam_channel::{unbounded, Receiver};
 use eframe::egui::{self, Key};
 use space_core::{
-    format_bytes, rescan_subtree, scan_path_with_expect, CacheMeta, CacheStore, NodeId, ScanEvent,
+    rescan_subtree, scan_path_with_expect, CacheMeta, CacheStore, NodeId, ScanEvent,
     ScanHandle, ScanProgress, SizeMode, SpaceTree,
 };
 
@@ -1483,6 +1483,20 @@ fn folder_arg(args: impl IntoIterator<Item = String>) -> Option<PathBuf> {
         .map(PathBuf::from)
 }
 
+/// Node for an absolute path inside the scanned tree, walking by name.
+fn find_path(tree: &space_core::SpaceTree, path: &std::path::Path) -> Option<NodeId> {
+    let rel = path.strip_prefix(&tree.root_path).ok()?;
+    let mut id = tree.root;
+    for comp in rel.components() {
+        let name = comp.as_os_str().to_string_lossy();
+        id = *tree
+            .children(id)
+            .iter()
+            .find(|&&c| tree.node(c).name == name)?;
+    }
+    Some(id)
+}
+
 #[cfg(test)]
 mod folder_arg_tests {
     use super::folder_arg;
@@ -1499,18 +1513,4 @@ mod folder_arg_tests {
         let args = ["bin", "--offline"].map(String::from);
         assert_eq!(folder_arg(args), None);
     }
-}
-
-/// Node for an absolute path inside the scanned tree, walking by name.
-fn find_path(tree: &space_core::SpaceTree, path: &std::path::Path) -> Option<NodeId> {
-    let rel = path.strip_prefix(&tree.root_path).ok()?;
-    let mut id = tree.root;
-    for comp in rel.components() {
-        let name = comp.as_os_str().to_string_lossy();
-        id = *tree
-            .children(id)
-            .iter()
-            .find(|&&c| tree.node(c).name == name)?;
-    }
-    Some(id)
 }

@@ -6,7 +6,6 @@ use std::time::Instant;
 
 use eframe::egui::{self, Align, Layout, RichText, Sense};
 use space_clean::{CleanProgress, Finding, JunkScanProgress, ScanReport};
-use space_core::format_bytes;
 
 use crate::settings::FeatureFlags;
 use crate::theme::type_scale;
@@ -1141,7 +1140,7 @@ mod tests {
             .iter()
             .filter_map(|shape| match &shape.shape {
                 egui::Shape::Text(text)
-                    if text.galley.text().trim() == format_bytes(4_096)
+                    if text.galley.text().trim() == space_core::format_bytes(4_096)
                         && (text.pos.y + text.galley.size().y / 2.0 - first_row_y).abs() < 4.0 =>
                 {
                     Some(text.pos.x)
