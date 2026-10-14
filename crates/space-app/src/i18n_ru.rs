@@ -518,6 +518,7 @@ static RU: &[(&str, &str)] = &[
     ("Open with the view and size mode last used", "Открывать с последними видом и режимом размера"),
     ("Largest list", "Список крупнейших"),
     ("Saved scans", "Сохранённые сканы"),
+    ("Space Scanner {} · {}", "Space Scanner {} · {}"),
     ("Keep for", "Хранить"),
     ("Scans older than this are removed at startup; 0 keeps them forever", "Сканы старше этого удаляются при запуске; 0 — хранить всегда"),
     ("days · 0 = forever", "дней · 0 = всегда"),

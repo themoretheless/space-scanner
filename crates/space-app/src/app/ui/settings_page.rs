@@ -303,6 +303,13 @@ impl SpaceApp {
                 });
                 ui.end_row();
             });
+        ui.add_space(S4);
+        let version = env!("CARGO_PKG_VERSION");
+        ui.label(caption(crate::tr!(
+            "Space Scanner {} · {}",
+            version,
+            space_clean::host_platform_name()
+        )));
         dirty
     }
 }
