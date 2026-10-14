@@ -2,12 +2,15 @@ mod inspect;
 use rmcp::{
     handler::server::wrapper::Parameters,
     model::{CallToolResult, ContentBlock},
-    schemars, tool, tool_handler, tool_router, ServerHandler, ServiceExt,
+    schemars,
+    service::{RequestContext, RoleServer},
+    tool, tool_handler, tool_router, ServerHandler, ServiceExt,
 };
 use serde::Deserialize;
 use serde_json::{json, Value};
 use space_clean::{RuleFilter, RuleManager, ScanOptions};
 use space_core::{NodeId, ScanEvent, SpaceTree};
+use std::time::Duration;
 use std::{
     path::PathBuf,
     sync::{Arc, Mutex},
@@ -96,6 +99,44 @@ struct State {
     next_id: u64,
     disk: Option<(u64, SpaceTree)>,
     junk: Option<(u64, space_clean::ScanReport)>,
+    /// Catalog + prefs reused while the rule sources' fingerprint is unchanged.
+    rules: Option<RuleManager>,
+}
+
+/// The rule manager for the discovered rule directories. The shared pack
+/// loader fingerprints the YAML sources (stat fast path); when it hands back
+/// the same `Arc` the cached manager is reused, otherwise prefs and catalog
+/// are reloaded.
+fn rule_manager(state: &Mutex<State>) -> anyhow::Result<RuleManager> {
+    let dirs = space_clean::default_rules_dirs();
+    anyhow::ensure!(
+        !dirs.is_empty(),
+        "no rules directory found; set {}",
+        space_clean::RULES_DIR_ENV
+    );
+    let pack = space_clean::RulePack::load_many_shared(&dirs)?;
+    let mut state = state
+        .lock()
+        .map_err(|_| anyhow::anyhow!("scan state unavailable"))?;
+    if let Some(cached) = &state.rules {
+        if Arc::ptr_eq(&cached.pack, &pack) {
+            return Ok(cached.clone());
+        }
+    }
+    let manager = RuleManager::load_with_dirs(&dirs)?;
+    state.rules = Some(manager.clone());
+    Ok(manager)
+}
+
+/// Pagination window; `offset` past the end is an explicit error so a client
+/// never mistakes an empty page for the end of the data.
+fn page_window(offset: usize, limit: usize, total: usize) -> anyhow::Result<(usize, Option<usize>)> {
+    anyhow::ensure!(
+        offset <= total,
+        "offset {offset} is past the end (total {total})"
+    );
+    let end = offset.saturating_add(limit).min(total);
+    Ok((end, (end < total).then_some(end)))
 }
 #[derive(Clone)]
 struct Scanner {
@@ -117,6 +158,7 @@ fn response(result: anyhow::Result<Value>) -> CallToolResult {
     }
 }
 impl Scanner {
+    /// Run a scan-class operation; only one may run at a time.
     async fn work(
         &self,
         f: impl FnOnce(Arc<Mutex<State>>) -> anyhow::Result<Value> + Send + 'static,
@@ -136,6 +178,20 @@ impl Scanner {
             .unwrap_or_else(|e| Err(e.into())),
         )
     }
+
+    /// Run a read-only catalog/metadata operation off the async runtime
+    /// without taking the scan gate, so lookups stay available during scans.
+    async fn read(
+        &self,
+        f: impl FnOnce(Arc<Mutex<State>>) -> anyhow::Result<Value> + Send + 'static,
+    ) -> CallToolResult {
+        let state = self.state.clone();
+        response(
+            tokio::task::spawn_blocking(move || f(state))
+                .await
+                .unwrap_or_else(|e| Err(e.into())),
+        )
+    }
 }
 #[tool_router]
 impl Scanner {
@@ -144,27 +200,22 @@ impl Scanner {
         annotations(read_only_hint = true)
     )]
     async fn largest_entries(&self, Parameters(args): Parameters<LargestArgs>) -> CallToolResult {
-        self.work(move |state| {
-            use std::{cmp::Reverse, collections::BinaryHeap};
+        self.read(move |state| {
             let limit = limit(args.limit)?;
             let state = state.lock().map_err(|_| anyhow::anyhow!("scan state unavailable"))?;
             let (id, tree) = state.disk.as_ref().ok_or_else(|| anyhow::anyhow!("run scan_disk first"))?;
             anyhow::ensure!(*id == args.scan_id, "scan_id expired; run scan_disk again");
-            let mut heap = BinaryHeap::new();
-            let mut eligible = 0usize;
-            for (i, node) in tree.nodes.iter().enumerate() {
-                if i == tree.root.0 as usize || node.synthetic { continue; }
-                if matches!(args.kind, EntryKind::Files) && node.is_dir { continue; }
-                if matches!(args.kind, EntryKind::Directories) && !node.is_dir { continue; }
-                eligible += 1;
-                let size = if args.apparent { node.apparent_size } else { node.allocated_size };
-                heap.push(Reverse((size, Reverse(i))));
-                if heap.len() > limit { heap.pop(); }
-            }
-            let mut ranked = heap.into_iter().map(|Reverse(v)| v).collect::<Vec<_>>();
-            ranked.sort_unstable_by(|a,b| b.cmp(a));
-            let items: Vec<_> = ranked.into_iter().map(|(_, Reverse(i))| {
-                let id = NodeId(i as u32); let node = tree.node(id);
+            let (dirs, files) = match args.kind {
+                EntryKind::Files => (false, true),
+                EntryKind::Directories => (true, false),
+                EntryKind::All => (true, true),
+            };
+            let mode = if args.apparent { space_core::SizeMode::Apparent } else { space_core::SizeMode::OnDisk };
+            let eligible = tree.nodes.iter().enumerate()
+                .filter(|(i, node)| *i != tree.root.0 as usize && !node.synthetic && ((node.is_dir && dirs) || (!node.is_dir && files)))
+                .count();
+            let items: Vec<_> = space_core::largest_entries(tree, mode, limit, dirs, files).into_iter().map(|id| {
+                let node = tree.node(id);
                 json!({"node_id":id.0,"display_path":tree.path_string(id),"is_dir":node.is_dir,"apparent_bytes":node.apparent_size,"allocated_bytes":node.allocated_size,"files":node.file_count})
             }).collect();
             Ok(json!({"scan_id":id,"scanned_at_unix":tree.scanned_at_unix,"eligible_entries":eligible,"truncated":eligible>limit,"items":items,"small_files_aggregated":true,"skipped_errors":tree.skipped_errors}))
@@ -176,7 +227,7 @@ impl Scanner {
         annotations(read_only_hint = true)
     )]
     async fn inspect_path(&self, Parameters(args): Parameters<InspectArgs>) -> CallToolResult {
-        self.work(move |state| {
+        self.read(move |state| {
             let mut result = inspect::inspect(&args.path)?;
             if let Some(requested) = args.junk_scan_id {
                 anyhow::ensure!(!std::fs::symlink_metadata(&args.path)?.file_type().is_symlink(), "junk evidence for symlink targets is not evidence for the link itself");
@@ -195,15 +246,26 @@ impl Scanner {
         description = "Scan a directory's disk usage. Returns totals and a scan_id; use disk_page to inspect children. Does not delete files.",
         annotations(read_only_hint = true)
     )]
-    async fn scan_disk(&self, Parameters(args): Parameters<DiskArgs>) -> CallToolResult {
+    async fn scan_disk(
+        &self,
+        Parameters(args): Parameters<DiskArgs>,
+        context: RequestContext<RoleServer>,
+    ) -> CallToolResult {
+        let cancel = context.ct.clone();
         self.work(move |state| {
             anyhow::ensure!(args.path.is_absolute(), "path must be absolute");
             let path = args.path.canonicalize()?;
             anyhow::ensure!(path.is_dir(), "path must be a directory");
             let scan = space_core::scan_path(path);
-            for event in &scan.events {
-                match event {
-                    ScanEvent::Done(tree) => {
+            loop {
+                if cancel.is_cancelled() {
+                    // Stops the walker threads; the handle's Drop would too, but
+                    // this reports the cancellation instead of a spurious result.
+                    scan.cancel();
+                    anyhow::bail!("scan cancelled by client");
+                }
+                match scan.events.recv_timeout(Duration::from_millis(100)) {
+                    Ok(ScanEvent::Done(tree)) => {
                         let mut state = state.lock().map_err(|_| anyhow::anyhow!("scan state unavailable"))?;
                         state.next_id += 1;
                         let id = state.next_id;
@@ -212,12 +274,13 @@ impl Scanner {
                         state.disk = Some((id, *tree));
                         return Ok(result);
                     }
-                    ScanEvent::Error(e) => anyhow::bail!(e),
-                    ScanEvent::Cancelled => anyhow::bail!("scan cancelled"),
-                    ScanEvent::Progress(_) => {}
+                    Ok(ScanEvent::Error(e)) => anyhow::bail!(e),
+                    Ok(ScanEvent::Cancelled) => anyhow::bail!("scan cancelled"),
+                    Ok(ScanEvent::Progress(_)) => {}
+                    Err(e) if e.is_timeout() => {}
+                    Err(_) => anyhow::bail!("scan ended without a result"),
                 }
             }
-            anyhow::bail!("scan ended without a result")
         }).await
     }
     #[tool(
@@ -240,19 +303,16 @@ impl Scanner {
                 .try_node(args.node_id.map(NodeId).unwrap_or(tree.root))
                 .ok_or_else(|| anyhow::anyhow!("unknown node_id"))?;
             anyhow::ensure!(node.is_dir && !node.synthetic, "node is not a directory");
-            let items: Vec<_> = node
-                .children
+            let (end, next_offset) = page_window(args.offset, limit, node.children.len())?;
+            let items: Vec<_> = node.children[args.offset..end]
                 .iter()
-                .skip(args.offset)
-                .take(limit)
                 .map(|id| {
                     let node = tree.node(*id);
                     json!({"node_id":id.0,"display_path":(!node.synthetic).then(|| tree.path_string(*id)),"name":node.name,"is_dir":node.is_dir,"synthetic":node.synthetic,"apparent_bytes":node.apparent_size,"allocated_bytes":node.allocated_size,"files":node.file_count,"child_count":node.children.len()})
                 })
                 .collect();
-            let next = args.offset.saturating_add(items.len());
             Ok(
-                json!({"scan_id":id,"total":node.children.len(),"items":items,"next_offset":(next < node.children.len()).then_some(next)}),
+                json!({"scan_id":id,"total":node.children.len(),"items":items,"next_offset":next_offset.map_or(Value::Null, Value::from)}),
             )
         })())
     }
@@ -262,7 +322,7 @@ impl Scanner {
     )]
     async fn scan_junk(&self, Parameters(args): Parameters<JunkArgs>) -> CallToolResult {
         self.work(move |state| {
-            let manager = RuleManager::load_default()?;
+            let manager = rule_manager(&state)?;
             let opts = ScanOptions { prefs_min_age: manager.prefs.min_age.clone(), ..Default::default() };
             let report = space_clean::scan_rules(manager.scan_rules(&args.categories), &opts)?;
             let mut state = state.lock().map_err(|_| anyhow::anyhow!("scan state unavailable"))?;
@@ -293,15 +353,10 @@ impl Scanner {
                 .as_ref()
                 .ok_or_else(|| anyhow::anyhow!("run scan_junk first"))?;
             anyhow::ensure!(*id == args.scan_id, "scan_id expired; run scan_junk again");
-            let items: Vec<_> = report
-                .findings
-                .iter()
-                .skip(args.offset)
-                .take(limit)
-                .collect();
-            let next = args.offset.saturating_add(items.len());
+            let (end, next_offset) = page_window(args.offset, limit, report.findings.len())?;
+            let items: Vec<_> = report.findings[args.offset..end].iter().collect();
             Ok(
-                json!({"scan_id":id,"total":report.findings.len(),"items":items,"next_offset":(next < report.findings.len()).then_some(next)}),
+                json!({"scan_id":id,"total":report.findings.len(),"items":items,"next_offset":next_offset.map_or(Value::Null, Value::from)}),
             )
         })())
     }
@@ -310,9 +365,9 @@ impl Scanner {
         annotations(read_only_hint = true)
     )]
     async fn search_rules(&self, Parameters(args): Parameters<SearchArgs>) -> CallToolResult {
-        self.work(move |_| {
+        self.read(move |state| {
             let limit = limit(args.limit)?;
-            let manager = RuleManager::load_default()?;
+            let manager = rule_manager(&state)?;
             let (total, rows) = manager.list_page(&RuleFilter { query: args.query, host_only:true, ..Default::default() }, limit);
             let items: Vec<_> = rows.into_iter().map(|r| json!({"id":r.id,"name":r.name,"category":r.category,"risk":r.risk,"enabled":r.effectively_enabled})).collect();
             Ok(json!({"total":total,"items":items,"truncated":total>limit}))
@@ -323,8 +378,8 @@ impl Scanner {
         annotations(read_only_hint = true)
     )]
     async fn rule_details(&self, Parameters(args): Parameters<RuleArgs>) -> CallToolResult {
-        self.work(move |_| {
-            let manager = RuleManager::load_default()?;
+        self.read(move |state| {
+            let manager = rule_manager(&state)?;
             let rule = manager.pack.get(&args.id).ok_or_else(|| anyhow::anyhow!("unknown rule ID"))?;
             Ok(json!({"rule":rule,"enabled":manager.prefs.is_enabled(rule),"min_age_days":manager.prefs.min_age_for(rule)}))
         }).await

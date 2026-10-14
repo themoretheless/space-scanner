@@ -202,10 +202,21 @@ pub fn bold() -> FontFamily {
 }
 
 /// Install fonts and the starting appearance. Call once.
-pub fn apply(ctx: &egui::Context, appearance: Appearance) {
+pub fn apply(ctx: &egui::Context, appearance: Appearance, reduce_motion: bool, tooltip_delay_ms: u64) {
     install_fonts(ctx);
     base_style(ctx);
     set_appearance(ctx, appearance);
+    apply_interaction(ctx, reduce_motion, tooltip_delay_ms);
+}
+
+/// Motion and hover-hint timing from the settings; switched live.
+pub fn apply_interaction(ctx: &egui::Context, reduce_motion: bool, tooltip_delay_ms: u64) {
+    crate::anim::set_reduce_motion(reduce_motion);
+    let mut style = (*ctx.style()).clone();
+    style.animation_time = if reduce_motion { 0.0 } else { 0.1 };
+    style.interaction.tooltip_delay = tooltip_delay_ms as f32 / 1000.0;
+    style.interaction.tooltip_grace_time = if tooltip_delay_ms == 0 { 0.0 } else { 0.2 };
+    ctx.set_style(style);
 }
 
 /// Switch the palette at runtime; every frame reads it, so nothing restarts.

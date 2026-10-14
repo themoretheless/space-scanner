@@ -1,7 +1,30 @@
-use crate::scan::ScanReport;
+use crate::scan::{Finding, ScanReport};
 use anyhow::{Context, Result};
 use serde::Serialize;
 use std::path::{Path, PathBuf};
+
+/// How a cleaned item left the filesystem.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[serde(rename_all = "kebab-case")]
+pub enum DeleteMethod {
+    /// Moved to the platform Trash; bytes are not freed until it is emptied.
+    Trash,
+    /// Removed outright.
+    Permanent,
+}
+
+impl DeleteMethod {
+    pub fn as_str(self) -> &'static str {
+        match self {
+            DeleteMethod::Trash => "trash",
+            DeleteMethod::Permanent => "permanent",
+        }
+    }
+
+    pub fn frees_bytes(self) -> bool {
+        matches!(self, DeleteMethod::Permanent)
+    }
+}
 
 #[derive(Debug, Clone, Serialize)]
 pub struct CleanResult {
@@ -91,7 +114,7 @@ pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
     }
     match trash::delete_all(paths) {
         Ok(()) => paths.iter().map(|_| Ok(())).collect(),
-        Err(batch_error) => paths
+        Err(_batch_error) => paths
             .iter()
             .map(|path| {
                 // A platform batch may have moved some entries before reporting
@@ -188,17 +211,12 @@ pub fn clean_with_progress(
     permanent: bool,
     mut on_progress: impl FnMut(CleanProgress),
 ) -> Result<CleanResult> {
-    let items: Vec<_> = report
-        .findings
-        .iter()
-        .filter(|f| !f.report_only)
-        .cloned()
-        .collect();
+    let items: Vec<&Finding> = report.findings.iter().filter(|f| !f.report_only).collect();
 
     // Keep the shallowest selected unit. Check all path ancestors rather than
     // only the previous lexicographic item: a sibling such as `cache-old`
     // can otherwise hide `cache` before `cache/nested` is considered.
-    let items = coalesce_nested_paths(items, |item| &item.path);
+    let items = coalesce_nested_paths(items, |item| item.path.as_path());
 
     let skipped_report_only = report.findings.iter().filter(|f| f.report_only).count();
     let mut deleted = Vec::new();
@@ -214,20 +232,19 @@ pub fn clean_with_progress(
     let mut candidates = Vec::new();
     for item in items {
         progress.current_path = item.path.clone();
-        if std::fs::symlink_metadata(&item.path).is_err() {
-            progress.items_done += 1;
-            on_progress(progress.clone());
-            continue;
+        match revalidate(item) {
+            Ok(true) => candidates.push(item),
+            Ok(false) => {
+                progress.items_done += 1;
+                on_progress(progress.clone());
+            }
+            Err(reason) => {
+                errors.push(format!("{reason}: {}", item.path.display()));
+                progress.error_count = errors.len();
+                progress.items_done += 1;
+                on_progress(progress.clone());
+            }
         }
-        // Re-check safety at delete time
-        if crate::safety::is_never_touch(&item.path) {
-            errors.push(format!("blocked by safety: {}", item.path.display()));
-            progress.error_count = errors.len();
-            progress.items_done += 1;
-            on_progress(progress.clone());
-            continue;
-        }
-        candidates.push(item);
     }
     candidates.sort_by(|a, b| {
         a.path
@@ -242,7 +259,7 @@ pub fn clean_with_progress(
             match permanent_delete(&item.path) {
                 Ok(()) => record_deleted(
                     item,
-                    "permanent",
+                    DeleteMethod::Permanent,
                     &mut deleted,
                     &mut processed,
                     &mut freed,
@@ -264,12 +281,12 @@ pub fn clean_with_progress(
             }
             let paths: Vec<PathBuf> = chunk.iter().map(|item| item.path.clone()).collect();
             let outcomes = trash_paths_batch(&paths);
-            for (item, outcome) in chunk.iter().cloned().zip(outcomes) {
+            for (item, outcome) in chunk.iter().zip(outcomes) {
                 progress.current_path = item.path.clone();
                 match outcome {
                     Ok(()) => record_deleted(
                         item,
-                        "trash",
+                        DeleteMethod::Trash,
                         &mut deleted,
                         &mut processed,
                         &mut freed,
@@ -296,16 +313,47 @@ pub fn clean_with_progress(
     })
 }
 
+/// Re-check a finding at delete time, after the scan may have gone stale:
+/// `Ok(false)` when it is already gone, `Err(reason)` when it must not be
+/// touched any more.
+fn revalidate(item: &Finding) -> std::result::Result<bool, String> {
+    let Ok(meta) = std::fs::symlink_metadata(&item.path) else {
+        return Ok(false);
+    };
+    // A symlink swapped in since the scan would make the delete follow it.
+    if meta.file_type().is_symlink() {
+        return Err("refused: path is now a symlink".into());
+    }
+    if meta.is_dir() != item.is_dir {
+        return Err("refused: entry type changed since the scan".into());
+    }
+    if crate::safety::is_never_touch(&item.path) {
+        return Err("blocked by safety".into());
+    }
+    if let Some(root) = &item.root {
+        if !crate::safety::stays_under_root(root, &item.path) {
+            return Err(format!(
+                "refused: no longer inside rule root {}",
+                root.display()
+            ));
+        }
+    }
+    if !crate::safety::is_old_enough(&item.path, item.min_age_days) {
+        return Err("skipped: modified since the scan".into());
+    }
+    Ok(true)
+}
+
 fn record_deleted(
-    item: crate::scan::Finding,
-    method: &str,
+    item: &Finding,
+    method: DeleteMethod,
     deleted: &mut Vec<CleanedItem>,
     processed: &mut u64,
     freed: &mut u64,
     progress: &mut CleanProgress,
 ) {
     *processed = (*processed).saturating_add(item.bytes);
-    if method == "permanent" {
+    if method.frees_bytes() {
         *freed = (*freed).saturating_add(item.bytes);
     }
     progress.items_done += 1;
@@ -317,9 +365,9 @@ fn record_deleted(
         progress.files_done += 1;
     }
     deleted.push(CleanedItem {
-        path: item.path,
+        path: item.path.clone(),
         bytes: item.bytes,
-        method: method.to_string(),
+        method: method.as_str().to_string(),
     });
 }
 
@@ -336,9 +384,32 @@ fn permanent_delete(path: &std::path::Path) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::scan::Finding;
     use std::fs;
     use std::time::{SystemTime, UNIX_EPOCH};
+
+    fn finding(path: PathBuf, bytes: u64, is_dir: bool) -> Finding {
+        Finding {
+            rule_id: "test".into(),
+            category: "temp".into(),
+            risk: "low".into(),
+            path,
+            bytes,
+            is_dir,
+            report_only: false,
+            root: None,
+            min_age_days: 0,
+        }
+    }
+
+    fn report(findings: Vec<Finding>) -> ScanReport {
+        ScanReport {
+            total_bytes: findings.iter().map(|f| f.bytes).sum(),
+            findings,
+            rules_matched: 1,
+            rules_scanned: 1,
+            skipped_roots: vec![],
+        }
+    }
 
     #[test]
     fn reports_live_clean_progress() {
@@ -351,15 +422,7 @@ mod tests {
         let path = root.join("junk.tmp");
         fs::write(&path, b"1234").unwrap();
         let report = ScanReport {
-            findings: vec![Finding {
-                rule_id: "test".into(),
-                category: "temp".into(),
-                risk: "low".into(),
-                path: path.clone(),
-                bytes: 4,
-                is_dir: false,
-                report_only: false,
-            }],
+            findings: vec![finding(path.clone(), 4, false)],
             total_bytes: 4,
             rules_matched: 1,
             rules_scanned: 1,
@@ -390,15 +453,6 @@ mod tests {
         fs::create_dir_all(&parent).unwrap();
         fs::write(&child, b"1234").unwrap();
         fs::write(&sibling, b"x").unwrap();
-        let finding = |path: PathBuf, bytes, is_dir| Finding {
-            rule_id: "test".into(),
-            category: "temp".into(),
-            risk: "low".into(),
-            path,
-            bytes,
-            is_dir,
-            report_only: false,
-        };
         let report = ScanReport {
             findings: vec![
                 finding(child, 4, false),
@@ -425,22 +479,14 @@ mod tests {
 
     #[test]
     fn trash_bytes_are_not_reported_as_freed_disk_space() {
-        let item = Finding {
-            rule_id: "test".into(),
-            category: "temp".into(),
-            risk: "low".into(),
-            path: PathBuf::from("/tmp/example"),
-            bytes: 42,
-            is_dir: false,
-            report_only: false,
-        };
+        let item = finding(PathBuf::from("/tmp/example"), 42, false);
         let mut deleted = Vec::new();
         let mut processed = 0;
         let mut freed = 0;
         let mut progress = CleanProgress::default();
         record_deleted(
-            item,
-            "trash",
+            &item,
+            DeleteMethod::Trash,
             &mut deleted,
             &mut processed,
             &mut freed,
@@ -450,6 +496,82 @@ mod tests {
         assert_eq!(freed, 0);
         assert_eq!(progress.bytes_processed, 42);
         assert_eq!(progress.bytes_freed, 0);
+        assert_eq!(deleted[0].method, "trash");
+    }
+
+    #[test]
+    fn symlink_swapped_in_after_the_scan_is_refused() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        let victim = root.join("precious");
+        fs::create_dir_all(&victim).unwrap();
+        fs::write(victim.join("keep.txt"), b"keep me").unwrap();
+        let junk = root.join("junk");
+        fs::create_dir_all(&junk).unwrap();
+        fs::write(junk.join("old.bin"), b"junk").unwrap();
+        // Scan said `junk` is a plain directory …
+        let mut item = finding(junk.clone(), 4, true);
+        item.root = Some(root.to_path_buf());
+        // … but it was replaced by a symlink to something precious.
+        fs::remove_dir_all(&junk).unwrap();
+        #[cfg(unix)]
+        std::os::unix::fs::symlink(&victim, &junk).unwrap();
+        #[cfg(windows)]
+        std::os::windows::fs::symlink_dir(&victim, &junk).unwrap();
+        let report = report(vec![item.clone()]);
+        let result = clean(&report, true).unwrap();
+        assert!(result.deleted.is_empty());
+        assert_eq!(result.errors.len(), 1, "{:?}", result.errors);
+        assert!(result.errors[0].contains("symlink"), "{:?}", result.errors);
+        assert!(victim.join("keep.txt").exists(), "target must survive");
+        assert!(junk.symlink_metadata().is_ok(), "the link itself is untouched");
+        // A file that turned into a directory (or vice versa) is refused too.
+        fs::remove_file(&junk).unwrap();
+        fs::write(&junk, b"now a file").unwrap();
+        let result = clean(&report, true).unwrap();
+        assert!(result.errors[0].contains("type changed"), "{:?}", result.errors);
+        assert!(junk.exists());
+    }
+
+    #[test]
+    fn delete_revalidates_root_containment_and_age() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        let inside = root.join("cache/blob.bin");
+        fs::create_dir_all(inside.parent().unwrap()).unwrap();
+        fs::write(&inside, b"blob").unwrap();
+        // Root recorded by the scan is a different tree: refuse.
+        let mut item = finding(inside.clone(), 4, false);
+        item.root = Some(root.join("elsewhere"));
+        let result = clean(&report(vec![item.clone()]), true).unwrap();
+        assert!(result.errors[0].contains("rule root"), "{:?}", result.errors);
+        assert!(inside.exists());
+        // Correct root, but the file was modified after the scan: skip.
+        item.root = Some(root.to_path_buf());
+        item.min_age_days = 3;
+        let result = clean(&report(vec![item.clone()]), true).unwrap();
+        assert!(result.errors[0].contains("modified"), "{:?}", result.errors);
+        assert!(inside.exists());
+        // Legacy finding without a root and no age: deleted.
+        item.root = None;
+        item.min_age_days = 0;
+        let result = clean(&report(vec![item]), true).unwrap();
+        assert!(result.errors.is_empty(), "{:?}", result.errors);
+        assert_eq!(result.deleted.len(), 1);
+        assert!(!inside.exists());
+    }
+
+    #[test]
+    fn report_only_findings_are_counted_not_deleted() {
+        let dir = tempfile::tempdir().unwrap();
+        let keep = dir.path().join("keep.bin");
+        fs::write(&keep, b"k").unwrap();
+        let mut item = finding(keep.clone(), 1, false);
+        item.report_only = true;
+        let result = clean(&report(vec![item]), true).unwrap();
+        assert_eq!(result.skipped_report_only, 1);
+        assert!(result.deleted.is_empty());
+        assert!(keep.exists());
     }
 
     #[cfg(target_os = "macos")]

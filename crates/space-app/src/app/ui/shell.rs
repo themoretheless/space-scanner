@@ -95,7 +95,11 @@ impl SpaceApp {
             self.set_mode(mode);
         }
         if settings {
-            self.show_settings = !self.show_settings;
+            if self.show_settings {
+                self.show_settings = false;
+            } else {
+                self.open_settings();
+            }
         }
         if cancel_scan {
             if let Some(s) = &self.scan {
@@ -255,7 +259,7 @@ impl SpaceApp {
         if self.settings.layout != layout {
             self.settings.layout = layout;
             self.geom = None;
-            self.settings.save();
+            self.mark_settings_dirty();
         }
     }
 
@@ -443,12 +447,40 @@ impl SpaceApp {
                             changed = true;
                         }
                     }
-                    if let Some(ext) = self.filter.ext.clone() {
+                    // Upper bound: presets, since typing bytes is rarely what anyone wants.
+                    let max = self.filter.max_size;
+                    let max_label = match max {
+                        Some(bytes) => crate::tr!("≤ {}", crate::i18n::bytes(bytes)),
+                        None => t("Max size").to_string(),
+                    };
+                    ui.menu_button(
+                        RichText::new(format!("{max_label} ▾"))
+                            .size(crate::theme::type_scale::CAPTION)
+                            .color(if max.is_some() { TEXT() } else { MUTED() }),
+                        |ui| {
+                            for (label, value) in [
+                                ("Any size", None),
+                                ("≤ 1 MB", Some(1u64 << 20)),
+                                ("≤ 10 MB", Some(10u64 << 20)),
+                                ("≤ 100 MB", Some(100u64 << 20)),
+                                ("≤ 1 GB", Some(1u64 << 30)),
+                            ] {
+                                if ui.selectable_label(max == value, t(label)).clicked() {
+                                    self.filter.max_size = value;
+                                    changed = true;
+                                    ui.close_menu();
+                                }
+                            }
+                        },
+                    );
+                    // One chip per file type picked on the map legend; clicking takes it out.
+                    let exts: Vec<String> = self.filter.ext.iter().cloned().collect();
+                    for ext in exts {
                         if chip(ui, true, &format!("*.{ext}  ×"))
                             .on_hover_text(t("Picked on the map legend. Click to clear."))
                             .clicked()
                         {
-                            self.filter.ext = None;
+                            self.filter.toggle_ext(&ext);
                             changed = true;
                         }
                     }
@@ -466,6 +498,8 @@ impl SpaceApp {
                     if changed {
                         self.geom = None;
                         self.search_hits = None;
+                        self.settings.filter_kind = self.filter.kind;
+                        self.mark_settings_dirty();
                     }
 
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {

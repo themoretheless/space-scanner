@@ -11,7 +11,8 @@ use space_core::SizeMode;
 use crate::app::SpaceApp;
 use crate::i18n::Lang;
 use crate::rules_panel::{self, RulesAction};
-use crate::settings::WorkspaceLayout;
+use crate::settings::{SizeUnits, WorkspaceLayout};
+use crate::views::ViewMode;
 use crate::theme::metrics::{S2, S3, S4, S6};
 use crate::theme::type_scale;
 use crate::theme::{self, Appearance, ACCENT, DANGER, MUTED, PANEL_2};
@@ -98,7 +99,7 @@ impl SpaceApp {
                 self.settings.appearance = appearance;
                 crate::theme::set_appearance(ui.ctx(), appearance);
                 self.geom = None;
-                self.settings.save();
+                self.mark_settings_dirty();
             }
 
             let mut layout = self.settings.layout;
@@ -162,8 +163,55 @@ impl SpaceApp {
             if lang != self.settings.language {
                 self.settings.language = lang;
                 crate::i18n::set(lang.unwrap_or_else(crate::i18n::detect));
-                self.settings.save();
+                self.mark_settings_dirty();
             }
+
+            let mut units = self.settings.size_units;
+            row(ui, "Size units", "", &mut |ui| {
+                let labels: Vec<&str> = SizeUnits::ALL.iter().map(|u| u.label()).collect();
+                let cur = SizeUnits::ALL.iter().position(|&u| u == units).unwrap_or(0);
+                if let Some(i) = segmented(ui, &labels, cur) {
+                    units = SizeUnits::ALL[i];
+                }
+            });
+            if units != self.settings.size_units {
+                self.settings.size_units = units;
+                crate::i18n::set_units(units);
+                self.mark_settings_dirty();
+            }
+
+            row(ui, "Motion", "", &mut |ui| {
+                let mut interaction = false;
+                if ui
+                    .checkbox(&mut self.settings.reduce_motion, t("Reduce motion"))
+                    .on_hover_text(t("No zoom, crossfade or hover animation"))
+                    .changed()
+                {
+                    interaction = true;
+                }
+                ui.horizontal(|ui| {
+                    ui.label(caption("Hint delay"));
+                    if ui
+                        .add(
+                            egui::Slider::new(&mut self.settings.tooltip_delay_ms, 0..=1500)
+                                .step_by(50.0)
+                                .suffix(" ms"),
+                        )
+                        .on_hover_text(t("How long the pointer rests before a hover hint appears"))
+                        .changed()
+                    {
+                        interaction = true;
+                    }
+                });
+                if interaction {
+                    crate::theme::apply_interaction(
+                        ui.ctx(),
+                        self.settings.reduce_motion,
+                        self.settings.tooltip_delay_ms,
+                    );
+                    self.mark_settings_dirty();
+                }
+            });
 
             let mut hint = self.settings.flags.show_shortcuts_hint;
             if ui
@@ -171,8 +219,160 @@ impl SpaceApp {
                 .changed()
             {
                 self.settings.flags.show_shortcuts_hint = hint;
-                self.settings.save();
+                self.mark_settings_dirty();
             }
+            ui.add_space(S4);
+            divider(ui);
+            ui.add_space(S3);
+
+            ui.label(RichText::new(t("Disk usage")).family(crate::theme::medium()));
+            ui.add_space(4.0);
+            let mut view = self.settings.default_view;
+            row(ui, "Default view", "", &mut |ui| {
+                let labels: Vec<&str> = ViewMode::ALL.iter().map(|m| m.label()).collect();
+                let cur = ViewMode::ALL.iter().position(|&m| m == view).unwrap_or(0);
+                if let Some(i) = segmented(ui, &labels, cur) {
+                    view = ViewMode::ALL[i];
+                }
+            });
+            if view != self.settings.default_view {
+                self.settings.default_view = view;
+                self.mark_settings_dirty();
+            }
+            let mut default_size = self.settings.default_size_mode;
+            row(ui, "Default size mode", "", &mut |ui| {
+                if let Some(i) = segmented(
+                    ui,
+                    &["On disk", "File size"],
+                    (default_size == SizeMode::Apparent) as usize,
+                ) {
+                    default_size = if i == 0 {
+                        SizeMode::OnDisk
+                    } else {
+                        SizeMode::Apparent
+                    };
+                }
+            });
+            if default_size != self.settings.default_size_mode {
+                self.settings.default_size_mode = default_size;
+                self.mark_settings_dirty();
+            }
+            if ui
+                .checkbox(
+                    &mut self.settings.remember_last_view,
+                    t("Open with the view and size mode last used"),
+                )
+                .changed()
+            {
+                self.mark_settings_dirty();
+            }
+            ui.add_space(4.0);
+            ui.horizontal(|ui| {
+                ui.label(t("Largest list"));
+                if ui
+                    .add(
+                        egui::DragValue::new(&mut self.settings.largest_limit)
+                            .range(10..=1000)
+                            .speed(5),
+                    )
+                    .changed()
+                {
+                    self.mark_settings_dirty();
+                    self.schedule_largest();
+                }
+                ui.label(caption("rows"));
+            });
+            ui.add_space(S3);
+
+            ui.label(RichText::new(t("Map options")).family(crate::theme::medium()));
+            ui.add_space(4.0);
+            if super::usage::map_options_ui(ui, &mut self.settings.flags, Some(self.view)) {
+                self.geom = None;
+                self.mark_settings_dirty();
+            }
+            ui.add_space(S3);
+
+            ui.label(RichText::new(t("Export")).family(crate::theme::medium()));
+            ui.add_space(4.0);
+            ui.horizontal_wrapped(|ui| {
+                let can = self.tree.is_some() && !self.exporting;
+                if ui
+                    .add_enabled(can, secondary("Folder contents as CSV…"))
+                    .clicked()
+                {
+                    self.export_children_csv();
+                }
+                if ui.add_enabled(can, secondary("Largest list as CSV…")).clicked() {
+                    self.export_largest_csv();
+                }
+                if ui
+                    .add_enabled(can, secondary("Folder as JSON (one level)…"))
+                    .clicked()
+                {
+                    self.export_shallow_json();
+                }
+                if ui
+                    .add_enabled(self.tree.is_some(), secondary("Copy visible list as TSV"))
+                    .clicked()
+                {
+                    self.copy_listing_tsv();
+                }
+            });
+            ui.add_space(S3);
+
+            ui.label(RichText::new(t("Saved scans")).family(crate::theme::medium()));
+            ui.add_space(4.0);
+            ui.horizontal(|ui| {
+                ui.label(t("Keep for"));
+                let mut days = self.settings.cache_ttl_days;
+                if ui
+                    .add(egui::DragValue::new(&mut days).range(0..=3650).speed(1))
+                    .on_hover_text(t("Scans older than this are removed at startup; 0 keeps them forever"))
+                    .changed()
+                {
+                    self.settings.cache_ttl_days = days;
+                    self.reconfigure_cache();
+                    self.mark_settings_dirty();
+                }
+                ui.label(caption("days · 0 = forever"));
+            });
+            ui.horizontal(|ui| {
+                ui.label(t("Size budget"));
+                let mut mb = self.settings.cache_max_mb;
+                if ui
+                    .add(egui::DragValue::new(&mut mb).range(0..=100_000).speed(10))
+                    .on_hover_text(t("Least recently opened scans are removed once the cache is larger; 0 = no limit"))
+                    .changed()
+                {
+                    self.settings.cache_max_mb = mb;
+                    self.reconfigure_cache();
+                    self.mark_settings_dirty();
+                }
+                ui.label(caption("MB · 0 = no limit"));
+            });
+            ui.horizontal(|ui| {
+                ui.label(t("On disk now"));
+                match self.cache_bytes {
+                    Some(bytes) => {
+                        ui.label(crate::i18n::bytes(bytes));
+                        ui.label(caption(crate::i18n::count(self.recent.len(), "result")));
+                    }
+                    None => {
+                        ui.spinner();
+                    }
+                }
+                if ui
+                    .add_enabled(
+                        self.cache_bytes.is_some_and(|b| b > 0) && self.scan.is_none() && !self.busy,
+                        secondary("Clear saved scans"),
+                    )
+                    .on_hover_text(t("Removes every saved result; the open scan stays"))
+                    .clicked()
+                {
+                    self.cache_bytes = None;
+                    self.clear_cache();
+                }
+            });
             ui.add_space(S4);
             divider(ui);
             ui.add_space(S3);
@@ -184,6 +384,10 @@ impl SpaceApp {
                     open_keys = true;
                 }
             });
+            ui.add_space(S3);
+            let version = env!("CARGO_PKG_VERSION");
+            let about = crate::tr!("Space Scanner {} · {}", version, space_clean::host_platform_name());
+            ui.label(caption(about));
         });
         if close || resp.should_close() {
             self.show_settings = false;
@@ -311,7 +515,7 @@ impl SpaceApp {
                 return;
             }
 
-            let mut items = self.basket_items();
+            let mut items: Vec<(std::path::PathBuf, u64)> = self.basket_items().as_ref().clone();
             items.sort_by_key(|item| std::cmp::Reverse(item.1));
             let (protected, items): (Vec<_>, Vec<_>) = items
                 .into_iter()
@@ -582,7 +786,7 @@ impl SpaceApp {
                     match rules_panel::draw(ui, &mut self.rules, mgr, &mut self.settings.flags) {
                         RulesAction::Close => self.rules.open = false,
                         RulesAction::PrefsChanged => {
-                            self.settings.save();
+                            self.mark_settings_dirty();
                             if self.junk.open {
                                 self.start_junk_scan();
                             }

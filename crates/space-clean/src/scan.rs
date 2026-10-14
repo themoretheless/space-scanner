@@ -1,11 +1,15 @@
 use crate::rules::{DeleteMode, PathTemplateExpander, Risk, Rule, RulePack};
-use crate::safety::{is_never_touch_normalized, is_old_enough, is_safe_rule_root, normalize};
+use crate::safety::{
+    canonical_root, is_never_touch_normalized, is_safe_rule_root_normalized, mtime_is_old_enough,
+    newest_mtime,
+};
 use anyhow::Result;
-use globset::{Glob, GlobSet, GlobSetBuilder};
+use globset::{Candidate, Glob, GlobSet, GlobSetBuilder};
 use serde::Serialize;
-use std::collections::HashMap;
+use std::collections::{BTreeSet, HashMap};
 use std::path::{Path, PathBuf};
 use std::sync::Arc;
+use std::time::SystemTime;
 use walkdir::WalkDir;
 
 #[derive(Debug, Clone, Default)]
@@ -26,11 +30,19 @@ pub struct Finding {
     pub bytes: u64,
     pub is_dir: bool,
     pub report_only: bool,
+    /// Canonical rule root the path was found under. Cleaning refuses a path
+    /// that no longer resolves inside it. `None` for findings built by hand.
+    #[serde(default)]
+    pub root: Option<PathBuf>,
+    /// Age threshold the finding was judged with; re-checked before deletion.
+    #[serde(default)]
+    pub min_age_days: u64,
 }
 
 #[derive(Debug, Clone, Serialize)]
 pub struct ScanReport {
     pub findings: Vec<Finding>,
+    /// Deletable bytes with nested findings counted once.
     pub total_bytes: u64,
     pub rules_matched: usize,
     pub rules_scanned: usize,
@@ -112,19 +124,23 @@ impl<F: FnMut(JunkScanProgress)> ProgressReporter<F> {
 struct ScanResults {
     findings: Vec<Finding>,
     skipped_roots: Vec<String>,
-    matched_rules: std::collections::BTreeSet<String>,
+    matched_rules: BTreeSet<String>,
 }
 
 impl ScanResults {
     fn into_report(mut self, rules_scanned: usize) -> ScanReport {
         self.findings.sort_by(|a, b| a.path.cmp(&b.path));
         self.findings.dedup_by(|a, b| a.path == b.path);
-        let total_bytes = self
+        // A finding inside another finding is deleted with its parent, so it
+        // must not be counted twice.
+        let deletable: Vec<&Finding> = self
             .findings
             .iter()
             .filter(|finding| !finding.report_only)
-            .map(|finding| finding.bytes)
-            .sum();
+            .collect();
+        let total_bytes = crate::clean::coalesce_nested_paths(deletable, |f| f.path.as_path())
+            .iter()
+            .fold(0u64, |total, finding| total.saturating_add(finding.bytes));
         ScanReport {
             findings: self.findings,
             total_bytes,
@@ -133,6 +149,117 @@ impl ScanResults {
             skipped_roots: self.skipped_roots,
         }
     }
+}
+
+/// Compiled matchers of one rule; identical pattern lists share one `GlobSet`.
+#[derive(Clone)]
+struct RuleGlobs {
+    include: Arc<GlobSet>,
+    exclude: Arc<GlobSet>,
+    exclude_dirs: Arc<GlobSet>,
+    required_ancestor: Arc<GlobSet>,
+}
+
+impl RuleGlobs {
+    fn compile(cache: &mut GlobCache, rule: &Rule) -> Result<Self> {
+        Ok(Self {
+            include: cache.get(&rule.include_globs)?,
+            exclude: cache.get(&rule.exclude_globs)?,
+            exclude_dirs: cache.directories(&rule.exclude_globs)?,
+            required_ancestor: cache.get(&rule.required_ancestor_globs)?,
+        })
+    }
+}
+
+/// Everything that decides which paths a traversal yields and how findings
+/// are attributed. Compiled glob sets are shared per unique pattern list, so
+/// their addresses identify the patterns for the duration of a scan.
+#[derive(Hash, PartialEq, Eq)]
+struct TraversalKey {
+    root: PathBuf,
+    min_age: u64,
+    include: usize,
+    exclude: usize,
+    required_ancestor: usize,
+    match_directories: bool,
+    max_depth: usize,
+    delete_mode: DeleteMode,
+    report_only: bool,
+    risk: Risk,
+    category: String,
+}
+
+impl TraversalKey {
+    fn new(root: &Path, rule: &Rule, min_age: u64, globs: &RuleGlobs) -> Self {
+        Self {
+            root: root.to_path_buf(),
+            min_age,
+            include: Arc::as_ptr(&globs.include) as usize,
+            exclude: Arc::as_ptr(&globs.exclude) as usize,
+            required_ancestor: Arc::as_ptr(&globs.required_ancestor) as usize,
+            match_directories: rule.match_directories,
+            max_depth: rule.max_depth,
+            delete_mode: rule.delete_mode,
+            report_only: rule.report_only,
+            risk: rule.risk,
+            category: rule.category.clone(),
+        }
+    }
+}
+
+/// Memo of "does this directory contain a marker" per (marker set, directory),
+/// valid for one root traversal.
+#[derive(Default)]
+struct MarkerCache(HashMap<(usize, PathBuf), bool>);
+
+impl MarkerCache {
+    fn dir_has_marker(&mut self, dir: &Path, markers: &GlobSet) -> bool {
+        let key = (markers as *const GlobSet as usize, dir.to_path_buf());
+        if let Some(&known) = self.0.get(&key) {
+            return known;
+        }
+        let found = std::fs::read_dir(dir).ok().is_some_and(|entries| {
+            entries.filter_map(|entry| entry.ok()).any(|entry| {
+                entry
+                    .file_name()
+                    .to_str()
+                    .is_some_and(|name| markers.is_match(name))
+            })
+        });
+        self.0.insert(key, found);
+        found
+    }
+}
+
+fn min_age_for(opts: &ScanOptions, rule: &Rule) -> u64 {
+    opts.min_age_override
+        .or(opts.prefs_min_age.get(&rule.id).copied())
+        .unwrap_or(rule.min_age_days)
+}
+
+/// Resolve a rule root once: `Ok(None)` when it does not exist (silently
+/// skipped), `Err` with a reason when it exists but cannot be used.
+fn resolve_root(
+    expander: Option<&PathTemplateExpander>,
+    template: &str,
+) -> std::result::Result<Option<PathBuf>, String> {
+    let Some(expanded_root) = expander.and_then(|expander| expander.expand(template)) else {
+        return Err(format!("{template} (unexpanded)"));
+    };
+    let root = match canonical_root(&expanded_root) {
+        Ok(Some(root)) => root,
+        Ok(None) => return Ok(None),
+        Err(error) => {
+            return Err(format!(
+                "{} (cannot normalize: {error})",
+                expanded_root.display()
+            ))
+        }
+    };
+    if !is_safe_rule_root_normalized(&root) {
+        return Err(format!("{} (blocked by safety)", root.display()));
+    }
+    Ok(Some(root))
 }
 
 fn scan_rules_impl<'a>(
@@ -149,15 +276,21 @@ fn scan_rules_impl<'a>(
         ..Default::default()
     };
     let mut results = ScanResults::default();
+    if let Some(error) = crate::protection::load_error() {
+        results.skipped_roots.push(format!(
+            "protection pack unavailable, every path treated as protected: {error}"
+        ));
+    }
     let mut glob_cache = GlobCache::default();
     // Reuse identical traversal predicates, preserving rule order and first-match
     // attribution. Tags and labels may differ without changing filesystem work.
-    let mut traversals: HashMap<Vec<u8>, std::ops::Range<usize>> = HashMap::new();
+    let mut traversals: HashMap<TraversalKey, std::ops::Range<usize>> = HashMap::new();
 
     on_progress.force(&progress);
     let grouped_rule_indexes = scan_grouped_project_rules(
         &rules,
         opts,
+        expander.as_ref(),
         &mut glob_cache,
         &mut results,
         &mut progress,
@@ -177,52 +310,28 @@ fn scan_rules_impl<'a>(
             on_progress.emit(&progress);
             continue;
         }
-        let min_age = opts
-            .min_age_override
-            .or(opts.prefs_min_age.get(&rule.id).copied())
-            .unwrap_or(rule.min_age_days);
-        let include = glob_cache.get(&rule.include_globs)?;
-        let exclude = glob_cache.get(&rule.exclude_globs)?;
-        let exclude_dirs = glob_cache.directories(&rule.exclude_globs)?;
-        let required_ancestor = glob_cache.get(&rule.required_ancestor_globs)?;
+        let min_age = min_age_for(opts, rule);
+        let globs = RuleGlobs::compile(&mut glob_cache, rule)?;
 
         for template in &rule.paths {
-            let Some(expanded_root) = expander
-                .as_ref()
-                .and_then(|expander| expander.expand(template))
-            else {
-                skipped_roots.push(format!("{template} (unexpanded)"));
-                progress.roots_done += 1;
-                on_progress.emit(&progress);
-                continue;
+            let root = match resolve_root(expander.as_ref(), template) {
+                Ok(Some(root)) => root,
+                Ok(None) => {
+                    progress.roots_done += 1;
+                    on_progress.emit(&progress);
+                    continue;
+                }
+                Err(reason) => {
+                    skipped_roots.push(reason);
+                    progress.roots_done += 1;
+                    on_progress.emit(&progress);
+                    continue;
+                }
             };
-            progress.current_path = expanded_root.clone();
+            progress.current_path = root.clone();
             on_progress.emit(&progress);
-            if !expanded_root.exists() {
-                progress.roots_done += 1;
-                on_progress.emit(&progress);
-                continue;
-            }
-            let Ok(root) = normalize(&expanded_root) else {
-                skipped_roots.push(format!("{} (cannot normalize)", expanded_root.display()));
-                progress.roots_done += 1;
-                on_progress.emit(&progress);
-                continue;
-            };
-            if !is_safe_rule_root(&root) {
-                skipped_roots.push(format!("{} (blocked by safety)", root.display()));
-                progress.roots_done += 1;
-                on_progress.emit(&progress);
-                continue;
-            }
 
-            let mut traversal_rule = rule.clone();
-            traversal_rule.id.clear();
-            traversal_rule.name.clear();
-            traversal_rule.description.clear();
-            traversal_rule.tags.clear();
-            traversal_rule.paths.clear();
-            let traversal_key = bincode::serialize(&(&root, min_age, &traversal_rule))?;
+            let traversal_key = TraversalKey::new(&root, rule, min_age, &globs);
             if let Some(previous) = traversals.get(&traversal_key) {
                 if !previous.is_empty() {
                     matched_rules.insert(rule.id.clone());
@@ -234,6 +343,7 @@ fn scan_rules_impl<'a>(
                 continue;
             }
             let findings_start = findings.len();
+            let mut markers = MarkerCache::default();
             match rule.delete_mode {
                 DeleteMode::Path => {
                     if let Some(f) = consider_path(
@@ -241,9 +351,8 @@ fn scan_rules_impl<'a>(
                         &root,
                         rule,
                         min_age,
-                        &include,
-                        &exclude,
-                        &required_ancestor,
+                        &globs,
+                        &mut markers,
                         &mut progress,
                         &mut on_progress,
                     ) {
@@ -257,10 +366,8 @@ fn scan_rules_impl<'a>(
                         &root,
                         rule,
                         min_age,
-                        &include,
-                        &exclude,
-                        &exclude_dirs,
-                        &required_ancestor,
+                        &globs,
+                        &mut markers,
                         findings,
                         matched_rules,
                         &mut progress,
@@ -268,9 +375,7 @@ fn scan_rules_impl<'a>(
                     )?;
                 }
             }
-            if traversals.len() < 256 {
-                traversals.insert(traversal_key, findings_start..findings.len());
-            }
+            traversals.insert(traversal_key, findings_start..findings.len());
             progress.roots_done += 1;
             on_progress.emit(&progress);
         }
@@ -286,10 +391,7 @@ fn scan_rules_impl<'a>(
 struct CompiledProjectRule<'a> {
     rule: &'a Rule,
     min_age: u64,
-    include: Arc<GlobSet>,
-    exclude: Arc<GlobSet>,
-    exclude_dirs: Arc<GlobSet>,
-    required_ancestor: Arc<GlobSet>,
+    globs: RuleGlobs,
 }
 
 #[derive(Default)]
@@ -298,20 +400,22 @@ struct GroupedRoot {
     root_occurrences: usize,
 }
 
+#[allow(clippy::too_many_arguments)]
 fn scan_grouped_project_rules(
     rules: &[&Rule],
     opts: &ScanOptions,
+    expander: Option<&PathTemplateExpander>,
     glob_cache: &mut GlobCache,
     results: &mut ScanResults,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
-) -> Result<std::collections::BTreeSet<usize>> {
+) -> Result<BTreeSet<usize>> {
     let ScanResults {
         findings,
         skipped_roots,
         matched_rules,
     } = results;
-    let grouped_indexes: std::collections::BTreeSet<usize> = rules
+    let grouped_indexes: BTreeSet<usize> = rules
         .iter()
         .enumerate()
         .filter(|(_, rule)| {
@@ -322,10 +426,9 @@ fn scan_grouped_project_rules(
         .map(|(index, _)| index)
         .collect();
     if grouped_indexes.is_empty() {
-        return Ok(std::collections::BTreeSet::new());
+        return Ok(BTreeSet::new());
     }
 
-    let expander = PathTemplateExpander::new();
     let mut compiled = std::collections::BTreeMap::new();
     let mut roots: std::collections::BTreeMap<PathBuf, GroupedRoot> =
         std::collections::BTreeMap::new();
@@ -335,39 +438,23 @@ fn scan_grouped_project_rules(
             index,
             CompiledProjectRule {
                 rule,
-                min_age: opts
-                    .min_age_override
-                    .or(opts.prefs_min_age.get(&rule.id).copied())
-                    .unwrap_or(rule.min_age_days),
-                include: glob_cache.get(&rule.include_globs)?,
-                exclude: glob_cache.get(&rule.exclude_globs)?,
-                exclude_dirs: glob_cache.directories(&rule.exclude_globs)?,
-                required_ancestor: glob_cache.get(&rule.required_ancestor_globs)?,
+                min_age: min_age_for(opts, rule),
+                globs: RuleGlobs::compile(glob_cache, rule)?,
             },
         );
         for template in &rule.paths {
-            let Some(expanded_root) = expander
-                .as_ref()
-                .and_then(|expander| expander.expand(template))
-            else {
-                skipped_roots.push(format!("{template} (unexpanded)"));
-                progress.roots_done += 1;
-                continue;
+            let root = match resolve_root(expander, template) {
+                Ok(Some(root)) => root,
+                Ok(None) => {
+                    progress.roots_done += 1;
+                    continue;
+                }
+                Err(reason) => {
+                    skipped_roots.push(reason);
+                    progress.roots_done += 1;
+                    continue;
+                }
             };
-            if !expanded_root.exists() {
-                progress.roots_done += 1;
-                continue;
-            }
-            let Ok(root) = normalize(&expanded_root) else {
-                skipped_roots.push(format!("{} (cannot normalize)", expanded_root.display()));
-                progress.roots_done += 1;
-                continue;
-            };
-            if !is_safe_rule_root(&root) {
-                skipped_roots.push(format!("{} (blocked by safety)", root.display()));
-                progress.roots_done += 1;
-                continue;
-            }
             let group = roots.entry(root).or_default();
             group.rule_indexes.push(index);
             group.root_occurrences += 1;
@@ -405,7 +492,7 @@ fn collect_grouped_project_root(
     root: &Path,
     rules: &[&CompiledProjectRule<'_>],
     findings: &mut Vec<Finding>,
-    matched_rules: &mut std::collections::BTreeSet<String>,
+    matched_rules: &mut BTreeSet<String>,
     pending_sizes: &mut Vec<(usize, PathBuf)>,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
@@ -419,6 +506,7 @@ fn collect_grouped_project_root(
         .follow_links(false)
         .max_depth(max_depth)
         .into_iter();
+    let mut markers = MarkerCache::default();
 
     while let Some(entry) = walker.next() {
         let entry = match entry {
@@ -456,21 +544,42 @@ fn collect_grouped_project_root(
             walker.skip_current_dir();
             continue;
         }
-        if eligible
-            .iter()
-            .all(|compiled| is_excluded(path, root, &compiled.exclude_dirs))
-        {
+        let rel = path.strip_prefix(root).unwrap_or(path);
+        let rel = Candidate::new(rel);
+        let full = Candidate::new(path);
+        // Excluded directories are pruned: nothing under them is considered.
+        if eligible.iter().all(|compiled| {
+            matches_either(&compiled.globs.exclude_dirs, &rel, &full)
+                || matches_either(&compiled.globs.exclude, &rel, &full)
+        }) {
             walker.skip_current_dir();
             continue;
         }
 
+        let mut newest: Option<Option<SystemTime>> = None;
         let matching: Vec<_> = eligible
             .into_iter()
-            .filter(|compiled| !is_excluded(path, root, &compiled.exclude))
-            .filter(|compiled| path_matches(path, root, &compiled.include))
-            .filter(|compiled| is_old_enough(path, compiled.min_age))
+            .filter(|compiled| !matches_either(&compiled.globs.exclude, &rel, &full))
             .filter(|compiled| {
-                has_required_ancestor_marker(path, root, &compiled.required_ancestor)
+                compiled.globs.include.is_empty()
+                    || matches_either(&compiled.globs.include, &rel, &full)
+            })
+            .filter(|compiled| {
+                has_required_ancestor_marker(
+                    path,
+                    root,
+                    &compiled.globs.required_ancestor,
+                    &mut markers,
+                )
+            })
+            .filter(|compiled| {
+                compiled.min_age == 0 || {
+                    let modified = *newest.get_or_insert_with(|| {
+                        let own = entry.metadata().ok().and_then(|m| m.modified().ok());
+                        newest_mtime(path, own)
+                    });
+                    mtime_is_old_enough(modified, compiled.min_age)
+                }
             })
             .collect();
         if matching.is_empty() {
@@ -487,7 +596,7 @@ fn collect_grouped_project_root(
         }
         let report_only = matching
             .iter()
-            .any(|compiled| compiled.rule.report_only || compiled.rule.risk == Risk::ReportOnly);
+            .any(|compiled| compiled.rule.is_report_only());
         let finding = Finding {
             rule_id: selected.rule.id.clone(),
             category: selected.rule.category.clone(),
@@ -496,6 +605,8 @@ fn collect_grouped_project_root(
             bytes: 0,
             is_dir: true,
             report_only,
+            root: Some(root.to_path_buf()),
+            min_age_days: selected.min_age,
         };
         record_finding_progress(&finding, progress);
         pending_sizes.push((findings.len(), finding.path.clone()));
@@ -553,12 +664,10 @@ fn dir_size_quiet(path: &Path) -> u64 {
         .fold(0u64, |total, metadata| total.saturating_add(metadata.len()))
 }
 
-fn path_matches(path: &Path, root: &Path, patterns: &GlobSet) -> bool {
-    if patterns.is_empty() {
-        return true;
-    }
-    let rel = path.strip_prefix(root).unwrap_or(path);
-    patterns.is_match(rel) || patterns.is_match(path)
+/// Patterns are tested against the root-relative path and the full path so
+/// absolute globs work too.
+fn matches_either(patterns: &GlobSet, rel: &Candidate<'_>, full: &Candidate<'_>) -> bool {
+    patterns.is_match_candidate(rel) || patterns.is_match_candidate(full)
 }
 
 #[allow(clippy::too_many_arguments)]
@@ -566,12 +675,10 @@ fn collect_under(
     root: &Path,
     rule: &Rule,
     min_age: u64,
-    include: &GlobSet,
-    exclude: &GlobSet,
-    exclude_dirs: &GlobSet,
-    required_ancestor: &GlobSet,
+    globs: &RuleGlobs,
+    markers: &mut MarkerCache,
     findings: &mut Vec<Finding>,
-    matched_rules: &mut std::collections::BTreeSet<String>,
+    matched_rules: &mut BTreeSet<String>,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Result<()> {
@@ -601,59 +708,59 @@ fn collect_under(
         if path == root {
             continue;
         }
-        if entry.file_type().is_symlink() {
+        let file_type = entry.file_type();
+        if file_type.is_symlink() {
             continue;
         }
-        if entry.file_type().is_dir() {
+        if file_type.is_dir() {
             progress.folders_seen = progress.folders_seen.saturating_add(1);
-        } else if entry.file_type().is_file() {
+        } else if file_type.is_file() {
             progress.files_seen = progress.files_seen.saturating_add(1);
         }
-        if !path.starts_with(root) {
-            if entry.file_type().is_dir() {
+        if !path.starts_with(root) || is_never_touch_normalized(path) {
+            if file_type.is_dir() {
                 walker.skip_current_dir();
             }
             continue;
         }
-        if is_never_touch_normalized(path) {
-            if entry.file_type().is_dir() {
+        if file_type.is_dir() {
+            let rel = Candidate::new(path.strip_prefix(root).unwrap_or(path));
+            let full = Candidate::new(path);
+            // Excluded directories (`**/node_modules`, `**/.git/**`) are pruned.
+            if matches_either(&globs.exclude_dirs, &rel, &full)
+                || matches_either(&globs.exclude, &rel, &full)
+            {
                 walker.skip_current_dir();
+                continue;
             }
-            continue;
-        }
-        if entry.file_type().is_dir() && is_excluded(path, root, exclude_dirs) {
-            walker.skip_current_dir();
-            continue;
-        }
-        if deep && entry.file_type().is_dir() {
-            if rule.match_directories {
-                if let Some(f) = consider_path(
-                    path,
-                    root,
-                    rule,
-                    min_age,
-                    include,
-                    exclude,
-                    required_ancestor,
-                    progress,
-                    on_progress,
-                ) {
-                    matched_rules.insert(rule.id.clone());
-                    record_finding_progress(&f, progress);
-                    findings.push(f);
-                    walker.skip_current_dir();
+            if deep {
+                if rule.match_directories {
+                    if let Some(f) = consider_path(
+                        path,
+                        root,
+                        rule,
+                        min_age,
+                        globs,
+                        markers,
+                        progress,
+                        on_progress,
+                    ) {
+                        matched_rules.insert(rule.id.clone());
+                        record_finding_progress(&f, progress);
+                        findings.push(f);
+                        walker.skip_current_dir();
+                    }
                 }
+                continue;
             }
-            continue;
         }
         if let Some(f) = consider_path(
             path,
             root,
             rule,
             min_age,
-            include,
-            exclude,
-            required_ancestor,
+            globs,
+            markers,
             progress,
             on_progress,
         ) {
@@ -663,11 +770,6 @@ fn collect_under(
         }
     }
     Ok(())
-}
-
-fn is_excluded(path: &Path, root: &Path, exclude: &GlobSet) -> bool {
-    let rel = path.strip_prefix(root).unwrap_or(path);
-    exclude.is_match(rel) || exclude.is_match(path)
 }
 
 fn record_finding_progress(finding: &Finding, progress: &mut JunkScanProgress) {
@@ -683,58 +785,57 @@ fn record_finding_progress(finding: &Finding, progress: &mut JunkScanProgress) {
     }
 }
 
+/// One `symlink_metadata` per candidate; directories are sized and aged in a
+/// single walk.
 #[allow(clippy::too_many_arguments)]
 fn consider_path(
     path: &Path,
     root: &Path,
     rule: &Rule,
     min_age: u64,
-    include: &GlobSet,
-    exclude: &GlobSet,
-    required_ancestor: &GlobSet,
+    globs: &RuleGlobs,
+    markers: &mut MarkerCache,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Option<Finding> {
-    if !is_old_enough(path, min_age) {
-        return None;
-    }
-
-    let rel = path.strip_prefix(root).unwrap_or(path);
-    if is_excluded(path, root, exclude) {
-        return None;
-    }
-    let rel_str = rel.to_string_lossy();
-    // Also test with full path for absolute globs
-    let full_str = path.to_string_lossy();
-    if !include.is_empty()
-        && !include.is_match(rel_str.as_ref())
-        && !include.is_match(full_str.as_ref())
-    {
-        return None;
-    }
-    if !has_required_ancestor_marker(path, root, required_ancestor) {
-        return None;
-    }
-
     let meta = path.symlink_metadata().ok()?;
     // Do not follow symlinks for deletion candidates
     if meta.file_type().is_symlink() {
         return None;
     }
 
+    let rel = Candidate::new(path.strip_prefix(root).unwrap_or(path));
+    let full = Candidate::new(path);
+    if matches_either(&globs.exclude, &rel, &full) {
+        return None;
+    }
+    if !globs.include.is_empty() && !matches_either(&globs.include, &rel, &full) {
+        return None;
+    }
+    if !has_required_ancestor_marker(path, root, &globs.required_ancestor, markers) {
+        return None;
+    }
+
     let is_dir = meta.is_dir();
-    let bytes = if is_dir {
-        dir_size(path, progress, on_progress)
+    let own_modified = meta.modified().ok();
+    let (bytes, modified) = if is_dir {
+        let stats = dir_stats(path, progress, on_progress);
+        let newest = match (own_modified, stats.newest) {
+            (Some(a), Some(b)) => Some(a.max(b)),
+            (a, b) => a.or(b),
+        };
+        (stats.bytes, newest)
     } else {
-        meta.len()
+        (meta.len(), own_modified)
     };
+    if !mtime_is_old_enough(modified, min_age) {
+        return None;
+    }
 
     // Skip empty noise
     if bytes == 0 && !is_dir {
         return None;
     }
-
-    let report_only = rule.report_only || matches!(rule.risk, Risk::ReportOnly);
 
     Some(Finding {
         rule_id: rule.id.clone(),
@@ -743,24 +844,24 @@ fn consider_path(
         path: path.to_path_buf(),
         bytes,
         is_dir,
-        report_only,
+        report_only: rule.is_report_only(),
+        root: Some(root.to_path_buf()),
+        min_age_days: min_age,
     })
 }
 
-fn has_required_ancestor_marker(path: &Path, root: &Path, markers: &GlobSet) -> bool {
+fn has_required_ancestor_marker(
+    path: &Path,
+    root: &Path,
+    markers: &GlobSet,
+    cache: &mut MarkerCache,
+) -> bool {
     if markers.is_empty() {
         return true;
     }
     let mut dir = path.parent();
     while let Some(current) = dir {
-        if std::fs::read_dir(current).ok().is_some_and(|entries| {
-            entries.filter_map(|entry| entry.ok()).any(|entry| {
-                entry
-                    .file_name()
-                    .to_str()
-                    .is_some_and(|name| markers.is_match(name))
-            })
-        }) {
+        if cache.dir_has_marker(current, markers) {
             return true;
         }
         if current == root {
@@ -771,12 +872,20 @@ fn has_required_ancestor_marker(path: &Path, root: &Path, markers: &GlobSet) -> 
     false
 }
 
-fn dir_size(
+struct DirStats {
+    bytes: u64,
+    newest: Option<SystemTime>,
+}
+
+fn dir_stats(
     path: &Path,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
-) -> u64 {
-    let mut bytes = 0u64;
+) -> DirStats {
+    let mut stats = DirStats {
+        bytes: 0,
+        newest: None,
+    };
     for entry in WalkDir::new(path)
         .follow_links(false)
         .into_iter()
@@ -784,12 +893,18 @@ fn dir_size(
         .skip(1)
     {
         progress.entries_seen = progress.entries_seen.saturating_add(1);
-        if entry.file_type().is_dir() {
+        let file_type = entry.file_type();
+        if file_type.is_dir() {
             progress.folders_seen = progress.folders_seen.saturating_add(1);
-        } else if entry.file_type().is_file() {
+        } else if file_type.is_file() {
             progress.files_seen = progress.files_seen.saturating_add(1);
-            if let Ok(meta) = entry.metadata() {
-                bytes = bytes.saturating_add(meta.len());
+        }
+        if let Ok(meta) = entry.metadata() {
+            if file_type.is_file() {
+                stats.bytes = stats.bytes.saturating_add(meta.len());
+            }
+            if let Ok(modified) = meta.modified() {
+                stats.newest = Some(stats.newest.map_or(modified, |n| n.max(modified)));
             }
         }
         if progress.entries_seen.is_multiple_of(128) {
@@ -797,7 +912,7 @@ fn dir_size(
             on_progress.emit(progress);
         }
     }
-    bytes
+    stats
 }
 
 /// Per-scan cache: share compiled patterns across rules, including empty sets.
@@ -813,11 +928,9 @@ impl GlobCache {
         if let Some(compiled) = self.patterns.get(patterns) {
             return Ok(Arc::clone(compiled));
         }
-        let compiled = Arc::new(build_globset(patterns, false)?);
-        if self.patterns.len() < 256 {
-            self.patterns
-                .insert(patterns.to_vec(), Arc::clone(&compiled));
-        }
+        let compiled = Arc::new(build_globset(patterns)?);
+        self.patterns
+            .insert(patterns.to_vec(), Arc::clone(&compiled));
         Ok(compiled)
     }
 
@@ -826,26 +939,21 @@ impl GlobCache {
             return Ok(Arc::clone(compiled));
         }
         let compiled = Arc::new(build_directory_exclude_globset(patterns)?);
-        if self.directories.len() < 256 {
-            self.directories
-                .insert(patterns.to_vec(), Arc::clone(&compiled));
-        }
+        self.directories
+            .insert(patterns.to_vec(), Arc::clone(&compiled));
         Ok(compiled)
     }
 }
 
-fn build_globset(patterns: &[String], default_all_if_empty: bool) -> Result<GlobSet> {
+fn build_globset(patterns: &[String]) -> Result<GlobSet> {
     let mut builder = GlobSetBuilder::new();
-    if patterns.is_empty() && default_all_if_empty {
-        // empty include = match all (handled by is_empty check in consider_path)
-        return Ok(builder.build()?);
-    }
     for p in patterns {
         builder.add(Glob::new(p)?);
     }
     Ok(builder.build()?)
 }
 
+/// `dir/**` excludes everything inside `dir`, so `dir` itself can be pruned.
 fn build_directory_exclude_globset(patterns: &[String]) -> Result<GlobSet> {
     let mut builder = GlobSetBuilder::new();
     for pattern in patterns {
@@ -860,8 +968,8 @@ fn build_directory_exclude_globset(patterns: &[String]) -> Result<GlobSet> {
 mod tests {
     use super::*;
     use crate::rules::{JunkKind, Platform};
+    use crate::safety::normalize;
     use std::fs;
-    use std::time::{SystemTime, UNIX_EPOCH};
 
     #[test]
     fn progress_is_rate_limited_and_always_reports_empty_scan_boundaries() {
@@ -889,12 +997,8 @@ mod tests {
 
     #[test]
     fn cached_patterns_preserve_matching_and_invalid_pattern_errors() {
-        let unique = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_nanos();
-        let root = std::env::temp_dir().join(format!("space-pattern-cache-{unique}"));
-        fs::create_dir_all(&root).unwrap();
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
         fs::write(root.join("a.log"), b"log").unwrap();
         fs::write(root.join("b.tmp"), b"tmp!").unwrap();
         fs::write(root.join("keep.log"), b"keep").unwrap();
@@ -919,19 +1023,33 @@ exclude_globs: ['**/keep.log']
         assert_eq!(report.findings.len(), 2);
         assert_eq!(report.total_bytes, 7);
         assert_eq!(report.rules_matched, 2);
+        let canonical = normalize(root).unwrap();
+        assert!(report
+            .findings
+            .iter()
+            .all(|f| f.root.as_deref() == Some(canonical.as_path()) && f.min_age_days == 0));
         let duplicate = scan_rules([&rule, &rule], &ScanOptions::default()).unwrap();
         assert_eq!(duplicate.findings.len(), 1);
         assert_eq!(duplicate.total_bytes, 3);
+        // A root that does not exist is skipped silently, not reported.
         rule.paths = vec![root.join("missing").to_string_lossy().into_owned()];
+        let missing = scan_rules([&rule], &ScanOptions::default()).unwrap();
+        assert!(missing.findings.is_empty());
+        assert!(missing.skipped_roots.is_empty());
         rule.include_globs = vec!["[".into()];
         assert!(scan_rules([&rule], &ScanOptions::default()).is_err());
-        fs::remove_dir_all(root).unwrap();
+        // Relative or unexpandable roots are reported.
+        rule.include_globs.clear();
+        rule.paths = vec!["relative/cache".into(), "$NOPE_VARIABLE/x".into()];
+        let unexpanded = scan_rules([&rule], &ScanOptions::default()).unwrap();
+        assert_eq!(unexpanded.skipped_roots.len(), 2);
+        assert!(unexpanded.skipped_roots[0].contains("unexpanded"));
     }
 
     #[test]
     fn repeated_traversals_preserve_attribution_preferences_and_exclusions() {
-        let root =
-            std::env::temp_dir().join(format!("space-shared-traversal-{}", std::process::id()));
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
         fs::create_dir_all(root.join("excluded")).unwrap();
         fs::write(root.join("a.log"), b"abc").unwrap();
         fs::write(root.join("excluded/hidden.log"), b"hidden").unwrap();
@@ -965,16 +1083,112 @@ exclude_globs: ['**/keep.log']
         second.exclude_globs.clear();
         let distinct = scan_rules([&first, &second], &ScanOptions::default()).unwrap();
         assert_eq!(distinct.findings.len(), 2);
-        fs::remove_dir_all(root).unwrap();
+    }
+
+    #[test]
+    fn excluded_directories_are_pruned_even_without_a_contents_suffix() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::create_dir_all(root.join("project/node_modules/pkg")).unwrap();
+        fs::create_dir_all(root.join("project/src")).unwrap();
+        fs::write(root.join("project/node_modules/pkg/debug.log"), b"nm").unwrap();
+        fs::write(root.join("project/src/debug.log"), b"src").unwrap();
+        let mut rule: Rule = serde_yaml::from_str(
+            "id: logs\nname: logs\ndescription: prune\npaths: []\nmin_age_days: 0\ninclude_globs: ['**/*.log']\nexclude_globs: ['**/node_modules']\n",
+        )
+        .unwrap();
+        rule.paths = vec![root.to_string_lossy().into_owned()];
+        let mut progress = JunkScanProgress::default();
+        let report =
+            scan_rules_with_progress([&rule], &ScanOptions::default(), |p| progress = p).unwrap();
+        assert_eq!(report.findings.len(), 1);
+        assert!(report.findings[0].path.ends_with("src/debug.log"));
+        // node_modules itself is seen, nothing below it is.
+        assert_eq!(progress.files_seen, 1, "{progress:?}");
+        assert_eq!(progress.folders_seen, 3);
+    }
+
+    #[test]
+    fn nested_findings_count_once_in_total_bytes() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::create_dir_all(root.join("cache/sub")).unwrap();
+        fs::write(root.join("cache/sub/a.bin"), b"12345").unwrap();
+        fs::write(root.join("cache/b.bin"), b"67").unwrap();
+        fs::write(root.join("loose.bin"), b"8").unwrap();
+        // Top-level units: `cache` (7 bytes) and `loose.bin` (1 byte).
+        let mut units: Rule = serde_yaml::from_str(
+            "id: units\nname: units\ndescription: top-level\npaths: []\nmin_age_days: 0\n",
+        )
+        .unwrap();
+        units.paths = vec![root.to_string_lossy().into_owned()];
+        // Deep files: `cache/sub/a.bin`, `cache/b.bin`, `loose.bin`.
+        let mut files = units.clone();
+        files.id = "files".into();
+        files.include_globs = vec!["**/*.bin".into()];
+        let report = scan_rules([&units, &files], &ScanOptions::default()).unwrap();
+        assert_eq!(report.findings.len(), 4);
+        assert_eq!(
+            report.findings.iter().map(|f| f.bytes).sum::<u64>(),
+            15,
+            "raw sum double counts nested entries"
+        );
+        assert_eq!(report.total_bytes, 8);
+        // Report-only parents do not absorb deletable children.
+        let mut report_units = units.clone();
+        report_units.report_only = true;
+        let mixed = scan_rules([&files, &report_units], &ScanOptions::default()).unwrap();
+        assert_eq!(mixed.total_bytes, 8);
+    }
+
+    #[test]
+    fn directory_units_are_young_when_anything_inside_is_recent() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        fs::create_dir_all(root.join("stale/deep")).unwrap();
+        fs::create_dir_all(root.join("active/deep")).unwrap();
+        let ancient = SystemTime::now() - std::time::Duration::from_secs(40 * 24 * 3600);
+        let backdate = |path: &Path| {
+            fs::File::options()
+                .write(path.is_file())
+                .read(true)
+                .open(path)
+                .unwrap()
+                .set_times(fs::FileTimes::new().set_modified(ancient))
+                .unwrap();
+        };
+        for sub in ["stale", "active"] {
+            fs::write(root.join(sub).join("deep/old.bin"), b"old!").unwrap();
+            backdate(&root.join(sub).join("deep/old.bin"));
+        }
+        fs::write(root.join("active/deep/new.bin"), b"new").unwrap();
+        for path in [
+            "stale/deep",
+            "stale",
+            "active/deep",
+            "active",
+        ] {
+            backdate(&root.join(path));
+        }
+        let mut rule: Rule = serde_yaml::from_str(
+            "id: units\nname: units\ndescription: dir age\npaths: []\nmin_age_days: 7\n",
+        )
+        .unwrap();
+        rule.paths = vec![root.to_string_lossy().into_owned()];
+        let report = scan_rules([&rule], &ScanOptions::default()).unwrap();
+        let paths: Vec<_> = report
+            .findings
+            .iter()
+            .map(|f| f.path.file_name().unwrap().to_string_lossy().into_owned())
+            .collect();
+        assert_eq!(paths, ["stale"], "{report:?}");
+        assert_eq!(report.findings[0].min_age_days, 7);
     }
 
     #[test]
     fn matches_bin_obj_only_inside_dotnet_project() {
-        let unique = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_nanos();
-        let root = std::env::temp_dir().join(format!("space-csharp-{unique}"));
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
         let project = root.join("Sample");
         let unrelated = root.join("Unrelated");
         fs::create_dir_all(project.join("bin/Debug")).unwrap();
@@ -1010,15 +1224,26 @@ exclude_globs: ['**/keep.log']
             delete_mode: DeleteMode::Contents,
             report_only: false,
             tags: vec![],
+            inferred_tags: vec![],
         };
-        let exclude = build_globset(&rule.exclude_globs, false).unwrap();
+        let exclude = build_globset(&rule.exclude_globs).unwrap();
         let exclude_dirs = build_directory_exclude_globset(&rule.exclude_globs).unwrap();
-        assert!(!is_excluded(&project.join("bin"), &root, &exclude));
+        let candidate = |path: &Path| {
+            let rel = path.strip_prefix(root).unwrap().to_path_buf();
+            (rel, path.to_path_buf())
+        };
+        let (rel, full) = candidate(&project.join("bin"));
+        assert!(!matches_either(
+            &exclude,
+            &Candidate::new(&rel),
+            &Candidate::new(&full)
+        ));
         assert!(exclude_dirs.is_match("Sample/node_modules"));
-        assert!(is_excluded(
-            &project.join("node_modules"),
-            &root,
-            &exclude_dirs
+        let (rel, full) = candidate(&project.join("node_modules"));
+        assert!(matches_either(
+            &exclude_dirs,
+            &Candidate::new(&rel),
+            &Candidate::new(&full)
         ));
 
         let mut last_progress = JunkScanProgress::default();
@@ -1099,6 +1324,5 @@ exclude_globs: ['**/keep.log']
         assert_eq!(mixed_progress.roots_done, 3);
         assert_eq!(mixed_progress.bytes_found, 9);
         assert!(mixed.skipped_roots.is_empty());
-        fs::remove_dir_all(root).unwrap();
     }
 }

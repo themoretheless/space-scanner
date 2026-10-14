@@ -1,3 +1,9 @@
+use std::borrow::Cow;
+use std::cmp::{Ordering, Reverse};
+use std::collections::BinaryHeap;
+use std::ffi::OsStr;
+use std::path::PathBuf;
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
@@ -12,6 +18,7 @@ pub enum SizeMode {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Node {
+    /// Display name: NFC-normalized, lossily converted to UTF-8.
     pub name: String,
     /// Logical size (sum of file lengths / subtree).
     pub apparent_size: u64,
@@ -25,6 +32,10 @@ pub struct Node {
     /// Children pre-sorted by allocated_size desc at scan time.
     pub children: Vec<NodeId>,
     pub parent: Option<NodeId>,
+    /// Exact on-disk name bytes, present only when they differ from `name`
+    /// (non-UTF-8 or NFD names). Used to rebuild real filesystem paths.
+    #[serde(default)]
+    pub raw_name: Option<Vec<u8>>,
 }
 
 impl Node {
@@ -34,6 +45,25 @@ impl Node {
             SizeMode::OnDisk => self.allocated_size,
         }
     }
+
+    /// The real on-disk file name (falls back to the display name).
+    pub fn os_name(&self) -> Cow<'_, OsStr> {
+        match &self.raw_name {
+            Some(raw) => raw_os_name(raw),
+            None => Cow::Borrowed(OsStr::new(&self.name)),
+        }
+    }
+}
+
+#[cfg(unix)]
+fn raw_os_name(raw: &[u8]) -> Cow<'_, OsStr> {
+    use std::os::unix::ffi::OsStrExt;
+    Cow::Borrowed(OsStr::from_bytes(raw))
+}
+
+#[cfg(not(unix))]
+fn raw_os_name(raw: &[u8]) -> Cow<'_, OsStr> {
+    Cow::Owned(String::from_utf8_lossy(raw).into_owned().into())
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -68,13 +98,8 @@ impl SpaceTree {
         &self.node(id).children
     }
 
-    /// Compatibility: returns owned sorted list (already sorted).
-    pub fn children_sorted(&self, id: NodeId) -> Vec<NodeId> {
-        self.children(id).to_vec()
-    }
-
     pub fn path_to(&self, id: NodeId) -> Vec<NodeId> {
-        let mut chain = Vec::new();
+        let mut chain = Vec::with_capacity(16);
         let mut cur = Some(id);
         while let Some(n) = cur {
             chain.push(n);
@@ -99,20 +124,12 @@ impl SpaceTree {
         self.node(self.root).size(mode)
     }
 
-    /// Normalize names to NFC (macOS often stores NFD; UI fonts expect NFC).
-    pub fn normalize_unicode_names(&mut self) {
-        use unicode_normalization::UnicodeNormalization;
-        self.root_path = self.root_path.nfc().collect();
-        for node in &mut self.nodes {
-            let nfc: String = node.name.nfc().collect();
-            if nfc != node.name {
-                node.name = nfc;
-            }
-        }
-    }
-
+    /// Display path (lossy, NFC). Use [`SpaceTree::path_os`] for filesystem access.
     pub fn path_string(&self, id: NodeId) -> String {
         let chain = self.path_to(id);
+        if chain.iter().any(|&n| self.node(n).raw_name.is_some()) {
+            return self.path_os(id).to_string_lossy().into_owned();
+        }
         let root = self.root_path.trim_end_matches('/');
         let capacity = root.len()
             + chain
@@ -125,6 +142,20 @@ impl SpaceTree {
         for &node in chain.iter().skip(1) {
             path.push('/');
             path.push_str(&self.node(node).name);
+        }
+        path
+    }
+
+    /// Real on-disk path built from raw name bytes where they differ from
+    /// the display name. Synthetic nodes have no path of their own.
+    pub fn path_os(&self, id: NodeId) -> PathBuf {
+        let chain = self.path_to(id);
+        let mut path = PathBuf::from(self.root_path.trim_end_matches('/'));
+        if path.as_os_str().is_empty() {
+            path.push("/");
+        }
+        for &node in chain.iter().skip(1) {
+            path.push(self.node(node).os_name());
         }
         path
     }
@@ -184,7 +215,7 @@ impl SpaceTree {
         files
     }
 
-    fn compare_nodes(&self, a: NodeId, b: NodeId, mode: SizeMode) -> std::cmp::Ordering {
+    fn compare_nodes(&self, a: NodeId, b: NodeId, mode: SizeMode) -> Ordering {
         self.node(b)
             .size(mode)
             .cmp(&self.node(a).size(mode))
@@ -210,17 +241,95 @@ impl SpaceTree {
         }
     }
 
+    /// Re-sort every directory's children: size desc, then name, then id.
     pub fn sort_children_by(&mut self, mode: SizeMode) {
-        // Re-sort all dirs by chosen mode (after scan we sort by allocated).
         for i in 0..self.nodes.len() {
             if !self.nodes[i].is_dir {
                 continue;
             }
             let mut kids = std::mem::take(&mut self.nodes[i].children);
-            kids.sort_by(|&a, &b| self.compare_nodes(a, b, mode));
+            kids.sort_unstable_by(|&a, &b| {
+                self.compare_nodes(a, b, mode)
+                    .then_with(|| a.0.cmp(&b.0))
+            });
             self.nodes[i].children = kids;
         }
     }
+
+    /// Checks structural invariants: dense ids, root at 0 without a parent,
+    /// every child pointing back at its parent, `item_count` matching.
+    pub fn validate(&self) -> Result<(), String> {
+        let len = self.nodes.len();
+        if len == 0 {
+            return Err("tree has no nodes".into());
+        }
+        if self.root != NodeId(0) {
+            return Err(format!("root id {} is not 0", self.root.0));
+        }
+        if self.item_count != len as u64 {
+            return Err(format!("item_count {} != nodes {len}", self.item_count));
+        }
+        if self.nodes[0].parent.is_some() {
+            return Err("root has a parent".into());
+        }
+        for (i, node) in self.nodes.iter().enumerate() {
+            if let Some(parent) = node.parent {
+                let p = parent.0 as usize;
+                if p >= len {
+                    return Err(format!("node {i} parent {p} out of range"));
+                }
+                if !self.nodes[p].children.contains(&NodeId(i as u32)) {
+                    return Err(format!("node {i} missing from parent {p}"));
+                }
+            } else if i != 0 {
+                return Err(format!("node {i} has no parent"));
+            }
+            for child in &node.children {
+                let c = child.0 as usize;
+                if c >= len {
+                    return Err(format!("node {i} child {c} out of range"));
+                }
+                if self.nodes[c].parent != Some(NodeId(i as u32)) {
+                    return Err(format!("child {c} does not point back at {i}"));
+                }
+            }
+        }
+        Ok(())
+    }
+}
+
+/// Largest entries across the whole tree, excluding the root and synthetic
+/// small-file aggregates. Ties keep the lower node id first. Directory totals
+/// overlap their descendants.
+pub fn largest_entries(
+    tree: &SpaceTree,
+    mode: SizeMode,
+    limit: usize,
+    dirs: bool,
+    files: bool,
+) -> Vec<NodeId> {
+    if limit == 0 || !(dirs || files) {
+        return Vec::new();
+    }
+    let mut heap = BinaryHeap::with_capacity(limit.saturating_add(1).min(tree.nodes.len()));
+    for (i, node) in tree.nodes.iter().enumerate() {
+        if i == tree.root.0 as usize || node.synthetic {
+            continue;
+        }
+        if (node.is_dir && !dirs) || (!node.is_dir && !files) {
+            continue;
+        }
+        heap.push(Reverse((node.size(mode), Reverse(i))));
+        if heap.len() > limit {
+            heap.pop();
+        }
+    }
+    let mut ranked: Vec<_> = heap.into_iter().map(|Reverse(v)| v).collect();
+    ranked.sort_unstable_by(|a, b| b.cmp(a));
+    ranked
+        .into_iter()
+        .map(|(_, Reverse(i))| NodeId(i as u32))
+        .collect()
 }
 
 #[cfg(test)]
@@ -237,6 +346,7 @@ mod tests {
             synthetic: false,
             children: Vec::new(),
             parent,
+            raw_name: None,
         }
     }
 
@@ -369,8 +479,30 @@ mod tests {
         assert_eq!(tree.path_string(root), "/tmp/root");
         assert_eq!(tree.path_string(directory), "/tmp/root/résumé");
         assert_eq!(tree.path_string(file), "/tmp/root/résumé/· 3 small files");
+        assert_eq!(tree.path_os(directory), PathBuf::from("/tmp/root/résumé"));
         tree.root_path = "/".into();
         assert_eq!(tree.path_string(directory), "/résumé");
+        assert_eq!(tree.path_os(directory), PathBuf::from("/résumé"));
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn path_os_uses_raw_bytes_when_present() {
+        use std::os::unix::ffi::OsStrExt;
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let mut nfd = node("é", Some(root), true);
+        nfd.raw_name = Some("e\u{301}".as_bytes().to_vec());
+        let nfd = add_node(&mut tree, root, nfd);
+        let mut bad = node("\u{FFFD}", Some(nfd), false);
+        bad.raw_name = Some(vec![0xff]);
+        let bad = add_node(&mut tree, nfd, bad);
+        assert_eq!(
+            tree.path_os(bad).as_os_str().as_bytes(),
+            b"/tmp/root/e\xcc\x81/\xff"
+        );
+        assert_eq!(tree.path_string(nfd), "/tmp/root/e\u{301}");
+        assert_eq!(tree.path_string(bad), "/tmp/root/e\u{301}/\u{FFFD}");
     }
 
     #[test]
@@ -387,6 +519,7 @@ mod tests {
                             .size(mode)
                             .cmp(&tree.node(a).size(mode))
                             .then_with(|| tree.node(a).name.cmp(&tree.node(b).name))
+                            .then_with(|| a.0.cmp(&b.0))
                     });
                     children
                 })
@@ -396,5 +529,91 @@ mod tests {
                 assert_eq!(node.children, expected);
             }
         }
+    }
+
+    #[test]
+    fn remove_node_updates_counts_up_the_chain() {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let dir = add_node(&mut tree, root, node("dir", Some(root), true));
+        let mut file = node("file", Some(dir), false);
+        file.apparent_size = 10;
+        file.allocated_size = 12;
+        let file = add_node(&mut tree, dir, file);
+        let mut other = node("other", Some(root), false);
+        other.apparent_size = 5;
+        other.allocated_size = 8;
+        add_node(&mut tree, root, other);
+        for id in [dir, root] {
+            let n = tree.node_mut(id);
+            n.apparent_size = 10;
+            n.allocated_size = 12;
+            n.file_count = 1;
+        }
+        let r = tree.node_mut(root);
+        r.apparent_size += 5;
+        r.allocated_size += 8;
+        r.file_count += 1;
+        assert!(tree.validate().is_ok());
+
+        tree.remove_node(file);
+        assert_eq!(tree.children(dir), &[]);
+        assert_eq!(tree.node(dir).file_count, 0);
+        assert_eq!(tree.node(dir).allocated_size, 0);
+        assert_eq!(tree.node(root).file_count, 1);
+        assert_eq!(tree.node(root).apparent_size, 5);
+        assert_eq!(tree.node(root).allocated_size, 8);
+        // Removing the root is a no-op.
+        tree.remove_node(root);
+        assert_eq!(tree.node(root).file_count, 1);
+    }
+
+    #[test]
+    fn largest_entries_skips_root_and_synthetic_and_filters_kinds() {
+        let tree = mixed_tree();
+        let all = largest_entries(&tree, SizeMode::OnDisk, usize::MAX, true, true);
+        assert_eq!(
+            all.len(),
+            tree.nodes
+                .iter()
+                .enumerate()
+                .filter(|(i, n)| *i != 0 && !n.synthetic)
+                .count()
+        );
+        for w in all.windows(2) {
+            let (a, b) = (tree.node(w[0]), tree.node(w[1]));
+            assert!(a.allocated_size >= b.allocated_size);
+            if a.allocated_size == b.allocated_size {
+                assert!(w[0].0 < w[1].0);
+            }
+        }
+        let top = largest_entries(&tree, SizeMode::OnDisk, 5, true, true);
+        assert_eq!(top, all[..5].to_vec());
+        assert!(largest_entries(&tree, SizeMode::Apparent, 3, true, false)
+            .iter()
+            .all(|id| tree.node(*id).is_dir));
+        assert!(largest_entries(&tree, SizeMode::Apparent, 3, false, true)
+            .iter()
+            .all(|id| !tree.node(*id).is_dir));
+        assert!(largest_entries(&tree, SizeMode::Apparent, 3, false, false).is_empty());
+        assert!(largest_entries(&tree, SizeMode::Apparent, 0, true, true).is_empty());
+    }
+
+    #[test]
+    fn validate_detects_broken_links() {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let dir = add_node(&mut tree, root, node("dir", Some(root), true));
+        assert!(tree.validate().is_ok());
+        tree.node_mut(dir).parent = None;
+        assert!(tree.validate().is_err());
+        tree.node_mut(dir).parent = Some(NodeId(9));
+        assert!(tree.validate().is_err());
+        tree.node_mut(dir).parent = Some(root);
+        tree.node_mut(root).children.push(NodeId(42));
+        assert!(tree.validate().is_err());
+        tree.node_mut(root).children.pop();
+        tree.item_count = 5;
+        assert!(tree.validate().is_err());
     }
 }

@@ -1,5 +1,42 @@
 # Scan performance
 
+## October 2026 optimization wave
+
+Scan workers now push subdirectories to their own work-stealing deque (the
+injector only seeds the root), park with a backoff instead of a 50 µs sleep,
+emit directory and file records into separate per-worker shards (no merge and
+partition pass), and build `Node`s directly from records. Hardlink ownership is
+resolved once after the merge, deterministically by path, so there is no shared
+inode lock in the file hot path. Children sort with `sort_unstable_by` and an id
+tie-break. The cache key hashes raw `OsStr` bytes and canonicalizes once.
+
+Linux, 4 cores, release, airbug-bench quick profile (medians, uncontrolled load):
+
+| Case | Before | After |
+|---|---:|---:|
+| 512 files | 7.88 ms | 1.28 ms |
+| 4096 files | 5.23 ms | 3.71 ms |
+| 65,536 files | 27.8 ms | 31.6 ms (noise) |
+| Rescan 256 of 4096 | 0.75 ms | 0.79 ms (noise) |
+
+Small and medium trees lose the idle-sleep tail; the 65k case is bound by
+`read_dir`/`stat` syscalls.
+
+Junk rules (1.5M rules, 685 MB of YAML): the loader fingerprints sources by
+(length, mtime) and hashes content only on change, parses files in parallel with
+rayon and merges deterministically, builds id/category/tag/host indexes once per
+shared pack, compiles each unique glob list once (the 256-entry caps are gone),
+memoizes ancestor-marker checks per directory, and takes one `symlink_metadata`
+per candidate. `space rules status` on the same box: cold 53.4 s → 29.7 s, warm
+3.4–6.4 s → 4.7–5.2 s (now dominated by deserializing tag strings). The
+space-clean test suite dropped from ~5 min to ~85 s.
+
+UI: contents tree and table are virtualised with `ScrollArea::show_rows`, the
+children→filter→sort→palette→rows pipeline is cached per (folder, mode, filter,
+expanded set, tree generation), review-queue bytes and basket summaries are
+cached, map geometry is cached per quantized rect origin and size (cascade
+included) and scaled during zoom transitions instead of rebuilt per frame.
+
 ## September 2026 optimization
 
 The scan now assigns directory IDs before enqueueing work. Records store a parent

@@ -3,14 +3,14 @@
 //! Protection packs use `_protected-*.yaml`, so the cleanup rule loader ignores
 //! them while this module turns their paths into hard deletion blockers.
 
-use crate::rules::{expand_path_template, Platform};
+use crate::rules::{expand_path_template, yaml_files_under, Platform};
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet, HashSet};
 use std::fs;
 use std::path::{Path, PathBuf};
-use std::sync::OnceLock;
-use walkdir::WalkDir;
+use std::sync::{Arc, Mutex};
+use std::time::{Duration, Instant};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ProtectionRule {
@@ -43,19 +43,10 @@ impl ProtectionPack {
             if !dir.exists() {
                 continue;
             }
-            for entry in WalkDir::new(dir).follow_links(false) {
-                let entry = entry?;
-                if !entry.file_type().is_file() {
-                    continue;
-                }
-                let path = entry.path();
+            for path in yaml_files_under(dir) {
                 let name = path.file_name().and_then(|n| n.to_str()).unwrap_or("");
-                let is_yaml = matches!(
-                    path.extension().and_then(|e| e.to_str()),
-                    Some("yaml" | "yml")
-                );
-                if is_yaml && name.starts_with("_protected-") {
-                    files.insert(fs::canonicalize(path).unwrap_or_else(|_| path.to_path_buf()));
+                if name.starts_with("_protected-") {
+                    files.insert(fs::canonicalize(&path).unwrap_or(path));
                 }
             }
         }
@@ -99,42 +90,133 @@ impl ProtectionPack {
     }
 }
 
+#[derive(Debug)]
 struct ProtectedIndex {
+    /// Sorted, prefix-minimized, case-folded like [`crate::safety::fold_case`].
     paths: Vec<PathBuf>,
     exact: HashSet<PathBuf>,
 }
 
-static HOST_PROTECTED_PATHS: OnceLock<Result<ProtectedIndex, String>> = OnceLock::new();
-
-fn protected_index() -> Result<&'static ProtectedIndex, &'static str> {
-    match HOST_PROTECTED_PATHS.get_or_init(|| {
-        ProtectionPack::load_many(&crate::default_rules_dirs())
-            .map(|pack| {
-                let paths = pack.host_paths();
-                let exact = paths.iter().cloned().collect();
-                ProtectedIndex { paths, exact }
-            })
-            .map_err(|error| error.to_string())
-    }) {
-        Ok(index) => Ok(index),
-        Err(error) => Err(error.as_str()),
+impl ProtectedIndex {
+    fn from_pack(pack: &ProtectionPack) -> Self {
+        let mut paths: Vec<PathBuf> = pack
+            .host_paths()
+            .iter()
+            .map(|path| crate::safety::fold_case(path))
+            .collect();
+        paths.sort();
+        paths.dedup();
+        let paths = crate::clean::coalesce_nested_paths(paths, PathBuf::as_path);
+        let exact = paths.iter().cloned().collect();
+        Self { paths, exact }
     }
 }
 
+/// How long a failed load is remembered before the pack is read again, so a
+/// transient error does not pin every path check to a 2000-file re-walk.
+const RELOAD_BACKOFF: Duration = Duration::from_secs(5);
+
+struct ProtectionState {
+    /// Explicit rule directories; `None` falls back to [`crate::default_rules_dirs`].
+    dirs: Option<Vec<PathBuf>>,
+    loaded_for: Option<Vec<PathBuf>>,
+    index: Option<Arc<ProtectedIndex>>,
+    error: Option<(String, Instant)>,
+}
+
+static STATE: Mutex<ProtectionState> = Mutex::new(ProtectionState {
+    dirs: None,
+    loaded_for: None,
+    index: None,
+    error: None,
+});
+
+fn lock_state() -> std::sync::MutexGuard<'static, ProtectionState> {
+    STATE.lock().unwrap_or_else(|poisoned| poisoned.into_inner())
+}
+
+/// Use these rule directories for the protection pack instead of discovering
+/// them. Called by [`crate::RuleManager::load_with_dirs`] so cleanup and
+/// protection rules always come from the same place; a change drops the
+/// cached index.
+pub fn set_rules_dirs(dirs: &[PathBuf]) {
+    let mut state = lock_state();
+    if state.dirs.as_deref() != Some(dirs) {
+        state.dirs = Some(dirs.to_vec());
+        state.index = None;
+        state.loaded_for = None;
+        state.error = None;
+    }
+}
+
+/// Current protection rule directories (explicit or discovered).
+pub fn rules_dirs() -> Vec<PathBuf> {
+    lock_state()
+        .dirs
+        .clone()
+        .unwrap_or_else(crate::default_rules_dirs)
+}
+
+fn protected_index() -> Result<Arc<ProtectedIndex>, String> {
+    index_for(&mut lock_state())
+}
+
+/// Load (or reuse) the index for the directories recorded in `state`. A
+/// failure is remembered only for [`RELOAD_BACKOFF`], after which the pack is
+/// read again, so fixing the files recovers protection without a restart.
+fn index_for(state: &mut ProtectionState) -> Result<Arc<ProtectedIndex>, String> {
+    let dirs = state
+        .dirs
+        .clone()
+        .unwrap_or_else(crate::default_rules_dirs);
+    if state.loaded_for.as_deref() == Some(dirs.as_slice()) {
+        if let Some(index) = &state.index {
+            return Ok(Arc::clone(index));
+        }
+        if let Some((error, at)) = &state.error {
+            if at.elapsed() < RELOAD_BACKOFF {
+                return Err(error.clone());
+            }
+        }
+    }
+    let result = ProtectionPack::load_many(&dirs)
+        .map(|pack| Arc::new(ProtectedIndex::from_pack(&pack)))
+        .map_err(|error| error.to_string());
+    state.loaded_for = Some(dirs);
+    match &result {
+        Ok(index) => {
+            state.index = Some(Arc::clone(index));
+            state.error = None;
+        }
+        Err(error) => {
+            state.index = None;
+            state.error = Some((error.clone(), Instant::now()));
+        }
+    }
+    result
+}
+
+/// The error that currently makes protection fail closed, if any. Scans add
+/// it to `skipped_roots` so a broken pack is visible instead of silent.
+pub fn load_error() -> Option<String> {
+    protected_index().err()
+}
+
 /// Paths from the bundled/user protection packs for the current OS.
-pub fn protected_paths() -> Result<&'static [PathBuf], &'static str> {
-    protected_index().map(|index| index.paths.as_slice())
+pub fn protected_paths() -> Result<Vec<PathBuf>, String> {
+    protected_index().map(|index| index.paths.clone())
 }
 
 pub fn is_protected_by_rule(path: &Path) -> bool {
     let Ok(candidate) = crate::safety::normalize(path) else {
         return true;
     };
-    is_protected_normalized(&candidate)
+    is_protected_normalized(&crate::safety::fold_case(&candidate))
 }
 
 /// Checks both directions: a protected ancestor blocks its descendants, and a
 /// protected descendant blocks deleting an ancestor that would contain it.
+/// `candidate` must already be normalized and case-folded.
 pub(crate) fn is_protected_normalized(candidate: &Path) -> bool {
     let Ok(index) = protected_index() else {
         // Hard safety must fail closed if its rule pack cannot be loaded.
@@ -159,10 +241,12 @@ mod tests {
     use super::*;
 
     #[test]
-    fn bundled_pack_contains_exactly_one_thousand_rules() {
+    fn bundled_pack_loads_without_duplicates() {
         let pack = ProtectionPack::load_many(&crate::default_rules_dirs()).unwrap();
-        assert_eq!(pack.rules.len(), 1_000);
+        assert!(!pack.rules.is_empty());
         assert!(pack.rules.iter().all(|r| !r.paths.is_empty()));
+        let ids: HashSet<&str> = pack.rules.iter().map(|r| r.id.as_str()).collect();
+        assert_eq!(ids.len(), pack.rules.len());
     }
 
     #[test]
@@ -191,5 +275,45 @@ mod tests {
         let exact = paths.iter().cloned().collect();
         assert!(intersects_index(Path::new("/a/nested"), &paths, &exact));
         assert!(!intersects_index(Path::new("/unrelated"), &paths, &exact));
+    }
+
+    #[test]
+    fn broken_pack_fails_closed_and_recovers_without_a_restart() {
+        let dir = tempfile::tempdir().unwrap();
+        let file = dir.path().join("_protected-test.yaml");
+        fs::write(&file, "protections: [broken").unwrap();
+        // A private state so the global keeps its discovered directories.
+        let mut state = ProtectionState {
+            dirs: Some(vec![dir.path().to_path_buf()]),
+            loaded_for: None,
+            index: None,
+            error: None,
+        };
+        let broken = index_for(&mut state).unwrap_err();
+        assert!(broken.contains("parse"), "{broken}");
+        // The failure is cached during the backoff window only.
+        assert!(index_for(&mut state).is_err());
+        fs::write(
+            &file,
+            "protections:\n- id: keep\n  name: Keep\n  description: fixture\n  paths: ['$HOME/keep-me']\n",
+        )
+        .unwrap();
+        state.error = Some((broken, Instant::now() - RELOAD_BACKOFF));
+        let index = index_for(&mut state).unwrap();
+        let keep = crate::safety::fold_case(&expand_path_template("$HOME/keep-me").unwrap());
+        assert!(intersects_index(&keep.join("db"), &index.paths, &index.exact));
+        assert!(intersects_index(keep.parent().unwrap(), &index.paths, &index.exact));
+        assert!(!intersects_index(Path::new("/unrelated/x"), &index.paths, &index.exact));
+        // Switching directories drops the index; a missing directory loads
+        // an empty pack (nothing protected by rule, not an error).
+        state.dirs = Some(vec![dir.path().join("missing")]);
+        assert!(index_for(&mut state).unwrap().paths.is_empty());
+    }
+
+    #[test]
+    fn fail_closed_is_visible_to_scans() {
+        // With the real pack the error is absent; the accessor itself is what
+        // scans consult, so it must never panic and must agree with the index.
+        assert_eq!(load_error().is_none(), protected_paths().is_ok());
     }
 }

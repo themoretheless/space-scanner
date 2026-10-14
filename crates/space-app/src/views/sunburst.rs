@@ -5,10 +5,12 @@ use std::sync::Arc;
 use egui::{epaint::Mesh, Align2, Color32, FontId, Pos2, Sense, Shape, Stroke, Ui, Vec2};
 use space_core::NodeId;
 
+use crate::theme::type_scale::CAPTION;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
-use crate::views::{child_ids, DrawCtx, GeomCache, GeomKey, ViewAction};
+use crate::views::{child_ids, truncate, DrawCtx, GeomCache, GeomKey, ViewAction};
 
-const MAX_DEPTH: usize = 2;
+/// Rings drawn when the setting is out of range.
+const DEFAULT_DEPTH: usize = 2;
 /// ~8px at outer ring — hairline wedges become "Other".
 const MIN_SWEEP_PX: f32 = 8.0;
 const MAX_ARCS: usize = 120;
@@ -38,19 +40,14 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let center = rect.center();
     let max_r = rect.width().min(rect.height()) * 0.46;
     let hole = max_r * 0.22;
-    let ring_w = (max_r - hole) / MAX_DEPTH as f32;
-
-    // Quantize size so sub-pixel layout jitter doesn't rebuild the mesh every frame.
-    let key = GeomKey {
-        view: 0,
-        focus,
-        mode: ctx.mode,
-        filter: ctx.filter_hash,
-        selected: None,
-        w: ((rect.width() / 8.0).round() as u16).saturating_mul(8),
-        h: ((rect.height() / 8.0).round() as u16).saturating_mul(8),
-        review_sig: 0,
+    let depth = if (1..=4).contains(&ctx.sunburst_depth) {
+        ctx.sunburst_depth
+    } else {
+        DEFAULT_DEPTH
     };
+    let ring_w = (max_r - hole) / depth as f32;
+
+    let key = GeomKey::new(0, ctx, rect);
 
     let need_rebuild = match ctx.geom.as_ref() {
         Some(GeomCache::Sunburst { key: k, .. }) => *k != key,
@@ -65,23 +62,26 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
 
         let kids = child_ids(ctx, focus);
         let top = kids.iter().copied().take(MAX_TOP).collect::<Vec<_>>();
-        let total = top
-            .iter()
-            .map(|id| tree.node(*id).size(ctx.mode))
-            .sum::<u64>()
+        // Wedges are shares of the folder's full size, so the ring sums to
+        // 360° only with the remainder (small, filtered or unlisted children,
+        // files hidden by the cap) drawn as "Other".
+        let total = tree
+            .node(focus)
+            .size(ctx.mode)
+            .max(top.iter().map(|id| tree.node(*id).size(ctx.mode)).sum::<u64>())
             .max(1);
 
         let mut visible: Vec<(NodeId, f32)> = Vec::new();
-        let mut other = 0.0_f32;
+        let mut shown = 0.0_f32;
         for &id in &top {
             let size = tree.node(id).size(ctx.mode);
             let sweep = (size as f32 / total as f32) * std::f32::consts::TAU;
-            if sweep < min_sweep {
-                other += sweep;
-            } else {
+            if sweep >= min_sweep {
                 visible.push((id, sweep));
+                shown += sweep;
             }
         }
+        let other = (std::f32::consts::TAU - shown).max(0.0);
         let top_colors = sibling_colors(
             ctx,
             &visible.iter().map(|(id, _)| *id).collect::<Vec<_>>(),
@@ -104,13 +104,13 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             let a1 = angle + sweep - gap * 0.5;
             if a1 > a0 {
                 paint_subtree(
-                    ctx, id, 0, a0, a1, hole, ring_w, center, color, min_sweep, &mut mesh,
+                    ctx, id, 0, depth, a0, a1, hole, ring_w, center, color, min_sweep, &mut mesh,
                     &mut hits,
                 );
             }
             angle += sweep;
         }
-        if other >= min_sweep && hits.len() < MAX_ARCS {
+        if other >= min_sweep * 0.5 && hits.len() < MAX_ARCS {
             push_segment(
                 &mut mesh,
                 &mut hits,
@@ -146,11 +146,29 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         return action;
     };
     let center = *center;
-    let hole = *hole;
-    let max_r = *max_r;
+    let scale = ctx.scale;
+    // During a zoom transition the cached geometry is drawn scaled about the
+    // centre; radii scale, angles do not.
+    let hole = *hole * scale;
+    let max_r = *max_r * scale;
+    let scaled = |hit: &ArcHit| ArcHit {
+        id: hit.id,
+        inner: hit.inner * scale,
+        outer: hit.outer * scale,
+        a0: hit.a0,
+        a1: hit.a1,
+    };
 
     painter.circle_filled(center, max_r + 2.0, theme::PANEL());
-    painter.add(Shape::Mesh(Arc::clone(mesh)));
+    if (scale - 1.0).abs() < 1e-3 {
+        painter.add(Shape::Mesh(Arc::clone(mesh)));
+    } else {
+        let mut m = (**mesh).clone();
+        for v in &mut m.vertices {
+            v.pos = super::zoomed(center, v.pos, scale);
+        }
+        painter.add(Shape::Mesh(Arc::new(m)));
+    }
 
     if hits.is_empty() && ctx.filter.is_active() {
         super::empty_filter_prompt(ui, rect, &mut action);
@@ -161,7 +179,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let mut hover_other = false;
     if let Some(pos) = pointer {
         for hit in hits.iter().rev() {
-            if point_in_arc(pos, center, hit) {
+            if point_in_arc(pos, center, &scaled(hit)) {
                 match hit.id {
                     Some(id) => hover_id = Some(id),
                     None => hover_other = true,
@@ -172,19 +190,17 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     }
 
     // Soft animated highlight — stroke only (fill overlay was a broken shard).
-    for (hi, hit) in hits.iter().enumerate() {
+    for hit in hits.iter() {
         let is_hov = match (hover_id, hit.id) {
             (Some(h), Some(id)) => h == id,
             (None, None) if hover_other => true,
             _ => false,
         };
-        let is_sel = hit.id.is_some_and(|id| ctx.selected == Some(id));
-        let hov_t = ui
-            .ctx()
-            .animate_bool_with_time(ui.id().with(("sb_hov", hi)), is_hov, 0.14);
-        let sel_t = ui
-            .ctx()
-            .animate_bool_with_time(ui.id().with(("sb_sel", hi)), is_sel, 0.18);
+        let is_sel = hit
+            .id
+            .is_some_and(|id| ctx.selected == Some(id) || ctx.review.contains(&id));
+        let (hov_t, sel_t) = super::highlight(ui, "sb", hit.id, is_hov, is_sel);
+        let hit = scaled(hit);
         if hov_t > 0.01 {
             // Proper annular wash (same tessellation as wedges).
             let mut overlay = Mesh::default();
@@ -198,24 +214,13 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 crate::theme::ACCENT().gamma_multiply(hov_t * 0.28),
             );
             painter.add(Shape::Mesh(Arc::new(overlay)));
+        }
+        if hov_t > 0.01 || sel_t > 0.01 {
             stroke_wedge(
                 &painter,
                 center,
-                hit,
-                Stroke::new(
-                    1.4 + hov_t,
-                    crate::theme::ACCENT().gamma_multiply(hov_t * 0.9),
-                ),
-            );
-        } else if sel_t > 0.01 {
-            stroke_wedge(
-                &painter,
-                center,
-                hit,
-                Stroke::new(
-                    1.8 + sel_t * 0.6,
-                    crate::theme::ACCENT().gamma_multiply(sel_t * 0.94),
-                ),
+                &hit,
+                super::highlight_stroke(hov_t, sel_t, Color32::TRANSPARENT),
             );
         }
     }
@@ -225,7 +230,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     // Fade-in hub label when focus changes (id-keyed animation resets).
     let name_alpha =
         ui.ctx()
-            .animate_bool_with_time(ui.id().with(("sb_focus", focus.0)), true, 0.32);
+            .animate_bool_with_time(ui.id().with(("sb_focus", focus.0)), true, crate::anim::ease_time(0.32));
     let label_a = (0.4 + 0.6 * name_alpha).clamp(0.0, 1.0);
     let mut title = egui::text::LayoutJob::simple_singleline(
         focus_node.name.clone(),
@@ -248,7 +253,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         center + Vec2::new(0.0, 10.0),
         Align2::CENTER_CENTER,
         crate::i18n::bytes(focus_node.size(ctx.mode)),
-        FontId::proportional(12.0),
+        FontId::proportional(CAPTION),
         Color32::from_rgba_unmultiplied(
             MUTED().r(),
             MUTED().g(),
@@ -256,12 +261,12 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             (label_a * 220.0) as u8,
         ),
     );
-    if focus_node.parent.is_some() {
+    if focus_node.parent.is_some() && hole > 44.0 {
         painter.text(
-            center + Vec2::new(0.0, 26.0),
+            center + Vec2::new(0.0, 27.0),
             Align2::CENTER_CENTER,
-            "↑  click to go up",
-            FontId::proportional(10.0),
+            crate::i18n::t("↑  click to go up"),
+            FontId::proportional(CAPTION),
             Color32::from_rgba_unmultiplied(
                 ACCENT().r(),
                 ACCENT().g(),
@@ -280,12 +285,11 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 }
             } else {
                 for hit in hits.iter().rev() {
-                    if point_in_arc(pos, center, hit) {
+                    if point_in_arc(pos, center, &scaled(hit)) {
                         if let Some(id) = hit.id {
                             super::click_map_node(
                                 tree,
                                 id,
-                                focus,
                                 ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
                                 &mut action,
                             );
@@ -316,7 +320,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     }
     let label_t =
         ui.ctx()
-            .animate_bool_with_time(ui.id().with("sb_label"), hover_id.is_some(), 0.18);
+            .animate_bool_with_time(ui.id().with("sb_label"), hover_id.is_some(), crate::anim::ease_time(0.18));
     if let Some(id) = hover_id {
         if label_t > 0.02 {
             let n = tree.node(id);
@@ -356,8 +360,8 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 painter.text(
                     bar.right_center() - Vec2::new(10.0, 0.0),
                     Align2::RIGHT_CENTER,
-                    format!("{} files", n.file_count),
-                    FontId::proportional(11.0),
+                    crate::i18n::count(n.file_count as usize, "file"),
+                    FontId::proportional(CAPTION),
                     Color32::from_rgba_unmultiplied(MUTED().r(), MUTED().g(), MUTED().b(), a),
                 );
             }
@@ -439,6 +443,7 @@ fn paint_subtree(
     ctx: &DrawCtx<'_>,
     id: NodeId,
     depth: usize,
+    max_depth: usize,
     a0: f32,
     a1: f32,
     hole: f32,
@@ -449,7 +454,7 @@ fn paint_subtree(
     mesh: &mut Mesh,
     hits: &mut Vec<ArcHit>,
 ) {
-    if depth >= MAX_DEPTH || (a1 - a0) < min_sweep * 0.5 || hits.len() >= MAX_ARCS {
+    if depth >= max_depth || (a1 - a0) < min_sweep * 0.5 || hits.len() >= MAX_ARCS {
         return;
     }
 
@@ -467,7 +472,7 @@ fn paint_subtree(
 
     push_segment(mesh, hits, center, inner, outer, a0, a1, color, Some(id));
 
-    if !node.is_dir || depth + 1 >= MAX_DEPTH {
+    if !node.is_dir || depth + 1 >= max_depth {
         return;
     }
 
@@ -477,24 +482,25 @@ fn paint_subtree(
     }
     let take = kids.iter().copied().take(16).collect::<Vec<_>>();
     let span = a1 - a0;
-    let total = take
-        .iter()
-        .map(|c| tree.node(*c).size(ctx.mode))
-        .sum::<u64>()
+    // Children take their share of this folder's full size; the rest of the
+    // span (small, filtered or unlisted entries) becomes "Other".
+    let total = node
+        .size(ctx.mode)
+        .max(take.iter().map(|c| tree.node(*c).size(ctx.mode)).sum::<u64>())
         .max(1);
     let child_min =
         (min_sweep * (hole + ring_w * 1.5) / (hole + ring_w * 0.5).max(1.0)).max(min_sweep);
     let mut visible: Vec<(NodeId, f32)> = Vec::new();
-    let mut other = 0.0_f32;
+    let mut shown = 0.0_f32;
     for &cid in &take {
         let cs = tree.node(cid).size(ctx.mode);
         let sweep = (cs as f32 / total as f32) * span;
-        if sweep < child_min {
-            other += sweep;
-        } else {
+        if sweep >= child_min {
             visible.push((cid, sweep));
+            shown += sweep;
         }
     }
+    let other = (span - shown).max(0.0);
     let child_colors = sibling_colors(
         ctx,
         &visible.iter().map(|(id, _)| *id).collect::<Vec<_>>(),
@@ -519,6 +525,7 @@ fn paint_subtree(
                 ctx,
                 cid,
                 depth + 1,
+                max_depth,
                 ca0,
                 ca1,
                 hole,
@@ -532,7 +539,7 @@ fn paint_subtree(
         }
         a += sweep;
     }
-    if other >= child_min && hits.len() < MAX_ARCS {
+    if other >= child_min * 0.5 && hits.len() < MAX_ARCS {
         let inner = hole + (depth + 1) as f32 * ring_w;
         push_segment(
             mesh,
@@ -619,11 +626,3 @@ fn point_in_arc(pos: Pos2, center: Pos2, hit: &ArcHit) -> bool {
     a <= a1 + 1e-4
 }
 
-fn truncate(s: &str, max: usize) -> String {
-    if s.chars().count() <= max {
-        s.to_string()
-    } else {
-        let t: String = s.chars().take(max.saturating_sub(1)).collect();
-        format!("{t}…")
-    }
-}

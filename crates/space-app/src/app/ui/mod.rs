@@ -26,6 +26,8 @@ pub(super) use toast::{ToastAction, ToastLevel, Toasts};
 
 use eframe::egui;
 
+pub(super) use usage::ListingCache;
+
 use super::{Mode, SpaceApp};
 
 /// Window-width class that decides which panes are shown together.

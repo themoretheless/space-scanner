@@ -166,6 +166,20 @@ impl SpaceApp {
                             } else if armed && !resp.hovered() && ui.input(|i| i.pointer.any_click()) {
                                 ui.data_mut(|d| d.remove::<bool>(armed_id));
                             }
+                            if ui
+                                .add_enabled(!items.is_empty() && !self.exporting, secondary("Export list…"))
+                                .on_hover_text(t("Save the paths and sizes below as CSV"))
+                                .clicked()
+                            {
+                                self.export_review_csv();
+                            }
+                            if ui
+                                .add(secondary("Reveal in Trash"))
+                                .on_hover_text(t("Open the Trash folder, where moved items wait"))
+                                .clicked()
+                            {
+                                self.reveal_trash();
+                            }
                         });
                     });
                     ui.add_space(S3);
@@ -325,8 +339,9 @@ impl SpaceApp {
                 Source::Junk => junk.push(item.path.clone()),
             }
         }
-        if !junk.is_empty() {
-            self.junk.exclude_paths(&junk);
+        // Exactly these findings: a parent path must not take its children along.
+        for path in &junk {
+            self.junk.exclude_exact(path);
         }
     }
 

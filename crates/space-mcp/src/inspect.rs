@@ -44,13 +44,19 @@ pub fn inspect(path: &Path) -> Result<Value> {
     };
     let mut evidence = Vec::new();
     let mut errors = Vec::new();
-    // Never inspect through a symlink's target to infer ownership of the link.
-    if !symlink {
-        let start = canonical.as_deref().unwrap_or(path);
-        let start = if meta.is_dir() {
-            start
+    // Never inspect through a symlink's target to infer ownership of the link:
+    // a link is judged by the lexical path it was given, a real entry by its
+    // canonical location.
+    {
+        let start = if symlink {
+            path.parent().unwrap_or(path)
         } else {
-            start.parent().unwrap_or(start)
+            let start = canonical.as_deref().unwrap_or(path);
+            if meta.is_dir() {
+                start
+            } else {
+                start.parent().unwrap_or(start)
+            }
         };
         for ancestor in start.ancestors().take(16) {
             for (marker, ecosystem) in [

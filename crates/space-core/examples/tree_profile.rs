@@ -67,6 +67,7 @@ fn wide_tree(count: u32) -> SpaceTree {
             synthetic: false,
             children: Vec::new(),
             parent: Some(tree.root),
+            raw_name: None,
         });
         tree.nodes[0].children.push(id);
     }
@@ -109,5 +110,6 @@ fn directory() -> Node {
         synthetic: false,
         children: Vec::new(),
         parent: None,
+        raw_name: None,
     }
 }

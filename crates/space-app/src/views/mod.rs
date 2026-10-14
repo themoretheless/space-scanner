@@ -5,12 +5,13 @@ mod treemap;
 
 use crate::i18n::t;
 use std::borrow::Cow;
+use std::collections::{BTreeSet, HashSet};
 use std::hash::{Hash, Hasher};
 
 use std::sync::Arc;
 
 use egui::epaint::Mesh;
-use egui::{Pos2, RichText, Ui};
+use egui::{Color32, Pos2, Rect, RichText, Stroke, Ui};
 use space_core::{NodeId, SizeMode, SpaceTree};
 
 use crate::theme::MUTED;
@@ -73,7 +74,7 @@ impl<'de> serde::Deserialize<'de> for ViewMode {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
 #[repr(u8)]
 pub enum EntryKindFilter {
     #[default]
@@ -85,7 +86,8 @@ pub enum EntryKindFilter {
 #[derive(Debug, Clone, Default)]
 pub struct ViewFilter {
     pub query: String,
-    pub ext: Option<String>,
+    /// File extensions to show (lower-case, without the dot); empty = all.
+    pub ext: BTreeSet<String>,
     pub min_size: u64,
     pub max_size: Option<u64>,
     pub kind: EntryKindFilter,
@@ -106,12 +108,12 @@ impl ViewFilter {
                 return false;
             }
         }
-        if let Some(ext) = &self.ext {
+        if !self.ext.is_empty() {
             if is_dir {
                 return true;
             }
             let e = crate::theme::extension_of(name);
-            if !e.eq_ignore_ascii_case(ext) {
+            if !self.has_ext(e) {
                 return false;
             }
         }
@@ -132,9 +134,22 @@ impl ViewFilter {
         true
     }
 
+    /// Is `ext` (any case) one of the selected extensions?
+    pub fn has_ext(&self, ext: &str) -> bool {
+        self.ext.iter().any(|e| e.eq_ignore_ascii_case(ext))
+    }
+
+    /// Add `ext` to the selected extensions, or remove it when present.
+    pub fn toggle_ext(&mut self, ext: &str) {
+        let key = ext.to_ascii_lowercase();
+        if !self.ext.remove(&key) {
+            self.ext.insert(key);
+        }
+    }
+
     pub fn is_active(&self) -> bool {
         !self.query.is_empty()
-            || self.ext.is_some()
+            || !self.ext.is_empty()
             || self.min_size > 0
             || self.max_size.is_some()
             || self.kind != EntryKindFilter::All
@@ -171,6 +186,10 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     ui.label(RichText::new(&n.name).family(crate::theme::bold()));
     let kind = t(if n.is_dir { "Folder" } else { "File" });
     let mut line = format!("{kind} · {}", crate::i18n::bytes(n.size(mode)));
+    if n.is_dir {
+        line.push_str(" · ");
+        line.push_str(&crate::i18n::count(n.file_count as usize, "file"));
+    }
     if let Some(parent) = n.parent {
         let ps = tree.node(parent).size(mode).max(1) as f32;
         let pct = n.size(mode) as f32 / ps * 100.0;
@@ -189,21 +208,81 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     ui.label(RichText::new(t(hint)).small().color(MUTED()));
 }
 
-pub fn click_map_node(
-    tree: &SpaceTree,
-    id: NodeId,
-    focus: NodeId,
-    cmd: bool,
-    action: &mut ViewAction,
-) {
+pub fn click_map_node(tree: &SpaceTree, id: NodeId, cmd: bool, action: &mut ViewAction) {
     let n = tree.node(id);
     if cmd && !n.synthetic {
         action.toggle_review = Some(id);
-        action.select = Some(id);
-        return;
     }
-    let _ = focus;
     action.select = Some(id);
+}
+
+/// Everything a map does with one node's response: click, double-click,
+/// context menu, hover card and cursor. Shared by the tile/band/bubble views.
+pub fn node_response(ui: &Ui, resp: &egui::Response, ctx: &DrawCtx<'_>, id: NodeId, action: &mut ViewAction) {
+    if resp.clicked() {
+        click_map_node(
+            ctx.tree,
+            id,
+            ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+            action,
+        );
+    }
+    if resp.double_clicked() {
+        double_click_map_node(ctx.tree, id, action);
+    }
+    node_context_menu(resp, ctx.tree, id, ctx.review.contains(&id), action);
+    if resp.hovered() {
+        action.hover = Some(id);
+        ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
+        resp.clone()
+            .on_hover_ui(|ui| node_hover_ui(ui, ctx.tree, id, ctx.focus, ctx.mode));
+    }
+}
+
+/// Animated hover/selection weights for a node, keyed by its id (stable
+/// across re-layouts, unlike an index into the geometry list).
+pub fn highlight(ui: &Ui, view: &'static str, id: Option<NodeId>, is_hov: bool, is_sel: bool) -> (f32, f32) {
+    let key = id.map_or(u32::MAX, |id| id.0);
+    let hov = ui
+        .ctx()
+        .animate_bool_with_time(ui.id().with((view, "hov", key)), is_hov, crate::anim::ease_time(0.14));
+    let sel = ui
+        .ctx()
+        .animate_bool_with_time(ui.id().with((view, "sel", key)), is_sel, crate::anim::ease_time(0.18));
+    (hov, sel)
+}
+
+/// Outline for a map item: accent that strengthens with selection and hover,
+/// otherwise the quiet `idle` colour.
+pub fn highlight_stroke(hov_t: f32, sel_t: f32, idle: Color32) -> Stroke {
+    if sel_t > 0.05 || hov_t > 0.05 {
+        let alpha = ((80.0 + sel_t * 160.0 + hov_t * 110.0) / 255.0).min(1.0);
+        Stroke::new(
+            1.0 + sel_t * 1.2 + hov_t * 0.8,
+            crate::theme::ACCENT().gamma_multiply(alpha),
+        )
+    } else {
+        Stroke::new(0.8_f32, idle)
+    }
+}
+
+/// Shorten a name to `max` characters with an ellipsis (char-aware).
+pub fn truncate(s: &str, max: usize) -> String {
+    if s.chars().count() <= max {
+        s.to_string()
+    } else {
+        let t: String = s.chars().take(max.saturating_sub(1)).collect();
+        format!("{t}…")
+    }
+}
+
+/// Scale a point about `center` (zoom transition drawn from cached geometry).
+pub fn zoomed(center: Pos2, p: Pos2, scale: f32) -> Pos2 {
+    center + (p - center) * scale
+}
+
+pub fn zoomed_rect(center: Pos2, r: Rect, scale: f32) -> Rect {
+    Rect::from_min_max(zoomed(center, r.min, scale), zoomed(center, r.max, scale))
 }
 
 pub fn double_click_map_node(tree: &SpaceTree, id: NodeId, action: &mut ViewAction) {
@@ -257,7 +336,7 @@ pub fn hovered_node_context_menu(
     resp: &egui::Response,
     tree: &SpaceTree,
     hovered: Option<NodeId>,
-    review: &[NodeId],
+    review: &HashSet<NodeId>,
     action: &mut ViewAction,
 ) {
     let target_key = resp.id.with("context_menu_target");
@@ -312,16 +391,43 @@ pub fn empty_filter_prompt(ui: &mut Ui, rect: egui::Rect, action: &mut ViewActio
     });
 }
 
+/// What the cached geometry was built for. Size and position are quantized
+/// to 8 px so sub-pixel layout jitter does not rebuild the mesh every frame.
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct GeomKey {
     pub view: u8,
     pub focus: NodeId,
     pub mode: SizeMode,
     pub filter: u64,
-    pub selected: Option<NodeId>,
+    pub depth: u8,
+    pub nest: u8,
+    pub cascade_depth: u8,
+    /// Row scale × 100.
+    pub row_scale: u16,
+    pub x: i16,
+    pub y: i16,
     pub w: u16,
     pub h: u16,
-    pub review_sig: u64,
+}
+
+impl GeomKey {
+    pub fn new(view: u8, ctx: &DrawCtx<'_>, rect: Rect) -> Self {
+        let q = |v: f32| (v / 8.0).round() * 8.0;
+        Self {
+            view,
+            focus: ctx.focus,
+            mode: ctx.mode,
+            filter: ctx.filter_hash,
+            depth: ctx.sunburst_depth as u8,
+            nest: ctx.treemap_nest as u8,
+            cascade_depth: ctx.cascade_depth as u8,
+            row_scale: (ctx.cascade_row_scale * 100.0).round() as u16,
+            x: q(rect.min.x) as i16,
+            y: q(rect.min.y) as i16,
+            w: q(rect.width()) as u16,
+            h: q(rect.height()) as u16,
+        }
+    }
 }
 
 pub enum GeomCache {
@@ -336,6 +442,11 @@ pub enum GeomCache {
     Treemap {
         key: GeomKey,
         tiles: Vec<(NodeId, egui::Rect, usize)>,
+        legend: Vec<(String, Color32)>,
+    },
+    Cascade {
+        key: GeomKey,
+        bands: Vec<(NodeId, egui::Rect, usize, Color32)>,
     },
 }
 
@@ -344,12 +455,21 @@ pub struct DrawCtx<'a> {
     pub focus: NodeId,
     pub selected: Option<NodeId>,
     pub hovered: Option<NodeId>,
-    pub review: &'a [NodeId],
+    pub review: &'a HashSet<NodeId>,
     pub mode: SizeMode,
     pub filter: &'a ViewFilter,
     pub filter_hash: u64,
-    #[allow(dead_code)]
-    pub review_sig: u64,
+    /// Rings the sunburst draws (1..=4).
+    pub sunburst_depth: usize,
+    /// Folder levels nested inside treemap tiles (1..=4).
+    pub treemap_nest: usize,
+    /// Band rows below the cascade focus (2..=8).
+    pub cascade_depth: usize,
+    /// Cascade band height multiplier.
+    pub cascade_row_scale: f32,
+    /// Zoom transition: geometry is built for the final rect and drawn
+    /// scaled about its centre, so nothing is rebuilt per frame.
+    pub scale: f32,
     pub geom: &'a mut Option<GeomCache>,
 }
 
@@ -380,18 +500,6 @@ pub fn child_ids<'a>(ctx: &DrawCtx<'a>, id: NodeId) -> Cow<'a, [NodeId]> {
     )
 }
 
-pub fn review_sig(review: &[NodeId]) -> u64 {
-    let mut h = std::collections::hash_map::DefaultHasher::new();
-    review.len().hash(&mut h);
-    if let Some(first) = review.first() {
-        first.0.hash(&mut h);
-    }
-    if let Some(last) = review.last() {
-        last.0.hash(&mut h);
-    }
-    h.finish()
-}
-
 #[cfg(test)]
 mod click_map_tests {
     use super::*;
@@ -407,6 +515,7 @@ mod click_map_tests {
             synthetic: false,
             children,
             parent,
+            raw_name: None,
         }
     }
 
@@ -420,6 +529,7 @@ mod click_map_tests {
             synthetic: false,
             children: Vec::new(),
             parent: Some(parent),
+            raw_name: None,
         }
     }
 
@@ -444,9 +554,10 @@ mod click_map_tests {
     fn ring_context_menu_survives_pointer_entering_popup_and_keeps_clicked_target() {
         let tree = sample();
         let ctx = egui::Context::default();
-        crate::theme::apply(&ctx, crate::theme::Appearance::default());
+        crate::theme::apply(&ctx, crate::theme::Appearance::default(), false, 350);
         let mut geom = None;
         let filter = ViewFilter::default();
+        let review = HashSet::new();
         let mut action = ViewAction::none();
         let mut frame = |events: Vec<egui::Event>| {
             ctx.run(
@@ -468,11 +579,15 @@ mod click_map_tests {
                                 focus: tree.root,
                                 selected: None,
                                 hovered: None,
-                                review: &[],
+                                review: &review,
                                 mode: SizeMode::OnDisk,
                                 filter: &filter,
                                 filter_hash: filter.hash64(),
-                                review_sig: 0,
+                                sunburst_depth: 2,
+                                treemap_nest: 2,
+                                cascade_depth: 5,
+                                cascade_row_scale: 1.0,
+                                scale: 1.0,
                                 geom: &mut geom,
                             },
                         );
@@ -515,7 +630,6 @@ mod click_map_tests {
         }
         frame(vec![button(select, egui::PointerButton::Primary, true)]);
         frame(vec![button(select, egui::PointerButton::Primary, false)]);
-        drop(frame);
         assert_eq!(
             action.select,
             Some(NodeId(1)),
@@ -527,7 +641,7 @@ mod click_map_tests {
     fn click_child_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
+        click_map_node(&tree, NodeId(1), false, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -536,7 +650,7 @@ mod click_map_tests {
     fn click_current_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), false, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -545,7 +659,7 @@ mod click_map_tests {
     fn click_file_selects() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(2), false, &mut action);
         assert_eq!(action.select, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
     }
@@ -564,7 +678,7 @@ mod click_map_tests {
         let mut tree = sample();
         tree.nodes[1].synthetic = true;
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
+        click_map_node(&tree, NodeId(1), false, &mut action);
         assert_eq!(action.select, Some(NodeId(1)));
         assert_eq!(action.navigate, None);
     }
@@ -573,7 +687,7 @@ mod click_map_tests {
     fn cmd_click_queues_trash() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), NodeId(1), true, &mut action);
+        click_map_node(&tree, NodeId(2), true, &mut action);
         assert_eq!(action.toggle_review, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
     }
@@ -637,7 +751,7 @@ mod filter_tests {
             query: "CACHE".into(),
             min_size: 10,
             max_size: Some(20),
-            ext: Some("LOG".into()),
+            ext: BTreeSet::from(["log".to_string()]),
             kind: EntryKindFilter::FilesOnly,
         };
         assert!(filter.matches("cache.log", false, 10));
@@ -649,6 +763,22 @@ mod filter_tests {
         filter.kind = EntryKindFilter::All;
         // Directory navigation bypasses query matching with an extension filter.
         assert!(filter.matches("other", true, 15));
+    }
+
+    #[test]
+    fn several_extensions_combine_and_toggle() {
+        let mut filter = ViewFilter::default();
+        filter.toggle_ext("LOG");
+        filter.toggle_ext("bin");
+        assert!(filter.has_ext("log") && filter.has_ext("BIN"));
+        assert!(filter.matches("a.log", false, 1) && filter.matches("b.Bin", false, 1));
+        assert!(!filter.matches("c.txt", false, 1));
+        let before = filter.hash64();
+        filter.toggle_ext("log");
+        assert!(!filter.has_ext("log") && filter.matches("b.bin", false, 1));
+        assert_ne!(before, filter.hash64());
+        filter.toggle_ext("bin");
+        assert!(!filter.is_active());
     }
 
     #[test]

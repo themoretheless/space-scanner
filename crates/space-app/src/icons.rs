@@ -7,11 +7,8 @@ use eframe::egui::{self, Color32, Painter, Pos2, Rect, Shape, Stroke};
 pub enum Icon {
     Usage,
     Cleanup,
-    Review,
     Folder,
     File,
-    Disk,
-    Home,
     Back,
     Forward,
     Up,
@@ -21,6 +18,7 @@ pub enum Icon {
     Check,
     Lock,
     Overview,
+    Disk,
     Trash,
     Settings,
     Search,
@@ -71,12 +69,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
             ]);
             line(&[(19.0, 3.0), (19.0, 8.0)]);
             line(&[(16.5, 5.5), (21.5, 5.5)]);
-        }
-        Icon::Review => {
-            closed(&[(4.0, 3.0), (20.0, 3.0), (20.0, 21.0), (4.0, 21.0)]);
-            line(&[(8.0, 8.0), (16.0, 8.0)]);
-            line(&[(8.0, 12.0), (12.0, 12.0)]);
-            line(&[(8.0, 16.5), (10.5, 19.0), (16.0, 13.5)]);
         }
         Icon::Folder => {
             closed(&[
@@ -203,11 +195,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
             line(&[(9.0, 6.0), (9.0, 18.0)]);
             line(&[(15.0, 6.0), (15.0, 18.0)]);
         }
-        Icon::Home => {
-            line(&[(3.0, 11.5), (12.0, 3.5), (21.0, 11.5)]);
-            line(&[(5.5, 10.0), (5.5, 20.5), (18.5, 20.5), (18.5, 10.0)]);
-            line(&[(10.0, 20.5), (10.0, 14.5), (14.0, 14.5), (14.0, 20.5)]);
-        }
     }
 }
 
@@ -243,5 +230,9 @@ pub fn button(
         crate::theme::MUTED()
     };
     paint(ui.painter(), icon, rect.shrink(size * 0.22), color);
-    resp.on_hover_text(crate::i18n::t(hint))
+    let hint = crate::i18n::t(hint);
+    resp.widget_info(|| {
+        egui::WidgetInfo::labeled(egui::WidgetType::Button, enabled, hint)
+    });
+    resp.on_hover_text(hint)
 }

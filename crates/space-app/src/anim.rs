@@ -1,6 +1,28 @@
 //! Lightweight UI transitions (nav zoom / view crossfade).
 
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::{Duration, Instant};
+
+static REDUCE_MOTION: AtomicBool = AtomicBool::new(false);
+
+/// Reduce motion (settings): transitions complete at once and hover/selection
+/// weights snap instead of easing.
+pub fn set_reduce_motion(on: bool) {
+    REDUCE_MOTION.store(on, Ordering::Relaxed);
+}
+
+pub fn reduce_motion() -> bool {
+    REDUCE_MOTION.load(Ordering::Relaxed)
+}
+
+/// `secs` for an egui `animate_bool_with_time`, or zero under reduce motion.
+pub fn ease_time(secs: f32) -> f32 {
+    if reduce_motion() {
+        0.0
+    } else {
+        secs
+    }
+}
 
 #[derive(Clone, Copy)]
 pub enum TransKind {
@@ -20,9 +42,13 @@ pub struct Transition {
 
 impl Transition {
     pub fn start(kind: TransKind) -> Self {
-        let duration = match kind {
-            TransKind::ZoomIn | TransKind::ZoomOut => Duration::from_millis(420),
-            TransKind::ViewSwitch => Duration::from_millis(260),
+        let duration = if reduce_motion() {
+            Duration::ZERO
+        } else {
+            match kind {
+                TransKind::ZoomIn | TransKind::ZoomOut => Duration::from_millis(420),
+                TransKind::ViewSwitch => Duration::from_millis(260),
+            }
         };
         Self {
             kind,
@@ -32,6 +58,9 @@ impl Transition {
     }
 
     pub fn linear(&self) -> f32 {
+        if self.duration.is_zero() {
+            return 1.0;
+        }
         (self.started.elapsed().as_secs_f32() / self.duration.as_secs_f32()).clamp(0.0, 1.0)
     }
 
@@ -97,4 +126,21 @@ pub fn ease_out_back(t: f32) -> f32 {
     let c1 = 1.70158;
     let c3 = c1 + 1.0;
     1.0 + c3 * (t - 1.0).powi(3) + c1 * (t - 1.0).powi(2)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn reduce_motion_finishes_transitions_at_once() {
+        set_reduce_motion(true);
+        let t = Transition::start(TransKind::ZoomIn);
+        assert!(t.done());
+        assert_eq!(t.scale(), 1.0);
+        assert_eq!(t.opacity(), 1.0);
+        assert_eq!(ease_time(0.2), 0.0);
+        set_reduce_motion(false);
+        assert_eq!(ease_time(0.2), 0.2);
+    }
 }

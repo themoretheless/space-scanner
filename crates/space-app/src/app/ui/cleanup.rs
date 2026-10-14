@@ -79,7 +79,7 @@ impl SpaceApp {
             Some(Act::Check) => self.check_junk(),
             Some(Act::Rules) => self.open_rules_panel(),
             Some(Act::Prefs) => {
-                self.settings.save();
+                self.mark_settings_dirty();
                 if has_report {
                     self.check_junk();
                 }

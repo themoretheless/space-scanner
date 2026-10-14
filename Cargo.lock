@@ -2869,6 +2869,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "regex"
+version = "1.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f020237b6c8eed93db2e2cb53c00c60a8e1bc73da7d073199a1180401450218d"
+dependencies = [
+ "aho-corasick",
+ "memchr",
+ "regex-automata",
+ "regex-syntax",
+]
+
+[[package]]
 name = "regex-automata"
 version = "0.4.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3307,6 +3319,7 @@ dependencies = [
  "serde_json",
  "space-clean",
  "space-core",
+ "sys-locale",
  "sysinfo",
 ]
 
@@ -3319,9 +3332,12 @@ dependencies = [
  "blake3",
  "directories",
  "globset",
+ "rayon",
  "serde",
  "serde_json",
  "serde_yaml",
+ "tempfile",
+ "thiserror 2.0.20",
  "trash",
  "walkdir",
 ]
@@ -3330,11 +3346,15 @@ dependencies = [
 name = "space-cli"
 version = "0.1.0"
 dependencies = [
+ "anyhow",
  "clap",
+ "globset",
+ "regex",
  "serde",
  "serde_json",
  "space-clean",
  "space-core",
+ "tempfile",
 ]
 
 [[package]]
@@ -3350,6 +3370,7 @@ dependencies = [
  "directories",
  "humansize",
  "serde",
+ "tempfile",
  "thiserror 2.0.20",
  "unicode-normalization",
  "zstd",
@@ -3374,6 +3395,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "blake3",
+ "clap",
  "serde_json",
  "serde_yaml",
  "space-clean",
@@ -3460,6 +3482,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.119",
+]
+
+[[package]]
+name = "sys-locale"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8eab9a99a024a169fe8a903cf9d4a3b3601109bcc13bd9e3c6fff259138626c4"
+dependencies = [
+ "libc",
 ]
 
 [[package]]
