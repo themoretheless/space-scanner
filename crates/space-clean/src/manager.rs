@@ -1,11 +1,32 @@
 //! Flexible junk rule manager: prefs overlays, filters, category bulk toggles.
 
-use crate::rules::{DeleteMode, JunkKind, Risk, Rule, RulePack};
+use crate::rules::{DeleteMode, JunkKind, Risk, Rule, RuleIndex, RulePack};
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use std::fs;
 use std::path::{Path, PathBuf};
+use std::sync::Arc;
+
+/// Why saved preferences could not be used.
+#[derive(Debug, thiserror::Error)]
+pub enum PrefsError {
+    /// The file exists but is not valid JSON for [`RulePrefs`]; it was moved
+    /// aside so the next save does not clobber it.
+    #[error("rule preferences at {path} are corrupt (moved to {backup}): {source}")]
+    Corrupt {
+        path: PathBuf,
+        backup: PathBuf,
+        #[source]
+        source: serde_json::Error,
+    },
+    #[error("read rule preferences at {path}: {source}")]
+    Io {
+        path: PathBuf,
+        #[source]
+        source: std::io::Error,
+    },
+}
 
 /// Persisted user overrides on top of YAML `default_enabled`.
 #[derive(Debug, Clone, Default, PartialEq, Eq, Serialize, Deserialize)]
@@ -72,20 +93,60 @@ impl RulePrefs {
     }
 
     pub fn default_path() -> Option<PathBuf> {
-        let base = directories::ProjectDirs::from("com", "themoretheless", "SpaceScanner")?;
-        Some(base.config_dir().join("rule-prefs.json"))
+        Some(crate::rules::app_dirs()?.config_dir().join("rule-prefs.json"))
     }
 
+    /// Load saved preferences, falling back to defaults. A corrupt file is
+    /// moved aside and reported on stderr; use [`RulePrefs::try_load`] to
+    /// surface that as an error instead.
     pub fn load() -> Self {
+        match Self::try_load() {
+            Ok(prefs) => prefs,
+            Err(error) => {
+                eprintln!("warning: {error}");
+                Self::default()
+            }
+        }
+    }
+
+    /// Load saved preferences. Missing file or config dir → defaults; a
+    /// corrupt file → [`PrefsError::Corrupt`] after renaming it to `*.bad`.
+    pub fn try_load() -> Result<Self, PrefsError> {
         let Some(path) = Self::default_path() else {
-            return Self::default();
+            return Ok(Self::default());
         };
-        Self::load_from(&path).unwrap_or_default()
+        Self::try_load_from(&path)
     }
 
     pub fn load_from(path: &Path) -> Result<Self> {
-        let bytes = fs::read(path).with_context(|| format!("read {}", path.display()))?;
-        Ok(serde_json::from_slice(&bytes)?)
+        Ok(Self::try_load_from(path)?)
+    }
+
+    pub fn try_load_from(path: &Path) -> Result<Self, PrefsError> {
+        let bytes = match fs::read(path) {
+            Ok(bytes) => bytes,
+            Err(source) if source.kind() == std::io::ErrorKind::NotFound => {
+                return Ok(Self::default())
+            }
+            Err(source) => {
+                return Err(PrefsError::Io {
+                    path: path.to_path_buf(),
+                    source,
+                })
+            }
+        };
+        match serde_json::from_slice(&bytes) {
+            Ok(prefs) => Ok(prefs),
+            Err(source) => {
+                let backup = path.with_extension("json.bad");
+                let _ = fs::rename(path, &backup);
+                Err(PrefsError::Corrupt {
+                    path: path.to_path_buf(),
+                    backup,
+                    source,
+                })
+            }
+        }
     }
 
     pub fn save(&self) -> Result<()> {
@@ -95,13 +156,11 @@ impl RulePrefs {
         self.save_to(&path)
     }
 
+    /// Atomic: the file is written next to `path` and renamed into place.
     pub fn save_to(&self, path: &Path) -> Result<()> {
-        if let Some(parent) = path.parent() {
-            fs::create_dir_all(parent)?;
-        }
         let bytes = serde_json::to_vec_pretty(self)?;
-        fs::write(path, bytes).with_context(|| format!("write {}", path.display()))?;
-        Ok(())
+        crate::rules::write_atomic(path, &bytes)
+            .with_context(|| format!("write {}", path.display()))
     }
 
     pub fn is_enabled(&self, rule: &Rule) -> bool {
@@ -281,8 +340,7 @@ impl RuleFilter {
             }
         }
         if let Some(ro) = self.report_only {
-            let is_ro = rule.report_only || rule.risk == Risk::ReportOnly;
-            if is_ro != ro {
+            if rule.is_report_only() != ro {
                 return false;
             }
         }
@@ -318,6 +376,35 @@ impl RuleFilter {
             }
         }
         true
+    }
+
+    /// Rules a scan should run: this filter plus an OR-list of categories /
+    /// rule ids, evaluated over the manager's host rules. The single place
+    /// that turns preferences into a scan set.
+    pub fn scan_set<'a>(&self, manager: &'a RuleManager, categories: &[String]) -> Vec<&'a Rule> {
+        let filter = self.prepared();
+        let mut text = String::new();
+        let index = manager.index();
+        let pack = &manager.pack;
+        let mut rules: Vec<&Rule> = Vec::new();
+        if categories.is_empty() {
+            if filter.host_only {
+                rules.extend(index.host_positions().iter().map(|&i| &pack.rules[i]));
+            } else {
+                rules.extend(pack.rules.iter());
+            }
+        } else {
+            let mut positions = BTreeSet::new();
+            for selector in categories {
+                positions.extend(index.category_positions(selector).iter().copied());
+                if let Some(position) = index.position(pack, selector) {
+                    positions.insert(position);
+                }
+            }
+            rules.extend(positions.into_iter().map(|i| &pack.rules[i]));
+        }
+        rules.retain(|rule| filter.matches_prepared(rule, &manager.prefs, &mut text));
+        rules
     }
 }
 
@@ -388,10 +475,22 @@ pub struct RuleManager {
 
 impl RuleManager {
     pub fn load_default() -> Result<Self> {
-        let pack = RulePack::load_many_shared(&crate::default_rules_dirs())?;
+        Self::load_with_dirs(&crate::default_rules_dirs())
+    }
+
+    /// Load the catalog from explicit rule directories (CLI `--rules`). The
+    /// protection pack is taken from the same directories.
+    pub fn load_with_dirs(dirs: &[PathBuf]) -> Result<Self> {
+        crate::protection::set_rules_dirs(dirs);
+        let pack = RulePack::load_many_shared(dirs)?;
         let mut prefs = RulePrefs::load();
-        prefs.migrate_catalog_aliases(&crate::default_rules_dirs())?;
+        prefs.migrate_catalog_aliases(dirs)?;
         Ok(Self { pack, prefs })
+    }
+
+    /// Lookup tables for this catalog (built once per shared pack).
+    pub fn index(&self) -> Arc<RuleIndex> {
+        self.pack.index()
     }
 
     pub fn save_prefs(&self) -> Result<()> {
@@ -412,12 +511,22 @@ impl RuleManager {
         let mut rows = Vec::new();
         let filter = filter.prepared();
         let mut text = String::new();
-        for rule in &self.pack.rules {
+        let index = self.index();
+        let mut consider = |rule: &Rule| {
             if filter.matches_prepared(rule, &self.prefs, &mut text) {
                 total += 1;
                 if rows.len() < limit {
                     rows.push(self.row_for(rule));
                 }
+            }
+        };
+        if filter.host_only {
+            for &position in index.host_positions() {
+                consider(&self.pack.rules[position]);
+            }
+        } else {
+            for rule in &self.pack.rules {
+                consider(rule);
             }
         }
         (total, rows)
@@ -436,7 +545,7 @@ impl RuleManager {
             default_enabled: r.default_enabled,
             effectively_enabled: self.prefs.is_enabled(r),
             overridden: self.prefs.is_overridden(r),
-            report_only: r.report_only || r.risk == Risk::ReportOnly,
+            report_only: r.is_report_only(),
             min_age_days: self.prefs.min_age_for(r),
             paths: r.paths.clone(),
             description: r.description.clone(),
@@ -451,15 +560,22 @@ impl RuleManager {
         keys: impl Fn(&'a Rule) -> I,
     ) -> BTreeMap<K, (usize, usize)> {
         let mut totals = BTreeMap::new();
-        for rule in &self.pack.rules {
-            if host_only && !rule.platform.matches_host() {
-                continue;
-            }
+        let index = self.index();
+        let mut tally = |rule: &'a Rule| {
             let enabled = usize::from(self.prefs.is_enabled(rule));
             for key in keys(rule) {
                 let counts = totals.entry(key).or_insert((0, 0));
                 counts.0 += 1;
                 counts.1 += enabled;
+            }
+        };
+        if host_only {
+            for &position in index.host_positions() {
+                tally(&self.pack.rules[position]);
+            }
+        } else {
+            for rule in &self.pack.rules {
+                tally(rule);
             }
         }
         totals
@@ -517,7 +633,7 @@ impl RuleManager {
     }
 
     pub fn set_rule_enabled(&mut self, id: &str, enabled: bool) -> Result<()> {
-        if self.pack.get(id).is_none() {
+        if self.index().position(&self.pack, id).is_none() {
             anyhow::bail!("unknown rule id '{id}'");
         }
         self.prefs.set_rule(id, enabled);
@@ -529,8 +645,7 @@ impl RuleManager {
     }
 
     pub fn set_category_enabled(&mut self, category: &str, enabled: bool) -> Result<()> {
-        let exists = self.pack.rules.iter().any(|r| r.category == category);
-        if !exists {
+        if !self.index().has_category(category) {
             anyhow::bail!("unknown category '{category}'");
         }
         self.prefs.set_category(category, enabled);
@@ -539,15 +654,9 @@ impl RuleManager {
 
     pub fn reset_category(&mut self, category: &str) {
         self.prefs.clear_category_policy(category);
-        let ids: Vec<String> = self
-            .pack
-            .rules
-            .iter()
-            .filter(|r| r.category == category)
-            .map(|r| r.id.clone())
-            .collect();
-        for id in ids {
-            self.prefs.clear_rule(&id);
+        let index = self.index();
+        for &position in index.category_positions(category) {
+            self.prefs.clear_rule(&self.pack.rules[position].id);
         }
     }
 
@@ -556,12 +665,7 @@ impl RuleManager {
         if tag.is_empty() {
             anyhow::bail!("empty tag");
         }
-        let exists = self
-            .pack
-            .rules
-            .iter()
-            .any(|r| r.tags.iter().any(|t| t == &tag));
-        if !exists {
+        if !self.index().has_tag(&tag) {
             anyhow::bail!("unknown tag '{tag}'");
         }
         self.prefs.set_tag(&tag, enabled);
@@ -588,72 +692,67 @@ impl RuleManager {
         kind: Option<JunkKind>,
         max_risk: Option<Risk>,
     ) -> Vec<&Rule> {
-        let want_tags: BTreeSet<String> = tags
-            .iter()
-            .map(|t| crate::tags::normalize_tag(t))
-            .filter(|t| !t.is_empty())
-            .collect();
-        self.pack
-            .rules
-            .iter()
-            .filter(|r| r.platform.matches_host())
-            .filter(|r| self.prefs.is_enabled(r))
-            .filter(|r| {
-                self.prefs.include_report_only
-                    || !(r.report_only || matches!(r.risk, Risk::ReportOnly))
-            })
-            .filter(|r| {
-                if categories.is_empty() {
-                    true
-                } else {
-                    categories.iter().any(|c| c == &r.category || c == &r.id)
-                }
-            })
-            .filter(|r| kind.map(|k| r.kind == k).unwrap_or(true))
-            .filter(|r| {
-                max_risk
-                    .map(|max| r.risk.rank() <= max.rank())
-                    .unwrap_or(true)
-            })
-            .filter(|r| {
-                if want_tags.is_empty() {
-                    true
-                } else {
-                    want_tags.iter().all(|t| r.tags.iter().any(|rt| rt == t))
-                }
-            })
-            .collect()
+        RuleFilter {
+            tags: tags.to_vec(),
+            kind,
+            max_risk,
+            enabled: Some(true),
+            report_only: (!self.prefs.include_report_only).then_some(false),
+            host_only: true,
+            ..Default::default()
+        }
+        .scan_set(self, categories)
+    }
+
+    /// Rules for an "everything" scan (`junk --all`): default-off rules and
+    /// category / tag policies are ignored, but an explicit per-rule "off"
+    /// stays off, report-only rules are listed only with
+    /// `include_report_only`, and without an explicit `max_risk` the set is
+    /// capped at [`Risk::Low`] so a cleanup from it cannot touch risky rules.
+    pub fn scan_rules_unrestricted(
+        &self,
+        categories: &[String],
+        tags: &[String],
+        kind: Option<JunkKind>,
+        risk: Option<Risk>,
+        max_risk: Option<Risk>,
+    ) -> Vec<&Rule> {
+        let cap = max_risk.unwrap_or(Risk::Low);
+        let mut rules = RuleFilter {
+            tags: tags.to_vec(),
+            kind,
+            risk,
+            report_only: (!self.prefs.include_report_only).then_some(false),
+            host_only: true,
+            ..Default::default()
+        }
+        .scan_set(self, categories);
+        // Report-only rules are never cleaned, so the cap does not apply to them.
+        rules.retain(|rule| {
+            self.prefs.rules.get(&rule.id) != Some(&false)
+                && (rule.is_report_only() || rule.risk.rank() <= cap.rank())
+        });
+        rules
     }
 
     pub fn stats(&self) -> ManagerStats {
+        let index = self.index();
         let mut stats = ManagerStats {
             total: self.pack.rules.len(),
-            host: 0,
+            host: index.host_positions().len(),
             enabled: 0,
             disabled: 0,
             overridden: 0,
-            categories: 0,
-            tags: 0,
-            kinds: 0,
+            categories: index.host_category_count(),
+            tags: index.host_tag_count(),
+            kinds: index.host_kind_count(),
         };
-        let mut categories = BTreeSet::new();
-        let mut tags = BTreeSet::new();
-        let mut kinds = BTreeSet::new();
-        for rule in &self.pack.rules {
-            if !rule.platform.matches_host() {
-                continue;
-            }
-            stats.host += 1;
+        for &position in index.host_positions() {
+            let rule = &self.pack.rules[position];
             stats.enabled += usize::from(self.prefs.is_enabled(rule));
             stats.overridden += usize::from(self.prefs.is_overridden(rule));
-            categories.insert(rule.category.as_str());
-            tags.extend(rule.tags.iter().map(String::as_str));
-            kinds.insert(rule.kind.as_str());
         }
         stats.disabled = stats.host - stats.enabled;
-        stats.categories = categories.len();
-        stats.tags = tags.len();
-        stats.kinds = kinds.len();
         stats
     }
 }
@@ -673,8 +772,7 @@ fn category_policy(
 }
 
 fn detailed_rule_description(rule: &Rule, min_age_days: u64) -> Vec<String> {
-    let report_only = rule.report_only || rule.risk == Risk::ReportOnly;
-    let action = if report_only {
+    let action = if rule.is_report_only() {
         "Action: information only. Matches cannot be selected for automatic cleanup.".to_string()
     } else {
         match rule.delete_mode {
@@ -988,6 +1086,82 @@ mod alias_tests {
         filter.enabled = Some(false);
         assert_eq!(manager.list_page(&filter, 1).0, 1);
         assert_eq!(manager.list_page(&filter, 0).1.len(), 0);
+    }
+
+    #[test]
+    fn corrupt_prefs_are_backed_up_and_reported_and_saves_are_atomic() {
+        let dir = tempfile::tempdir().unwrap();
+        let path = dir.path().join("rule-prefs.json");
+        assert_eq!(RulePrefs::try_load_from(&path).unwrap(), RulePrefs::default());
+        fs::write(&path, b"{ not json").unwrap();
+        let error = RulePrefs::try_load_from(&path).unwrap_err();
+        let backup = match &error {
+            PrefsError::Corrupt { backup, .. } => backup.clone(),
+            other => panic!("expected corrupt error, got {other:?}"),
+        };
+        assert!(error.to_string().contains("corrupt"));
+        assert!(!path.exists(), "corrupt file must be moved aside");
+        assert_eq!(fs::read(&backup).unwrap(), b"{ not json");
+        assert!(RulePrefs::load_from(&path).is_ok(), "missing file → defaults");
+        let mut prefs = RulePrefs::default();
+        prefs.set_rule("x", false);
+        prefs.save_to(&path).unwrap();
+        assert_eq!(RulePrefs::try_load_from(&path).unwrap(), prefs);
+        assert!(
+            !fs::read_dir(dir.path()).unwrap().any(|entry| {
+                entry
+                    .unwrap()
+                    .file_name()
+                    .to_string_lossy()
+                    .ends_with(".tmp")
+            }),
+            "temporary file must be renamed away"
+        );
+    }
+
+    #[test]
+    fn unrestricted_scan_keeps_explicit_off_and_caps_risk_at_low() {
+        let mut manager = facet_fixture();
+        manager.prefs.set_category("cache", false);
+        manager.prefs.set_rule("a", false);
+        let ids = |rules: Vec<&Rule>| rules.iter().map(|r| r.id.clone()).collect::<Vec<_>>();
+        // Default scan honours the category policy.
+        assert_eq!(ids(manager.scan_rules(&[])), Vec::<String>::new());
+        // Unrestricted ignores category / default-off, keeps explicit off, caps at low.
+        assert_eq!(
+            ids(manager.scan_rules_unrestricted(&[], &[], None, None, None)),
+            Vec::<String>::new(),
+            "b is medium, c is high, a is explicitly off, d is report-only"
+        );
+        assert_eq!(
+            ids(manager.scan_rules_unrestricted(&[], &[], None, None, Some(Risk::High))),
+            vec!["b".to_string(), "c".to_string()]
+        );
+        manager.reset_rule("a");
+        assert_eq!(
+            ids(manager.scan_rules_unrestricted(&[], &[], None, None, None)),
+            vec!["a".to_string()]
+        );
+        manager.prefs.include_report_only = true;
+        assert_eq!(
+            ids(manager.scan_rules_unrestricted(&["other".into()], &[], None, None, None)),
+            vec!["d".to_string()]
+        );
+        // Category selectors accept rule ids too, and foreign rules never run.
+        assert_eq!(
+            ids(manager.scan_rules_unrestricted(&["e".into(), "b".into()], &[], None, None, Some(Risk::High))),
+            vec!["b".to_string()]
+        );
+        assert_eq!(
+            ids(manager.scan_rules_filtered(&["cache".into()], &["beta".into()], None, Some(Risk::High))),
+            Vec::<String>::new(),
+            "category policy still disables cache"
+        );
+        manager.reset_category("cache");
+        assert_eq!(
+            ids(manager.scan_rules_filtered(&["cache".into()], &["beta".into()], None, Some(Risk::High))),
+            vec!["c".to_string()]
+        );
     }
 
     #[test]

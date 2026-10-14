@@ -2,6 +2,7 @@ use crate::rules::expand_path_template;
 use std::collections::HashSet;
 use std::path::{Component, Path, PathBuf};
 use std::sync::OnceLock;
+use std::time::SystemTime;
 
 /// Paths and path prefixes that must never be deleted, even if a rule matches.
 pub fn never_touch_patterns() -> Vec<PathBuf> {
@@ -56,7 +57,8 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
     ] {
         out.push(PathBuf::from(p));
     }
-    // Expanded sensitive templates
+    // Expanded sensitive templates. The Windows system roots come from the
+    // environment so a system installed on another drive letter is covered.
     for t in [
         "$HOME/.ssh",
         "$HOME/.gnupg",
@@ -65,12 +67,39 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
         "%USERPROFILE%\\.ssh",
         "%APPDATA%\\Microsoft\\Credentials",
         "%LOCALAPPDATA%\\Microsoft\\Credentials",
+        "%SystemRoot%",
+        "%WINDIR%",
+        "%ProgramFiles%",
+        "%ProgramFiles(x86)%",
     ] {
         if let Some(p) = expand_path_template(t) {
             out.push(p);
         }
     }
     out
+}
+
+/// Case-folded form of a path for prefix comparisons on filesystems that
+/// ignore case (macOS, Windows). Identity elsewhere.
+pub(crate) fn fold_case(path: &Path) -> PathBuf {
+    if cfg!(any(target_os = "macos", target_os = "windows")) {
+        PathBuf::from(path.to_string_lossy().to_lowercase())
+    } else {
+        path.to_path_buf()
+    }
+}
+
+/// Strip the Windows verbatim prefix (`\\?\C:\x` → `C:\x`, `\\?\UNC\srv\s` →
+/// `\\srv\s`) that `canonicalize` adds, so prefixes compare with plain paths.
+pub(crate) fn strip_verbatim_prefix(path: &Path) -> PathBuf {
+    let text = path.to_string_lossy();
+    if let Some(rest) = text.strip_prefix(r"\\?\UNC\") {
+        return PathBuf::from(format!(r"\\{rest}"));
+    }
+    if let Some(rest) = text.strip_prefix(r"\\?\") {
+        return PathBuf::from(rest);
+    }
+    path.to_path_buf()
 }
 
 struct BuiltinProtectionIndex {
@@ -88,6 +117,7 @@ fn builtin_protected_paths() -> &'static BuiltinProtectionIndex {
             .into_iter()
             .filter(|path| !is_filesystem_root(path))
             .filter_map(|path| normalize(&path).ok())
+            .map(|path| fold_case(&path))
             .collect();
         paths.sort();
         paths.dedup();
@@ -130,20 +160,26 @@ pub(crate) fn is_never_touch_normalized(canon: &Path) -> bool {
         return true;
     }
 
-    if crate::protection::is_protected_normalized(canon) {
+    let folded = fold_case(canon);
+
+    if crate::protection::is_protected_normalized(&folded) {
         return true;
     }
 
-    if intersects_sorted_prefixes(canon, builtin_protected_paths()) {
+    if intersects_sorted_prefixes(&folded, builtin_protected_paths()) {
         return true;
     }
 
     // Like the built-in protected paths, the home boundary is fixed for this
     // process. Avoid resolving the same home directory for every scanned entry.
     if NORMALIZED_HOME
-        .get_or_init(|| home_dir().and_then(|home| normalize(&home).ok()))
+        .get_or_init(|| {
+            home_dir()
+                .and_then(|home| normalize(&home).ok())
+                .map(|home| fold_case(&home))
+        })
         .as_deref()
-        == Some(canon)
+        == Some(folded.as_path())
     {
         return true;
     }
@@ -156,11 +192,16 @@ pub fn is_safe_rule_root(path: &Path) -> bool {
     let Ok(canon) = normalize(path) else {
         return false;
     };
-    if is_never_touch_normalized(&canon) {
+    is_safe_rule_root_normalized(&canon)
+}
+
+/// [`is_safe_rule_root`] for a root that was already canonicalized.
+pub(crate) fn is_safe_rule_root_normalized(canon: &Path) -> bool {
+    if is_never_touch_normalized(canon) {
         return false;
     }
     // Refuse scanning pure system roots as rule roots
-    if is_filesystem_root(&canon) {
+    if is_filesystem_root(canon) {
         return false;
     }
     true
@@ -174,13 +215,32 @@ pub fn stays_under_root(root: &Path, candidate: &Path) -> bool {
     let Ok(c) = normalize(candidate) else {
         return false;
     };
-    c.starts_with(&r)
+    fold_case(&c).starts_with(fold_case(&r))
+}
+
+/// Canonicalize a rule root with one filesystem call: `Ok(None)` when it does
+/// not exist, the verbatim prefix stripped on Windows.
+pub(crate) fn canonical_root(path: &Path) -> std::io::Result<Option<PathBuf>> {
+    match path.canonicalize() {
+        Ok(canonical) => Ok(Some(if cfg!(windows) {
+            strip_verbatim_prefix(&canonical)
+        } else {
+            canonical
+        })),
+        Err(error) if error.kind() == std::io::ErrorKind::NotFound => Ok(None),
+        Err(error) => Err(error),
+    }
 }
 
 pub fn normalize(path: &Path) -> std::io::Result<PathBuf> {
     // Prefer canonicalize when path exists; otherwise lexical normalize.
     if path.exists() {
-        return path.canonicalize();
+        let canonical = path.canonicalize()?;
+        return Ok(if cfg!(windows) {
+            strip_verbatim_prefix(&canonical)
+        } else {
+            canonical
+        });
     }
     Ok(lexical_normalize(path))
 }
@@ -212,27 +272,67 @@ fn home_dir() -> Option<PathBuf> {
     directories::BaseDirs::new().map(|dirs| dirs.home_dir().to_path_buf())
 }
 
-/// Age check: true if file is old enough to clean (or age filter disabled).
-pub fn is_old_enough(path: &Path, min_age_days: u64) -> bool {
+/// Upper bound on entries visited when looking for the newest change inside a
+/// directory; a cache with more entries uses the newest time seen so far.
+pub(crate) const DIR_AGE_WALK_LIMIT: usize = 50_000;
+
+/// Newest modification time of a directory or anything inside it (bounded
+/// walk, symlinks are not followed and count with their own timestamp).
+pub(crate) fn newest_mtime(path: &Path, own: Option<SystemTime>) -> Option<SystemTime> {
+    let mut newest = own;
+    for entry in walkdir::WalkDir::new(path)
+        .follow_links(false)
+        .into_iter()
+        .filter_map(Result::ok)
+        .skip(1)
+        .take(DIR_AGE_WALK_LIMIT)
+    {
+        if let Some(modified) = entry.metadata().ok().and_then(|m| m.modified().ok()) {
+            newest = Some(newest.map_or(modified, |n| n.max(modified)));
+        }
+    }
+    newest
+}
+
+/// Age check against a known modification time: true if old enough (or the
+/// filter is disabled). Unknown mtimes pass so other filters decide; future
+/// timestamps never pass.
+pub(crate) fn mtime_is_old_enough(modified: Option<SystemTime>, min_age_days: u64) -> bool {
     if min_age_days == 0 {
         return true;
     }
-    let Ok(meta) = path.metadata() else {
-        return false;
-    };
-    let Ok(modified) = meta.modified() else {
-        return true; // if unknown, allow under other filters
+    let Some(modified) = modified else {
+        return true;
     };
     let Ok(elapsed) = modified.elapsed() else {
-        // future mtime
         return false;
     };
     elapsed.as_secs() >= min_age_days.saturating_mul(24 * 3600)
 }
 
+/// Age check: true if the entry is old enough to clean (or age filter disabled).
+/// A directory is as young as the newest entry inside it. Symlinks are judged
+/// by the link itself, never by their target.
+pub fn is_old_enough(path: &Path, min_age_days: u64) -> bool {
+    if min_age_days == 0 {
+        return true;
+    }
+    let Ok(meta) = path.symlink_metadata() else {
+        return false;
+    };
+    let own = meta.modified().ok();
+    let modified = if meta.is_dir() {
+        newest_mtime(path, own)
+    } else {
+        own
+    };
+    mtime_is_old_enough(modified, min_age_days)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use std::fs;
 
     #[test]
     fn home_documents_allowed_but_home_and_desktop_blocked() {
@@ -266,5 +366,76 @@ mod tests {
         };
         assert!(intersects_sorted_prefixes(Path::new("/a/nested"), &index));
         assert!(!intersects_sorted_prefixes(Path::new("/unrelated"), &index));
+    }
+
+    #[test]
+    fn verbatim_prefixes_are_stripped() {
+        assert_eq!(
+            strip_verbatim_prefix(Path::new(r"\\?\C:\Windows")),
+            PathBuf::from(r"C:\Windows")
+        );
+        assert_eq!(
+            strip_verbatim_prefix(Path::new(r"\\?\UNC\server\share\x")),
+            PathBuf::from(r"\\server\share\x")
+        );
+        assert_eq!(
+            strip_verbatim_prefix(Path::new("/usr/share")),
+            PathBuf::from("/usr/share")
+        );
+    }
+
+    #[test]
+    fn case_folding_follows_the_host_filesystem() {
+        let folded = fold_case(Path::new("/Users/Me/Library"));
+        if cfg!(any(target_os = "macos", target_os = "windows")) {
+            assert_eq!(folded, PathBuf::from("/users/me/library"));
+        } else {
+            assert_eq!(folded, PathBuf::from("/Users/Me/Library"));
+        }
+    }
+
+    #[test]
+    fn directory_age_is_its_newest_entry_and_symlinks_use_the_link() {
+        let root = tempfile::tempdir().unwrap();
+        let dir = root.path().join("cache");
+        fs::create_dir_all(dir.join("nested")).unwrap();
+        let old_file = dir.join("nested/old.bin");
+        fs::write(&old_file, b"old").unwrap();
+        let ancient = SystemTime::now() - std::time::Duration::from_secs(30 * 24 * 3600);
+        let backdate = |path: &Path| {
+            fs::OpenOptions::new()
+                .write(true)
+                .open(path)
+                .unwrap()
+                .set_times(fs::FileTimes::new().set_modified(ancient))
+                .unwrap();
+        };
+        backdate(&old_file);
+        // Directories: backdate via File on unix is not possible for dirs, so
+        // use filetime-free approach: touch the dir mtimes by renaming entries.
+        let dir_file = fs::File::open(&dir).unwrap();
+        let _ = dir_file.set_times(fs::FileTimes::new().set_modified(ancient));
+        let _ = fs::File::open(dir.join("nested"))
+            .unwrap()
+            .set_times(fs::FileTimes::new().set_modified(ancient));
+        assert!(is_old_enough(&old_file, 7));
+        assert!(is_old_enough(&dir, 7), "nothing recent inside");
+        // A fresh file deep inside makes the whole directory young.
+        fs::write(dir.join("nested/fresh.bin"), b"fresh").unwrap();
+        let _ = fs::File::open(dir.join("nested"))
+            .unwrap()
+            .set_times(fs::FileTimes::new().set_modified(ancient));
+        let _ = dir_file.set_times(fs::FileTimes::new().set_modified(ancient));
+        assert!(!is_old_enough(&dir, 7));
+        assert!(is_old_enough(&dir, 0));
+        #[cfg(unix)]
+        {
+            let link = root.path().join("link");
+            std::os::unix::fs::symlink(&old_file, &link).unwrap();
+            // The link itself was created just now: not old enough even
+            // though its target is a month old.
+            assert!(!is_old_enough(&link, 7));
+        }
+        assert!(!is_old_enough(&root.path().join("missing"), 7));
     }
 }
