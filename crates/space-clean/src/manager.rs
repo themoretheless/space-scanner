@@ -532,6 +532,42 @@ impl RuleManager {
         (total, rows)
     }
 
+    /// [`Self::list_page`] narrowed by `keep` and ordered by `rank`, largest
+    /// first (ties keep catalog order). Display rows are built only for the
+    /// visible page, so the rules window can sort thousands of rules by size.
+    pub fn list_page_ranked(
+        &self,
+        filter: &RuleFilter,
+        limit: usize,
+        keep: impl Fn(&Rule) -> bool,
+        rank: impl Fn(&Rule) -> u64,
+    ) -> (usize, Vec<RuleRow>) {
+        let filter = filter.prepared();
+        let mut text = String::new();
+        let index = self.index();
+        let mut matches: Vec<&Rule> = Vec::new();
+        let mut consider = |rule: &'_ Rule| -> bool {
+            filter.matches_prepared(rule, &self.prefs, &mut text) && keep(rule)
+        };
+        if filter.host_only {
+            for &position in index.host_positions() {
+                let rule = &self.pack.rules[position];
+                if consider(rule) {
+                    matches.push(rule);
+                }
+            }
+        } else {
+            for rule in &self.pack.rules {
+                if consider(rule) {
+                    matches.push(rule);
+                }
+            }
+        }
+        matches.sort_by_key(|rule| std::cmp::Reverse(rank(rule)));
+        let rows = matches.iter().take(limit).map(|rule| self.row_for(rule)).collect();
+        (matches.len(), rows)
+    }
+
     fn row_for(&self, r: &Rule) -> RuleRow {
         RuleRow {
             id: r.id.clone(),
@@ -870,6 +906,26 @@ pub struct ManagerStats {
 #[cfg(test)]
 mod alias_tests {
     use super::*;
+
+    #[test]
+    fn ranked_page_keeps_selected_rules_and_puts_largest_first() {
+        let manager = facet_fixture();
+        let filter = RuleFilter { host_only: true, ..Default::default() };
+        let size = |rule: &Rule| match rule.id.as_str() {
+            "c" => 30,
+            "b" => 20,
+            _ => 0,
+        };
+        let (total, rows) = manager.list_page_ranked(&filter, 2, |rule| rule.id != "d", size);
+        assert_eq!(total, 3);
+        assert_eq!(rows.iter().map(|r| r.id.as_str()).collect::<Vec<_>>(), ["c", "b"]);
+        let (_, all) = manager.list_page_ranked(&filter, 10, |_| true, |_| 0);
+        let (_, plain) = manager.list_page(&filter, 10);
+        assert_eq!(
+            all.iter().map(|r| &r.id).collect::<Vec<_>>(),
+            plain.iter().map(|r| &r.id).collect::<Vec<_>>()
+        );
+    }
 
     #[test]
     fn individual_toggle_overrides_disabled_groups_and_survives_reload() {

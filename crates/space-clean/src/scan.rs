@@ -71,6 +71,27 @@ pub fn scan(pack: &RulePack, opts: &ScanOptions) -> Result<ScanReport> {
     scan_rules(rules, opts)
 }
 
+/// Ids of the rules with at least one root that exists on this machine.
+/// One `stat` per root and no traversal, so the rules window can call it
+/// while open; a rule absent here would find nothing in a scan either.
+pub fn rules_present_on_disk<'a>(
+    rules: impl IntoIterator<Item = &'a Rule>,
+) -> std::collections::HashSet<String> {
+    let Some(expander) = PathTemplateExpander::new() else {
+        return Default::default();
+    };
+    rules
+        .into_iter()
+        .filter(|rule| {
+            rule.paths
+                .iter()
+                .filter_map(|template| expander.expand(template))
+                .any(|root| root.symlink_metadata().is_ok())
+        })
+        .map(|rule| rule.id.clone())
+        .collect()
+}
+
 /// Scan an explicit rule list (e.g. from [`crate::manager::RuleManager::scan_rules`]).
 pub fn scan_rules<'a>(
     rules: impl IntoIterator<Item = &'a Rule>,
@@ -1044,6 +1065,26 @@ exclude_globs: ['**/keep.log']
         let unexpanded = scan_rules([&rule], &ScanOptions::default()).unwrap();
         assert_eq!(unexpanded.skipped_roots.len(), 2);
         assert!(unexpanded.skipped_roots[0].contains("unexpanded"));
+    }
+
+    #[test]
+    fn presence_needs_one_existing_root() {
+        let dir = tempfile::tempdir().unwrap();
+        let here = dir.path().to_string_lossy().into_owned();
+        let gone = dir.path().join("missing").to_string_lossy().into_owned();
+        let rule = |id: &str, paths: Vec<String>| {
+            let mut rule: Rule = serde_yaml::from_str(&format!("id: {id}\nname: {id}\npaths: []\n")).unwrap();
+            rule.paths = paths;
+            rule
+        };
+        let rules = [
+            rule("both", vec![gone.clone(), here.clone()]),
+            rule("absent", vec![gone]),
+            rule("empty", Vec::new()),
+        ];
+        let present = rules_present_on_disk(&rules);
+        assert!(present.contains("both"));
+        assert_eq!(present.len(), 1);
     }
 
     #[test]
