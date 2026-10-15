@@ -783,7 +783,11 @@ impl SpaceApp {
                     self.start_rule_mgr_load();
                 }
                 if let Some(mgr) = self.rule_mgr.as_mut() {
-                    match rules_panel::draw(ui, &mut self.rules, mgr, &mut self.settings.flags) {
+                    let report = self
+                        .junk
+                        .report()
+                        .map(|report| (self.junk.report_version(), report));
+                    match rules_panel::draw(ui, &mut self.rules, mgr, &mut self.settings.flags, report) {
                         RulesAction::Close => self.rules.open = false,
                         RulesAction::PrefsChanged => {
                             self.mark_settings_dirty();

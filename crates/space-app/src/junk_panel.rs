@@ -884,7 +884,8 @@ fn visible_rows(
     start.min(count)..end.min(count)
 }
 
-fn cat_title(cat: &str) -> String {
+/// Readable name of a rule-pack category, shared with the rules window.
+pub(crate) fn cat_title(cat: &str) -> String {
     match cat {
         "caches" | "cache" => "Caches".into(),
         "logs" | "app-logs" => "Logs".into(),
@@ -900,7 +901,7 @@ fn cat_title(cat: &str) -> String {
         "vm-cache" => "VM caches".into(),
         "vm-disk" => "VM disks".into(),
         "game-cache" => "Game caches".into(),
-        "game-downloads" => "Game downloads".into(),
+        "games-downloads" | "game-downloads" => "Game downloads".into(),
         "shader-cache" => "Shader caches".into(),
         "wine-cache" => "Wine caches".into(),
         "databases" => "Databases".into(),
@@ -909,6 +910,12 @@ fn cat_title(cat: &str) -> String {
         "report" => "Report only".into(),
         "media-library" => "Media libraries".into(),
         "sample-library" => "Sample libraries".into(),
+        "browser-privacy" => "Browser history and cookies".into(),
+        "community-sources" => "Popular apps".into(),
+        "node-projects" => "Node.js projects".into(),
+        "dotnet-projects" => ".NET projects".into(),
+        "language-projects" => "Other language projects".into(),
+        "misc" => "Miscellaneous".into(),
         other => {
             let mut s = other.replace('-', " ");
             if let Some(c) = s.get_mut(0..1) {

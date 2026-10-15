@@ -24,7 +24,7 @@ pub use rules::{
     JunkKind, Platform, Risk, Rule, RuleIndex, RulePack,
 };
 pub use scan::{
-    scan, scan_rules, scan_rules_with_progress, Finding, JunkScanProgress, ScanOptions, ScanReport,
+    rules_present_on_disk, scan, scan_rules, scan_rules_with_progress, Finding, JunkScanProgress, ScanOptions, ScanReport,
 };
 pub use tags::{effective_tags, enrich_rule_tags, explicit_tags, infer_tags, normalize_tag};
 

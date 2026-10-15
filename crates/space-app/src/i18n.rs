@@ -294,6 +294,12 @@ fn age_in(lang: Lang, secs: u64) -> String {
 
 include!("i18n_ru.rs");
 
+/// Does the Russian table translate `s`? For tests of runtime-built labels.
+#[cfg(test)]
+pub(crate) fn has_ru(s: &str) -> bool {
+    RU.iter().any(|(en, _)| *en == s)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
