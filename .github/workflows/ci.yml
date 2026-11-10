@@ -30,3 +30,17 @@ jobs:
       - run: cargo test --workspace --exclude space-clean
       - name: space-clean tests (full rule pack, slow)
         run: cargo test -p space-clean --release
+
+  dist:
+    name: dist · SpaceScanner.app
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo run -p space-tools --release -- dist --no-generated
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SpaceScanner.app
+          path: target/dist/SpaceScanner.app
+          if-no-files-found: error
