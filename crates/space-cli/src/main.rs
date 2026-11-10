@@ -17,7 +17,8 @@ use space_clean::{
     ScanOptions,
 };
 use space_core::{
-    format_bytes, largest_entries, scan_path, CacheStore, NodeId, SizeMode, SpaceTree,
+    duplicate_groups, extension_totals, format_bytes, largest_entries, oldest_large_files,
+    scan_path, CacheStore, NodeId, SizeMode, SpaceTree,
 };
 
 pub const EXIT_FAILURE: u8 = 1;
@@ -25,7 +26,11 @@ pub const EXIT_USAGE: u8 = 2;
 pub const EXIT_PARTIAL: u8 = 3;
 
 #[derive(Parser)]
-#[command(name = "space", version, about = "Space Scanner CLI (index + junk cleaner)")]
+#[command(
+    name = "space",
+    version,
+    about = "Space Scanner CLI (index + junk cleaner)"
+)]
 struct Cli {
     /// Rule pack directory (default: discovery; also honours SPACE_RULES_DIR)
     #[arg(long, global = true, env = "SPACE_RULES_DIR", value_name = "DIR")]
@@ -102,13 +107,45 @@ enum Cmd {
         #[arg(long)]
         apparent: bool,
     },
+    /// Oldest large files (by modification time) under a path
+    Oldest {
+        path: PathBuf,
+        /// Minimum size (bytes, or 10K / 5M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "100M")]
+        min_size: u64,
+        #[arg(long, default_value_t = 20)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+    },
+    /// Likely duplicate files (same size and case-insensitive name)
+    Dupes {
+        path: PathBuf,
+        /// Minimum file size (bytes, or 10K / 5M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "1M")]
+        min_size: u64,
+        /// Maximum number of groups to print
+        #[arg(long, default_value_t = 20)]
+        limit: usize,
+    },
+    /// Totals grouped by file extension
+    Exts {
+        path: PathBuf,
+        #[arg(long, default_value_t = 30)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+    },
     /// Export an index as JSON or CSV (streamed)
     Export {
         format: ExportFormat,
         path: PathBuf,
-        /// Levels below the root to include (default: all)
-        #[arg(long)]
+        /// Levels below the root to include (default: all; 0 = all)
+        #[arg(long, conflicts_with = "full")]
         depth: Option<usize>,
+        /// Export the entire tree (same as omitting --depth)
+        #[arg(long)]
+        full: bool,
         /// Write to a file instead of stdout
         #[arg(long, value_name = "FILE")]
         out: Option<PathBuf>,
@@ -536,13 +573,95 @@ fn run(cli: Cli) -> CliResult {
                 eprintln!("… {} more match(es) (raise --limit)", total - shown);
             }
         }
+        Cmd::Oldest {
+            path,
+            min_size,
+            limit,
+            apparent,
+        } => {
+            let tree = ctx.load_or_scan(&path)?;
+            let mode = size_mode(apparent);
+            let now = space_core::now_unix();
+            for (i, id) in oldest_large_files(&tree, mode, min_size, limit)
+                .into_iter()
+                .enumerate()
+            {
+                let n = tree.node(id);
+                println!(
+                    "{:>3}. {:>10}  {:>9}  {}",
+                    i + 1,
+                    format_bytes(n.size(mode)),
+                    age_label(u64::from(n.mtime).min(now)),
+                    tree.path_string(id)
+                );
+            }
+        }
+        Cmd::Dupes {
+            path,
+            min_size,
+            limit,
+        } => {
+            let tree = ctx.load_or_scan(&path)?;
+            let groups = duplicate_groups(&tree, min_size);
+            let mut wasted_total = 0u64;
+            for (i, group) in groups.iter().enumerate() {
+                let size = tree.node(group[0]).allocated_size;
+                let wasted = size.saturating_mul(group.len() as u64 - 1);
+                wasted_total = wasted_total.saturating_add(wasted);
+                if i >= limit {
+                    continue;
+                }
+                println!(
+                    "{:>3}. {} copies · {} each · {} reclaimable",
+                    i + 1,
+                    group.len(),
+                    format_bytes(size),
+                    format_bytes(wasted)
+                );
+                for &id in group {
+                    println!("       {}", tree.path_string(id));
+                }
+            }
+            eprintln!(
+                "{} group(s) · up to {} reclaimable (name+size match, verify before deleting)",
+                groups.len(),
+                format_bytes(wasted_total)
+            );
+        }
+        Cmd::Exts {
+            path,
+            limit,
+            apparent,
+        } => {
+            let tree = ctx.load_or_scan(&path)?;
+            let mode = size_mode(apparent);
+            for (i, (ext, bytes, count)) in extension_totals(&tree, tree.root, mode)
+                .into_iter()
+                .take(limit)
+                .enumerate()
+            {
+                println!(
+                    "{:>3}. {:>10}  {:>8} files  {}",
+                    i + 1,
+                    format_bytes(bytes),
+                    count,
+                    ext
+                );
+            }
+        }
         Cmd::Export {
             format,
             path,
             depth,
+            full,
             out,
             apparent,
         } => {
+            let depth = if full || depth == Some(0) {
+                None
+            } else {
+                depth
+            };
             let tree = ctx.load_or_scan(&path)?;
             let mode = size_mode(apparent);
             let sink: Box<dyn Write> = match &out {
@@ -1168,6 +1287,7 @@ fn export_json(
             "size_apparent": node.apparent_size,
             "files": node.file_count,
             "is_dir": node.is_dir,
+            "mtime": node.mtime,
         });
         serde_json::to_writer(&mut *out, &row).map_err(std::io::Error::other)
     })?;

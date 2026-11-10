@@ -54,7 +54,10 @@ impl ScanHandle {
     }
 
     /// Block until the scan finishes, reporting every progress event.
-    pub fn wait_with(self, mut on_progress: impl FnMut(&ScanProgress)) -> Result<SpaceTree, String> {
+    pub fn wait_with(
+        self,
+        mut on_progress: impl FnMut(&ScanProgress),
+    ) -> Result<SpaceTree, String> {
         loop {
             match self.events.recv() {
                 Ok(ScanEvent::Done(tree)) => return Ok(*tree),
@@ -104,6 +107,7 @@ struct Rec {
     apparent: u64,
     allocated: u64,
     file_count: u64,
+    mtime: u32,
     links: Vec<HardLink>,
 }
 
@@ -455,6 +459,7 @@ fn scan_dir(
                 apparent: 0,
                 allocated: 0,
                 file_count: 0,
+                mtime: mtime_secs(&meta),
                 links: Vec::new(),
             });
             pending.fetch_add(1, Ordering::Release);
@@ -492,6 +497,7 @@ fn scan_dir(
                     apparent,
                     allocated,
                     file_count: 1,
+                    mtime: mtime_secs(&meta),
                     links: link.into_iter().collect(),
                 });
             }
@@ -516,6 +522,7 @@ fn scan_dir(
             apparent: small_apparent,
             allocated: small_allocated,
             file_count: small_count,
+            mtime: 0,
             links: small_links,
         });
     }
@@ -636,6 +643,7 @@ fn placeholder_node() -> Node {
         children: Vec::new(),
         parent: None,
         raw_name: None,
+        mtime: 0,
     }
 }
 
@@ -653,6 +661,7 @@ fn rec_into_node(rec: Rec, is_dir: bool, links: &mut Vec<(HardLink, u32)>, idx: 
         children: Vec::new(),
         parent: Some(NodeId(rec.parent)),
         raw_name: rec.raw_name,
+        mtime: rec.mtime,
     }
 }
 
@@ -671,7 +680,8 @@ fn build_tree(root: &Path, shared: &Shared, scanned_at_unix: u64) -> Result<Spac
         .map(|s| s.lock().unwrap().files.len())
         .sum();
     let total = 1 + n_dirs + n_files;
-    u32::try_from(total).map_err(|_| ScanFail::Error("too many entries for a single tree".into()))?;
+    u32::try_from(total)
+        .map_err(|_| ScanFail::Error("too many entries for a single tree".into()))?;
 
     let mut nodes: Vec<Node> = Vec::with_capacity(total);
     nodes.push(Node {
@@ -832,6 +842,24 @@ fn device_id(meta: &std::fs::Metadata) -> u64 {
     {
         let _ = meta;
         0
+    }
+}
+
+/// Modification time in Unix seconds from already-fetched metadata
+/// (no extra syscall). Clamped to `u32`; 0 when unknown.
+fn mtime_secs(meta: &std::fs::Metadata) -> u32 {
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::MetadataExt;
+        meta.mtime().clamp(0, u32::MAX as i64) as u32
+    }
+    #[cfg(not(unix))]
+    {
+        meta.modified()
+            .ok()
+            .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok())
+            .map(|d| d.as_secs().min(u32::MAX as u64) as u32)
+            .unwrap_or(0)
     }
 }
 
@@ -1219,11 +1247,7 @@ mod tests {
         assert!(err.contains("not a directory"), "{err}");
         let err = scan_blocking(tmp.path().join("missing")).unwrap_err();
         assert!(err.contains("cannot read"), "{err}");
-        assert!(rescan_subtree(
-            &scan_blocking(tmp.path()).unwrap(),
-            NodeId(99)
-        )
-        .is_err());
+        assert!(rescan_subtree(&scan_blocking(tmp.path()).unwrap(), NodeId(99)).is_err());
     }
 
     #[cfg(unix)]
@@ -1269,7 +1293,10 @@ mod tests {
             }
         }
         assert!(
-            matches!(terminal, Some(ScanEvent::Cancelled) | Some(ScanEvent::Done(_))),
+            matches!(
+                terminal,
+                Some(ScanEvent::Cancelled) | Some(ScanEvent::Done(_))
+            ),
             "{terminal:?}"
         );
 
@@ -1314,7 +1341,10 @@ mod tests {
             let raw_id = child_named(&tree, tree.root, "raw-\u{FFFD}\u{FFFD}");
             assert_eq!(tree.path_os(raw_id), raw);
             let big_id = child_named(&tree, raw_id, "big-\u{FFFD}");
-            assert_eq!(tree.path_os(big_id).as_os_str().as_bytes(), big.as_os_str().as_bytes());
+            assert_eq!(
+                tree.path_os(big_id).as_os_str().as_bytes(),
+                big.as_os_str().as_bytes()
+            );
             assert!(tree.path_string(big_id).ends_with("big-\u{FFFD}"));
         }
 
@@ -1356,5 +1386,23 @@ mod tests {
             .map(|id| tree.node(*id).name.as_str())
             .collect();
         assert_eq!(names, ["a", "b", "c"]);
+    }
+
+    #[test]
+    fn scan_records_file_mtime() {
+        let tmp = TempDir::new().unwrap();
+        let path = tmp.path().join("old.bin");
+        let f = fs::File::create(&path).unwrap();
+        f.set_len(SMALL_FILE_THRESHOLD + 1).unwrap();
+        let when = std::time::UNIX_EPOCH + Duration::from_secs(1_000_000_000);
+        f.set_modified(when).unwrap();
+        drop(f);
+        let tree = scan_blocking(tmp.path()).unwrap();
+        let id = child_named(&tree, tree.root, "old.bin");
+        assert_eq!(tree.node(id).mtime, 1_000_000_000);
+        assert_eq!(
+            crate::oldest_large_files(&tree, crate::SizeMode::Apparent, 1, 5),
+            vec![id]
+        );
     }
 }

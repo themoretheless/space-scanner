@@ -68,6 +68,22 @@ struct LargestArgs {
     #[serde(default = "default_limit")]
     limit: usize,
 }
+#[derive(Debug, Deserialize, schemars::JsonSchema)]
+#[serde(deny_unknown_fields)]
+struct OldestArgs {
+    scan_id: u64,
+    /// Minimum file size in bytes (default 100 MiB).
+    #[serde(default = "default_min_bytes")]
+    min_bytes: u64,
+    /// Filter by apparent bytes instead of allocated disk bytes.
+    #[serde(default)]
+    apparent: bool,
+    #[serde(default = "default_limit")]
+    limit: usize,
+}
+fn default_min_bytes() -> u64 {
+    100 << 20
+}
 #[derive(Debug, Default, Deserialize, schemars::JsonSchema)]
 #[serde(rename_all = "snake_case")]
 enum EntryKind {
@@ -130,7 +146,11 @@ fn rule_manager(state: &Mutex<State>) -> anyhow::Result<RuleManager> {
 
 /// Pagination window; `offset` past the end is an explicit error so a client
 /// never mistakes an empty page for the end of the data.
-fn page_window(offset: usize, limit: usize, total: usize) -> anyhow::Result<(usize, Option<usize>)> {
+fn page_window(
+    offset: usize,
+    limit: usize,
+    total: usize,
+) -> anyhow::Result<(usize, Option<usize>)> {
     anyhow::ensure!(
         offset <= total,
         "offset {offset} is past the end (total {total})"
@@ -217,6 +237,28 @@ impl Scanner {
             let items: Vec<_> = space_core::largest_entries(tree, mode, limit, dirs, files).into_iter().map(|id| {
                 let node = tree.node(id);
                 json!({"node_id":id.0,"display_path":tree.path_string(id),"is_dir":node.is_dir,"apparent_bytes":node.apparent_size,"allocated_bytes":node.allocated_size,"files":node.file_count})
+            }).collect();
+            Ok(json!({"scan_id":id,"scanned_at_unix":tree.scanned_at_unix,"eligible_entries":eligible,"truncated":eligible>limit,"items":items,"small_files_aggregated":true,"skipped_errors":tree.skipped_errors}))
+        }).await
+    }
+
+    #[tool(
+        description = "Find the oldest large files (by modification time) across a completed disk scan. Only files at least min_bytes in size; synthetic small-file aggregates and files without a known mtime are excluded. Oldest first; ties by larger size then node id.",
+        annotations(read_only_hint = true)
+    )]
+    async fn oldest_files(&self, Parameters(args): Parameters<OldestArgs>) -> CallToolResult {
+        self.read(move |state| {
+            let limit = limit(args.limit)?;
+            let state = state.lock().map_err(|_| anyhow::anyhow!("scan state unavailable"))?;
+            let (id, tree) = state.disk.as_ref().ok_or_else(|| anyhow::anyhow!("run scan_disk first"))?;
+            anyhow::ensure!(*id == args.scan_id, "scan_id expired; run scan_disk again");
+            let mode = if args.apparent { space_core::SizeMode::Apparent } else { space_core::SizeMode::OnDisk };
+            let eligible = tree.nodes.iter()
+                .filter(|node| !node.is_dir && !node.synthetic && node.mtime != 0 && node.size(mode) >= args.min_bytes)
+                .count();
+            let items: Vec<_> = space_core::oldest_large_files(tree, mode, args.min_bytes, limit).into_iter().map(|id| {
+                let node = tree.node(id);
+                json!({"node_id":id.0,"display_path":tree.path_string(id),"mtime_unix":node.mtime,"apparent_bytes":node.apparent_size,"allocated_bytes":node.allocated_size})
             }).collect();
             Ok(json!({"scan_id":id,"scanned_at_unix":tree.scanned_at_unix,"eligible_entries":eligible,"truncated":eligible>limit,"items":items,"small_files_aggregated":true,"skipped_errors":tree.skipped_errors}))
         }).await

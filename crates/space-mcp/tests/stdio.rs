@@ -123,6 +123,7 @@ fn stdio_protocol() {
             "inspect_path",
             "junk_page",
             "largest_entries",
+            "oldest_files",
             "rule_details",
             "scan_disk",
             "scan_junk",

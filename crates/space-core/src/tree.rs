@@ -36,6 +36,9 @@ pub struct Node {
     /// (non-UTF-8 or NFD names). Used to rebuild real filesystem paths.
     #[serde(default)]
     pub raw_name: Option<Vec<u8>>,
+    /// Modification time in Unix seconds (0 when unknown or synthetic).
+    #[serde(default)]
+    pub mtime: u32,
 }
 
 impl Node {
@@ -249,8 +252,7 @@ impl SpaceTree {
             }
             let mut kids = std::mem::take(&mut self.nodes[i].children);
             kids.sort_unstable_by(|&a, &b| {
-                self.compare_nodes(a, b, mode)
-                    .then_with(|| a.0.cmp(&b.0))
+                self.compare_nodes(a, b, mode).then_with(|| a.0.cmp(&b.0))
             });
             self.nodes[i].children = kids;
         }
@@ -332,6 +334,121 @@ pub fn largest_entries(
         .collect()
 }
 
+/// Files of at least `min_size` bytes (in `mode`), oldest modification time
+/// first. Directories, synthetic aggregates and files without a known mtime
+/// are skipped. Ties fall back to larger size, then lower node id.
+pub fn oldest_large_files(
+    tree: &SpaceTree,
+    mode: SizeMode,
+    min_size: u64,
+    limit: usize,
+) -> Vec<NodeId> {
+    if limit == 0 {
+        return Vec::new();
+    }
+    let mut heap = BinaryHeap::with_capacity(limit.saturating_add(1).min(tree.nodes.len()));
+    for (i, node) in tree.nodes.iter().enumerate() {
+        if node.is_dir || node.synthetic || node.mtime == 0 || node.size(mode) < min_size {
+            continue;
+        }
+        // Max-heap on the "worst" key keeps the `limit` best candidates.
+        heap.push((node.mtime, Reverse(node.size(mode)), i));
+        if heap.len() > limit {
+            heap.pop();
+        }
+    }
+    let mut ranked = heap.into_vec();
+    ranked.sort_unstable();
+    ranked
+        .into_iter()
+        .map(|(_, _, i)| NodeId(i as u32))
+        .collect()
+}
+
+/// Likely duplicate files: non-synthetic files of at least `min_size`
+/// allocated bytes grouped by (apparent size, lowercased name), keeping groups
+/// with two or more members. Groups are sorted by wasted bytes (allocated size
+/// times extra copies) descending, then by name; members by node id.
+pub fn duplicate_groups(tree: &SpaceTree, min_size: u64) -> Vec<Vec<NodeId>> {
+    let mut groups: std::collections::HashMap<(u64, String), Vec<NodeId>> =
+        std::collections::HashMap::new();
+    for (i, node) in tree.nodes.iter().enumerate() {
+        if node.is_dir || node.synthetic || node.apparent_size == 0 {
+            continue;
+        }
+        if node.apparent_size.max(node.allocated_size) < min_size {
+            continue;
+        }
+        groups
+            .entry((node.apparent_size, node.name.to_lowercase()))
+            .or_default()
+            .push(NodeId(i as u32));
+    }
+    let wasted = |members: &[NodeId]| -> u64 {
+        let size = members
+            .iter()
+            .map(|&id| {
+                tree.node(id)
+                    .allocated_size
+                    .max(tree.node(id).apparent_size)
+            })
+            .max()
+            .unwrap_or(0);
+        size.saturating_mul(members.len() as u64 - 1)
+    };
+    let mut out: Vec<(u64, String, Vec<NodeId>)> = groups
+        .into_iter()
+        .filter(|(_, m)| m.len() >= 2)
+        .map(|((_, name), mut m)| {
+            m.sort_unstable_by_key(|id| id.0);
+            (wasted(&m), name, m)
+        })
+        .collect();
+    out.sort_unstable_by(|a, b| {
+        b.0.cmp(&a.0)
+            .then_with(|| a.1.cmp(&b.1))
+            .then_with(|| a.2[0].0.cmp(&b.2[0].0))
+    });
+    out.into_iter().map(|(_, _, m)| m).collect()
+}
+
+/// Lowercased extension of a file name, or `None` (dotfiles have none).
+fn extension_of(name: &str) -> Option<String> {
+    let (stem, ext) = name.rsplit_once('.')?;
+    if stem.is_empty() || ext.is_empty() || ext.len() > 16 {
+        return None;
+    }
+    Some(ext.to_lowercase())
+}
+
+/// Bytes and file count per extension under `root`, sorted by bytes desc then
+/// name. Files without an extension count as `"(none)"`; synthetic small-file
+/// aggregates are attributed to `"(small files)"`.
+pub fn extension_totals(tree: &SpaceTree, root: NodeId, mode: SizeMode) -> Vec<(String, u64, u64)> {
+    let mut totals: std::collections::HashMap<String, (u64, u64)> =
+        std::collections::HashMap::new();
+    let mut stack = vec![root];
+    while let Some(id) = stack.pop() {
+        let node = tree.node(id);
+        if node.is_dir {
+            stack.extend_from_slice(&node.children);
+            continue;
+        }
+        let key = if node.synthetic {
+            "(small files)".to_string()
+        } else {
+            extension_of(&node.name).unwrap_or_else(|| "(none)".to_string())
+        };
+        let entry = totals.entry(key).or_default();
+        entry.0 = entry.0.saturating_add(node.size(mode));
+        entry.1 = entry.1.saturating_add(node.file_count);
+    }
+    let mut out: Vec<(String, u64, u64)> =
+        totals.into_iter().map(|(k, (b, c))| (k, b, c)).collect();
+    out.sort_unstable_by(|a, b| b.1.cmp(&a.1).then_with(|| a.0.cmp(&b.0)));
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -347,6 +464,7 @@ mod tests {
             children: Vec::new(),
             parent,
             raw_name: None,
+            mtime: 0,
         }
     }
 
@@ -615,5 +733,90 @@ mod tests {
         tree.node_mut(root).children.pop();
         tree.item_count = 5;
         assert!(tree.validate().is_err());
+    }
+
+    fn file(tree: &mut SpaceTree, parent: NodeId, name: &str, size: u64, mtime: u32) -> NodeId {
+        let mut f = node(name, Some(parent), false);
+        f.apparent_size = size;
+        f.allocated_size = size;
+        f.mtime = mtime;
+        add_node(tree, parent, f)
+    }
+
+    #[test]
+    fn oldest_large_files_orders_by_mtime_with_deterministic_ties() {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let dir = add_node(&mut tree, root, node("d", Some(root), true));
+        tree.node_mut(dir).mtime = 1;
+        let new = file(&mut tree, dir, "new", 500, 300);
+        let old = file(&mut tree, dir, "old", 500, 100);
+        let tie_small = file(&mut tree, dir, "tie-small", 400, 200);
+        let tie_big = file(&mut tree, dir, "tie-big", 600, 200);
+        file(&mut tree, dir, "tiny", 10, 1);
+        file(&mut tree, dir, "unknown", 900, 0);
+        let mut synth = node("· small", Some(dir), false);
+        synth.synthetic = true;
+        synth.mtime = 1;
+        synth.allocated_size = 1000;
+        add_node(&mut tree, dir, synth);
+
+        let got = oldest_large_files(&tree, SizeMode::OnDisk, 100, 10);
+        assert_eq!(got, vec![old, tie_big, tie_small, new]);
+        assert_eq!(
+            oldest_large_files(&tree, SizeMode::OnDisk, 100, 2),
+            vec![old, tie_big]
+        );
+        assert!(oldest_large_files(&tree, SizeMode::OnDisk, 100, 0).is_empty());
+    }
+
+    #[test]
+    fn duplicate_groups_match_size_and_case_insensitive_name() {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let a = add_node(&mut tree, root, node("a", Some(root), true));
+        let b = add_node(&mut tree, root, node("b", Some(root), true));
+        let x1 = file(&mut tree, a, "Movie.MKV", 1000, 1);
+        let x2 = file(&mut tree, b, "movie.mkv", 1000, 1);
+        let x3 = file(&mut tree, root, "movie.mkv", 1000, 1);
+        file(&mut tree, b, "movie.mkv", 999, 1);
+        let y1 = file(&mut tree, a, "big.iso", 5000, 1);
+        let y2 = file(&mut tree, b, "big.iso", 5000, 1);
+        file(&mut tree, a, "small.txt", 10, 1);
+        file(&mut tree, b, "small.txt", 10, 1);
+
+        let groups = duplicate_groups(&tree, 100);
+        assert_eq!(groups, vec![vec![y1, y2], vec![x1, x2, x3]]);
+        assert_eq!(duplicate_groups(&tree, 0).len(), 3);
+    }
+
+    #[test]
+    fn extension_totals_groups_and_sorts() {
+        let mut tree = empty_tree();
+        let root = tree.root;
+        let d = add_node(&mut tree, root, node("d", Some(root), true));
+        file(&mut tree, d, "a.MP4", 300, 1);
+        file(&mut tree, root, "b.mp4", 200, 1);
+        file(&mut tree, d, "Makefile", 50, 1);
+        file(&mut tree, d, ".bashrc", 40, 1);
+        file(&mut tree, d, "x.tar.gz", 100, 1);
+        let mut synth = node("· 3 small files", Some(d), false);
+        synth.synthetic = true;
+        synth.allocated_size = 30;
+        synth.file_count = 3;
+        add_node(&mut tree, d, synth);
+
+        let totals = extension_totals(&tree, root, SizeMode::OnDisk);
+        assert_eq!(
+            totals,
+            vec![
+                ("mp4".to_string(), 500, 2),
+                ("gz".to_string(), 100, 1),
+                ("(none)".to_string(), 90, 2),
+                ("(small files)".to_string(), 30, 3),
+            ]
+        );
+        let sub = extension_totals(&tree, d, SizeMode::OnDisk);
+        assert_eq!(sub[0], ("mp4".to_string(), 300, 1));
     }
 }
