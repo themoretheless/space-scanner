@@ -8,6 +8,7 @@ mod largest_files;
 mod os_actions;
 #[cfg(test)]
 mod testutil;
+mod reports;
 mod review;
 mod rules_panel;
 mod settings;

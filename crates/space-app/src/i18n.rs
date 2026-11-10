@@ -476,6 +476,8 @@ mod tests {
         ("app/ui/cleanup.rs", include_str!("app/ui/cleanup.rs")),
         ("app/ui/review_page.rs", include_str!("app/ui/review_page.rs")),
         ("app/ui/dialogs.rs", include_str!("app/ui/dialogs.rs")),
+        ("app/ui/reports.rs", include_str!("app/ui/reports.rs")),
+        ("reports.rs", include_str!("reports.rs")),
         ("app.rs", include_str!("app.rs")),
         ("app/os.rs", include_str!("app/os.rs")),
         ("app/select.rs", include_str!("app/select.rs")),

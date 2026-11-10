@@ -177,6 +177,56 @@ pub struct AppSettings {
     pub largest_limit: usize,
     /// Largest list shows folders (subtree totals) instead of files.
     pub largest_dirs: bool,
+    /// Report shown in place of the largest list (`None` = largest list).
+    #[serde(default)]
+    pub largest_report: Option<crate::reports::ReportKind>,
+    /// Minimum size of the Oldest report, in MiB.
+    #[serde(default = "default_oldest_min_mb")]
+    pub oldest_min_mb: u64,
+    /// Files below this size are rolled into one node per folder.
+    #[serde(default = "default_small_file_threshold")]
+    pub scan_small_file_threshold: u64,
+    /// Scan worker threads; `None` = automatic.
+    #[serde(default)]
+    pub scan_threads: Option<usize>,
+    /// Folders (paths) and glob patterns the scanner does not descend into.
+    #[serde(default)]
+    pub scan_exclude: Vec<String>,
+}
+
+fn default_oldest_min_mb() -> u64 {
+    100
+}
+
+fn default_small_file_threshold() -> u64 {
+    space_core::DEFAULT_SMALL_FILE_THRESHOLD
+}
+
+/// Small-file threshold presets offered in Settings.
+pub const SMALL_FILE_PRESETS: [u64; 5] = [0, 64 * 1024, 512 * 1024, 4 * 1024 * 1024, 32 * 1024 * 1024];
+
+/// True when an exclude entry is a glob pattern rather than a folder path.
+pub fn is_glob(entry: &str) -> bool {
+    entry.contains(['*', '?', '[', '{'])
+}
+
+/// Add `entry` to the exclude list unless it is empty or already there
+/// (trailing separators ignored). Returns whether the list changed.
+pub fn add_exclude(list: &mut Vec<String>, entry: &str) -> bool {
+    let trimmed = entry.trim();
+    let normal = |s: &str| -> String {
+        let t = s.trim_end_matches(['/', '\\']);
+        if t.is_empty() { s.to_string() } else { t.to_string() }
+    };
+    if trimmed.is_empty() {
+        return false;
+    }
+    let entry = normal(trimmed);
+    if list.iter().any(|e| normal(e) == entry) {
+        return false;
+    }
+    list.push(entry);
+    true
 }
 
 impl Default for AppSettings {
@@ -206,11 +256,39 @@ impl Default for AppSettings {
             cache_max_mb: 0,
             largest_limit: 100,
             largest_dirs: false,
+            largest_report: None,
+            oldest_min_mb: default_oldest_min_mb(),
+            scan_small_file_threshold: default_small_file_threshold(),
+            scan_threads: None,
+            scan_exclude: Vec::new(),
         }
     }
 }
 
 impl AppSettings {
+    /// Scanner options built from the Scanning settings.
+    pub fn scan_options(&self) -> space_core::ScanOptions {
+        let mut opts = space_core::ScanOptions::default()
+            .small_file_threshold(self.scan_small_file_threshold)
+            .threads(self.scan_threads.map(|n| n.clamp(1, 32)));
+        for entry in &self.scan_exclude {
+            if is_glob(entry) {
+                opts = opts.exclude_glob(entry.clone());
+            } else {
+                opts = opts.exclude(PathBuf::from(entry));
+            }
+        }
+        opts
+    }
+
+    /// Scans with other options build a differently shaped tree, so they
+    /// neither read nor write the saved-scan cache.
+    pub fn scan_options_are_default(&self) -> bool {
+        self.scan_small_file_threshold == space_core::DEFAULT_SMALL_FILE_THRESHOLD
+            && self.scan_threads.is_none()
+            && self.scan_exclude.is_empty()
+    }
+
     /// Map an old skin onto the two settings that replaced it.
     fn migrate(mut self) -> Self {
         use crate::theme::Appearance;
@@ -352,6 +430,54 @@ mod tests {
             !saved.contains("\"skin\""),
             "legacy key is not written back"
         );
+    }
+
+    #[test]
+    fn scan_options_round_trip_and_default_when_missing() {
+        let old: AppSettings = serde_json::from_str(r#"{"default_view":"sunburst"}"#).unwrap();
+        assert_eq!(old.scan_small_file_threshold, space_core::DEFAULT_SMALL_FILE_THRESHOLD);
+        assert_eq!(old.scan_threads, None);
+        assert!(old.scan_exclude.is_empty());
+        assert_eq!(old.oldest_min_mb, 100);
+        assert!(old.scan_options_are_default());
+
+        let dir = temp_dir("scanopts");
+        let path = dir.join("settings.json");
+        let s = AppSettings {
+            scan_small_file_threshold: 64 * 1024,
+            scan_threads: Some(4),
+            scan_exclude: vec!["/Volumes/Backup".into(), "*.photoslibrary".into()],
+            largest_report: Some(crate::reports::ReportKind::Duplicates),
+            oldest_min_mb: 1024,
+            ..AppSettings::default()
+        };
+        s.save_to(&path).unwrap();
+        let back = AppSettings::load_from(&path);
+        assert_eq!(back.scan_small_file_threshold, 64 * 1024);
+        assert_eq!(back.scan_threads, Some(4));
+        assert_eq!(back.scan_exclude, s.scan_exclude);
+        assert_eq!(back.largest_report, Some(crate::reports::ReportKind::Duplicates));
+        assert_eq!(back.oldest_min_mb, 1024);
+        assert!(!back.scan_options_are_default());
+        let opts = back.scan_options();
+        assert_eq!(opts.exclude, vec![PathBuf::from("/Volumes/Backup")]);
+        assert_eq!(opts.exclude_globs, vec!["*.photoslibrary".to_string()]);
+        assert_eq!(opts.threads, Some(4));
+        let _ = fs::remove_dir_all(&dir);
+    }
+
+    #[test]
+    fn exclude_list_dedupes_and_ignores_blanks() {
+        let mut list = Vec::new();
+        assert!(add_exclude(&mut list, " /a/b/ "));
+        assert!(!add_exclude(&mut list, "/a/b"));
+        assert!(!add_exclude(&mut list, "/a/b//"));
+        assert!(!add_exclude(&mut list, "   "));
+        assert!(add_exclude(&mut list, "node_modules"));
+        assert!(add_exclude(&mut list, "/"));
+        assert!(!add_exclude(&mut list, "/"));
+        assert_eq!(list, vec!["/a/b".to_string(), "node_modules".into(), "/".into()]);
+        assert!(is_glob("*.tmp") && !is_glob("/a/b"));
     }
 
     #[test]

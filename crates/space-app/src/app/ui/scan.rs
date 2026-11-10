@@ -56,7 +56,18 @@ impl SpaceApp {
                             if failed { DANGER() } else { MUTED() },
                         );
                         ui.add_space(S3);
-                        if failed {
+                        if outcome.volume_lost {
+                            ui.label(strong(
+                                "The disk was disconnected during the scan",
+                                type_scale::TITLE,
+                            ));
+                            ui.label(
+                                RichText::new(t(
+                                    "Reconnect it and scan again. Nothing was saved.",
+                                ))
+                                .color(MUTED()),
+                            );
+                        } else if failed {
                             ui.label(strong(
                                 crate::tr!("Couldn't scan {}", outcome.path.display()),
                                 type_scale::TITLE,
@@ -86,13 +97,11 @@ impl SpaceApp {
                         ui.horizontal(|ui| {
                             let w = 140.0 + 150.0 + 100.0 + 2.0 * S2;
                             ui.add_space(((ui.available_width() - w) / 2.0).max(0.0));
-                            if ui
-                                .add(primary(if failed { "Try again" } else { "Scan again" }))
-                                .clicked()
-                            {
+                            let again = if failed && !outcome.volume_lost { "Try again" } else { "Scan again" };
+                            if ui.add(primary(again)).clicked() {
                                 next = Some(Next::Again);
                             }
-                            if ui.add(secondary("Another folder…")).clicked() {
+                            if !outcome.volume_lost && ui.add(secondary("Another folder…")).clicked() {
                                 next = Some(Next::Pick);
                             }
                             if ui.add(ghost("Overview")).clicked() {

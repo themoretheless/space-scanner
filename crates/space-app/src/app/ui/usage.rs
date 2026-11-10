@@ -12,6 +12,7 @@ use space_core::{NodeId, SizeMode, SpaceTree as Tree};
 use super::Density;
 use crate::app::SpaceApp;
 use crate::icons::{self, Icon};
+use crate::reports::ReportKind;
 use crate::settings::WorkspaceLayout;
 use crate::theme::metrics::{S2, S3, S4, SIDE_W, TREE_INDENT, TREE_ROW_H, TREE_W};
 use crate::theme::type_scale;
@@ -155,6 +156,9 @@ impl SpaceApp {
             return;
         };
         self.schedule_largest();
+        if self.show_largest && self.search_hits.is_none() {
+            self.schedule_report();
+        }
         let focus = self.focus;
         let mode = self.size_mode;
         let folder_size = tree.node(focus).size(mode);
@@ -224,22 +228,40 @@ impl SpaceApp {
                 ui.add_space(S4);
                 ui.spacing_mut().item_spacing.x = 6.0;
                 let dirs = self.settings.largest_dirs;
-                if chip(ui, !dirs, "Files").clicked() && dirs {
+                let report = self.settings.largest_report;
+                if chip(ui, report.is_none() && !dirs, "Files").clicked() {
                     self.settings.largest_dirs = false;
+                    self.settings.largest_report = None;
                     self.mark_settings_dirty();
                     self.schedule_largest();
                 }
-                if chip(ui, dirs, "Folders")
+                if chip(ui, report.is_none() && dirs, "Folders")
                     .on_hover_text(t("Folders ranked by their total size; totals overlap"))
                     .clicked()
-                    && !dirs
                 {
                     self.settings.largest_dirs = true;
+                    self.settings.largest_report = None;
                     self.mark_settings_dirty();
                     self.schedule_largest();
                 }
-                if self.largest.is_loading() {
+                for (kind, label, hint) in [
+                    (ReportKind::Oldest, "Oldest", "Large files not changed for the longest time"),
+                    (ReportKind::Duplicates, "Duplicates", "Files with the same name and size"),
+                    (ReportKind::Types, "Types", "Space by file extension in this folder"),
+                ] {
+                    if chip(ui, report == Some(kind), label).on_hover_text(t(hint)).clicked() {
+                        self.settings.largest_report = Some(kind);
+                        self.mark_settings_dirty();
+                        self.schedule_report();
+                    }
+                }
+                if (report.is_none() && self.largest.is_loading())
+                    || (report.is_some() && self.reports.is_loading())
+                {
                     ui.spinner();
+                }
+                if report.is_some() {
+                    return;
                 }
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                     ui.add_space(S3);
@@ -252,6 +274,10 @@ impl SpaceApp {
                     }
                 });
             });
+            if let Some(kind) = self.settings.largest_report {
+                self.report_view(ui, &tree, kind);
+                return;
+            }
             ui.horizontal(|ui| {
                 ui.add_space(S4);
                 ui.label(caption(if self.settings.largest_dirs {

@@ -8,13 +8,14 @@ use std::time::{Duration, Instant};
 use crossbeam_channel::{unbounded, Receiver};
 use eframe::egui::{self, Key};
 use space_core::{
-    rescan_subtree, scan_path_with_expect, CacheMeta, CacheStore, NodeId, ScanEvent, ScanHandle,
+    rescan_subtree, scan_path_with_options, CacheMeta, CacheStore, NodeId, ScanEvent, ScanHandle,
     ScanProgress, SizeMode, SpaceTree,
 };
 
 use crate::anim::{TransKind, Transition};
 use crate::junk_panel::JunkPanelState;
 use crate::largest_files::{LargestFiles, LargestRequest, LargestRow};
+use crate::reports::{ReportData, ReportKey, ReportRequest, Reports};
 use crate::review;
 use crate::rules_panel::RulesPanelState;
 use crate::settings::AppSettings;
@@ -67,6 +68,30 @@ enum BgMsg {
     Exported(Result<Option<PathBuf>, String>),
     /// Bytes the saved-scan cache occupies (settings window).
     CacheSize(u64),
+    /// A contents-pane report finished.
+    Report {
+        request: ReportRequest,
+        data: ReportData,
+    },
+    /// Folder chosen for the scan exclude list (`None` = cancelled).
+    ExcludePicked(Option<PathBuf>),
+}
+
+/// Text the core puts in a scan error when the device went away mid-scan.
+const VOLUME_LOST_MARKER: &str = "volume became unavailable";
+
+/// True when a scan error means the disk was disconnected during the scan.
+pub(crate) fn is_volume_lost(error: &str) -> bool {
+    error.to_ascii_lowercase().contains(VOLUME_LOST_MARKER)
+}
+
+/// What the user is told when a scan fails.
+pub(crate) fn scan_error_text(error: &str) -> String {
+    if is_volume_lost(error) {
+        crate::i18n::t("The disk was disconnected during the scan").to_string()
+    } else {
+        crate::tr!("Scan error: {}", error)
+    }
 }
 
 /// Top-level screens: overview, explore a scan, find junk, the Trash list.
@@ -88,6 +113,8 @@ pub(crate) struct ScanOutcome {
     pub files_seen: u64,
     /// `None` when the user cancelled.
     pub error: Option<String>,
+    /// The disk went away during the scan.
+    pub volume_lost: bool,
 }
 
 /// What the last Move to Trash did, shown on the Trash list page afterwards.
@@ -208,6 +235,16 @@ pub struct SpaceApp {
     toasts: ui::Toasts,
     /// Set when a scan ended without a result (cancelled or failed).
     scan_outcome: Option<ScanOutcome>,
+    /// Oldest / Duplicates / Types reports for the contents pane.
+    reports: Reports,
+    /// Pattern typed into the Settings exclude field.
+    exclude_input: String,
+    /// The exclude-folder picker is open.
+    picking_exclude: bool,
+    /// Directories the running scan skipped because of the exclude list.
+    excluded_counter: Option<Arc<std::sync::atomic::AtomicU64>>,
+    /// Excluded directories of the last finished scan.
+    last_excluded: u64,
     /// Folder of the scan in progress, for Try again.
     scan_target: Option<PathBuf>,
     /// Trash list paths to restore after a rescan of the same folder.
@@ -362,6 +399,11 @@ impl SpaceApp {
             listings: ui::ListingCache::default(),
             toasts: ui::Toasts::default(),
             scan_outcome: None,
+            reports: Reports::default(),
+            exclude_input: String::new(),
+            picking_exclude: false,
+            excluded_counter: None,
+            last_excluded: 0,
             scan_target: None,
             keep_review: None,
             trash_result: None,
@@ -838,6 +880,18 @@ impl SpaceApp {
                     self.largest.complete(request, rows);
                 }
                 BgMsg::CacheSize(bytes) => self.cache_bytes = Some(bytes),
+                BgMsg::Report { request, data } => self.reports.complete(request, data),
+                BgMsg::ExcludePicked(path) => {
+                    self.picking_exclude = false;
+                    if let Some(path) = path {
+                        if crate::settings::add_exclude(
+                            &mut self.settings.scan_exclude,
+                            &path.to_string_lossy(),
+                        ) {
+                            self.mark_settings_dirty();
+                        }
+                    }
+                }
                 BgMsg::Exported(result) => {
                     self.exporting = false;
                     self.status = match &result {
@@ -866,10 +920,11 @@ impl SpaceApp {
             || self.busy
             || self.junk.loading
             || self.picking_folder
+            || self.picking_exclude
             || self.exporting
         {
             ctx.request_repaint_after(std::time::Duration::from_millis(100));
-        } else if self.largest.is_loading() {
+        } else if self.largest.is_loading() || self.reports.is_loading() {
             // Don't spin the UI at 20fps while a background walk finishes.
             ctx.request_repaint_after(std::time::Duration::from_millis(250));
         } else if got {
@@ -879,6 +934,7 @@ impl SpaceApp {
 
     fn invalidate_largest(&mut self) {
         self.largest.invalidate();
+        self.reports.invalidate();
         self.geom = None;
     }
 
@@ -915,7 +971,56 @@ impl SpaceApp {
         }
     }
 
+    /// Run the selected contents-pane report off the UI thread, unless the
+    /// answer for this tree, focus and size mode is cached or running.
+    fn schedule_report(&mut self) {
+        let Some(kind) = self.settings.largest_report else {
+            return;
+        };
+        let Some(tree) = self.tree.clone() else {
+            return;
+        };
+        let key = self.report_key(&tree, kind);
+        let Some(request) = self.reports.begin(key) else {
+            return;
+        };
+        let tx = self.bg_tx.clone();
+        let result = spawn_bg("space-report", move || {
+            let data = crate::reports::compute(&tree, request.key);
+            let _ = tx.send(BgMsg::Report { request, data });
+        });
+        if let Err(error) = result {
+            self.reports.failed(request);
+            self.notify(ui::ToastLevel::Error, crate::tr!("Could not start the report: {}", error));
+        }
+    }
+
+    fn report_key(&self, tree: &SpaceTree, kind: crate::reports::ReportKind) -> ReportKey {
+        ReportKey::new(tree, self.tree_gen, self.focus, self.size_mode, kind, self.settings.oldest_min_mb)
+    }
+
+    /// Native folder picker for the exclude list (answer: `ExcludePicked`).
+    pub(crate) fn pick_exclude_folder(&mut self) {
+        if self.picking_exclude {
+            return;
+        }
+        self.picking_exclude = true;
+        let tx = self.bg_tx.clone();
+        let spawned = spawn_bg("space-pick-exclude", move || {
+            let picked = block_on(rfd::AsyncFileDialog::new().pick_folder())
+                .map(|h| h.path().to_path_buf());
+            let _ = tx.send(BgMsg::ExcludePicked(picked));
+        });
+        if spawned.is_err() {
+            self.picking_exclude = false;
+        }
+    }
+
     fn save_cache_async(&self, tree: Arc<SpaceTree>) {
+        if !self.settings.scan_options_are_default() {
+            // A tree shaped by custom options must not stand in for a default scan.
+            return;
+        }
         let Some(cache) = self.cache.clone() else {
             return;
         };
@@ -990,7 +1095,7 @@ impl SpaceApp {
             .map(|m| m.item_count);
 
         self.cache_gen = self.cache_gen.wrapping_add(1);
-        if !force {
+        if !force && self.settings.scan_options_are_default() {
             if let Some(cache) = self.cache.clone() {
                 self.busy = true;
                 self.status = crate::tr!("Loading cache for {}…", path.display());
@@ -1066,7 +1171,10 @@ impl SpaceApp {
             skipped_errors: 0,
         });
         self.status = crate::tr!("Scanning {}…", path.display());
-        self.scan = Some(scan_path_with_expect(path, self.expected_items));
+        let handle = scan_path_with_options(path, self.settings.scan_options());
+        self.excluded_counter = Some(handle.excluded_counter());
+        self.last_excluded = 0;
+        self.scan = Some(handle);
     }
 
     fn rescan_current(&mut self) {
@@ -1152,7 +1260,7 @@ impl SpaceApp {
                 })
                 .unwrap_or_default();
             self.status = crate::tr!(
-                "Scanning… {} · {}{}{}",
+                "Scanning… {} · {}{}{}{}",
                 crate::i18n::bytes(p.bytes_seen),
                 p.files_seen,
                 pct,
@@ -1160,29 +1268,50 @@ impl SpaceApp {
                     crate::tr!(" · {} skipped", p.skipped_errors)
                 } else {
                     String::new()
-                }
+                },
+                excluded_suffix(self.excluded_now())
             );
             self.progress = Some(p);
         }
 
         if cancelled || err.is_some() {
             let seen = self.progress.take();
+            self.last_excluded = self.excluded_now();
+            self.excluded_counter = None;
             self.scan = None;
             self.keep_review = None;
+            let volume_lost = err.as_deref().is_some_and(is_volume_lost);
             match &err {
-                Some(e) => self.status = crate::tr!("Scan error: {}", e),
+                Some(e) => self.status = scan_error_text(e),
                 None => self.status = crate::i18n::t("Scan cancelled.").into(),
+            }
+            if volume_lost {
+                // The disk list is out of date the moment a disk goes away.
+                self.refresh_volumes();
             }
             if self.tree.is_some() {
                 // A rescan was stopped: the previous result is still open.
                 let text = self.status.clone();
-                self.toasts.push(ui::ToastLevel::Info, text, None);
+                let (level, action) = if volume_lost {
+                    (
+                        ui::ToastLevel::Error,
+                        self.scan_target.clone().map(ui::ToastAction::ScanAgain),
+                    )
+                } else {
+                    (ui::ToastLevel::Info, None)
+                };
+                self.toasts.push(level, text, action);
             } else {
+                if volume_lost {
+                    let text = self.status.clone();
+                    self.toasts.push(ui::ToastLevel::Error, text, None);
+                }
                 self.scan_outcome = Some(ScanOutcome {
                     path: self.scan_target.clone().unwrap_or_default(),
                     bytes_seen: seen.as_ref().map(|p| p.bytes_seen).unwrap_or(0),
                     files_seen: seen.as_ref().map(|p| p.files_seen).unwrap_or(0),
                     error: err,
+                    volume_lost,
                 });
             }
             return;
@@ -1191,8 +1320,10 @@ impl SpaceApp {
         if let Some(tree) = done_tree {
             let skip = tree.skipped_errors;
             let hl = tree.hardlinks_deduped;
+            self.last_excluded = self.excluded_now();
+            self.excluded_counter = None;
             self.status = crate::tr!(
-                "Indexed {} items · {}{}{}",
+                "Indexed {} items · {}{}{}{}",
                 tree.item_count,
                 crate::i18n::bytes(tree.total_size_mode(self.size_mode)),
                 if skip > 0 {
@@ -1204,7 +1335,8 @@ impl SpaceApp {
                     crate::tr!(" · {} hardlinks deduped", hl)
                 } else {
                     String::new()
-                }
+                },
+                excluded_suffix(self.last_excluded)
             );
             self.from_cache = false;
             self.cache_stale = false;
@@ -1227,6 +1359,14 @@ impl SpaceApp {
         } else {
             ctx.request_repaint();
         }
+    }
+
+    /// Directories the running scan has skipped by the exclude list so far.
+    fn excluded_now(&self) -> u64 {
+        self.excluded_counter
+            .as_ref()
+            .map(|c| c.load(std::sync::atomic::Ordering::Relaxed))
+            .unwrap_or(self.last_excluded)
     }
 
     fn navigate(&mut self, id: NodeId, push_history: bool) {
@@ -2539,6 +2679,15 @@ fn export_stem(name: &str) -> String {
 
 /// The `limit` largest folders inside `focus` by subtree total, largest
 /// first. The whole tree uses the core heap; a sub-folder walks its subtree.
+/// " · 3 folders excluded" for the status line, or nothing.
+fn excluded_suffix(n: u64) -> String {
+    if n == 0 {
+        String::new()
+    } else {
+        crate::tr!(" · {} excluded", crate::i18n::count(n as usize, "folder"))
+    }
+}
+
 fn largest_dirs_under(tree: &SpaceTree, focus: NodeId, mode: SizeMode, limit: usize) -> Vec<NodeId> {
     if focus == tree.root {
         return space_core::largest_entries(tree, mode, limit, true, false);
@@ -2658,6 +2807,36 @@ mod state_tests {
             }
             std::thread::sleep(Duration::from_millis(10));
         }
+    }
+
+    #[test]
+    fn volume_loss_errors_get_their_own_message() {
+        let lost = "/Volumes/USB: volume became unavailable during scan";
+        assert!(is_volume_lost(lost));
+        assert!(is_volume_lost("Volume Became Unavailable During Scan"));
+        assert_eq!(scan_error_text(lost), "The disk was disconnected during the scan");
+        assert!(!is_volume_lost("Permission denied (os error 13)"));
+        assert_eq!(
+            scan_error_text("Permission denied (os error 13)"),
+            "Scan error: Permission denied (os error 13)"
+        );
+    }
+
+    #[test]
+    fn custom_scan_options_skip_the_cache_and_tree_changes_drop_reports() {
+        let mut app = app();
+        assert!(app.settings.scan_options_are_default());
+        app.settings.scan_exclude.push("/r/a".into());
+        assert!(!app.settings.scan_options_are_default());
+        app.install_tree(sample());
+        let tree = app.tree.clone().unwrap();
+        let key = app.report_key(&tree, crate::reports::ReportKind::Types);
+        let request = app.reports.begin(key).unwrap();
+        app.install_tree(sample());
+        app.reports.complete(request, crate::reports::ReportData::Types(vec![]));
+        assert!(app.reports.get(&key).is_none(), "a report of the old tree is dropped");
+        let fresh = app.report_key(&app.tree.clone().unwrap(), crate::reports::ReportKind::Types);
+        assert_ne!(fresh, key, "the key follows the tree generation");
     }
 
     #[test]
