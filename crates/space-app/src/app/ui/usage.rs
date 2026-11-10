@@ -310,10 +310,14 @@ impl SpaceApp {
                     let queued = self.review.contains(&id);
                     let (rect, resp) = ui.allocate_exact_size(
                         egui::vec2(ui.available_width(), TREE_ROW_H),
-                        Sense::CLICK,
+                        Sense::click(),
                     );
                     if selected && scroll_to {
                         resp.scroll_to_me(None);
+                    }
+                    row_a11y(&resp, n, row.size, selected, queued);
+                    if self.row_keyboard(&resp, id, selected, scroll_to) {
+                        pick = Some((id, false, false));
                     }
                     let outcome = paint_tree_row(
                         ui,
@@ -1270,6 +1274,34 @@ struct RowState {
     linked_hover: bool,
     /// The map hovers a descendant of this node.
     hover_ancestor: bool,
+}
+
+/// F0816: what a screen reader announces for a painted row.
+pub(super) fn row_a11y(resp: &egui::Response, n: &space_core::Node, size: u64, selected: bool, queued: bool) {
+    let label = format!(
+        "{}, {}, {}{}",
+        n.name,
+        t(if n.is_dir { "Folder" } else { "File" }),
+        crate::i18n::bytes(size),
+        if queued { format!(", {}", t("on the Trash list")) } else { String::new() }
+    );
+    resp.widget_info(|| egui::WidgetInfo::selected(egui::WidgetType::SelectableLabel, true, selected, &label));
+}
+
+impl SpaceApp {
+    /// F0819: keyboard focus on list rows. Tab onto a row selects it; when
+    /// the arrows move the selection, focus follows. Returns true when the
+    /// row just gained focus and should become the selection.
+    pub(super) fn row_keyboard(&mut self, resp: &egui::Response, _id: NodeId, selected: bool, scroll_to: bool) -> bool {
+        let focused = resp.has_focus();
+        if focused {
+            self.row_focused = true;
+        }
+        if selected && scroll_to && self.kb_nav && !focused {
+            resp.request_focus();
+        }
+        resp.gained_focus() && !selected && self.kb_nav
+    }
 }
 
 /// One tree row: guides · chevron · swatch · name · share bar + % · size · review mark.

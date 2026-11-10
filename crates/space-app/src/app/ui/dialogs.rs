@@ -101,6 +101,17 @@ impl SpaceApp {
                 self.geom = None;
                 self.mark_settings_dirty();
             }
+            row(ui, "Contrast", "", &mut |ui| {
+                if ui
+                    .checkbox(&mut self.settings.high_contrast, t("High contrast"))
+                    .on_hover_text(t("Stronger text and borders, no translucent fills"))
+                    .changed()
+                {
+                    crate::theme::set_high_contrast(ui.ctx(), self.settings.high_contrast);
+                    self.geom = None;
+                    self.mark_settings_dirty();
+                }
+            });
 
             let mut layout = self.settings.layout;
             row(

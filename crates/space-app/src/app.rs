@@ -222,6 +222,11 @@ pub struct SpaceApp {
     pending_copy: Option<String>,
     /// The search field had keyboard focus last frame.
     search_focused: bool,
+    /// Keyboard focus is on a list row (drawn last frame): arrows, Enter
+    /// and Space act on the list instead of being a button press.
+    row_focused: bool,
+    /// The last navigation was by keyboard; focus rings are drawn.
+    kb_nav: bool,
     /// Where the map was drawn last frame, for the PNG export crop.
     map_rect: Option<egui::Rect>,
     /// A screenshot of the map was asked for and has not arrived yet.
@@ -238,6 +243,7 @@ type RiskHint = (String, &'static str, egui::Color32, &'static str);
 
 impl SpaceApp {
     pub fn new(cc: &eframe::CreationContext<'_>, settings: AppSettings) -> Self {
+        theme::set_high_contrast(&cc.egui_ctx, settings.high_contrast);
         theme::apply(
             &cc.egui_ctx,
             settings.appearance,
@@ -288,6 +294,8 @@ impl SpaceApp {
             path_edit_focus: false,
             map_rect: None,
             shot_pending: false,
+            row_focused: false,
+            kb_nav: false,
             selected: None,
             multi: HashSet::new(),
             hovered: None,
@@ -1589,7 +1597,7 @@ impl SpaceApp {
         let typing = (self.search_focused || self.path_edit.is_some()) && ctx.wants_keyboard_input();
         // A focused button takes Space and Enter as a click (egui does that), so the
         // app must not act on them a second time. Rows and the map never take focus.
-        let button_focus = ctx.wants_keyboard_input() && !typing;
+        let button_focus = ctx.wants_keyboard_input() && !typing && !self.row_focused;
         let (enter, space) = if button_focus {
             (false, false)
         } else {
@@ -1774,6 +1782,44 @@ impl SpaceApp {
 
     /// The native picker runs on a background thread; the choice arrives as
     /// `BgMsg::FolderPicked` and starts the scan.
+    /// F0818: a visible ring around whatever holds keyboard focus, drawn
+    /// only after keyboard navigation so mouse clicks stay quiet.
+    fn paint_focus_ring(&mut self, ctx: &egui::Context) {
+        let (pointer, keys) = ctx.input(|i| {
+            (
+                i.pointer.any_pressed(),
+                i.key_pressed(Key::Tab)
+                    || i.key_pressed(Key::ArrowUp)
+                    || i.key_pressed(Key::ArrowDown),
+            )
+        });
+        if pointer {
+            self.kb_nav = false;
+        } else if keys {
+            self.kb_nav = true;
+        }
+        if !self.kb_nav {
+            return;
+        }
+        let Some(id) = ctx.memory(|m| m.focused()) else {
+            return;
+        };
+        let Some(resp) = ctx.read_response(id) else {
+            return;
+        };
+        let painter = ctx.layer_painter(egui::LayerId::new(
+            egui::Order::Foreground,
+            egui::Id::new("focus_ring"),
+        ));
+        let painter = painter.with_clip_rect(resp.interact_rect.expand(4.0));
+        painter.rect_stroke(
+            resp.rect.shrink(1.0),
+            4.0,
+            theme::focus_stroke(),
+            egui::StrokeKind::Inside,
+        );
+    }
+
     fn pick_folder_and_scan(&mut self) {
         self.pick_folder();
     }
@@ -2418,8 +2464,10 @@ impl eframe::App for SpaceApp {
 
         self.sanitize_selection();
         let before = (self.selected, self.mode, self.focus, self.review.len());
+        self.row_focused = false;
         self.ui(ctx);
         self.sanitize_selection();
+        self.paint_focus_ring(ctx);
         // State changed by a click in this frame: draw it now, not on the next input.
         if before != (self.selected, self.mode, self.focus, self.review.len()) {
             ctx.request_repaint();

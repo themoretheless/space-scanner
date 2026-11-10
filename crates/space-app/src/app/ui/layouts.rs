@@ -397,8 +397,13 @@ impl SpaceApp {
                             let n = tree.node(id);
                             let (rect, resp) = ui.allocate_exact_size(
                                 egui::vec2(ui.available_width(), TABLE_ROW_H),
-                                Sense::CLICK,
+                                Sense::click(),
                             );
+                            let sel = self.is_selected(id);
+                            super::usage::row_a11y(&resp, n, row.size, sel, self.review.contains(&id));
+                            if self.row_keyboard(&resp, id, sel, scroll_to) {
+                                pick = Some((id, false, false));
+                            }
                             let out = paint_table_row(
                                 ui,
                                 rect,
@@ -517,7 +522,7 @@ fn paint_table_row(
         resp.clicked()
             && ui
                 .input(|i| i.pointer.interact_pos())
-                .is_some_and(|h| r.expand(4.0).contains(h))
+                .is_some_and(|h| r.expand(5.0).contains(h))
     };
 
     // Checkbox = in review.

@@ -755,6 +755,15 @@ fn nav_item(ui: &mut egui::Ui, item: &NavItem, on: bool, wide: bool) -> egui::Re
         MUTED().gamma_multiply(0.6)
     };
     let label = t(item.label);
+    // F0816: the rail shows icons only; the label still reaches VoiceOver.
+    resp.widget_info(|| {
+        let text = if item.badge > 0 {
+            format!("{label}, {}", item.badge)
+        } else {
+            label.to_owned()
+        };
+        egui::WidgetInfo::selected(egui::WidgetType::Button, item.enabled, on, text)
+    });
     if wide {
         icons::paint(
             p,

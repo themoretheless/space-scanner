@@ -158,6 +158,9 @@ pub struct AppSettings {
     pub size_units: SizeUnits,
     /// No zoom, crossfade or hover animation.
     pub reduce_motion: bool,
+    /// High-contrast palette: stronger text and borders, no translucent fills.
+    #[serde(default)]
+    pub high_contrast: bool,
     /// How long the pointer rests before a hover hint appears.
     pub tooltip_delay_ms: u64,
     /// Open with the view and size mode last used instead of the defaults.
@@ -194,6 +197,7 @@ impl Default for AppSettings {
             last_focus: BTreeMap::new(),
             size_units: SizeUnits::Iec,
             reduce_motion: false,
+            high_contrast: false,
             tooltip_delay_ms: 350,
             remember_last_view: true,
             last_view: None,

@@ -306,6 +306,11 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     super::hovered_node_context_menu(&response, tree, hover_id, ctx.review, &mut action);
 
     action.hover = hover_id;
+    // F0816: one surface for every wedge; announce the one under the pointer
+    // or the selection.
+    if let Some(id) = hover_id.or(ctx.selected) {
+        super::node_a11y(&response, ctx, id);
+    }
     if let Some(id) = hover_id {
         ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
         response

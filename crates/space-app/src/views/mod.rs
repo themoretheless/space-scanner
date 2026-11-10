@@ -283,6 +283,7 @@ pub fn click_map_node(_tree: &SpaceTree, id: NodeId, mods: egui::Modifiers, acti
 /// Everything a map does with one node's response: click, double-click,
 /// context menu, hover card and cursor. Shared by the tile/band/bubble views.
 pub fn node_response(ui: &Ui, resp: &egui::Response, ctx: &DrawCtx<'_>, id: NodeId, action: &mut ViewAction) {
+    node_a11y(resp, ctx, id);
     if resp.clicked() {
         click_map_node(ctx.tree, id, ui.input(|i| i.modifiers), action);
     }
@@ -296,6 +297,14 @@ pub fn node_response(ui: &Ui, resp: &egui::Response, ctx: &DrawCtx<'_>, id: Node
         resp.clone()
             .on_hover_ui(|ui| node_hover_ui(ui, ctx.tree, id, ctx.focus, ctx.mode));
     }
+}
+
+/// F0816: name and size of a map item for screen readers.
+pub fn node_a11y(resp: &egui::Response, ctx: &DrawCtx<'_>, id: NodeId) {
+    let Some(n) = ctx.tree.try_node(id) else { return };
+    let label = format!("{}, {}", n.name, crate::i18n::bytes(n.size(ctx.mode)));
+    let selected = ctx.selected == Some(id) || ctx.multi.contains(&id);
+    resp.widget_info(|| egui::WidgetInfo::selected(egui::WidgetType::SelectableLabel, true, selected, &label));
 }
 
 /// Animated hover/selection weights for a node, keyed by its id (stable

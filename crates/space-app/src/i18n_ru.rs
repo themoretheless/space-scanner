@@ -593,4 +593,9 @@ static RU: &[(&str, &str)] = &[
     ("Save rings as SVG…", "Сохранить кольца как SVG…"),
     ("Switch to Rings to export SVG", "Переключитесь на Кольца, чтобы сохранить SVG"),
     ("Could not encode the image: {}", "Не удалось закодировать изображение: {}"),
+    // --- accessibility
+    ("Contrast", "Контраст"),
+    ("High contrast", "Высокий контраст"),
+    ("Stronger text and borders, no translucent fills", "Более яркий текст и рамки, без полупрозрачных заливок"),
+    ("on the Trash list", "в списке к удалению"),
 ];
