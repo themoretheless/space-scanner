@@ -53,17 +53,7 @@ mod tests {
 
     #[test]
     fn selected_parent_includes_child_once_in_either_selection_order() {
-        let mut parent = Node {
-            name: "root".into(),
-            apparent_size: 100,
-            allocated_size: 80,
-            file_count: 1,
-            is_dir: true,
-            synthetic: false,
-            children: vec![NodeId(1)],
-            parent: None,
-            raw_name: None,
-        };
+        let mut parent = crate::testutil::node("root", 100, 80, 1, true, false, None, vec![NodeId(1)]);
         let mut child = parent.clone();
         child.name = "file".into();
         child.parent = Some(NodeId(0));
@@ -95,17 +85,7 @@ mod tests {
         let mut nodes: Vec<Node> = Vec::new();
         let mut parent = None;
         for i in 0..4u32 {
-            nodes.push(Node {
-                name: format!("d{i}"),
-                apparent_size: 100 - i as u64 * 10,
-                allocated_size: 100 - i as u64 * 10,
-                file_count: 1,
-                is_dir: true,
-                synthetic: false,
-                children: if i < 3 { vec![NodeId(i + 1)] } else { vec![] },
-                parent,
-                raw_name: None,
-            });
+            nodes.push(crate::testutil::node(&format!("d{i}"), 100 - i as u64 * 10, 100 - i as u64 * 10, 1, true, false, parent, if i < 3 { vec![NodeId(i + 1)] } else { vec![] }));
             parent = Some(NodeId(i));
         }
         let tree = SpaceTree {

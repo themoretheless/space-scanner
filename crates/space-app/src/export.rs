@@ -166,17 +166,7 @@ mod tests {
     use space_core::Node;
 
     fn node(name: &str, size: u64, is_dir: bool, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
-        Node {
-            name: name.into(),
-            apparent_size: size,
-            allocated_size: size,
-            file_count: if is_dir { 2 } else { 1 },
-            is_dir,
-            synthetic: false,
-            children,
-            parent,
-            raw_name: None,
-        }
+        crate::testutil::node(name, size, size, if is_dir { 2 } else { 1 }, is_dir, false, parent, children)
     }
 
     fn sample() -> SpaceTree {

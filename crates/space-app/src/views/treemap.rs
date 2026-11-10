@@ -132,7 +132,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             theme::color_for(&node.name, node.is_dir)
         };
         let is_hov = ctx.hovered == Some(id);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let is_sel = ctx.is_marked(id);
         let (hov_t, sel_t) = super::highlight(ui, "tm", Some(id), is_hov, is_sel);
         let shrink = if node.is_dir { 1.5 } else { 0.8 };
         let draw = rect.shrink(shrink);

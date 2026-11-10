@@ -267,13 +267,8 @@ impl SpaceApp {
                                                     );
 
                                                     if resp.clicked() {
-                                                        if ui.input(|i| {
-                                                            i.modifiers.command || i.modifiers.ctrl
-                                                        }) && !n.synthetic
-                                                        {
-                                                            queue = Some(id);
-                                                        }
-                                                        pick = Some(id);
+                                                        let m = ui.input(|i| i.modifiers);
+                                                        pick = Some((id, m.command || m.ctrl, m.shift));
                                                     }
                                                     if resp.double_clicked() && !n.synthetic {
                                                         enter = Some(id);
@@ -306,8 +301,8 @@ impl SpaceApp {
                         });
                     });
             });
-        if let Some(id) = pick {
-            self.selected = Some(id);
+        if let Some((id, toggle, range)) = pick {
+            self.click_select(id, toggle, range);
         }
         if let Some(id) = queue {
             self.queue_toggle(&[id]);
@@ -410,7 +405,7 @@ impl SpaceApp {
                                 &resp,
                                 row,
                                 n,
-                                self.selected == Some(id),
+                                self.is_selected(id),
                                 self.review.contains(&id),
                             );
                             if out.check && !n.synthetic {
@@ -418,13 +413,8 @@ impl SpaceApp {
                             } else if out.chevron {
                                 toggle = Some(id);
                             } else if resp.clicked() {
-                                // ⌘/Ctrl-click marks for review here too, like every other list.
-                                if ui.input(|i| i.modifiers.command || i.modifiers.ctrl)
-                                    && !n.synthetic
-                                {
-                                    queue = Some(id);
-                                }
-                                pick = Some(id);
+                                let m = ui.input(|i| i.modifiers);
+                                pick = Some((id, m.command || m.ctrl, m.shift));
                             }
                             if resp.double_clicked() && !n.synthetic {
                                 enter = Some(id);
@@ -448,8 +438,8 @@ impl SpaceApp {
                 }
             }
         }
-        if let Some(id) = pick {
-            self.selected = Some(id);
+        if let Some((id, toggle, range)) = pick {
+            self.click_select(id, toggle, range);
         }
         if let Some(id) = queue {
             self.queue_toggle(&[id]);

@@ -39,10 +39,10 @@ impl ViewMode {
     pub fn click_hint(self) -> &'static str {
         match self {
             Self::Sunburst => {
-                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the Trash list"
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the selection"
             }
             Self::Container | Self::Radial | Self::Cascade => {
-                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the Trash list"
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the selection"
             }
         }
     }
@@ -173,6 +173,10 @@ impl ViewFilter {
 pub struct ViewAction {
     pub navigate: Option<NodeId>,
     pub select: Option<NodeId>,
+    /// ⌘/Ctrl held on the selecting click: add to or take out of the selection.
+    pub select_toggle: bool,
+    /// Shift held on the selecting click: select the range from the anchor.
+    pub select_range: bool,
     pub hover: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
     pub filter_ext: Option<String>,
@@ -199,33 +203,26 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     let hint = if n.synthetic {
         "Grouped leftovers · click to select · right-click to filter by type"
     } else if n.is_dir && id == focus {
-        "Click to select · ↑ to go up · ⌘-click adds to the Trash list"
+        "Click to select · ↑ to go up · ⌘-click adds to the selection"
     } else if n.is_dir {
-        "Click to select · double-click to open · ⌘-click adds to the Trash list"
+        "Click to select · double-click to open · ⌘-click adds to the selection"
     } else {
-        "Click to select · double-click shows it in Finder · ⌘-click adds to the Trash list"
+        "Click to select · double-click shows it in Finder · ⌘-click adds to the selection"
     };
     ui.label(RichText::new(t(hint)).small().color(MUTED()));
 }
 
-pub fn click_map_node(tree: &SpaceTree, id: NodeId, cmd: bool, action: &mut ViewAction) {
-    let n = tree.node(id);
-    if cmd && !n.synthetic {
-        action.toggle_review = Some(id);
-    }
+pub fn click_map_node(_tree: &SpaceTree, id: NodeId, mods: egui::Modifiers, action: &mut ViewAction) {
     action.select = Some(id);
+    action.select_toggle = mods.command || mods.ctrl;
+    action.select_range = mods.shift;
 }
 
 /// Everything a map does with one node's response: click, double-click,
 /// context menu, hover card and cursor. Shared by the tile/band/bubble views.
 pub fn node_response(ui: &Ui, resp: &egui::Response, ctx: &DrawCtx<'_>, id: NodeId, action: &mut ViewAction) {
     if resp.clicked() {
-        click_map_node(
-            ctx.tree,
-            id,
-            ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
-            action,
-        );
+        click_map_node(ctx.tree, id, ui.input(|i| i.modifiers), action);
     }
     if resp.double_clicked() {
         double_click_map_node(ctx.tree, id, action);
@@ -363,6 +360,8 @@ impl ViewAction {
         Self {
             navigate: None,
             select: None,
+            select_toggle: false,
+            select_range: false,
             hover: None,
             toggle_review: None,
             filter_ext: None,
@@ -454,6 +453,8 @@ pub struct DrawCtx<'a> {
     pub tree: &'a SpaceTree,
     pub focus: NodeId,
     pub selected: Option<NodeId>,
+    /// Every selected node when more than one is selected.
+    pub multi: &'a HashSet<NodeId>,
     pub hovered: Option<NodeId>,
     pub review: &'a HashSet<NodeId>,
     pub mode: SizeMode,
@@ -471,6 +472,13 @@ pub struct DrawCtx<'a> {
     /// scaled about its centre, so nothing is rebuilt per frame.
     pub scale: f32,
     pub geom: &'a mut Option<GeomCache>,
+}
+
+impl DrawCtx<'_> {
+    /// Drawn highlighted: selected (alone or with others) or on the Trash list.
+    pub fn is_marked(&self, id: NodeId) -> bool {
+        self.selected == Some(id) || self.multi.contains(&id) || self.review.contains(&id)
+    }
 }
 
 pub fn draw(ui: &mut Ui, view: ViewMode, ctx: &mut DrawCtx<'_>) -> ViewAction {
@@ -506,31 +514,11 @@ mod click_map_tests {
     use space_core::Node;
 
     fn dir(name: &str, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
-        Node {
-            name: name.into(),
-            apparent_size: 10,
-            allocated_size: 10,
-            file_count: 1,
-            is_dir: true,
-            synthetic: false,
-            children,
-            parent,
-            raw_name: None,
-        }
+        crate::testutil::node(name, 10, 10, 1, true, false, parent, children)
     }
 
     fn file(name: &str, parent: NodeId) -> Node {
-        Node {
-            name: name.into(),
-            apparent_size: 3,
-            allocated_size: 3,
-            file_count: 1,
-            is_dir: false,
-            synthetic: false,
-            children: Vec::new(),
-            parent: Some(parent),
-            raw_name: None,
-        }
+        crate::testutil::node(name, 3, 3, 1, false, false, Some(parent), Vec::new())
     }
 
     fn sample() -> SpaceTree {
@@ -578,6 +566,7 @@ mod click_map_tests {
                                 tree: &tree,
                                 focus: tree.root,
                                 selected: None,
+                                multi: &HashSet::new(),
                                 hovered: None,
                                 review: &review,
                                 mode: SizeMode::OnDisk,
@@ -641,7 +630,7 @@ mod click_map_tests {
     fn click_child_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), egui::Modifiers::NONE, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -650,7 +639,7 @@ mod click_map_tests {
     fn click_current_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), egui::Modifiers::NONE, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -659,7 +648,7 @@ mod click_map_tests {
     fn click_file_selects() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), false, &mut action);
+        click_map_node(&tree, NodeId(2), egui::Modifiers::NONE, &mut action);
         assert_eq!(action.select, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
     }
@@ -678,17 +667,22 @@ mod click_map_tests {
         let mut tree = sample();
         tree.nodes[1].synthetic = true;
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), egui::Modifiers::NONE, &mut action);
         assert_eq!(action.select, Some(NodeId(1)));
         assert_eq!(action.navigate, None);
     }
 
     #[test]
-    fn cmd_click_queues_trash() {
+    fn cmd_click_toggles_selection_and_shift_selects_a_range() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), true, &mut action);
-        assert_eq!(action.toggle_review, Some(NodeId(2)));
+        click_map_node(&tree, NodeId(2), egui::Modifiers::COMMAND, &mut action);
+        assert_eq!(action.select, Some(NodeId(2)));
+        assert!(action.select_toggle && !action.select_range);
+        assert_eq!(action.toggle_review, None);
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(2), egui::Modifiers::SHIFT, &mut action);
+        assert!(action.select_range && !action.select_toggle);
         assert_eq!(action.navigate, None);
     }
 }

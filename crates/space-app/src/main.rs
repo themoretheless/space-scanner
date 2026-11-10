@@ -5,6 +5,8 @@ mod i18n;
 mod icons;
 mod junk_panel;
 mod largest_files;
+#[cfg(test)]
+mod testutil;
 mod review;
 mod rules_panel;
 mod settings;

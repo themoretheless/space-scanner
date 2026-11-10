@@ -198,7 +198,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         };
         let is_sel = hit
             .id
-            .is_some_and(|id| ctx.selected == Some(id) || ctx.review.contains(&id));
+            .is_some_and(|id| ctx.is_marked(id));
         let (hov_t, sel_t) = super::highlight(ui, "sb", hit.id, is_hov, is_sel);
         let hit = scaled(hit);
         if hov_t > 0.01 {
@@ -287,12 +287,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 for hit in hits.iter().rev() {
                     if point_in_arc(pos, center, &scaled(hit)) {
                         if let Some(id) = hit.id {
-                            super::click_map_node(
-                                tree,
-                                id,
-                                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
-                                &mut action,
-                            );
+                            super::click_map_node(tree, id, ui.input(|i| i.modifiers), &mut action);
                         }
                         break;
                     }

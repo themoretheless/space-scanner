@@ -75,7 +75,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             base.gamma_multiply(1.0 - depth as f32 * 0.08)
         };
         let is_hov = ctx.hovered == Some(id);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let is_sel = ctx.is_marked(id);
         let (hov_t, sel_t) = super::highlight(ui, "cas", Some(id), is_hov, is_sel);
         let draw = band_rect.shrink(1.0);
         painter.rect_filled(draw, 3.0, color);

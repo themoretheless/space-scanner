@@ -23,6 +23,7 @@ use crate::tm_clean::{self, CleanReport, LocalSnapshot};
 use crate::views::{GeomCache, ViewFilter, ViewMode};
 use crate::volumes::{self, VolumeInfo};
 
+mod select;
 mod ui;
 
 enum BgMsg {
@@ -113,6 +114,8 @@ pub struct SpaceApp {
     tree: Option<Arc<SpaceTree>>,
     focus: NodeId,
     selected: Option<NodeId>,
+    /// Every selected node while more than one is selected (see `select.rs`).
+    multi: HashSet<NodeId>,
     /// Live hover from the central view (tooltip + sidebar highlight).
     hovered: Option<NodeId>,
     view: ViewMode,
@@ -273,6 +276,7 @@ impl SpaceApp {
             tree: None,
             focus: NodeId(0),
             selected: None,
+            multi: HashSet::new(),
             hovered: None,
             view,
             size_mode,
@@ -392,6 +396,7 @@ impl SpaceApp {
         self.pending_removals = None;
         self.focus = tree.root;
         self.selected = None;
+        self.multi.clear();
         self.hovered = None;
         self.review.clear();
         self.history_back.clear();
@@ -1382,12 +1387,28 @@ impl SpaceApp {
         }
     }
 
-    /// Copy the selected item's path (or the folder in view).
+    /// Copy the selected items' paths, one per line (or the folder in view).
     fn copy_focus_path(&mut self) {
         let Some(tree) = &self.tree else { return };
-        let id = self.selected.unwrap_or(self.focus);
-        let path = tree.path_string(id);
-        self.copy_text(path);
+        let mut ids = self.selection_ids();
+        if ids.is_empty() {
+            ids.push(self.focus);
+        }
+        let text = ids
+            .iter()
+            .filter(|&&id| tree.try_node(id).is_some())
+            .map(|&id| tree.path_string(id))
+            .collect::<Vec<_>>()
+            .join("\n");
+        if ids.len() > 1 {
+            self.notify(
+                ui::ToastLevel::Success,
+                crate::tr!("Copied {} paths", ids.len()),
+            );
+            self.pending_copy = Some(text);
+        } else {
+            self.copy_text(text);
+        }
     }
 
     fn copy_text(&mut self, text: String) {
@@ -1638,10 +1659,13 @@ impl SpaceApp {
             if key_del && !typing {
                 // Add the selection if it is not listed yet, then open the Trash list.
                 // The confirmation itself is always one more explicit step.
-                if let Some(id) = self.selected {
-                    if self.mode == Mode::Explore && !self.review.contains(&id) {
-                        self.queue_toggle(&[id]);
-                    }
+                let ids: Vec<NodeId> = self
+                    .selection_ids()
+                    .into_iter()
+                    .filter(|id| !self.review.contains(id))
+                    .collect();
+                if self.mode == Mode::Explore && !ids.is_empty() {
+                    self.queue_toggle(&ids);
                 }
                 self.set_mode(Mode::Review);
             }
@@ -1675,7 +1699,7 @@ impl SpaceApp {
         if self.mode != Mode::Explore {
             return;
         }
-        if self.tree_keys(up, down, left, right, space) {
+        if self.tree_keys(up, down, left, right, space, mods.shift) {
             return;
         }
         if left {
@@ -2357,8 +2381,10 @@ impl eframe::App for SpaceApp {
         self.flush_settings(false);
         self.flush_rule_prefs(false);
 
+        self.sanitize_selection();
         let before = (self.selected, self.mode, self.focus, self.review.len());
         self.ui(ctx);
+        self.sanitize_selection();
         // State changed by a click in this frame: draw it now, not on the next input.
         if before != (self.selected, self.mode, self.focus, self.review.len()) {
             ctx.request_repaint();
@@ -2513,17 +2539,7 @@ mod state_tests {
     use space_core::Node;
 
     fn node(name: &str, is_dir: bool, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
-        Node {
-            name: name.into(),
-            apparent_size: 10,
-            allocated_size: 10,
-            file_count: 1,
-            is_dir,
-            synthetic: false,
-            children,
-            parent,
-            raw_name: None,
-        }
+        crate::testutil::node(name, 10, 10, 1, is_dir, false, parent, children)
     }
 
     /// `/r` → `a/` → `b/` → `f`
@@ -2710,17 +2726,7 @@ mod largest_dirs_tests {
     use space_core::Node;
 
     fn node(name: &str, size: u64, is_dir: bool, parent: Option<NodeId>, children: Vec<NodeId>) -> Node {
-        Node {
-            name: name.into(),
-            apparent_size: size,
-            allocated_size: size,
-            file_count: 1,
-            is_dir,
-            synthetic: false,
-            children,
-            parent,
-            raw_name: None,
-        }
+        crate::testutil::node(name, size, size, 1, is_dir, false, parent, children)
     }
 
     /// `/r` → `a/`(30) → {`b/`(20) → `f`(20), `c/`(5)}, `d/`(8)

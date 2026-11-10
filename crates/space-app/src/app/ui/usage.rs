@@ -305,7 +305,7 @@ impl SpaceApp {
                 for row in &rows[range] {
                     let id = row.id;
                     let n = tree.node(id);
-                    let selected = self.selected == Some(id);
+                    let selected = self.is_selected(id);
                     let queued = self.review.contains(&id);
                     let (rect, resp) = ui.allocate_exact_size(
                         egui::vec2(ui.available_width(), TREE_ROW_H),
@@ -335,28 +335,7 @@ impl SpaceApp {
                     }
                     if resp.clicked() && !outcome.chevron && !outcome.check {
                         let mods = ui.input(|i| i.modifiers);
-                        if mods.shift && !n.synthetic {
-                            // Shift-click adds the whole range to the Trash list.
-                            let from = self
-                                .range_anchor
-                                .and_then(|a| self.tree_rows.iter().position(|&r| r == a));
-                            let to = self.tree_rows.iter().position(|&r| r == id);
-                            if let (Some(a), Some(b)) = (from, to) {
-                                let (lo, hi) = (a.min(b), a.max(b));
-                                let range: Vec<NodeId> = self.tree_rows[lo..=hi]
-                                    .iter()
-                                    .copied()
-                                    .filter(|r| !self.review.contains(r))
-                                    .collect();
-                                queue = Some(range);
-                            } else {
-                                queue = Some(vec![id]);
-                            }
-                        } else if mods.command && !n.synthetic {
-                            queue = Some(vec![id]);
-                        }
-                        self.range_anchor = Some(id);
-                        pick = Some(id);
+                        pick = Some((id, mods.command || mods.ctrl, mods.shift));
                     }
                     if resp.double_clicked() {
                         if n.is_dir && !n.synthetic {
@@ -379,13 +358,20 @@ impl SpaceApp {
                             ui.close_menu();
                         }
                         if !n.synthetic {
-                            let q = if queued {
+                            let many = self.multi.len() > 1 && self.multi.contains(&id);
+                            let q = if many {
+                                "Add selected to Trash list"
+                            } else if queued {
                                 "Take out of Trash list"
                             } else {
                                 "Add to Trash list"
                             };
                             if ui.button(t(q)).clicked() {
-                                queue = Some(vec![id]);
+                                queue = Some(if many {
+                                    self.selection_ids()
+                                } else {
+                                    vec![id]
+                                });
                                 ui.close_menu();
                             }
                             if ui.button(t("Show in Finder")).clicked() {
@@ -412,14 +398,14 @@ impl SpaceApp {
                 }
             }
         }
-        if let Some(id) = pick {
-            self.selected = Some(id);
+        if let Some((id, toggle, range)) = pick {
+            self.click_select(id, toggle, range);
         }
         if let Some(ids) = queue {
             self.queue_toggle(&ids);
         }
         if let Some(id) = reveal {
-            self.selected = Some(id);
+            self.select_one(Some(id));
             self.reveal_selected();
         }
         if let Some(id) = enter {
@@ -440,6 +426,10 @@ impl SpaceApp {
             self.selected = None;
             return;
         };
+        if self.multi.len() > 1 {
+            self.multi_details(ui, &tree);
+            return;
+        }
         let size = node.size(self.size_mode);
         let path = tree.path_string(id);
         let queued = self.review.contains(&id);
@@ -572,10 +562,83 @@ impl SpaceApp {
         }
         ui.add_space(S3);
         ui.label(caption(if is_dir {
-            "Enter opens · Space adds to the Trash list · Shift-click adds a range"
+            "Enter opens · Space adds to the Trash list · Shift-click selects a range"
         } else {
-            "Space adds to the Trash list · Shift-click adds a range"
+            "Space adds to the Trash list · Shift-click selects a range"
         }));
+    }
+
+    /// Details for several selected items: count, total size, bulk actions.
+    fn multi_details(&mut self, ui: &mut egui::Ui, tree: &Tree) {
+        let ids: Vec<NodeId> = self.selection_ids();
+        let bytes = crate::review::queue_bytes(tree, &ids, self.size_mode);
+        ui.horizontal(|ui| {
+            ui.label(crate::widgets::section_label("Selection"));
+            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                if icons::button(ui, Icon::Close, 28.0, "Clear selection · Esc", true).clicked() {
+                    self.select_one(None);
+                }
+            });
+        });
+        ui.add(egui::Label::new(crate::widgets::strong(
+            crate::i18n::count(ids.len(), "item"),
+            20.0,
+        )));
+        ui.add_space(S3);
+        ui.columns(2, |cols| {
+            stat(&mut cols[0], &crate::i18n::bytes(bytes), t("total, nested items counted once"));
+            let files: u64 = ids.iter().map(|&i| tree.node(i).file_count).sum();
+            stat(&mut cols[1], &files.to_string(), t("files inside"));
+        });
+        ui.add_space(S3);
+        let listable: Vec<NodeId> = ids
+            .iter()
+            .copied()
+            .filter(|&i| {
+                let n = tree.node(i);
+                !n.synthetic && n.parent.is_some() && !self.review.contains(&i)
+            })
+            .collect();
+        if ui
+            .add_enabled(!listable.is_empty() && !self.busy, block(ui, primary("Add selected to Trash list")))
+            .on_hover_text(t("Nothing moves until you confirm on the Trash list"))
+            .clicked()
+        {
+            self.queue_toggle(&listable);
+        }
+        ui.add_space(S2);
+        let mut copy = false;
+        ui.horizontal_wrapped(|ui| {
+            ui.spacing_mut().item_spacing.x = 14.0;
+            if ui.add(ghost("Copy paths")).on_hover_text("⌘⇧C").clicked() {
+                copy = true;
+            }
+            if ui.add(ghost("Clear selection")).clicked() {
+                self.select_one(None);
+            }
+        });
+        if copy {
+            self.copy_focus_path();
+        }
+        ui.add_space(S3);
+        egui::ScrollArea::vertical().max_height(220.0).show(ui, |ui| {
+            for &i in ids.iter().take(200) {
+                let n = tree.node(i);
+                ui.horizontal(|ui| {
+                    ui.add(egui::Label::new(RichText::new(&n.name).size(type_scale::CAPTION)).truncate());
+                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                        ui.label(
+                            RichText::new(crate::i18n::bytes(n.size(self.size_mode)))
+                                .size(type_scale::CAPTION)
+                                .monospace()
+                                .color(MUTED()),
+                        );
+                    });
+                });
+            }
+        });
+        ui.add_space(S3);
+        ui.label(caption("⌘-click adds or takes out · Shift-click selects a range"));
     }
 
     // --------------------------------------------------------------------- map
@@ -614,6 +677,7 @@ impl SpaceApp {
                         tree: &tree,
                         focus: self.focus,
                         selected: self.selected,
+                        multi: &self.multi,
                         hovered: self.hovered,
                         review: &review_set,
                         mode: self.size_mode,
@@ -649,7 +713,7 @@ impl SpaceApp {
             ctx.request_repaint();
         }
         if let Some(id) = action.select {
-            self.selected = Some(id);
+            self.click_select(id, action.select_toggle, action.select_range);
         }
         if let Some(id) = action.navigate {
             self.navigate(id, true);
@@ -658,7 +722,7 @@ impl SpaceApp {
             self.queue_toggle(&[id]);
         }
         if let Some(id) = action.reveal {
-            self.selected = Some(id);
+            self.select_one(Some(id));
             self.reveal_selected();
         }
         if let Some(ext) = action.filter_ext {
@@ -1385,6 +1449,7 @@ impl SpaceApp {
         left: bool,
         right: bool,
         space: bool,
+        shift: bool,
     ) -> bool {
         let Some(tree) = self.tree.clone() else {
             return false;
@@ -1397,7 +1462,7 @@ impl SpaceApp {
             .and_then(|s| self.tree_rows.iter().position(|&r| r == s));
         let Some(i) = pos else {
             if up || down {
-                self.selected = self.tree_rows.first().copied();
+                self.select_one(self.tree_rows.first().copied());
                 self.tree_revealed = self.selected;
                 self.tree_scroll = true;
                 return true;
@@ -1421,14 +1486,19 @@ impl SpaceApp {
                 next = n.parent.filter(|p| self.tree_rows.contains(p));
             }
         } else if space && !n.synthetic {
-            self.queue_toggle(&[id]);
+            let ids = self.selection_ids();
+            self.queue_toggle(if ids.len() > 1 { &ids } else { std::slice::from_ref(&id) });
         } else if up || down {
             // At an end of the list: consume so the map does not jump.
         } else {
             return left || right;
         }
         if let Some(x) = next {
-            self.selected = Some(x);
+            if shift && (up || down) {
+                self.click_select(x, false, true);
+            } else {
+                self.select_one(Some(x));
+            }
             self.tree_revealed = Some(x);
             self.tree_scroll = true;
         }
