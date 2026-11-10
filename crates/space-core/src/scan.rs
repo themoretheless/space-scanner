@@ -37,6 +37,7 @@ pub enum ScanEvent {
 pub struct ScanHandle {
     pub events: Receiver<ScanEvent>,
     cancel: Arc<AtomicBool>,
+    excluded: Arc<AtomicU64>,
 }
 
 impl ScanHandle {
@@ -46,6 +47,12 @@ impl ScanHandle {
 
     pub fn is_cancelled(&self) -> bool {
         self.cancel.load(Ordering::Relaxed)
+    }
+
+    /// Live count of directories skipped by [`ScanOptions::exclude`] /
+    /// [`ScanOptions::exclude_globs`]. Final once the scan has finished.
+    pub fn excluded_counter(&self) -> Arc<AtomicU64> {
+        Arc::clone(&self.excluded)
     }
 
     /// Block until the scan finishes, discarding progress events.
@@ -76,10 +83,114 @@ impl Drop for ScanHandle {
     }
 }
 
-#[derive(Clone, Default)]
-struct ScanOptions {
-    /// Device ids the scan may descend into; derived from the root when unset.
-    allowed_devs: Option<HashSet<u64>>,
+/// Files below this allocated size are rolled into one "· small files" node per folder.
+pub const DEFAULT_SMALL_FILE_THRESHOLD: u64 = 512 * 1024;
+
+/// Tunables for [`scan_path_with_options`]. `Default` matches [`scan_path`].
+#[derive(Clone, Debug)]
+pub struct ScanOptions {
+    /// Files whose apparent and allocated sizes are both below this many
+    /// bytes are aggregated into one synthetic node per directory.
+    pub small_file_threshold: u64,
+    /// Worker thread cap; `None` uses the built-in heuristic.
+    pub threads: Option<usize>,
+    /// Directory path prefixes that are not descended into (component-wise).
+    pub exclude: Vec<PathBuf>,
+    /// Glob patterns (`globset` syntax) matched against a directory's full
+    /// path and its name; matching directories are not descended into.
+    pub exclude_globs: Vec<String>,
+}
+
+impl Default for ScanOptions {
+    fn default() -> Self {
+        Self {
+            small_file_threshold: DEFAULT_SMALL_FILE_THRESHOLD,
+            threads: None,
+            exclude: Vec::new(),
+            exclude_globs: Vec::new(),
+        }
+    }
+}
+
+impl ScanOptions {
+    pub fn small_file_threshold(mut self, bytes: u64) -> Self {
+        self.small_file_threshold = bytes;
+        self
+    }
+
+    pub fn threads(mut self, threads: Option<usize>) -> Self {
+        self.threads = threads;
+        self
+    }
+
+    pub fn exclude(mut self, path: impl Into<PathBuf>) -> Self {
+        self.exclude.push(path.into());
+        self
+    }
+
+    pub fn exclude_glob(mut self, pattern: impl Into<String>) -> Self {
+        self.exclude_globs.push(pattern.into());
+        self
+    }
+}
+
+/// True when an I/O error means the device itself went away (ejected,
+/// unplugged, network share dropped) rather than one entry being unreadable.
+pub fn is_volume_unavailable(err: &std::io::Error) -> bool {
+    // EIO, ENXIO, ENODEV are 5, 6, 19 on Linux and Apple platforms;
+    // ESTALE is 116 on Linux and 70 on Apple platforms.
+    #[cfg(target_os = "linux")]
+    const ESTALE: i32 = 116;
+    #[cfg(not(target_os = "linux"))]
+    const ESTALE: i32 = 70;
+    if !cfg!(unix) {
+        return false;
+    }
+    matches!(err.raw_os_error(), Some(5 | 6 | 19) | Some(ESTALE))
+}
+
+/// Pure device/mount policy: whether the scan may descend into a directory on
+/// device `dev` at `path`. Directories on other devices are separate volumes;
+/// `/Volumes/*` is skipped unless the scan itself started under `/Volumes`.
+pub fn should_descend(dev: u64, allowed: &HashSet<u64>, path: &Path, skip_volumes_prefix: bool) -> bool {
+    allowed.contains(&dev) && !(skip_volumes_prefix && path.starts_with("/Volumes"))
+}
+
+struct Exclusions {
+    prefixes: Vec<PathBuf>,
+    globs: Option<globset::GlobSet>,
+}
+
+impl Exclusions {
+    fn new(options: &ScanOptions) -> Result<Self, String> {
+        let globs = if options.exclude_globs.is_empty() {
+            None
+        } else {
+            let mut builder = globset::GlobSetBuilder::new();
+            for pattern in &options.exclude_globs {
+                let glob = globset::Glob::new(pattern)
+                    .map_err(|e| format!("bad exclude pattern {pattern:?}: {e}"))?;
+                builder.add(glob);
+            }
+            Some(builder.build().map_err(|e| format!("bad exclude patterns: {e}"))?)
+        };
+        Ok(Self {
+            prefixes: options.exclude.clone(),
+            globs,
+        })
+    }
+
+    fn is_empty(&self) -> bool {
+        self.prefixes.is_empty() && self.globs.is_none()
+    }
+
+    fn matches(&self, path: &Path, name: &OsStr) -> bool {
+        self.prefixes.iter().any(|p| path.starts_with(p))
+            || self
+                .globs
+                .as_ref()
+                .is_some_and(|g| g.is_match(path) || g.is_match(name))
+    }
 }
 
 struct DirTask {
@@ -126,6 +237,11 @@ struct Shared {
     files_seen: AtomicU64,
     bytes_seen: AtomicU64,
     skipped_errors: AtomicU64,
+    excluded: Arc<AtomicU64>,
+    exclusions: Exclusions,
+    small_file_threshold: u64,
+    /// First directory whose device disappeared mid-scan.
+    volume_lost: Mutex<Option<String>>,
     hardlink_candidates: AtomicU64,
     last_emit: AtomicU64,
     tx: Sender<ScanEvent>,
@@ -138,17 +254,29 @@ pub fn scan_path(root: impl Into<PathBuf>) -> ScanHandle {
 }
 
 pub fn scan_path_with_expect(root: impl Into<PathBuf>, _expected_items: Option<u64>) -> ScanHandle {
-    spawn_scan(root.into(), ScanOptions::default())
+    spawn_scan(root.into(), ScanOptions::default(), None)
 }
 
-fn spawn_scan(root: PathBuf, options: ScanOptions) -> ScanHandle {
+/// Like [`scan_path`] with explicit tunables (small-file threshold, thread
+/// cap, exclusions).
+pub fn scan_path_with_options(root: impl Into<PathBuf>, options: ScanOptions) -> ScanHandle {
+    spawn_scan(root.into(), options, None)
+}
+
+fn spawn_scan(
+    root: PathBuf,
+    options: ScanOptions,
+    allowed_devs: Option<HashSet<u64>>,
+) -> ScanHandle {
     let (tx, rx) = unbounded();
     let cancel = Arc::new(AtomicBool::new(false));
     let cancel_bg = Arc::clone(&cancel);
+    let excluded = Arc::new(AtomicU64::new(0));
+    let excluded_bg = Arc::clone(&excluded);
 
     let spawned = thread::Builder::new().name("space-scan".into()).spawn({
         let tx = tx.clone();
-        move || match run_scan(root, options, &tx, cancel_bg) {
+        move || match run_scan(root, options, allowed_devs, &tx, cancel_bg, excluded_bg) {
             Ok(()) => {}
             Err(ScanFail::Cancelled) => {
                 let _ = tx.send(ScanEvent::Cancelled);
@@ -162,7 +290,11 @@ fn spawn_scan(root: PathBuf, options: ScanOptions) -> ScanHandle {
         let _ = tx.send(ScanEvent::Error(format!("cannot spawn scan thread: {err}")));
     }
 
-    ScanHandle { events: rx, cancel }
+    ScanHandle {
+        events: rx,
+        cancel,
+        excluded,
+    }
 }
 
 enum ScanFail {
@@ -185,11 +317,20 @@ fn allowed_devices(root_meta: &std::fs::Metadata) -> HashSet<u64> {
 fn run_scan(
     root: PathBuf,
     options: ScanOptions,
+    allowed_devs: Option<HashSet<u64>>,
     tx: &Sender<ScanEvent>,
     cancel: Arc<AtomicBool>,
+    excluded: Arc<AtomicU64>,
 ) -> Result<(), ScanFail> {
-    let root_meta = std::fs::metadata(&root)
-        .map_err(|e| ScanFail::Error(format!("cannot read {}: {e}", root.display())))?;
+    let root_meta = std::fs::metadata(&root).map_err(|e| {
+        if e.kind() == std::io::ErrorKind::NotFound {
+            ScanFail::Error(format!("cannot read {}: path does not exist", root.display()))
+        } else if is_volume_unavailable(&e) {
+            ScanFail::Error(format!("volume unavailable: {}: {e}", root.display()))
+        } else {
+            ScanFail::Error(format!("cannot read {}: {e}", root.display()))
+        }
+    })?;
     if !root_meta.is_dir() {
         return Err(ScanFail::Error(format!(
             "not a directory: {}",
@@ -201,17 +342,13 @@ fn run_scan(
         .map_err(|e| ScanFail::Error(format!("cannot read directory {}: {e}", root.display())))?;
 
     let scanned_at_unix = now_unix();
-    let allowed_devs = options
-        .allowed_devs
-        .unwrap_or_else(|| allowed_devices(&root_meta));
+    let allowed_devs = allowed_devs.unwrap_or_else(|| allowed_devices(&root_meta));
+    let exclusions = Exclusions::new(&options).map_err(ScanFail::Error)?;
 
-    // The eight-worker cap outperformed caps of four and sixteen on the
-    // warm macOS metadata fixtures; extra workers add contention and overhead.
-    let max_threads = if cfg!(target_os = "macos") { 8 } else { 16 };
-    let threads = std::thread::available_parallelism()
-        .map(|n| n.get())
-        .unwrap_or(4)
-        .clamp(2, max_threads);
+    let threads = match options.threads {
+        Some(n) => n.clamp(1, 256),
+        None => default_threads(),
+    };
 
     let shards = (0..threads).map(|_| Mutex::new(Shard::default())).collect();
 
@@ -227,6 +364,10 @@ fn run_scan(
         files_seen: AtomicU64::new(0),
         bytes_seen: AtomicU64::new(0),
         skipped_errors: AtomicU64::new(0),
+        excluded,
+        exclusions,
+        small_file_threshold: options.small_file_threshold,
+        volume_lost: Mutex::new(None),
         hardlink_candidates: AtomicU64::new(0),
         last_emit: AtomicU64::new(0),
         tx: tx.clone(),
@@ -265,6 +406,18 @@ fn run_scan(
         return Err(ScanFail::Error(format!("scan workers panicked: {e:?}")));
     }
 
+    if let Some(path) = shared.volume_lost.lock().unwrap().take() {
+        return Err(ScanFail::Error(format!(
+            "volume became unavailable during scan (at {path})"
+        )));
+    }
+    // The root vanishing (unmounted / ejected) also ends the scan loudly.
+    if let Err(e) = std::fs::metadata(&root) {
+        return Err(ScanFail::Error(format!(
+            "volume became unavailable during scan ({}: {e})",
+            root.display()
+        )));
+    }
     if shared.cancel.load(Ordering::Relaxed) {
         return Err(ScanFail::Cancelled);
     }
@@ -279,8 +432,28 @@ fn run_scan(
     Ok(())
 }
 
-/// Files below this allocated size are rolled into one "· small files" node per folder.
-const SMALL_FILE_THRESHOLD: u64 = 512 * 1024;
+#[cfg(test)]
+const SMALL_FILE_THRESHOLD: u64 = DEFAULT_SMALL_FILE_THRESHOLD;
+
+/// Built-in worker count: available parallelism within [2, cap].
+fn default_threads() -> usize {
+    // The eight-worker cap outperformed caps of four and sixteen on the
+    // warm macOS metadata fixtures; extra workers add contention and overhead.
+    let max_threads = if cfg!(target_os = "macos") { 8 } else { 16 };
+    std::thread::available_parallelism()
+        .map(|n| n.get())
+        .unwrap_or(4)
+        .clamp(2, max_threads)
+}
+
+/// Record a device-gone error and stop all workers.
+fn note_volume_lost(shared: &Shared, path: &Path) {
+    let mut lost = shared.volume_lost.lock().unwrap();
+    if lost.is_none() {
+        *lost = Some(path.display().to_string());
+    }
+    shared.cancel.store(true, Ordering::Relaxed);
+}
 
 /// Flush local buffers to the shard once this many records accumulate.
 const FLUSH_THRESHOLD: usize = 8192;
@@ -384,17 +557,18 @@ fn scan_dir(
     buf: &mut LocalBuf,
 ) {
     let dir = &task.path;
-    // Decide once per directory instead of constructing every child path.
-    if shared.skip_volumes_prefix && dir.starts_with("/Volumes") {
-        return;
-    }
     let rd = match std::fs::read_dir(dir) {
         Ok(r) => r,
-        Err(_) => {
+        Err(e) => {
+            if is_volume_unavailable(&e) {
+                note_volume_lost(shared, dir);
+            }
             shared.skipped_errors.fetch_add(1, Ordering::Relaxed);
             return;
         }
     };
+    let threshold = shared.small_file_threshold;
+    let check_exclusions = !shared.exclusions.is_empty();
 
     let mut progress_files = 0u64;
     let mut progress_bytes = 0u64;
@@ -408,7 +582,11 @@ fn scan_dir(
         }
         let ent = match ent {
             Ok(e) => e,
-            Err(_) => {
+            Err(e) => {
+                if is_volume_unavailable(&e) {
+                    note_volume_lost(shared, dir);
+                    return;
+                }
                 shared.skipped_errors.fetch_add(1, Ordering::Relaxed);
                 continue;
             }
@@ -440,7 +618,17 @@ fn scan_dir(
                     continue;
                 }
             };
-            if !shared.allowed_devs.contains(&device_id(&meta)) {
+            let path = ent.path();
+            if !should_descend(
+                device_id(&meta),
+                &shared.allowed_devs,
+                &path,
+                shared.skip_volumes_prefix,
+            ) {
+                continue;
+            }
+            if check_exclusions && shared.exclusions.matches(&path, &name) {
+                shared.excluded.fetch_add(1, Ordering::Relaxed);
                 continue;
             }
             let id = shared.next_dir.fetch_add(1, Ordering::Relaxed);
@@ -463,10 +651,7 @@ fn scan_dir(
                 links: Vec::new(),
             });
             pending.fetch_add(1, Ordering::Release);
-            local.push(DirTask {
-                path: ent.path(),
-                id,
-            });
+            local.push(DirTask { path, id });
         } else if ft.is_file() {
             let meta = match ent.metadata() {
                 Ok(m) => m,
@@ -481,7 +666,7 @@ fn scan_dir(
             if link.is_some() {
                 shared.hardlink_candidates.fetch_add(1, Ordering::Relaxed);
             }
-            if allocated < SMALL_FILE_THRESHOLD && apparent < SMALL_FILE_THRESHOLD {
+            if allocated < threshold && apparent < threshold {
                 small_count += 1;
                 small_apparent = small_apparent.saturating_add(apparent);
                 small_allocated = small_allocated.saturating_add(allocated);
@@ -893,10 +1078,12 @@ pub fn rescan_subtree(tree: &SpaceTree, dir_id: NodeId) -> Result<SpaceTree, Str
 
     let root_meta = std::fs::metadata(&root)
         .map_err(|e| format!("cannot read scan root {}: {e}", root.display()))?;
-    let options = ScanOptions {
-        allowed_devs: Some(allowed_devices(&root_meta)),
-    };
-    let scanned = spawn_scan(tree.path_os(dir_id), options).wait()?;
+    let scanned = spawn_scan(
+        tree.path_os(dir_id),
+        ScanOptions::default(),
+        Some(allowed_devices(&root_meta)),
+    )
+    .wait()?;
     // A hardlink can have another name outside this subtree. Without scanning
     // that owner, independently deduping this subtree could overcount bytes.
     if scanned.hardlink_candidates > 0 {
@@ -1404,5 +1591,124 @@ mod tests {
             crate::oldest_large_files(&tree, crate::SizeMode::Apparent, 1, 5),
             vec![id]
         );
+    }
+
+    fn options_fixture() -> TempDir {
+        let tmp = TempDir::new().unwrap();
+        for d in ["a", "a/deep", "b", "skip", "b/node_modules"] {
+            fs::create_dir_all(tmp.path().join(d)).unwrap();
+        }
+        for (i, d) in ["a", "a/deep", "b", "skip", "b/node_modules"].iter().enumerate() {
+            for j in 0..4u64 {
+                let f = fs::File::create(tmp.path().join(d).join(format!("f{j}"))).unwrap();
+                f.set_len(1000 * (i as u64 + 1) + j * 70_000).unwrap();
+            }
+        }
+        tmp
+    }
+
+    fn synthetic_count(tree: &SpaceTree) -> u64 {
+        tree.nodes
+            .iter()
+            .filter(|n| n.synthetic)
+            .map(|n| n.file_count)
+            .sum()
+    }
+
+    #[test]
+    fn small_file_threshold_changes_bucketing() {
+        let tmp = options_fixture();
+        let default = scan_blocking(tmp.path()).unwrap();
+        assert_eq!(synthetic_count(&default), 20);
+        let low = scan_path_with_options(tmp.path(), ScanOptions::default().small_file_threshold(50_000))
+            .wait()
+            .unwrap();
+        assert_eq!(synthetic_count(&low), 5);
+        let none = scan_path_with_options(tmp.path(), ScanOptions::default().small_file_threshold(0))
+            .wait()
+            .unwrap();
+        assert_eq!(synthetic_count(&none), 0);
+        assert_eq!(low.node(low.root).apparent_size, default.node(default.root).apparent_size);
+        assert_eq!(none.node(none.root).file_count, 20);
+    }
+
+    #[test]
+    fn single_thread_scan_matches_default_totals() {
+        let tmp = options_fixture();
+        let default = scan_blocking(tmp.path()).unwrap();
+        let one = scan_path_with_options(tmp.path(), ScanOptions::default().threads(Some(1)))
+            .wait()
+            .unwrap();
+        let root = |t: &SpaceTree| {
+            let n = t.node(t.root);
+            (n.apparent_size, n.allocated_size, n.file_count, t.item_count)
+        };
+        assert_eq!(root(&one), root(&default));
+        let zero = scan_path_with_options(tmp.path(), ScanOptions::default().threads(Some(0)))
+            .wait()
+            .unwrap();
+        assert_eq!(root(&zero), root(&default));
+    }
+
+    #[test]
+    fn excluded_paths_and_globs_are_not_descended() {
+        let tmp = options_fixture();
+        let options = ScanOptions::default()
+            .exclude(tmp.path().join("skip"))
+            .exclude_glob("node_modules");
+        let handle = scan_path_with_options(tmp.path(), options);
+        let counter = handle.excluded_counter();
+        let tree = handle.wait().unwrap();
+        assert_eq!(counter.load(Ordering::Relaxed), 2);
+        assert_eq!(tree.node(tree.root).file_count, 12);
+        let names: Vec<_> = tree.nodes.iter().map(|n| n.name.as_str()).collect();
+        assert!(!names.contains(&"skip") && !names.contains(&"node_modules"));
+        assert!(names.contains(&"deep"));
+
+        let bad = scan_path_with_options(tmp.path(), ScanOptions::default().exclude_glob("a[")).wait();
+        assert!(bad.unwrap_err().contains("bad exclude pattern"));
+    }
+
+    #[test]
+    fn volume_unavailable_errors_are_classified() {
+        use std::io::Error;
+        #[cfg(target_os = "linux")]
+        let estale = 116;
+        #[cfg(not(target_os = "linux"))]
+        let estale = 70;
+        for code in [5, 6, 19, estale] {
+            assert!(is_volume_unavailable(&Error::from_raw_os_error(code)), "{code}");
+        }
+        assert!(!is_volume_unavailable(&Error::from_raw_os_error(2))); // ENOENT
+        assert!(!is_volume_unavailable(&Error::from_raw_os_error(13))); // EACCES
+        assert!(!is_volume_unavailable(&Error::other("x")));
+    }
+
+    #[test]
+    fn missing_root_reports_does_not_exist() {
+        let tmp = TempDir::new().unwrap();
+        let err = scan_blocking(tmp.path().join("gone")).unwrap_err();
+        assert!(err.contains("does not exist"), "{err}");
+    }
+
+    #[test]
+    fn descend_policy_respects_devices_and_volumes_prefix() {
+        let allowed: HashSet<u64> = [1, 2].into_iter().collect();
+        assert!(should_descend(1, &allowed, Path::new("/Users/me"), true));
+        assert!(should_descend(2, &allowed, Path::new("/System/Volumes/Data/x"), true));
+        assert!(!should_descend(3, &allowed, Path::new("/Users/me/mnt"), true));
+        assert!(!should_descend(1, &allowed, Path::new("/Volumes/USB"), true));
+        assert!(should_descend(1, &allowed, Path::new("/Volumes/USB/dir"), false));
+        assert!(should_descend(1, &allowed, Path::new("/VolumesX"), true));
+    }
+
+    #[test]
+    fn allowed_devices_include_root_device() {
+        let tmp = TempDir::new().unwrap();
+        let meta = fs::metadata(tmp.path()).unwrap();
+        let devs = allowed_devices(&meta);
+        assert!(devs.contains(&device_id(&meta)));
+        // Only the root device, plus the APFS Data volume on macOS.
+        assert!(devs.len() <= 2);
     }
 }
