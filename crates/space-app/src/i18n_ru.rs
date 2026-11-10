@@ -598,4 +598,5 @@ static RU: &[(&str, &str)] = &[
     ("High contrast", "Высокий контраст"),
     ("Stronger text and borders, no translucent fills", "Более яркий текст и рамки, без полупрозрачных заливок"),
     ("on the Trash list", "в списке к удалению"),
+    ("Scanned {}", "Отсканировано {}"),
 ];

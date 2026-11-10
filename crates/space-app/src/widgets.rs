@@ -207,7 +207,7 @@ fn group_frame(ui: &mut Ui, add: impl FnOnce(&mut Ui)) {
 }
 
 /// Small outlined pill, e.g. a risk class or "Protected". Sized to its text in any layout.
-pub fn badge(ui: &mut Ui, text: &str, color: Color32, hint: &str) {
+pub fn badge(ui: &mut Ui, text: &str, color: Color32, hint: &str) -> egui::Response {
     let g = ui.painter().layout_no_wrap(
         t(text).to_owned(),
         egui::FontId::proportional(type_scale::CAPTION),
@@ -222,7 +222,7 @@ pub fn badge(ui: &mut Ui, text: &str, color: Color32, hint: &str) {
     );
     ui.painter()
         .galley(rect.center() - g.size() * 0.5, g, color);
-    resp.on_hover_text(t(hint));
+    resp.on_hover_text(t(hint))
 }
 
 /// A painted checkbox, empty or checked.

@@ -462,7 +462,7 @@ impl SpaceApp {
             } else {
                 "File"
             }));
-            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+            ui.with_layout(crate::i18n::trailing_layout(), |ui| {
                 if icons::button(ui, Icon::Close, 28.0, "Close details · Esc", true).clicked() {
                     self.selected = None;
                 }
@@ -598,7 +598,7 @@ impl SpaceApp {
         let bytes = crate::review::queue_bytes(tree, &ids, self.size_mode);
         ui.horizontal(|ui| {
             ui.label(crate::widgets::section_label("Selection"));
-            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+            ui.with_layout(crate::i18n::trailing_layout(), |ui| {
                 if icons::button(ui, Icon::Close, 28.0, "Clear selection · Esc", true).clicked() {
                     self.select_one(None);
                 }
@@ -648,17 +648,26 @@ impl SpaceApp {
         egui::ScrollArea::vertical().max_height(220.0).show(ui, |ui| {
             for &i in ids.iter().take(200) {
                 let n = tree.node(i);
-                ui.horizontal(|ui| {
-                    ui.add(egui::Label::new(RichText::new(&n.name).size(type_scale::CAPTION)).truncate());
-                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                // Size at the trailing edge, the name in what is left; both
+                // follow the text direction (F0852).
+                ui.allocate_ui_with_layout(
+                    egui::vec2(ui.available_width(), 18.0),
+                    crate::i18n::trailing_layout(),
+                    |ui| {
                         ui.label(
                             RichText::new(crate::i18n::bytes(n.size(self.size_mode)))
                                 .size(type_scale::CAPTION)
                                 .monospace()
                                 .color(MUTED()),
                         );
-                    });
-                });
+                        ui.with_layout(crate::i18n::row_layout(), |ui| {
+                            ui.add(
+                                egui::Label::new(RichText::new(&n.name).size(type_scale::CAPTION))
+                                    .truncate(),
+                            );
+                        });
+                    },
+                );
             }
         });
         ui.add_space(S3);

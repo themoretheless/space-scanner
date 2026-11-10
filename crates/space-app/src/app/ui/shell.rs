@@ -667,7 +667,11 @@ impl SpaceApp {
                             &text,
                             color,
                             "Opened from a saved result. Rescan for current numbers.",
-                        );
+                        )
+                        .on_hover_text(crate::tr!(
+                            "Scanned {}",
+                            crate::i18n::date_time(tree.scanned_at_unix)
+                        ));
                     }
                     if ui
                         .add(egui::Button::new(caption("Rescan  ⌘R").color(TEXT())).frame(false))
