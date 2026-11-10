@@ -14,6 +14,12 @@ screenshots of most pages headlessly; the items below still need a person.
 ## Scan
 - [ ] ⌘O picks a folder; progress shows files and bytes; Esc cancels and
       the page offers Try again.
+- [ ] Unplug a USB disk while it is being scanned: the page says "The disk
+      was disconnected during the scan" with Scan again / Overview, an
+      error toast appears, and the disk leaves the Overview list. During a
+      rescan of an open result the toast carries Scan again instead.
+- [ ] With an exclude list set, the status line counts the excluded folders
+      while scanning and after; the excluded folders are absent from the tree.
 
 ## Disk usage (List and map, Columns, Table)
 - [ ] Contents list: click selects one item; details pane opens; Esc closes.
@@ -28,6 +34,16 @@ screenshots of most pages headlessly; the items below still need a person.
       its default app and a folder shows a notification.
 - [ ] Context menu: Open Terminal here opens a terminal in that folder
       (the parent for a file); Share… copies the path and reveals it.
+- [ ] Largest files → Oldest: files of at least 100 MB (chips for 10 MB …
+      10 GB), oldest first, with the age; hover shows path and date; click
+      selects, double-click reveals, context menu adds to the Trash list.
+- [ ] Largest files → Duplicates: groups show name, copies, size each and
+      the extra bytes; click selects every copy; Add extras to Trash list
+      queues all but the newest copy of each group (Undo in the toast).
+- [ ] Largest files → Types: extensions of the folder in view with size,
+      file count and a share bar; follows navigation and the size mode.
+- [ ] Reports show a spinner while computing and come back instantly when
+      switching between them for the same folder.
 - [ ] ⌘L (or the button after the breadcrumb) turns the breadcrumb into a
       path field: a folder in the scan opens, a file opens its folder and is
       selected, `~` expands, a folder outside the scan offers "Scan it",
@@ -59,6 +75,11 @@ screenshots of most pages headlessly; the items below still need a person.
 - [ ] ⌘, opens Settings: appearance, Contrast → High contrast (black/white
       text, strong borders, opaque selection), layout, units, motion,
       language; changes apply at once and persist.
+- [ ] Settings → Scanning: small-file threshold (Off … 32 MB, default
+      512 KB), Threads (Auto, 1–32), Skip these folders with Add folder…
+      (picker), Add pattern (Enter works, duplicates ignored) and Remove.
+      Non-default options: the caption says custom scans are not saved, and
+      the next scan neither opens nor writes a saved result.
 - [ ] `?` lists shortcuts, including Space (Quick Look), T, ⌘L, ⌘-click,
       Shift-click.
 
