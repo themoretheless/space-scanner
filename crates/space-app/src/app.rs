@@ -21,8 +21,10 @@ use crate::settings::AppSettings;
 use crate::theme;
 use crate::tm_clean::{self, CleanReport, LocalSnapshot};
 use crate::views::{GeomCache, ViewFilter, ViewMode};
+pub(crate) use os::OsVerb;
 use crate::volumes::{self, VolumeInfo};
 
+mod os;
 mod select;
 mod ui;
 
@@ -219,6 +221,10 @@ pub struct SpaceApp {
     pending_copy: Option<String>,
     /// The search field had keyboard focus last frame.
     search_focused: bool,
+    /// Text of the editable path field (⌘L) while it is open.
+    path_edit: Option<String>,
+    /// Give the path field keyboard focus on the next frame.
+    path_edit_focus: bool,
 }
 
 type BasketKey = (u64, u64, SizeMode, u64);
@@ -273,6 +279,8 @@ impl SpaceApp {
         Self {
             tree: None,
             focus: NodeId(0),
+            path_edit: None,
+            path_edit_focus: false,
             selected: None,
             multi: HashSet::new(),
             hovered: None,
@@ -1546,6 +1554,8 @@ impl SpaceApp {
                     i.key_pressed(Key::J),
                     i.key_pressed(Key::Delete) || i.key_pressed(Key::Backspace),
                     i.key_pressed(Key::Comma),
+                    i.key_pressed(Key::L),
+                    i.key_pressed(Key::T),
                 ],
             )
         });
@@ -1556,10 +1566,10 @@ impl SpaceApp {
             views,
             letters,
         ) = input;
-        let [key_c, key_f, key_r, key_o, key_j, key_del, key_comma] = letters;
+        let [key_c, key_f, key_r, key_o, key_j, key_del, key_comma, key_l, key_t] = letters;
         // While a text field has focus, keys belong to it: no navigation behind the caret.
         // (egui also reports focus for a clicked row, so ask about text fields only.)
-        let typing = self.search_focused && ctx.wants_keyboard_input();
+        let typing = (self.search_focused || self.path_edit.is_some()) && ctx.wants_keyboard_input();
         // A focused button takes Space and Enter as a click (egui does that), so the
         // app must not act on them a second time. Rows and the map never take focus.
         let button_focus = ctx.wants_keyboard_input() && !typing;
@@ -1654,6 +1664,10 @@ impl SpaceApp {
             if key_j {
                 self.find_junk();
             }
+            if key_l && self.tree.is_some() {
+                self.mode = Mode::Explore;
+                self.begin_path_edit();
+            }
             if key_del && !typing {
                 // Add the selection if it is not listed yet, then open the Trash list.
                 // The confirmation itself is always one more explicit step.
@@ -1697,7 +1711,11 @@ impl SpaceApp {
         if self.mode != Mode::Explore {
             return;
         }
-        if self.tree_keys(up, down, left, right, space, mods.shift) {
+        if self.tree_keys(up, down, left, right, key_t, mods.shift) {
+            return;
+        }
+        if space {
+            self.quick_look_selected();
             return;
         }
         if left {

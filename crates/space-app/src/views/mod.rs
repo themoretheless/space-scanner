@@ -242,6 +242,8 @@ pub struct ViewAction {
     pub filter_ext: Option<String>,
     pub reveal: Option<NodeId>,
     pub clear_filter: bool,
+    /// Quick Look, Open Terminal here or Share for a node.
+    pub os: Option<(NodeId, crate::app::OsVerb)>,
 }
 
 /// Same hover card in every map view so gestures stay discoverable.
@@ -384,7 +386,27 @@ pub fn node_context_menu(
             action.reveal = Some(id);
             ui.close_menu();
         }
+        if !n.synthetic {
+            os_menu_items(ui, n.is_dir, |verb| action.os = Some((id, verb)));
+        }
     });
+}
+
+/// Quick Look, Open Terminal here and Share, shared by every context menu.
+pub fn os_menu_items(ui: &mut Ui, is_dir: bool, mut pick: impl FnMut(crate::app::OsVerb)) {
+    use crate::app::OsVerb;
+    if !is_dir && ui.button(t("Quick Look · Space")).clicked() {
+        pick(OsVerb::QuickLook);
+        ui.close_menu();
+    }
+    if ui.button(t("Open Terminal here")).clicked() {
+        pick(OsVerb::Terminal);
+        ui.close_menu();
+    }
+    if ui.button(t("Share…")).clicked() {
+        pick(OsVerb::Share);
+        ui.close_menu();
+    }
 }
 
 /// Maps with one hit surface must retain the clicked node while the pointer is
@@ -427,6 +449,7 @@ impl ViewAction {
             filter_ext: None,
             reveal: None,
             clear_filter: false,
+            os: None,
         }
     }
 }

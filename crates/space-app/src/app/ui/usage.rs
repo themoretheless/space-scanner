@@ -270,6 +270,7 @@ impl SpaceApp {
             .unwrap_or_default();
         let (mut pick, mut enter, mut reveal, mut queue, mut toggle) =
             (None, None, None, None::<Vec<NodeId>>, None);
+        let mut os = None;
         if ids.is_empty() {
             ui.add_space(4.0);
             if self.show_largest && !everywhere && self.largest.is_loading() {
@@ -378,6 +379,7 @@ impl SpaceApp {
                                 reveal = Some(id);
                                 ui.close_menu();
                             }
+                            views::os_menu_items(ui, n.is_dir, |verb| os = Some((id, verb)));
                         }
                     });
                 }
@@ -410,6 +412,9 @@ impl SpaceApp {
         }
         if let Some(id) = enter {
             self.navigate(id, true);
+        }
+        if let Some((id, verb)) = os {
+            self.os_action(id, verb);
         }
     }
 
@@ -540,6 +545,7 @@ impl SpaceApp {
         }
         ui.add_space(S2);
         let mut copy = false;
+        let mut os = None;
         ui.horizontal_wrapped(|ui| {
             ui.spacing_mut().item_spacing.x = 14.0;
             if is_dir && ui.add(ghost("Show in Finder")).clicked() {
@@ -556,15 +562,29 @@ impl SpaceApp {
             if ui.add(ghost("Copy path")).on_hover_text("⌘⇧C").clicked() {
                 copy = true;
             }
+            if !node.synthetic {
+                if !is_dir && ui.add(ghost("Quick Look")).on_hover_text(t("Space")).clicked() {
+                    os = Some(crate::app::OsVerb::QuickLook);
+                }
+                if ui.add(ghost("Open Terminal here")).clicked() {
+                    os = Some(crate::app::OsVerb::Terminal);
+                }
+                if ui.add(ghost("Share…")).clicked() {
+                    os = Some(crate::app::OsVerb::Share);
+                }
+            }
         });
         if copy {
             self.copy_text(path);
         }
+        if let Some(verb) = os {
+            self.os_action(id, verb);
+        }
         ui.add_space(S3);
         ui.label(caption(if is_dir {
-            "Enter opens · Space adds to the Trash list · Shift-click selects a range"
+            "Enter opens · Space previews · T adds to the Trash list"
         } else {
-            "Space adds to the Trash list · Shift-click selects a range"
+            "Space previews · T adds to the Trash list"
         }));
     }
 
@@ -725,6 +745,9 @@ impl SpaceApp {
         if let Some(id) = action.reveal {
             self.select_one(Some(id));
             self.reveal_selected();
+        }
+        if let Some((id, verb)) = action.os {
+            self.os_action(id, verb);
         }
         if let Some(ext) = action.filter_ext {
             self.filter.toggle_ext(&ext);
@@ -1449,7 +1472,7 @@ impl SpaceApp {
         }
     }
 
-    /// Arrow keys walk the visible tree; Space toggles review. Returns true
+    /// Arrow keys walk the visible tree; T (`space`) toggles review. Returns true
     /// when the key was consumed.
     pub(in crate::app) fn tree_keys(
         &mut self,
