@@ -197,7 +197,10 @@ fn plist_string(plist: &str, key: &str) -> Option<String> {
 }
 
 fn format_tm_date(date: &str) -> String {
-    // 2026-09-13-181501 → 2026-09-13 18:15:01
+    // 2026-09-13-181501 is local time; show it the way the language writes dates.
+    if let Ok(dt) = chrono::NaiveDateTime::parse_from_str(date, "%Y-%m-%d-%H%M%S") {
+        return crate::i18n::date_time_naive(dt);
+    }
     if date.len() >= 17 {
         let (d, t) = date.split_at(10);
         let t = t.trim_start_matches('-');

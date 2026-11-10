@@ -16,7 +16,7 @@ use crate::tree::SpaceTree;
 const CACHE_MAGIC: &[u8; 8] = b"SPSCACHE";
 const META_MAGIC: &[u8; 8] = b"SPSCMETA";
 /// Bump when `SpaceTree` / `Node` on-disk schema changes.
-pub const CACHE_VERSION: u32 = 5;
+pub const CACHE_VERSION: u32 = 6;
 /// Upper bound for one decoded tree; guards against hostile length prefixes.
 const MAX_TREE_BYTES: u64 = 8 << 30;
 const MAX_META_BYTES: u64 = 1 << 20;
@@ -546,9 +546,8 @@ fn read_tree(path: &Path) -> Result<SpaceTree, CacheError> {
     file.read_exact(&mut header)
         .map_err(|_| CacheError::Decode("truncated header".into()))?;
     check_header(&header[..HEADER_LEN], CACHE_MAGIC)?;
-    let expected = blake3::Hash::from_bytes(
-        header[HEADER_LEN..].try_into().expect("checksum length"),
-    );
+    let expected =
+        blake3::Hash::from_bytes(header[HEADER_LEN..].try_into().expect("checksum length"));
 
     let mut payload = Vec::new();
     file.read_to_end(&mut payload)?;
@@ -588,6 +587,7 @@ mod tests {
             children: Vec::new(),
             parent,
             raw_name: None,
+            mtime: 0,
         }
     }
 
@@ -639,13 +639,19 @@ mod tests {
         assert_eq!(loaded.tree.root_path, fx.root.to_string_lossy());
         assert_eq!(loaded.tree.total_size(), 8);
         assert_eq!(loaded.tree.item_count, 2);
-        assert_eq!(loaded.tree.node(NodeId(1)).raw_name.as_deref(), Some(&b"e\xcc\x81"[..]));
+        assert_eq!(
+            loaded.tree.node(NodeId(1)).raw_name.as_deref(),
+            Some(&b"e\xcc\x81"[..])
+        );
         assert!(!loaded.stale);
         assert!(fx.store.load_if_fresh(&fx.root).is_ok());
         assert_eq!(fx.store.peek_meta(&fx.root).unwrap().item_count, 2);
-        assert!(fs::read_dir(fx.store.dir())
+        assert!(fs::read_dir(fx.store.dir()).unwrap().all(|e| e
             .unwrap()
-            .all(|e| e.unwrap().path().extension().unwrap() != "tmp"));
+            .path()
+            .extension()
+            .unwrap()
+            != "tmp"));
     }
 
     #[test]
@@ -679,14 +685,23 @@ mod tests {
         }
 
         fs::write(&bin_path, &original[..original.len() / 2]).unwrap();
-        assert!(matches!(fx.store.load(&fx.root), Err(CacheError::Decode(_))));
+        assert!(matches!(
+            fx.store.load(&fx.root),
+            Err(CacheError::Decode(_))
+        ));
         fs::write(&bin_path, &original[..5]).unwrap();
-        assert!(matches!(fx.store.load(&fx.root), Err(CacheError::Decode(_))));
+        assert!(matches!(
+            fx.store.load(&fx.root),
+            Err(CacheError::Decode(_))
+        ));
 
         let mut bad_magic = original.clone();
         bad_magic[0] = b'X';
         fs::write(&bin_path, &bad_magic).unwrap();
-        assert!(matches!(fx.store.load(&fx.root), Err(CacheError::Decode(_))));
+        assert!(matches!(
+            fx.store.load(&fx.root),
+            Err(CacheError::Decode(_))
+        ));
         // Corrupt files are kept for inspection; only version mismatches are purged.
         assert!(bin_path.exists());
     }
@@ -697,7 +712,10 @@ mod tests {
         let mut tree = tree_for(&fx.root, 1);
         tree.nodes[1].parent = Some(NodeId(7));
         fx.store.save(&tree).unwrap();
-        assert!(matches!(fx.store.load(&fx.root), Err(CacheError::Decode(_))));
+        assert!(matches!(
+            fx.store.load(&fx.root),
+            Err(CacheError::Decode(_))
+        ));
     }
 
     #[test]
@@ -705,7 +723,11 @@ mod tests {
         for which in ["meta", "bin"] {
             let fx = saved(now_unix());
             let (meta_path, bin_path) = fx.store.paths(&fx.root);
-            let path = if which == "meta" { &meta_path } else { &bin_path };
+            let path = if which == "meta" {
+                &meta_path
+            } else {
+                &bin_path
+            };
             let mut bytes = fs::read(path).unwrap();
             bytes[8..12].copy_from_slice(&(CACHE_VERSION + 1).to_le_bytes());
             fs::write(path, bytes).unwrap();
@@ -720,7 +742,10 @@ mod tests {
     fn stale_when_root_changes_or_disappears() {
         let fx = saved(now_unix());
         let future = SystemTime::now() + Duration::from_secs(120);
-        fs::File::open(&fx.root).unwrap().set_modified(future).unwrap();
+        fs::File::open(&fx.root)
+            .unwrap()
+            .set_modified(future)
+            .unwrap();
         assert!(fx.store.load(&fx.root).unwrap().stale);
         assert!(matches!(
             fx.store.load_if_fresh(&fx.root),
@@ -729,7 +754,9 @@ mod tests {
 
         // Root modified after the scan started: saved as stale-on-next-load.
         let fx = fixture();
-        fx.store.save(&tree_for(&fx.root, now_unix() - 600)).unwrap();
+        fx.store
+            .save(&tree_for(&fx.root, now_unix() - 600))
+            .unwrap();
         assert!(fx.store.load(&fx.root).unwrap().stale);
 
         // A root that vanished is stale too (key stays the un-canonicalized path).

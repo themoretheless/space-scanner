@@ -251,12 +251,13 @@ impl SpaceApp {
                                 )
                                 .on_hover_text(&saved.root_path);
                                 ui.label(caption(format!(
-                                    "{} · {}",
+                                    "{} · {} · {}",
                                     crate::i18n::bytes(saved.total_size),
-                                    format_age(now.saturating_sub(saved.scanned_at_unix))
+                                    format_age(now.saturating_sub(saved.scanned_at_unix)),
+                                    crate::i18n::date_time(saved.scanned_at_unix)
                                 )));
                             });
-                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                            ui.with_layout(crate::i18n::trailing_layout(), |ui| {
                                 let path = PathBuf::from(&saved.root_path);
                                 if ui.add_enabled(enabled, secondary("Open")).clicked() {
                                     *act = Some(Act::Scan(path.clone(), false));

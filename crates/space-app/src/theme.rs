@@ -3,7 +3,7 @@
 //! Appearance (dark or light) only changes colours. The Disk usage layout is a
 //! separate setting (`settings::WorkspaceLayout`), so every layout works in both.
 
-use std::sync::atomic::{AtomicU8, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU8, Ordering};
 use std::sync::Arc;
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
@@ -29,9 +29,15 @@ impl Appearance {
     }
 
     fn palette(self) -> &'static Palette {
-        match self {
-            Appearance::Dark => &DARK,
-            Appearance::Light => &LIGHT,
+        self.palette_for(HIGH_CONTRAST.load(Ordering::Relaxed))
+    }
+
+    fn palette_for(self, high_contrast: bool) -> &'static Palette {
+        match (self, high_contrast) {
+            (Appearance::Dark, false) => &DARK,
+            (Appearance::Light, false) => &LIGHT,
+            (Appearance::Dark, true) => &DARK_HC,
+            (Appearance::Light, true) => &LIGHT_HC,
         }
     }
 }
@@ -83,7 +89,56 @@ const LIGHT: Palette = Palette {
     danger: Color32::from_rgb(0xB3, 0x32, 0x1F),
 };
 
+/// High contrast (F0817): near-black/near-white text, visible borders and
+/// muted text that still reads as body copy.
+const DARK_HC: Palette = Palette {
+    dark: true,
+    bg: Color32::from_rgb(0x00, 0x00, 0x00),
+    panel: Color32::from_rgb(0x0A, 0x0A, 0x0C),
+    panel_2: Color32::from_rgb(0x1E, 0x20, 0x24),
+    border: Color32::from_rgb(0x8A, 0x90, 0x9A),
+    text: Color32::from_rgb(0xFF, 0xFF, 0xFF),
+    muted: Color32::from_rgb(0xD0, 0xD4, 0xDA),
+    accent: Color32::from_rgb(0xFF, 0xC2, 0x5C),
+    accent_ink: Color32::from_rgb(0x00, 0x00, 0x00),
+    safe: Color32::from_rgb(0x6E, 0xE6, 0xC0),
+    dir: Color32::from_rgb(0x3A, 0x3E, 0x46),
+    danger: Color32::from_rgb(0xFF, 0x8A, 0x78),
+};
+
+const LIGHT_HC: Palette = Palette {
+    dark: false,
+    bg: Color32::from_rgb(0xFF, 0xFF, 0xFF),
+    panel: Color32::from_rgb(0xFF, 0xFF, 0xFF),
+    panel_2: Color32::from_rgb(0xE6, 0xE4, 0xDE),
+    border: Color32::from_rgb(0x5A, 0x56, 0x50),
+    text: Color32::from_rgb(0x00, 0x00, 0x00),
+    muted: Color32::from_rgb(0x33, 0x30, 0x2B),
+    accent: Color32::from_rgb(0x7A, 0x3E, 0x00),
+    accent_ink: Color32::from_rgb(0xFF, 0xFF, 0xFF),
+    safe: Color32::from_rgb(0x0B, 0x55, 0x3E),
+    dir: Color32::from_rgb(0xB8, 0xB2, 0xA6),
+    danger: Color32::from_rgb(0x8E, 0x1C, 0x0C),
+};
+
 static APPEARANCE: AtomicU8 = AtomicU8::new(0);
+static HIGH_CONTRAST: AtomicBool = AtomicBool::new(false);
+
+/// Is the high-contrast palette on?
+pub fn high_contrast() -> bool {
+    HIGH_CONTRAST.load(Ordering::Relaxed)
+}
+
+/// Switch high contrast on or off and restyle at once.
+pub fn set_high_contrast(ctx: &egui::Context, on: bool) {
+    HIGH_CONTRAST.store(on, Ordering::Relaxed);
+    set_appearance(ctx, appearance());
+}
+
+/// Focus ring for keyboard focus (F0818): thick, opaque, the accent colour.
+pub fn focus_stroke() -> Stroke {
+    Stroke::new(2.0_f32, pal().accent)
+}
 
 pub fn appearance() -> Appearance {
     Appearance::ALL[APPEARANCE.load(Ordering::Relaxed) as usize % Appearance::ALL.len()]
@@ -252,7 +307,12 @@ pub fn set_appearance(ctx: &egui::Context, appearance: Appearance) {
     visuals.widgets.inactive.bg_fill = PANEL_2();
     visuals.widgets.hovered.bg_fill = hover;
     visuals.widgets.active.bg_fill = active;
-    visuals.selection.bg_fill = p.accent.gamma_multiply(0.28);
+    visuals.selection.bg_fill = if high_contrast() {
+        // No translucent fills in high contrast.
+        p.panel_2
+    } else {
+        p.accent.gamma_multiply(0.28)
+    };
     visuals.selection.stroke = Stroke::new(1.0_f32, p.accent);
     visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED());
     visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT());
@@ -293,6 +353,19 @@ pub fn set_appearance(ctx: &egui::Context, appearance: Appearance) {
         &mut visuals.widgets.open,
     ] {
         w.corner_radius = CornerRadius::same(metrics::RADIUS_CONTROL);
+    }
+    if high_contrast() {
+        for w in [
+            &mut visuals.widgets.noninteractive,
+            &mut visuals.widgets.inactive,
+            &mut visuals.widgets.hovered,
+            &mut visuals.widgets.active,
+            &mut visuals.widgets.open,
+        ] {
+            w.bg_stroke = Stroke::new(1.5_f32, p.border);
+        }
+        visuals.widgets.hovered.bg_stroke = Stroke::new(2.0_f32, p.text);
+        visuals.selection.stroke = Stroke::new(2.0_f32, p.accent);
     }
     ctx.set_visuals(visuals);
 }
@@ -639,4 +712,70 @@ fn rgb_to_hsv(c: Color32) -> (f32, f32, f32) {
         60.0 * (((r - g) / d) + 4.0)
     };
     (h.rem_euclid(360.0), s, v)
+}
+
+#[cfg(test)]
+mod contrast_tests {
+    use super::*;
+
+    /// WCAG 2.x relative luminance of an sRGB colour.
+    fn luminance(c: Color32) -> f64 {
+        let ch = |v: u8| {
+            let v = v as f64 / 255.0;
+            if v <= 0.040_45 {
+                v / 12.92
+            } else {
+                ((v + 0.055) / 1.055).powf(2.4)
+            }
+        };
+        0.2126 * ch(c.r()) + 0.7152 * ch(c.g()) + 0.0722 * ch(c.b())
+    }
+
+    fn ratio(a: Color32, b: Color32) -> f64 {
+        let (la, lb) = (luminance(a), luminance(b));
+        let (hi, lo) = if la > lb { (la, lb) } else { (lb, la) };
+        (hi + 0.05) / (lo + 0.05)
+    }
+
+    #[test]
+    fn contrast_ratio_matches_known_values() {
+        assert!((ratio(Color32::BLACK, Color32::WHITE) - 21.0).abs() < 0.01);
+        assert!((ratio(Color32::WHITE, Color32::WHITE) - 1.0).abs() < 1e-9);
+    }
+
+    /// F0821: body text ≥ 4.5:1 on every surface it sits on; secondary
+    /// text, accents and signal colours (large or non-body) ≥ 3:1. High
+    /// contrast asks for 7:1 body text and 4.5:1 for the rest.
+    #[test]
+    fn every_palette_meets_minimum_contrast() {
+        for appearance in Appearance::ALL {
+            for hc in [false, true] {
+                let p = appearance.palette_for(hc);
+                let (body, other) = if hc { (7.0, 4.5) } else { (4.5, 3.0) };
+                let name = format!("{appearance:?} hc={hc}");
+                let checks: [(&str, Color32, Color32, f64); 12] = [
+                    ("text/bg", p.text, p.bg, body),
+                    ("text/panel", p.text, p.panel, body),
+                    ("text/panel_2", p.text, p.panel_2, body),
+                    ("muted/bg", p.muted, p.bg, 4.5),
+                    ("muted/panel", p.muted, p.panel, 4.5),
+                    ("muted/panel_2", p.muted, p.panel_2, other),
+                    ("accent_ink/accent", p.accent_ink, p.accent, 4.5),
+                    ("accent/panel", p.accent, p.panel, other),
+                    ("accent/bg", p.accent, p.bg, other),
+                    ("danger/panel", p.danger, p.panel, other),
+                    ("safe/panel", p.safe, p.panel, other),
+                    ("text/dir", p.text, p.dir, other),
+                ];
+                for (what, fg, bg, min) in checks {
+                    let r = ratio(fg, bg);
+                    assert!(r >= min, "{name} {what}: {r:.2} < {min}");
+                }
+                if hc {
+                    let r = ratio(p.border, p.panel);
+                    assert!(r >= 3.0, "{name} border/panel: {r:.2}");
+                }
+            }
+        }
+    }
 }

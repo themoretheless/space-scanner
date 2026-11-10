@@ -29,7 +29,7 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Cancelable scan with progress vs previous index
 - Incremental **Rescan folder** (rebuilds index for current root path)
 - Persisted settings (`~/Library/Application Support/…/settings.json`)
-- CLI: `space scan|ls|du|largest|find|export|cache|junk|rules|categories` (exit codes: 0 ok, 1 failure, 2 usage, 3 partial clean)
+- CLI: `space scan|ls|du|largest|oldest|dupes|exts|find|export|cache|junk|rules|categories` (exit codes: 0 ok, 1 failure, 2 usage, 3 partial clean)
 
 ## Scenario: disk full, Docker volumes need review
 
@@ -57,6 +57,8 @@ reclaimable bytes do not promise immediate recovery of the same host disk space.
 ```bash
 # Recommended on macOS (wgpu Metal + Dock .app)
 cargo run -p space-tools -- run-app
+# Distributable bundle in target/dist/SpaceScanner.app (any OS; --zip on macOS)
+cargo run -p space-tools --release -- dist --no-generated
 
 # or
 cargo run -p space-app --release
@@ -67,6 +69,12 @@ cargo run -p space-cli --release -- du ~/Downloads
 cargo run -p space-cli --release -- largest ~/Downloads --files --limit 20
 cargo run -p space-cli --release -- find ~/Downloads --name '*.dmg' --min-size 100M
 cargo run -p space-cli --release -- export csv ~/Downloads --depth 2 --out downloads.csv
+cargo run -p space-cli --release -- export json ~/Downloads --full --out tree.json  # streamed, includes mtime
+cargo run -p space-cli --release -- oldest ~/Downloads --min-size 100M --limit 20  # by modification time
+cargo run -p space-cli --release -- dupes ~/Downloads --min-size 10M   # same size + name (verify before deleting)
+cargo run -p space-cli --release -- exts ~/Downloads --limit 15        # totals per extension
+# Global scan flags (non-default threshold/exclude bypass the cache):
+cargo run -p space-cli --release -- du ~ --threads 4 --small-file-threshold 64K --exclude ~/Library --exclude '*/node_modules'
 cargo run -p space-cli --release -- cache ls          # also: cache rm <path> | wipe | prune --ttl-days N
 ```
 

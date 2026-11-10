@@ -340,3 +340,17 @@ eight existing Clippy warnings were resolved; strict workspace Clippy now passes
 cargo test -p space-app --release filter_query_profile -- --ignored --nocapture
 cargo clippy --workspace --all-targets --locked --offline -- -D warnings
 ```
+
+## Scan options and mtime (November 2026)
+
+`Node` gained a `mtime: u32` (Unix seconds, 4 bytes per node, cache version 6).
+It is read from the `Metadata` the scanner already fetches for every directory
+and large file, so no extra syscall is made; synthetic small-file nodes keep 0.
+
+`scan_path_with_options` exposes the small-file threshold (default 512 KiB),
+a worker-thread cap (`None` keeps the built-in heuristic: available parallelism
+clamped to 2..=8 on macOS, 2..=16 elsewhere) and exclusions. Exclusion checks
+only run for directory entries and are skipped entirely when no exclusions are
+set. Lowering the threshold increases node count (and memory) roughly in
+proportion to the number of files promoted out of the aggregates; `--threads 1`
+produces identical totals and is useful to isolate contention.

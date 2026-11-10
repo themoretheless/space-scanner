@@ -16,6 +16,7 @@ mod cleanup;
 mod dialogs;
 mod layouts;
 mod overview;
+mod reports;
 mod review_page;
 mod scan;
 mod shell;

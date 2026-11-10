@@ -292,6 +292,65 @@ fn age_in(lang: Lang, secs: u64) -> String {
     }
 }
 
+/// A calendar date and time in the language's usual form (F0851):
+/// Russian `14.10.2026 14:05`, English `Oct 14, 2026 14:05`.
+pub fn date_time_naive(dt: chrono::NaiveDateTime) -> String {
+    date_time_in(get(), dt)
+}
+
+fn date_time_in(lang: Lang, dt: chrono::NaiveDateTime) -> String {
+    match lang {
+        Lang::Ru => dt.format("%d.%m.%Y %H:%M").to_string(),
+        Lang::En => dt.format("%b %-d, %Y %H:%M").to_string(),
+    }
+}
+
+/// A Unix time as a local date and time in the current language.
+pub fn date_time(unix: u64) -> String {
+    use chrono::TimeZone;
+    match chrono::Local.timestamp_opt(unix as i64, 0).single() {
+        Some(dt) => date_time_naive(dt.naive_local()),
+        None => String::new(),
+    }
+}
+
+/// Direction text and rows run in (F0852). Every shipped language is
+/// left-to-right; layouts read this so a right-to-left language only has
+/// to change the answer here.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum TextDirection {
+    Ltr,
+    /// Not used by a shipped language yet (RTL-ready stub).
+    #[allow(dead_code)]
+    Rtl,
+}
+
+pub fn text_direction() -> TextDirection {
+    direction_of(get())
+}
+
+fn direction_of(lang: Lang) -> TextDirection {
+    match lang {
+        Lang::En | Lang::Ru => TextDirection::Ltr,
+    }
+}
+
+/// Layout for the leading part of a row (names, icons).
+pub fn row_layout() -> egui::Layout {
+    match text_direction() {
+        TextDirection::Ltr => egui::Layout::left_to_right(egui::Align::Center),
+        TextDirection::Rtl => egui::Layout::right_to_left(egui::Align::Center),
+    }
+}
+
+/// Layout for the trailing part of a row (sizes, row actions).
+pub fn trailing_layout() -> egui::Layout {
+    match text_direction() {
+        TextDirection::Ltr => egui::Layout::right_to_left(egui::Align::Center),
+        TextDirection::Rtl => egui::Layout::left_to_right(egui::Align::Center),
+    }
+}
+
 include!("i18n_ru.rs");
 
 #[cfg(test)]
@@ -370,6 +429,22 @@ mod tests {
     }
 
     #[test]
+    fn dates_follow_the_language() {
+        let dt = chrono::NaiveDate::from_ymd_opt(2026, 10, 4)
+            .unwrap()
+            .and_hms_opt(9, 5, 0)
+            .unwrap();
+        assert_eq!(date_time_in(Lang::Ru, dt), "04.10.2026 09:05");
+        assert_eq!(date_time_in(Lang::En, dt), "Oct 4, 2026 09:05");
+    }
+
+    #[test]
+    fn shipped_languages_are_left_to_right() {
+        assert_eq!(direction_of(Lang::En), TextDirection::Ltr);
+        assert_eq!(direction_of(Lang::Ru), TextDirection::Ltr);
+    }
+
+    #[test]
     fn templates_fill_placeholders_in_order() {
         // `tf` goes through `t`, which is language-global; check the filler directly.
         let fill = |template: &str, args: &[&dyn Display]| {
@@ -401,7 +476,12 @@ mod tests {
         ("app/ui/cleanup.rs", include_str!("app/ui/cleanup.rs")),
         ("app/ui/review_page.rs", include_str!("app/ui/review_page.rs")),
         ("app/ui/dialogs.rs", include_str!("app/ui/dialogs.rs")),
+        ("app/ui/reports.rs", include_str!("app/ui/reports.rs")),
+        ("reports.rs", include_str!("reports.rs")),
         ("app.rs", include_str!("app.rs")),
+        ("app/os.rs", include_str!("app/os.rs")),
+        ("app/select.rs", include_str!("app/select.rs")),
+        ("app/shot.rs", include_str!("app/shot.rs")),
         ("export.rs", include_str!("export.rs")),
         ("junk_panel.rs", include_str!("junk_panel.rs")),
         ("rules_panel.rs", include_str!("rules_panel.rs")),

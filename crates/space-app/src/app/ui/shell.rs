@@ -288,10 +288,37 @@ impl SpaceApp {
         }
         ui.add_space(6.0);
 
+        // ⌘L: the breadcrumb turns into an editable path.
+        if let Some(mut text) = self.path_edit.take() {
+            let edit = ui.add_sized(
+                [(budget - 3.0 * 36.0 - 6.0).max(120.0), CHIP_H],
+                egui::TextEdit::singleline(&mut text)
+                    .hint_text(RichText::new(t("Type a path and press Enter")).color(MUTED())),
+            );
+            if std::mem::take(&mut self.path_edit_focus) {
+                edit.request_focus();
+                if let Some(mut state) = egui::TextEdit::load_state(ui.ctx(), edit.id) {
+                    let all = egui::text::CCursorRange::two(
+                        egui::text::CCursor::new(0),
+                        egui::text::CCursor::new(text.chars().count()),
+                    );
+                    state.cursor.set_char_range(Some(all));
+                    state.store(ui.ctx(), edit.id);
+                }
+            }
+            let (enter, esc) = ui.input(|i| (i.key_pressed(egui::Key::Enter), i.key_pressed(egui::Key::Escape)));
+            if edit.lost_focus() && enter {
+                self.submit_path_edit(&text);
+            } else if !(esc || edit.lost_focus()) {
+                self.path_edit = Some(text);
+            }
+            return;
+        }
+
         let size_text = crate::i18n::bytes(tree.node(self.focus).size(self.size_mode));
         let size_font = egui::FontId::monospace(type_scale::MONO);
         let size_w = text_width(ui, &size_text, size_font.clone()) + 12.0;
-        let avail = (budget - 3.0 * 36.0 - size_w - 6.0).max(0.0);
+        let avail = (budget - 3.0 * 36.0 - size_w - 6.0 - 30.0).max(0.0);
         let crumbs = tree.breadcrumb_names(self.focus);
         let chain = tree.path_to(self.focus);
         let font = egui::FontId::proportional(type_scale::BODY);
@@ -348,6 +375,9 @@ impl SpaceApp {
                 (remaining - text_width(ui, &crumbs[i], font.clone()) - 12.0 - sep_w).max(0.0);
         }
         ui.label(RichText::new(size_text).font(size_font).color(MUTED()));
+        if icons::button(ui, Icon::Search, 24.0, "Type a path · ⌘L", true).clicked() {
+            self.begin_path_edit();
+        }
         if let Some(id) = go {
             self.navigate(id, true);
         }
@@ -473,6 +503,23 @@ impl SpaceApp {
                             }
                         },
                     );
+                    separator(ui);
+                    if chip(ui, self.filter.regex, ".*")
+                        .on_hover_text(t("Search with a regular expression (case-insensitive)"))
+                        .clicked()
+                    {
+                        self.filter.regex = !self.filter.regex;
+                        self.filter.prepare();
+                        changed = true;
+                    }
+                    if let Some(err) = self.filter.regex_error() {
+                        ui.label(
+                            RichText::new(t("Invalid regular expression"))
+                                .size(crate::theme::type_scale::CAPTION)
+                                .color(crate::theme::DANGER()),
+                        )
+                        .on_hover_text(err.to_string());
+                    }
                     // One chip per file type picked on the map legend; clicking takes it out.
                     let exts: Vec<String> = self.filter.ext.iter().cloned().collect();
                     for ext in exts {
@@ -620,7 +667,11 @@ impl SpaceApp {
                             &text,
                             color,
                             "Opened from a saved result. Rescan for current numbers.",
-                        );
+                        )
+                        .on_hover_text(crate::tr!(
+                            "Scanned {}",
+                            crate::i18n::date_time(tree.scanned_at_unix)
+                        ));
                     }
                     if ui
                         .add(egui::Button::new(caption("Rescan  ⌘R").color(TEXT())).frame(false))
@@ -708,6 +759,15 @@ fn nav_item(ui: &mut egui::Ui, item: &NavItem, on: bool, wide: bool) -> egui::Re
         MUTED().gamma_multiply(0.6)
     };
     let label = t(item.label);
+    // F0816: the rail shows icons only; the label still reaches VoiceOver.
+    resp.widget_info(|| {
+        let text = if item.badge > 0 {
+            format!("{label}, {}", item.badge)
+        } else {
+            label.to_owned()
+        };
+        egui::WidgetInfo::selected(egui::WidgetType::Button, item.enabled, on, text)
+    });
     if wide {
         icons::paint(
             p,

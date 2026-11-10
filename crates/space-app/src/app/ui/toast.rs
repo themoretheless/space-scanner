@@ -29,6 +29,10 @@ pub(in crate::app) enum ToastAction {
     Rescan,
     /// Go to the Trash list page.
     OpenTrashList,
+    /// Scan a folder typed into the path field that is outside this scan.
+    ScanPath(std::path::PathBuf),
+    /// Scan this folder again (after the disk came back).
+    ScanAgain(std::path::PathBuf),
 }
 
 impl ToastAction {
@@ -37,6 +41,8 @@ impl ToastAction {
             Self::UndoQueue(_) => "Undo",
             Self::Rescan => "Rescan",
             Self::OpenTrashList => "Open Trash list",
+            Self::ScanPath(_) => "Scan it",
+            Self::ScanAgain(_) => "Scan again",
         }
     }
 }
@@ -194,6 +200,8 @@ impl SpaceApp {
             Some(ToastAction::UndoQueue(ids)) => self.undo_queue(&ids),
             Some(ToastAction::Rescan) => self.rescan_current(),
             Some(ToastAction::OpenTrashList) => self.set_mode(Mode::Review),
+            Some(ToastAction::ScanPath(path)) => self.start_scan(path, false),
+            Some(ToastAction::ScanAgain(path)) => self.start_scan(path, true),
             None => {}
         }
     }

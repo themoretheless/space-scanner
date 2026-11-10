@@ -267,13 +267,8 @@ impl SpaceApp {
                                                     );
 
                                                     if resp.clicked() {
-                                                        if ui.input(|i| {
-                                                            i.modifiers.command || i.modifiers.ctrl
-                                                        }) && !n.synthetic
-                                                        {
-                                                            queue = Some(id);
-                                                        }
-                                                        pick = Some(id);
+                                                        let m = ui.input(|i| i.modifiers);
+                                                        pick = Some((id, m.command || m.ctrl, m.shift));
                                                     }
                                                     if resp.double_clicked() && !n.synthetic {
                                                         enter = Some(id);
@@ -306,8 +301,8 @@ impl SpaceApp {
                         });
                     });
             });
-        if let Some(id) = pick {
-            self.selected = Some(id);
+        if let Some((id, toggle, range)) = pick {
+            self.click_select(id, toggle, range);
         }
         if let Some(id) = queue {
             self.queue_toggle(&[id]);
@@ -402,15 +397,20 @@ impl SpaceApp {
                             let n = tree.node(id);
                             let (rect, resp) = ui.allocate_exact_size(
                                 egui::vec2(ui.available_width(), TABLE_ROW_H),
-                                Sense::CLICK,
+                                Sense::click(),
                             );
+                            let sel = self.is_selected(id);
+                            super::usage::row_a11y(&resp, n, row.size, sel, self.review.contains(&id));
+                            if self.row_keyboard(&resp, id, sel, scroll_to) {
+                                pick = Some((id, false, false));
+                            }
                             let out = paint_table_row(
                                 ui,
                                 rect,
                                 &resp,
                                 row,
                                 n,
-                                self.selected == Some(id),
+                                self.is_selected(id),
                                 self.review.contains(&id),
                             );
                             if out.check && !n.synthetic {
@@ -418,13 +418,8 @@ impl SpaceApp {
                             } else if out.chevron {
                                 toggle = Some(id);
                             } else if resp.clicked() {
-                                // ⌘/Ctrl-click marks for review here too, like every other list.
-                                if ui.input(|i| i.modifiers.command || i.modifiers.ctrl)
-                                    && !n.synthetic
-                                {
-                                    queue = Some(id);
-                                }
-                                pick = Some(id);
+                                let m = ui.input(|i| i.modifiers);
+                                pick = Some((id, m.command || m.ctrl, m.shift));
                             }
                             if resp.double_clicked() && !n.synthetic {
                                 enter = Some(id);
@@ -448,8 +443,8 @@ impl SpaceApp {
                 }
             }
         }
-        if let Some(id) = pick {
-            self.selected = Some(id);
+        if let Some((id, toggle, range)) = pick {
+            self.click_select(id, toggle, range);
         }
         if let Some(id) = queue {
             self.queue_toggle(&[id]);
@@ -527,7 +522,7 @@ fn paint_table_row(
         resp.clicked()
             && ui
                 .input(|i| i.pointer.interact_pos())
-                .is_some_and(|h| r.expand(4.0).contains(h))
+                .is_some_and(|h| r.expand(5.0).contains(h))
     };
 
     // Checkbox = in review.

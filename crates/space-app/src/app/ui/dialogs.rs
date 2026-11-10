@@ -11,7 +11,7 @@ use space_core::SizeMode;
 use crate::app::SpaceApp;
 use crate::i18n::Lang;
 use crate::rules_panel::{self, RulesAction};
-use crate::settings::{SizeUnits, WorkspaceLayout};
+use crate::settings::{add_exclude, SizeUnits, WorkspaceLayout, SMALL_FILE_PRESETS};
 use crate::views::ViewMode;
 use crate::theme::metrics::{S2, S3, S4, S6};
 use crate::theme::type_scale;
@@ -101,6 +101,17 @@ impl SpaceApp {
                 self.geom = None;
                 self.mark_settings_dirty();
             }
+            row(ui, "Contrast", "", &mut |ui| {
+                if ui
+                    .checkbox(&mut self.settings.high_contrast, t("High contrast"))
+                    .on_hover_text(t("Stronger text and borders, no translucent fills"))
+                    .changed()
+                {
+                    crate::theme::set_high_contrast(ui.ctx(), self.settings.high_contrast);
+                    self.geom = None;
+                    self.mark_settings_dirty();
+                }
+            });
 
             let mut layout = self.settings.layout;
             row(
@@ -320,6 +331,9 @@ impl SpaceApp {
             });
             ui.add_space(S3);
 
+            self.scanning_settings(ui);
+            ui.add_space(S3);
+
             ui.label(RichText::new(t("Saved scans")).family(crate::theme::medium()));
             ui.add_space(4.0);
             ui.horizontal(|ui| {
@@ -402,6 +416,96 @@ impl SpaceApp {
         }
     }
 
+    /// Settings → Scanning: small-file threshold, threads, exclude list.
+    fn scanning_settings(&mut self, ui: &mut egui::Ui) {
+        ui.label(RichText::new(t("Scanning")).family(crate::theme::medium()));
+        ui.add_space(4.0);
+        let mut dirty = false;
+        ui.horizontal(|ui| {
+            ui.label(t("Group files smaller than"));
+            let label = |b: u64| {
+                if b == 0 {
+                    t("Off").to_string()
+                } else {
+                    crate::i18n::bytes(b)
+                }
+            };
+            egui::ComboBox::from_id_salt("small_file_threshold")
+                .selected_text(label(self.settings.scan_small_file_threshold))
+                .show_ui(ui, |ui| {
+                    for b in SMALL_FILE_PRESETS {
+                        dirty |= ui
+                            .selectable_value(&mut self.settings.scan_small_file_threshold, b, label(b))
+                            .changed();
+                    }
+                })
+                .response
+                .on_hover_text(t("Small files are shown as one item per folder"));
+        });
+        ui.horizontal(|ui| {
+            ui.label(t("Threads"));
+            let label = |n: Option<usize>| match n {
+                None => t("Auto").to_string(),
+                Some(n) => n.to_string(),
+            };
+            egui::ComboBox::from_id_salt("scan_threads")
+                .selected_text(label(self.settings.scan_threads))
+                .show_ui(ui, |ui| {
+                    dirty |= ui
+                        .selectable_value(&mut self.settings.scan_threads, None, label(None))
+                        .changed();
+                    for n in 1..=32 {
+                        dirty |= ui
+                            .selectable_value(&mut self.settings.scan_threads, Some(n), label(Some(n)))
+                            .changed();
+                    }
+                });
+        });
+        ui.add_space(4.0);
+        ui.label(t("Skip these folders"));
+        let mut remove = None;
+        for (i, entry) in self.settings.scan_exclude.iter().enumerate() {
+            ui.horizontal(|ui| {
+                ui.label(RichText::new(entry).monospace().size(type_scale::MONO));
+                if ui.add(ghost("Remove")).clicked() {
+                    remove = Some(i);
+                }
+            });
+        }
+        if let Some(i) = remove {
+            self.settings.scan_exclude.remove(i);
+            dirty = true;
+        }
+        ui.horizontal(|ui| {
+            if ui
+                .add_enabled(!self.picking_exclude, secondary("Add folder…"))
+                .clicked()
+            {
+                self.pick_exclude_folder();
+            }
+            let field = ui.add(
+                egui::TextEdit::singleline(&mut self.exclude_input)
+                    .hint_text(t("Pattern, e.g. *.photoslibrary"))
+                    .desired_width(180.0),
+            );
+            let enter = field.lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter));
+            if (ui.add(secondary("Add pattern")).clicked() || enter)
+                && add_exclude(&mut self.settings.scan_exclude, &self.exclude_input)
+            {
+                self.exclude_input.clear();
+                dirty = true;
+            }
+        });
+        ui.label(caption(if self.settings.scan_options_are_default() {
+            "Applies to the next scan"
+        } else {
+            "Applies to the next scan · custom scans are not saved"
+        }));
+        if dirty {
+            self.mark_settings_dirty();
+        }
+    }
+
     fn shortcuts_dialog(&mut self, ctx: &egui::Context) {
         if !self.show_shortcuts {
             return;
@@ -426,9 +530,11 @@ impl SpaceApp {
                                 ("↑ ↓", "Move through the list"),
                                 ("→ ←", "Open or close a folder in the list"),
                                 ("Enter", "Open a folder, or show a file in Finder"),
-                                ("Space", "Add to the Trash list, or take out"),
-                                ("Shift-click", "Add a range to the Trash list"),
-                                ("⌘-click", "Add one item to the Trash list"),
+                                ("Space", "Quick Look the selected item"),
+                                ("T", "Add to the Trash list, or take out"),
+                                ("⌘L", "Type a path to go to"),
+                                ("Shift-click  ⇧↑ ⇧↓", "Select a range"),
+                                ("⌘-click", "Add to the selection, or take out"),
                                 ("Esc", "Close details, clear the search, then go up"),
                                 ("⌘← ⌘→", "Back / forward"),
                                 ("Home", "Jump to the scan root"),

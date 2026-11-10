@@ -16,8 +16,10 @@ use space_clean::{
     clean, scan_rules_with_progress, JunkKind, Risk, RuleFilter, RuleManager, RulePrefs,
     ScanOptions,
 };
+use space_core::ScanOptions as CoreScanOptions;
 use space_core::{
-    format_bytes, largest_entries, scan_path, CacheStore, NodeId, SizeMode, SpaceTree,
+    duplicate_groups, extension_totals, format_bytes, largest_entries, oldest_large_files,
+    scan_path_with_options, CacheStore, NodeId, SizeMode, SpaceTree,
 };
 
 pub const EXIT_FAILURE: u8 = 1;
@@ -25,7 +27,11 @@ pub const EXIT_USAGE: u8 = 2;
 pub const EXIT_PARTIAL: u8 = 3;
 
 #[derive(Parser)]
-#[command(name = "space", version, about = "Space Scanner CLI (index + junk cleaner)")]
+#[command(
+    name = "space",
+    version,
+    about = "Space Scanner CLI (index + junk cleaner)"
+)]
 struct Cli {
     /// Rule pack directory (default: discovery; also honours SPACE_RULES_DIR)
     #[arg(long, global = true, env = "SPACE_RULES_DIR", value_name = "DIR")]
@@ -33,6 +39,18 @@ struct Cli {
     /// Index cache directory (default: per-user cache; also SPACE_CACHE_DIR)
     #[arg(long, global = true, env = "SPACE_CACHE_DIR", value_name = "DIR")]
     cache_dir: Option<PathBuf>,
+    /// Files smaller than this are aggregated per folder when scanning
+    /// (bytes, or 10K / 5M; default 512K). Non-default values bypass the cache.
+    #[arg(long, global = true, value_parser = parse_size, value_name = "SIZE")]
+    small_file_threshold: Option<u64>,
+    /// Scan worker threads (default: automatic)
+    #[arg(long, global = true, value_name = "N")]
+    threads: Option<usize>,
+    /// Do not descend into this directory when scanning (repeatable; a value
+    /// containing `*`, `?` or `[` is a glob matched against path and name).
+    /// Bypasses the cache.
+    #[arg(long, global = true, value_name = "PATH")]
+    exclude: Vec<String>,
     #[command(subcommand)]
     cmd: Cmd,
 }
@@ -102,13 +120,45 @@ enum Cmd {
         #[arg(long)]
         apparent: bool,
     },
+    /// Oldest large files (by modification time) under a path
+    Oldest {
+        path: PathBuf,
+        /// Minimum size (bytes, or 10K / 5M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "100M")]
+        min_size: u64,
+        #[arg(long, default_value_t = 20)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+    },
+    /// Likely duplicate files (same size and case-insensitive name)
+    Dupes {
+        path: PathBuf,
+        /// Minimum file size (bytes, or 10K / 5M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "1M")]
+        min_size: u64,
+        /// Maximum number of groups to print
+        #[arg(long, default_value_t = 20)]
+        limit: usize,
+    },
+    /// Totals grouped by file extension
+    Exts {
+        path: PathBuf,
+        #[arg(long, default_value_t = 30)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+    },
     /// Export an index as JSON or CSV (streamed)
     Export {
         format: ExportFormat,
         path: PathBuf,
-        /// Levels below the root to include (default: all)
-        #[arg(long)]
+        /// Levels below the root to include (default: all; 0 = all)
+        #[arg(long, conflicts_with = "full")]
         depth: Option<usize>,
+        /// Export the entire tree (same as omitting --depth)
+        #[arg(long)]
+        full: bool,
         /// Write to a file instead of stdout
         #[arg(long, value_name = "FILE")]
         out: Option<PathBuf>,
@@ -415,13 +465,14 @@ fn run(cli: Cli) -> CliResult {
     let ctx = Context {
         rules: cli.rules,
         cache_dir: cli.cache_dir,
+        scan: scan_options(cli.small_file_threshold, cli.threads, &cli.exclude),
     };
     match cli.cmd {
         Cmd::Scenario {
             cmd: ScenarioCmd::DockerVolumes { json },
         } => docker_scenario::run(json).map_err(|e| anyhow!("Docker volume scenario: {e}"))?,
         Cmd::Scan { path } => {
-            let tree = scan_blocking(&path)?;
+            let tree = scan_blocking(&path, &ctx.scan)?;
             ctx.cache()?.save(&tree)?;
             println!(
                 "Indexed {} · {} items · cache saved",
@@ -536,13 +587,95 @@ fn run(cli: Cli) -> CliResult {
                 eprintln!("… {} more match(es) (raise --limit)", total - shown);
             }
         }
+        Cmd::Oldest {
+            path,
+            min_size,
+            limit,
+            apparent,
+        } => {
+            let tree = ctx.load_or_scan(&path)?;
+            let mode = size_mode(apparent);
+            let now = space_core::now_unix();
+            for (i, id) in oldest_large_files(&tree, mode, min_size, limit)
+                .into_iter()
+                .enumerate()
+            {
+                let n = tree.node(id);
+                println!(
+                    "{:>3}. {:>10}  {:>9}  {}",
+                    i + 1,
+                    format_bytes(n.size(mode)),
+                    age_label(u64::from(n.mtime).min(now)),
+                    tree.path_string(id)
+                );
+            }
+        }
+        Cmd::Dupes {
+            path,
+            min_size,
+            limit,
+        } => {
+            let tree = ctx.load_or_scan(&path)?;
+            let groups = duplicate_groups(&tree, min_size);
+            let mut wasted_total = 0u64;
+            for (i, group) in groups.iter().enumerate() {
+                let size = tree.node(group[0]).allocated_size;
+                let wasted = size.saturating_mul(group.len() as u64 - 1);
+                wasted_total = wasted_total.saturating_add(wasted);
+                if i >= limit {
+                    continue;
+                }
+                println!(
+                    "{:>3}. {} copies · {} each · {} reclaimable",
+                    i + 1,
+                    group.len(),
+                    format_bytes(size),
+                    format_bytes(wasted)
+                );
+                for &id in group {
+                    println!("       {}", tree.path_string(id));
+                }
+            }
+            eprintln!(
+                "{} group(s) · up to {} reclaimable (name+size match, verify before deleting)",
+                groups.len(),
+                format_bytes(wasted_total)
+            );
+        }
+        Cmd::Exts {
+            path,
+            limit,
+            apparent,
+        } => {
+            let tree = ctx.load_or_scan(&path)?;
+            let mode = size_mode(apparent);
+            for (i, (ext, bytes, count)) in extension_totals(&tree, tree.root, mode)
+                .into_iter()
+                .take(limit)
+                .enumerate()
+            {
+                println!(
+                    "{:>3}. {:>10}  {:>8} files  {}",
+                    i + 1,
+                    format_bytes(bytes),
+                    count,
+                    ext
+                );
+            }
+        }
         Cmd::Export {
             format,
             path,
             depth,
+            full,
             out,
             apparent,
         } => {
+            let depth = if full || depth == Some(0) {
+                None
+            } else {
+                depth
+            };
             let tree = ctx.load_or_scan(&path)?;
             let mode = size_mode(apparent);
             let sink: Box<dyn Write> = match &out {
@@ -944,6 +1077,31 @@ fn set_rules(ctx: &Context, ids: &[String], enabled: bool) -> CliResult {
 struct Context {
     rules: Option<PathBuf>,
     cache_dir: Option<PathBuf>,
+    scan: CoreScanOptions,
+}
+
+/// Build core scan options from the global CLI flags.
+fn scan_options(threshold: Option<u64>, threads: Option<usize>, exclude: &[String]) -> CoreScanOptions {
+    let mut options = CoreScanOptions::default().threads(threads);
+    if let Some(bytes) = threshold {
+        options = options.small_file_threshold(bytes);
+    }
+    for value in exclude {
+        if value.contains(['*', '?', '[']) {
+            options = options.exclude_glob(value.clone());
+        } else {
+            let path = PathBuf::from(value);
+            options = options.exclude(std::path::absolute(&path).unwrap_or(path));
+        }
+    }
+    options
+}
+
+/// Options that change the resulting tree shape make cached indexes unusable.
+fn options_affect_tree(options: &CoreScanOptions) -> bool {
+    options.small_file_threshold != space_core::DEFAULT_SMALL_FILE_THRESHOLD
+        || !options.exclude.is_empty()
+        || !options.exclude_globs.is_empty()
 }
 
 impl Context {
@@ -985,13 +1143,16 @@ impl Context {
         if !path.exists() {
             return Err(usage(format!("path not found: {}", path.display())));
         }
+        if options_affect_tree(&self.scan) {
+            return scan_blocking(path, &self.scan);
+        }
         let cache = self.cache()?;
         if let Ok(loaded) = cache.load(path) {
             if !loaded.stale {
                 return Ok(loaded.tree);
             }
         }
-        let tree = scan_blocking(path)?;
+        let tree = scan_blocking(path, &self.scan)?;
         if let Err(e) = cache.save(&tree) {
             eprintln!("warn: cache save: {e}");
         }
@@ -999,12 +1160,14 @@ impl Context {
     }
 }
 
-fn scan_blocking(path: &Path) -> CliResult<SpaceTree> {
+fn scan_blocking(path: &Path, options: &CoreScanOptions) -> CliResult<SpaceTree> {
     if !path.is_dir() {
         return Err(usage(format!("not a directory: {}", path.display())));
     }
     let mut shown = false;
-    let tree = scan_path(path)
+    let handle = scan_path_with_options(path, options.clone());
+    let excluded = handle.excluded_counter();
+    let tree = handle
         .wait_with(|p| {
             shown = true;
             eprint!(
@@ -1017,6 +1180,10 @@ fn scan_blocking(path: &Path) -> CliResult<SpaceTree> {
         .map_err(|e| anyhow!("scan {}: {e}", path.display()))?;
     if shown {
         eprintln!();
+    }
+    let excluded = excluded.load(std::sync::atomic::Ordering::Relaxed);
+    if excluded > 0 {
+        eprintln!("excluded {excluded} director{}", if excluded == 1 { "y" } else { "ies" });
     }
     Ok(tree)
 }
@@ -1168,6 +1335,7 @@ fn export_json(
             "size_apparent": node.apparent_size,
             "files": node.file_count,
             "is_dir": node.is_dir,
+            "mtime": node.mtime,
         });
         serde_json::to_writer(&mut *out, &row).map_err(std::io::Error::other)
     })?;
@@ -1212,6 +1380,17 @@ mod tests {
     fn clap_definition_is_consistent() {
         use clap::CommandFactory;
         Cli::command().debug_assert();
+    }
+
+    #[test]
+    fn global_scan_flags_build_options() {
+        let o = scan_options(Some(1024), Some(2), &["/x/y".into(), "*/node_modules".into()]);
+        assert_eq!(o.small_file_threshold, 1024);
+        assert_eq!(o.threads, Some(2));
+        assert_eq!(o.exclude, vec![PathBuf::from("/x/y")]);
+        assert_eq!(o.exclude_globs, vec!["*/node_modules".to_string()]);
+        assert!(options_affect_tree(&o));
+        assert!(!options_affect_tree(&scan_options(None, Some(1), &[])));
     }
 
     #[test]

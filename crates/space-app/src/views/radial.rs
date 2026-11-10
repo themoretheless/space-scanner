@@ -106,7 +106,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
 
         let color = colors.get(i).copied().unwrap_or(parent_color);
         let is_hov = ctx.hovered == Some(id);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let is_sel = ctx.is_marked(id);
         let (hov_t, sel_t) = super::highlight(ui, "rad", Some(id), is_hov, is_sel);
         let r = r * (1.0 + hov_t * 0.12);
         painter.circle_filled(pos, r, color);

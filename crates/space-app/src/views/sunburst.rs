@@ -29,6 +29,8 @@ pub struct ArcHit {
     pub outer: f32,
     pub a0: f32,
     pub a1: f32,
+    /// Fill colour, kept so an export can redraw the wedge.
+    pub color: Color32,
 }
 
 pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
@@ -157,6 +159,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         outer: hit.outer * scale,
         a0: hit.a0,
         a1: hit.a1,
+        color: hit.color,
     };
 
     painter.circle_filled(center, max_r + 2.0, theme::PANEL());
@@ -198,7 +201,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         };
         let is_sel = hit
             .id
-            .is_some_and(|id| ctx.selected == Some(id) || ctx.review.contains(&id));
+            .is_some_and(|id| ctx.is_marked(id));
         let (hov_t, sel_t) = super::highlight(ui, "sb", hit.id, is_hov, is_sel);
         let hit = scaled(hit);
         if hov_t > 0.01 {
@@ -287,12 +290,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 for hit in hits.iter().rev() {
                     if point_in_arc(pos, center, &scaled(hit)) {
                         if let Some(id) = hit.id {
-                            super::click_map_node(
-                                tree,
-                                id,
-                                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
-                                &mut action,
-                            );
+                            super::click_map_node(tree, id, ui.input(|i| i.modifiers), &mut action);
                         }
                         break;
                     }
@@ -308,6 +306,11 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     super::hovered_node_context_menu(&response, tree, hover_id, ctx.review, &mut action);
 
     action.hover = hover_id;
+    // F0816: one surface for every wedge; announce the one under the pointer
+    // or the selection.
+    if let Some(id) = hover_id.or(ctx.selected) {
+        super::node_a11y(&response, ctx, id);
+    }
     if let Some(id) = hover_id {
         ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
         response
@@ -574,7 +577,95 @@ fn push_segment(
         outer,
         a0,
         a1,
+        color,
     });
+}
+
+fn xml_escape(s: &str) -> String {
+    let mut out = String::with_capacity(s.len());
+    for c in s.chars() {
+        match c {
+            '&' => out.push_str("&amp;"),
+            '<' => out.push_str("&lt;"),
+            '>' => out.push_str("&gt;"),
+            '"' => out.push_str("&quot;"),
+            '\'' => out.push_str("&apos;"),
+            c if (c as u32) < 0x20 && c != '\t' && c != '\n' => out.push('\u{FFFD}'),
+            c => out.push(c),
+        }
+    }
+    out
+}
+
+/// SVG path data for an annular wedge; a full ring is drawn as two halves
+/// because one SVG arc cannot close on itself.
+fn wedge_path(c: Pos2, inner: f32, outer: f32, a0: f32, a1: f32) -> String {
+    let pt = |a: f32, r: f32| {
+        let p = c + Vec2::angled(a) * r;
+        format!("{:.2} {:.2}", p.x, p.y)
+    };
+    let sweep = (a1 - a0).abs();
+    if sweep >= std::f32::consts::TAU - 1e-3 {
+        let mid = a0 + std::f32::consts::PI;
+        let mut d = format!(
+            "M{} A{outer:.2} {outer:.2} 0 1 1 {} A{outer:.2} {outer:.2} 0 1 1 {} Z",
+            pt(a0, outer),
+            pt(mid, outer),
+            pt(a0, outer)
+        );
+        if inner > 0.0 {
+            d.push_str(&format!(
+                " M{} A{inner:.2} {inner:.2} 0 1 0 {} A{inner:.2} {inner:.2} 0 1 0 {} Z",
+                pt(a0, inner),
+                pt(mid, inner),
+                pt(a0, inner)
+            ));
+        }
+        return d;
+    }
+    let large = u8::from(sweep > std::f32::consts::PI);
+    format!(
+        "M{} A{outer:.2} {outer:.2} 0 {large} 1 {} L{} A{inner:.2} {inner:.2} 0 {large} 0 {} Z",
+        pt(a0, outer),
+        pt(a0 + sweep, outer),
+        pt(a0 + sweep, inner),
+        pt(a0, inner)
+    )
+}
+
+/// The rings as a standalone SVG: one `<path>` per wedge in the cached
+/// geometry, filled with its colour and titled with name and size.
+pub fn to_svg(
+    tree: &space_core::SpaceTree,
+    mode: space_core::SizeMode,
+    hits: &[ArcHit],
+    max_r: f32,
+    background: Color32,
+) -> String {
+    let pad = 8.0;
+    let side = 2.0 * (max_r + pad);
+    let local = Pos2::new(max_r + pad, max_r + pad);
+    let hex = |c: Color32| format!("#{:02x}{:02x}{:02x}", c.r(), c.g(), c.b());
+    let mut out = format!(
+        "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"{side:.0}\" height=\"{side:.0}\" viewBox=\"0 0 {side:.2} {side:.2}\">\n<rect width=\"100%\" height=\"100%\" fill=\"{}\"/>\n",
+        hex(background)
+    );
+    for hit in hits {
+        let title = match hit.id.and_then(|id| tree.try_node(id).map(|n| (id, n))) {
+            Some((_, n)) => format!("{} · {}", n.name, crate::i18n::bytes(n.size(mode))),
+            None => crate::i18n::t("Other").to_string(),
+        };
+        let fill = hex(hit.color);
+        let opacity = hit.color.a() as f32 / 255.0;
+        out.push_str(&format!(
+            "<path d=\"{}\" fill=\"{fill}\" fill-opacity=\"{opacity:.2}\" fill-rule=\"evenodd\" stroke=\"{}\" stroke-width=\"0.8\"><title>{}</title></path>\n",
+            wedge_path(local, hit.inner, hit.outer, hit.a0, hit.a1),
+            hex(background),
+            xml_escape(&title)
+        ));
+    }
+    out.push_str("</svg>\n");
+    out
 }
 
 fn push_segment_mesh(

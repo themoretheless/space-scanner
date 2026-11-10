@@ -205,6 +205,9 @@ pub fn show(ui: &mut egui::Ui, icon: Icon, size: f32, color: Color32) {
 }
 
 /// A square icon-only button: quiet until hovered. Always give it a hover hint.
+/// Smallest pointer target for an icon button (WCAG 2.5.8).
+pub const MIN_HIT: f32 = 24.0;
+
 pub fn button(
     ui: &mut egui::Ui,
     icon: Icon,
@@ -217,10 +220,13 @@ pub fn button(
     } else {
         egui::Sense::hover()
     };
-    let (rect, resp) = ui.allocate_exact_size(egui::vec2(size, size), sense);
+    // F0823: never a hit target under 24 px, whatever the drawn size.
+    let hit = size.max(MIN_HIT);
+    let (hit_rect, resp) = ui.allocate_exact_size(egui::vec2(hit, hit), sense);
+    let rect = egui::Rect::from_center_size(hit_rect.center(), egui::vec2(size, size));
     let hovered = resp.hovered() && enabled;
     if hovered {
-        ui.painter().rect_filled(rect, 8.0, crate::theme::PANEL_2());
+        ui.painter().rect_filled(hit_rect, 8.0, crate::theme::PANEL_2());
     }
     let color = if !enabled {
         crate::theme::MUTED().gamma_multiply(0.45)

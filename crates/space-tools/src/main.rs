@@ -491,6 +491,18 @@ enum Cmd {
     },
     /// Build the release app, bundle it as SpaceScanner.app and launch it (macOS)
     RunApp,
+    /// Build release and assemble target/dist/SpaceScanner.app (any OS; zips on macOS)
+    Dist {
+        /// Leave rules/generated out of the bundled rule packs
+        #[arg(long)]
+        no_generated: bool,
+        /// Zip the bundle (macOS only, via ditto)
+        #[arg(long)]
+        zip: bool,
+        /// Reuse an existing release binary instead of running cargo build
+        #[arg(long)]
+        no_build: bool,
+    },
 }
 
 fn main() -> Result<()> {
@@ -527,6 +539,11 @@ fn main() -> Result<()> {
             }
         }
         Cmd::RunApp => launch(&repo),
+        Cmd::Dist {
+            no_generated,
+            zip,
+            no_build,
+        } => dist(&repo, !no_generated, zip, !no_build),
     }
 }
 fn target_dir(repo: &Path) -> Result<PathBuf> {
@@ -685,41 +702,12 @@ fn launch(repo: &Path) -> Result<()> {
             .status();
     }
     std::thread::sleep(std::time::Duration::from_millis(200));
-    if app.exists() {
-        fs::remove_dir_all(&app)?;
-    }
-    fs::create_dir_all(app.join("Contents/MacOS"))?;
-    fs::copy(
-        target.join("release/space-scanner"),
-        app.join("Contents/MacOS/SpaceScanner"),
-    )?;
-    for entry in walkdir::WalkDir::new(repo.join("rules")) {
-        let entry = entry?;
-        let dest = app
-            .join("Contents/rules")
-            .join(entry.path().strip_prefix(repo.join("rules"))?);
-        if entry.file_type().is_dir() {
-            fs::create_dir_all(dest)?;
-        } else if entry.file_type().is_file() {
-            fs::copy(entry.path(), dest)?;
-        }
-    }
-    write_atomic(
-        &app.join("Contents/Info.plist"),
-        br#"<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-<key>CFBundleName</key><string>Space Scanner</string>
-<key>CFBundleDisplayName</key><string>Space Scanner</string>
-<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
-<key>CFBundleVersion</key><string>0.1.0</string>
-<key>CFBundleShortVersionString</key><string>0.1.0</string>
-<key>CFBundleExecutable</key><string>SpaceScanner</string>
-<key>CFBundlePackageType</key><string>APPL</string>
-<key>LSMinimumSystemVersion</key><string>13.0</string>
-<key>NSHighResolutionCapable</key><true/>
-</dict></plist>
-"#,
+    assemble_bundle(
+        &app,
+        &target.join("release/space-scanner"),
+        &repo.join("rules"),
+        true,
+        find_icon(repo).as_deref(),
     )?;
     ensure!(
         std::process::Command::new("open")
@@ -729,6 +717,119 @@ fn launch(repo: &Path) -> Result<()> {
         "opening app failed"
     );
     println!("Launched {}", app.display());
+    Ok(())
+}
+
+/// Generated Info.plist for the bundle; version comes from Cargo.
+fn info_plist(version: &str, has_icon: bool) -> String {
+    let icon = if has_icon {
+        "<key>CFBundleIconFile</key><string>AppIcon</string>\n"
+    } else {
+        ""
+    };
+    format!(
+        r#"<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleName</key><string>Space Scanner</string>
+<key>CFBundleDisplayName</key><string>Space Scanner</string>
+<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
+<key>CFBundleVersion</key><string>{version}</string>
+<key>CFBundleShortVersionString</key><string>{version}</string>
+<key>CFBundleExecutable</key><string>SpaceScanner</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+{icon}<key>LSMinimumSystemVersion</key><string>13.0</string>
+<key>NSHighResolutionCapable</key><true/>
+</dict></plist>
+"#
+    )
+}
+
+/// First app icon found in the conventional locations.
+fn find_icon(repo: &Path) -> Option<PathBuf> {
+    ["assets/AppIcon.icns", "crates/space-app/assets/AppIcon.icns"]
+        .iter()
+        .map(|p| repo.join(p))
+        .find(|p| p.is_file())
+}
+
+/// Lay out `app` (SpaceScanner.app) from a built binary and the rule packs.
+/// Replaces any existing bundle at that path.
+fn assemble_bundle(
+    app: &Path,
+    binary: &Path,
+    rules: &Path,
+    include_generated: bool,
+    icon: Option<&Path>,
+) -> Result<()> {
+    ensure!(binary.is_file(), "release binary not found: {}", binary.display());
+    if app.exists() {
+        fs::remove_dir_all(app)?;
+    }
+    fs::create_dir_all(app.join("Contents/MacOS"))?;
+    fs::create_dir_all(app.join("Contents/Resources"))?;
+    fs::copy(binary, app.join("Contents/MacOS/SpaceScanner"))?;
+    let generated = rules.join("generated");
+    for entry in walkdir::WalkDir::new(rules)
+        .into_iter()
+        .filter_entry(|e| include_generated || e.path() != generated)
+    {
+        let entry = entry?;
+        let dest = app
+            .join("Contents/rules")
+            .join(entry.path().strip_prefix(rules)?);
+        if entry.file_type().is_dir() {
+            fs::create_dir_all(dest)?;
+        } else if entry.file_type().is_file() {
+            fs::copy(entry.path(), dest)?;
+        }
+    }
+    if let Some(icon) = icon {
+        fs::copy(icon, app.join("Contents/Resources/AppIcon.icns"))?;
+    }
+    write_atomic(
+        &app.join("Contents/Info.plist"),
+        info_plist(env!("CARGO_PKG_VERSION"), icon.is_some()).as_bytes(),
+    )
+}
+
+fn dist(repo: &Path, include_generated: bool, zip: bool, build: bool) -> Result<()> {
+    if build {
+        let status = std::process::Command::new("cargo")
+            .args(["build", "-p", "space-app", "--release"])
+            .current_dir(repo)
+            .status()?;
+        ensure!(status.success(), "app build failed");
+    }
+    let target = target_dir(repo)?;
+    let exe = if cfg!(windows) { "space-scanner.exe" } else { "space-scanner" };
+    let app = target.join("dist/SpaceScanner.app");
+    assemble_bundle(
+        &app,
+        &target.join("release").join(exe),
+        &repo.join("rules"),
+        include_generated,
+        find_icon(repo).as_deref(),
+    )?;
+    println!("Assembled {}", app.display());
+    if zip {
+        if cfg!(target_os = "macos") {
+            let archive = target.join(format!(
+                "dist/SpaceScanner-{}.zip",
+                env!("CARGO_PKG_VERSION")
+            ));
+            let _ = fs::remove_file(&archive);
+            let status = std::process::Command::new("ditto")
+                .args(["-c", "-k", "--sequesterRsrc", "--keepParent"])
+                .arg(&app)
+                .arg(&archive)
+                .status()?;
+            ensure!(status.success(), "zipping the bundle failed");
+            println!("Zipped {}", archive.display());
+        } else {
+            eprintln!("--zip is macOS-only; bundle layout left unzipped");
+        }
+    }
     Ok(())
 }
 
@@ -895,5 +996,36 @@ mod tests {
             split_rule(&json!({"id":"a","paths":["%APPDATA%/a"]})).unwrap()[0]["id"],
             "a"
         );
+    }
+
+    #[test]
+    fn bundle_layout_plist_and_generated_filter() {
+        let fx = Fixture::new();
+        let bin = fx.0.join("space-scanner");
+        fs::write(&bin, b"bin").unwrap();
+        let rules = fx.0.join("rules");
+        fs::create_dir_all(rules.join("generated")).unwrap();
+        fs::create_dir_all(rules.join("categories")).unwrap();
+        fs::write(rules.join("generated/g.yaml"), b"g").unwrap();
+        fs::write(rules.join("categories/c.yaml"), b"c").unwrap();
+        let icon = fx.0.join("AppIcon.icns");
+        fs::write(&icon, b"icns").unwrap();
+        let app = fx.0.join("dist/SpaceScanner.app");
+
+        assemble_bundle(&app, &bin, &rules, false, Some(&icon)).unwrap();
+        let c = app.join("Contents");
+        assert_eq!(fs::read(c.join("MacOS/SpaceScanner")).unwrap(), b"bin");
+        assert!(c.join("rules/categories/c.yaml").is_file());
+        assert!(!c.join("rules/generated").exists());
+        assert!(c.join("Resources/AppIcon.icns").is_file());
+        let plist = fs::read_to_string(c.join("Info.plist")).unwrap();
+        assert!(plist.contains("<key>NSHighResolutionCapable</key><true/>"));
+        assert!(plist.contains(&format!("<string>{}</string>", env!("CARGO_PKG_VERSION"))));
+        assert!(plist.contains("CFBundleIconFile"));
+
+        assemble_bundle(&app, &bin, &rules, true, None).unwrap();
+        assert!(c.join("rules/generated/g.yaml").is_file());
+        assert!(!fs::read_to_string(c.join("Info.plist")).unwrap().contains("CFBundleIconFile"));
+        assert!(assemble_bundle(&app, &fx.0.join("missing"), &rules, true, None).is_err());
     }
 }

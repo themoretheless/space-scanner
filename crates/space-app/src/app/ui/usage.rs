@@ -12,6 +12,7 @@ use space_core::{NodeId, SizeMode, SpaceTree as Tree};
 use super::Density;
 use crate::app::SpaceApp;
 use crate::icons::{self, Icon};
+use crate::reports::ReportKind;
 use crate::settings::WorkspaceLayout;
 use crate::theme::metrics::{S2, S3, S4, SIDE_W, TREE_INDENT, TREE_ROW_H, TREE_W};
 use crate::theme::type_scale;
@@ -155,6 +156,9 @@ impl SpaceApp {
             return;
         };
         self.schedule_largest();
+        if self.show_largest && self.search_hits.is_none() {
+            self.schedule_report();
+        }
         let focus = self.focus;
         let mode = self.size_mode;
         let folder_size = tree.node(focus).size(mode);
@@ -224,22 +228,40 @@ impl SpaceApp {
                 ui.add_space(S4);
                 ui.spacing_mut().item_spacing.x = 6.0;
                 let dirs = self.settings.largest_dirs;
-                if chip(ui, !dirs, "Files").clicked() && dirs {
+                let report = self.settings.largest_report;
+                if chip(ui, report.is_none() && !dirs, "Files").clicked() {
                     self.settings.largest_dirs = false;
+                    self.settings.largest_report = None;
                     self.mark_settings_dirty();
                     self.schedule_largest();
                 }
-                if chip(ui, dirs, "Folders")
+                if chip(ui, report.is_none() && dirs, "Folders")
                     .on_hover_text(t("Folders ranked by their total size; totals overlap"))
                     .clicked()
-                    && !dirs
                 {
                     self.settings.largest_dirs = true;
+                    self.settings.largest_report = None;
                     self.mark_settings_dirty();
                     self.schedule_largest();
                 }
-                if self.largest.is_loading() {
+                for (kind, label, hint) in [
+                    (ReportKind::Oldest, "Oldest", "Large files not changed for the longest time"),
+                    (ReportKind::Duplicates, "Duplicates", "Files with the same name and size"),
+                    (ReportKind::Types, "Types", "Space by file extension in this folder"),
+                ] {
+                    if chip(ui, report == Some(kind), label).on_hover_text(t(hint)).clicked() {
+                        self.settings.largest_report = Some(kind);
+                        self.mark_settings_dirty();
+                        self.schedule_report();
+                    }
+                }
+                if (report.is_none() && self.largest.is_loading())
+                    || (report.is_some() && self.reports.is_loading())
+                {
                     ui.spinner();
+                }
+                if report.is_some() {
+                    return;
                 }
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                     ui.add_space(S3);
@@ -252,6 +274,10 @@ impl SpaceApp {
                     }
                 });
             });
+            if let Some(kind) = self.settings.largest_report {
+                self.report_view(ui, &tree, kind);
+                return;
+            }
             ui.horizontal(|ui| {
                 ui.add_space(S4);
                 ui.label(caption(if self.settings.largest_dirs {
@@ -270,6 +296,7 @@ impl SpaceApp {
             .unwrap_or_default();
         let (mut pick, mut enter, mut reveal, mut queue, mut toggle) =
             (None, None, None, None::<Vec<NodeId>>, None);
+        let mut os = None;
         if ids.is_empty() {
             ui.add_space(4.0);
             if self.show_largest && !everywhere && self.largest.is_loading() {
@@ -305,14 +332,18 @@ impl SpaceApp {
                 for row in &rows[range] {
                     let id = row.id;
                     let n = tree.node(id);
-                    let selected = self.selected == Some(id);
+                    let selected = self.is_selected(id);
                     let queued = self.review.contains(&id);
                     let (rect, resp) = ui.allocate_exact_size(
                         egui::vec2(ui.available_width(), TREE_ROW_H),
-                        Sense::CLICK,
+                        Sense::click(),
                     );
                     if selected && scroll_to {
                         resp.scroll_to_me(None);
+                    }
+                    row_a11y(&resp, n, row.size, selected, queued);
+                    if self.row_keyboard(&resp, id, selected, scroll_to) {
+                        pick = Some((id, false, false));
                     }
                     let outcome = paint_tree_row(
                         ui,
@@ -335,28 +366,7 @@ impl SpaceApp {
                     }
                     if resp.clicked() && !outcome.chevron && !outcome.check {
                         let mods = ui.input(|i| i.modifiers);
-                        if mods.shift && !n.synthetic {
-                            // Shift-click adds the whole range to the Trash list.
-                            let from = self
-                                .range_anchor
-                                .and_then(|a| self.tree_rows.iter().position(|&r| r == a));
-                            let to = self.tree_rows.iter().position(|&r| r == id);
-                            if let (Some(a), Some(b)) = (from, to) {
-                                let (lo, hi) = (a.min(b), a.max(b));
-                                let range: Vec<NodeId> = self.tree_rows[lo..=hi]
-                                    .iter()
-                                    .copied()
-                                    .filter(|r| !self.review.contains(r))
-                                    .collect();
-                                queue = Some(range);
-                            } else {
-                                queue = Some(vec![id]);
-                            }
-                        } else if mods.command && !n.synthetic {
-                            queue = Some(vec![id]);
-                        }
-                        self.range_anchor = Some(id);
-                        pick = Some(id);
+                        pick = Some((id, mods.command || mods.ctrl, mods.shift));
                     }
                     if resp.double_clicked() {
                         if n.is_dir && !n.synthetic {
@@ -379,19 +389,27 @@ impl SpaceApp {
                             ui.close_menu();
                         }
                         if !n.synthetic {
-                            let q = if queued {
+                            let many = self.multi.len() > 1 && self.multi.contains(&id);
+                            let q = if many {
+                                "Add selected to Trash list"
+                            } else if queued {
                                 "Take out of Trash list"
                             } else {
                                 "Add to Trash list"
                             };
                             if ui.button(t(q)).clicked() {
-                                queue = Some(vec![id]);
+                                queue = Some(if many {
+                                    self.selection_ids()
+                                } else {
+                                    vec![id]
+                                });
                                 ui.close_menu();
                             }
                             if ui.button(t("Show in Finder")).clicked() {
                                 reveal = Some(id);
                                 ui.close_menu();
                             }
+                            views::os_menu_items(ui, n.is_dir, |verb| os = Some((id, verb)));
                         }
                     });
                 }
@@ -412,18 +430,21 @@ impl SpaceApp {
                 }
             }
         }
-        if let Some(id) = pick {
-            self.selected = Some(id);
+        if let Some((id, toggle, range)) = pick {
+            self.click_select(id, toggle, range);
         }
         if let Some(ids) = queue {
             self.queue_toggle(&ids);
         }
         if let Some(id) = reveal {
-            self.selected = Some(id);
+            self.select_one(Some(id));
             self.reveal_selected();
         }
         if let Some(id) = enter {
             self.navigate(id, true);
+        }
+        if let Some((id, verb)) = os {
+            self.os_action(id, verb);
         }
     }
 
@@ -440,6 +461,10 @@ impl SpaceApp {
             self.selected = None;
             return;
         };
+        if self.multi.len() > 1 {
+            self.multi_details(ui, &tree);
+            return;
+        }
         let size = node.size(self.size_mode);
         let path = tree.path_string(id);
         let queued = self.review.contains(&id);
@@ -463,7 +488,7 @@ impl SpaceApp {
             } else {
                 "File"
             }));
-            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+            ui.with_layout(crate::i18n::trailing_layout(), |ui| {
                 if icons::button(ui, Icon::Close, 28.0, "Close details · Esc", true).clicked() {
                     self.selected = None;
                 }
@@ -550,6 +575,7 @@ impl SpaceApp {
         }
         ui.add_space(S2);
         let mut copy = false;
+        let mut os = None;
         ui.horizontal_wrapped(|ui| {
             ui.spacing_mut().item_spacing.x = 14.0;
             if is_dir && ui.add(ghost("Show in Finder")).clicked() {
@@ -566,16 +592,112 @@ impl SpaceApp {
             if ui.add(ghost("Copy path")).on_hover_text("⌘⇧C").clicked() {
                 copy = true;
             }
+            if !node.synthetic {
+                if !is_dir && ui.add(ghost("Quick Look")).on_hover_text(t("Space")).clicked() {
+                    os = Some(crate::app::OsVerb::QuickLook);
+                }
+                if ui.add(ghost("Open Terminal here")).clicked() {
+                    os = Some(crate::app::OsVerb::Terminal);
+                }
+                if ui.add(ghost("Share…")).clicked() {
+                    os = Some(crate::app::OsVerb::Share);
+                }
+            }
         });
         if copy {
             self.copy_text(path);
         }
+        if let Some(verb) = os {
+            self.os_action(id, verb);
+        }
         ui.add_space(S3);
         ui.label(caption(if is_dir {
-            "Enter opens · Space adds to the Trash list · Shift-click adds a range"
+            "Enter opens · Space previews · T adds to the Trash list"
         } else {
-            "Space adds to the Trash list · Shift-click adds a range"
+            "Space previews · T adds to the Trash list"
         }));
+    }
+
+    /// Details for several selected items: count, total size, bulk actions.
+    fn multi_details(&mut self, ui: &mut egui::Ui, tree: &Tree) {
+        let ids: Vec<NodeId> = self.selection_ids();
+        let bytes = crate::review::queue_bytes(tree, &ids, self.size_mode);
+        ui.horizontal(|ui| {
+            ui.label(crate::widgets::section_label("Selection"));
+            ui.with_layout(crate::i18n::trailing_layout(), |ui| {
+                if icons::button(ui, Icon::Close, 28.0, "Clear selection · Esc", true).clicked() {
+                    self.select_one(None);
+                }
+            });
+        });
+        ui.add(egui::Label::new(crate::widgets::strong(
+            crate::i18n::count(ids.len(), "item"),
+            20.0,
+        )));
+        ui.add_space(S3);
+        ui.columns(2, |cols| {
+            stat(&mut cols[0], &crate::i18n::bytes(bytes), t("total, nested items counted once"));
+            let files: u64 = ids.iter().map(|&i| tree.node(i).file_count).sum();
+            stat(&mut cols[1], &files.to_string(), t("files inside"));
+        });
+        ui.add_space(S3);
+        let listable: Vec<NodeId> = ids
+            .iter()
+            .copied()
+            .filter(|&i| {
+                let n = tree.node(i);
+                !n.synthetic && n.parent.is_some() && !self.review.contains(&i)
+            })
+            .collect();
+        if ui
+            .add_enabled(!listable.is_empty() && !self.busy, block(ui, primary("Add selected to Trash list")))
+            .on_hover_text(t("Nothing moves until you confirm on the Trash list"))
+            .clicked()
+        {
+            self.queue_toggle(&listable);
+        }
+        ui.add_space(S2);
+        let mut copy = false;
+        ui.horizontal_wrapped(|ui| {
+            ui.spacing_mut().item_spacing.x = 14.0;
+            if ui.add(ghost("Copy paths")).on_hover_text("⌘⇧C").clicked() {
+                copy = true;
+            }
+            if ui.add(ghost("Clear selection")).clicked() {
+                self.select_one(None);
+            }
+        });
+        if copy {
+            self.copy_focus_path();
+        }
+        ui.add_space(S3);
+        egui::ScrollArea::vertical().max_height(220.0).show(ui, |ui| {
+            for &i in ids.iter().take(200) {
+                let n = tree.node(i);
+                // Size at the trailing edge, the name in what is left; both
+                // follow the text direction (F0852).
+                ui.allocate_ui_with_layout(
+                    egui::vec2(ui.available_width(), 18.0),
+                    crate::i18n::trailing_layout(),
+                    |ui| {
+                        ui.label(
+                            RichText::new(crate::i18n::bytes(n.size(self.size_mode)))
+                                .size(type_scale::CAPTION)
+                                .monospace()
+                                .color(MUTED()),
+                        );
+                        ui.with_layout(crate::i18n::row_layout(), |ui| {
+                            ui.add(
+                                egui::Label::new(RichText::new(&n.name).size(type_scale::CAPTION))
+                                    .truncate(),
+                            );
+                        });
+                    },
+                );
+            }
+        });
+        ui.add_space(S3);
+        ui.label(caption("⌘-click adds or takes out · Shift-click selects a range"));
     }
 
     // --------------------------------------------------------------------- map
@@ -586,6 +708,7 @@ impl SpaceApp {
         };
         self.map_controls(ui);
         let map = ui.available_rect_before_wrap();
+        self.map_rect = Some(map);
         let fhash = self.filter.hash64();
         let review_set: HashSet<NodeId> = self.review.iter().copied().collect();
 
@@ -614,6 +737,7 @@ impl SpaceApp {
                         tree: &tree,
                         focus: self.focus,
                         selected: self.selected,
+                        multi: &self.multi,
                         hovered: self.hovered,
                         review: &review_set,
                         mode: self.size_mode,
@@ -621,6 +745,7 @@ impl SpaceApp {
                         filter_hash: fhash,
                         sunburst_depth: self.settings.flags.sunburst_depth as usize,
                         treemap_nest: self.settings.flags.treemap_nest as usize,
+                        treemap_strip: self.settings.flags.treemap_strip,
                         cascade_depth: self.settings.flags.cascade_depth as usize,
                         cascade_row_scale: self.settings.flags.cascade_row_scale,
                         scale,
@@ -649,7 +774,7 @@ impl SpaceApp {
             ctx.request_repaint();
         }
         if let Some(id) = action.select {
-            self.selected = Some(id);
+            self.click_select(id, action.select_toggle, action.select_range);
         }
         if let Some(id) = action.navigate {
             self.navigate(id, true);
@@ -658,8 +783,11 @@ impl SpaceApp {
             self.queue_toggle(&[id]);
         }
         if let Some(id) = action.reveal {
-            self.selected = Some(id);
+            self.select_one(Some(id));
             self.reveal_selected();
+        }
+        if let Some((id, verb)) = action.os {
+            self.os_action(id, verb);
         }
         if let Some(ext) = action.filter_ext {
             self.filter.toggle_ext(&ext);
@@ -729,6 +857,30 @@ impl SpaceApp {
                                 ui.selectable_value(&mut size_mode, m, t(size_label(m)));
                             }
                         });
+                }
+                let mut png = false;
+                let mut svg = false;
+                ui.menu_button(caption(format!("{} ▾", t("Export"))), |ui| {
+                    if ui.add_enabled(!self.exporting, egui::Button::new(t("Save map as PNG…"))).clicked() {
+                        png = true;
+                        ui.close_menu();
+                    }
+                    let rings = self.view == ViewMode::Sunburst
+                        && matches!(self.geom, Some(crate::views::GeomCache::Sunburst { .. }));
+                    if ui
+                        .add_enabled(rings && !self.exporting, egui::Button::new(t("Save rings as SVG…")))
+                        .on_disabled_hover_text(t("Switch to Rings to export SVG"))
+                        .clicked()
+                    {
+                        svg = true;
+                        ui.close_menu();
+                    }
+                });
+                if png {
+                    self.request_map_png(ui.ctx());
+                }
+                if svg {
+                    self.export_sunburst_svg();
                 }
                 let mut changed = false;
                 ui.menu_button(caption(format!("{} ▾", t("Map options"))), |ui| {
@@ -834,6 +986,14 @@ pub(in crate::app) fn map_options_ui(
     changed |= row(ui, "Rectangles", ViewMode::Container, &mut |ui| {
         ui.add(egui::Slider::new(&mut flags.treemap_nest, 1..=4).text(t("levels")))
             .changed()
+    });
+    changed |= row(ui, "Tile layout", ViewMode::Container, &mut |ui| {
+        let mut strip = flags.treemap_strip as usize;
+        let changed = crate::widgets::segmented(ui, &["Squarified", "Ordered strips"], strip)
+            .map(|i| strip = i)
+            .is_some();
+        flags.treemap_strip = strip == 1;
+        changed
     });
     changed |= row(ui, "Bands", ViewMode::Cascade, &mut |ui| {
         ui.add(egui::Slider::new(&mut flags.cascade_depth, 2..=8).text(t("rows")))
@@ -1151,6 +1311,34 @@ struct RowState {
     hover_ancestor: bool,
 }
 
+/// F0816: what a screen reader announces for a painted row.
+pub(super) fn row_a11y(resp: &egui::Response, n: &space_core::Node, size: u64, selected: bool, queued: bool) {
+    let label = format!(
+        "{}, {}, {}{}",
+        n.name,
+        t(if n.is_dir { "Folder" } else { "File" }),
+        crate::i18n::bytes(size),
+        if queued { format!(", {}", t("on the Trash list")) } else { String::new() }
+    );
+    resp.widget_info(|| egui::WidgetInfo::selected(egui::WidgetType::SelectableLabel, true, selected, &label));
+}
+
+impl SpaceApp {
+    /// F0819: keyboard focus on list rows. Tab onto a row selects it; when
+    /// the arrows move the selection, focus follows. Returns true when the
+    /// row just gained focus and should become the selection.
+    pub(super) fn row_keyboard(&mut self, resp: &egui::Response, _id: NodeId, selected: bool, scroll_to: bool) -> bool {
+        let focused = resp.has_focus();
+        if focused {
+            self.row_focused = true;
+        }
+        if selected && scroll_to && self.kb_nav && !focused {
+            resp.request_focus();
+        }
+        resp.gained_focus() && !selected && self.kb_nav
+    }
+}
+
 /// One tree row: guides · chevron · swatch · name · share bar + % · size · review mark.
 fn paint_tree_row(
     ui: &egui::Ui,
@@ -1376,7 +1564,7 @@ impl SpaceApp {
         }
     }
 
-    /// Arrow keys walk the visible tree; Space toggles review. Returns true
+    /// Arrow keys walk the visible tree; T (`space`) toggles review. Returns true
     /// when the key was consumed.
     pub(in crate::app) fn tree_keys(
         &mut self,
@@ -1385,6 +1573,7 @@ impl SpaceApp {
         left: bool,
         right: bool,
         space: bool,
+        shift: bool,
     ) -> bool {
         let Some(tree) = self.tree.clone() else {
             return false;
@@ -1397,7 +1586,7 @@ impl SpaceApp {
             .and_then(|s| self.tree_rows.iter().position(|&r| r == s));
         let Some(i) = pos else {
             if up || down {
-                self.selected = self.tree_rows.first().copied();
+                self.select_one(self.tree_rows.first().copied());
                 self.tree_revealed = self.selected;
                 self.tree_scroll = true;
                 return true;
@@ -1421,14 +1610,19 @@ impl SpaceApp {
                 next = n.parent.filter(|p| self.tree_rows.contains(p));
             }
         } else if space && !n.synthetic {
-            self.queue_toggle(&[id]);
+            let ids = self.selection_ids();
+            self.queue_toggle(if ids.len() > 1 { &ids } else { std::slice::from_ref(&id) });
         } else if up || down {
             // At an end of the list: consume so the map does not jump.
         } else {
             return left || right;
         }
         if let Some(x) = next {
-            self.selected = Some(x);
+            if shift && (up || down) {
+                self.click_select(x, false, true);
+            } else {
+                self.select_one(Some(x));
+            }
             self.tree_revealed = Some(x);
             self.tree_scroll = true;
         }
