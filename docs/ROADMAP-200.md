@@ -104,9 +104,9 @@ Status: `TODO` | `DONE`. Wave: 0–9 per plan.
 | `F0603` | 3 | DONE | export queue list | User-visible or CLI: export queue list works in release build. |
 | `F0646` | 6 | DONE | largest files async | User-visible or CLI: largest files async works in release build. |
 | `F0647` | 6 | DONE | largest folders | User-visible or CLI: largest folders works in release build. |
-| `F0648` | 6 | TODO | oldest large files | User-visible or CLI: oldest large files works in release build. |
-| `F0649` | 6 | TODO | name+size duplicates | User-visible or CLI: name+size duplicates works in release build. |
-| `F0650` | 6 | TODO | group by ext totals | User-visible or CLI: group by ext totals works in release build. |
+| `F0648` | 6 | DONE | oldest large files | User-visible or CLI: oldest large files works in release build. |
+| `F0649` | 6 | DONE | name+size duplicates | User-visible or CLI: name+size duplicates works in release build. |
+| `F0650` | 6 | DONE | group by ext totals | User-visible or CLI: group by ext totals works in release build. |
 | `F0651` | 6 | DONE | export CSV top | User-visible or CLI: export CSV top works in release build. |
 | `F0652` | 6 | DONE | limit N setting | User-visible or CLI: limit N setting works in release build. |
 | `F0653` | 6 | DONE | bounded walk 8k | User-visible or CLI: bounded walk 8k works in release build. |
@@ -155,17 +155,17 @@ Status: `TODO` | `DONE`. Wave: 0–9 per plan.
 | `F0873` | 6 | DONE | CSV children | User-visible or CLI: CSV children works in release build. |
 | `F0874` | 6 | DONE | CSV largest | User-visible or CLI: CSV largest works in release build. |
 | `F0875` | 6 | DONE | JSON tree shallow | User-visible or CLI: JSON tree shallow works in release build. |
-| `F0876` | 6 | TODO | JSON tree full | User-visible or CLI: JSON tree full works in release build. |
+| `F0876` | 6 | DONE | JSON tree full | User-visible or CLI: JSON tree full works in release build. |
 | `F0877` | 6 | DONE | clipboard TSV | User-visible or CLI: clipboard TSV works in release build. |
 | `F0878` | 6 | TODO | share sheet macOS | User-visible or CLI: share sheet macOS works in release build. |
 | `F0906` | 0 | DONE | settings window | User-visible or CLI: settings window works in release build. |
 | `F0907` | 0 | DONE | persist via json | User-visible or CLI: persist via json works in release build. |
 | `F0908` | 0 | DONE | size mode default | User-visible or CLI: size mode default works in release build. |
 | `F0909` | 0 | DONE | view default | User-visible or CLI: view default works in release build. |
-| `F0910` | 0 | TODO | small-file threshold | User-visible or CLI: small-file threshold works in release build. |
-| `F0911` | 0 | TODO | scan threads | User-visible or CLI: scan threads works in release build. |
+| `F0910` | 0 | DONE | small-file threshold | User-visible or CLI: small-file threshold works in release build. |
+| `F0911` | 0 | DONE | scan threads | User-visible or CLI: scan threads works in release build. |
 | `F0912` | 0 | DONE | cache TTL | User-visible or CLI: cache TTL works in release build. |
-| `F0913` | 0 | TODO | exclude list editor | User-visible or CLI: exclude list editor works in release build. |
+| `F0913` | 0 | DONE | exclude list editor | User-visible or CLI: exclude list editor works in release build. |
 | `F0946` | 0 | DONE | geom cache sunburst | User-visible or CLI: geom cache sunburst works in release build. |
 | `F0947` | 0 | DONE | geom cache treemap | User-visible or CLI: geom cache treemap works in release build. |
 | `F0948` | 0 | DONE | no to_vec idle kids | User-visible or CLI: no to_vec idle kids works in release build. |
@@ -179,8 +179,8 @@ Status: `TODO` | `DONE`. Wave: 0–9 per plan.
 | `F0993` | 9 | DONE | channel try_recv | User-visible or CLI: channel try_recv works in release build. |
 | `F0994` | 9 | DONE | busy flags | User-visible or CLI: busy flags works in release build. |
 | `F0995` | 9 | DONE | confirm destructive | User-visible or CLI: confirm destructive works in release build. |
-| `F0996` | 9 | TODO | offline volume | User-visible or CLI: offline volume works in release build. |
-| `F0997` | 9 | TODO | ejected mid-scan | User-visible or CLI: ejected mid-scan works in release build. |
+| `F0996` | 9 | DONE | offline volume | User-visible or CLI: offline volume works in release build. |
+| `F0997` | 9 | DONE | ejected mid-scan | User-visible or CLI: ejected mid-scan works in release build. |
 | `F0998` | 9 | DONE | corrupt cache recover | User-visible or CLI: corrupt cache recover works in release build. |
 | `F1031` | 8 | DONE | Reveal in Finder | User-visible or CLI: Reveal in Finder works in release build. |
 | `F1032` | 8 | TODO | Quick Look | User-visible or CLI: Quick Look works in release build. |
@@ -188,18 +188,18 @@ Status: `TODO` | `DONE`. Wave: 0–9 per plan.
 | `F1034` | 8 | DONE | Dock name Space Scanner | User-visible or CLI: Dock name Space Scanner works in release build. |
 | `F1035` | 8 | DONE | .app bundle script | User-visible or CLI: .app bundle script works in release build. |
 | `F1036` | 8 | DONE | Info.plist | User-visible or CLI: Info.plist works in release build. |
-| `F1037` | 8 | TODO | Retina capable | User-visible or CLI: Retina capable works in release build. |
+| `F1037` | 8 | DONE | Retina capable | User-visible or CLI: Retina capable works in release build. |
 | `F1038` | 8 | DONE | APFS Data prefer | User-visible or CLI: APFS Data prefer works in release build. |
 | `F1071` | 9 | DONE | unit tree path | User-visible or CLI: unit tree path works in release build. |
 | `F1072` | 9 | TODO | unit filter match | User-visible or CLI: unit filter match works in release build. |
-| `F1073` | 9 | TODO | unit volume dedupe | User-visible or CLI: unit volume dedupe works in release build. |
+| `F1073` | 9 | DONE | unit volume dedupe | User-visible or CLI: unit volume dedupe works in release build. |
 | `F1074` | 9 | DONE | scan fixture tmp | User-visible or CLI: scan fixture tmp works in release build. |
 | `F1075` | 9 | DONE | bench quick profile | User-visible or CLI: bench quick profile works in release build. |
 | `F1076` | 9 | DONE | bench normal | User-visible or CLI: bench normal works in release build. |
 | `F1077` | 9 | DONE | cli smoke | User-visible or CLI: cli smoke works in release build. |
 | `F1078` | 9 | TODO | ui smoke manual | User-visible or CLI: ui smoke manual works in release build. |
 | `F1101` | 0 | DONE | cargo run -p space-tools -- run-app | User-visible or CLI: cargo run -p space-tools -- run-app works in release build. |
-| `F1102` | 8 | TODO | dist SpaceScanner.app | User-visible or CLI: dist SpaceScanner.app works in release build. |
+| `F1102` | 8 | DONE | dist SpaceScanner.app | User-visible or CLI: dist SpaceScanner.app works in release build. |
 | `F1103` | 8 | DONE | cargo release profile | User-visible or CLI: cargo release profile works in release build. |
 | `F1104` | 8 | DONE | README run section | User-visible or CLI: README run section works in release build. |
 | `F1105` | 8 | DONE | LICENSE MIT | User-visible or CLI: LICENSE MIT works in release build. |
