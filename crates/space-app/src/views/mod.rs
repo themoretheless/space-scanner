@@ -478,7 +478,7 @@ impl GeomKey {
             mode: ctx.mode,
             filter: ctx.filter_hash,
             depth: ctx.sunburst_depth as u8,
-            nest: ctx.treemap_nest as u8,
+            nest: ctx.treemap_nest as u8 | if ctx.treemap_strip { 0x80 } else { 0 },
             cascade_depth: ctx.cascade_depth as u8,
             row_scale: (ctx.cascade_row_scale * 100.0).round() as u16,
             x: q(rect.min.x) as i16,
@@ -524,6 +524,8 @@ pub struct DrawCtx<'a> {
     pub sunburst_depth: usize,
     /// Folder levels nested inside treemap tiles (1..=4).
     pub treemap_nest: usize,
+    /// Ordered strip layout instead of squarified tiles.
+    pub treemap_strip: bool,
     /// Band rows below the cascade focus (2..=8).
     pub cascade_depth: usize,
     /// Cascade band height multiplier.
@@ -634,6 +636,7 @@ mod click_map_tests {
                                 filter_hash: filter.hash64(),
                                 sunburst_depth: 2,
                                 treemap_nest: 2,
+                                treemap_strip: false,
                                 cascade_depth: 5,
                                 cascade_row_scale: 1.0,
                                 scale: 1.0,

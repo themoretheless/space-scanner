@@ -40,6 +40,10 @@ pub struct FeatureFlags {
     pub sunburst_depth: u8,
     /// Folder levels nested inside treemap tiles (1..=4).
     pub treemap_nest: u8,
+    /// Treemap tiles in ordered strips (keeps the size order readable)
+    /// instead of the squarified layout.
+    #[serde(default)]
+    pub treemap_strip: bool,
     /// Rows of bands the cascade draws below the focus (2..=8).
     pub cascade_depth: u8,
     /// Band height multiplier for the cascade (0.6..=1.6).
@@ -62,6 +66,7 @@ impl Default for FeatureFlags {
             show_shortcuts_hint: true,
             sunburst_depth: 2,
             treemap_nest: 2,
+            treemap_strip: false,
             cascade_depth: 5,
             cascade_row_scale: 1.0,
             show_files_under_map: true,

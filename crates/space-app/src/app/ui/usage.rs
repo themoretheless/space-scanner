@@ -685,6 +685,7 @@ impl SpaceApp {
                         filter_hash: fhash,
                         sunburst_depth: self.settings.flags.sunburst_depth as usize,
                         treemap_nest: self.settings.flags.treemap_nest as usize,
+                        treemap_strip: self.settings.flags.treemap_strip,
                         cascade_depth: self.settings.flags.cascade_depth as usize,
                         cascade_row_scale: self.settings.flags.cascade_row_scale,
                         scale,
@@ -898,6 +899,14 @@ pub(in crate::app) fn map_options_ui(
     changed |= row(ui, "Rectangles", ViewMode::Container, &mut |ui| {
         ui.add(egui::Slider::new(&mut flags.treemap_nest, 1..=4).text(t("levels")))
             .changed()
+    });
+    changed |= row(ui, "Tile layout", ViewMode::Container, &mut |ui| {
+        let mut strip = flags.treemap_strip as usize;
+        let changed = crate::widgets::segmented(ui, &["Squarified", "Ordered strips"], strip)
+            .map(|i| strip = i)
+            .is_some();
+        flags.treemap_strip = strip == 1;
+        changed
     });
     changed |= row(ui, "Bands", ViewMode::Cascade, &mut |ui| {
         ui.add(egui::Slider::new(&mut flags.cascade_depth, 2..=8).text(t("rows")))

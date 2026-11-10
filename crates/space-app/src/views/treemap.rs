@@ -197,7 +197,11 @@ fn layout_nested(
         .iter()
         .map(|id| ctx.tree.node(*id).size(ctx.mode).max(1) as f64)
         .collect();
-    let flat = squarify(ids, &sizes, rect);
+    let flat = if ctx.treemap_strip {
+        strip(ids, &sizes, rect)
+    } else {
+        squarify(ids, &sizes, rect)
+    };
 
     for tile in flat {
         if out.len() >= MAX_TILES {
@@ -376,6 +380,72 @@ fn layout_row(row: &Row, remaining: &mut Rect, out: &mut Vec<FlatTile>, last_row
     }
 }
 
+/// Ordered strip layout (Bederson, Shneiderman & Wattenberg): items keep
+/// their order and fill strips across the longer side; an item joins the
+/// current strip while that lowers the strip's average aspect ratio. The
+/// last strip takes what is left and the last tile of each strip snaps to
+/// the edge, so the tiles cover the rect exactly.
+fn strip(ids: &[NodeId], sizes: &[f64], rect: Rect) -> Vec<FlatTile> {
+    let total: f64 = sizes.iter().sum::<f64>().max(1e-9);
+    let rect_area = rect.width() as f64 * rect.height() as f64;
+    let areas: Vec<f64> = sizes.iter().map(|s| s / total * rect_area).collect();
+    // Strips run along the longer side; `len` is their length.
+    let horizontal = rect.width() >= rect.height();
+    let len = if horizontal { rect.width() } else { rect.height() } as f64;
+    let avg_aspect = |items: &[f64]| -> f64 {
+        let sum: f64 = items.iter().sum();
+        let thick = (sum / len.max(1e-9)).max(1e-9);
+        let worst: f64 = items
+            .iter()
+            .map(|a| {
+                let l = a / thick;
+                (l / thick).max(thick / l.max(1e-9))
+            })
+            .sum();
+        worst / items.len().max(1) as f64
+    };
+    let mut strips: Vec<std::ops::Range<usize>> = Vec::new();
+    let mut start = 0;
+    for i in 0..areas.len() {
+        if i > start && avg_aspect(&areas[start..=i]) > avg_aspect(&areas[start..i]) {
+            strips.push(start..i);
+            start = i;
+        }
+    }
+    if start < areas.len() {
+        strips.push(start..areas.len());
+    }
+    let mut out = Vec::with_capacity(ids.len());
+    let mut offset = if horizontal { rect.top() } else { rect.left() };
+    let end = if horizontal { rect.bottom() } else { rect.right() };
+    for (si, range) in strips.iter().enumerate() {
+        let sum: f64 = areas[range.clone()].iter().sum();
+        let thick = if si + 1 == strips.len() {
+            end - offset
+        } else {
+            ((sum / len.max(1e-9)) as f32).min(end - offset)
+        };
+        let mut along = if horizontal { rect.left() } else { rect.top() };
+        let along_end = if horizontal { rect.right() } else { rect.bottom() };
+        for k in range.clone() {
+            let l = if k + 1 == range.end {
+                along_end - along
+            } else {
+                (areas[k] / thick.max(1e-6) as f64) as f32
+            };
+            let r = if horizontal {
+                Rect::from_min_size(pos2(along, offset), Vec2::new(l, thick))
+            } else {
+                Rect::from_min_size(pos2(offset, along), Vec2::new(thick, l))
+            };
+            out.push(FlatTile { id: ids[k], rect: r });
+            along += l;
+        }
+        offset += thick;
+    }
+    out
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -386,7 +456,10 @@ mod tests {
     }
 
     fn check_cover(sizes: &[f64], rect: Rect) {
-        let tiles = tiles_for(sizes, rect);
+        check_tiles(sizes, rect, tiles_for(sizes, rect));
+    }
+
+    fn check_tiles(sizes: &[f64], rect: Rect, tiles: Vec<FlatTile>) {
         assert_eq!(tiles.len(), sizes.len());
         let rect_area = rect.width() as f64 * rect.height() as f64;
         let sum: f64 = tiles
@@ -432,6 +505,28 @@ mod tests {
         let many: Vec<f64> = (1..=60).map(|i| (i * i) as f64).collect();
         check_cover(&many, rect);
         check_cover(&many, Rect::from_min_size(pos2(0.0, 0.0), Vec2::new(300.0, 900.0)));
+    }
+
+    #[test]
+    fn strips_cover_the_rect_without_overlap_and_keep_order() {
+        let ids_for = |n: usize| (0..n as u32).map(NodeId).collect::<Vec<_>>();
+        for rect in [
+            Rect::from_min_size(pos2(10.0, 20.0), Vec2::new(800.0, 600.0)),
+            Rect::from_min_size(pos2(0.0, 0.0), Vec2::new(300.0, 900.0)),
+        ] {
+            for sizes in [
+                vec![6.0, 6.0, 4.0, 3.0, 2.0, 2.0, 1.0],
+                vec![1.0],
+                vec![1.0, 1.0],
+                vec![1000.0, 1.0, 1.0, 1.0],
+                (1..=60).rev().map(|i| (i * i) as f64).collect(),
+            ] {
+                let tiles = strip(&ids_for(sizes.len()), &sizes, rect);
+                // Reading order follows input order.
+                assert!(tiles.iter().enumerate().all(|(i, t)| t.id.0 as usize == i));
+                check_tiles(&sizes, rect, tiles);
+            }
+        }
     }
 
     #[test]

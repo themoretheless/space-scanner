@@ -566,4 +566,8 @@ static RU: &[(&str, &str)] = &[
     // --- regex filter
     ("Search with a regular expression (case-insensitive)", "Искать по регулярному выражению (без учёта регистра)"),
     ("Invalid regular expression", "Неверное регулярное выражение"),
+    // --- treemap strip layout
+    ("Tile layout", "Раскладка плиток"),
+    ("Squarified", "Квадратная"),
+    ("Ordered strips", "Полосы по порядку"),
 ];
