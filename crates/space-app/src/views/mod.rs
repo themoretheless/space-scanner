@@ -83,9 +83,35 @@ pub enum EntryKindFilter {
     FilesOnly,
 }
 
+/// A compiled regular-expression query and the text it was compiled from.
+#[derive(Debug, Clone)]
+pub struct CompiledQuery {
+    for_query: String,
+    re: Result<Arc<regex::Regex>, String>,
+}
+
+impl CompiledQuery {
+    fn new(query: &str) -> Self {
+        let re = regex::RegexBuilder::new(query)
+            .case_insensitive(true)
+            .size_limit(1 << 20)
+            .build()
+            .map(Arc::new)
+            .map_err(|e| e.to_string());
+        Self {
+            for_query: query.to_string(),
+            re,
+        }
+    }
+}
+
 #[derive(Debug, Clone, Default)]
 pub struct ViewFilter {
     pub query: String,
+    /// Treat `query` as a case-insensitive regular expression.
+    pub regex: bool,
+    /// `query` compiled once per change (see `prepare`).
+    compiled: Option<CompiledQuery>,
     /// File extensions to show (lower-case, without the dot); empty = all.
     pub ext: BTreeSet<String>,
     pub min_size: u64,
@@ -117,6 +143,15 @@ impl ViewFilter {
                 return false;
             }
         }
+        if !self.query.is_empty() && self.regex {
+            return match &self.compiled {
+                Some(c) if c.for_query == self.query => c.re.as_ref().is_ok_and(|re| re.is_match(name)),
+                // Not prepared yet: compile for this call (tests, first frame).
+                _ => CompiledQuery::new(&self.query)
+                    .re
+                    .is_ok_and(|re| re.is_match(name)),
+            };
+        }
         if !self.query.is_empty() {
             // Most filenames and queries are ASCII. Compare borrowed bytes rather
             // than allocating two lowercase strings for every candidate.
@@ -132,6 +167,30 @@ impl ViewFilter {
             }
         }
         true
+    }
+
+    /// Compile the regular expression when the query or mode changed since
+    /// the last call. Cheap when nothing changed; call once per frame.
+    pub fn prepare(&mut self) {
+        if !self.regex || self.query.is_empty() {
+            self.compiled = None;
+            return;
+        }
+        if self.compiled.as_ref().is_some_and(|c| c.for_query == self.query) {
+            return;
+        }
+        self.compiled = Some(CompiledQuery::new(&self.query));
+    }
+
+    /// Why the regular expression does not compile, if it does not.
+    pub fn regex_error(&self) -> Option<&str> {
+        if !self.regex || self.query.is_empty() {
+            return None;
+        }
+        match &self.compiled {
+            Some(c) if c.for_query == self.query => c.re.as_ref().err().map(String::as_str),
+            _ => None,
+        }
     }
 
     /// Is `ext` (any case) one of the selected extensions?
@@ -162,6 +221,7 @@ impl ViewFilter {
     pub fn hash64(&self) -> u64 {
         let mut h = std::collections::hash_map::DefaultHasher::new();
         self.query.hash(&mut h);
+        self.regex.hash(&mut h);
         self.ext.hash(&mut h);
         self.min_size.hash(&mut h);
         self.max_size.hash(&mut h);
@@ -691,6 +751,104 @@ mod click_map_tests {
 mod filter_tests {
     use super::*;
 
+    fn q(query: &str) -> ViewFilter {
+        ViewFilter {
+            query: query.into(),
+            ..Default::default()
+        }
+    }
+
+    #[test]
+    fn substring_is_case_insensitive() {
+        assert!(q("cache").matches("Library/Caches", true, 1));
+        assert!(q("CACHE").matches("cache.db", false, 1));
+        assert!(!q("cache").matches("cash", false, 1));
+        assert!(q("").matches("anything", false, 0));
+    }
+
+    #[test]
+    fn regex_matches_case_insensitively_and_only_after_prepare_change() {
+        let mut f = ViewFilter {
+            query: r"^img_\d{4}\.jpe?g$".into(),
+            regex: true,
+            ..Default::default()
+        };
+        f.prepare();
+        assert!(f.regex_error().is_none());
+        assert!(f.matches("IMG_1234.JPG", false, 1));
+        assert!(f.matches("img_0001.jpeg", false, 1));
+        assert!(!f.matches("img_12.jpg", false, 1));
+        // Substring semantics are off in regex mode: a dot is any character.
+        f.query = "a.c".into();
+        f.prepare();
+        assert!(f.matches("abc", false, 1));
+        f.regex = false;
+        f.prepare();
+        assert!(!f.matches("abc", false, 1));
+    }
+
+    #[test]
+    fn invalid_regex_shows_an_error_and_matches_nothing() {
+        let mut f = ViewFilter {
+            query: "(unclosed".into(),
+            regex: true,
+            ..Default::default()
+        };
+        f.prepare();
+        assert!(f.regex_error().is_some());
+        assert!(!f.matches("(unclosed", false, 1));
+        assert!(!f.matches("anything", true, 1));
+        assert!(f.is_active());
+    }
+
+    #[test]
+    fn regex_flag_changes_the_filter_hash() {
+        let a = q("x");
+        let mut b = q("x");
+        b.regex = true;
+        assert_ne!(a.hash64(), b.hash64());
+    }
+
+    #[test]
+    fn extension_set_filters_files_but_keeps_folders() {
+        let mut f = ViewFilter::default();
+        f.toggle_ext("MP4");
+        f.toggle_ext("mov");
+        assert!(f.matches("clip.mp4", false, 1));
+        assert!(f.matches("CLIP.MOV", false, 1));
+        assert!(!f.matches("notes.txt", false, 1));
+        assert!(f.matches("Movies", true, 1));
+        f.toggle_ext("mp4");
+        assert!(!f.matches("clip.mp4", false, 1));
+    }
+
+    #[test]
+    fn min_and_max_size_are_inclusive_bounds() {
+        let f = ViewFilter {
+            min_size: 10,
+            max_size: Some(20),
+            ..Default::default()
+        };
+        assert!(!f.matches("a", false, 9));
+        assert!(f.matches("a", false, 10));
+        assert!(f.matches("a", false, 20));
+        assert!(!f.matches("a", false, 21));
+    }
+
+    #[test]
+    fn kind_filter_picks_folders_or_files() {
+        let dirs = ViewFilter {
+            kind: EntryKindFilter::DirsOnly,
+            ..Default::default()
+        };
+        let files = ViewFilter {
+            kind: EntryKindFilter::FilesOnly,
+            ..Default::default()
+        };
+        assert!(dirs.matches("d", true, 1) && !dirs.matches("f", false, 1));
+        assert!(files.matches("f", false, 1) && !files.matches("d", true, 1));
+    }
+
     #[test]
     fn query_matching_preserves_lowercase_substring_semantics() {
         let names = [
@@ -747,6 +905,7 @@ mod filter_tests {
             max_size: Some(20),
             ext: BTreeSet::from(["log".to_string()]),
             kind: EntryKindFilter::FilesOnly,
+            ..Default::default()
         };
         assert!(filter.matches("cache.log", false, 10));
         assert!(!filter.matches("cache.log", true, 10));

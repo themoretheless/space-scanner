@@ -473,6 +473,23 @@ impl SpaceApp {
                             }
                         },
                     );
+                    separator(ui);
+                    if chip(ui, self.filter.regex, ".*")
+                        .on_hover_text(t("Search with a regular expression (case-insensitive)"))
+                        .clicked()
+                    {
+                        self.filter.regex = !self.filter.regex;
+                        self.filter.prepare();
+                        changed = true;
+                    }
+                    if let Some(err) = self.filter.regex_error() {
+                        ui.label(
+                            RichText::new(t("Invalid regular expression"))
+                                .size(crate::theme::type_scale::CAPTION)
+                                .color(crate::theme::DANGER()),
+                        )
+                        .on_hover_text(err.to_string());
+                    }
                     // One chip per file type picked on the map legend; clicking takes it out.
                     let exts: Vec<String> = self.filter.ext.iter().cloned().collect();
                     for ext in exts {

@@ -265,10 +265,8 @@ impl SpaceApp {
         } else {
             (settings.default_view, settings.default_size_mode)
         };
-        let filter = ViewFilter {
-            kind: settings.filter_kind,
-            ..ViewFilter::default()
-        };
+        let mut filter = ViewFilter::default();
+        filter.kind = settings.filter_kind;
         let show_largest = settings.show_largest;
         let compact_map = settings.compact_map;
 
@@ -2371,6 +2369,7 @@ impl eframe::App for SpaceApp {
         self.poll_bg(ctx);
         self.poll_scan(ctx);
         self.apply_filter_debounce();
+        self.filter.prepare();
         self.handle_keys(ctx);
         self.refresh_search_hits();
         if let Some(text) = self.pending_copy.take() {

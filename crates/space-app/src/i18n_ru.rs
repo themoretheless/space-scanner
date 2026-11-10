@@ -563,4 +563,7 @@ static RU: &[(&str, &str)] = &[
     ("Copy paths", "Скопировать пути"),
     ("Clear selection", "Снять выбор"),
     ("⌘-click adds or takes out · Shift-click selects a range", "⌘-клик добавляет или убирает · Shift-клик выбирает диапазон"),
+    // --- regex filter
+    ("Search with a regular expression (case-insensitive)", "Искать по регулярному выражению (без учёта регистра)"),
+    ("Invalid regular expression", "Неверное регулярное выражение"),
 ];
