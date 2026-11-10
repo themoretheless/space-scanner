@@ -55,7 +55,7 @@ resize() { W=$1; H=$2; xdotool windowsize "$WIN" "$W" "$H"; sleep 2; focus; }
 launch;                shot 01-overview
 launch "$SCAN";        sleep 4; shot 02-usage
 click 330 239;         shot 03-usage-selected
-key space 1.5;         shot 04-usage-queued               # Space adds to the Trash list (toast)
+key t 1.5;             shot 04-usage-queued               # T adds to the Trash list (toast)
 resize 1000 700;       shot 05-usage-medium               # details become a drawer
 resize 760 560;        shot 06-usage-narrow-list          # icon rail, one pane, bottom sheet
 key Escape;            click 718 29; shot 07-usage-narrow-map   # close details, List | Map
@@ -76,4 +76,6 @@ key ctrl+comma 1.5;    shot 13-settings
 click 490 228;         key Escape
 click 112 145;         shot 14-usage-light
 key shift+slash 1.5;   shot 15-shortcuts
+key Escape;            key ctrl+l 1; shot 16-path-field   # ⌘L/Ctrl+L: editable path
+key Escape
 pkill -x space-scanner || true
