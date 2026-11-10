@@ -346,7 +346,6 @@ static RU: &[(&str, &str)] = &[
     ("Save this list as CSV", "Сохранить этот список как CSV"),
     ("Up to {} · folders inside this one", "До {} · папки внутри этой"),
     ("Up to {} · searches 8,000 folders", "До {} · просматривается 8 000 папок"),
-    ("Export", "Экспорт"),
     ("Folder contents as CSV…", "Содержимое папки в CSV…"),
     ("Largest list as CSV…", "Список крупнейших в CSV…"),
     ("Folder as JSON (one level)…", "Папка в JSON (один уровень)…"),
@@ -587,4 +586,11 @@ static RU: &[(&str, &str)] = &[
     ("Quick Look", "Быстрый просмотр"),
     ("Type a path and press Enter", "Введите путь и нажмите Enter"),
     ("Type a path · ⌘L", "Ввести путь · ⌘L"),
+    // --- export
+    ("Other", "Прочее"),
+    ("Export", "Экспорт"),
+    ("Save map as PNG…", "Сохранить карту как PNG…"),
+    ("Save rings as SVG…", "Сохранить кольца как SVG…"),
+    ("Switch to Rings to export SVG", "Переключитесь на Кольца, чтобы сохранить SVG"),
+    ("Could not encode the image: {}", "Не удалось закодировать изображение: {}"),
 ];

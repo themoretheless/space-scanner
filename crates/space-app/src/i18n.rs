@@ -404,6 +404,7 @@ mod tests {
         ("app.rs", include_str!("app.rs")),
         ("app/os.rs", include_str!("app/os.rs")),
         ("app/select.rs", include_str!("app/select.rs")),
+        ("app/shot.rs", include_str!("app/shot.rs")),
         ("export.rs", include_str!("export.rs")),
         ("junk_panel.rs", include_str!("junk_panel.rs")),
         ("rules_panel.rs", include_str!("rules_panel.rs")),

@@ -26,6 +26,7 @@ use crate::volumes::{self, VolumeInfo};
 
 mod os;
 mod select;
+mod shot;
 mod ui;
 
 enum BgMsg {
@@ -221,6 +222,10 @@ pub struct SpaceApp {
     pending_copy: Option<String>,
     /// The search field had keyboard focus last frame.
     search_focused: bool,
+    /// Where the map was drawn last frame, for the PNG export crop.
+    map_rect: Option<egui::Rect>,
+    /// A screenshot of the map was asked for and has not arrived yet.
+    shot_pending: bool,
     /// Text of the editable path field (⌘L) while it is open.
     path_edit: Option<String>,
     /// Give the path field keyboard focus on the next frame.
@@ -281,6 +286,8 @@ impl SpaceApp {
             focus: NodeId(0),
             path_edit: None,
             path_edit_focus: false,
+            map_rect: None,
+            shot_pending: false,
             selected: None,
             multi: HashSet::new(),
             hovered: None,
@@ -825,11 +832,16 @@ impl SpaceApp {
                 BgMsg::CacheSize(bytes) => self.cache_bytes = Some(bytes),
                 BgMsg::Exported(result) => {
                     self.exporting = false;
-                    self.status = match result {
+                    self.status = match &result {
                         Ok(Some(path)) => crate::tr!("Saved {}", path.display()),
                         Ok(None) => String::new(),
                         Err(e) => crate::tr!("Export failed: {}", e),
                     };
+                    match result {
+                        Ok(Some(_)) => self.notify(ui::ToastLevel::Success, self.status.clone()),
+                        Err(_) => self.notify(ui::ToastLevel::Error, self.status.clone()),
+                        Ok(None) => {}
+                    }
                 }
             }
         }
@@ -1302,6 +1314,11 @@ impl SpaceApp {
     /// Write `text` where the user chooses, on a background thread; the
     /// outcome arrives as `BgMsg::Exported`.
     pub(crate) fn export_text(&mut self, file_name: &str, text: String) {
+        self.export_bytes(file_name, text.into_bytes());
+    }
+
+    /// Save any bytes through the async save dialog (PNG, SVG, text).
+    pub(crate) fn export_bytes(&mut self, file_name: &str, text: Vec<u8>) {
         if self.exporting {
             return;
         }
@@ -2385,6 +2402,7 @@ impl eframe::App for SpaceApp {
             ctx.request_repaint();
         }
         self.poll_bg(ctx);
+        self.take_screenshot(ctx);
         self.poll_scan(ctx);
         self.apply_filter_debounce();
         self.filter.prepare();

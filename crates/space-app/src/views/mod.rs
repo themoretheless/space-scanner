@@ -559,6 +559,14 @@ pub struct DrawCtx<'a> {
     pub geom: &'a mut Option<GeomCache>,
 }
 
+/// The cached sunburst as SVG, when the cache holds sunburst geometry.
+pub fn sunburst_svg(geom: &GeomCache, tree: &SpaceTree, mode: SizeMode, background: Color32) -> Option<String> {
+    match geom {
+        GeomCache::Sunburst { hits, max_r, .. } => Some(sunburst::to_svg(tree, mode, hits, *max_r, background)),
+        _ => None,
+    }
+}
+
 impl DrawCtx<'_> {
     /// Drawn highlighted: selected (alone or with others) or on the Trash list.
     pub fn is_marked(&self, id: NodeId) -> bool {
@@ -621,6 +629,84 @@ mod click_map_tests {
             hardlink_candidates: 0,
             hardlinks_deduped: 0,
         }
+    }
+
+    /// Every `<tag>` opened is closed in order (enough for well-formedness here).
+    fn balanced(xml: &str) -> bool {
+        let mut stack: Vec<String> = Vec::new();
+        let mut rest = xml;
+        while let Some(i) = rest.find('<') {
+            let end = match rest[i..].find('>') {
+                Some(e) => i + e,
+                None => return false,
+            };
+            let tag = &rest[i + 1..end];
+            rest = &rest[end + 1..];
+            if tag.starts_with('?') || tag.ends_with('/') {
+                continue;
+            }
+            if let Some(name) = tag.strip_prefix('/') {
+                if stack.pop().as_deref() != Some(name) {
+                    return false;
+                }
+            } else {
+                stack.push(tag.split_whitespace().next().unwrap_or("").to_string());
+            }
+        }
+        stack.is_empty()
+    }
+
+    #[test]
+    fn sunburst_svg_has_one_path_per_wedge_and_is_well_formed() {
+        let mut tree = sample();
+        tree.nodes[2].name = "a<&>\"b'.txt".into();
+        let ctx = egui::Context::default();
+        let filter = ViewFilter::default();
+        let review = HashSet::new();
+        let multi = HashSet::new();
+        let mut geom = None;
+        let _ = ctx.run(
+            egui::RawInput {
+                screen_rect: Some(egui::Rect::from_min_size(egui::Pos2::ZERO, egui::vec2(800.0, 600.0))),
+                ..Default::default()
+            },
+            |ctx| {
+                egui::CentralPanel::default().show(ctx, |ui| {
+                    draw(
+                        ui,
+                        ViewMode::Sunburst,
+                        &mut DrawCtx {
+                            tree: &tree,
+                            focus: tree.root,
+                            selected: None,
+                            multi: &multi,
+                            hovered: None,
+                            review: &review,
+                            mode: SizeMode::OnDisk,
+                            filter: &filter,
+                            filter_hash: filter.hash64(),
+                            sunburst_depth: 2,
+                            treemap_nest: 2,
+                            treemap_strip: false,
+                            cascade_depth: 5,
+                            cascade_row_scale: 1.0,
+                            scale: 1.0,
+                            geom: &mut geom,
+                        },
+                    );
+                });
+            },
+        );
+        let geom = geom.expect("sunburst geometry");
+        let GeomCache::Sunburst { hits, .. } = &geom else {
+            panic!("not a sunburst");
+        };
+        let svg = sunburst_svg(&geom, &tree, SizeMode::OnDisk, Color32::BLACK).unwrap();
+        assert!(!hits.is_empty());
+        assert_eq!(svg.matches("<path ").count(), hits.len());
+        assert!(svg.starts_with("<?xml") && svg.trim_end().ends_with("</svg>"));
+        assert!(balanced(&svg), "{svg}");
+        assert!(svg.contains("a&lt;&amp;&gt;&quot;b&apos;.txt"));
     }
 
     #[test]

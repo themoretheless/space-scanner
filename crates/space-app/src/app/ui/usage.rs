@@ -669,6 +669,7 @@ impl SpaceApp {
         };
         self.map_controls(ui);
         let map = ui.available_rect_before_wrap();
+        self.map_rect = Some(map);
         let fhash = self.filter.hash64();
         let review_set: HashSet<NodeId> = self.review.iter().copied().collect();
 
@@ -817,6 +818,30 @@ impl SpaceApp {
                                 ui.selectable_value(&mut size_mode, m, t(size_label(m)));
                             }
                         });
+                }
+                let mut png = false;
+                let mut svg = false;
+                ui.menu_button(caption(format!("{} ▾", t("Export"))), |ui| {
+                    if ui.add_enabled(!self.exporting, egui::Button::new(t("Save map as PNG…"))).clicked() {
+                        png = true;
+                        ui.close_menu();
+                    }
+                    let rings = self.view == ViewMode::Sunburst
+                        && matches!(self.geom, Some(crate::views::GeomCache::Sunburst { .. }));
+                    if ui
+                        .add_enabled(rings && !self.exporting, egui::Button::new(t("Save rings as SVG…")))
+                        .on_disabled_hover_text(t("Switch to Rings to export SVG"))
+                        .clicked()
+                    {
+                        svg = true;
+                        ui.close_menu();
+                    }
+                });
+                if png {
+                    self.request_map_png(ui.ctx());
+                }
+                if svg {
+                    self.export_sunburst_svg();
                 }
                 let mut changed = false;
                 ui.menu_button(caption(format!("{} ▾", t("Map options"))), |ui| {
