@@ -3,10 +3,10 @@
 use egui::{pos2, Align2, FontId, Rect, Sense, Stroke, Ui, Vec2};
 use space_core::NodeId;
 
+use crate::settings::TreemapMode;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
 use crate::views::{child_ids, DrawCtx, ViewAction};
 
-const MAX_NEST: usize = 2;
 const MIN_PX: f32 = 10.0;
 const MAX_TILES: usize = 180;
 
@@ -20,7 +20,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let mut action = ViewAction::none();
     let tree = ctx.tree;
     let full = ui.available_size();
-    let legend_h = 28.0;
+    let legend_h = 30.0;
     let (map_rect, _) = ui.allocate_exact_size(
         egui::vec2(full.x, (full.y - legend_h).max(40.0)),
         Sense::hover(),
@@ -29,15 +29,22 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let painter = ui.painter_at(map_rect);
     painter.rect_filled(map_rect, 4.0, theme::PANEL());
 
+    let max_nest = (ctx.treemap_depth as usize).clamp(1, 4);
+    let mode_flag = if ctx.treemap_mode == TreemapMode::Strip {
+        1_u64
+    } else {
+        0_u64
+    };
     let key = crate::views::GeomKey {
         view: 1,
         focus: ctx.focus,
         mode: ctx.mode,
         filter: ctx.filter_hash,
         selected: None,
-        w: ((map_rect.width() / 8.0).round() as u16).saturating_mul(8),
-        h: ((map_rect.height() / 8.0).round() as u16).saturating_mul(8),
+        w: super::quantize_px(map_rect.width()),
+        h: super::quantize_px(map_rect.height()),
         review_sig: 0,
+        view_opts: ((max_nest as u64) << 8) | mode_flag,
     };
 
     let need = match ctx.geom.as_ref() {
@@ -54,7 +61,15 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             });
         } else {
             let mut tiles = Vec::new();
-            layout_nested(ctx, &kids, map_rect.shrink(3.0), 0, &mut tiles);
+            layout_nested(
+                ctx,
+                &kids,
+                map_rect.shrink(3.0),
+                0,
+                max_nest,
+                ctx.treemap_mode,
+                &mut tiles,
+            );
             *ctx.geom = Some(crate::views::GeomCache::Treemap {
                 key,
                 tiles: tiles.into_iter().map(|t| (t.id, t.rect, t.depth)).collect(),
@@ -74,7 +89,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             painter.text(
                 map_rect.center(),
                 Align2::CENTER_CENTER,
-                "This folder has no children to show",
+                crate::i18n::t("This folder has no children to show"),
                 FontId::proportional(14.0),
                 MUTED(),
             );
@@ -92,18 +107,31 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         ui.painter_at(legend_rect).text(
             egui::pos2(x, y),
             Align2::LEFT_CENTER,
-            "Types",
-            FontId::proportional(11.0),
+            crate::i18n::t("Types"),
+            FontId::proportional(theme::type_scale::CAPTION),
             MUTED(),
         );
-        x += 44.0;
+        x += 48.0;
         for (ext, color) in &legend {
             let chip = egui::Rect::from_min_size(
-                egui::pos2(x, y - 10.0),
-                Vec2::new(12.0 + ext.len() as f32 * 7.0 + 16.0, 20.0),
+                egui::pos2(x, y - 12.0),
+                Vec2::new(12.0 + ext.len() as f32 * 7.5 + 16.0, 24.0),
             );
-            let selected = ctx.filter.ext.as_deref() == Some(ext.as_str());
+            let selected = ctx.filter.ext.as_deref() == Some(ext.as_str())
+                || ctx.filter.exts.iter().any(|e| e.eq_ignore_ascii_case(ext));
             let resp = ui.interact(chip, ui.id().with(("leg", ext.as_str())), Sense::click());
+            if resp.has_focus() {
+                theme::paint_focus_ring(&ui.painter_at(legend_rect), chip);
+            }
+            let ext_owned = ext.clone();
+            resp.widget_info(move || {
+                egui::WidgetInfo::selected(
+                    egui::WidgetType::SelectableLabel,
+                    true,
+                    selected,
+                    ext_owned.as_str(),
+                )
+            });
             if resp.clicked() {
                 action.filter_ext = Some(ext.clone());
             }
@@ -121,7 +149,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 egui::pos2(x + 16.0, y),
                 Align2::LEFT_CENTER,
                 format!(".{ext}"),
-                FontId::proportional(11.0),
+                FontId::proportional(theme::type_scale::CAPTION),
                 if selected { ACCENT() } else { TEXT() },
             );
             x += chip.width() + 4.0;
@@ -131,24 +159,27 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         }
     }
 
+    let t_hov = if theme::reduce_motion() { 0.0 } else { 0.14 };
+    let t_sel = if theme::reduce_motion() { 0.0 } else { 0.18 };
     for &(id, rect, depth) in tiles {
         let node = tree.node(id);
         if rect.width() < 2.0 || rect.height() < 2.0 {
             continue;
         }
-        let color = if node.is_dir && depth < MAX_NEST.saturating_sub(1) {
+        let color = if node.is_dir && depth < max_nest.saturating_sub(1) {
             theme::DIR()
         } else {
             theme::color_for(&node.name, node.is_dir)
         };
         let is_hov = ctx.hovered == Some(id);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let is_sel =
+            ctx.selected == Some(id) || ctx.selected_set.contains(&id) || ctx.review.contains(&id);
         let hov_t =
             ui.ctx()
-                .animate_bool_with_time(ui.id().with(("tm_hov", id.0, depth)), is_hov, 0.14);
+                .animate_bool_with_time(ui.id().with(("tm_hov", id.0, depth)), is_hov, t_hov);
         let sel_t =
             ui.ctx()
-                .animate_bool_with_time(ui.id().with(("tm_sel", id.0, depth)), is_sel, 0.18);
+                .animate_bool_with_time(ui.id().with(("tm_sel", id.0, depth)), is_sel, t_sel);
         let shrink = if node.is_dir { 1.5 } else { 0.8 };
         let draw = rect.shrink(shrink);
         // Soft grow on hover.
@@ -172,32 +203,40 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             egui::StrokeKind::Inside,
         );
 
-        if depth == 0 && rect.width() > 52.0 && rect.height() > 26.0 {
+        if depth == 0 && rect.width() > 54.0 && rect.height() > 28.0 {
             painter.text(
                 rect.left_top() + Vec2::new(5.0, 4.0),
                 Align2::LEFT_TOP,
                 truncate(&node.name, 20),
-                FontId::proportional(11.0),
+                FontId::proportional(theme::type_scale::CAPTION),
                 TEXT(),
             );
-            if rect.height() > 40.0 {
+            if rect.height() > 42.0 {
                 painter.text(
-                    rect.left_top() + Vec2::new(5.0, 18.0),
+                    rect.left_top() + Vec2::new(5.0, 20.0),
                     Align2::LEFT_TOP,
                     crate::i18n::bytes(node.size(ctx.mode)),
-                    FontId::proportional(10.0),
+                    FontId::proportional(theme::type_scale::CAPTION),
                     MUTED(),
                 );
             }
         }
 
         let resp = ui.interact(rect, ui.id().with(("tm", id.0, depth)), Sense::click());
+        if resp.has_focus() {
+            theme::paint_focus_ring(&painter, draw);
+        }
+        let a11y_name = node.name.clone();
+        resp.widget_info(move || {
+            egui::WidgetInfo::labeled(egui::WidgetType::Button, true, a11y_name.as_str())
+        });
         if resp.clicked() {
             super::click_map_node(
                 ctx.tree,
                 id,
                 ctx.focus,
                 ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                ui.input(|i| i.modifiers.shift),
                 &mut action,
             );
         }
@@ -216,7 +255,15 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     action
 }
 
-fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, out: &mut Vec<Tile>) {
+fn layout_nested(
+    ctx: &DrawCtx<'_>,
+    ids: &[NodeId],
+    rect: Rect,
+    depth: usize,
+    max_nest: usize,
+    mode: TreemapMode,
+    out: &mut Vec<Tile>,
+) {
     if ids.is_empty() || rect.width() < MIN_PX || rect.height() < MIN_PX || out.len() >= MAX_TILES {
         return;
     }
@@ -224,7 +271,10 @@ fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, ou
         .iter()
         .map(|id| ctx.tree.node(*id).size(ctx.mode).max(1) as f64)
         .collect();
-    let flat = squarify(ids, &sizes, rect);
+    let flat = match mode {
+        TreemapMode::Squarify => squarify(ids, &sizes, rect),
+        TreemapMode::Strip => strip_layout(ids, &sizes, rect),
+    };
 
     for tile in flat {
         if out.len() >= MAX_TILES {
@@ -236,13 +286,21 @@ fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, ou
             rect: tile.rect,
             depth,
         });
-        if node.is_dir && depth + 1 < MAX_NEST {
+        if node.is_dir && depth + 1 < max_nest {
             let kids = child_ids(ctx, tile.id);
             if !kids.is_empty()
                 && tile.rect.width() > MIN_PX * 2.0
                 && tile.rect.height() > MIN_PX * 2.0
             {
-                layout_nested(ctx, &kids, tile.rect.shrink(2.0), depth + 1, out);
+                layout_nested(
+                    ctx,
+                    &kids,
+                    tile.rect.shrink(2.0),
+                    depth + 1,
+                    max_nest,
+                    mode,
+                    out,
+                );
             }
         }
     }
@@ -251,6 +309,43 @@ fn layout_nested(ctx: &DrawCtx<'_>, ids: &[NodeId], rect: Rect, depth: usize, ou
 struct FlatTile {
     id: NodeId,
     rect: Rect,
+}
+
+fn strip_layout(ids: &[NodeId], sizes: &[f64], rect: Rect) -> Vec<FlatTile> {
+    let total: f64 = sizes.iter().sum::<f64>().max(1.0);
+    let mut items: Vec<(NodeId, f64)> = ids
+        .iter()
+        .zip(sizes.iter())
+        .map(|(&id, &s)| (id, s / total))
+        .collect();
+    items.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Equal));
+
+    let mut out = Vec::new();
+    let mut y = rect.top();
+    let mut i = 0;
+    let total_w = rect.width().max(1.0);
+    let total_h = rect.height().max(1.0);
+    while i < items.len() {
+        let mut end = i + 1;
+        let mut strip_sum = items[i].1;
+        while end < items.len() && strip_sum < 0.25 && (end - i) < 5 {
+            strip_sum += items[end].1;
+            end += 1;
+        }
+        let strip_h = total_h * strip_sum.clamp(0.0, 1.0) as f32;
+        let mut x = rect.left();
+        for &(id, frac) in &items[i..end] {
+            let w = total_w * (frac / strip_sum.max(1e-12)) as f32;
+            out.push(FlatTile {
+                id,
+                rect: Rect::from_min_size(pos2(x, y), Vec2::new(w, strip_h)),
+            });
+            x += w;
+        }
+        y += strip_h;
+        i = end;
+    }
+    out
 }
 
 fn squarify(ids: &[NodeId], sizes: &[f64], rect: Rect) -> Vec<FlatTile> {

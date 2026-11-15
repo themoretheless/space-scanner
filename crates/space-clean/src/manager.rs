@@ -778,11 +778,33 @@ mod alias_tests {
         let mut manager = facet_fixture();
         manager.prefs.set_category("cache", false);
         manager.prefs.set_tag("alpha", false);
-        let filter = RuleFilter { enabled: Some(false), host_only: true, ..Default::default() };
-        assert!(manager.list_page(&filter, 100).1.iter().any(|r| r.id == "a"));
+        let filter = RuleFilter {
+            enabled: Some(false),
+            host_only: true,
+            ..Default::default()
+        };
+        assert!(manager
+            .list_page(&filter, 100)
+            .1
+            .iter()
+            .any(|r| r.id == "a"));
         manager.set_rule_enabled("a", true).unwrap();
-        assert!(!manager.list_page(&filter, 100).1.iter().any(|r| r.id == "a"));
-        assert!(manager.list_page(&RuleFilter { enabled: Some(true), ..filter.clone() }, 100).1.iter().any(|r| r.id == "a"));
+        assert!(!manager
+            .list_page(&filter, 100)
+            .1
+            .iter()
+            .any(|r| r.id == "a"));
+        assert!(manager
+            .list_page(
+                &RuleFilter {
+                    enabled: Some(true),
+                    ..filter.clone()
+                },
+                100
+            )
+            .1
+            .iter()
+            .any(|r| r.id == "a"));
         let root = std::env::temp_dir().join(format!("space-rule-prefs-{}", std::process::id()));
         let path = root.join("prefs.json");
         manager.prefs.save_to(&path).unwrap();
@@ -800,7 +822,11 @@ mod alias_tests {
         let mut manager = facet_fixture();
         manager.set_category_enabled("cache", false).unwrap();
         manager.set_rule_enabled("a", true).unwrap();
-        let category = manager.categories(true).into_iter().find(|c| c.name == "cache").unwrap();
+        let category = manager
+            .categories(true)
+            .into_iter()
+            .find(|c| c.name == "cache")
+            .unwrap();
         assert_eq!((category.enabled, category.total), (1, 2));
         assert_eq!(category.policy, CategoryPolicy::ForceOff);
         manager.set_rule_enabled("c", false).unwrap();

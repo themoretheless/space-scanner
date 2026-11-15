@@ -20,9 +20,13 @@ pub struct Transition {
 
 impl Transition {
     pub fn start(kind: TransKind) -> Self {
-        let duration = match kind {
-            TransKind::ZoomIn | TransKind::ZoomOut => Duration::from_millis(420),
-            TransKind::ViewSwitch => Duration::from_millis(260),
+        let duration = if crate::theme::reduce_motion() {
+            Duration::ZERO
+        } else {
+            match kind {
+                TransKind::ZoomIn | TransKind::ZoomOut => Duration::from_millis(420),
+                TransKind::ViewSwitch => Duration::from_millis(260),
+            }
         };
         Self {
             kind,
@@ -32,6 +36,9 @@ impl Transition {
     }
 
     pub fn linear(&self) -> f32 {
+        if self.duration.is_zero() {
+            return 1.0;
+        }
         (self.started.elapsed().as_secs_f32() / self.duration.as_secs_f32()).clamp(0.0, 1.0)
     }
 

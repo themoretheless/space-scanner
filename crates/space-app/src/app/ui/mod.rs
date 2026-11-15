@@ -1,6 +1,6 @@
 //! Interface layer. `app.rs` owns state, workers and keys; this module only draws.
 //!
-//! Layout contract (see docs/UX.md):
+//! Layout contract (see docs/PLAN.md):
 //!
 //! - wide (>= 1180 pt): contents list + map + inspector side by side;
 //! - medium (900–1180): contents list + map, details as a drawer over the map;
@@ -10,8 +10,7 @@
 
 mod cleanup;
 mod dialogs;
-mod layouts;
-mod review_page;
+mod export_ui;
 mod scan;
 mod shell;
 mod start_skins;
@@ -47,11 +46,10 @@ impl SpaceApp {
         let density = Density::of(ctx.screen_rect().width());
         self.dialogs(ctx);
         self.app_bar(ctx, density);
+        self.basket_bar(ctx, density);
         match self.mode {
-            Mode::Home => self.scan_page(ctx),
-            Mode::Explore => self.usage_page(ctx, density),
             Mode::Clean => self.cleanup_page(ctx, density),
-            Mode::Review => self.review_page(ctx),
+            Mode::Explore => self.usage_page(ctx, density),
         }
     }
 }

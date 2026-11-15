@@ -1,5 +1,6 @@
 mod anim;
 mod app;
+mod downloads;
 mod i18n;
 mod icons;
 mod junk_panel;

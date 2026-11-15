@@ -8,7 +8,6 @@ pub enum Icon {
     Scan,
     Usage,
     Cleanup,
-    Review,
     Folder,
     File,
     Disk,
@@ -71,12 +70,6 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
             line(&[(19.0, 3.0), (19.0, 8.0)]);
             line(&[(16.5, 5.5), (21.5, 5.5)]);
         }
-        Icon::Review => {
-            closed(&[(4.0, 3.0), (20.0, 3.0), (20.0, 21.0), (4.0, 21.0)]);
-            line(&[(8.0, 8.0), (16.0, 8.0)]);
-            line(&[(8.0, 12.0), (12.0, 12.0)]);
-            line(&[(8.0, 16.5), (10.5, 19.0), (16.0, 13.5)]);
-        }
         Icon::Folder => {
             closed(&[
                 (2.5, 5.0),
@@ -123,7 +116,15 @@ pub fn paint(painter: &Painter, icon: Icon, rect: Rect, color: Color32) {
         Icon::Check => line(&[(4.5, 12.5), (10.0, 18.0), (19.5, 6.5)]),
         Icon::Lock => {
             closed(&[(5.0, 11.0), (19.0, 11.0), (19.0, 21.0), (5.0, 21.0)]);
-            line(&[(8.0, 11.0), (8.0, 7.5), (9.5, 4.5), (12.0, 3.5), (14.5, 4.5), (16.0, 7.5), (16.0, 11.0)]);
+            line(&[
+                (8.0, 11.0),
+                (8.0, 7.5),
+                (9.5, 4.5),
+                (12.0, 3.5),
+                (14.5, 4.5),
+                (16.0, 7.5),
+                (16.0, 11.0),
+            ]);
         }
         Icon::Home => {
             line(&[(3.0, 11.5), (12.0, 3.5), (21.0, 11.5)]);
@@ -152,10 +153,14 @@ pub fn button(
     } else {
         egui::Sense::hover()
     };
-    let (rect, resp) = ui.allocate_exact_size(egui::vec2(size, size), sense);
+    let hit = size.max(24.0);
+    let (rect, resp) = ui.allocate_exact_size(egui::vec2(hit, hit), sense);
     let hovered = resp.hovered() && enabled;
     if hovered {
         ui.painter().rect_filled(rect, 8.0, crate::theme::PANEL_2());
+    }
+    if resp.has_focus() {
+        crate::theme::paint_focus_ring(ui.painter(), rect);
     }
     let color = if !enabled {
         crate::theme::MUTED().gamma_multiply(0.45)
@@ -164,6 +169,9 @@ pub fn button(
     } else {
         crate::theme::MUTED()
     };
-    paint(ui.painter(), icon, rect.shrink(size * 0.22), color);
-    resp.on_hover_text(hint)
+    let icon_rect = egui::Rect::from_center_size(rect.center(), egui::vec2(size, size));
+    paint(ui.painter(), icon, icon_rect.shrink(size * 0.22), color);
+    let label = crate::i18n::t(hint);
+    resp.widget_info(|| egui::WidgetInfo::labeled(egui::WidgetType::Button, enabled, label));
+    resp.on_hover_text(label)
 }

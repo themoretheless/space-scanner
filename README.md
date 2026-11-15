@@ -46,8 +46,7 @@ reclaimable bytes do not promise immediate recovery of the same host disk space.
 
 ## Roadmap
 
-- Full catalog (~1000): [docs/FEATURES.md](docs/FEATURES.md)
-- Top 200 execution checklist: [docs/ROADMAP-200.md](docs/ROADMAP-200.md)
+- Unified plan (UX, Top-200 roadmap, feature backlog): [docs/PLAN.md](docs/PLAN.md)
 - Perf notes: [docs/PERF.md](docs/PERF.md)
 
 ## Run

@@ -1,8 +1,47 @@
-//! Lifecycle of the largest-file query, independent of rendering and thread delivery.
+//! Lifecycle of the largest-file & insights query, independent of rendering and thread delivery.
 
 use space_core::{NodeId, SizeMode};
 
 pub type LargestRow = (NodeId, String, u64);
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum InsightTab {
+    #[default]
+    Files,
+    Folders,
+    Oldest,
+    Duplicates,
+    Types,
+}
+
+impl InsightTab {
+    pub const ALL: [Self; 5] = [
+        Self::Files,
+        Self::Folders,
+        Self::Oldest,
+        Self::Duplicates,
+        Self::Types,
+    ];
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::Files => "Files",
+            Self::Folders => "Folders",
+            Self::Oldest => "Oldest",
+            Self::Duplicates => "Duplicates",
+            Self::Types => "Types",
+        }
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct InsightData {
+    pub files: Vec<LargestRow>,
+    pub folders: Vec<LargestRow>,
+    pub oldest: Vec<(NodeId, String, u64, u64)>,
+    pub duplicates: Vec<(String, u64, Vec<NodeId>)>,
+    pub types: Vec<(String, u64, u64)>,
+}
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct LargestRequest {
@@ -16,14 +55,14 @@ pub struct LargestFiles {
     generation: u64,
     request: Option<LargestRequest>,
     ready: bool,
-    rows: Vec<LargestRow>,
+    data: InsightData,
 }
 
 impl LargestFiles {
     pub fn invalidate(&mut self) {
         self.request = None;
         self.ready = false;
-        self.rows.clear();
+        self.data = InsightData::default();
     }
 
     /// Only the first frame for a given query starts work, including while it is running.
@@ -42,14 +81,25 @@ impl LargestFiles {
         };
         self.request = Some(request);
         self.ready = false;
-        self.rows.clear();
+        self.data = InsightData::default();
         Some(request)
     }
 
+    #[cfg(test)]
     pub fn complete(&mut self, request: LargestRequest, rows: Vec<LargestRow>) {
+        self.complete_data(
+            request,
+            InsightData {
+                files: rows,
+                ..InsightData::default()
+            },
+        );
+    }
+
+    pub fn complete_data(&mut self, request: LargestRequest, data: InsightData) {
         // A rescan can reuse node IDs. Comparing focus/mode alone accepts stale results.
         if self.request == Some(request) {
-            self.rows = rows;
+            self.data = data;
             self.ready = true;
         }
     }
@@ -64,8 +114,13 @@ impl LargestFiles {
         self.request.is_some() && !self.ready
     }
 
+    #[cfg(test)]
     pub fn rows(&self) -> &[LargestRow] {
-        &self.rows
+        &self.data.files
+    }
+
+    pub fn data(&self) -> &InsightData {
+        &self.data
     }
 }
 
@@ -126,5 +181,20 @@ mod tests {
         files.complete(retry, vec![(NodeId(1), "late".into(), 1)]);
         assert!(files.rows().is_empty());
         assert!(!files.is_loading());
+    }
+
+    #[test]
+    fn insight_data_tracks_all_tabs_for_active_generation() {
+        let mut files = LargestFiles::default();
+        let r1 = files.begin(NodeId(0), SizeMode::OnDisk).unwrap();
+        let data = InsightData {
+            files: vec![(NodeId(1), "big.bin".into(), 500)],
+            folders: vec![(NodeId(2), "build".into(), 1000)],
+            oldest: vec![(NodeId(3), "old.zip".into(), 200, 1_600_000_000)],
+            duplicates: vec![("dup.dmg".into(), 300, vec![NodeId(4), NodeId(5)])],
+            types: vec![("dmg".into(), 300, 2)],
+        };
+        files.complete_data(r1, data.clone());
+        assert_eq!(files.data(), &data);
     }
 }

@@ -27,6 +27,7 @@ impl Lang {
 }
 
 static LANG: AtomicU8 = AtomicU8::new(0);
+static BYTE_UNIT: AtomicU8 = AtomicU8::new(0);
 
 pub fn set(lang: Lang) {
     LANG.store(lang as u8, Ordering::Relaxed);
@@ -37,6 +38,28 @@ pub fn get() -> Lang {
         1 => Lang::Ru,
         _ => Lang::En,
     }
+}
+
+pub fn set_byte_unit(unit: crate::settings::ByteUnit) {
+    let raw = match unit {
+        crate::settings::ByteUnit::Binary => 0,
+        crate::settings::ByteUnit::Si => 1,
+    };
+    BYTE_UNIT.store(raw, Ordering::Relaxed);
+}
+
+pub fn byte_unit() -> crate::settings::ByteUnit {
+    match BYTE_UNIT.load(Ordering::Relaxed) {
+        1 => crate::settings::ByteUnit::Si,
+        _ => crate::settings::ByteUnit::Binary,
+    }
+}
+
+/// Whether `lang` renders right-to-left (stub ready for future RTL locales).
+#[allow(dead_code)]
+pub fn is_rtl(lang: Lang) -> bool {
+    let _ = lang;
+    false
 }
 
 /// Language from the environment (`LC_ALL`, `LC_MESSAGES`, `LANG`).
@@ -124,29 +147,101 @@ macro_rules! tr {
 
 /// Sizes with the unit names and decimal separator of the interface language.
 pub fn bytes(n: u64) -> String {
-    bytes_in(get(), n)
+    bytes_in_unit(get(), byte_unit(), n)
 }
 
+#[cfg(test)]
 fn bytes_in(lang: Lang, n: u64) -> String {
-    let s = space_core::format_bytes(n);
-    if lang == Lang::En {
-        return s;
-    }
-    let s = s.replace('.', ",");
-    for (en, ru) in [
-        (" TiB", " ТиБ"),
-        (" GiB", " ГиБ"),
-        (" MiB", " МиБ"),
-        (" KiB", " КиБ"),
-    ] {
-        if let Some(num) = s.strip_suffix(en) {
-            return format!("{num}{ru}");
+    bytes_in_unit(lang, crate::settings::ByteUnit::Binary, n)
+}
+
+fn bytes_in_unit(lang: Lang, unit: crate::settings::ByteUnit, n: u64) -> String {
+    match unit {
+        crate::settings::ByteUnit::Binary => {
+            let s = space_core::format_bytes(n);
+            if lang == Lang::En {
+                return s;
+            }
+            let s = s.replace('.', ",");
+            for (en, ru) in [
+                (" TiB", " ТиБ"),
+                (" GiB", " ГиБ"),
+                (" MiB", " МиБ"),
+                (" KiB", " КиБ"),
+            ] {
+                if let Some(num) = s.strip_suffix(en) {
+                    return format!("{num}{ru}");
+                }
+            }
+            match s.strip_suffix(" B") {
+                Some(num) => format!("{num} Б"),
+                None => s,
+            }
+        }
+        crate::settings::ByteUnit::Si => {
+            const KB: f64 = 1_000.0;
+            const MB: f64 = 1_000_000.0;
+            const GB: f64 = 1_000_000_000.0;
+            const TB: f64 = 1_000_000_000_000.0;
+            let f = n as f64;
+            let (val, unit_en, unit_ru, is_bytes) = if f >= TB {
+                (f / TB, "TB", "ТБ", false)
+            } else if f >= GB {
+                (f / GB, "GB", "ГБ", false)
+            } else if f >= MB {
+                (f / MB, "MB", "МБ", false)
+            } else if f >= KB {
+                (f / KB, "KB", "КБ", false)
+            } else {
+                (0.0, "B", "Б", true)
+            };
+            if is_bytes {
+                return if lang == Lang::Ru {
+                    format!("{n} {unit_ru}")
+                } else {
+                    format!("{n} {unit_en}")
+                };
+            }
+            let num = format!("{val:.2}");
+            if lang == Lang::Ru {
+                format!("{} {unit_ru}", num.replace('.', ","))
+            } else {
+                format!("{num} {unit_en}")
+            }
         }
     }
-    match s.strip_suffix(" B") {
-        Some(num) => format!("{num} Б"),
-        None => s,
+}
+
+/// Format a UNIX timestamp as a locale date (`YYYY-MM-DD` in EN, `DD.MM.YYYY` in RU).
+pub fn date_ymd(unix: u64) -> String {
+    date_ymd_in(get(), unix)
+}
+
+fn date_ymd_in(lang: Lang, unix: u64) -> String {
+    if unix == 0 {
+        return "—".to_string();
     }
+    let days = (unix / 86_400) as i64;
+    let (y, m, d) = civil_from_days(days);
+    match lang {
+        Lang::En => format!("{y:04}-{m:02}-{d:02}"),
+        Lang::Ru => format!("{d:02}.{m:02}.{y:04}"),
+    }
+}
+
+/// Howard Hinnant's civil-from-days conversion (days since 1970-01-01).
+fn civil_from_days(days: i64) -> (i64, u32, u32) {
+    let z = days + 719_468;
+    let era = if z >= 0 { z } else { z - 146_096 } / 146_097;
+    let doe = (z - era * 146_097) as u64;
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let y = yoe as i64 + era * 400;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = y + i64::from(m <= 2);
+    (y, m as u32, d as u32)
 }
 
 /// "1 item" / "3 items" / «1 элемент» / «3 элемента» / «5 элементов».
@@ -272,6 +367,19 @@ mod tests {
         assert_eq!(bytes_in(Lang::En, 1536), "1.50 KiB");
         assert_eq!(bytes_in(Lang::Ru, 1536), "1,50 КиБ");
         assert_eq!(bytes_in(Lang::Ru, 300), "300 Б");
+        assert_eq!(
+            bytes_in_unit(Lang::En, crate::settings::ByteUnit::Si, 1_500_000),
+            "1.50 MB"
+        );
+        assert_eq!(
+            bytes_in_unit(Lang::Ru, crate::settings::ByteUnit::Si, 1_500_000),
+            "1,50 МБ"
+        );
+        assert_eq!(date_ymd_in(Lang::En, 0), "—");
+        assert_eq!(date_ymd_in(Lang::En, 1_700_000_000), "2023-11-14");
+        assert_eq!(date_ymd_in(Lang::Ru, 1_700_000_000), "14.11.2023");
+        assert!(!is_rtl(Lang::En));
+        assert!(!is_rtl(Lang::Ru));
         assert_eq!(age_in(Lang::En, 7200), "2 h ago");
         assert_eq!(age_in(Lang::Ru, 7200), "2 ч назад");
         assert_eq!(age_in(Lang::Ru, 3 * 86_400), "3 дня назад");
@@ -306,16 +414,21 @@ mod tests {
             include_str!("app/ui/shell.rs"),
             include_str!("app/ui/scan.rs"),
             include_str!("app/ui/usage.rs"),
-            include_str!("app/ui/layouts.rs"),
             include_str!("app/ui/start_skins.rs"),
             include_str!("app/ui/cleanup.rs"),
-            include_str!("app/ui/review_page.rs"),
             include_str!("app/ui/dialogs.rs"),
+            include_str!("app/ui/export_ui.rs"),
             include_str!("app.rs"),
+            include_str!("downloads.rs"),
             include_str!("junk_panel.rs"),
             include_str!("rules_panel.rs"),
+            include_str!("theme.rs"),
             include_str!("widgets.rs"),
             include_str!("views/mod.rs"),
+            include_str!("views/sunburst.rs"),
+            include_str!("views/treemap.rs"),
+            include_str!("views/radial.rs"),
+            include_str!("views/cascade.rs"),
         ];
         let calls = [
             "t(\"",

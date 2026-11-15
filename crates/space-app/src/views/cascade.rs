@@ -20,8 +20,13 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
     let painter = ui.painter_at(rect);
     painter.rect_filled(rect, 4.0, theme::PANEL());
 
-    let max_depth = 5usize;
-    let row_h = ((rect.height() - 8.0) / max_depth as f32).clamp(28.0, 72.0);
+    let max_depth = (ctx.cascade_depth as usize).clamp(2, 8);
+    let max_row_h = ((rect.height() - 8.0) / max_depth as f32).max(24.0);
+    let row_h = ctx
+        .cascade_row_height
+        .clamp(24.0, 64.0)
+        .min(max_row_h)
+        .max(24.0);
     let mut bands = Vec::new();
 
     let focus_rect = Rect::from_min_size(
@@ -51,6 +56,8 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         return action;
     }
 
+    let t_hov = if theme::reduce_motion() { 0.0 } else { 0.14 };
+    let t_sel = if theme::reduce_motion() { 0.0 } else { 0.18 };
     for band in &bands {
         let node = tree.node(band.id);
         let color = if band.depth == 0 {
@@ -59,13 +66,15 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             band.color.gamma_multiply(1.0 - band.depth as f32 * 0.08)
         };
         let is_hov = ctx.hovered == Some(band.id);
-        let is_sel = ctx.selected == Some(band.id) || ctx.review.contains(&band.id);
+        let is_sel = ctx.selected == Some(band.id)
+            || ctx.selected_set.contains(&band.id)
+            || ctx.review.contains(&band.id);
         let hov_t =
             ui.ctx()
-                .animate_bool_with_time(ui.id().with(("cas_hov", band.id.0)), is_hov, 0.14);
+                .animate_bool_with_time(ui.id().with(("cas_hov", band.id.0)), is_hov, t_hov);
         let sel_t =
             ui.ctx()
-                .animate_bool_with_time(ui.id().with(("cas_sel", band.id.0)), is_sel, 0.18);
+                .animate_bool_with_time(ui.id().with(("cas_sel", band.id.0)), is_sel, t_sel);
         let draw = band.rect.shrink(1.0);
         painter.rect_filled(draw, 3.0, color);
         if hov_t > 0.01 {
@@ -81,7 +90,8 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             Stroke::new(
                 1.0 + sel_t + hov_t * 0.8,
                 if sel_t > 0.05 || hov_t > 0.05 {
-                    crate::theme::ACCENT().gamma_multiply(((70.0 + sel_t * 170.0 + hov_t * 120.0) / 255.0).min(1.0))
+                    crate::theme::ACCENT()
+                        .gamma_multiply(((70.0 + sel_t * 170.0 + hov_t * 120.0) / 255.0).min(1.0))
                 } else {
                     theme::BG()
                 },
@@ -91,35 +101,43 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
 
         if band.rect.width() > 40.0 {
             painter.text(
-                band.rect.left_center() + Vec2::new(8.0, -6.0),
+                band.rect.left_center() + Vec2::new(8.0, -7.0),
                 Align2::LEFT_CENTER,
                 truncate(&node.name, ((band.rect.width() / 7.0) as usize).max(4)),
-                FontId::proportional(12.0),
+                FontId::proportional(theme::type_scale::CAPTION),
                 TEXT(),
             );
             painter.text(
                 band.rect.left_center() + Vec2::new(8.0, 8.0),
                 Align2::LEFT_CENTER,
                 if band.depth == 0 && node.parent.is_some() {
-                    format!(
+                    crate::tr!(
                         "{}  ·  click to go up",
                         crate::i18n::bytes(node.size(ctx.mode))
                     )
                 } else {
                     crate::i18n::bytes(node.size(ctx.mode))
                 },
-                FontId::proportional(11.0),
+                FontId::proportional(theme::type_scale::CAPTION),
                 MUTED(),
             );
         }
 
         let resp = ui.interact(band.rect, ui.id().with(("cas", band.id.0)), Sense::click());
+        if resp.has_focus() {
+            theme::paint_focus_ring(&painter, draw);
+        }
+        let a11y_name = node.name.clone();
+        resp.widget_info(move || {
+            egui::WidgetInfo::labeled(egui::WidgetType::Button, true, a11y_name.as_str())
+        });
         if resp.clicked() {
             super::click_map_node(
                 ctx.tree,
                 band.id,
                 ctx.focus,
                 ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                ui.input(|i| i.modifiers.shift),
                 &mut action,
             );
         }

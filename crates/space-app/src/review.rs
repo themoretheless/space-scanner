@@ -6,26 +6,47 @@ pub fn queue_bytes(tree: &SpaceTree, queue: &[NodeId], mode: SizeMode) -> u64 {
     queue
         .iter()
         .filter(|&&id| {
-            let mut parent = tree.node(id).parent;
+            let Some(node) = tree.try_node(id) else {
+                return false;
+            };
+            let mut parent = node.parent;
             while let Some(ancestor) = parent {
                 if queue.contains(&ancestor) {
                     return false;
                 }
-                parent = tree.node(ancestor).parent;
+                parent = tree.try_node(ancestor).and_then(|n| n.parent);
             }
             true
         })
         .fold(0_u64, |total, id| {
-            total.saturating_add(tree.node(*id).size(mode))
+            let sz = tree.try_node(*id).map(|n| n.size(mode)).unwrap_or(0);
+            total.saturating_add(sz)
         })
 }
 
-pub fn toggle(queue: &mut Vec<NodeId>, id: NodeId) {
+/// Toggle `id` in `queue`: refuses root/synthetic/ancestor-covered nodes, and when
+/// adding a folder removes any descendants already queued under it.
+pub fn toggle_in_tree(tree: &SpaceTree, queue: &mut Vec<NodeId>, id: NodeId) {
+    let Some(node) = tree.try_node(id) else {
+        return;
+    };
+    if node.synthetic || node.parent.is_none() {
+        return;
+    }
     if let Some(i) = queue.iter().position(|x| *x == id) {
         queue.remove(i);
-    } else {
-        queue.push(id);
+        return;
     }
+    // If an ancestor is already queued, the item is already covered.
+    let mut parent = node.parent;
+    while let Some(pid) = parent {
+        if queue.contains(&pid) {
+            return;
+        }
+        parent = tree.try_node(pid).and_then(|n| n.parent);
+    }
+    queue.retain(|&other| !tree.path_to(other).contains(&id));
+    queue.push(id);
 }
 
 #[cfg(test)]
@@ -42,6 +63,7 @@ mod tests {
             file_count: 1,
             is_dir: true,
             synthetic: false,
+            mtime_unix: 0,
             children: vec![NodeId(1)],
             parent: None,
         };
@@ -62,6 +84,7 @@ mod tests {
             skipped_errors: 0,
             hardlink_candidates: 0,
             hardlinks_deduped: 0,
+            skipped_roots: Vec::new(),
         };
         for queue in [[NodeId(0), NodeId(1)], [NodeId(1), NodeId(0)]] {
             assert_eq!(queue_bytes(&tree, &queue, SizeMode::Apparent), 100);

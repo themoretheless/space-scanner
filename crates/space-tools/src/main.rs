@@ -396,36 +396,6 @@ fn catalog(root: &Path, source: &Path, prefix: &str, target: usize) -> Result<()
     println!("Generated {target} rules");
     Ok(())
 }
-fn features(root: &Path) -> Result<()> {
-    let items: Vec<Value> =
-        serde_json::from_str(&fs::read_to_string(root.join("docs/features_items.json"))?)?;
-    let mut out = String::from("# Space Scanner — feature catalog (~1000)\n\nIDs are stable. Priority: `P0` (top-200 candidates), `P1`, `P2`.\n\nStatus in this file is backlog-only; execution tracking is [ROADMAP-200.md](ROADMAP-200.md).\n\n");
-    let mut category = String::new();
-    let mut count = 0;
-    for item in &items {
-        let cat = item["cat"].as_str().context("missing category")?;
-        if cat != category {
-            if count > 0 {
-                out.push('\n');
-            }
-            out.push_str(&format!("## {cat}\n\n"));
-            category = cat.to_owned();
-            count += 1;
-        }
-        out.push_str(&format!(
-            "- `{}` [{}] {}\n",
-            item["id"].as_str().context("missing id")?,
-            item["pri"].as_str().context("missing priority")?,
-            item["title"].as_str().context("missing title")?
-        ));
-    }
-    out.push_str(&format!(
-        "\n---\n\n**Total: {} features** across {count} categories.\n",
-        items.len()
-    ));
-    fs::write(root.join("docs/FEATURES.md"), out)?;
-    Ok(())
-}
 fn main() -> Result<()> {
     let repo = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -445,7 +415,6 @@ fn main() -> Result<()> {
             );
             catalog(&rules, Path::new(&args[1]), &args[2], args[3].parse()?)
         }
-        "features" => features(&repo),
         "target-dir" => {
             let output = std::process::Command::new("cargo")
                 .args(["metadata", "--format-version", "1", "--no-deps"])
@@ -480,8 +449,9 @@ fn main() -> Result<()> {
             }
         }
         "run-app" => launch(&repo),
+        "dist-app" => dist_app(&repo),
         "help" | "--help" => {
-            println!("cargo run -p space-tools -- <command>\nCommands: deduplicate [--apply] [--root rules], split [--root rules], catalog <names.txt> <prefix> <target> [--root rules], protections [--root rules], features, target-dir, pypi [--root rules], run-app");
+            println!("cargo run -p space-tools -- <command>\nCommands: deduplicate [--apply] [--root rules], split [--root rules], catalog <names.txt> <prefix> <target> [--root rules], protections [--root rules], target-dir, pypi [--root rules], run-app, dist-app");
             Ok(())
         }
         _ => bail!("unknown command: {cmd}"),
@@ -612,27 +582,90 @@ fn pypi_batch(
     println!("Generated {target} disabled report-only probes");
     Ok(())
 }
-fn launch(repo: &Path) -> Result<()> {
-    ensure!(
-        cfg!(target_os = "macos"),
-        "run-app bundles a macOS app; elsewhere use cargo run -p space-app --release"
-    );
-    let status = std::process::Command::new("cargo")
-        .args(["build", "-p", "space-app", "--release"])
-        .current_dir(repo)
-        .status()?;
-    ensure!(status.success(), "app build failed");
+fn cargo_target_dir(repo: &Path) -> Result<PathBuf> {
     let output = std::process::Command::new("cargo")
         .args(["metadata", "--format-version", "1", "--no-deps"])
         .current_dir(repo)
         .output()?;
     ensure!(output.status.success(), "cargo metadata failed");
     let metadata: Value = serde_json::from_slice(&output.stdout)?;
-    let target = PathBuf::from(
+    Ok(PathBuf::from(
         metadata["target_directory"]
             .as_str()
             .context("missing target directory")?,
+    ))
+}
+
+fn bundle_app(binary: &Path, rules_dir: &Path, app: &Path, adhoc_sign: bool) -> Result<()> {
+    ensure!(binary.is_file(), "missing binary {}", binary.display());
+    if app.exists() {
+        fs::remove_dir_all(app)?;
+    }
+    fs::create_dir_all(app.join("Contents/MacOS"))?;
+    let exe_dest = app.join("Contents/MacOS/SpaceScanner");
+    fs::copy(binary, &exe_dest)?;
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mut perms = fs::metadata(&exe_dest)?.permissions();
+        perms.set_mode(0o755);
+        fs::set_permissions(&exe_dest, perms)?;
+    }
+    for entry in walkdir::WalkDir::new(rules_dir) {
+        let entry = entry?;
+        let dest = app
+            .join("Contents/rules")
+            .join(entry.path().strip_prefix(rules_dir)?);
+        if entry.file_type().is_dir() {
+            fs::create_dir_all(dest)?;
+        } else if entry.file_type().is_file() {
+            fs::copy(entry.path(), dest)?;
+        }
+    }
+    let version = env!("CARGO_PKG_VERSION");
+    fs::write(
+        app.join("Contents/Info.plist"),
+        format!(
+            r#"<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleName</key><string>Space Scanner</string>
+<key>CFBundleDisplayName</key><string>Space Scanner</string>
+<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
+<key>CFBundleVersion</key><string>{version}</string>
+<key>CFBundleShortVersionString</key><string>{version}</string>
+<key>CFBundleExecutable</key><string>SpaceScanner</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>LSMinimumSystemVersion</key><string>13.0</string>
+<key>NSHighResolutionCapable</key><true/>
+</dict></plist>
+"#
+        ),
+    )?;
+    if adhoc_sign && cfg!(target_os = "macos") {
+        let _ = std::process::Command::new("codesign")
+            .args(["--force", "--deep", "--sign", "-"])
+            .arg(app)
+            .status();
+    }
+    Ok(())
+}
+
+fn build_release_app(repo: &Path) -> Result<PathBuf> {
+    let status = std::process::Command::new("cargo")
+        .args(["build", "-p", "space-app", "--release"])
+        .current_dir(repo)
+        .status()?;
+    ensure!(status.success(), "app build failed");
+    cargo_target_dir(repo)
+}
+
+fn launch(repo: &Path) -> Result<()> {
+    ensure!(
+        cfg!(target_os = "macos"),
+        "run-app bundles a macOS app; elsewhere use cargo run -p space-app --release"
     );
+    let target = build_release_app(repo)?;
     let app = std::env::temp_dir().join("SpaceScanner.app");
     for name in ["SpaceScanner", "space-scanner"] {
         let _ = std::process::Command::new("pkill")
@@ -640,41 +673,11 @@ fn launch(repo: &Path) -> Result<()> {
             .status();
     }
     std::thread::sleep(std::time::Duration::from_millis(200));
-    if app.exists() {
-        fs::remove_dir_all(&app)?;
-    }
-    fs::create_dir_all(app.join("Contents/MacOS"))?;
-    fs::copy(
-        target.join("release/space-scanner"),
-        app.join("Contents/MacOS/SpaceScanner"),
-    )?;
-    for entry in walkdir::WalkDir::new(repo.join("rules")) {
-        let entry = entry?;
-        let dest = app
-            .join("Contents/rules")
-            .join(entry.path().strip_prefix(repo.join("rules"))?);
-        if entry.file_type().is_dir() {
-            fs::create_dir_all(dest)?;
-        } else if entry.file_type().is_file() {
-            fs::copy(entry.path(), dest)?;
-        }
-    }
-    fs::write(
-        app.join("Contents/Info.plist"),
-        r#"<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-<key>CFBundleName</key><string>Space Scanner</string>
-<key>CFBundleDisplayName</key><string>Space Scanner</string>
-<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
-<key>CFBundleVersion</key><string>0.1.0</string>
-<key>CFBundleShortVersionString</key><string>0.1.0</string>
-<key>CFBundleExecutable</key><string>SpaceScanner</string>
-<key>CFBundlePackageType</key><string>APPL</string>
-<key>LSMinimumSystemVersion</key><string>13.0</string>
-<key>NSHighResolutionCapable</key><true/>
-</dict></plist>
-"#,
+    bundle_app(
+        &target.join("release/space-scanner"),
+        &repo.join("rules"),
+        &app,
+        false,
     )?;
     ensure!(
         std::process::Command::new("open")
@@ -684,6 +687,40 @@ fn launch(repo: &Path) -> Result<()> {
         "opening app failed"
     );
     println!("Launched {}", app.display());
+    Ok(())
+}
+
+fn dist_app(repo: &Path) -> Result<()> {
+    ensure!(
+        cfg!(target_os = "macos"),
+        "dist-app builds a macOS .app/.zip bundle; elsewhere use cargo build -p space-app --release"
+    );
+    let target = build_release_app(repo)?;
+    let dist_dir = target.join("dist");
+    fs::create_dir_all(&dist_dir)?;
+    let app = dist_dir.join("SpaceScanner.app");
+    bundle_app(
+        &target.join("release/space-scanner"),
+        &repo.join("rules"),
+        &app,
+        true,
+    )?;
+    let zip_path = dist_dir.join("SpaceScanner-macos.zip");
+    if zip_path.exists() {
+        fs::remove_file(&zip_path)?;
+    }
+    let status = std::process::Command::new("/usr/bin/ditto")
+        .args([
+            "-c",
+            "-k",
+            "--sequesterRsrc",
+            "--keepParent",
+            app.to_str().context("non-utf8 app path")?,
+            zip_path.to_str().context("non-utf8 zip path")?,
+        ])
+        .status()?;
+    ensure!(status.success(), "ditto archive creation failed");
+    println!("Packaged {} and {}", app.display(), zip_path.display());
     Ok(())
 }
 
@@ -820,5 +857,26 @@ mod tests {
             split_rule(&json!({"id":"a","paths":["%APPDATA%/a"]})).unwrap()[0]["id"],
             "a"
         );
+    }
+    #[test]
+    fn bundle_app_populates_contents_and_rules() {
+        let f = Fixture::new();
+        let bin = f.0.join("space-scanner");
+        let rules = f.0.join("rules");
+        let app = f.0.join("SpaceScanner.app");
+        fs::write(&bin, b"stub-binary").unwrap();
+        fs::create_dir_all(rules.join("curated")).unwrap();
+        fs::write(
+            rules.join("curated/sample.yaml"),
+            "pack: sample\nrules: []\n",
+        )
+        .unwrap();
+
+        bundle_app(&bin, &rules, &app, false).unwrap();
+        assert!(app.join("Contents/MacOS/SpaceScanner").is_file());
+        assert!(app.join("Contents/rules/curated/sample.yaml").is_file());
+        let plist = fs::read_to_string(app.join("Contents/Info.plist")).unwrap();
+        assert!(plist.contains("com.themoretheless.space-scanner"));
+        assert!(plist.contains(env!("CARGO_PKG_VERSION")));
     }
 }

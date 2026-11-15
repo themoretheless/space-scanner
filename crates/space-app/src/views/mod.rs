@@ -73,30 +73,38 @@ impl<'de> serde::Deserialize<'de> for ViewMode {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
-#[repr(u8)]
-pub enum EntryKindFilter {
-    #[default]
-    All,
-    DirsOnly,
-    FilesOnly,
-}
-
 #[derive(Debug, Clone, Default)]
 pub struct ViewFilter {
     pub query: String,
     pub ext: Option<String>,
+    pub exts: Vec<String>,
+    pub only_dirs: bool,
     pub min_size: u64,
     pub max_size: Option<u64>,
-    pub kind: EntryKindFilter,
+    pub use_regex: bool,
+    pub regex_invalid: bool,
+    compiled_regex: Option<Arc<regex_automata::meta::Regex>>,
 }
 
 impl ViewFilter {
+    pub fn rebuild_regex(&mut self) {
+        self.compiled_regex = None;
+        self.regex_invalid = false;
+        if self.use_regex && !self.query.is_empty() {
+            let cfg = regex_automata::util::syntax::Config::new().case_insensitive(true);
+            match regex_automata::meta::Builder::new()
+                .syntax(cfg)
+                .build(&self.query)
+            {
+                Ok(re) => self.compiled_regex = Some(Arc::new(re)),
+                Err(_) => self.regex_invalid = true,
+            }
+        }
+    }
+
     pub fn matches(&self, name: &str, is_dir: bool, size: u64) -> bool {
-        match self.kind {
-            EntryKindFilter::DirsOnly if !is_dir => return false,
-            EntryKindFilter::FilesOnly if is_dir => return false,
-            _ => {}
+        if self.only_dirs && !is_dir {
+            return false;
         }
         if size < self.min_size {
             return false;
@@ -106,16 +114,28 @@ impl ViewFilter {
                 return false;
             }
         }
-        if let Some(ext) = &self.ext {
+        if self.ext.is_some() || !self.exts.is_empty() {
             if is_dir {
                 return true;
             }
             let e = crate::theme::extension_of(name);
-            if !e.eq_ignore_ascii_case(ext) {
+            let matched = self
+                .ext
+                .as_deref()
+                .is_some_and(|x| e.eq_ignore_ascii_case(x))
+                || self.exts.iter().any(|x| e.eq_ignore_ascii_case(x));
+            if !matched {
                 return false;
             }
         }
         if !self.query.is_empty() {
+            if self.use_regex {
+                return !self.regex_invalid
+                    && self
+                        .compiled_regex
+                        .as_ref()
+                        .is_some_and(|re| re.is_match(name));
+            }
             // Most filenames and queries are ASCII. Compare borrowed bytes rather
             // than allocating two lowercase strings for every candidate.
             if name.is_ascii() && self.query.is_ascii() {
@@ -135,9 +155,35 @@ impl ViewFilter {
     pub fn is_active(&self) -> bool {
         !self.query.is_empty()
             || self.ext.is_some()
+            || !self.exts.is_empty()
+            || self.only_dirs
             || self.min_size > 0
             || self.max_size.is_some()
-            || self.kind != EntryKindFilter::All
+            || self.use_regex
+    }
+
+    pub fn active_count(&self) -> usize {
+        let mut n = 0;
+        if !self.query.is_empty() {
+            n += 1;
+        }
+        if self.ext.is_some() {
+            n += 1;
+        }
+        n += self.exts.len();
+        if self.only_dirs {
+            n += 1;
+        }
+        if self.min_size > 0 {
+            n += 1;
+        }
+        if self.max_size.is_some() {
+            n += 1;
+        }
+        if self.use_regex {
+            n += 1;
+        }
+        n
     }
 
     pub fn clear(&mut self) {
@@ -148,20 +194,30 @@ impl ViewFilter {
         let mut h = std::collections::hash_map::DefaultHasher::new();
         self.query.hash(&mut h);
         self.ext.hash(&mut h);
+        self.exts.hash(&mut h);
+        self.only_dirs.hash(&mut h);
         self.min_size.hash(&mut h);
         self.max_size.hash(&mut h);
-        (self.kind as u8).hash(&mut h);
+        self.use_regex.hash(&mut h);
+        self.regex_invalid.hash(&mut h);
         h.finish()
     }
+}
+
+pub fn quantize_px(px: f32) -> u16 {
+    (px.clamp(0.0, u16::MAX as f32).round() as u16) & !1
 }
 
 pub struct ViewAction {
     pub navigate: Option<NodeId>,
     pub select: Option<NodeId>,
+    pub toggle_select: Option<NodeId>,
     pub hover: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
     pub filter_ext: Option<String>,
     pub reveal: Option<NodeId>,
+    pub quick_look: Option<NodeId>,
+    pub open_terminal: Option<NodeId>,
     pub clear_filter: bool,
 }
 
@@ -171,10 +227,16 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     ui.label(RichText::new(&n.name).strong());
     let kind = t(if n.is_dir { "Folder" } else { "File" });
     let mut line = format!("{kind} · {}", crate::i18n::bytes(n.size(mode)));
+    if n.is_dir && n.file_count > 0 {
+        line.push_str(&format!(" · {}", crate::tr!("{} items", n.file_count)));
+    }
     if let Some(parent) = n.parent {
         let ps = tree.node(parent).size(mode).max(1) as f32;
         let pct = n.size(mode) as f32 / ps * 100.0;
         line.push_str(&crate::tr!(" · {}% of parent", format!("{pct:.0}")));
+    }
+    if n.mtime_unix > 0 {
+        line.push_str(&format!(" · {}", crate::i18n::date_ymd(n.mtime_unix)));
     }
     ui.label(line);
     let hint = if n.synthetic {
@@ -186,7 +248,11 @@ pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, m
     } else {
         "Click to select · double-click Finder · ⌘-click Trash queue"
     };
-    ui.label(RichText::new(t(hint)).small().color(MUTED()));
+    ui.label(
+        RichText::new(t(hint))
+            .size(crate::theme::type_scale::CAPTION)
+            .color(MUTED()),
+    );
 }
 
 pub fn click_map_node(
@@ -194,12 +260,17 @@ pub fn click_map_node(
     id: NodeId,
     focus: NodeId,
     cmd: bool,
+    shift: bool,
     action: &mut ViewAction,
 ) {
     let n = tree.node(id);
-    if cmd && !n.synthetic {
+    if cmd && !n.synthetic && n.parent.is_some() {
         action.toggle_review = Some(id);
         action.select = Some(id);
+        return;
+    }
+    if shift && !n.synthetic {
+        action.toggle_select = Some(id);
         return;
     }
     let _ = focus;
@@ -233,7 +304,7 @@ pub fn node_context_menu(
             action.select = Some(id);
             ui.close_menu();
         }
-        if !n.synthetic {
+        if !n.synthetic && n.parent.is_some() {
             let label = if in_review {
                 t("Remove from review")
             } else {
@@ -246,6 +317,14 @@ pub fn node_context_menu(
         }
         if ui.button(t("Show in Finder")).clicked() {
             action.reveal = Some(id);
+            ui.close_menu();
+        }
+        if !n.synthetic && ui.button(t("Quick Look")).clicked() {
+            action.quick_look = Some(id);
+            ui.close_menu();
+        }
+        if !n.synthetic && ui.button(t("Open in Terminal")).clicked() {
+            action.open_terminal = Some(id);
             ui.close_menu();
         }
     });
@@ -284,10 +363,13 @@ impl ViewAction {
         Self {
             navigate: None,
             select: None,
+            toggle_select: None,
             hover: None,
             toggle_review: None,
             filter_ext: None,
             reveal: None,
+            quick_look: None,
+            open_terminal: None,
             clear_filter: false,
         }
     }
@@ -322,6 +404,7 @@ pub struct GeomKey {
     pub w: u16,
     pub h: u16,
     pub review_sig: u64,
+    pub view_opts: u64,
 }
 
 pub enum GeomCache {
@@ -343,6 +426,7 @@ pub struct DrawCtx<'a> {
     pub tree: &'a SpaceTree,
     pub focus: NodeId,
     pub selected: Option<NodeId>,
+    pub selected_set: &'a [NodeId],
     pub hovered: Option<NodeId>,
     pub review: &'a [NodeId],
     pub mode: SizeMode,
@@ -350,6 +434,11 @@ pub struct DrawCtx<'a> {
     pub filter_hash: u64,
     #[allow(dead_code)]
     pub review_sig: u64,
+    pub sunburst_rings: u8,
+    pub treemap_depth: u8,
+    pub treemap_mode: crate::settings::TreemapMode,
+    pub cascade_depth: u8,
+    pub cascade_row_height: f32,
     pub geom: &'a mut Option<GeomCache>,
 }
 
@@ -405,6 +494,7 @@ mod click_map_tests {
             file_count: 1,
             is_dir: true,
             synthetic: false,
+            mtime_unix: 0,
             children,
             parent,
         }
@@ -418,6 +508,7 @@ mod click_map_tests {
             file_count: 1,
             is_dir: false,
             synthetic: false,
+            mtime_unix: 0,
             children: Vec::new(),
             parent: Some(parent),
         }
@@ -437,6 +528,7 @@ mod click_map_tests {
             skipped_errors: 0,
             hardlink_candidates: 0,
             hardlinks_deduped: 0,
+            skipped_roots: Vec::new(),
         }
     }
 
@@ -466,12 +558,18 @@ mod click_map_tests {
                                 tree: &tree,
                                 focus: tree.root,
                                 selected: None,
+                                selected_set: &[],
                                 hovered: None,
                                 review: &[],
                                 mode: SizeMode::OnDisk,
                                 filter: &filter,
                                 filter_hash: filter.hash64(),
                                 review_sig: 0,
+                                sunburst_rings: 2,
+                                treemap_depth: 2,
+                                treemap_mode: crate::settings::TreemapMode::Squarify,
+                                cascade_depth: 5,
+                                cascade_row_height: 32.0,
                                 geom: &mut geom,
                             },
                         );
@@ -526,7 +624,7 @@ mod click_map_tests {
     fn click_child_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
+        click_map_node(&tree, NodeId(1), NodeId(0), false, false, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -535,7 +633,7 @@ mod click_map_tests {
     fn click_current_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), NodeId(1), false, false, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -544,9 +642,18 @@ mod click_map_tests {
     fn click_file_selects() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(2), NodeId(1), false, false, &mut action);
         assert_eq!(action.select, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
+    }
+
+    #[test]
+    fn shift_click_toggles_multi_selection() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(2), NodeId(1), false, true, &mut action);
+        assert_eq!(action.toggle_select, Some(NodeId(2)));
+        assert_eq!(action.select, None);
     }
 
     #[test]
@@ -563,7 +670,7 @@ mod click_map_tests {
         let mut tree = sample();
         tree.nodes[1].synthetic = true;
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), NodeId(0), false, &mut action);
+        click_map_node(&tree, NodeId(1), NodeId(0), false, false, &mut action);
         assert_eq!(action.select, Some(NodeId(1)));
         assert_eq!(action.navigate, None);
     }
@@ -572,7 +679,7 @@ mod click_map_tests {
     fn cmd_click_queues_trash() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), NodeId(1), true, &mut action);
+        click_map_node(&tree, NodeId(2), NodeId(1), true, false, &mut action);
         assert_eq!(action.toggle_review, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
     }
@@ -631,23 +738,57 @@ mod filter_tests {
     }
 
     #[test]
-    fn query_optimization_preserves_kind_size_and_extension_filters() {
-        let mut filter = ViewFilter {
+    fn query_optimization_preserves_size_and_extension_filters() {
+        let filter = ViewFilter {
             query: "CACHE".into(),
             min_size: 10,
             max_size: Some(20),
             ext: Some("LOG".into()),
-            kind: EntryKindFilter::FilesOnly,
+            ..Default::default()
         };
         assert!(filter.matches("cache.log", false, 10));
-        assert!(!filter.matches("cache.log", true, 10));
         assert!(!filter.matches("cache.log", false, 9));
         assert!(!filter.matches("cache.log", false, 21));
         assert!(!filter.matches("cache.bin", false, 15));
         assert!(!filter.matches("other.log", false, 15));
-        filter.kind = EntryKindFilter::All;
         // Directory navigation bypasses query matching with an extension filter.
         assert!(filter.matches("other", true, 15));
+    }
+
+    #[test]
+    fn regex_multi_ext_dirs_only_and_quantize_work() {
+        let mut filter = ViewFilter {
+            query: r"^cache-\d+\.log$".into(),
+            use_regex: true,
+            ..Default::default()
+        };
+        filter.rebuild_regex();
+        assert!(!filter.regex_invalid);
+        assert!(filter.matches("Cache-42.LOG", false, 100));
+        assert!(!filter.matches("cache-abc.log", false, 100));
+
+        filter.query = "[unclosed".into();
+        filter.rebuild_regex();
+        assert!(filter.regex_invalid);
+        assert!(!filter.matches("anything", false, 100));
+
+        let exts = ViewFilter {
+            exts: vec!["dmg".into(), "iso".into()],
+            only_dirs: false,
+            ..Default::default()
+        };
+        assert!(exts.matches("Ubuntu.ISO", false, 1));
+        assert!(exts.matches("Installer.dmg", false, 1));
+        assert!(!exts.matches("notes.txt", false, 1));
+
+        let dirs = ViewFilter {
+            only_dirs: true,
+            ..Default::default()
+        };
+        assert!(dirs.matches("src", true, 1));
+        assert!(!dirs.matches("src.rs", false, 1));
+
+        assert_eq!(quantize_px(800.4), quantize_px(801.1));
     }
 
     #[test]

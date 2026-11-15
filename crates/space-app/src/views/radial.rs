@@ -105,13 +105,16 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
 
         let color = colors.get(i).copied().unwrap_or(parent_color);
         let is_hov = ctx.hovered == Some(id);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
+        let is_sel =
+            ctx.selected == Some(id) || ctx.selected_set.contains(&id) || ctx.review.contains(&id);
+        let t_hov = if theme::reduce_motion() { 0.0 } else { 0.16 };
+        let t_sel = if theme::reduce_motion() { 0.0 } else { 0.2 };
         let hov_t = ui
             .ctx()
-            .animate_bool_with_time(ui.id().with(("rad_hov", id.0)), is_hov, 0.16);
+            .animate_bool_with_time(ui.id().with(("rad_hov", id.0)), is_hov, t_hov);
         let sel_t = ui
             .ctx()
-            .animate_bool_with_time(ui.id().with(("rad_sel", id.0)), is_sel, 0.2);
+            .animate_bool_with_time(ui.id().with(("rad_sel", id.0)), is_sel, t_sel);
         let r = r * (1.0 + hov_t * 0.12);
         painter.circle_filled(pos, r, color);
         painter.circle_stroke(
@@ -120,7 +123,8 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
             Stroke::new(
                 1.0 + sel_t * 1.5 + hov_t,
                 if sel_t > 0.05 || hov_t > 0.05 {
-                    crate::theme::ACCENT().gamma_multiply(((80.0 + sel_t * 160.0 + hov_t * 120.0) / 255.0).min(1.0))
+                    crate::theme::ACCENT()
+                        .gamma_multiply(((80.0 + sel_t * 160.0 + hov_t * 120.0) / 255.0).min(1.0))
                 } else {
                     theme::BORDER()
                 },
@@ -136,19 +140,27 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
                     truncate(&node.name, 14),
                     crate::i18n::bytes(node.size(ctx.mode))
                 ),
-                FontId::proportional(11.0),
+                FontId::proportional(theme::type_scale::CAPTION),
                 TEXT(),
             );
         }
 
-        let hit = egui::Rect::from_center_size(pos, Vec2::splat(r * 2.2));
+        let hit = egui::Rect::from_center_size(pos, Vec2::splat((r * 2.2).max(24.0)));
         let resp = ui.interact(hit, ui.id().with(("radial", id.0)), Sense::click());
+        if resp.has_focus() {
+            theme::paint_focus_ring(&painter, hit);
+        }
+        let a11y_name = node.name.clone();
+        resp.widget_info(move || {
+            egui::WidgetInfo::labeled(egui::WidgetType::Button, true, a11y_name.as_str())
+        });
         if resp.clicked() {
             super::click_map_node(
                 tree,
                 id,
                 focus,
                 ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                ui.input(|i| i.modifiers.shift),
                 &mut action,
             );
         }
@@ -164,12 +176,22 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         }
     }
 
-    let center_hit = egui::Rect::from_center_size(center, Vec2::splat(center_r * 2.0));
+    let center_hit = egui::Rect::from_center_size(center, Vec2::splat((center_r * 2.0).max(24.0)));
     let center_resp = ui.interact(center_hit, ui.id().with("radial-center"), Sense::click());
+    if center_resp.has_focus() {
+        theme::paint_focus_ring(&painter, center_hit);
+    }
+    let center_name = focus_node.name.clone();
+    center_resp.widget_info(move || {
+        egui::WidgetInfo::labeled(egui::WidgetType::Button, true, center_name.as_str())
+    });
     if center_resp.clicked() || center_resp.double_clicked() {
         if let Some(parent) = focus_node.parent {
             action.navigate = Some(parent);
         }
+    }
+    if center_resp.hovered() {
+        ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
     }
     center_resp.on_hover_text(crate::i18n::t("Click to go up"));
 

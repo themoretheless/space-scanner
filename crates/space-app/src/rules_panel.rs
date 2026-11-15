@@ -478,7 +478,7 @@ fn draw_rule_row(
                 ui.spacing_mut().item_spacing.x = 10.0;
                 // On/off switch, or a lock for list-only rules: those are
                 // shown but never removed automatically, whatever the switch.
-                let (slot, _) = ui.allocate_exact_size(egui::vec2(38.0, 22.0), egui::Sense::hover());
+                let (slot, _) = ui.allocate_exact_size(egui::vec2(38.0, 24.0), egui::Sense::hover());
                 if locked {
                     crate::icons::paint(
                         ui.painter(),
@@ -491,7 +491,21 @@ fn draw_rule_row(
                 } else {
                     let r = ui.interact(slot, ui.id().with(("sw", &row.id)), egui::Sense::click());
                     paint_switch(ui, slot, row.effectively_enabled, r.hovered());
-                    if r.on_hover_text(t("Turn this rule on or off for junk cleaning")).clicked() {
+                    if r.has_focus() {
+                        crate::theme::paint_focus_ring(ui.painter(), slot);
+                    }
+                    let rule_name = row.name.clone();
+                    let sw_on = row.effectively_enabled;
+                    let r = r.on_hover_text(t("Turn this rule on or off for junk cleaning"));
+                    r.widget_info(move || {
+                        egui::WidgetInfo::selected(
+                            egui::WidgetType::Checkbox,
+                            true,
+                            sw_on,
+                            rule_name.as_str(),
+                        )
+                    });
+                    if r.clicked() {
                         let _ = mgr.set_rule_enabled(&row.id, !row.effectively_enabled);
                         state.dirty = true;
                         state.error = save(mgr);
@@ -624,6 +638,9 @@ fn side_row(
     } else if resp.hovered() {
         p.rect_filled(rect, 6.0, theme::PANEL_2().gamma_multiply(0.5));
     }
+    if resp.has_focus() {
+        crate::theme::paint_focus_ring(p, rect);
+    }
     let right = if switch.is_some() {
         rect.right() - 48.0
     } else {
@@ -673,6 +690,15 @@ fn side_row(
                 .input(|i| i.pointer.interact_pos())
                 .is_some_and(|h| slot.expand(4.0).contains(h));
     }
+    let side_label = label.to_owned();
+    resp.widget_info(move || {
+        egui::WidgetInfo::selected(
+            egui::WidgetType::SelectableLabel,
+            true,
+            selected,
+            side_label.as_str(),
+        )
+    });
     (resp.clicked() && !flip, flip)
 }
 

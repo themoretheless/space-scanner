@@ -291,3 +291,72 @@ fn is_same_file(a: &Path, b: &Path) -> bool {
         _ => false,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn vol(name: &str, mount: &str, total: u64, available: u64) -> VolumeInfo {
+        VolumeInfo {
+            name: name.into(),
+            mount: PathBuf::from(mount),
+            total,
+            available,
+            apfs_consumed: None,
+            snapshot_count: 0,
+        }
+    }
+
+    #[test]
+    fn skips_system_auxiliary_mounts() {
+        for path in [
+            "/System/Volumes/Preboot",
+            "/System/Volumes/Update",
+            "/System/Volumes/xarts",
+            "/System/Volumes/iSCPreboot",
+            "/System/Volumes/Hardware",
+            "/System/Volumes/VM",
+            "/private/var/vm",
+            "/dev",
+            "/dev/fd",
+            "/System/Volumes/CloudStorage",
+        ] {
+            assert!(should_skip_mount(Path::new(path)), "expected skip: {path}");
+        }
+        assert!(!should_skip_mount(Path::new("/")));
+        assert!(!should_skip_mount(Path::new("/System/Volumes/Data")));
+        assert!(!should_skip_mount(Path::new("/Volumes/External")));
+    }
+
+    #[test]
+    fn prefers_data_volume_and_dedupes_apfs_pair() {
+        assert!(
+            mount_preference(Path::new("/System/Volumes/Data")) > mount_preference(Path::new("/"))
+        );
+        assert!(mount_preference(Path::new("/")) > mount_preference(Path::new("/Volumes/Ext")));
+        let root = vol("Macintosh HD", "/", 1000, 400);
+        let data = vol("Data", "/System/Volumes/Data", 1000, 400);
+        let external = vol("External", "/Volumes/External", 2000, 1000);
+        assert!(same_disk(&root, &data));
+        assert!(!same_disk(&root, &external));
+    }
+
+    #[test]
+    fn match_volume_picks_deepest_mount_and_used_prefers_apfs_consumed() {
+        let mut root = vol("Macintosh HD", "/", 1000, 400);
+        root.apfs_consumed = Some(720);
+        let ext = vol("SSD", "/Volumes/SSD", 2000, 500);
+        let vols = [root.clone(), ext];
+
+        assert_eq!(root.used(), 720);
+        assert_eq!(vols[1].used(), 1500);
+        assert_eq!(
+            match_volume(&vols, "/Volumes/SSD/Projects").map(|v| v.name.as_str()),
+            Some("SSD")
+        );
+        assert_eq!(
+            match_volume(&vols, "/Users/me").map(|v| v.name.as_str()),
+            Some("Macintosh HD")
+        );
+    }
+}

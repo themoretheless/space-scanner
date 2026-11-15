@@ -56,12 +56,13 @@ pub fn block(ui: &Ui, button: egui::Button<'static>) -> egui::Button<'static> {
 
 /// Filter pill: filled when on, outlined when off.
 pub fn chip(ui: &mut Ui, on: bool, label: &str) -> egui::Response {
-    ui.add(
-        egui::Button::new(
-            RichText::new(t(label))
-                .size(type_scale::CAPTION)
-                .color(if on { crate::theme::BG() } else { MUTED() }),
-        )
+    let text = t(label);
+    let resp = ui.add(
+        egui::Button::new(RichText::new(text).size(type_scale::CAPTION).color(if on {
+            crate::theme::BG()
+        } else {
+            MUTED()
+        }))
         .fill(if on { TEXT() } else { Color32::TRANSPARENT })
         .stroke(if on {
             egui::Stroke::NONE
@@ -69,8 +70,15 @@ pub fn chip(ui: &mut Ui, on: bool, label: &str) -> egui::Response {
             egui::Stroke::new(1.0_f32, BORDER())
         })
         .corner_radius(RADIUS_CONTROL)
-        .min_size(egui::vec2(0.0, 28.0)),
-    )
+        .min_size(egui::vec2(24.0, 28.0)),
+    );
+    if resp.has_focus() {
+        crate::theme::paint_focus_ring(ui.painter(), resp.rect);
+    }
+    resp.widget_info(|| {
+        egui::WidgetInfo::selected(egui::WidgetType::SelectableLabel, true, on, text)
+    });
+    resp
 }
 
 /// Flat mutually exclusive choices; only the current choice has a background.
@@ -80,13 +88,21 @@ pub fn segmented(ui: &mut Ui, labels: &[&str], current: usize) -> Option<usize> 
         ui.spacing_mut().item_spacing.x = 2.0;
         for (i, label) in labels.iter().enumerate() {
             let on = i == current;
+            let text = t(label);
             let button =
-                egui::Button::new(RichText::new(t(label)).color(if on { TEXT() } else { MUTED() }))
+                egui::Button::new(RichText::new(text).color(if on { TEXT() } else { MUTED() }))
                     .fill(if on { PANEL_2() } else { Color32::TRANSPARENT })
                     .stroke(egui::Stroke::NONE)
                     .corner_radius(RADIUS_CONTROL)
-                    .min_size(egui::vec2(0.0, 28.0));
-            if ui.add(button).clicked() {
+                    .min_size(egui::vec2(24.0, 28.0));
+            let resp = ui.add(button);
+            if resp.has_focus() {
+                crate::theme::paint_focus_ring(ui.painter(), resp.rect);
+            }
+            resp.widget_info(|| {
+                egui::WidgetInfo::selected(egui::WidgetType::SelectableLabel, true, on, text)
+            });
+            if resp.clicked() {
                 picked = Some(i);
             }
         }
@@ -220,4 +236,159 @@ pub fn path_size_row(
 /// Age as a short phrase: "3 h ago", "yesterday".
 pub fn format_age(secs: u64) -> String {
     crate::i18n::age(secs)
+}
+
+/// Visual state for unified custom checkboxes across Quick Clean and Folder Explorer.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum CheckVisual {
+    Unchecked,
+    Checked,
+    Partial,
+    CoveredByParent,
+}
+
+/// Draw a consistent rounded checkbox inside `rect`.
+pub fn paint_checkbox(
+    painter: &egui::Painter,
+    rect: egui::Rect,
+    state: CheckVisual,
+    hovered: bool,
+) {
+    match state {
+        CheckVisual::Checked => {
+            painter.rect_filled(rect, 4.0, ACCENT());
+            crate::icons::paint(
+                painter,
+                crate::icons::Icon::Check,
+                rect.shrink(2.5),
+                ACCENT_INK(),
+            );
+        }
+        CheckVisual::CoveredByParent => {
+            painter.rect_filled(rect, 4.0, ACCENT().gamma_multiply(0.38));
+            crate::icons::paint(
+                painter,
+                crate::icons::Icon::Check,
+                rect.shrink(2.5),
+                ACCENT_INK(),
+            );
+        }
+        CheckVisual::Partial => {
+            let stroke_color = if hovered { TEXT() } else { MUTED() };
+            painter.rect_stroke(
+                rect,
+                4.0,
+                egui::Stroke::new(1.5_f32, stroke_color),
+                egui::StrokeKind::Inside,
+            );
+            painter.rect_filled(rect.shrink(4.0), 1.5, ACCENT());
+        }
+        CheckVisual::Unchecked => {
+            let stroke_color = if hovered { TEXT() } else { MUTED() };
+            painter.rect_stroke(
+                rect,
+                4.0,
+                egui::Stroke::new(1.5_f32, stroke_color),
+                egui::StrokeKind::Inside,
+            );
+        }
+    }
+}
+
+/// Reveal `path` in the OS file manager (Finder on macOS).
+pub fn reveal_in_os(path: &std::path::Path) {
+    #[cfg(target_os = "macos")]
+    {
+        let _ = std::process::Command::new("open")
+            .args(["-R", &path.to_string_lossy()])
+            .spawn();
+    }
+    #[cfg(target_os = "linux")]
+    {
+        let target = if path.is_dir() {
+            path
+        } else {
+            path.parent().unwrap_or(path)
+        };
+        let _ = std::process::Command::new("xdg-open").arg(target).spawn();
+    }
+    #[cfg(target_os = "windows")]
+    {
+        let _ = std::process::Command::new("explorer")
+            .args(["/select,", &path.to_string_lossy()])
+            .spawn();
+    }
+}
+
+/// Preview `path` in macOS Quick Look (`qlmanage -p`), or fall back on other platforms.
+pub fn quick_look(path: &std::path::Path) {
+    #[cfg(target_os = "macos")]
+    {
+        let _ = std::process::Command::new("qlmanage")
+            .arg("-p")
+            .arg(path)
+            .stdin(std::process::Stdio::null())
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .spawn();
+    }
+    #[cfg(not(target_os = "macos"))]
+    {
+        reveal_in_os(path);
+    }
+}
+
+/// Open Terminal at `path` (or its parent directory if `path` is a file).
+pub fn open_in_terminal(path: &std::path::Path) {
+    let dir = if path.is_dir() {
+        path
+    } else {
+        path.parent().unwrap_or(path)
+    };
+    #[cfg(target_os = "macos")]
+    {
+        let _ = std::process::Command::new("open")
+            .args(["-a", "Terminal"])
+            .arg(dir)
+            .stdin(std::process::Stdio::null())
+            .stdout(std::process::Stdio::null())
+            .stderr(std::process::Stdio::null())
+            .spawn();
+    }
+    #[cfg(target_os = "linux")]
+    {
+        let _ = std::process::Command::new("xdg-open").arg(dir).spawn();
+    }
+    #[cfg(target_os = "windows")]
+    {
+        let _ = std::process::Command::new("explorer").arg(dir).spawn();
+    }
+}
+
+/// Open the user's OS Trash folder (`~/.Trash` on macOS).
+pub fn open_user_trash() {
+    #[cfg(target_os = "macos")]
+    {
+        if let Some(home) = std::env::var_os("HOME") {
+            let trash = std::path::PathBuf::from(home).join(".Trash");
+            let _ = std::process::Command::new("open")
+                .arg(trash)
+                .stdin(std::process::Stdio::null())
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
+                .spawn();
+        }
+    }
+    #[cfg(target_os = "linux")]
+    {
+        let _ = std::process::Command::new("xdg-open")
+            .arg("trash:///")
+            .spawn();
+    }
+    #[cfg(target_os = "windows")]
+    {
+        let _ = std::process::Command::new("explorer")
+            .arg("shell:RecycleBinFolder")
+            .spawn();
+    }
 }

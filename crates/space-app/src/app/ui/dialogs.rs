@@ -1,6 +1,7 @@
 //! Modal windows: shortcuts, the Move to Trash confirmation, local snapshots, rules.
 
 use crate::i18n::t;
+use std::path::PathBuf;
 use std::time::Duration;
 
 use eframe::egui::{self, Align, Layout, RichText};
@@ -28,9 +29,99 @@ fn window(title: &'static str, ctx: &egui::Context) -> egui::Window<'static> {
 impl SpaceApp {
     pub(super) fn dialogs(&mut self, ctx: &egui::Context) {
         self.shortcuts_dialog(ctx);
+        self.goto_dialog(ctx);
         self.trash_dialog(ctx);
         self.snapshots_dialog(ctx);
         self.rules_dialog(ctx);
+        self.settings_dialog(ctx);
+        self.about_dialog(ctx);
+    }
+
+    fn goto_dialog(&mut self, ctx: &egui::Context) {
+        if !self.show_goto {
+            return;
+        }
+        let mut close = false;
+        let mut go = false;
+        window("Go to folder", ctx).show(ctx, |ui| {
+            ui.set_width((ctx.screen_rect().width() - 80.0).min(480.0));
+            ui.label(
+                RichText::new(t("Go to folder"))
+                    .size(type_scale::TITLE)
+                    .strong(),
+            );
+            ui.add_space(S2);
+            ui.label(caption(
+                "Enter an indexed path or folder on disk (supports ~)",
+            ));
+            ui.add_space(S2);
+            let edit = ui.add_sized(
+                [ui.available_width(), theme::metrics::CONTROL_H],
+                egui::TextEdit::singleline(&mut self.goto_draft)
+                    .hint_text(t("/Users/you/Library/Caches")),
+            );
+            if self.focus_goto {
+                edit.request_focus();
+                self.focus_goto = false;
+            }
+            if edit.lost_focus() && ui.input(|i| i.key_pressed(egui::Key::Enter)) {
+                go = true;
+            }
+            ui.add_space(S3);
+            ui.horizontal(|ui| {
+                if ui.add(secondary("Cancel")).clicked() {
+                    close = true;
+                }
+                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                    if ui.add(primary("Go")).clicked() {
+                        go = true;
+                    }
+                });
+            });
+        });
+        if go {
+            let mut raw = self.goto_draft.trim().to_string();
+            if let (Some(rest), Some(home)) = (raw.strip_prefix('~'), std::env::var_os("HOME")) {
+                raw = format!("{}{rest}", home.to_string_lossy());
+            }
+            let path = PathBuf::from(&raw);
+            if let Some(id) = self
+                .tree
+                .as_ref()
+                .and_then(|t| crate::app::find_path(t, &path))
+            {
+                let is_dir = self
+                    .tree
+                    .as_ref()
+                    .and_then(|t| t.try_node(id))
+                    .is_some_and(|n| n.is_dir);
+                if is_dir {
+                    self.navigate(id, true);
+                } else {
+                    if let Some(parent) = self
+                        .tree
+                        .as_ref()
+                        .and_then(|t| t.try_node(id))
+                        .and_then(|n| n.parent)
+                    {
+                        self.navigate(parent, true);
+                    }
+                    self.select_single(id);
+                }
+                self.choosing_target = false;
+                self.mode = crate::app::Mode::Explore;
+                close = true;
+            } else if path.is_dir() {
+                self.choosing_target = false;
+                self.start_scan(path, false);
+                close = true;
+            } else {
+                self.status = crate::tr!("Folder not found: {}", path.display());
+            }
+        }
+        if close {
+            self.show_goto = false;
+        }
     }
 
     fn shortcuts_dialog(&mut self, ctx: &egui::Context) {
@@ -55,22 +146,27 @@ impl SpaceApp {
                 .show(ui, |ui| {
                     for (keys, action) in [
                         ("⌘O", "Choose a folder to scan"),
+                        ("⌘L", "Go to folder"),
                         ("⌘R", "Rescan everything"),
                         ("⌘⇧R", "Rescan this folder"),
                         ("⌘F  or  /", "Search this scan"),
                         ("↑ ↓", "Move through the tree"),
+                        ("⇧↑↓  or  ⇧-click", "Select a range of items"),
                         ("→ ←", "Expand or collapse a folder; ← on a closed one goes to its parent"),
-                        ("Space", "Add to review or take out"),
+                        ("Space  or  ⌘Y", "Quick Look preview"),
+                        ("Delete / ⌫", "Add or remove from Trash basket"),
+                        ("⌘⌫", "Move basket to Trash"),
                         ("Enter", "Open a folder, show a file in Finder, or confirm"),
                         ("Esc", "Go to the parent folder"),
                         ("⌘← ⌘→", "Back / forward"),
                         ("Home", "Jump to the scan root"),
                         ("⌥-click ▸", "Expand a whole branch"),
                         ("Double-click", "Open a folder"),
-                        ("⌘-click", "Add to review"),
+                        ("⌘-click", "Select or clear item"),
                         ("⌘1–4", "Switch the map style"),
-                        ("⌘J", "Cleanup candidates"),
+                        ("⌘J", "Quick clean"),
                         ("⌘⇧C", "Copy the folder path"),
+                        ("⌘,", "Settings"),
                         ("?", "This list"),
                     ] {
                         ui.label(RichText::new(t(keys)).monospace().color(ACCENT()));
@@ -145,13 +241,13 @@ impl SpaceApp {
                 return;
             }
 
-            let mut items = self.basket_items();
-            items.sort_by_key(|item| std::cmp::Reverse(item.1));
+            let items = self.basket_items();
+            let total_bytes = crate::app::basket_total_bytes(&items);
             ui.label(
                 RichText::new(crate::tr!(
                     "Move {} ({}) to Trash?",
                     count_noun(items.len(), "item"),
-                    crate::i18n::bytes(self.basket_bytes())
+                    crate::i18n::bytes(total_bytes)
                 ))
                 .size(type_scale::LEAD)
                 .strong(),
@@ -160,10 +256,12 @@ impl SpaceApp {
                 "Items go to the macOS Trash and can be restored from there. Disk space is only released after you empty Trash in Finder.",
             ));
             ui.add_space(S2);
-            ui.horizontal(|ui| {
+            ui.horizontal_wrapped(|ui| {
+                ui.spacing_mut().item_spacing = egui::vec2(S3, 4.0);
                 for (label, n, bytes) in [
-                    ("From Disk usage", self.review.len(), self.review_bytes()),
-                    ("From Cleanup", self.junk.selected_count(), self.junk.selected_bytes()),
+                    ("From Quick clean", self.junk.selected_count(), self.junk.selected_bytes()),
+                    ("From Downloads", self.downloads.selected_count(), self.downloads.selected_bytes()),
+                    ("From Folders", self.review.len(), self.review_bytes()),
                 ] {
                     if n > 0 {
                         ui.label(caption(crate::tr!("{}: {} · {}", t(label), n, crate::i18n::bytes(bytes))));
@@ -171,30 +269,58 @@ impl SpaceApp {
                 }
             });
             ui.add_space(S2);
+            const ROW_H: f32 = 34.0;
+            let mut remove_path: Option<PathBuf> = None;
             egui::Frame::new()
                 .fill(PANEL_2())
                 .corner_radius(10)
                 .inner_margin(egui::Margin::symmetric(S3 as i8, S2 as i8))
                 .show(ui, |ui| {
                     egui::ScrollArea::vertical()
-                        .max_height((ctx.screen_rect().height() - 280.0).clamp(100.0, 260.0))
-                        .show(ui, |ui| {
+                        .id_salt("trash_confirm_list")
+                        .max_height((ctx.screen_rect().height() - 280.0).clamp(120.0, 280.0))
+                        .show_rows(ui, ROW_H, items.len(), |ui, range| {
                             ui.set_width(ui.available_width());
                             ui.spacing_mut().item_spacing.y = 0.0;
-                            for (path, size) in items.iter().take(40) {
-                                path_size_row(
-                                    ui,
-                                    &path.display().to_string(),
-                                    &crate::i18n::bytes(*size),
-                                    28.0,
-                                    0.0,
+                            for item in &items[range] {
+                                ui.allocate_ui_with_layout(
+                                    egui::vec2(ui.available_width(), ROW_H),
+                                    Layout::right_to_left(Align::Center),
+                                    |ui| {
+                                        if crate::icons::button(
+                                            ui,
+                                            crate::icons::Icon::Close,
+                                            24.0,
+                                            "Remove from Trash list",
+                                            true,
+                                        )
+                                        .clicked()
+                                        {
+                                            remove_path = Some(item.path.clone());
+                                        }
+                                        ui.with_layout(
+                                            Layout::left_to_right(Align::Center),
+                                            |ui| {
+                                                path_size_row(
+                                                    ui,
+                                                    &item.path.display().to_string(),
+                                                    &crate::i18n::bytes(item.bytes),
+                                                    ROW_H,
+                                                    0.0,
+                                                );
+                                            },
+                                        );
+                                    },
                                 );
-                            }
-                            if items.len() > 40 {
-                                ui.label(caption(crate::tr!("…and {} more", items.len() - 40)));
                             }
                         });
                 });
+            if let Some(path) = remove_path {
+                self.remove_from_basket(&path);
+                if self.basket_len() == 0 {
+                    self.confirm_delete = false;
+                }
+            }
             ui.add_space(S4);
             ui.horizontal(|ui| {
                 if ui.add(secondary("Cancel")).clicked() {
@@ -398,9 +524,7 @@ impl SpaceApp {
                         RulesAction::Close => self.rules.open = false,
                         RulesAction::PrefsChanged => {
                             self.settings.save();
-                            if self.junk.open {
-                                self.start_junk_scan();
-                            }
+                            self.start_junk_scan();
                         }
                         RulesAction::Reveal(path) => reveal = Some(path),
                         RulesAction::None => {}
@@ -423,6 +547,327 @@ impl SpaceApp {
         }
         if let Some(path) = reveal {
             self.reveal_rule_path(&path);
+        }
+    }
+
+    fn settings_dialog(&mut self, ctx: &egui::Context) {
+        if !self.show_settings {
+            return;
+        }
+        let mut close = false;
+        let mut clear_cache = false;
+        let mut apply_excludes = false;
+        let mut changed = false;
+
+        window("Settings", ctx).show(ctx, |ui| {
+            ui.set_width((ctx.screen_rect().width() - 80.0).min(580.0));
+            ui.horizontal(|ui| {
+                ui.label(
+                    RichText::new(t("Settings"))
+                        .size(type_scale::TITLE)
+                        .strong(),
+                );
+                ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                    if ui.add(secondary("Close")).clicked() {
+                        close = true;
+                    }
+                });
+            });
+            ui.add_space(S3);
+
+            egui::ScrollArea::vertical()
+                .id_salt("settings_scroll")
+                .max_height((ctx.screen_rect().height() - 200.0).max(160.0))
+                .show(ui, |ui| {
+                    ui.label(RichText::new(t("Appearance & Accessibility")).strong());
+                    ui.add_space(4.0);
+                    egui::Grid::new("settings_a11y_grid")
+                        .num_columns(2)
+                        .spacing([S4, S2])
+                        .show(ui, |ui| {
+                            ui.label(t("Default map view"));
+                            egui::ComboBox::from_id_salt("set_def_view")
+                                .selected_text(t(self.settings.default_view.label()))
+                                .show_ui(ui, |ui| {
+                                    for mode in crate::views::ViewMode::ALL {
+                                        if ui
+                                            .selectable_label(
+                                                self.settings.default_view == mode,
+                                                t(mode.label()),
+                                            )
+                                            .clicked()
+                                        {
+                                            self.settings.default_view = mode;
+                                            changed = true;
+                                        }
+                                    }
+                                });
+                            ui.end_row();
+
+                            ui.label(t("Default size accounting"));
+                            ui.horizontal(|ui| {
+                                for (mode, label) in [
+                                    (space_core::SizeMode::OnDisk, "On disk"),
+                                    (space_core::SizeMode::Apparent, "File size"),
+                                ] {
+                                    if ui
+                                        .selectable_label(
+                                            self.settings.default_size_mode == mode,
+                                            t(label),
+                                        )
+                                        .clicked()
+                                    {
+                                        self.settings.default_size_mode = mode;
+                                        changed = true;
+                                    }
+                                }
+                            });
+                            ui.end_row();
+
+                            ui.label(t("Byte units"));
+                            ui.horizontal(|ui| {
+                                for (unit, label) in [
+                                    (crate::settings::ByteUnit::Binary, "IEC (KiB, MiB, GiB)"),
+                                    (crate::settings::ByteUnit::Si, "Decimal (KB, MB, GB)"),
+                                ] {
+                                    if ui
+                                        .selectable_label(self.settings.byte_unit == unit, t(label))
+                                        .clicked()
+                                    {
+                                        self.settings.byte_unit = unit;
+                                        crate::i18n::set_byte_unit(unit);
+                                        self.geom = None;
+                                        changed = true;
+                                    }
+                                }
+                            });
+                            ui.end_row();
+
+                            ui.label(t("Language"));
+                            ui.horizontal(|ui| {
+                                for (choice, label) in [
+                                    (None, t("Automatic")),
+                                    (
+                                        Some(crate::i18n::Lang::En),
+                                        crate::i18n::Lang::En.native_name(),
+                                    ),
+                                    (
+                                        Some(crate::i18n::Lang::Ru),
+                                        crate::i18n::Lang::Ru.native_name(),
+                                    ),
+                                ] {
+                                    if ui
+                                        .selectable_label(self.settings.language == choice, label)
+                                        .clicked()
+                                    {
+                                        self.settings.language = choice;
+                                        crate::i18n::set(
+                                            choice.unwrap_or_else(crate::i18n::detect),
+                                        );
+                                        changed = true;
+                                    }
+                                }
+                            });
+                            ui.end_row();
+
+                            ui.label(t("High contrast"));
+                            if ui
+                                .checkbox(
+                                    &mut self.settings.high_contrast,
+                                    t("Higher text and border contrast"),
+                                )
+                                .changed()
+                            {
+                                theme::set_high_contrast(self.settings.high_contrast);
+                                theme::set_skin(ctx, self.settings.skin);
+                                self.geom = None;
+                                changed = true;
+                            }
+                            ui.end_row();
+
+                            ui.label(t("Reduce motion"));
+                            if ui
+                                .checkbox(
+                                    &mut self.settings.reduce_motion,
+                                    t("Disable zoom and hover transitions"),
+                                )
+                                .changed()
+                            {
+                                theme::apply_motion(ctx, self.settings.reduce_motion);
+                                if self.settings.reduce_motion {
+                                    self.transition = None;
+                                }
+                                changed = true;
+                            }
+                            ui.end_row();
+                        });
+
+                    ui.add_space(S3);
+                    divider(ui);
+                    ui.add_space(S3);
+
+                    ui.label(RichText::new(t("Scanning & Cache")).strong());
+                    ui.add_space(4.0);
+                    egui::Grid::new("settings_scan_grid")
+                        .num_columns(2)
+                        .spacing([S4, S2])
+                        .show(ui, |ui| {
+                            ui.label(t("Small-file rollup threshold (KB)"));
+                            let mut kb = self.settings.small_file_threshold_kb as i32;
+                            if ui
+                                .add(egui::DragValue::new(&mut kb).range(0..=16_384).speed(16))
+                                .changed()
+                            {
+                                self.settings.small_file_threshold_kb = kb.max(0) as u64;
+                                changed = true;
+                            }
+                            ui.end_row();
+
+                            ui.label(t("Scan threads"));
+                            ui.horizontal(|ui| {
+                                let auto = self.settings.scan_threads == 0;
+                                if ui.selectable_label(auto, t("Automatic")).clicked() {
+                                    self.settings.scan_threads = 0;
+                                    changed = true;
+                                }
+                                let mut threads = if auto {
+                                    4u8
+                                } else {
+                                    self.settings.scan_threads
+                                };
+                                if ui.add(egui::Slider::new(&mut threads, 1..=16)).changed() {
+                                    self.settings.scan_threads = threads;
+                                    changed = true;
+                                }
+                            });
+                            ui.end_row();
+
+                            ui.label(t("Hidden files"));
+                            if ui
+                                .checkbox(
+                                    &mut self.settings.skip_hidden,
+                                    t("Skip dotfiles during scan"),
+                                )
+                                .changed()
+                            {
+                                changed = true;
+                            }
+                            ui.end_row();
+
+                            ui.label(t("Cross-mount volumes"));
+                            if ui
+                                .checkbox(
+                                    &mut self.settings.cross_mount,
+                                    t("Traverse mounted sub-filesystems"),
+                                )
+                                .changed()
+                            {
+                                changed = true;
+                            }
+                            ui.end_row();
+
+                            ui.label(t("Excluded folder names"));
+                            ui.horizontal(|ui| {
+                                let edit = ui.add(
+                                    egui::TextEdit::singleline(&mut self.exclude_draft)
+                                        .desired_width(220.0)
+                                        .hint_text("node_modules, target"),
+                                );
+                                if edit.lost_focus() || ui.add(secondary("Apply")).clicked() {
+                                    apply_excludes = true;
+                                }
+                            });
+                            ui.end_row();
+
+                            ui.label(t("Insights row limit"));
+                            let mut limit = self.settings.largest_limit as i32;
+                            if ui.add(egui::Slider::new(&mut limit, 10..=500)).changed() {
+                                self.settings.largest_limit = limit.max(10) as usize;
+                                changed = true;
+                            }
+                            ui.end_row();
+
+                            ui.label(t("Cache lifetime (days)"));
+                            ui.horizontal(|ui| {
+                                let mut ttl = self.settings.cache_ttl_days as i32;
+                                if ui.add(egui::Slider::new(&mut ttl, 1..=365)).changed() {
+                                    self.settings.cache_ttl_days = ttl.max(1) as u32;
+                                    changed = true;
+                                }
+                                if ui.add(secondary("Clear all")).clicked() {
+                                    clear_cache = true;
+                                }
+                            });
+                            ui.end_row();
+
+                            ui.label(t("Trash confirmation"));
+                            if ui
+                                .checkbox(
+                                    &mut self.settings.confirm_trash,
+                                    t("Ask before moving items to Trash"),
+                                )
+                                .changed()
+                            {
+                                changed = true;
+                            }
+                            ui.end_row();
+                        });
+                });
+
+            ui.add_space(S3);
+            ui.label(caption("Scan options apply on your next scan or rescan."));
+        });
+
+        if apply_excludes {
+            self.settings.exclude_names = self
+                .exclude_draft
+                .split(',')
+                .map(|s| s.trim().to_string())
+                .filter(|s| !s.is_empty())
+                .collect();
+            changed = true;
+        }
+        if clear_cache {
+            self.clear_all_cache();
+        }
+        if changed {
+            self.settings.clamp();
+            self.settings.save();
+        }
+        if close {
+            self.show_settings = false;
+        }
+    }
+
+    fn about_dialog(&mut self, ctx: &egui::Context) {
+        if !self.show_about {
+            return;
+        }
+        let mut close = false;
+        window("About Space Scanner", ctx).show(ctx, |ui| {
+            ui.set_width((ctx.screen_rect().width() - 80.0).min(420.0));
+            ui.label(
+                RichText::new("Space Scanner")
+                    .size(type_scale::DISPLAY)
+                    .strong(),
+            );
+            ui.label(caption(crate::tr!("Version {}", env!("CARGO_PKG_VERSION"))));
+            ui.add_space(S3);
+            ui.label(t(
+                "Fast disk space analyzer and safe cleanup tool for macOS.",
+            ));
+            ui.add_space(S2);
+            ui.label(caption(t("License: MIT")));
+            ui.label(caption(t("All file removals go through the system Trash.")));
+            ui.add_space(S4);
+            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                if ui.add(secondary("Close")).clicked() {
+                    close = true;
+                }
+            });
+        });
+        if close {
+            self.show_about = false;
         }
     }
 }

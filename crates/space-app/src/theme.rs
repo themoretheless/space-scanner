@@ -1,6 +1,6 @@
 //! Visual language: deep charcoal + amber accent — map-first, quiet chrome.
 
-use std::sync::atomic::{AtomicU8, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU8, Ordering};
 use std::sync::Arc;
 
 use egui::{Color32, CornerRadius, FontData, FontDefinitions, FontFamily, Margin, Stroke, Visuals};
@@ -19,20 +19,30 @@ pub enum Skin {
 
 impl Skin {
     pub const ALL: [Skin; 3] = [Skin::Map, Skin::Columns, Skin::Table];
+    pub const APPEARANCE: [Skin; 2] = [Skin::Map, Skin::Columns];
 
-    pub fn label(self) -> &'static str {
+    pub fn appearance_label(self) -> &'static str {
         match self {
-            Skin::Map => "Map (dark)",
-            Skin::Columns => "Columns (light)",
-            Skin::Table => "Table (warm)",
+            Skin::Map => "Dark",
+            Skin::Columns | Skin::Table => "Light",
         }
     }
 
-    fn palette(self) -> &'static Palette {
+    pub fn normalized_appearance(self) -> Self {
         match self {
-            Skin::Map => &MAP,
-            Skin::Columns => &COLUMNS,
-            Skin::Table => &TABLE,
+            Skin::Map => Skin::Map,
+            Skin::Columns | Skin::Table => Skin::Columns,
+        }
+    }
+
+    fn palette(self, high_contrast: bool) -> &'static Palette {
+        match (self, high_contrast) {
+            (Skin::Map, false) => &MAP,
+            (Skin::Columns, false) => &COLUMNS,
+            (Skin::Table, false) => &TABLE,
+            (Skin::Map, true) => &MAP_HC,
+            (Skin::Columns, true) => &COLUMNS_HC,
+            (Skin::Table, true) => &TABLE_HC,
         }
     }
 }
@@ -59,13 +69,13 @@ const MAP: Palette = Palette {
     panel_2: Color32::from_rgb(34, 38, 45),
     border: Color32::from_rgb(42, 46, 52),
     text: Color32::from_rgb(234, 238, 244),
-    // Lifted to keep 4.5:1 on panel.
+    // Lifted to keep >= 4.5:1 on bg/panel/panel_2.
     muted: Color32::from_rgb(154, 160, 168),
     accent: Color32::from_rgb(240, 173, 78),
     accent_ink: Color32::from_rgb(26, 18, 7),
     safe: Color32::from_rgb(92, 200, 168),
     dir: Color32::from_rgb(48, 52, 58),
-    danger: Color32::from_rgb(210, 90, 80),
+    danger: Color32::from_rgb(232, 112, 102),
 };
 
 const COLUMNS: Palette = Palette {
@@ -75,10 +85,10 @@ const COLUMNS: Palette = Palette {
     panel_2: Color32::from_rgb(232, 236, 244),
     border: Color32::from_rgb(216, 216, 220),
     text: Color32::from_rgb(29, 29, 31),
-    muted: Color32::from_rgb(106, 106, 112),
+    muted: Color32::from_rgb(88, 88, 96),
     accent: Color32::from_rgb(10, 102, 255),
     accent_ink: Color32::from_rgb(255, 255, 255),
-    safe: Color32::from_rgb(30, 123, 52),
+    safe: Color32::from_rgb(24, 115, 44),
     dir: Color32::from_rgb(199, 199, 204),
     danger: Color32::from_rgb(196, 43, 28),
 };
@@ -90,22 +100,88 @@ const TABLE: Palette = Palette {
     panel_2: Color32::from_rgb(241, 239, 234),
     border: Color32::from_rgb(228, 225, 218),
     text: Color32::from_rgb(31, 29, 26),
-    muted: Color32::from_rgb(107, 103, 95),
-    accent: Color32::from_rgb(196, 98, 18),
+    muted: Color32::from_rgb(89, 85, 77),
+    accent: Color32::from_rgb(174, 78, 8),
     accent_ink: Color32::from_rgb(255, 255, 255),
-    safe: Color32::from_rgb(38, 120, 94),
+    safe: Color32::from_rgb(34, 114, 88),
     dir: Color32::from_rgb(201, 196, 184),
     danger: Color32::from_rgb(180, 50, 36),
 };
 
+const MAP_HC: Palette = Palette {
+    dark: true,
+    bg: Color32::from_rgb(10, 12, 15),
+    panel: Color32::from_rgb(16, 19, 23),
+    panel_2: Color32::from_rgb(26, 30, 37),
+    border: Color32::from_rgb(115, 124, 138),
+    text: Color32::from_rgb(255, 255, 255),
+    muted: Color32::from_rgb(205, 212, 222),
+    accent: Color32::from_rgb(255, 190, 70),
+    accent_ink: Color32::from_rgb(10, 8, 2),
+    safe: Color32::from_rgb(110, 230, 188),
+    dir: Color32::from_rgb(66, 72, 82),
+    danger: Color32::from_rgb(255, 128, 118),
+};
+
+const COLUMNS_HC: Palette = Palette {
+    dark: false,
+    bg: Color32::from_rgb(255, 255, 255),
+    panel: Color32::from_rgb(255, 255, 255),
+    panel_2: Color32::from_rgb(236, 240, 248),
+    border: Color32::from_rgb(96, 102, 114),
+    text: Color32::from_rgb(0, 0, 0),
+    muted: Color32::from_rgb(56, 58, 66),
+    accent: Color32::from_rgb(0, 74, 214),
+    accent_ink: Color32::from_rgb(255, 255, 255),
+    safe: Color32::from_rgb(12, 105, 34),
+    dir: Color32::from_rgb(160, 164, 174),
+    danger: Color32::from_rgb(168, 20, 12),
+};
+
+const TABLE_HC: Palette = Palette {
+    dark: false,
+    bg: Color32::from_rgb(255, 255, 252),
+    panel: Color32::from_rgb(255, 255, 255),
+    panel_2: Color32::from_rgb(240, 237, 230),
+    border: Color32::from_rgb(96, 90, 80),
+    text: Color32::from_rgb(0, 0, 0),
+    muted: Color32::from_rgb(56, 52, 46),
+    accent: Color32::from_rgb(154, 62, 0),
+    accent_ink: Color32::from_rgb(255, 255, 255),
+    safe: Color32::from_rgb(18, 102, 74),
+    dir: Color32::from_rgb(165, 160, 148),
+    danger: Color32::from_rgb(158, 24, 16),
+};
+
 static SKIN: AtomicU8 = AtomicU8::new(0);
+static HIGH_CONTRAST: AtomicBool = AtomicBool::new(false);
+static REDUCE_MOTION: AtomicBool = AtomicBool::new(false);
 
 pub fn skin() -> Skin {
     Skin::ALL[SKIN.load(Ordering::Relaxed) as usize % Skin::ALL.len()]
 }
 
+pub fn set_high_contrast(on: bool) {
+    HIGH_CONTRAST.store(on, Ordering::Relaxed);
+}
+
+pub fn high_contrast() -> bool {
+    HIGH_CONTRAST.load(Ordering::Relaxed)
+}
+
+pub fn apply_motion(ctx: &egui::Context, reduce: bool) {
+    REDUCE_MOTION.store(reduce, Ordering::Relaxed);
+    ctx.style_mut(|style| {
+        style.animation_time = if reduce { 0.0 } else { 0.08 };
+    });
+}
+
+pub fn reduce_motion() -> bool {
+    REDUCE_MOTION.load(Ordering::Relaxed)
+}
+
 fn pal() -> &'static Palette {
-    skin().palette()
+    skin().palette(high_contrast())
 }
 
 // Palette accessors keep the old constant names so call sites read the same.
@@ -213,6 +289,7 @@ pub fn set_skin(ctx: &egui::Context, skin: Skin) {
     visuals.widgets.hovered.bg_fill = hover;
     visuals.widgets.active.bg_fill = active;
     visuals.selection.bg_fill = p.accent.gamma_multiply(0.25);
+    visuals.selection.stroke = Stroke::new(2.0_f32, ACCENT());
     visuals.widgets.noninteractive.fg_stroke = Stroke::new(1.0_f32, MUTED());
     visuals.widgets.inactive.fg_stroke = Stroke::new(1.0_f32, TEXT());
     visuals.widgets.hovered.fg_stroke = Stroke::new(1.0_f32, ACCENT());
@@ -238,6 +315,7 @@ fn base_style(ctx: &egui::Context) {
     style.spacing.window_margin = Margin::same(14);
     style.spacing.indent = 12.0;
     style.interaction.show_tooltips_only_when_still = false;
+    style.interaction.tooltip_delay = 0.25;
     // egui's default Small is 9 px; nothing in this app should be smaller than 12.
     style.text_styles.insert(
         egui::TextStyle::Small,
@@ -551,4 +629,66 @@ fn rgb_to_hsv(c: Color32) -> (f32, f32, f32) {
         60.0 * (((r - g) / d) + 4.0)
     };
     (h.rem_euclid(360.0), s, v)
+}
+
+/// Draw a clear keyboard focus ring around interactive elements.
+pub fn paint_focus_ring(painter: &egui::Painter, rect: egui::Rect) {
+    painter.rect_stroke(
+        rect,
+        metrics::RADIUS_CONTROL as f32,
+        Stroke::new(2.0_f32, ACCENT()),
+        egui::StrokeKind::Inside,
+    );
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn relative_luminance(c: Color32) -> f64 {
+        fn channel(v: u8) -> f64 {
+            let s = f64::from(v) / 255.0;
+            if s <= 0.04045 {
+                s / 12.92
+            } else {
+                ((s + 0.055) / 1.055).powf(2.4)
+            }
+        }
+        0.2126 * channel(c.r()) + 0.7152 * channel(c.g()) + 0.0722 * channel(c.b())
+    }
+
+    fn contrast_ratio(a: Color32, b: Color32) -> f64 {
+        let la = relative_luminance(a);
+        let lb = relative_luminance(b);
+        let (hi, lo) = if la >= lb { (la, lb) } else { (lb, la) };
+        (hi + 0.05) / (lo + 0.05)
+    }
+
+    #[test]
+    fn wcag_contrast_meets_aa_for_all_skins_and_modes() {
+        for skin in Skin::ALL {
+            for hc in [false, true] {
+                let p = skin.palette(hc);
+                for (bg_name, bg) in [("bg", p.bg), ("panel", p.panel), ("panel_2", p.panel_2)] {
+                    for (fg_name, fg) in [
+                        ("text", p.text),
+                        ("muted", p.muted),
+                        ("safe", p.safe),
+                        ("danger", p.danger),
+                    ] {
+                        let cr = contrast_ratio(fg, bg);
+                        assert!(
+                            cr >= 4.5,
+                            "{skin:?} (high_contrast={hc}) {fg_name} on {bg_name}: contrast {cr:.2} < 4.5"
+                        );
+                    }
+                }
+                let ink_cr = contrast_ratio(p.accent_ink, p.accent);
+                assert!(
+                    ink_cr >= 4.5,
+                    "{skin:?} (high_contrast={hc}) accent_ink on accent: contrast {ink_cr:.2} < 4.5"
+                );
+            }
+        }
+    }
 }

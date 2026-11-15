@@ -6,10 +6,16 @@ mod docker_scenario;
 
 use clap::{Parser, Subcommand};
 use space_clean::{clean, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions};
-use space_core::{format_bytes, scan_path, CacheStore, NodeId, ScanEvent, SizeMode, SpaceTree};
+use space_core::{
+    export, format_bytes, scan_path, CacheStore, FindQuery, NodeId, ScanEvent, SizeMode, SpaceTree,
+};
 
 #[derive(Parser)]
-#[command(name = "space", about = "Space Scanner CLI (index + junk cleaner)")]
+#[command(
+    name = "space",
+    version,
+    about = "Space Scanner CLI (index + junk cleaner)"
+)]
 struct Cli {
     #[command(subcommand)]
     cmd: Cmd,
@@ -29,12 +35,73 @@ enum Cmd {
         path: PathBuf,
         #[arg(long, default_value_t = 20)]
         limit: usize,
+        #[arg(long)]
+        force: bool,
     },
     /// Show total size for a path from cache
     Du {
         path: PathBuf,
         #[arg(long)]
         apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Search scanned tree by name/regex, extension, size, or age
+    Find {
+        path: PathBuf,
+        #[arg(short = 'q', long)]
+        query: Option<String>,
+        #[arg(long)]
+        regex: bool,
+        #[arg(short = 'e', long = "ext", value_delimiter = ',')]
+        exts: Vec<String>,
+        #[arg(long)]
+        min_size: Option<u64>,
+        #[arg(long)]
+        max_size: Option<u64>,
+        #[arg(long)]
+        dirs: bool,
+        #[arg(long)]
+        files: bool,
+        #[arg(long)]
+        min_age: Option<u64>,
+        #[arg(long, default_value_t = 50)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Show largest files or folders under a path
+    Largest {
+        path: PathBuf,
+        #[arg(long, default_value_t = 25)]
+        limit: usize,
+        #[arg(long)]
+        dirs: bool,
+        #[arg(long)]
+        apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Export a scanned tree as json, json-full, csv, largest-csv, tsv, or svg
+    Export {
+        path: PathBuf,
+        #[arg(long, default_value = "json")]
+        format: String,
+        #[arg(short = 'o', long)]
+        out: Option<PathBuf>,
+        #[arg(long, default_value_t = 100)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Inspect or clear on-disk scan cache
+    Cache {
+        #[command(subcommand)]
+        cmd: CacheCmd,
     },
     /// Junk rule manager
     Rules {
@@ -115,6 +182,20 @@ enum ScenarioCmd {
 }
 
 #[derive(Subcommand)]
+enum CacheCmd {
+    /// List cached scan roots
+    Ls,
+    /// Remove cached entry for a path or wipe all with --all
+    Clear {
+        path: Option<PathBuf>,
+        #[arg(long)]
+        all: bool,
+    },
+    /// Print the cache directory path
+    Dir,
+}
+
+#[derive(Subcommand)]
 enum RulesCmd {
     /// List rules (search / filter)
     List {
@@ -192,12 +273,14 @@ fn main() {
                 tree.item_count
             );
         }
-        Cmd::Ls { path, limit } => {
-            let tree = load_or_scan(&path);
+        Cmd::Ls { path, limit, force } => {
+            let tree = load_or_scan(&path, force);
             let mode = SizeMode::OnDisk;
             let kids = tree.children(tree.root);
             for (i, &id) in kids.iter().take(limit).enumerate() {
-                let n = tree.node(id);
+                let Some(n) = tree.try_node(id) else {
+                    continue;
+                };
                 let mark = if n.is_dir { "/" } else { "" };
                 println!(
                     "{:>2}. {:>10}  {}{}",
@@ -208,8 +291,12 @@ fn main() {
                 );
             }
         }
-        Cmd::Du { path, apparent } => {
-            let tree = load_or_scan(&path);
+        Cmd::Du {
+            path,
+            apparent,
+            force,
+        } => {
+            let tree = load_or_scan(&path, force);
             let mode = if apparent {
                 SizeMode::Apparent
             } else {
@@ -224,6 +311,158 @@ fn main() {
                 n.file_count,
                 tree.root_path
             );
+        }
+        Cmd::Find {
+            path,
+            query,
+            regex,
+            exts,
+            min_size,
+            max_size,
+            dirs,
+            files,
+            min_age,
+            limit,
+            apparent,
+            force,
+        } => {
+            let tree = load_or_scan(&path, force);
+            let mode = if apparent {
+                SizeMode::Apparent
+            } else {
+                SizeMode::OnDisk
+            };
+            let q = FindQuery {
+                name_pattern: query,
+                use_regex: regex,
+                exts,
+                min_bytes: min_size,
+                max_bytes: max_size,
+                dirs_only: dirs && !files,
+                files_only: files && !dirs,
+                min_age_days: min_age,
+                max_visit: 0,
+            };
+            let hits = match tree.find_nodes(tree.root, mode, &q, limit) {
+                Ok(h) => h,
+                Err(e) => {
+                    eprintln!("invalid query: {e}");
+                    std::process::exit(2);
+                }
+            };
+            for id in hits {
+                let Some(n) = tree.try_node(id) else {
+                    continue;
+                };
+                println!(
+                    "{:>10}  {}",
+                    format_bytes(n.size(mode)),
+                    tree.path_string(id)
+                );
+            }
+        }
+        Cmd::Largest {
+            path,
+            limit,
+            dirs,
+            apparent,
+            force,
+        } => {
+            let tree = load_or_scan(&path, force);
+            let mode = if apparent {
+                SizeMode::Apparent
+            } else {
+                SizeMode::OnDisk
+            };
+            let hits = if dirs {
+                tree.largest_dirs(tree.root, mode, limit)
+            } else {
+                tree.largest_files(tree.root, mode, limit)
+            };
+            for (i, id) in hits.into_iter().enumerate() {
+                let Some(n) = tree.try_node(id) else {
+                    continue;
+                };
+                println!(
+                    "{:>2}. {:>10}  {}",
+                    i + 1,
+                    format_bytes(n.size(mode)),
+                    tree.path_string(id)
+                );
+            }
+        }
+        Cmd::Export {
+            path,
+            format,
+            out,
+            limit,
+            apparent,
+            force,
+        } => {
+            let tree = load_or_scan(&path, force);
+            let mode = if apparent {
+                SizeMode::Apparent
+            } else {
+                SizeMode::OnDisk
+            };
+            let body = match format.to_ascii_lowercase().as_str() {
+                "csv" => export::children_csv(&tree, tree.root, mode, limit),
+                "largest-csv" => export::largest_csv(&tree, tree.root, mode, limit),
+                "tsv" => {
+                    let cap = if limit == 0 { usize::MAX } else { limit };
+                    let nodes: Vec<NodeId> =
+                        tree.children(tree.root).iter().copied().take(cap).collect();
+                    export::nodes_tsv(&tree, &nodes, mode)
+                }
+                "json" => export::json_shallow(&tree, tree.root, mode, limit),
+                "json-full" => export::json_full(&tree).expect("serialize full tree"),
+                "svg" => export::sunburst_svg(&tree, tree.root, mode, 3, 900),
+                other => {
+                    eprintln!(
+                        "unknown format '{other}' (expected: json, json-full, csv, largest-csv, tsv, svg)"
+                    );
+                    std::process::exit(2);
+                }
+            };
+            if let Some(dest) = out {
+                std::fs::write(&dest, body).expect("write export file");
+                println!("Wrote {}", dest.display());
+            } else {
+                print!("{body}");
+            }
+        }
+        Cmd::Cache { cmd } => {
+            let cache = CacheStore::open().expect("cache dir");
+            match cmd {
+                CacheCmd::Dir => println!("{}", cache.dir().display()),
+                CacheCmd::Ls => {
+                    let items = cache.list_recent().expect("list cache");
+                    if items.is_empty() {
+                        println!("Cache is empty");
+                    } else {
+                        for m in items {
+                            println!(
+                                "{:>10}  {:>7} items  {}",
+                                format_bytes(m.total_size),
+                                m.item_count,
+                                m.root_path
+                            );
+                        }
+                    }
+                }
+                CacheCmd::Clear { path, all } => {
+                    if all {
+                        let count = cache.wipe_all().expect("wipe cache");
+                        println!("Removed {count} cached entries");
+                    } else if let Some(p) = path {
+                        cache.invalidate(&p).expect("invalidate cache");
+                        println!("Cleared cache for {}", p.display());
+                    } else {
+                        eprintln!("Specify a path or pass --all");
+                        std::process::exit(2);
+                    }
+                }
+            }
         }
         Cmd::Rules { cmd, all } => match cmd {
             None => {
@@ -580,17 +819,25 @@ fn scan_blocking(path: &std::path::Path) -> SpaceTree {
                 break;
             }
             ScanEvent::Cancelled => break,
-            ScanEvent::Error(e) => eprintln!("\nwarn: {e}"),
+            ScanEvent::Error(e) => {
+                eprintln!("\nerror: {e}");
+                std::process::exit(1);
+            }
         }
     }
     eprintln!();
-    tree.expect("scan produced no tree")
+    tree.unwrap_or_else(|| {
+        eprintln!("scan produced no tree");
+        std::process::exit(1);
+    })
 }
 
-fn load_or_scan(path: &std::path::Path) -> SpaceTree {
+fn load_or_scan(path: &std::path::Path, force: bool) -> SpaceTree {
     let cache = CacheStore::open().expect("cache");
-    if let Ok(loaded) = cache.load(path) {
-        return loaded.tree;
+    if !force {
+        if let Ok(loaded) = cache.load(path) {
+            return loaded.tree;
+        }
     }
     let tree = scan_blocking(path);
     let _ = cache.save(&tree);

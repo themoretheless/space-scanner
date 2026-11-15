@@ -10,7 +10,8 @@ use crate::tree::SpaceTree;
 
 const CACHE_MAGIC: &[u8; 8] = b"SPSCACHE";
 /// Bump when `SpaceTree` / `Node` on-disk schema changes.
-pub const CACHE_VERSION: u32 = 4;
+pub const CACHE_VERSION: u32 = 5;
+const DEFAULT_MAX_CACHE_ENTRIES: usize = 32;
 
 #[derive(Debug, Error)]
 pub enum CacheError {
@@ -33,6 +34,8 @@ pub struct CacheMeta {
     pub scanned_at_unix: u64,
     pub item_count: u64,
     pub total_size: u64,
+    #[serde(default)]
+    pub last_accessed_unix: u64,
 }
 
 #[derive(Debug, Clone)]
@@ -41,6 +44,8 @@ pub struct CacheLoad {
     pub tree: SpaceTree,
     /// True when root mtime moved ahead of cached snapshot.
     pub stale: bool,
+    /// True when the root path is currently unreachable/offline.
+    pub offline: bool,
 }
 
 pub struct CacheStore {
@@ -57,15 +62,29 @@ impl Clone for CacheStore {
 
 impl CacheStore {
     pub fn open() -> Result<Self, CacheError> {
-        let base = directories::ProjectDirs::from("dev", "space", "space-scanner")
-            .ok_or(CacheError::NoDir)?;
-        let dir = base.cache_dir().join("trees");
+        let dir = if let Some(override_dir) =
+            std::env::var_os("SPACE_CACHE_DIR").filter(|v| !v.is_empty())
+        {
+            PathBuf::from(override_dir)
+        } else {
+            let base = directories::ProjectDirs::from("dev", "space", "space-scanner")
+                .ok_or(CacheError::NoDir)?;
+            base.cache_dir().join("trees")
+        };
+        Self::with_dir(dir)
+    }
+
+    pub fn with_dir(dir: PathBuf) -> Result<Self, CacheError> {
         fs::create_dir_all(&dir)?;
         Ok(Self { dir })
     }
 
+    pub fn dir(&self) -> &Path {
+        &self.dir
+    }
+
     fn key_for(root: &Path) -> String {
-        let canonical = root.canonicalize().unwrap_or_else(|_| root.to_path_buf());
+        let canonical = canonicalize_best_effort(root);
         let hash = blake3::hash(canonical.to_string_lossy().as_bytes());
         hash.to_hex().to_string()
     }
@@ -84,37 +103,62 @@ impl CacheStore {
         bincode::deserialize(&bytes).ok()
     }
 
-    /// Load cache even if stale; sets `stale` flag when root mtime advanced.
+    /// Load cache even if stale; sets `stale` when root mtime advanced or `offline` when unreachable.
     pub fn load(&self, root: &Path) -> Result<CacheLoad, CacheError> {
+        self.load_with_ttl(root, 0)
+    }
+
+    /// Load cache enforcing `ttl_days` (`0` = no age limit); auto-deletes corrupt entries.
+    pub fn load_with_ttl(&self, root: &Path, ttl_days: u32) -> Result<CacheLoad, CacheError> {
         let (meta_path, bin_path) = self.paths(root);
         if !meta_path.exists() || !bin_path.exists() {
             return Err(CacheError::Miss);
         }
 
-        let meta_bytes = fs::read(&meta_path)?;
-        let meta: CacheMeta =
-            bincode::deserialize(&meta_bytes).map_err(|e| CacheError::Decode(e.to_string()))?;
+        let mut meta: CacheMeta =
+            match fs::read(&meta_path)
+                .map_err(CacheError::Io)
+                .and_then(|bytes| {
+                    bincode::deserialize(&bytes).map_err(|e| CacheError::Decode(e.to_string()))
+                }) {
+                Ok(meta) => meta,
+                Err(err) => {
+                    let _ = self.invalidate(root);
+                    return Err(err);
+                }
+            };
 
-        let current_mtime = path_mtime_secs(root).unwrap_or(0);
-        let stale = current_mtime > meta.root_mtime_secs.saturating_add(1);
-
-        let mut file = fs::File::open(&bin_path)?;
-        let mut magic = [0u8; 8];
-        file.read_exact(&mut magic)?;
-        if &magic != CACHE_MAGIC {
-            return Err(CacheError::Decode("bad magic".into()));
+        let now = now_unix();
+        if ttl_days > 0 && now.saturating_sub(meta.scanned_at_unix) > u64::from(ttl_days) * 86_400 {
+            let _ = self.invalidate(root);
+            return Err(CacheError::Miss);
         }
-        let mut ver = [0u8; 4];
-        file.read_exact(&mut ver)?;
-        if u32::from_le_bytes(ver) != CACHE_VERSION {
-            return Err(CacheError::Decode("version mismatch".into()));
-        }
-        let decoder = zstd::stream::read::Decoder::new(file)
-            .map_err(|e| CacheError::Decode(e.to_string()))?;
-        let tree: SpaceTree =
-            bincode::deserialize_from(decoder).map_err(|e| CacheError::Decode(e.to_string()))?;
 
-        Ok(CacheLoad { meta, tree, stale })
+        let offline = !root.exists();
+        let stale = if offline {
+            false
+        } else {
+            let current_mtime = path_mtime_secs(root).unwrap_or(0);
+            current_mtime > meta.root_mtime_secs.saturating_add(1)
+        };
+
+        let tree = match read_and_validate_tree(&bin_path) {
+            Ok(tree) => tree,
+            Err(err) => {
+                let _ = self.invalidate(root);
+                return Err(err);
+            }
+        };
+
+        meta.last_accessed_unix = now;
+        let _ = write_meta_atomic(&meta_path, &meta);
+
+        Ok(CacheLoad {
+            meta,
+            tree,
+            stale,
+            offline,
+        })
     }
 
     pub fn load_if_fresh(&self, root: &Path) -> Result<(CacheMeta, SpaceTree), CacheError> {
@@ -129,16 +173,15 @@ impl CacheStore {
         let root = Path::new(&tree.root_path);
         let (meta_path, bin_path) = self.paths(root);
 
+        let now = now_unix();
         let meta = CacheMeta {
             root_path: tree.root_path.clone(),
             root_mtime_secs: path_mtime_secs(root).unwrap_or(0),
             scanned_at_unix: tree.scanned_at_unix,
             item_count: tree.item_count,
             total_size: tree.total_size(),
+            last_accessed_unix: now,
         };
-
-        let meta_bytes =
-            bincode::serialize(&meta).map_err(|e| CacheError::Encode(e.to_string()))?;
 
         let tmp_bin = bin_path.with_extension("bin.tmp");
         {
@@ -157,7 +200,8 @@ impl CacheStore {
             f.sync_all()?;
         }
         fs::rename(&tmp_bin, &bin_path)?;
-        fs::write(&meta_path, meta_bytes)?;
+        write_meta_atomic(&meta_path, &meta)?;
+        let _ = self.evict_lru(DEFAULT_MAX_CACHE_ENTRIES);
 
         Ok(meta)
     }
@@ -189,6 +233,136 @@ impl CacheStore {
         out.sort_by_key(|meta| std::cmp::Reverse(meta.scanned_at_unix));
         Ok(out)
     }
+
+    pub fn wipe_all(&self) -> Result<usize, CacheError> {
+        if !self.dir.exists() {
+            return Ok(0);
+        }
+        let mut removed = 0usize;
+        for entry in fs::read_dir(&self.dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            if path.extension().and_then(|e| e.to_str()) == Some("meta") {
+                removed += 1;
+            }
+            let _ = fs::remove_file(path);
+        }
+        Ok(removed)
+    }
+
+    pub fn prune_ttl(&self, ttl_days: u32) -> Result<usize, CacheError> {
+        if ttl_days == 0 || !self.dir.exists() {
+            return Ok(0);
+        }
+        let cutoff = now_unix().saturating_sub(u64::from(ttl_days).saturating_mul(86_400));
+        let mut removed = 0usize;
+        for entry in fs::read_dir(&self.dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            if path.extension().and_then(|e| e.to_str()) != Some("meta") {
+                continue;
+            }
+            let expired = fs::read(&path)
+                .ok()
+                .and_then(|b| bincode::deserialize::<CacheMeta>(&b).ok())
+                .is_none_or(|m| m.scanned_at_unix < cutoff);
+            if expired {
+                let bin = path.with_extension("bin");
+                let _ = fs::remove_file(&path);
+                let _ = fs::remove_file(bin);
+                removed += 1;
+            }
+        }
+        Ok(removed)
+    }
+
+    pub fn evict_lru(&self, max_entries: usize) -> Result<usize, CacheError> {
+        if !self.dir.exists() {
+            return Ok(0);
+        }
+        let mut entries: Vec<(u64, PathBuf)> = Vec::new();
+        for entry in fs::read_dir(&self.dir)? {
+            let entry = entry?;
+            let path = entry.path();
+            if path.extension().and_then(|e| e.to_str()) != Some("meta") {
+                continue;
+            }
+            let stamp = fs::read(&path)
+                .ok()
+                .and_then(|b| bincode::deserialize::<CacheMeta>(&b).ok())
+                .map_or(0, |m| m.last_accessed_unix.max(m.scanned_at_unix));
+            entries.push((stamp, path));
+        }
+        if entries.len() <= max_entries {
+            return Ok(0);
+        }
+        entries.sort_by_key(|(stamp, _)| std::cmp::Reverse(*stamp));
+        let mut evicted = 0usize;
+        for (_, meta_path) in entries.into_iter().skip(max_entries) {
+            let bin_path = meta_path.with_extension("bin");
+            let _ = fs::remove_file(&meta_path);
+            let _ = fs::remove_file(bin_path);
+            evicted += 1;
+        }
+        Ok(evicted)
+    }
+}
+
+fn read_and_validate_tree(bin_path: &Path) -> Result<SpaceTree, CacheError> {
+    let mut file = fs::File::open(bin_path)?;
+    let mut magic = [0u8; 8];
+    file.read_exact(&mut magic)?;
+    if &magic != CACHE_MAGIC {
+        return Err(CacheError::Decode("bad magic".into()));
+    }
+    let mut ver = [0u8; 4];
+    file.read_exact(&mut ver)?;
+    if u32::from_le_bytes(ver) != CACHE_VERSION {
+        return Err(CacheError::Decode("version mismatch".into()));
+    }
+    let decoder =
+        zstd::stream::read::Decoder::new(file).map_err(|e| CacheError::Decode(e.to_string()))?;
+    let tree: SpaceTree =
+        bincode::deserialize_from(decoder).map_err(|e| CacheError::Decode(e.to_string()))?;
+    tree.validate()
+        .map_err(|msg| CacheError::Decode(msg.into()))?;
+    Ok(tree)
+}
+
+fn write_meta_atomic(meta_path: &Path, meta: &CacheMeta) -> Result<(), CacheError> {
+    let bytes = bincode::serialize(meta).map_err(|e| CacheError::Encode(e.to_string()))?;
+    let tmp = meta_path.with_extension("meta.tmp");
+    {
+        let mut f = fs::File::create(&tmp)?;
+        f.write_all(&bytes)?;
+        f.sync_all()?;
+    }
+    fs::rename(&tmp, meta_path)?;
+    Ok(())
+}
+
+fn canonicalize_best_effort(path: &Path) -> PathBuf {
+    if let Ok(c) = path.canonicalize() {
+        return c;
+    }
+    let mut missing = Vec::new();
+    let mut cur = Some(path);
+    while let Some(p) = cur {
+        if let Ok(canon) = p.canonicalize() {
+            let mut out = canon;
+            for part in missing.into_iter().rev() {
+                out.push(part);
+            }
+            return out;
+        }
+        if let Some(name) = p.file_name() {
+            missing.push(name.to_os_string());
+        } else {
+            break;
+        }
+        cur = p.parent();
+    }
+    path.to_path_buf()
 }
 
 fn path_mtime_secs(path: &Path) -> Option<u64> {
@@ -197,7 +371,6 @@ fn path_mtime_secs(path: &Path) -> Option<u64> {
     Some(modified.duration_since(UNIX_EPOCH).ok()?.as_secs())
 }
 
-#[allow(dead_code)]
 fn now_unix() -> u64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -210,19 +383,8 @@ mod tests {
     use super::*;
     use crate::tree::{Node, NodeId};
 
-    #[test]
-    fn streaming_cache_round_trip_preserves_tree() {
-        let unique = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_nanos();
-        let base = std::env::temp_dir().join(format!("space-cache-stream-{unique}"));
-        let root = base.join("root");
-        let cache_dir = base.join("cache");
-        fs::create_dir_all(&root).unwrap();
-        fs::create_dir_all(&cache_dir).unwrap();
-        let store = CacheStore { dir: cache_dir };
-        let tree = SpaceTree {
+    fn sample_tree(root: &Path, scanned_at_unix: u64) -> SpaceTree {
+        SpaceTree {
             root_path: root.to_string_lossy().into_owned(),
             nodes: vec![Node {
                 name: "root".into(),
@@ -231,16 +393,39 @@ mod tests {
                 file_count: 1,
                 is_dir: true,
                 synthetic: false,
+                mtime_unix: 100,
                 children: Vec::new(),
                 parent: None,
             }],
             root: NodeId(0),
-            scanned_at_unix: 123,
+            scanned_at_unix,
             item_count: 1,
             skipped_errors: 0,
             hardlink_candidates: 0,
             hardlinks_deduped: 0,
-        };
+            skipped_roots: Vec::new(),
+        }
+    }
+
+    fn temp_base(name: &str) -> PathBuf {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        std::env::temp_dir().join(format!(
+            "space-cache-{name}-{}-{unique}",
+            std::process::id()
+        ))
+    }
+
+    #[test]
+    fn streaming_cache_round_trip_preserves_tree() {
+        let base = temp_base("stream");
+        let root = base.join("root");
+        let cache_dir = base.join("cache");
+        fs::create_dir_all(&root).unwrap();
+        let store = CacheStore::with_dir(cache_dir).unwrap();
+        let tree = sample_tree(&root, 123);
 
         store.save(&tree).unwrap();
         let loaded = store.load(&root).unwrap();
@@ -248,6 +433,59 @@ mod tests {
         assert_eq!(loaded.tree.total_size(), 8);
         assert_eq!(loaded.tree.item_count, 1);
         assert_eq!(loaded.meta.scanned_at_unix, 123);
+        assert!(!loaded.offline);
+        fs::remove_dir_all(base).unwrap();
+    }
+
+    #[test]
+    fn corrupt_entry_is_auto_deleted_and_offline_root_flags_offline() {
+        let base = temp_base("corrupt");
+        let root = base.join("root");
+        let cache_dir = base.join("cache");
+        fs::create_dir_all(&root).unwrap();
+        let store = CacheStore::with_dir(cache_dir).unwrap();
+        store.save(&sample_tree(&root, now_unix())).unwrap();
+
+        let (meta_path, bin_path) = store.paths(&root);
+        fs::write(&bin_path, b"NOT_VALID_CACHE").unwrap();
+        assert!(matches!(store.load(&root), Err(CacheError::Decode(_))));
+        assert!(!meta_path.exists());
+        assert!(!bin_path.exists());
+
+        store.save(&sample_tree(&root, now_unix())).unwrap();
+        fs::remove_dir_all(&root).unwrap();
+        let loaded = store.load(&root).unwrap();
+        assert!(loaded.offline);
+        assert!(!loaded.stale);
+        fs::remove_dir_all(base).unwrap();
+    }
+
+    #[test]
+    fn ttl_eviction_lru_and_wipe_all_work() {
+        let base = temp_base("evict");
+        let cache_dir = base.join("cache");
+        let store = CacheStore::with_dir(cache_dir).unwrap();
+
+        let r1 = base.join("r1");
+        let r2 = base.join("r2");
+        let r3 = base.join("r3");
+        for r in [&r1, &r2, &r3] {
+            fs::create_dir_all(r).unwrap();
+        }
+        store.save(&sample_tree(&r1, 1)).unwrap();
+        store.save(&sample_tree(&r2, now_unix())).unwrap();
+        store.save(&sample_tree(&r3, now_unix())).unwrap();
+
+        assert!(matches!(store.load_with_ttl(&r1, 1), Err(CacheError::Miss)));
+        assert_eq!(store.list_recent().unwrap().len(), 2);
+
+        // Save r1 again as newest, then keep max 2 via LRU
+        store.save(&sample_tree(&r1, now_unix() + 10)).unwrap();
+        assert_eq!(store.evict_lru(2).unwrap(), 1);
+        assert_eq!(store.list_recent().unwrap().len(), 2);
+
+        assert_eq!(store.wipe_all().unwrap(), 2);
+        assert!(store.list_recent().unwrap().is_empty());
         fs::remove_dir_all(base).unwrap();
     }
 }

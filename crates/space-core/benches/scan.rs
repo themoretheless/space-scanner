@@ -13,7 +13,9 @@ use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 
 use airbug_bench::{DropPolicy, Suite};
-use space_core::{rescan_subtree, scan_path, NodeId, ScanEvent, SpaceTree};
+use space_core::{
+    rescan_subtree, scan_path_with_options, NodeId, ScanEvent, ScanOptions, SpaceTree,
+};
 
 fn main() -> airbug_bench::Result<()> {
     // `cargo bench` appends `--bench`; airbug-bench rejects unknown flags.
@@ -55,16 +57,39 @@ fn main() -> airbug_bench::Result<()> {
     );
 
     // Reuse the large fixture: repeated creation/deletion dwarfs scan time.
-    let large_fixture = std::sync::OnceLock::new();
+    let large_fixture = std::sync::Arc::new(std::sync::OnceLock::new());
+    let large_fixture_bulk = std::sync::Arc::clone(&large_fixture);
     suite.bench_with_input(
         "scan/tree_65536",
         move || {
             std::sync::Arc::clone(
-                large_fixture.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
+                large_fixture_bulk.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
             )
         },
         |root| {
-            let tree = scan_blocking(root);
+            let tree = scan_blocking_opts(root, ScanOptions::default());
+            assert_eq!(tree.node(tree.root).file_count, 65_536);
+            black_box(tree.item_count);
+        },
+        DropPolicy::OutsideTiming,
+    );
+
+    let large_fixture_readdir = std::sync::Arc::clone(&large_fixture);
+    suite.bench_with_input(
+        "scan/tree_65536_read_dir",
+        move || {
+            std::sync::Arc::clone(
+                large_fixture_readdir.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
+            )
+        },
+        |root| {
+            let tree = scan_blocking_opts(
+                root,
+                ScanOptions {
+                    force_read_dir: true,
+                    ..ScanOptions::default()
+                },
+            );
             assert_eq!(tree.node(tree.root).file_count, 65_536);
             black_box(tree.item_count);
         },
@@ -182,7 +207,11 @@ fn make_fixture(tops: u8, mids: u8, files: u8) -> Fixture {
 }
 
 fn scan_blocking(path: &Path) -> SpaceTree {
-    let handle = scan_path(path);
+    scan_blocking_opts(path, ScanOptions::default())
+}
+
+fn scan_blocking_opts(path: &Path, options: ScanOptions) -> SpaceTree {
+    let handle = scan_path_with_options(path, options);
     loop {
         match handle.events.recv_timeout(Duration::from_secs(120)) {
             Ok(ScanEvent::Done(t)) => return *t,
