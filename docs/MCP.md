@@ -35,7 +35,9 @@ Example configuration for clients that accept `mcpServers` JSON (replace the pat
 | `rule_details` | Exact rule `id` | Full rule and effective enabled/minimum-age settings |
 
 Page limits are 1–200 (default 100). Call page tools with the returned
-`next_offset` until it is null. For disk navigation pass a directory's `node_id`.
+`next_offset` until it is null (the key is always present). An `offset` past
+`total` is an error that names the total; `offset == total` returns an empty
+page. For disk navigation pass a directory's `node_id`.
 Synthetic nodes aggregate small files; they are not paths and cannot be opened.
 
 Only the most recent disk scan and the most recent junk scan are retained in
@@ -44,16 +46,22 @@ scan of the same kind. IDs must not be reused across server sessions. Failed sca
 do not replace the last successful result.
 
 Junk scans use the existing host rules, saved preferences, exclusions and safety
-checks. Rule discovery follows the CLI's existing order: `./rules`, a directory
-beside the executable, then the source checkout fallback. Launch from a directory
-without an unrelated `rules` folder. Catalog caches may be written by the shared
-loader. No tool deletes files or changes rule preferences.
+checks. Rule discovery follows the CLI's order: `SPACE_RULES_DIR`, a `rules`
+directory beside the executable (or inside the `.app` bundle), then the source
+checkout fallback; the working directory is never consulted. The catalog and
+preferences are loaded once and reused while the rule files' fingerprint is
+unchanged; editing a rule file is picked up on the next call. Catalog caches may
+be written by the shared loader. No tool deletes files or changes rule
+preferences.
 
-One scan/catalog operation runs at a time; concurrent requests receive `busy`.
-Page reads remain available during scans. Scans finish as one tool call; set the
-client's tool timeout appropriately for large disks. An interrupted request may
-continue its filesystem work in the background until completion, retaining the
-operation slot. There is no cleanup tool in this version.
+One scan (`scan_disk`, `scan_junk`) runs at a time; a concurrent scan request
+receives `busy`. Page reads, `largest_entries`, `inspect_path`, `search_rules`
+and `rule_details` do not take the scan slot and remain available during scans.
+Scans finish as one tool call; set the client's tool timeout appropriately for
+large disks. A `notifications/cancelled` for a running `scan_disk` stops the
+filesystem walk within about 100 ms and releases the slot; the request then
+fails with `scan cancelled by client` and the previous scan result is kept.
+There is no cleanup tool in this version.
 
 ## Verification
 
@@ -89,8 +97,9 @@ inconclusive. Rule evidence comes from a snapshot and is not a fresh age/exclusi
 check. The tool does not determine whether an application is currently using data.
 
 Directory metadata sizes describe the directory entry itself, not recursive
-contents; use disk scan totals for those. Symlink metadata describes the link,
-without inspecting its target's project markers. Junk correlation for symlinks is
+contents; use disk scan totals for those. Symlink metadata describes the link;
+project markers are looked up along the link's own (lexical) parent path, never
+along its target's. Junk correlation for symlinks is
 rejected to avoid confusing target evidence with the link. Display paths from disk
 scans use Unicode-normalized names; on case/normalization-sensitive filesystems,
 verify a live path with `inspect_path` before relying on it. Individual small files

@@ -625,6 +625,38 @@ fn file_ext_lower(name: &str) -> String {
         .unwrap_or_default()
 }
 
+pub fn largest_entries(
+    tree: &SpaceTree,
+    mode: SizeMode,
+    limit: usize,
+    dirs: bool,
+    files: bool,
+) -> Vec<NodeId> {
+    if limit == 0 || !(dirs || files) {
+        return Vec::new();
+    }
+    let mut heap =
+        std::collections::BinaryHeap::with_capacity(limit.saturating_add(1).min(tree.nodes.len()));
+    for (i, node) in tree.nodes.iter().enumerate() {
+        if i == tree.root.0 as usize || node.synthetic {
+            continue;
+        }
+        if (node.is_dir && !dirs) || (!node.is_dir && !files) {
+            continue;
+        }
+        heap.push(std::cmp::Reverse((node.size(mode), std::cmp::Reverse(i))));
+        if heap.len() > limit {
+            heap.pop();
+        }
+    }
+    let mut ranked: Vec<_> = heap.into_iter().map(|std::cmp::Reverse(v)| v).collect();
+    ranked.sort_unstable_by(|a, b| b.cmp(a));
+    ranked
+        .into_iter()
+        .map(|(_, std::cmp::Reverse(i))| NodeId(i as u32))
+        .collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

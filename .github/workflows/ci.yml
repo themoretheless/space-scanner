@@ -31,7 +31,9 @@ jobs:
       - name: Clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
       - name: Test workspace
-        run: cargo test --workspace --locked
+        run: cargo test --workspace --exclude space-clean --locked
+      - name: Test space-clean (full rule pack)
+        run: cargo test -p space-clean --release --locked
       - name: Build macOS release app bundle
         if: runner.os == 'macOS'
         run: cargo build -p space-app --release --locked

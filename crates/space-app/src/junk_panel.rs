@@ -978,6 +978,8 @@ mod tests {
             bytes,
             is_dir: false,
             report_only,
+            root: None,
+            min_age_days: 0,
         }
     }
 

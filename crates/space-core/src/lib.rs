@@ -12,4 +12,6 @@ pub use scan::{
     rescan_subtree, rescan_subtree_with_options, scan_path, scan_path_with_expect,
     scan_path_with_options, ScanEvent, ScanHandle, ScanOptions, ScanProgress,
 };
-pub use tree::{DuplicateGroup, ExtGroup, FindQuery, Node, NodeId, SizeMode, SpaceTree};
+pub use tree::{
+    largest_entries, DuplicateGroup, ExtGroup, FindQuery, Node, NodeId, SizeMode, SpaceTree,
+};

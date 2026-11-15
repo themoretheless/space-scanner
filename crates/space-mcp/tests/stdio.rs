@@ -68,6 +68,7 @@ fn stdio_protocol() {
     ));
     let data = root.join("data");
     fs::create_dir_all(root.join("rules")).unwrap();
+    fs::create_dir_all(root.join("home")).unwrap();
     for name in ["one", "two", "three"] {
         fs::create_dir_all(data.join(name)).unwrap();
         fs::write(data.join(name).join("test.log"), b"fixture").unwrap();
@@ -76,6 +77,10 @@ fn stdio_protocol() {
     fs::write(root.join("rules/fixture.yaml"),json!({"rules":[{"id":"mcp-fixture","name":"MCP Fixture","description":"stdio integration fixture","category":"mcp-fixture","platform":"any","paths":[data],"min_age_days":0,"include_globs":["**/*.log"],"default_enabled":true}]}).to_string()).unwrap();
     let mut child = Command::new(env!("CARGO_BIN_EXE_space-mcp"))
         .current_dir(&root)
+        .env("SPACE_RULES_DIR", root.join("rules"))
+        .env("HOME", root.join("home"))
+        .env("XDG_CONFIG_HOME", root.join("home/.config"))
+        .env("XDG_CACHE_HOME", root.join("home/.cache"))
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .stderr(Stdio::inherit())
@@ -161,13 +166,29 @@ fn stdio_protocol() {
     let findings = s.call("junk_page", json!({"scan_id":junk["scan_id"],"limit":2}));
     assert_eq!(findings["items"].as_array().unwrap().len(), 2);
     assert_eq!(findings["next_offset"], 2);
-    assert_eq!(
-        s.call("junk_page", json!({"scan_id":junk["scan_id"],"offset":2}))["items"]
-            .as_array()
-            .unwrap()
-            .len(),
-        1
+    let last = s.call("junk_page", json!({"scan_id":junk["scan_id"],"offset":2}));
+    assert_eq!(last["items"].as_array().unwrap().len(), 1);
+    assert!(last["next_offset"].is_null(), "{last}");
+    assert!(
+        last.as_object().unwrap().contains_key("next_offset"),
+        "next_offset must be explicit: {last}"
     );
+    let at_end = s.call("junk_page", json!({"scan_id":junk["scan_id"],"offset":3}));
+    assert_eq!(at_end["items"].as_array().unwrap().len(), 0);
+    assert!(at_end["next_offset"].is_null());
+    let reply = s.request(
+        "tools/call",
+        json!({"name":"junk_page","arguments":{"scan_id":junk["scan_id"],"offset":4}}),
+    );
+    assert_eq!(reply["result"]["isError"], true, "{reply}");
+    assert!(
+        reply["result"]["content"][0]["text"]
+            .as_str()
+            .unwrap()
+            .contains("total 3"),
+        "{reply}"
+    );
+    s.error("disk_page", json!({"scan_id":disk["scan_id"],"offset":99}));
     s.error("junk_page", json!({"scan_id":junk["scan_id"],"node_id":1}));
     assert!(data.join("keep.tmp").exists());
     for name in ["one", "two", "three"] {
@@ -216,9 +237,16 @@ fn stdio_protocol() {
     #[cfg(unix)]
     {
         std::os::unix::fs::symlink(data.join("larger.bin"), data.join("link")).unwrap();
-        assert_eq!(
-            s.call("inspect_path", json!({"path":data.join("link")}))["type"],
-            "symlink"
+        let link = s.call("inspect_path", json!({"path":data.join("link")}));
+        assert_eq!(link["type"], "symlink");
+        // The link's own (lexical) location is judged, not its target's.
+        assert!(
+            link["evidence"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|e| e["kind"] == "project_marker"),
+            "{link}"
         );
         s.error(
             "inspect_path",
