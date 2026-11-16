@@ -1,7 +1,6 @@
 //! Mounted volume listing — fast defaults first, full refresh in background.
 
 use std::path::{Path, PathBuf};
-#[cfg(target_os = "macos")]
 use std::process::Command;
 
 use sysinfo::Disks;
@@ -47,7 +46,7 @@ pub fn list_volumes_fast() -> Vec<VolumeInfo> {
                 continue;
             }
             let name = entry.file_name().to_string_lossy().into_owned();
-            if name == "Macintosh HD" || is_same_inode(&path, Path::new("/")) {
+            if name == "Macintosh HD" || is_same_file(&path, Path::new("/")) {
                 continue;
             }
             out.push(VolumeInfo {
@@ -61,26 +60,18 @@ pub fn list_volumes_fast() -> Vec<VolumeInfo> {
         }
     }
 
-    push_home(&mut out);
-    out
-}
-
-/// The personal-files target, listed after the disks in both listings.
-fn push_home(out: &mut Vec<VolumeInfo>) {
     if let Some(home) = std::env::var_os("HOME") {
-        let mount = PathBuf::from(home);
-        if out.iter().any(|v| v.mount == mount) {
-            return;
-        }
         out.push(VolumeInfo {
             name: "Home".into(),
-            mount,
+            mount: PathBuf::from(home),
             total: 0,
             available: 0,
             apfs_consumed: None,
             snapshot_count: 0,
         });
     }
+
+    out
 }
 
 /// Full disk stats — can take seconds on macOS; call off the UI thread.
@@ -135,7 +126,6 @@ pub fn list_volumes() -> Vec<VolumeInfo> {
     }
 
     unique.sort_by_key(|volume| std::cmp::Reverse(volume.used()));
-    push_home(&mut unique);
     unique
 }
 
@@ -179,8 +169,7 @@ fn apfs_volume_stats(mount: &str) -> Option<(u64, u32)> {
     let txt = String::from_utf8_lossy(&out.stdout);
     let consumed =
         plist_u64(&txt, "VolumeUsedSpace").or_else(|| plist_u64(&txt, "CapacityInUse"))?;
-    // One `diskutil info` per volume: the device id comes from the same plist.
-    let snaps = snapshot_count_for_device(plist_string(&txt, "DeviceIdentifier").unwrap_or_default());
+    let snaps = snapshot_count_for_mount(mount);
     Some((consumed, snaps))
 }
 
@@ -195,7 +184,18 @@ fn plist_u64(plist: &str, key: &str) -> Option<u64> {
 }
 
 #[cfg(target_os = "macos")]
-fn snapshot_count_for_device(device: String) -> u32 {
+fn snapshot_count_for_mount(mount: &str) -> u32 {
+    let info = Command::new("diskutil")
+        .args(["info", "-plist", mount])
+        .output()
+        .ok();
+    let device = info
+        .as_ref()
+        .and_then(|o| {
+            let t = String::from_utf8_lossy(&o.stdout);
+            plist_string(&t, "DeviceIdentifier")
+        })
+        .unwrap_or_default();
     if device.is_empty() {
         return tmutil_snapshot_lines();
     }
@@ -285,19 +285,78 @@ fn same_disk(a: &VolumeInfo, b: &VolumeInfo) -> bool {
     root_pair && a.total > 0 && a.total == b.total
 }
 
-/// Same filesystem object, without `canonicalize` (which resolves every
-/// component and can stall on a slow network mount).
-fn is_same_inode(a: &Path, b: &Path) -> bool {
-    #[cfg(unix)]
-    {
-        use std::os::unix::fs::MetadataExt;
-        match (std::fs::metadata(a), std::fs::metadata(b)) {
-            (Ok(ma), Ok(mb)) => ma.dev() == mb.dev() && ma.ino() == mb.ino(),
-            _ => false,
+fn is_same_file(a: &Path, b: &Path) -> bool {
+    match (std::fs::canonicalize(a), std::fs::canonicalize(b)) {
+        (Ok(ca), Ok(cb)) => ca == cb,
+        _ => false,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn vol(name: &str, mount: &str, total: u64, available: u64) -> VolumeInfo {
+        VolumeInfo {
+            name: name.into(),
+            mount: PathBuf::from(mount),
+            total,
+            available,
+            apfs_consumed: None,
+            snapshot_count: 0,
         }
     }
-    #[cfg(not(unix))]
-    {
-        a == b
+
+    #[test]
+    fn skips_system_auxiliary_mounts() {
+        for path in [
+            "/System/Volumes/Preboot",
+            "/System/Volumes/Update",
+            "/System/Volumes/xarts",
+            "/System/Volumes/iSCPreboot",
+            "/System/Volumes/Hardware",
+            "/System/Volumes/VM",
+            "/private/var/vm",
+            "/dev",
+            "/dev/fd",
+            "/System/Volumes/CloudStorage",
+        ] {
+            assert!(should_skip_mount(Path::new(path)), "expected skip: {path}");
+        }
+        assert!(!should_skip_mount(Path::new("/")));
+        assert!(!should_skip_mount(Path::new("/System/Volumes/Data")));
+        assert!(!should_skip_mount(Path::new("/Volumes/External")));
+    }
+
+    #[test]
+    fn prefers_data_volume_and_dedupes_apfs_pair() {
+        assert!(
+            mount_preference(Path::new("/System/Volumes/Data")) > mount_preference(Path::new("/"))
+        );
+        assert!(mount_preference(Path::new("/")) > mount_preference(Path::new("/Volumes/Ext")));
+        let root = vol("Macintosh HD", "/", 1000, 400);
+        let data = vol("Data", "/System/Volumes/Data", 1000, 400);
+        let external = vol("External", "/Volumes/External", 2000, 1000);
+        assert!(same_disk(&root, &data));
+        assert!(!same_disk(&root, &external));
+    }
+
+    #[test]
+    fn match_volume_picks_deepest_mount_and_used_prefers_apfs_consumed() {
+        let mut root = vol("Macintosh HD", "/", 1000, 400);
+        root.apfs_consumed = Some(720);
+        let ext = vol("SSD", "/Volumes/SSD", 2000, 500);
+        let vols = [root.clone(), ext];
+
+        assert_eq!(root.used(), 720);
+        assert_eq!(vols[1].used(), 1500);
+        assert_eq!(
+            match_volume(&vols, "/Volumes/SSD/Projects").map(|v| v.name.as_str()),
+            Some("SSD")
+        );
+        assert_eq!(
+            match_volume(&vols, "/Users/me").map(|v| v.name.as_str()),
+            Some("Macintosh HD")
+        );
     }
 }

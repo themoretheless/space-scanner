@@ -13,7 +13,7 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use airbug_bench::{DropPolicy, Suite};
-use space_core::{format_bytes, rescan_subtree, scan_path, NodeId, SpaceTree};
+use space_core::{rescan_subtree, scan_path_with_options, NodeId, ScanOptions, SpaceTree};
 
 fn main() -> airbug_bench::Result<()> {
     // `cargo bench` appends `--bench`; airbug-bench rejects unknown flags.
@@ -55,22 +55,55 @@ fn main() -> airbug_bench::Result<()> {
     );
 
     // Reuse the large fixture: repeated creation/deletion dwarfs scan time.
-    let large_fixture = std::sync::OnceLock::new();
+    let large_fixture = std::sync::Arc::new(std::sync::OnceLock::new());
+    let large_fixture_bulk = std::sync::Arc::clone(&large_fixture);
     suite.bench_with_input(
         "scan/tree_65536",
         move || {
             std::sync::Arc::clone(
-                large_fixture.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
+                large_fixture_bulk.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
             )
         },
         |root| {
-            let tree = scan_blocking(root);
+            let tree = scan_blocking_opts(root, ScanOptions::default());
             assert_eq!(tree.node(tree.root).file_count, 65_536);
             black_box(tree.item_count);
         },
         DropPolicy::OutsideTiming,
     );
 
+    let large_fixture_readdir = std::sync::Arc::clone(&large_fixture);
+    suite.bench_with_input(
+        "scan/tree_65536_read_dir",
+        move || {
+            std::sync::Arc::clone(
+                large_fixture_readdir.get_or_init(|| std::sync::Arc::new(make_fixture(32, 32, 64))),
+            )
+        },
+        |root| {
+            let tree = scan_blocking_opts(
+                root,
+                ScanOptions {
+                    force_read_dir: true,
+                    ..ScanOptions::default()
+                },
+            );
+            assert_eq!(tree.node(tree.root).file_count, 65_536);
+            black_box(tree.item_count);
+        },
+        DropPolicy::OutsideTiming,
+    );
+
+    suite.bench_with_input(
+        "scan/sums_4096",
+        || make_fixture(16, 16, 16),
+        |root| {
+            let tree = scan_blocking(root);
+            black_box(tree.total_size());
+            black_box(tree.node(tree.root).file_count);
+        },
+        DropPolicy::OutsideTiming,
+    );
 
     suite.bench_with_input(
         "rescan/subtree_256_of_4096",
@@ -101,7 +134,7 @@ fn run_phase_profile() {
     let bytes = tree.total_size();
     eprintln!(
         "items={items} files={files} size={} wall={wall:?} ({:.0} files/s)",
-        format_bytes(bytes),
+        humansize_ish(bytes),
         files as f64 / wall.as_secs_f64().max(1e-9)
     );
     eprintln!(
@@ -111,6 +144,18 @@ fn run_phase_profile() {
     );
     eprintln!("--- end phase profile ---\n");
     drop(fix);
+}
+
+fn humansize_ish(n: u64) -> String {
+    if n >= 1 << 30 {
+        format!("{:.1} GiB", n as f64 / (1u64 << 30) as f64)
+    } else if n >= 1 << 20 {
+        format!("{:.1} MiB", n as f64 / (1u64 << 20) as f64)
+    } else if n >= 1 << 10 {
+        format!("{:.1} KiB", n as f64 / (1u64 << 10) as f64)
+    } else {
+        format!("{n} B")
+    }
 }
 
 /// Temp tree that deletes itself when dropped.
@@ -160,7 +205,13 @@ fn make_fixture(tops: u8, mids: u8, files: u8) -> Fixture {
 }
 
 fn scan_blocking(path: &Path) -> SpaceTree {
-    scan_path(path).wait().expect("scan")
+    scan_blocking_opts(path, ScanOptions::default())
+}
+
+fn scan_blocking_opts(path: &Path, options: ScanOptions) -> SpaceTree {
+    scan_path_with_options(path, options)
+        .wait()
+        .expect("benchmark scan failed")
 }
 
 fn child_named(tree: &SpaceTree, parent: NodeId, name: &str) -> NodeId {

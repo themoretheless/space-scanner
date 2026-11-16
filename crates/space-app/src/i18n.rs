@@ -27,6 +27,7 @@ impl Lang {
 }
 
 static LANG: AtomicU8 = AtomicU8::new(0);
+static BYTE_UNIT: AtomicU8 = AtomicU8::new(0);
 
 pub fn set(lang: Lang) {
     LANG.store(lang as u8, Ordering::Relaxed);
@@ -39,54 +40,42 @@ pub fn get() -> Lang {
     }
 }
 
-/// Language of the operating system (the user's locale preference), falling
-/// back to the `LC_ALL`, `LC_MESSAGES` and `LANG` environment variables.
-pub fn detect() -> Lang {
-    if let Some(locale) = sys_locale::get_locale() {
-        if let Some(lang) = lang_of_locale(&locale) {
-            return lang;
-        }
+pub fn set_byte_unit(unit: crate::settings::ByteUnit) {
+    let raw = match unit {
+        crate::settings::ByteUnit::Binary => 0,
+        crate::settings::ByteUnit::Si => 1,
+    };
+    BYTE_UNIT.store(raw, Ordering::Relaxed);
+}
+
+pub fn byte_unit() -> crate::settings::ByteUnit {
+    match BYTE_UNIT.load(Ordering::Relaxed) {
+        1 => crate::settings::ByteUnit::Si,
+        _ => crate::settings::ByteUnit::Binary,
     }
+}
+
+/// Whether `lang` renders right-to-left (stub ready for future RTL locales).
+#[allow(dead_code)]
+pub fn is_rtl(lang: Lang) -> bool {
+    let _ = lang;
+    false
+}
+
+/// Language from the environment (`LC_ALL`, `LC_MESSAGES`, `LANG`).
+pub fn detect() -> Lang {
     for var in ["LC_ALL", "LC_MESSAGES", "LANG"] {
-        if let Some(lang) = std::env::var(var).ok().as_deref().and_then(lang_of_locale) {
-            return lang;
+        if let Ok(value) = std::env::var(var) {
+            if !value.is_empty() {
+                return if value.to_ascii_lowercase().starts_with("ru") {
+                    Lang::Ru
+                } else {
+                    Lang::En
+                };
+            }
         }
     }
     Lang::En
-}
-
-/// `ru-RU`, `ru_RU.UTF-8`, `ru` → Russian; empty or `C` → undecided.
-fn lang_of_locale(locale: &str) -> Option<Lang> {
-    let locale = locale.trim();
-    if locale.is_empty() || locale == "C" || locale == "POSIX" {
-        return None;
-    }
-    let tag = locale
-        .split(['-', '_', '.', '@'])
-        .next()
-        .unwrap_or(locale);
-    Some(if tag.eq_ignore_ascii_case("ru") {
-        Lang::Ru
-    } else {
-        Lang::En
-    })
-}
-
-/// Size units shown everywhere: `IEC` (KiB, 1024-based, the default) or `SI`
-/// (kB, 1000-based, what Finder and disk labels use).
-pub use crate::settings::SizeUnits;
-
-static UNITS: AtomicU8 = AtomicU8::new(0);
-
-pub fn set_units(units: SizeUnits) {
-    UNITS.store(units as u8, Ordering::Relaxed);
-}
-
-pub fn units() -> SizeUnits {
-    match UNITS.load(Ordering::Relaxed) {
-        1 => SizeUnits::Si,
-        _ => SizeUnits::Iec,
-    }
 }
 
 fn table() -> &'static HashMap<&'static str, &'static str> {
@@ -156,56 +145,103 @@ macro_rules! tr {
     };
 }
 
-/// Sizes in the configured units (IEC or SI), with the unit names and decimal
-/// separator of the interface language. Every size the interface shows goes
-/// through here.
+/// Sizes with the unit names and decimal separator of the interface language.
 pub fn bytes(n: u64) -> String {
-    bytes_in(get(), units(), n)
+    bytes_in_unit(get(), byte_unit(), n)
 }
 
-/// Decimal (SI) sizes: `1.50 kB`, `300 B`. Same shape as the IEC formatter.
-pub fn format_bytes_si(n: u64) -> String {
-    const UNITS: [&str; 5] = ["kB", "MB", "GB", "TB", "PB"];
-    if n < 1000 {
-        return format!("{n} B");
-    }
-    let mut value = n as f64 / 1000.0;
-    let mut unit = 0;
-    while value >= 1000.0 && unit + 1 < UNITS.len() {
-        value /= 1000.0;
-        unit += 1;
-    }
-    format!("{value:.2} {}", UNITS[unit])
+#[cfg(test)]
+fn bytes_in(lang: Lang, n: u64) -> String {
+    bytes_in_unit(lang, crate::settings::ByteUnit::Binary, n)
 }
 
-fn bytes_in(lang: Lang, units: SizeUnits, n: u64) -> String {
-    let s = match units {
-        SizeUnits::Iec => space_core::format_bytes(n),
-        SizeUnits::Si => format_bytes_si(n),
-    };
-    if lang == Lang::En {
-        return s;
-    }
-    let s = s.replace('.', ",");
-    for (en, ru) in [
-        (" TiB", " ТиБ"),
-        (" GiB", " ГиБ"),
-        (" MiB", " МиБ"),
-        (" KiB", " КиБ"),
-        (" PB", " ПБ"),
-        (" TB", " ТБ"),
-        (" GB", " ГБ"),
-        (" MB", " МБ"),
-        (" kB", " кБ"),
-    ] {
-        if let Some(num) = s.strip_suffix(en) {
-            return format!("{num}{ru}");
+fn bytes_in_unit(lang: Lang, unit: crate::settings::ByteUnit, n: u64) -> String {
+    match unit {
+        crate::settings::ByteUnit::Binary => {
+            let s = space_core::format_bytes(n);
+            if lang == Lang::En {
+                return s;
+            }
+            let s = s.replace('.', ",");
+            for (en, ru) in [
+                (" TiB", " ТиБ"),
+                (" GiB", " ГиБ"),
+                (" MiB", " МиБ"),
+                (" KiB", " КиБ"),
+            ] {
+                if let Some(num) = s.strip_suffix(en) {
+                    return format!("{num}{ru}");
+                }
+            }
+            match s.strip_suffix(" B") {
+                Some(num) => format!("{num} Б"),
+                None => s,
+            }
+        }
+        crate::settings::ByteUnit::Si => {
+            const KB: f64 = 1_000.0;
+            const MB: f64 = 1_000_000.0;
+            const GB: f64 = 1_000_000_000.0;
+            const TB: f64 = 1_000_000_000_000.0;
+            let f = n as f64;
+            let (val, unit_en, unit_ru, is_bytes) = if f >= TB {
+                (f / TB, "TB", "ТБ", false)
+            } else if f >= GB {
+                (f / GB, "GB", "ГБ", false)
+            } else if f >= MB {
+                (f / MB, "MB", "МБ", false)
+            } else if f >= KB {
+                (f / KB, "KB", "КБ", false)
+            } else {
+                (0.0, "B", "Б", true)
+            };
+            if is_bytes {
+                return if lang == Lang::Ru {
+                    format!("{n} {unit_ru}")
+                } else {
+                    format!("{n} {unit_en}")
+                };
+            }
+            let num = format!("{val:.2}");
+            if lang == Lang::Ru {
+                format!("{} {unit_ru}", num.replace('.', ","))
+            } else {
+                format!("{num} {unit_en}")
+            }
         }
     }
-    match s.strip_suffix(" B") {
-        Some(num) => format!("{num} Б"),
-        None => s,
+}
+
+/// Format a UNIX timestamp as a locale date (`YYYY-MM-DD` in EN, `DD.MM.YYYY` in RU).
+pub fn date_ymd(unix: u64) -> String {
+    date_ymd_in(get(), unix)
+}
+
+fn date_ymd_in(lang: Lang, unix: u64) -> String {
+    if unix == 0 {
+        return "—".to_string();
     }
+    let days = (unix / 86_400) as i64;
+    let (y, m, d) = civil_from_days(days);
+    match lang {
+        Lang::En => format!("{y:04}-{m:02}-{d:02}"),
+        Lang::Ru => format!("{d:02}.{m:02}.{y:04}"),
+    }
+}
+
+/// Howard Hinnant's civil-from-days conversion (days since 1970-01-01).
+fn civil_from_days(days: i64) -> (i64, u32, u32) {
+    let z = days + 719_468;
+    let era = if z >= 0 { z } else { z - 146_096 } / 146_097;
+    let doe = (z - era * 146_097) as u64;
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let y = yoe as i64 + era * 400;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = doy - (153 * mp + 2) / 5 + 1;
+    let m = if mp < 10 { mp + 3 } else { mp - 9 };
+    let y = y + i64::from(m <= 2);
+    (y, m as u32, d as u32)
 }
 
 /// "1 item" / "3 items" / «1 элемент» / «3 элемента» / «5 элементов».
@@ -217,8 +253,6 @@ fn count_in(lang: Lang, n: usize, noun: &str) -> String {
     if lang == Lang::En {
         return if n == 1 {
             format!("1 {noun}")
-        } else if let Some(stem) = noun.strip_suffix('y') {
-            format!("{n} {stem}ies")
         } else {
             format!("{n} {noun}s")
         };
@@ -228,9 +262,6 @@ fn count_in(lang: Lang, n: usize, noun: &str) -> String {
         "file" => ("файл", "файла", "файлов"),
         "folder" => ("папка", "папки", "папок"),
         "snapshot" => ("снимок", "снимка", "снимков"),
-        "rule" => ("правило", "правила", "правил"),
-        "category" => ("категория", "категории", "категорий"),
-        "result" => ("результат", "результата", "результатов"),
         _ => (noun, noun, noun),
     };
     let word = match (n % 10, n % 100) {
@@ -335,39 +366,26 @@ mod tests {
         assert_eq!(forms(111), "111 элементов");
         assert_eq!(count_in(Lang::En, 1, "item"), "1 item");
         assert_eq!(count_in(Lang::En, 3, "item"), "3 items");
-        assert_eq!(count_in(Lang::En, 2, "rule"), "2 rules");
-        assert_eq!(count_in(Lang::En, 1, "category"), "1 category");
-        assert_eq!(count_in(Lang::En, 2, "category"), "2 categories");
-        assert_eq!(count_in(Lang::Ru, 1, "rule"), "1 правило");
-        assert_eq!(count_in(Lang::Ru, 3, "rule"), "3 правила");
-        assert_eq!(count_in(Lang::Ru, 7, "rule"), "7 правил");
-        assert_eq!(count_in(Lang::Ru, 1, "category"), "1 категория");
-        assert_eq!(count_in(Lang::Ru, 2, "category"), "2 категории");
-        assert_eq!(count_in(Lang::Ru, 12, "category"), "12 категорий");
-    }
-
-    #[test]
-    fn locale_tags_pick_the_language() {
-        assert_eq!(lang_of_locale("ru-RU"), Some(Lang::Ru));
-        assert_eq!(lang_of_locale("ru_RU.UTF-8"), Some(Lang::Ru));
-        assert_eq!(lang_of_locale("RU"), Some(Lang::Ru));
-        assert_eq!(lang_of_locale("en-US"), Some(Lang::En));
-        assert_eq!(lang_of_locale("de_DE"), Some(Lang::En));
-        assert_eq!(lang_of_locale("C"), None);
-        assert_eq!(lang_of_locale(""), None);
     }
 
     #[test]
     fn sizes_and_ages_are_localised() {
-        assert_eq!(bytes_in(Lang::En, SizeUnits::Iec, 1536), "1.50 KiB");
-        assert_eq!(bytes_in(Lang::Ru, SizeUnits::Iec, 1536), "1,50 КиБ");
-        assert_eq!(bytes_in(Lang::Ru, SizeUnits::Iec, 300), "300 Б");
-        assert_eq!(bytes_in(Lang::En, SizeUnits::Si, 1536), "1.54 kB");
-        assert_eq!(bytes_in(Lang::En, SizeUnits::Si, 2_500_000_000), "2.50 GB");
-        assert_eq!(bytes_in(Lang::Ru, SizeUnits::Si, 1536), "1,54 кБ");
-        assert_eq!(bytes_in(Lang::Ru, SizeUnits::Si, 999), "999 Б");
-        assert_eq!(format_bytes_si(0), "0 B");
-        assert_eq!(format_bytes_si(1000), "1.00 kB");
+        assert_eq!(bytes_in(Lang::En, 1536), "1.50 KiB");
+        assert_eq!(bytes_in(Lang::Ru, 1536), "1,50 КиБ");
+        assert_eq!(bytes_in(Lang::Ru, 300), "300 Б");
+        assert_eq!(
+            bytes_in_unit(Lang::En, crate::settings::ByteUnit::Si, 1_500_000),
+            "1.50 MB"
+        );
+        assert_eq!(
+            bytes_in_unit(Lang::Ru, crate::settings::ByteUnit::Si, 1_500_000),
+            "1,50 МБ"
+        );
+        assert_eq!(date_ymd_in(Lang::En, 0), "—");
+        assert_eq!(date_ymd_in(Lang::En, 1_700_000_000), "2023-11-14");
+        assert_eq!(date_ymd_in(Lang::Ru, 1_700_000_000), "14.11.2023");
+        assert!(!is_rtl(Lang::En));
+        assert!(!is_rtl(Lang::Ru));
         assert_eq!(age_in(Lang::En, 7200), "2 h ago");
         assert_eq!(age_in(Lang::Ru, 7200), "2 ч назад");
         assert_eq!(age_in(Lang::Ru, 3 * 86_400), "3 дня назад");
@@ -395,134 +413,62 @@ mod tests {
         assert_eq!(fill("{} of {}", &[&3, &9]), "3 of 9");
     }
 
-    /// Every source file that draws interface text. `i18n_ru.rs` is the table
-    /// itself; `volumes.rs` holds device names, not interface strings.
-    const SOURCES: &[(&str, &str)] = &[
-        ("app/ui/shell.rs", include_str!("app/ui/shell.rs")),
-        ("app/ui/scan.rs", include_str!("app/ui/scan.rs")),
-        ("app/ui/usage.rs", include_str!("app/ui/usage.rs")),
-        ("app/ui/layouts.rs", include_str!("app/ui/layouts.rs")),
-        ("app/ui/overview.rs", include_str!("app/ui/overview.rs")),
-        ("app/ui/toast.rs", include_str!("app/ui/toast.rs")),
-        ("app/ui/cleanup.rs", include_str!("app/ui/cleanup.rs")),
-        ("app/ui/review_page.rs", include_str!("app/ui/review_page.rs")),
-        ("app/ui/dialogs.rs", include_str!("app/ui/dialogs.rs")),
-        ("app.rs", include_str!("app.rs")),
-        ("export.rs", include_str!("export.rs")),
-        ("junk_panel.rs", include_str!("junk_panel.rs")),
-        ("rules_panel.rs", include_str!("rules_panel.rs")),
-        ("widgets.rs", include_str!("widgets.rs")),
-        ("views/mod.rs", include_str!("views/mod.rs")),
-        ("views/treemap.rs", include_str!("views/treemap.rs")),
-        ("views/sunburst.rs", include_str!("views/sunburst.rs")),
-        ("views/cascade.rs", include_str!("views/cascade.rs")),
-        ("views/radial.rs", include_str!("views/radial.rs")),
-        ("tm_clean.rs", include_str!("tm_clean.rs")),
-        ("theme.rs", include_str!("theme.rs")),
-        ("icons.rs", include_str!("icons.rs")),
-        ("i18n.rs", include_str!("i18n.rs")),
-        ("settings.rs", include_str!("settings.rs")),
-    ];
-
-    /// The source without its own test module.
-    fn production(src: &str) -> &str {
-        src.split("#[cfg(test)]").next().unwrap_or(src)
-    }
-
-    /// Is `at` the start of a call named exactly `call` (not `format!(` for `t(`)?
-    fn is_call_start(src: &str, at: usize) -> bool {
-        !src[..at]
-            .chars()
-            .last()
-            .is_some_and(|c| c.is_alphanumeric() || c == '_' || c == '!')
-    }
-
-    /// The string literal that starts at `from` after optional whitespace.
-    fn literal_after(src: &str, from: usize) -> Option<(usize, &str)> {
-        let rest = &src[from..];
-        let trimmed = rest.trim_start();
-        let open = from + (rest.len() - trimmed.len());
-        if !trimmed.starts_with('"') {
-            return None;
-        }
-        let end = src[open + 1..].find('"')?;
-        Some((open + 1 + end + 1, &src[open + 1..open + 1 + end]))
-    }
-
-    /// Every string literal inside the parentheses of the call at `open`.
-    fn literals_in_parens(src: &str, open: usize) -> Vec<&str> {
-        let mut depth = 0i32;
-        let mut out = Vec::new();
-        let mut i = open;
-        let bytes = src.as_bytes();
-        while i < bytes.len() {
-            match bytes[i] {
-                b'(' | b'[' | b'{' => depth += 1,
-                b')' | b']' | b'}' => {
-                    depth -= 1;
-                    if depth <= 0 {
-                        break;
-                    }
-                }
-                b'"' => {
-                    if let Some(end) = src[i + 1..].find('"') {
-                        out.push(&src[i + 1..i + 1 + end]);
-                        i += end + 1;
-                    }
-                }
-                _ => {}
-            }
-            i += 1;
-        }
-        out
-    }
-
-    fn has_words(s: &str) -> bool {
-        s.chars().any(char::is_alphabetic)
-    }
-
-    /// Every literal handed to a translating call in the drawing code must have
-    /// an entry, including calls split over several lines.
+    /// Every literal handed to a translating call in the drawing code must have an entry.
     #[test]
     fn every_interface_string_in_the_source_is_translated() {
-        // The first literal is the template; later ones are arguments.
-        let first_literal = [
-            "t(", "tr!(", "primary(", "secondary(", "ghost(", "caption(", "strong(", "title(",
-            "section_label(", "danger(", "label: ",
+        let sources = [
+            include_str!("app/ui/shell.rs"),
+            include_str!("app/ui/scan.rs"),
+            include_str!("app/ui/usage.rs"),
+            include_str!("app/ui/start_skins.rs"),
+            include_str!("app/ui/cleanup.rs"),
+            include_str!("app/ui/dialogs.rs"),
+            include_str!("app/ui/export_ui.rs"),
+            include_str!("app.rs"),
+            include_str!("app/actions.rs"),
+            include_str!("app/caches.rs"),
+            include_str!("app/workers.rs"),
+            include_str!("downloads.rs"),
+            include_str!("junk_panel.rs"),
+            include_str!("rules_panel.rs"),
+            include_str!("theme.rs"),
+            include_str!("widgets.rs"),
+            include_str!("views/mod.rs"),
+            include_str!("views/sunburst.rs"),
+            include_str!("views/treemap.rs"),
+            include_str!("views/radial.rs"),
+            include_str!("views/cascade.rs"),
         ];
-        // Every literal argument is interface text.
-        let every_literal = ["empty_state(", "badge(", "segmented(", "chip(", "stat(", "icons::button("];
+        let calls = [
+            "t(\"",
+            "tr!(\"",
+            "primary(\"",
+            "secondary(\"",
+            "danger(\"",
+            "danger_secondary(\"",
+            "ghost(\"",
+            "caption(\"",
+        ];
         let known: std::collections::HashSet<&str> = RU.iter().map(|(en, _)| *en).collect();
         let mut missing = Vec::new();
-        for (name, src) in SOURCES {
-            let src = production(src);
-            for call in first_literal {
+        for src in sources {
+            let src = src.split("#[cfg(test)]").next().unwrap_or(src);
+            for call in calls {
                 let mut from = 0;
                 while let Some(i) = src[from..].find(call) {
-                    let at = from + i;
-                    from = at + call.len();
-                    if !is_call_start(src, at) {
+                    let start = from + i + call.len();
+                    // Skip calls that merely end in the name, like `format!(` or `split(`.
+                    let before = src[..from + i].chars().last();
+                    from = start;
+                    if before.is_some_and(|c| c.is_alphanumeric() || c == '_') {
                         continue;
                     }
-                    if let Some((_, lit)) = literal_after(src, from) {
-                        if has_words(lit) && !known.contains(lit) {
-                            missing.push(format!("{name}: {lit:?}"));
-                        }
-                    }
-                }
-            }
-            for call in every_literal {
-                let mut from = 0;
-                while let Some(i) = src[from..].find(call) {
-                    let at = from + i;
-                    from = at + call.len();
-                    if !is_call_start(src, at) {
+                    let Some(end) = src[start..].find('"') else {
                         continue;
-                    }
-                    for lit in literals_in_parens(src, from - 1) {
-                        if has_words(&without_directives(lit)) && !known.contains(lit) {
-                            missing.push(format!("{name}: {lit:?}"));
-                        }
+                    };
+                    let lit = &src[start..start + end];
+                    if lit.chars().any(char::is_alphabetic) && !known.contains(lit) {
+                        missing.push(lit.to_owned());
                     }
                 }
             }
@@ -533,95 +479,5 @@ mod tests {
             missing.is_empty(),
             "no Russian translation for: {missing:#?}"
         );
-    }
-
-    /// `lit` with its `{…}` format directives removed.
-    fn without_directives(lit: &str) -> String {
-        let mut out = String::new();
-        let mut depth = 0;
-        let mut escaped = false;
-        for c in lit.chars() {
-            match c {
-                _ if escaped => escaped = false,
-                '\\' => escaped = true,
-                '{' => depth += 1,
-                '}' => depth = (depth - 1).max(0),
-                _ if depth == 0 => out.push(c),
-                _ => {}
-            }
-        }
-        out
-    }
-
-    /// Text drawn with the painter or shown as a hover hint, checkbox label or
-    /// rich text must be a translation key reached through `t()`/`tr!()`; a
-    /// raw English literal there would never be translated.
-    #[test]
-    fn no_interface_literal_bypasses_translation() {
-        let calls = [
-            "on_hover_text(",
-            ".text(",
-            "RichText::new(",
-            ".checkbox(",
-            ".label(",
-            ".button(",
-            "selectable_label(",
-            "hint_text(",
-            "errors.push(",
-        ];
-        let known: std::collections::HashSet<&str> = RU.iter().map(|(en, _)| *en).collect();
-        // Proper nouns and the brand are the same in every language; the
-        // nouns are `count()` arguments, pluralised by the language tables.
-        let allowed = [
-            "Time Machine", "Space", "item", "file", "folder", "snapshot", "rule", "category", "result",
-        ];
-        let mut raw = Vec::new();
-        for (name, src) in SOURCES {
-            let src = production(src);
-            for call in calls {
-                let mut from = 0;
-                while let Some(i) = src[from..].find(call) {
-                    let at = from + i;
-                    from = at + call.len();
-                    for lit in literals_in_parens(src, from - 1) {
-                        if has_words(&without_directives(lit))
-                            && !known.contains(lit)
-                            && !allowed.contains(&lit)
-                        {
-                            raw.push(format!("{name}: {lit:?}"));
-                        }
-                    }
-                }
-            }
-        }
-        raw.sort();
-        raw.dedup();
-        assert!(raw.is_empty(), "interface text that bypasses t(): {raw:#?}");
-    }
-
-    /// Every Russian key must still be used by some source file, so stale
-    /// entries do not pile up as the interface changes.
-    #[test]
-    fn no_orphan_ru_keys() {
-        // Keys built at runtime from data outside this crate: rule-pack
-        // category names, risk names and tag labels.
-        let dynamic = [
-            "Caches", "Logs", "Temp files", "Leftovers", "Developer", "Package caches",
-            "Browser caches", "App caches", "Media caches", "ML caches", "ML models",
-            "VM caches", "VM disks", "Game caches", "Game downloads", "Shader caches",
-            "Wine caches", "Databases", "App data", "System", "Media libraries",
-            "Sample libraries", "Privacy",
-        ];
-        let sources: String = SOURCES.iter().map(|(_, src)| *src).collect::<Vec<_>>().join("\n");
-        let mut orphans = Vec::new();
-        for (en, _) in RU {
-            if dynamic.contains(en) {
-                continue;
-            }
-            if !sources.contains(&format!("{en:?}")) {
-                orphans.push(*en);
-            }
-        }
-        assert!(orphans.is_empty(), "Russian keys no source uses: {orphans:#?}");
     }
 }

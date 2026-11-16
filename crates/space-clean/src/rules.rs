@@ -433,7 +433,12 @@ type StampTable = HashMap<PathBuf, (FileStamp, [u8; 32])>;
 static STAMPS: Mutex<Option<StampTable>> = Mutex::new(None);
 
 fn stamp_cache_path() -> Option<PathBuf> {
-    Some(app_dirs()?.cache_dir().join("catalog").join("stamps-v1.bin"))
+    Some(
+        app_dirs()?
+            .cache_dir()
+            .join("catalog")
+            .join("stamps-v1.bin"),
+    )
 }
 
 fn read_stamp_table(path: &Path) -> Option<StampTable> {
@@ -496,7 +501,9 @@ fn source_fingerprint(dirs: &[PathBuf]) -> Result<SourceFingerprint> {
         .map(|file| file_stamp(file))
         .collect::<Result<_>>()?;
 
-    let mut guard = STAMPS.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
+    let mut guard = STAMPS
+        .lock()
+        .unwrap_or_else(|poisoned| poisoned.into_inner());
     let table = guard.get_or_insert_with(|| {
         stamp_cache_path()
             .and_then(|path| read_stamp_table(&path))
@@ -791,7 +798,9 @@ impl RulePack {
     /// lifetime of the `Arc`. The cache holds a `Weak`, so the allocation
     /// address cannot be reused by another pack while the entry exists.
     pub fn index(self: &Arc<Self>) -> Arc<RuleIndex> {
-        let mut table = INDEXES.lock().unwrap_or_else(|poisoned| poisoned.into_inner());
+        let mut table = INDEXES
+            .lock()
+            .unwrap_or_else(|poisoned| poisoned.into_inner());
         table.retain(|(weak, _)| weak.strong_count() > 0);
         if let Some((_, index)) = table
             .iter()
@@ -900,10 +909,7 @@ impl RulePack {
     /// correct for any order, and only a miss on an unsorted pack falls back
     /// to a linear scan.
     pub fn get(&self, id: &str) -> Option<&Rule> {
-        if let Ok(index) = self
-            .rules
-            .binary_search_by(|rule| rule.id.as_str().cmp(id))
-        {
+        if let Ok(index) = self.rules.binary_search_by(|rule| rule.id.as_str().cmp(id)) {
             if self.rules[index].id == id {
                 return Some(&self.rules[index]);
             }
@@ -1013,7 +1019,10 @@ impl PathTemplateExpander {
         percent.insert("LOCALAPPDATA".into(), data_local.clone());
         dollar.insert("LOCALAPPDATA".into(), data_local);
         let data = base_dirs.data_dir().to_path_buf();
-        dollar.insert("XDG_CONFIG_HOME".into(), base_dirs.config_dir().to_path_buf());
+        dollar.insert(
+            "XDG_CONFIG_HOME".into(),
+            base_dirs.config_dir().to_path_buf(),
+        );
         percent.insert("APPDATA".into(), data.clone());
         dollar.insert("APPDATA".into(), data);
         for (name, var) in [

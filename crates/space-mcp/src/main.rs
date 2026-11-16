@@ -130,7 +130,11 @@ fn rule_manager(state: &Mutex<State>) -> anyhow::Result<RuleManager> {
 
 /// Pagination window; `offset` past the end is an explicit error so a client
 /// never mistakes an empty page for the end of the data.
-fn page_window(offset: usize, limit: usize, total: usize) -> anyhow::Result<(usize, Option<usize>)> {
+fn page_window(
+    offset: usize,
+    limit: usize,
+    total: usize,
+) -> anyhow::Result<(usize, Option<usize>)> {
     anyhow::ensure!(
         offset <= total,
         "offset {offset} is past the end (total {total})"

@@ -65,9 +65,9 @@ fn wide_tree(count: u32) -> SpaceTree {
             file_count: 1,
             is_dir: false,
             synthetic: false,
+            mtime_unix: 0,
             children: Vec::new(),
             parent: Some(tree.root),
-            raw_name: None,
         });
         tree.nodes[0].children.push(id);
     }
@@ -97,6 +97,7 @@ fn empty_tree() -> SpaceTree {
         skipped_errors: 0,
         hardlink_candidates: 0,
         hardlinks_deduped: 0,
+        skipped_roots: Vec::new(),
     }
 }
 
@@ -108,8 +109,8 @@ fn directory() -> Node {
         file_count: 0,
         is_dir: true,
         synthetic: false,
+        mtime_unix: 0,
         children: Vec::new(),
         parent: None,
-        raw_name: None,
     }
 }

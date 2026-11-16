@@ -43,8 +43,6 @@ pub struct RulesPanelState {
     pub show_absent: bool,
     pub error: Option<String>,
     pub dirty: bool,
-    /// Preferences changed; the app writes them after a quiet period.
-    pub save_pending: Option<std::time::Instant>,
     /// Cap rows drawn per frame for responsiveness with many rules.
     pub page_size: usize,
     facts: Option<Arc<DiskFacts>>,
@@ -66,7 +64,6 @@ impl Default for RulesPanelState {
             show_absent: false,
             error: None,
             dirty: false,
-            save_pending: None,
             page_size: 200,
             facts: None,
             summary: None,
@@ -132,12 +129,6 @@ struct RulePage {
 }
 
 impl RulesPanelState {
-    /// Queue a preferences write; `app.rs` debounces and runs it off-thread.
-    pub fn mark_save(&mut self) {
-        self.error = None;
-        self.save_pending = Some(std::time::Instant::now());
-    }
-
     fn facts(&mut self, mgr: &RuleManager, report: Option<(u64, &ScanReport)>) -> Arc<DiskFacts> {
         let version = report.map(|(version, _)| version);
         if let Some(facts) = &self.facts {
@@ -147,10 +138,16 @@ impl RulesPanelState {
         }
         let index = mgr.index();
         let present = space_clean::rules_present_on_disk(
-            index.host_positions().iter().map(|&position| &mgr.pack.rules[position]),
+            index
+                .host_positions()
+                .iter()
+                .map(|&position| &mgr.pack.rules[position]),
         );
         let mut by_rule: HashMap<String, u64> = HashMap::new();
-        for finding in report.map(|(_, report)| report.findings.as_slice()).unwrap_or_default() {
+        for finding in report
+            .map(|(_, report)| report.findings.as_slice())
+            .unwrap_or_default()
+        {
             *by_rule.entry(finding.rule_id.clone()).or_default() += finding.bytes;
         }
         let facts = Arc::new(DiskFacts {
@@ -201,13 +198,18 @@ impl RulesPanelState {
                 continue;
             }
             listed += 1;
-            let side = sides.entry(rule.category.as_str()).or_insert_with(|| CategorySide {
-                name: rule.category.clone(),
-                total: 0,
-                enabled: 0,
-                bytes: 0,
-                policy: policies.get(&rule.category).copied().unwrap_or(CategoryPolicy::Default),
-            });
+            let side = sides
+                .entry(rule.category.as_str())
+                .or_insert_with(|| CategorySide {
+                    name: rule.category.clone(),
+                    total: 0,
+                    enabled: 0,
+                    bytes: 0,
+                    policy: policies
+                        .get(&rule.category)
+                        .copied()
+                        .unwrap_or(CategoryPolicy::Default),
+                });
             side.total += 1;
             side.enabled += usize::from(on);
             side.bytes += facts.found(&rule.id);
@@ -233,7 +235,12 @@ impl RulesPanelState {
         summary
     }
 
-    fn page(&mut self, mgr: &RuleManager, facts: &Arc<DiskFacts>, filter: RuleFilter) -> Arc<RulePage> {
+    fn page(
+        &mut self,
+        mgr: &RuleManager,
+        facts: &Arc<DiskFacts>,
+        filter: RuleFilter,
+    ) -> Arc<RulePage> {
         if let Some(page) = &self.page {
             if Arc::ptr_eq(&page.pack, &mgr.pack)
                 && Arc::ptr_eq(&page.facts, facts)
@@ -309,7 +316,7 @@ pub fn draw(
             {
                 mgr.reset_all();
                 state.dirty = true;
-                state.mark_save();
+                state.error = save(mgr);
                 action = RulesAction::PrefsChanged;
             }
             let mut all = mgr.prefs.enable_all_by_default;
@@ -322,7 +329,7 @@ pub fn draw(
             {
                 mgr.prefs.enable_all_by_default = all;
                 state.dirty = true;
-                state.mark_save();
+                state.error = save(mgr);
                 action = RulesAction::PrefsChanged;
             }
         });
@@ -331,10 +338,10 @@ pub fn draw(
     ui.horizontal(|ui| {
         ui.label(RichText::new(t("Privacy")).color(MUTED()));
         if ui
-            .checkbox(&mut flags.scan_browser_cookies, t("Cookies"))
-            .on_hover_text(t(
+            .checkbox(&mut flags.scan_browser_cookies, "Cookies")
+            .on_hover_text(
                 "Scan/clean browser cookies. Off by default — signs you out of websites.",
-            ))
+            )
             .changed()
         {
             action = RulesAction::PrefsChanged;
@@ -364,8 +371,16 @@ pub fn draw(
             for (label, mode, hint) in [
                 ("All", EnabledFilter::All, "All rules"),
                 ("Enabled rules", EnabledFilter::On, "Rules that will run"),
-                ("Disabled rules", EnabledFilter::Off, "Rules that will not run"),
-                ("Changed by you", EnabledFilter::Overridden, "Rules you turned on or off yourself"),
+                (
+                    "Disabled rules",
+                    EnabledFilter::Off,
+                    "Rules that will not run",
+                ),
+                (
+                    "Changed by you",
+                    EnabledFilter::Overridden,
+                    "Rules you turned on or off yourself",
+                ),
             ] {
                 if crate::widgets::chip(ui, state.enabled == mode, label)
                     .on_hover_text(t(hint))
@@ -377,9 +392,21 @@ pub fn draw(
             ui.separator();
             for (label, risk, hint) in [
                 ("Any risk", None, "Rules of every caution level"),
-                ("Safe", Some(Risk::Low), "Rebuilt or re-downloaded automatically"),
-                ("Check", Some(Risk::Medium), "Usually fine — check the list before trashing"),
-                ("Careful", Some(Risk::High), "May hold data you want — check each item"),
+                (
+                    "Safe",
+                    Some(Risk::Low),
+                    "Rebuilt or re-downloaded automatically",
+                ),
+                (
+                    "Check",
+                    Some(Risk::Medium),
+                    "Usually fine — check the list before trashing",
+                ),
+                (
+                    "Careful",
+                    Some(Risk::High),
+                    "May hold data you want — check each item",
+                ),
             ] {
                 if crate::widgets::chip(ui, state.risk == risk, label)
                     .on_hover_text(t(hint))
@@ -465,7 +492,7 @@ pub fn draw(
                                 if flip {
                                     let _ = mgr.set_category_enabled(&cat.name, cat.enabled < cat.total);
                                     state.dirty = true;
-                                    state.mark_save();
+                                    state.error = save(mgr);
                                     action = RulesAction::PrefsChanged;
                                 } else if pick {
                                     state.category = Some(cat.name.clone());
@@ -515,7 +542,7 @@ pub fn draw(
                         {
                             let _ = mgr.set_category_enabled(&cat.name, true);
                             state.dirty = true;
-                            state.mark_save();
+                            state.error = save(mgr);
                             action = RulesAction::PrefsChanged;
                         }
                     }
@@ -526,7 +553,7 @@ pub fn draw(
                 egui::Frame::new()
                     .fill(theme::PANEL())
                     .stroke(egui::Stroke::new(1.0_f32, theme::BORDER()))
-                    .corner_radius(theme::metrics::RADIUS_CARD)
+                    .corner_radius(if theme::skin() == theme::Skin::Table { 4 } else { 10 })
                     .show(ui, |ui| {
                         egui::ScrollArea::vertical()
                             .id_salt("rules_list")
@@ -618,10 +645,24 @@ fn draw_rule_row(
                 } else {
                     let r = ui.interact(slot, ui.id().with(("sw", &row.id)), egui::Sense::click());
                     paint_switch(ui, slot, row.effectively_enabled, r.hovered());
-                    if r.on_hover_text(t("Turn this rule on or off for junk cleaning")).clicked() {
+                    if r.has_focus() {
+                        crate::theme::paint_focus_ring(ui.painter(), slot);
+                    }
+                    let rule_name = row.name.clone();
+                    let sw_on = row.effectively_enabled;
+                    let r = r.on_hover_text(t("Turn this rule on or off for junk cleaning"));
+                    r.widget_info(move || {
+                        egui::WidgetInfo::selected(
+                            egui::WidgetType::Checkbox,
+                            true,
+                            sw_on,
+                            rule_name.as_str(),
+                        )
+                    });
+                    if r.clicked() {
                         let _ = mgr.set_rule_enabled(&row.id, !row.effectively_enabled);
                         state.dirty = true;
-                        state.mark_save();
+                        state.error = save(mgr);
                         *action = RulesAction::PrefsChanged;
                     }
                 }
@@ -637,7 +678,7 @@ fn draw_rule_row(
                 ui.vertical(|ui| {
                     ui.set_width(text_w);
                     ui.spacing_mut().item_spacing.y = 2.0;
-                    ui.add(egui::Label::new(RichText::new(&row.name).size(14.0).family(crate::theme::bold()).color(color)).truncate())
+                    ui.add(egui::Label::new(RichText::new(&row.name).size(14.0).strong().color(color)).truncate())
                         .on_hover_text(&row.name);
                     if !row.description.is_empty() {
                         ui.add(egui::Label::new(RichText::new(&row.description).size(12.0).color(MUTED())).truncate()).on_hover_text(&row.description);
@@ -683,7 +724,7 @@ fn draw_rule_row(
                         if let Some(p) = row.paths.first() {
                             if ui
                                 .add(widgets::secondary("Remove manually…"))
-                                .on_hover_text(t("Find it in Disk usage and add it to the Trash list by hand"))
+                                .on_hover_text(t("Find it in the tree and remove it by hand, with the usual review"))
                                 .clicked()
                             {
                                 *action = RulesAction::Reveal(p.clone());
@@ -697,13 +738,13 @@ fn draw_rule_row(
                     {
                         mgr.reset_rule(&row.id);
                         state.dirty = true;
-                        state.mark_save();
+                        state.error = save(mgr);
                         *action = RulesAction::PrefsChanged;
                     }
                     if found > 0 {
                         ui.label(
                             RichText::new(crate::i18n::bytes(found))
-                                .family(crate::theme::bold())
+                                .strong()
                                 .color(TEXT()),
                         )
                         .on_hover_text(t("Found by the last check"));
@@ -718,7 +759,7 @@ fn draw_rule_row(
         egui::Stroke::new(1.0_f32, theme::BORDER()),
     );
     resp.on_hover_ui(|ui| {
-        ui.label(RichText::new(&row.id).family(crate::theme::bold()));
+        ui.label(RichText::new(&row.id).strong());
         for detail in &row.details {
             ui.label(detail);
         }
@@ -768,6 +809,9 @@ fn side_row(
         p.rect_filled(rect, 6.0, theme::PANEL_2());
     } else if resp.hovered() {
         p.rect_filled(rect, 6.0, theme::PANEL_2().gamma_multiply(0.5));
+    }
+    if resp.has_focus() {
+        crate::theme::paint_focus_ring(p, rect);
     }
     let mut right = if switch.is_some() {
         rect.right() - 48.0
@@ -824,7 +868,20 @@ fn side_row(
                 .input(|i| i.pointer.interact_pos())
                 .is_some_and(|h| slot.expand(4.0).contains(h));
     }
+    let side_label = label.to_owned();
+    resp.widget_info(move || {
+        egui::WidgetInfo::selected(
+            egui::WidgetType::SelectableLabel,
+            true,
+            selected,
+            side_label.as_str(),
+        )
+    });
     (resp.clicked() && !flip, flip)
+}
+
+fn save(mgr: &RuleManager) -> Option<String> {
+    mgr.save_prefs().err().map(|e| e.to_string())
 }
 
 fn paint_switch(ui: &egui::Ui, slot: egui::Rect, on: bool, hot: bool) {
@@ -873,25 +930,49 @@ fn build_filter(state: &RulesPanelState) -> RuleFilter {
     }
 }
 
-
 /// Left-column groups of catalog categories, in display order. Categories
 /// missing here land under "Other"; names come from the Cleanup page.
 const CATEGORY_GROUPS: &[(&str, &[&str])] = &[
     (
         "Caches",
         &[
-            "app-cache", "caches", "browser-cache", "package-cache", "community-sources",
-            "shader-cache", "media-cache", "game-cache", "ml-cache", "vm-cache", "wine-cache",
+            "app-cache",
+            "caches",
+            "browser-cache",
+            "package-cache",
+            "community-sources",
+            "shader-cache",
+            "media-cache",
+            "game-cache",
+            "ml-cache",
+            "vm-cache",
+            "wine-cache",
         ],
     ),
-    ("Logs and leftovers", &["logs", "temp", "leftovers", "system", "report", "misc"]),
+    (
+        "Logs and leftovers",
+        &["logs", "temp", "leftovers", "system", "report", "misc"],
+    ),
     (
         "Development",
-        &["dev", "node-projects", "dotnet-projects", "language-projects", "databases"],
+        &[
+            "dev",
+            "node-projects",
+            "dotnet-projects",
+            "language-projects",
+            "databases",
+        ],
     ),
     (
         "Large content",
-        &["ml-models", "vm-disk", "games-downloads", "media-library", "sample-library", "app-data"],
+        &[
+            "ml-models",
+            "vm-disk",
+            "games-downloads",
+            "media-library",
+            "sample-library",
+            "app-data",
+        ],
     ),
     ("Privacy", &["browser-privacy"]),
 ];
@@ -1003,7 +1084,10 @@ mod tests {
         assert_eq!(page.total, 1000);
         assert_eq!(page.rows.len(), 200);
         for _ in 0..100 {
-            assert!(Arc::ptr_eq(&page, &state.page(&mgr, &facts, filter.clone())));
+            assert!(Arc::ptr_eq(
+                &page,
+                &state.page(&mgr, &facts, filter.clone())
+            ));
         }
         state.page_size = 500;
         let expanded = state.page(&mgr, &facts, filter.clone());
@@ -1048,9 +1132,15 @@ mod tests {
     fn every_catalog_category_has_a_group_and_a_translated_title() {
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../rules/categories");
         for entry in std::fs::read_dir(dir).unwrap() {
-            let name = entry.unwrap().file_name().to_string_lossy().replace(".yaml", "");
+            let name = entry
+                .unwrap()
+                .file_name()
+                .to_string_lossy()
+                .replace(".yaml", "");
             assert!(
-                CATEGORY_GROUPS.iter().any(|(_, members)| members.contains(&name.as_str())),
+                CATEGORY_GROUPS
+                    .iter()
+                    .any(|(_, members)| members.contains(&name.as_str())),
                 "{name} is in no CATEGORY_GROUPS group"
             );
             let title = category_title(&name);

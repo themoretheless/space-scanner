@@ -20,10 +20,12 @@ crossbeam-utils = { workspace = true }
 humansize = { workspace = true }
 unicode-normalization = { workspace = true }
 zstd = { workspace = true }
+serde_json = { workspace = true }
+regex-automata = { workspace = true }
 airbug-bench = { workspace = true, optional = true }
 
-[dev-dependencies]
-tempfile = { workspace = true }
+[target.'cfg(unix)'.dependencies]
+libc = { workspace = true }
 
 [[bench]]
 name = "scan"

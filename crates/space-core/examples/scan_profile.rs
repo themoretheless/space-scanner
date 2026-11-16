@@ -10,9 +10,7 @@ fn main() {
     let mut totals = None;
     for iteration in 0..12 {
         let start = Instant::now();
-        let tree = scan_path(&path)
-            .wait()
-            .unwrap_or_else(|err| panic!("scan failed: {err}"));
+        let tree = scan_path(&path).wait().expect("scan failed");
         let elapsed = start.elapsed().as_secs_f64() * 1000.0;
         let root = tree.node(tree.root);
         let observed = (

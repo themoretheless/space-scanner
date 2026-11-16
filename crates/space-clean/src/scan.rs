@@ -1073,7 +1073,8 @@ exclude_globs: ['**/keep.log']
         let here = dir.path().to_string_lossy().into_owned();
         let gone = dir.path().join("missing").to_string_lossy().into_owned();
         let rule = |id: &str, paths: Vec<String>| {
-            let mut rule: Rule = serde_yaml::from_str(&format!("id: {id}\nname: {id}\npaths: []\n")).unwrap();
+            let mut rule: Rule =
+                serde_yaml::from_str(&format!("id: {id}\nname: {id}\npaths: []\n")).unwrap();
             rule.paths = paths;
             rule
         };
@@ -1203,12 +1204,7 @@ exclude_globs: ['**/keep.log']
             backdate(&root.join(sub).join("deep/old.bin"));
         }
         fs::write(root.join("active/deep/new.bin"), b"new").unwrap();
-        for path in [
-            "stale/deep",
-            "stale",
-            "active/deep",
-            "active",
-        ] {
+        for path in ["stale/deep", "stale", "active/deep", "active"] {
             backdate(&root.join(path));
         }
         let mut rule: Rule = serde_yaml::from_str(

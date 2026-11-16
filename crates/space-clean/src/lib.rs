@@ -11,8 +11,9 @@ pub mod scan;
 pub mod tags;
 
 pub use clean::{
-    clean, clean_with_progress, coalesce_nested_paths, trash_paths_batch, CleanProgress,
-    CleanResult, CleanedItem, DeleteMethod, TRASH_BATCH_SIZE,
+    clean, clean_with_progress, coalesce_nested_paths, delete_candidates_permanently_with_progress,
+    permanent_delete_fast, revalidate_path, trash_paths_batch, CleanProgress, CleanResult,
+    CleanedItem, DeleteCandidate, DeleteMethod, DeleteStats, TRASH_BATCH_SIZE,
 };
 pub use manager::{
     CategoryPolicy, CategoryRow, KindRow, ManagerStats, PrefsError, RiskRow, RuleFilter,
@@ -24,7 +25,8 @@ pub use rules::{
     JunkKind, Platform, Risk, Rule, RuleIndex, RulePack,
 };
 pub use scan::{
-    rules_present_on_disk, scan, scan_rules, scan_rules_with_progress, Finding, JunkScanProgress, ScanOptions, ScanReport,
+    rules_present_on_disk, scan, scan_rules, scan_rules_with_progress, Finding, JunkScanProgress,
+    ScanOptions, ScanReport,
 };
 pub use tags::{effective_tags, enrich_rule_tags, explicit_tags, infer_tags, normalize_tag};
 
@@ -118,7 +120,9 @@ mod tests {
             .unwrap();
         // The crate directory has no `rules/`, so a cwd-relative candidate
         // would be the only way for `rules` to resolve differently.
-        assert!(!cwd.join("rules").is_dir() || cwd.join("rules").canonicalize().unwrap() == fallback);
+        assert!(
+            !cwd.join("rules").is_dir() || cwd.join("rules").canonicalize().unwrap() == fallback
+        );
         assert!(first_existing_dir(&[PathBuf::from("rules-does-not-exist")]).is_empty());
         let temp = tempfile::tempdir().unwrap();
         let explicit = first_existing_dir(&[PathBuf::from("nope"), temp.path().to_path_buf()]);

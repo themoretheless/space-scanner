@@ -41,9 +41,11 @@ pub fn run(json: bool) -> Result<(), Box<dyn std::error::Error>> {
     {
         Ok(output) => output,
         Err(error) if error.kind() == std::io::ErrorKind::NotFound => {
-            return Err("Docker CLI not found in PATH. Install Docker Desktop / docker-cli, \
+            return Err(
+                "Docker CLI not found in PATH. Install Docker Desktop / docker-cli, \
                  or run this scenario on the machine where Docker is installed."
-                .into())
+                    .into(),
+            )
         }
         Err(error) => return Err(format!("cannot run docker: {error}").into()),
     };
@@ -129,7 +131,9 @@ mod tests {
     #[test]
     fn old_docker_errors_are_recognised() {
         assert!(unsupported_version("unknown flag: --format"));
-        assert!(unsupported_version("Error: conflicting options: --verbose and --format"));
+        assert!(unsupported_version(
+            "Error: conflicting options: --verbose and --format"
+        ));
         assert!(!unsupported_version("Cannot connect to the Docker daemon"));
     }
 

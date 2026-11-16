@@ -1,13 +1,12 @@
 //! Nested squarified treemap with extension legend filter.
 
-use egui::{pos2, Align2, FontId, Rect, Sense, Ui, Vec2};
+use egui::{pos2, Align2, FontId, Rect, Sense, Stroke, Ui, Vec2};
 use space_core::NodeId;
 
-use crate::theme::type_scale::CAPTION;
+use crate::settings::TreemapMode;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
-use crate::views::{child_ids, truncate, DrawCtx, GeomCache, GeomKey, ViewAction};
+use crate::views::{child_ids, truncate, DrawCtx, ViewAction};
 
-const DEFAULT_NEST: usize = 2;
 const MIN_PX: f32 = 10.0;
 const MAX_TILES: usize = 180;
 
@@ -21,7 +20,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let mut action = ViewAction::none();
     let tree = ctx.tree;
     let full = ui.available_size();
-    let legend_h = 28.0;
+    let legend_h = 30.0;
     let (map_rect, _) = ui.allocate_exact_size(
         egui::vec2(full.x, (full.y - legend_h).max(40.0)),
         Sense::hover(),
@@ -30,32 +29,59 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let painter = ui.painter_at(map_rect);
     painter.rect_filled(map_rect, 4.0, theme::PANEL());
 
-    let key = GeomKey::new(1, ctx, map_rect);
+    let max_nest = (ctx.treemap_depth as usize).clamp(1, 4);
+    let mode_flag = if ctx.treemap_mode == TreemapMode::Strip {
+        1_u64
+    } else {
+        0_u64
+    };
+    let key = crate::views::GeomKey {
+        view: 1,
+        focus: ctx.focus,
+        mode: ctx.mode,
+        filter: ctx.filter_hash,
+        selected: None,
+        x: super::quantize_pos(map_rect.left()),
+        y: super::quantize_pos(map_rect.top()),
+        w: super::quantize_px(map_rect.width()),
+        h: super::quantize_px(map_rect.height()),
+        review_sig: 0,
+        view_opts: ((max_nest as u64) << 8) | mode_flag | (super::theme_bits() << 16),
+    };
+
     let need = match ctx.geom.as_ref() {
-        Some(GeomCache::Treemap { key: k, .. }) => *k != key,
+        Some(crate::views::GeomCache::Treemap { key: k, .. }) => *k != key,
         _ => true,
     };
 
-    let nest = nest_depth(ctx);
     if need {
         let kids = child_ids(ctx, ctx.focus);
-        let mut tiles = Vec::new();
-        if !kids.is_empty() {
-            layout_nested(ctx, &kids, map_rect.shrink(3.0), 0, nest, &mut tiles);
+        if kids.is_empty() {
+            *ctx.geom = Some(crate::views::GeomCache::Treemap {
+                key,
+                tiles: Vec::new(),
+            });
+        } else {
+            let mut tiles = Vec::new();
+            layout_nested(
+                ctx,
+                &kids,
+                map_rect.shrink(3.0),
+                0,
+                max_nest,
+                ctx.treemap_mode,
+                &mut tiles,
+            );
+            *ctx.geom = Some(crate::views::GeomCache::Treemap {
+                key,
+                tiles: tiles.into_iter().map(|t| (t.id, t.rect, t.depth)).collect(),
+            });
         }
-        let legend = theme::legend_for_names(tiles.iter().map(|t| {
-            let n = tree.node(t.id);
-            (n.name.as_str(), n.is_dir)
-        }));
-        *ctx.geom = Some(GeomCache::Treemap {
-            key,
-            tiles: tiles.into_iter().map(|t| (t.id, t.rect, t.depth)).collect(),
-            legend,
-        });
     }
 
-    let Some(GeomCache::Treemap { tiles, legend, .. }) = ctx.geom.as_ref() else {
-        return action;
+    let tiles: &[(NodeId, egui::Rect, usize)] = match ctx.geom.as_ref() {
+        Some(crate::views::GeomCache::Treemap { tiles, .. }) => tiles.as_slice(),
+        _ => &[],
     };
 
     if tiles.is_empty() {
@@ -73,6 +99,10 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         return action;
     }
 
+    let legend = theme::legend_for_names(tiles.iter().map(|(id, _, _)| {
+        let n = tree.node(*id);
+        (n.name.as_str(), n.is_dir)
+    }));
     {
         let mut x = legend_rect.left() + 8.0;
         let y = legend_rect.center().y;
@@ -80,27 +110,40 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
             egui::pos2(x, y),
             Align2::LEFT_CENTER,
             crate::i18n::t("Types"),
-            FontId::proportional(CAPTION),
+            FontId::proportional(theme::type_scale::CAPTION),
             MUTED(),
         );
-        x += 44.0;
-        for (ext, color) in legend {
-            let chip = Rect::from_min_size(
-                egui::pos2(x, y - 10.0),
-                Vec2::new(12.0 + ext.len() as f32 * 7.0 + 16.0, 20.0),
+        x += 48.0;
+        for (ext, color) in &legend {
+            let chip = egui::Rect::from_min_size(
+                egui::pos2(x, y - 12.0),
+                Vec2::new(12.0 + ext.len() as f32 * 7.5 + 16.0, 24.0),
             );
-            let selected = ctx.filter.has_ext(ext);
+            let selected = ctx.filter.ext.as_deref() == Some(ext.as_str())
+                || ctx.filter.exts.iter().any(|e| e.eq_ignore_ascii_case(ext));
             let resp = ui.interact(chip, ui.id().with(("leg", ext.as_str())), Sense::click());
+            if resp.has_focus() {
+                theme::paint_focus_ring(&ui.painter_at(legend_rect), chip);
+            }
+            let ext_owned = ext.clone();
+            resp.widget_info(move || {
+                egui::WidgetInfo::selected(
+                    egui::WidgetType::SelectableLabel,
+                    true,
+                    selected,
+                    ext_owned.as_str(),
+                )
+            });
             if resp.clicked() {
                 action.filter_ext = Some(ext.clone());
             }
             resp.on_hover_text(crate::i18n::t(if selected {
-                "Showing this type — click to take it out of the filter"
+                "Showing this type — click to show all"
             } else {
-                "Add this file type to the filter"
+                "Show only this file type on the map"
             }));
             ui.painter().rect_filled(
-                Rect::from_center_size(egui::pos2(x + 6.0, y), Vec2::splat(10.0)),
+                egui::Rect::from_center_size(egui::pos2(x + 6.0, y), Vec2::splat(10.0)),
                 2.0,
                 *color,
             );
@@ -108,7 +151,7 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
                 egui::pos2(x + 16.0, y),
                 Align2::LEFT_CENTER,
                 format!(".{ext}"),
-                FontId::proportional(CAPTION),
+                FontId::proportional(theme::type_scale::CAPTION),
                 if selected { ACCENT() } else { TEXT() },
             );
             x += chip.width() + 4.0;
@@ -118,68 +161,100 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         }
     }
 
-    let center = map_rect.center();
-    let scale = ctx.scale;
+    let t_hov = if theme::reduce_motion() { 0.0 } else { 0.14 };
+    let t_sel = if theme::reduce_motion() { 0.0 } else { 0.18 };
     for &(id, rect, depth) in tiles {
         let node = tree.node(id);
-        let rect = super::zoomed_rect(center, rect, scale);
         if rect.width() < 2.0 || rect.height() < 2.0 {
             continue;
         }
-        let color = if node.is_dir && depth < nest.saturating_sub(1) {
+        let color = if node.is_dir && depth < max_nest.saturating_sub(1) {
             theme::DIR()
         } else {
             theme::color_for(&node.name, node.is_dir)
         };
         let is_hov = ctx.hovered == Some(id);
-        let is_sel = ctx.selected == Some(id) || ctx.review.contains(&id);
-        let (hov_t, sel_t) = super::highlight(ui, "tm", Some(id), is_hov, is_sel);
+        let is_sel =
+            ctx.selected == Some(id) || ctx.selected_set.contains(&id) || ctx.review.contains(&id);
+        let hov_t =
+            ui.ctx()
+                .animate_bool_with_time(ui.id().with(("tm_hov", id.0, depth)), is_hov, t_hov);
+        let sel_t =
+            ui.ctx()
+                .animate_bool_with_time(ui.id().with(("tm_sel", id.0, depth)), is_sel, t_sel);
         let shrink = if node.is_dir { 1.5 } else { 0.8 };
         let draw = rect.shrink(shrink);
         // Soft grow on hover.
         let grow = hov_t * 1.2;
-        let draw = Rect::from_center_size(draw.center(), draw.size() + egui::vec2(grow, grow));
+        let draw =
+            egui::Rect::from_center_size(draw.center(), draw.size() + egui::vec2(grow, grow));
         painter.rect_filled(draw, 2.0, color);
+        let stroke_w = 0.6 + sel_t * 1.4 + hov_t * 1.0;
+        let stroke_a = (90.0 + sel_t * 150.0 + hov_t * 100.0).min(255.0) as u8;
         painter.rect_stroke(
             draw,
             2.0,
-            super::highlight_stroke(hov_t, sel_t, theme::BG()),
+            Stroke::new(
+                stroke_w,
+                if sel_t > 0.05 || hov_t > 0.05 {
+                    crate::theme::ACCENT().gamma_multiply(stroke_a as f32 / 255.0)
+                } else {
+                    theme::BG()
+                },
+            ),
             egui::StrokeKind::Inside,
         );
 
-        if depth == 0 && rect.width() > 52.0 && rect.height() > 26.0 {
+        if depth == 0 && rect.width() > 54.0 && rect.height() > 28.0 {
             painter.text(
                 rect.left_top() + Vec2::new(5.0, 4.0),
                 Align2::LEFT_TOP,
                 truncate(&node.name, 20),
-                FontId::proportional(CAPTION),
+                FontId::proportional(theme::type_scale::CAPTION),
                 TEXT(),
             );
-            if rect.height() > 40.0 {
+            if rect.height() > 42.0 {
                 painter.text(
-                    rect.left_top() + Vec2::new(5.0, 19.0),
+                    rect.left_top() + Vec2::new(5.0, 20.0),
                     Align2::LEFT_TOP,
                     crate::i18n::bytes(node.size(ctx.mode)),
-                    FontId::proportional(CAPTION),
+                    FontId::proportional(theme::type_scale::CAPTION),
                     MUTED(),
                 );
             }
         }
 
         let resp = ui.interact(rect, ui.id().with(("tm", id.0, depth)), Sense::click());
-        super::node_response(ui, &resp, ctx, id, &mut action);
+        if resp.has_focus() {
+            theme::paint_focus_ring(&painter, draw);
+        }
+        let a11y_name = node.name.clone();
+        resp.widget_info(move || {
+            egui::WidgetInfo::labeled(egui::WidgetType::Button, true, a11y_name.as_str())
+        });
+        if resp.clicked() {
+            super::click_map_node(
+                ctx.tree,
+                id,
+                ctx.focus,
+                ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
+                ui.input(|i| i.modifiers.shift),
+                &mut action,
+            );
+        }
+        if resp.double_clicked() {
+            super::double_click_map_node(ctx.tree, id, &mut action);
+        }
+        let in_q = ctx.review.contains(&id);
+        super::node_context_menu(&resp, ctx.tree, id, in_q, &mut action);
+        if resp.hovered() {
+            action.hover = Some(id);
+            ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
+            resp.on_hover_ui(|ui| super::node_hover_ui(ui, ctx.tree, id, ctx.focus, ctx.mode));
+        }
     }
 
     action
-}
-
-/// Nesting levels from the settings, within what stays readable.
-fn nest_depth(ctx: &DrawCtx<'_>) -> usize {
-    if (1..=4).contains(&ctx.treemap_nest) {
-        ctx.treemap_nest
-    } else {
-        DEFAULT_NEST
-    }
 }
 
 fn layout_nested(
@@ -187,7 +262,8 @@ fn layout_nested(
     ids: &[NodeId],
     rect: Rect,
     depth: usize,
-    nest: usize,
+    max_nest: usize,
+    mode: TreemapMode,
     out: &mut Vec<Tile>,
 ) {
     if ids.is_empty() || rect.width() < MIN_PX || rect.height() < MIN_PX || out.len() >= MAX_TILES {
@@ -197,7 +273,10 @@ fn layout_nested(
         .iter()
         .map(|id| ctx.tree.node(*id).size(ctx.mode).max(1) as f64)
         .collect();
-    let flat = squarify(ids, &sizes, rect);
+    let flat = match mode {
+        TreemapMode::Squarify => squarify(ids, &sizes, rect),
+        TreemapMode::Strip => strip_layout(ids, &sizes, rect),
+    };
 
     for tile in flat {
         if out.len() >= MAX_TILES {
@@ -209,13 +288,21 @@ fn layout_nested(
             rect: tile.rect,
             depth,
         });
-        if node.is_dir && depth + 1 < nest {
+        if node.is_dir && depth + 1 < max_nest {
             let kids = child_ids(ctx, tile.id);
             if !kids.is_empty()
                 && tile.rect.width() > MIN_PX * 2.0
                 && tile.rect.height() > MIN_PX * 2.0
             {
-                layout_nested(ctx, &kids, tile.rect.shrink(2.0), depth + 1, nest, out);
+                layout_nested(
+                    ctx,
+                    &kids,
+                    tile.rect.shrink(2.0),
+                    depth + 1,
+                    max_nest,
+                    mode,
+                    out,
+                );
             }
         }
     }
@@ -226,146 +313,83 @@ struct FlatTile {
     rect: Rect,
 }
 
-/// A row being filled: items plus the running sum/min/max of their areas, so
-/// the aspect test is O(1) per candidate instead of a clone-and-rescan.
-#[derive(Default)]
-struct Row {
-    items: Vec<(NodeId, f64)>,
-    sum: f64,
-    min: f64,
-    max: f64,
-}
-
-impl Row {
-    fn is_empty(&self) -> bool {
-        self.items.is_empty()
-    }
-
-    fn push(&mut self, id: NodeId, area: f64) {
-        if self.items.is_empty() {
-            self.min = area;
-            self.max = area;
-        } else {
-            self.min = self.min.min(area);
-            self.max = self.max.max(area);
-        }
-        self.sum += area;
-        self.items.push((id, area));
-    }
-
-    fn clear(&mut self) {
-        self.items.clear();
-        self.sum = 0.0;
-        self.min = 0.0;
-        self.max = 0.0;
-    }
-
-    /// Worst aspect ratio of the row laid along a side of length `side`
-    /// (Bruls, Huizing & van Wijk): max(side²·max/sum², sum²/(side²·min)).
-    fn worst(&self, side: f64) -> f64 {
-        if self.items.is_empty() {
-            return f64::MAX;
-        }
-        let s2 = (side * side).max(1e-9);
-        let sum2 = (self.sum * self.sum).max(1e-18);
-        (s2 * self.max / sum2).max(sum2 / (s2 * self.min.max(1e-9)))
-    }
-
-    /// Would adding `area` keep the row at least as square?
-    fn accepts(&self, area: f64, side: f64) -> bool {
-        if self.items.is_empty() {
-            return true;
-        }
-        let sum = self.sum + area;
-        let min = self.min.min(area);
-        let max = self.max.max(area);
-        let s2 = (side * side).max(1e-9);
-        let sum2 = (sum * sum).max(1e-18);
-        let worst = (s2 * max / sum2).max(sum2 / (s2 * min.max(1e-9)));
-        worst <= self.worst(side)
-    }
-}
-
-/// Squarified layout in absolute pixel areas: every item gets
-/// `size / total × rect area`, rows are laid along the shorter side of what
-/// remains, and the last tile of each row snaps to the edge so the tiles
-/// cover the rect exactly.
-fn squarify(ids: &[NodeId], sizes: &[f64], rect: Rect) -> Vec<FlatTile> {
-    let total: f64 = sizes.iter().sum::<f64>().max(1e-9);
-    let rect_area = rect.width() as f64 * rect.height() as f64;
+fn strip_layout(ids: &[NodeId], sizes: &[f64], rect: Rect) -> Vec<FlatTile> {
+    let total: f64 = sizes.iter().sum::<f64>().max(1.0);
     let mut items: Vec<(NodeId, f64)> = ids
         .iter()
         .zip(sizes.iter())
-        .map(|(&id, &s)| (id, s / total * rect_area))
+        .map(|(&id, &s)| (id, s / total))
         .collect();
     items.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Equal));
 
-    let mut out = Vec::with_capacity(items.len());
-    let mut remaining = rect;
-    let mut row = Row::default();
+    let mut out = Vec::new();
+    let mut y = rect.top();
     let mut i = 0;
-
+    let total_w = rect.width().max(1.0);
+    let total_h = rect.height().max(1.0);
     while i < items.len() {
-        let (id, area) = items[i];
-        let side = remaining.width().min(remaining.height()) as f64;
-        if row.is_empty() || row.accepts(area, side) {
-            row.push(id, area);
-            i += 1;
-        } else {
-            layout_row(&row, &mut remaining, &mut out, false);
-            row.clear();
+        let mut end = i + 1;
+        let mut strip_sum = items[i].1;
+        while end < items.len() && strip_sum < 0.25 && (end - i) < 5 {
+            strip_sum += items[end].1;
+            end += 1;
         }
-    }
-    if !row.is_empty() {
-        layout_row(&row, &mut remaining, &mut out, true);
+        let strip_h = total_h * strip_sum.clamp(0.0, 1.0) as f32;
+        let mut x = rect.left();
+        for &(id, frac) in &items[i..end] {
+            let w = total_w * (frac / strip_sum.max(1e-12)) as f32;
+            out.push(FlatTile {
+                id,
+                rect: Rect::from_min_size(pos2(x, y), Vec2::new(w, strip_h)),
+            });
+            x += w;
+        }
+        y += strip_h;
+        i = end;
     }
     out
 }
 
-/// Place one row along the shorter side of `remaining`; its thickness is
-/// `row area / that side`. The final row takes whatever is left.
-fn layout_row(row: &Row, remaining: &mut Rect, out: &mut Vec<FlatTile>, last_row: bool) {
-    let sum = row.sum.max(1e-12);
-    let vertical = remaining.width() >= remaining.height();
-    if vertical {
-        // Column at the left, tiles stacked top to bottom.
-        let side = remaining.height().max(1.0) as f64;
-        let w = if last_row {
-            remaining.width()
+fn squarify(ids: &[NodeId], sizes: &[f64], rect: Rect) -> Vec<FlatTile> {
+    let total: f64 = sizes.iter().sum::<f64>().max(1.0);
+    let mut items: Vec<(NodeId, f64)> = ids
+        .iter()
+        .zip(sizes.iter())
+        .map(|(&id, &s)| (id, s / total))
+        .collect();
+    items.sort_by(|a, b| b.1.partial_cmp(&a.1).unwrap_or(std::cmp::Ordering::Equal));
+
+    let mut out = Vec::new();
+    let mut remaining = rect;
+    let mut row: Vec<(NodeId, f64)> = Vec::new();
+    let mut i = 0;
+
+    while i < items.len() {
+        let next = items[i];
+        let mut trial = row.clone();
+        trial.push(next);
+        if row.is_empty() || worst_aspect(&trial, remaining) <= worst_aspect(&row, remaining) {
+            row.push(next);
+            i += 1;
         } else {
-            (sum / side) as f32
+            layout_row(&row, &mut remaining, &mut out);
+            row.clear();
         }
-        .min(remaining.width());
-        let mut y = remaining.top();
-        for (k, &(id, area)) in row.items.iter().enumerate() {
-            let h = if k + 1 == row.items.len() {
-                remaining.bottom() - y
-            } else {
-                (area / w.max(1e-6) as f64) as f32
-            };
-            out.push(FlatTile {
-                id,
-                rect: Rect::from_min_size(pos2(remaining.left(), y), Vec2::new(w, h)),
-            });
-            y += h;
-        }
-        *remaining = Rect::from_min_max(pos2(remaining.left() + w, remaining.top()), remaining.max);
-    } else {
-        // Strip along the top, tiles left to right.
-        let side = remaining.width().max(1.0) as f64;
-        let h = if last_row {
-            remaining.height()
-        } else {
-            (sum / side) as f32
-        }
-        .min(remaining.height());
+    }
+    if !row.is_empty() {
+        layout_row(&row, &mut remaining, &mut out);
+    }
+    out
+}
+
+fn layout_row(row: &[(NodeId, f64)], remaining: &mut Rect, out: &mut Vec<FlatTile>) {
+    let sum: f64 = row.iter().map(|(_, f)| *f).sum::<f64>().max(1e-12);
+    let horizontal = remaining.width() >= remaining.height();
+    if horizontal {
+        let h = (remaining.height() as f64 * sum) as f32;
         let mut x = remaining.left();
-        for (k, &(id, area)) in row.items.iter().enumerate() {
-            let w = if k + 1 == row.items.len() {
-                remaining.right() - x
-            } else {
-                (area / h.max(1e-6) as f64) as f32
-            };
+        for &(id, frac) in row {
+            let w = remaining.width() * (frac / sum) as f32;
             out.push(FlatTile {
                 id,
                 rect: Rect::from_min_size(pos2(x, remaining.top()), Vec2::new(w, h)),
@@ -373,86 +397,44 @@ fn layout_row(row: &Row, remaining: &mut Rect, out: &mut Vec<FlatTile>, last_row
             x += w;
         }
         *remaining = Rect::from_min_max(pos2(remaining.left(), remaining.top() + h), remaining.max);
+    } else {
+        let w = (remaining.width() as f64 * sum) as f32;
+        let mut y = remaining.top();
+        for &(id, frac) in row {
+            let h = remaining.height() * (frac / sum) as f32;
+            out.push(FlatTile {
+                id,
+                rect: Rect::from_min_size(pos2(remaining.left(), y), Vec2::new(w, h)),
+            });
+            y += h;
+        }
+        *remaining = Rect::from_min_max(pos2(remaining.left() + w, remaining.top()), remaining.max);
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn tiles_for(sizes: &[f64], rect: Rect) -> Vec<FlatTile> {
-        let ids: Vec<NodeId> = (0..sizes.len() as u32).map(NodeId).collect();
-        squarify(&ids, sizes, rect)
+fn worst_aspect(row: &[(NodeId, f64)], rect: Rect) -> f64 {
+    if row.is_empty() {
+        return f64::MAX;
     }
-
-    fn check_cover(sizes: &[f64], rect: Rect) {
-        let tiles = tiles_for(sizes, rect);
-        assert_eq!(tiles.len(), sizes.len());
-        let rect_area = rect.width() as f64 * rect.height() as f64;
-        let sum: f64 = tiles
-            .iter()
-            .map(|t| t.rect.width() as f64 * t.rect.height() as f64)
-            .sum();
-        assert!(
-            (sum - rect_area).abs() <= 1.0,
-            "tiles cover {sum} of {rect_area} px² for {sizes:?}"
-        );
-        for t in &tiles {
-            assert!(t.rect.width() >= 0.0 && t.rect.height() >= 0.0);
-            assert!(rect.expand(0.01).contains_rect(t.rect), "{:?} outside {rect:?}", t.rect);
-        }
-        for (a, ta) in tiles.iter().enumerate() {
-            for tb in &tiles[a + 1..] {
-                let i = ta.rect.intersect(tb.rect);
-                let overlap = if i.is_positive() {
-                    i.width() as f64 * i.height() as f64
-                } else {
-                    0.0
-                };
-                assert!(overlap <= 0.01, "{:?} overlaps {:?}", ta.rect, tb.rect);
-            }
-        }
-        // Areas are proportional to sizes.
-        let total: f64 = sizes.iter().sum();
-        for t in &tiles {
-            let s = sizes[t.id.0 as usize];
-            let want = s / total * rect_area;
-            let got = t.rect.width() as f64 * t.rect.height() as f64;
-            assert!((got - want).abs() <= 1.0, "size {s}: {got} vs {want}");
-        }
+    let sum: f64 = row.iter().map(|(_, f)| *f).sum();
+    let horizontal = rect.width() >= rect.height();
+    let side = if horizontal {
+        rect.height() as f64
+    } else {
+        rect.width() as f64
     }
-
-    #[test]
-    fn tiles_cover_the_rect_without_overlap() {
-        let rect = Rect::from_min_size(pos2(10.0, 20.0), Vec2::new(800.0, 600.0));
-        check_cover(&[6.0, 6.0, 4.0, 3.0, 2.0, 2.0, 1.0], rect);
-        check_cover(&[1.0], rect);
-        check_cover(&[1.0, 1.0], rect);
-        check_cover(&[1000.0, 1.0, 1.0, 1.0], rect);
-        let many: Vec<f64> = (1..=60).map(|i| (i * i) as f64).collect();
-        check_cover(&many, rect);
-        check_cover(&many, Rect::from_min_size(pos2(0.0, 0.0), Vec2::new(300.0, 900.0)));
+    .max(1.0);
+    let other = if horizontal {
+        rect.width() as f64 * sum
+    } else {
+        rect.height() as f64 * sum
     }
+    .max(1.0);
 
-    #[test]
-    fn rows_are_laid_along_the_shorter_side() {
-        // Wide rect: the first row must be a column at the left.
-        let rect = Rect::from_min_size(pos2(0.0, 0.0), Vec2::new(800.0, 400.0));
-        let tiles = tiles_for(&[1.0, 1.0, 1.0, 1.0], rect);
-        assert!(tiles[0].rect.left() == rect.left());
-        assert!(tiles[0].rect.height() <= rect.height());
-        assert!((tiles[0].rect.width() - 400.0).abs() < 1.0, "{:?}", tiles[0].rect);
-    }
-
-    #[test]
-    fn incremental_worst_matches_recomputation() {
-        let mut row = Row::default();
-        for a in [40.0, 30.0, 25.0] {
-            row.push(NodeId(0), a);
-        }
-        let side = 10.0;
-        let sum = 95.0_f64;
-        let expect = (side * side * 40.0 / (sum * sum)).max(sum * sum / (side * side * 25.0));
-        assert!((row.worst(side) - expect).abs() < 1e-9);
-    }
+    row.iter()
+        .map(|(_, f)| {
+            let len = other * (*f / sum);
+            side.max(len) / side.min(len).max(1e-9)
+        })
+        .fold(0.0_f64, f64::max)
 }

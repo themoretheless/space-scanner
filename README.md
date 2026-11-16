@@ -20,16 +20,14 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Zstd-compressed on-disk cache (v3) with **stale** badge
 - Volumes list, Back/Forward, filter (debounce, dirs/files, size presets), largest files, Reveal in Finder
 - Hover tooltips + sidebar highlight/scroll; path + % of parent
-- Keyboard nav (arrows, Enter, Esc, ⌘1–4 views, ⌘⇧C copy path, ⌘, settings) — press **?**
-- **Trash list** + **Move to Trash**: Space, ⌘-click, Shift-click ranges or row checkboxes; nothing moves without a confirmation that lists every path; a result page reports what moved and what was skipped
-- Search a folder or the **whole scan**, then add every match to the Trash list
-- Dark and light appearance, independent of the Disk usage layout (List and map, Columns, Table)
+- Keyboard nav (arrows, Enter, Esc, ⌘1–4 views, ⌘⇧C copy path) — press **?**
+- Review queue + **Move to Trash** (right-click to queue)
 - **Junk cleaner** (ppduster rule packs): caches / logs / temp → Trash (`space junk`)
 - Local Time Machine snapshots list + delete old
 - Cancelable scan with progress vs previous index
 - Incremental **Rescan folder** (rebuilds index for current root path)
 - Persisted settings (`~/Library/Application Support/…/settings.json`)
-- CLI: `space scan|ls|du|largest|find|export|cache|junk|rules|categories` (exit codes: 0 ok, 1 failure, 2 usage, 3 partial clean)
+- CLI: `space scan|ls|du|junk|rules|categories`
 
 ## Scenario: disk full, Docker volumes need review
 
@@ -48,8 +46,7 @@ reclaimable bytes do not promise immediate recovery of the same host disk space.
 
 ## Roadmap
 
-- Full catalog (~1000): [docs/FEATURES.md](docs/FEATURES.md)
-- Top 200 execution checklist: [docs/ROADMAP-200.md](docs/ROADMAP-200.md)
+- Unified plan (UX, Top-200 roadmap, feature backlog): [docs/PLAN.md](docs/PLAN.md)
 - Perf notes: [docs/PERF.md](docs/PERF.md)
 
 ## Run
@@ -64,10 +61,6 @@ cargo run -p space-app --release
 cargo run -p space-cli --release -- scan ~/Downloads
 cargo run -p space-cli --release -- ls ~/Downloads
 cargo run -p space-cli --release -- du ~/Downloads
-cargo run -p space-cli --release -- largest ~/Downloads --files --limit 20
-cargo run -p space-cli --release -- find ~/Downloads --name '*.dmg' --min-size 100M
-cargo run -p space-cli --release -- export csv ~/Downloads --depth 2 --out downloads.csv
-cargo run -p space-cli --release -- cache ls          # also: cache rm <path> | wipe | prune --ttl-days N
 ```
 
 Renderer: **wgpu** (Metal on macOS). Folder navigation and view switches use short zoom/fade transitions.
@@ -81,12 +74,12 @@ cargo bench -p space-core --features bench --bench scan -- --profile normal
 
 ### UI tips
 
-- Start on **Overview**: free space of the startup disk, **Scan home folder** or **Find junk**, recent scans, other disks
-- Click selects, double-click or **Enter** opens; center / **↑** goes up; **⌘← ⌘→** history
-- **Space**, ⌘-click or the row checkbox adds to the **Trash list**; Shift-click adds a range; every addition can be undone from the notification
-- **Trash list** in the sidebar shows the count; it is the only way to **Move to Trash**
-- Map style and **On disk / File size** sit above the map; layout and search scope in the toolbar; appearance in **Settings** (⌘,)
-- Filter bar: All/Folders/Files, ≥ 100 MB, ≥ 1 GB, the extension picked on the map legend, **Clear filters**
+- Click sunburst segment to zoom; center / **↑** to go up; **← →** history
+- Hover a wedge for tooltip + sidebar sync
+- Right-click items to add to Review; **Review and Remove** → Trash
+- Toggle **On disk / Apparent** in the top-right
+- Container legend chips filter by extension
+- Filter: All/Dirs/Files, min-size presets, **Clear**, badge count
 
 ## Crates
 
@@ -108,14 +101,7 @@ Rules live in [`rules/`](rules/) — **1,533,179** total across `categories/`, `
 cargo run -p space-cli --release -- rules status
 cargo run -p space-cli --release -- rules list --all -q win-
 cargo run -p space-cli --release -- rules list --all -q linux-
-cargo run -p space-cli --release -- junk -c caches,logs      # --json, --limit N, --all, --clean --yes
-```
-
-Global flags: `--rules <dir>` (or `SPACE_RULES_DIR`) picks the rule pack,
-`--cache-dir <dir>` (or `SPACE_CACHE_DIR`) the index cache. Exit codes:
-`0` success, `1` failure, `2` usage error, `3` partial clean (`junk --clean`
-with errors). Files under 512 KiB are aggregated by the indexer and do not
-appear in `largest` / `find`.
+cargo run -p space-cli --release -- junk -c caches,logs
 ```
 
 **`any` is not used.** Cross-OS apps are split into `macos` / `linux` / `windows` rules (paths filtered per OS). Re-split: `cargo run -p space-tools -- split`.
@@ -123,7 +109,7 @@ appear in `largest` / `find`.
 Expand from a local package-name list: `cargo run -p space-tools -- catalog names.txt catalog-wave 15000`.
 OS seed packs are maintained directly in `rules/platforms/`.
 
-In the app: **Cleanup** (check, Select all safe) · **Rules…** (manager, also in Settings).
+In the app: **Junk** (clean) · **Rules** (manager).
 
 ### MCP server
 

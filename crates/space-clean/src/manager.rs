@@ -93,7 +93,11 @@ impl RulePrefs {
     }
 
     pub fn default_path() -> Option<PathBuf> {
-        Some(crate::rules::app_dirs()?.config_dir().join("rule-prefs.json"))
+        Some(
+            crate::rules::app_dirs()?
+                .config_dir()
+                .join("rule-prefs.json"),
+        )
     }
 
     /// Load saved preferences, falling back to defaults. A corrupt file is
@@ -564,7 +568,11 @@ impl RuleManager {
             }
         }
         matches.sort_by_key(|rule| std::cmp::Reverse(rank(rule)));
-        let rows = matches.iter().take(limit).map(|rule| self.row_for(rule)).collect();
+        let rows = matches
+            .iter()
+            .take(limit)
+            .map(|rule| self.row_for(rule))
+            .collect();
         (matches.len(), rows)
     }
 
@@ -910,7 +918,10 @@ mod alias_tests {
     #[test]
     fn ranked_page_keeps_selected_rules_and_puts_largest_first() {
         let manager = facet_fixture();
-        let filter = RuleFilter { host_only: true, ..Default::default() };
+        let filter = RuleFilter {
+            host_only: true,
+            ..Default::default()
+        };
         let size = |rule: &Rule| match rule.id.as_str() {
             "c" => 30,
             "b" => 20,
@@ -918,7 +929,10 @@ mod alias_tests {
         };
         let (total, rows) = manager.list_page_ranked(&filter, 2, |rule| rule.id != "d", size);
         assert_eq!(total, 3);
-        assert_eq!(rows.iter().map(|r| r.id.as_str()).collect::<Vec<_>>(), ["c", "b"]);
+        assert_eq!(
+            rows.iter().map(|r| r.id.as_str()).collect::<Vec<_>>(),
+            ["c", "b"]
+        );
         let (_, all) = manager.list_page_ranked(&filter, 10, |_| true, |_| 0);
         let (_, plain) = manager.list_page(&filter, 10);
         assert_eq!(
@@ -932,11 +946,33 @@ mod alias_tests {
         let mut manager = facet_fixture();
         manager.prefs.set_category("cache", false);
         manager.prefs.set_tag("alpha", false);
-        let filter = RuleFilter { enabled: Some(false), host_only: true, ..Default::default() };
-        assert!(manager.list_page(&filter, 100).1.iter().any(|r| r.id == "a"));
+        let filter = RuleFilter {
+            enabled: Some(false),
+            host_only: true,
+            ..Default::default()
+        };
+        assert!(manager
+            .list_page(&filter, 100)
+            .1
+            .iter()
+            .any(|r| r.id == "a"));
         manager.set_rule_enabled("a", true).unwrap();
-        assert!(!manager.list_page(&filter, 100).1.iter().any(|r| r.id == "a"));
-        assert!(manager.list_page(&RuleFilter { enabled: Some(true), ..filter.clone() }, 100).1.iter().any(|r| r.id == "a"));
+        assert!(!manager
+            .list_page(&filter, 100)
+            .1
+            .iter()
+            .any(|r| r.id == "a"));
+        assert!(manager
+            .list_page(
+                &RuleFilter {
+                    enabled: Some(true),
+                    ..filter.clone()
+                },
+                100
+            )
+            .1
+            .iter()
+            .any(|r| r.id == "a"));
         let root = std::env::temp_dir().join(format!("space-rule-prefs-{}", std::process::id()));
         let path = root.join("prefs.json");
         manager.prefs.save_to(&path).unwrap();
@@ -954,7 +990,11 @@ mod alias_tests {
         let mut manager = facet_fixture();
         manager.set_category_enabled("cache", false).unwrap();
         manager.set_rule_enabled("a", true).unwrap();
-        let category = manager.categories(true).into_iter().find(|c| c.name == "cache").unwrap();
+        let category = manager
+            .categories(true)
+            .into_iter()
+            .find(|c| c.name == "cache")
+            .unwrap();
         assert_eq!((category.enabled, category.total), (1, 2));
         assert_eq!(category.policy, CategoryPolicy::ForceOff);
         manager.set_rule_enabled("c", false).unwrap();
@@ -1148,7 +1188,10 @@ mod alias_tests {
     fn corrupt_prefs_are_backed_up_and_reported_and_saves_are_atomic() {
         let dir = tempfile::tempdir().unwrap();
         let path = dir.path().join("rule-prefs.json");
-        assert_eq!(RulePrefs::try_load_from(&path).unwrap(), RulePrefs::default());
+        assert_eq!(
+            RulePrefs::try_load_from(&path).unwrap(),
+            RulePrefs::default()
+        );
         fs::write(&path, b"{ not json").unwrap();
         let error = RulePrefs::try_load_from(&path).unwrap_err();
         let backup = match &error {
@@ -1158,7 +1201,10 @@ mod alias_tests {
         assert!(error.to_string().contains("corrupt"));
         assert!(!path.exists(), "corrupt file must be moved aside");
         assert_eq!(fs::read(&backup).unwrap(), b"{ not json");
-        assert!(RulePrefs::load_from(&path).is_ok(), "missing file → defaults");
+        assert!(
+            RulePrefs::load_from(&path).is_ok(),
+            "missing file → defaults"
+        );
         let mut prefs = RulePrefs::default();
         prefs.set_rule("x", false);
         prefs.save_to(&path).unwrap();
@@ -1205,17 +1251,33 @@ mod alias_tests {
         );
         // Category selectors accept rule ids too, and foreign rules never run.
         assert_eq!(
-            ids(manager.scan_rules_unrestricted(&["e".into(), "b".into()], &[], None, None, Some(Risk::High))),
+            ids(manager.scan_rules_unrestricted(
+                &["e".into(), "b".into()],
+                &[],
+                None,
+                None,
+                Some(Risk::High)
+            )),
             vec!["b".to_string()]
         );
         assert_eq!(
-            ids(manager.scan_rules_filtered(&["cache".into()], &["beta".into()], None, Some(Risk::High))),
+            ids(manager.scan_rules_filtered(
+                &["cache".into()],
+                &["beta".into()],
+                None,
+                Some(Risk::High)
+            )),
             Vec::<String>::new(),
             "category policy still disables cache"
         );
         manager.reset_category("cache");
         assert_eq!(
-            ids(manager.scan_rules_filtered(&["cache".into()], &["beta".into()], None, Some(Risk::High))),
+            ids(manager.scan_rules_filtered(
+                &["cache".into()],
+                &["beta".into()],
+                None,
+                Some(Risk::High)
+            )),
             vec!["c".to_string()]
         );
     }

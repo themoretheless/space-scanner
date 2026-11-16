@@ -1,32 +1,22 @@
 //! Interface layer. `app.rs` owns state, workers and keys; this module only draws.
 //!
-//! Layout contract (see docs/UX.md):
+//! Layout contract (see docs/PLAN.md):
 //!
-//! - a sidebar holds the four destinations (Overview, Disk usage, Cleanup,
-//!   Trash list) and Settings; below 1000 pt it becomes an icon rail;
-//! - Disk usage has a toolbar (location, search, layout), a filter bar shared by
-//!   every layout, and a status footer;
-//! - wide (>= 1240 pt): contents + map + details side by side;
-//! - medium (960–1240): contents + map, details as a drawer;
-//! - narrow (< 960): one pane at a time (List | Map), details as a bottom sheet.
+//! - wide (>= 1180 pt): contents list + map + inspector side by side;
+//! - medium (900–1180): contents list + map, details as a drawer over the map;
+//! - narrow (< 900): one pane at a time (List | Map), location and search on a sub-bar in every width class.
 //!
-//! Appearance (dark / light) and the Disk usage layout are independent settings.
+//! Global navigation is one row; location, search and progress have their own rows.
 
 mod cleanup;
 mod dialogs;
-mod layouts;
-mod overview;
-mod review_page;
+mod export_ui;
 mod scan;
 mod shell;
-mod toast;
+mod start_skins;
 mod usage;
 
-pub(super) use toast::{ToastAction, ToastLevel, Toasts};
-
 use eframe::egui;
-
-pub(super) use usage::ListingCache;
 
 use super::{Mode, SpaceApp};
 
@@ -40,9 +30,9 @@ pub(super) enum Density {
 
 impl Density {
     pub(super) fn of(width: f32) -> Self {
-        if width >= 1240.0 {
+        if width >= 1180.0 {
             Self::Wide
-        } else if width >= 960.0 {
+        } else if width >= 900.0 {
             Self::Medium
         } else {
             Self::Narrow
@@ -50,22 +40,16 @@ impl Density {
     }
 }
 
-/// The sidebar shows labels from this window width; below it, icons only.
-pub(super) const SIDEBAR_LABELS_FROM: f32 = 1000.0;
-
 impl SpaceApp {
     /// Draw one frame of the whole interface.
     pub(super) fn ui(&mut self, ctx: &egui::Context) {
         let density = Density::of(ctx.screen_rect().width());
         self.dialogs(ctx);
-        self.toasts(ctx);
-        self.sidebar(ctx);
+        self.app_bar(ctx, density);
+        self.basket_bar(ctx, density);
         match self.mode {
-            Mode::Home => self.overview_page(ctx),
-            Mode::Explore => self.usage_page(ctx, density),
             Mode::Clean => self.cleanup_page(ctx, density),
-            Mode::Review => self.review_page(ctx),
+            Mode::Explore => self.usage_page(ctx, density),
         }
-        self.drop_tint(ctx);
     }
 }

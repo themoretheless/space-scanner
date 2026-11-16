@@ -10,8 +10,8 @@ cargo run -p space-tools -- deduplicate
 cargo run -p space-tools -- deduplicate --apply
 cargo run -p space-tools -- catalog names.txt catalog-wave 15000
 cargo run -p space-tools -- pypi
-cargo run -p space-tools -- features
 cargo run -p space-tools -- run-app
+cargo run -p space-tools -- dist-app
 cargo test -p space-mcp --test stdio
 ```
 
@@ -34,10 +34,10 @@ cargo run -p space-tools --release -- pypi scripts/catalogs/pypi-500k-names.txt 
 The names file must contain exactly `ceil(target / 3)` unique safe project names.
 Each batch refuses ID collisions and existing output packs, and always generates
 disabled report-only probes. Snapshot paths are hypotheses, not verified layouts.
-`features` renders `docs/FEATURES.md` from the authoritative
-`docs/features_items.json`; edit that data to add or change features.
-`run-app` builds, bundles and opens the release application on macOS. On other
-platforms run `cargo run -p space-app --release`.
+The project UX plan, Top-200 roadmap and feature catalog are maintained directly in `docs/PLAN.md`.
+`run-app` builds, bundles and opens the release application on macOS.
+`dist-app` packages `target/dist/SpaceScanner.app` (ad-hoc signed) and `target/dist/SpaceScanner-macos.zip`.
+On other platforms run `cargo run -p space-app --release`.
 
 The historical expansion-wave generators are retired. Their checked-in YAML
 outputs remain the source of truth, including curated browser, community,

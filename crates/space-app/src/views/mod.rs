@@ -5,16 +5,15 @@ mod treemap;
 
 use crate::i18n::t;
 use std::borrow::Cow;
-use std::collections::{BTreeSet, HashSet};
 use std::hash::{Hash, Hasher};
 
 use std::sync::Arc;
 
 use egui::epaint::Mesh;
-use egui::{Color32, Pos2, Rect, RichText, Stroke, Ui};
+use egui::{Pos2, RichText, Ui};
 use space_core::{NodeId, SizeMode, SpaceTree};
 
-use crate::theme::MUTED;
+use crate::theme::{DANGER, MUTED};
 
 use sunburst::ArcHit;
 
@@ -39,10 +38,10 @@ impl ViewMode {
     pub fn click_hint(self) -> &'static str {
         match self {
             Self::Sunburst => {
-                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the Trash list"
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to review"
             }
             Self::Container | Self::Radial | Self::Cascade => {
-                "Click selects · double-click opens · ↑ parent · ⌘-click adds to the Trash list"
+                "Click selects · double-click opens · ↑ parent · ⌘-click adds to review"
             }
         }
     }
@@ -74,31 +73,42 @@ impl<'de> serde::Deserialize<'de> for ViewMode {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, serde::Serialize, serde::Deserialize)]
-#[repr(u8)]
-pub enum EntryKindFilter {
-    #[default]
-    All,
-    DirsOnly,
-    FilesOnly,
-}
-
 #[derive(Debug, Clone, Default)]
 pub struct ViewFilter {
     pub query: String,
-    /// File extensions to show (lower-case, without the dot); empty = all.
-    pub ext: BTreeSet<String>,
+    pub ext: Option<String>,
+    pub exts: Vec<String>,
+    pub only_dirs: bool,
     pub min_size: u64,
     pub max_size: Option<u64>,
-    pub kind: EntryKindFilter,
+    pub use_regex: bool,
+    pub regex_invalid: bool,
+    query_lower: String,
+    query_lower_src: String,
+    compiled_regex: Option<Arc<regex_automata::meta::Regex>>,
 }
 
 impl ViewFilter {
+    pub fn rebuild_regex(&mut self) {
+        self.query_lower = self.query.to_lowercase();
+        self.query_lower_src.clone_from(&self.query);
+        self.compiled_regex = None;
+        self.regex_invalid = false;
+        if self.use_regex && !self.query.is_empty() {
+            let cfg = regex_automata::util::syntax::Config::new().case_insensitive(true);
+            match regex_automata::meta::Builder::new()
+                .syntax(cfg)
+                .build(&self.query)
+            {
+                Ok(re) => self.compiled_regex = Some(Arc::new(re)),
+                Err(_) => self.regex_invalid = true,
+            }
+        }
+    }
+
     pub fn matches(&self, name: &str, is_dir: bool, size: u64) -> bool {
-        match self.kind {
-            EntryKindFilter::DirsOnly if !is_dir => return false,
-            EntryKindFilter::FilesOnly if is_dir => return false,
-            _ => {}
+        if self.only_dirs && !is_dir {
+            return false;
         }
         if size < self.min_size {
             return false;
@@ -108,16 +118,28 @@ impl ViewFilter {
                 return false;
             }
         }
-        if !self.ext.is_empty() {
+        if self.ext.is_some() || !self.exts.is_empty() {
             if is_dir {
                 return true;
             }
             let e = crate::theme::extension_of(name);
-            if !self.has_ext(e) {
+            let matched = self
+                .ext
+                .as_deref()
+                .is_some_and(|x| e.eq_ignore_ascii_case(x))
+                || self.exts.iter().any(|x| e.eq_ignore_ascii_case(x));
+            if !matched {
                 return false;
             }
         }
         if !self.query.is_empty() {
+            if self.use_regex {
+                return !self.regex_invalid
+                    && self
+                        .compiled_regex
+                        .as_ref()
+                        .is_some_and(|re| re.is_match(name));
+            }
             // Most filenames and queries are ASCII. Compare borrowed bytes rather
             // than allocating two lowercase strings for every candidate.
             if name.is_ascii() && self.query.is_ascii() {
@@ -126,33 +148,50 @@ impl ViewFilter {
                     .windows(self.query.len())
                     .any(|part| part.eq_ignore_ascii_case(self.query.as_bytes()));
             }
-            let q = self.query.to_lowercase();
-            if !name.to_lowercase().contains(&q) {
+            let q: Cow<'_, str> = if self.query_lower_src == self.query {
+                Cow::Borrowed(&self.query_lower)
+            } else {
+                Cow::Owned(self.query.to_lowercase())
+            };
+            if !name.to_lowercase().contains(q.as_ref()) {
                 return false;
             }
         }
         true
     }
 
-    /// Is `ext` (any case) one of the selected extensions?
-    pub fn has_ext(&self, ext: &str) -> bool {
-        self.ext.iter().any(|e| e.eq_ignore_ascii_case(ext))
-    }
-
-    /// Add `ext` to the selected extensions, or remove it when present.
-    pub fn toggle_ext(&mut self, ext: &str) {
-        let key = ext.to_ascii_lowercase();
-        if !self.ext.remove(&key) {
-            self.ext.insert(key);
-        }
-    }
-
     pub fn is_active(&self) -> bool {
         !self.query.is_empty()
-            || !self.ext.is_empty()
+            || self.ext.is_some()
+            || !self.exts.is_empty()
+            || self.only_dirs
             || self.min_size > 0
             || self.max_size.is_some()
-            || self.kind != EntryKindFilter::All
+            || self.use_regex
+    }
+
+    pub fn active_count(&self) -> usize {
+        let mut n = 0;
+        if !self.query.is_empty() {
+            n += 1;
+        }
+        if self.ext.is_some() {
+            n += 1;
+        }
+        n += self.exts.len();
+        if self.only_dirs {
+            n += 1;
+        }
+        if self.min_size > 0 {
+            n += 1;
+        }
+        if self.max_size.is_some() {
+            n += 1;
+        }
+        if self.use_regex {
+            n += 1;
+        }
+        n
     }
 
     pub fn clear(&mut self) {
@@ -163,126 +202,116 @@ impl ViewFilter {
         let mut h = std::collections::hash_map::DefaultHasher::new();
         self.query.hash(&mut h);
         self.ext.hash(&mut h);
+        self.exts.hash(&mut h);
+        self.only_dirs.hash(&mut h);
         self.min_size.hash(&mut h);
         self.max_size.hash(&mut h);
-        (self.kind as u8).hash(&mut h);
+        self.use_regex.hash(&mut h);
+        self.regex_invalid.hash(&mut h);
         h.finish()
     }
+}
+
+pub fn quantize_px(px: f32) -> u16 {
+    (px.clamp(0.0, u16::MAX as f32).round() as u16) & !1
+}
+
+pub fn quantize_pos(px: f32) -> i16 {
+    (px.clamp(i16::MIN as f32, i16::MAX as f32).round() as i16) & !1
+}
+
+pub(crate) fn theme_bits() -> u64 {
+    ((crate::theme::skin() as u64) << 1) | u64::from(crate::theme::high_contrast())
+}
+
+pub fn truncate(s: &str, max: usize) -> Cow<'_, str> {
+    if max == 0 {
+        return Cow::Borrowed("");
+    }
+    if s.len() <= max {
+        return Cow::Borrowed(s);
+    }
+    let keep = max.saturating_sub(1);
+    let mut cut_byte = None;
+    for (count, (byte_idx, _)) in s.char_indices().enumerate() {
+        if count == keep {
+            cut_byte = Some(byte_idx);
+        } else if count >= max {
+            let cut = cut_byte.unwrap_or(0);
+            return Cow::Owned(format!("{}…", &s[..cut]));
+        }
+    }
+    Cow::Borrowed(s)
 }
 
 pub struct ViewAction {
     pub navigate: Option<NodeId>,
     pub select: Option<NodeId>,
+    pub toggle_select: Option<NodeId>,
     pub hover: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
+    pub delete_permanent: Option<NodeId>,
     pub filter_ext: Option<String>,
     pub reveal: Option<NodeId>,
+    pub quick_look: Option<NodeId>,
+    pub open_terminal: Option<NodeId>,
     pub clear_filter: bool,
 }
 
 /// Same hover card in every map view so gestures stay discoverable.
 pub fn node_hover_ui(ui: &mut Ui, tree: &SpaceTree, id: NodeId, focus: NodeId, mode: SizeMode) {
     let n = tree.node(id);
-    ui.label(RichText::new(&n.name).family(crate::theme::bold()));
+    ui.label(RichText::new(&n.name).strong());
     let kind = t(if n.is_dir { "Folder" } else { "File" });
     let mut line = format!("{kind} · {}", crate::i18n::bytes(n.size(mode)));
-    if n.is_dir {
-        line.push_str(" · ");
-        line.push_str(&crate::i18n::count(n.file_count as usize, "file"));
+    if n.is_dir && n.file_count > 0 {
+        line.push_str(&format!(" · {}", crate::tr!("{} items", n.file_count)));
     }
     if let Some(parent) = n.parent {
         let ps = tree.node(parent).size(mode).max(1) as f32;
         let pct = n.size(mode) as f32 / ps * 100.0;
         line.push_str(&crate::tr!(" · {}% of parent", format!("{pct:.0}")));
     }
+    if n.mtime_unix > 0 {
+        line.push_str(&format!(" · {}", crate::i18n::date_ymd(n.mtime_unix)));
+    }
     ui.label(line);
     let hint = if n.synthetic {
         "Grouped leftovers · click to select · right-click to filter by type"
     } else if n.is_dir && id == focus {
-        "Click to select · ↑ to go up · ⌘-click adds to the Trash list"
+        "Click to select · ↑ to go up · ⌘-click adds to review"
     } else if n.is_dir {
-        "Click to select · double-click to open · ⌘-click adds to the Trash list"
+        "Click to select · double-click to open · ⌘-click adds to review"
     } else {
-        "Click to select · double-click shows it in Finder · ⌘-click adds to the Trash list"
+        "Click to select · double-click Finder · ⌘-click Trash queue"
     };
-    ui.label(RichText::new(t(hint)).small().color(MUTED()));
+    ui.label(
+        RichText::new(t(hint))
+            .size(crate::theme::type_scale::CAPTION)
+            .color(MUTED()),
+    );
 }
 
-pub fn click_map_node(tree: &SpaceTree, id: NodeId, cmd: bool, action: &mut ViewAction) {
+pub fn click_map_node(
+    tree: &SpaceTree,
+    id: NodeId,
+    focus: NodeId,
+    cmd: bool,
+    shift: bool,
+    action: &mut ViewAction,
+) {
     let n = tree.node(id);
-    if cmd && !n.synthetic {
+    if cmd && !n.synthetic && n.parent.is_some() {
         action.toggle_review = Some(id);
+        action.select = Some(id);
+        return;
     }
+    if shift && !n.synthetic {
+        action.toggle_select = Some(id);
+        return;
+    }
+    let _ = focus;
     action.select = Some(id);
-}
-
-/// Everything a map does with one node's response: click, double-click,
-/// context menu, hover card and cursor. Shared by the tile/band/bubble views.
-pub fn node_response(ui: &Ui, resp: &egui::Response, ctx: &DrawCtx<'_>, id: NodeId, action: &mut ViewAction) {
-    if resp.clicked() {
-        click_map_node(
-            ctx.tree,
-            id,
-            ui.input(|i| i.modifiers.command || i.modifiers.ctrl),
-            action,
-        );
-    }
-    if resp.double_clicked() {
-        double_click_map_node(ctx.tree, id, action);
-    }
-    node_context_menu(resp, ctx.tree, id, ctx.review.contains(&id), action);
-    if resp.hovered() {
-        action.hover = Some(id);
-        ui.ctx().set_cursor_icon(egui::CursorIcon::PointingHand);
-        resp.clone()
-            .on_hover_ui(|ui| node_hover_ui(ui, ctx.tree, id, ctx.focus, ctx.mode));
-    }
-}
-
-/// Animated hover/selection weights for a node, keyed by its id (stable
-/// across re-layouts, unlike an index into the geometry list).
-pub fn highlight(ui: &Ui, view: &'static str, id: Option<NodeId>, is_hov: bool, is_sel: bool) -> (f32, f32) {
-    let key = id.map_or(u32::MAX, |id| id.0);
-    let hov = ui
-        .ctx()
-        .animate_bool_with_time(ui.id().with((view, "hov", key)), is_hov, crate::anim::ease_time(0.14));
-    let sel = ui
-        .ctx()
-        .animate_bool_with_time(ui.id().with((view, "sel", key)), is_sel, crate::anim::ease_time(0.18));
-    (hov, sel)
-}
-
-/// Outline for a map item: accent that strengthens with selection and hover,
-/// otherwise the quiet `idle` colour.
-pub fn highlight_stroke(hov_t: f32, sel_t: f32, idle: Color32) -> Stroke {
-    if sel_t > 0.05 || hov_t > 0.05 {
-        let alpha = ((80.0 + sel_t * 160.0 + hov_t * 110.0) / 255.0).min(1.0);
-        Stroke::new(
-            1.0 + sel_t * 1.2 + hov_t * 0.8,
-            crate::theme::ACCENT().gamma_multiply(alpha),
-        )
-    } else {
-        Stroke::new(0.8_f32, idle)
-    }
-}
-
-/// Shorten a name to `max` characters with an ellipsis (char-aware).
-pub fn truncate(s: &str, max: usize) -> String {
-    if s.chars().count() <= max {
-        s.to_string()
-    } else {
-        let t: String = s.chars().take(max.saturating_sub(1)).collect();
-        format!("{t}…")
-    }
-}
-
-/// Scale a point about `center` (zoom transition drawn from cached geometry).
-pub fn zoomed(center: Pos2, p: Pos2, scale: f32) -> Pos2 {
-    center + (p - center) * scale
-}
-
-pub fn zoomed_rect(center: Pos2, r: Rect, scale: f32) -> Rect {
-    Rect::from_min_max(zoomed(center, r.min, scale), zoomed(center, r.max, scale))
 }
 
 pub fn double_click_map_node(tree: &SpaceTree, id: NodeId, action: &mut ViewAction) {
@@ -312,19 +341,34 @@ pub fn node_context_menu(
             action.select = Some(id);
             ui.close_menu();
         }
-        if !n.synthetic {
+        if !n.synthetic && n.parent.is_some() {
             let label = if in_review {
-                t("Take out of Trash list")
+                t("Remove from review")
             } else {
-                t("Add to Trash list")
+                t("Add to review")
             };
             if ui.button(label).clicked() {
                 action.toggle_review = Some(id);
                 ui.close_menu();
             }
+            if ui
+                .button(RichText::new(t("Delete permanently…")).color(DANGER()))
+                .clicked()
+            {
+                action.delete_permanent = Some(id);
+                ui.close_menu();
+            }
         }
         if ui.button(t("Show in Finder")).clicked() {
             action.reveal = Some(id);
+            ui.close_menu();
+        }
+        if !n.synthetic && ui.button(t("Quick Look")).clicked() {
+            action.quick_look = Some(id);
+            ui.close_menu();
+        }
+        if !n.synthetic && ui.button(t("Open in Terminal")).clicked() {
+            action.open_terminal = Some(id);
             ui.close_menu();
         }
     });
@@ -336,7 +380,7 @@ pub fn hovered_node_context_menu(
     resp: &egui::Response,
     tree: &SpaceTree,
     hovered: Option<NodeId>,
-    review: &HashSet<NodeId>,
+    review: &[NodeId],
     action: &mut ViewAction,
 ) {
     let target_key = resp.id.with("context_menu_target");
@@ -363,10 +407,14 @@ impl ViewAction {
         Self {
             navigate: None,
             select: None,
+            toggle_select: None,
             hover: None,
             toggle_review: None,
+            delete_permanent: None,
             filter_ext: None,
             reveal: None,
+            quick_look: None,
+            open_terminal: None,
             clear_filter: false,
         }
     }
@@ -391,43 +439,35 @@ pub fn empty_filter_prompt(ui: &mut Ui, rect: egui::Rect, action: &mut ViewActio
     });
 }
 
-/// What the cached geometry was built for. Size and position are quantized
-/// to 8 px so sub-pixel layout jitter does not rebuild the mesh every frame.
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct GeomKey {
     pub view: u8,
     pub focus: NodeId,
     pub mode: SizeMode,
     pub filter: u64,
-    pub depth: u8,
-    pub nest: u8,
-    pub cascade_depth: u8,
-    /// Row scale × 100.
-    pub row_scale: u16,
+    pub selected: Option<NodeId>,
     pub x: i16,
     pub y: i16,
     pub w: u16,
     pub h: u16,
+    pub review_sig: u64,
+    pub view_opts: u64,
 }
 
-impl GeomKey {
-    pub fn new(view: u8, ctx: &DrawCtx<'_>, rect: Rect) -> Self {
-        let q = |v: f32| (v / 8.0).round() * 8.0;
-        Self {
-            view,
-            focus: ctx.focus,
-            mode: ctx.mode,
-            filter: ctx.filter_hash,
-            depth: ctx.sunburst_depth as u8,
-            nest: ctx.treemap_nest as u8,
-            cascade_depth: ctx.cascade_depth as u8,
-            row_scale: (ctx.cascade_row_scale * 100.0).round() as u16,
-            x: q(rect.min.x) as i16,
-            y: q(rect.min.y) as i16,
-            w: q(rect.width()) as u16,
-            h: q(rect.height()) as u16,
-        }
-    }
+#[derive(Clone, Copy)]
+pub struct RadialBubble {
+    pub id: NodeId,
+    pub pos: Pos2,
+    pub r: f32,
+    pub color: egui::Color32,
+}
+
+#[derive(Clone, Copy)]
+pub struct CascadeBand {
+    pub id: NodeId,
+    pub rect: egui::Rect,
+    pub depth: usize,
+    pub color: egui::Color32,
 }
 
 pub enum GeomCache {
@@ -442,11 +482,17 @@ pub enum GeomCache {
     Treemap {
         key: GeomKey,
         tiles: Vec<(NodeId, egui::Rect, usize)>,
-        legend: Vec<(String, Color32)>,
+    },
+    Radial {
+        key: GeomKey,
+        bubbles: Vec<RadialBubble>,
+        center: Pos2,
+        orbit_r: f32,
+        center_r: f32,
     },
     Cascade {
         key: GeomKey,
-        bands: Vec<(NodeId, egui::Rect, usize, Color32)>,
+        bands: Vec<CascadeBand>,
     },
 }
 
@@ -454,22 +500,19 @@ pub struct DrawCtx<'a> {
     pub tree: &'a SpaceTree,
     pub focus: NodeId,
     pub selected: Option<NodeId>,
+    pub selected_set: &'a [NodeId],
     pub hovered: Option<NodeId>,
-    pub review: &'a HashSet<NodeId>,
+    pub review: &'a [NodeId],
     pub mode: SizeMode,
     pub filter: &'a ViewFilter,
     pub filter_hash: u64,
-    /// Rings the sunburst draws (1..=4).
-    pub sunburst_depth: usize,
-    /// Folder levels nested inside treemap tiles (1..=4).
-    pub treemap_nest: usize,
-    /// Band rows below the cascade focus (2..=8).
-    pub cascade_depth: usize,
-    /// Cascade band height multiplier.
-    pub cascade_row_scale: f32,
-    /// Zoom transition: geometry is built for the final rect and drawn
-    /// scaled about its centre, so nothing is rebuilt per frame.
-    pub scale: f32,
+    #[allow(dead_code)]
+    pub review_sig: u64,
+    pub sunburst_rings: u8,
+    pub treemap_depth: u8,
+    pub treemap_mode: crate::settings::TreemapMode,
+    pub cascade_depth: u8,
+    pub cascade_row_height: f32,
     pub geom: &'a mut Option<GeomCache>,
 }
 
@@ -500,6 +543,10 @@ pub fn child_ids<'a>(ctx: &DrawCtx<'a>, id: NodeId) -> Cow<'a, [NodeId]> {
     )
 }
 
+pub fn review_sig(review: &[NodeId]) -> u64 {
+    crate::review::signature(review)
+}
+
 #[cfg(test)]
 mod click_map_tests {
     use super::*;
@@ -513,9 +560,9 @@ mod click_map_tests {
             file_count: 1,
             is_dir: true,
             synthetic: false,
+            mtime_unix: 0,
             children,
             parent,
-            raw_name: None,
         }
     }
 
@@ -527,9 +574,9 @@ mod click_map_tests {
             file_count: 1,
             is_dir: false,
             synthetic: false,
+            mtime_unix: 0,
             children: Vec::new(),
             parent: Some(parent),
-            raw_name: None,
         }
     }
 
@@ -547,6 +594,7 @@ mod click_map_tests {
             skipped_errors: 0,
             hardlink_candidates: 0,
             hardlinks_deduped: 0,
+            skipped_roots: Vec::new(),
         }
     }
 
@@ -554,10 +602,8 @@ mod click_map_tests {
     fn ring_context_menu_survives_pointer_entering_popup_and_keeps_clicked_target() {
         let tree = sample();
         let ctx = egui::Context::default();
-        crate::theme::apply(&ctx, crate::theme::Appearance::default(), false, 350);
         let mut geom = None;
         let filter = ViewFilter::default();
-        let review = HashSet::new();
         let mut action = ViewAction::none();
         let mut frame = |events: Vec<egui::Event>| {
             ctx.run(
@@ -578,16 +624,18 @@ mod click_map_tests {
                                 tree: &tree,
                                 focus: tree.root,
                                 selected: None,
+                                selected_set: &[],
                                 hovered: None,
-                                review: &review,
+                                review: &[],
                                 mode: SizeMode::OnDisk,
                                 filter: &filter,
                                 filter_hash: filter.hash64(),
-                                sunburst_depth: 2,
-                                treemap_nest: 2,
+                                review_sig: 0,
+                                sunburst_rings: 2,
+                                treemap_depth: 2,
+                                treemap_mode: crate::settings::TreemapMode::Squarify,
                                 cascade_depth: 5,
-                                cascade_row_scale: 1.0,
-                                scale: 1.0,
+                                cascade_row_height: 32.0,
                                 geom: &mut geom,
                             },
                         );
@@ -630,6 +678,7 @@ mod click_map_tests {
         }
         frame(vec![button(select, egui::PointerButton::Primary, true)]);
         frame(vec![button(select, egui::PointerButton::Primary, false)]);
+        drop(frame);
         assert_eq!(
             action.select,
             Some(NodeId(1)),
@@ -641,7 +690,7 @@ mod click_map_tests {
     fn click_child_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), NodeId(0), false, false, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -650,7 +699,7 @@ mod click_map_tests {
     fn click_current_folder_selects_without_navigation() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), NodeId(1), false, false, &mut action);
         assert_eq!(action.navigate, None);
         assert_eq!(action.select, Some(NodeId(1)));
     }
@@ -659,9 +708,18 @@ mod click_map_tests {
     fn click_file_selects() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), false, &mut action);
+        click_map_node(&tree, NodeId(2), NodeId(1), false, false, &mut action);
         assert_eq!(action.select, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
+    }
+
+    #[test]
+    fn shift_click_toggles_multi_selection() {
+        let tree = sample();
+        let mut action = ViewAction::none();
+        click_map_node(&tree, NodeId(2), NodeId(1), false, true, &mut action);
+        assert_eq!(action.toggle_select, Some(NodeId(2)));
+        assert_eq!(action.select, None);
     }
 
     #[test]
@@ -678,7 +736,7 @@ mod click_map_tests {
         let mut tree = sample();
         tree.nodes[1].synthetic = true;
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(1), false, &mut action);
+        click_map_node(&tree, NodeId(1), NodeId(0), false, false, &mut action);
         assert_eq!(action.select, Some(NodeId(1)));
         assert_eq!(action.navigate, None);
     }
@@ -687,7 +745,7 @@ mod click_map_tests {
     fn cmd_click_queues_trash() {
         let tree = sample();
         let mut action = ViewAction::none();
-        click_map_node(&tree, NodeId(2), true, &mut action);
+        click_map_node(&tree, NodeId(2), NodeId(1), true, false, &mut action);
         assert_eq!(action.toggle_review, Some(NodeId(2)));
         assert_eq!(action.navigate, None);
     }
@@ -746,39 +804,79 @@ mod filter_tests {
     }
 
     #[test]
-    fn query_optimization_preserves_kind_size_and_extension_filters() {
-        let mut filter = ViewFilter {
+    fn query_optimization_preserves_size_and_extension_filters() {
+        let filter = ViewFilter {
             query: "CACHE".into(),
             min_size: 10,
             max_size: Some(20),
-            ext: BTreeSet::from(["log".to_string()]),
-            kind: EntryKindFilter::FilesOnly,
+            ext: Some("LOG".into()),
+            ..Default::default()
         };
         assert!(filter.matches("cache.log", false, 10));
-        assert!(!filter.matches("cache.log", true, 10));
         assert!(!filter.matches("cache.log", false, 9));
         assert!(!filter.matches("cache.log", false, 21));
         assert!(!filter.matches("cache.bin", false, 15));
         assert!(!filter.matches("other.log", false, 15));
-        filter.kind = EntryKindFilter::All;
         // Directory navigation bypasses query matching with an extension filter.
         assert!(filter.matches("other", true, 15));
     }
 
     #[test]
-    fn several_extensions_combine_and_toggle() {
-        let mut filter = ViewFilter::default();
-        filter.toggle_ext("LOG");
-        filter.toggle_ext("bin");
-        assert!(filter.has_ext("log") && filter.has_ext("BIN"));
-        assert!(filter.matches("a.log", false, 1) && filter.matches("b.Bin", false, 1));
-        assert!(!filter.matches("c.txt", false, 1));
-        let before = filter.hash64();
-        filter.toggle_ext("log");
-        assert!(!filter.has_ext("log") && filter.matches("b.bin", false, 1));
-        assert_ne!(before, filter.hash64());
-        filter.toggle_ext("bin");
-        assert!(!filter.is_active());
+    fn regex_multi_ext_dirs_only_and_quantize_work() {
+        let mut filter = ViewFilter {
+            query: r"^cache-\d+\.log$".into(),
+            use_regex: true,
+            ..Default::default()
+        };
+        filter.rebuild_regex();
+        assert!(!filter.regex_invalid);
+        assert!(filter.matches("Cache-42.LOG", false, 100));
+        assert!(!filter.matches("cache-abc.log", false, 100));
+
+        filter.query = "[unclosed".into();
+        filter.rebuild_regex();
+        assert!(filter.regex_invalid);
+        assert!(!filter.matches("anything", false, 100));
+
+        let exts = ViewFilter {
+            exts: vec!["dmg".into(), "iso".into()],
+            only_dirs: false,
+            ..Default::default()
+        };
+        assert!(exts.matches("Ubuntu.ISO", false, 1));
+        assert!(exts.matches("Installer.dmg", false, 1));
+        assert!(!exts.matches("notes.txt", false, 1));
+
+        let dirs = ViewFilter {
+            only_dirs: true,
+            ..Default::default()
+        };
+        assert!(dirs.matches("src", true, 1));
+        assert!(!dirs.matches("src.rs", false, 1));
+
+        assert_eq!(quantize_px(800.4), quantize_px(801.1));
+        assert_eq!(quantize_pos(-10.4), quantize_pos(-10.1));
+        assert!(matches!(truncate("short", 10), Cow::Borrowed("short")));
+        assert!(matches!(truncate("ééé", 3), Cow::Borrowed("ééé")));
+        assert_eq!(truncate("abcdef", 4).as_ref(), "abc…");
+    }
+
+    #[test]
+    fn query_lower_cache_matches_unicode_without_stale_results() {
+        let mut filter = ViewFilter {
+            query: "RÉSUMÉ".into(),
+            ..Default::default()
+        };
+        filter.rebuild_regex();
+        assert!(filter.matches("résumé.txt", false, 1));
+        assert!(!filter.matches("other.txt", false, 1));
+
+        // Direct struct mutation without rebuild_regex must stay accurate via fallback.
+        filter.query = "ÜBER".into();
+        assert!(!filter.matches("résumé.txt", false, 1));
+        assert!(filter.matches("über.log", false, 1));
+        filter.rebuild_regex();
+        assert!(filter.matches("über.log", false, 1));
     }
 
     #[test]

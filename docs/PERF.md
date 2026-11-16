@@ -1,42 +1,5 @@
 # Scan performance
 
-## October 2026 optimization wave
-
-Scan workers now push subdirectories to their own work-stealing deque (the
-injector only seeds the root), park with a backoff instead of a 50 µs sleep,
-emit directory and file records into separate per-worker shards (no merge and
-partition pass), and build `Node`s directly from records. Hardlink ownership is
-resolved once after the merge, deterministically by path, so there is no shared
-inode lock in the file hot path. Children sort with `sort_unstable_by` and an id
-tie-break. The cache key hashes raw `OsStr` bytes and canonicalizes once.
-
-Linux, 4 cores, release, airbug-bench quick profile (medians, uncontrolled load):
-
-| Case | Before | After |
-|---|---:|---:|
-| 512 files | 7.88 ms | 1.28 ms |
-| 4096 files | 5.23 ms | 3.71 ms |
-| 65,536 files | 27.8 ms | 31.6 ms (noise) |
-| Rescan 256 of 4096 | 0.75 ms | 0.79 ms (noise) |
-
-Small and medium trees lose the idle-sleep tail; the 65k case is bound by
-`read_dir`/`stat` syscalls.
-
-Junk rules (1.5M rules, 685 MB of YAML): the loader fingerprints sources by
-(length, mtime) and hashes content only on change, parses files in parallel with
-rayon and merges deterministically, builds id/category/tag/host indexes once per
-shared pack, compiles each unique glob list once (the 256-entry caps are gone),
-memoizes ancestor-marker checks per directory, and takes one `symlink_metadata`
-per candidate. `space rules status` on the same box: cold 53.4 s → 29.7 s, warm
-3.4–6.4 s → 4.7–5.2 s (now dominated by deserializing tag strings). The
-space-clean test suite dropped from ~5 min to ~85 s.
-
-UI: contents tree and table are virtualised with `ScrollArea::show_rows`, the
-children→filter→sort→palette→rows pipeline is cached per (folder, mode, filter,
-expanded set, tree generation), review-queue bytes and basket summaries are
-cached, map geometry is cached per quantized rect origin and size (cascade
-included) and scaled during zoom transitions instead of rebuilt per frame.
-
 ## September 2026 optimization
 
 The scan now assigns directory IDs before enqueueing work. Records store a parent
@@ -340,3 +303,62 @@ eight existing Clippy warnings were resolved; strict workspace Clippy now passes
 cargo test -p space-app --release filter_query_profile -- --ignored --nocapture
 cargo clippy --workspace --all-targets --locked --offline -- -D warnings
 ```
+
+
+## Darwin getattrlistbulk vs std::fs::read_dir
+
+Measured with `cargo bench -p space-core --features bench --bench scan --offline -- --profile normal`
+(30 observations per case on a shared 65,536-file temporary tree fixture).
+
+### Environment
+
+- OS / Arch: `Darwin 27.3.0 arm64`
+- Compiler: `rustc 1.102.0-nightly (ac8310ba6 2026-11-09)`
+
+### Phase Profile (`tree_4096`)
+
+```text
+items=529 files=4096 size=16.0 MiB wall=6.310958ms (649030 files/s)
+per-file≈2µs  nodes=529
+```
+
+### Results (`--profile normal`)
+
+| Case | Median (ns) | Median (ms) | Observations | Notes |
+|---|---:|---:|---:|---|
+| `space_scan/scan/tree_512` | 5,284,333.5 | 5.28 | 30 | `ScanOptions::default()` (`getattrlistbulk`) |
+| `space_scan/scan/tree_4096` | 12,104,583.5 | 12.10 | 30 | `ScanOptions::default()` (`getattrlistbulk`) |
+| `space_scan/scan/tree_65536` | 54,115,146.0 | 54.12 | 30 | `ScanOptions::default()` (`getattrlistbulk`) |
+| `space_scan/scan/tree_65536_read_dir` | 111,353,958.5 | 111.35 | 30 | `ScanOptions { force_read_dir: true, .. }` |
+| `space_scan/scan/sums_4096` | 10,239,187.5 | 10.24 | 30 | In-memory bottom-up rollup + sort |
+| `space_scan/rescan/subtree_256_of_4096` | 5,836,354.5 | 5.84 | 30 | Incremental subtree rescan |
+
+### Comparison
+
+On the 65,536-file fixture, Darwin `getattrlistbulk` (`54.12 ms` median) is **2.06× faster**
+(`51.4%` lower wall-clock latency) than `std::fs::read_dir` (`111.35 ms` median).
+
+## Scan, Cache & UI Architecture Optimization Pass
+
+### Architecture & Refactoring (DAG, SOLID, DRY)
+
+- **`crates/space-core/src/scan/` DAG split**: decomposed `scan.rs` into an acyclic submodule graph (`mod` -> `{reader, builder, rescan}` -> `dag`) verified by Kahn's topological sort in `crates/space-core/tests/dag_architecture.rs`.
+- **Lock-free LIFO work-stealing**: worker threads push discovered subdirectories onto thread-local `crossbeam_deque::Worker` LIFO queues, steal half-batches via `Injector::steal_batch_and_pop` and peer `Stealer`s, use `crossbeam_utils::Backoff` + `thread::park_timeout`, and resolve hardlink deduplication deterministically via `resolve_hardlink_dag`.
+- **Cache v6 (`crates/space-core/src/cache.rs`)**: upgraded to `CACHE_VERSION = 6` with lossless encoded OS path keys, streaming `blake3` payload checksums (`HashingWriter` / `HashingReader`) + atomic `TmpFileGuard` writes, 60-second `last_accessed_unix` touch throttling, and shared `evict_lru_keeping` / `evict_to_budget` helpers.
+- **`space-cli` & benchmark DRY**: unified duplicate event-drain loops behind `ScanHandle::wait` and `ScanHandle::wait_with`.
+- **UI & `space-app` caches / SOLID split**: split `app.rs` into `app/{caches,workers,actions}.rs`, added O(1) versioned `AppCaches` (`BasketCache`, `ReviewSetCache`, `ContentsListingCache`), eliminated per-frame `symlink_metadata` calls on cached Quick Clean findings, added `ViewFilter.query_lower` caching and `GeomCache::{Radial,Cascade}`, shared `views::truncate`, O(Q+depth) `review` ancestor checks, and virtualized `contents_list` with `ScrollArea::show_rows`.
+
+### Scan Throughput Results (`--profile normal`)
+
+Measured with `cargo bench -p space-core --features bench --bench scan --offline -- --profile normal` (30 observations per case):
+
+- Phase profile (`tree_4096`): `items=529 files=4096 size=16.0 MiB wall=5.607458ms (730456 files/s)`.
+
+| Benchmark | Median (ns) | Median (ms) | Samples |
+|---|---:|---:|---:|
+| `space_scan/scan/tree_512` | 6,527,156.25 | 6.53 | 30 |
+| `space_scan/scan/tree_4096` | 7,915,541.50 | 7.92 | 30 |
+| `space_scan/scan/tree_65536` | 32,620,937.00 | 32.62 | 30 |
+| `space_scan/scan/tree_65536_read_dir` | 69,398,271.00 | 69.40 | 30 |
+| `space_scan/scan/sums_4096` | 11,895,729.00 | 11.90 | 30 |
+| `space_scan/rescan/subtree_256_of_4096` | 8,934,572.75 | 8.93 | 30 |

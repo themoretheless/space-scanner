@@ -1,59 +1,37 @@
 //! Repository maintenance without interpreter dependencies.
-use anyhow::{ensure, Context, Result};
-use clap::{Parser, Subcommand};
+use anyhow::{bail, ensure, Context, Result};
 use serde_json::{json, Value};
-use space_clean::{enrich_rule_kind, enrich_rule_tags, yaml_files_under, Rule};
+use space_clean::{enrich_rule_kind, enrich_rule_tags, Rule};
 use std::{
     collections::{BTreeMap, HashMap, HashSet},
     fs,
-    io::Write as _,
     path::{Path, PathBuf},
 };
 
-/// Cleanup rule files under `root`: every YAML except `_*.yaml` drafts /
-/// protection packs (same walker as the rule loader).
 fn files(root: &Path) -> Result<Vec<PathBuf>> {
-    ensure!(root.is_dir(), "rules directory not found: {}", root.display());
-    Ok(yaml_files_under(root)
-        .into_iter()
-        .filter(|p| {
-            !p.file_name()
-                .map(|n| n.to_string_lossy().starts_with('_'))
-                .unwrap_or(true)
-        })
-        .collect())
+    let mut paths = Vec::new();
+    for entry in walkdir::WalkDir::new(root) {
+        let entry = entry?;
+        let p = entry.path();
+        if entry.file_type().is_file()
+            && matches!(p.extension().and_then(|s| s.to_str()), Some("yaml" | "yml"))
+            && !p.file_name().unwrap().to_string_lossy().starts_with('_')
+        {
+            paths.push(p.to_owned());
+        }
+    }
+    paths.sort();
+    Ok(paths)
 }
 fn read(path: &Path) -> Result<Value> {
     serde_yaml::from_str(&fs::read_to_string(path)?).with_context(|| path.display().to_string())
 }
-/// Write a file atomically: the bytes go to a sibling temporary file which is
-/// then renamed over `path`, so a crash never leaves a half-written pack.
-fn write_atomic(path: &Path, bytes: &[u8]) -> Result<()> {
-    let parent = path.parent().filter(|p| !p.as_os_str().is_empty());
-    if let Some(parent) = parent {
+fn write(path: &Path, value: &Value) -> Result<()> {
+    if let Some(parent) = path.parent() {
         fs::create_dir_all(parent)?;
     }
-    let name = path
-        .file_name()
-        .context("output path has no file name")?
-        .to_string_lossy();
-    let tmp = parent
-        .unwrap_or(Path::new("."))
-        .join(format!(".{name}.{}.tmp", std::process::id()));
-    let result = (|| -> Result<()> {
-        let mut file = fs::File::create(&tmp)?;
-        file.write_all(bytes)?;
-        file.sync_all()?;
-        fs::rename(&tmp, path)?;
-        Ok(())
-    })();
-    if result.is_err() {
-        let _ = fs::remove_file(&tmp);
-    }
-    result.with_context(|| format!("writing {}", path.display()))
-}
-fn write(path: &Path, value: &Value) -> Result<()> {
-    write_atomic(path, serde_yaml::to_string(value)?.as_bytes())
+    fs::write(path, serde_yaml::to_string(value)?)?;
+    Ok(())
 }
 fn duplicates(root: &Path) -> Result<BTreeMap<String, String>> {
     let mut seen = HashMap::new();
@@ -182,13 +160,10 @@ fn deduplicate(root: &Path, apply: bool) -> Result<()> {
         "stale alias targets; no files changed"
     );
     for (path, output) in &edits {
-        write_atomic(path, output.as_bytes())?;
+        fs::write(path, output)?;
     }
     if !previous.is_empty() {
-        write_atomic(
-            &alias_path,
-            (serde_json::to_string_pretty(&previous)? + "\n").as_bytes(),
-        )?;
+        fs::write(alias_path, serde_json::to_string_pretty(&previous)? + "\n")?;
     }
     println!("Removed {} rules from {} files", removed.len(), edits.len());
     Ok(())
@@ -421,126 +396,66 @@ fn catalog(root: &Path, source: &Path, prefix: &str, target: usize) -> Result<()
     println!("Generated {target} rules");
     Ok(())
 }
-fn features(root: &Path) -> Result<()> {
-    let items: Vec<Value> =
-        serde_json::from_str(&fs::read_to_string(root.join("docs/features_items.json"))?)?;
-    let mut out = String::from("# Space Scanner — feature catalog (~1000)\n\nIDs are stable. Priority: `P0` (top-200 candidates), `P1`, `P2`.\n\nStatus in this file is backlog-only; execution tracking is [ROADMAP-200.md](ROADMAP-200.md).\n\n");
-    let mut category = String::new();
-    let mut count = 0;
-    for item in &items {
-        let cat = item["cat"].as_str().context("missing category")?;
-        if cat != category {
-            if count > 0 {
-                out.push('\n');
-            }
-            out.push_str(&format!("## {cat}\n\n"));
-            category = cat.to_owned();
-            count += 1;
-        }
-        out.push_str(&format!(
-            "- `{}` [{}] {}\n",
-            item["id"].as_str().context("missing id")?,
-            item["pri"].as_str().context("missing priority")?,
-            item["title"].as_str().context("missing title")?
-        ));
-    }
-    out.push_str(&format!(
-        "\n---\n\n**Total: {} features** across {count} categories.\n",
-        items.len()
-    ));
-    write_atomic(&root.join("docs/FEATURES.md"), out.as_bytes())?;
-    Ok(())
-}
-#[derive(Parser)]
-#[command(name = "space-tools", about = "Repository maintenance for the rule catalog")]
-struct Cli {
-    /// Rule catalog directory (default: <repo>/rules)
-    #[arg(long, global = true, value_name = "DIR")]
-    root: Option<PathBuf>,
-    #[command(subcommand)]
-    cmd: Cmd,
-}
-
-#[derive(Subcommand)]
-enum Cmd {
-    /// Report duplicate rules (identical conditions); --apply removes them
-    Deduplicate {
-        /// Remove duplicates and record aliases in _rule-aliases.json
-        #[arg(long)]
-        apply: bool,
-    },
-    /// Split platform "any" rules into per-platform rules by path shape
-    Split,
-    /// Generate disabled cache/log rules from a list of application names
-    Catalog {
-        names: PathBuf,
-        prefix: String,
-        target: usize,
-    },
-    /// Regenerate the protection packs (1000 hard deletion guards)
-    Protections,
-    /// Regenerate docs/FEATURES.md from docs/features_items.json
-    Features,
-    /// Print cargo's target directory
-    TargetDir,
-    /// Generate report-only PyPI cache probes (bundled snapshot, or a custom batch)
-    Pypi {
-        /// Custom batch: names file, source JSON, prefix and target count
-        #[arg(num_args = 4, value_names = ["NAMES", "SOURCE", "PREFIX", "TARGET"])]
-        batch: Vec<String>,
-    },
-    /// Build the release app, bundle it as SpaceScanner.app and launch it (macOS)
-    RunApp,
-}
-
 fn main() -> Result<()> {
-    let cli = Cli::parse();
     let repo = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let rules = cli.root.unwrap_or_else(|| repo.join("rules"));
-    match cli.cmd {
-        Cmd::Deduplicate { apply } => deduplicate(&rules, apply),
-        Cmd::Split => split(&rules),
-        Cmd::Catalog {
-            names,
-            prefix,
-            target,
-        } => catalog(&rules, &names, &prefix, target),
-        Cmd::Features => features(&repo),
-        Cmd::TargetDir => {
-            println!("{}", target_dir(&repo)?.display());
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    let cmd = args.first().map(String::as_str).unwrap_or("help");
+    let rules = args
+        .windows(2)
+        .find(|a| a[0] == "--root")
+        .map(|a| PathBuf::from(&a[1]))
+        .unwrap_or_else(|| repo.join("rules"));
+    match cmd {
+        "deduplicate" => deduplicate(&rules, args.iter().any(|a| a == "--apply")),
+        "split" => split(&rules),
+        "catalog" => {
+            ensure!(
+                args.len() >= 4,
+                "catalog <names.txt> <prefix> <target> [--root rules]"
+            );
+            catalog(&rules, Path::new(&args[1]), &args[2], args[3].parse()?)
+        }
+        "target-dir" => {
+            let output = std::process::Command::new("cargo")
+                .args(["metadata", "--format-version", "1", "--no-deps"])
+                .current_dir(&repo)
+                .output()?;
+            ensure!(output.status.success(), "cargo metadata failed");
+            let v: Value = serde_json::from_slice(&output.stdout)?;
+            println!(
+                "{}",
+                v["target_directory"]
+                    .as_str()
+                    .context("missing target directory")?
+            );
             Ok(())
         }
-        Cmd::Protections => protections(&rules),
-        Cmd::Pypi { batch } => {
-            if batch.is_empty() {
-                pypi(&repo, &rules)
-            } else {
+        "protections" => protections(&rules),
+        "pypi" => {
+            if args.get(1).is_some_and(|arg| arg != "--root") {
+                ensure!(
+                    args.len() >= 5,
+                    "pypi <names.txt> <source.json> <prefix> <target> [--root rules]"
+                );
                 pypi_batch(
                     &rules,
-                    Path::new(&batch[0]),
-                    Path::new(&batch[1]),
-                    &batch[2],
-                    batch[3]
-                        .parse()
-                        .with_context(|| format!("invalid target count '{}'", batch[3]))?,
+                    Path::new(&args[1]),
+                    Path::new(&args[2]),
+                    &args[3],
+                    args[4].parse()?,
                 )
+            } else {
+                pypi(&repo, &rules)
             }
         }
-        Cmd::RunApp => launch(&repo),
+        "run-app" => launch(&repo),
+        "dist-app" => dist_app(&repo),
+        "help" | "--help" => {
+            println!("cargo run -p space-tools -- <command>\nCommands: deduplicate [--apply] [--root rules], split [--root rules], catalog <names.txt> <prefix> <target> [--root rules], protections [--root rules], target-dir, pypi [--root rules], run-app, dist-app");
+            Ok(())
+        }
+        _ => bail!("unknown command: {cmd}"),
     }
-}
-fn target_dir(repo: &Path) -> Result<PathBuf> {
-    let output = std::process::Command::new("cargo")
-        .args(["metadata", "--format-version", "1", "--no-deps"])
-        .current_dir(repo)
-        .output()?;
-    ensure!(output.status.success(), "cargo metadata failed");
-    let v: Value = serde_json::from_slice(&output.stdout)?;
-    Ok(PathBuf::from(
-        v["target_directory"]
-            .as_str()
-            .context("missing target directory")?,
-    ))
 }
 fn protections(root: &Path) -> Result<()> {
     let apps = "1password bitwarden keepassxc lastpass authy microsoft-authenticator google-authenticator proton-pass dashlane nordpass keeper enpass yubico electrum exodus metamask ledger-live trezor-suite phantom solflare sparrow-wallet wasabi-wallet monero-wallet bitcoin-core ethereum chrome chromium firefox safari edge brave vivaldi opera tor-browser arc thunderbird outlook proton-mail mailbird spark-mail airmail mailspring signal telegram whatsapp element discord slack teams zoom skype messages facetime contacts calendars reminders notes notion obsidian evernote onenote bear craft todoist things omnifocus logseq roam vscode cursor zed jetbrains xcode android-studio visual-studio github-desktop sourcetree tower fork gitkraken docker-desktop dropbox onedrive google-drive icloud-drive nextcloud syncthing box-drive photos lightroom photoshop affinity-photo capture-one davinci-resolve final-cut-pro logic-pro ableton-live pro-tools premiere-pro blender";
@@ -667,17 +582,90 @@ fn pypi_batch(
     println!("Generated {target} disabled report-only probes");
     Ok(())
 }
-fn launch(repo: &Path) -> Result<()> {
-    ensure!(
-        cfg!(target_os = "macos"),
-        "run-app bundles a macOS app; elsewhere use cargo run -p space-app --release"
-    );
+fn cargo_target_dir(repo: &Path) -> Result<PathBuf> {
+    let output = std::process::Command::new("cargo")
+        .args(["metadata", "--format-version", "1", "--no-deps"])
+        .current_dir(repo)
+        .output()?;
+    ensure!(output.status.success(), "cargo metadata failed");
+    let metadata: Value = serde_json::from_slice(&output.stdout)?;
+    Ok(PathBuf::from(
+        metadata["target_directory"]
+            .as_str()
+            .context("missing target directory")?,
+    ))
+}
+
+fn bundle_app(binary: &Path, rules_dir: &Path, app: &Path, adhoc_sign: bool) -> Result<()> {
+    ensure!(binary.is_file(), "missing binary {}", binary.display());
+    if app.exists() {
+        fs::remove_dir_all(app)?;
+    }
+    fs::create_dir_all(app.join("Contents/MacOS"))?;
+    let exe_dest = app.join("Contents/MacOS/SpaceScanner");
+    fs::copy(binary, &exe_dest)?;
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mut perms = fs::metadata(&exe_dest)?.permissions();
+        perms.set_mode(0o755);
+        fs::set_permissions(&exe_dest, perms)?;
+    }
+    for entry in walkdir::WalkDir::new(rules_dir) {
+        let entry = entry?;
+        let dest = app
+            .join("Contents/rules")
+            .join(entry.path().strip_prefix(rules_dir)?);
+        if entry.file_type().is_dir() {
+            fs::create_dir_all(dest)?;
+        } else if entry.file_type().is_file() {
+            fs::copy(entry.path(), dest)?;
+        }
+    }
+    let version = env!("CARGO_PKG_VERSION");
+    fs::write(
+        app.join("Contents/Info.plist"),
+        format!(
+            r#"<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleName</key><string>Space Scanner</string>
+<key>CFBundleDisplayName</key><string>Space Scanner</string>
+<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
+<key>CFBundleVersion</key><string>{version}</string>
+<key>CFBundleShortVersionString</key><string>{version}</string>
+<key>CFBundleExecutable</key><string>SpaceScanner</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>LSMinimumSystemVersion</key><string>13.0</string>
+<key>NSHighResolutionCapable</key><true/>
+</dict></plist>
+"#
+        ),
+    )?;
+    if adhoc_sign && cfg!(target_os = "macos") {
+        let _ = std::process::Command::new("codesign")
+            .args(["--force", "--deep", "--sign", "-"])
+            .arg(app)
+            .status();
+    }
+    Ok(())
+}
+
+fn build_release_app(repo: &Path) -> Result<PathBuf> {
     let status = std::process::Command::new("cargo")
         .args(["build", "-p", "space-app", "--release"])
         .current_dir(repo)
         .status()?;
     ensure!(status.success(), "app build failed");
-    let target = target_dir(repo)?;
+    cargo_target_dir(repo)
+}
+
+fn launch(repo: &Path) -> Result<()> {
+    ensure!(
+        cfg!(target_os = "macos"),
+        "run-app bundles a macOS app; elsewhere use cargo run -p space-app --release"
+    );
+    let target = build_release_app(repo)?;
     let app = std::env::temp_dir().join("SpaceScanner.app");
     for name in ["SpaceScanner", "space-scanner"] {
         let _ = std::process::Command::new("pkill")
@@ -685,41 +673,11 @@ fn launch(repo: &Path) -> Result<()> {
             .status();
     }
     std::thread::sleep(std::time::Duration::from_millis(200));
-    if app.exists() {
-        fs::remove_dir_all(&app)?;
-    }
-    fs::create_dir_all(app.join("Contents/MacOS"))?;
-    fs::copy(
-        target.join("release/space-scanner"),
-        app.join("Contents/MacOS/SpaceScanner"),
-    )?;
-    for entry in walkdir::WalkDir::new(repo.join("rules")) {
-        let entry = entry?;
-        let dest = app
-            .join("Contents/rules")
-            .join(entry.path().strip_prefix(repo.join("rules"))?);
-        if entry.file_type().is_dir() {
-            fs::create_dir_all(dest)?;
-        } else if entry.file_type().is_file() {
-            fs::copy(entry.path(), dest)?;
-        }
-    }
-    write_atomic(
-        &app.join("Contents/Info.plist"),
-        br#"<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-<key>CFBundleName</key><string>Space Scanner</string>
-<key>CFBundleDisplayName</key><string>Space Scanner</string>
-<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
-<key>CFBundleVersion</key><string>0.1.0</string>
-<key>CFBundleShortVersionString</key><string>0.1.0</string>
-<key>CFBundleExecutable</key><string>SpaceScanner</string>
-<key>CFBundlePackageType</key><string>APPL</string>
-<key>LSMinimumSystemVersion</key><string>13.0</string>
-<key>NSHighResolutionCapable</key><true/>
-</dict></plist>
-"#,
+    bundle_app(
+        &target.join("release/space-scanner"),
+        &repo.join("rules"),
+        &app,
+        false,
     )?;
     ensure!(
         std::process::Command::new("open")
@@ -729,6 +687,40 @@ fn launch(repo: &Path) -> Result<()> {
         "opening app failed"
     );
     println!("Launched {}", app.display());
+    Ok(())
+}
+
+fn dist_app(repo: &Path) -> Result<()> {
+    ensure!(
+        cfg!(target_os = "macos"),
+        "dist-app builds a macOS .app/.zip bundle; elsewhere use cargo build -p space-app --release"
+    );
+    let target = build_release_app(repo)?;
+    let dist_dir = target.join("dist");
+    fs::create_dir_all(&dist_dir)?;
+    let app = dist_dir.join("SpaceScanner.app");
+    bundle_app(
+        &target.join("release/space-scanner"),
+        &repo.join("rules"),
+        &app,
+        true,
+    )?;
+    let zip_path = dist_dir.join("SpaceScanner-macos.zip");
+    if zip_path.exists() {
+        fs::remove_file(&zip_path)?;
+    }
+    let status = std::process::Command::new("/usr/bin/ditto")
+        .args([
+            "-c",
+            "-k",
+            "--sequesterRsrc",
+            "--keepParent",
+            app.to_str().context("non-utf8 app path")?,
+            zip_path.to_str().context("non-utf8 zip path")?,
+        ])
+        .status()?;
+    ensure!(status.success(), "ditto archive creation failed");
+    println!("Packaged {} and {}", app.display(), zip_path.display());
     Ok(())
 }
 
@@ -852,36 +844,6 @@ mod tests {
         assert!(pypi(&repo, &f.0).is_err());
     }
     #[test]
-    fn clap_definition_is_consistent() {
-        use clap::CommandFactory;
-        Cli::command().debug_assert();
-    }
-    #[test]
-    fn atomic_write_leaves_no_temporaries_and_replaces_content() {
-        let f = Fixture::new();
-        let path = f.0.join("nested/out.yaml");
-        write_atomic(&path, b"first").unwrap();
-        write_atomic(&path, b"second").unwrap();
-        assert_eq!(fs::read_to_string(&path).unwrap(), "second");
-        let names: Vec<_> = fs::read_dir(path.parent().unwrap())
-            .unwrap()
-            .map(|e| e.unwrap().file_name().to_string_lossy().into_owned())
-            .collect();
-        assert_eq!(names, vec!["out.yaml"]);
-        assert!(write_atomic(&f.0.join("nested"), b"dir").is_err());
-    }
-    #[test]
-    fn rule_files_skip_drafts_and_protection_packs() {
-        let f = Fixture::new();
-        fs::create_dir_all(f.0.join("protected")).unwrap();
-        fs::write(f.0.join("a.yaml"), "rules: []").unwrap();
-        fs::write(f.0.join("_draft.yaml"), "rules: []").unwrap();
-        fs::write(f.0.join("protected/_protected-linux.yaml"), "protections: []").unwrap();
-        fs::write(f.0.join("notes.txt"), "x").unwrap();
-        assert_eq!(files(&f.0).unwrap(), vec![f.0.join("a.yaml")]);
-        assert!(files(&f.0.join("missing")).is_err());
-    }
-    #[test]
     fn split_shared_and_specific_paths() {
         let rules = split_rule(&json!({"id":"a","platform":"any","paths":["$HOME/.cache/a","$HOME/Library/Caches/a","%APPDATA%/a"]})).unwrap();
         assert_eq!(rules.len(), 3);
@@ -895,5 +857,26 @@ mod tests {
             split_rule(&json!({"id":"a","paths":["%APPDATA%/a"]})).unwrap()[0]["id"],
             "a"
         );
+    }
+    #[test]
+    fn bundle_app_populates_contents_and_rules() {
+        let f = Fixture::new();
+        let bin = f.0.join("space-scanner");
+        let rules = f.0.join("rules");
+        let app = f.0.join("SpaceScanner.app");
+        fs::write(&bin, b"stub-binary").unwrap();
+        fs::create_dir_all(rules.join("curated")).unwrap();
+        fs::write(
+            rules.join("curated/sample.yaml"),
+            "pack: sample\nrules: []\n",
+        )
+        .unwrap();
+
+        bundle_app(&bin, &rules, &app, false).unwrap();
+        assert!(app.join("Contents/MacOS/SpaceScanner").is_file());
+        assert!(app.join("Contents/rules/curated/sample.yaml").is_file());
+        let plist = fs::read_to_string(app.join("Contents/Info.plist")).unwrap();
+        assert!(plist.contains("com.themoretheless.space-scanner"));
+        assert!(plist.contains(env!("CARGO_PKG_VERSION")));
     }
 }

@@ -1,399 +1,550 @@
-//! Cleanup: find caches, logs and temporary files. Checking is an explicit
-//! action (it takes a while), selecting is separate, and the Trash list beside
-//! the table shows where the selection stands.
+//! Quick Clean: simple goal-oriented disk cleanup screen.
+
+use std::path::{Path, PathBuf};
 
 use eframe::egui::{self, Align, Layout, RichText};
 
 use super::Density;
 use crate::app::{Mode, SpaceApp};
+use crate::downloads::DownloadKind;
 use crate::i18n::t;
 use crate::icons::{self, Icon};
-use crate::junk_panel;
-use crate::theme::metrics::{RADIUS_CARD, S2, S3, S4, SIDE_W};
+use crate::junk_panel::{self, JunkGroup};
+use crate::theme::metrics::{S2, S3, S4};
 use crate::theme::type_scale;
-use crate::theme::{BG, BORDER, MUTED, PANEL, PANEL_2, SAFE};
-use crate::widgets::{block, caption, ghost, primary, secondary, strong, title};
-
-enum Act {
-    Check,
-    Rules,
-    Prefs,
-    SelectSafe(bool),
-    Review,
-    Snapshots,
-}
+use crate::theme::{ACCENT, BG, BORDER, DANGER, MUTED, PANEL, TEXT};
+use crate::volumes::VolumeInfo;
+use crate::widgets::{caption, divider, empty_state, format_age, meter, page_column, secondary};
 
 impl SpaceApp {
     pub(super) fn cleanup_page(&mut self, ctx: &egui::Context, d: Density) {
-        let mut act = None;
-        let has_report = self.junk.report().is_some();
-        let show_summary =
-            has_report && ctx.available_rect().width() >= 820.0 && d != Density::Narrow;
-        if show_summary {
-            egui::SidePanel::right("cleanup_summary")
-                .show_separator_line(false)
-                .exact_width(SIDE_W + 12.0)
-                .resizable(false)
-                .frame(
-                    egui::Frame::new()
-                        .fill(PANEL())
-                        .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                        .inner_margin(egui::Margin::symmetric(20, 24)),
-                )
-                .show(ctx, |ui| self.selection_summary(ui, &mut act));
-        }
-        let margin = if d == Density::Narrow { S3 } else { 32.0 };
+        let margin = if d == Density::Narrow { S3 } else { S4 };
+        let mut rescan = false;
+        let mut open_rules = false;
+        let mut open_tm = false;
+        let mut open_folders = false;
+        let mut reveal: Option<PathBuf> = None;
+        let mut delete_now_findings: Option<Vec<space_clean::Finding>> = None;
+        let mut delete_now_download: Option<crate::app::BasketItem> = None;
+
         egui::CentralPanel::default()
             .frame(egui::Frame::new().fill(BG()).inner_margin(egui::Margin {
                 left: margin as i8,
                 right: margin as i8,
-                top: 24,
+                top: 12,
                 bottom: 12,
             }))
             .show(ctx, |ui| {
-                if !has_report && !self.junk.loading && !self.junk.cleaning {
-                    self.cleanup_intro(ui, &mut act);
-                    return;
-                }
-                self.cleanup_header(ui, &mut act);
-                ui.add_space(S4);
-                if has_report && !self.junk.loading && !self.junk.cleaning {
-                    self.safe_banner(ui, &mut act);
-                    ui.add_space(S3);
-                }
-                egui::TopBottomPanel::bottom("cleanup_options")
-                    .show_separator_line(false)
-                    .frame(egui::Frame::new().inner_margin(egui::Margin {
-                        left: 0,
-                        right: 0,
-                        top: 8,
-                        bottom: 0,
-                    }))
-                    .show_inside(ui, |ui| {
-                        self.cleanup_options(ui, &mut act, !show_summary);
+                egui::ScrollArea::vertical()
+                    .id_salt("quick_clean_scroll")
+                    .auto_shrink([false, false])
+                    .show(ui, |ui| {
+                        page_column(ui, 860.0, |ui| {
+                            ui.add_space(4.0);
+                            self.quick_clean_header_card(ui, &mut rescan, &mut open_rules);
+                            ui.add_space(S3);
+
+                            if let Some(err) = &self.junk.error {
+                                ui.label(RichText::new(err).color(DANGER()));
+                                ui.add_space(S2);
+                            }
+
+                            if let Some(report) = self.junk.report() {
+                                if !report.skipped_roots.is_empty() {
+                                    let skipped_id = ui.id().with("junk_skipped_expanded");
+                                    let mut open = ui.data(|d| d.get_temp::<bool>(skipped_id)).unwrap_or(false);
+                                    let arrow = if open { "▾" } else { "▸" };
+                                    let label = crate::tr!(
+                                        "Skipped / inaccessible ({})",
+                                        report.skipped_roots.len()
+                                    );
+                                    let resp = ui
+                                        .add(
+                                            egui::Button::new(
+                                                crate::widgets::caption(format!("{arrow} {label}"))
+                                                    .color(DANGER()),
+                                            )
+                                            .frame(false)
+                                            .min_size(egui::vec2(24.0, 24.0)),
+                                        )
+                                        .on_hover_text(t(
+                                            "Paths skipped during quick clean scan due to permissions or safety rules.",
+                                        ));
+                                    if resp.has_focus() {
+                                        crate::theme::paint_focus_ring(ui.painter(), resp.rect);
+                                    }
+                                    if resp.clicked() {
+                                        open = !open;
+                                        ui.data_mut(|d| d.insert_temp(skipped_id, open));
+                                    }
+                                    if open {
+                                        egui::ScrollArea::vertical()
+                                            .id_salt("junk_skipped_list")
+                                            .max_height(100.0)
+                                            .show(ui, |ui| {
+                                                for path in &report.skipped_roots {
+                                                    ui.add(
+                                                        egui::Label::new(
+                                                            RichText::new(path)
+                                                                .monospace()
+                                                                .size(crate::theme::type_scale::CAPTION)
+                                                                .color(MUTED()),
+                                                        )
+                                                        .truncate(),
+                                                    );
+                                                }
+                                            });
+                                    }
+                                    ui.add_space(S2);
+                                }
+                            }
+
+                            junk_panel::draw_group_card(
+                                ui,
+                                &mut self.junk,
+                                JunkGroup::Safe,
+                                &mut reveal,
+                                &mut delete_now_findings,
+                            );
+                            if self.junk.group_stats(JunkGroup::Safe).0 > 0 {
+                                ui.add_space(S3);
+                            }
+
+                            let downloads_shown =
+                                !self.downloads.items().is_empty() || self.downloads.loading;
+                            self.downloads_card(ui, &mut reveal, &mut delete_now_download);
+                            if downloads_shown {
+                                ui.add_space(S3);
+                            }
+
+                            junk_panel::draw_group_card(
+                                ui,
+                                &mut self.junk,
+                                JunkGroup::Review,
+                                &mut reveal,
+                                &mut delete_now_findings,
+                            );
+                            if let Some(findings) = delete_now_findings {
+                                let items = findings
+                                    .iter()
+                                    .map(crate::app::SpaceApp::basket_item_from_finding)
+                                    .collect();
+                                self.request_delete_direct(
+                                    items,
+                                    space_clean::DeleteMethod::Permanent,
+                                );
+                            }
+                            if let Some(item) = delete_now_download {
+                                self.request_delete_direct(
+                                    vec![item],
+                                    space_clean::DeleteMethod::Permanent,
+                                );
+                            }
+                            if self.junk.group_stats(JunkGroup::Review).0 > 0 {
+                                ui.add_space(S3);
+                            }
+
+                            if self.snapshots_card(ui) {
+                                open_tm = true;
+                            }
+
+                            let all_empty = !self.junk.loading
+                                && !self.downloads.loading
+                                && !self.junk.has_cleanable_items()
+                                && self.downloads.items().is_empty();
+                            if all_empty {
+                                empty_state(
+                                    ui,
+                                    "Nothing to clean right now.",
+                                    "Caches and temporary folders are already clean. Open Folders to inspect large files.",
+                                );
+                                ui.add_space(S3);
+                                ui.vertical_centered(|ui| {
+                                    if ui.add(secondary("Browse folders")).clicked() {
+                                        open_folders = true;
+                                    }
+                                });
+                            }
+                            ui.add_space(S4);
+                        });
                     });
-                junk_panel::draw(ui, &mut self.junk);
             });
 
-        match act {
-            Some(Act::Check) => self.check_junk(),
-            Some(Act::Rules) => self.open_rules_panel(),
-            Some(Act::Prefs) => {
-                self.mark_settings_dirty();
-                if has_report {
-                    self.check_junk();
-                }
-            }
-            Some(Act::SelectSafe(on)) => {
-                self.junk.select_safe(on);
-                if on {
-                    self.trash_result = None;
-                    self.toasts.push(
-                        super::ToastLevel::Success,
-                        crate::tr!(
-                            "Added {} of safe items to the Trash list",
-                            crate::i18n::bytes(self.junk.safe_bytes())
-                        ),
-                        Some(super::ToastAction::OpenTrashList),
-                    );
-                }
-            }
-            Some(Act::Review) => self.set_mode(Mode::Review),
-            Some(Act::Snapshots) => self.open_tm_panel(),
-            None => {}
+        if rescan {
+            self.start_quick_clean_scan();
+        }
+        if open_rules {
+            self.open_rules_panel();
+        }
+        if open_tm {
+            self.open_tm_panel();
+        }
+        if open_folders {
+            self.mode = Mode::Explore;
+        }
+        if let Some(path) = reveal {
+            crate::widgets::reveal_in_os(&path);
         }
     }
 
-    /// Before the first check: what it does, how long it takes, and the button.
-    fn cleanup_intro(&mut self, ui: &mut egui::Ui, act: &mut Option<Act>) {
-        let h = ui.available_height();
-        ui.vertical_centered(|ui| {
-            ui.add_space((h * 0.5 - 190.0).max(S4));
-            ui.set_max_width(520.0);
-            let (rect, _) = ui.allocate_exact_size(egui::vec2(48.0, 48.0), egui::Sense::hover());
-            ui.painter().circle_filled(rect.center(), 24.0, PANEL_2());
-            icons::paint(
-                ui.painter(),
-                Icon::Cleanup,
-                egui::Rect::from_center_size(rect.center(), egui::vec2(24.0, 24.0)),
-                SAFE(),
-            );
-            ui.add_space(S3);
-            ui.label(strong("Find caches, logs and temporary files", type_scale::TITLE + 2.0));
-            ui.add_space(4.0);
-            ui.add(
-                egui::Label::new(
-                    RichText::new(t(
-                        "Rules for the apps on this computer say what is safe to remove. The check takes up to a minute and removes nothing.",
-                    ))
-                    .color(MUTED()),
-                )
-                .wrap(),
-            );
-            ui.add_space(S4);
-            if ui.add(primary("Check for junk  ⌘J").min_size(egui::vec2(180.0, 38.0))).clicked() {
-                *act = Some(Act::Check);
-            }
-            ui.add_space(S2);
-            if ui.add(ghost("Rules…")).clicked() {
-                *act = Some(Act::Rules);
-            }
-            ui.add_space(S4);
-            ui.horizontal(|ui| {
-                ui.add_space(((ui.available_width() - 360.0) / 2.0).max(0.0));
-                self.browser_options(ui, act);
-            });
-        });
-    }
+    fn quick_clean_header_card(&self, ui: &mut egui::Ui, rescan: &mut bool, open_rules: &mut bool) {
+        let primary_vol = primary_volume(&self.volumes);
+        let found_total = self
+            .junk
+            .total_cleanable_bytes()
+            .saturating_add(self.downloads.total_bytes());
+        let selected_total = self.basket_bytes();
+        let selected_len = self.basket_len();
+        let scanning = self.junk.loading || self.downloads.loading;
 
-    fn cleanup_header(&mut self, ui: &mut egui::Ui, act: &mut Option<Act>) {
-        ui.horizontal(|ui| {
-            ui.vertical(|ui| {
-                ui.label(title("Cleanup"));
-                let when = match self.junk.checked_at {
-                    _ if self.junk.loading => {
-                        t("Checking caches, logs and temporary files…").to_owned()
-                    }
-                    Some(at) => crate::tr!(
-                        "Checked {} · nothing is removed until you confirm",
-                        crate::i18n::age(at.elapsed().as_secs())
-                    ),
-                    None => t("Nothing is removed until you confirm").to_owned(),
-                };
-                ui.label(caption(when));
-            });
-            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                if ui
-                    .add_enabled(
-                        !self.junk.loading && !self.junk.cleaning,
-                        secondary("Check again"),
-                    )
-                    .clicked()
-                {
-                    *act = Some(Act::Check);
-                }
-                if ui
-                    .add(ghost("Rules…"))
-                    .on_hover_text(t("Turn individual rules on or off"))
-                    .clicked()
-                {
-                    *act = Some(Act::Rules);
-                }
-            });
-        });
-    }
-
-    /// The fastest safe win as one button.
-    fn safe_banner(&mut self, ui: &mut egui::Ui, act: &mut Option<Act>) {
-        let total = self.junk.cleanable_bytes().unwrap_or(0);
-        let safe = self.junk.safe_bytes();
         egui::Frame::new()
             .fill(PANEL())
             .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-            .corner_radius(RADIUS_CARD)
-            .inner_margin(egui::Margin::symmetric(S4 as i8, 12))
+            .corner_radius(10)
+            .inner_margin(egui::Margin::same(S4 as i8))
             .show(ui, |ui| {
                 ui.set_width(ui.available_width());
-                ui.horizontal(|ui| {
-                    ui.vertical(|ui| {
-                        ui.set_width((ui.available_width() - 260.0).max(160.0));
-                        ui.label(strong(
-                            crate::tr!(
-                                "{} in {} can go to the Trash",
-                                crate::i18n::bytes(total),
-                                crate::i18n::count(self.junk.cleanable_count(), "item")
-                            ),
-                            type_scale::LEAD,
-                        ));
-                        ui.label(caption(if safe > 0 {
-                            crate::tr!(
-                                "{} of it is rebuilt or downloaded again automatically",
-                                crate::i18n::bytes(safe)
-                            )
-                        } else {
-                            t("Nothing here is marked safe. Check each item before you select it.")
-                                .to_owned()
-                        }));
-                    });
-                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                        if safe == 0 {
-                            return;
-                        }
-                        if self.junk.all_safe_selected() {
-                            if selected_pill(ui, "All safe items selected")
-                                .on_hover_text(t("Click to clear"))
-                                .clicked()
-                            {
-                                *act = Some(Act::SelectSafe(false));
+
+                if let Some(vol) = primary_vol {
+                    ui.horizontal(|ui| {
+                        icons::show(ui, Icon::Disk, 18.0, ACCENT());
+                        ui.label(RichText::new(&vol.name).size(type_scale::LEAD).strong());
+                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                            if vol.total > 0 {
+                                ui.label(caption(crate::tr!(
+                                    "{} free of {}",
+                                    crate::i18n::bytes(vol.available),
+                                    crate::i18n::bytes(vol.total)
+                                )));
+                            } else if self.volumes_loading {
+                                ui.spinner();
                             }
-                        } else if ui
-                            .add(
-                                primary(&crate::tr!(
-                                    "Select all safe · {}",
-                                    crate::i18n::bytes(safe)
-                                ))
-                                .min_size(egui::vec2(0.0, 36.0)),
-                            )
+                        });
+                    });
+                    if vol.total > 0 {
+                        ui.add_space(6.0);
+                        let frac = vol.used() as f32 / vol.total.max(1) as f32;
+                        meter(ui, frac, ACCENT(), 5.0);
+                    }
+                    ui.add_space(S3);
+                    divider(ui);
+                    ui.add_space(S3);
+                }
+
+                ui.horizontal_wrapped(|ui| {
+                    ui.vertical(|ui| {
+                        if scanning {
+                            ui.horizontal(|ui| {
+                                ui.spinner();
+                                ui.label(
+                                    RichText::new(t("Looking through caches, logs and temp…"))
+                                        .size(type_scale::LEAD)
+                                        .strong(),
+                                );
+                            });
+                            let p = &self.junk.progress;
+                            let elapsed = self
+                                .junk
+                                .scan_started
+                                .map(|s| s.elapsed().as_secs())
+                                .unwrap_or(0);
+                            let stage = if p.rules_total == 0 {
+                                t("Loading rules…").to_string()
+                            } else {
+                                crate::tr!("Scanning {}/{} rules", p.rules_done, p.rules_total)
+                            };
+                            ui.label(caption(crate::tr!(
+                                "{} · {} ({}) · {}s",
+                                stage,
+                                crate::i18n::bytes(p.bytes_found),
+                                p.findings_found,
+                                elapsed
+                            )));
+                        } else {
+                            let label = if selected_len > 0 {
+                                t("Ready to clean")
+                            } else {
+                                t("Cleanup candidates")
+                            };
+                            ui.label(caption(label));
+                            ui.horizontal_wrapped(|ui| {
+                                let headline = if selected_len > 0 {
+                                    selected_total
+                                } else {
+                                    found_total
+                                };
+                                ui.label(
+                                    RichText::new(crate::i18n::bytes(headline))
+                                        .size(type_scale::DISPLAY)
+                                        .strong()
+                                        .color(if selected_len > 0 { ACCENT() } else { TEXT() }),
+                                );
+                                if selected_len > 0 && found_total > selected_total {
+                                    ui.label(caption(crate::tr!(
+                                        "· found {} total",
+                                        crate::i18n::bytes(found_total)
+                                    )));
+                                }
+                            });
+                        }
+                    });
+
+                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                        if ui
+                            .add(secondary("Rules…"))
+                            .on_hover_text(t("Turn individual rules on or off"))
                             .clicked()
                         {
-                            *act = Some(Act::SelectSafe(true));
+                            *open_rules = true;
+                        }
+                        if ui
+                            .add_enabled(!scanning && !self.busy, secondary("Refresh"))
+                            .clicked()
+                        {
+                            *rescan = true;
                         }
                     });
                 });
-            });
-    }
 
-    fn browser_options(&mut self, ui: &mut egui::Ui, act: &mut Option<Act>) {
-        let flags = &mut self.settings.flags;
-        ui.label(caption("Also check"));
-        if ui
-            .checkbox(&mut flags.scan_browser_cookies, t("Browser cookies"))
-            .on_hover_text(t(
-                "Off by default — cleaning cookies signs you out of websites",
-            ))
-            .changed()
-        {
-            *act = Some(Act::Prefs);
-        }
-        if ui
-            .checkbox(&mut flags.scan_browser_history, t("Browser history"))
-            .changed()
-        {
-            *act = Some(Act::Prefs);
-        }
-    }
-
-    fn cleanup_options(&mut self, ui: &mut egui::Ui, act: &mut Option<Act>, with_review: bool) {
-        ui.horizontal_wrapped(|ui| {
-            self.browser_options(ui, act);
-            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                if with_review && self.basket_len() > 0 {
-                    let label = crate::tr!(
-                        "Review {} · {}",
-                        self.basket_len(),
-                        crate::i18n::bytes(self.basket_bytes())
+                if self.junk.loading {
+                    ui.add_space(S2);
+                    let p = &self.junk.progress;
+                    let fraction = if p.roots_total > 0 {
+                        p.roots_done as f32 / p.roots_total as f32
+                    } else if p.rules_total > 0 {
+                        p.rules_done as f32 / p.rules_total as f32
+                    } else {
+                        0.0
+                    };
+                    ui.add(
+                        egui::ProgressBar::new(fraction.clamp(0.0, 1.0))
+                            .desired_width(ui.available_width())
+                            .animate(p.rules_total == 0),
                     );
-                    if ui.add(primary(&label)).clicked() {
-                        *act = Some(Act::Review);
+                    if !p.current_path.as_os_str().is_empty() {
+                        ui.add(
+                            egui::Label::new(
+                                RichText::new(p.current_path.display().to_string())
+                                    .size(type_scale::CAPTION)
+                                    .monospace()
+                                    .color(MUTED()),
+                            )
+                            .truncate(),
+                        );
                     }
                 }
             });
-        });
     }
 
-    /// Where the Trash list stands, with the way to check it.
-    fn selection_summary(&mut self, ui: &mut egui::Ui, act: &mut Option<Act>) {
-        ui.label(strong("Trash list", type_scale::LEAD));
-        ui.add_space(S3);
-        for (label, bytes) in [
-            (
-                crate::tr!("{} from Cleanup", self.junk.selected_count()),
-                self.junk.selected_bytes(),
-            ),
-            (
-                crate::tr!("{} from Disk usage", self.review.len()),
-                self.review_bytes(),
-            ),
-        ] {
-            egui::Frame::new()
-                .fill(PANEL_2())
-                .corner_radius(8)
-                .inner_margin(egui::Margin::symmetric(S3 as i8, 10))
-                .show(ui, |ui| {
-                    ui.set_width(ui.available_width());
-                    ui.horizontal(|ui| {
-                        ui.label(label);
-                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                            ui.label(RichText::new(crate::i18n::bytes(bytes)).monospace());
-                        });
-                    });
-                });
-            ui.add_space(6.0);
-        }
-        ui.add_space(S2);
-        ui.horizontal(|ui| {
-            ui.label(RichText::new(t("Total")).color(MUTED()));
-            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                ui.label(strong(
-                    crate::i18n::bytes(self.basket_bytes()),
-                    type_scale::PAGE,
-                ));
-            });
-        });
-        ui.add_space(S3);
-        let n = self.basket_len();
-        if ui
-            .add_enabled(n > 0, block(ui, primary(&crate::tr!("Review {} items", n))))
-            .clicked()
-        {
-            *act = Some(Act::Review);
-        }
-        ui.add_space(S2);
-        ui.add(
-            egui::Label::new(caption(
-                "Items go to the Trash. Space returns after you empty it.",
-            ))
-            .wrap(),
-        );
-        if cfg!(target_os = "macos") {
-            ui.with_layout(Layout::bottom_up(Align::Min), |ui| {
+    fn downloads_card(
+        &mut self,
+        ui: &mut egui::Ui,
+        reveal: &mut Option<PathBuf>,
+        delete_now: &mut Option<crate::app::BasketItem>,
+    ) {
+        if self.downloads.items().is_empty() {
+            if self.downloads.loading {
                 egui::Frame::new()
+                    .fill(PANEL())
                     .stroke(egui::Stroke::new(1.0_f32, BORDER()))
-                    .corner_radius(8)
-                    .inner_margin(egui::Margin::same(S3 as i8))
+                    .corner_radius(10)
+                    .inner_margin(egui::Margin::same(S4 as i8))
                     .show(ui, |ui| {
                         ui.set_width(ui.available_width());
-                        ui.with_layout(Layout::top_down(Align::Min), |ui| {
-                            ui.label(
-                                RichText::new(t("Local snapshots")).family(crate::theme::medium()),
-                            );
-                            ui.add(
-                                egui::Label::new(caption(
-                                    "Time Machine snapshots can hold space a scan cannot see.",
-                                ))
-                                .wrap(),
-                            );
-                            ui.add_space(6.0);
-                            if ui.add(secondary("Show snapshots…")).clicked() {
-                                *act = Some(Act::Snapshots);
+                        ui.horizontal(|ui| {
+                            ui.spinner();
+                            ui.label(RichText::new(t("Downloads")).strong());
+                            ui.label(caption("Scanning ~/Downloads…"));
+                        });
+                    });
+            }
+            return;
+        }
+
+        let total_count = self.downloads.items().len();
+        let total_bytes = self.downloads.total_bytes();
+        let selected_count = self.downloads.selected_count();
+        let has_installers = self.downloads.has_installers();
+        let mut open = self.downloads.open;
+        let mut toggle_all = None;
+        let mut select_installers = false;
+        let mut toggle_item: Option<(usize, bool)> = None;
+
+        junk_panel::group_card(
+            ui,
+            t("Downloads"),
+            t("Installers (.dmg, .pkg), archives and large files in ~/Downloads"),
+            t("Check"),
+            ACCENT(),
+            t("Review files before moving to Trash"),
+            total_count,
+            total_bytes,
+            selected_count,
+            &mut open,
+            |on| toggle_all = Some(on),
+            |ui| {
+                if has_installers {
+                    ui.horizontal(|ui| {
+                        ui.label(caption(
+                            "Files in Downloads are never preselected automatically.",
+                        ));
+                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                            if ui
+                                .add(secondary("Select installers (.dmg, .pkg)"))
+                                .clicked()
+                            {
+                                select_installers = true;
                             }
                         });
                     });
-            });
+                    ui.add_space(6.0);
+                }
+
+                ui.spacing_mut().item_spacing.y = 2.0;
+                for (index, item) in self.downloads.items().iter().enumerate() {
+                    let mut checked = self.downloads.is_selected(index);
+                    let kind_text = match (item.kind, item.is_dir) {
+                        (DownloadKind::Installer, _) => t("Installer"),
+                        (DownloadKind::Archive, _) => t("Archive"),
+                        (DownloadKind::LargeItem, true) => t("Large folder"),
+                        (DownloadKind::LargeItem, false) => t("Large file"),
+                    };
+                    let meta = match item.age_secs {
+                        Some(secs) => format!("{kind_text} · {}", format_age(secs)),
+                        None => kind_text.to_owned(),
+                    };
+
+                    ui.horizontal(|ui| {
+                        if ui.checkbox(&mut checked, "").changed() {
+                            toggle_item = Some((index, checked));
+                        }
+                        ui.vertical(|ui| {
+                            ui.spacing_mut().item_spacing.y = 0.0;
+                            let name_resp = ui
+                                .add(
+                                    egui::Label::new(RichText::new(&item.name).color(TEXT()))
+                                        .truncate(),
+                                )
+                                .on_hover_text(item.path.display().to_string());
+                            name_resp.context_menu(|ui| {
+                                if ui
+                                    .button(
+                                        RichText::new(t("Delete permanently…"))
+                                            .color(crate::theme::DANGER()),
+                                    )
+                                    .clicked()
+                                {
+                                    *delete_now = Some(crate::app::BasketItem {
+                                        path: item.path.clone(),
+                                        bytes: item.bytes,
+                                        is_dir: item.is_dir,
+                                        junk_guard: None,
+                                    });
+                                    ui.close_menu();
+                                }
+                                if ui.button(t("Show in Finder")).clicked() {
+                                    *reveal = Some(item.path.clone());
+                                    ui.close_menu();
+                                }
+                            });
+                            ui.label(caption(meta));
+                        });
+                        ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                            if ui
+                                .add(
+                                    egui::Button::new(caption("Finder"))
+                                        .frame(false)
+                                        .min_size(egui::vec2(0.0, 24.0)),
+                                )
+                                .on_hover_text(t("Show in Finder"))
+                                .clicked()
+                            {
+                                *reveal = Some(item.path.clone());
+                            }
+                            ui.label(
+                                RichText::new(crate::i18n::bytes(item.bytes))
+                                    .monospace()
+                                    .size(type_scale::MONO)
+                                    .color(if checked { ACCENT() } else { TEXT() }),
+                            );
+                        });
+                    });
+                }
+            },
+        );
+
+        self.downloads.open = open;
+        if let Some(on) = toggle_all {
+            self.downloads.set_all(on);
         }
+        if select_installers {
+            self.downloads.select_installers();
+        }
+        if let Some((idx, on)) = toggle_item {
+            self.downloads.set_selected(idx, on);
+        }
+    }
+
+    fn snapshots_card(&self, ui: &mut egui::Ui) -> bool {
+        let tm_n = self.tm_snapshots.iter().filter(|s| s.is_tm()).count();
+        if tm_n == 0 {
+            return false;
+        }
+        let mut open = false;
+        egui::Frame::new()
+            .fill(PANEL())
+            .stroke(egui::Stroke::new(1.0_f32, BORDER()))
+            .corner_radius(10)
+            .inner_margin(egui::Margin::same(S4 as i8))
+            .show(ui, |ui| {
+                ui.set_width(ui.available_width());
+                ui.horizontal_wrapped(|ui| {
+                    ui.vertical(|ui| {
+                        ui.horizontal(|ui| {
+                            ui.label(
+                                RichText::new(t("Local Time Machine snapshots"))
+                                    .size(type_scale::LEAD)
+                                    .strong(),
+                            );
+                            ui.label(
+                                RichText::new(crate::tr!("{} local snapshots", tm_n))
+                                    .size(type_scale::CAPTION)
+                                    .color(ACCENT()),
+                            );
+                        });
+                        ui.label(caption(
+                            "Snapshots hold disk space that never appears as ordinary files. Deleting old Time Machine copies can release it.",
+                        ));
+                    });
+                    ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
+                        if ui.add(secondary("Manage snapshots…")).clicked() {
+                            open = true;
+                        }
+                    });
+                });
+            });
+        open
     }
 }
 
-/// A toggled-on state that can be clicked to turn off: check icon and label, tinted safe.
-fn selected_pill(ui: &mut egui::Ui, label: &str) -> egui::Response {
-    let g = ui.painter().layout_no_wrap(
-        t(label).to_owned(),
-        egui::FontId::new(type_scale::BODY, crate::theme::medium()),
-        SAFE(),
-    );
-    let (rect, resp) =
-        ui.allocate_exact_size(egui::vec2(g.size().x + 44.0, 36.0), egui::Sense::click());
-    let p = ui.painter();
-    p.rect(
-        rect,
-        crate::theme::metrics::RADIUS_CONTROL,
-        SAFE().gamma_multiply(if resp.hovered() { 0.16 } else { 0.1 }),
-        egui::Stroke::new(1.0_f32, SAFE().gamma_multiply(0.5)),
-        egui::StrokeKind::Inside,
-    );
-    icons::paint(
-        p,
-        Icon::Check,
-        egui::Rect::from_center_size(
-            egui::pos2(rect.left() + 18.0, rect.center().y),
-            egui::vec2(14.0, 14.0),
-        ),
-        SAFE(),
-    );
-    p.galley(
-        egui::pos2(rect.left() + 32.0, rect.center().y - g.size().y / 2.0),
-        g,
-        SAFE(),
-    );
-    resp
+fn primary_volume(volumes: &[VolumeInfo]) -> Option<&VolumeInfo> {
+    if let Some(home) = std::env::var_os("HOME") {
+        let home_str = home.to_string_lossy();
+        // Prefer real mounted volumes (with `total > 0`) over the `$HOME` fast placeholder.
+        let home_path = Path::new(home_str.as_ref());
+        if let Some(v) = volumes
+            .iter()
+            .filter(|v| v.total > 0)
+            .filter(|v| {
+                home_path.starts_with(&v.mount) || v.mount == Path::new("/System/Volumes/Data")
+            })
+            .max_by_key(|v| v.mount.as_os_str().len())
+        {
+            return Some(v);
+        }
+    }
+    volumes
+        .iter()
+        .find(|v| v.total > 0)
+        .or_else(|| volumes.first())
 }

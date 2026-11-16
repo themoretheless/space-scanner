@@ -132,7 +132,9 @@ static STATE: Mutex<ProtectionState> = Mutex::new(ProtectionState {
 });
 
 fn lock_state() -> std::sync::MutexGuard<'static, ProtectionState> {
-    STATE.lock().unwrap_or_else(|poisoned| poisoned.into_inner())
+    STATE
+        .lock()
+        .unwrap_or_else(|poisoned| poisoned.into_inner())
 }
 
 /// Use these rule directories for the protection pack instead of discovering
@@ -165,10 +167,7 @@ fn protected_index() -> Result<Arc<ProtectedIndex>, String> {
 /// failure is remembered only for [`RELOAD_BACKOFF`], after which the pack is
 /// read again, so fixing the files recovers protection without a restart.
 fn index_for(state: &mut ProtectionState) -> Result<Arc<ProtectedIndex>, String> {
-    let dirs = state
-        .dirs
-        .clone()
-        .unwrap_or_else(crate::default_rules_dirs);
+    let dirs = state.dirs.clone().unwrap_or_else(crate::default_rules_dirs);
     if state.loaded_for.as_deref() == Some(dirs.as_slice()) {
         if let Some(index) = &state.index {
             return Ok(Arc::clone(index));
@@ -301,9 +300,21 @@ mod tests {
         state.error = Some((broken, Instant::now() - RELOAD_BACKOFF));
         let index = index_for(&mut state).unwrap();
         let keep = crate::safety::fold_case(&expand_path_template("$HOME/keep-me").unwrap());
-        assert!(intersects_index(&keep.join("db"), &index.paths, &index.exact));
-        assert!(intersects_index(keep.parent().unwrap(), &index.paths, &index.exact));
-        assert!(!intersects_index(Path::new("/unrelated/x"), &index.paths, &index.exact));
+        assert!(intersects_index(
+            &keep.join("db"),
+            &index.paths,
+            &index.exact
+        ));
+        assert!(intersects_index(
+            keep.parent().unwrap(),
+            &index.paths,
+            &index.exact
+        ));
+        assert!(!intersects_index(
+            Path::new("/unrelated/x"),
+            &index.paths,
+            &index.exact
+        ));
         // Switching directories drops the index; a missing directory loads
         // an empty pack (nothing protected by rule, not an error).
         state.dirs = Some(vec![dir.path().join("missing")]);
