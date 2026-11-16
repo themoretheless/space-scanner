@@ -37,3 +37,19 @@ jobs:
       - name: Build macOS release app bundle
         if: runner.os == 'macOS'
         run: cargo build -p space-app --release --locked
+
+  dist:
+    name: dist · SpaceScanner.app
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo run -p space-tools --release --locked -- dist --no-generated
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SpaceScanner.app
+          path: target/dist/SpaceScanner.app
+          if-no-files-found: error

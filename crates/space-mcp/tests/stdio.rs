@@ -123,6 +123,7 @@ fn stdio_protocol() {
             "inspect_path",
             "junk_page",
             "largest_entries",
+            "oldest_files",
             "rule_details",
             "scan_disk",
             "scan_junk",
@@ -281,6 +282,12 @@ fn stdio_protocol() {
         "largest_entries",
         json!({"scan_id":scan["scan_id"],"limit":0}),
     );
+    let oldest = s.call(
+        "oldest_files",
+        json!({"scan_id":scan["scan_id"],"min_bytes":1,"apparent":true,"limit":5}),
+    );
+    assert!(oldest["items"].as_array().is_some());
+    s.error("oldest_files", json!({"scan_id":disk["scan_id"]}));
     s.input.take();
     let deadline = std::time::Instant::now() + Duration::from_secs(10);
     loop {

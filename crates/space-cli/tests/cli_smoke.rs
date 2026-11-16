@@ -79,6 +79,24 @@ fn cli_smoke_covers_version_scan_queries_export_cache_and_rules() {
     assert!(largest.status.success());
     assert!(String::from_utf8_lossy(&largest.stdout).contains("huge_archive.iso"));
 
+    let oldest = run(&["oldest", root_s, "--min-size", "1K", "--limit", "5"]);
+    assert!(
+        oldest.status.success(),
+        "{:?}",
+        String::from_utf8_lossy(&oldest.stderr)
+    );
+    assert!(String::from_utf8_lossy(&oldest.stdout).contains("huge_archive.iso"));
+
+    let dupes = run(&["dupes", root_s, "--min-size", "1K", "--limit", "5"]);
+    assert!(dupes.status.success());
+
+    let exts = run(&["exts", root_s, "--limit", "5"]);
+    assert!(exts.status.success());
+    assert!(String::from_utf8_lossy(&exts.stdout).contains("iso"));
+
+    let threaded = run(&["--threads", "2", "du", root_s]);
+    assert!(threaded.status.success());
+
     let export_json = run(&["export", root_s, "--format", "json"]);
     assert!(export_json.status.success());
     let json_txt = String::from_utf8_lossy(&export_json.stdout);

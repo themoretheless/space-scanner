@@ -17,17 +17,17 @@ Fast native disk-space explorer (Duc-style index + Scanner/WinDirStat/DaisyDisk 
 - Small files (&lt;512KB) rolled into one node per folder (faster index, less RAM)
 - Hardlink dedup, **On disk / Apparent** sizes
 - Pre-sorted tree + `Arc` UI (no per-frame clone)
-- Zstd-compressed on-disk cache (v3) with **stale** badge
+- Zstd-compressed on-disk cache (`CACHE_VERSION = 6`) with **stale** badge and blake3 checksums
 - Volumes list, Back/Forward, filter (debounce, dirs/files, size presets), largest files, Reveal in Finder
 - Hover tooltips + sidebar highlight/scroll; path + % of parent
 - Keyboard nav (arrows, Enter, Esc, ⌘1–4 views, ⌘⇧C copy path) — press **?**
-- Review queue + **Move to Trash** (right-click to queue)
+- Review queue + **Move to Trash** / **Delete permanently** (right-click to queue)
 - **Junk cleaner** (ppduster rule packs): caches / logs / temp → Trash (`space junk`)
 - Local Time Machine snapshots list + delete old
 - Cancelable scan with progress vs previous index
 - Incremental **Rescan folder** (rebuilds index for current root path)
 - Persisted settings (`~/Library/Application Support/…/settings.json`)
-- CLI: `space scan|ls|du|junk|rules|categories`
+- CLI: `space scan|ls|du|largest|oldest|dupes|exts|find|export|cache|junk|rm|rules|categories`
 
 ## Scenario: disk full, Docker volumes need review
 
@@ -54,6 +54,8 @@ reclaimable bytes do not promise immediate recovery of the same host disk space.
 ```bash
 # Recommended on macOS (wgpu Metal + Dock .app)
 cargo run -p space-tools -- run-app
+# Distributable bundle in target/dist/SpaceScanner.app (any OS; --zip on macOS)
+cargo run -p space-tools --release -- dist --no-generated
 
 # or
 cargo run -p space-app --release
@@ -61,6 +63,9 @@ cargo run -p space-app --release
 cargo run -p space-cli --release -- scan ~/Downloads
 cargo run -p space-cli --release -- ls ~/Downloads
 cargo run -p space-cli --release -- du ~/Downloads
+cargo run -p space-cli --release -- oldest ~/Downloads --min-size 100M --limit 20
+cargo run -p space-cli --release -- dupes ~/Downloads --min-size 10M
+cargo run -p space-cli --release -- exts ~/Downloads --limit 15
 ```
 
 Renderer: **wgpu** (Metal on macOS). Folder navigation and view switches use short zoom/fade transitions.

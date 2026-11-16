@@ -1,6 +1,6 @@
 //! Space Scanner CLI (index + junk cleaner + rule manager).
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 mod docker_scenario;
 
@@ -11,7 +11,8 @@ use space_clean::{
     RulePrefs, ScanOptions, TRASH_BATCH_SIZE,
 };
 use space_core::{
-    export, format_bytes, scan_path, CacheStore, FindQuery, NodeId, SizeMode, SpaceTree,
+    export, format_bytes, scan_path_with_options, CacheStore, FindQuery, NodeId,
+    ScanOptions as CoreScanOptions, SizeMode, SpaceTree,
 };
 
 #[derive(Parser)]
@@ -21,6 +22,22 @@ use space_core::{
     about = "Space Scanner CLI (index + junk cleaner)"
 )]
 struct Cli {
+    /// Rule pack directory (default: discovery; also honours SPACE_RULES_DIR)
+    #[arg(long, global = true, value_name = "DIR")]
+    rules: Option<PathBuf>,
+    /// Index cache directory (default: per-user cache; also SPACE_CACHE_DIR)
+    #[arg(long, global = true, value_name = "DIR")]
+    cache_dir: Option<PathBuf>,
+    /// Files smaller than this are aggregated per folder when scanning
+    /// (bytes, or 10K / 5M; default 512K). Non-default values bypass the cache.
+    #[arg(long, global = true, value_parser = parse_size, value_name = "SIZE")]
+    small_file_threshold: Option<u64>,
+    /// Scan worker threads (default: automatic)
+    #[arg(long, global = true, value_name = "N")]
+    threads: Option<usize>,
+    /// Skip directories whose path or name matches (repeatable; bypasses cache)
+    #[arg(long, global = true, value_name = "PATTERN")]
+    exclude: Vec<String>,
     #[command(subcommand)]
     cmd: Cmd,
 }
@@ -59,9 +76,9 @@ enum Cmd {
         regex: bool,
         #[arg(short = 'e', long = "ext", value_delimiter = ',')]
         exts: Vec<String>,
-        #[arg(long)]
+        #[arg(long, value_parser = parse_size)]
         min_size: Option<u64>,
-        #[arg(long)]
+        #[arg(long, value_parser = parse_size)]
         max_size: Option<u64>,
         #[arg(long)]
         dirs: bool,
@@ -83,6 +100,43 @@ enum Cmd {
         limit: usize,
         #[arg(long)]
         dirs: bool,
+        #[arg(long)]
+        apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Oldest large files (by modification time) under a path
+    Oldest {
+        path: PathBuf,
+        /// Minimum size (bytes, or 10K / 5M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "100M")]
+        min_size: u64,
+        #[arg(long, default_value_t = 20)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Likely duplicate files (same size and exact name)
+    Dupes {
+        path: PathBuf,
+        /// Minimum file size (bytes, or 10K / 5M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "1M")]
+        min_size: u64,
+        /// Maximum number of groups to print
+        #[arg(long, default_value_t = 20)]
+        limit: usize,
+        #[arg(long)]
+        apparent: bool,
+        #[arg(long)]
+        force: bool,
+    },
+    /// Totals grouped by file extension
+    Exts {
+        path: PathBuf,
+        #[arg(long, default_value_t = 30)]
+        limit: usize,
         #[arg(long)]
         apparent: bool,
         #[arg(long)]
@@ -273,6 +327,7 @@ enum CatAction {
 
 fn main() {
     let cli = Cli::parse();
+    let ctx = CliContext::from_cli(&cli);
     match cli.cmd {
         Cmd::Scenario {
             cmd: ScenarioCmd::DockerVolumes { json },
@@ -283,8 +338,8 @@ fn main() {
             }
         }
         Cmd::Scan { path } => {
-            let tree = scan_blocking(&path);
-            let cache = CacheStore::open().expect("cache dir");
+            let tree = scan_blocking(&path, &ctx.scan);
+            let cache = ctx.open_cache();
             cache.save(&tree).expect("save");
             println!(
                 "Indexed {} · {} items · cache saved",
@@ -293,7 +348,7 @@ fn main() {
             );
         }
         Cmd::Ls { path, limit, force } => {
-            let tree = load_or_scan(&path, force);
+            let tree = ctx.load_or_scan(&path, force);
             let mode = SizeMode::OnDisk;
             let kids = tree.children(tree.root);
             for (i, &id) in kids.iter().take(limit).enumerate() {
@@ -315,7 +370,7 @@ fn main() {
             apparent,
             force,
         } => {
-            let tree = load_or_scan(&path, force);
+            let tree = ctx.load_or_scan(&path, force);
             let mode = if apparent {
                 SizeMode::Apparent
             } else {
@@ -345,7 +400,7 @@ fn main() {
             apparent,
             force,
         } => {
-            let tree = load_or_scan(&path, force);
+            let tree = ctx.load_or_scan(&path, force);
             let mode = if apparent {
                 SizeMode::Apparent
             } else {
@@ -387,7 +442,7 @@ fn main() {
             apparent,
             force,
         } => {
-            let tree = load_or_scan(&path, force);
+            let tree = ctx.load_or_scan(&path, force);
             let mode = if apparent {
                 SizeMode::Apparent
             } else {
@@ -410,6 +465,107 @@ fn main() {
                 );
             }
         }
+        Cmd::Oldest {
+            path,
+            min_size,
+            limit,
+            apparent,
+            force,
+        } => {
+            let tree = ctx.load_or_scan(&path, force);
+            let mode = if apparent {
+                SizeMode::Apparent
+            } else {
+                SizeMode::OnDisk
+            };
+            let now = std::time::SystemTime::now()
+                .duration_since(std::time::UNIX_EPOCH)
+                .map(|d| d.as_secs())
+                .unwrap_or(0);
+            for (i, id) in tree
+                .oldest_large_files(tree.root, mode, min_size, limit)
+                .into_iter()
+                .enumerate()
+            {
+                let n = tree.node(id);
+                println!(
+                    "{:>3}. {:>10}  {:>9}  {}",
+                    i + 1,
+                    format_bytes(n.size(mode)),
+                    age_label(now.saturating_sub(n.mtime_unix)),
+                    tree.path_string(id)
+                );
+            }
+        }
+        Cmd::Dupes {
+            path,
+            min_size,
+            limit,
+            apparent,
+            force,
+        } => {
+            let tree = ctx.load_or_scan(&path, force);
+            let mode = if apparent {
+                SizeMode::Apparent
+            } else {
+                SizeMode::OnDisk
+            };
+            let groups = tree.duplicate_name_size(tree.root, mode, min_size, usize::MAX);
+            let mut wasted_total = 0u64;
+            for (i, group) in groups.iter().enumerate() {
+                let wasted = group.size.saturating_mul(group.nodes.len() as u64 - 1);
+                wasted_total = wasted_total.saturating_add(wasted);
+                if i >= limit {
+                    continue;
+                }
+                println!(
+                    "{:>3}. {} copies · {} each · {} reclaimable",
+                    i + 1,
+                    group.nodes.len(),
+                    format_bytes(group.size),
+                    format_bytes(wasted)
+                );
+                for &id in &group.nodes {
+                    println!("       {}", tree.path_string(id));
+                }
+            }
+            eprintln!(
+                "{} group(s) · up to {} reclaimable (name+size match, verify before deleting)",
+                groups.len(),
+                format_bytes(wasted_total)
+            );
+        }
+        Cmd::Exts {
+            path,
+            limit,
+            apparent,
+            force,
+        } => {
+            let tree = ctx.load_or_scan(&path, force);
+            let mode = if apparent {
+                SizeMode::Apparent
+            } else {
+                SizeMode::OnDisk
+            };
+            for (i, g) in tree
+                .group_by_ext(tree.root, mode, limit)
+                .into_iter()
+                .enumerate()
+            {
+                let label = if g.ext.is_empty() {
+                    "(none)"
+                } else {
+                    g.ext.as_str()
+                };
+                println!(
+                    "{:>3}. {:>10}  {:>8} files  {}",
+                    i + 1,
+                    format_bytes(g.total_bytes),
+                    g.file_count,
+                    label
+                );
+            }
+        }
         Cmd::Export {
             path,
             format,
@@ -418,7 +574,7 @@ fn main() {
             apparent,
             force,
         } => {
-            let tree = load_or_scan(&path, force);
+            let tree = ctx.load_or_scan(&path, force);
             let mode = if apparent {
                 SizeMode::Apparent
             } else {
@@ -451,7 +607,7 @@ fn main() {
             }
         }
         Cmd::Cache { cmd } => {
-            let cache = CacheStore::open().expect("cache dir");
+            let cache = ctx.open_cache();
             match cmd {
                 CacheCmd::Dir => println!("{}", cache.dir().display()),
                 CacheCmd::Ls => {
@@ -485,7 +641,7 @@ fn main() {
         }
         Cmd::Rules { cmd, all } => match cmd {
             None => {
-                let mgr = RuleManager::load_default().expect("rules");
+                let mgr = ctx.load_rules();
                 let filter = RuleFilter {
                     host_only: true,
                     enabled: if all { None } else { Some(true) },
@@ -514,7 +670,7 @@ fn main() {
                 all,
                 limit,
             }) => {
-                let mgr = RuleManager::load_default().expect("rules");
+                let mgr = ctx.load_rules();
                 let en = if enabled {
                     Some(true)
                 } else if disabled {
@@ -546,7 +702,7 @@ fn main() {
                 }
             }
             Some(RulesCmd::Status) => {
-                let mgr = RuleManager::load_default().expect("rules");
+                let mgr = ctx.load_rules();
                 let s = mgr.stats();
                 let mut win = 0usize;
                 let mut linux = 0usize;
@@ -577,7 +733,7 @@ fn main() {
                 }
             }
             Some(RulesCmd::Enable { ids }) => {
-                let mut mgr = RuleManager::load_default().expect("rules");
+                let mut mgr = ctx.load_rules();
                 for id in &ids {
                     mgr.set_rule_enabled(id, true).unwrap_or_else(|e| {
                         eprintln!("{e}");
@@ -588,7 +744,7 @@ fn main() {
                 println!("enabled {} rule(s)", ids.len());
             }
             Some(RulesCmd::Disable { ids }) => {
-                let mut mgr = RuleManager::load_default().expect("rules");
+                let mut mgr = ctx.load_rules();
                 for id in &ids {
                     mgr.set_rule_enabled(id, false).unwrap_or_else(|e| {
                         eprintln!("{e}");
@@ -599,7 +755,7 @@ fn main() {
                 println!("disabled {} rule(s)", ids.len());
             }
             Some(RulesCmd::Reset { ids, all }) => {
-                let mut mgr = RuleManager::load_default().expect("rules");
+                let mut mgr = ctx.load_rules();
                 if all {
                     mgr.reset_all();
                     mgr.save_prefs()
@@ -617,7 +773,7 @@ fn main() {
                 }
             }
             Some(RulesCmd::Category { action, name }) => {
-                let mut mgr = RuleManager::load_default().expect("rules");
+                let mut mgr = ctx.load_rules();
                 match action {
                     CatAction::On => mgr.set_category_enabled(&name, true).expect("category"),
                     CatAction::Off => mgr.set_category_enabled(&name, false).expect("category"),
@@ -634,7 +790,7 @@ fn main() {
                 println!("category {name} → {label}");
             }
             Some(RulesCmd::Tag { action, name }) => {
-                let mut mgr = RuleManager::load_default().expect("rules");
+                let mut mgr = ctx.load_rules();
                 match action {
                     CatAction::On => mgr.set_tag_enabled(&name, true).expect("tag"),
                     CatAction::Off => mgr.set_tag_enabled(&name, false).expect("tag"),
@@ -652,7 +808,7 @@ fn main() {
             }
         },
         Cmd::Categories { all } => {
-            let mgr = RuleManager::load_default().expect("rules");
+            let mgr = ctx.load_rules();
             for cat in mgr.categories(true) {
                 if !all && cat.enabled == 0 {
                     continue;
@@ -666,7 +822,7 @@ fn main() {
             }
         }
         Cmd::Tags { all, limit } => {
-            let mgr = RuleManager::load_default().expect("rules");
+            let mgr = ctx.load_rules();
             let tags = mgr.tags(true);
             println!("{} tags (showing up to {limit})", tags.len());
             for tag in tags.iter().take(limit) {
@@ -682,7 +838,7 @@ fn main() {
             }
         }
         Cmd::Kinds { all } => {
-            let mgr = RuleManager::load_default().expect("rules");
+            let mgr = ctx.load_rules();
             for kind in mgr.kinds(true) {
                 if !all && kind.enabled == 0 {
                     continue;
@@ -691,7 +847,7 @@ fn main() {
             }
         }
         Cmd::Risks { all } => {
-            let mgr = RuleManager::load_default().expect("rules");
+            let mgr = ctx.load_rules();
             for risk in mgr.risks(true) {
                 if !all && risk.enabled == 0 {
                     continue;
@@ -703,8 +859,12 @@ fn main() {
             }
         }
         Cmd::Protections { all, limit } => {
-            let pack = space_clean::ProtectionPack::load_many(&space_clean::default_rules_dirs())
-                .expect("protection rules");
+            let dirs = ctx
+                .rules
+                .as_ref()
+                .map(|d| vec![d.clone()])
+                .unwrap_or_else(space_clean::default_rules_dirs);
+            let pack = space_clean::ProtectionPack::load_many(&dirs).expect("protection rules");
             let rules: Vec<_> = pack
                 .rules
                 .iter()
@@ -732,7 +892,7 @@ fn main() {
             permanent,
             yes,
         } => {
-            let mgr = RuleManager::load_default().expect("rules");
+            let mgr = ctx.load_rules();
             let kind = parse_kind_opt(kind.as_deref());
             let risk = parse_risk_opt(risk.as_deref());
             let max_risk = parse_risk_opt(max_risk.as_deref());
@@ -970,8 +1130,69 @@ fn run_rm(paths: Vec<PathBuf>, permanent: bool, yes: bool) {
     }
 }
 
-fn scan_blocking(path: &std::path::Path) -> SpaceTree {
-    let result = scan_path(path).wait_with(|p| {
+struct CliContext {
+    rules: Option<PathBuf>,
+    cache_dir: Option<PathBuf>,
+    scan: CoreScanOptions,
+}
+
+impl CliContext {
+    fn from_cli(cli: &Cli) -> Self {
+        let mut scan = CoreScanOptions {
+            threads: cli.threads,
+            exclude_names: cli.exclude.clone(),
+            ..CoreScanOptions::default()
+        };
+        if let Some(bytes) = cli.small_file_threshold {
+            scan.small_file_threshold = bytes;
+        }
+        Self {
+            rules: cli.rules.clone(),
+            cache_dir: cli.cache_dir.clone(),
+            scan,
+        }
+    }
+
+    fn load_rules(&self) -> RuleManager {
+        if let Some(dir) = &self.rules {
+            RuleManager::load_with_dirs(std::slice::from_ref(dir)).expect("rules")
+        } else {
+            RuleManager::load_default().expect("rules")
+        }
+    }
+
+    fn open_cache(&self) -> CacheStore {
+        if let Some(dir) = &self.cache_dir {
+            CacheStore::with_dir(dir.clone()).expect("cache dir")
+        } else {
+            CacheStore::open().expect("cache dir")
+        }
+    }
+
+    fn options_affect_tree(&self) -> bool {
+        let defaults = CoreScanOptions::default();
+        self.scan.small_file_threshold != defaults.small_file_threshold
+            || !self.scan.exclude_names.is_empty()
+    }
+
+    fn load_or_scan(&self, path: &Path, force: bool) -> SpaceTree {
+        if self.options_affect_tree() {
+            return scan_blocking(path, &self.scan);
+        }
+        let cache = self.open_cache();
+        if !force {
+            if let Ok(loaded) = cache.load(path) {
+                return loaded.tree;
+            }
+        }
+        let tree = scan_blocking(path, &self.scan);
+        let _ = cache.save(&tree);
+        tree
+    }
+}
+
+fn scan_blocking(path: &Path, options: &CoreScanOptions) -> SpaceTree {
+    let result = scan_path_with_options(path.to_path_buf(), options.clone()).wait_with(|p| {
         eprint!(
             "\rscan {} files · {} · {}          ",
             p.files_seen,
@@ -989,16 +1210,38 @@ fn scan_blocking(path: &std::path::Path) -> SpaceTree {
     }
 }
 
-fn load_or_scan(path: &std::path::Path, force: bool) -> SpaceTree {
-    let cache = CacheStore::open().expect("cache");
-    if !force {
-        if let Ok(loaded) = cache.load(path) {
-            return loaded.tree;
-        }
+fn parse_size(raw: &str) -> Result<u64, String> {
+    let s = raw.trim();
+    if s.is_empty() {
+        return Err("size cannot be empty".into());
     }
-    let tree = scan_blocking(path);
-    let _ = cache.save(&tree);
-    tree
+    let split = s.find(|c: char| !c.is_ascii_digit()).unwrap_or(s.len());
+    let (digits, suffix) = (&s[..split], s[split..].trim());
+    let value: u64 = digits
+        .parse()
+        .map_err(|_| format!("invalid size number: {raw}"))?;
+    let unit = suffix.to_ascii_lowercase();
+    let mult: u64 = match unit.as_str() {
+        "" | "b" => 1,
+        "k" | "kb" | "kib" => 1024,
+        "m" | "mb" | "mib" => 1024_u64.pow(2),
+        "g" | "gb" | "gib" => 1024_u64.pow(3),
+        "t" | "tb" | "tib" => 1024_u64.pow(4),
+        _ => return Err(format!("unknown size suffix '{suffix}' in '{raw}'")),
+    };
+    value
+        .checked_mul(mult)
+        .ok_or_else(|| format!("size overflow: {raw}"))
+}
+
+fn age_label(age_secs: u64) -> String {
+    match age_secs {
+        0..=59 => "just now".into(),
+        60..=3_599 => format!("{}m ago", age_secs / 60),
+        3_600..=86_399 => format!("{}h ago", age_secs / 3_600),
+        86_400..=31_535_999 => format!("{}d ago", age_secs / 86_400),
+        _ => format!("{}y ago", age_secs / 31_536_000),
+    }
 }
 
 fn parse_kind_opt(raw: Option<&str>) -> Option<space_clean::JunkKind> {
@@ -1019,4 +1262,51 @@ fn parse_risk_opt(raw: Option<&str>) -> Option<space_clean::Risk> {
             std::process::exit(2);
         })
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use clap::CommandFactory;
+
+    #[test]
+    fn cli_debug_assert() {
+        Cli::command().debug_assert();
+    }
+
+    #[test]
+    fn size_parser_accepts_units() {
+        assert_eq!(parse_size("42"), Ok(42));
+        assert_eq!(parse_size("10K"), Ok(10 * 1024));
+        assert_eq!(parse_size("5MiB"), Ok(5 * 1024 * 1024));
+        assert_eq!(parse_size("2g"), Ok(2 * 1024 * 1024 * 1024));
+        assert!(parse_size("").is_err());
+        assert!(parse_size("12x").is_err());
+    }
+
+    #[test]
+    fn global_scan_flags_build_options() {
+        let cli = Cli::try_parse_from([
+            "space",
+            "--small-file-threshold",
+            "1K",
+            "--threads",
+            "2",
+            "--exclude",
+            "node_modules",
+            "du",
+            ".",
+        ])
+        .unwrap();
+        let ctx = CliContext::from_cli(&cli);
+        assert_eq!(ctx.scan.small_file_threshold, 1024);
+        assert_eq!(ctx.scan.threads, Some(2));
+        assert_eq!(ctx.scan.exclude_names, vec!["node_modules".to_string()]);
+        assert!(ctx.options_affect_tree());
+
+        let plain = Cli::try_parse_from(["space", "--threads", "4", "du", "."]).unwrap();
+        let plain_ctx = CliContext::from_cli(&plain);
+        assert!(!plain_ctx.options_affect_tree());
+        assert_eq!(plain_ctx.scan.threads, Some(4));
+    }
 }

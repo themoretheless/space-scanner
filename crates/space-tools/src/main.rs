@@ -450,8 +450,15 @@ fn main() -> Result<()> {
         }
         "run-app" => launch(&repo),
         "dist-app" => dist_app(&repo),
+        "dist" => {
+            let flags = &args[1..];
+            let include_generated = !flags.iter().any(|a| a == "--no-generated");
+            let zip = flags.iter().any(|a| a == "--zip");
+            let build = !flags.iter().any(|a| a == "--no-build");
+            dist(&repo, include_generated, zip, build)
+        }
         "help" | "--help" => {
-            println!("cargo run -p space-tools -- <command>\nCommands: deduplicate [--apply] [--root rules], split [--root rules], catalog <names.txt> <prefix> <target> [--root rules], protections [--root rules], target-dir, pypi [--root rules], run-app, dist-app");
+            println!("cargo run -p space-tools -- <command>\nCommands: deduplicate [--apply] [--root rules], split [--root rules], catalog <names.txt> <prefix> <target> [--root rules], protections [--root rules], target-dir, pypi [--root rules], run-app, dist-app, dist [--no-generated] [--zip] [--no-build]");
             Ok(())
         }
         _ => bail!("unknown command: {cmd}"),
@@ -596,12 +603,54 @@ fn cargo_target_dir(repo: &Path) -> Result<PathBuf> {
     ))
 }
 
-fn bundle_app(binary: &Path, rules_dir: &Path, app: &Path, adhoc_sign: bool) -> Result<()> {
+fn find_icon(repo: &Path) -> Option<PathBuf> {
+    [
+        "assets/AppIcon.icns",
+        "crates/space-app/assets/AppIcon.icns",
+    ]
+    .iter()
+    .map(|p| repo.join(p))
+    .find(|p| p.is_file())
+}
+
+fn info_plist(version: &str, has_icon: bool) -> String {
+    let icon = if has_icon {
+        "<key>CFBundleIconFile</key><string>AppIcon</string>\n"
+    } else {
+        ""
+    };
+    format!(
+        r#"<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleName</key><string>Space Scanner</string>
+<key>CFBundleDisplayName</key><string>Space Scanner</string>
+<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
+<key>CFBundleVersion</key><string>{version}</string>
+<key>CFBundleShortVersionString</key><string>{version}</string>
+<key>CFBundleExecutable</key><string>SpaceScanner</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+{icon}<key>LSMinimumSystemVersion</key><string>13.0</string>
+<key>NSHighResolutionCapable</key><true/>
+</dict></plist>
+"#
+    )
+}
+
+fn assemble_bundle(
+    binary: &Path,
+    rules_dir: &Path,
+    app: &Path,
+    adhoc_sign: bool,
+    include_generated: bool,
+    icon: Option<&Path>,
+) -> Result<()> {
     ensure!(binary.is_file(), "missing binary {}", binary.display());
     if app.exists() {
         fs::remove_dir_all(app)?;
     }
     fs::create_dir_all(app.join("Contents/MacOS"))?;
+    fs::create_dir_all(app.join("Contents/Resources"))?;
     let exe_dest = app.join("Contents/MacOS/SpaceScanner");
     fs::copy(binary, &exe_dest)?;
     #[cfg(unix)]
@@ -611,7 +660,11 @@ fn bundle_app(binary: &Path, rules_dir: &Path, app: &Path, adhoc_sign: bool) -> 
         perms.set_mode(0o755);
         fs::set_permissions(&exe_dest, perms)?;
     }
-    for entry in walkdir::WalkDir::new(rules_dir) {
+    let generated = rules_dir.join("generated");
+    for entry in walkdir::WalkDir::new(rules_dir)
+        .into_iter()
+        .filter_entry(|e| include_generated || e.path() != generated)
+    {
         let entry = entry?;
         let dest = app
             .join("Contents/rules")
@@ -622,31 +675,71 @@ fn bundle_app(binary: &Path, rules_dir: &Path, app: &Path, adhoc_sign: bool) -> 
             fs::copy(entry.path(), dest)?;
         }
     }
+    if let Some(icon) = icon {
+        fs::copy(icon, app.join("Contents/Resources/AppIcon.icns"))?;
+    }
     let version = env!("CARGO_PKG_VERSION");
     fs::write(
         app.join("Contents/Info.plist"),
-        format!(
-            r#"<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0"><dict>
-<key>CFBundleName</key><string>Space Scanner</string>
-<key>CFBundleDisplayName</key><string>Space Scanner</string>
-<key>CFBundleIdentifier</key><string>com.themoretheless.space-scanner</string>
-<key>CFBundleVersion</key><string>{version}</string>
-<key>CFBundleShortVersionString</key><string>{version}</string>
-<key>CFBundleExecutable</key><string>SpaceScanner</string>
-<key>CFBundlePackageType</key><string>APPL</string>
-<key>LSMinimumSystemVersion</key><string>13.0</string>
-<key>NSHighResolutionCapable</key><true/>
-</dict></plist>
-"#
-        ),
+        info_plist(version, icon.is_some()),
     )?;
     if adhoc_sign && cfg!(target_os = "macos") {
         let _ = std::process::Command::new("codesign")
             .args(["--force", "--deep", "--sign", "-"])
             .arg(app)
             .status();
+    }
+    Ok(())
+}
+
+fn bundle_app(binary: &Path, rules_dir: &Path, app: &Path, adhoc_sign: bool) -> Result<()> {
+    assemble_bundle(binary, rules_dir, app, adhoc_sign, true, None)
+}
+
+fn dist(repo: &Path, include_generated: bool, zip: bool, build: bool) -> Result<()> {
+    let target = if build {
+        build_release_app(repo)?
+    } else {
+        cargo_target_dir(repo)?
+    };
+    let exe = if cfg!(windows) {
+        "space-scanner.exe"
+    } else {
+        "space-scanner"
+    };
+    let app = target.join("dist/SpaceScanner.app");
+    let icon = find_icon(repo);
+    assemble_bundle(
+        &target.join("release").join(exe),
+        &repo.join("rules"),
+        &app,
+        false,
+        include_generated,
+        icon.as_deref(),
+    )?;
+    println!("Assembled {}", app.display());
+    if zip {
+        if cfg!(target_os = "macos") {
+            let archive = target.join(format!(
+                "dist/SpaceScanner-{}.zip",
+                env!("CARGO_PKG_VERSION")
+            ));
+            let _ = fs::remove_file(&archive);
+            let status = std::process::Command::new("/usr/bin/ditto")
+                .args([
+                    "-c",
+                    "-k",
+                    "--sequesterRsrc",
+                    "--keepParent",
+                    app.to_str().context("non-utf8 app path")?,
+                    archive.to_str().context("non-utf8 zip path")?,
+                ])
+                .status()?;
+            ensure!(status.success(), "zipping the bundle failed");
+            println!("Zipped {}", archive.display());
+        } else {
+            eprintln!("--zip is macOS-only; bundle layout left unzipped");
+        }
     }
     Ok(())
 }
@@ -878,5 +971,38 @@ mod tests {
         let plist = fs::read_to_string(app.join("Contents/Info.plist")).unwrap();
         assert!(plist.contains("com.themoretheless.space-scanner"));
         assert!(plist.contains(env!("CARGO_PKG_VERSION")));
+    }
+
+    #[test]
+    fn bundle_layout_plist_and_generated_filter() {
+        let f = Fixture::new();
+        let bin = f.0.join("space-scanner");
+        fs::write(&bin, b"bin").unwrap();
+        let rules = f.0.join("rules");
+        fs::create_dir_all(rules.join("generated")).unwrap();
+        fs::create_dir_all(rules.join("categories")).unwrap();
+        fs::write(rules.join("generated/g.yaml"), b"g").unwrap();
+        fs::write(rules.join("categories/c.yaml"), b"c").unwrap();
+        let icon = f.0.join("AppIcon.icns");
+        fs::write(&icon, b"icns").unwrap();
+        let app = f.0.join("dist/SpaceScanner.app");
+
+        assemble_bundle(&bin, &rules, &app, false, false, Some(&icon)).unwrap();
+        let c = app.join("Contents");
+        assert_eq!(fs::read(c.join("MacOS/SpaceScanner")).unwrap(), b"bin");
+        assert!(c.join("rules/categories/c.yaml").is_file());
+        assert!(!c.join("rules/generated").exists());
+        assert!(c.join("Resources/AppIcon.icns").is_file());
+        let plist = fs::read_to_string(c.join("Info.plist")).unwrap();
+        assert!(plist.contains("<key>NSHighResolutionCapable</key><true/>"));
+        assert!(plist.contains(&format!("<string>{}</string>", env!("CARGO_PKG_VERSION"))));
+        assert!(plist.contains("CFBundleIconFile"));
+
+        assemble_bundle(&bin, &rules, &app, false, true, None).unwrap();
+        assert!(c.join("rules/generated/g.yaml").is_file());
+        assert!(!fs::read_to_string(c.join("Info.plist"))
+            .unwrap()
+            .contains("CFBundleIconFile"));
+        assert!(assemble_bundle(&f.0.join("missing"), &rules, &app, false, true, None).is_err());
     }
 }
