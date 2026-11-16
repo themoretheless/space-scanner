@@ -9,7 +9,9 @@ use crate::icons::{self, Icon};
 use crate::theme::metrics::{APP_BAR_H, CONTROL_H, S2, S3, S4};
 use crate::theme::type_scale;
 use crate::theme::{ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
-use crate::widgets::{caption, count_noun, ghost, primary, secondary, segmented, text_width};
+use crate::widgets::{
+    caption, count_noun, danger_secondary, ghost, primary, secondary, segmented, text_width,
+};
 
 impl SpaceApp {
     pub(super) fn app_bar(&mut self, ctx: &egui::Context, d: Density) {
@@ -80,14 +82,11 @@ impl SpaceApp {
 
     /// Persistent bottom bar whenever items are checked for Trash.
     pub(super) fn basket_bar(&mut self, ctx: &egui::Context, d: Density) {
-        let items = self.basket_items();
-        let n = items.len();
+        let n = self.basket_len();
         if n == 0 {
             return;
         }
-        let total_bytes: u64 = items
-            .iter()
-            .fold(0_u64, |sum, item| sum.saturating_add(item.bytes));
+        let total_bytes = self.basket_bytes();
         let idle = !self.busy && self.scan.is_none();
 
         egui::TopBottomPanel::bottom("basket_bar")
@@ -117,6 +116,12 @@ impl SpaceApp {
                     ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                         if ui.add_enabled(idle, primary("Move to Trash…")).clicked() {
                             self.request_trash();
+                        }
+                        if ui
+                            .add_enabled(idle, danger_secondary("Delete permanently…"))
+                            .clicked()
+                        {
+                            self.request_permanent_basket();
                         }
                         if ui
                             .add_enabled(!self.busy, secondary("Clear selection"))

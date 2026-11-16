@@ -6,7 +6,7 @@ use eframe::egui::{self, Color32, RichText, Sense, Ui};
 use crate::i18n::t;
 use crate::theme::metrics::{CONTROL_H, RADIUS_CONTROL, S3, S4};
 use crate::theme::type_scale;
-use crate::theme::{ACCENT, ACCENT_INK, BORDER, MUTED, PANEL_2, TEXT};
+use crate::theme::{ACCENT, ACCENT_INK, BORDER, DANGER, MUTED, PANEL_2, TEXT};
 
 /// Width of `text` in `font`, for fitting breadcrumbs and labels without wrapping.
 pub fn text_width(ui: &Ui, text: &str, font: egui::FontId) -> f32 {
@@ -38,6 +38,23 @@ pub fn secondary(label: &str) -> egui::Button<'static> {
     egui::Button::new(RichText::new(t(label)).color(TEXT()))
         .fill(PANEL_2())
         .stroke(egui::Stroke::new(1.0_f32, BORDER()))
+        .corner_radius(RADIUS_CONTROL)
+        .min_size(egui::vec2(0.0, CONTROL_H))
+}
+
+/// Filled destructive button for irreversible actions.
+pub fn danger(label: &str) -> egui::Button<'static> {
+    egui::Button::new(RichText::new(t(label)).color(Color32::WHITE).strong())
+        .fill(DANGER())
+        .corner_radius(RADIUS_CONTROL)
+        .min_size(egui::vec2(0.0, CONTROL_H))
+}
+
+/// Bordered destructive button alongside primary actions.
+pub fn danger_secondary(label: &str) -> egui::Button<'static> {
+    egui::Button::new(RichText::new(t(label)).color(DANGER()))
+        .fill(PANEL_2())
+        .stroke(egui::Stroke::new(1.0_f32, DANGER().gamma_multiply(0.55)))
         .corner_radius(RADIUS_CONTROL)
         .min_size(egui::vec2(0.0, CONTROL_H))
 }

@@ -24,6 +24,8 @@ impl SpaceApp {
         let mut open_tm = false;
         let mut open_folders = false;
         let mut reveal: Option<PathBuf> = None;
+        let mut delete_now_findings: Option<Vec<space_clean::Finding>> = None;
+        let mut delete_now_download: Option<crate::app::BasketItem> = None;
 
         egui::CentralPanel::default()
             .frame(egui::Frame::new().fill(BG()).inner_margin(egui::Margin {
@@ -102,6 +104,7 @@ impl SpaceApp {
                                 &mut self.junk,
                                 JunkGroup::Safe,
                                 &mut reveal,
+                                &mut delete_now_findings,
                             );
                             if self.junk.group_stats(JunkGroup::Safe).0 > 0 {
                                 ui.add_space(S3);
@@ -109,7 +112,7 @@ impl SpaceApp {
 
                             let downloads_shown =
                                 !self.downloads.items().is_empty() || self.downloads.loading;
-                            self.downloads_card(ui, &mut reveal);
+                            self.downloads_card(ui, &mut reveal, &mut delete_now_download);
                             if downloads_shown {
                                 ui.add_space(S3);
                             }
@@ -119,7 +122,24 @@ impl SpaceApp {
                                 &mut self.junk,
                                 JunkGroup::Review,
                                 &mut reveal,
+                                &mut delete_now_findings,
                             );
+                            if let Some(findings) = delete_now_findings {
+                                let items = findings
+                                    .iter()
+                                    .map(crate::app::SpaceApp::basket_item_from_finding)
+                                    .collect();
+                                self.request_delete_direct(
+                                    items,
+                                    space_clean::DeleteMethod::Permanent,
+                                );
+                            }
+                            if let Some(item) = delete_now_download {
+                                self.request_delete_direct(
+                                    vec![item],
+                                    space_clean::DeleteMethod::Permanent,
+                                );
+                            }
                             if self.junk.group_stats(JunkGroup::Review).0 > 0 {
                                 ui.add_space(S3);
                             }
@@ -316,7 +336,12 @@ impl SpaceApp {
             });
     }
 
-    fn downloads_card(&mut self, ui: &mut egui::Ui, reveal: &mut Option<PathBuf>) {
+    fn downloads_card(
+        &mut self,
+        ui: &mut egui::Ui,
+        reveal: &mut Option<PathBuf>,
+        delete_now: &mut Option<crate::app::BasketItem>,
+    ) {
         if self.downloads.items().is_empty() {
             if self.downloads.loading {
                 egui::Frame::new()
@@ -402,6 +427,21 @@ impl SpaceApp {
                                 )
                                 .on_hover_text(item.path.display().to_string());
                             name_resp.context_menu(|ui| {
+                                if ui
+                                    .button(
+                                        RichText::new(t("Delete permanently…"))
+                                            .color(crate::theme::DANGER()),
+                                    )
+                                    .clicked()
+                                {
+                                    *delete_now = Some(crate::app::BasketItem {
+                                        path: item.path.clone(),
+                                        bytes: item.bytes,
+                                        is_dir: item.is_dir,
+                                        junk_guard: None,
+                                    });
+                                    ui.close_menu();
+                                }
                                 if ui.button(t("Show in Finder")).clicked() {
                                     *reveal = Some(item.path.clone());
                                     ui.close_menu();

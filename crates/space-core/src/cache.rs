@@ -10,8 +10,9 @@ use crate::tree::SpaceTree;
 
 const CACHE_MAGIC: &[u8; 8] = b"SPSCACHE";
 /// Bump when `SpaceTree` / `Node` on-disk schema changes.
-pub const CACHE_VERSION: u32 = 5;
+pub const CACHE_VERSION: u32 = 6;
 const DEFAULT_MAX_CACHE_ENTRIES: usize = 32;
+const LAST_ACCESS_TOUCH_INTERVAL_SECS: u64 = 60;
 
 #[derive(Debug, Error)]
 pub enum CacheError {
@@ -36,6 +37,10 @@ pub struct CacheMeta {
     pub total_size: u64,
     #[serde(default)]
     pub last_accessed_unix: u64,
+    #[serde(default)]
+    pub checksum: [u8; 32],
+    #[serde(default)]
+    pub payload_bytes: u64,
 }
 
 #[derive(Debug, Clone)]
@@ -85,7 +90,7 @@ impl CacheStore {
 
     fn key_for(root: &Path) -> String {
         let canonical = canonicalize_best_effort(root);
-        let hash = blake3::hash(canonical.to_string_lossy().as_bytes());
+        let hash = blake3::hash(canonical.as_os_str().as_encoded_bytes());
         hash.to_hex().to_string()
     }
 
@@ -142,7 +147,7 @@ impl CacheStore {
             current_mtime > meta.root_mtime_secs.saturating_add(1)
         };
 
-        let tree = match read_and_validate_tree(&bin_path) {
+        let tree = match read_and_validate_tree(&bin_path, &meta.checksum, meta.payload_bytes) {
             Ok(tree) => tree,
             Err(err) => {
                 let _ = self.invalidate(root);
@@ -150,8 +155,10 @@ impl CacheStore {
             }
         };
 
-        meta.last_accessed_unix = now;
-        let _ = write_meta_atomic(&meta_path, &meta);
+        if now.saturating_sub(meta.last_accessed_unix) >= LAST_ACCESS_TOUCH_INTERVAL_SECS {
+            meta.last_accessed_unix = now;
+            let _ = write_meta_atomic(&meta_path, &meta);
+        }
 
         Ok(CacheLoad {
             meta,
@@ -173,6 +180,29 @@ impl CacheStore {
         let root = Path::new(&tree.root_path);
         let (meta_path, bin_path) = self.paths(root);
 
+        let tmp_bin = bin_path.with_extension("bin.tmp");
+        let mut tmp_guard = TmpFileGuard::new(&tmp_bin);
+        let (checksum, payload_bytes) = {
+            let f = fs::File::create(&tmp_bin)?;
+            let mut hw = HashingWriter::new(f);
+            hw.write_all(CACHE_MAGIC)?;
+            hw.write_all(&CACHE_VERSION.to_le_bytes())?;
+            {
+                let mut encoder = zstd::stream::write::Encoder::new(&mut hw, 3)
+                    .map_err(|e| CacheError::Encode(e.to_string()))?;
+                bincode::serialize_into(&mut encoder, tree)
+                    .map_err(|e| CacheError::Encode(e.to_string()))?;
+                encoder
+                    .finish()
+                    .map_err(|e| CacheError::Encode(e.to_string()))?;
+            }
+            let (f, checksum, payload_bytes) = hw.finish();
+            f.sync_all()?;
+            (checksum, payload_bytes)
+        };
+        fs::rename(&tmp_bin, &bin_path)?;
+        tmp_guard.disarm();
+
         let now = now_unix();
         let meta = CacheMeta {
             root_path: tree.root_path.clone(),
@@ -181,27 +211,11 @@ impl CacheStore {
             item_count: tree.item_count,
             total_size: tree.total_size(),
             last_accessed_unix: now,
+            checksum,
+            payload_bytes,
         };
-
-        let tmp_bin = bin_path.with_extension("bin.tmp");
-        {
-            let mut f = fs::File::create(&tmp_bin)?;
-            f.write_all(CACHE_MAGIC)?;
-            f.write_all(&CACHE_VERSION.to_le_bytes())?;
-            {
-                let mut encoder = zstd::stream::write::Encoder::new(&mut f, 3)
-                    .map_err(|e| CacheError::Encode(e.to_string()))?;
-                bincode::serialize_into(&mut encoder, tree)
-                    .map_err(|e| CacheError::Encode(e.to_string()))?;
-                encoder
-                    .finish()
-                    .map_err(|e| CacheError::Encode(e.to_string()))?;
-            }
-            f.sync_all()?;
-        }
-        fs::rename(&tmp_bin, &bin_path)?;
         write_meta_atomic(&meta_path, &meta)?;
-        let _ = self.evict_lru(DEFAULT_MAX_CACHE_ENTRIES);
+        let _ = self.evict_lru_keeping(DEFAULT_MAX_CACHE_ENTRIES, Some(&meta_path));
 
         Ok(meta)
     }
@@ -267,9 +281,7 @@ impl CacheStore {
                 .and_then(|b| bincode::deserialize::<CacheMeta>(&b).ok())
                 .is_none_or(|m| m.scanned_at_unix < cutoff);
             if expired {
-                let bin = path.with_extension("bin");
-                let _ = fs::remove_file(&path);
-                let _ = fs::remove_file(bin);
+                remove_cache_pair(&path);
                 removed += 1;
             }
         }
@@ -277,53 +289,218 @@ impl CacheStore {
     }
 
     pub fn evict_lru(&self, max_entries: usize) -> Result<usize, CacheError> {
-        if !self.dir.exists() {
-            return Ok(0);
-        }
-        let mut entries: Vec<(u64, PathBuf)> = Vec::new();
-        for entry in fs::read_dir(&self.dir)? {
-            let entry = entry?;
-            let path = entry.path();
-            if path.extension().and_then(|e| e.to_str()) != Some("meta") {
-                continue;
-            }
-            let stamp = fs::read(&path)
-                .ok()
-                .and_then(|b| bincode::deserialize::<CacheMeta>(&b).ok())
-                .map_or(0, |m| m.last_accessed_unix.max(m.scanned_at_unix));
-            entries.push((stamp, path));
-        }
+        self.evict_lru_keeping(max_entries, None)
+    }
+
+    /// Evicts oldest cache entries down to `max_entries`, protecting `keep_meta`.
+    pub fn evict_lru_keeping(
+        &self,
+        max_entries: usize,
+        keep_meta: Option<&Path>,
+    ) -> Result<usize, CacheError> {
+        let mut entries = collect_cache_entries(&self.dir)?;
         if entries.len() <= max_entries {
             return Ok(0);
         }
-        entries.sort_by_key(|(stamp, _)| std::cmp::Reverse(*stamp));
+        entries.sort_by_key(|e| {
+            let kept = keep_meta.is_some_and(|k| e.meta_path == k);
+            std::cmp::Reverse((kept, e.stamp))
+        });
         let mut evicted = 0usize;
-        for (_, meta_path) in entries.into_iter().skip(max_entries) {
-            let bin_path = meta_path.with_extension("bin");
-            let _ = fs::remove_file(&meta_path);
-            let _ = fs::remove_file(bin_path);
+        for item in entries.into_iter().skip(max_entries) {
+            remove_cache_pair(&item.meta_path);
+            evicted += 1;
+        }
+        Ok(evicted)
+    }
+
+    /// Returns total on-disk bytes currently stored inside the cache directory.
+    pub fn total_bytes(&self) -> Result<u64, CacheError> {
+        if !self.dir.exists() {
+            return Ok(0);
+        }
+        let mut total = 0u64;
+        for entry in fs::read_dir(&self.dir)? {
+            let entry = entry?;
+            total = total.saturating_add(entry.metadata().map(|m| m.len()).unwrap_or(0));
+        }
+        Ok(total)
+    }
+
+    /// Evicts oldest entries until total cache directory usage fits within `max_bytes`.
+    pub fn evict_to_budget(&self, max_bytes: u64) -> Result<usize, CacheError> {
+        let mut total = self.total_bytes()?;
+        if total <= max_bytes {
+            return Ok(0);
+        }
+        let mut entries = collect_cache_entries(&self.dir)?;
+        entries.sort_by_key(|e| e.stamp);
+        let mut evicted = 0usize;
+        for item in entries {
+            if total <= max_bytes {
+                break;
+            }
+            remove_cache_pair(&item.meta_path);
+            total = total.saturating_sub(item.pair_bytes);
             evicted += 1;
         }
         Ok(evicted)
     }
 }
 
-fn read_and_validate_tree(bin_path: &Path) -> Result<SpaceTree, CacheError> {
-    let mut file = fs::File::open(bin_path)?;
+struct CacheEntryRecord {
+    stamp: u64,
+    meta_path: PathBuf,
+    pair_bytes: u64,
+}
+
+fn collect_cache_entries(dir: &Path) -> Result<Vec<CacheEntryRecord>, CacheError> {
+    if !dir.exists() {
+        return Ok(Vec::new());
+    }
+    let mut entries = Vec::new();
+    for entry in fs::read_dir(dir)? {
+        let entry = entry?;
+        let path = entry.path();
+        if path.extension().and_then(|e| e.to_str()) != Some("meta") {
+            continue;
+        }
+        let bin_path = path.with_extension("bin");
+        let stamp = fs::read(&path)
+            .ok()
+            .and_then(|b| bincode::deserialize::<CacheMeta>(&b).ok())
+            .map_or(0, |m| m.last_accessed_unix.max(m.scanned_at_unix));
+        let meta_len = fs::metadata(&path).map(|m| m.len()).unwrap_or(0);
+        let bin_len = fs::metadata(&bin_path).map(|m| m.len()).unwrap_or(0);
+        entries.push(CacheEntryRecord {
+            stamp,
+            meta_path: path,
+            pair_bytes: meta_len.saturating_add(bin_len),
+        });
+    }
+    Ok(entries)
+}
+
+fn remove_cache_pair(meta_path: &Path) {
+    let bin_path = meta_path.with_extension("bin");
+    let _ = fs::remove_file(meta_path);
+    let _ = fs::remove_file(bin_path);
+}
+
+struct TmpFileGuard<'a> {
+    path: &'a Path,
+    armed: bool,
+}
+
+impl<'a> TmpFileGuard<'a> {
+    fn new(path: &'a Path) -> Self {
+        Self { path, armed: true }
+    }
+
+    fn disarm(&mut self) {
+        self.armed = false;
+    }
+}
+
+impl Drop for TmpFileGuard<'_> {
+    fn drop(&mut self) {
+        if self.armed {
+            let _ = fs::remove_file(self.path);
+        }
+    }
+}
+
+struct HashingWriter<W> {
+    inner: W,
+    hasher: blake3::Hasher,
+    bytes: u64,
+}
+
+impl<W: Write> HashingWriter<W> {
+    fn new(inner: W) -> Self {
+        Self {
+            inner,
+            hasher: blake3::Hasher::new(),
+            bytes: 0,
+        }
+    }
+
+    fn finish(self) -> (W, [u8; 32], u64) {
+        (self.inner, *self.hasher.finalize().as_bytes(), self.bytes)
+    }
+}
+
+impl<W: Write> Write for HashingWriter<W> {
+    fn write(&mut self, buf: &[u8]) -> std::io::Result<usize> {
+        let written = self.inner.write(buf)?;
+        self.hasher.update(&buf[..written]);
+        self.bytes = self.bytes.saturating_add(written as u64);
+        Ok(written)
+    }
+
+    fn flush(&mut self) -> std::io::Result<()> {
+        self.inner.flush()
+    }
+}
+
+struct HashingReader<R> {
+    inner: R,
+    hasher: blake3::Hasher,
+    bytes: u64,
+}
+
+impl<R: Read> HashingReader<R> {
+    fn new(inner: R) -> Self {
+        Self {
+            inner,
+            hasher: blake3::Hasher::new(),
+            bytes: 0,
+        }
+    }
+
+    fn finish(self) -> ([u8; 32], u64) {
+        (*self.hasher.finalize().as_bytes(), self.bytes)
+    }
+}
+
+impl<R: Read> Read for HashingReader<R> {
+    fn read(&mut self, buf: &mut [u8]) -> std::io::Result<usize> {
+        let read = self.inner.read(buf)?;
+        if read > 0 {
+            self.hasher.update(&buf[..read]);
+            self.bytes = self.bytes.saturating_add(read as u64);
+        }
+        Ok(read)
+    }
+}
+
+fn read_and_validate_tree(
+    bin_path: &Path,
+    expected_checksum: &[u8; 32],
+    expected_bytes: u64,
+) -> Result<SpaceTree, CacheError> {
+    let file = fs::File::open(bin_path)?;
+    let mut hr = HashingReader::new(file);
     let mut magic = [0u8; 8];
-    file.read_exact(&mut magic)?;
+    hr.read_exact(&mut magic)?;
     if &magic != CACHE_MAGIC {
         return Err(CacheError::Decode("bad magic".into()));
     }
     let mut ver = [0u8; 4];
-    file.read_exact(&mut ver)?;
+    hr.read_exact(&mut ver)?;
     if u32::from_le_bytes(ver) != CACHE_VERSION {
         return Err(CacheError::Decode("version mismatch".into()));
     }
-    let decoder =
-        zstd::stream::read::Decoder::new(file).map_err(|e| CacheError::Decode(e.to_string()))?;
-    let tree: SpaceTree =
-        bincode::deserialize_from(decoder).map_err(|e| CacheError::Decode(e.to_string()))?;
+    let tree: SpaceTree = {
+        let mut decoder = zstd::stream::read::Decoder::new(&mut hr)
+            .map_err(|e| CacheError::Decode(e.to_string()))?;
+        bincode::deserialize_from(&mut decoder).map_err(|e| CacheError::Decode(e.to_string()))?
+    };
+    std::io::copy(&mut hr, &mut std::io::sink())?;
+    let (actual_checksum, actual_bytes) = hr.finish();
+    if actual_bytes != expected_bytes || &actual_checksum != expected_checksum {
+        return Err(CacheError::Decode("checksum mismatch".into()));
+    }
     tree.validate()
         .map_err(|msg| CacheError::Decode(msg.into()))?;
     Ok(tree)
@@ -332,12 +509,14 @@ fn read_and_validate_tree(bin_path: &Path) -> Result<SpaceTree, CacheError> {
 fn write_meta_atomic(meta_path: &Path, meta: &CacheMeta) -> Result<(), CacheError> {
     let bytes = bincode::serialize(meta).map_err(|e| CacheError::Encode(e.to_string()))?;
     let tmp = meta_path.with_extension("meta.tmp");
+    let mut tmp_guard = TmpFileGuard::new(&tmp);
     {
         let mut f = fs::File::create(&tmp)?;
         f.write_all(&bytes)?;
         f.sync_all()?;
     }
     fs::rename(&tmp, meta_path)?;
+    tmp_guard.disarm();
     Ok(())
 }
 
@@ -486,6 +665,72 @@ mod tests {
 
         assert_eq!(store.wipe_all().unwrap(), 2);
         assert!(store.list_recent().unwrap().is_empty());
+        fs::remove_dir_all(base).unwrap();
+    }
+
+    #[test]
+    fn blake3_checksum_catches_payload_bitrot() {
+        let base = temp_base("bitrot");
+        let root = base.join("root");
+        let cache_dir = base.join("cache");
+        fs::create_dir_all(&root).unwrap();
+        let store = CacheStore::with_dir(cache_dir).unwrap();
+        let tree = sample_tree(&root, now_unix());
+        let meta = store.save(&tree).unwrap();
+        assert!(meta.payload_bytes > 12);
+        assert_ne!(meta.checksum, [0u8; 32]);
+
+        let (meta_path, bin_path) = store.paths(&root);
+        let mut bytes = fs::read(&bin_path).unwrap();
+        let last = bytes.len() - 1;
+        bytes[last] ^= 0xFF;
+        fs::write(&bin_path, &bytes).unwrap();
+
+        assert!(matches!(store.load(&root), Err(CacheError::Decode(_))));
+        assert!(!meta_path.exists());
+        assert!(!bin_path.exists());
+
+        // Appended trailing byte after a valid stream must also fail checksum + length validation.
+        store.save(&tree).unwrap();
+        let mut extended = fs::read(&bin_path).unwrap();
+        extended.push(0xAA);
+        fs::write(&bin_path, &extended).unwrap();
+        assert!(matches!(store.load(&root), Err(CacheError::Decode(_))));
+        assert!(!meta_path.exists());
+        assert!(!bin_path.exists());
+
+        fs::remove_dir_all(base).unwrap();
+    }
+
+    #[test]
+    fn save_never_evicts_just_written_entry_on_timestamp_tie_and_budget_evicts() {
+        let base = temp_base("tie");
+        let cache_dir = base.join("cache");
+        let store = CacheStore::with_dir(cache_dir).unwrap();
+
+        let future = now_unix() + 10_000;
+        for i in 0..DEFAULT_MAX_CACHE_ENTRIES {
+            let r = base.join(format!("r{i}"));
+            fs::create_dir_all(&r).unwrap();
+            store.save(&sample_tree(&r, future)).unwrap();
+        }
+
+        let target = base.join("just-saved");
+        fs::create_dir_all(&target).unwrap();
+        store.save(&sample_tree(&target, 100)).unwrap();
+
+        assert!(store.peek_meta(&target).is_some());
+        assert!(store.load(&target).is_ok());
+        assert_eq!(
+            store.list_recent().unwrap().len(),
+            DEFAULT_MAX_CACHE_ENTRIES
+        );
+
+        let before_bytes = store.total_bytes().unwrap();
+        assert!(before_bytes > 0);
+        assert!(store.evict_to_budget(before_bytes / 2).unwrap() > 0);
+        assert!(store.total_bytes().unwrap() <= before_bytes / 2);
+
         fs::remove_dir_all(base).unwrap();
     }
 }

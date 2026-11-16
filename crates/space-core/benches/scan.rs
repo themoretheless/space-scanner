@@ -10,12 +10,10 @@ use std::hint::black_box;
 use std::io::Write;
 use std::ops::Deref;
 use std::path::{Path, PathBuf};
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 use airbug_bench::{DropPolicy, Suite};
-use space_core::{
-    rescan_subtree, scan_path_with_options, NodeId, ScanEvent, ScanOptions, SpaceTree,
-};
+use space_core::{rescan_subtree, scan_path_with_options, NodeId, ScanOptions, SpaceTree};
 
 fn main() -> airbug_bench::Result<()> {
     // `cargo bench` appends `--bench`; airbug-bench rejects unknown flags.
@@ -211,16 +209,9 @@ fn scan_blocking(path: &Path) -> SpaceTree {
 }
 
 fn scan_blocking_opts(path: &Path, options: ScanOptions) -> SpaceTree {
-    let handle = scan_path_with_options(path, options);
-    loop {
-        match handle.events.recv_timeout(Duration::from_secs(120)) {
-            Ok(ScanEvent::Done(t)) => return *t,
-            Ok(ScanEvent::Progress(_)) => continue,
-            Ok(ScanEvent::Cancelled) => panic!("scan cancelled"),
-            Ok(ScanEvent::Error(e)) => panic!("scan error: {e}"),
-            Err(e) => panic!("scan recv: {e}"),
-        }
-    }
+    scan_path_with_options(path, options)
+        .wait()
+        .expect("benchmark scan failed")
 }
 
 fn child_named(tree: &SpaceTree, parent: NodeId, name: &str) -> NodeId {

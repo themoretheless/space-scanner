@@ -5,9 +5,13 @@ use std::path::PathBuf;
 mod docker_scenario;
 
 use clap::{Parser, Subcommand};
-use space_clean::{clean, scan_rules, RuleFilter, RuleManager, RulePrefs, ScanOptions};
+use space_clean::{
+    clean, coalesce_nested_paths, delete_candidates_permanently_with_progress, revalidate_path,
+    scan_rules, trash_paths_batch, CleanProgress, DeleteCandidate, RuleFilter, RuleManager,
+    RulePrefs, ScanOptions, TRASH_BATCH_SIZE,
+};
 use space_core::{
-    export, format_bytes, scan_path, CacheStore, FindQuery, NodeId, ScanEvent, SizeMode, SpaceTree,
+    export, format_bytes, scan_path, CacheStore, FindQuery, NodeId, SizeMode, SpaceTree,
 };
 
 #[derive(Parser)]
@@ -166,6 +170,21 @@ enum Cmd {
         /// Actually move findings to Trash (default is dry-run report)
         #[arg(long)]
         clean: bool,
+        /// Permanently delete findings instead of moving to Trash (with --clean --yes)
+        #[arg(long)]
+        permanent: bool,
+        #[arg(long)]
+        yes: bool,
+    },
+    /// Remove files or folders (moves to Trash unless --permanent is passed)
+    Rm {
+        /// Paths to remove
+        #[arg(required = true)]
+        paths: Vec<PathBuf>,
+        /// Bypass Trash and permanently unlink from disk
+        #[arg(long)]
+        permanent: bool,
+        /// Execute deletion (without --yes, prints a dry-run preview)
         #[arg(long)]
         yes: bool,
     },
@@ -710,6 +729,7 @@ fn main() {
             all,
             min_age,
             clean: do_clean,
+            permanent,
             yes,
         } => {
             let mgr = RuleManager::load_default().expect("rules");
@@ -782,54 +802,191 @@ fn main() {
             }
             if do_clean {
                 if !yes {
-                    eprintln!("Dry-run only. Pass --yes to move deletable findings to Trash.");
+                    if permanent {
+                        eprintln!("Dry-run only. Pass --yes to permanently delete findings.");
+                    } else {
+                        eprintln!("Dry-run only. Pass --yes to move deletable findings to Trash.");
+                    }
                     return;
                 }
-                let result = clean(&report, false).expect("clean");
-                println!(
-                    "Moved {} items to Trash · {} · {} errors · {} report-only skipped",
-                    result.deleted.len(),
-                    format_bytes(result.processed_bytes),
-                    result.errors.len(),
-                    result.skipped_report_only
-                );
+                let result = clean(&report, permanent).expect("clean");
+                if permanent {
+                    println!(
+                        "Permanently deleted {} items · freed {} · {} errors · {} report-only skipped",
+                        result.deleted.len(),
+                        format_bytes(result.freed_bytes),
+                        result.errors.len(),
+                        result.skipped_report_only
+                    );
+                } else {
+                    println!(
+                        "Moved {} items to Trash · {} · {} errors · {} report-only skipped",
+                        result.deleted.len(),
+                        format_bytes(result.processed_bytes),
+                        result.errors.len(),
+                        result.skipped_report_only
+                    );
+                }
                 for e in result.errors.iter().take(10) {
                     eprintln!("  ! {e}");
                 }
             }
         }
+        Cmd::Rm {
+            paths,
+            permanent,
+            yes,
+        } => run_rm(paths, permanent, yes),
+    }
+}
+
+#[derive(Clone)]
+struct RmTarget {
+    path: PathBuf,
+    is_dir: bool,
+    is_symlink: bool,
+    bytes: u64,
+}
+
+fn run_rm(paths: Vec<PathBuf>, permanent: bool, yes: bool) {
+    let mut raw_targets = Vec::new();
+    let mut errors = Vec::new();
+    for path in paths {
+        if space_clean::safety::is_never_touch(&path) {
+            errors.push(format!("Protected path refused: {}", path.display()));
+            continue;
+        }
+        let Ok(meta) = std::fs::symlink_metadata(&path) else {
+            errors.push(format!("Not found: {}", path.display()));
+            continue;
+        };
+        let ft = meta.file_type();
+        let is_symlink = ft.is_symlink();
+        let is_dir = ft.is_dir();
+        let bytes = if is_dir { 0 } else { meta.len() };
+        raw_targets.push(RmTarget {
+            path,
+            is_dir,
+            is_symlink,
+            bytes,
+        });
+    }
+
+    let targets = coalesce_nested_paths(raw_targets, |t| t.path.as_path());
+    if !yes {
+        for t in &targets {
+            let kind = if t.is_symlink {
+                "symlink"
+            } else if t.is_dir {
+                "dir"
+            } else {
+                "file"
+            };
+            println!("  [{kind}] {}", t.path.display());
+        }
+        let action = if permanent {
+            "permanently deleted"
+        } else {
+            "moved to Trash"
+        };
+        eprintln!(
+            "Dry-run only: {} target(s) would be {action}. Pass --yes to execute.",
+            targets.len()
+        );
+        for e in errors.iter().take(10) {
+            eprintln!("  ! {e}");
+        }
+        if !errors.is_empty() {
+            std::process::exit(1);
+        }
+        return;
+    }
+
+    let mut deleted_items = 0usize;
+    if permanent {
+        let mut candidates = Vec::new();
+        for t in targets {
+            match revalidate_path(&t.path, t.is_dir, None, 0, true) {
+                Ok(true) => candidates.push(DeleteCandidate {
+                    path: t.path,
+                    bytes: t.bytes,
+                    is_dir: t.is_dir,
+                }),
+                Ok(false) => deleted_items += 1,
+                Err(reason) => errors.push(format!("{}: {reason}", t.path.display())),
+            }
+        }
+        let mut files_deleted = 0usize;
+        let mut folders_deleted = 0usize;
+        if !candidates.is_empty() {
+            let outcomes = delete_candidates_permanently_with_progress(
+                &candidates,
+                CleanProgress {
+                    items_total: candidates.len(),
+                    ..Default::default()
+                },
+                |_| {},
+            );
+            for (cand, outcome) in candidates.into_iter().zip(outcomes) {
+                match outcome {
+                    Ok(stats) => {
+                        deleted_items += 1;
+                        files_deleted += stats.files_deleted;
+                        folders_deleted += stats.folders_deleted;
+                    }
+                    Err(e) => errors.push(format!("{}: {e}", cand.path.display())),
+                }
+            }
+        }
+        println!(
+            "Permanently deleted {} items ({} files, {} folders) · {} errors",
+            deleted_items,
+            files_deleted,
+            folders_deleted,
+            errors.len()
+        );
+    } else {
+        for chunk in targets.chunks(TRASH_BATCH_SIZE) {
+            let batch: Vec<PathBuf> = chunk.iter().map(|t| t.path.clone()).collect();
+            for (path, outcome) in batch.iter().zip(trash_paths_batch(&batch)) {
+                match outcome {
+                    Ok(()) => deleted_items += 1,
+                    Err(e) => errors.push(format!("{}: {e}", path.display())),
+                }
+            }
+        }
+        println!(
+            "Moved {} items to Trash · {} errors",
+            deleted_items,
+            errors.len()
+        );
+    }
+
+    for e in errors.iter().take(10) {
+        eprintln!("  ! {e}");
+    }
+    if !errors.is_empty() {
+        std::process::exit(1);
     }
 }
 
 fn scan_blocking(path: &std::path::Path) -> SpaceTree {
-    let handle = scan_path(path);
-    let mut tree = None;
-    while let Ok(ev) = handle.events.recv() {
-        match ev {
-            ScanEvent::Progress(p) => {
-                eprint!(
-                    "\rscan {} files · {} · {}          ",
-                    p.files_seen,
-                    format_bytes(p.bytes_seen),
-                    p.current_path
-                );
-            }
-            ScanEvent::Done(t) => {
-                tree = Some(*t);
-                break;
-            }
-            ScanEvent::Cancelled => break,
-            ScanEvent::Error(e) => {
-                eprintln!("\nerror: {e}");
-                std::process::exit(1);
-            }
+    let result = scan_path(path).wait_with(|p| {
+        eprint!(
+            "\rscan {} files · {} · {}          ",
+            p.files_seen,
+            format_bytes(p.bytes_seen),
+            p.current_path
+        );
+    });
+    eprintln!();
+    match result {
+        Ok(tree) => tree,
+        Err(e) => {
+            eprintln!("error: {e}");
+            std::process::exit(1);
         }
     }
-    eprintln!();
-    tree.unwrap_or_else(|| {
-        eprintln!("scan produced no tree");
-        std::process::exit(1);
-    })
 }
 
 fn load_or_scan(path: &std::path::Path, force: bool) -> SpaceTree {

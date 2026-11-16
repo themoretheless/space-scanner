@@ -127,6 +127,8 @@ pub struct AppSettings {
     pub reduce_motion: bool,
     #[serde(default = "default_true")]
     pub confirm_trash: bool,
+    #[serde(default = "default_true")]
+    pub confirm_permanent_delete: bool,
     #[serde(default = "default_cache_ttl_days")]
     pub cache_ttl_days: u32,
     #[serde(default = "default_small_file_kb")]
@@ -171,6 +173,7 @@ impl Default for AppSettings {
             high_contrast: false,
             reduce_motion: false,
             confirm_trash: true,
+            confirm_permanent_delete: true,
             cache_ttl_days: default_cache_ttl_days(),
             small_file_threshold_kb: default_small_file_kb(),
             skip_hidden: false,
@@ -271,6 +274,7 @@ mod tests {
         assert!(!parsed.high_contrast);
         assert!(!parsed.reduce_motion);
         assert!(parsed.confirm_trash);
+        assert!(parsed.confirm_permanent_delete);
         assert_eq!(parsed.cache_ttl_days, 14);
         assert_eq!(parsed.small_file_threshold_kb, 512);
         assert_eq!(parsed.sunburst_rings, 2);

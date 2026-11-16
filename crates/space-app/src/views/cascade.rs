@@ -1,19 +1,15 @@
-//! Cascade (icicle): stacked horizontal bands by depth, width ∝ size.
+//! Cascade (icicle): stacked horizontal bands by depth, width ∝ size, cached layout geometry.
 
 use egui::{pos2, Align2, FontId, Rect, Sense, Stroke, Ui, Vec2};
 use space_core::NodeId;
 
 use crate::theme::{self, MUTED, TEXT};
-use crate::views::{child_ids, DrawCtx, ViewAction};
+use crate::views::{
+    child_ids, quantize_pos, quantize_px, theme_bits, truncate, CascadeBand, DrawCtx, GeomCache,
+    GeomKey, ViewAction,
+};
 
-struct Band {
-    id: NodeId,
-    rect: Rect,
-    depth: usize,
-    color: egui::Color32,
-}
-
-pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
+pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let mut action = ViewAction::none();
     let tree = ctx.tree;
     let (rect, _) = ui.allocate_exact_size(ui.available_size(), Sense::hover());
@@ -27,29 +23,54 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
         .clamp(24.0, 64.0)
         .min(max_row_h)
         .max(24.0);
-    let mut bands = Vec::new();
 
-    let focus_rect = Rect::from_min_size(
-        pos2(rect.left() + 4.0, rect.top() + 4.0),
-        Vec2::new(rect.width() - 8.0, row_h - 4.0),
-    );
-    bands.push(Band {
-        id: ctx.focus,
-        rect: focus_rect,
-        depth: 0,
-        color: theme::PANEL_2(),
-    });
+    let key = GeomKey {
+        view: 3,
+        focus: ctx.focus,
+        mode: ctx.mode,
+        filter: ctx.filter_hash,
+        selected: None,
+        x: quantize_pos(rect.left()),
+        y: quantize_pos(rect.top()),
+        w: quantize_px(rect.width()),
+        h: quantize_px(rect.height()),
+        review_sig: 0,
+        view_opts: ((max_depth as u64) << 16) | ((row_h.round() as u64) << 8) | theme_bits(),
+    };
 
-    layout_children(
-        ctx,
-        ctx.focus,
-        focus_rect,
-        theme::PANEL_2(),
-        1,
-        max_depth,
-        row_h,
-        &mut bands,
-    );
+    let need_rebuild = match ctx.geom.as_ref() {
+        Some(GeomCache::Cascade { key: k, .. }) => *k != key,
+        _ => true,
+    };
+
+    if need_rebuild {
+        let mut bands = Vec::new();
+        let focus_rect = Rect::from_min_size(
+            pos2(rect.left() + 4.0, rect.top() + 4.0),
+            Vec2::new(rect.width() - 8.0, row_h - 4.0),
+        );
+        bands.push(CascadeBand {
+            id: ctx.focus,
+            rect: focus_rect,
+            depth: 0,
+            color: theme::PANEL_2(),
+        });
+        layout_children(
+            ctx,
+            ctx.focus,
+            focus_rect,
+            theme::PANEL_2(),
+            1,
+            max_depth,
+            row_h,
+            &mut bands,
+        );
+        *ctx.geom = Some(GeomCache::Cascade { key, bands });
+    }
+
+    let Some(GeomCache::Cascade { bands, .. }) = ctx.geom.as_ref() else {
+        return action;
+    };
 
     if bands.len() == 1 && ctx.filter.is_active() {
         super::empty_filter_prompt(ui, rect, &mut action);
@@ -58,7 +79,7 @@ pub fn draw(ui: &mut Ui, ctx: &DrawCtx<'_>) -> ViewAction {
 
     let t_hov = if theme::reduce_motion() { 0.0 } else { 0.14 };
     let t_sel = if theme::reduce_motion() { 0.0 } else { 0.18 };
-    for band in &bands {
+    for band in bands {
         let node = tree.node(band.id);
         let color = if band.depth == 0 {
             theme::PANEL_2()
@@ -165,7 +186,7 @@ fn layout_children(
     depth: usize,
     max_depth: usize,
     row_h: f32,
-    out: &mut Vec<Band>,
+    out: &mut Vec<CascadeBand>,
 ) {
     if depth >= max_depth {
         return;
@@ -195,7 +216,7 @@ fn layout_children(
         }
         let color = theme::color_for_adjacent(&node.name, node.is_dir, i, &avoid);
         prev_color = Some(color);
-        out.push(Band {
+        out.push(CascadeBand {
             id,
             rect: r,
             depth,
@@ -208,14 +229,5 @@ fn layout_children(
         if x > parent_rect.right() {
             break;
         }
-    }
-}
-
-fn truncate(s: &str, max: usize) -> String {
-    if s.chars().count() <= max {
-        s.to_string()
-    } else {
-        let t: String = s.chars().take(max.saturating_sub(1)).collect();
-        format!("{t}…")
     }
 }

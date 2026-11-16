@@ -80,6 +80,10 @@ impl JunkPanelState {
         self.selection.bytes()
     }
 
+    pub fn selection_version(&self) -> u64 {
+        self.selection.version
+    }
+
     /// Junk rule covering `path` (the path itself or a parent), from the last junk scan.
     pub fn risk_hint(&self, path: &Path) -> Option<(String, &'static str, Color32, &'static str)> {
         let f = self
@@ -123,7 +127,10 @@ impl JunkPanelState {
         self.safe_open = false;
         self.review_open = false;
         self.expanded_cat = None;
-        self.selection = Selection::from_safe_findings(&report.findings);
+        let next_version = self.selection.version.wrapping_add(1);
+        let mut selection = Selection::from_safe_findings(&report.findings);
+        selection.version = next_version;
+        self.selection = selection;
         self.report = Some(JunkReport::new(report));
     }
 
@@ -161,9 +168,11 @@ impl JunkPanelState {
         let mut kept_findings = Vec::with_capacity(old.scan.findings.len());
         let mut kept_selected = Vec::with_capacity(old.scan.findings.len());
         let mut total_bytes = 0_u64;
+        let mut changed = false;
 
         for (index, finding) in old.scan.findings.into_iter().enumerate() {
             if removed.iter().any(|path| finding.path.starts_with(path)) {
+                changed = true;
                 continue;
             }
             let was_selected = self.selection.contains(index) && !finding.report_only;
@@ -189,6 +198,11 @@ impl JunkPanelState {
                 next_selection.set(index, finding, true);
             }
         }
+        next_selection.version = if changed {
+            self.selection.version.wrapping_add(1)
+        } else {
+            self.selection.version
+        };
         let next_report = JunkReport::new(scan);
 
         if let Some((group, cat_name)) = &self.expanded_cat {
@@ -255,6 +269,7 @@ struct Selection {
     count: usize,
     // Retain the exact sum so deselection stays correct even if the display saturates.
     bytes: u128,
+    version: u64,
 }
 
 impl Selection {
@@ -284,6 +299,7 @@ impl Selection {
             return;
         }
         *current = included;
+        self.version = self.version.wrapping_add(1);
         if included {
             self.count += 1;
             self.bytes += u128::from(finding.bytes);
@@ -300,6 +316,9 @@ impl Selection {
     }
 
     fn clear(&mut self) {
+        if self.count > 0 {
+            self.version = self.version.wrapping_add(1);
+        }
         self.included.fill(false);
         self.count = 0;
         self.bytes = 0;
@@ -597,12 +616,13 @@ pub(crate) fn group_card(
 }
 
 /// Draw either the `Safe` card or `Review` card from `JunkPanelState`.
-/// Returns a path if the user clicked "Show in Finder" inside an item.
+/// Sets `reveal` on "Show in Finder" or `delete_now` on permanent deletion context actions.
 pub(crate) fn draw_group_card(
     ui: &mut egui::Ui,
     state: &mut JunkPanelState,
     group: JunkGroup,
     reveal: &mut Option<PathBuf>,
+    delete_now: &mut Option<Vec<Finding>>,
 ) {
     let (total_count, total_bytes, selected_count, _selected_bytes) = state.group_stats(group);
     if total_count == 0 {
@@ -644,7 +664,7 @@ pub(crate) fn draw_group_card(
         &mut open,
         |on| toggle_all = Some(on),
         |ui| {
-            draw_group_categories(ui, state, group, reveal);
+            draw_group_categories(ui, state, group, reveal, delete_now);
         },
     );
 
@@ -662,6 +682,7 @@ fn draw_group_categories(
     state: &mut JunkPanelState,
     group: JunkGroup,
     reveal: &mut Option<PathBuf>,
+    delete_now: &mut Option<Vec<Finding>>,
 ) {
     let Some(report) = state.report.as_ref() else {
         return;
@@ -781,6 +802,27 @@ fn draw_group_categories(
         resp.widget_info(move || {
             egui::WidgetInfo::labeled(egui::WidgetType::Button, true, a11y_cat.as_str())
         });
+        let cat_deletable: Vec<Finding> = cat
+            .indices
+            .iter()
+            .map(|&idx| &findings[idx])
+            .filter(|f| !f.report_only)
+            .cloned()
+            .collect();
+        if !cat_deletable.is_empty() {
+            resp.context_menu(|ui| {
+                if ui
+                    .button(
+                        RichText::new(t("Delete category permanently…"))
+                            .color(crate::theme::DANGER()),
+                    )
+                    .clicked()
+                {
+                    *delete_now = Some(cat_deletable.clone());
+                    ui.close_menu();
+                }
+            });
+        }
         if resp.clicked() {
             let on_cb = ui
                 .input(|i| i.pointer.interact_pos())
@@ -801,7 +843,15 @@ fn draw_group_categories(
                     ui.label(widgets::caption(hint));
                     ui.add_space(2.0);
                 }
-                draw_finding_rows(ui, group, cat, findings, &mut state.selection, reveal);
+                draw_finding_rows(
+                    ui,
+                    group,
+                    cat,
+                    findings,
+                    &mut state.selection,
+                    reveal,
+                    delete_now,
+                );
                 ui.add_space(4.0);
             });
         }
@@ -843,6 +893,7 @@ fn draw_finding_rows(
     findings: &[Finding],
     selection: &mut Selection,
     reveal: &mut Option<PathBuf>,
+    delete_now: &mut Option<Vec<Finding>>,
 ) {
     let spacing = ui.spacing().item_spacing.y;
     let row_height = ui
@@ -899,6 +950,16 @@ fn draw_finding_rows(
                 )
                 .on_hover_text(&path);
             path_resp.context_menu(|ui| {
+                if !finding.report_only
+                    && ui
+                        .button(
+                            RichText::new(t("Delete permanently…")).color(crate::theme::DANGER()),
+                        )
+                        .clicked()
+                {
+                    *delete_now = Some(vec![finding.clone()]);
+                    ui.close_menu();
+                }
                 if ui.button(t("Show in Finder")).clicked() {
                     *reveal = Some(finding.path.clone());
                     ui.close_menu();
@@ -1020,9 +1081,10 @@ mod tests {
                     .auto_shrink([false, false])
                     .show(ui, |ui| {
                         let mut reveal = None;
-                        draw_group_card(ui, state, JunkGroup::Safe, &mut reveal);
-                        draw_group_card(ui, state, JunkGroup::Review, &mut reveal);
-                        black_box(reveal);
+                        let mut delete_now = None;
+                        draw_group_card(ui, state, JunkGroup::Safe, &mut reveal, &mut delete_now);
+                        draw_group_card(ui, state, JunkGroup::Review, &mut reveal, &mut delete_now);
+                        black_box((reveal, delete_now));
                     });
             });
         })
@@ -1249,5 +1311,40 @@ mod tests {
         );
         assert!(state.selection.contains(1_999));
         assert_eq!(state.selection.count, 2);
+    }
+
+    #[test]
+    fn selection_version_tracks_report_and_selection_updates() {
+        let mut state = JunkPanelState::default();
+        let v0 = state.selection_version();
+        state.set_report(ScanReport {
+            findings: vec![Finding {
+                rule_id: "r1".into(),
+                category: "Caches".into(),
+                risk: "low".into(),
+                path: PathBuf::from("/tmp/c1"),
+                bytes: 500,
+                is_dir: true,
+                report_only: false,
+                root: None,
+                min_age_days: 0,
+            }],
+            total_bytes: 500,
+            rules_matched: 1,
+            rules_scanned: 1,
+            skipped_roots: Vec::new(),
+        });
+        let v1 = state.selection_version();
+        assert_ne!(v1, v0);
+
+        state.clear_selection();
+        let v2 = state.selection_version();
+        assert_ne!(v2, v1);
+
+        state.clear_selection();
+        assert_eq!(state.selection_version(), v2);
+
+        state.remove_paths(&[PathBuf::from("/tmp/c1")]);
+        assert_ne!(state.selection_version(), v2);
     }
 }

@@ -11,7 +11,9 @@ use crate::rules_panel::{self, RulesAction};
 use crate::theme::metrics::{S2, S3, S4, S6};
 use crate::theme::type_scale;
 use crate::theme::{self, ACCENT, DANGER, MUTED, PANEL_2};
-use crate::widgets::{caption, count_noun, divider, ghost, path_size_row, primary, secondary};
+use crate::widgets::{
+    caption, count_noun, danger, divider, ghost, path_size_row, primary, secondary,
+};
 
 fn window(title: &'static str, ctx: &egui::Context) -> egui::Window<'static> {
     egui::Window::new(title)
@@ -156,6 +158,7 @@ impl SpaceApp {
                         ("Space  or  ⌘Y", "Quick Look preview"),
                         ("Delete / ⌫", "Add or remove from Trash basket"),
                         ("⌘⌫", "Move basket to Trash"),
+                        ("⌥⌘⌫", "Delete permanently (bypass Trash)"),
                         ("Enter", "Open a folder, show a file in Finder, or confirm"),
                         ("Esc", "Go to the parent folder"),
                         ("⌘← ⌘→", "Back / forward"),
@@ -194,7 +197,13 @@ impl SpaceApp {
         if !self.confirm_delete {
             return;
         }
-        window("Move to Trash", ctx).show(ctx, |ui| {
+        let permanent = self.delete_method == space_clean::DeleteMethod::Permanent;
+        let title = if permanent {
+            "Delete permanently"
+        } else {
+            "Move to Trash"
+        };
+        window(title, ctx).show(ctx, |ui| {
             ui.set_width((ctx.screen_rect().width() - 80.0).min(520.0));
             if let Some(progress) = &self.delete_progress {
                 let fraction = if progress.items_total > 0 {
@@ -206,15 +215,20 @@ impl SpaceApp {
                     .delete_started
                     .map(|t| t.elapsed().as_secs())
                     .unwrap_or(0);
-                ui.label(
-                    RichText::new(crate::tr!(
+                let headline = if permanent {
+                    crate::tr!(
+                        "Deleting permanently · {}/{} items",
+                        progress.items_done,
+                        progress.items_total
+                    )
+                } else {
+                    crate::tr!(
                         "Moving to Trash · {}/{} items",
                         progress.items_done,
                         progress.items_total
-                    ))
-                    .size(type_scale::LEAD)
-                    .strong(),
-                );
+                    )
+                };
+                ui.label(RichText::new(headline).size(type_scale::LEAD).strong());
                 ui.label(caption(crate::tr!(
                     "{} files · {} folders · {} · {} errors · {}s",
                     progress.files_done,
@@ -241,34 +255,64 @@ impl SpaceApp {
                 return;
             }
 
-            let items = self.basket_items();
+            let items = self.active_delete_items();
             let total_bytes = crate::app::basket_total_bytes(&items);
-            ui.label(
-                RichText::new(crate::tr!(
+            let prompt = if permanent {
+                crate::tr!(
+                    "Permanently delete {} ({})?",
+                    count_noun(items.len(), "item"),
+                    crate::i18n::bytes(total_bytes)
+                )
+            } else {
+                crate::tr!(
                     "Move {} ({}) to Trash?",
                     count_noun(items.len(), "item"),
                     crate::i18n::bytes(total_bytes)
-                ))
-                .size(type_scale::LEAD)
-                .strong(),
-            );
-            ui.label(caption(
-                "Items go to the macOS Trash and can be restored from there. Disk space is only released after you empty Trash in Finder.",
-            ));
+                )
+            };
+            ui.label(RichText::new(prompt).size(type_scale::LEAD).strong());
+            if permanent {
+                ui.label(
+                    RichText::new(t(
+                        "Items bypass Trash and are removed from disk immediately. This cannot be undone.",
+                    ))
+                    .size(type_scale::CAPTION)
+                    .color(crate::theme::DANGER()),
+                );
+            } else {
+                ui.label(caption(
+                    "Items go to the macOS Trash and can be restored from there. Disk space is only released after you empty Trash in Finder.",
+                ));
+            }
             ui.add_space(S2);
-            ui.horizontal_wrapped(|ui| {
-                ui.spacing_mut().item_spacing = egui::vec2(S3, 4.0);
-                for (label, n, bytes) in [
-                    ("From Quick clean", self.junk.selected_count(), self.junk.selected_bytes()),
-                    ("From Downloads", self.downloads.selected_count(), self.downloads.selected_bytes()),
-                    ("From Folders", self.review.len(), self.review_bytes()),
-                ] {
-                    if n > 0 {
-                        ui.label(caption(crate::tr!("{}: {} · {}", t(label), n, crate::i18n::bytes(bytes))));
+            if !self.is_direct_delete() {
+                ui.horizontal_wrapped(|ui| {
+                    ui.spacing_mut().item_spacing = egui::vec2(S3, 4.0);
+                    for (label, n, bytes) in [
+                        (
+                            "From Quick clean",
+                            self.junk.selected_count(),
+                            self.junk.selected_bytes(),
+                        ),
+                        (
+                            "From Downloads",
+                            self.downloads.selected_count(),
+                            self.downloads.selected_bytes(),
+                        ),
+                        ("From Folders", self.review.len(), self.review_bytes()),
+                    ] {
+                        if n > 0 {
+                            ui.label(caption(crate::tr!(
+                                "{}: {} · {}",
+                                t(label),
+                                n,
+                                crate::i18n::bytes(bytes)
+                            )));
+                        }
                     }
-                }
-            });
-            ui.add_space(S2);
+                });
+                ui.add_space(S2);
+            }
             const ROW_H: f32 = 34.0;
             let mut remove_path: Option<PathBuf> = None;
             egui::Frame::new()
@@ -291,7 +335,11 @@ impl SpaceApp {
                                             ui,
                                             crate::icons::Icon::Close,
                                             24.0,
-                                            "Remove from Trash list",
+                                            if permanent {
+                                                "Remove from delete list"
+                                            } else {
+                                                "Remove from Trash list"
+                                            },
                                             true,
                                         )
                                         .clicked()
@@ -316,18 +364,28 @@ impl SpaceApp {
                         });
                 });
             if let Some(path) = remove_path {
-                self.remove_from_basket(&path);
-                if self.basket_len() == 0 {
+                self.remove_from_active_delete(&path);
+                if self.active_delete_items().is_empty() {
                     self.confirm_delete = false;
+                    self.delete_source = crate::app::DeleteSource::Basket;
                 }
             }
             ui.add_space(S4);
             ui.horizontal(|ui| {
                 if ui.add(secondary("Cancel")).clicked() {
                     self.confirm_delete = false;
+                    self.delete_source = crate::app::DeleteSource::Basket;
                 }
                 ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
-                    if ui
+                    if permanent {
+                        let label = crate::tr!(
+                            "Delete {} permanently",
+                            count_noun(items.len(), "item")
+                        );
+                        if ui.add_enabled(!items.is_empty(), danger(&label)).clicked() {
+                            self.apply_basket();
+                        }
+                    } else if ui
                         .add_enabled(
                             !items.is_empty(),
                             primary(&crate::tr!(
@@ -811,6 +869,17 @@ impl SpaceApp {
                                 changed = true;
                             }
                             ui.end_row();
+                            ui.label(t("Permanent delete"));
+                            if ui
+                                .checkbox(
+                                    &mut self.settings.confirm_permanent_delete,
+                                    t("Ask before permanently deleting items"),
+                                )
+                                .changed()
+                            {
+                                changed = true;
+                            }
+                            ui.end_row();
                         });
                 });
 
@@ -858,7 +927,9 @@ impl SpaceApp {
             ));
             ui.add_space(S2);
             ui.label(caption(t("License: MIT")));
-            ui.label(caption(t("All file removals go through the system Trash.")));
+            ui.label(caption(t(
+                "Moves items to Trash by default, with optional fast permanent deletion.",
+            )));
             ui.add_space(S4);
             ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
                 if ui.add(secondary("Close")).clicked() {

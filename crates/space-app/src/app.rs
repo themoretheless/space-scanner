@@ -1,20 +1,16 @@
 use std::collections::HashSet;
 use std::path::PathBuf;
 use std::sync::Arc;
-use std::thread;
-use std::time::{Duration, Instant};
+use std::time::Instant;
 
 use crossbeam_channel::{unbounded, Receiver};
 use eframe::egui::{self, Key};
-use space_core::{
-    rescan_subtree_with_options, scan_path_with_options, CacheMeta, CacheStore, NodeId, ScanEvent,
-    ScanHandle, ScanProgress, SizeMode, SpaceTree,
-};
+use space_core::{CacheMeta, CacheStore, NodeId, ScanHandle, ScanProgress, SizeMode, SpaceTree};
 
-use crate::anim::{TransKind, Transition};
-use crate::downloads::{self, DownloadItem, DownloadsState};
+use crate::anim::Transition;
+use crate::downloads::{DownloadItem, DownloadsState};
 use crate::junk_panel::JunkPanelState;
-use crate::largest_files::{InsightData, InsightTab, LargestFiles, LargestRequest, LargestRow};
+use crate::largest_files::{InsightData, InsightTab, LargestFiles, LargestRequest};
 use crate::review;
 use crate::rules_panel::RulesPanelState;
 use crate::settings::AppSettings;
@@ -23,13 +19,26 @@ use crate::tm_clean::{self, CleanReport, LocalSnapshot};
 use crate::views::{GeomCache, ViewFilter, ViewMode};
 use crate::volumes::{self, VolumeInfo};
 
+mod actions;
+mod caches;
 mod ui;
+mod workers;
 
 #[derive(Clone, Debug)]
 pub(crate) struct BasketItem {
     pub(crate) path: PathBuf,
     pub(crate) bytes: u64,
     pub(crate) is_dir: bool,
+    /// `(rule_root, min_age_days)` when the item comes from a Quick clean finding,
+    /// used to re-validate rule constraints right before permanent deletion.
+    pub(crate) junk_guard: Option<(Option<PathBuf>, u64)>,
+}
+
+#[derive(Clone, Debug, Default)]
+pub(crate) enum DeleteSource {
+    #[default]
+    Basket,
+    Direct(Vec<BasketItem>),
 }
 
 pub(crate) fn basket_total_bytes(items: &[BasketItem]) -> u64 {
@@ -41,6 +50,8 @@ pub(crate) fn basket_total_bytes(items: &[BasketItem]) -> u64 {
 struct TrashOutcome {
     deleted_paths: Vec<PathBuf>,
     processed_bytes: u64,
+    freed_bytes: u64,
+    method: space_clean::DeleteMethod,
     errors: Vec<String>,
 }
 
@@ -119,6 +130,8 @@ pub struct SpaceApp {
     volumes_loading: bool,
     review: Vec<NodeId>,
     confirm_delete: bool,
+    delete_method: space_clean::DeleteMethod,
+    delete_source: DeleteSource,
     delete_progress: Option<space_clean::CleanProgress>,
     delete_started: Option<Instant>,
     show_tm_panel: bool,
@@ -159,6 +172,7 @@ pub struct SpaceApp {
     /// Scroll the selected row into view on the next frame.
     tree_scroll: bool,
     compact_map: bool,
+    caches: caches::AppCaches,
 }
 
 impl SpaceApp {
@@ -176,35 +190,26 @@ impl SpaceApp {
 
         {
             let tx = bg_tx.clone();
-            thread::Builder::new()
-                .name("space-vols".into())
-                .spawn(move || {
-                    let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
-                })
-                .ok();
+            let _ = workers::spawn_bg("space-vols", move || {
+                let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
+            });
         }
         {
             let tx = bg_tx.clone();
-            thread::Builder::new()
-                .name("space-snaps".into())
-                .spawn(move || {
-                    let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
-                })
-                .ok();
+            let _ = workers::spawn_bg("space-snaps", move || {
+                let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
+            });
         }
         if let Some(cache) = cache.clone() {
             let tx = bg_tx.clone();
             let ttl_days = settings.cache_ttl_days;
-            thread::Builder::new()
-                .name("space-recent".into())
-                .spawn(move || {
-                    if ttl_days > 0 {
-                        let _ = cache.prune_ttl(ttl_days);
-                    }
-                    let recent = cache.list_recent().unwrap_or_default();
-                    let _ = tx.send(BgMsg::Recent(recent));
-                })
-                .ok();
+            let _ = workers::spawn_bg("space-recent", move || {
+                if ttl_days > 0 {
+                    let _ = cache.prune_ttl(ttl_days);
+                }
+                let recent = cache.list_recent().unwrap_or_default();
+                let _ = tx.send(BgMsg::Recent(recent));
+            });
         }
 
         let view = settings.default_view;
@@ -250,6 +255,8 @@ impl SpaceApp {
             review: Vec::new(),
             mode,
             confirm_delete: false,
+            delete_method: space_clean::DeleteMethod::Trash,
+            delete_source: DeleteSource::Basket,
             delete_progress: None,
             delete_started: None,
             show_tm_panel: false,
@@ -284,598 +291,12 @@ impl SpaceApp {
             tree_revealed: None,
             tree_scroll: false,
             compact_map: false,
+            caches: caches::AppCaches::default(),
         };
         if app.mode == Mode::Clean {
             app.start_quick_clean_scan();
         }
         app
-    }
-
-    fn refresh_volumes_async(&mut self) {
-        self.volumes_loading = true;
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-vols".into())
-            .spawn(move || {
-                let _ = tx.send(BgMsg::Volumes(volumes::list_volumes()));
-            })
-            .ok();
-    }
-
-    fn poll_bg(&mut self, ctx: &egui::Context) {
-        let mut got = false;
-        let mut start_scan_path = None;
-        while let Ok(msg) = self.bg_rx.try_recv() {
-            got = true;
-            match msg {
-                BgMsg::Volumes(v) => {
-                    self.volumes = v;
-                    self.volumes_loading = false;
-                }
-                BgMsg::Snapshots(s) => {
-                    self.tm_snapshots = s;
-                    self.tm_loading = false;
-                }
-                BgMsg::Recent(r) => self.recent = r,
-                BgMsg::CacheResult { path, loaded } => {
-                    self.busy = false;
-                    match loaded {
-                        Some((mut tree, stale, offline)) => {
-                            if self.size_mode != SizeMode::OnDisk {
-                                Arc::make_mut(&mut tree).sort_children_by(self.size_mode);
-                            }
-                            self.focus = tree.root;
-                            self.review.clear();
-                            self.history_back.clear();
-                            self.history_fwd.clear();
-                            self.reset_tree_view_state();
-                            self.cache_stale = stale;
-                            self.cache_offline = offline;
-                            self.from_cache = true;
-                            self.skipped_expanded = false;
-                            self.status = if offline {
-                                crate::tr!(
-                                    "Offline disk · cached {} items · {}",
-                                    tree.item_count,
-                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
-                                )
-                            } else if stale {
-                                crate::tr!(
-                                    "Cached index (stale) · {} items · {} — Rescan recommended",
-                                    tree.item_count,
-                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
-                                )
-                            } else {
-                                crate::tr!(
-                                    "Loaded cache · {} items · {}",
-                                    tree.item_count,
-                                    crate::i18n::bytes(tree.total_size_mode(self.size_mode))
-                                )
-                            };
-                            self.tree = Some(tree);
-                            self.progress = None;
-                            self.invalidate_largest();
-                            self.schedule_largest();
-                        }
-                        None => {
-                            start_scan_path = Some(path);
-                        }
-                    }
-                }
-                BgMsg::CacheSaved(recent) => {
-                    self.recent = recent;
-                }
-                BgMsg::DownloadsDone(items) => {
-                    self.downloads.set_items(items);
-                }
-                BgMsg::RescanDone(Ok((tree, saved))) => {
-                    self.busy = false;
-                    self.restore_rescan_tree(tree, saved);
-                }
-                BgMsg::RescanDone(Err(e)) => {
-                    self.busy = false;
-                    self.status = crate::tr!("Incremental rescan failed: {}", e);
-                }
-                BgMsg::DeleteProgress(progress) => {
-                    self.delete_progress = Some(progress);
-                }
-                BgMsg::DeleteDone(Ok(outcome)) => {
-                    self.busy = false;
-                    self.delete_progress = None;
-                    self.delete_started = None;
-                    self.confirm_delete = false;
-                    let n = outcome.deleted_paths.len();
-                    self.status = if outcome.errors.is_empty() {
-                        crate::tr!(
-                            "Moved {} items to Trash · {}",
-                            n,
-                            crate::i18n::bytes(outcome.processed_bytes)
-                        )
-                    } else {
-                        crate::tr!("Moved {} items · {} failed", n, outcome.errors.len())
-                    };
-                    self.junk.remove_paths(&outcome.deleted_paths);
-                    self.downloads.remove_paths(&outcome.deleted_paths);
-                    if let Some(tree_arc) = &mut self.tree {
-                        let tree_mut = Arc::make_mut(tree_arc);
-                        prune_deleted_from_tree(tree_mut, &outcome.deleted_paths);
-                        while !is_live_node(tree_mut, self.focus) {
-                            let Some(parent) = tree_mut.try_node(self.focus).and_then(|n| n.parent)
-                            else {
-                                self.focus = tree_mut.root;
-                                break;
-                            };
-                            self.focus = parent;
-                        }
-                        self.review.retain(|&id| is_live_node(tree_mut, id));
-                        self.expanded.retain(|&id| is_live_node(tree_mut, id));
-                        self.history_back
-                            .retain(|&id| is_live_node(tree_mut, id) && id != self.focus);
-                        self.history_fwd
-                            .retain(|&id| is_live_node(tree_mut, id) && id != self.focus);
-                        self.selected = self.selected.filter(|&id| is_live_node(tree_mut, id));
-                        self.selected_set.retain(|&id| is_live_node(tree_mut, id));
-                        self.selection_anchor = self
-                            .selection_anchor
-                            .filter(|&id| is_live_node(tree_mut, id));
-                        self.hovered = self.hovered.filter(|&id| is_live_node(tree_mut, id));
-                        self.tree_revealed =
-                            self.tree_revealed.filter(|&id| is_live_node(tree_mut, id));
-                        self.geom = None;
-                    }
-                    self.invalidate_largest();
-                    self.schedule_largest();
-                    if let Some(tree) = self.tree.clone() {
-                        self.save_cache_async(tree);
-                    }
-                    self.refresh_volumes_async();
-                }
-                BgMsg::DeleteDone(Err(e)) => {
-                    self.busy = false;
-                    self.delete_progress = None;
-                    self.delete_started = None;
-                    self.confirm_delete = false;
-                    self.status = crate::tr!("Trash failed: {}", e);
-                }
-                BgMsg::TmCleanDone(report) => {
-                    self.busy = false;
-                    self.confirm_tm_clean = false;
-                    if report.deleted == 0 && report.errors.is_empty() {
-                        self.status = format!(
-                            "Snapshots: nothing to remove ({}/{} kept)",
-                            report.kept, report.before
-                        );
-                    } else if report.errors.is_empty() {
-                        self.status = format!(
-                            "Removed {} snapshot(s), kept {} · reclaiming APFS space…",
-                            report.deleted, report.kept
-                        );
-                        self.show_tm_panel = false;
-                    } else {
-                        self.status = format!(
-                            "Snapshot cleanup: deleted {} of {}, {} error(s)",
-                            report.deleted,
-                            report.before,
-                            report.errors.len()
-                        );
-                    }
-                    self.refresh_volumes_async();
-                    self.refresh_snapshots();
-                }
-                BgMsg::RuleManagerLoaded(result) => {
-                    self.rule_mgr_loading = false;
-                    match result {
-                        Ok(manager) => {
-                            self.rule_mgr = Some(manager);
-                            self.rules.error = None;
-                        }
-                        Err(error) => self.rules.error = Some(error),
-                    }
-                }
-                BgMsg::JunkScanProgress(progress) => {
-                    if self.junk.loading {
-                        self.junk.progress = progress;
-                    }
-                }
-                BgMsg::JunkScanDone(Ok(report)) => {
-                    self.junk.set_report(report);
-                    self.status = crate::tr!(
-                        "Junk · {} · {} items",
-                        crate::i18n::bytes(self.junk.report().map(|r| r.total_bytes).unwrap_or(0)),
-                        self.junk.report().map(|r| r.findings.len()).unwrap_or(0)
-                    );
-                }
-                BgMsg::JunkScanDone(Err(e)) => {
-                    self.junk.loading = false;
-                    self.junk.scan_started = None;
-                    self.junk.error = Some(e.clone());
-                    self.status = crate::tr!("Junk scan failed: {}", e);
-                }
-                BgMsg::Largest { request, data } => {
-                    self.largest.complete_data(request, data);
-                }
-            }
-        }
-        if let Some(path) = start_scan_path {
-            self.begin_filesystem_scan(path);
-        }
-        if self.volumes_loading
-            || self.tm_loading
-            || self.busy
-            || self.scan.is_some()
-            || self.junk.loading
-            || self.downloads.loading
-        {
-            ctx.request_repaint_after(std::time::Duration::from_millis(100));
-        } else if self.largest.is_loading() {
-            // Don't spin the UI at 20fps while a background walk finishes.
-            ctx.request_repaint_after(std::time::Duration::from_millis(250));
-        } else if got {
-            ctx.request_repaint();
-        }
-    }
-
-    fn invalidate_largest(&mut self) {
-        self.largest.invalidate();
-        self.geom = None;
-    }
-
-    fn schedule_largest(&mut self) {
-        let Some(tree) = self.tree.clone() else {
-            return;
-        };
-        let focus = self.focus;
-        let mode = self.size_mode;
-        let Some(request) = self.largest.begin(focus, mode) else {
-            return;
-        };
-        let limit = self.settings.largest_limit.clamp(10, 500);
-        let tx = self.bg_tx.clone();
-        let result = thread::Builder::new()
-            .name("space-largest".into())
-            .spawn(move || {
-                let to_rows = |ids: Vec<NodeId>| -> Vec<LargestRow> {
-                    ids.into_iter()
-                        .filter_map(|id| {
-                            let n = tree.try_node(id)?;
-                            Some((id, n.name.clone(), n.size(mode)))
-                        })
-                        .collect()
-                };
-                let files = to_rows(tree.largest_files_bounded(focus, mode, limit, 8_000));
-                let folders = to_rows(tree.largest_dirs_bounded(focus, mode, limit, 8_000));
-                let mut oldest_ids = tree.oldest_large_files(focus, mode, 1024 * 1024, limit);
-                if oldest_ids.is_empty() {
-                    oldest_ids = tree.oldest_large_files(focus, mode, 1, limit);
-                }
-                let oldest = oldest_ids
-                    .into_iter()
-                    .filter_map(|id| {
-                        let n = tree.try_node(id)?;
-                        Some((id, n.name.clone(), n.size(mode), n.mtime_unix))
-                    })
-                    .collect();
-                let duplicates = tree
-                    .duplicate_name_size(focus, mode, 1, limit)
-                    .into_iter()
-                    .map(|g| (g.name, g.size, g.nodes))
-                    .collect();
-                let types = tree
-                    .group_by_ext(focus, mode, limit)
-                    .into_iter()
-                    .map(|g| (g.ext, g.total_bytes, g.file_count))
-                    .collect();
-                let data = InsightData {
-                    files,
-                    folders,
-                    oldest,
-                    duplicates,
-                    types,
-                };
-                let _ = tx.send(BgMsg::Largest { request, data });
-            });
-        if let Err(error) = result {
-            self.largest.failed(request);
-            self.status = format!("Could not start largest-file search: {error}");
-        }
-    }
-
-    fn save_cache_async(&self, tree: Arc<SpaceTree>) {
-        let Some(cache) = self.cache.clone() else {
-            return;
-        };
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-cache-save".into())
-            .spawn(move || {
-                let _ = cache.save(tree.as_ref());
-                let recent = cache.list_recent().unwrap_or_default();
-                let _ = tx.send(BgMsg::CacheSaved(recent));
-            })
-            .ok();
-    }
-
-    fn start_scan(&mut self, path: PathBuf, force: bool) {
-        self.mode = Mode::Explore;
-        self.choosing_target = false;
-        if let Some(scan) = self.scan.take() {
-            scan.cancel();
-        }
-
-        if !force {
-            if let Some(cache) = self.cache.clone() {
-                self.busy = true;
-                self.status = crate::tr!("Loading cache for {}…", path.display());
-                self.tree = None;
-                self.progress = None;
-                self.invalidate_largest();
-                let tx = self.bg_tx.clone();
-                let path_bg = path.clone();
-                let ttl_days = self.settings.cache_ttl_days;
-                thread::Builder::new()
-                    .name("space-cache-load".into())
-                    .spawn(move || {
-                        let loaded = cache
-                            .load_with_ttl(&path_bg, ttl_days)
-                            .ok()
-                            .map(|l| (Arc::new(l.tree), l.stale, l.offline));
-                        let _ = tx.send(BgMsg::CacheResult {
-                            path: path_bg,
-                            loaded,
-                        });
-                    })
-                    .ok();
-                return;
-            }
-        }
-
-        self.begin_filesystem_scan(path);
-    }
-
-    fn begin_filesystem_scan(&mut self, path: PathBuf) {
-        self.from_cache = false;
-        self.cache_stale = false;
-        self.cache_offline = false;
-        self.skipped_expanded = false;
-        self.busy = false;
-        self.tree = None;
-        self.review.clear();
-        self.history_back.clear();
-        self.history_fwd.clear();
-        self.reset_tree_view_state();
-        self.invalidate_largest();
-        self.progress = Some(ScanProgress {
-            files_seen: 0,
-            bytes_seen: 0,
-            current_path: path.display().to_string(),
-            skipped_errors: 0,
-        });
-        self.status = crate::tr!("Scanning {}…", path.display());
-        self.scan = Some(scan_path_with_options(path, self.settings.scan_options()));
-    }
-
-    fn rescan_current(&mut self) {
-        let Some(tree) = &self.tree else { return };
-        let path = PathBuf::from(&tree.root_path);
-        self.start_scan(path, true);
-    }
-
-    fn incremental_rescan_focus(&mut self) {
-        let Some(tree) = self.tree.clone() else {
-            return;
-        };
-        if self.busy {
-            return;
-        }
-        let focus = self.focus;
-        let focus_name = tree
-            .try_node(focus)
-            .map(|n| n.name.clone())
-            .unwrap_or_default();
-        self.busy = true;
-        self.status = crate::tr!("Incremental rescan of {}…", focus_name);
-        let saved = capture_rescan_paths(
-            &tree,
-            focus,
-            self.selected,
-            &self.expanded,
-            &self.review,
-            &self.history_back,
-            &self.history_fwd,
-        );
-        let opts = self.settings.scan_options();
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-rescan".into())
-            .spawn(move || {
-                let result = rescan_subtree_with_options(tree.as_ref(), focus, opts)
-                    .map(|t| (Arc::new(t), saved));
-                let _ = tx.send(BgMsg::RescanDone(result));
-            })
-            .ok();
-    }
-
-    fn poll_scan(&mut self, ctx: &egui::Context) {
-        let Some(scan) = &self.scan else { return };
-        let mut done_tree = None;
-        let mut err = None;
-        let mut cancelled = false;
-        let mut last_prog = None;
-
-        while let Ok(ev) = scan.events.try_recv() {
-            match ev {
-                ScanEvent::Progress(p) => last_prog = Some(p),
-                ScanEvent::Done(t) => done_tree = Some(t),
-                ScanEvent::Cancelled => cancelled = true,
-                ScanEvent::Error(e) => err = Some(e),
-            }
-        }
-
-        if let Some(p) = last_prog {
-            self.status = crate::tr!(
-                "Scanning… {} · {}{}",
-                crate::i18n::bytes(p.bytes_seen),
-                p.files_seen,
-                if p.skipped_errors > 0 {
-                    crate::tr!(" · {} skipped", p.skipped_errors)
-                } else {
-                    String::new()
-                }
-            );
-            self.progress = Some(p);
-        }
-
-        if cancelled {
-            self.status = crate::i18n::t("Scan cancelled.").into();
-            self.scan = None;
-            self.progress = None;
-            return;
-        }
-
-        if let Some(e) = err {
-            self.status = crate::tr!("Scan error: {}", e);
-            self.scan = None;
-            self.progress = None;
-            return;
-        }
-
-        if let Some(mut tree) = done_tree {
-            if self.size_mode != SizeMode::OnDisk {
-                tree.sort_children_by(self.size_mode);
-            }
-            let skip = tree.skipped_errors;
-            let hl = tree.hardlinks_deduped;
-            self.status = crate::tr!(
-                "Indexed {} items · {}{}{}",
-                tree.item_count,
-                crate::i18n::bytes(tree.total_size_mode(self.size_mode)),
-                if skip > 0 {
-                    crate::tr!(" · {} skipped", skip)
-                } else {
-                    String::new()
-                },
-                if hl > 0 {
-                    crate::tr!(" · {} hardlinks deduped", hl)
-                } else {
-                    String::new()
-                }
-            );
-            self.focus = tree.root;
-            self.review.clear();
-            self.history_back.clear();
-            self.history_fwd.clear();
-            self.reset_tree_view_state();
-            self.from_cache = false;
-            self.cache_stale = false;
-            self.cache_offline = false;
-            self.skipped_expanded = false;
-            let arc = Arc::new(*tree);
-            self.save_cache_async(arc.clone());
-            self.tree = Some(arc);
-            self.scan = None;
-            self.progress = None;
-            self.invalidate_largest();
-            self.schedule_largest();
-        } else {
-            ctx.request_repaint();
-        }
-    }
-
-    fn navigate(&mut self, id: NodeId, push_history: bool) {
-        let Some(tree) = &self.tree else { return };
-        if let Some(target_node) = tree.try_node(id) {
-            if !target_node.is_dir {
-                return;
-            }
-            if id == self.focus {
-                return;
-            }
-            let zoom_in = tree.path_to(id).contains(&self.focus) && id != self.focus;
-            // Child of current focus → zoom in; otherwise zoom out / sideways.
-            let kind = if zoom_in || target_node.parent.is_some_and(|p| p == self.focus) {
-                TransKind::ZoomIn
-            } else {
-                TransKind::ZoomOut
-            };
-            if push_history {
-                self.history_back.push(self.focus);
-                self.history_fwd.clear();
-            }
-            self.focus = id;
-            self.clear_selection();
-            self.hovered = None;
-            self.transition = if self.settings.reduce_motion {
-                None
-            } else {
-                Some(Transition::start(kind))
-            };
-            self.invalidate_largest();
-            self.schedule_largest();
-        }
-    }
-
-    fn set_view(&mut self, mode: ViewMode) {
-        if self.view != mode {
-            self.view = mode;
-            self.geom = None;
-            self.transition = if self.settings.reduce_motion {
-                None
-            } else {
-                Some(Transition::start(TransKind::ViewSwitch))
-            };
-        }
-    }
-
-    fn copy_focus_path(&mut self) {
-        let Some(tree) = &self.tree else { return };
-        let id = self.hovered.or(self.selected).unwrap_or(self.focus);
-        let path = tree.path_string(id);
-        self.status = crate::tr!("Copied {}", path);
-        self.clipboard_set(&path);
-    }
-
-    fn clipboard_set(&self, text: &str) {
-        // egui context clipboard is set from update; stash via arboard-less cmd on macOS.
-        #[cfg(target_os = "macos")]
-        {
-            let _ = std::process::Command::new("pbcopy")
-                .stdin(std::process::Stdio::piped())
-                .spawn()
-                .and_then(|mut c| {
-                    use std::io::Write;
-                    if let Some(mut stdin) = c.stdin.take() {
-                        stdin.write_all(text.as_bytes())?;
-                    }
-                    c.wait()?;
-                    Ok(())
-                });
-        }
-        #[cfg(not(target_os = "macos"))]
-        {
-            let _ = text;
-        }
-    }
-
-    fn percent_of_parent(&self, id: NodeId) -> Option<f32> {
-        let tree = self.tree.as_ref()?;
-        let node = tree.try_node(id)?;
-        let parent = node.parent?;
-        let psize = tree.try_node(parent)?.size(self.size_mode).max(1);
-        Some((node.size(self.size_mode) as f32 / psize as f32) * 100.0)
-    }
-
-    fn apply_filter_debounce(&mut self) {
-        let ms = self.settings.flags.debounce_filter_ms;
-        if let Some(at) = self.filter_edited_at {
-            if at.elapsed() >= Duration::from_millis(ms) {
-                if self.filter.query != self.filter_draft {
-                    self.filter.query = self.filter_draft.clone();
-                    self.filter.rebuild_regex();
-                    self.geom = None;
-                }
-                self.filter_edited_at = None;
-            }
-        }
     }
 
     fn handle_keys(&mut self, ctx: &egui::Context) {
@@ -1001,23 +422,34 @@ impl SpaceApp {
                 self.show_goto = false;
             }
             if (key_del || key_back) && !ctx.wants_keyboard_input() {
-                let selected_deletable = if in_explore {
-                    self.selected.filter(|&id| {
-                        self.tree.as_ref().is_some_and(|tree| {
-                            tree.try_node(id)
-                                .is_some_and(|n| !n.synthetic && n.parent.is_some())
-                        })
-                    })
-                } else {
-                    None
-                };
-                if self.basket_len() == 0 {
-                    if let (Some(id), Some(tree)) = (selected_deletable, self.tree.as_ref()) {
-                        review::toggle_in_tree(tree, &mut self.review, id);
+                if mods.alt {
+                    let direct_ids = if in_explore {
+                        self.selected_deletable_nodes()
+                    } else {
+                        Vec::new()
+                    };
+                    if !direct_ids.is_empty() {
+                        self.request_delete_nodes(
+                            &direct_ids,
+                            space_clean::DeleteMethod::Permanent,
+                        );
+                    } else if self.basket_len() > 0 {
+                        self.request_permanent_basket();
                     }
-                }
-                if self.basket_len() > 0 {
-                    self.request_trash();
+                } else {
+                    let selected_deletable = if in_explore {
+                        self.selected_deletable_nodes().into_iter().next()
+                    } else {
+                        None
+                    };
+                    if self.basket_len() == 0 {
+                        if let (Some(id), Some(tree)) = (selected_deletable, self.tree.as_ref()) {
+                            review::toggle_in_tree(tree, &mut self.review, id);
+                        }
+                    }
+                    if self.basket_len() > 0 {
+                        self.request_trash();
+                    }
                 }
             }
             return;
@@ -1041,6 +473,7 @@ impl SpaceApp {
                 self.show_shortcuts = false;
             } else if self.confirm_delete && self.delete_progress.is_none() {
                 self.confirm_delete = false;
+                self.delete_source = DeleteSource::Basket;
             } else if self.rules.open {
                 self.rules.open = false;
             } else if self.show_tm_panel {
@@ -1096,7 +529,10 @@ impl SpaceApp {
             }
         }
         if enter {
-            if self.confirm_delete && self.delete_progress.is_none() && self.basket_len() > 0 {
+            if self.confirm_delete
+                && self.delete_progress.is_none()
+                && !self.active_delete_items().is_empty()
+            {
                 self.apply_basket();
                 return;
             }
@@ -1124,655 +560,6 @@ impl SpaceApp {
                 }
             }
         }
-    }
-
-    fn persist_settings_from_viewport(&mut self, ctx: &egui::Context) {
-        ctx.input(|i| {
-            if let Some(rect) = i.viewport().inner_rect {
-                self.settings.window_width = rect.width();
-                self.settings.window_height = rect.height();
-            }
-        });
-        self.settings.default_view = self.view;
-        self.settings.default_size_mode = self.size_mode;
-    }
-
-    fn go_up(&mut self) {
-        if let Some(tree) = &self.tree {
-            if let Some(parent) = tree.try_node(self.focus).and_then(|n| n.parent) {
-                self.navigate(parent, true);
-            }
-        }
-    }
-
-    fn go_back(&mut self) {
-        if let Some(prev) = self.history_back.pop() {
-            self.history_fwd.push(self.focus);
-            self.focus = prev;
-            self.clear_selection();
-            self.invalidate_largest();
-            self.schedule_largest();
-        }
-    }
-
-    fn go_forward(&mut self) {
-        if let Some(next) = self.history_fwd.pop() {
-            self.history_back.push(self.focus);
-            self.focus = next;
-            self.clear_selection();
-            self.invalidate_largest();
-            self.schedule_largest();
-        }
-    }
-
-    fn reset_tree_view_state(&mut self) {
-        self.clear_selection();
-        self.hovered = None;
-        self.expanded.clear();
-        self.tree_rows.clear();
-        self.tree_revealed = None;
-        self.tree_scroll = false;
-        self.geom = None;
-    }
-
-    fn select_single(&mut self, id: NodeId) {
-        self.selected = Some(id);
-        self.selected_set.clear();
-        self.selected_set.push(id);
-        self.selection_anchor = Some(id);
-    }
-
-    fn clear_selection(&mut self) {
-        self.selected = None;
-        self.selected_set.clear();
-        self.selection_anchor = None;
-    }
-
-    fn toggle_select_node(&mut self, id: NodeId) {
-        if let Some(pos) = self.selected_set.iter().position(|&x| x == id) {
-            self.selected_set.remove(pos);
-            if self.selected == Some(id) {
-                self.selected = self.selected_set.last().copied();
-            }
-        } else {
-            self.selected_set.push(id);
-            self.selected = Some(id);
-        }
-        self.selection_anchor = self.selected;
-    }
-
-    fn select_range_in_rows(&mut self, to: NodeId) {
-        let anchor = self.selection_anchor.or(self.selected);
-        if let Some(a) = anchor {
-            if let (Some(i0), Some(i1)) = (
-                self.tree_rows.iter().position(|&x| x == a),
-                self.tree_rows.iter().position(|&x| x == to),
-            ) {
-                let (lo, hi) = if i0 <= i1 { (i0, i1) } else { (i1, i0) };
-                self.selected_set = self.tree_rows[lo..=hi].to_vec();
-                self.selected = Some(to);
-                return;
-            }
-        }
-        self.select_single(to);
-    }
-
-    fn reset_filters(&mut self) {
-        self.filter.clear();
-        self.filter_draft.clear();
-        self.ext_draft.clear();
-        self.min_mb_draft.clear();
-        self.max_mb_draft.clear();
-        self.filter_edited_at = None;
-        self.geom = None;
-    }
-
-    fn cycle_map_child(&mut self, forward: bool) {
-        let Some(tree) = &self.tree else { return };
-        let kids: Vec<NodeId> = if !self.filter.is_active() {
-            tree.children(self.focus).to_vec()
-        } else {
-            tree.children(self.focus)
-                .iter()
-                .copied()
-                .filter(|&cid| {
-                    let n = tree.node(cid);
-                    self.filter
-                        .matches(&n.name, n.is_dir, n.size(self.size_mode))
-                })
-                .collect()
-        };
-        if kids.is_empty() {
-            return;
-        }
-        let next = match self
-            .selected
-            .and_then(|s| kids.iter().position(|&c| c == s))
-        {
-            Some(i) if forward => kids[(i + 1) % kids.len()],
-            Some(i) => kids[(i + kids.len() - 1) % kids.len()],
-            None if forward => kids[0],
-            None => kids[kids.len() - 1],
-        };
-        self.select_single(next);
-    }
-
-    fn restore_rescan_tree(&mut self, mut tree: Arc<SpaceTree>, saved: RescanSavedPaths) {
-        if self.size_mode != SizeMode::OnDisk {
-            Arc::make_mut(&mut tree).sort_children_by(self.size_mode);
-        }
-        self.focus = find_path(&tree, &saved.focus).unwrap_or(tree.root);
-        self.selected = saved.selected.as_deref().and_then(|p| find_path(&tree, p));
-        self.selected_set = self.selected.into_iter().collect();
-        self.selection_anchor = self.selected;
-        self.expanded = saved
-            .expanded
-            .iter()
-            .filter_map(|p| find_path(&tree, p))
-            .collect();
-        self.review.clear();
-        for p in &saved.review {
-            if let Some(id) = find_path(&tree, p) {
-                if tree
-                    .try_node(id)
-                    .is_some_and(|n| !n.synthetic && n.parent.is_some())
-                {
-                    self.review.push(id);
-                }
-            }
-        }
-        self.history_back = saved
-            .history_back
-            .iter()
-            .filter_map(|p| find_path(&tree, p))
-            .filter(|&id| id != self.focus)
-            .collect();
-        self.history_fwd = saved
-            .history_fwd
-            .iter()
-            .filter_map(|p| find_path(&tree, p))
-            .filter(|&id| id != self.focus)
-            .collect();
-        self.hovered = None;
-        self.tree_rows.clear();
-        self.tree_revealed = None;
-        self.tree_scroll = false;
-        self.geom = None;
-        self.cache_stale = false;
-        self.from_cache = false;
-        self.status = crate::tr!(
-            "Rescanned · {} items · {}",
-            tree.item_count,
-            crate::i18n::bytes(tree.total_size_mode(self.size_mode))
-        );
-        self.tree = Some(tree);
-        self.invalidate_largest();
-        self.schedule_largest();
-        if let Some(tree) = self.tree.clone() {
-            self.save_cache_async(tree);
-        }
-    }
-
-    /// A rule path (may start with `~` or contain a glob): select it in Folders
-    /// when the open scan indexed it, otherwise reveal it in Finder.
-    fn reveal_rule_path(&mut self, raw: &str) {
-        let mut path = raw.to_owned();
-        if let (Some(rest), Some(home)) = (path.strip_prefix('~'), std::env::var_os("HOME")) {
-            path = format!("{}{rest}", home.to_string_lossy());
-        }
-        // Stop at the first glob component: that folder is what exists.
-        let path: PathBuf = PathBuf::from(&path)
-            .components()
-            .take_while(|c| !c.as_os_str().to_string_lossy().contains(['*', '?', '[']))
-            .collect();
-        if let Some(id) = self.tree.as_ref().and_then(|t| find_path(t, &path)) {
-            let parent = self
-                .tree
-                .as_ref()
-                .and_then(|t| t.try_node(id))
-                .and_then(|n| n.parent);
-            if let Some(parent) = parent {
-                self.navigate(parent, true);
-            }
-            self.select_single(id);
-            self.rules.open = false;
-            self.choosing_target = false;
-            self.mode = Mode::Explore;
-            return;
-        }
-        crate::widgets::reveal_in_os(&path);
-        self.status = crate::tr!("Not in this scan — opened {} in Finder", path.display());
-    }
-
-    fn reveal_selected(&self) {
-        let Some(tree) = &self.tree else { return };
-        let id = self.selected.unwrap_or(self.focus);
-        let path = tree.path_string(id);
-        crate::widgets::reveal_in_os(std::path::Path::new(&path));
-    }
-
-    fn quick_look_selected(&self) {
-        let Some(tree) = &self.tree else { return };
-        let id = self.selected.or(self.hovered).unwrap_or(self.focus);
-        if let Some(n) = tree.try_node(id) {
-            if !n.synthetic {
-                let path = tree.path_string(id);
-                crate::widgets::quick_look(std::path::Path::new(&path));
-            }
-        }
-    }
-
-    fn open_terminal_selected(&self) {
-        let Some(tree) = &self.tree else { return };
-        let id = self.selected.or(self.hovered).unwrap_or(self.focus);
-        if let Some(n) = tree.try_node(id) {
-            if !n.synthetic {
-                let path = tree.path_string(id);
-                crate::widgets::open_in_terminal(std::path::Path::new(&path));
-            }
-        }
-    }
-
-    fn toggle_selected_in_basket(&mut self) {
-        let Some(tree) = self.tree.clone() else {
-            return;
-        };
-        let ids: Vec<NodeId> = if !self.selected_set.is_empty() {
-            self.selected_set.clone()
-        } else if let Some(id) = self.selected {
-            vec![id]
-        } else {
-            return;
-        };
-        for id in ids {
-            if tree
-                .try_node(id)
-                .is_some_and(|n| !n.synthetic && n.parent.is_some())
-            {
-                review::toggle_in_tree(&tree, &mut self.review, id);
-            }
-        }
-    }
-
-    fn open_goto_dialog(&mut self) {
-        self.show_goto = true;
-        self.focus_goto = true;
-        if self.goto_draft.is_empty() {
-            if let Some(tree) = &self.tree {
-                self.goto_draft = tree.path_string(self.focus);
-            }
-        }
-    }
-
-    fn any_modal_open(&self) -> bool {
-        self.confirm_delete
-            || self.confirm_tm_clean
-            || self.show_settings
-            || self.show_about
-            || self.show_shortcuts
-            || self.show_goto
-            || self.rules.open
-            || self.show_tm_panel
-    }
-
-    fn refresh_snapshots(&mut self) {
-        self.tm_loading = true;
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-snaps".into())
-            .spawn(move || {
-                let _ = tx.send(BgMsg::Snapshots(tm_clean::list_local_snapshots()));
-            })
-            .ok();
-    }
-
-    fn open_tm_panel(&mut self) {
-        self.show_tm_panel = true;
-        self.refresh_snapshots();
-    }
-
-    fn apply_tm_clean(&mut self) {
-        if self.busy {
-            return;
-        }
-        self.busy = true;
-        self.status = crate::i18n::t("Deleting old Time Machine snapshots…").into();
-        let tx = self.bg_tx.clone();
-        let keep = if self.tm_snapshots.iter().filter(|s| s.is_tm()).count() > 1 {
-            1usize
-        } else {
-            0usize
-        };
-        thread::Builder::new()
-            .name("space-tm-clean".into())
-            .spawn(move || {
-                let report = tm_clean::delete_old_tm_locals(keep);
-                let _ = tx.send(BgMsg::TmCleanDone(report));
-            })
-            .ok();
-    }
-
-    fn start_rule_mgr_load(&mut self) {
-        if self.rule_mgr.is_some() || self.rule_mgr_loading {
-            return;
-        }
-        self.rule_mgr_loading = true;
-        let tx = self.bg_tx.clone();
-        if let Err(error) = thread::Builder::new()
-            .name("space-rule-load".into())
-            .spawn(move || {
-                let result =
-                    space_clean::RuleManager::load_default().map_err(|error| error.to_string());
-                let _ = tx.send(BgMsg::RuleManagerLoaded(result));
-            })
-        {
-            self.rule_mgr_loading = false;
-            self.rules.error = Some(error.to_string());
-        }
-    }
-
-    fn open_rules_panel(&mut self) {
-        self.rules.open = true;
-        self.rules.error = None;
-        self.start_rule_mgr_load();
-    }
-
-    fn open_junk_panel(&mut self) {
-        self.mode = Mode::Clean;
-        self.start_quick_clean_scan();
-    }
-
-    pub(crate) fn start_downloads_scan(&mut self) {
-        self.downloads.loading = true;
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-downloads".into())
-            .spawn(move || {
-                let _ = tx.send(BgMsg::DownloadsDone(downloads::scan_default_downloads()));
-            })
-            .ok();
-    }
-
-    pub(crate) fn start_quick_clean_scan(&mut self) {
-        self.junk.open_and_scan();
-        self.start_junk_scan();
-        self.start_downloads_scan();
-    }
-
-    fn set_mode(&mut self, mode: Mode) {
-        if mode == Mode::Clean {
-            self.junk.open = true;
-            if self.junk.report().is_none() && !self.junk.loading {
-                self.start_quick_clean_scan();
-            }
-        }
-        self.mode = mode;
-    }
-
-    fn start_junk_scan(&mut self) {
-        self.junk.loading = true;
-        self.junk.error = None;
-        self.junk.progress = space_clean::JunkScanProgress::default();
-        self.junk.scan_started = Some(Instant::now());
-        let mut prefs = self
-            .rule_mgr
-            .as_ref()
-            .map(|m| m.prefs.clone())
-            .unwrap_or_else(space_clean::RulePrefs::load);
-        let flags = self.settings.flags.clone();
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-junk-scan".into())
-            .spawn(move || {
-                let result = (|| {
-                    let pack = space_clean::RulePack::load_many_shared(
-                        &space_clean::default_rules_dirs(),
-                    )?;
-                    prefs.migrate_catalog_aliases(&space_clean::default_rules_dirs())?;
-                    flags.apply_to_rule_prefs(&mut prefs, &pack);
-                    let mgr = space_clean::RuleManager { pack, prefs };
-                    let opts = space_clean::ScanOptions {
-                        categories: Vec::new(),
-                        include_disabled: false,
-                        min_age_override: None,
-                        prefs_min_age: mgr.prefs.min_age.clone(),
-                    };
-                    let rules = mgr.scan_rules(&[]);
-                    let progress_tx = tx.clone();
-                    space_clean::scan_rules_with_progress(rules, &opts, move |progress| {
-                        let _ = progress_tx.send(BgMsg::JunkScanProgress(progress));
-                    })
-                })()
-                .map_err(|e| e.to_string());
-                let _ = tx.send(BgMsg::JunkScanDone(result));
-            })
-            .ok();
-    }
-
-    fn review_bytes(&self) -> u64 {
-        self.tree
-            .as_ref()
-            .map(|t| review::queue_bytes(t, &self.review, self.size_mode))
-            .unwrap_or(0)
-    }
-
-    /// Unified Trash queue combining Quick clean, Downloads, and Folders selections.
-    pub(crate) fn basket_items(&self) -> Vec<BasketItem> {
-        let mut items = Vec::new();
-        if let Some(tree) = &self.tree {
-            items.extend(
-                self.review
-                    .iter()
-                    .copied()
-                    .filter(|&id| {
-                        is_live_node(tree, id)
-                            && tree
-                                .try_node(id)
-                                .is_some_and(|n| !n.synthetic && n.parent.is_some())
-                    })
-                    .filter_map(|id| {
-                        let node = tree.try_node(id)?;
-                        Some(BasketItem {
-                            path: PathBuf::from(tree.path_string(id)),
-                            bytes: node.size(self.size_mode),
-                            is_dir: node.is_dir,
-                        })
-                    }),
-            );
-        }
-        items.extend(self.junk.selected_findings().into_iter().map(|finding| {
-            let is_dir = std::fs::symlink_metadata(&finding.path)
-                .map(|m| m.is_dir())
-                .unwrap_or(false);
-            BasketItem {
-                path: finding.path,
-                bytes: finding.bytes,
-                is_dir,
-            }
-        }));
-        items.extend(
-            self.downloads
-                .selected_items()
-                .into_iter()
-                .map(|item| BasketItem {
-                    path: item.path,
-                    bytes: item.bytes,
-                    is_dir: item.is_dir,
-                }),
-        );
-        let mut coalesced = space_clean::coalesce_nested_paths(items, |item| item.path.as_path());
-        coalesced.sort_by(|a, b| b.bytes.cmp(&a.bytes).then_with(|| a.path.cmp(&b.path)));
-        coalesced
-    }
-
-    pub(crate) fn basket_len(&self) -> usize {
-        self.basket_items().len()
-    }
-
-    pub(crate) fn basket_bytes(&self) -> u64 {
-        basket_total_bytes(&self.basket_items())
-    }
-
-    /// "N not in this scan · K snapshots" when the volume holds more than the scan saw.
-    fn scan_gap_label(&self) -> Option<String> {
-        let tree = self.tree.as_ref()?;
-        let vol = volumes::match_volume(&self.volumes, &tree.root_path)?;
-        if tree.root_path != vol.mount {
-            return None;
-        }
-        let indexed = tree.total_size_mode(self.size_mode);
-        let gap = vol.used().checked_sub(indexed.saturating_add(64 << 20))?;
-        let snaps = if self.tm_snapshots.is_empty() {
-            vol.snapshot_count as usize
-        } else {
-            self.tm_snapshots.len()
-        };
-        Some(if snaps > 0 {
-            crate::tr!(
-                "{} not in this scan · {} snapshots",
-                crate::i18n::bytes(gap + (64 << 20)),
-                snaps
-            )
-        } else {
-            crate::tr!("{} not in this scan", crate::i18n::bytes(gap + (64 << 20)))
-        })
-    }
-
-    pub(crate) fn remove_from_basket(&mut self, path: &std::path::Path) {
-        let slice = [path.to_path_buf()];
-        self.junk.exclude_paths(&slice);
-        self.downloads.exclude_paths(&slice);
-        if let Some(tree) = &self.tree {
-            self.review
-                .retain(|&id| !std::path::Path::new(&tree.path_string(id)).starts_with(path));
-        }
-    }
-
-    pub(crate) fn request_trash(&mut self) {
-        if self.basket_len() == 0 {
-            return;
-        }
-        if self.settings.confirm_trash {
-            self.confirm_delete = true;
-        } else {
-            self.apply_basket();
-        }
-    }
-
-    pub(crate) fn clear_all_cache(&mut self) {
-        if let Some(cache) = &self.cache {
-            if let Ok(removed) = cache.wipe_all() {
-                self.recent.clear();
-                self.status = crate::tr!("Cleared {} cached scans", removed);
-            }
-        }
-    }
-
-    pub(crate) fn remove_cache_entry(&mut self, root: &std::path::Path) {
-        if let Some(cache) = &self.cache {
-            let _ = cache.invalidate(root);
-            self.recent = cache.list_recent().unwrap_or_default();
-        }
-    }
-
-    /// Single-batch Trash worker across Quick clean, Downloads, and Folders.
-    pub(crate) fn apply_basket(&mut self) {
-        if self.busy {
-            return;
-        }
-        let items = self.basket_items();
-        if items.is_empty() {
-            self.confirm_delete = false;
-            return;
-        }
-        self.busy = true;
-        self.confirm_delete = true;
-        self.delete_progress = Some(space_clean::CleanProgress {
-            items_total: items.len(),
-            ..Default::default()
-        });
-        self.delete_started = Some(Instant::now());
-        self.status = crate::i18n::t("Moving to Trash…").into();
-        let tx = self.bg_tx.clone();
-        thread::Builder::new()
-            .name("space-trash".into())
-            .spawn(move || {
-                let result = (|| {
-                    let mut deleted_paths = Vec::new();
-                    let mut errors = Vec::new();
-                    let mut progress = space_clean::CleanProgress {
-                        items_total: items.len(),
-                        ..Default::default()
-                    };
-                    let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
-                    let mut candidates = Vec::new();
-                    for item in items {
-                        progress.current_path = item.path.clone();
-                        if space_clean::safety::is_never_touch(&item.path) {
-                            errors.push(format!("Protected: {}", item.path.display()));
-                            progress.items_done += 1;
-                            progress.error_count = errors.len();
-                            let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
-                            continue;
-                        }
-                        if std::fs::symlink_metadata(&item.path).is_err() {
-                            deleted_paths.push(item.path);
-                            progress.items_done += 1;
-                            let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
-                            continue;
-                        }
-                        candidates.push(item);
-                    }
-                    candidates.sort_by(|a, b| {
-                        a.path
-                            .parent()
-                            .cmp(&b.path.parent())
-                            .then_with(|| a.path.cmp(&b.path))
-                    });
-                    for chunk in candidates.chunks(space_clean::TRASH_BATCH_SIZE) {
-                        if let Some(first) = chunk.first() {
-                            progress.current_path = first.path.clone();
-                            let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
-                        }
-                        let paths: Vec<PathBuf> =
-                            chunk.iter().map(|item| item.path.clone()).collect();
-                        let outcomes = space_clean::trash_paths_batch(&paths);
-                        for (item, outcome) in chunk.iter().cloned().zip(outcomes) {
-                            progress.current_path = item.path.clone();
-                            match outcome {
-                                Ok(()) => {
-                                    deleted_paths.push(item.path);
-                                    progress.items_done += 1;
-                                    progress.bytes_processed =
-                                        progress.bytes_processed.saturating_add(item.bytes);
-                                    if item.is_dir {
-                                        progress.folders_done += 1;
-                                    } else {
-                                        progress.files_done += 1;
-                                    }
-                                }
-                                Err(e) => {
-                                    errors.push(format!("{}: {e}", item.path.display()));
-                                    progress.items_done += 1;
-                                    progress.error_count = errors.len();
-                                }
-                            }
-                        }
-                        let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));
-                    }
-                    if deleted_paths.is_empty() && !errors.is_empty() {
-                        return Err(errors.join("\n"));
-                    }
-
-                    Ok(TrashOutcome {
-                        deleted_paths,
-                        processed_bytes: progress.bytes_processed,
-                        errors,
-                    })
-                })();
-                let _ = tx.send(BgMsg::DeleteDone(result));
-            })
-            .ok();
     }
 }
 
@@ -2258,6 +1045,8 @@ mod ui_smoke_tests {
                 volumes_loading: false,
                 review: vec![NodeId(2)],
                 confirm_delete: false,
+                delete_method: space_clean::DeleteMethod::Trash,
+                delete_source: DeleteSource::Basket,
                 delete_progress: None,
                 delete_started: None,
                 show_tm_panel: false,
@@ -2292,6 +1081,7 @@ mod ui_smoke_tests {
                 tree_revealed: None,
                 tree_scroll: false,
                 compact_map: false,
+                caches: caches::AppCaches::default(),
             }
         }
     }
@@ -2339,11 +1129,14 @@ mod ui_smoke_tests {
             step_ui(&ctx, &mut app, 1280.0, 800.0);
         }
 
-        // Multi-selection + confirm delete modal.
+        // Multi-selection + confirm delete modal (Trash and Permanent).
         app.selected_set = vec![NodeId(1), NodeId(3)];
         step_ui(&ctx, &mut app, 1280.0, 800.0);
         app.confirm_delete = true;
         step_ui(&ctx, &mut app, 1280.0, 800.0);
+        app.delete_method = space_clean::DeleteMethod::Permanent;
+        step_ui(&ctx, &mut app, 1280.0, 800.0);
+        app.delete_method = space_clean::DeleteMethod::Trash;
         app.confirm_delete = false;
 
         // Medium and Narrow layouts (both list and map panes).

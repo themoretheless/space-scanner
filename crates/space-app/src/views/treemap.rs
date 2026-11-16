@@ -5,7 +5,7 @@ use space_core::NodeId;
 
 use crate::settings::TreemapMode;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
-use crate::views::{child_ids, DrawCtx, ViewAction};
+use crate::views::{child_ids, truncate, DrawCtx, ViewAction};
 
 const MIN_PX: f32 = 10.0;
 const MAX_TILES: usize = 180;
@@ -41,10 +41,12 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
         mode: ctx.mode,
         filter: ctx.filter_hash,
         selected: None,
+        x: super::quantize_pos(map_rect.left()),
+        y: super::quantize_pos(map_rect.top()),
         w: super::quantize_px(map_rect.width()),
         h: super::quantize_px(map_rect.height()),
         review_sig: 0,
-        view_opts: ((max_nest as u64) << 8) | mode_flag,
+        view_opts: ((max_nest as u64) << 8) | mode_flag | (super::theme_bits() << 16),
     };
 
     let need = match ctx.geom.as_ref() {
@@ -435,13 +437,4 @@ fn worst_aspect(row: &[(NodeId, f64)], rect: Rect) -> f64 {
             side.max(len) / side.min(len).max(1e-9)
         })
         .fold(0.0_f64, f64::max)
-}
-
-fn truncate(s: &str, max: usize) -> String {
-    if s.chars().count() <= max {
-        s.to_string()
-    } else {
-        let t: String = s.chars().take(max.saturating_sub(1)).collect();
-        format!("{t}…")
-    }
 }

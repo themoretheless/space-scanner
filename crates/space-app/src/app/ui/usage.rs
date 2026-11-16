@@ -10,16 +10,17 @@ use eframe::egui::{self, Align, Color32, Layout, RichText, Sense};
 use space_core::{NodeId, SizeMode, SpaceTree as Tree};
 
 use super::Density;
+use crate::app::caches::{TreeRow, MAX_TREE_ROWS};
 use crate::app::SpaceApp;
 use crate::icons::{self, Icon};
 use crate::review;
 use crate::theme::metrics::{APP_BAR_H, S2, S3, S4, SIDE_W, TREE_INDENT, TREE_ROW_H, TREE_W};
 use crate::theme::type_scale;
-use crate::theme::{self, ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
+use crate::theme::{ACCENT, BG, BORDER, MUTED, PANEL, PANEL_2, TEXT};
 use crate::views::{self, DrawCtx, ViewMode};
 use crate::widgets::{
-    badge, block, caption, divider, empty_state, ghost, paint_checkbox, primary, secondary,
-    segmented, stat, text_width, CheckVisual,
+    badge, block, caption, count_noun, danger_secondary, divider, empty_state, ghost,
+    paint_checkbox, primary, secondary, segmented, stat, text_width, CheckVisual,
 };
 
 impl SpaceApp {
@@ -305,36 +306,22 @@ impl SpaceApp {
             });
         divider(ui);
 
-        let mut ids: Vec<NodeId> = if self.show_largest {
-            let data = self.largest.data();
-            match self.insight_tab {
-                crate::largest_files::InsightTab::Files => {
-                    data.files.iter().map(|row| row.0).collect()
-                }
-                crate::largest_files::InsightTab::Folders => {
-                    data.folders.iter().map(|row| row.0).collect()
-                }
-                crate::largest_files::InsightTab::Oldest => {
-                    data.oldest.iter().map(|row| row.0).collect()
-                }
-                crate::largest_files::InsightTab::Duplicates => data
-                    .duplicates
-                    .iter()
-                    .flat_map(|(_, _, nodes)| nodes.iter().copied())
-                    .collect(),
-                crate::largest_files::InsightTab::Types => Vec::new(),
-            }
-        } else {
-            tree.children(focus).to_vec()
-        };
-        let before = ids.len();
-        ids.retain(|&c| {
-            let n = tree.node(c);
-            self.filter.matches(&n.name, n.is_dir, n.size(mode))
-        });
-        if !self.show_largest || self.insight_tab != crate::largest_files::InsightTab::Oldest {
-            ids.sort_by_key(|&c| std::cmp::Reverse(tree.node(c).size(mode)));
+        let flat = self.show_largest || self.filter.is_active();
+        if !flat {
+            self.reveal_in_tree(&tree);
         }
+        let listing = self.caches.contents_listing(
+            &tree,
+            focus,
+            mode,
+            &self.filter,
+            &self.expanded,
+            flat,
+            self.show_largest,
+            self.insight_tab,
+            &self.largest,
+        );
+        self.caches.sync_tree_rows(&listing, &mut self.tree_rows);
 
         // Say what the filter is doing: scope, count, and a way out.
         if self.filter.is_active() || !self.filter_draft.is_empty() {
@@ -351,8 +338,8 @@ impl SpaceApp {
                         ui.add(
                             egui::Label::new(caption(crate::tr!(
                                 "{} of {} shown {}",
-                                ids.len(),
-                                before,
+                                listing.ids.len(),
+                                listing.before,
                                 scope
                             )))
                             .truncate(),
@@ -381,7 +368,7 @@ impl SpaceApp {
                         .add(ghost("Export CSV…").min_size(egui::vec2(0.0, 24.0)))
                         .clicked()
                     {
-                        self.export_insights_csv(&ids);
+                        self.export_insights_csv(&listing.ids);
                     }
                 });
             });
@@ -429,34 +416,8 @@ impl SpaceApp {
             }
         }
 
-        let items: Vec<(&str, bool)> = ids
-            .iter()
-            .map(|&c| {
-                let n = tree.node(c);
-                (n.name.as_str(), n.is_dir)
-            })
-            .collect();
-        let colors = theme::sibling_palette(&items);
-
-        // A flat list while filtering or browsing largest files; otherwise a
-        // tree rooted at the focus, with folders opened inline.
-        let flat = self.show_largest || self.filter.is_active();
-        if !flat {
-            self.reveal_in_tree(&tree);
-        }
-        let rows = tree_rows(&tree, &ids, &colors, &self.expanded, flat, mode);
-        self.tree_rows = rows.iter().map(|r| r.id).collect();
+        let review_sets = self.caches.review_sets(&tree, &self.review, mode);
         let scroll_to = std::mem::take(&mut self.tree_scroll);
-
-        let queued_set: HashSet<NodeId> = self.review.iter().copied().collect();
-        let mut partial_set = HashSet::new();
-        for &qid in &self.review {
-            let mut p = tree.try_node(qid).and_then(|n| n.parent);
-            while let Some(pid) = p {
-                partial_set.insert(pid);
-                p = tree.try_node(pid).and_then(|n| n.parent);
-            }
-        }
         let (
             mut pick,
             mut shift_pick,
@@ -465,147 +426,212 @@ impl SpaceApp {
             mut quick_look_id,
             mut term_id,
             mut queue,
+            mut delete_perm,
             mut toggle,
             mut row_hover,
-        ) = (None, false, None, None, None, None, None, None, None);
-        let scroll_out = egui::ScrollArea::vertical()
-            .id_salt("contents_list")
-            .auto_shrink([false, false])
-            .show(ui, |ui| {
-                ui.spacing_mut().item_spacing.y = 0.0;
-                ui.add_space(4.0);
-                if ids.is_empty() {
+        ) = (None, false, None, None, None, None, None, None, None, None);
+        ui.add_space(4.0);
+        let show_overflow_hint = listing.rows.len() >= MAX_TREE_ROWS;
+        let scroll_out = if listing.rows.is_empty() {
+            egui::ScrollArea::vertical()
+                .id_salt("contents_list")
+                .auto_shrink([false, false])
+                .show(ui, |ui| {
                     empty_state(
                         ui,
-                        if before == 0 {
+                        if listing.before == 0 {
                             "This folder is empty"
                         } else {
                             "Nothing matches"
                         },
-                        if before == 0 {
+                        if listing.before == 0 {
                             "No indexed items here."
                         } else {
                             "Change or clear the filter."
                         },
                     );
-                }
-                for row in &rows {
-                    let id = row.id;
-                    let n = tree.node(id);
-                    let selected = self.selected == Some(id) || self.selected_set.contains(&id);
-                    let deletable = !n.synthetic && n.parent.is_some();
-                    let queued = queued_set.contains(&id);
-                    let check = if !deletable {
-                        None
-                    } else if queued {
-                        Some(CheckVisual::Checked)
-                    } else if has_queued_ancestor(&tree, &queued_set, id) {
-                        Some(CheckVisual::CoveredByParent)
-                    } else if partial_set.contains(&id) {
-                        Some(CheckVisual::Partial)
-                    } else {
-                        Some(CheckVisual::Unchecked)
-                    };
-                    let (rect, resp) = ui.allocate_exact_size(
-                        egui::vec2(ui.available_width(), TREE_ROW_H),
-                        Sense::click(),
-                    );
-                    if selected && scroll_to {
-                        resp.scroll_to_me(None);
+                })
+        } else {
+            let selected_idx = scroll_to
+                .then(|| {
+                    self.selected
+                        .and_then(|sel| listing.row_ids.iter().position(|&id| id == sel))
+                })
+                .flatten();
+            egui::ScrollArea::vertical()
+                .id_salt("contents_list")
+                .auto_shrink([false, false])
+                .show_rows(ui, TREE_ROW_H, listing.rows.len(), |ui, row_range| {
+                    ui.spacing_mut().item_spacing.y = 0.0;
+                    if let Some(idx) = selected_idx {
+                        if !row_range.contains(&idx) {
+                            let y = ui.min_rect().top() + idx as f32 * TREE_ROW_H;
+                            let target_rect = egui::Rect::from_min_size(
+                                egui::pos2(ui.min_rect().left(), y),
+                                egui::vec2(ui.available_width().max(1.0), TREE_ROW_H),
+                            );
+                            ui.scroll_to_rect(target_rect, None);
+                        }
                     }
-                    let outcome = paint_tree_row(
-                        ui,
-                        rect,
-                        &resp,
-                        row,
-                        n,
-                        RowVisual {
-                            selected,
-                            check,
-                            linked_hover: self.hovered == Some(id),
-                        },
-                    );
-                    if outcome.chevron {
-                        toggle = Some(id);
-                    }
-                    if outcome.check {
-                        queue = Some(id);
-                    }
-                    if resp.hovered() {
-                        row_hover = Some(id);
-                    }
-
-                    let row_name = n.name.clone();
-                    let resp = resp.on_hover_text(t(if n.is_dir {
-                        "Click to select · double-click to open · check box to queue"
-                    } else {
-                        "Click to select · double-click to show in Finder · check box to queue"
-                    }));
-                    resp.widget_info(move || {
-                        egui::WidgetInfo::labeled(egui::WidgetType::Button, true, row_name.as_str())
-                    });
-                    if resp.clicked() && !outcome.chevron && !outcome.check {
-                        if ui.input(|i| i.modifiers.command) && deletable {
+                    for row in &listing.rows[row_range.clone()] {
+                        let id = row.id;
+                        let n = tree.node(id);
+                        let selected = self.selected == Some(id) || self.selected_set.contains(&id);
+                        let deletable = !n.synthetic && n.parent.is_some();
+                        let queued = review_sets.queued.contains(&id);
+                        let check = if !deletable {
+                            None
+                        } else if queued {
+                            Some(CheckVisual::Checked)
+                        } else if review::has_ancestor_in_set(&tree, &review_sets.queued, id) {
+                            Some(CheckVisual::CoveredByParent)
+                        } else if review_sets.partial.contains(&id) {
+                            Some(CheckVisual::Partial)
+                        } else {
+                            Some(CheckVisual::Unchecked)
+                        };
+                        let (_, rect) =
+                            ui.allocate_space(egui::vec2(ui.available_width(), TREE_ROW_H));
+                        let resp =
+                            ui.interact(rect, ui.id().with(("tree_row", id.0)), Sense::click());
+                        if selected && scroll_to {
+                            resp.scroll_to_me(None);
+                        }
+                        let outcome = paint_tree_row(
+                            ui,
+                            rect,
+                            &resp,
+                            row,
+                            n,
+                            RowVisual {
+                                selected,
+                                check,
+                                linked_hover: self.hovered == Some(id),
+                            },
+                        );
+                        if outcome.chevron {
+                            toggle = Some(id);
+                        }
+                        if outcome.check {
                             queue = Some(id);
                         }
-                        shift_pick = ui.input(|i| i.modifiers.shift);
-                        pick = Some(id);
-                    }
-                    if resp.double_clicked() && !outcome.check && !outcome.chevron {
-                        if n.is_dir && !n.synthetic {
-                            enter = Some(id);
+                        if resp.hovered() {
+                            row_hover = Some(id);
+                        }
+
+                        let row_name = n.name.clone();
+                        let resp = resp.on_hover_text(t(if n.is_dir {
+                            "Click to select · double-click to open · check box to queue"
                         } else {
-                            reveal = Some(id);
-                        }
-                    }
-                    resp.context_menu(|ui| {
-                        if row.has_kids
-                            && ui
-                                .button(t(if row.open { "Collapse" } else { "Expand" }))
-                                .clicked()
-                        {
-                            toggle = Some(id);
-                            ui.close_menu();
-                        }
-                        if n.is_dir && !n.synthetic && ui.button(t("Open folder")).clicked() {
-                            enter = Some(id);
-                            ui.close_menu();
-                        }
-                        if deletable {
-                            let q = if queued {
-                                "Remove from selection"
-                            } else {
-                                "Add to selection"
-                            };
-                            if ui.button(t(q)).clicked() {
+                            "Click to select · double-click to show in Finder · check box to queue"
+                        }));
+                        resp.widget_info(move || {
+                            egui::WidgetInfo::labeled(
+                                egui::WidgetType::Button,
+                                true,
+                                row_name.as_str(),
+                            )
+                        });
+                        if resp.clicked() && !outcome.chevron && !outcome.check {
+                            if ui.input(|i| i.modifiers.command) && deletable {
                                 queue = Some(id);
-                                ui.close_menu();
                             }
-                            if ui.button(t("Show in Finder")).clicked() {
+                            shift_pick = ui.input(|i| i.modifiers.shift);
+                            pick = Some(id);
+                        }
+                        if resp.double_clicked() && !outcome.check && !outcome.chevron {
+                            if n.is_dir && !n.synthetic {
+                                enter = Some(id);
+                            } else {
                                 reveal = Some(id);
-                                ui.close_menu();
                             }
                         }
-                        if !n.synthetic {
-                            if ui.button(t("Quick Look")).clicked() {
-                                quick_look_id = Some(id);
+                        resp.context_menu(|ui| {
+                            if row.has_kids
+                                && ui
+                                    .button(t(if row.open { "Collapse" } else { "Expand" }))
+                                    .clicked()
+                            {
+                                toggle = Some(id);
                                 ui.close_menu();
                             }
-                            if ui.button(t("Open in Terminal")).clicked() {
-                                term_id = Some(id);
+                            if n.is_dir && !n.synthetic && ui.button(t("Open folder")).clicked() {
+                                enter = Some(id);
                                 ui.close_menu();
                             }
-                        }
-                    });
-                }
-                if rows.len() >= MAX_TREE_ROWS {
-                    ui.add_space(S2);
-                    ui.horizontal(|ui| {
-                        ui.add_space(S4);
-                        ui.label(caption("Collapse folders to see the rest"));
-                    });
-                }
-            });
+                            if deletable {
+                                let q = if queued {
+                                    "Remove from selection"
+                                } else {
+                                    "Add to selection"
+                                };
+                                if ui.button(t(q)).clicked() {
+                                    queue = Some(id);
+                                    ui.close_menu();
+                                }
+                                let multi_ids: Vec<NodeId> = if self.selected_set.len() > 1
+                                    && self.selected_set.contains(&id)
+                                {
+                                    self.selected_set
+                                        .iter()
+                                        .copied()
+                                        .filter(|&sid| {
+                                            tree.try_node(sid).is_some_and(|sn| {
+                                                !sn.synthetic && sn.parent.is_some()
+                                            })
+                                        })
+                                        .collect()
+                                } else {
+                                    Vec::new()
+                                };
+                                if multi_ids.len() > 1 {
+                                    let label = crate::tr!(
+                                        "Delete {} permanently…",
+                                        count_noun(multi_ids.len(), "item")
+                                    );
+                                    if ui
+                                        .button(RichText::new(label).color(crate::theme::DANGER()))
+                                        .clicked()
+                                    {
+                                        delete_perm = Some(multi_ids);
+                                        ui.close_menu();
+                                    }
+                                } else if ui
+                                    .button(
+                                        RichText::new(t("Delete permanently…"))
+                                            .color(crate::theme::DANGER()),
+                                    )
+                                    .clicked()
+                                {
+                                    delete_perm = Some(vec![id]);
+                                    ui.close_menu();
+                                }
+                                if ui.button(t("Show in Finder")).clicked() {
+                                    reveal = Some(id);
+                                    ui.close_menu();
+                                }
+                            }
+                            if !n.synthetic {
+                                if ui.button(t("Quick Look")).clicked() {
+                                    quick_look_id = Some(id);
+                                    ui.close_menu();
+                                }
+                                if ui.button(t("Open in Terminal")).clicked() {
+                                    term_id = Some(id);
+                                    ui.close_menu();
+                                }
+                            }
+                        });
+                    }
+                    if show_overflow_hint && row_range.end >= listing.rows.len() {
+                        ui.add_space(S2);
+                        ui.horizontal(|ui| {
+                            ui.add_space(S4);
+                            ui.label(caption("Collapse folders to see the rest"));
+                        });
+                    }
+                })
+        };
         if (row_hover.is_some() || ui.rect_contains_pointer(scroll_out.inner_rect))
             && self.hovered != row_hover
         {
@@ -630,6 +656,9 @@ impl SpaceApp {
         }
         if let Some(id) = queue {
             review::toggle_in_tree(&tree, &mut self.review, id);
+        }
+        if let Some(ids) = delete_perm {
+            self.request_delete_nodes(&ids, space_clean::DeleteMethod::Permanent);
         }
         if let Some(id) = reveal {
             self.select_single(id);
@@ -691,11 +720,22 @@ impl SpaceApp {
                 )
                 .clicked()
             {
-                for sid in deletable_ids {
+                for sid in deletable_ids.iter().copied() {
                     if !self.review.contains(&sid) {
                         review::toggle_in_tree(&tree, &mut self.review, sid);
                     }
                 }
+            }
+            ui.add_space(S2);
+            if ui
+                .add_enabled(
+                    !deletable_ids.is_empty() && !self.busy,
+                    block(ui, danger_secondary("Delete selected permanently…")),
+                )
+                .on_hover_text(t("Bypass Trash and remove from disk immediately (⌥⌘⌫)"))
+                .clicked()
+            {
+                self.request_delete_nodes(&deletable_ids, space_clean::DeleteMethod::Permanent);
             }
             ui.add_space(S2);
             if ui.add(block(ui, secondary("Clear selection"))).clicked() {
@@ -811,6 +851,17 @@ impl SpaceApp {
             .clicked()
         {
             review::toggle_in_tree(&tree, &mut self.review, id);
+        }
+        ui.add_space(S2);
+        if ui
+            .add_enabled(
+                deletable && !self.busy,
+                block(ui, danger_secondary("Delete permanently…")),
+            )
+            .on_hover_text(t("Bypass Trash and remove from disk immediately (⌥⌘⌫)"))
+            .clicked()
+        {
+            self.request_delete_nodes(&[id], space_clean::DeleteMethod::Permanent);
         }
         ui.add_space(S2);
         let w = (ui.available_width() - S2) * 0.5;
@@ -963,6 +1014,9 @@ impl SpaceApp {
         if let Some(id) = action.toggle_review {
             review::toggle_in_tree(&tree, &mut self.review, id);
         }
+        if let Some(id) = action.delete_permanent {
+            self.request_delete_nodes(&[id], space_clean::DeleteMethod::Permanent);
+        }
         if let Some(id) = action.reveal {
             self.select_single(id);
             self.reveal_selected();
@@ -1034,6 +1088,7 @@ impl SpaceApp {
                     self.size_mode = size_mode;
                     if let Some(tree) = &mut self.tree {
                         Arc::make_mut(tree).sort_children_by(size_mode);
+                        self.caches.bump_tree_epoch();
                     }
                     self.geom = None;
                     self.invalidate_largest();
@@ -1192,131 +1247,6 @@ impl SpaceApp {
 }
 
 // -------------------------------------------------------------------- tree
-
-/// Hard cap on drawn rows: an opened `node_modules` must not stall a frame.
-pub(super) const MAX_TREE_ROWS: usize = 2_000;
-/// Children shown per folder before the rest fold into "N more".
-const MAX_KIDS: usize = 200;
-
-pub(super) struct TreeRow {
-    pub(super) id: NodeId,
-    pub(super) depth: usize,
-    pub(super) color: Color32,
-    pub(super) size: u64,
-    /// Share of the parent folder, 0..=1.
-    pub(super) share: f32,
-    pub(super) has_kids: bool,
-    pub(super) open: bool,
-    /// For each ancestor level: does a later sibling follow (draw a guide)?
-    guides: Vec<bool>,
-}
-
-fn has_queued_ancestor(tree: &Tree, queued: &HashSet<NodeId>, id: NodeId) -> bool {
-    let mut parent = tree.try_node(id).and_then(|n| n.parent);
-    while let Some(pid) = parent {
-        if queued.contains(&pid) {
-            return true;
-        }
-        parent = tree.try_node(pid).and_then(|n| n.parent);
-    }
-    false
-}
-
-pub(super) fn tree_rows(
-    tree: &Tree,
-    top: &[NodeId],
-    colors: &[Color32],
-    expanded: &HashSet<NodeId>,
-    flat: bool,
-    mode: SizeMode,
-) -> Vec<TreeRow> {
-    struct WalkCtx<'a> {
-        tree: &'a Tree,
-        expanded: &'a HashSet<NodeId>,
-        mode: SizeMode,
-        parent_total: &'a dyn Fn(NodeId) -> f32,
-        out: Vec<TreeRow>,
-    }
-
-    fn walk(ctx: &mut WalkCtx<'_>, id: NodeId, depth: usize, color: Color32, guides: Vec<bool>) {
-        if ctx.out.len() >= MAX_TREE_ROWS {
-            return;
-        }
-        let n = ctx.tree.node(id);
-        let kids = if n.is_dir && !n.synthetic {
-            ctx.tree.children(id)
-        } else {
-            &[]
-        };
-        let open = !kids.is_empty() && ctx.expanded.contains(&id);
-        ctx.out.push(TreeRow {
-            id,
-            depth,
-            color,
-            size: n.size(ctx.mode),
-            share: n.size(ctx.mode) as f32 / (ctx.parent_total)(id),
-            has_kids: !kids.is_empty(),
-            open,
-            guides: guides.clone(),
-        });
-        if open {
-            let mut kids = kids.to_vec();
-            kids.sort_by_key(|&c| std::cmp::Reverse(ctx.tree.node(c).size(ctx.mode)));
-            kids.truncate(MAX_KIDS);
-            let last = kids.len().saturating_sub(1);
-            for (i, k) in kids.into_iter().enumerate() {
-                let mut g = guides.clone();
-                g.push(i != last);
-                let c = if ctx.tree.node(k).synthetic {
-                    MUTED()
-                } else {
-                    color
-                };
-                walk(ctx, k, depth + 1, c, g);
-            }
-        }
-    }
-
-    let parent_total = |id: NodeId| {
-        tree.node(id)
-            .parent
-            .map(|p| tree.node(p).size(mode))
-            .unwrap_or(0)
-            .max(1) as f32
-    };
-    let mut ctx = WalkCtx {
-        tree,
-        expanded,
-        mode,
-        parent_total: &parent_total,
-        out: Vec::new(),
-    };
-    for (i, &id) in top.iter().enumerate() {
-        let color = if tree.node(id).synthetic {
-            MUTED()
-        } else {
-            colors[i]
-        };
-        if flat {
-            ctx.out.push(TreeRow {
-                id,
-                depth: 0,
-                color,
-                size: tree.node(id).size(mode),
-                share: tree.node(id).size(mode) as f32 / parent_total(id),
-                has_kids: false,
-                open: false,
-                guides: Vec::new(),
-            });
-        } else {
-            walk(&mut ctx, id, 0, color, Vec::new());
-        }
-        if ctx.out.len() >= MAX_TREE_ROWS {
-            break;
-        }
-    }
-    ctx.out
-}
 
 pub(super) fn expand_all(tree: &Tree, id: NodeId, expanded: &mut HashSet<NodeId>) {
     let mut stack = vec![id];

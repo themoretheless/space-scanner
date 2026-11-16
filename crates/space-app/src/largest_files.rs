@@ -65,6 +65,10 @@ impl LargestFiles {
         self.data = InsightData::default();
     }
 
+    pub fn state_token(&self) -> (u64, bool) {
+        (self.generation, self.ready)
+    }
+
     /// Only the first frame for a given query starts work, including while it is running.
     pub fn begin(&mut self, focus: NodeId, mode: SizeMode) -> Option<LargestRequest> {
         if self

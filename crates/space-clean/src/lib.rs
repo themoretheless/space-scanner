@@ -11,8 +11,9 @@ pub mod scan;
 pub mod tags;
 
 pub use clean::{
-    clean, clean_with_progress, coalesce_nested_paths, trash_paths_batch, CleanProgress,
-    CleanResult, CleanedItem, DeleteMethod, TRASH_BATCH_SIZE,
+    clean, clean_with_progress, coalesce_nested_paths, delete_candidates_permanently_with_progress,
+    permanent_delete_fast, revalidate_path, trash_paths_batch, CleanProgress, CleanResult,
+    CleanedItem, DeleteCandidate, DeleteMethod, DeleteStats, TRASH_BATCH_SIZE,
 };
 pub use manager::{
     CategoryPolicy, CategoryRow, KindRow, ManagerStats, PrefsError, RiskRow, RuleFilter,

@@ -13,7 +13,7 @@ use egui::epaint::Mesh;
 use egui::{Pos2, RichText, Ui};
 use space_core::{NodeId, SizeMode, SpaceTree};
 
-use crate::theme::MUTED;
+use crate::theme::{DANGER, MUTED};
 
 use sunburst::ArcHit;
 
@@ -83,11 +83,15 @@ pub struct ViewFilter {
     pub max_size: Option<u64>,
     pub use_regex: bool,
     pub regex_invalid: bool,
+    query_lower: String,
+    query_lower_src: String,
     compiled_regex: Option<Arc<regex_automata::meta::Regex>>,
 }
 
 impl ViewFilter {
     pub fn rebuild_regex(&mut self) {
+        self.query_lower = self.query.to_lowercase();
+        self.query_lower_src.clone_from(&self.query);
         self.compiled_regex = None;
         self.regex_invalid = false;
         if self.use_regex && !self.query.is_empty() {
@@ -144,8 +148,12 @@ impl ViewFilter {
                     .windows(self.query.len())
                     .any(|part| part.eq_ignore_ascii_case(self.query.as_bytes()));
             }
-            let q = self.query.to_lowercase();
-            if !name.to_lowercase().contains(&q) {
+            let q: Cow<'_, str> = if self.query_lower_src == self.query {
+                Cow::Borrowed(&self.query_lower)
+            } else {
+                Cow::Owned(self.query.to_lowercase())
+            };
+            if !name.to_lowercase().contains(q.as_ref()) {
                 return false;
             }
         }
@@ -208,12 +216,41 @@ pub fn quantize_px(px: f32) -> u16 {
     (px.clamp(0.0, u16::MAX as f32).round() as u16) & !1
 }
 
+pub fn quantize_pos(px: f32) -> i16 {
+    (px.clamp(i16::MIN as f32, i16::MAX as f32).round() as i16) & !1
+}
+
+pub(crate) fn theme_bits() -> u64 {
+    ((crate::theme::skin() as u64) << 1) | u64::from(crate::theme::high_contrast())
+}
+
+pub fn truncate(s: &str, max: usize) -> Cow<'_, str> {
+    if max == 0 {
+        return Cow::Borrowed("");
+    }
+    if s.len() <= max {
+        return Cow::Borrowed(s);
+    }
+    let keep = max.saturating_sub(1);
+    let mut cut_byte = None;
+    for (count, (byte_idx, _)) in s.char_indices().enumerate() {
+        if count == keep {
+            cut_byte = Some(byte_idx);
+        } else if count >= max {
+            let cut = cut_byte.unwrap_or(0);
+            return Cow::Owned(format!("{}…", &s[..cut]));
+        }
+    }
+    Cow::Borrowed(s)
+}
+
 pub struct ViewAction {
     pub navigate: Option<NodeId>,
     pub select: Option<NodeId>,
     pub toggle_select: Option<NodeId>,
     pub hover: Option<NodeId>,
     pub toggle_review: Option<NodeId>,
+    pub delete_permanent: Option<NodeId>,
     pub filter_ext: Option<String>,
     pub reveal: Option<NodeId>,
     pub quick_look: Option<NodeId>,
@@ -314,6 +351,13 @@ pub fn node_context_menu(
                 action.toggle_review = Some(id);
                 ui.close_menu();
             }
+            if ui
+                .button(RichText::new(t("Delete permanently…")).color(DANGER()))
+                .clicked()
+            {
+                action.delete_permanent = Some(id);
+                ui.close_menu();
+            }
         }
         if ui.button(t("Show in Finder")).clicked() {
             action.reveal = Some(id);
@@ -366,6 +410,7 @@ impl ViewAction {
             toggle_select: None,
             hover: None,
             toggle_review: None,
+            delete_permanent: None,
             filter_ext: None,
             reveal: None,
             quick_look: None,
@@ -401,10 +446,28 @@ pub struct GeomKey {
     pub mode: SizeMode,
     pub filter: u64,
     pub selected: Option<NodeId>,
+    pub x: i16,
+    pub y: i16,
     pub w: u16,
     pub h: u16,
     pub review_sig: u64,
     pub view_opts: u64,
+}
+
+#[derive(Clone, Copy)]
+pub struct RadialBubble {
+    pub id: NodeId,
+    pub pos: Pos2,
+    pub r: f32,
+    pub color: egui::Color32,
+}
+
+#[derive(Clone, Copy)]
+pub struct CascadeBand {
+    pub id: NodeId,
+    pub rect: egui::Rect,
+    pub depth: usize,
+    pub color: egui::Color32,
 }
 
 pub enum GeomCache {
@@ -419,6 +482,17 @@ pub enum GeomCache {
     Treemap {
         key: GeomKey,
         tiles: Vec<(NodeId, egui::Rect, usize)>,
+    },
+    Radial {
+        key: GeomKey,
+        bubbles: Vec<RadialBubble>,
+        center: Pos2,
+        orbit_r: f32,
+        center_r: f32,
+    },
+    Cascade {
+        key: GeomKey,
+        bands: Vec<CascadeBand>,
     },
 }
 
@@ -470,15 +544,7 @@ pub fn child_ids<'a>(ctx: &DrawCtx<'a>, id: NodeId) -> Cow<'a, [NodeId]> {
 }
 
 pub fn review_sig(review: &[NodeId]) -> u64 {
-    let mut h = std::collections::hash_map::DefaultHasher::new();
-    review.len().hash(&mut h);
-    if let Some(first) = review.first() {
-        first.0.hash(&mut h);
-    }
-    if let Some(last) = review.last() {
-        last.0.hash(&mut h);
-    }
-    h.finish()
+    crate::review::signature(review)
 }
 
 #[cfg(test)]
@@ -789,6 +855,28 @@ mod filter_tests {
         assert!(!dirs.matches("src.rs", false, 1));
 
         assert_eq!(quantize_px(800.4), quantize_px(801.1));
+        assert_eq!(quantize_pos(-10.4), quantize_pos(-10.1));
+        assert!(matches!(truncate("short", 10), Cow::Borrowed("short")));
+        assert!(matches!(truncate("ééé", 3), Cow::Borrowed("ééé")));
+        assert_eq!(truncate("abcdef", 4).as_ref(), "abc…");
+    }
+
+    #[test]
+    fn query_lower_cache_matches_unicode_without_stale_results() {
+        let mut filter = ViewFilter {
+            query: "RÉSUMÉ".into(),
+            ..Default::default()
+        };
+        filter.rebuild_regex();
+        assert!(filter.matches("résumé.txt", false, 1));
+        assert!(!filter.matches("other.txt", false, 1));
+
+        // Direct struct mutation without rebuild_regex must stay accurate via fallback.
+        filter.query = "ÜBER".into();
+        assert!(!filter.matches("résumé.txt", false, 1));
+        assert!(filter.matches("über.log", false, 1));
+        filter.rebuild_regex();
+        assert!(filter.matches("über.log", false, 1));
     }
 
     #[test]

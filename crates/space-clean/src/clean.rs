@@ -1,16 +1,34 @@
 use crate::scan::{Finding, ScanReport};
-use anyhow::{Context, Result};
+use anyhow::Result;
+use rayon::prelude::*;
 use serde::Serialize;
 use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
+use std::sync::{mpsc, Mutex};
+use std::time::Duration;
 
 /// How a cleaned item left the filesystem.
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default, Serialize)]
 #[serde(rename_all = "kebab-case")]
 pub enum DeleteMethod {
     /// Moved to the platform Trash; bytes are not freed until it is emptied.
+    #[default]
     Trash,
     /// Removed outright.
     Permanent,
+}
+
+#[derive(Debug, Clone)]
+pub struct DeleteCandidate {
+    pub path: PathBuf,
+    pub bytes: u64,
+    pub is_dir: bool,
+}
+
+#[derive(Debug, Clone, Default)]
+pub struct DeleteStats {
+    pub files_deleted: usize,
+    pub folders_deleted: usize,
 }
 
 impl DeleteMethod {
@@ -254,24 +272,37 @@ pub fn clean_with_progress(
     });
 
     if permanent {
-        for item in candidates {
-            progress.current_path = item.path.clone();
-            match permanent_delete(&item.path) {
-                Ok(()) => record_deleted(
-                    item,
-                    DeleteMethod::Permanent,
-                    &mut deleted,
-                    &mut processed,
-                    &mut freed,
-                    &mut progress,
-                ),
+        let delete_candidates: Vec<DeleteCandidate> = candidates
+            .iter()
+            .map(|item| DeleteCandidate {
+                path: item.path.clone(),
+                bytes: item.bytes,
+                is_dir: item.is_dir,
+            })
+            .collect();
+        let outcomes = delete_candidates_permanently_with_progress(
+            &delete_candidates,
+            progress.clone(),
+            |p| {
+                progress = p.clone();
+                on_progress(p);
+            },
+        );
+        for (item, outcome) in candidates.into_iter().zip(outcomes) {
+            match outcome {
+                Ok(_stats) => {
+                    processed = processed.saturating_add(item.bytes);
+                    freed = freed.saturating_add(item.bytes);
+                    deleted.push(CleanedItem {
+                        path: item.path.clone(),
+                        bytes: item.bytes,
+                        method: DeleteMethod::Permanent.as_str().to_string(),
+                    });
+                }
                 Err(e) => {
                     errors.push(format!("{}: {e}", item.path.display()));
-                    progress.error_count = errors.len();
-                    progress.items_done += 1;
                 }
             }
-            on_progress(progress.clone());
         }
     } else {
         for chunk in candidates.chunks(TRASH_BATCH_SIZE) {
@@ -317,28 +348,51 @@ pub fn clean_with_progress(
 /// `Ok(false)` when it is already gone, `Err(reason)` when it must not be
 /// touched any more.
 fn revalidate(item: &Finding) -> std::result::Result<bool, String> {
-    let Ok(meta) = std::fs::symlink_metadata(&item.path) else {
+    revalidate_path(
+        &item.path,
+        item.is_dir,
+        item.root.as_deref(),
+        item.min_age_days,
+        false,
+    )
+}
+
+/// Re-check a path at delete time, after a scan may have gone stale:
+/// `Ok(false)` when it is already gone, `Err(reason)` when it must not be
+/// touched any more.
+pub fn revalidate_path(
+    path: &Path,
+    expected_is_dir: bool,
+    rule_root: Option<&Path>,
+    min_age_days: u64,
+    allow_top_symlink: bool,
+) -> std::result::Result<bool, String> {
+    let Ok(meta) = std::fs::symlink_metadata(path) else {
         return Ok(false);
     };
     // A symlink swapped in since the scan would make the delete follow it.
     if meta.file_type().is_symlink() {
-        return Err("refused: path is now a symlink".into());
-    }
-    if meta.is_dir() != item.is_dir {
+        if !allow_top_symlink {
+            return Err("refused: path is now a symlink".into());
+        }
+        if expected_is_dir {
+            return Err("refused: folder was replaced by a symlink".into());
+        }
+    } else if meta.is_dir() != expected_is_dir {
         return Err("refused: entry type changed since the scan".into());
     }
-    if crate::safety::is_never_touch(&item.path) {
+    if crate::safety::is_never_touch(path) {
         return Err("blocked by safety".into());
     }
-    if let Some(root) = &item.root {
-        if !crate::safety::stays_under_root(root, &item.path) {
+    if let Some(root) = rule_root {
+        if !crate::safety::stays_under_root(root, path) {
             return Err(format!(
                 "refused: no longer inside rule root {}",
                 root.display()
             ));
         }
     }
-    if !crate::safety::is_old_enough(&item.path, item.min_age_days) {
+    if min_age_days > 0 && !crate::safety::is_old_enough(path, min_age_days) {
         return Err("skipped: modified since the scan".into());
     }
     Ok(true)
@@ -371,14 +425,451 @@ fn record_deleted(
     });
 }
 
-fn permanent_delete(path: &std::path::Path) -> Result<()> {
-    if path.is_dir() {
-        std::fs::remove_dir_all(path)
-            .with_context(|| format!("remove_dir_all {}", path.display()))?;
-    } else {
-        std::fs::remove_file(path).with_context(|| format!("remove_file {}", path.display()))?;
+struct LiveDeleteCounters<'a> {
+    files_done: Option<&'a AtomicUsize>,
+    folders_done: Option<&'a AtomicUsize>,
+    current_path: Option<&'a Mutex<PathBuf>>,
+}
+
+/// Permanently delete `path` (bypassing Trash) using parallel tree traversal
+/// and unlinking. Never follows symlinks.
+pub fn permanent_delete_fast(path: &Path) -> std::result::Result<DeleteStats, String> {
+    permanent_delete_with_counters(
+        path,
+        &LiveDeleteCounters {
+            files_done: None,
+            folders_done: None,
+            current_path: None,
+        },
+    )
+}
+
+/// Permanently delete `candidates` in parallel while streaming live progress
+/// updates to `on_progress`.
+pub fn delete_candidates_permanently_with_progress(
+    candidates: &[DeleteCandidate],
+    initial_progress: CleanProgress,
+    mut on_progress: impl FnMut(CleanProgress),
+) -> Vec<std::result::Result<DeleteStats, String>> {
+    if candidates.is_empty() {
+        return Vec::new();
     }
-    Ok(())
+    if candidates.len() <= 2 && candidates.iter().all(|c| !c.is_dir) {
+        let mut progress = initial_progress;
+        let mut outcomes = Vec::with_capacity(candidates.len());
+        let no_live = LiveDeleteCounters {
+            files_done: None,
+            folders_done: None,
+            current_path: None,
+        };
+        for candidate in candidates {
+            progress.current_path = candidate.path.clone();
+            let outcome = permanent_delete_with_counters(&candidate.path, &no_live);
+            match &outcome {
+                Ok(stats) => {
+                    progress.files_done += stats.files_deleted;
+                    progress.folders_deleted_add(stats.folders_deleted);
+                    progress.bytes_processed =
+                        progress.bytes_processed.saturating_add(candidate.bytes);
+                    progress.bytes_freed = progress.bytes_freed.saturating_add(candidate.bytes);
+                }
+                Err(_) => {
+                    progress.error_count += 1;
+                }
+            }
+            progress.items_done += 1;
+            on_progress(progress.clone());
+            outcomes.push(outcome);
+        }
+        return outcomes;
+    }
+
+    let items_done = AtomicUsize::new(initial_progress.items_done);
+    let files_done = AtomicUsize::new(initial_progress.files_done);
+    let folders_done = AtomicUsize::new(initial_progress.folders_done);
+    let bytes_processed = AtomicU64::new(initial_progress.bytes_processed);
+    let bytes_freed = AtomicU64::new(initial_progress.bytes_freed);
+    let error_count = AtomicUsize::new(initial_progress.error_count);
+    let current_path = Mutex::new(initial_progress.current_path.clone());
+    let done = AtomicBool::new(false);
+    let items_total = initial_progress.items_total;
+
+    let snapshot = || CleanProgress {
+        items_done: items_done.load(Ordering::Relaxed),
+        items_total,
+        files_done: files_done.load(Ordering::Relaxed),
+        folders_done: folders_done.load(Ordering::Relaxed),
+        bytes_processed: bytes_processed.load(Ordering::Relaxed),
+        bytes_freed: bytes_freed.load(Ordering::Relaxed),
+        error_count: error_count.load(Ordering::Relaxed),
+        current_path: current_path
+            .try_lock()
+            .map(|p| p.clone())
+            .unwrap_or_default(),
+    };
+
+    let outcomes = std::thread::scope(|scope| {
+        let (tx, rx) = mpsc::channel::<()>();
+        let items_done_ref = &items_done;
+        let files_done_ref = &files_done;
+        let folders_done_ref = &folders_done;
+        let bytes_processed_ref = &bytes_processed;
+        let bytes_freed_ref = &bytes_freed;
+        let error_count_ref = &error_count;
+        let current_path_ref = &current_path;
+        let done_ref = &done;
+
+        let handle = scope.spawn(move || {
+            let live = LiveDeleteCounters {
+                files_done: Some(files_done_ref),
+                folders_done: Some(folders_done_ref),
+                current_path: Some(current_path_ref),
+            };
+            let results: Vec<std::result::Result<DeleteStats, String>> = candidates
+                .par_iter()
+                .map(|candidate| {
+                    set_current_path(current_path_ref, &candidate.path);
+                    let res = permanent_delete_with_counters(&candidate.path, &live);
+                    match &res {
+                        Ok(_) => {
+                            bytes_processed_ref.fetch_add(candidate.bytes, Ordering::Relaxed);
+                            bytes_freed_ref.fetch_add(candidate.bytes, Ordering::Relaxed);
+                        }
+                        Err(_) => {
+                            error_count_ref.fetch_add(1, Ordering::Relaxed);
+                        }
+                    }
+                    items_done_ref.fetch_add(1, Ordering::Relaxed);
+                    let _ = tx.send(());
+                    res
+                })
+                .collect();
+            done_ref.store(true, Ordering::Release);
+            let _ = tx.send(());
+            results
+        });
+
+        let mut last_path = initial_progress.current_path;
+        loop {
+            match rx.recv_timeout(Duration::from_millis(30)) {
+                Ok(()) => while rx.try_recv().is_ok() {},
+                Err(mpsc::RecvTimeoutError::Timeout) => {}
+                Err(mpsc::RecvTimeoutError::Disconnected) => break,
+            }
+            let mut snap = snapshot();
+            if snap.current_path.as_os_str().is_empty() {
+                snap.current_path = last_path.clone();
+            } else {
+                last_path = snap.current_path.clone();
+            }
+            on_progress(snap);
+            if done.load(Ordering::Acquire) {
+                break;
+            }
+        }
+        handle.join().expect("permanent delete worker panicked")
+    });
+
+    let mut final_snap = snapshot();
+    if final_snap.current_path.as_os_str().is_empty() {
+        if let Some(last) = candidates.last() {
+            final_snap.current_path = last.path.clone();
+        }
+    }
+    on_progress(final_snap);
+    outcomes
+}
+
+impl CleanProgress {
+    fn folders_deleted_add(&mut self, n: usize) {
+        self.folders_done += n;
+    }
+}
+
+fn set_current_path(slot: &Mutex<PathBuf>, path: &Path) {
+    if let Ok(mut guard) = slot.try_lock() {
+        guard.clear();
+        guard.push(path);
+    }
+}
+
+fn permanent_delete_with_counters(
+    path: &Path,
+    ctx: &LiveDeleteCounters<'_>,
+) -> std::result::Result<DeleteStats, String> {
+    let meta = match std::fs::symlink_metadata(path) {
+        Ok(meta) => meta,
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(DeleteStats::default()),
+        Err(e) => return Err(format!("stat {}: {e}", path.display())),
+    };
+    let ft = meta.file_type();
+    if ft.is_dir() {
+        permanent_delete_dir_parallel(path, ctx)
+    } else {
+        unlink_non_dir(path, None, ft.is_symlink())?;
+        if let Some(counter) = ctx.files_done {
+            counter.fetch_add(1, Ordering::Relaxed);
+        }
+        Ok(DeleteStats {
+            files_deleted: 1,
+            folders_deleted: 0,
+        })
+    }
+}
+
+fn permanent_delete_dir_parallel(
+    root: &Path,
+    ctx: &LiveDeleteCounters<'_>,
+) -> std::result::Result<DeleteStats, String> {
+    let mut levels: Vec<Vec<PathBuf>> = vec![vec![root.to_path_buf()]];
+    let first_error: Mutex<Option<String>> = Mutex::new(None);
+    let files_deleted = AtomicUsize::new(0);
+    let folders_deleted = AtomicUsize::new(0);
+
+    loop {
+        let current_level = levels.last().expect("at least root level");
+        let next_dirs: Vec<PathBuf> = if current_level.len() >= 2 {
+            current_level
+                .par_iter()
+                .flat_map_iter(|dir| process_dir_for_delete(dir, &files_deleted, &first_error, ctx))
+                .collect()
+        } else if let Some(dir) = current_level.first() {
+            process_dir_for_delete(dir, &files_deleted, &first_error, ctx)
+        } else {
+            Vec::new()
+        };
+        if next_dirs.is_empty() {
+            break;
+        }
+        levels.push(next_dirs);
+    }
+
+    for (depth, level) in levels.iter().enumerate().rev() {
+        let remove_one = |dir: &Path| {
+            let parent_inside = if depth > 0 { dir.parent() } else { None };
+            match remove_empty_dir(dir, parent_inside) {
+                Ok(()) => {
+                    folders_deleted.fetch_add(1, Ordering::Relaxed);
+                    if let Some(counter) = ctx.folders_done {
+                        counter.fetch_add(1, Ordering::Relaxed);
+                    }
+                }
+                Err(e) => {
+                    record_first_error(&first_error, format!("remove_dir {}: {e}", dir.display()));
+                }
+            }
+        };
+        if level.len() >= 8 {
+            level.par_iter().for_each(|dir| remove_one(dir));
+        } else {
+            for dir in level {
+                remove_one(dir);
+            }
+        }
+    }
+
+    if let Some(err) = first_error.into_inner().unwrap_or_else(|p| p.into_inner()) {
+        return Err(err);
+    }
+    Ok(DeleteStats {
+        files_deleted: files_deleted.load(Ordering::Relaxed),
+        folders_deleted: folders_deleted.load(Ordering::Relaxed),
+    })
+}
+
+fn process_dir_for_delete(
+    dir: &Path,
+    files_deleted: &AtomicUsize,
+    first_error: &Mutex<Option<String>>,
+    ctx: &LiveDeleteCounters<'_>,
+) -> Vec<PathBuf> {
+    if let Some(slot) = ctx.current_path {
+        set_current_path(slot, dir);
+    }
+    let rd = match std::fs::read_dir(dir) {
+        Ok(rd) => rd,
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Vec::new(),
+        Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied => {
+            ensure_writable_dir(dir);
+            match std::fs::read_dir(dir) {
+                Ok(rd) => rd,
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Vec::new(),
+                Err(e) => {
+                    record_first_error(first_error, format!("read_dir {}: {e}", dir.display()));
+                    return Vec::new();
+                }
+            }
+        }
+        Err(e) => {
+            record_first_error(first_error, format!("read_dir {}: {e}", dir.display()));
+            return Vec::new();
+        }
+    };
+
+    let mut subdirs = Vec::new();
+    let mut overflow_non_dirs: Vec<(PathBuf, bool)> = Vec::new();
+    let mut inline_count = 0usize;
+    let mut inline_deleted = 0usize;
+
+    for entry in rd {
+        let entry = match entry {
+            Ok(entry) => entry,
+            Err(e) => {
+                record_first_error(first_error, format!("read_dir {}: {e}", dir.display()));
+                continue;
+            }
+        };
+        let path = entry.path();
+        let ft = match entry.file_type() {
+            Ok(ft) => ft,
+            Err(_) => match std::fs::symlink_metadata(&path) {
+                Ok(m) => m.file_type(),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => continue,
+                Err(e) => {
+                    record_first_error(first_error, format!("stat {}: {e}", path.display()));
+                    continue;
+                }
+            },
+        };
+        if ft.is_dir() {
+            subdirs.push(path);
+        } else if inline_count < 64 {
+            inline_count += 1;
+            match unlink_non_dir(&path, Some(dir), ft.is_symlink()) {
+                Ok(()) => inline_deleted += 1,
+                Err(err) => record_first_error(first_error, err),
+            }
+        } else {
+            overflow_non_dirs.push((path, ft.is_symlink()));
+        }
+    }
+
+    if inline_deleted > 0 {
+        files_deleted.fetch_add(inline_deleted, Ordering::Relaxed);
+        if let Some(counter) = ctx.files_done {
+            counter.fetch_add(inline_deleted, Ordering::Relaxed);
+        }
+    }
+
+    if !overflow_non_dirs.is_empty() {
+        overflow_non_dirs.par_chunks(128).for_each(|chunk| {
+            let mut chunk_deleted = 0usize;
+            for (path, is_symlink) in chunk {
+                match unlink_non_dir(path, Some(dir), *is_symlink) {
+                    Ok(()) => chunk_deleted += 1,
+                    Err(err) => record_first_error(first_error, err),
+                }
+            }
+            if chunk_deleted > 0 {
+                files_deleted.fetch_add(chunk_deleted, Ordering::Relaxed);
+                if let Some(counter) = ctx.files_done {
+                    counter.fetch_add(chunk_deleted, Ordering::Relaxed);
+                }
+            }
+        });
+    }
+
+    subdirs
+}
+
+fn record_first_error(slot: &Mutex<Option<String>>, msg: String) {
+    let mut guard = slot.lock().unwrap_or_else(|p| p.into_inner());
+    if guard.is_none() {
+        *guard = Some(msg);
+    }
+}
+
+fn remove_empty_dir(dir: &Path, parent_inside_target: Option<&Path>) -> std::io::Result<()> {
+    match std::fs::remove_dir(dir) {
+        Ok(()) => Ok(()),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        Err(e) if e.kind() == std::io::ErrorKind::PermissionDenied => {
+            ensure_writable_dir(dir);
+            if let Some(parent) = parent_inside_target {
+                ensure_writable_dir(parent);
+            }
+            match std::fs::remove_dir(dir) {
+                Ok(()) => Ok(()),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+                Err(e) => Err(e),
+            }
+        }
+        Err(e) => Err(e),
+    }
+}
+
+fn remove_non_dir_once(path: &Path, is_symlink: bool) -> std::io::Result<()> {
+    match std::fs::remove_file(path) {
+        Ok(()) => Ok(()),
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+        #[cfg(windows)]
+        Err(_) if is_symlink => match std::fs::remove_dir(path) {
+            Ok(()) => Ok(()),
+            Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+            Err(e) => Err(e),
+        },
+        Err(e) => {
+            let _ = is_symlink;
+            Err(e)
+        }
+    }
+}
+
+fn unlink_non_dir(
+    path: &Path,
+    parent_inside_target: Option<&Path>,
+    is_symlink: bool,
+) -> std::result::Result<(), String> {
+    match remove_non_dir_once(path, is_symlink) {
+        Ok(()) => Ok(()),
+        Err(err) if err.kind() == std::io::ErrorKind::PermissionDenied => {
+            if let Some(parent) = parent_inside_target {
+                ensure_writable_dir(parent);
+            }
+            if !is_symlink {
+                ensure_writable_entry(path);
+            }
+            remove_non_dir_once(path, is_symlink)
+                .map_err(|e| format!("remove {}: {e}", path.display()))
+        }
+        Err(err) => Err(format!("remove {}: {err}", path.display())),
+    }
+}
+
+fn ensure_writable_dir(path: &Path) {
+    ensure_writable_mode(path, 0o700);
+}
+
+fn ensure_writable_entry(path: &Path) {
+    ensure_writable_mode(path, 0o200);
+}
+
+fn ensure_writable_mode(path: &Path, unix_mask: u32) {
+    let Ok(meta) = std::fs::symlink_metadata(path) else {
+        return;
+    };
+    if meta.file_type().is_symlink() {
+        return;
+    }
+    let mut perms = meta.permissions();
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        let mode = perms.mode();
+        let needed = mode | unix_mask;
+        if needed != mode {
+            perms.set_mode(needed);
+            let _ = std::fs::set_permissions(path, perms);
+        }
+    }
+    #[cfg(not(unix))]
+    {
+        let _ = unix_mask;
+        if perms.readonly() {
+            perms.set_readonly(false);
+            let _ = std::fs::set_permissions(path, perms);
+        }
+    }
 }
 
 #[cfg(test)]
@@ -610,5 +1101,90 @@ mod tests {
             String::from_utf8_lossy(&output.stderr)
         );
         assert_eq!(String::from_utf8_lossy(&output.stdout).trim(), "2");
+    }
+
+    #[test]
+    fn permanent_delete_removes_deep_parallel_tree_and_readonly_entries() {
+        let dir = tempfile::tempdir().unwrap();
+        let target = dir.path().join("cache-tree");
+        let mut total_bytes = 0u64;
+        for branch in 0..4 {
+            let sub = target.join(format!("branch-{branch}/nested"));
+            fs::create_dir_all(&sub).unwrap();
+            for i in 0..60 {
+                let file = sub.join(format!("blob-{i:03}.bin"));
+                fs::write(&file, b"payload").unwrap();
+                total_bytes += 7;
+                if i % 15 == 0 {
+                    let mut p = fs::metadata(&file).unwrap().permissions();
+                    #[cfg(unix)]
+                    {
+                        use std::os::unix::fs::PermissionsExt;
+                        p.set_mode(0o444);
+                    }
+                    #[cfg(not(unix))]
+                    p.set_readonly(true);
+                    fs::set_permissions(&file, p).unwrap();
+                }
+            }
+            #[cfg(unix)]
+            {
+                use std::os::unix::fs::PermissionsExt;
+                let mut p = fs::metadata(&sub).unwrap().permissions();
+                p.set_mode(0o555);
+                fs::set_permissions(&sub, p).unwrap();
+            }
+        }
+
+        let report = report(vec![finding(target.clone(), total_bytes, true)]);
+        let mut updates = Vec::new();
+        let result = clean_with_progress(&report, true, |p| updates.push(p)).unwrap();
+        assert!(result.errors.is_empty(), "{:?}", result.errors);
+        assert_eq!(result.deleted.len(), 1);
+        assert_eq!(result.freed_bytes, total_bytes);
+        assert!(!target.exists());
+        let last = updates.last().unwrap();
+        assert_eq!(last.items_done, 1);
+        assert!(last.files_done >= 240);
+        assert!(last.folders_done >= 9);
+        assert_eq!(last.bytes_freed, total_bytes);
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn permanent_delete_unlinks_nested_symlinks_without_touching_targets() {
+        use std::os::unix::fs::PermissionsExt;
+
+        let dir = tempfile::tempdir().unwrap();
+        let external = dir.path().join("precious-target");
+        fs::create_dir_all(&external).unwrap();
+        let external_file = external.join("keep.txt");
+        fs::write(&external_file, b"keep").unwrap();
+        let mut ro = fs::metadata(&external_file).unwrap().permissions();
+        ro.set_mode(0o444);
+        fs::set_permissions(&external_file, ro).unwrap();
+
+        let target = dir.path().join("junk-dir");
+        fs::create_dir_all(&target).unwrap();
+        let nested_link = target.join("link-to-external");
+        std::os::unix::fs::symlink(&external, &nested_link).unwrap();
+
+        let stats = permanent_delete_fast(&target).unwrap();
+        assert!(!target.exists());
+        assert_eq!(stats.files_deleted, 1);
+        assert_eq!(stats.folders_deleted, 1);
+        assert!(external.exists(), "external directory must survive");
+        assert!(external_file.exists(), "external file must survive");
+        let surviving_mode = fs::metadata(&external_file).unwrap().permissions().mode() & 0o777;
+        assert_eq!(surviving_mode, 0o444);
+
+        let top_link = dir.path().join("top-link");
+        std::os::unix::fs::symlink(&external, &top_link).unwrap();
+        let top_stats = permanent_delete_fast(&top_link).unwrap();
+        assert_eq!(top_stats.files_deleted, 1);
+        assert_eq!(top_stats.folders_deleted, 0);
+        assert!(top_link.symlink_metadata().is_err());
+        assert!(external.exists());
+        assert!(external_file.exists());
     }
 }

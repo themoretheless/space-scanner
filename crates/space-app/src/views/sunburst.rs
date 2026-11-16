@@ -7,7 +7,10 @@ use space_core::NodeId;
 
 use crate::i18n::t;
 use crate::theme::{self, ACCENT, MUTED, TEXT};
-use crate::views::{child_ids, quantize_px, DrawCtx, GeomCache, GeomKey, ViewAction};
+use crate::views::{
+    child_ids, quantize_pos, quantize_px, theme_bits, truncate, DrawCtx, GeomCache, GeomKey,
+    ViewAction,
+};
 
 /// ~8px at outer ring — hairline wedges become "Other".
 const MIN_SWEEP_PX: f32 = 8.0;
@@ -41,17 +44,19 @@ pub fn draw(ui: &mut Ui, ctx: &mut DrawCtx<'_>) -> ViewAction {
     let hole = max_r * 0.22;
     let ring_w = (max_r - hole) / max_depth as f32;
 
-    // Quantize size so sub-pixel layout jitter doesn't rebuild the mesh every frame.
+    // Quantize size and origin so sub-pixel layout jitter doesn't rebuild the mesh every frame.
     let key = GeomKey {
         view: 0,
         focus,
         mode: ctx.mode,
         filter: ctx.filter_hash,
         selected: None,
+        x: quantize_pos(rect.left()),
+        y: quantize_pos(rect.top()),
         w: quantize_px(rect.width()),
         h: quantize_px(rect.height()),
         review_sig: 0,
-        view_opts: max_depth as u64,
+        view_opts: (max_depth as u64) | (theme_bits() << 8),
     };
 
     let need_rebuild = match ctx.geom.as_ref() {
@@ -658,13 +663,4 @@ fn is_ancestor(tree: &space_core::SpaceTree, mut node: NodeId, candidate: NodeId
         node = parent;
     }
     false
-}
-
-fn truncate(s: &str, max: usize) -> String {
-    if s.chars().count() <= max {
-        s.to_string()
-    } else {
-        let t: String = s.chars().take(max.saturating_sub(1)).collect();
-        format!("{t}…")
-    }
 }

@@ -419,6 +419,9 @@ mod tests {
             include_str!("app/ui/dialogs.rs"),
             include_str!("app/ui/export_ui.rs"),
             include_str!("app.rs"),
+            include_str!("app/actions.rs"),
+            include_str!("app/caches.rs"),
+            include_str!("app/workers.rs"),
             include_str!("downloads.rs"),
             include_str!("junk_panel.rs"),
             include_str!("rules_panel.rs"),
@@ -435,6 +438,8 @@ mod tests {
             "tr!(\"",
             "primary(\"",
             "secondary(\"",
+            "danger(\"",
+            "danger_secondary(\"",
             "ghost(\"",
             "caption(\"",
         ];

@@ -34,15 +34,21 @@ pub struct DownloadsState {
     selected: Vec<bool>,
     selected_count: usize,
     selected_bytes: u128,
+    selection_version: u64,
 }
 
 impl DownloadsState {
+    pub fn selection_version(&self) -> u64 {
+        self.selection_version
+    }
+
     pub fn set_items(&mut self, items: Vec<DownloadItem>) {
         self.loading = false;
         self.selected = vec![false; items.len()];
         self.selected_count = 0;
         self.selected_bytes = 0;
         self.items = items;
+        self.selection_version = self.selection_version.wrapping_add(1);
     }
 
     pub fn items(&self) -> &[DownloadItem] {
@@ -75,6 +81,7 @@ impl DownloadsState {
             return;
         }
         *current = on;
+        self.selection_version = self.selection_version.wrapping_add(1);
         let bytes = u128::from(self.items[index].bytes);
         if on {
             self.selected_count += 1;
@@ -106,6 +113,9 @@ impl DownloadsState {
     }
 
     pub fn clear_selection(&mut self) {
+        if self.selected_count > 0 {
+            self.selection_version = self.selection_version.wrapping_add(1);
+        }
         self.selected.fill(false);
         self.selected_count = 0;
         self.selected_bytes = 0;
@@ -138,9 +148,11 @@ impl DownloadsState {
         let mut kept_selected = Vec::with_capacity(self.items.len());
         let mut count = 0usize;
         let mut bytes = 0u128;
+        let mut changed = false;
 
         for (index, item) in self.items.drain(..).enumerate() {
             if removed.iter().any(|path| item.path.starts_with(path)) {
+                changed = true;
                 continue;
             }
             let checked = self.selected.get(index).copied().unwrap_or(false);
@@ -156,6 +168,9 @@ impl DownloadsState {
         self.selected = kept_selected;
         self.selected_count = count;
         self.selected_bytes = bytes;
+        if changed {
+            self.selection_version = self.selection_version.wrapping_add(1);
+        }
     }
 }
 
@@ -365,5 +380,40 @@ mod tests {
         assert_eq!(state.selected_items()[0].name, "Tool.pkg");
 
         fs::remove_dir_all(&dir).unwrap();
+    }
+
+    #[test]
+    fn selection_version_tracks_changes() {
+        let mut state = DownloadsState::default();
+        let v0 = state.selection_version();
+        state.set_items(vec![DownloadItem {
+            path: PathBuf::from("/tmp/a.dmg"),
+            name: "a.dmg".into(),
+            bytes: 100,
+            is_dir: false,
+            kind: DownloadKind::Installer,
+            age_secs: None,
+        }]);
+        let v1 = state.selection_version();
+        assert_ne!(v1, v0);
+
+        state.set_selected(0, true);
+        let v2 = state.selection_version();
+        assert_ne!(v2, v1);
+
+        // No-op toggle leaves version unchanged.
+        state.set_selected(0, true);
+        assert_eq!(state.selection_version(), v2);
+
+        state.clear_selection();
+        let v3 = state.selection_version();
+        assert_ne!(v3, v2);
+
+        // Clearing an empty selection leaves version unchanged.
+        state.clear_selection();
+        assert_eq!(state.selection_version(), v3);
+
+        state.remove_paths(&[PathBuf::from("/tmp/a.dmg")]);
+        assert_ne!(state.selection_version(), v3);
     }
 }
