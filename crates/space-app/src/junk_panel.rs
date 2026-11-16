@@ -24,6 +24,7 @@ pub struct JunkPanelState {
     pub open: bool,
     pub loading: bool,
     report: Option<JunkReport>,
+    report_version: u64,
     pub progress: JunkScanProgress,
     pub scan_started: Option<Instant>,
     selection: Selection,
@@ -84,6 +85,10 @@ impl JunkPanelState {
         self.selection.version
     }
 
+    pub fn report_version(&self) -> u64 {
+        self.report_version
+    }
+
     /// Junk rule covering `path` (the path itself or a parent), from the last junk scan.
     pub fn risk_hint(&self, path: &Path) -> Option<(String, &'static str, Color32, &'static str)> {
         let f = self
@@ -131,6 +136,7 @@ impl JunkPanelState {
         let mut selection = Selection::from_safe_findings(&report.findings);
         selection.version = next_version;
         self.selection = selection;
+        self.report_version = self.report_version.wrapping_add(1);
         self.report = Some(JunkReport::new(report));
     }
 
@@ -216,6 +222,9 @@ impl JunkPanelState {
         }
 
         self.selection = next_selection;
+        if changed {
+            self.report_version = self.report_version.wrapping_add(1);
+        }
         self.report = Some(next_report);
     }
 
@@ -983,7 +992,8 @@ fn visible_rows(
     start.min(count)..end.min(count)
 }
 
-fn cat_title(cat: &str) -> String {
+/// Readable name of a rule-pack category, shared with the rules window.
+pub(crate) fn cat_title(cat: &str) -> String {
     match cat {
         "caches" | "cache" => "Caches".into(),
         "logs" | "app-logs" => "Logs".into(),
@@ -999,7 +1009,7 @@ fn cat_title(cat: &str) -> String {
         "vm-cache" => "VM caches".into(),
         "vm-disk" => "VM disks".into(),
         "game-cache" => "Game caches".into(),
-        "game-downloads" => "Game downloads".into(),
+        "games-downloads" | "game-downloads" => "Game downloads".into(),
         "shader-cache" => "Shader caches".into(),
         "wine-cache" => "Wine caches".into(),
         "databases" => "Databases".into(),
@@ -1008,6 +1018,12 @@ fn cat_title(cat: &str) -> String {
         "report" => "Report only".into(),
         "media-library" => "Media libraries".into(),
         "sample-library" => "Sample libraries".into(),
+        "browser-privacy" => "Browser history and cookies".into(),
+        "community-sources" => "Popular apps".into(),
+        "node-projects" => "Node.js projects".into(),
+        "dotnet-projects" => ".NET projects".into(),
+        "language-projects" => "Other language projects".into(),
+        "misc" => "Miscellaneous".into(),
         other => {
             let mut s = other.replace('-', " ");
             if let Some(c) = s.get_mut(0..1) {
