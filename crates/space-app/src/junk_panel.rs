@@ -3,7 +3,7 @@
 
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
-use std::time::Instant;
+use std::time::{Instant, SystemTime, UNIX_EPOCH};
 
 use eframe::egui::{self, Align, Color32, Layout, RichText, Sense};
 use space_clean::{Finding, JunkScanProgress, ScanReport};
@@ -19,6 +19,74 @@ pub enum JunkGroup {
     Review,
 }
 
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum FindingSortKey {
+    #[default]
+    Size,
+    Path,
+    Age,
+    Selected,
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub enum SortDir {
+    Asc,
+    #[default]
+    Desc,
+}
+
+impl SortDir {
+    fn toggled(self) -> Self {
+        match self {
+            Self::Asc => Self::Desc,
+            Self::Desc => Self::Asc,
+        }
+    }
+}
+
+impl FindingSortKey {
+    const ALL: [Self; 4] = [Self::Size, Self::Path, Self::Age, Self::Selected];
+
+    const fn default_dir(self) -> SortDir {
+        match self {
+            Self::Path => SortDir::Asc,
+            Self::Size | Self::Age | Self::Selected => SortDir::Desc,
+        }
+    }
+
+    fn translated_label(self) -> &'static str {
+        match self {
+            Self::Size => t("Size"),
+            Self::Path => t("Path"),
+            Self::Age => t("Age"),
+            Self::Selected => t("Checked"),
+        }
+    }
+
+    fn translated_hint(self, dir: SortDir) -> &'static str {
+        match (self, dir) {
+            (Self::Size, SortDir::Desc) => t("Largest first"),
+            (Self::Size, SortDir::Asc) => t("Smallest first"),
+            (Self::Path, SortDir::Asc) => t("Path A–Z"),
+            (Self::Path, SortDir::Desc) => t("Path Z–A"),
+            (Self::Age, SortDir::Desc) => t("Oldest first"),
+            (Self::Age, SortDir::Asc) => t("Newest first"),
+            (Self::Selected, SortDir::Desc) => t("Selected first"),
+            (Self::Selected, SortDir::Asc) => t("Unselected first"),
+        }
+    }
+}
+
+struct SortedCatCache {
+    report_version: u64,
+    group: JunkGroup,
+    cat_name: String,
+    sort_key: FindingSortKey,
+    sort_dir: SortDir,
+    selection_version: u64,
+    indices: Vec<usize>,
+}
+
 #[derive(Default)]
 pub struct JunkPanelState {
     pub open: bool,
@@ -31,6 +99,9 @@ pub struct JunkPanelState {
     pub safe_open: bool,
     pub review_open: bool,
     pub expanded_cat: Option<(JunkGroup, String)>,
+    pub sort_key: FindingSortKey,
+    pub sort_dir: SortDir,
+    sorted_cache: Option<SortedCatCache>,
     pub error: Option<String>,
 }
 
@@ -132,6 +203,7 @@ impl JunkPanelState {
         self.safe_open = false;
         self.review_open = false;
         self.expanded_cat = None;
+        self.sorted_cache = None;
         let next_version = self.selection.version.wrapping_add(1);
         let mut selection = Selection::from_safe_findings(&report.findings);
         selection.version = next_version;
@@ -222,6 +294,7 @@ impl JunkPanelState {
         }
 
         self.selection = next_selection;
+        self.sorted_cache = None;
         if changed {
             self.report_version = self.report_version.wrapping_add(1);
         }
@@ -400,8 +473,12 @@ impl JunkReport {
         let mut safe_categories = Vec::new();
         let mut review_categories = Vec::new();
         for ((group, _), mut cat) in grouped {
-            cat.indices
-                .sort_by_key(|&idx| std::cmp::Reverse(scan.findings[idx].bytes));
+            cat.indices.sort_by(|&a, &b| {
+                scan.findings[b]
+                    .bytes
+                    .cmp(&scan.findings[a].bytes)
+                    .then_with(|| a.cmp(&b))
+            });
             match group {
                 JunkGroup::Safe => safe_categories.push(cat),
                 JunkGroup::Review => review_categories.push(cat),
@@ -852,12 +929,28 @@ fn draw_group_categories(
                     ui.label(widgets::caption(hint));
                     ui.add_space(2.0);
                 }
-                draw_finding_rows(
-                    ui,
+                if cat.indices.len() > 1 {
+                    draw_sort_bar(ui, &mut state.sort_key, &mut state.sort_dir);
+                    ui.add_space(4.0);
+                }
+                let indices = sorted_cat_indices(
+                    &mut state.sorted_cache,
+                    state.report_version,
                     group,
                     cat,
                     findings,
+                    &state.selection,
+                    state.sort_key,
+                    state.sort_dir,
+                );
+                draw_finding_rows(
+                    ui,
+                    group,
+                    &cat.name,
+                    indices,
+                    findings,
                     &mut state.selection,
+                    state.sort_key,
                     reveal,
                     delete_now,
                 );
@@ -895,12 +988,152 @@ fn sources(cat: &CatAgg, findings: &[Finding]) -> String {
     }
 }
 
+fn cmp_paths(a: &Path, b: &Path) -> std::cmp::Ordering {
+    let sa = a.as_os_str().as_encoded_bytes();
+    let sb = b.as_os_str().as_encoded_bytes();
+    sa.iter()
+        .map(u8::to_ascii_lowercase)
+        .cmp(sb.iter().map(u8::to_ascii_lowercase))
+        .then_with(|| sa.cmp(sb))
+}
+
+fn sort_finding_indices(
+    indices: &mut [usize],
+    findings: &[Finding],
+    selection: &Selection,
+    sort_key: FindingSortKey,
+    sort_dir: SortDir,
+) {
+    indices.sort_by(|&a, &b| match sort_key {
+        FindingSortKey::Size => {
+            let ord = match sort_dir {
+                SortDir::Desc => findings[b].bytes.cmp(&findings[a].bytes),
+                SortDir::Asc => findings[a].bytes.cmp(&findings[b].bytes),
+            };
+            ord.then_with(|| a.cmp(&b))
+        }
+        FindingSortKey::Path => {
+            let ord = match sort_dir {
+                SortDir::Asc => cmp_paths(&findings[a].path, &findings[b].path),
+                SortDir::Desc => cmp_paths(&findings[b].path, &findings[a].path),
+            };
+            ord.then_with(|| a.cmp(&b))
+        }
+        FindingSortKey::Age => match (findings[a].modified_unix, findings[b].modified_unix) {
+            (Some(ta), Some(tb)) => {
+                let ord = match sort_dir {
+                    // Desc = oldest first (largest age = smallest timestamp)
+                    SortDir::Desc => ta.cmp(&tb),
+                    // Asc = newest first (smallest age = largest timestamp)
+                    SortDir::Asc => tb.cmp(&ta),
+                };
+                ord.then_with(|| findings[b].bytes.cmp(&findings[a].bytes))
+                    .then_with(|| a.cmp(&b))
+            }
+            // Unknown mtime always goes to the bottom in both directions
+            (Some(_), None) => std::cmp::Ordering::Less,
+            (None, Some(_)) => std::cmp::Ordering::Greater,
+            (None, None) => findings[b]
+                .bytes
+                .cmp(&findings[a].bytes)
+                .then_with(|| a.cmp(&b)),
+        },
+        FindingSortKey::Selected => {
+            let sa = selection.contains(a);
+            let sb = selection.contains(b);
+            let ord = match sort_dir {
+                SortDir::Desc => sb.cmp(&sa),
+                SortDir::Asc => sa.cmp(&sb),
+            };
+            ord.then_with(|| findings[b].bytes.cmp(&findings[a].bytes))
+                .then_with(|| a.cmp(&b))
+        }
+    });
+}
+
+#[allow(clippy::too_many_arguments)]
+fn sorted_cat_indices<'a>(
+    cache: &'a mut Option<SortedCatCache>,
+    report_version: u64,
+    group: JunkGroup,
+    cat: &'a CatAgg,
+    findings: &[Finding],
+    selection: &Selection,
+    sort_key: FindingSortKey,
+    sort_dir: SortDir,
+) -> &'a [usize] {
+    if sort_key == FindingSortKey::Size && sort_dir == SortDir::Desc {
+        return &cat.indices;
+    }
+    let sel_ver = if sort_key == FindingSortKey::Selected {
+        selection.version
+    } else {
+        0
+    };
+    let valid = cache.as_ref().is_some_and(|c| {
+        c.report_version == report_version
+            && c.group == group
+            && c.cat_name == cat.name
+            && c.sort_key == sort_key
+            && c.sort_dir == sort_dir
+            && c.selection_version == sel_ver
+    });
+    if !valid {
+        let mut indices = cat.indices.clone();
+        sort_finding_indices(&mut indices, findings, selection, sort_key, sort_dir);
+        *cache = Some(SortedCatCache {
+            report_version,
+            group,
+            cat_name: cat.name.clone(),
+            sort_key,
+            sort_dir,
+            selection_version: sel_ver,
+            indices,
+        });
+    }
+    &cache.as_ref().expect("populated cache").indices
+}
+
+fn draw_sort_bar(ui: &mut egui::Ui, sort_key: &mut FindingSortKey, sort_dir: &mut SortDir) {
+    ui.horizontal_wrapped(|ui| {
+        ui.spacing_mut().item_spacing.x = 6.0;
+        ui.label(widgets::caption("Sort:"));
+        for key in FindingSortKey::ALL {
+            let active = *sort_key == key;
+            let shown_dir = if active { *sort_dir } else { key.default_dir() };
+            let label = if active {
+                let arrow = match *sort_dir {
+                    SortDir::Desc => "↓",
+                    SortDir::Asc => "↑",
+                };
+                format!("{} {arrow}", key.translated_label())
+            } else {
+                key.translated_label().to_owned()
+            };
+            if widgets::chip(ui, active, &label)
+                .on_hover_text(key.translated_hint(shown_dir))
+                .clicked()
+            {
+                if active {
+                    *sort_dir = sort_dir.toggled();
+                } else {
+                    *sort_key = key;
+                    *sort_dir = key.default_dir();
+                }
+            }
+        }
+    });
+}
+
+#[allow(clippy::too_many_arguments)]
 fn draw_finding_rows(
     ui: &mut egui::Ui,
     group: JunkGroup,
-    category: &CatAgg,
+    cat_name: &str,
+    indices: &[usize],
     findings: &[Finding],
     selection: &mut Selection,
+    sort_key: FindingSortKey,
     reveal: &mut Option<PathBuf>,
     delete_now: &mut Option<Vec<Finding>>,
 ) {
@@ -913,9 +1146,9 @@ fn draw_finding_rows(
         .max(24.0)
         .max(ui.fonts(|fonts| fonts.row_height(&egui::FontId::monospace(type_scale::MONO))));
     let stride = row_height + spacing;
-    let total_height = (category.indices.len() as f32 * stride - spacing).max(0.0);
+    let total_height = (indices.len() as f32 * stride - spacing).max(0.0);
     let (_, rows_rect) = ui.allocate_space(egui::vec2(ui.available_width(), total_height));
-    let visible = visible_rows(rows_rect, ui.clip_rect(), stride, category.indices.len());
+    let visible = visible_rows(rows_rect, ui.clip_rect(), stride, indices.len());
     let visible_rect = egui::Rect::from_min_max(
         egui::pos2(
             rows_rect.left(),
@@ -925,15 +1158,22 @@ fn draw_finding_rows(
     );
     let mut rows_ui = ui.new_child(
         egui::UiBuilder::new()
-            .id_salt(("junk_finding_rows", group, &category.name))
+            .id_salt(("junk_finding_rows", group, cat_name))
             .max_rect(visible_rect)
             .layout(Layout::top_down(Align::Min)),
     );
+    let now_unix = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_secs())
+        .unwrap_or(0);
     // One horizontal container per row, with IDs stable while scrolling.
     rows_ui.skip_ahead_auto_ids(visible.start);
     for row in visible {
-        let index = category.indices[row];
+        let index = indices[row];
         let finding = &findings[index];
+        let age_text = finding
+            .modified_unix
+            .map(|ts| crate::i18n::age(now_unix.saturating_sub(ts)));
         rows_ui.horizontal(|ui| {
             let mut included = selection.contains(index);
             if ui.checkbox(&mut included, "").changed() {
@@ -945,7 +1185,19 @@ fn draw_finding_rows(
                     .size(type_scale::MONO)
                     .color(TEXT()),
             );
+            if sort_key == FindingSortKey::Age {
+                let age_str = age_text.as_deref().unwrap_or("—");
+                ui.label(
+                    RichText::new(format!("{age_str:>12}"))
+                        .size(type_scale::CAPTION)
+                        .color(MUTED()),
+                );
+            }
             let path = finding.path.display().to_string();
+            let hover = match &age_text {
+                Some(age) => format!("{path}\n{} · {age}", finding.rule_id),
+                None => format!("{path}\n{}", finding.rule_id),
+            };
             let path_resp = ui
                 .add(
                     egui::Label::new(
@@ -957,7 +1209,7 @@ fn draw_finding_rows(
                     .truncate()
                     .sense(Sense::click()),
                 )
-                .on_hover_text(&path);
+                .on_hover_text(hover);
             path_resp.context_menu(|ui| {
                 if !finding.report_only
                     && ui
@@ -1057,6 +1309,7 @@ mod tests {
             report_only,
             root: None,
             min_age_days: 0,
+            modified_unix: None,
         }
     }
 
@@ -1344,6 +1597,7 @@ mod tests {
                 report_only: false,
                 root: None,
                 min_age_days: 0,
+                modified_unix: None,
             }],
             total_bytes: 500,
             rules_matched: 1,
@@ -1362,5 +1616,140 @@ mod tests {
 
         state.remove_paths(&[PathBuf::from("/tmp/c1")]);
         assert_ne!(state.selection_version(), v2);
+    }
+
+    #[test]
+    fn finding_rows_sort_by_size_path_age_and_selected() {
+        let mut f0 = finding("dev", 100, false, 0);
+        f0.path = PathBuf::from("/proj/Zeta/target");
+        f0.modified_unix = Some(300);
+
+        let mut f1 = finding("dev", 300, false, 1);
+        f1.path = PathBuf::from("/proj/alpha/target");
+        f1.modified_unix = Some(100);
+
+        let mut f2 = finding("dev", 200, false, 2);
+        f2.path = PathBuf::from("/proj/Beta/target");
+        f2.modified_unix = None;
+
+        let mut f3 = finding("dev", 50, false, 3);
+        f3.path = PathBuf::from("/proj/gamma/target");
+        f3.modified_unix = Some(200);
+
+        let mut state = JunkPanelState::default();
+        state.set_report(report(vec![f0, f1, f2, f3]));
+        state.clear_selection();
+        // Check Zeta (index 0, 100 B) and gamma (index 3, 50 B).
+        let report_ref = state.report.as_ref().unwrap();
+        state.selection.set(0, &report_ref.scan.findings[0], true);
+        state.selection.set(3, &report_ref.scan.findings[3], true);
+
+        let paths_for = |state: &mut JunkPanelState, key: FindingSortKey, dir: SortDir| {
+            let r = state.report.as_ref().unwrap();
+            let cat = &r.safe_categories[0];
+            let indices = sorted_cat_indices(
+                &mut state.sorted_cache,
+                state.report_version,
+                JunkGroup::Safe,
+                cat,
+                &r.scan.findings,
+                &state.selection,
+                key,
+                dir,
+            );
+            indices
+                .iter()
+                .map(|&i| r.scan.findings[i].path.to_str().unwrap().to_owned())
+                .collect::<Vec<_>>()
+        };
+
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Size, SortDir::Desc),
+            vec![
+                "/proj/alpha/target",
+                "/proj/Beta/target",
+                "/proj/Zeta/target",
+                "/proj/gamma/target",
+            ]
+        );
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Size, SortDir::Asc),
+            vec![
+                "/proj/gamma/target",
+                "/proj/Zeta/target",
+                "/proj/Beta/target",
+                "/proj/alpha/target",
+            ]
+        );
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Path, SortDir::Asc),
+            vec![
+                "/proj/alpha/target",
+                "/proj/Beta/target",
+                "/proj/gamma/target",
+                "/proj/Zeta/target",
+            ]
+        );
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Path, SortDir::Desc),
+            vec![
+                "/proj/Zeta/target",
+                "/proj/gamma/target",
+                "/proj/Beta/target",
+                "/proj/alpha/target",
+            ]
+        );
+        // Age Desc = oldest (smallest timestamp) first; None stays last.
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Age, SortDir::Desc),
+            vec![
+                "/proj/alpha/target",
+                "/proj/gamma/target",
+                "/proj/Zeta/target",
+                "/proj/Beta/target",
+            ]
+        );
+        // Age Asc = newest (largest timestamp) first; None stays last.
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Age, SortDir::Asc),
+            vec![
+                "/proj/Zeta/target",
+                "/proj/gamma/target",
+                "/proj/alpha/target",
+                "/proj/Beta/target",
+            ]
+        );
+        // Selected Desc = checked first (Zeta 100B, gamma 50B), then unchecked by size desc.
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Selected, SortDir::Desc),
+            vec![
+                "/proj/Zeta/target",
+                "/proj/gamma/target",
+                "/proj/alpha/target",
+                "/proj/Beta/target",
+            ]
+        );
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Selected, SortDir::Asc),
+            vec![
+                "/proj/alpha/target",
+                "/proj/Beta/target",
+                "/proj/Zeta/target",
+                "/proj/gamma/target",
+            ]
+        );
+
+        // Selecting Beta (index 2, 200B) invalidates Selected cache via selection_version.
+        let report_ref = state.report.as_ref().unwrap();
+        state.selection.set(2, &report_ref.scan.findings[2], true);
+        assert_eq!(
+            paths_for(&mut state, FindingSortKey::Selected, SortDir::Desc),
+            vec![
+                "/proj/Beta/target",
+                "/proj/Zeta/target",
+                "/proj/gamma/target",
+                "/proj/alpha/target",
+            ]
+        );
     }
 }

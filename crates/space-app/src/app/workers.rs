@@ -817,6 +817,7 @@ mod permanent_delete_tests {
             report_only: false,
             root: Some(PathBuf::from("/tmp")),
             min_age_days: 7,
+            modified_unix: None,
         };
         let item = SpaceApp::basket_item_from_finding(&finding);
         assert!(item.is_dir);

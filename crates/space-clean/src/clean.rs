@@ -889,6 +889,7 @@ mod tests {
             report_only: false,
             root: None,
             min_age_days: 0,
+            modified_unix: None,
         }
     }
 

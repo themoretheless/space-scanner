@@ -373,7 +373,7 @@ impl SpaceApp {
         junk_panel::group_card(
             ui,
             t("Downloads"),
-            t("Installers (.dmg, .pkg), archives and large files in ~/Downloads"),
+            t("Installers (.dmg, .pkg) and large files in ~/Downloads"),
             t("Check"),
             ACCENT(),
             t("Review files before moving to Trash"),
@@ -405,7 +405,6 @@ impl SpaceApp {
                     let mut checked = self.downloads.is_selected(index);
                     let kind_text = match (item.kind, item.is_dir) {
                         (DownloadKind::Installer, _) => t("Installer"),
-                        (DownloadKind::Archive, _) => t("Archive"),
                         (DownloadKind::LargeItem, true) => t("Large folder"),
                         (DownloadKind::LargeItem, false) => t("Large file"),
                     };

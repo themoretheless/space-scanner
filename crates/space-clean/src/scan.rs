@@ -37,6 +37,9 @@ pub struct Finding {
     /// Age threshold the finding was judged with; re-checked before deletion.
     #[serde(default)]
     pub min_age_days: u64,
+    /// Newest modification time observed for this finding (seconds since UNIX_EPOCH).
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub modified_unix: Option<u64>,
 }
 
 #[derive(Debug, Clone, Serialize)]
@@ -628,6 +631,7 @@ fn collect_grouped_project_root(
             report_only,
             root: Some(root.to_path_buf()),
             min_age_days: selected.min_age,
+            modified_unix: system_time_to_unix(newest.flatten()),
         };
         record_finding_progress(&finding, progress);
         pending_sizes.push((findings.len(), finding.path.clone()));
@@ -635,6 +639,13 @@ fn collect_grouped_project_root(
         walker.skip_current_dir();
     }
     Ok(())
+}
+
+fn system_time_to_unix(time: Option<SystemTime>) -> Option<u64> {
+    time?
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .ok()
+        .map(|d| d.as_secs())
 }
 
 fn size_grouped_findings(
@@ -658,14 +669,16 @@ fn size_grouped_findings(
             let tx = tx.clone();
             scope.spawn(move || {
                 for (finding_index, path) in chunk {
-                    let bytes = dir_size_quiet(path);
-                    let _ = tx.send((*finding_index, path.clone(), bytes));
+                    let (bytes, modified_unix) = dir_size_and_mtime(path);
+                    let _ = tx.send((*finding_index, path.clone(), bytes, modified_unix));
                 }
             });
         }
         drop(tx);
-        for (finding_index, path, bytes) in rx {
+        for (finding_index, path, bytes, modified_unix) in rx {
             findings[finding_index].bytes = bytes;
+            findings[finding_index].modified_unix =
+                modified_unix.or(findings[finding_index].modified_unix);
             if !findings[finding_index].report_only {
                 progress.bytes_found = progress.bytes_found.saturating_add(bytes);
             }
@@ -675,14 +688,21 @@ fn size_grouped_findings(
     });
 }
 
-fn dir_size_quiet(path: &Path) -> u64 {
-    WalkDir::new(path)
+fn dir_size_and_mtime(path: &Path) -> (u64, Option<u64>) {
+    let mut newest = path.symlink_metadata().ok().and_then(|m| m.modified().ok());
+    let total = WalkDir::new(path)
         .follow_links(false)
         .into_iter()
         .filter_map(Result::ok)
         .filter(|entry| entry.file_type().is_file())
         .filter_map(|entry| entry.metadata().ok())
-        .fold(0u64, |total, metadata| total.saturating_add(metadata.len()))
+        .fold(0u64, |total, metadata| {
+            if let Ok(mtime) = metadata.modified() {
+                newest = Some(newest.map_or(mtime, |prev| prev.max(mtime)));
+            }
+            total.saturating_add(metadata.len())
+        });
+    (total, system_time_to_unix(newest))
 }
 
 /// Patterns are tested against the root-relative path and the full path so
@@ -868,6 +888,7 @@ fn consider_path(
         report_only: rule.is_report_only(),
         root: Some(root.to_path_buf()),
         min_age_days: min_age,
+        modified_unix: system_time_to_unix(modified),
     })
 }
 
@@ -1048,7 +1069,9 @@ exclude_globs: ['**/keep.log']
         assert!(report
             .findings
             .iter()
-            .all(|f| f.root.as_deref() == Some(canonical.as_path()) && f.min_age_days == 0));
+            .all(|f| f.root.as_deref() == Some(canonical.as_path())
+                && f.min_age_days == 0
+                && f.modified_unix.is_some()));
         let duplicate = scan_rules([&rule, &rule], &ScanOptions::default()).unwrap();
         assert_eq!(duplicate.findings.len(), 1);
         assert_eq!(duplicate.total_bytes, 3);
@@ -1295,6 +1318,7 @@ exclude_globs: ['**/keep.log']
         assert!(paths.contains(&&canonical_project.join("obj")));
         assert!(!paths.contains(&&canonical_project.join("node_modules/pkg/bin")));
         assert!(!paths.contains(&&canonical_unrelated.join("bin")));
+        assert!(report.findings.iter().all(|f| f.modified_unix.is_some()));
         assert_eq!(last_progress.rules_done, 1);
         assert_eq!(last_progress.rules_total, 1);
         // Sizing matched directories no longer inflates traversal counters.

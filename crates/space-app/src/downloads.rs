@@ -4,7 +4,7 @@ use std::cmp::Reverse;
 use std::path::{Path, PathBuf};
 use std::time::SystemTime;
 
-const DEFAULT_MIN_ARCHIVE_BYTES: u64 = 1 << 20;
+const DEFAULT_MIN_INSTALLER_BYTES: u64 = 1 << 20;
 const DEFAULT_MIN_LARGE_BYTES: u64 = 50 << 20;
 const MAX_DOWNLOAD_ITEMS: usize = 200;
 const MAX_DIR_WALK_ENTRIES: usize = 15_000;
@@ -12,7 +12,6 @@ const MAX_DIR_WALK_ENTRIES: usize = 15_000;
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum DownloadKind {
     Installer,
-    Archive,
     LargeItem,
 }
 
@@ -174,23 +173,23 @@ impl DownloadsState {
     }
 }
 
-/// Scan the user's `~/Downloads` folder for installers, archives, and large entries.
+/// Scan the user's `~/Downloads` folder for installers and large entries (excluding archives).
 pub fn scan_default_downloads() -> Vec<DownloadItem> {
     let Some(home) = std::env::var_os("HOME") else {
         return Vec::new();
     };
     scan_downloads_dir(
         &PathBuf::from(home).join("Downloads"),
-        DEFAULT_MIN_ARCHIVE_BYTES,
+        DEFAULT_MIN_INSTALLER_BYTES,
         DEFAULT_MIN_LARGE_BYTES,
     )
 }
 
-/// Scan `dir` (top level) returning installers/archives >= `min_archive_bytes` and
-/// other files/folders >= `min_large_bytes`, sorted largest first.
+/// Scan `dir` (top level) returning installers >= `min_installer_bytes` and
+/// other non-archive files/folders >= `min_large_bytes`, sorted largest first.
 pub fn scan_downloads_dir(
     dir: &Path,
-    min_archive_bytes: u64,
+    min_installer_bytes: u64,
     min_large_bytes: u64,
 ) -> Vec<DownloadItem> {
     let Ok(entries) = std::fs::read_dir(dir) else {
@@ -215,9 +214,11 @@ pub fn scan_downloads_dir(
         if !is_dir && !meta.is_file() {
             continue;
         }
-        let kind = classify_download(&name);
+        let Some(kind) = classify_download(&name) else {
+            continue;
+        };
         let threshold = match kind {
-            DownloadKind::Installer | DownloadKind::Archive => min_archive_bytes,
+            DownloadKind::Installer => min_installer_bytes,
             DownloadKind::LargeItem => min_large_bytes,
         };
         let bytes = if is_dir {
@@ -252,22 +253,22 @@ pub fn scan_downloads_dir(
     items
 }
 
-fn classify_download(name: &str) -> DownloadKind {
+fn classify_download(name: &str) -> Option<DownloadKind> {
     let lower = name.to_ascii_lowercase();
     for ext in [".dmg", ".pkg", ".mpkg", ".iso", ".ipsw"] {
         if lower.ends_with(ext) {
-            return DownloadKind::Installer;
+            return Some(DownloadKind::Installer);
         }
     }
     for ext in [
-        ".tar.gz", ".tar.bz2", ".tar.xz", ".tgz", ".tbz2", ".txz", ".zip", ".tar", ".gz", ".bz2",
-        ".xz", ".7z", ".rar",
+        ".tar.gz", ".tar.bz2", ".tar.xz", ".tar.zst", ".tgz", ".tbz2", ".txz", ".tzst", ".zip",
+        ".tar", ".gz", ".bz2", ".xz", ".zst", ".7z", ".rar",
     ] {
         if lower.ends_with(ext) {
-            return DownloadKind::Archive;
+            return None;
         }
     }
-    DownloadKind::LargeItem
+    Some(DownloadKind::LargeItem)
 }
 
 fn entry_bytes(meta: &std::fs::Metadata) -> u64 {
@@ -330,7 +331,7 @@ mod tests {
     }
 
     #[test]
-    fn scans_installers_archives_and_large_items_without_auto_selection() {
+    fn scans_installers_and_large_items_excluding_archives_without_auto_selection() {
         let dir = unique_dir("scan");
         fs::create_dir_all(&dir).unwrap();
 
@@ -338,6 +339,7 @@ mod tests {
         fs::write(dir.join("notes.txt"), vec![b't'; 50]).unwrap();
         fs::write(dir.join("installer.dmg"), vec![b'd'; 200]).unwrap();
         fs::write(dir.join("archive.tar.gz"), vec![b'z'; 150]).unwrap();
+        fs::write(dir.join("backup.zip"), vec![b'z'; 20_000]).unwrap();
         fs::write(dir.join("video.mp4"), vec![b'v'; 20_000]).unwrap();
 
         let pkg = dir.join("Tool.pkg");
@@ -354,7 +356,8 @@ mod tests {
         let items = scan_downloads_dir(&dir, 100, 16_384);
         let names: Vec<_> = items.iter().map(|i| i.name.as_str()).collect();
         assert!(names.contains(&"installer.dmg"));
-        assert!(names.contains(&"archive.tar.gz"));
+        assert!(!names.contains(&"archive.tar.gz"));
+        assert!(!names.contains(&"backup.zip"));
         assert!(names.contains(&"video.mp4"));
         assert!(names.contains(&"Tool.pkg"));
         assert!(names.contains(&"ISO-Unpacked"));
