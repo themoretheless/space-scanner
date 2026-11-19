@@ -1,6 +1,7 @@
 //! Mounted volume listing — fast defaults first, full refresh in background.
 
 use std::path::{Path, PathBuf};
+#[cfg(target_os = "macos")]
 use std::process::Command;
 
 use sysinfo::Disks;

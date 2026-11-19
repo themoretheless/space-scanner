@@ -309,6 +309,12 @@ fn cli_scenarios_inventory_ai_vm_and_heavy_caches_read_only() {
             .expect("spawn space scenario")
     };
 
+    let path_ends_with = |entry: &serde_json::Value, suffix: &str| {
+        entry["path"]
+            .as_str()
+            .is_some_and(|p| p.replace('\\', "/").ends_with(suffix))
+    };
+
     let ai = run(&["scenario", "ai-bloat", "--json"]);
     assert!(
         ai.status.success(),
@@ -317,24 +323,15 @@ fn cli_scenarios_inventory_ai_vm_and_heavy_caches_read_only() {
     );
     let ai_json: serde_json::Value = serde_json::from_slice(&ai.stdout).unwrap();
     let ai_entries = ai_json["entries"].as_array().unwrap();
+    assert!(ai_entries
+        .iter()
+        .any(|e| path_ends_with(e, ".codex/tmp") && e["classification"] == "safe-clean"));
     assert!(ai_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with(".codex/tmp"))
-            && e["classification"] == "safe-clean"
+        path_ends_with(e, ".claude/target-shared") && e["classification"] == "safe-clean"
     }));
-    assert!(ai_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with(".claude/target-shared"))
-            && e["classification"] == "safe-clean"
-    }));
-    assert!(ai_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with(".claude/worktrees"))
-            && e["classification"] == "review"
-    }));
+    assert!(ai_entries
+        .iter()
+        .any(|e| path_ends_with(e, ".claude/worktrees") && e["classification"] == "review"));
 
     let vm = run(&["scenario", "vm-disks", "--json"]);
     assert!(
@@ -357,17 +354,11 @@ fn cli_scenarios_inventory_ai_vm_and_heavy_caches_read_only() {
     let heavy_json: serde_json::Value = serde_json::from_slice(&heavy.stdout).unwrap();
     let heavy_entries = heavy_json["entries"].as_array().unwrap();
     assert!(heavy_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with(".local/share/rag-mcp"))
-            && e["classification"] == "preserve-db"
+        path_ends_with(e, ".local/share/rag-mcp") && e["classification"] == "preserve-db"
     }));
-    assert!(heavy_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with(".cache/custom-tool"))
-            && e["classification"] == "review"
-    }));
+    assert!(heavy_entries
+        .iter()
+        .any(|e| path_ends_with(e, ".cache/custom-tool") && e["classification"] == "review"));
 
     let browsers = run(&["scenario", "browsers-electron", "--json"]);
     assert!(
@@ -378,16 +369,10 @@ fn cli_scenarios_inventory_ai_vm_and_heavy_caches_read_only() {
     let b_json: serde_json::Value = serde_json::from_slice(&browsers.stdout).unwrap();
     let b_entries = b_json["entries"].as_array().unwrap();
     assert!(b_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with("OptGuideOnDeviceModel"))
-            && e["classification"] == "review"
+        path_ends_with(e, "OptGuideOnDeviceModel") && e["classification"] == "review"
     }));
     assert!(b_entries.iter().any(|e| {
-        e["path"]
-            .as_str()
-            .is_some_and(|p| p.ends_with("Partitions/main/Cache"))
-            && e["classification"] == "safe-cache"
+        path_ends_with(e, "Partitions/main/Cache") && e["classification"] == "safe-cache"
     }));
 
     let toolchains = run(&["scenario", "dev-toolchains", "--json"]);

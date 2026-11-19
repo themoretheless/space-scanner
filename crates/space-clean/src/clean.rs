@@ -1308,6 +1308,7 @@ fn ensure_writable_mode(path: &Path, unix_mask: u32) {
         }
     }
     #[cfg(not(unix))]
+    #[allow(clippy::permissions_set_readonly_false)]
     {
         let _ = unix_mask;
         if perms.readonly() {

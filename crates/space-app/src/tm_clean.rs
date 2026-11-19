@@ -1,8 +1,10 @@
 //! Local Time Machine / APFS snapshot listing and cleanup (macOS).
 
+#[cfg(target_os = "macos")]
 use std::process::Command;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[cfg_attr(not(target_os = "macos"), allow(dead_code))]
 pub enum SnapKind {
     TimeMachine,
     OsUpdate,
@@ -150,6 +152,7 @@ fn list_via_tmutil() -> Vec<LocalSnapshot> {
     snaps
 }
 
+#[cfg(target_os = "macos")]
 fn classify_snapshot(name: String, purgeable: bool) -> LocalSnapshot {
     let kind = if name.contains("TimeMachine") {
         SnapKind::TimeMachine
@@ -222,12 +225,12 @@ pub fn delete_old_tm_locals(keep_newest: usize) -> CleanReport {
             errors: Vec::new(),
         };
     }
-    let cut = snaps.len() - keep_newest;
-    let mut deleted = 0u32;
     let mut errors = Vec::new();
 
     #[cfg(target_os = "macos")]
-    {
+    let deleted = {
+        let cut = snaps.len() - keep_newest;
+        let mut deleted = 0u32;
         for snap in snaps.iter().take(cut) {
             let Some(date) = &snap.date else {
                 continue;
@@ -257,12 +260,14 @@ pub fn delete_old_tm_locals(keep_newest: usize) -> CleanReport {
                 "4",
             ])
             .output();
-    }
+        deleted
+    };
 
     #[cfg(not(target_os = "macos"))]
-    {
+    let deleted = {
         errors.push("Time Machine cleanup is only available on macOS".into());
-    }
+        0u32
+    };
 
     let kept = before.saturating_sub(deleted);
     CleanReport {

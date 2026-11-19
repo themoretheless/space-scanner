@@ -28,6 +28,7 @@ pub(crate) struct ReaderConfig {
     pub exclude_set: HashSet<String>,
     pub allowed_devs: HashSet<u64>,
     pub skip_volumes_prefix: bool,
+    #[cfg_attr(not(target_os = "macos"), allow(dead_code))]
     pub force_read_dir: bool,
 }
 

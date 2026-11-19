@@ -163,6 +163,7 @@ impl SpaceApp {
         }
     }
 
+    #[cfg_attr(not(target_os = "macos"), allow(dead_code))]
     pub(super) fn share_report_macos(&mut self) {
         let target = self
             .last_exported_file
@@ -241,6 +242,7 @@ fn show_macos_share_sheet(path: &Path) -> bool {
 }
 
 #[cfg(not(target_os = "macos"))]
+#[allow(dead_code)]
 fn show_macos_share_sheet(_path: &Path) -> bool {
     false
 }
