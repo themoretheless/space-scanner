@@ -1,0 +1,4076 @@
+---
+pack: electron-cef
+description: "Chromium/Electron/CEF desktop productivity, API, database, note-taking, Git, and terminal app caches and logs; local workspaces and databases are preserved."
+rules:
+- id: ec-postman-macos
+  name: "Postman Electron caches and logs"
+  description: "Removes regenerable Postman HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Postman/Cache"
+  - "$HOME/Library/Application Support/Postman/Code Cache"
+  - "$HOME/Library/Application Support/Postman/GPUCache"
+  - "$HOME/Library/Application Support/Postman/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Postman/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Postman/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Postman/ShaderCache"
+  - "$HOME/Library/Application Support/Postman/logs"
+  - "$HOME/Library/Logs/Postman"
+  - "$HOME/Library/Caches/Postman"
+  - "$HOME/Library/Caches/com.postmanlabs.mac"
+  - "$HOME/Library/Caches/com.postmanlabs.mac.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-postman-partitions-macos
+  name: "Postman partition caches"
+  description: "Removes regenerable Cache, Code Cache, GPUCache, and Dawn caches inside Postman Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Postman/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-postman-linux
+  name: "Postman Electron caches and logs"
+  description: "Removes regenerable Postman HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Postman/Cache"
+  - "$HOME/.config/Postman/Code Cache"
+  - "$HOME/.config/Postman/GPUCache"
+  - "$HOME/.config/Postman/DawnGraphiteCache"
+  - "$HOME/.config/Postman/DawnWebGPUCache"
+  - "$HOME/.config/Postman/logs"
+  - "$HOME/.cache/Postman"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-postman-windows
+  name: "Postman Electron caches and logs"
+  description: "Removes regenerable Postman HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Postman/Cache"
+  - "%LOCALAPPDATA%/Postman/Code Cache"
+  - "%LOCALAPPDATA%/Postman/GPUCache"
+  - "%LOCALAPPDATA%/Postman/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/Postman/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/Postman/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-postman-partitions-windows
+  name: "Postman partition caches"
+  description: "Removes regenerable Cache, Code Cache, and GPUCache inside Postman Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Postman/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-insomnia-macos
+  name: "Insomnia Electron caches and logs"
+  description: "Removes regenerable Insomnia HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Insomnia/Cache"
+  - "$HOME/Library/Application Support/Insomnia/Code Cache"
+  - "$HOME/Library/Application Support/Insomnia/GPUCache"
+  - "$HOME/Library/Application Support/Insomnia/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Insomnia/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Insomnia/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Insomnia/ShaderCache"
+  - "$HOME/Library/Application Support/Insomnia/logs"
+  - "$HOME/Library/Logs/Insomnia"
+  - "$HOME/Library/Caches/Insomnia"
+  - "$HOME/Library/Caches/com.insomnia.app"
+  - "$HOME/Library/Caches/com.insomnia.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-insomnia-partitions-macos
+  name: "Insomnia partition caches"
+  description: "Removes regenerable Cache, Code Cache, GPUCache, and Dawn caches inside Insomnia Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Insomnia/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-insomnia-linux
+  name: "Insomnia Electron caches and logs"
+  description: "Removes regenerable Insomnia HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Insomnia/Cache"
+  - "$HOME/.config/Insomnia/Code Cache"
+  - "$HOME/.config/Insomnia/GPUCache"
+  - "$HOME/.config/Insomnia/DawnGraphiteCache"
+  - "$HOME/.config/Insomnia/DawnWebGPUCache"
+  - "$HOME/.config/Insomnia/logs"
+  - "$HOME/.cache/Insomnia"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-insomnia-windows
+  name: "Insomnia Electron caches and logs"
+  description: "Removes regenerable Insomnia HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Insomnia/Cache"
+  - "%APPDATA%/Insomnia/Code Cache"
+  - "%APPDATA%/Insomnia/GPUCache"
+  - "%APPDATA%/Insomnia/DawnGraphiteCache"
+  - "%APPDATA%/Insomnia/DawnWebGPUCache"
+  - "%APPDATA%/Insomnia/logs"
+  - "%LOCALAPPDATA%/Insomnia/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-insomnia-partitions-windows
+  name: "Insomnia partition caches"
+  description: "Removes regenerable Cache, Code Cache, and GPUCache inside Insomnia Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Insomnia/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-bruno-macos
+  name: "Bruno Electron caches and logs"
+  description: "Removes regenerable Bruno HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/bruno/Cache"
+  - "$HOME/Library/Application Support/bruno/Code Cache"
+  - "$HOME/Library/Application Support/bruno/GPUCache"
+  - "$HOME/Library/Application Support/bruno/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/bruno/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/bruno/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/bruno/ShaderCache"
+  - "$HOME/Library/Application Support/bruno/logs"
+  - "$HOME/Library/Logs/bruno"
+  - "$HOME/Library/Caches/bruno"
+  - "$HOME/Library/Caches/com.usebruno.app"
+  - "$HOME/Library/Caches/com.usebruno.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-bruno-linux
+  name: "Bruno Electron caches and logs"
+  description: "Removes regenerable Bruno HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/bruno/Cache"
+  - "$HOME/.config/bruno/Code Cache"
+  - "$HOME/.config/bruno/GPUCache"
+  - "$HOME/.config/bruno/DawnGraphiteCache"
+  - "$HOME/.config/bruno/DawnWebGPUCache"
+  - "$HOME/.config/bruno/logs"
+  - "$HOME/.cache/bruno"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-bruno-windows
+  name: "Bruno Electron caches and logs"
+  description: "Removes regenerable Bruno HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/bruno/Cache"
+  - "%APPDATA%/bruno/Code Cache"
+  - "%APPDATA%/bruno/GPUCache"
+  - "%APPDATA%/bruno/DawnGraphiteCache"
+  - "%APPDATA%/bruno/DawnWebGPUCache"
+  - "%APPDATA%/bruno/logs"
+  - "%LOCALAPPDATA%/bruno/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-hoppscotch-macos
+  name: "Hoppscotch Electron caches and logs"
+  description: "Removes regenerable Hoppscotch HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/Cache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/Code Cache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/GPUCache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/ShaderCache"
+  - "$HOME/Library/Application Support/io.hoppscotch.desktop/logs"
+  - "$HOME/Library/Logs/io.hoppscotch.desktop"
+  - "$HOME/Library/Caches/io.hoppscotch.desktop"
+  - "$HOME/Library/Caches/io.hoppscotch.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-hoppscotch-linux
+  name: "Hoppscotch Electron caches and logs"
+  description: "Removes regenerable Hoppscotch HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/io.hoppscotch.desktop/Cache"
+  - "$HOME/.config/io.hoppscotch.desktop/Code Cache"
+  - "$HOME/.config/io.hoppscotch.desktop/GPUCache"
+  - "$HOME/.config/io.hoppscotch.desktop/DawnGraphiteCache"
+  - "$HOME/.config/io.hoppscotch.desktop/DawnWebGPUCache"
+  - "$HOME/.config/io.hoppscotch.desktop/logs"
+  - "$HOME/.cache/io.hoppscotch.desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-hoppscotch-windows
+  name: "Hoppscotch Electron caches and logs"
+  description: "Removes regenerable Hoppscotch HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/io.hoppscotch.desktop/Cache"
+  - "%APPDATA%/io.hoppscotch.desktop/Code Cache"
+  - "%APPDATA%/io.hoppscotch.desktop/GPUCache"
+  - "%APPDATA%/io.hoppscotch.desktop/DawnGraphiteCache"
+  - "%APPDATA%/io.hoppscotch.desktop/DawnWebGPUCache"
+  - "%APPDATA%/io.hoppscotch.desktop/logs"
+  - "%LOCALAPPDATA%/io.hoppscotch.desktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-yaak-macos
+  name: "Yaak Electron caches and logs"
+  description: "Removes regenerable Yaak HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/app.yaak.desktop/Cache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/Code Cache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/GPUCache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/ShaderCache"
+  - "$HOME/Library/Application Support/app.yaak.desktop/logs"
+  - "$HOME/Library/Logs/app.yaak.desktop"
+  - "$HOME/Library/Caches/app.yaak.desktop"
+  - "$HOME/Library/Caches/app.yaak.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-yaak-linux
+  name: "Yaak Electron caches and logs"
+  description: "Removes regenerable Yaak HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/app.yaak.desktop/Cache"
+  - "$HOME/.config/app.yaak.desktop/Code Cache"
+  - "$HOME/.config/app.yaak.desktop/GPUCache"
+  - "$HOME/.config/app.yaak.desktop/DawnGraphiteCache"
+  - "$HOME/.config/app.yaak.desktop/DawnWebGPUCache"
+  - "$HOME/.config/app.yaak.desktop/logs"
+  - "$HOME/.cache/app.yaak.desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-yaak-windows
+  name: "Yaak Electron caches and logs"
+  description: "Removes regenerable Yaak HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/app.yaak.desktop/Cache"
+  - "%APPDATA%/app.yaak.desktop/Code Cache"
+  - "%APPDATA%/app.yaak.desktop/GPUCache"
+  - "%APPDATA%/app.yaak.desktop/DawnGraphiteCache"
+  - "%APPDATA%/app.yaak.desktop/DawnWebGPUCache"
+  - "%APPDATA%/app.yaak.desktop/logs"
+  - "%LOCALAPPDATA%/app.yaak.desktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-httpie-macos
+  name: "HTTPie Desktop Electron caches and logs"
+  description: "Removes regenerable HTTPie Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/HTTPie/Cache"
+  - "$HOME/Library/Application Support/HTTPie/Code Cache"
+  - "$HOME/Library/Application Support/HTTPie/GPUCache"
+  - "$HOME/Library/Application Support/HTTPie/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/HTTPie/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/HTTPie/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/HTTPie/ShaderCache"
+  - "$HOME/Library/Application Support/HTTPie/logs"
+  - "$HOME/Library/Logs/HTTPie"
+  - "$HOME/Library/Caches/HTTPie"
+  - "$HOME/Library/Caches/io.httpie.desktop"
+  - "$HOME/Library/Caches/io.httpie.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-httpie-linux
+  name: "HTTPie Desktop Electron caches and logs"
+  description: "Removes regenerable HTTPie Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/HTTPie/Cache"
+  - "$HOME/.config/HTTPie/Code Cache"
+  - "$HOME/.config/HTTPie/GPUCache"
+  - "$HOME/.config/HTTPie/DawnGraphiteCache"
+  - "$HOME/.config/HTTPie/DawnWebGPUCache"
+  - "$HOME/.config/HTTPie/logs"
+  - "$HOME/.cache/HTTPie"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-httpie-windows
+  name: "HTTPie Desktop Electron caches and logs"
+  description: "Removes regenerable HTTPie Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/HTTPie/Cache"
+  - "%APPDATA%/HTTPie/Code Cache"
+  - "%APPDATA%/HTTPie/GPUCache"
+  - "%APPDATA%/HTTPie/DawnGraphiteCache"
+  - "%APPDATA%/HTTPie/DawnWebGPUCache"
+  - "%APPDATA%/HTTPie/logs"
+  - "%LOCALAPPDATA%/HTTPie/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-beekeeper-macos
+  name: "Beekeeper Studio Electron caches and logs"
+  description: "Removes regenerable Beekeeper Studio HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/beekeeper-studio/Cache"
+  - "$HOME/Library/Application Support/beekeeper-studio/Code Cache"
+  - "$HOME/Library/Application Support/beekeeper-studio/GPUCache"
+  - "$HOME/Library/Application Support/beekeeper-studio/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/beekeeper-studio/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/beekeeper-studio/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/beekeeper-studio/ShaderCache"
+  - "$HOME/Library/Application Support/beekeeper-studio/logs"
+  - "$HOME/Library/Logs/beekeeper-studio"
+  - "$HOME/Library/Caches/beekeeper-studio"
+  - "$HOME/Library/Caches/io.beekeeperstudio.desktop"
+  - "$HOME/Library/Caches/io.beekeeperstudio.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-beekeeper-linux
+  name: "Beekeeper Studio Electron caches and logs"
+  description: "Removes regenerable Beekeeper Studio HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/beekeeper-studio/Cache"
+  - "$HOME/.config/beekeeper-studio/Code Cache"
+  - "$HOME/.config/beekeeper-studio/GPUCache"
+  - "$HOME/.config/beekeeper-studio/DawnGraphiteCache"
+  - "$HOME/.config/beekeeper-studio/DawnWebGPUCache"
+  - "$HOME/.config/beekeeper-studio/logs"
+  - "$HOME/.cache/beekeeper-studio"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-beekeeper-windows
+  name: "Beekeeper Studio Electron caches and logs"
+  description: "Removes regenerable Beekeeper Studio HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/beekeeper-studio/Cache"
+  - "%APPDATA%/beekeeper-studio/Code Cache"
+  - "%APPDATA%/beekeeper-studio/GPUCache"
+  - "%APPDATA%/beekeeper-studio/DawnGraphiteCache"
+  - "%APPDATA%/beekeeper-studio/DawnWebGPUCache"
+  - "%APPDATA%/beekeeper-studio/logs"
+  - "%LOCALAPPDATA%/beekeeper-studio/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-mongodb-compass-macos
+  name: "MongoDB Compass Electron caches and logs"
+  description: "Removes regenerable MongoDB Compass HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/MongoDB Compass/Cache"
+  - "$HOME/Library/Application Support/MongoDB Compass/Code Cache"
+  - "$HOME/Library/Application Support/MongoDB Compass/GPUCache"
+  - "$HOME/Library/Application Support/MongoDB Compass/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/MongoDB Compass/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/MongoDB Compass/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/MongoDB Compass/ShaderCache"
+  - "$HOME/Library/Application Support/MongoDB Compass/logs"
+  - "$HOME/Library/Logs/MongoDB Compass"
+  - "$HOME/Library/Caches/MongoDB Compass"
+  - "$HOME/Library/Caches/com.mongodb.compass"
+  - "$HOME/Library/Caches/com.mongodb.compass.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-mongodb-compass-linux
+  name: "MongoDB Compass Electron caches and logs"
+  description: "Removes regenerable MongoDB Compass HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/MongoDB Compass/Cache"
+  - "$HOME/.config/MongoDB Compass/Code Cache"
+  - "$HOME/.config/MongoDB Compass/GPUCache"
+  - "$HOME/.config/MongoDB Compass/DawnGraphiteCache"
+  - "$HOME/.config/MongoDB Compass/DawnWebGPUCache"
+  - "$HOME/.config/MongoDB Compass/logs"
+  - "$HOME/.cache/MongoDB Compass"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-mongodb-compass-windows
+  name: "MongoDB Compass Electron caches and logs"
+  description: "Removes regenerable MongoDB Compass HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/MongoDB Compass/Cache"
+  - "%APPDATA%/MongoDB Compass/Code Cache"
+  - "%APPDATA%/MongoDB Compass/GPUCache"
+  - "%APPDATA%/MongoDB Compass/DawnGraphiteCache"
+  - "%APPDATA%/MongoDB Compass/DawnWebGPUCache"
+  - "%APPDATA%/MongoDB Compass/logs"
+  - "%LOCALAPPDATA%/MongoDB Compass/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-redisinsight-macos
+  name: "RedisInsight Electron caches and logs"
+  description: "Removes regenerable RedisInsight HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/RedisInsight/Cache"
+  - "$HOME/Library/Application Support/RedisInsight/Code Cache"
+  - "$HOME/Library/Application Support/RedisInsight/GPUCache"
+  - "$HOME/Library/Application Support/RedisInsight/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/RedisInsight/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/RedisInsight/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/RedisInsight/ShaderCache"
+  - "$HOME/Library/Application Support/RedisInsight/logs"
+  - "$HOME/Library/Logs/RedisInsight"
+  - "$HOME/Library/Caches/RedisInsight"
+  - "$HOME/Library/Caches/com.redis.RedisInsight"
+  - "$HOME/Library/Caches/com.redis.RedisInsight.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-redisinsight-linux
+  name: "RedisInsight Electron caches and logs"
+  description: "Removes regenerable RedisInsight HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/RedisInsight/Cache"
+  - "$HOME/.config/RedisInsight/Code Cache"
+  - "$HOME/.config/RedisInsight/GPUCache"
+  - "$HOME/.config/RedisInsight/DawnGraphiteCache"
+  - "$HOME/.config/RedisInsight/DawnWebGPUCache"
+  - "$HOME/.config/RedisInsight/logs"
+  - "$HOME/.cache/RedisInsight"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-redisinsight-windows
+  name: "RedisInsight Electron caches and logs"
+  description: "Removes regenerable RedisInsight HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/RedisInsight/Cache"
+  - "%APPDATA%/RedisInsight/Code Cache"
+  - "%APPDATA%/RedisInsight/GPUCache"
+  - "%APPDATA%/RedisInsight/DawnGraphiteCache"
+  - "%APPDATA%/RedisInsight/DawnWebGPUCache"
+  - "%APPDATA%/RedisInsight/logs"
+  - "%LOCALAPPDATA%/RedisInsight/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-ardm-macos
+  name: "Another Redis Desktop Manager Electron caches and logs"
+  description: "Removes regenerable Another Redis Desktop Manager HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/Cache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/Code Cache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/GPUCache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/ShaderCache"
+  - "$HOME/Library/Application Support/another-redis-desktop-manager/logs"
+  - "$HOME/Library/Logs/another-redis-desktop-manager"
+  - "$HOME/Library/Caches/another-redis-desktop-manager"
+  - "$HOME/Library/Caches/me.qii404.another-redis-desktop-manager"
+  - "$HOME/Library/Caches/me.qii404.another-redis-desktop-manager.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-ardm-linux
+  name: "Another Redis Desktop Manager Electron caches and logs"
+  description: "Removes regenerable Another Redis Desktop Manager HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/another-redis-desktop-manager/Cache"
+  - "$HOME/.config/another-redis-desktop-manager/Code Cache"
+  - "$HOME/.config/another-redis-desktop-manager/GPUCache"
+  - "$HOME/.config/another-redis-desktop-manager/DawnGraphiteCache"
+  - "$HOME/.config/another-redis-desktop-manager/DawnWebGPUCache"
+  - "$HOME/.config/another-redis-desktop-manager/logs"
+  - "$HOME/.cache/another-redis-desktop-manager"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-ardm-windows
+  name: "Another Redis Desktop Manager Electron caches and logs"
+  description: "Removes regenerable Another Redis Desktop Manager HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/another-redis-desktop-manager/Cache"
+  - "%APPDATA%/another-redis-desktop-manager/Code Cache"
+  - "%APPDATA%/another-redis-desktop-manager/GPUCache"
+  - "%APPDATA%/another-redis-desktop-manager/DawnGraphiteCache"
+  - "%APPDATA%/another-redis-desktop-manager/DawnWebGPUCache"
+  - "%APPDATA%/another-redis-desktop-manager/logs"
+  - "%LOCALAPPDATA%/another-redis-desktop-manager/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-altair-graphql-macos
+  name: "Altair GraphQL Electron caches and logs"
+  description: "Removes regenerable Altair GraphQL HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/altair/Cache"
+  - "$HOME/Library/Application Support/altair/Code Cache"
+  - "$HOME/Library/Application Support/altair/GPUCache"
+  - "$HOME/Library/Application Support/altair/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/altair/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/altair/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/altair/ShaderCache"
+  - "$HOME/Library/Application Support/altair/logs"
+  - "$HOME/Library/Logs/altair"
+  - "$HOME/Library/Caches/altair"
+  - "$HOME/Library/Caches/com.electron.altair"
+  - "$HOME/Library/Caches/com.electron.altair.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-altair-graphql-linux
+  name: "Altair GraphQL Electron caches and logs"
+  description: "Removes regenerable Altair GraphQL HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/altair/Cache"
+  - "$HOME/.config/altair/Code Cache"
+  - "$HOME/.config/altair/GPUCache"
+  - "$HOME/.config/altair/DawnGraphiteCache"
+  - "$HOME/.config/altair/DawnWebGPUCache"
+  - "$HOME/.config/altair/logs"
+  - "$HOME/.cache/altair"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-altair-graphql-windows
+  name: "Altair GraphQL Electron caches and logs"
+  description: "Removes regenerable Altair GraphQL HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/altair/Cache"
+  - "%APPDATA%/altair/Code Cache"
+  - "%APPDATA%/altair/GPUCache"
+  - "%APPDATA%/altair/DawnGraphiteCache"
+  - "%APPDATA%/altair/DawnWebGPUCache"
+  - "%APPDATA%/altair/logs"
+  - "%LOCALAPPDATA%/altair/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-mqttx-macos
+  name: "MQTTX Electron caches and logs"
+  description: "Removes regenerable MQTTX HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/MQTTX/Cache"
+  - "$HOME/Library/Application Support/MQTTX/Code Cache"
+  - "$HOME/Library/Application Support/MQTTX/GPUCache"
+  - "$HOME/Library/Application Support/MQTTX/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/MQTTX/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/MQTTX/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/MQTTX/ShaderCache"
+  - "$HOME/Library/Application Support/MQTTX/logs"
+  - "$HOME/Library/Logs/MQTTX"
+  - "$HOME/Library/Caches/MQTTX"
+  - "$HOME/Library/Caches/com.emqx.MQTTX"
+  - "$HOME/Library/Caches/com.emqx.MQTTX.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-mqttx-linux
+  name: "MQTTX Electron caches and logs"
+  description: "Removes regenerable MQTTX HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/MQTTX/Cache"
+  - "$HOME/.config/MQTTX/Code Cache"
+  - "$HOME/.config/MQTTX/GPUCache"
+  - "$HOME/.config/MQTTX/DawnGraphiteCache"
+  - "$HOME/.config/MQTTX/DawnWebGPUCache"
+  - "$HOME/.config/MQTTX/logs"
+  - "$HOME/.cache/MQTTX"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-mqttx-windows
+  name: "MQTTX Electron caches and logs"
+  description: "Removes regenerable MQTTX HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/MQTTX/Cache"
+  - "%APPDATA%/MQTTX/Code Cache"
+  - "%APPDATA%/MQTTX/GPUCache"
+  - "%APPDATA%/MQTTX/DawnGraphiteCache"
+  - "%APPDATA%/MQTTX/DawnWebGPUCache"
+  - "%APPDATA%/MQTTX/logs"
+  - "%LOCALAPPDATA%/MQTTX/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-conduktor-macos
+  name: "Conduktor Electron caches and logs"
+  description: "Removes regenerable Conduktor HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Conduktor/Cache"
+  - "$HOME/Library/Application Support/Conduktor/Code Cache"
+  - "$HOME/Library/Application Support/Conduktor/GPUCache"
+  - "$HOME/Library/Application Support/Conduktor/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Conduktor/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Conduktor/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Conduktor/ShaderCache"
+  - "$HOME/Library/Application Support/Conduktor/logs"
+  - "$HOME/Library/Logs/Conduktor"
+  - "$HOME/Library/Caches/Conduktor"
+  - "$HOME/Library/Caches/io.conduktor.Conduktor"
+  - "$HOME/Library/Caches/io.conduktor.Conduktor.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-conduktor-linux
+  name: "Conduktor Electron caches and logs"
+  description: "Removes regenerable Conduktor HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Conduktor/Cache"
+  - "$HOME/.config/Conduktor/Code Cache"
+  - "$HOME/.config/Conduktor/GPUCache"
+  - "$HOME/.config/Conduktor/DawnGraphiteCache"
+  - "$HOME/.config/Conduktor/DawnWebGPUCache"
+  - "$HOME/.config/Conduktor/logs"
+  - "$HOME/.cache/Conduktor"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-conduktor-windows
+  name: "Conduktor Electron caches and logs"
+  description: "Removes regenerable Conduktor HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Conduktor/Cache"
+  - "%APPDATA%/Conduktor/Code Cache"
+  - "%APPDATA%/Conduktor/GPUCache"
+  - "%APPDATA%/Conduktor/DawnGraphiteCache"
+  - "%APPDATA%/Conduktor/DawnWebGPUCache"
+  - "%APPDATA%/Conduktor/logs"
+  - "%LOCALAPPDATA%/Conduktor/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-notion-macos
+  name: "Notion Desktop Electron caches and logs"
+  description: "Removes regenerable Notion Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Notion/Cache"
+  - "$HOME/Library/Application Support/Notion/Code Cache"
+  - "$HOME/Library/Application Support/Notion/GPUCache"
+  - "$HOME/Library/Application Support/Notion/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Notion/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Notion/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Notion/ShaderCache"
+  - "$HOME/Library/Application Support/Notion/logs"
+  - "$HOME/Library/Logs/Notion"
+  - "$HOME/Library/Caches/Notion"
+  - "$HOME/Library/Caches/notion.id"
+  - "$HOME/Library/Caches/notion.id.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-notion-partitions-macos
+  name: "Notion Desktop partition caches"
+  description: "Removes regenerable Cache, Code Cache, GPUCache, and Dawn caches inside Notion Desktop Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Notion/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-notion-linux
+  name: "Notion Desktop Electron caches and logs"
+  description: "Removes regenerable Notion Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Notion/Cache"
+  - "$HOME/.config/Notion/Code Cache"
+  - "$HOME/.config/Notion/GPUCache"
+  - "$HOME/.config/Notion/DawnGraphiteCache"
+  - "$HOME/.config/Notion/DawnWebGPUCache"
+  - "$HOME/.config/Notion/logs"
+  - "$HOME/.cache/Notion"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-notion-windows
+  name: "Notion Desktop Electron caches and logs"
+  description: "Removes regenerable Notion Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Notion/Cache"
+  - "%APPDATA%/Notion/Code Cache"
+  - "%APPDATA%/Notion/GPUCache"
+  - "%APPDATA%/Notion/DawnGraphiteCache"
+  - "%APPDATA%/Notion/DawnWebGPUCache"
+  - "%APPDATA%/Notion/logs"
+  - "%LOCALAPPDATA%/Notion/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-notion-partitions-windows
+  name: "Notion Desktop partition caches"
+  description: "Removes regenerable Cache, Code Cache, and GPUCache inside Notion Desktop Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Notion/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-notion-calendar-macos
+  name: "Notion Calendar (Cron) Electron caches and logs"
+  description: "Removes regenerable Notion Calendar (Cron) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Notion Calendar/Cache"
+  - "$HOME/Library/Application Support/Notion Calendar/Code Cache"
+  - "$HOME/Library/Application Support/Notion Calendar/GPUCache"
+  - "$HOME/Library/Application Support/Notion Calendar/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Notion Calendar/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Notion Calendar/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Notion Calendar/ShaderCache"
+  - "$HOME/Library/Application Support/Notion Calendar/logs"
+  - "$HOME/Library/Logs/Notion Calendar"
+  - "$HOME/Library/Caches/Notion Calendar"
+  - "$HOME/Library/Caches/com.cron.electron"
+  - "$HOME/Library/Caches/com.cron.electron.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-notion-calendar-linux
+  name: "Notion Calendar (Cron) Electron caches and logs"
+  description: "Removes regenerable Notion Calendar (Cron) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Notion Calendar/Cache"
+  - "$HOME/.config/Notion Calendar/Code Cache"
+  - "$HOME/.config/Notion Calendar/GPUCache"
+  - "$HOME/.config/Notion Calendar/DawnGraphiteCache"
+  - "$HOME/.config/Notion Calendar/DawnWebGPUCache"
+  - "$HOME/.config/Notion Calendar/logs"
+  - "$HOME/.cache/Notion Calendar"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-notion-calendar-windows
+  name: "Notion Calendar (Cron) Electron caches and logs"
+  description: "Removes regenerable Notion Calendar (Cron) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Notion Calendar/Cache"
+  - "%APPDATA%/Notion Calendar/Code Cache"
+  - "%APPDATA%/Notion Calendar/GPUCache"
+  - "%APPDATA%/Notion Calendar/DawnGraphiteCache"
+  - "%APPDATA%/Notion Calendar/DawnWebGPUCache"
+  - "%APPDATA%/Notion Calendar/logs"
+  - "%LOCALAPPDATA%/Notion Calendar/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-obsidian-macos
+  name: "Obsidian Electron caches and logs"
+  description: "Removes regenerable Obsidian HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/obsidian/Cache"
+  - "$HOME/Library/Application Support/obsidian/Code Cache"
+  - "$HOME/Library/Application Support/obsidian/GPUCache"
+  - "$HOME/Library/Application Support/obsidian/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/obsidian/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/obsidian/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/obsidian/ShaderCache"
+  - "$HOME/Library/Application Support/obsidian/logs"
+  - "$HOME/Library/Logs/obsidian"
+  - "$HOME/Library/Caches/obsidian"
+  - "$HOME/Library/Caches/md.obsidian"
+  - "$HOME/Library/Caches/md.obsidian.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-obsidian-partitions-macos
+  name: "Obsidian partition caches"
+  description: "Removes regenerable Cache, Code Cache, GPUCache, and Dawn caches inside Obsidian Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/obsidian/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-obsidian-linux
+  name: "Obsidian Electron caches and logs"
+  description: "Removes regenerable Obsidian HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/obsidian/Cache"
+  - "$HOME/.config/obsidian/Code Cache"
+  - "$HOME/.config/obsidian/GPUCache"
+  - "$HOME/.config/obsidian/DawnGraphiteCache"
+  - "$HOME/.config/obsidian/DawnWebGPUCache"
+  - "$HOME/.config/obsidian/logs"
+  - "$HOME/.cache/obsidian"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-obsidian-windows
+  name: "Obsidian Electron caches and logs"
+  description: "Removes regenerable Obsidian HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/obsidian/Cache"
+  - "%APPDATA%/obsidian/Code Cache"
+  - "%APPDATA%/obsidian/GPUCache"
+  - "%APPDATA%/obsidian/DawnGraphiteCache"
+  - "%APPDATA%/obsidian/DawnWebGPUCache"
+  - "%APPDATA%/obsidian/logs"
+  - "%LOCALAPPDATA%/obsidian/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-obsidian-partitions-windows
+  name: "Obsidian partition caches"
+  description: "Removes regenerable Cache, Code Cache, and GPUCache inside Obsidian Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/obsidian/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [electron-cef, electron]
+
+- id: ec-logseq-macos
+  name: "Logseq Electron caches and logs"
+  description: "Removes regenerable Logseq HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Logseq/Cache"
+  - "$HOME/Library/Application Support/Logseq/Code Cache"
+  - "$HOME/Library/Application Support/Logseq/GPUCache"
+  - "$HOME/Library/Application Support/Logseq/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Logseq/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Logseq/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Logseq/ShaderCache"
+  - "$HOME/Library/Application Support/Logseq/logs"
+  - "$HOME/Library/Logs/Logseq"
+  - "$HOME/Library/Caches/Logseq"
+  - "$HOME/Library/Caches/com.electron.logseq"
+  - "$HOME/Library/Caches/com.electron.logseq.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-logseq-linux
+  name: "Logseq Electron caches and logs"
+  description: "Removes regenerable Logseq HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Logseq/Cache"
+  - "$HOME/.config/Logseq/Code Cache"
+  - "$HOME/.config/Logseq/GPUCache"
+  - "$HOME/.config/Logseq/DawnGraphiteCache"
+  - "$HOME/.config/Logseq/DawnWebGPUCache"
+  - "$HOME/.config/Logseq/logs"
+  - "$HOME/.cache/Logseq"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-logseq-windows
+  name: "Logseq Electron caches and logs"
+  description: "Removes regenerable Logseq HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Logseq/Cache"
+  - "%APPDATA%/Logseq/Code Cache"
+  - "%APPDATA%/Logseq/GPUCache"
+  - "%APPDATA%/Logseq/DawnGraphiteCache"
+  - "%APPDATA%/Logseq/DawnWebGPUCache"
+  - "%APPDATA%/Logseq/logs"
+  - "%LOCALAPPDATA%/Logseq/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-anytype-macos
+  name: "Anytype Electron caches and logs"
+  description: "Removes regenerable Anytype HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/anytype2/Cache"
+  - "$HOME/Library/Application Support/anytype2/Code Cache"
+  - "$HOME/Library/Application Support/anytype2/GPUCache"
+  - "$HOME/Library/Application Support/anytype2/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/anytype2/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/anytype2/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/anytype2/ShaderCache"
+  - "$HOME/Library/Application Support/anytype2/logs"
+  - "$HOME/Library/Logs/anytype2"
+  - "$HOME/Library/Caches/anytype2"
+  - "$HOME/Library/Caches/com.anytype.anytype2"
+  - "$HOME/Library/Caches/com.anytype.anytype2.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-anytype-linux
+  name: "Anytype Electron caches and logs"
+  description: "Removes regenerable Anytype HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/anytype2/Cache"
+  - "$HOME/.config/anytype2/Code Cache"
+  - "$HOME/.config/anytype2/GPUCache"
+  - "$HOME/.config/anytype2/DawnGraphiteCache"
+  - "$HOME/.config/anytype2/DawnWebGPUCache"
+  - "$HOME/.config/anytype2/logs"
+  - "$HOME/.cache/anytype2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-anytype-windows
+  name: "Anytype Electron caches and logs"
+  description: "Removes regenerable Anytype HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/anytype2/Cache"
+  - "%APPDATA%/anytype2/Code Cache"
+  - "%APPDATA%/anytype2/GPUCache"
+  - "%APPDATA%/anytype2/DawnGraphiteCache"
+  - "%APPDATA%/anytype2/DawnWebGPUCache"
+  - "%APPDATA%/anytype2/logs"
+  - "%LOCALAPPDATA%/anytype2/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-appflowy-macos
+  name: "AppFlowy Electron caches and logs"
+  description: "Removes regenerable AppFlowy HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/AppFlowy/Cache"
+  - "$HOME/Library/Application Support/AppFlowy/Code Cache"
+  - "$HOME/Library/Application Support/AppFlowy/GPUCache"
+  - "$HOME/Library/Application Support/AppFlowy/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/AppFlowy/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/AppFlowy/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/AppFlowy/ShaderCache"
+  - "$HOME/Library/Application Support/AppFlowy/logs"
+  - "$HOME/Library/Logs/AppFlowy"
+  - "$HOME/Library/Caches/AppFlowy"
+  - "$HOME/Library/Caches/io.appflowy.AppFlowy"
+  - "$HOME/Library/Caches/io.appflowy.AppFlowy.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-appflowy-linux
+  name: "AppFlowy Electron caches and logs"
+  description: "Removes regenerable AppFlowy HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/AppFlowy/Cache"
+  - "$HOME/.config/AppFlowy/Code Cache"
+  - "$HOME/.config/AppFlowy/GPUCache"
+  - "$HOME/.config/AppFlowy/DawnGraphiteCache"
+  - "$HOME/.config/AppFlowy/DawnWebGPUCache"
+  - "$HOME/.config/AppFlowy/logs"
+  - "$HOME/.cache/AppFlowy"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-appflowy-windows
+  name: "AppFlowy Electron caches and logs"
+  description: "Removes regenerable AppFlowy HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/AppFlowy/Cache"
+  - "%APPDATA%/AppFlowy/Code Cache"
+  - "%APPDATA%/AppFlowy/GPUCache"
+  - "%APPDATA%/AppFlowy/DawnGraphiteCache"
+  - "%APPDATA%/AppFlowy/DawnWebGPUCache"
+  - "%APPDATA%/AppFlowy/logs"
+  - "%LOCALAPPDATA%/AppFlowy/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-affine-macos
+  name: "AFFiNE Electron caches and logs"
+  description: "Removes regenerable AFFiNE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/AFFiNE/Cache"
+  - "$HOME/Library/Application Support/AFFiNE/Code Cache"
+  - "$HOME/Library/Application Support/AFFiNE/GPUCache"
+  - "$HOME/Library/Application Support/AFFiNE/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/AFFiNE/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/AFFiNE/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/AFFiNE/ShaderCache"
+  - "$HOME/Library/Application Support/AFFiNE/logs"
+  - "$HOME/Library/Logs/AFFiNE"
+  - "$HOME/Library/Caches/AFFiNE"
+  - "$HOME/Library/Caches/pro.affine.app"
+  - "$HOME/Library/Caches/pro.affine.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-affine-linux
+  name: "AFFiNE Electron caches and logs"
+  description: "Removes regenerable AFFiNE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/AFFiNE/Cache"
+  - "$HOME/.config/AFFiNE/Code Cache"
+  - "$HOME/.config/AFFiNE/GPUCache"
+  - "$HOME/.config/AFFiNE/DawnGraphiteCache"
+  - "$HOME/.config/AFFiNE/DawnWebGPUCache"
+  - "$HOME/.config/AFFiNE/logs"
+  - "$HOME/.cache/AFFiNE"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-affine-windows
+  name: "AFFiNE Electron caches and logs"
+  description: "Removes regenerable AFFiNE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/AFFiNE/Cache"
+  - "%APPDATA%/AFFiNE/Code Cache"
+  - "%APPDATA%/AFFiNE/GPUCache"
+  - "%APPDATA%/AFFiNE/DawnGraphiteCache"
+  - "%APPDATA%/AFFiNE/DawnWebGPUCache"
+  - "%APPDATA%/AFFiNE/logs"
+  - "%LOCALAPPDATA%/AFFiNE/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-capacities-macos
+  name: "Capacities Electron caches and logs"
+  description: "Removes regenerable Capacities HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Capacities/Cache"
+  - "$HOME/Library/Application Support/Capacities/Code Cache"
+  - "$HOME/Library/Application Support/Capacities/GPUCache"
+  - "$HOME/Library/Application Support/Capacities/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Capacities/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Capacities/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Capacities/ShaderCache"
+  - "$HOME/Library/Application Support/Capacities/logs"
+  - "$HOME/Library/Logs/Capacities"
+  - "$HOME/Library/Caches/Capacities"
+  - "$HOME/Library/Caches/io.capacities.app"
+  - "$HOME/Library/Caches/io.capacities.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-capacities-linux
+  name: "Capacities Electron caches and logs"
+  description: "Removes regenerable Capacities HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Capacities/Cache"
+  - "$HOME/.config/Capacities/Code Cache"
+  - "$HOME/.config/Capacities/GPUCache"
+  - "$HOME/.config/Capacities/DawnGraphiteCache"
+  - "$HOME/.config/Capacities/DawnWebGPUCache"
+  - "$HOME/.config/Capacities/logs"
+  - "$HOME/.cache/Capacities"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-capacities-windows
+  name: "Capacities Electron caches and logs"
+  description: "Removes regenerable Capacities HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Capacities/Cache"
+  - "%APPDATA%/Capacities/Code Cache"
+  - "%APPDATA%/Capacities/GPUCache"
+  - "%APPDATA%/Capacities/DawnGraphiteCache"
+  - "%APPDATA%/Capacities/DawnWebGPUCache"
+  - "%APPDATA%/Capacities/logs"
+  - "%LOCALAPPDATA%/Capacities/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-heptabase-macos
+  name: "Heptabase Electron caches and logs"
+  description: "Removes regenerable Heptabase HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Heptabase/Cache"
+  - "$HOME/Library/Application Support/Heptabase/Code Cache"
+  - "$HOME/Library/Application Support/Heptabase/GPUCache"
+  - "$HOME/Library/Application Support/Heptabase/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Heptabase/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Heptabase/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Heptabase/ShaderCache"
+  - "$HOME/Library/Application Support/Heptabase/logs"
+  - "$HOME/Library/Logs/Heptabase"
+  - "$HOME/Library/Caches/Heptabase"
+  - "$HOME/Library/Caches/app.heptabase.Heptabase"
+  - "$HOME/Library/Caches/app.heptabase.Heptabase.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-heptabase-linux
+  name: "Heptabase Electron caches and logs"
+  description: "Removes regenerable Heptabase HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Heptabase/Cache"
+  - "$HOME/.config/Heptabase/Code Cache"
+  - "$HOME/.config/Heptabase/GPUCache"
+  - "$HOME/.config/Heptabase/DawnGraphiteCache"
+  - "$HOME/.config/Heptabase/DawnWebGPUCache"
+  - "$HOME/.config/Heptabase/logs"
+  - "$HOME/.cache/Heptabase"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-heptabase-windows
+  name: "Heptabase Electron caches and logs"
+  description: "Removes regenerable Heptabase HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Heptabase/Cache"
+  - "%APPDATA%/Heptabase/Code Cache"
+  - "%APPDATA%/Heptabase/GPUCache"
+  - "%APPDATA%/Heptabase/DawnGraphiteCache"
+  - "%APPDATA%/Heptabase/DawnWebGPUCache"
+  - "%APPDATA%/Heptabase/logs"
+  - "%LOCALAPPDATA%/Heptabase/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-tana-macos
+  name: "Tana Electron caches and logs"
+  description: "Removes regenerable Tana HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Tana/Cache"
+  - "$HOME/Library/Application Support/Tana/Code Cache"
+  - "$HOME/Library/Application Support/Tana/GPUCache"
+  - "$HOME/Library/Application Support/Tana/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Tana/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Tana/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Tana/ShaderCache"
+  - "$HOME/Library/Application Support/Tana/logs"
+  - "$HOME/Library/Logs/Tana"
+  - "$HOME/Library/Caches/Tana"
+  - "$HOME/Library/Caches/inc.tana.desktop"
+  - "$HOME/Library/Caches/inc.tana.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-tana-linux
+  name: "Tana Electron caches and logs"
+  description: "Removes regenerable Tana HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Tana/Cache"
+  - "$HOME/.config/Tana/Code Cache"
+  - "$HOME/.config/Tana/GPUCache"
+  - "$HOME/.config/Tana/DawnGraphiteCache"
+  - "$HOME/.config/Tana/DawnWebGPUCache"
+  - "$HOME/.config/Tana/logs"
+  - "$HOME/.cache/Tana"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-tana-windows
+  name: "Tana Electron caches and logs"
+  description: "Removes regenerable Tana HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Tana/Cache"
+  - "%APPDATA%/Tana/Code Cache"
+  - "%APPDATA%/Tana/GPUCache"
+  - "%APPDATA%/Tana/DawnGraphiteCache"
+  - "%APPDATA%/Tana/DawnWebGPUCache"
+  - "%APPDATA%/Tana/logs"
+  - "%LOCALAPPDATA%/Tana/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-reflect-macos
+  name: "Reflect Notes Electron caches and logs"
+  description: "Removes regenerable Reflect Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Reflect/Cache"
+  - "$HOME/Library/Application Support/Reflect/Code Cache"
+  - "$HOME/Library/Application Support/Reflect/GPUCache"
+  - "$HOME/Library/Application Support/Reflect/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Reflect/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Reflect/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Reflect/ShaderCache"
+  - "$HOME/Library/Application Support/Reflect/logs"
+  - "$HOME/Library/Logs/Reflect"
+  - "$HOME/Library/Caches/Reflect"
+  - "$HOME/Library/Caches/app.reflect.desktop"
+  - "$HOME/Library/Caches/app.reflect.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-reflect-linux
+  name: "Reflect Notes Electron caches and logs"
+  description: "Removes regenerable Reflect Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Reflect/Cache"
+  - "$HOME/.config/Reflect/Code Cache"
+  - "$HOME/.config/Reflect/GPUCache"
+  - "$HOME/.config/Reflect/DawnGraphiteCache"
+  - "$HOME/.config/Reflect/DawnWebGPUCache"
+  - "$HOME/.config/Reflect/logs"
+  - "$HOME/.cache/Reflect"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-reflect-windows
+  name: "Reflect Notes Electron caches and logs"
+  description: "Removes regenerable Reflect Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Reflect/Cache"
+  - "%APPDATA%/Reflect/Code Cache"
+  - "%APPDATA%/Reflect/GPUCache"
+  - "%APPDATA%/Reflect/DawnGraphiteCache"
+  - "%APPDATA%/Reflect/DawnWebGPUCache"
+  - "%APPDATA%/Reflect/logs"
+  - "%LOCALAPPDATA%/Reflect/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-roam-macos
+  name: "Roam Research Electron caches and logs"
+  description: "Removes regenerable Roam Research HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Roam Research/Cache"
+  - "$HOME/Library/Application Support/Roam Research/Code Cache"
+  - "$HOME/Library/Application Support/Roam Research/GPUCache"
+  - "$HOME/Library/Application Support/Roam Research/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Roam Research/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Roam Research/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Roam Research/ShaderCache"
+  - "$HOME/Library/Application Support/Roam Research/logs"
+  - "$HOME/Library/Logs/Roam Research"
+  - "$HOME/Library/Caches/Roam Research"
+  - "$HOME/Library/Caches/com.roamresearch.desktop"
+  - "$HOME/Library/Caches/com.roamresearch.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-roam-linux
+  name: "Roam Research Electron caches and logs"
+  description: "Removes regenerable Roam Research HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Roam Research/Cache"
+  - "$HOME/.config/Roam Research/Code Cache"
+  - "$HOME/.config/Roam Research/GPUCache"
+  - "$HOME/.config/Roam Research/DawnGraphiteCache"
+  - "$HOME/.config/Roam Research/DawnWebGPUCache"
+  - "$HOME/.config/Roam Research/logs"
+  - "$HOME/.cache/Roam Research"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-roam-windows
+  name: "Roam Research Electron caches and logs"
+  description: "Removes regenerable Roam Research HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Roam Research/Cache"
+  - "%APPDATA%/Roam Research/Code Cache"
+  - "%APPDATA%/Roam Research/GPUCache"
+  - "%APPDATA%/Roam Research/DawnGraphiteCache"
+  - "%APPDATA%/Roam Research/DawnWebGPUCache"
+  - "%APPDATA%/Roam Research/logs"
+  - "%LOCALAPPDATA%/Roam Research/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-joplin-macos
+  name: "Joplin Electron caches and logs"
+  description: "Removes regenerable Joplin HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Joplin/Cache"
+  - "$HOME/Library/Application Support/Joplin/Code Cache"
+  - "$HOME/Library/Application Support/Joplin/GPUCache"
+  - "$HOME/Library/Application Support/Joplin/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Joplin/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Joplin/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Joplin/ShaderCache"
+  - "$HOME/Library/Application Support/Joplin/logs"
+  - "$HOME/Library/Logs/Joplin"
+  - "$HOME/Library/Caches/Joplin"
+  - "$HOME/Library/Caches/net.cozic.joplin-desktop"
+  - "$HOME/Library/Caches/net.cozic.joplin-desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-joplin-linux
+  name: "Joplin Electron caches and logs"
+  description: "Removes regenerable Joplin HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Joplin/Cache"
+  - "$HOME/.config/Joplin/Code Cache"
+  - "$HOME/.config/Joplin/GPUCache"
+  - "$HOME/.config/Joplin/DawnGraphiteCache"
+  - "$HOME/.config/Joplin/DawnWebGPUCache"
+  - "$HOME/.config/Joplin/logs"
+  - "$HOME/.cache/Joplin"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-joplin-windows
+  name: "Joplin Electron caches and logs"
+  description: "Removes regenerable Joplin HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Joplin/Cache"
+  - "%APPDATA%/Joplin/Code Cache"
+  - "%APPDATA%/Joplin/GPUCache"
+  - "%APPDATA%/Joplin/DawnGraphiteCache"
+  - "%APPDATA%/Joplin/DawnWebGPUCache"
+  - "%APPDATA%/Joplin/logs"
+  - "%LOCALAPPDATA%/Joplin/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-standard-notes-macos
+  name: "Standard Notes Electron caches and logs"
+  description: "Removes regenerable Standard Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Standard Notes/Cache"
+  - "$HOME/Library/Application Support/Standard Notes/Code Cache"
+  - "$HOME/Library/Application Support/Standard Notes/GPUCache"
+  - "$HOME/Library/Application Support/Standard Notes/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Standard Notes/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Standard Notes/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Standard Notes/ShaderCache"
+  - "$HOME/Library/Application Support/Standard Notes/logs"
+  - "$HOME/Library/Logs/Standard Notes"
+  - "$HOME/Library/Caches/Standard Notes"
+  - "$HOME/Library/Caches/org.standardnotes.standardnotes"
+  - "$HOME/Library/Caches/org.standardnotes.standardnotes.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-standard-notes-linux
+  name: "Standard Notes Electron caches and logs"
+  description: "Removes regenerable Standard Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Standard Notes/Cache"
+  - "$HOME/.config/Standard Notes/Code Cache"
+  - "$HOME/.config/Standard Notes/GPUCache"
+  - "$HOME/.config/Standard Notes/DawnGraphiteCache"
+  - "$HOME/.config/Standard Notes/DawnWebGPUCache"
+  - "$HOME/.config/Standard Notes/logs"
+  - "$HOME/.cache/Standard Notes"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-standard-notes-windows
+  name: "Standard Notes Electron caches and logs"
+  description: "Removes regenerable Standard Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Standard Notes/Cache"
+  - "%APPDATA%/Standard Notes/Code Cache"
+  - "%APPDATA%/Standard Notes/GPUCache"
+  - "%APPDATA%/Standard Notes/DawnGraphiteCache"
+  - "%APPDATA%/Standard Notes/DawnWebGPUCache"
+  - "%APPDATA%/Standard Notes/logs"
+  - "%LOCALAPPDATA%/Standard Notes/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-upnote-macos
+  name: "UpNote Electron caches and logs"
+  description: "Removes regenerable UpNote HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/UpNote/Cache"
+  - "$HOME/Library/Application Support/UpNote/Code Cache"
+  - "$HOME/Library/Application Support/UpNote/GPUCache"
+  - "$HOME/Library/Application Support/UpNote/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/UpNote/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/UpNote/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/UpNote/ShaderCache"
+  - "$HOME/Library/Application Support/UpNote/logs"
+  - "$HOME/Library/Logs/UpNote"
+  - "$HOME/Library/Caches/UpNote"
+  - "$HOME/Library/Caches/com.getupnote.desktop"
+  - "$HOME/Library/Caches/com.getupnote.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-upnote-linux
+  name: "UpNote Electron caches and logs"
+  description: "Removes regenerable UpNote HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/UpNote/Cache"
+  - "$HOME/.config/UpNote/Code Cache"
+  - "$HOME/.config/UpNote/GPUCache"
+  - "$HOME/.config/UpNote/DawnGraphiteCache"
+  - "$HOME/.config/UpNote/DawnWebGPUCache"
+  - "$HOME/.config/UpNote/logs"
+  - "$HOME/.cache/UpNote"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-upnote-windows
+  name: "UpNote Electron caches and logs"
+  description: "Removes regenerable UpNote HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/UpNote/Cache"
+  - "%APPDATA%/UpNote/Code Cache"
+  - "%APPDATA%/UpNote/GPUCache"
+  - "%APPDATA%/UpNote/DawnGraphiteCache"
+  - "%APPDATA%/UpNote/DawnWebGPUCache"
+  - "%APPDATA%/UpNote/logs"
+  - "%LOCALAPPDATA%/UpNote/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-simplenote-macos
+  name: "Simplenote Electron caches and logs"
+  description: "Removes regenerable Simplenote HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Simplenote/Cache"
+  - "$HOME/Library/Application Support/Simplenote/Code Cache"
+  - "$HOME/Library/Application Support/Simplenote/GPUCache"
+  - "$HOME/Library/Application Support/Simplenote/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Simplenote/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Simplenote/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Simplenote/ShaderCache"
+  - "$HOME/Library/Application Support/Simplenote/logs"
+  - "$HOME/Library/Logs/Simplenote"
+  - "$HOME/Library/Caches/Simplenote"
+  - "$HOME/Library/Caches/com.automattic.simplenote"
+  - "$HOME/Library/Caches/com.automattic.simplenote.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-simplenote-linux
+  name: "Simplenote Electron caches and logs"
+  description: "Removes regenerable Simplenote HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Simplenote/Cache"
+  - "$HOME/.config/Simplenote/Code Cache"
+  - "$HOME/.config/Simplenote/GPUCache"
+  - "$HOME/.config/Simplenote/DawnGraphiteCache"
+  - "$HOME/.config/Simplenote/DawnWebGPUCache"
+  - "$HOME/.config/Simplenote/logs"
+  - "$HOME/.cache/Simplenote"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-simplenote-windows
+  name: "Simplenote Electron caches and logs"
+  description: "Removes regenerable Simplenote HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Simplenote/Cache"
+  - "%APPDATA%/Simplenote/Code Cache"
+  - "%APPDATA%/Simplenote/GPUCache"
+  - "%APPDATA%/Simplenote/DawnGraphiteCache"
+  - "%APPDATA%/Simplenote/DawnWebGPUCache"
+  - "%APPDATA%/Simplenote/logs"
+  - "%LOCALAPPDATA%/Simplenote/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-trilium-macos
+  name: "Trilium Notes Electron caches and logs"
+  description: "Removes regenerable Trilium Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Trilium Notes/Cache"
+  - "$HOME/Library/Application Support/Trilium Notes/Code Cache"
+  - "$HOME/Library/Application Support/Trilium Notes/GPUCache"
+  - "$HOME/Library/Application Support/Trilium Notes/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Trilium Notes/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Trilium Notes/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Trilium Notes/ShaderCache"
+  - "$HOME/Library/Application Support/Trilium Notes/logs"
+  - "$HOME/Library/Logs/Trilium Notes"
+  - "$HOME/Library/Caches/Trilium Notes"
+  - "$HOME/Library/Caches/com.trilium.TriliumNext"
+  - "$HOME/Library/Caches/com.trilium.TriliumNext.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-trilium-linux
+  name: "Trilium Notes Electron caches and logs"
+  description: "Removes regenerable Trilium Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Trilium Notes/Cache"
+  - "$HOME/.config/Trilium Notes/Code Cache"
+  - "$HOME/.config/Trilium Notes/GPUCache"
+  - "$HOME/.config/Trilium Notes/DawnGraphiteCache"
+  - "$HOME/.config/Trilium Notes/DawnWebGPUCache"
+  - "$HOME/.config/Trilium Notes/logs"
+  - "$HOME/.cache/Trilium Notes"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-trilium-windows
+  name: "Trilium Notes Electron caches and logs"
+  description: "Removes regenerable Trilium Notes HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Trilium Notes/Cache"
+  - "%APPDATA%/Trilium Notes/Code Cache"
+  - "%APPDATA%/Trilium Notes/GPUCache"
+  - "%APPDATA%/Trilium Notes/DawnGraphiteCache"
+  - "%APPDATA%/Trilium Notes/DawnWebGPUCache"
+  - "%APPDATA%/Trilium Notes/logs"
+  - "%LOCALAPPDATA%/Trilium Notes/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-siyuan-macos
+  name: "SiYuan Electron caches and logs"
+  description: "Removes regenerable SiYuan HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/SiYuan/Cache"
+  - "$HOME/Library/Application Support/SiYuan/Code Cache"
+  - "$HOME/Library/Application Support/SiYuan/GPUCache"
+  - "$HOME/Library/Application Support/SiYuan/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/SiYuan/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/SiYuan/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/SiYuan/ShaderCache"
+  - "$HOME/Library/Application Support/SiYuan/logs"
+  - "$HOME/Library/Logs/SiYuan"
+  - "$HOME/Library/Caches/SiYuan"
+  - "$HOME/Library/Caches/org.b3log.siyuan"
+  - "$HOME/Library/Caches/org.b3log.siyuan.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-siyuan-linux
+  name: "SiYuan Electron caches and logs"
+  description: "Removes regenerable SiYuan HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/SiYuan/Cache"
+  - "$HOME/.config/SiYuan/Code Cache"
+  - "$HOME/.config/SiYuan/GPUCache"
+  - "$HOME/.config/SiYuan/DawnGraphiteCache"
+  - "$HOME/.config/SiYuan/DawnWebGPUCache"
+  - "$HOME/.config/SiYuan/logs"
+  - "$HOME/.cache/SiYuan"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-siyuan-windows
+  name: "SiYuan Electron caches and logs"
+  description: "Removes regenerable SiYuan HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/SiYuan/Cache"
+  - "%APPDATA%/SiYuan/Code Cache"
+  - "%APPDATA%/SiYuan/GPUCache"
+  - "%APPDATA%/SiYuan/DawnGraphiteCache"
+  - "%APPDATA%/SiYuan/DawnWebGPUCache"
+  - "%APPDATA%/SiYuan/logs"
+  - "%LOCALAPPDATA%/SiYuan/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-linear-macos
+  name: "Linear Desktop Electron caches and logs"
+  description: "Removes regenerable Linear Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Linear/Cache"
+  - "$HOME/Library/Application Support/Linear/Code Cache"
+  - "$HOME/Library/Application Support/Linear/GPUCache"
+  - "$HOME/Library/Application Support/Linear/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Linear/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Linear/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Linear/ShaderCache"
+  - "$HOME/Library/Application Support/Linear/logs"
+  - "$HOME/Library/Logs/Linear"
+  - "$HOME/Library/Caches/Linear"
+  - "$HOME/Library/Caches/com.linear"
+  - "$HOME/Library/Caches/com.linear.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-linear-linux
+  name: "Linear Desktop Electron caches and logs"
+  description: "Removes regenerable Linear Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Linear/Cache"
+  - "$HOME/.config/Linear/Code Cache"
+  - "$HOME/.config/Linear/GPUCache"
+  - "$HOME/.config/Linear/DawnGraphiteCache"
+  - "$HOME/.config/Linear/DawnWebGPUCache"
+  - "$HOME/.config/Linear/logs"
+  - "$HOME/.cache/Linear"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-linear-windows
+  name: "Linear Desktop Electron caches and logs"
+  description: "Removes regenerable Linear Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Linear/Cache"
+  - "%APPDATA%/Linear/Code Cache"
+  - "%APPDATA%/Linear/GPUCache"
+  - "%APPDATA%/Linear/DawnGraphiteCache"
+  - "%APPDATA%/Linear/DawnWebGPUCache"
+  - "%APPDATA%/Linear/logs"
+  - "%LOCALAPPDATA%/Linear/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-clickup-macos
+  name: "ClickUp Electron caches and logs"
+  description: "Removes regenerable ClickUp HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/ClickUp/Cache"
+  - "$HOME/Library/Application Support/ClickUp/Code Cache"
+  - "$HOME/Library/Application Support/ClickUp/GPUCache"
+  - "$HOME/Library/Application Support/ClickUp/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/ClickUp/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/ClickUp/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/ClickUp/ShaderCache"
+  - "$HOME/Library/Application Support/ClickUp/logs"
+  - "$HOME/Library/Logs/ClickUp"
+  - "$HOME/Library/Caches/ClickUp"
+  - "$HOME/Library/Caches/com.clickup.desktop-app"
+  - "$HOME/Library/Caches/com.clickup.desktop-app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-clickup-linux
+  name: "ClickUp Electron caches and logs"
+  description: "Removes regenerable ClickUp HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/ClickUp/Cache"
+  - "$HOME/.config/ClickUp/Code Cache"
+  - "$HOME/.config/ClickUp/GPUCache"
+  - "$HOME/.config/ClickUp/DawnGraphiteCache"
+  - "$HOME/.config/ClickUp/DawnWebGPUCache"
+  - "$HOME/.config/ClickUp/logs"
+  - "$HOME/.cache/ClickUp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-clickup-windows
+  name: "ClickUp Electron caches and logs"
+  description: "Removes regenerable ClickUp HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/ClickUp/Cache"
+  - "%APPDATA%/ClickUp/Code Cache"
+  - "%APPDATA%/ClickUp/GPUCache"
+  - "%APPDATA%/ClickUp/DawnGraphiteCache"
+  - "%APPDATA%/ClickUp/DawnWebGPUCache"
+  - "%APPDATA%/ClickUp/logs"
+  - "%LOCALAPPDATA%/ClickUp/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-asana-macos
+  name: "Asana Desktop Electron caches and logs"
+  description: "Removes regenerable Asana Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Asana/Cache"
+  - "$HOME/Library/Application Support/Asana/Code Cache"
+  - "$HOME/Library/Application Support/Asana/GPUCache"
+  - "$HOME/Library/Application Support/Asana/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Asana/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Asana/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Asana/ShaderCache"
+  - "$HOME/Library/Application Support/Asana/logs"
+  - "$HOME/Library/Logs/Asana"
+  - "$HOME/Library/Caches/Asana"
+  - "$HOME/Library/Caches/com.asana.desktop"
+  - "$HOME/Library/Caches/com.asana.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-asana-linux
+  name: "Asana Desktop Electron caches and logs"
+  description: "Removes regenerable Asana Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Asana/Cache"
+  - "$HOME/.config/Asana/Code Cache"
+  - "$HOME/.config/Asana/GPUCache"
+  - "$HOME/.config/Asana/DawnGraphiteCache"
+  - "$HOME/.config/Asana/DawnWebGPUCache"
+  - "$HOME/.config/Asana/logs"
+  - "$HOME/.cache/Asana"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-asana-windows
+  name: "Asana Desktop Electron caches and logs"
+  description: "Removes regenerable Asana Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Asana/Cache"
+  - "%APPDATA%/Asana/Code Cache"
+  - "%APPDATA%/Asana/GPUCache"
+  - "%APPDATA%/Asana/DawnGraphiteCache"
+  - "%APPDATA%/Asana/DawnWebGPUCache"
+  - "%APPDATA%/Asana/logs"
+  - "%LOCALAPPDATA%/Asana/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-todoist-macos
+  name: "Todoist Electron caches and logs"
+  description: "Removes regenerable Todoist HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Todoist/Cache"
+  - "$HOME/Library/Application Support/Todoist/Code Cache"
+  - "$HOME/Library/Application Support/Todoist/GPUCache"
+  - "$HOME/Library/Application Support/Todoist/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Todoist/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Todoist/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Todoist/ShaderCache"
+  - "$HOME/Library/Application Support/Todoist/logs"
+  - "$HOME/Library/Logs/Todoist"
+  - "$HOME/Library/Caches/Todoist"
+  - "$HOME/Library/Caches/com.todoist.mac.Todoist"
+  - "$HOME/Library/Caches/com.todoist.mac.Todoist.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-todoist-linux
+  name: "Todoist Electron caches and logs"
+  description: "Removes regenerable Todoist HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Todoist/Cache"
+  - "$HOME/.config/Todoist/Code Cache"
+  - "$HOME/.config/Todoist/GPUCache"
+  - "$HOME/.config/Todoist/DawnGraphiteCache"
+  - "$HOME/.config/Todoist/DawnWebGPUCache"
+  - "$HOME/.config/Todoist/logs"
+  - "$HOME/.cache/Todoist"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-todoist-windows
+  name: "Todoist Electron caches and logs"
+  description: "Removes regenerable Todoist HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Todoist/Cache"
+  - "%APPDATA%/Todoist/Code Cache"
+  - "%APPDATA%/Todoist/GPUCache"
+  - "%APPDATA%/Todoist/DawnGraphiteCache"
+  - "%APPDATA%/Todoist/DawnWebGPUCache"
+  - "%APPDATA%/Todoist/logs"
+  - "%LOCALAPPDATA%/Todoist/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-ticktick-macos
+  name: "TickTick Electron caches and logs"
+  description: "Removes regenerable TickTick HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/TickTick/Cache"
+  - "$HOME/Library/Application Support/TickTick/Code Cache"
+  - "$HOME/Library/Application Support/TickTick/GPUCache"
+  - "$HOME/Library/Application Support/TickTick/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/TickTick/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/TickTick/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/TickTick/ShaderCache"
+  - "$HOME/Library/Application Support/TickTick/logs"
+  - "$HOME/Library/Logs/TickTick"
+  - "$HOME/Library/Caches/TickTick"
+  - "$HOME/Library/Caches/com.TickTick.task.mac"
+  - "$HOME/Library/Caches/com.TickTick.task.mac.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-ticktick-linux
+  name: "TickTick Electron caches and logs"
+  description: "Removes regenerable TickTick HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/TickTick/Cache"
+  - "$HOME/.config/TickTick/Code Cache"
+  - "$HOME/.config/TickTick/GPUCache"
+  - "$HOME/.config/TickTick/DawnGraphiteCache"
+  - "$HOME/.config/TickTick/DawnWebGPUCache"
+  - "$HOME/.config/TickTick/logs"
+  - "$HOME/.cache/TickTick"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-ticktick-windows
+  name: "TickTick Electron caches and logs"
+  description: "Removes regenerable TickTick HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/TickTick/Cache"
+  - "%APPDATA%/TickTick/Code Cache"
+  - "%APPDATA%/TickTick/GPUCache"
+  - "%APPDATA%/TickTick/DawnGraphiteCache"
+  - "%APPDATA%/TickTick/DawnWebGPUCache"
+  - "%APPDATA%/TickTick/logs"
+  - "%LOCALAPPDATA%/TickTick/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-trello-macos
+  name: "Trello Electron caches and logs"
+  description: "Removes regenerable Trello HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Trello/Cache"
+  - "$HOME/Library/Application Support/Trello/Code Cache"
+  - "$HOME/Library/Application Support/Trello/GPUCache"
+  - "$HOME/Library/Application Support/Trello/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Trello/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Trello/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Trello/ShaderCache"
+  - "$HOME/Library/Application Support/Trello/logs"
+  - "$HOME/Library/Logs/Trello"
+  - "$HOME/Library/Caches/Trello"
+  - "$HOME/Library/Caches/com.atlassian.trello"
+  - "$HOME/Library/Caches/com.atlassian.trello.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-trello-linux
+  name: "Trello Electron caches and logs"
+  description: "Removes regenerable Trello HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Trello/Cache"
+  - "$HOME/.config/Trello/Code Cache"
+  - "$HOME/.config/Trello/GPUCache"
+  - "$HOME/.config/Trello/DawnGraphiteCache"
+  - "$HOME/.config/Trello/DawnWebGPUCache"
+  - "$HOME/.config/Trello/logs"
+  - "$HOME/.cache/Trello"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-trello-windows
+  name: "Trello Electron caches and logs"
+  description: "Removes regenerable Trello HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Trello/Cache"
+  - "%APPDATA%/Trello/Code Cache"
+  - "%APPDATA%/Trello/GPUCache"
+  - "%APPDATA%/Trello/DawnGraphiteCache"
+  - "%APPDATA%/Trello/DawnWebGPUCache"
+  - "%APPDATA%/Trello/logs"
+  - "%LOCALAPPDATA%/Trello/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-akiflow-macos
+  name: "Akiflow Electron caches and logs"
+  description: "Removes regenerable Akiflow HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Akiflow/Cache"
+  - "$HOME/Library/Application Support/Akiflow/Code Cache"
+  - "$HOME/Library/Application Support/Akiflow/GPUCache"
+  - "$HOME/Library/Application Support/Akiflow/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Akiflow/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Akiflow/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Akiflow/ShaderCache"
+  - "$HOME/Library/Application Support/Akiflow/logs"
+  - "$HOME/Library/Logs/Akiflow"
+  - "$HOME/Library/Caches/Akiflow"
+  - "$HOME/Library/Caches/com.akiflow.akiflow"
+  - "$HOME/Library/Caches/com.akiflow.akiflow.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-akiflow-linux
+  name: "Akiflow Electron caches and logs"
+  description: "Removes regenerable Akiflow HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Akiflow/Cache"
+  - "$HOME/.config/Akiflow/Code Cache"
+  - "$HOME/.config/Akiflow/GPUCache"
+  - "$HOME/.config/Akiflow/DawnGraphiteCache"
+  - "$HOME/.config/Akiflow/DawnWebGPUCache"
+  - "$HOME/.config/Akiflow/logs"
+  - "$HOME/.cache/Akiflow"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-akiflow-windows
+  name: "Akiflow Electron caches and logs"
+  description: "Removes regenerable Akiflow HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Akiflow/Cache"
+  - "%APPDATA%/Akiflow/Code Cache"
+  - "%APPDATA%/Akiflow/GPUCache"
+  - "%APPDATA%/Akiflow/DawnGraphiteCache"
+  - "%APPDATA%/Akiflow/DawnWebGPUCache"
+  - "%APPDATA%/Akiflow/logs"
+  - "%LOCALAPPDATA%/Akiflow/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-sunsama-macos
+  name: "Sunsama Electron caches and logs"
+  description: "Removes regenerable Sunsama HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Sunsama/Cache"
+  - "$HOME/Library/Application Support/Sunsama/Code Cache"
+  - "$HOME/Library/Application Support/Sunsama/GPUCache"
+  - "$HOME/Library/Application Support/Sunsama/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Sunsama/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Sunsama/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Sunsama/ShaderCache"
+  - "$HOME/Library/Application Support/Sunsama/logs"
+  - "$HOME/Library/Logs/Sunsama"
+  - "$HOME/Library/Caches/Sunsama"
+  - "$HOME/Library/Caches/com.sunsama.desktop"
+  - "$HOME/Library/Caches/com.sunsama.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-sunsama-linux
+  name: "Sunsama Electron caches and logs"
+  description: "Removes regenerable Sunsama HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Sunsama/Cache"
+  - "$HOME/.config/Sunsama/Code Cache"
+  - "$HOME/.config/Sunsama/GPUCache"
+  - "$HOME/.config/Sunsama/DawnGraphiteCache"
+  - "$HOME/.config/Sunsama/DawnWebGPUCache"
+  - "$HOME/.config/Sunsama/logs"
+  - "$HOME/.cache/Sunsama"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-sunsama-windows
+  name: "Sunsama Electron caches and logs"
+  description: "Removes regenerable Sunsama HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Sunsama/Cache"
+  - "%APPDATA%/Sunsama/Code Cache"
+  - "%APPDATA%/Sunsama/GPUCache"
+  - "%APPDATA%/Sunsama/DawnGraphiteCache"
+  - "%APPDATA%/Sunsama/DawnWebGPUCache"
+  - "%APPDATA%/Sunsama/logs"
+  - "%LOCALAPPDATA%/Sunsama/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-morgen-macos
+  name: "Morgen Calendar Electron caches and logs"
+  description: "Removes regenerable Morgen Calendar HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Morgen/Cache"
+  - "$HOME/Library/Application Support/Morgen/Code Cache"
+  - "$HOME/Library/Application Support/Morgen/GPUCache"
+  - "$HOME/Library/Application Support/Morgen/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Morgen/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Morgen/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Morgen/ShaderCache"
+  - "$HOME/Library/Application Support/Morgen/logs"
+  - "$HOME/Library/Logs/Morgen"
+  - "$HOME/Library/Caches/Morgen"
+  - "$HOME/Library/Caches/so.morgen.Morgen"
+  - "$HOME/Library/Caches/so.morgen.Morgen.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-morgen-linux
+  name: "Morgen Calendar Electron caches and logs"
+  description: "Removes regenerable Morgen Calendar HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Morgen/Cache"
+  - "$HOME/.config/Morgen/Code Cache"
+  - "$HOME/.config/Morgen/GPUCache"
+  - "$HOME/.config/Morgen/DawnGraphiteCache"
+  - "$HOME/.config/Morgen/DawnWebGPUCache"
+  - "$HOME/.config/Morgen/logs"
+  - "$HOME/.cache/Morgen"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-morgen-windows
+  name: "Morgen Calendar Electron caches and logs"
+  description: "Removes regenerable Morgen Calendar HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Morgen/Cache"
+  - "%APPDATA%/Morgen/Code Cache"
+  - "%APPDATA%/Morgen/GPUCache"
+  - "%APPDATA%/Morgen/DawnGraphiteCache"
+  - "%APPDATA%/Morgen/DawnWebGPUCache"
+  - "%APPDATA%/Morgen/logs"
+  - "%LOCALAPPDATA%/Morgen/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-drawio-macos
+  name: "diagrams.net (Draw.io) Electron caches and logs"
+  description: "Removes regenerable diagrams.net (Draw.io) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/draw.io/Cache"
+  - "$HOME/Library/Application Support/draw.io/Code Cache"
+  - "$HOME/Library/Application Support/draw.io/GPUCache"
+  - "$HOME/Library/Application Support/draw.io/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/draw.io/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/draw.io/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/draw.io/ShaderCache"
+  - "$HOME/Library/Application Support/draw.io/logs"
+  - "$HOME/Library/Logs/draw.io"
+  - "$HOME/Library/Caches/draw.io"
+  - "$HOME/Library/Caches/com.jgraph.drawio.desktop"
+  - "$HOME/Library/Caches/com.jgraph.drawio.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-drawio-linux
+  name: "diagrams.net (Draw.io) Electron caches and logs"
+  description: "Removes regenerable diagrams.net (Draw.io) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/draw.io/Cache"
+  - "$HOME/.config/draw.io/Code Cache"
+  - "$HOME/.config/draw.io/GPUCache"
+  - "$HOME/.config/draw.io/DawnGraphiteCache"
+  - "$HOME/.config/draw.io/DawnWebGPUCache"
+  - "$HOME/.config/draw.io/logs"
+  - "$HOME/.cache/draw.io"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-drawio-windows
+  name: "diagrams.net (Draw.io) Electron caches and logs"
+  description: "Removes regenerable diagrams.net (Draw.io) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/draw.io/Cache"
+  - "%APPDATA%/draw.io/Code Cache"
+  - "%APPDATA%/draw.io/GPUCache"
+  - "%APPDATA%/draw.io/DawnGraphiteCache"
+  - "%APPDATA%/draw.io/DawnWebGPUCache"
+  - "%APPDATA%/draw.io/logs"
+  - "%LOCALAPPDATA%/draw.io/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-responsively-macos
+  name: "ResponsivelyApp Electron caches and logs"
+  description: "Removes regenerable ResponsivelyApp HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/ResponsivelyApp/Cache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/Code Cache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/GPUCache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/ShaderCache"
+  - "$HOME/Library/Application Support/ResponsivelyApp/logs"
+  - "$HOME/Library/Logs/ResponsivelyApp"
+  - "$HOME/Library/Caches/ResponsivelyApp"
+  - "$HOME/Library/Caches/app.responsively.ResponsivelyApp"
+  - "$HOME/Library/Caches/app.responsively.ResponsivelyApp.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-responsively-linux
+  name: "ResponsivelyApp Electron caches and logs"
+  description: "Removes regenerable ResponsivelyApp HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/ResponsivelyApp/Cache"
+  - "$HOME/.config/ResponsivelyApp/Code Cache"
+  - "$HOME/.config/ResponsivelyApp/GPUCache"
+  - "$HOME/.config/ResponsivelyApp/DawnGraphiteCache"
+  - "$HOME/.config/ResponsivelyApp/DawnWebGPUCache"
+  - "$HOME/.config/ResponsivelyApp/logs"
+  - "$HOME/.cache/ResponsivelyApp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-responsively-windows
+  name: "ResponsivelyApp Electron caches and logs"
+  description: "Removes regenerable ResponsivelyApp HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/ResponsivelyApp/Cache"
+  - "%APPDATA%/ResponsivelyApp/Code Cache"
+  - "%APPDATA%/ResponsivelyApp/GPUCache"
+  - "%APPDATA%/ResponsivelyApp/DawnGraphiteCache"
+  - "%APPDATA%/ResponsivelyApp/DawnWebGPUCache"
+  - "%APPDATA%/ResponsivelyApp/logs"
+  - "%LOCALAPPDATA%/ResponsivelyApp/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-polypane-macos
+  name: "Polypane Electron caches and logs"
+  description: "Removes regenerable Polypane HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Polypane/Cache"
+  - "$HOME/Library/Application Support/Polypane/Code Cache"
+  - "$HOME/Library/Application Support/Polypane/GPUCache"
+  - "$HOME/Library/Application Support/Polypane/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Polypane/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Polypane/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Polypane/ShaderCache"
+  - "$HOME/Library/Application Support/Polypane/logs"
+  - "$HOME/Library/Logs/Polypane"
+  - "$HOME/Library/Caches/Polypane"
+  - "$HOME/Library/Caches/com.polypane.Polypane"
+  - "$HOME/Library/Caches/com.polypane.Polypane.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-polypane-linux
+  name: "Polypane Electron caches and logs"
+  description: "Removes regenerable Polypane HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Polypane/Cache"
+  - "$HOME/.config/Polypane/Code Cache"
+  - "$HOME/.config/Polypane/GPUCache"
+  - "$HOME/.config/Polypane/DawnGraphiteCache"
+  - "$HOME/.config/Polypane/DawnWebGPUCache"
+  - "$HOME/.config/Polypane/logs"
+  - "$HOME/.cache/Polypane"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-polypane-windows
+  name: "Polypane Electron caches and logs"
+  description: "Removes regenerable Polypane HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Polypane/Cache"
+  - "%APPDATA%/Polypane/Code Cache"
+  - "%APPDATA%/Polypane/GPUCache"
+  - "%APPDATA%/Polypane/DawnGraphiteCache"
+  - "%APPDATA%/Polypane/DawnWebGPUCache"
+  - "%APPDATA%/Polypane/logs"
+  - "%LOCALAPPDATA%/Polypane/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-gitkraken-macos
+  name: "GitKraken Electron caches and logs"
+  description: "Removes regenerable GitKraken HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/GitKraken/Cache"
+  - "$HOME/Library/Application Support/GitKraken/Code Cache"
+  - "$HOME/Library/Application Support/GitKraken/GPUCache"
+  - "$HOME/Library/Application Support/GitKraken/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/GitKraken/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/GitKraken/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/GitKraken/ShaderCache"
+  - "$HOME/Library/Application Support/GitKraken/logs"
+  - "$HOME/Library/Logs/GitKraken"
+  - "$HOME/Library/Caches/GitKraken"
+  - "$HOME/Library/Caches/com.axosoft.gitkraken"
+  - "$HOME/Library/Caches/com.axosoft.gitkraken.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-gitkraken-linux
+  name: "GitKraken Electron caches and logs"
+  description: "Removes regenerable GitKraken HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/GitKraken/Cache"
+  - "$HOME/.config/GitKraken/Code Cache"
+  - "$HOME/.config/GitKraken/GPUCache"
+  - "$HOME/.config/GitKraken/DawnGraphiteCache"
+  - "$HOME/.config/GitKraken/DawnWebGPUCache"
+  - "$HOME/.config/GitKraken/logs"
+  - "$HOME/.cache/GitKraken"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-gitkraken-windows
+  name: "GitKraken Electron caches and logs"
+  description: "Removes regenerable GitKraken HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/GitKraken/Cache"
+  - "%APPDATA%/GitKraken/Code Cache"
+  - "%APPDATA%/GitKraken/GPUCache"
+  - "%APPDATA%/GitKraken/DawnGraphiteCache"
+  - "%APPDATA%/GitKraken/DawnWebGPUCache"
+  - "%APPDATA%/GitKraken/logs"
+  - "%LOCALAPPDATA%/GitKraken/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-github-desktop-macos
+  name: "GitHub Desktop Electron caches and logs"
+  description: "Removes regenerable GitHub Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/GitHub Desktop/Cache"
+  - "$HOME/Library/Application Support/GitHub Desktop/Code Cache"
+  - "$HOME/Library/Application Support/GitHub Desktop/GPUCache"
+  - "$HOME/Library/Application Support/GitHub Desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/GitHub Desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/GitHub Desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/GitHub Desktop/ShaderCache"
+  - "$HOME/Library/Application Support/GitHub Desktop/logs"
+  - "$HOME/Library/Logs/GitHub Desktop"
+  - "$HOME/Library/Caches/GitHub Desktop"
+  - "$HOME/Library/Caches/com.github.GitHubClient"
+  - "$HOME/Library/Caches/com.github.GitHubClient.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-github-desktop-linux
+  name: "GitHub Desktop Electron caches and logs"
+  description: "Removes regenerable GitHub Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/GitHub Desktop/Cache"
+  - "$HOME/.config/GitHub Desktop/Code Cache"
+  - "$HOME/.config/GitHub Desktop/GPUCache"
+  - "$HOME/.config/GitHub Desktop/DawnGraphiteCache"
+  - "$HOME/.config/GitHub Desktop/DawnWebGPUCache"
+  - "$HOME/.config/GitHub Desktop/logs"
+  - "$HOME/.cache/GitHub Desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-github-desktop-windows
+  name: "GitHub Desktop Electron caches and logs"
+  description: "Removes regenerable GitHub Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/GitHub Desktop/Cache"
+  - "%APPDATA%/GitHub Desktop/Code Cache"
+  - "%APPDATA%/GitHub Desktop/GPUCache"
+  - "%APPDATA%/GitHub Desktop/DawnGraphiteCache"
+  - "%APPDATA%/GitHub Desktop/DawnWebGPUCache"
+  - "%APPDATA%/GitHub Desktop/logs"
+  - "%LOCALAPPDATA%/GitHub Desktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-gitbutler-macos
+  name: "GitButler Electron caches and logs"
+  description: "Removes regenerable GitButler HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/com.gitbutler.app/Cache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/Code Cache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/GPUCache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/ShaderCache"
+  - "$HOME/Library/Application Support/com.gitbutler.app/logs"
+  - "$HOME/Library/Logs/com.gitbutler.app"
+  - "$HOME/Library/Caches/com.gitbutler.app"
+  - "$HOME/Library/Caches/com.gitbutler.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-gitbutler-linux
+  name: "GitButler Electron caches and logs"
+  description: "Removes regenerable GitButler HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/com.gitbutler.app/Cache"
+  - "$HOME/.config/com.gitbutler.app/Code Cache"
+  - "$HOME/.config/com.gitbutler.app/GPUCache"
+  - "$HOME/.config/com.gitbutler.app/DawnGraphiteCache"
+  - "$HOME/.config/com.gitbutler.app/DawnWebGPUCache"
+  - "$HOME/.config/com.gitbutler.app/logs"
+  - "$HOME/.cache/com.gitbutler.app"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-gitbutler-windows
+  name: "GitButler Electron caches and logs"
+  description: "Removes regenerable GitButler HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/com.gitbutler.app/Cache"
+  - "%APPDATA%/com.gitbutler.app/Code Cache"
+  - "%APPDATA%/com.gitbutler.app/GPUCache"
+  - "%APPDATA%/com.gitbutler.app/DawnGraphiteCache"
+  - "%APPDATA%/com.gitbutler.app/DawnWebGPUCache"
+  - "%APPDATA%/com.gitbutler.app/logs"
+  - "%LOCALAPPDATA%/com.gitbutler.app/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-wave-terminal-macos
+  name: "Wave Terminal Electron caches and logs"
+  description: "Removes regenerable Wave Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/waveterm/Cache"
+  - "$HOME/Library/Application Support/waveterm/Code Cache"
+  - "$HOME/Library/Application Support/waveterm/GPUCache"
+  - "$HOME/Library/Application Support/waveterm/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/waveterm/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/waveterm/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/waveterm/ShaderCache"
+  - "$HOME/Library/Application Support/waveterm/logs"
+  - "$HOME/Library/Logs/waveterm"
+  - "$HOME/Library/Caches/waveterm"
+  - "$HOME/Library/Caches/dev.commandline.waveterm"
+  - "$HOME/Library/Caches/dev.commandline.waveterm.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-wave-terminal-linux
+  name: "Wave Terminal Electron caches and logs"
+  description: "Removes regenerable Wave Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/waveterm/Cache"
+  - "$HOME/.config/waveterm/Code Cache"
+  - "$HOME/.config/waveterm/GPUCache"
+  - "$HOME/.config/waveterm/DawnGraphiteCache"
+  - "$HOME/.config/waveterm/DawnWebGPUCache"
+  - "$HOME/.config/waveterm/logs"
+  - "$HOME/.cache/waveterm"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-wave-terminal-windows
+  name: "Wave Terminal Electron caches and logs"
+  description: "Removes regenerable Wave Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/waveterm/Cache"
+  - "%APPDATA%/waveterm/Code Cache"
+  - "%APPDATA%/waveterm/GPUCache"
+  - "%APPDATA%/waveterm/DawnGraphiteCache"
+  - "%APPDATA%/waveterm/DawnWebGPUCache"
+  - "%APPDATA%/waveterm/logs"
+  - "%LOCALAPPDATA%/waveterm/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-tabby-terminal-macos
+  name: "Tabby Terminal Electron caches and logs"
+  description: "Removes regenerable Tabby Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/tabby/Cache"
+  - "$HOME/Library/Application Support/tabby/Code Cache"
+  - "$HOME/Library/Application Support/tabby/GPUCache"
+  - "$HOME/Library/Application Support/tabby/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/tabby/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/tabby/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/tabby/ShaderCache"
+  - "$HOME/Library/Application Support/tabby/logs"
+  - "$HOME/Library/Logs/tabby"
+  - "$HOME/Library/Caches/tabby"
+  - "$HOME/Library/Caches/org.tabby"
+  - "$HOME/Library/Caches/org.tabby.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-tabby-terminal-linux
+  name: "Tabby Terminal Electron caches and logs"
+  description: "Removes regenerable Tabby Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/tabby/Cache"
+  - "$HOME/.config/tabby/Code Cache"
+  - "$HOME/.config/tabby/GPUCache"
+  - "$HOME/.config/tabby/DawnGraphiteCache"
+  - "$HOME/.config/tabby/DawnWebGPUCache"
+  - "$HOME/.config/tabby/logs"
+  - "$HOME/.cache/tabby"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-tabby-terminal-windows
+  name: "Tabby Terminal Electron caches and logs"
+  description: "Removes regenerable Tabby Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/tabby/Cache"
+  - "%APPDATA%/tabby/Code Cache"
+  - "%APPDATA%/tabby/GPUCache"
+  - "%APPDATA%/tabby/DawnGraphiteCache"
+  - "%APPDATA%/tabby/DawnWebGPUCache"
+  - "%APPDATA%/tabby/logs"
+  - "%LOCALAPPDATA%/tabby/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-hyper-terminal-macos
+  name: "Hyper Terminal Electron caches and logs"
+  description: "Removes regenerable Hyper Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Hyper/Cache"
+  - "$HOME/Library/Application Support/Hyper/Code Cache"
+  - "$HOME/Library/Application Support/Hyper/GPUCache"
+  - "$HOME/Library/Application Support/Hyper/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Hyper/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Hyper/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Hyper/ShaderCache"
+  - "$HOME/Library/Application Support/Hyper/logs"
+  - "$HOME/Library/Logs/Hyper"
+  - "$HOME/Library/Caches/Hyper"
+  - "$HOME/Library/Caches/co.zeit.hyper"
+  - "$HOME/Library/Caches/co.zeit.hyper.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-hyper-terminal-linux
+  name: "Hyper Terminal Electron caches and logs"
+  description: "Removes regenerable Hyper Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Hyper/Cache"
+  - "$HOME/.config/Hyper/Code Cache"
+  - "$HOME/.config/Hyper/GPUCache"
+  - "$HOME/.config/Hyper/DawnGraphiteCache"
+  - "$HOME/.config/Hyper/DawnWebGPUCache"
+  - "$HOME/.config/Hyper/logs"
+  - "$HOME/.cache/Hyper"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-hyper-terminal-windows
+  name: "Hyper Terminal Electron caches and logs"
+  description: "Removes regenerable Hyper Terminal HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Hyper/Cache"
+  - "%APPDATA%/Hyper/Code Cache"
+  - "%APPDATA%/Hyper/GPUCache"
+  - "%APPDATA%/Hyper/DawnGraphiteCache"
+  - "%APPDATA%/Hyper/DawnWebGPUCache"
+  - "%APPDATA%/Hyper/logs"
+  - "%LOCALAPPDATA%/Hyper/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-deepl-desktop-macos
+  name: "DeepL Desktop Electron caches and logs"
+  description: "Removes regenerable DeepL Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/DeepL/Cache"
+  - "$HOME/Library/Application Support/DeepL/Code Cache"
+  - "$HOME/Library/Application Support/DeepL/GPUCache"
+  - "$HOME/Library/Application Support/DeepL/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/DeepL/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/DeepL/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/DeepL/ShaderCache"
+  - "$HOME/Library/Application Support/DeepL/logs"
+  - "$HOME/Library/Logs/DeepL"
+  - "$HOME/Library/Caches/DeepL"
+  - "$HOME/Library/Caches/com.linguee.DeepLCopyTranslator"
+  - "$HOME/Library/Caches/com.linguee.DeepLCopyTranslator.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-deepl-desktop-linux
+  name: "DeepL Desktop Electron caches and logs"
+  description: "Removes regenerable DeepL Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/DeepL/Cache"
+  - "$HOME/.config/DeepL/Code Cache"
+  - "$HOME/.config/DeepL/GPUCache"
+  - "$HOME/.config/DeepL/DawnGraphiteCache"
+  - "$HOME/.config/DeepL/DawnWebGPUCache"
+  - "$HOME/.config/DeepL/logs"
+  - "$HOME/.cache/DeepL"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-deepl-desktop-windows
+  name: "DeepL Desktop Electron caches and logs"
+  description: "Removes regenerable DeepL Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/DeepL/Cache"
+  - "%LOCALAPPDATA%/DeepL/Code Cache"
+  - "%LOCALAPPDATA%/DeepL/GPUCache"
+  - "%LOCALAPPDATA%/DeepL/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/DeepL/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/DeepL/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-bitwarden-electron-macos
+  name: "Bitwarden Electron cache Electron caches and logs"
+  description: "Removes regenerable Bitwarden Electron cache HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Bitwarden/Cache"
+  - "$HOME/Library/Application Support/Bitwarden/Code Cache"
+  - "$HOME/Library/Application Support/Bitwarden/GPUCache"
+  - "$HOME/Library/Application Support/Bitwarden/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Bitwarden/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Bitwarden/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Bitwarden/ShaderCache"
+  - "$HOME/Library/Application Support/Bitwarden/logs"
+  - "$HOME/Library/Logs/Bitwarden"
+  - "$HOME/Library/Caches/Bitwarden"
+  - "$HOME/Library/Caches/com.bitwarden.desktop"
+  - "$HOME/Library/Caches/com.bitwarden.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-bitwarden-electron-linux
+  name: "Bitwarden Electron cache Electron caches and logs"
+  description: "Removes regenerable Bitwarden Electron cache HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Bitwarden/Cache"
+  - "$HOME/.config/Bitwarden/Code Cache"
+  - "$HOME/.config/Bitwarden/GPUCache"
+  - "$HOME/.config/Bitwarden/DawnGraphiteCache"
+  - "$HOME/.config/Bitwarden/DawnWebGPUCache"
+  - "$HOME/.config/Bitwarden/logs"
+  - "$HOME/.cache/Bitwarden"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-bitwarden-electron-windows
+  name: "Bitwarden Electron cache Electron caches and logs"
+  description: "Removes regenerable Bitwarden Electron cache HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Bitwarden/Cache"
+  - "%APPDATA%/Bitwarden/Code Cache"
+  - "%APPDATA%/Bitwarden/GPUCache"
+  - "%APPDATA%/Bitwarden/DawnGraphiteCache"
+  - "%APPDATA%/Bitwarden/DawnWebGPUCache"
+  - "%APPDATA%/Bitwarden/logs"
+  - "%LOCALAPPDATA%/Bitwarden/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, electron]
+
+- id: ec-proxyman-macos
+  name: "Proxyman caches"
+  description: "Removes regenerable Proxyman caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.proxyman.NSProxy"
+  - "$HOME/Library/Logs/com.proxyman.NSProxy"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-proxyman-windows
+  name: "Proxyman caches"
+  description: "Removes regenerable Proxyman caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Proxyman/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-charles-proxy-macos
+  name: "Charles Proxy caches"
+  description: "Removes regenerable Charles Proxy caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.xk72.Charles"
+  - "$HOME/Library/Logs/Charles"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-charles-proxy-linux
+  name: "Charles Proxy caches"
+  description: "Removes regenerable Charles Proxy caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/charles"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-charles-proxy-windows
+  name: "Charles Proxy caches"
+  description: "Removes regenerable Charles Proxy caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Charles/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-dbeaver-cache-macos
+  name: "DBeaver driver & app cache caches"
+  description: "Removes regenerable DBeaver driver & app cache caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/DBeaverData"
+  - "$HOME/Library/Caches/org.jkiss.dbeaver.core.product"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-dbeaver-cache-linux
+  name: "DBeaver driver & app cache caches"
+  description: "Removes regenerable DBeaver driver & app cache caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/DBeaverData"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-dbeaver-cache-windows
+  name: "DBeaver driver & app cache caches"
+  description: "Removes regenerable DBeaver driver & app cache caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/DBeaverData/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-tableplus-cache-macos
+  name: "TablePlus caches"
+  description: "Removes regenerable TablePlus caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.tinyapp.TablePlus"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-tableplus-cache-windows
+  name: "TablePlus caches"
+  description: "Removes regenerable TablePlus caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/TablePlus/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-pgadmin4-cache-macos
+  name: "pgAdmin 4 logs and temp caches"
+  description: "Removes regenerable pgAdmin 4 logs and temp caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/pgAdmin 4"
+  - "$HOME/Library/Logs/pgAdmin 4"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-pgadmin4-cache-linux
+  name: "pgAdmin 4 logs and temp caches"
+  description: "Removes regenerable pgAdmin 4 logs and temp caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/pgadmin"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-pgadmin4-cache-windows
+  name: "pgAdmin 4 logs and temp caches"
+  description: "Removes regenerable pgAdmin 4 logs and temp caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/pgAdmin/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-warp-terminal-macos
+  name: "Warp Terminal logs & caches caches"
+  description: "Removes regenerable Warp Terminal logs & caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Logs/warp.log"
+  - "$HOME/Library/Caches/dev.warp.Warp-Stable"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-warp-terminal-linux
+  name: "Warp Terminal logs & caches caches"
+  description: "Removes regenerable Warp Terminal logs & caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.local/state/warp-terminal/logs"
+  - "$HOME/.cache/warp-terminal"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-warp-terminal-windows
+  name: "Warp Terminal logs & caches caches"
+  description: "Removes regenerable Warp Terminal logs & caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/warp/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-1password-os-cache-macos
+  name: "1Password OS caches caches"
+  description: "Removes regenerable 1Password OS caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.1password.1password"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-1password-os-cache-linux
+  name: "1Password OS caches caches"
+  description: "Removes regenerable 1Password OS caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/1password"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-raycast-cache-macos
+  name: "Raycast caches caches"
+  description: "Removes regenerable Raycast caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.raycast.macos"
+  - "$HOME/Library/Logs/com.raycast.macos"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-alfred-cache-macos
+  name: "Alfred caches caches"
+  description: "Removes regenerable Alfred caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.runningwithcrayons.Alfred"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-fork-git-macos
+  name: "Fork Git client caches caches"
+  description: "Removes regenerable Fork Git client caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.DanPristupov.Fork"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-fork-git-windows
+  name: "Fork Git client caches caches"
+  description: "Removes regenerable Fork Git client caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Fork/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-tower-git-macos
+  name: "Tower Git client caches caches"
+  description: "Removes regenerable Tower Git client caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.fournova.Tower3"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-tower-git-windows
+  name: "Tower Git client caches caches"
+  description: "Removes regenerable Tower Git client caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/fournova/Tower/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-sourcetree-git-macos
+  name: "SourceTree caches caches"
+  description: "Removes regenerable SourceTree caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.torusknot.SourceTreeNotMAS"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-sourcetree-git-windows
+  name: "SourceTree caches caches"
+  description: "Removes regenerable SourceTree caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Atlassian/SourceTree/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-sublime-merge-macos
+  name: "Sublime Merge caches caches"
+  description: "Removes regenerable Sublime Merge caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.sublimemerge"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-sublime-merge-linux
+  name: "Sublime Merge caches caches"
+  description: "Removes regenerable Sublime Merge caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/sublime-merge"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]
+
+- id: ec-sublime-merge-windows
+  name: "Sublime Merge caches caches"
+  description: "Removes regenerable Sublime Merge caches caches and logs; settings, licenses, connections, and vaults are preserved."
+  category: electron-cef
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Sublime Merge/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [electron-cef, desktop]

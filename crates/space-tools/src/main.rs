@@ -78,6 +78,9 @@ fn deduplicate(root: &Path, apply: bool) -> Result<()> {
     let aliases = duplicates(root)?;
     println!("Duplicate rules: {}", aliases.len());
     if !apply {
+        for (dup, canonical) in &aliases {
+            eprintln!("  duplicate: {dup} == {canonical}");
+        }
         ensure!(aliases.is_empty(), "duplicate rules found");
         return Ok(());
     }
@@ -204,18 +207,19 @@ fn classify(path: &str) -> &'static str {
     .any(|s| path.contains(s))
     {
         "macos"
-    } else if [
-        "$XDG_",
-        "/var/",
-        "/usr/",
-        "/etc/",
-        ".linuxbrew",
-        ".var/app",
-        "flatpak",
-        "/tmp",
-    ]
-    .iter()
-    .any(|s| path.contains(s))
+    } else if path == "/tmp"
+        || path.starts_with("/tmp/")
+        || [
+            "$XDG_",
+            "/var/",
+            "/usr/",
+            "/etc/",
+            ".linuxbrew",
+            ".var/app",
+            "flatpak",
+        ]
+        .iter()
+        .any(|s| path.contains(s))
     {
         "linux"
     } else {

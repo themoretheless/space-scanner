@@ -1,0 +1,2874 @@
+---
+pack: messengers
+description: "Messaging, video conferencing, and email desktop caches and logs; accounts, keys, and local message databases are preserved."
+rules:
+- id: msg-telegram-media-cache-macos
+  name: "Telegram Desktop user_data media cache"
+  description: "Removes regenerable Telegram Desktop cache and media_cache folders inside tdata/user_data; auth keys, sessions, and saved downloads are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Telegram Desktop/tdata/user_data/cache"
+  - "$HOME/Library/Application Support/Telegram Desktop/tdata/user_data/media_cache"
+  - "$HOME/Library/Caches/ru.keepcoder.Telegram"
+  - "$HOME/Library/Containers/ru.keepcoder.Telegram/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger, telegram]
+
+- id: msg-telegram-media-cache-linux
+  name: "Telegram Desktop user_data media cache"
+  description: "Removes regenerable Telegram Desktop cache and media_cache folders; auth keys and sessions are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.local/share/TelegramDesktop/tdata/user_data/cache"
+  - "$HOME/.local/share/TelegramDesktop/tdata/user_data/media_cache"
+  - "$HOME/.cache/TelegramDesktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger, telegram]
+
+- id: msg-telegram-media-cache-windows
+  name: "Telegram Desktop user_data media cache"
+  description: "Removes regenerable Telegram Desktop cache and media_cache folders; auth keys and sessions are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Telegram Desktop/tdata/user_data/cache"
+  - "%APPDATA%/Telegram Desktop/tdata/user_data/media_cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger, telegram]
+
+- id: msg-ktalk-macos
+  name: "Kontur.Talk (ktalk) Electron caches and logs"
+  description: "Removes regenerable Kontur.Talk (ktalk) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/ktalk/Cache"
+  - "$HOME/Library/Application Support/ktalk/Code Cache"
+  - "$HOME/Library/Application Support/ktalk/GPUCache"
+  - "$HOME/Library/Application Support/ktalk/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/ktalk/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/ktalk/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/ktalk/ShaderCache"
+  - "$HOME/Library/Application Support/ktalk/logs"
+  - "$HOME/Library/Logs/ktalk"
+  - "$HOME/Library/Caches/ktalk"
+  - "$HOME/Library/Caches/ru.kontur.ktalk"
+  - "$HOME/Library/Caches/ru.kontur.ktalk.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-ktalk-linux
+  name: "Kontur.Talk (ktalk) Electron caches and logs"
+  description: "Removes regenerable Kontur.Talk (ktalk) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/ktalk/Cache"
+  - "$HOME/.config/ktalk/Code Cache"
+  - "$HOME/.config/ktalk/GPUCache"
+  - "$HOME/.config/ktalk/DawnGraphiteCache"
+  - "$HOME/.config/ktalk/DawnWebGPUCache"
+  - "$HOME/.config/ktalk/logs"
+  - "$HOME/.cache/ktalk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-ktalk-windows
+  name: "Kontur.Talk (ktalk) Electron caches and logs"
+  description: "Removes regenerable Kontur.Talk (ktalk) HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/ktalk/Cache"
+  - "%APPDATA%/ktalk/Code Cache"
+  - "%APPDATA%/ktalk/GPUCache"
+  - "%APPDATA%/ktalk/DawnGraphiteCache"
+  - "%APPDATA%/ktalk/DawnWebGPUCache"
+  - "%APPDATA%/ktalk/logs"
+  - "%LOCALAPPDATA%/ktalk/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-macos
+  name: "Discord Electron caches and logs"
+  description: "Removes regenerable Discord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/discord/Cache"
+  - "$HOME/Library/Application Support/discord/Code Cache"
+  - "$HOME/Library/Application Support/discord/GPUCache"
+  - "$HOME/Library/Application Support/discord/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/discord/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/discord/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/discord/ShaderCache"
+  - "$HOME/Library/Application Support/discord/logs"
+  - "$HOME/Library/Logs/discord"
+  - "$HOME/Library/Caches/discord"
+  - "$HOME/Library/Caches/com.hnc.Discord"
+  - "$HOME/Library/Caches/com.hnc.Discord.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-linux
+  name: "Discord Electron caches and logs"
+  description: "Removes regenerable Discord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/discord/Cache"
+  - "$HOME/.config/discord/Code Cache"
+  - "$HOME/.config/discord/GPUCache"
+  - "$HOME/.config/discord/DawnGraphiteCache"
+  - "$HOME/.config/discord/DawnWebGPUCache"
+  - "$HOME/.config/discord/logs"
+  - "$HOME/.cache/discord"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-windows
+  name: "Discord Electron caches and logs"
+  description: "Removes regenerable Discord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/discord/Cache"
+  - "%APPDATA%/discord/Code Cache"
+  - "%APPDATA%/discord/GPUCache"
+  - "%APPDATA%/discord/DawnGraphiteCache"
+  - "%APPDATA%/discord/DawnWebGPUCache"
+  - "%APPDATA%/discord/logs"
+  - "%LOCALAPPDATA%/discord/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-ptb-macos
+  name: "Discord PTB Electron caches and logs"
+  description: "Removes regenerable Discord PTB HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/discordptb/Cache"
+  - "$HOME/Library/Application Support/discordptb/Code Cache"
+  - "$HOME/Library/Application Support/discordptb/GPUCache"
+  - "$HOME/Library/Application Support/discordptb/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/discordptb/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/discordptb/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/discordptb/ShaderCache"
+  - "$HOME/Library/Application Support/discordptb/logs"
+  - "$HOME/Library/Logs/discordptb"
+  - "$HOME/Library/Caches/discordptb"
+  - "$HOME/Library/Caches/com.hnc.DiscordPTB"
+  - "$HOME/Library/Caches/com.hnc.DiscordPTB.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-ptb-linux
+  name: "Discord PTB Electron caches and logs"
+  description: "Removes regenerable Discord PTB HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/discordptb/Cache"
+  - "$HOME/.config/discordptb/Code Cache"
+  - "$HOME/.config/discordptb/GPUCache"
+  - "$HOME/.config/discordptb/DawnGraphiteCache"
+  - "$HOME/.config/discordptb/DawnWebGPUCache"
+  - "$HOME/.config/discordptb/logs"
+  - "$HOME/.cache/discordptb"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-ptb-windows
+  name: "Discord PTB Electron caches and logs"
+  description: "Removes regenerable Discord PTB HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/discordptb/Cache"
+  - "%APPDATA%/discordptb/Code Cache"
+  - "%APPDATA%/discordptb/GPUCache"
+  - "%APPDATA%/discordptb/DawnGraphiteCache"
+  - "%APPDATA%/discordptb/DawnWebGPUCache"
+  - "%APPDATA%/discordptb/logs"
+  - "%LOCALAPPDATA%/discordptb/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-canary-macos
+  name: "Discord Canary Electron caches and logs"
+  description: "Removes regenerable Discord Canary HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/discordcanary/Cache"
+  - "$HOME/Library/Application Support/discordcanary/Code Cache"
+  - "$HOME/Library/Application Support/discordcanary/GPUCache"
+  - "$HOME/Library/Application Support/discordcanary/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/discordcanary/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/discordcanary/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/discordcanary/ShaderCache"
+  - "$HOME/Library/Application Support/discordcanary/logs"
+  - "$HOME/Library/Logs/discordcanary"
+  - "$HOME/Library/Caches/discordcanary"
+  - "$HOME/Library/Caches/com.hnc.DiscordCanary"
+  - "$HOME/Library/Caches/com.hnc.DiscordCanary.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-canary-linux
+  name: "Discord Canary Electron caches and logs"
+  description: "Removes regenerable Discord Canary HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/discordcanary/Cache"
+  - "$HOME/.config/discordcanary/Code Cache"
+  - "$HOME/.config/discordcanary/GPUCache"
+  - "$HOME/.config/discordcanary/DawnGraphiteCache"
+  - "$HOME/.config/discordcanary/DawnWebGPUCache"
+  - "$HOME/.config/discordcanary/logs"
+  - "$HOME/.cache/discordcanary"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-discord-canary-windows
+  name: "Discord Canary Electron caches and logs"
+  description: "Removes regenerable Discord Canary HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/discordcanary/Cache"
+  - "%APPDATA%/discordcanary/Code Cache"
+  - "%APPDATA%/discordcanary/GPUCache"
+  - "%APPDATA%/discordcanary/DawnGraphiteCache"
+  - "%APPDATA%/discordcanary/DawnWebGPUCache"
+  - "%APPDATA%/discordcanary/logs"
+  - "%LOCALAPPDATA%/discordcanary/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-vesktop-macos
+  name: "Vesktop Electron caches and logs"
+  description: "Removes regenerable Vesktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/vesktop/Cache"
+  - "$HOME/Library/Application Support/vesktop/Code Cache"
+  - "$HOME/Library/Application Support/vesktop/GPUCache"
+  - "$HOME/Library/Application Support/vesktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/vesktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/vesktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/vesktop/ShaderCache"
+  - "$HOME/Library/Application Support/vesktop/logs"
+  - "$HOME/Library/Logs/vesktop"
+  - "$HOME/Library/Caches/vesktop"
+  - "$HOME/Library/Caches/dev.vencord.vesktop"
+  - "$HOME/Library/Caches/dev.vencord.vesktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-vesktop-linux
+  name: "Vesktop Electron caches and logs"
+  description: "Removes regenerable Vesktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/vesktop/Cache"
+  - "$HOME/.config/vesktop/Code Cache"
+  - "$HOME/.config/vesktop/GPUCache"
+  - "$HOME/.config/vesktop/DawnGraphiteCache"
+  - "$HOME/.config/vesktop/DawnWebGPUCache"
+  - "$HOME/.config/vesktop/logs"
+  - "$HOME/.cache/vesktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-vesktop-windows
+  name: "Vesktop Electron caches and logs"
+  description: "Removes regenerable Vesktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/vesktop/Cache"
+  - "%APPDATA%/vesktop/Code Cache"
+  - "%APPDATA%/vesktop/GPUCache"
+  - "%APPDATA%/vesktop/DawnGraphiteCache"
+  - "%APPDATA%/vesktop/DawnWebGPUCache"
+  - "%APPDATA%/vesktop/logs"
+  - "%LOCALAPPDATA%/vesktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-armcord-macos
+  name: "ArmCord Electron caches and logs"
+  description: "Removes regenerable ArmCord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/ArmCord/Cache"
+  - "$HOME/Library/Application Support/ArmCord/Code Cache"
+  - "$HOME/Library/Application Support/ArmCord/GPUCache"
+  - "$HOME/Library/Application Support/ArmCord/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/ArmCord/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/ArmCord/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/ArmCord/ShaderCache"
+  - "$HOME/Library/Application Support/ArmCord/logs"
+  - "$HOME/Library/Logs/ArmCord"
+  - "$HOME/Library/Caches/ArmCord"
+  - "$HOME/Library/Caches/xyz.armcord.ArmCord"
+  - "$HOME/Library/Caches/xyz.armcord.ArmCord.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-armcord-linux
+  name: "ArmCord Electron caches and logs"
+  description: "Removes regenerable ArmCord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/ArmCord/Cache"
+  - "$HOME/.config/ArmCord/Code Cache"
+  - "$HOME/.config/ArmCord/GPUCache"
+  - "$HOME/.config/ArmCord/DawnGraphiteCache"
+  - "$HOME/.config/ArmCord/DawnWebGPUCache"
+  - "$HOME/.config/ArmCord/logs"
+  - "$HOME/.cache/ArmCord"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-armcord-windows
+  name: "ArmCord Electron caches and logs"
+  description: "Removes regenerable ArmCord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/ArmCord/Cache"
+  - "%APPDATA%/ArmCord/Code Cache"
+  - "%APPDATA%/ArmCord/GPUCache"
+  - "%APPDATA%/ArmCord/DawnGraphiteCache"
+  - "%APPDATA%/ArmCord/DawnWebGPUCache"
+  - "%APPDATA%/ArmCord/logs"
+  - "%LOCALAPPDATA%/ArmCord/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-legcord-macos
+  name: "Legcord Electron caches and logs"
+  description: "Removes regenerable Legcord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Legcord/Cache"
+  - "$HOME/Library/Application Support/Legcord/Code Cache"
+  - "$HOME/Library/Application Support/Legcord/GPUCache"
+  - "$HOME/Library/Application Support/Legcord/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Legcord/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Legcord/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Legcord/ShaderCache"
+  - "$HOME/Library/Application Support/Legcord/logs"
+  - "$HOME/Library/Logs/Legcord"
+  - "$HOME/Library/Caches/Legcord"
+  - "$HOME/Library/Caches/app.legcord.Legcord"
+  - "$HOME/Library/Caches/app.legcord.Legcord.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-legcord-linux
+  name: "Legcord Electron caches and logs"
+  description: "Removes regenerable Legcord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Legcord/Cache"
+  - "$HOME/.config/Legcord/Code Cache"
+  - "$HOME/.config/Legcord/GPUCache"
+  - "$HOME/.config/Legcord/DawnGraphiteCache"
+  - "$HOME/.config/Legcord/DawnWebGPUCache"
+  - "$HOME/.config/Legcord/logs"
+  - "$HOME/.cache/Legcord"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-legcord-windows
+  name: "Legcord Electron caches and logs"
+  description: "Removes regenerable Legcord HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Legcord/Cache"
+  - "%APPDATA%/Legcord/Code Cache"
+  - "%APPDATA%/Legcord/GPUCache"
+  - "%APPDATA%/Legcord/DawnGraphiteCache"
+  - "%APPDATA%/Legcord/DawnWebGPUCache"
+  - "%APPDATA%/Legcord/logs"
+  - "%LOCALAPPDATA%/Legcord/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-slack-macos
+  name: "Slack Electron caches and logs"
+  description: "Removes regenerable Slack HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Slack/Cache"
+  - "$HOME/Library/Application Support/Slack/Code Cache"
+  - "$HOME/Library/Application Support/Slack/GPUCache"
+  - "$HOME/Library/Application Support/Slack/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Slack/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Slack/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Slack/ShaderCache"
+  - "$HOME/Library/Application Support/Slack/logs"
+  - "$HOME/Library/Logs/Slack"
+  - "$HOME/Library/Caches/Slack"
+  - "$HOME/Library/Caches/com.tinyspeck.slackmacgap"
+  - "$HOME/Library/Caches/com.tinyspeck.slackmacgap.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-slack-partitions-macos
+  name: "Slack partition caches"
+  description: "Removes regenerable Cache, Code Cache, GPUCache, and Dawn caches inside Slack Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Slack/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [messengers, electron, messenger]
+
+- id: msg-slack-linux
+  name: "Slack Electron caches and logs"
+  description: "Removes regenerable Slack HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Slack/Cache"
+  - "$HOME/.config/Slack/Code Cache"
+  - "$HOME/.config/Slack/GPUCache"
+  - "$HOME/.config/Slack/DawnGraphiteCache"
+  - "$HOME/.config/Slack/DawnWebGPUCache"
+  - "$HOME/.config/Slack/logs"
+  - "$HOME/.cache/Slack"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-slack-windows
+  name: "Slack Electron caches and logs"
+  description: "Removes regenerable Slack HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Slack/Cache"
+  - "%APPDATA%/Slack/Code Cache"
+  - "%APPDATA%/Slack/GPUCache"
+  - "%APPDATA%/Slack/DawnGraphiteCache"
+  - "%APPDATA%/Slack/DawnWebGPUCache"
+  - "%APPDATA%/Slack/logs"
+  - "%LOCALAPPDATA%/Slack/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-slack-partitions-windows
+  name: "Slack partition caches"
+  description: "Removes regenerable Cache, Code Cache, and GPUCache inside Slack Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Slack/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [messengers, electron, messenger]
+
+- id: msg-signal-macos
+  name: "Signal Desktop Electron caches and logs"
+  description: "Removes regenerable Signal Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Signal/Cache"
+  - "$HOME/Library/Application Support/Signal/Code Cache"
+  - "$HOME/Library/Application Support/Signal/GPUCache"
+  - "$HOME/Library/Application Support/Signal/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Signal/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Signal/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Signal/ShaderCache"
+  - "$HOME/Library/Application Support/Signal/logs"
+  - "$HOME/Library/Logs/Signal"
+  - "$HOME/Library/Caches/Signal"
+  - "$HOME/Library/Caches/org.whispersystems.signal-desktop"
+  - "$HOME/Library/Caches/org.whispersystems.signal-desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-signal-linux
+  name: "Signal Desktop Electron caches and logs"
+  description: "Removes regenerable Signal Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Signal/Cache"
+  - "$HOME/.config/Signal/Code Cache"
+  - "$HOME/.config/Signal/GPUCache"
+  - "$HOME/.config/Signal/DawnGraphiteCache"
+  - "$HOME/.config/Signal/DawnWebGPUCache"
+  - "$HOME/.config/Signal/logs"
+  - "$HOME/.cache/Signal"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-signal-windows
+  name: "Signal Desktop Electron caches and logs"
+  description: "Removes regenerable Signal Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Signal/Cache"
+  - "%APPDATA%/Signal/Code Cache"
+  - "%APPDATA%/Signal/GPUCache"
+  - "%APPDATA%/Signal/DawnGraphiteCache"
+  - "%APPDATA%/Signal/DawnWebGPUCache"
+  - "%APPDATA%/Signal/logs"
+  - "%LOCALAPPDATA%/Signal/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-element-macos
+  name: "Element Matrix Electron caches and logs"
+  description: "Removes regenerable Element Matrix HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Element/Cache"
+  - "$HOME/Library/Application Support/Element/Code Cache"
+  - "$HOME/Library/Application Support/Element/GPUCache"
+  - "$HOME/Library/Application Support/Element/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Element/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Element/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Element/ShaderCache"
+  - "$HOME/Library/Application Support/Element/logs"
+  - "$HOME/Library/Logs/Element"
+  - "$HOME/Library/Caches/Element"
+  - "$HOME/Library/Caches/im.riot.app"
+  - "$HOME/Library/Caches/im.riot.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-element-linux
+  name: "Element Matrix Electron caches and logs"
+  description: "Removes regenerable Element Matrix HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Element/Cache"
+  - "$HOME/.config/Element/Code Cache"
+  - "$HOME/.config/Element/GPUCache"
+  - "$HOME/.config/Element/DawnGraphiteCache"
+  - "$HOME/.config/Element/DawnWebGPUCache"
+  - "$HOME/.config/Element/logs"
+  - "$HOME/.cache/Element"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-element-windows
+  name: "Element Matrix Electron caches and logs"
+  description: "Removes regenerable Element Matrix HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Element/Cache"
+  - "%APPDATA%/Element/Code Cache"
+  - "%APPDATA%/Element/GPUCache"
+  - "%APPDATA%/Element/DawnGraphiteCache"
+  - "%APPDATA%/Element/DawnWebGPUCache"
+  - "%APPDATA%/Element/logs"
+  - "%LOCALAPPDATA%/Element/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-mattermost-macos
+  name: "Mattermost Desktop Electron caches and logs"
+  description: "Removes regenerable Mattermost Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Mattermost/Cache"
+  - "$HOME/Library/Application Support/Mattermost/Code Cache"
+  - "$HOME/Library/Application Support/Mattermost/GPUCache"
+  - "$HOME/Library/Application Support/Mattermost/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Mattermost/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Mattermost/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Mattermost/ShaderCache"
+  - "$HOME/Library/Application Support/Mattermost/logs"
+  - "$HOME/Library/Logs/Mattermost"
+  - "$HOME/Library/Caches/Mattermost"
+  - "$HOME/Library/Caches/Mattermost.Desktop"
+  - "$HOME/Library/Caches/Mattermost.Desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-mattermost-linux
+  name: "Mattermost Desktop Electron caches and logs"
+  description: "Removes regenerable Mattermost Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Mattermost/Cache"
+  - "$HOME/.config/Mattermost/Code Cache"
+  - "$HOME/.config/Mattermost/GPUCache"
+  - "$HOME/.config/Mattermost/DawnGraphiteCache"
+  - "$HOME/.config/Mattermost/DawnWebGPUCache"
+  - "$HOME/.config/Mattermost/logs"
+  - "$HOME/.cache/Mattermost"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-mattermost-windows
+  name: "Mattermost Desktop Electron caches and logs"
+  description: "Removes regenerable Mattermost Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Mattermost/Cache"
+  - "%APPDATA%/Mattermost/Code Cache"
+  - "%APPDATA%/Mattermost/GPUCache"
+  - "%APPDATA%/Mattermost/DawnGraphiteCache"
+  - "%APPDATA%/Mattermost/DawnWebGPUCache"
+  - "%APPDATA%/Mattermost/logs"
+  - "%LOCALAPPDATA%/Mattermost/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-rocketchat-macos
+  name: "Rocket.Chat Desktop Electron caches and logs"
+  description: "Removes regenerable Rocket.Chat Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Rocket.Chat/Cache"
+  - "$HOME/Library/Application Support/Rocket.Chat/Code Cache"
+  - "$HOME/Library/Application Support/Rocket.Chat/GPUCache"
+  - "$HOME/Library/Application Support/Rocket.Chat/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Rocket.Chat/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Rocket.Chat/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Rocket.Chat/ShaderCache"
+  - "$HOME/Library/Application Support/Rocket.Chat/logs"
+  - "$HOME/Library/Logs/Rocket.Chat"
+  - "$HOME/Library/Caches/Rocket.Chat"
+  - "$HOME/Library/Caches/chat.rocket"
+  - "$HOME/Library/Caches/chat.rocket.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-rocketchat-linux
+  name: "Rocket.Chat Desktop Electron caches and logs"
+  description: "Removes regenerable Rocket.Chat Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Rocket.Chat/Cache"
+  - "$HOME/.config/Rocket.Chat/Code Cache"
+  - "$HOME/.config/Rocket.Chat/GPUCache"
+  - "$HOME/.config/Rocket.Chat/DawnGraphiteCache"
+  - "$HOME/.config/Rocket.Chat/DawnWebGPUCache"
+  - "$HOME/.config/Rocket.Chat/logs"
+  - "$HOME/.cache/Rocket.Chat"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-rocketchat-windows
+  name: "Rocket.Chat Desktop Electron caches and logs"
+  description: "Removes regenerable Rocket.Chat Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Rocket.Chat/Cache"
+  - "%APPDATA%/Rocket.Chat/Code Cache"
+  - "%APPDATA%/Rocket.Chat/GPUCache"
+  - "%APPDATA%/Rocket.Chat/DawnGraphiteCache"
+  - "%APPDATA%/Rocket.Chat/DawnWebGPUCache"
+  - "%APPDATA%/Rocket.Chat/logs"
+  - "%LOCALAPPDATA%/Rocket.Chat/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-zulip-macos
+  name: "Zulip Desktop Electron caches and logs"
+  description: "Removes regenerable Zulip Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Zulip/Cache"
+  - "$HOME/Library/Application Support/Zulip/Code Cache"
+  - "$HOME/Library/Application Support/Zulip/GPUCache"
+  - "$HOME/Library/Application Support/Zulip/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Zulip/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Zulip/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Zulip/ShaderCache"
+  - "$HOME/Library/Application Support/Zulip/logs"
+  - "$HOME/Library/Logs/Zulip"
+  - "$HOME/Library/Caches/Zulip"
+  - "$HOME/Library/Caches/org.zulip.zulip-electron"
+  - "$HOME/Library/Caches/org.zulip.zulip-electron.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-zulip-linux
+  name: "Zulip Desktop Electron caches and logs"
+  description: "Removes regenerable Zulip Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Zulip/Cache"
+  - "$HOME/.config/Zulip/Code Cache"
+  - "$HOME/.config/Zulip/GPUCache"
+  - "$HOME/.config/Zulip/DawnGraphiteCache"
+  - "$HOME/.config/Zulip/DawnWebGPUCache"
+  - "$HOME/.config/Zulip/logs"
+  - "$HOME/.cache/Zulip"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-zulip-windows
+  name: "Zulip Desktop Electron caches and logs"
+  description: "Removes regenerable Zulip Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Zulip/Cache"
+  - "%APPDATA%/Zulip/Code Cache"
+  - "%APPDATA%/Zulip/GPUCache"
+  - "%APPDATA%/Zulip/DawnGraphiteCache"
+  - "%APPDATA%/Zulip/DawnWebGPUCache"
+  - "%APPDATA%/Zulip/logs"
+  - "%LOCALAPPDATA%/Zulip/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-wire-macos
+  name: "Wire Desktop Electron caches and logs"
+  description: "Removes regenerable Wire Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Wire/Cache"
+  - "$HOME/Library/Application Support/Wire/Code Cache"
+  - "$HOME/Library/Application Support/Wire/GPUCache"
+  - "$HOME/Library/Application Support/Wire/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Wire/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Wire/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Wire/ShaderCache"
+  - "$HOME/Library/Application Support/Wire/logs"
+  - "$HOME/Library/Logs/Wire"
+  - "$HOME/Library/Caches/Wire"
+  - "$HOME/Library/Caches/com.wearezeta.zclient.mac"
+  - "$HOME/Library/Caches/com.wearezeta.zclient.mac.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-wire-linux
+  name: "Wire Desktop Electron caches and logs"
+  description: "Removes regenerable Wire Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Wire/Cache"
+  - "$HOME/.config/Wire/Code Cache"
+  - "$HOME/.config/Wire/GPUCache"
+  - "$HOME/.config/Wire/DawnGraphiteCache"
+  - "$HOME/.config/Wire/DawnWebGPUCache"
+  - "$HOME/.config/Wire/logs"
+  - "$HOME/.cache/Wire"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-wire-windows
+  name: "Wire Desktop Electron caches and logs"
+  description: "Removes regenerable Wire Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Wire/Cache"
+  - "%APPDATA%/Wire/Code Cache"
+  - "%APPDATA%/Wire/GPUCache"
+  - "%APPDATA%/Wire/DawnGraphiteCache"
+  - "%APPDATA%/Wire/DawnWebGPUCache"
+  - "%APPDATA%/Wire/logs"
+  - "%LOCALAPPDATA%/Wire/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-session-macos
+  name: "Session Desktop Electron caches and logs"
+  description: "Removes regenerable Session Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Session/Cache"
+  - "$HOME/Library/Application Support/Session/Code Cache"
+  - "$HOME/Library/Application Support/Session/GPUCache"
+  - "$HOME/Library/Application Support/Session/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Session/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Session/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Session/ShaderCache"
+  - "$HOME/Library/Application Support/Session/logs"
+  - "$HOME/Library/Logs/Session"
+  - "$HOME/Library/Caches/Session"
+  - "$HOME/Library/Caches/org.session.desktop"
+  - "$HOME/Library/Caches/org.session.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-session-linux
+  name: "Session Desktop Electron caches and logs"
+  description: "Removes regenerable Session Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Session/Cache"
+  - "$HOME/.config/Session/Code Cache"
+  - "$HOME/.config/Session/GPUCache"
+  - "$HOME/.config/Session/DawnGraphiteCache"
+  - "$HOME/.config/Session/DawnWebGPUCache"
+  - "$HOME/.config/Session/logs"
+  - "$HOME/.cache/Session"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-session-windows
+  name: "Session Desktop Electron caches and logs"
+  description: "Removes regenerable Session Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Session/Cache"
+  - "%APPDATA%/Session/Code Cache"
+  - "%APPDATA%/Session/GPUCache"
+  - "%APPDATA%/Session/DawnGraphiteCache"
+  - "%APPDATA%/Session/DawnWebGPUCache"
+  - "%APPDATA%/Session/logs"
+  - "%LOCALAPPDATA%/Session/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-threema-macos
+  name: "Threema Desktop Electron caches and logs"
+  description: "Removes regenerable Threema Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Threema/Cache"
+  - "$HOME/Library/Application Support/Threema/Code Cache"
+  - "$HOME/Library/Application Support/Threema/GPUCache"
+  - "$HOME/Library/Application Support/Threema/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Threema/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Threema/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Threema/ShaderCache"
+  - "$HOME/Library/Application Support/Threema/logs"
+  - "$HOME/Library/Logs/Threema"
+  - "$HOME/Library/Caches/Threema"
+  - "$HOME/Library/Caches/ch.threema.threema-desktop"
+  - "$HOME/Library/Caches/ch.threema.threema-desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-threema-linux
+  name: "Threema Desktop Electron caches and logs"
+  description: "Removes regenerable Threema Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Threema/Cache"
+  - "$HOME/.config/Threema/Code Cache"
+  - "$HOME/.config/Threema/GPUCache"
+  - "$HOME/.config/Threema/DawnGraphiteCache"
+  - "$HOME/.config/Threema/DawnWebGPUCache"
+  - "$HOME/.config/Threema/logs"
+  - "$HOME/.cache/Threema"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-threema-windows
+  name: "Threema Desktop Electron caches and logs"
+  description: "Removes regenerable Threema Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Threema/Cache"
+  - "%APPDATA%/Threema/Code Cache"
+  - "%APPDATA%/Threema/GPUCache"
+  - "%APPDATA%/Threema/DawnGraphiteCache"
+  - "%APPDATA%/Threema/DawnWebGPUCache"
+  - "%APPDATA%/Threema/logs"
+  - "%LOCALAPPDATA%/Threema/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-lark-macos
+  name: "Lark / Feishu Electron caches and logs"
+  description: "Removes regenerable Lark / Feishu HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/LarkSuite/Cache"
+  - "$HOME/Library/Application Support/LarkSuite/Code Cache"
+  - "$HOME/Library/Application Support/LarkSuite/GPUCache"
+  - "$HOME/Library/Application Support/LarkSuite/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/LarkSuite/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/LarkSuite/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/LarkSuite/ShaderCache"
+  - "$HOME/Library/Application Support/LarkSuite/logs"
+  - "$HOME/Library/Logs/LarkSuite"
+  - "$HOME/Library/Caches/LarkSuite"
+  - "$HOME/Library/Caches/com.electron.lark"
+  - "$HOME/Library/Caches/com.electron.lark.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-lark-partitions-macos
+  name: "Lark / Feishu partition caches"
+  description: "Removes regenerable Cache, Code Cache, GPUCache, and Dawn caches inside Lark / Feishu Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/LarkSuite/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [messengers, electron, messenger]
+
+- id: msg-lark-linux
+  name: "Lark / Feishu Electron caches and logs"
+  description: "Removes regenerable Lark / Feishu HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/LarkSuite/Cache"
+  - "$HOME/.config/LarkSuite/Code Cache"
+  - "$HOME/.config/LarkSuite/GPUCache"
+  - "$HOME/.config/LarkSuite/DawnGraphiteCache"
+  - "$HOME/.config/LarkSuite/DawnWebGPUCache"
+  - "$HOME/.config/LarkSuite/logs"
+  - "$HOME/.cache/LarkSuite"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-lark-windows
+  name: "Lark / Feishu Electron caches and logs"
+  description: "Removes regenerable Lark / Feishu HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Lark/Cache"
+  - "%LOCALAPPDATA%/Lark/Code Cache"
+  - "%LOCALAPPDATA%/Lark/GPUCache"
+  - "%LOCALAPPDATA%/Lark/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/Lark/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/Lark/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-lark-partitions-windows
+  name: "Lark / Feishu partition caches"
+  description: "Removes regenerable Cache, Code Cache, and GPUCache inside Lark / Feishu Partitions; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Lark/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [messengers, electron, messenger]
+
+- id: msg-dingtalk-macos
+  name: "DingTalk Electron caches and logs"
+  description: "Removes regenerable DingTalk HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/DingTalk/Cache"
+  - "$HOME/Library/Application Support/DingTalk/Code Cache"
+  - "$HOME/Library/Application Support/DingTalk/GPUCache"
+  - "$HOME/Library/Application Support/DingTalk/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/DingTalk/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/DingTalk/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/DingTalk/ShaderCache"
+  - "$HOME/Library/Application Support/DingTalk/logs"
+  - "$HOME/Library/Logs/DingTalk"
+  - "$HOME/Library/Caches/DingTalk"
+  - "$HOME/Library/Caches/com.alibaba.DingTalkMac"
+  - "$HOME/Library/Caches/com.alibaba.DingTalkMac.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-dingtalk-linux
+  name: "DingTalk Electron caches and logs"
+  description: "Removes regenerable DingTalk HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/DingTalk/Cache"
+  - "$HOME/.config/DingTalk/Code Cache"
+  - "$HOME/.config/DingTalk/GPUCache"
+  - "$HOME/.config/DingTalk/DawnGraphiteCache"
+  - "$HOME/.config/DingTalk/DawnWebGPUCache"
+  - "$HOME/.config/DingTalk/logs"
+  - "$HOME/.cache/DingTalk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-dingtalk-windows
+  name: "DingTalk Electron caches and logs"
+  description: "Removes regenerable DingTalk HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/DingTalk/Cache"
+  - "%APPDATA%/DingTalk/Code Cache"
+  - "%APPDATA%/DingTalk/GPUCache"
+  - "%APPDATA%/DingTalk/DawnGraphiteCache"
+  - "%APPDATA%/DingTalk/DawnWebGPUCache"
+  - "%APPDATA%/DingTalk/logs"
+  - "%LOCALAPPDATA%/DingTalk/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-loom-macos
+  name: "Loom Desktop Electron caches and logs"
+  description: "Removes regenerable Loom Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Loom/Cache"
+  - "$HOME/Library/Application Support/Loom/Code Cache"
+  - "$HOME/Library/Application Support/Loom/GPUCache"
+  - "$HOME/Library/Application Support/Loom/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Loom/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Loom/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Loom/ShaderCache"
+  - "$HOME/Library/Application Support/Loom/logs"
+  - "$HOME/Library/Logs/Loom"
+  - "$HOME/Library/Caches/Loom"
+  - "$HOME/Library/Caches/com.loom.desktop"
+  - "$HOME/Library/Caches/com.loom.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-loom-linux
+  name: "Loom Desktop Electron caches and logs"
+  description: "Removes regenerable Loom Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Loom/Cache"
+  - "$HOME/.config/Loom/Code Cache"
+  - "$HOME/.config/Loom/GPUCache"
+  - "$HOME/.config/Loom/DawnGraphiteCache"
+  - "$HOME/.config/Loom/DawnWebGPUCache"
+  - "$HOME/.config/Loom/logs"
+  - "$HOME/.cache/Loom"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-loom-windows
+  name: "Loom Desktop Electron caches and logs"
+  description: "Removes regenerable Loom Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Loom/Cache"
+  - "%LOCALAPPDATA%/Loom/Code Cache"
+  - "%LOCALAPPDATA%/Loom/GPUCache"
+  - "%LOCALAPPDATA%/Loom/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/Loom/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/Loom/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-gather-macos
+  name: "Gather Town Electron caches and logs"
+  description: "Removes regenerable Gather Town HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Gather/Cache"
+  - "$HOME/Library/Application Support/Gather/Code Cache"
+  - "$HOME/Library/Application Support/Gather/GPUCache"
+  - "$HOME/Library/Application Support/Gather/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Gather/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Gather/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Gather/ShaderCache"
+  - "$HOME/Library/Application Support/Gather/logs"
+  - "$HOME/Library/Logs/Gather"
+  - "$HOME/Library/Caches/Gather"
+  - "$HOME/Library/Caches/com.gather.GatherV2"
+  - "$HOME/Library/Caches/com.gather.GatherV2.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-gather-linux
+  name: "Gather Town Electron caches and logs"
+  description: "Removes regenerable Gather Town HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Gather/Cache"
+  - "$HOME/.config/Gather/Code Cache"
+  - "$HOME/.config/Gather/GPUCache"
+  - "$HOME/.config/Gather/DawnGraphiteCache"
+  - "$HOME/.config/Gather/DawnWebGPUCache"
+  - "$HOME/.config/Gather/logs"
+  - "$HOME/.cache/Gather"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-gather-windows
+  name: "Gather Town Electron caches and logs"
+  description: "Removes regenerable Gather Town HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Gather/Cache"
+  - "%APPDATA%/Gather/Code Cache"
+  - "%APPDATA%/Gather/GPUCache"
+  - "%APPDATA%/Gather/DawnGraphiteCache"
+  - "%APPDATA%/Gather/DawnWebGPUCache"
+  - "%APPDATA%/Gather/logs"
+  - "%LOCALAPPDATA%/Gather/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-superhuman-macos
+  name: "Superhuman Electron caches and logs"
+  description: "Removes regenerable Superhuman HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Superhuman/Cache"
+  - "$HOME/Library/Application Support/Superhuman/Code Cache"
+  - "$HOME/Library/Application Support/Superhuman/GPUCache"
+  - "$HOME/Library/Application Support/Superhuman/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Superhuman/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Superhuman/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Superhuman/ShaderCache"
+  - "$HOME/Library/Application Support/Superhuman/logs"
+  - "$HOME/Library/Logs/Superhuman"
+  - "$HOME/Library/Caches/Superhuman"
+  - "$HOME/Library/Caches/com.superhuman.electron"
+  - "$HOME/Library/Caches/com.superhuman.electron.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-superhuman-linux
+  name: "Superhuman Electron caches and logs"
+  description: "Removes regenerable Superhuman HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Superhuman/Cache"
+  - "$HOME/.config/Superhuman/Code Cache"
+  - "$HOME/.config/Superhuman/GPUCache"
+  - "$HOME/.config/Superhuman/DawnGraphiteCache"
+  - "$HOME/.config/Superhuman/DawnWebGPUCache"
+  - "$HOME/.config/Superhuman/logs"
+  - "$HOME/.cache/Superhuman"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-superhuman-windows
+  name: "Superhuman Electron caches and logs"
+  description: "Removes regenerable Superhuman HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Superhuman/Cache"
+  - "%APPDATA%/Superhuman/Code Cache"
+  - "%APPDATA%/Superhuman/GPUCache"
+  - "%APPDATA%/Superhuman/DawnGraphiteCache"
+  - "%APPDATA%/Superhuman/DawnWebGPUCache"
+  - "%APPDATA%/Superhuman/logs"
+  - "%LOCALAPPDATA%/Superhuman/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-spark-macos
+  name: "Spark Desktop Electron caches and logs"
+  description: "Removes regenerable Spark Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Spark Desktop/Cache"
+  - "$HOME/Library/Application Support/Spark Desktop/Code Cache"
+  - "$HOME/Library/Application Support/Spark Desktop/GPUCache"
+  - "$HOME/Library/Application Support/Spark Desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Spark Desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Spark Desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Spark Desktop/ShaderCache"
+  - "$HOME/Library/Application Support/Spark Desktop/logs"
+  - "$HOME/Library/Logs/Spark Desktop"
+  - "$HOME/Library/Caches/Spark Desktop"
+  - "$HOME/Library/Caches/com.readdle.SparkDesktop"
+  - "$HOME/Library/Caches/com.readdle.SparkDesktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-spark-linux
+  name: "Spark Desktop Electron caches and logs"
+  description: "Removes regenerable Spark Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Spark Desktop/Cache"
+  - "$HOME/.config/Spark Desktop/Code Cache"
+  - "$HOME/.config/Spark Desktop/GPUCache"
+  - "$HOME/.config/Spark Desktop/DawnGraphiteCache"
+  - "$HOME/.config/Spark Desktop/DawnWebGPUCache"
+  - "$HOME/.config/Spark Desktop/logs"
+  - "$HOME/.cache/Spark Desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-spark-windows
+  name: "Spark Desktop Electron caches and logs"
+  description: "Removes regenerable Spark Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Spark Desktop/Cache"
+  - "%LOCALAPPDATA%/Spark Desktop/Code Cache"
+  - "%LOCALAPPDATA%/Spark Desktop/GPUCache"
+  - "%LOCALAPPDATA%/Spark Desktop/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/Spark Desktop/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/Spark Desktop/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-mailspring-macos
+  name: "Mailspring Electron caches and logs"
+  description: "Removes regenerable Mailspring HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Mailspring/Cache"
+  - "$HOME/Library/Application Support/Mailspring/Code Cache"
+  - "$HOME/Library/Application Support/Mailspring/GPUCache"
+  - "$HOME/Library/Application Support/Mailspring/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Mailspring/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Mailspring/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Mailspring/ShaderCache"
+  - "$HOME/Library/Application Support/Mailspring/logs"
+  - "$HOME/Library/Logs/Mailspring"
+  - "$HOME/Library/Caches/Mailspring"
+  - "$HOME/Library/Caches/com.mailspring.Mailspring"
+  - "$HOME/Library/Caches/com.mailspring.Mailspring.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-mailspring-linux
+  name: "Mailspring Electron caches and logs"
+  description: "Removes regenerable Mailspring HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Mailspring/Cache"
+  - "$HOME/.config/Mailspring/Code Cache"
+  - "$HOME/.config/Mailspring/GPUCache"
+  - "$HOME/.config/Mailspring/DawnGraphiteCache"
+  - "$HOME/.config/Mailspring/DawnWebGPUCache"
+  - "$HOME/.config/Mailspring/logs"
+  - "$HOME/.cache/Mailspring"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-mailspring-windows
+  name: "Mailspring Electron caches and logs"
+  description: "Removes regenerable Mailspring HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Mailspring/Cache"
+  - "%APPDATA%/Mailspring/Code Cache"
+  - "%APPDATA%/Mailspring/GPUCache"
+  - "%APPDATA%/Mailspring/DawnGraphiteCache"
+  - "%APPDATA%/Mailspring/DawnWebGPUCache"
+  - "%APPDATA%/Mailspring/logs"
+  - "%LOCALAPPDATA%/Mailspring/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-vk-messenger-macos
+  name: "VK Messenger Electron caches and logs"
+  description: "Removes regenerable VK Messenger HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/VK Messenger/Cache"
+  - "$HOME/Library/Application Support/VK Messenger/Code Cache"
+  - "$HOME/Library/Application Support/VK Messenger/GPUCache"
+  - "$HOME/Library/Application Support/VK Messenger/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/VK Messenger/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/VK Messenger/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/VK Messenger/ShaderCache"
+  - "$HOME/Library/Application Support/VK Messenger/logs"
+  - "$HOME/Library/Logs/VK Messenger"
+  - "$HOME/Library/Caches/VK Messenger"
+  - "$HOME/Library/Caches/com.vk.vkmessenger"
+  - "$HOME/Library/Caches/com.vk.vkmessenger.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-vk-messenger-linux
+  name: "VK Messenger Electron caches and logs"
+  description: "Removes regenerable VK Messenger HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/VK Messenger/Cache"
+  - "$HOME/.config/VK Messenger/Code Cache"
+  - "$HOME/.config/VK Messenger/GPUCache"
+  - "$HOME/.config/VK Messenger/DawnGraphiteCache"
+  - "$HOME/.config/VK Messenger/DawnWebGPUCache"
+  - "$HOME/.config/VK Messenger/logs"
+  - "$HOME/.cache/VK Messenger"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-vk-messenger-windows
+  name: "VK Messenger Electron caches and logs"
+  description: "Removes regenerable VK Messenger HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/VK Messenger/Cache"
+  - "%APPDATA%/VK Messenger/Code Cache"
+  - "%APPDATA%/VK Messenger/GPUCache"
+  - "%APPDATA%/VK Messenger/DawnGraphiteCache"
+  - "%APPDATA%/VK Messenger/DawnWebGPUCache"
+  - "%APPDATA%/VK Messenger/logs"
+  - "%LOCALAPPDATA%/VK Messenger/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-telemost-macos
+  name: "Yandex Telemost Electron caches and logs"
+  description: "Removes regenerable Yandex Telemost HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/YandexTelemost/Cache"
+  - "$HOME/Library/Application Support/YandexTelemost/Code Cache"
+  - "$HOME/Library/Application Support/YandexTelemost/GPUCache"
+  - "$HOME/Library/Application Support/YandexTelemost/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/YandexTelemost/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/YandexTelemost/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/YandexTelemost/ShaderCache"
+  - "$HOME/Library/Application Support/YandexTelemost/logs"
+  - "$HOME/Library/Logs/YandexTelemost"
+  - "$HOME/Library/Caches/YandexTelemost"
+  - "$HOME/Library/Caches/ru.yandex.telemost"
+  - "$HOME/Library/Caches/ru.yandex.telemost.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-telemost-linux
+  name: "Yandex Telemost Electron caches and logs"
+  description: "Removes regenerable Yandex Telemost HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/YandexTelemost/Cache"
+  - "$HOME/.config/YandexTelemost/Code Cache"
+  - "$HOME/.config/YandexTelemost/GPUCache"
+  - "$HOME/.config/YandexTelemost/DawnGraphiteCache"
+  - "$HOME/.config/YandexTelemost/DawnWebGPUCache"
+  - "$HOME/.config/YandexTelemost/logs"
+  - "$HOME/.cache/YandexTelemost"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-telemost-windows
+  name: "Yandex Telemost Electron caches and logs"
+  description: "Removes regenerable Yandex Telemost HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/YandexTelemost/Cache"
+  - "%APPDATA%/YandexTelemost/Code Cache"
+  - "%APPDATA%/YandexTelemost/GPUCache"
+  - "%APPDATA%/YandexTelemost/DawnGraphiteCache"
+  - "%APPDATA%/YandexTelemost/DawnWebGPUCache"
+  - "%APPDATA%/YandexTelemost/logs"
+  - "%LOCALAPPDATA%/YandexTelemost/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-guilded-macos
+  name: "Guilded Electron caches and logs"
+  description: "Removes regenerable Guilded HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Guilded/Cache"
+  - "$HOME/Library/Application Support/Guilded/Code Cache"
+  - "$HOME/Library/Application Support/Guilded/GPUCache"
+  - "$HOME/Library/Application Support/Guilded/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Guilded/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Guilded/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Guilded/ShaderCache"
+  - "$HOME/Library/Application Support/Guilded/logs"
+  - "$HOME/Library/Logs/Guilded"
+  - "$HOME/Library/Caches/Guilded"
+  - "$HOME/Library/Caches/com.guilded.Guilded"
+  - "$HOME/Library/Caches/com.guilded.Guilded.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-guilded-linux
+  name: "Guilded Electron caches and logs"
+  description: "Removes regenerable Guilded HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Guilded/Cache"
+  - "$HOME/.config/Guilded/Code Cache"
+  - "$HOME/.config/Guilded/GPUCache"
+  - "$HOME/.config/Guilded/DawnGraphiteCache"
+  - "$HOME/.config/Guilded/DawnWebGPUCache"
+  - "$HOME/.config/Guilded/logs"
+  - "$HOME/.cache/Guilded"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-guilded-windows
+  name: "Guilded Electron caches and logs"
+  description: "Removes regenerable Guilded HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Guilded/Cache"
+  - "%APPDATA%/Guilded/Code Cache"
+  - "%APPDATA%/Guilded/GPUCache"
+  - "%APPDATA%/Guilded/DawnGraphiteCache"
+  - "%APPDATA%/Guilded/DawnWebGPUCache"
+  - "%APPDATA%/Guilded/logs"
+  - "%LOCALAPPDATA%/Guilded/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-revolt-macos
+  name: "Revolt Desktop Electron caches and logs"
+  description: "Removes regenerable Revolt Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/revolt-desktop/Cache"
+  - "$HOME/Library/Application Support/revolt-desktop/Code Cache"
+  - "$HOME/Library/Application Support/revolt-desktop/GPUCache"
+  - "$HOME/Library/Application Support/revolt-desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/revolt-desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/revolt-desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/revolt-desktop/ShaderCache"
+  - "$HOME/Library/Application Support/revolt-desktop/logs"
+  - "$HOME/Library/Logs/revolt-desktop"
+  - "$HOME/Library/Caches/revolt-desktop"
+  - "$HOME/Library/Caches/chat.revolt.desktop"
+  - "$HOME/Library/Caches/chat.revolt.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-revolt-linux
+  name: "Revolt Desktop Electron caches and logs"
+  description: "Removes regenerable Revolt Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/revolt-desktop/Cache"
+  - "$HOME/.config/revolt-desktop/Code Cache"
+  - "$HOME/.config/revolt-desktop/GPUCache"
+  - "$HOME/.config/revolt-desktop/DawnGraphiteCache"
+  - "$HOME/.config/revolt-desktop/DawnWebGPUCache"
+  - "$HOME/.config/revolt-desktop/logs"
+  - "$HOME/.cache/revolt-desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-revolt-windows
+  name: "Revolt Desktop Electron caches and logs"
+  description: "Removes regenerable Revolt Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/revolt-desktop/Cache"
+  - "%APPDATA%/revolt-desktop/Code Cache"
+  - "%APPDATA%/revolt-desktop/GPUCache"
+  - "%APPDATA%/revolt-desktop/DawnGraphiteCache"
+  - "%APPDATA%/revolt-desktop/DawnWebGPUCache"
+  - "%APPDATA%/revolt-desktop/logs"
+  - "%LOCALAPPDATA%/revolt-desktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-chanty-macos
+  name: "Chanty Electron caches and logs"
+  description: "Removes regenerable Chanty HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Chanty/Cache"
+  - "$HOME/Library/Application Support/Chanty/Code Cache"
+  - "$HOME/Library/Application Support/Chanty/GPUCache"
+  - "$HOME/Library/Application Support/Chanty/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Chanty/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Chanty/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Chanty/ShaderCache"
+  - "$HOME/Library/Application Support/Chanty/logs"
+  - "$HOME/Library/Logs/Chanty"
+  - "$HOME/Library/Caches/Chanty"
+  - "$HOME/Library/Caches/com.chanty.desktop"
+  - "$HOME/Library/Caches/com.chanty.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-chanty-linux
+  name: "Chanty Electron caches and logs"
+  description: "Removes regenerable Chanty HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Chanty/Cache"
+  - "$HOME/.config/Chanty/Code Cache"
+  - "$HOME/.config/Chanty/GPUCache"
+  - "$HOME/.config/Chanty/DawnGraphiteCache"
+  - "$HOME/.config/Chanty/DawnWebGPUCache"
+  - "$HOME/.config/Chanty/logs"
+  - "$HOME/.cache/Chanty"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-chanty-windows
+  name: "Chanty Electron caches and logs"
+  description: "Removes regenerable Chanty HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Chanty/Cache"
+  - "%APPDATA%/Chanty/Code Cache"
+  - "%APPDATA%/Chanty/GPUCache"
+  - "%APPDATA%/Chanty/DawnGraphiteCache"
+  - "%APPDATA%/Chanty/DawnWebGPUCache"
+  - "%APPDATA%/Chanty/logs"
+  - "%LOCALAPPDATA%/Chanty/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-flock-macos
+  name: "Flock Electron caches and logs"
+  description: "Removes regenerable Flock HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Flock/Cache"
+  - "$HOME/Library/Application Support/Flock/Code Cache"
+  - "$HOME/Library/Application Support/Flock/GPUCache"
+  - "$HOME/Library/Application Support/Flock/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Flock/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Flock/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Flock/ShaderCache"
+  - "$HOME/Library/Application Support/Flock/logs"
+  - "$HOME/Library/Logs/Flock"
+  - "$HOME/Library/Caches/Flock"
+  - "$HOME/Library/Caches/com.flock.desktop"
+  - "$HOME/Library/Caches/com.flock.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-flock-linux
+  name: "Flock Electron caches and logs"
+  description: "Removes regenerable Flock HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Flock/Cache"
+  - "$HOME/.config/Flock/Code Cache"
+  - "$HOME/.config/Flock/GPUCache"
+  - "$HOME/.config/Flock/DawnGraphiteCache"
+  - "$HOME/.config/Flock/DawnWebGPUCache"
+  - "$HOME/.config/Flock/logs"
+  - "$HOME/.cache/Flock"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-flock-windows
+  name: "Flock Electron caches and logs"
+  description: "Removes regenerable Flock HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Flock/Cache"
+  - "%APPDATA%/Flock/Code Cache"
+  - "%APPDATA%/Flock/GPUCache"
+  - "%APPDATA%/Flock/DawnGraphiteCache"
+  - "%APPDATA%/Flock/DawnWebGPUCache"
+  - "%APPDATA%/Flock/logs"
+  - "%LOCALAPPDATA%/Flock/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-ringcentral-macos
+  name: "RingCentral App Electron caches and logs"
+  description: "Removes regenerable RingCentral App HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/RingCentral/Cache"
+  - "$HOME/Library/Application Support/RingCentral/Code Cache"
+  - "$HOME/Library/Application Support/RingCentral/GPUCache"
+  - "$HOME/Library/Application Support/RingCentral/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/RingCentral/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/RingCentral/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/RingCentral/ShaderCache"
+  - "$HOME/Library/Application Support/RingCentral/logs"
+  - "$HOME/Library/Logs/RingCentral"
+  - "$HOME/Library/Caches/RingCentral"
+  - "$HOME/Library/Caches/com.ringcentral.glip"
+  - "$HOME/Library/Caches/com.ringcentral.glip.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-ringcentral-linux
+  name: "RingCentral App Electron caches and logs"
+  description: "Removes regenerable RingCentral App HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/RingCentral/Cache"
+  - "$HOME/.config/RingCentral/Code Cache"
+  - "$HOME/.config/RingCentral/GPUCache"
+  - "$HOME/.config/RingCentral/DawnGraphiteCache"
+  - "$HOME/.config/RingCentral/DawnWebGPUCache"
+  - "$HOME/.config/RingCentral/logs"
+  - "$HOME/.cache/RingCentral"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-ringcentral-windows
+  name: "RingCentral App Electron caches and logs"
+  description: "Removes regenerable RingCentral App HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/RingCentral/Cache"
+  - "%LOCALAPPDATA%/RingCentral/Code Cache"
+  - "%LOCALAPPDATA%/RingCentral/GPUCache"
+  - "%LOCALAPPDATA%/RingCentral/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/RingCentral/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/RingCentral/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-8x8-macos
+  name: "8x8 Work Electron caches and logs"
+  description: "Removes regenerable 8x8 Work HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/8x8 Work/Cache"
+  - "$HOME/Library/Application Support/8x8 Work/Code Cache"
+  - "$HOME/Library/Application Support/8x8 Work/GPUCache"
+  - "$HOME/Library/Application Support/8x8 Work/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/8x8 Work/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/8x8 Work/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/8x8 Work/ShaderCache"
+  - "$HOME/Library/Application Support/8x8 Work/logs"
+  - "$HOME/Library/Logs/8x8 Work"
+  - "$HOME/Library/Caches/8x8 Work"
+  - "$HOME/Library/Caches/com.8x8.work"
+  - "$HOME/Library/Caches/com.8x8.work.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-8x8-linux
+  name: "8x8 Work Electron caches and logs"
+  description: "Removes regenerable 8x8 Work HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/8x8 Work/Cache"
+  - "$HOME/.config/8x8 Work/Code Cache"
+  - "$HOME/.config/8x8 Work/GPUCache"
+  - "$HOME/.config/8x8 Work/DawnGraphiteCache"
+  - "$HOME/.config/8x8 Work/DawnWebGPUCache"
+  - "$HOME/.config/8x8 Work/logs"
+  - "$HOME/.cache/8x8 Work"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-8x8-windows
+  name: "8x8 Work Electron caches and logs"
+  description: "Removes regenerable 8x8 Work HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/8x8 Work/Cache"
+  - "%APPDATA%/8x8 Work/Code Cache"
+  - "%APPDATA%/8x8 Work/GPUCache"
+  - "%APPDATA%/8x8 Work/DawnGraphiteCache"
+  - "%APPDATA%/8x8 Work/DawnWebGPUCache"
+  - "%APPDATA%/8x8 Work/logs"
+  - "%LOCALAPPDATA%/8x8 Work/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-dialpad-macos
+  name: "Dialpad Electron caches and logs"
+  description: "Removes regenerable Dialpad HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Dialpad/Cache"
+  - "$HOME/Library/Application Support/Dialpad/Code Cache"
+  - "$HOME/Library/Application Support/Dialpad/GPUCache"
+  - "$HOME/Library/Application Support/Dialpad/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Dialpad/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Dialpad/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Dialpad/ShaderCache"
+  - "$HOME/Library/Application Support/Dialpad/logs"
+  - "$HOME/Library/Logs/Dialpad"
+  - "$HOME/Library/Caches/Dialpad"
+  - "$HOME/Library/Caches/com.dialpad.Dialpad"
+  - "$HOME/Library/Caches/com.dialpad.Dialpad.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-dialpad-linux
+  name: "Dialpad Electron caches and logs"
+  description: "Removes regenerable Dialpad HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Dialpad/Cache"
+  - "$HOME/.config/Dialpad/Code Cache"
+  - "$HOME/.config/Dialpad/GPUCache"
+  - "$HOME/.config/Dialpad/DawnGraphiteCache"
+  - "$HOME/.config/Dialpad/DawnWebGPUCache"
+  - "$HOME/.config/Dialpad/logs"
+  - "$HOME/.cache/Dialpad"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-dialpad-windows
+  name: "Dialpad Electron caches and logs"
+  description: "Removes regenerable Dialpad HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Dialpad/Cache"
+  - "%LOCALAPPDATA%/Dialpad/Code Cache"
+  - "%LOCALAPPDATA%/Dialpad/GPUCache"
+  - "%LOCALAPPDATA%/Dialpad/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/Dialpad/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/Dialpad/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-crisp-macos
+  name: "Crisp Desktop Electron caches and logs"
+  description: "Removes regenerable Crisp Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Crisp/Cache"
+  - "$HOME/Library/Application Support/Crisp/Code Cache"
+  - "$HOME/Library/Application Support/Crisp/GPUCache"
+  - "$HOME/Library/Application Support/Crisp/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Crisp/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Crisp/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Crisp/ShaderCache"
+  - "$HOME/Library/Application Support/Crisp/logs"
+  - "$HOME/Library/Logs/Crisp"
+  - "$HOME/Library/Caches/Crisp"
+  - "$HOME/Library/Caches/im.crisp.desktop"
+  - "$HOME/Library/Caches/im.crisp.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-crisp-linux
+  name: "Crisp Desktop Electron caches and logs"
+  description: "Removes regenerable Crisp Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Crisp/Cache"
+  - "$HOME/.config/Crisp/Code Cache"
+  - "$HOME/.config/Crisp/GPUCache"
+  - "$HOME/.config/Crisp/DawnGraphiteCache"
+  - "$HOME/.config/Crisp/DawnWebGPUCache"
+  - "$HOME/.config/Crisp/logs"
+  - "$HOME/.cache/Crisp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-crisp-windows
+  name: "Crisp Desktop Electron caches and logs"
+  description: "Removes regenerable Crisp Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Crisp/Cache"
+  - "%APPDATA%/Crisp/Code Cache"
+  - "%APPDATA%/Crisp/GPUCache"
+  - "%APPDATA%/Crisp/DawnGraphiteCache"
+  - "%APPDATA%/Crisp/DawnWebGPUCache"
+  - "%APPDATA%/Crisp/logs"
+  - "%LOCALAPPDATA%/Crisp/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-front-macos
+  name: "Front App Electron caches and logs"
+  description: "Removes regenerable Front App HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Front/Cache"
+  - "$HOME/Library/Application Support/Front/Code Cache"
+  - "$HOME/Library/Application Support/Front/GPUCache"
+  - "$HOME/Library/Application Support/Front/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Front/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Front/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Front/ShaderCache"
+  - "$HOME/Library/Application Support/Front/logs"
+  - "$HOME/Library/Logs/Front"
+  - "$HOME/Library/Caches/Front"
+  - "$HOME/Library/Caches/com.frontapp.Front"
+  - "$HOME/Library/Caches/com.frontapp.Front.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-front-linux
+  name: "Front App Electron caches and logs"
+  description: "Removes regenerable Front App HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Front/Cache"
+  - "$HOME/.config/Front/Code Cache"
+  - "$HOME/.config/Front/GPUCache"
+  - "$HOME/.config/Front/DawnGraphiteCache"
+  - "$HOME/.config/Front/DawnWebGPUCache"
+  - "$HOME/.config/Front/logs"
+  - "$HOME/.cache/Front"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-front-windows
+  name: "Front App Electron caches and logs"
+  description: "Removes regenerable Front App HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Front/Cache"
+  - "%APPDATA%/Front/Code Cache"
+  - "%APPDATA%/Front/GPUCache"
+  - "%APPDATA%/Front/DawnGraphiteCache"
+  - "%APPDATA%/Front/DawnWebGPUCache"
+  - "%APPDATA%/Front/logs"
+  - "%LOCALAPPDATA%/Front/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-viber-macos
+  name: "Viber Electron caches and logs"
+  description: "Removes regenerable Viber HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/ViberPC/Cache"
+  - "$HOME/Library/Application Support/ViberPC/Code Cache"
+  - "$HOME/Library/Application Support/ViberPC/GPUCache"
+  - "$HOME/Library/Application Support/ViberPC/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/ViberPC/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/ViberPC/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/ViberPC/ShaderCache"
+  - "$HOME/Library/Application Support/ViberPC/logs"
+  - "$HOME/Library/Logs/ViberPC"
+  - "$HOME/Library/Caches/ViberPC"
+  - "$HOME/Library/Caches/com.viber.osx"
+  - "$HOME/Library/Caches/com.viber.osx.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-viber-linux
+  name: "Viber Electron caches and logs"
+  description: "Removes regenerable Viber HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/ViberPC/Cache"
+  - "$HOME/.config/ViberPC/Code Cache"
+  - "$HOME/.config/ViberPC/GPUCache"
+  - "$HOME/.config/ViberPC/DawnGraphiteCache"
+  - "$HOME/.config/ViberPC/DawnWebGPUCache"
+  - "$HOME/.config/ViberPC/logs"
+  - "$HOME/.cache/ViberPC"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-viber-windows
+  name: "Viber Electron caches and logs"
+  description: "Removes regenerable Viber HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/ViberPC/Cache"
+  - "%APPDATA%/ViberPC/Code Cache"
+  - "%APPDATA%/ViberPC/GPUCache"
+  - "%APPDATA%/ViberPC/DawnGraphiteCache"
+  - "%APPDATA%/ViberPC/DawnWebGPUCache"
+  - "%APPDATA%/ViberPC/logs"
+  - "%LOCALAPPDATA%/ViberPC/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-webex-macos
+  name: "Cisco Webex Electron caches and logs"
+  description: "Removes regenerable Cisco Webex HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Webex/Cache"
+  - "$HOME/Library/Application Support/Webex/Code Cache"
+  - "$HOME/Library/Application Support/Webex/GPUCache"
+  - "$HOME/Library/Application Support/Webex/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Webex/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Webex/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Webex/ShaderCache"
+  - "$HOME/Library/Application Support/Webex/logs"
+  - "$HOME/Library/Logs/Webex"
+  - "$HOME/Library/Caches/Webex"
+  - "$HOME/Library/Caches/Cisco-Systems.Spark"
+  - "$HOME/Library/Caches/Cisco-Systems.Spark.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-webex-linux
+  name: "Cisco Webex Electron caches and logs"
+  description: "Removes regenerable Cisco Webex HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Webex/Cache"
+  - "$HOME/.config/Webex/Code Cache"
+  - "$HOME/.config/Webex/GPUCache"
+  - "$HOME/.config/Webex/DawnGraphiteCache"
+  - "$HOME/.config/Webex/DawnWebGPUCache"
+  - "$HOME/.config/Webex/logs"
+  - "$HOME/.cache/Webex"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-webex-windows
+  name: "Cisco Webex Electron caches and logs"
+  description: "Removes regenerable Cisco Webex HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Cisco Spark/Cache"
+  - "%LOCALAPPDATA%/Cisco Spark/Code Cache"
+  - "%LOCALAPPDATA%/Cisco Spark/GPUCache"
+  - "%LOCALAPPDATA%/Cisco Spark/DawnGraphiteCache"
+  - "%LOCALAPPDATA%/Cisco Spark/DawnWebGPUCache"
+  - "%LOCALAPPDATA%/Cisco Spark/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, electron, messenger]
+
+- id: msg-zoom-caches-macos
+  name: "Zoom AutoUpdater & Webview caches"
+  description: "Removes regenerable Zoom AutoUpdater & Webview caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/us.zoom.xos"
+  - "$HOME/Library/Application Support/zoom.us/AutoUpdater"
+  - "$HOME/Library/Logs/zoom.us"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-zoom-caches-linux
+  name: "Zoom AutoUpdater & Webview caches"
+  description: "Removes regenerable Zoom AutoUpdater & Webview caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.zoom/logs"
+  - "$HOME/.cache/zoom"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-zoom-caches-windows
+  name: "Zoom AutoUpdater & Webview caches"
+  description: "Removes regenerable Zoom AutoUpdater & Webview caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Zoom/logs"
+  - "%APPDATA%/Zoom/AutoUpdater"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-msteams-new-macos
+  name: "Microsoft Teams (new) caches"
+  description: "Removes regenerable Microsoft Teams (new) caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/com.microsoft.teams2"
+  - "$HOME/Library/Logs/Microsoft Teams"
+  - "$HOME/Library/Group Containers/UBF8T346G9.com.microsoft.teams/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-msteams-new-linux
+  name: "Microsoft Teams (new) caches"
+  description: "Removes regenerable Microsoft Teams (new) caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache/teams-for-linux"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-msteams-new-windows
+  name: "Microsoft Teams (new) caches"
+  description: "Removes regenerable Microsoft Teams (new) caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Packages/MSTeams_8wekyb3d8bbwe/LocalCache/Microsoft/MSTeams/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-keybase-logs-macos
+  name: "Keybase caches and logs"
+  description: "Removes regenerable Keybase caches and logs; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/Keybase"
+  - "$HOME/Library/Logs/Keybase.log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-keybase-logs-linux
+  name: "Keybase caches and logs"
+  description: "Removes regenerable Keybase caches and logs; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache/keybase"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-keybase-logs-windows
+  name: "Keybase caches and logs"
+  description: "Removes regenerable Keybase caches and logs; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Keybase/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-thunderbird-cache-macos
+  name: "Mozilla Thunderbird cache2"
+  description: "Removes regenerable Mozilla Thunderbird cache2; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/Thunderbird"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-thunderbird-cache-linux
+  name: "Mozilla Thunderbird cache2"
+  description: "Removes regenerable Mozilla Thunderbird cache2; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache/thunderbird"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-thunderbird-cache-windows
+  name: "Mozilla Thunderbird cache2"
+  description: "Removes regenerable Mozilla Thunderbird cache2; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Thunderbird/Profiles"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-wechat-logs-macos
+  name: "WeChat caches and logs"
+  description: "Removes regenerable WeChat caches and logs; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/com.tencent.xinWeChat"
+  - "$HOME/Library/Logs/WeChat"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-wechat-logs-windows
+  name: "WeChat caches and logs"
+  description: "Removes regenerable WeChat caches and logs; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Tencent/WeChat/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-line-cache-macos
+  name: "LINE Messenger caches"
+  description: "Removes regenerable LINE Messenger caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/jp.naver.line.mac"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-line-cache-windows
+  name: "LINE Messenger caches"
+  description: "Removes regenerable LINE Messenger caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/LINE/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-kakaotalk-cache-macos
+  name: "KakaoTalk caches"
+  description: "Removes regenerable KakaoTalk caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/com.kakao.KakaoTalkMac"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-kakaotalk-cache-windows
+  name: "KakaoTalk caches"
+  description: "Removes regenerable KakaoTalk caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Kakao/KakaoTalk/users/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]
+
+- id: msg-mimestream-macos
+  name: "Mimestream mail caches"
+  description: "Removes regenerable Mimestream mail caches; accounts, encryption keys, and message databases are preserved."
+  category: messengers
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/com.mimestream.Mimestream"
+  - "$HOME/Library/Containers/com.mimestream.Mimestream/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+  tags: [messengers, messenger]

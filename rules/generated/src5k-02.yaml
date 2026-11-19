@@ -9338,20 +9338,6 @@ rules:
   - "$HOME/Library/Saved Application State/net.sourceforge.mumble.Mumble.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-mumble-snapshot
-  name: Homebrew zap mumble@snapshot
-  description: Leftover caches/logs listed in Homebrew cask zap for mumble@snapshot.
-    Prefs and generic Application Support omitted.
-  category: logs
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Logs/Mumble.log"
-  - "$HOME/Library/Saved Application State/net.sourceforge.mumble.Mumble.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-mumu
   name: Homebrew zap mumu
   description: Leftover caches/logs listed in Homebrew cask zap for mumu. Prefs and

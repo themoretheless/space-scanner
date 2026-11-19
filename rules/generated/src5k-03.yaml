@@ -99,20 +99,6 @@ rules:
   - "$HOME/Library/Saved Application State/org.openscad.OpenSCAD.savedState"
   delete_mode: contents
   max_depth: 6
-- id: brew-zap-openscad-snapshot
-  name: Homebrew zap openscad@snapshot
-  description: Leftover caches/logs listed in Homebrew cask zap for openscad@snapshot.
-    Prefs and generic Application Support omitted.
-  category: leftovers
-  platform: macos
-  risk: low
-  default_enabled: false
-  min_age_days: 7
-  paths:
-  - "$HOME/Library/Caches/org.openscad.OpenSCAD"
-  - "$HOME/Library/Saved Application State/org.openscad.OpenSCAD.savedState"
-  delete_mode: contents
-  max_depth: 6
 - id: brew-zap-opensong
   name: Homebrew zap opensong
   description: Leftover caches/logs listed in Homebrew cask zap for opensong. Prefs

@@ -9,9 +9,9 @@ rules:
     Media.localized song/video files.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.apple.Music"
   - "$HOME/Library/Caches/com.apple.TV"
@@ -30,9 +30,9 @@ rules:
     not watch_later or configs if marked exclude.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.colliderli.iina"
   - "$HOME/Library/Logs/com.colliderli.iina"
@@ -50,9 +50,9 @@ rules:
   description: Infuse metadata/artwork caches. Not user media files.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.firecore.infuse"
   - "$HOME/Library/Application Support/Infuse/Caches"
@@ -66,9 +66,9 @@ rules:
     Not media libraries.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/jellyfin/log"
   - "$HOME/Library/Application Support/jellyfin/cache"
@@ -101,9 +101,9 @@ rules:
     files on disk.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/PlexMediaServer"
   - "$HOME/Library/Caches/tv.plex.desktop"
@@ -122,9 +122,9 @@ rules:
     Offline music redownloads.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.spotify.client/Data"
   - "$HOME/Library/Caches/com.spotify.client/Storage"
@@ -139,9 +139,9 @@ rules:
   description: Twitch desktop Electron caches and logs.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/Twitch/Cache"
   - "$HOME/Library/Application Support/Twitch/Code Cache"
@@ -156,9 +156,9 @@ rules:
     caches.
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/YouTube Music/Cache"
   - "$HOME/Library/Application Support/YouTube Music/Code Cache"
@@ -187,9 +187,9 @@ rules:
   description: "Inventories regenerable media cache data for Apple Books caches (not purchased books library); report only, never deleted."
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Containers/com.apple.iBooksX/Data/Library/Caches"
   - "$HOME/Library/Containers/com.apple.iBooksX.BooksThumbnail/Data/Library/Caches"
@@ -219,9 +219,9 @@ rules:
   description: "Inventories regenerable media cache data for Music/TV cache extensions; report only, never deleted."
   category: media-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Containers/com.apple.Music.MusicCacheExtension/Data/Library/Caches"
   - "$HOME/Library/Containers/com.apple.Music.MusicStorageExtension/Data/Library/Caches"

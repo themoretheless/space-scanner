@@ -8,9 +8,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Apple/system Python framework caches (user); report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.apple.python"
   delete_mode: contents
@@ -34,9 +34,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Dask configuration spill and cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.dask"
   - "$HOME/.cache/dask"
@@ -48,9 +48,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for DuckDB and Polars temp/cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.duckdb"
   - "$HOME/.cache/duckdb"
@@ -79,8 +79,8 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Hugging Face datasets cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
+  risk: medium
+  default_enabled: true
   min_age_days: 7
   paths:
   - "$HOME/.cache/huggingface/datasets"
@@ -91,9 +91,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Hugging Face modules, xet, and assets caches; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: medium
+  default_enabled: true
+  min_age_days: 7
   paths:
   - "$HOME/.cache/huggingface/modules"
   - "$HOME/.cache/huggingface/xet"
@@ -107,9 +107,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for IPython logs, pid, and cache dirs; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.ipython/profile_default/log"
   - "$HOME/.ipython/profile_default/pid"
@@ -122,9 +122,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Jupyter runtime and kernel caches; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Jupyter/runtime"
   - "$HOME/Library/Jupyter/kernels"
@@ -137,8 +137,8 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Kaggle API datasets cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
+  risk: medium
+  default_enabled: true
   min_age_days: 7
   paths:
   - "$HOME/.cache/kaggle"
@@ -150,8 +150,8 @@ rules:
   description: "Inventories regenerable machine-learning cache data for LangChain / LlamaIndex caches; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
+  risk: medium
+  default_enabled: true
   min_age_days: 7
   paths:
   - "$HOME/.cache/langchain"
@@ -179,9 +179,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Matplotlib font and cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.matplotlib"
   - "$HOME/.cache/matplotlib"
@@ -193,8 +193,8 @@ rules:
   description: "Inventories regenerable machine-learning cache data for NLTK, Gensim, spaCy data caches; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
+  risk: medium
+  default_enabled: true
   min_age_days: 7
   paths:
   - "$HOME/nltk_data"
@@ -210,9 +210,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Numba compiled function cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.numba_cache"
   - "$HOME/.cache/numba"
@@ -223,9 +223,9 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Ollama logs and app cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.ollama/logs"
   - "$HOME/Library/Caches/ollama"
@@ -237,8 +237,8 @@ rules:
   description: "Inventories regenerable machine-learning cache data for Parquet/Arrow temp and cache; report only, never deleted."
   category: ml-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
+  risk: low
+  default_enabled: true
   min_age_days: 3
   paths:
   - "$HOME/.cache/parquet"

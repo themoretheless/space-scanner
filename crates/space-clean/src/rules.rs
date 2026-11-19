@@ -187,14 +187,17 @@ impl JunkKind {
             "system" => Some(JunkKind::System),
             "app-data" => Some(JunkKind::AppData),
             "databases" => Some(JunkKind::Databases),
-            "ml-models" => Some(JunkKind::Models),
-            "dev" => Some(JunkKind::Dev),
-            "games-downloads" => Some(JunkKind::Downloads),
-            "media-library" | "sample-library" | "media-cache" => Some(JunkKind::Media),
-            "vm-disk" | "vm-cache" => Some(JunkKind::Vm),
-            "app-cache" | "caches" | "shader-cache" | "game-cache" | "ml-cache" | "wine-cache" => {
-                Some(JunkKind::Cache)
+            "ml-models" | "data-science" => Some(JunkKind::Models),
+            "dev" | "ai-agents" | "cloud-devops" | "mobile-embedded" | "testing-ci" => {
+                Some(JunkKind::Dev)
             }
+            "games-downloads" => Some(JunkKind::Downloads),
+            "media-library" | "sample-library" | "media-cache" | "creative-cad" => {
+                Some(JunkKind::Media)
+            }
+            "vm-disk" | "vm-cache" => Some(JunkKind::Vm),
+            "app-cache" | "caches" | "shader-cache" | "game-cache" | "ml-cache" | "wine-cache"
+            | "messengers" | "electron-cef" | "security-network" => Some(JunkKind::Cache),
             "report" | "misc" => Some(JunkKind::Other),
             _ => {
                 if cat.contains("log") {
@@ -666,7 +669,39 @@ fn write_catalog_cache(path: &Path, key: &blake3::Hash, pack: &RulePack) -> Resu
     bytes.extend_from_slice(key.as_bytes());
     bytes.extend_from_slice(blake3::hash(&payload).as_bytes());
     bytes.extend_from_slice(&payload);
-    write_atomic(path, &bytes)
+    write_atomic(path, &bytes)?;
+    prune_superseded_catalog_caches(path);
+    Ok(())
+}
+
+const STALE_CATALOG_PRUNE_MIN_BYTES: u64 = 1_048_576;
+
+fn prune_superseded_catalog_caches(current: &Path) {
+    let Some(parent) = current.parent() else {
+        return;
+    };
+    let Ok(entries) = fs::read_dir(parent) else {
+        return;
+    };
+    let current_name = current.file_name();
+    for entry in entries.flatten() {
+        let p = entry.path();
+        if p.file_name() == current_name {
+            continue;
+        }
+        if p.extension().and_then(|e| e.to_str()) != Some("bin") {
+            continue;
+        }
+        if p.file_name().and_then(|n| n.to_str()) == Some("stamps-v1.bin") {
+            continue;
+        }
+        if entry
+            .metadata()
+            .is_ok_and(|meta| meta.is_file() && meta.len() >= STALE_CATALOG_PRUNE_MIN_BYTES)
+        {
+            let _ = fs::remove_file(p);
+        }
+    }
 }
 
 static SHARED_PACK: Mutex<Option<(SourceFingerprint, Arc<RulePack>)>> = Mutex::new(None);
@@ -1045,6 +1080,13 @@ impl PathTemplateExpander {
         if let Ok(pf) = std::env::var("ProgramFiles").or_else(|_| std::env::var("PROGRAMFILES")) {
             percent.insert("PROGRAMFILES".into(), PathBuf::from(pf));
         }
+        if let Some(darwin_cache) = std::env::var_os("DARWIN_USER_CACHE_DIR")
+            .map(PathBuf::from)
+            .filter(|p| p.is_absolute())
+            .or_else(darwin_user_cache_dir_fallback)
+        {
+            dollar.insert("DARWIN_USER_CACHE_DIR".into(), darwin_cache);
+        }
         // Common Windows defaults when env is missing (path still platform-filtered).
         #[cfg(windows)]
         {
@@ -1122,6 +1164,43 @@ impl PathTemplateExpander {
 
 fn is_identifier_byte(byte: u8) -> bool {
     byte.is_ascii_alphanumeric() || byte == b'_'
+}
+
+fn darwin_user_cache_dir_fallback() -> Option<PathBuf> {
+    #[cfg(target_os = "macos")]
+    {
+        let temp = std::env::temp_dir();
+        if temp.file_name().and_then(|n| n.to_str()) == Some("T") {
+            if let Some(cache) = temp.parent().map(|p| p.join("C")) {
+                if cache.is_dir() {
+                    return Some(cache);
+                }
+            }
+        }
+        const CS_DARWIN_USER_CACHE_DIR: libc::c_int = 65538;
+        let mut buf = vec![0u8; 4096];
+        let len = unsafe {
+            libc::confstr(
+                CS_DARWIN_USER_CACHE_DIR,
+                buf.as_mut_ptr().cast::<libc::c_char>(),
+                buf.len(),
+            )
+        };
+        if len > 1 && len <= buf.len() {
+            if let Ok(cstr) = std::ffi::CStr::from_bytes_until_nul(&buf) {
+                if let Ok(s) = cstr.to_str() {
+                    let trimmed = s.trim_end_matches('/');
+                    if !trimmed.is_empty() {
+                        let p = PathBuf::from(trimmed);
+                        if p.is_absolute() {
+                            return Some(p);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    None
 }
 
 pub fn host_platform_name() -> &'static str {
@@ -1373,5 +1452,52 @@ mod tests {
         assert!(!rule.is_report_only());
         rule.risk = Risk::ReportOnly;
         assert!(rule.is_report_only());
+    }
+
+    #[test]
+    fn write_catalog_cache_prunes_superseded_large_bins_and_keeps_stamps() {
+        let root = tempfile::tempdir().unwrap();
+        let root = root.path();
+        fs::write(
+            root.join("rules.yaml"),
+            "rules:\n- id: cache\n  name: Cache\n  description: fixture\n  paths: [/tmp/cache]\n",
+        )
+        .unwrap();
+        let pack = RulePack::load_many(std::slice::from_ref(&root.to_path_buf())).unwrap();
+        let cache_dir = root.join("catalog");
+        fs::create_dir_all(&cache_dir).unwrap();
+        let stale_large = cache_dir.join("stale-old.bin");
+        fs::write(
+            &stale_large,
+            vec![0u8; STALE_CATALOG_PRUNE_MIN_BYTES as usize],
+        )
+        .unwrap();
+        let small_other = cache_dir.join("small-other.bin");
+        fs::write(&small_other, b"keep-small").unwrap();
+        let stamps = cache_dir.join("stamps-v1.bin");
+        fs::write(&stamps, vec![1u8; STALE_CATALOG_PRUNE_MIN_BYTES as usize]).unwrap();
+
+        let current = cache_dir.join("current.bin");
+        let key = blake3::hash(b"v1");
+        write_catalog_cache(&current, &key, &pack).unwrap();
+
+        assert!(current.exists());
+        assert!(
+            !stale_large.exists(),
+            "superseded >=1 MiB catalog cache should be pruned"
+        );
+        assert!(
+            small_other.exists(),
+            "small sibling bins should remain intact"
+        );
+        assert!(stamps.exists(), "stamps-v1.bin must never be pruned");
+    }
+
+    #[cfg(target_os = "macos")]
+    #[test]
+    fn expands_darwin_user_cache_dir_on_macos() {
+        let expanded = expand_path_template("$DARWIN_USER_CACHE_DIR/clang").unwrap();
+        assert!(expanded.is_absolute());
+        assert!(expanded.ends_with("clang"));
     }
 }

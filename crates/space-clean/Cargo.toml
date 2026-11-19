@@ -21,6 +21,9 @@ thiserror = { workspace = true }
 [dev-dependencies]
 tempfile = { workspace = true }
 
+[target.'cfg(unix)'.dependencies]
+libc = { workspace = true }
+
 [target.'cfg(not(target_os = "macos"))'.dependencies]
 trash = { workspace = true }
 

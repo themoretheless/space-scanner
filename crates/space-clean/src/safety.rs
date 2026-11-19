@@ -19,6 +19,17 @@ pub fn never_touch_patterns() -> Vec<PathBuf> {
             ".gnupg",
             ".aws",
             ".config/gcloud",
+            ".codex/auth.json",
+            ".codex/config.toml",
+            ".codex/sessions",
+            ".claude/.credentials.json",
+            ".claude/settings.json",
+            ".claude/projects",
+            ".gemini/antigravity/brain",
+            ".gemini/oauth_creds.json",
+            ".gemini/settings.json",
+            ".grok/sessions",
+            ".pcloud/data.db",
             "Library/Keychains",
             "Library/Mail",
             "Library/Messages",
@@ -437,5 +448,51 @@ mod tests {
             assert!(!is_old_enough(&link, 7));
         }
         assert!(!is_old_enough(&root.path().join("missing"), 7));
+    }
+
+    #[test]
+    fn protects_agent_auth_and_pcloud_db_while_allowing_sibling_caches() {
+        let Some(home) = home_dir() else {
+            return;
+        };
+        for blocked in [
+            ".codex",
+            ".codex/auth.json",
+            ".codex/config.toml",
+            ".codex/sessions",
+            ".claude",
+            ".claude/.credentials.json",
+            ".claude/projects",
+            ".gemini",
+            ".gemini/antigravity",
+            ".gemini/antigravity/brain",
+            ".grok",
+            ".grok/sessions",
+            ".pcloud",
+            ".pcloud/data.db",
+        ] {
+            assert!(
+                is_never_touch(&home.join(blocked)),
+                "expected never_touch for {blocked}"
+            );
+        }
+        for allowed in [
+            ".codex/tmp",
+            ".codex/worktrees",
+            ".claude/cache",
+            ".grok/worktrees",
+            ".pcloud/Cache",
+            ".pcloud/temp",
+        ] {
+            let path = home.join(allowed);
+            assert!(
+                !is_never_touch(&path),
+                "did not expect never_touch for {allowed}"
+            );
+            assert!(
+                is_safe_rule_root(&path),
+                "expected safe rule root for {allowed}"
+            );
+        }
     }
 }

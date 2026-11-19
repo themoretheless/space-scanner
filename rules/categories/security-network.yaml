@@ -1,0 +1,1940 @@
+---
+pack: security-network
+description: "VPN clients, proxy tools, zero-trust agents, remote desktop apps, and file transfer utilities caches and logs; VPN profiles, SSH keys, and saved credentials are preserved."
+rules:
+- id: sn-surfshark-macos
+  name: "Surfshark VPN caches and logs"
+  description: "Removes regenerable Surfshark VPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/com.surfshark.vpnclient.macos.direct/logs"
+  - "$HOME/Library/Caches/com.surfshark.vpnclient.macos.direct"
+  - "$HOME/Library/Logs/Surfshark"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-surfshark-linux
+  name: "Surfshark VPN caches and logs"
+  description: "Removes regenerable Surfshark VPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache/surfshark"
+  - "$HOME/.config/Surfshark/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-surfshark-windows
+  name: "Surfshark VPN caches and logs"
+  description: "Removes regenerable Surfshark VPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Surfshark/Logs"
+  - "%APPDATA%/Surfshark/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tailscale-macos
+  name: "Tailscale UI logs and caches"
+  description: "Removes regenerable Tailscale UI logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/io.tailscale.ipn.macsys"
+  - "$HOME/Library/Logs/Tailscale"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tailscale-linux
+  name: "Tailscale UI logs and caches"
+  description: "Removes regenerable Tailscale UI logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/tailscale"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tailscale-windows
+  name: "Tailscale UI logs and caches"
+  description: "Removes regenerable Tailscale UI logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Tailscale/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-cloudflare-warp-macos
+  name: "Cloudflare WARP UI caches and logs"
+  description: "Removes regenerable Cloudflare WARP UI caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.cloudflare.1dot1dot1dot1.macos"
+  - "$HOME/Library/Logs/Cloudflare WARP"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-cloudflare-warp-linux
+  name: "Cloudflare WARP UI caches and logs"
+  description: "Removes regenerable Cloudflare WARP UI caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.local/share/warp-diag"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-cloudflare-warp-windows
+  name: "Cloudflare WARP UI caches and logs"
+  description: "Removes regenerable Cloudflare WARP UI caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Cloudflare/Cloudflare WARP/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mullvad-vpn-macos
+  name: "Mullvad VPN logs and Electron cache"
+  description: "Removes regenerable Mullvad VPN logs and Electron cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Mullvad VPN/Cache"
+  - "$HOME/Library/Application Support/Mullvad VPN/Code Cache"
+  - "$HOME/Library/Logs/Mullvad VPN"
+  - "$HOME/Library/Caches/net.mullvad.vpn"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mullvad-vpn-linux
+  name: "Mullvad VPN logs and Electron cache"
+  description: "Removes regenerable Mullvad VPN logs and Electron cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/Mullvad VPN/Cache"
+  - "$HOME/.cache/mullvad-vpn"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mullvad-vpn-windows
+  name: "Mullvad VPN logs and Electron cache"
+  description: "Removes regenerable Mullvad VPN logs and Electron cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Mullvad VPN/Cache"
+  - "%LOCALAPPDATA%/Mullvad VPN/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-protonvpn-macos
+  name: "Proton VPN caches and logs"
+  description: "Removes regenerable Proton VPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/ch.protonvpn.mac"
+  - "$HOME/Library/Containers/ch.protonvpn.mac/Data/Library/Caches"
+  - "$HOME/Library/Logs/ProtonVPN"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-protonvpn-linux
+  name: "Proton VPN caches and logs"
+  description: "Removes regenerable Proton VPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/protonvpn"
+  - "$HOME/.cache/Proton/VPN"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-protonvpn-windows
+  name: "Proton VPN caches and logs"
+  description: "Removes regenerable Proton VPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Proton/Proton VPN/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-nordvpn-macos
+  name: "NordVPN caches and logs"
+  description: "Removes regenerable NordVPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.nordvpn.macos"
+  - "$HOME/Library/Logs/NordVPN"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-nordvpn-linux
+  name: "NordVPN caches and logs"
+  description: "Removes regenerable NordVPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/nordvpn"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-nordvpn-windows
+  name: "NordVPN caches and logs"
+  description: "Removes regenerable NordVPN caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/NordVPN/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-expressvpn-macos
+  name: "ExpressVPN logs and update cache"
+  description: "Removes regenerable ExpressVPN logs and update cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.expressvpn.ExpressVPN"
+  - "$HOME/Library/Logs/ExpressVPN"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-expressvpn-linux
+  name: "ExpressVPN logs and update cache"
+  description: "Removes regenerable ExpressVPN logs and update cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/expressvpn"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-expressvpn-windows
+  name: "ExpressVPN logs and update cache"
+  description: "Removes regenerable ExpressVPN logs and update cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/ExpressVPN/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-openvpn-connect-macos
+  name: "OpenVPN Connect caches and logs"
+  description: "Removes regenerable OpenVPN Connect caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/OpenVPN Connect/logs"
+  - "$HOME/Library/Caches/org.openvpn.client.app"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-openvpn-connect-linux
+  name: "OpenVPN Connect caches and logs"
+  description: "Removes regenerable OpenVPN Connect caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/openvpn-connect"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-openvpn-connect-windows
+  name: "OpenVPN Connect caches and logs"
+  description: "Removes regenerable OpenVPN Connect caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/OpenVPN Connect/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tunnelblick-macos
+  name: "Tunnelblick logs and app caches"
+  description: "Removes regenerable Tunnelblick logs and app caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/net.tunnelblick.tunnelblick"
+  - "$HOME/Library/Application Support/Tunnelblick/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-viscosity-macos
+  name: "Viscosity VPN logs and caches"
+  description: "Removes regenerable Viscosity VPN logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.sparklabs.ViscosityMac"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-viscosity-windows
+  name: "Viscosity VPN logs and caches"
+  description: "Removes regenerable Viscosity VPN logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Viscosity/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-zerotier-macos
+  name: "ZeroTier One UI caches and logs"
+  description: "Removes regenerable ZeroTier One UI caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.zerotier.ZeroTier-One"
+  - "$HOME/Library/Logs/ZeroTier"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-zerotier-linux
+  name: "ZeroTier One UI caches and logs"
+  description: "Removes regenerable ZeroTier One UI caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/zerotier"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-zerotier-windows
+  name: "ZeroTier One UI caches and logs"
+  description: "Removes regenerable ZeroTier One UI caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/ZeroTier/One/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-twingate-macos
+  name: "Twingate client caches and logs"
+  description: "Removes regenerable Twingate client caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.twingate.macos"
+  - "$HOME/Library/Logs/Twingate"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-twingate-windows
+  name: "Twingate client caches and logs"
+  description: "Removes regenerable Twingate client caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Twingate/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-netbird-macos
+  name: "NetBird client logs and cache"
+  description: "Removes regenerable NetBird client logs and cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Logs/NetBird"
+  - "$HOME/Library/Caches/io.netbird.client"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-netbird-linux
+  name: "NetBird client logs and cache"
+  description: "Removes regenerable NetBird client logs and cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/netbird"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-netbird-windows
+  name: "NetBird client logs and cache"
+  description: "Removes regenerable NetBird client logs and cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/NetBird/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-amnezia-vpn-macos
+  name: "AmneziaVPN logs and caches"
+  description: "Removes regenerable AmneziaVPN logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/org.amneziavpn.package"
+  - "$HOME/Library/Logs/AmneziaVPN"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-amnezia-vpn-linux
+  name: "AmneziaVPN logs and caches"
+  description: "Removes regenerable AmneziaVPN logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/AmneziaVPN.ORG"
+  - "$HOME/.local/share/AmneziaVPN/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-amnezia-vpn-windows
+  name: "AmneziaVPN logs and caches"
+  description: "Removes regenerable AmneziaVPN logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/AmneziaVPN/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-clash-verge-macos
+  name: "Clash Verge Rev caches and logs"
+  description: "Removes regenerable Clash Verge Rev caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/io.github.clash-verge-rev.clash-verge-rev"
+  - "$HOME/Library/Application Support/io.github.clash-verge-rev.clash-verge-rev/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-clash-verge-linux
+  name: "Clash Verge Rev caches and logs"
+  description: "Removes regenerable Clash Verge Rev caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/clash-verge"
+  - "$HOME/.local/share/io.github.clash-verge-rev.clash-verge-rev/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-clash-verge-windows
+  name: "Clash Verge Rev caches and logs"
+  description: "Removes regenerable Clash Verge Rev caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/io.github.clash-verge-rev.clash-verge-rev/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mihomo-party-macos
+  name: "Mihomo Party caches and logs"
+  description: "Removes regenerable Mihomo Party caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/mihomo-party/Cache"
+  - "$HOME/Library/Application Support/mihomo-party/logs"
+  - "$HOME/Library/Caches/mihomo-party"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mihomo-party-linux
+  name: "Mihomo Party caches and logs"
+  description: "Removes regenerable Mihomo Party caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/mihomo-party/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mihomo-party-windows
+  name: "Mihomo Party caches and logs"
+  description: "Removes regenerable Mihomo Party caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/mihomo-party/Cache"
+  - "%APPDATA%/mihomo-party/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-hiddify-macos
+  name: "Hiddify desktop logs and caches"
+  description: "Removes regenerable Hiddify desktop logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/app.hiddify.com"
+  - "$HOME/Library/Logs/Hiddify"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-hiddify-linux
+  name: "Hiddify desktop logs and caches"
+  description: "Removes regenerable Hiddify desktop logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/hiddify"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-hiddify-windows
+  name: "Hiddify desktop logs and caches"
+  description: "Removes regenerable Hiddify desktop logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/hiddify/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-v2rayu-macos
+  name: "V2RayU & Nekoray logs and caches"
+  description: "Removes regenerable V2RayU & Nekoray logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Logs/V2rayU"
+  - "$HOME/Library/Caches/net.yanue.V2rayU"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-v2rayu-linux
+  name: "V2RayU & Nekoray logs and caches"
+  description: "Removes regenerable V2RayU & Nekoray logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/nekoray"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-v2rayu-windows
+  name: "V2RayU & Nekoray logs and caches"
+  description: "Removes regenerable V2RayU & Nekoray logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/nekoray/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-proxifier-macos
+  name: "Proxifier logs and caches"
+  description: "Removes regenerable Proxifier logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.initex.proxifier.macosx"
+  - "$HOME/Library/Logs/Proxifier"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-proxifier-windows
+  name: "Proxifier logs and caches"
+  description: "Removes regenerable Proxifier logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Proxifier4/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-lulu-snitch-macos
+  name: "LuLu & Little Snitch UI caches"
+  description: "Removes regenerable LuLu & Little Snitch UI caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.objective-see.lulu.app"
+  - "$HOME/Library/Caches/at.obdev.LittleSnitchConfiguration"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-parsec-macos
+  name: "Parsec remote desktop logs and caches"
+  description: "Removes regenerable Parsec remote desktop logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/tv.parsec.www"
+  - "$HOME/Library/Application Support/Parsec/log.txt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-parsec-linux
+  name: "Parsec remote desktop logs and caches"
+  description: "Removes regenerable Parsec remote desktop logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.parsec/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-parsec-windows
+  name: "Parsec remote desktop logs and caches"
+  description: "Removes regenerable Parsec remote desktop logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Parsec/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-moonlight-macos
+  name: "Moonlight streaming cache"
+  description: "Removes regenerable Moonlight streaming cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.moonlight-stream.Moonlight"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-moonlight-linux
+  name: "Moonlight streaming cache"
+  description: "Removes regenerable Moonlight streaming cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/Moonlight Game Streaming Project"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-moonlight-windows
+  name: "Moonlight streaming cache"
+  description: "Removes regenerable Moonlight streaming cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Moonlight Game Streaming Project/Moonlight/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-rustdesk-macos
+  name: "RustDesk logs and caches"
+  description: "Removes regenerable RustDesk logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.carriez.RustDesk"
+  - "$HOME/Library/Logs/RustDesk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-rustdesk-linux
+  name: "RustDesk logs and caches"
+  description: "Removes regenerable RustDesk logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/rustdesk"
+  - "$HOME/.local/share/logs/RustDesk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-rustdesk-windows
+  name: "RustDesk logs and caches"
+  description: "Removes regenerable RustDesk logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/RustDesk/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-teamviewer-macos
+  name: "TeamViewer user logs and caches"
+  description: "Removes regenerable TeamViewer user logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.teamviewer.TeamViewer"
+  - "$HOME/Library/Logs/TeamViewer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-teamviewer-linux
+  name: "TeamViewer user logs and caches"
+  description: "Removes regenerable TeamViewer user logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.local/share/teamviewer15/logfiles"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-teamviewer-windows
+  name: "TeamViewer user logs and caches"
+  description: "Removes regenerable TeamViewer user logs and caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/TeamViewer/Logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-anydesk-logs-macos
+  name: "AnyDesk user caches and traces"
+  description: "Removes regenerable AnyDesk user caches and traces; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.philandro.anydesk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-anydesk-logs-linux
+  name: "AnyDesk user caches and traces"
+  description: "Removes regenerable AnyDesk user caches and traces; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.anydesk/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-anydesk-logs-windows
+  name: "AnyDesk user caches and traces"
+  description: "Removes regenerable AnyDesk user caches and traces; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/AnyDesk/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-nomachine-macos
+  name: "NoMachine temp and session logs"
+  description: "Removes regenerable NoMachine temp and session logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.nx/temp"
+  - "$HOME/Library/Caches/com.nomachine.nxdock"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-nomachine-linux
+  name: "NoMachine temp and session logs"
+  description: "Removes regenerable NoMachine temp and session logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.nx/temp"
+  - "$HOME/.nx/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-nomachine-windows
+  name: "NoMachine temp and session logs"
+  description: "Removes regenerable NoMachine temp and session logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.nx/temp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-termius-macos
+  name: "Termius Electron caches and logs"
+  description: "Removes regenerable Termius Electron caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Termius/Cache"
+  - "$HOME/Library/Application Support/Termius/Code Cache"
+  - "$HOME/Library/Application Support/Termius/GPUCache"
+  - "$HOME/Library/Logs/Termius"
+  - "$HOME/Library/Caches/com.termius-dmg.mac"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-termius-linux
+  name: "Termius Electron caches and logs"
+  description: "Removes regenerable Termius Electron caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/Termius/Cache"
+  - "$HOME/.config/Termius/Code Cache"
+  - "$HOME/.config/Termius/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-termius-windows
+  name: "Termius Electron caches and logs"
+  description: "Removes regenerable Termius Electron caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Termius/Cache"
+  - "%APPDATA%/Termius/Code Cache"
+  - "%APPDATA%/Termius/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-transmit-cyberduck-macos
+  name: "Transmit & Cyberduck caches"
+  description: "Removes regenerable Transmit & Cyberduck caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.panic.Transmit"
+  - "$HOME/Library/Caches/ch.sudo.cyberduck"
+  - "$HOME/Library/Logs/Cyberduck"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-transmit-cyberduck-linux
+  name: "Transmit & Cyberduck caches"
+  description: "Removes regenerable Transmit & Cyberduck caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/cyberduck"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-transmit-cyberduck-windows
+  name: "Transmit & Cyberduck caches"
+  description: "Removes regenerable Transmit & Cyberduck caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Cyberduck/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-filezilla-macos
+  name: "FileZilla logs and queue cache"
+  description: "Removes regenerable FileZilla logs and queue cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/org.filezilla-project.filezilla"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-filezilla-linux
+  name: "FileZilla logs and queue cache"
+  description: "Removes regenerable FileZilla logs and queue cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/filezilla"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-filezilla-windows
+  name: "FileZilla logs and queue cache"
+  description: "Removes regenerable FileZilla logs and queue cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/FileZilla/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tunnels-cli-macos
+  name: "ngrok, cloudflared, frp & bore logs"
+  description: "Removes regenerable ngrok, cloudflared, frp & bore logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/ngrok"
+  - "$HOME/.cloudflared/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tunnels-cli-linux
+  name: "ngrok, cloudflared, frp & bore logs"
+  description: "Removes regenerable ngrok, cloudflared, frp & bore logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/ngrok"
+  - "$HOME/.cloudflared/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-tunnels-cli-windows
+  name: "ngrok, cloudflared, frp & bore logs"
+  description: "Removes regenerable ngrok, cloudflared, frp & bore logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/ngrok/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-syncthing-cache-macos
+  name: "Syncthing UI logs and cache"
+  description: "Removes regenerable Syncthing UI logs and cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/net.syncthing.syncthing"
+  - "$HOME/Library/Logs/Syncthing"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-syncthing-cache-linux
+  name: "Syncthing UI logs and cache"
+  description: "Removes regenerable Syncthing UI logs and cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/syncthing"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-syncthing-cache-windows
+  name: "Syncthing UI logs and cache"
+  description: "Removes regenerable Syncthing UI logs and cache; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Syncthing/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-royal-tsx-macos
+  name: "Royal TSX caches and logs"
+  description: "Removes regenerable Royal TSX caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.lemonmojo.RoyalTSX.App"
+  - "$HOME/Library/Logs/RoyalTSX"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-royal-tsx-windows
+  name: "Royal TSX caches and logs"
+  description: "Removes regenerable Royal TSX caches and logs; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/code4ward/RoyalTS/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mobaxterm-winscp-windows
+  name: "WinSCP & MobaXterm temp caches"
+  description: "Removes regenerable WinSCP & MobaXterm temp caches; VPN profiles, SSH keys, hosts, and saved credentials are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/WinSCP/Cache"
+  - "%TEMP%/MxtTemp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-wireguard-ui-macos
+  name: "WireGuard & OpenConnect GUI caches and logs"
+  description: "Removes regenerable WireGuard & OpenConnect GUI cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/wireguard-tools"
+  - "$HOME/Library/Logs/wireguard-tools"
+  - "$HOME/.cache/wireguard-tools"
+  - "$HOME/Library/Caches/openconnect-gui"
+  - "$HOME/Library/Logs/openconnect-gui"
+  - "$HOME/.cache/openconnect-gui"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-wireguard-ui-linux
+  name: "WireGuard & OpenConnect GUI caches and logs"
+  description: "Removes regenerable WireGuard & OpenConnect GUI XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/wireguard-tools"
+  - "$XDG_CACHE_HOME/wireguard-tools"
+  - "$HOME/.cache/openconnect-gui"
+  - "$XDG_CACHE_HOME/openconnect-gui"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-wireguard-ui-windows
+  name: "WireGuard & OpenConnect GUI caches and logs"
+  description: "Removes regenerable WireGuard & OpenConnect GUI LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/wireguard-tools/cache"
+  - "%LOCALAPPDATA%/wireguard-tools/logs"
+  - "%LOCALAPPDATA%/openconnect-gui/cache"
+  - "%LOCALAPPDATA%/openconnect-gui/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mitmproxy-cache-macos
+  name: "mitmproxy UI & logs caches and logs"
+  description: "Removes regenerable mitmproxy UI & logs cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/mitmproxy"
+  - "$HOME/Library/Logs/mitmproxy"
+  - "$HOME/.cache/mitmproxy"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-mitmproxy-cache-linux
+  name: "mitmproxy UI & logs caches and logs"
+  description: "Removes regenerable mitmproxy UI & logs XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/mitmproxy"
+  - "$XDG_CACHE_HOME/mitmproxy"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-mitmproxy-cache-windows
+  name: "mitmproxy UI & logs caches and logs"
+  description: "Removes regenerable mitmproxy UI & logs LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/mitmproxy/cache"
+  - "%LOCALAPPDATA%/mitmproxy/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-wireshark-cache-macos
+  name: "Wireshark extcap & shader caches and logs"
+  description: "Removes regenerable Wireshark extcap & shader cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/wireshark"
+  - "$HOME/Library/Logs/wireshark"
+  - "$HOME/.cache/wireshark"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-wireshark-cache-linux
+  name: "Wireshark extcap & shader caches and logs"
+  description: "Removes regenerable Wireshark extcap & shader XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/wireshark"
+  - "$XDG_CACHE_HOME/wireshark"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-wireshark-cache-windows
+  name: "Wireshark extcap & shader caches and logs"
+  description: "Removes regenerable Wireshark extcap & shader LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/wireshark/cache"
+  - "%LOCALAPPDATA%/wireshark/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-shadowsocksx-macos
+  name: "Shadowsocks client caches and logs"
+  description: "Removes regenerable Shadowsocks client cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/shadowsocksx-ng"
+  - "$HOME/Library/Logs/shadowsocksx-ng"
+  - "$HOME/.cache/shadowsocksx-ng"
+  - "$HOME/Library/Caches/shadowsocks-libev"
+  - "$HOME/Library/Logs/shadowsocks-libev"
+  - "$HOME/.cache/shadowsocks-libev"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-shadowsocksx-linux
+  name: "Shadowsocks client caches and logs"
+  description: "Removes regenerable Shadowsocks client XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/shadowsocksx-ng"
+  - "$XDG_CACHE_HOME/shadowsocksx-ng"
+  - "$HOME/.cache/shadowsocks-libev"
+  - "$XDG_CACHE_HOME/shadowsocks-libev"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-shadowsocksx-windows
+  name: "Shadowsocks client caches and logs"
+  description: "Removes regenerable Shadowsocks client LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/shadowsocksx-ng/cache"
+  - "%LOCALAPPDATA%/shadowsocksx-ng/logs"
+  - "%LOCALAPPDATA%/shadowsocks-libev/cache"
+  - "%LOCALAPPDATA%/shadowsocks-libev/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-surge-stash-macos
+  name: "Surge & Stash proxy caches and logs"
+  description: "Removes regenerable Surge & Stash proxy cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.nssurge.surge-mac"
+  - "$HOME/Library/Logs/com.nssurge.surge-mac"
+  - "$HOME/.cache/com.nssurge.surge-mac"
+  - "$HOME/Library/Caches/ws.stash.app"
+  - "$HOME/Library/Logs/ws.stash.app"
+  - "$HOME/.cache/ws.stash.app"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-surge-stash-linux
+  name: "Surge & Stash proxy caches and logs"
+  description: "Removes regenerable Surge & Stash proxy XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/com.nssurge.surge-mac"
+  - "$XDG_CACHE_HOME/com.nssurge.surge-mac"
+  - "$HOME/.cache/ws.stash.app"
+  - "$XDG_CACHE_HOME/ws.stash.app"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-surge-stash-windows
+  name: "Surge & Stash proxy caches and logs"
+  description: "Removes regenerable Surge & Stash proxy LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/com.nssurge.surge-mac/cache"
+  - "%LOCALAPPDATA%/com.nssurge.surge-mac/logs"
+  - "%LOCALAPPDATA%/ws.stash.app/cache"
+  - "%LOCALAPPDATA%/ws.stash.app/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-reqable-proxy-macos
+  name: "Reqable API proxy caches and logs"
+  description: "Removes regenerable Reqable API proxy cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/reqable"
+  - "$HOME/Library/Logs/reqable"
+  - "$HOME/.cache/reqable"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-reqable-proxy-linux
+  name: "Reqable API proxy caches and logs"
+  description: "Removes regenerable Reqable API proxy XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/reqable"
+  - "$XDG_CACHE_HOME/reqable"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-reqable-proxy-windows
+  name: "Reqable API proxy caches and logs"
+  description: "Removes regenerable Reqable API proxy LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/reqable/cache"
+  - "%LOCALAPPDATA%/reqable/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network]
+
+- id: sn-pritunl-vpn-macos
+  name: "Pritunl VPN client caches and logs"
+  description: "Removes regenerable Pritunl VPN client cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/pritunl"
+  - "$HOME/Library/Logs/pritunl"
+  - "$HOME/.cache/pritunl"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-pritunl-vpn-linux
+  name: "Pritunl VPN client caches and logs"
+  description: "Removes regenerable Pritunl VPN client XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/pritunl"
+  - "$XDG_CACHE_HOME/pritunl"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-pritunl-vpn-windows
+  name: "Pritunl VPN client caches and logs"
+  description: "Removes regenerable Pritunl VPN client LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/pritunl/cache"
+  - "%LOCALAPPDATA%/pritunl/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, vpn]
+
+- id: sn-mullvad-browser-macos
+  name: "Mullvad Browser caches and logs"
+  description: "Removes regenerable Mullvad Browser cache and log files; configs and state are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/mullvadbrowser"
+  - "$HOME/Library/Logs/mullvadbrowser"
+  - "$HOME/.cache/mullvadbrowser"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, browser]
+
+- id: sn-mullvad-browser-linux
+  name: "Mullvad Browser caches and logs"
+  description: "Removes regenerable Mullvad Browser XDG cache and log files; configs and state are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/mullvadbrowser"
+  - "$XDG_CACHE_HOME/mullvadbrowser"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, browser]
+
+- id: sn-mullvad-browser-windows
+  name: "Mullvad Browser caches and logs"
+  description: "Removes regenerable Mullvad Browser LocalAppData cache and log files; configs and state are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/mullvadbrowser/cache"
+  - "%LOCALAPPDATA%/mullvadbrowser/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, network, browser]
+
+- id: sn-http-toolkit-macos
+  name: "HTTP Toolkit Electron caches and logs"
+  description: "Removes regenerable HTTP Toolkit HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/httptoolkit/Cache"
+  - "$HOME/Library/Application Support/httptoolkit/Code Cache"
+  - "$HOME/Library/Application Support/httptoolkit/GPUCache"
+  - "$HOME/Library/Application Support/httptoolkit/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/httptoolkit/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/httptoolkit/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/httptoolkit/ShaderCache"
+  - "$HOME/Library/Application Support/httptoolkit/logs"
+  - "$HOME/Library/Logs/httptoolkit"
+  - "$HOME/Library/Caches/httptoolkit"
+  - "$HOME/Library/Caches/tech.httptoolkit.desktop"
+  - "$HOME/Library/Caches/tech.httptoolkit.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, electron, network]
+
+- id: sn-http-toolkit-linux
+  name: "HTTP Toolkit Electron caches and logs"
+  description: "Removes regenerable HTTP Toolkit HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/httptoolkit/Cache"
+  - "$HOME/.config/httptoolkit/Code Cache"
+  - "$HOME/.config/httptoolkit/GPUCache"
+  - "$HOME/.config/httptoolkit/DawnGraphiteCache"
+  - "$HOME/.config/httptoolkit/DawnWebGPUCache"
+  - "$HOME/.config/httptoolkit/logs"
+  - "$HOME/.cache/httptoolkit"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, electron, network]
+
+- id: sn-http-toolkit-windows
+  name: "HTTP Toolkit Electron caches and logs"
+  description: "Removes regenerable HTTP Toolkit HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/httptoolkit/Cache"
+  - "%APPDATA%/httptoolkit/Code Cache"
+  - "%APPDATA%/httptoolkit/GPUCache"
+  - "%APPDATA%/httptoolkit/DawnGraphiteCache"
+  - "%APPDATA%/httptoolkit/DawnWebGPUCache"
+  - "%APPDATA%/httptoolkit/logs"
+  - "%LOCALAPPDATA%/httptoolkit/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, electron, network]
+
+- id: sn-fiddler-everywhere-macos
+  name: "Fiddler Everywhere Electron caches and logs"
+  description: "Removes regenerable Fiddler Everywhere HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: security-network
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Fiddler Everywhere/Cache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/Code Cache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/GPUCache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/ShaderCache"
+  - "$HOME/Library/Application Support/Fiddler Everywhere/logs"
+  - "$HOME/Library/Logs/Fiddler Everywhere"
+  - "$HOME/Library/Caches/Fiddler Everywhere"
+  - "$HOME/Library/Caches/com.progress.fiddler-everywhere"
+  - "$HOME/Library/Caches/com.progress.fiddler-everywhere.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, electron, network]
+
+- id: sn-fiddler-everywhere-linux
+  name: "Fiddler Everywhere Electron caches and logs"
+  description: "Removes regenerable Fiddler Everywhere HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: security-network
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Fiddler Everywhere/Cache"
+  - "$HOME/.config/Fiddler Everywhere/Code Cache"
+  - "$HOME/.config/Fiddler Everywhere/GPUCache"
+  - "$HOME/.config/Fiddler Everywhere/DawnGraphiteCache"
+  - "$HOME/.config/Fiddler Everywhere/DawnWebGPUCache"
+  - "$HOME/.config/Fiddler Everywhere/logs"
+  - "$HOME/.cache/Fiddler Everywhere"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, electron, network]
+
+- id: sn-fiddler-everywhere-windows
+  name: "Fiddler Everywhere Electron caches and logs"
+  description: "Removes regenerable Fiddler Everywhere HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: security-network
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Fiddler Everywhere/Cache"
+  - "%APPDATA%/Fiddler Everywhere/Code Cache"
+  - "%APPDATA%/Fiddler Everywhere/GPUCache"
+  - "%APPDATA%/Fiddler Everywhere/DawnGraphiteCache"
+  - "%APPDATA%/Fiddler Everywhere/DawnWebGPUCache"
+  - "%APPDATA%/Fiddler Everywhere/logs"
+  - "%LOCALAPPDATA%/Fiddler Everywhere/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [security-network, electron, network]

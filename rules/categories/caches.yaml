@@ -1000,7 +1000,7 @@ rules:
   platform: macos
   risk: low
   default_enabled: true
-  min_age_days: 14
+  min_age_days: 1
   paths:
   - "$HOME/Library/Caches/com.microsoft.VSCode.ShipIt"
   - "$HOME/Library/Caches/com.microsoft.VSCodeInsiders.ShipIt"
@@ -1008,6 +1008,53 @@ rules:
   - "$HOME/Library/Caches/com.todesktop.210203cqatirggu"
   delete_mode: contents
   max_depth: 4
+- id: macos-app-updater-staging
+  name: Sparkle and ShipIt app updater staging caches
+  description: Staged macOS app update downloads under ~/Library/Caches (*.ShipIt, *-updater, Sparkle Installation/PersistentDownloads); installed apps in /Applications are untouched.
+  category: caches
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches"
+  include_globs:
+  - "*.ShipIt"
+  - "*-updater"
+  - "*/org.sparkle-project.Sparkle/Installation/*"
+  - "*/org.sparkle-project.Sparkle/PersistentDownloads/*"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 4
+  tags: [updater, sparkle, shipit, cache]
+- id: macos-xdg-cache-review
+  name: User ~/.cache tool and runtime caches
+  description: Custom CLI/ML/tool caches under ~/.cache on macOS (excluding uv, pip, yarn, codex-runtimes, fontconfig, zig, gh covered elsewhere). Review before trashing.
+  category: caches
+  platform: macos
+  risk: medium
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache"
+  exclude_globs:
+  - "uv"
+  - "uv/**"
+  - "pip"
+  - "pip/**"
+  - "yarn"
+  - "yarn/**"
+  - "codex-runtimes"
+  - "codex-runtimes/**"
+  - "fontconfig"
+  - "fontconfig/**"
+  - "zig"
+  - "zig/**"
+  - "gh"
+  - "gh/**"
+  delete_mode: contents
+  max_depth: 4
+  tags: [xdg-cache, cache]
 - id: macos-user-caches
   name: User Library Caches
   description: Non-essential app caches under ~/Library/Caches (excludes some Apple
@@ -1040,6 +1087,28 @@ rules:
   - Firefox/**
   - Homebrew
   - Homebrew/**
+  - com.apple.Safari.SafeBrowsing*
+  - com.apple.Safari.SafeBrowsing*/**
+  - com.apple.ap.adprivacyd*
+  - com.apple.ap.adprivacyd*/**
+  - com.apple.containermanagerd*
+  - com.apple.containermanagerd*/**
+  - com.apple.homed*
+  - com.apple.homed*/**
+  - familycircled*
+  - familycircled*/**
+  - com.apple.bird*
+  - com.apple.bird*/**
+  - com.apple.akd*
+  - com.apple.akd*/**
+  - com.apple.parsecd*
+  - com.apple.parsecd*/**
+  - com.apple.passd*
+  - com.apple.passd*/**
+  - com.apple.ProtectedCloudStorage*
+  - com.apple.ProtectedCloudStorage*/**
+  - com.apple.ScreenTimeAgent*
+  - com.apple.ScreenTimeAgent*/**
 - id: macos-user-font-caches
   name: User font caches (not font files)
   description: ATS/FontRegistry/iWork font caches under user Caches; never ~/Library/Fonts.
@@ -1937,3 +2006,34 @@ rules:
   - "%LOCALAPPDATA%/Microsoft/Windows/Explorer"
   delete_mode: contents
   max_depth: 5
+- id: macos-microsoft-edge-updater-cache
+  name: Microsoft EdgeUpdater staging apps and CRX cache
+  description: Regenerable EdgeUpdater downloaded app versions, crx_cache, and Download staging folders; browser profiles are preserved.
+  category: caches
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Microsoft/EdgeUpdater/apps"
+  - "$HOME/Library/Application Support/Microsoft/EdgeUpdater/crx_cache"
+  - "$HOME/Library/Application Support/Microsoft/EdgeUpdater/Download"
+  - "$HOME/Library/Caches/Microsoft/EdgeUpdater"
+  delete_mode: contents
+  max_depth: 5
+  tags: [edge, updater, cache]
+- id: windows-microsoft-edge-update-cache
+  name: Microsoft EdgeUpdate download cache
+  description: Regenerable Microsoft EdgeUpdate installer download staging folders; browser profiles are preserved.
+  category: caches
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Microsoft/EdgeUpdate/Download"
+  delete_mode: contents
+  max_depth: 5
+  tags: [edge, updater, cache]

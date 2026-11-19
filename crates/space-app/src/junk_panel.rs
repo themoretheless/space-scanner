@@ -105,6 +105,40 @@ pub struct JunkPanelState {
     pub error: Option<String>,
 }
 
+fn prune_nested_group_findings(mut findings: Vec<Finding>) -> Vec<Finding> {
+    use std::collections::HashSet;
+    let mut seen_paths = HashSet::with_capacity(findings.len());
+    findings.retain(|f| seen_paths.insert((f.path.clone(), f.report_only)));
+
+    let mut safe_dirs = HashSet::new();
+    let mut review_dirs = HashSet::new();
+    for f in &findings {
+        if f.report_only || !f.is_dir {
+            continue;
+        }
+        if is_safe_finding(f) {
+            safe_dirs.insert(f.path.clone());
+        } else {
+            review_dirs.insert(f.path.clone());
+        }
+    }
+    if safe_dirs.is_empty() && review_dirs.is_empty() {
+        return findings;
+    }
+    findings.retain(|f| {
+        if f.report_only {
+            return true;
+        }
+        let dirs = if is_safe_finding(f) {
+            &safe_dirs
+        } else {
+            &review_dirs
+        };
+        !f.path.ancestors().skip(1).any(|anc| dirs.contains(anc))
+    });
+    findings
+}
+
 /// Only explicit low-risk non-report-only rules qualify for automatic selection.
 pub fn is_safe_finding(finding: &Finding) -> bool {
     !finding.report_only
@@ -197,13 +231,14 @@ impl JunkPanelState {
     }
 
     /// Replace the active scan report, preselecting only `Safe` findings.
-    pub fn set_report(&mut self, report: ScanReport) {
+    pub fn set_report(&mut self, mut report: ScanReport) {
         self.loading = false;
         self.scan_started = None;
         self.safe_open = false;
         self.review_open = false;
         self.expanded_cat = None;
         self.sorted_cache = None;
+        report.findings = prune_nested_group_findings(report.findings);
         let next_version = self.selection.version.wrapping_add(1);
         let mut selection = Selection::from_safe_findings(&report.findings);
         selection.version = next_version;
@@ -1166,6 +1201,20 @@ fn draw_finding_rows(
         .duration_since(UNIX_EPOCH)
         .map(|d| d.as_secs())
         .unwrap_or(0);
+    let mono_font = egui::FontId::monospace(type_scale::MONO);
+    let cap_font = egui::FontId::proportional(type_scale::CAPTION);
+    let size_col_w = widgets::text_width(ui, "1023.99 GiB", mono_font.clone())
+        .max(widgets::text_width(ui, "1023,99 ГиБ", mono_font.clone()))
+        .ceil()
+        + 2.0;
+    let age_col_w = if sort_key == FindingSortKey::Age {
+        widgets::text_width(ui, "9999 days ago", cap_font.clone())
+            .max(widgets::text_width(ui, "9999 дней назад", cap_font.clone()))
+            .ceil()
+            + 6.0
+    } else {
+        0.0
+    };
     // One horizontal container per row, with IDs stable while scrolling.
     rows_ui.skip_ahead_auto_ids(visible.start);
     for row in visible {
@@ -1174,59 +1223,83 @@ fn draw_finding_rows(
         let age_text = finding
             .modified_unix
             .map(|ts| crate::i18n::age(now_unix.saturating_sub(ts)));
-        rows_ui.horizontal(|ui| {
-            let mut included = selection.contains(index);
-            if ui.checkbox(&mut included, "").changed() {
-                selection.set(index, finding, included);
-            }
-            ui.label(
-                RichText::new(format!("{:>8}", crate::i18n::bytes(finding.bytes)))
-                    .monospace()
-                    .size(type_scale::MONO)
-                    .color(TEXT()),
-            );
-            if sort_key == FindingSortKey::Age {
-                let age_str = age_text.as_deref().unwrap_or("—");
-                ui.label(
-                    RichText::new(format!("{age_str:>12}"))
-                        .size(type_scale::CAPTION)
-                        .color(MUTED()),
+        rows_ui.allocate_ui_with_layout(
+            egui::vec2(rows_rect.width(), row_height),
+            Layout::left_to_right(Align::Center),
+            |ui| {
+                ui.set_min_size(egui::vec2(rows_rect.width(), row_height));
+                let mut included = selection.contains(index);
+                if ui.checkbox(&mut included, "").changed() {
+                    selection.set(index, finding, included);
+                }
+                let (size_rect, _) =
+                    ui.allocate_exact_size(egui::vec2(size_col_w, row_height), Sense::hover());
+                let size_g = ui.painter().layout_no_wrap(
+                    crate::i18n::bytes(finding.bytes),
+                    mono_font.clone(),
+                    TEXT(),
                 );
-            }
-            let path = finding.path.display().to_string();
-            let hover = match &age_text {
-                Some(age) => format!("{path}\n{} · {age}", finding.rule_id),
-                None => format!("{path}\n{}", finding.rule_id),
-            };
-            let path_resp = ui
-                .add(
-                    egui::Label::new(
-                        RichText::new(&path)
-                            .monospace()
-                            .size(type_scale::MONO)
-                            .color(MUTED()),
-                    )
-                    .truncate()
-                    .sense(Sense::click()),
-                )
-                .on_hover_text(hover);
-            path_resp.context_menu(|ui| {
-                if !finding.report_only
-                    && ui
-                        .button(
-                            RichText::new(t("Delete permanently…")).color(crate::theme::DANGER()),
+                ui.painter().galley(
+                    egui::pos2(
+                        size_rect.right() - size_g.size().x,
+                        size_rect.center().y - size_g.size().y * 0.5,
+                    ),
+                    size_g,
+                    TEXT(),
+                );
+                if sort_key == FindingSortKey::Age {
+                    let age_str = age_text.as_deref().unwrap_or("—");
+                    let (age_rect, _) =
+                        ui.allocate_exact_size(egui::vec2(age_col_w, row_height), Sense::hover());
+                    let age_g =
+                        ui.painter()
+                            .layout_no_wrap(age_str.to_owned(), cap_font.clone(), MUTED());
+                    ui.painter().galley(
+                        egui::pos2(
+                            age_rect.right() - age_g.size().x,
+                            age_rect.center().y - age_g.size().y * 0.5,
+                        ),
+                        age_g,
+                        MUTED(),
+                    );
+                }
+                ui.add_space(4.0);
+                let path = finding.path.display().to_string();
+                let hover = match &age_text {
+                    Some(age) => format!("{path}\n{} · {age}", finding.rule_id),
+                    None => format!("{path}\n{}", finding.rule_id),
+                };
+                let path_resp = ui
+                    .add(
+                        egui::Label::new(
+                            RichText::new(&path)
+                                .monospace()
+                                .size(type_scale::MONO)
+                                .color(MUTED()),
                         )
-                        .clicked()
-                {
-                    *delete_now = Some(vec![finding.clone()]);
-                    ui.close_menu();
-                }
-                if ui.button(t("Show in Finder")).clicked() {
-                    *reveal = Some(finding.path.clone());
-                    ui.close_menu();
-                }
-            });
-        });
+                        .truncate()
+                        .sense(Sense::click()),
+                    )
+                    .on_hover_text(hover);
+                path_resp.context_menu(|ui| {
+                    if !finding.report_only
+                        && ui
+                            .button(
+                                RichText::new(t("Delete permanently…"))
+                                    .color(crate::theme::DANGER()),
+                            )
+                            .clicked()
+                    {
+                        *delete_now = Some(vec![finding.clone()]);
+                        ui.close_menu();
+                    }
+                    if ui.button(t("Show in Finder")).clicked() {
+                        *reveal = Some(finding.path.clone());
+                        ui.close_menu();
+                    }
+                });
+            },
+        );
     }
 }
 
@@ -1252,6 +1325,15 @@ pub(crate) fn cat_title(cat: &str) -> String {
         "temp" => "Temp files".into(),
         "leftovers" => "Leftovers".into(),
         "dev" => "Developer".into(),
+        "ai-agents" => "AI agents & assistants".into(),
+        "cloud-devops" => "Cloud & DevOps".into(),
+        "creative-cad" => "Creative, 3D & CAD".into(),
+        "messengers" => "Messengers & meetings".into(),
+        "electron-cef" => "Desktop web-app caches".into(),
+        "mobile-embedded" => "Mobile & embedded SDKs".into(),
+        "data-science" => "Data science & notebooks".into(),
+        "testing-ci" => "Testing, browsers & CI".into(),
+        "security-network" => "VPN, network & security".into(),
         "package-cache" => "Package caches".into(),
         "browser-cache" => "Browser caches".into(),
         "app-cache" => "App caches".into(),
@@ -1289,7 +1371,6 @@ pub(crate) fn cat_title(cat: &str) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use space_core::format_bytes;
     use std::hint::black_box;
 
     fn finding_with_risk(
@@ -1474,23 +1555,28 @@ mod tests {
         let texts = path_texts(&first);
         assert!(!texts.is_empty());
         assert!(texts.len() < 40, "only viewport rows should be painted");
+        assert!(
+            texts.last().unwrap().pos.y > 640.0,
+            "rows should fill the viewport height without a bottom gap, got last y={}",
+            texts.last().unwrap().pos.y
+        );
         assert_eq!(texts[0].galley.text(), "/tmp/junk-panel/0/cache.bin");
         let first_row_y = texts[0].pos.y + texts[0].galley.size().y / 2.0;
-        let size_label = first
+        let checkbox_x = first
             .shapes
             .iter()
             .filter_map(|shape| match &shape.shape {
-                egui::Shape::Text(text)
-                    if text.galley.text().trim() == format_bytes(4_096)
-                        && (text.pos.y + text.galley.size().y / 2.0 - first_row_y).abs() < 4.0 =>
+                egui::Shape::Rect(r)
+                    if r.rect.width() > 8.0
+                        && r.rect.width() < 30.0
+                        && (r.rect.center().y - first_row_y).abs() < 4.0 =>
                 {
-                    Some(text.pos.x)
+                    Some(r.rect.center().x)
                 }
                 _ => None,
             })
             .next()
-            .expect("size label of the first row");
-        let checkbox_x = size_label - 15.0;
+            .expect("checkbox rect of the first row");
         let checkbox = egui::pos2(checkbox_x, first_row_y);
         draw_test_groups(
             &ctx,
@@ -1751,5 +1837,98 @@ mod tests {
                 "/proj/alpha/target",
             ]
         );
+    }
+
+    #[test]
+    fn nested_findings_in_same_group_are_not_double_counted() {
+        let mut parent = finding("cache", 100, false, 0);
+        parent.path = PathBuf::from("/tmp/cache");
+        parent.is_dir = true;
+
+        let mut child = finding("cache", 60, false, 1);
+        child.path = PathBuf::from("/tmp/cache/sub/a.bin");
+        child.is_dir = false;
+
+        let mut state = JunkPanelState::default();
+        state.set_report(report(vec![parent, child]));
+        assert_eq!(state.selected_bytes(), 100);
+        assert_eq!(state.group_stats(JunkGroup::Safe), (1, 100, 1, 100));
+    }
+
+    #[test]
+    fn finding_rows_align_size_and_path_columns() {
+        let sizes = [309_u64, 52_664, 178_995, 3_082_813, 1_060_000];
+        let ages = [Some(100), Some(500_000), None, Some(10_000), Some(1)];
+        let findings: Vec<_> = sizes
+            .iter()
+            .zip(ages)
+            .enumerate()
+            .map(|(i, (&bytes, modified_unix))| {
+                let mut f = finding("cache", bytes, false, i);
+                f.modified_unix = modified_unix;
+                f
+            })
+            .collect();
+
+        let mut state = JunkPanelState::default();
+        state.set_report(report(findings));
+        state.safe_open = true;
+        state.expanded_cat = Some((JunkGroup::Safe, "cache".into()));
+
+        let ctx = egui::Context::default();
+        let out_size = draw_test_groups(&ctx, &mut state, Vec::new());
+        let paths = path_texts(&out_size);
+        assert_eq!(paths.len(), 5);
+        let path_x = paths[0].pos.x;
+        for p in &paths {
+            assert!(
+                (p.pos.x - path_x).abs() < 0.01,
+                "expected aligned path x={path_x}, got {}",
+                p.pos.x
+            );
+        }
+
+        let size_rights: Vec<f32> = out_size
+            .shapes
+            .iter()
+            .filter_map(|shape| match &shape.shape {
+                egui::Shape::Text(text) => {
+                    let s = text.galley.text();
+                    let min_row_y = paths[0].pos.y - 4.0;
+                    if text.pos.y >= min_row_y
+                        && (s.ends_with(" B")
+                            || s.ends_with(" KiB")
+                            || s.ends_with(" MiB")
+                            || s.ends_with(" GiB"))
+                    {
+                        Some(text.pos.x + text.galley.size().x)
+                    } else {
+                        None
+                    }
+                }
+                _ => None,
+            })
+            .collect();
+        assert_eq!(size_rights.len(), 5);
+        let right0 = size_rights[0];
+        for &r in &size_rights {
+            assert!(
+                (r - right0).abs() < 0.5,
+                "expected right-aligned size edge {right0}, got {r}"
+            );
+        }
+
+        state.sort_key = FindingSortKey::Age;
+        let out_age = draw_test_groups(&ctx, &mut state, Vec::new());
+        let age_paths = path_texts(&out_age);
+        assert_eq!(age_paths.len(), 5);
+        let age_path_x = age_paths[0].pos.x;
+        for p in &age_paths {
+            assert!(
+                (p.pos.x - age_path_x).abs() < 0.01,
+                "expected aligned path x={age_path_x} in Age mode, got {}",
+                p.pos.x
+            );
+        }
     }
 }

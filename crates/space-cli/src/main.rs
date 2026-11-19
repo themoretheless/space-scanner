@@ -2,7 +2,13 @@
 
 use std::path::{Path, PathBuf};
 
+mod ai_scenario;
+mod browsers_scenario;
 mod docker_scenario;
+mod heavy_caches_scenario;
+mod scenario_common;
+mod toolchains_scenario;
+mod vm_scenario;
 
 use clap::{Parser, Subcommand};
 use space_clean::{
@@ -252,6 +258,39 @@ enum ScenarioCmd {
         #[arg(long)]
         json: bool,
     },
+    /// Inventory AI coding agents, worktrees, scratch temps, and desktop caches (read-only)
+    AiBloat {
+        /// Print the complete inventory as JSON
+        #[arg(long)]
+        json: bool,
+    },
+    /// Inventory VM, container, and simulator disk stores with sparse sizing (read-only)
+    VmDisks {
+        /// Print the complete inventory as JSON
+        #[arg(long)]
+        json: bool,
+    },
+    /// Inventory heavy caches and hidden stores, flagging DB directories (read-only)
+    HeavyCaches {
+        /// Minimum allocated size to report (bytes, or 10K / 100M / 1G)
+        #[arg(long, value_parser = parse_size, default_value = "100M")]
+        min_size: u64,
+        /// Print the complete inventory as JSON
+        #[arg(long)]
+        json: bool,
+    },
+    /// Inventory browser caches, on-device AI models, and Electron/CEF app caches (read-only)
+    BrowsersElectron {
+        /// Print the complete inventory as JSON
+        #[arg(long)]
+        json: bool,
+    },
+    /// Inventory developer toolchains, SDKs, package managers, and E2E browsers (read-only)
+    DevToolchains {
+        /// Print the complete inventory as JSON
+        #[arg(long)]
+        json: bool,
+    },
 }
 
 #[derive(Subcommand)]
@@ -329,11 +368,19 @@ fn main() {
     let cli = Cli::parse();
     let ctx = CliContext::from_cli(&cli);
     match cli.cmd {
-        Cmd::Scenario {
-            cmd: ScenarioCmd::DockerVolumes { json },
-        } => {
-            if let Err(error) = docker_scenario::run(json) {
-                eprintln!("Docker volume scenario failed: {error}");
+        Cmd::Scenario { cmd } => {
+            let result = match cmd {
+                ScenarioCmd::DockerVolumes { json } => docker_scenario::run(json),
+                ScenarioCmd::AiBloat { json } => ai_scenario::run(json),
+                ScenarioCmd::VmDisks { json } => vm_scenario::run(json),
+                ScenarioCmd::HeavyCaches { min_size, json } => {
+                    heavy_caches_scenario::run(min_size, json)
+                }
+                ScenarioCmd::BrowsersElectron { json } => browsers_scenario::run(json),
+                ScenarioCmd::DevToolchains { json } => toolchains_scenario::run(json),
+            };
+            if let Err(error) = result {
+                eprintln!("Scenario failed: {error}");
                 std::process::exit(1);
             }
         }

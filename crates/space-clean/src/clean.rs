@@ -71,6 +71,8 @@ pub struct CleanProgress {
     pub folders_done: usize,
     pub bytes_processed: u64,
     pub bytes_freed: u64,
+    pub bytes_total: u64,
+    pub in_flight_bytes: u64,
     pub error_count: usize,
     pub current_path: PathBuf,
 }
@@ -97,9 +99,40 @@ on run argv
             set end of targets to POSIX file (contents of pathItem)
         end if
     end repeat
-    if (count of targets) > 0 then
-        tell application "Finder" to delete targets
+    set totalCount to count of targets
+    if totalCount > 0 then
+        try
+            tell application "Finder" to delete targets
+            return ""
+        on error
+            set errLines to {}
+            set chunkSize to 32
+            set chunkStart to 1
+            repeat while chunkStart ≤ totalCount
+                set chunkEnd to chunkStart + chunkSize - 1
+                if chunkEnd > totalCount then set chunkEnd to totalCount
+                set subTargets to items chunkStart thru chunkEnd of targets
+                try
+                    tell application "Finder" to delete subTargets
+                on error
+                    repeat with k from chunkStart to chunkEnd
+                        try
+                            tell application "Finder" to delete (item k of targets)
+                        on error itemErrMsg number itemErrNum
+                            set end of errLines to ((k - 1) as text) & tab & itemErrMsg & " (" & itemErrNum & ")"
+                        end try
+                    end repeat
+                end try
+                set chunkStart to chunkEnd + 1
+            end repeat
+            set previousDelimiters to AppleScript's text item delimiters
+            set AppleScript's text item delimiters to linefeed
+            set joinedErrors to errLines as text
+            set AppleScript's text item delimiters to previousDelimiters
+            return joinedErrors
+        end try
     end if
+    return ""
 end run
 "#;
 
@@ -153,6 +186,7 @@ pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
 /// constant-size and Finder still receives one delete operation.
 #[cfg(target_os = "macos")]
 pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
+    use std::collections::HashMap;
     use std::io::Write;
     use std::process::Command;
     use std::time::{SystemTime, UNIX_EPOCH};
@@ -161,6 +195,7 @@ pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
         return Vec::new();
     }
     let mut outcomes = vec![Ok(()); paths.len()];
+    let mut valid_indices = Vec::with_capacity(paths.len());
     let unique = SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .unwrap_or_default()
@@ -179,16 +214,22 @@ pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
                 outcomes[index] = Err("path is not valid UTF-8".into());
                 continue;
             };
+            valid_indices.push(index);
             file.write_all(path.as_bytes())?;
             file.write_all(&[0])?;
         }
         file.flush()
     })();
     if let Err(error) = write_result {
+        let _ = std::fs::remove_file(&manifest);
         return paths
             .iter()
             .map(|_| Err(format!("create Trash manifest: {error}")))
             .collect();
+    }
+    if valid_indices.is_empty() {
+        let _ = std::fs::remove_file(&manifest);
+        return outcomes;
     }
 
     let command_result = Command::new("osascript")
@@ -198,10 +239,28 @@ pub fn trash_paths_batch(paths: &[PathBuf]) -> Vec<Result<(), String>> {
     let _ = std::fs::remove_file(&manifest);
     let error = match command_result {
         Ok(output) if output.status.success() => {
-            for (index, path) in paths.iter().enumerate() {
-                if outcomes[index].is_ok() && std::fs::symlink_metadata(path).is_ok() {
-                    outcomes[index] =
-                        Err("Finder reported success but the path still exists".into());
+            let stdout = String::from_utf8_lossy(&output.stdout);
+            let mut item_errors = HashMap::new();
+            for line in stdout.lines() {
+                if let Some((pos_str, reason)) = line.split_once('\t') {
+                    if let Ok(pos) = pos_str.trim().parse::<usize>() {
+                        item_errors.insert(pos, reason.trim().to_string());
+                    }
+                }
+            }
+            let stderr_note = String::from_utf8_lossy(&output.stderr).trim().to_string();
+            for (manifest_pos, &orig_index) in valid_indices.iter().enumerate() {
+                if outcomes[orig_index].is_ok()
+                    && std::fs::symlink_metadata(&paths[orig_index]).is_ok()
+                {
+                    let msg = if let Some(reason) = item_errors.get(&manifest_pos) {
+                        format!("Finder Trash operation failed: {reason}")
+                    } else if !stderr_note.is_empty() {
+                        format!("Finder Trash operation failed: {stderr_note}")
+                    } else {
+                        "Finder reported success but the path still exists".to_string()
+                    };
+                    outcomes[orig_index] = Err(msg);
                 }
             }
             return outcomes;
@@ -241,8 +300,12 @@ pub fn clean_with_progress(
     let mut errors = Vec::new();
     let mut processed = 0u64;
     let mut freed = 0u64;
+    let bytes_total = items
+        .iter()
+        .fold(0u64, |sum, item| sum.saturating_add(item.bytes));
     let mut progress = CleanProgress {
         items_total: items.len(),
+        bytes_total,
         ..Default::default()
     };
     on_progress(progress.clone());
@@ -444,8 +507,8 @@ pub fn permanent_delete_fast(path: &Path) -> std::result::Result<DeleteStats, St
     )
 }
 
-/// Permanently delete `candidates` in parallel while streaming live progress
-/// updates to `on_progress`.
+/// Permanently delete `candidates` while streaming live progress updates to
+/// `on_progress`. Directory candidates use bounded internal parallelism.
 pub fn delete_candidates_permanently_with_progress(
     candidates: &[DeleteCandidate],
     initial_progress: CleanProgress,
@@ -454,8 +517,19 @@ pub fn delete_candidates_permanently_with_progress(
     if candidates.is_empty() {
         return Vec::new();
     }
+    let bytes_total = if initial_progress.bytes_total > 0 {
+        initial_progress.bytes_total
+    } else {
+        initial_progress.bytes_processed.saturating_add(
+            candidates
+                .iter()
+                .fold(0u64, |sum, c| sum.saturating_add(c.bytes)),
+        )
+    };
     if candidates.len() <= 2 && candidates.iter().all(|c| !c.is_dir) {
         let mut progress = initial_progress;
+        progress.bytes_total = bytes_total;
+        progress.in_flight_bytes = 0;
         let mut outcomes = Vec::with_capacity(candidates.len());
         let no_live = LiveDeleteCounters {
             files_done: None,
@@ -487,25 +561,49 @@ pub fn delete_candidates_permanently_with_progress(
     let items_done = AtomicUsize::new(initial_progress.items_done);
     let files_done = AtomicUsize::new(initial_progress.files_done);
     let folders_done = AtomicUsize::new(initial_progress.folders_done);
-    let bytes_processed = AtomicU64::new(initial_progress.bytes_processed);
     let bytes_freed = AtomicU64::new(initial_progress.bytes_freed);
     let error_count = AtomicUsize::new(initial_progress.error_count);
     let current_path = Mutex::new(initial_progress.current_path.clone());
+    let byte_state = Mutex::new((
+        initial_progress.bytes_processed,
+        0u64,
+        initial_progress.files_done,
+    ));
     let done = AtomicBool::new(false);
     let items_total = initial_progress.items_total;
 
-    let snapshot = || CleanProgress {
-        items_done: items_done.load(Ordering::Relaxed),
-        items_total,
-        files_done: files_done.load(Ordering::Relaxed),
-        folders_done: folders_done.load(Ordering::Relaxed),
-        bytes_processed: bytes_processed.load(Ordering::Relaxed),
-        bytes_freed: bytes_freed.load(Ordering::Relaxed),
-        error_count: error_count.load(Ordering::Relaxed),
-        current_path: current_path
-            .try_lock()
-            .map(|p| p.clone())
-            .unwrap_or_default(),
+    let snapshot = || {
+        let cur_files = files_done.load(Ordering::Relaxed);
+        let (completed_bytes, cand_bytes, start_files) = byte_state
+            .lock()
+            .map(|st| *st)
+            .unwrap_or((initial_progress.bytes_processed, 0, 0));
+        let in_flight_bytes = if cand_bytes > 0 {
+            let cf = cur_files.saturating_sub(start_files);
+            if cf > 0 {
+                let ratio = (cf as f64) / (cf as f64 + 8_000.0);
+                ((cand_bytes as f64) * ratio * 0.95) as u64
+            } else {
+                0
+            }
+        } else {
+            0
+        };
+        CleanProgress {
+            items_done: items_done.load(Ordering::Relaxed),
+            items_total,
+            files_done: cur_files,
+            folders_done: folders_done.load(Ordering::Relaxed),
+            bytes_processed: completed_bytes,
+            bytes_freed: bytes_freed.load(Ordering::Relaxed),
+            bytes_total,
+            in_flight_bytes,
+            error_count: error_count.load(Ordering::Relaxed),
+            current_path: current_path
+                .try_lock()
+                .map(|p| p.clone())
+                .unwrap_or_default(),
+        }
     };
 
     let outcomes = std::thread::scope(|scope| {
@@ -513,10 +611,10 @@ pub fn delete_candidates_permanently_with_progress(
         let items_done_ref = &items_done;
         let files_done_ref = &files_done;
         let folders_done_ref = &folders_done;
-        let bytes_processed_ref = &bytes_processed;
         let bytes_freed_ref = &bytes_freed;
         let error_count_ref = &error_count;
         let current_path_ref = &current_path;
+        let byte_state_ref = &byte_state;
         let done_ref = &done;
 
         let handle = scope.spawn(move || {
@@ -526,17 +624,29 @@ pub fn delete_candidates_permanently_with_progress(
                 current_path: Some(current_path_ref),
             };
             let results: Vec<std::result::Result<DeleteStats, String>> = candidates
-                .par_iter()
+                .iter()
                 .map(|candidate| {
                     set_current_path(current_path_ref, &candidate.path);
+                    if let Ok(mut st) = byte_state_ref.lock() {
+                        st.1 = candidate.bytes;
+                        st.2 = files_done_ref.load(Ordering::Relaxed);
+                    }
                     let res = permanent_delete_with_counters(&candidate.path, &live);
                     match &res {
                         Ok(_) => {
-                            bytes_processed_ref.fetch_add(candidate.bytes, Ordering::Relaxed);
                             bytes_freed_ref.fetch_add(candidate.bytes, Ordering::Relaxed);
+                            if let Ok(mut st) = byte_state_ref.lock() {
+                                st.0 = st.0.saturating_add(candidate.bytes);
+                                st.1 = 0;
+                                st.2 = 0;
+                            }
                         }
                         Err(_) => {
                             error_count_ref.fetch_add(1, Ordering::Relaxed);
+                            if let Ok(mut st) = byte_state_ref.lock() {
+                                st.1 = 0;
+                                st.2 = 0;
+                            }
                         }
                     }
                     items_done_ref.fetch_add(1, Ordering::Relaxed);
@@ -571,6 +681,7 @@ pub fn delete_candidates_permanently_with_progress(
     });
 
     let mut final_snap = snapshot();
+    final_snap.in_flight_bytes = 0;
     if final_snap.current_path.as_os_str().is_empty() {
         if let Some(last) = candidates.last() {
             final_snap.current_path = last.path.clone();
@@ -581,6 +692,33 @@ pub fn delete_candidates_permanently_with_progress(
 }
 
 impl CleanProgress {
+    pub fn displayed_bytes(&self) -> u64 {
+        let live = self.bytes_processed.saturating_add(self.in_flight_bytes);
+        if self.bytes_total > 0 {
+            live.min(self.bytes_total.max(self.bytes_processed))
+        } else {
+            live
+        }
+    }
+
+    pub fn fraction(&self) -> f32 {
+        if self.items_total > 0 && self.items_done >= self.items_total {
+            return 1.0;
+        }
+        let item_frac = if self.items_total > 0 {
+            (self.items_done as f32 / self.items_total as f32).clamp(0.0, 1.0)
+        } else {
+            0.0
+        };
+        if self.bytes_total > 0 {
+            let byte_frac =
+                (self.displayed_bytes() as f64 / self.bytes_total as f64).clamp(0.0, 1.0) as f32;
+            (0.85 * byte_frac + 0.15 * item_frac).clamp(0.0, 0.999)
+        } else {
+            item_frac
+        }
+    }
+
     fn folders_deleted_add(&mut self, n: usize) {
         self.folders_done += n;
     }
@@ -604,7 +742,14 @@ fn permanent_delete_with_counters(
     };
     let ft = meta.file_type();
     if ft.is_dir() {
-        permanent_delete_dir_parallel(path, ctx)
+        #[cfg(unix)]
+        {
+            unix_delete_dir_fast(path, ctx)
+        }
+        #[cfg(not(unix))]
+        {
+            permanent_delete_dir_parallel(path, ctx)
+        }
     } else {
         unlink_non_dir(path, None, ft.is_symlink())?;
         if let Some(counter) = ctx.files_done {
@@ -617,6 +762,293 @@ fn permanent_delete_with_counters(
     }
 }
 
+#[cfg(unix)]
+fn delete_pool() -> &'static rayon::ThreadPool {
+    static POOL: std::sync::OnceLock<rayon::ThreadPool> = std::sync::OnceLock::new();
+    POOL.get_or_init(|| {
+        let threads = std::thread::available_parallelism()
+            .map(usize::from)
+            .unwrap_or(4)
+            .clamp(2, 8);
+        rayon::ThreadPoolBuilder::new()
+            .num_threads(threads)
+            .thread_name(|i| format!("space-del-{i}"))
+            .build()
+            .expect("build delete thread pool")
+    })
+}
+
+#[cfg(unix)]
+fn unix_delete_dir_fast(
+    root: &Path,
+    ctx: &LiveDeleteCounters<'_>,
+) -> std::result::Result<DeleteStats, String> {
+    static DEL_SEQ: AtomicU64 = AtomicU64::new(0);
+    let (target, renamed) = match (root.parent(), root.file_name()) {
+        (Some(parent), Some(name)) => {
+            let seq = DEL_SEQ.fetch_add(1, Ordering::Relaxed);
+            let staged = parent.join(format!(
+                ".space-del-{}-{seq}-{}",
+                std::process::id(),
+                name.to_string_lossy()
+            ));
+            if !staged.exists() && std::fs::rename(root, &staged).is_ok() {
+                (staged, true)
+            } else {
+                (root.to_path_buf(), false)
+            }
+        }
+        _ => (root.to_path_buf(), false),
+    };
+
+    let first_error: Mutex<Option<String>> = Mutex::new(None);
+    let files_deleted = AtomicUsize::new(0);
+    let folders_deleted = AtomicUsize::new(0);
+
+    delete_pool().install(|| {
+        delete_dir_unix(
+            &target,
+            None,
+            &files_deleted,
+            &folders_deleted,
+            &first_error,
+            ctx,
+        );
+    });
+
+    if let Some(err) = first_error.into_inner().unwrap_or_else(|p| p.into_inner()) {
+        if renamed && target.exists() && !root.exists() {
+            let _ = std::fs::rename(&target, root);
+        }
+        return Err(err);
+    }
+    Ok(DeleteStats {
+        files_deleted: files_deleted.load(Ordering::Relaxed),
+        folders_deleted: folders_deleted.load(Ordering::Relaxed),
+    })
+}
+
+#[cfg(unix)]
+fn delete_dir_unix(
+    dir: &Path,
+    parent_inside: Option<&Path>,
+    files_deleted: &AtomicUsize,
+    folders_deleted: &AtomicUsize,
+    first_error: &Mutex<Option<String>>,
+    ctx: &LiveDeleteCounters<'_>,
+) {
+    use std::ffi::{CStr, CString, OsStr};
+    use std::os::unix::ffi::OsStrExt;
+
+    struct DirGuard(*mut libc::DIR);
+    impl Drop for DirGuard {
+        fn drop(&mut self) {
+            unsafe {
+                libc::closedir(self.0);
+            }
+        }
+    }
+
+    if let Some(slot) = ctx.current_path {
+        set_current_path(slot, dir);
+    }
+
+    let Ok(c_dir) = CString::new(dir.as_os_str().as_bytes()) else {
+        record_first_error(first_error, format!("invalid path: {}", dir.display()));
+        return;
+    };
+
+    let mut fd = unsafe {
+        libc::open(
+            c_dir.as_ptr(),
+            libc::O_RDONLY | libc::O_NOFOLLOW | libc::O_DIRECTORY | libc::O_CLOEXEC,
+        )
+    };
+    if fd < 0 {
+        let err = std::io::Error::last_os_error();
+        if err.kind() == std::io::ErrorKind::NotFound {
+            return;
+        }
+        if err.kind() == std::io::ErrorKind::PermissionDenied {
+            ensure_writable_dir(dir);
+            fd = unsafe {
+                libc::open(
+                    c_dir.as_ptr(),
+                    libc::O_RDONLY | libc::O_NOFOLLOW | libc::O_DIRECTORY | libc::O_CLOEXEC,
+                )
+            };
+        }
+        if fd < 0 {
+            let err = std::io::Error::last_os_error();
+            if err.kind() != std::io::ErrorKind::NotFound {
+                record_first_error(first_error, format!("open {}: {err}", dir.display()));
+            }
+            return;
+        }
+    }
+
+    let dirp = unsafe { libc::fdopendir(fd) };
+    if dirp.is_null() {
+        let err = std::io::Error::last_os_error();
+        unsafe { libc::close(fd) };
+        record_first_error(first_error, format!("fdopendir {}: {err}", dir.display()));
+        return;
+    }
+    let dir_guard = DirGuard(dirp);
+    let dir_fd = unsafe { libc::dirfd(dir_guard.0) };
+
+    let mut subdirs: Vec<PathBuf> = Vec::new();
+    let mut local_files = 0usize;
+    let mut made_dir_writable = false;
+
+    loop {
+        let entry = unsafe { libc::readdir(dir_guard.0) };
+        if entry.is_null() {
+            break;
+        }
+        let d_type = unsafe { (*entry).d_type };
+        let name_ptr = unsafe { (*entry).d_name.as_ptr() };
+        let name_bytes = unsafe { CStr::from_ptr(name_ptr).to_bytes() };
+        if name_bytes == b"." || name_bytes == b".." {
+            continue;
+        }
+
+        let (is_subdir, is_symlink) = match d_type {
+            libc::DT_DIR => (true, false),
+            libc::DT_LNK => (false, true),
+            libc::DT_UNKNOWN => {
+                let mut st = std::mem::MaybeUninit::<libc::stat>::uninit();
+                let rc = unsafe {
+                    libc::fstatat(dir_fd, name_ptr, st.as_mut_ptr(), libc::AT_SYMLINK_NOFOLLOW)
+                };
+                if rc < 0 {
+                    let err = std::io::Error::last_os_error();
+                    if err.kind() != std::io::ErrorKind::NotFound {
+                        record_first_error(
+                            first_error,
+                            format!(
+                                "stat {}: {err}",
+                                dir.join(OsStr::from_bytes(name_bytes)).display()
+                            ),
+                        );
+                    }
+                    continue;
+                }
+                let mode = unsafe { st.assume_init().st_mode } & libc::S_IFMT;
+                (mode == libc::S_IFDIR, mode == libc::S_IFLNK)
+            }
+            _ => (false, false),
+        };
+
+        if is_subdir {
+            subdirs.push(dir.join(OsStr::from_bytes(name_bytes)));
+            continue;
+        }
+
+        let mut rc = unsafe { libc::unlinkat(dir_fd, name_ptr, 0) };
+        if rc < 0 {
+            let err = std::io::Error::last_os_error();
+            if err.kind() == std::io::ErrorKind::NotFound {
+                continue;
+            }
+            if err.kind() == std::io::ErrorKind::PermissionDenied {
+                if !made_dir_writable {
+                    unsafe {
+                        libc::fchmod(dir_fd, 0o700);
+                    }
+                    made_dir_writable = true;
+                }
+                if !is_symlink {
+                    #[cfg(target_os = "macos")]
+                    let flags = libc::AT_SYMLINK_NOFOLLOW;
+                    #[cfg(not(target_os = "macos"))]
+                    let flags = 0;
+                    unsafe {
+                        libc::fchmodat(dir_fd, name_ptr, 0o600, flags);
+                    }
+                }
+                rc = unsafe { libc::unlinkat(dir_fd, name_ptr, 0) };
+                if rc < 0 {
+                    let err = std::io::Error::last_os_error();
+                    if err.kind() != std::io::ErrorKind::NotFound {
+                        record_first_error(
+                            first_error,
+                            format!(
+                                "remove {}: {err}",
+                                dir.join(OsStr::from_bytes(name_bytes)).display()
+                            ),
+                        );
+                    }
+                    continue;
+                }
+            } else {
+                record_first_error(
+                    first_error,
+                    format!(
+                        "remove {}: {err}",
+                        dir.join(OsStr::from_bytes(name_bytes)).display()
+                    ),
+                );
+                continue;
+            }
+        }
+
+        local_files += 1;
+        if local_files >= 256 {
+            files_deleted.fetch_add(local_files, Ordering::Relaxed);
+            if let Some(counter) = ctx.files_done {
+                counter.fetch_add(local_files, Ordering::Relaxed);
+            }
+            local_files = 0;
+        }
+    }
+
+    if local_files > 0 {
+        files_deleted.fetch_add(local_files, Ordering::Relaxed);
+        if let Some(counter) = ctx.files_done {
+            counter.fetch_add(local_files, Ordering::Relaxed);
+        }
+    }
+
+    // Close DIR* before recursing so at most `delete_pool` FDs remain open regardless of depth.
+    drop(dir_guard);
+
+    if subdirs.len() == 1 {
+        delete_dir_unix(
+            &subdirs[0],
+            Some(dir),
+            files_deleted,
+            folders_deleted,
+            first_error,
+            ctx,
+        );
+    } else if subdirs.len() >= 2 {
+        subdirs.par_iter().for_each(|sub| {
+            delete_dir_unix(
+                sub,
+                Some(dir),
+                files_deleted,
+                folders_deleted,
+                first_error,
+                ctx,
+            );
+        });
+    }
+
+    match remove_empty_dir(dir, parent_inside) {
+        Ok(()) => {
+            folders_deleted.fetch_add(1, Ordering::Relaxed);
+            if let Some(counter) = ctx.folders_done {
+                counter.fetch_add(1, Ordering::Relaxed);
+            }
+        }
+        Err(e) => {
+            record_first_error(first_error, format!("remove_dir {}: {e}", dir.display()));
+        }
+    }
+}
+
+#[cfg(not(unix))]
 fn permanent_delete_dir_parallel(
     root: &Path,
     ctx: &LiveDeleteCounters<'_>,
@@ -677,6 +1109,7 @@ fn permanent_delete_dir_parallel(
     })
 }
 
+#[cfg(not(unix))]
 fn process_dir_for_delete(
     dir: &Path,
     files_deleted: &AtomicUsize,
@@ -780,6 +1213,18 @@ fn record_first_error(slot: &Mutex<Option<String>>, msg: String) {
 }
 
 fn remove_empty_dir(dir: &Path, parent_inside_target: Option<&Path>) -> std::io::Result<()> {
+    let remove_non_empty = |err: std::io::Error| -> std::io::Result<()> {
+        if err.kind() == std::io::ErrorKind::DirectoryNotEmpty
+            && std::fs::symlink_metadata(dir).is_ok_and(|m| !m.file_type().is_symlink())
+        {
+            return match std::fs::remove_dir_all(dir) {
+                Ok(()) => Ok(()),
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
+                Err(e) => Err(e),
+            };
+        }
+        Err(err)
+    };
     match std::fs::remove_dir(dir) {
         Ok(()) => Ok(()),
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
@@ -791,10 +1236,10 @@ fn remove_empty_dir(dir: &Path, parent_inside_target: Option<&Path>) -> std::io:
             match std::fs::remove_dir(dir) {
                 Ok(()) => Ok(()),
                 Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(()),
-                Err(e) => Err(e),
+                Err(e) => remove_non_empty(e),
             }
         }
-        Err(e) => Err(e),
+        Err(e) => remove_non_empty(e),
     }
 }
 
@@ -1102,6 +1547,45 @@ mod tests {
             String::from_utf8_lossy(&output.stderr)
         );
         assert_eq!(String::from_utf8_lossy(&output.stdout).trim(), "2");
+    }
+
+    #[cfg(target_os = "macos")]
+    #[test]
+    fn finder_manifest_script_isolates_per_item_failures() {
+        let unique = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_nanos();
+        let manifest = std::env::temp_dir().join(format!("space-trash-fallback-{unique}.paths"));
+        fs::write(&manifest, b"/tmp/a\0/tmp/blocked\0/tmp/c\0").unwrap();
+        let simulated = MACOS_TRASH_SCRIPT
+            .replace(
+                "tell application \"Finder\" to delete targets",
+                "error \"batch blocked\" number -1741",
+            )
+            .replace(
+                "tell application \"Finder\" to delete subTargets",
+                "error \"chunk blocked\" number -1741",
+            )
+            .replace(
+                "tell application \"Finder\" to delete (item k of targets)",
+                "if POSIX path of (item k of targets) contains \"blocked\" then error \"Operation not permitted\" number -1741",
+            );
+        let output = std::process::Command::new("osascript")
+            .args(["-e", &simulated])
+            .arg(&manifest)
+            .output()
+            .unwrap();
+        let _ = fs::remove_file(manifest);
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+        assert_eq!(
+            String::from_utf8_lossy(&output.stdout).trim(),
+            "1\tOperation not permitted (-1741)"
+        );
     }
 
     #[test]

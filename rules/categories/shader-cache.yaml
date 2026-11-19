@@ -44,3 +44,19 @@ rules:
   - "$HOME/Library/Application Support/Steam/steamapps/shadercache"
   delete_mode: contents
   max_depth: 5
+- id: macos-darwin-clang-metal-cache
+  name: macOS Darwin user Clang and Metal shader caches
+  description: Per-user compiler module caches and compiled Metal shader caches under DARWIN_USER_CACHE_DIR; rebuilt automatically on demand.
+  category: shader-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$DARWIN_USER_CACHE_DIR/clang"
+  - "$DARWIN_USER_CACHE_DIR/org.llvm.clang"
+  - "$DARWIN_USER_CACHE_DIR/com.apple.metal"
+  - "$DARWIN_USER_CACHE_DIR/com.apple.metalfe"
+  delete_mode: contents
+  max_depth: 4
+  tags: [shader, clang, metal, cache]

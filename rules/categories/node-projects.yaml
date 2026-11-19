@@ -23,6 +23,12 @@ rules:
   - "$HOME/Documents/Projects"
   - "$HOME/Documents/Source"
   - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
   include_globs:
   - "**/node_modules"
   exclude_globs:
@@ -55,6 +61,12 @@ rules:
   - "$HOME/Documents/Projects"
   - "$HOME/Documents/Source"
   - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
   include_globs:
   - "**/node_modules"
   exclude_globs:
@@ -87,6 +99,12 @@ rules:
   - "%USERPROFILE%/Documents/Projects"
   - "%USERPROFILE%/Documents/Source"
   - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  - "%USERPROFILE%/PycharmProjects"
+  - "%USERPROFILE%/CLionProjects"
+  - "%USERPROFILE%/GolandProjects"
   include_globs:
   - "**/node_modules"
   exclude_globs:
@@ -97,3 +115,138 @@ rules:
   delete_mode: contents
   max_depth: 16
   tags: [nodejs, npm, dependencies, build-output, project]
+
+- id: node-project-build-caches-macos
+  name: Node.js framework build caches
+  description: Removes regenerable .next/cache, .turbo, .svelte-kit, .nuxt, .parcel-cache, .angular/cache, and .vite directories inside Node.js projects; source files and package.json are preserved.
+  category: dev
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/Developer"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
+  include_globs:
+  - "**/.next/cache"
+  - "**/.turbo"
+  - "**/.svelte-kit"
+  - "**/.nuxt"
+  - "**/.parcel-cache"
+  - "**/.angular/cache"
+  - "**/.vite"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - "package.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 12
+  tags: [nodejs, frontend, cache, build-output, project]
+
+- id: node-project-build-caches-linux
+  name: Node.js framework build caches
+  description: Removes regenerable .next/cache, .turbo, .svelte-kit, .nuxt, .parcel-cache, .angular/cache, and .vite directories inside Node.js projects; source files and package.json are preserved.
+  category: dev
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/code"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
+  include_globs:
+  - "**/.next/cache"
+  - "**/.turbo"
+  - "**/.svelte-kit"
+  - "**/.nuxt"
+  - "**/.parcel-cache"
+  - "**/.angular/cache"
+  - "**/.vite"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - "package.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 12
+  tags: [nodejs, frontend, cache, build-output, project]
+
+- id: node-project-build-caches-windows
+  name: Node.js framework build caches
+  description: Removes regenerable .next/cache, .turbo, .svelte-kit, .nuxt, .parcel-cache, .angular/cache, and .vite directories inside Node.js projects; source files and package.json are preserved.
+  category: dev
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "%USERPROFILE%/source/repos"
+  - "%USERPROFILE%/Source"
+  - "%USERPROFILE%/Sources"
+  - "%USERPROFILE%/Projects"
+  - "%USERPROFILE%/src"
+  - "%USERPROFILE%/repos"
+  - "%USERPROFILE%/work"
+  - "%USERPROFILE%/workspace"
+  - "%USERPROFILE%/Documents/Projects"
+  - "%USERPROFILE%/Documents/Source"
+  - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  - "%USERPROFILE%/PycharmProjects"
+  - "%USERPROFILE%/CLionProjects"
+  - "%USERPROFILE%/GolandProjects"
+  include_globs:
+  - "**/.next/cache"
+  - "**/.turbo"
+  - "**/.svelte-kit"
+  - "**/.nuxt"
+  - "**/.parcel-cache"
+  - "**/.angular/cache"
+  - "**/.vite"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - "package.json"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 12
+  tags: [nodejs, frontend, cache, build-output, project]

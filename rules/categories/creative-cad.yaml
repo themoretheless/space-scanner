@@ -1,0 +1,2577 @@
+---
+pack: creative-cad
+description: "Video editors, 3D/DCC suites, CAD tools, and 3D printer slicers caches and logs; source projects, media files, and presets are preserved."
+rules:
+- id: cc-insta360-studio-macos
+  name: "Insta360 Studio preview cache and logs"
+  description: "Removes regenerable Insta360 Studio previewer_cache_nle, cut_cache, and logs; source video files and projects are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Insta360/Insta360 Studio/previewer_cache_nle"
+  - "$HOME/Library/Application Support/Insta360/Insta360 Studio/log"
+  - "$HOME/Library/Application Support/Insta360/Insta360 Studio/cut_cache"
+  - "$HOME/Library/Caches/com.insta360.studio"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, video, cache]
+
+- id: cc-insta360-studio-windows
+  name: "Insta360 Studio preview cache and logs"
+  description: "Removes regenerable Insta360 Studio preview cache and logs; source video files and projects are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Insta360/Insta360 Studio/previewer_cache_nle"
+  - "%LOCALAPPDATA%/Insta360/Insta360 Studio/log"
+  - "%APPDATA%/Insta360/Insta360 Studio/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, video, cache]
+
+- id: cc-bambu-suite-macos
+  name: "Bambu Suite OTA, HMS cache, and logs"
+  description: "Removes regenerable Bambu Suite OTA packages, HMS logs, and app caches; user 2D presets and prints are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Bambu Suite/ota"
+  - "$HOME/Library/Application Support/Bambu Suite/hms"
+  - "$HOME/Library/Application Support/Bambu Suite/log"
+  - "$HOME/Library/Application Support/Bambu Suite/cache"
+  - "$HOME/Library/Caches/com.bambulab.bambu-suite"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, cad, 3d-printing]
+
+- id: cc-bambu-suite-windows
+  name: "Bambu Suite OTA and logs"
+  description: "Removes regenerable Bambu Suite OTA packages and logs; user presets are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Bambu Suite/ota"
+  - "%APPDATA%/Bambu Suite/log"
+  - "%APPDATA%/Bambu Suite/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, cad, 3d-printing]
+
+- id: cc-final-cut-caches-macos
+  name: "Final Cut Pro caches"
+  description: "Removes regenerable Final Cut Pro caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.apple.FinalCut"
+  - "$HOME/Library/Logs/FinalCutPro"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-motion-caches-macos
+  name: "Apple Motion caches"
+  description: "Removes regenerable Apple Motion caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.apple.motionapp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-compressor-caches-macos
+  name: "Apple Compressor caches"
+  description: "Removes regenerable Apple Compressor caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.apple.Compressor"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-pixelmator-pro-macos
+  name: "Pixelmator Pro caches"
+  description: "Removes regenerable Pixelmator Pro caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.pixelmatorteam.pixelmator.x"
+  - "$HOME/Library/Containers/com.pixelmatorteam.pixelmator.x/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-affinity-suite-2-macos
+  name: "Affinity Designer/Photo/Publisher 2 caches"
+  description: "Removes regenerable Affinity Designer/Photo/Publisher 2 caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.seriflabs.affinitydesigner2"
+  - "$HOME/Library/Caches/com.seriflabs.affinityphoto2"
+  - "$HOME/Library/Caches/com.seriflabs.affinitypublisher2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-sketch-app-macos
+  name: "Sketch macOS caches"
+  description: "Removes regenerable Sketch macOS caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.bohemiancoding.sketch3"
+  - "$HOME/Library/Application Support/com.bohemiancoding.sketch3/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-screenflow-macos
+  name: "ScreenFlow caches"
+  description: "Removes regenerable ScreenFlow caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/net.telestream.screenflow10"
+  - "$HOME/Library/Caches/net.telestream.screenflow9"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-fusion360-macos
+  name: "Autodesk Fusion 360 caches and logs"
+  description: "Removes regenerable Autodesk Fusion 360 caches and logs; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.autodesk.mas.fusion360"
+  - "$HOME/Library/Application Support/Autodesk/Web Services/Log"
+  - "$HOME/Library/Logs/Autodesk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-shapr3d-macos
+  name: "Shapr3D caches"
+  description: "Removes regenerable Shapr3D caches; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.shapr3d.shapr3d"
+  - "$HOME/Library/Containers/com.shapr3d.shapr3d/Data/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-rhino3d-macos
+  name: "Rhino 3D caches and logs"
+  description: "Removes regenerable Rhino 3D caches and logs; user projects, libraries, and preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.mcneel.rhinoceros.8"
+  - "$HOME/Library/Caches/com.mcneel.rhinoceros.7"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, cad]
+
+- id: cc-davinci-resolve-macos
+  name: "DaVinci Resolve CacheClip & logs"
+  description: "Removes regenerable DaVinci Resolve CacheClip & logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: medium
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/com.blackmagic-design.DaVinciResolve"
+  - "$HOME/Library/Application Support/Blackmagic Design/DaVinci Resolve/CacheClip"
+  - "$HOME/Library/Application Support/Blackmagic Design/DaVinci Resolve/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-davinci-resolve-linux
+  name: "DaVinci Resolve CacheClip & logs"
+  description: "Removes regenerable DaVinci Resolve CacheClip & logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: medium
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.local/share/DaVinciResolve/logs"
+  - "$HOME/.cache/DaVinciResolve"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-davinci-resolve-windows
+  name: "DaVinci Resolve CacheClip & logs"
+  description: "Removes regenerable DaVinci Resolve CacheClip & logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: medium
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Blackmagic Design/DaVinci Resolve/Support/logs"
+  - "%LOCALAPPDATA%/Blackmagic Design/DaVinci Resolve/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-obs-studio-macos
+  name: "OBS Studio logs and browser caches"
+  description: "Removes regenerable OBS Studio logs and browser caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/obs-studio/logs"
+  - "$HOME/Library/Application Support/obs-studio/crashes"
+  - "$HOME/Library/Application Support/obs-studio/plugin_config/obs-browser/Cache"
+  - "$HOME/Library/Application Support/obs-studio/plugin_config/obs-browser/Code Cache"
+  - "$HOME/Library/Application Support/obs-studio/plugin_config/obs-browser/GPUCache"
+  - "$HOME/Library/Caches/com.obsproject.obs-studio"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-obs-studio-linux
+  name: "OBS Studio logs and browser caches"
+  description: "Removes regenerable OBS Studio logs and browser caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/obs-studio/logs"
+  - "$HOME/.config/obs-studio/crashes"
+  - "$HOME/.config/obs-studio/plugin_config/obs-browser/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-obs-studio-windows
+  name: "OBS Studio logs and browser caches"
+  description: "Removes regenerable OBS Studio logs and browser caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/obs-studio/logs"
+  - "%APPDATA%/obs-studio/crashes"
+  - "%APPDATA%/obs-studio/plugin_config/obs-browser/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-blender-cache-macos
+  name: "Blender render & shader caches"
+  description: "Removes regenerable Blender render & shader caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/Blender"
+  - "$HOME/Library/Caches/org.blenderfoundation.blender"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-blender-cache-linux
+  name: "Blender render & shader caches"
+  description: "Removes regenerable Blender render & shader caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/blender"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-blender-cache-windows
+  name: "Blender render & shader caches"
+  description: "Removes regenerable Blender render & shader caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Blender Foundation/Blender/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-openscad-cache-macos
+  name: "OpenSCAD preview & font caches"
+  description: "Removes regenerable OpenSCAD preview & font caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/org.openscad.OpenSCAD"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-openscad-cache-linux
+  name: "OpenSCAD preview & font caches"
+  description: "Removes regenerable OpenSCAD preview & font caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/OpenSCAD"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-openscad-cache-windows
+  name: "OpenSCAD preview & font caches"
+  description: "Removes regenerable OpenSCAD preview & font caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/OpenSCAD/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-freecad-cache-macos
+  name: "FreeCAD cache and logs"
+  description: "Removes regenerable FreeCAD cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/FreeCAD"
+  - "$HOME/Library/Application Support/FreeCAD/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-freecad-cache-linux
+  name: "FreeCAD cache and logs"
+  description: "Removes regenerable FreeCAD cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/FreeCAD"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-freecad-cache-windows
+  name: "FreeCAD cache and logs"
+  description: "Removes regenerable FreeCAD cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/FreeCAD/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-kicad-cache-macos
+  name: "KiCad package & 3D cache"
+  description: "Removes regenerable KiCad package & 3D cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/kicad"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-kicad-cache-linux
+  name: "KiCad package & 3D cache"
+  description: "Removes regenerable KiCad package & 3D cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/kicad"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-kicad-cache-windows
+  name: "KiCad package & 3D cache"
+  description: "Removes regenerable KiCad package & 3D cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/kicad/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-prusa-slicer-macos
+  name: "PrusaSlicer cache and logs"
+  description: "Removes regenerable PrusaSlicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/PrusaSlicer/cache"
+  - "$HOME/Library/Caches/com.prusa3d.slicer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-prusa-slicer-linux
+  name: "PrusaSlicer cache and logs"
+  description: "Removes regenerable PrusaSlicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/PrusaSlicer"
+  - "$HOME/.config/PrusaSlicer/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-prusa-slicer-windows
+  name: "PrusaSlicer cache and logs"
+  description: "Removes regenerable PrusaSlicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/PrusaSlicer/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-super-slicer-macos
+  name: "SuperSlicer cache and logs"
+  description: "Removes regenerable SuperSlicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/SuperSlicer/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-super-slicer-linux
+  name: "SuperSlicer cache and logs"
+  description: "Removes regenerable SuperSlicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/SuperSlicer/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-super-slicer-windows
+  name: "SuperSlicer cache and logs"
+  description: "Removes regenerable SuperSlicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/SuperSlicer/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-ultimaker-cura-macos
+  name: "UltiMaker Cura cache and logs"
+  description: "Removes regenerable UltiMaker Cura cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/cura/cache"
+  - "$HOME/Library/Caches/nl.ultimaker.cura"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-ultimaker-cura-linux
+  name: "UltiMaker Cura cache and logs"
+  description: "Removes regenerable UltiMaker Cura cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/cura"
+  - "$HOME/.local/share/cura/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-ultimaker-cura-windows
+  name: "UltiMaker Cura cache and logs"
+  description: "Removes regenerable UltiMaker Cura cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/cura/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-chitubox-macos
+  name: "CHITUBOX slicer cache and logs"
+  description: "Removes regenerable CHITUBOX slicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/ChiTuBox/log"
+  - "$HOME/Library/Application Support/CHITUBOX_Basic/log"
+  - "$HOME/Library/Caches/CHITUBOX"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-chitubox-linux
+  name: "CHITUBOX slicer cache and logs"
+  description: "Removes regenerable CHITUBOX slicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/ChiTuBox/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-chitubox-windows
+  name: "CHITUBOX slicer cache and logs"
+  description: "Removes regenerable CHITUBOX slicer cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/ChiTuBox/log"
+  - "%LOCALAPPDATA%/CHITUBOX_Basic/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-lychee-slicer-macos
+  name: "LycheeSlicer Electron caches"
+  description: "Removes regenerable LycheeSlicer Electron caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/LycheeSlicer/Cache"
+  - "$HOME/Library/Application Support/LycheeSlicer/Code Cache"
+  - "$HOME/Library/Application Support/LycheeSlicer/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-lychee-slicer-linux
+  name: "LycheeSlicer Electron caches"
+  description: "Removes regenerable LycheeSlicer Electron caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/LycheeSlicer/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-lychee-slicer-windows
+  name: "LycheeSlicer Electron caches"
+  description: "Removes regenerable LycheeSlicer Electron caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/LycheeSlicer/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-creality-print-macos
+  name: "Creality Print cache and logs"
+  description: "Removes regenerable Creality Print cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Creality/Creality Print/log"
+  - "$HOME/Library/Application Support/Creality/Creality Print/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-creality-print-linux
+  name: "Creality Print cache and logs"
+  description: "Removes regenerable Creality Print cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/Creality Print"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-creality-print-windows
+  name: "Creality Print cache and logs"
+  description: "Removes regenerable Creality Print cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Creality/Creality Print/log"
+  - "%APPDATA%/Creality/Creality Print/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-kdenlive-macos
+  name: "Kdenlive thumbnail & cache"
+  description: "Removes regenerable Kdenlive thumbnail & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/kdenlive"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-kdenlive-linux
+  name: "Kdenlive thumbnail & cache"
+  description: "Removes regenerable Kdenlive thumbnail & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/kdenlive"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-kdenlive-windows
+  name: "Kdenlive thumbnail & cache"
+  description: "Removes regenerable Kdenlive thumbnail & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/kdenlive/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-shotcut-macos
+  name: "Shotcut thumbnail & autosave cache"
+  description: "Removes regenerable Shotcut thumbnail & autosave cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Meltytech/Shotcut/thumbnails"
+  - "$HOME/Library/Caches/com.meltytech.Shotcut"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-shotcut-linux
+  name: "Shotcut thumbnail & autosave cache"
+  description: "Removes regenerable Shotcut thumbnail & autosave cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.local/share/Meltytech/Shotcut/thumbnails"
+  - "$HOME/.cache/Shotcut"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-shotcut-windows
+  name: "Shotcut thumbnail & autosave cache"
+  description: "Removes regenerable Shotcut thumbnail & autosave cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Meltytech/Shotcut/thumbnails"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-handbrake-macos
+  name: "HandBrake logs and preview cache"
+  description: "Removes regenerable HandBrake logs and preview cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/HandBrake/EncodeLogs"
+  - "$HOME/Library/Caches/fr.handbrake.HandBrake"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-handbrake-linux
+  name: "HandBrake logs and preview cache"
+  description: "Removes regenerable HandBrake logs and preview cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/ghb/EncodeLogs"
+  - "$HOME/.cache/ghb"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-handbrake-windows
+  name: "HandBrake logs and preview cache"
+  description: "Removes regenerable HandBrake logs and preview cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/HandBrake/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gyroflow-macos
+  name: "Gyroflow cache and logs"
+  description: "Removes regenerable Gyroflow cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/Gyroflow"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gyroflow-linux
+  name: "Gyroflow cache and logs"
+  description: "Removes regenerable Gyroflow cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/Gyroflow"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gyroflow-windows
+  name: "Gyroflow cache and logs"
+  description: "Removes regenerable Gyroflow cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Gyroflow/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-krita-macos
+  name: "Krita swap and cache"
+  description: "Removes regenerable Krita swap and cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/krita"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-krita-linux
+  name: "Krita swap and cache"
+  description: "Removes regenerable Krita swap and cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/krita"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-krita-windows
+  name: "Krita swap and cache"
+  description: "Removes regenerable Krita swap and cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/krita/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gimp-macos
+  name: "GIMP GEGL swap & font cache"
+  description: "Removes regenerable GIMP GEGL swap & font cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/org.gimp.GIMP"
+  - "$HOME/Library/Application Support/GIMP/2.10/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gimp-linux
+  name: "GIMP GEGL swap & font cache"
+  description: "Removes regenerable GIMP GEGL swap & font cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/gimp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gimp-windows
+  name: "GIMP GEGL swap & font cache"
+  description: "Removes regenerable GIMP GEGL swap & font cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/GIMP/2.10/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-inkscape-macos
+  name: "Inkscape cache"
+  description: "Removes regenerable Inkscape cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/org.inkscape.Inkscape"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-inkscape-linux
+  name: "Inkscape cache"
+  description: "Removes regenerable Inkscape cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/inkscape"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-inkscape-windows
+  name: "Inkscape cache"
+  description: "Removes regenerable Inkscape cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/inkscape/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-audacity-macos
+  name: "Audacity SessionData & cache"
+  description: "Removes regenerable Audacity SessionData & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: medium
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/audacity/SessionData"
+  - "$HOME/Library/Caches/org.audacityteam.audacity"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-audacity-linux
+  name: "Audacity SessionData & cache"
+  description: "Removes regenerable Audacity SessionData & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: medium
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.audacity-data/SessionData"
+  - "$HOME/.cache/audacity"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-audacity-windows
+  name: "Audacity SessionData & cache"
+  description: "Removes regenerable Audacity SessionData & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: medium
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/audacity/SessionData"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-cinema4d-macos
+  name: "Maxon Cinema 4D cache and logs"
+  description: "Removes regenerable Maxon Cinema 4D cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Maxon"
+  - "$HOME/Library/Logs/Maxon"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-cinema4d-linux
+  name: "Maxon Cinema 4D cache and logs"
+  description: "Removes regenerable Maxon Cinema 4D cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/Maxon"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-cinema4d-windows
+  name: "Maxon Cinema 4D cache and logs"
+  description: "Removes regenerable Maxon Cinema 4D cache and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Maxon/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-houdini-macos
+  name: "SideFX Houdini temp & cache"
+  description: "Removes regenerable SideFX Houdini temp & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/houdini"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-houdini-linux
+  name: "SideFX Houdini temp & cache"
+  description: "Removes regenerable SideFX Houdini temp & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/houdini"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-houdini-windows
+  name: "SideFX Houdini temp & cache"
+  description: "Removes regenerable SideFX Houdini temp & cache; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/houdini/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-substance-painter-macos
+  name: "Substance 3D Painter caches"
+  description: "Removes regenerable Substance 3D Painter caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Adobe/Adobe Substance 3D Painter"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-substance-painter-linux
+  name: "Substance 3D Painter caches"
+  description: "Removes regenerable Substance 3D Painter caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/Adobe/Adobe Substance 3D Painter"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-substance-painter-windows
+  name: "Substance 3D Painter caches"
+  description: "Removes regenerable Substance 3D Painter caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Adobe/Adobe Substance 3D Painter/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-musescore-macos
+  name: "MuseScore caches and logs"
+  description: "Removes regenerable MuseScore caches and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/MuseScore"
+  - "$HOME/Library/Logs/MuseScore"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-musescore-linux
+  name: "MuseScore caches and logs"
+  description: "Removes regenerable MuseScore caches and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/MuseScore"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-musescore-windows
+  name: "MuseScore caches and logs"
+  description: "Removes regenerable MuseScore caches and logs; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/MuseScore/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gopro-player-macos
+  name: "GoPro Player caches"
+  description: "Removes regenerable GoPro Player caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.gopro.player"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-gopro-player-windows
+  name: "GoPro Player caches"
+  description: "Removes regenerable GoPro Player caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/GoPro/Player/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-dji-assistant-macos
+  name: "DJI Assistant 2 logs & firmware temp"
+  description: "Removes regenerable DJI Assistant 2 logs & firmware temp; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/DJI Assistant 2/Log"
+  - "$HOME/Library/Caches/com.dji.assistant2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-dji-assistant-windows
+  name: "DJI Assistant 2 logs & firmware temp"
+  description: "Removes regenerable DJI Assistant 2 logs & firmware temp; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/DJI Assistant 2/Log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-sketchup-macos
+  name: "Trimble SketchUp caches"
+  description: "Removes regenerable Trimble SketchUp caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.sketchup.SketchUp.2024"
+  - "$HOME/Library/Caches/com.sketchup.SketchUp.2025"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-sketchup-windows
+  name: "Trimble SketchUp caches"
+  description: "Removes regenerable Trimble SketchUp caches; source projects, exports, and user preferences are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/SketchUp/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-figma-macos
+  name: "Figma Electron caches and logs"
+  description: "Removes regenerable Figma HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Figma/Cache"
+  - "$HOME/Library/Application Support/Figma/Code Cache"
+  - "$HOME/Library/Application Support/Figma/GPUCache"
+  - "$HOME/Library/Application Support/Figma/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Figma/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Figma/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Figma/ShaderCache"
+  - "$HOME/Library/Application Support/Figma/logs"
+  - "$HOME/Library/Logs/Figma"
+  - "$HOME/Library/Caches/Figma"
+  - "$HOME/Library/Caches/com.figma.Desktop"
+  - "$HOME/Library/Caches/com.figma.Desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-figma-linux
+  name: "Figma Electron caches and logs"
+  description: "Removes regenerable Figma HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Figma/Cache"
+  - "$HOME/.config/Figma/Code Cache"
+  - "$HOME/.config/Figma/GPUCache"
+  - "$HOME/.config/Figma/DawnGraphiteCache"
+  - "$HOME/.config/Figma/DawnWebGPUCache"
+  - "$HOME/.config/Figma/logs"
+  - "$HOME/.cache/Figma"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-figma-windows
+  name: "Figma Electron caches and logs"
+  description: "Removes regenerable Figma HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Figma/Cache"
+  - "%APPDATA%/Figma/Code Cache"
+  - "%APPDATA%/Figma/GPUCache"
+  - "%APPDATA%/Figma/DawnGraphiteCache"
+  - "%APPDATA%/Figma/DawnWebGPUCache"
+  - "%APPDATA%/Figma/logs"
+  - "%LOCALAPPDATA%/Figma/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-framer-macos
+  name: "Framer Electron caches and logs"
+  description: "Removes regenerable Framer HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Framer/Cache"
+  - "$HOME/Library/Application Support/Framer/Code Cache"
+  - "$HOME/Library/Application Support/Framer/GPUCache"
+  - "$HOME/Library/Application Support/Framer/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Framer/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Framer/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Framer/ShaderCache"
+  - "$HOME/Library/Application Support/Framer/logs"
+  - "$HOME/Library/Logs/Framer"
+  - "$HOME/Library/Caches/Framer"
+  - "$HOME/Library/Caches/com.framer.electron"
+  - "$HOME/Library/Caches/com.framer.electron.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-framer-linux
+  name: "Framer Electron caches and logs"
+  description: "Removes regenerable Framer HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Framer/Cache"
+  - "$HOME/.config/Framer/Code Cache"
+  - "$HOME/.config/Framer/GPUCache"
+  - "$HOME/.config/Framer/DawnGraphiteCache"
+  - "$HOME/.config/Framer/DawnWebGPUCache"
+  - "$HOME/.config/Framer/logs"
+  - "$HOME/.cache/Framer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-framer-windows
+  name: "Framer Electron caches and logs"
+  description: "Removes regenerable Framer HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Framer/Cache"
+  - "%APPDATA%/Framer/Code Cache"
+  - "%APPDATA%/Framer/GPUCache"
+  - "%APPDATA%/Framer/DawnGraphiteCache"
+  - "%APPDATA%/Framer/DawnWebGPUCache"
+  - "%APPDATA%/Framer/logs"
+  - "%LOCALAPPDATA%/Framer/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-canva-macos
+  name: "Canva Electron caches and logs"
+  description: "Removes regenerable Canva HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Canva/Cache"
+  - "$HOME/Library/Application Support/Canva/Code Cache"
+  - "$HOME/Library/Application Support/Canva/GPUCache"
+  - "$HOME/Library/Application Support/Canva/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Canva/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Canva/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Canva/ShaderCache"
+  - "$HOME/Library/Application Support/Canva/logs"
+  - "$HOME/Library/Logs/Canva"
+  - "$HOME/Library/Caches/Canva"
+  - "$HOME/Library/Caches/com.canva.CanvaDesktop"
+  - "$HOME/Library/Caches/com.canva.CanvaDesktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-canva-linux
+  name: "Canva Electron caches and logs"
+  description: "Removes regenerable Canva HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Canva/Cache"
+  - "$HOME/.config/Canva/Code Cache"
+  - "$HOME/.config/Canva/GPUCache"
+  - "$HOME/.config/Canva/DawnGraphiteCache"
+  - "$HOME/.config/Canva/DawnWebGPUCache"
+  - "$HOME/.config/Canva/logs"
+  - "$HOME/.cache/Canva"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-canva-windows
+  name: "Canva Electron caches and logs"
+  description: "Removes regenerable Canva HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Canva/Cache"
+  - "%APPDATA%/Canva/Code Cache"
+  - "%APPDATA%/Canva/GPUCache"
+  - "%APPDATA%/Canva/DawnGraphiteCache"
+  - "%APPDATA%/Canva/DawnWebGPUCache"
+  - "%APPDATA%/Canva/logs"
+  - "%LOCALAPPDATA%/Canva/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-miro-macos
+  name: "Miro Electron caches and logs"
+  description: "Removes regenerable Miro HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/RealtimeBoard/Cache"
+  - "$HOME/Library/Application Support/RealtimeBoard/Code Cache"
+  - "$HOME/Library/Application Support/RealtimeBoard/GPUCache"
+  - "$HOME/Library/Application Support/RealtimeBoard/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/RealtimeBoard/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/RealtimeBoard/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/RealtimeBoard/ShaderCache"
+  - "$HOME/Library/Application Support/RealtimeBoard/logs"
+  - "$HOME/Library/Logs/RealtimeBoard"
+  - "$HOME/Library/Caches/RealtimeBoard"
+  - "$HOME/Library/Caches/com.electron.realtimeboard"
+  - "$HOME/Library/Caches/com.electron.realtimeboard.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-miro-linux
+  name: "Miro Electron caches and logs"
+  description: "Removes regenerable Miro HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/RealtimeBoard/Cache"
+  - "$HOME/.config/RealtimeBoard/Code Cache"
+  - "$HOME/.config/RealtimeBoard/GPUCache"
+  - "$HOME/.config/RealtimeBoard/DawnGraphiteCache"
+  - "$HOME/.config/RealtimeBoard/DawnWebGPUCache"
+  - "$HOME/.config/RealtimeBoard/logs"
+  - "$HOME/.cache/RealtimeBoard"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-miro-windows
+  name: "Miro Electron caches and logs"
+  description: "Removes regenerable Miro HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/RealtimeBoard/Cache"
+  - "%APPDATA%/RealtimeBoard/Code Cache"
+  - "%APPDATA%/RealtimeBoard/GPUCache"
+  - "%APPDATA%/RealtimeBoard/DawnGraphiteCache"
+  - "%APPDATA%/RealtimeBoard/DawnWebGPUCache"
+  - "%APPDATA%/RealtimeBoard/logs"
+  - "%LOCALAPPDATA%/RealtimeBoard/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-losslesscut-macos
+  name: "LosslessCut Electron caches and logs"
+  description: "Removes regenerable LosslessCut HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/LosslessCut/Cache"
+  - "$HOME/Library/Application Support/LosslessCut/Code Cache"
+  - "$HOME/Library/Application Support/LosslessCut/GPUCache"
+  - "$HOME/Library/Application Support/LosslessCut/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/LosslessCut/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/LosslessCut/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/LosslessCut/ShaderCache"
+  - "$HOME/Library/Application Support/LosslessCut/logs"
+  - "$HOME/Library/Logs/LosslessCut"
+  - "$HOME/Library/Caches/LosslessCut"
+  - "$HOME/Library/Caches/no.mifi.losslesscut"
+  - "$HOME/Library/Caches/no.mifi.losslesscut.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-losslesscut-linux
+  name: "LosslessCut Electron caches and logs"
+  description: "Removes regenerable LosslessCut HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/LosslessCut/Cache"
+  - "$HOME/.config/LosslessCut/Code Cache"
+  - "$HOME/.config/LosslessCut/GPUCache"
+  - "$HOME/.config/LosslessCut/DawnGraphiteCache"
+  - "$HOME/.config/LosslessCut/DawnWebGPUCache"
+  - "$HOME/.config/LosslessCut/logs"
+  - "$HOME/.cache/LosslessCut"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-losslesscut-windows
+  name: "LosslessCut Electron caches and logs"
+  description: "Removes regenerable LosslessCut HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/LosslessCut/Cache"
+  - "%APPDATA%/LosslessCut/Code Cache"
+  - "%APPDATA%/LosslessCut/GPUCache"
+  - "%APPDATA%/LosslessCut/DawnGraphiteCache"
+  - "%APPDATA%/LosslessCut/DawnWebGPUCache"
+  - "%APPDATA%/LosslessCut/logs"
+  - "%LOCALAPPDATA%/LosslessCut/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-blockbench-macos
+  name: "Blockbench Electron caches and logs"
+  description: "Removes regenerable Blockbench HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Blockbench/Cache"
+  - "$HOME/Library/Application Support/Blockbench/Code Cache"
+  - "$HOME/Library/Application Support/Blockbench/GPUCache"
+  - "$HOME/Library/Application Support/Blockbench/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Blockbench/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Blockbench/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Blockbench/ShaderCache"
+  - "$HOME/Library/Application Support/Blockbench/logs"
+  - "$HOME/Library/Logs/Blockbench"
+  - "$HOME/Library/Caches/Blockbench"
+  - "$HOME/Library/Caches/net.blockbench.blockbench"
+  - "$HOME/Library/Caches/net.blockbench.blockbench.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-blockbench-linux
+  name: "Blockbench Electron caches and logs"
+  description: "Removes regenerable Blockbench HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Blockbench/Cache"
+  - "$HOME/.config/Blockbench/Code Cache"
+  - "$HOME/.config/Blockbench/GPUCache"
+  - "$HOME/.config/Blockbench/DawnGraphiteCache"
+  - "$HOME/.config/Blockbench/DawnWebGPUCache"
+  - "$HOME/.config/Blockbench/logs"
+  - "$HOME/.cache/Blockbench"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-blockbench-windows
+  name: "Blockbench Electron caches and logs"
+  description: "Removes regenerable Blockbench HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Blockbench/Cache"
+  - "%APPDATA%/Blockbench/Code Cache"
+  - "%APPDATA%/Blockbench/GPUCache"
+  - "%APPDATA%/Blockbench/DawnGraphiteCache"
+  - "%APPDATA%/Blockbench/DawnWebGPUCache"
+  - "%APPDATA%/Blockbench/logs"
+  - "%LOCALAPPDATA%/Blockbench/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-plasticity-macos
+  name: "Plasticity Electron caches and logs"
+  description: "Removes regenerable Plasticity HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Plasticity/Cache"
+  - "$HOME/Library/Application Support/Plasticity/Code Cache"
+  - "$HOME/Library/Application Support/Plasticity/GPUCache"
+  - "$HOME/Library/Application Support/Plasticity/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Plasticity/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Plasticity/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Plasticity/ShaderCache"
+  - "$HOME/Library/Application Support/Plasticity/logs"
+  - "$HOME/Library/Logs/Plasticity"
+  - "$HOME/Library/Caches/Plasticity"
+  - "$HOME/Library/Caches/xyz.plasticity.plasticity"
+  - "$HOME/Library/Caches/xyz.plasticity.plasticity.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-plasticity-linux
+  name: "Plasticity Electron caches and logs"
+  description: "Removes regenerable Plasticity HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Plasticity/Cache"
+  - "$HOME/.config/Plasticity/Code Cache"
+  - "$HOME/.config/Plasticity/GPUCache"
+  - "$HOME/.config/Plasticity/DawnGraphiteCache"
+  - "$HOME/.config/Plasticity/DawnWebGPUCache"
+  - "$HOME/.config/Plasticity/logs"
+  - "$HOME/.cache/Plasticity"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-plasticity-windows
+  name: "Plasticity Electron caches and logs"
+  description: "Removes regenerable Plasticity HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Plasticity/Cache"
+  - "%APPDATA%/Plasticity/Code Cache"
+  - "%APPDATA%/Plasticity/GPUCache"
+  - "%APPDATA%/Plasticity/DawnGraphiteCache"
+  - "%APPDATA%/Plasticity/DawnWebGPUCache"
+  - "%APPDATA%/Plasticity/logs"
+  - "%LOCALAPPDATA%/Plasticity/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-splice-macos
+  name: "Splice Electron caches and logs"
+  description: "Removes regenerable Splice HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Splice/Cache"
+  - "$HOME/Library/Application Support/Splice/Code Cache"
+  - "$HOME/Library/Application Support/Splice/GPUCache"
+  - "$HOME/Library/Application Support/Splice/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Splice/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Splice/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Splice/ShaderCache"
+  - "$HOME/Library/Application Support/Splice/logs"
+  - "$HOME/Library/Logs/Splice"
+  - "$HOME/Library/Caches/Splice"
+  - "$HOME/Library/Caches/com.splice.Splice"
+  - "$HOME/Library/Caches/com.splice.Splice.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-splice-linux
+  name: "Splice Electron caches and logs"
+  description: "Removes regenerable Splice HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Splice/Cache"
+  - "$HOME/.config/Splice/Code Cache"
+  - "$HOME/.config/Splice/GPUCache"
+  - "$HOME/.config/Splice/DawnGraphiteCache"
+  - "$HOME/.config/Splice/DawnWebGPUCache"
+  - "$HOME/.config/Splice/logs"
+  - "$HOME/.cache/Splice"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-splice-windows
+  name: "Splice Electron caches and logs"
+  description: "Removes regenerable Splice HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Splice/Cache"
+  - "%APPDATA%/Splice/Code Cache"
+  - "%APPDATA%/Splice/GPUCache"
+  - "%APPDATA%/Splice/DawnGraphiteCache"
+  - "%APPDATA%/Splice/DawnWebGPUCache"
+  - "%APPDATA%/Splice/logs"
+  - "%LOCALAPPDATA%/Splice/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-librecad-macos
+  name: "LibreCAD Electron caches and logs"
+  description: "Removes regenerable LibreCAD HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/LibreCAD/Cache"
+  - "$HOME/Library/Application Support/LibreCAD/Code Cache"
+  - "$HOME/Library/Application Support/LibreCAD/GPUCache"
+  - "$HOME/Library/Application Support/LibreCAD/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/LibreCAD/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/LibreCAD/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/LibreCAD/ShaderCache"
+  - "$HOME/Library/Application Support/LibreCAD/logs"
+  - "$HOME/Library/Logs/LibreCAD"
+  - "$HOME/Library/Caches/LibreCAD"
+  - "$HOME/Library/Caches/org.librecad.LibreCAD"
+  - "$HOME/Library/Caches/org.librecad.LibreCAD.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-librecad-linux
+  name: "LibreCAD Electron caches and logs"
+  description: "Removes regenerable LibreCAD HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/LibreCAD/Cache"
+  - "$HOME/.config/LibreCAD/Code Cache"
+  - "$HOME/.config/LibreCAD/GPUCache"
+  - "$HOME/.config/LibreCAD/DawnGraphiteCache"
+  - "$HOME/.config/LibreCAD/DawnWebGPUCache"
+  - "$HOME/.config/LibreCAD/logs"
+  - "$HOME/.cache/LibreCAD"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-librecad-windows
+  name: "LibreCAD Electron caches and logs"
+  description: "Removes regenerable LibreCAD HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/LibreCAD/Cache"
+  - "%APPDATA%/LibreCAD/Code Cache"
+  - "%APPDATA%/LibreCAD/GPUCache"
+  - "%APPDATA%/LibreCAD/DawnGraphiteCache"
+  - "%APPDATA%/LibreCAD/DawnWebGPUCache"
+  - "%APPDATA%/LibreCAD/logs"
+  - "%LOCALAPPDATA%/LibreCAD/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-qcad-macos
+  name: "QCAD Electron caches and logs"
+  description: "Removes regenerable QCAD HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/QCAD/Cache"
+  - "$HOME/Library/Application Support/QCAD/Code Cache"
+  - "$HOME/Library/Application Support/QCAD/GPUCache"
+  - "$HOME/Library/Application Support/QCAD/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/QCAD/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/QCAD/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/QCAD/ShaderCache"
+  - "$HOME/Library/Application Support/QCAD/logs"
+  - "$HOME/Library/Logs/QCAD"
+  - "$HOME/Library/Caches/QCAD"
+  - "$HOME/Library/Caches/org.qcad.QCAD"
+  - "$HOME/Library/Caches/org.qcad.QCAD.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-qcad-linux
+  name: "QCAD Electron caches and logs"
+  description: "Removes regenerable QCAD HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/QCAD/Cache"
+  - "$HOME/.config/QCAD/Code Cache"
+  - "$HOME/.config/QCAD/GPUCache"
+  - "$HOME/.config/QCAD/DawnGraphiteCache"
+  - "$HOME/.config/QCAD/DawnWebGPUCache"
+  - "$HOME/.config/QCAD/logs"
+  - "$HOME/.cache/QCAD"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-qcad-windows
+  name: "QCAD Electron caches and logs"
+  description: "Removes regenerable QCAD HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/QCAD/Cache"
+  - "%APPDATA%/QCAD/Code Cache"
+  - "%APPDATA%/QCAD/GPUCache"
+  - "%APPDATA%/QCAD/DawnGraphiteCache"
+  - "%APPDATA%/QCAD/DawnWebGPUCache"
+  - "%APPDATA%/QCAD/logs"
+  - "%LOCALAPPDATA%/QCAD/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-openshot-macos
+  name: "OpenShot Electron caches and logs"
+  description: "Removes regenerable OpenShot HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/openshot/Cache"
+  - "$HOME/Library/Application Support/openshot/Code Cache"
+  - "$HOME/Library/Application Support/openshot/GPUCache"
+  - "$HOME/Library/Application Support/openshot/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/openshot/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/openshot/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/openshot/ShaderCache"
+  - "$HOME/Library/Application Support/openshot/logs"
+  - "$HOME/Library/Logs/openshot"
+  - "$HOME/Library/Caches/openshot"
+  - "$HOME/Library/Caches/org.openshot.openshot-qt"
+  - "$HOME/Library/Caches/org.openshot.openshot-qt.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-openshot-linux
+  name: "OpenShot Electron caches and logs"
+  description: "Removes regenerable OpenShot HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/openshot/Cache"
+  - "$HOME/.config/openshot/Code Cache"
+  - "$HOME/.config/openshot/GPUCache"
+  - "$HOME/.config/openshot/DawnGraphiteCache"
+  - "$HOME/.config/openshot/DawnWebGPUCache"
+  - "$HOME/.config/openshot/logs"
+  - "$HOME/.cache/openshot"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-openshot-windows
+  name: "OpenShot Electron caches and logs"
+  description: "Removes regenerable OpenShot HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/openshot/Cache"
+  - "%APPDATA%/openshot/Code Cache"
+  - "%APPDATA%/openshot/GPUCache"
+  - "%APPDATA%/openshot/DawnGraphiteCache"
+  - "%APPDATA%/openshot/DawnWebGPUCache"
+  - "%APPDATA%/openshot/logs"
+  - "%LOCALAPPDATA%/openshot/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-aegisub-macos
+  name: "Aegisub Electron caches and logs"
+  description: "Removes regenerable Aegisub HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Aegisub/Cache"
+  - "$HOME/Library/Application Support/Aegisub/Code Cache"
+  - "$HOME/Library/Application Support/Aegisub/GPUCache"
+  - "$HOME/Library/Application Support/Aegisub/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Aegisub/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Aegisub/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Aegisub/ShaderCache"
+  - "$HOME/Library/Application Support/Aegisub/logs"
+  - "$HOME/Library/Logs/Aegisub"
+  - "$HOME/Library/Caches/Aegisub"
+  - "$HOME/Library/Caches/com.aegisub.aegisub"
+  - "$HOME/Library/Caches/com.aegisub.aegisub.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-aegisub-linux
+  name: "Aegisub Electron caches and logs"
+  description: "Removes regenerable Aegisub HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Aegisub/Cache"
+  - "$HOME/.config/Aegisub/Code Cache"
+  - "$HOME/.config/Aegisub/GPUCache"
+  - "$HOME/.config/Aegisub/DawnGraphiteCache"
+  - "$HOME/.config/Aegisub/DawnWebGPUCache"
+  - "$HOME/.config/Aegisub/logs"
+  - "$HOME/.cache/Aegisub"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-aegisub-windows
+  name: "Aegisub Electron caches and logs"
+  description: "Removes regenerable Aegisub HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Aegisub/Cache"
+  - "%APPDATA%/Aegisub/Code Cache"
+  - "%APPDATA%/Aegisub/GPUCache"
+  - "%APPDATA%/Aegisub/DawnGraphiteCache"
+  - "%APPDATA%/Aegisub/DawnWebGPUCache"
+  - "%APPDATA%/Aegisub/logs"
+  - "%LOCALAPPDATA%/Aegisub/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-simplify3d-macos
+  name: "Simplify3D Electron caches and logs"
+  description: "Removes regenerable Simplify3D HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Simplify3D/Cache"
+  - "$HOME/Library/Application Support/Simplify3D/Code Cache"
+  - "$HOME/Library/Application Support/Simplify3D/GPUCache"
+  - "$HOME/Library/Application Support/Simplify3D/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Simplify3D/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Simplify3D/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Simplify3D/ShaderCache"
+  - "$HOME/Library/Application Support/Simplify3D/logs"
+  - "$HOME/Library/Logs/Simplify3D"
+  - "$HOME/Library/Caches/Simplify3D"
+  - "$HOME/Library/Caches/com.simplify3d.Simplify3D"
+  - "$HOME/Library/Caches/com.simplify3d.Simplify3D.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-simplify3d-linux
+  name: "Simplify3D Electron caches and logs"
+  description: "Removes regenerable Simplify3D HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Simplify3D/Cache"
+  - "$HOME/.config/Simplify3D/Code Cache"
+  - "$HOME/.config/Simplify3D/GPUCache"
+  - "$HOME/.config/Simplify3D/DawnGraphiteCache"
+  - "$HOME/.config/Simplify3D/DawnWebGPUCache"
+  - "$HOME/.config/Simplify3D/logs"
+  - "$HOME/.cache/Simplify3D"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-simplify3d-windows
+  name: "Simplify3D Electron caches and logs"
+  description: "Removes regenerable Simplify3D HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Simplify3D/Cache"
+  - "%APPDATA%/Simplify3D/Code Cache"
+  - "%APPDATA%/Simplify3D/GPUCache"
+  - "%APPDATA%/Simplify3D/DawnGraphiteCache"
+  - "%APPDATA%/Simplify3D/DawnWebGPUCache"
+  - "%APPDATA%/Simplify3D/logs"
+  - "%LOCALAPPDATA%/Simplify3D/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, electron, creative, media]
+
+- id: cc-darktable-macos
+  name: "Darktable thumbnail & OpenCL caches and logs"
+  description: "Removes regenerable Darktable thumbnail & OpenCL cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/darktable"
+  - "$HOME/Library/Logs/darktable"
+  - "$HOME/.cache/darktable"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-darktable-linux
+  name: "Darktable thumbnail & OpenCL caches and logs"
+  description: "Removes regenerable Darktable thumbnail & OpenCL XDG cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/darktable"
+  - "$XDG_CACHE_HOME/darktable"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-darktable-windows
+  name: "Darktable thumbnail & OpenCL caches and logs"
+  description: "Removes regenerable Darktable thumbnail & OpenCL LocalAppData cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/darktable/cache"
+  - "%LOCALAPPDATA%/darktable/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-rawtherapee-macos
+  name: "RawTherapee RAW processing caches and logs"
+  description: "Removes regenerable RawTherapee RAW processing cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/RawTherapee"
+  - "$HOME/Library/Logs/RawTherapee"
+  - "$HOME/.cache/RawTherapee"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-rawtherapee-linux
+  name: "RawTherapee RAW processing caches and logs"
+  description: "Removes regenerable RawTherapee RAW processing XDG cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/RawTherapee"
+  - "$XDG_CACHE_HOME/RawTherapee"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-rawtherapee-windows
+  name: "RawTherapee RAW processing caches and logs"
+  description: "Removes regenerable RawTherapee RAW processing LocalAppData cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/RawTherapee/cache"
+  - "%LOCALAPPDATA%/RawTherapee/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-digikam-macos
+  name: "digiKam thumbnail & face caches and logs"
+  description: "Removes regenerable digiKam thumbnail & face cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/digikam"
+  - "$HOME/Library/Logs/digikam"
+  - "$HOME/.cache/digikam"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-digikam-linux
+  name: "digiKam thumbnail & face caches and logs"
+  description: "Removes regenerable digiKam thumbnail & face XDG cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/digikam"
+  - "$XDG_CACHE_HOME/digikam"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-digikam-windows
+  name: "digiKam thumbnail & face caches and logs"
+  description: "Removes regenerable digiKam thumbnail & face LocalAppData cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/digikam/cache"
+  - "%LOCALAPPDATA%/digikam/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-fontforge-macos
+  name: "FontForge cache caches and logs"
+  description: "Removes regenerable FontForge cache cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/fontforge"
+  - "$HOME/Library/Logs/fontforge"
+  - "$HOME/.cache/fontforge"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-fontforge-linux
+  name: "FontForge cache caches and logs"
+  description: "Removes regenerable FontForge cache XDG cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/fontforge"
+  - "$XDG_CACHE_HOME/fontforge"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-fontforge-windows
+  name: "FontForge cache caches and logs"
+  description: "Removes regenerable FontForge cache LocalAppData cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/fontforge/cache"
+  - "%LOCALAPPDATA%/fontforge/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-orcaslicer-extra-macos
+  name: "OrcaSlicer OTA & app caches and logs"
+  description: "Removes regenerable OrcaSlicer OTA & app cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: macos
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/OrcaSlicer/cache"
+  - "$HOME/Library/Logs/OrcaSlicer/cache"
+  - "$HOME/.cache/OrcaSlicer/cache"
+  - "$HOME/Library/Caches/OrcaSlicer/ota"
+  - "$HOME/Library/Logs/OrcaSlicer/ota"
+  - "$HOME/.cache/OrcaSlicer/ota"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-orcaslicer-extra-linux
+  name: "OrcaSlicer OTA & app caches and logs"
+  description: "Removes regenerable OrcaSlicer OTA & app XDG cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: linux
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/OrcaSlicer/cache"
+  - "$XDG_CACHE_HOME/OrcaSlicer/cache"
+  - "$HOME/.cache/OrcaSlicer/ota"
+  - "$XDG_CACHE_HOME/OrcaSlicer/ota"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]
+
+- id: cc-orcaslicer-extra-windows
+  name: "OrcaSlicer OTA & app caches and logs"
+  description: "Removes regenerable OrcaSlicer OTA & app LocalAppData cache and log files; configs and state are preserved."
+  category: creative-cad
+  platform: windows
+  risk: low
+  kind: media
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/OrcaSlicer/cache/cache"
+  - "%LOCALAPPDATA%/OrcaSlicer/cache/logs"
+  - "%LOCALAPPDATA%/OrcaSlicer/ota/cache"
+  - "%LOCALAPPDATA%/OrcaSlicer/ota/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [creative-cad, creative, media]

@@ -1,0 +1,2284 @@
+---
+pack: data-science
+description: "Experiment trackers, local LLM inference servers, AI code editors, Conda/Julia/R caches, and incomplete Hugging Face downloads; models, weights, and notebooks are preserved."
+rules:
+- id: ds-vllm-xdg-linux
+  name: "vLLM compiler & kernel cache"
+  description: "Removes regenerable vLLM compiler & kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/vllm"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-vllm-xdg-windows
+  name: "vLLM compiler & kernel cache"
+  description: "Removes regenerable vLLM compiler & kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/vllm/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-sglang-macos
+  name: "SGLang inference cache"
+  description: "Removes regenerable SGLang inference cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/sglang"
+  - "$HOME/Library/Caches/sglang"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-sglang-linux
+  name: "SGLang inference cache"
+  description: "Removes regenerable SGLang inference cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/sglang"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-sglang-windows
+  name: "SGLang inference cache"
+  description: "Removes regenerable SGLang inference cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/sglang/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-flashinfer-macos
+  name: "FlashInfer JIT kernel cache"
+  description: "Removes regenerable FlashInfer JIT kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/flashinfer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-flashinfer-linux
+  name: "FlashInfer JIT kernel cache"
+  description: "Removes regenerable FlashInfer JIT kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/flashinfer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-flashinfer-windows
+  name: "FlashInfer JIT kernel cache"
+  description: "Removes regenerable FlashInfer JIT kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/flashinfer/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-triton-lin-win-linux
+  name: "Triton JIT kernel cache"
+  description: "Removes regenerable Triton JIT kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.triton/cache"
+  - "$HOME/.cache/triton"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-triton-lin-win-windows
+  name: "Triton JIT kernel cache"
+  description: "Removes regenerable Triton JIT kernel cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.triton/cache"
+  - "%LOCALAPPDATA%/triton"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-bitsandbytes-macos
+  name: "bitsandbytes & Unsloth caches"
+  description: "Removes regenerable bitsandbytes & Unsloth caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/bitsandbytes"
+  - "$HOME/.cache/unsloth"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-bitsandbytes-linux
+  name: "bitsandbytes & Unsloth caches"
+  description: "Removes regenerable bitsandbytes & Unsloth caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/bitsandbytes"
+  - "$HOME/.cache/unsloth"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-bitsandbytes-windows
+  name: "bitsandbytes & Unsloth caches"
+  description: "Removes regenerable bitsandbytes & Unsloth caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/bitsandbytes"
+  - "%LOCALAPPDATA%/unsloth"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-hf-incomplete-macos
+  name: "Hugging Face incomplete .incomplete downloads"
+  description: "Removes regenerable Hugging Face incomplete .incomplete downloads; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/huggingface/download"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-hf-incomplete-linux
+  name: "Hugging Face incomplete .incomplete downloads"
+  description: "Removes regenerable Hugging Face incomplete .incomplete downloads; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/huggingface/download"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-hf-incomplete-windows
+  name: "Hugging Face incomplete .incomplete downloads"
+  description: "Removes regenerable Hugging Face incomplete .incomplete downloads; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.cache/huggingface/download"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-wandb-lin-win-linux
+  name: "Weights & Biases cache and debug logs"
+  description: "Removes regenerable Weights & Biases cache and debug logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/wandb"
+  - "$HOME/.config/wandb/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-wandb-lin-win-windows
+  name: "Weights & Biases cache and debug logs"
+  description: "Removes regenerable Weights & Biases cache and debug logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/wandb"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-clearml-macos
+  name: "ClearML local cache"
+  description: "Removes regenerable ClearML local cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.clearml/cache"
+  - "$HOME/.clearml/venvs-builds"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-clearml-linux
+  name: "ClearML local cache"
+  description: "Removes regenerable ClearML local cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.clearml/cache"
+  - "$HOME/.clearml/venvs-builds"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-clearml-windows
+  name: "ClearML local cache"
+  description: "Removes regenerable ClearML local cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.clearml/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-mlflow-temp-macos
+  name: "MLflow local temp artifacts"
+  description: "Removes regenerable MLflow local temp artifacts; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/mlflow"
+  - "$HOME/Library/Caches/mlflow"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-mlflow-temp-linux
+  name: "MLflow local temp artifacts"
+  description: "Removes regenerable MLflow local temp artifacts; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/mlflow"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-mlflow-temp-windows
+  name: "MLflow local temp artifacts"
+  description: "Removes regenerable MLflow local temp artifacts; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/mlflow/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-comet-neptune-macos
+  name: "Comet.ml & Neptune offline cache"
+  description: "Removes regenerable Comet.ml & Neptune offline cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/comet"
+  - "$HOME/.neptune/async"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-comet-neptune-linux
+  name: "Comet.ml & Neptune offline cache"
+  description: "Removes regenerable Comet.ml & Neptune offline cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/comet"
+  - "$HOME/.neptune/async"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-comet-neptune-windows
+  name: "Comet.ml & Neptune offline cache"
+  description: "Removes regenerable Comet.ml & Neptune offline cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.neptune/async"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-ray-lin-win-linux
+  name: "Ray session temp and cache"
+  description: "Removes regenerable Ray session temp and cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/ray"
+  - "$HOME/ray_results"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-ray-lin-win-windows
+  name: "Ray session temp and cache"
+  description: "Removes regenerable Ray session temp and cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/ray"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-prefect-dagster-macos
+  name: "Prefect & Dagster local caches"
+  description: "Removes regenerable Prefect & Dagster local caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.prefect/memo_store"
+  - "$HOME/.cache/prefect"
+  - "$HOME/.dagster/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-prefect-dagster-linux
+  name: "Prefect & Dagster local caches"
+  description: "Removes regenerable Prefect & Dagster local caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/prefect"
+  - "$HOME/.dagster/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-prefect-dagster-windows
+  name: "Prefect & Dagster local caches"
+  description: "Removes regenerable Prefect & Dagster local caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.prefect/memo_store"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-airflow-logs-macos
+  name: "Apache Airflow local task logs"
+  description: "Removes regenerable Apache Airflow local task logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/airflow/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-airflow-logs-linux
+  name: "Apache Airflow local task logs"
+  description: "Removes regenerable Apache Airflow local task logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/airflow/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-airflow-logs-windows
+  name: "Apache Airflow local task logs"
+  description: "Removes regenerable Apache Airflow local task logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/airflow/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-bentoml-logs-macos
+  name: "BentoML & Modal CLI caches"
+  description: "Removes regenerable BentoML & Modal CLI caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/bentoml/logs"
+  - "$HOME/.cache/modal"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-bentoml-logs-linux
+  name: "BentoML & Modal CLI caches"
+  description: "Removes regenerable BentoML & Modal CLI caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/bentoml/logs"
+  - "$HOME/.cache/modal"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-bentoml-logs-windows
+  name: "BentoML & Modal CLI caches"
+  description: "Removes regenerable BentoML & Modal CLI caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/bentoml/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-cog-skypilot-macos
+  name: "Replicate Cog & SkyPilot logs"
+  description: "Removes regenerable Replicate Cog & SkyPilot logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/cog"
+  - "$HOME/.sky/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-cog-skypilot-linux
+  name: "Replicate Cog & SkyPilot logs"
+  description: "Removes regenerable Replicate Cog & SkyPilot logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/cog"
+  - "$HOME/.sky/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-cog-skypilot-windows
+  name: "Replicate Cog & SkyPilot logs"
+  description: "Removes regenerable Replicate Cog & SkyPilot logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.sky/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-comfyui-cache-macos
+  name: "ComfyUI & InvokeAI temp caches"
+  description: "Removes regenerable ComfyUI & InvokeAI temp caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/ComfyUI"
+  - "$HOME/.cache/comfyui"
+  - "$HOME/.cache/invokeai"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-comfyui-cache-linux
+  name: "ComfyUI & InvokeAI temp caches"
+  description: "Removes regenerable ComfyUI & InvokeAI temp caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/comfyui"
+  - "$HOME/.cache/invokeai"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-comfyui-cache-windows
+  name: "ComfyUI & InvokeAI temp caches"
+  description: "Removes regenerable ComfyUI & InvokeAI temp caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/ComfyUI/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-tabbyml-macos
+  name: "TabbyML & LocalAI caches"
+  description: "Removes regenerable TabbyML & LocalAI caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.tabby/logs"
+  - "$HOME/.cache/localai"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-tabbyml-linux
+  name: "TabbyML & LocalAI caches"
+  description: "Removes regenerable TabbyML & LocalAI caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.tabby/logs"
+  - "$HOME/.cache/localai"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-tabbyml-windows
+  name: "TabbyML & LocalAI caches"
+  description: "Removes regenerable TabbyML & LocalAI caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/tabby/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-aider-continue-macos
+  name: "Aider & Continue.dev caches and logs"
+  description: "Removes regenerable Aider & Continue.dev caches and logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.aider/caches"
+  - "$HOME/.continue/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-aider-continue-linux
+  name: "Aider & Continue.dev caches and logs"
+  description: "Removes regenerable Aider & Continue.dev caches and logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.aider/caches"
+  - "$HOME/.continue/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-aider-continue-windows
+  name: "Aider & Continue.dev caches and logs"
+  description: "Removes regenerable Aider & Continue.dev caches and logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.aider/caches"
+  - "%USERPROFILE%/.continue/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-codeium-supermaven-macos
+  name: "Codeium & Supermaven editor caches"
+  description: "Removes regenerable Codeium & Supermaven editor caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.codeium/cache"
+  - "$HOME/.supermaven/logs"
+  - "$HOME/Library/Application Support/Supermaven/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-codeium-supermaven-linux
+  name: "Codeium & Supermaven editor caches"
+  description: "Removes regenerable Codeium & Supermaven editor caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.codeium/cache"
+  - "$HOME/.supermaven/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-codeium-supermaven-windows
+  name: "Codeium & Supermaven editor caches"
+  description: "Removes regenerable Codeium & Supermaven editor caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.codeium/cache"
+  - "%USERPROFILE%/.supermaven/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-zed-ide-macos
+  name: "Zed Editor caches and logs"
+  description: "Removes regenerable Zed Editor caches and logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/dev.zed.Zed"
+  - "$HOME/Library/Logs/Zed"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-zed-ide-linux
+  name: "Zed Editor caches and logs"
+  description: "Removes regenerable Zed Editor caches and logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache/zed"
+  - "$HOME/.local/share/zed/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-zed-ide-windows
+  name: "Zed Editor caches and logs"
+  description: "Removes regenerable Zed Editor caches and logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Zed/logs"
+  - "%LOCALAPPDATA%/Zed/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-goose-opencode-macos
+  name: "Goose & OpenCode CLI logs and caches"
+  description: "Removes regenerable Goose & OpenCode CLI logs and caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/goose"
+  - "$HOME/.local/state/goose/logs"
+  - "$HOME/.cache/opencode"
+  - "$HOME/.local/share/opencode/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-goose-opencode-linux
+  name: "Goose & OpenCode CLI logs and caches"
+  description: "Removes regenerable Goose & OpenCode CLI logs and caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/goose"
+  - "$HOME/.local/state/goose/logs"
+  - "$HOME/.cache/opencode"
+  - "$HOME/.local/share/opencode/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-goose-opencode-windows
+  name: "Goose & OpenCode CLI logs and caches"
+  description: "Removes regenerable Goose & OpenCode CLI logs and caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/goose/cache"
+  - "%LOCALAPPDATA%/opencode/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-julia-logs-cache-macos
+  name: "Julia logs and compiled cache"
+  description: "Removes regenerable Julia logs and compiled cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.julia/logs"
+  - "$HOME/.julia/compiled"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-julia-logs-cache-linux
+  name: "Julia logs and compiled cache"
+  description: "Removes regenerable Julia logs and compiled cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.julia/logs"
+  - "$HOME/.julia/compiled"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-julia-logs-cache-windows
+  name: "Julia logs and compiled cache"
+  description: "Removes regenerable Julia logs and compiled cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.julia/logs"
+  - "%USERPROFILE%/.julia/compiled"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-rstudio-renv-macos
+  name: "RStudio & R renv package cache"
+  description: "Removes regenerable RStudio & R renv package cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/R/renv"
+  - "$HOME/Library/Caches/org.R-project.R/R/renv"
+  - "$HOME/Library/Caches/RStudio"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-rstudio-renv-linux
+  name: "RStudio & R renv package cache"
+  description: "Removes regenerable RStudio & R renv package cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/R/renv"
+  - "$HOME/.local/share/rstudio/sessions"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-rstudio-renv-windows
+  name: "RStudio & R renv package cache"
+  description: "Removes regenerable RStudio & R renv package cache; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/R/cache/R/renv"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-conda-pkg-cache-macos
+  name: "Conda / Miniforge / Mamba tarball caches"
+  description: "Removes regenerable Conda / Miniforge / Mamba tarball caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/miniconda3/pkgs/cache"
+  - "$HOME/miniforge3/pkgs/cache"
+  - "$HOME/anaconda3/pkgs/cache"
+  - "$HOME/mambaforge/pkgs/cache"
+  - "$HOME/.conda/pkgs/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-conda-pkg-cache-linux
+  name: "Conda / Miniforge / Mamba tarball caches"
+  description: "Removes regenerable Conda / Miniforge / Mamba tarball caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/miniconda3/pkgs/cache"
+  - "$HOME/miniforge3/pkgs/cache"
+  - "$HOME/anaconda3/pkgs/cache"
+  - "$HOME/.conda/pkgs/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-conda-pkg-cache-windows
+  name: "Conda / Miniforge / Mamba tarball caches"
+  description: "Removes regenerable Conda / Miniforge / Mamba tarball caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/miniconda3/pkgs/cache"
+  - "%USERPROFILE%/miniforge3/pkgs/cache"
+  - "%USERPROFILE%/anaconda3/pkgs/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-matlab-octave-macos
+  name: "MATLAB & Octave caches and crash logs"
+  description: "Removes regenerable MATLAB & Octave caches and crash logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/MathWorks"
+  - "$HOME/Library/Logs/MathWorks"
+  - "$HOME/.octave_hist"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-matlab-octave-linux
+  name: "MATLAB & Octave caches and crash logs"
+  description: "Removes regenerable MATLAB & Octave caches and crash logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.MathWorks/logs"
+  - "$HOME/.cache/octave"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-matlab-octave-windows
+  name: "MATLAB & Octave caches and crash logs"
+  description: "Removes regenerable MATLAB & Octave caches and crash logs; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/MathWorks/MATLAB/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-qgis-cache-macos
+  name: "QGIS network & tile caches"
+  description: "Removes regenerable QGIS network & tile caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/QGIS"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-qgis-cache-linux
+  name: "QGIS network & tile caches"
+  description: "Removes regenerable QGIS network & tile caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/QGIS"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-qgis-cache-windows
+  name: "QGIS network & tile caches"
+  description: "Removes regenerable QGIS network & tile caches; downloaded model weights, datasets, and notebooks are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/QGIS/QGIS3/profiles/default/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-windsurf-macos
+  name: "Windsurf IDE Electron caches and logs"
+  description: "Removes regenerable Windsurf IDE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Windsurf/Cache"
+  - "$HOME/Library/Application Support/Windsurf/Code Cache"
+  - "$HOME/Library/Application Support/Windsurf/GPUCache"
+  - "$HOME/Library/Application Support/Windsurf/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Windsurf/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Windsurf/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Windsurf/ShaderCache"
+  - "$HOME/Library/Application Support/Windsurf/logs"
+  - "$HOME/Library/Logs/Windsurf"
+  - "$HOME/Library/Caches/Windsurf"
+  - "$HOME/Library/Caches/com.exafunction.windsurf"
+  - "$HOME/Library/Caches/com.exafunction.windsurf.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-windsurf-linux
+  name: "Windsurf IDE Electron caches and logs"
+  description: "Removes regenerable Windsurf IDE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Windsurf/Cache"
+  - "$HOME/.config/Windsurf/Code Cache"
+  - "$HOME/.config/Windsurf/GPUCache"
+  - "$HOME/.config/Windsurf/DawnGraphiteCache"
+  - "$HOME/.config/Windsurf/DawnWebGPUCache"
+  - "$HOME/.config/Windsurf/logs"
+  - "$HOME/.cache/Windsurf"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-windsurf-windows
+  name: "Windsurf IDE Electron caches and logs"
+  description: "Removes regenerable Windsurf IDE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Windsurf/Cache"
+  - "%APPDATA%/Windsurf/Code Cache"
+  - "%APPDATA%/Windsurf/GPUCache"
+  - "%APPDATA%/Windsurf/DawnGraphiteCache"
+  - "%APPDATA%/Windsurf/DawnWebGPUCache"
+  - "%APPDATA%/Windsurf/logs"
+  - "%LOCALAPPDATA%/Windsurf/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-jan-app-macos
+  name: "Jan AI Electron caches and logs"
+  description: "Removes regenerable Jan AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Jan/Cache"
+  - "$HOME/Library/Application Support/Jan/Code Cache"
+  - "$HOME/Library/Application Support/Jan/GPUCache"
+  - "$HOME/Library/Application Support/Jan/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Jan/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Jan/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Jan/ShaderCache"
+  - "$HOME/Library/Application Support/Jan/logs"
+  - "$HOME/Library/Logs/Jan"
+  - "$HOME/Library/Caches/Jan"
+  - "$HOME/Library/Caches/jan.ai.app"
+  - "$HOME/Library/Caches/jan.ai.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-jan-app-linux
+  name: "Jan AI Electron caches and logs"
+  description: "Removes regenerable Jan AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Jan/Cache"
+  - "$HOME/.config/Jan/Code Cache"
+  - "$HOME/.config/Jan/GPUCache"
+  - "$HOME/.config/Jan/DawnGraphiteCache"
+  - "$HOME/.config/Jan/DawnWebGPUCache"
+  - "$HOME/.config/Jan/logs"
+  - "$HOME/.cache/Jan"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-jan-app-windows
+  name: "Jan AI Electron caches and logs"
+  description: "Removes regenerable Jan AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Jan/Cache"
+  - "%APPDATA%/Jan/Code Cache"
+  - "%APPDATA%/Jan/GPUCache"
+  - "%APPDATA%/Jan/DawnGraphiteCache"
+  - "%APPDATA%/Jan/DawnWebGPUCache"
+  - "%APPDATA%/Jan/logs"
+  - "%LOCALAPPDATA%/Jan/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-anythingllm-macos
+  name: "AnythingLLM Electron caches and logs"
+  description: "Removes regenerable AnythingLLM HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/anythingllm-desktop/Cache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/Code Cache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/GPUCache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/ShaderCache"
+  - "$HOME/Library/Application Support/anythingllm-desktop/logs"
+  - "$HOME/Library/Logs/anythingllm-desktop"
+  - "$HOME/Library/Caches/anythingllm-desktop"
+  - "$HOME/Library/Caches/com.anythingllm.desktop"
+  - "$HOME/Library/Caches/com.anythingllm.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-anythingllm-linux
+  name: "AnythingLLM Electron caches and logs"
+  description: "Removes regenerable AnythingLLM HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/anythingllm-desktop/Cache"
+  - "$HOME/.config/anythingllm-desktop/Code Cache"
+  - "$HOME/.config/anythingllm-desktop/GPUCache"
+  - "$HOME/.config/anythingllm-desktop/DawnGraphiteCache"
+  - "$HOME/.config/anythingllm-desktop/DawnWebGPUCache"
+  - "$HOME/.config/anythingllm-desktop/logs"
+  - "$HOME/.cache/anythingllm-desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-anythingllm-windows
+  name: "AnythingLLM Electron caches and logs"
+  description: "Removes regenerable AnythingLLM HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/anythingllm-desktop/Cache"
+  - "%APPDATA%/anythingllm-desktop/Code Cache"
+  - "%APPDATA%/anythingllm-desktop/GPUCache"
+  - "%APPDATA%/anythingllm-desktop/DawnGraphiteCache"
+  - "%APPDATA%/anythingllm-desktop/DawnWebGPUCache"
+  - "%APPDATA%/anythingllm-desktop/logs"
+  - "%LOCALAPPDATA%/anythingllm-desktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-lmstudio-electron-macos
+  name: "LM Studio Electron UI Electron caches and logs"
+  description: "Removes regenerable LM Studio Electron UI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/LM Studio/Cache"
+  - "$HOME/Library/Application Support/LM Studio/Code Cache"
+  - "$HOME/Library/Application Support/LM Studio/GPUCache"
+  - "$HOME/Library/Application Support/LM Studio/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/LM Studio/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/LM Studio/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/LM Studio/ShaderCache"
+  - "$HOME/Library/Application Support/LM Studio/logs"
+  - "$HOME/Library/Logs/LM Studio"
+  - "$HOME/Library/Caches/LM Studio"
+  - "$HOME/Library/Caches/ai.elementlabs.lmstudio"
+  - "$HOME/Library/Caches/ai.elementlabs.lmstudio.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-lmstudio-electron-linux
+  name: "LM Studio Electron UI Electron caches and logs"
+  description: "Removes regenerable LM Studio Electron UI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/LM Studio/Cache"
+  - "$HOME/.config/LM Studio/Code Cache"
+  - "$HOME/.config/LM Studio/GPUCache"
+  - "$HOME/.config/LM Studio/DawnGraphiteCache"
+  - "$HOME/.config/LM Studio/DawnWebGPUCache"
+  - "$HOME/.config/LM Studio/logs"
+  - "$HOME/.cache/LM Studio"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-lmstudio-electron-windows
+  name: "LM Studio Electron UI Electron caches and logs"
+  description: "Removes regenerable LM Studio Electron UI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/LM Studio/Cache"
+  - "%APPDATA%/LM Studio/Code Cache"
+  - "%APPDATA%/LM Studio/GPUCache"
+  - "%APPDATA%/LM Studio/DawnGraphiteCache"
+  - "%APPDATA%/LM Studio/DawnWebGPUCache"
+  - "%APPDATA%/LM Studio/logs"
+  - "%LOCALAPPDATA%/LM Studio/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-cherry-studio-macos
+  name: "Cherry Studio Electron caches and logs"
+  description: "Removes regenerable Cherry Studio HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/CherryStudio/Cache"
+  - "$HOME/Library/Application Support/CherryStudio/Code Cache"
+  - "$HOME/Library/Application Support/CherryStudio/GPUCache"
+  - "$HOME/Library/Application Support/CherryStudio/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/CherryStudio/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/CherryStudio/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/CherryStudio/ShaderCache"
+  - "$HOME/Library/Application Support/CherryStudio/logs"
+  - "$HOME/Library/Logs/CherryStudio"
+  - "$HOME/Library/Caches/CherryStudio"
+  - "$HOME/Library/Caches/com.kangfenmao.CherryStudio"
+  - "$HOME/Library/Caches/com.kangfenmao.CherryStudio.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-cherry-studio-linux
+  name: "Cherry Studio Electron caches and logs"
+  description: "Removes regenerable Cherry Studio HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/CherryStudio/Cache"
+  - "$HOME/.config/CherryStudio/Code Cache"
+  - "$HOME/.config/CherryStudio/GPUCache"
+  - "$HOME/.config/CherryStudio/DawnGraphiteCache"
+  - "$HOME/.config/CherryStudio/DawnWebGPUCache"
+  - "$HOME/.config/CherryStudio/logs"
+  - "$HOME/.cache/CherryStudio"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-cherry-studio-windows
+  name: "Cherry Studio Electron caches and logs"
+  description: "Removes regenerable Cherry Studio HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/CherryStudio/Cache"
+  - "%APPDATA%/CherryStudio/Code Cache"
+  - "%APPDATA%/CherryStudio/GPUCache"
+  - "%APPDATA%/CherryStudio/DawnGraphiteCache"
+  - "%APPDATA%/CherryStudio/DawnWebGPUCache"
+  - "%APPDATA%/CherryStudio/logs"
+  - "%LOCALAPPDATA%/CherryStudio/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-chatbox-ai-macos
+  name: "Chatbox AI Electron caches and logs"
+  description: "Removes regenerable Chatbox AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/Cache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/Code Cache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/GPUCache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/ShaderCache"
+  - "$HOME/Library/Application Support/xyz.chatboxapp.ce/logs"
+  - "$HOME/Library/Logs/xyz.chatboxapp.ce"
+  - "$HOME/Library/Caches/xyz.chatboxapp.ce"
+  - "$HOME/Library/Caches/xyz.chatboxapp.ce.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-chatbox-ai-linux
+  name: "Chatbox AI Electron caches and logs"
+  description: "Removes regenerable Chatbox AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/xyz.chatboxapp.ce/Cache"
+  - "$HOME/.config/xyz.chatboxapp.ce/Code Cache"
+  - "$HOME/.config/xyz.chatboxapp.ce/GPUCache"
+  - "$HOME/.config/xyz.chatboxapp.ce/DawnGraphiteCache"
+  - "$HOME/.config/xyz.chatboxapp.ce/DawnWebGPUCache"
+  - "$HOME/.config/xyz.chatboxapp.ce/logs"
+  - "$HOME/.cache/xyz.chatboxapp.ce"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-chatbox-ai-windows
+  name: "Chatbox AI Electron caches and logs"
+  description: "Removes regenerable Chatbox AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/xyz.chatboxapp.ce/Cache"
+  - "%APPDATA%/xyz.chatboxapp.ce/Code Cache"
+  - "%APPDATA%/xyz.chatboxapp.ce/GPUCache"
+  - "%APPDATA%/xyz.chatboxapp.ce/DawnGraphiteCache"
+  - "%APPDATA%/xyz.chatboxapp.ce/DawnWebGPUCache"
+  - "%APPDATA%/xyz.chatboxapp.ce/logs"
+  - "%LOCALAPPDATA%/xyz.chatboxapp.ce/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-msty-ai-macos
+  name: "Msty AI Electron caches and logs"
+  description: "Removes regenerable Msty AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Msty/Cache"
+  - "$HOME/Library/Application Support/Msty/Code Cache"
+  - "$HOME/Library/Application Support/Msty/GPUCache"
+  - "$HOME/Library/Application Support/Msty/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Msty/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Msty/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Msty/ShaderCache"
+  - "$HOME/Library/Application Support/Msty/logs"
+  - "$HOME/Library/Logs/Msty"
+  - "$HOME/Library/Caches/Msty"
+  - "$HOME/Library/Caches/app.msty.desktop"
+  - "$HOME/Library/Caches/app.msty.desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-msty-ai-linux
+  name: "Msty AI Electron caches and logs"
+  description: "Removes regenerable Msty AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Msty/Cache"
+  - "$HOME/.config/Msty/Code Cache"
+  - "$HOME/.config/Msty/GPUCache"
+  - "$HOME/.config/Msty/DawnGraphiteCache"
+  - "$HOME/.config/Msty/DawnWebGPUCache"
+  - "$HOME/.config/Msty/logs"
+  - "$HOME/.cache/Msty"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-msty-ai-windows
+  name: "Msty AI Electron caches and logs"
+  description: "Removes regenerable Msty AI HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Msty/Cache"
+  - "%APPDATA%/Msty/Code Cache"
+  - "%APPDATA%/Msty/GPUCache"
+  - "%APPDATA%/Msty/DawnGraphiteCache"
+  - "%APPDATA%/Msty/DawnWebGPUCache"
+  - "%APPDATA%/Msty/logs"
+  - "%LOCALAPPDATA%/Msty/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-cody-desktop-macos
+  name: "Sourcegraph Cody Electron caches and logs"
+  description: "Removes regenerable Sourcegraph Cody HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Sourcegraph/Cache"
+  - "$HOME/Library/Application Support/Sourcegraph/Code Cache"
+  - "$HOME/Library/Application Support/Sourcegraph/GPUCache"
+  - "$HOME/Library/Application Support/Sourcegraph/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Sourcegraph/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Sourcegraph/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Sourcegraph/ShaderCache"
+  - "$HOME/Library/Application Support/Sourcegraph/logs"
+  - "$HOME/Library/Logs/Sourcegraph"
+  - "$HOME/Library/Caches/Sourcegraph"
+  - "$HOME/Library/Caches/com.sourcegraph.cody"
+  - "$HOME/Library/Caches/com.sourcegraph.cody.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-cody-desktop-linux
+  name: "Sourcegraph Cody Electron caches and logs"
+  description: "Removes regenerable Sourcegraph Cody HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Sourcegraph/Cache"
+  - "$HOME/.config/Sourcegraph/Code Cache"
+  - "$HOME/.config/Sourcegraph/GPUCache"
+  - "$HOME/.config/Sourcegraph/DawnGraphiteCache"
+  - "$HOME/.config/Sourcegraph/DawnWebGPUCache"
+  - "$HOME/.config/Sourcegraph/logs"
+  - "$HOME/.cache/Sourcegraph"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-cody-desktop-windows
+  name: "Sourcegraph Cody Electron caches and logs"
+  description: "Removes regenerable Sourcegraph Cody HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Sourcegraph/Cache"
+  - "%APPDATA%/Sourcegraph/Code Cache"
+  - "%APPDATA%/Sourcegraph/GPUCache"
+  - "%APPDATA%/Sourcegraph/DawnGraphiteCache"
+  - "%APPDATA%/Sourcegraph/DawnWebGPUCache"
+  - "%APPDATA%/Sourcegraph/logs"
+  - "%LOCALAPPDATA%/Sourcegraph/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-openhands-ui-macos
+  name: "OpenHands Desktop Electron caches and logs"
+  description: "Removes regenerable OpenHands Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/OpenHands/Cache"
+  - "$HOME/Library/Application Support/OpenHands/Code Cache"
+  - "$HOME/Library/Application Support/OpenHands/GPUCache"
+  - "$HOME/Library/Application Support/OpenHands/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/OpenHands/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/OpenHands/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/OpenHands/ShaderCache"
+  - "$HOME/Library/Application Support/OpenHands/logs"
+  - "$HOME/Library/Logs/OpenHands"
+  - "$HOME/Library/Caches/OpenHands"
+  - "$HOME/Library/Caches/dev.all-hands.openhands"
+  - "$HOME/Library/Caches/dev.all-hands.openhands.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-openhands-ui-linux
+  name: "OpenHands Desktop Electron caches and logs"
+  description: "Removes regenerable OpenHands Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/OpenHands/Cache"
+  - "$HOME/.config/OpenHands/Code Cache"
+  - "$HOME/.config/OpenHands/GPUCache"
+  - "$HOME/.config/OpenHands/DawnGraphiteCache"
+  - "$HOME/.config/OpenHands/DawnWebGPUCache"
+  - "$HOME/.config/OpenHands/logs"
+  - "$HOME/.cache/OpenHands"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-openhands-ui-windows
+  name: "OpenHands Desktop Electron caches and logs"
+  description: "Removes regenerable OpenHands Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/OpenHands/Cache"
+  - "%APPDATA%/OpenHands/Code Cache"
+  - "%APPDATA%/OpenHands/GPUCache"
+  - "%APPDATA%/OpenHands/DawnGraphiteCache"
+  - "%APPDATA%/OpenHands/DawnWebGPUCache"
+  - "%APPDATA%/OpenHands/logs"
+  - "%LOCALAPPDATA%/OpenHands/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-trae-ide-macos
+  name: "Trae AI IDE Electron caches and logs"
+  description: "Removes regenerable Trae AI IDE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Trae/Cache"
+  - "$HOME/Library/Application Support/Trae/Code Cache"
+  - "$HOME/Library/Application Support/Trae/GPUCache"
+  - "$HOME/Library/Application Support/Trae/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Trae/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Trae/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Trae/ShaderCache"
+  - "$HOME/Library/Application Support/Trae/logs"
+  - "$HOME/Library/Logs/Trae"
+  - "$HOME/Library/Caches/Trae"
+  - "$HOME/Library/Caches/com.trae.app"
+  - "$HOME/Library/Caches/com.trae.app.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-trae-ide-linux
+  name: "Trae AI IDE Electron caches and logs"
+  description: "Removes regenerable Trae AI IDE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Trae/Cache"
+  - "$HOME/.config/Trae/Code Cache"
+  - "$HOME/.config/Trae/GPUCache"
+  - "$HOME/.config/Trae/DawnGraphiteCache"
+  - "$HOME/.config/Trae/DawnWebGPUCache"
+  - "$HOME/.config/Trae/logs"
+  - "$HOME/.cache/Trae"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-trae-ide-windows
+  name: "Trae AI IDE Electron caches and logs"
+  description: "Removes regenerable Trae AI IDE HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Trae/Cache"
+  - "%APPDATA%/Trae/Code Cache"
+  - "%APPDATA%/Trae/GPUCache"
+  - "%APPDATA%/Trae/DawnGraphiteCache"
+  - "%APPDATA%/Trae/DawnWebGPUCache"
+  - "%APPDATA%/Trae/logs"
+  - "%LOCALAPPDATA%/Trae/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-jupyterlab-desktop-macos
+  name: "JupyterLab Desktop Electron caches and logs"
+  description: "Removes regenerable JupyterLab Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/jupyterlab-desktop/Cache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/Code Cache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/GPUCache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/ShaderCache"
+  - "$HOME/Library/Application Support/jupyterlab-desktop/logs"
+  - "$HOME/Library/Logs/jupyterlab-desktop"
+  - "$HOME/Library/Caches/jupyterlab-desktop"
+  - "$HOME/Library/Caches/org.jupyter.jupyterlab-desktop"
+  - "$HOME/Library/Caches/org.jupyter.jupyterlab-desktop.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-jupyterlab-desktop-linux
+  name: "JupyterLab Desktop Electron caches and logs"
+  description: "Removes regenerable JupyterLab Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/jupyterlab-desktop/Cache"
+  - "$HOME/.config/jupyterlab-desktop/Code Cache"
+  - "$HOME/.config/jupyterlab-desktop/GPUCache"
+  - "$HOME/.config/jupyterlab-desktop/DawnGraphiteCache"
+  - "$HOME/.config/jupyterlab-desktop/DawnWebGPUCache"
+  - "$HOME/.config/jupyterlab-desktop/logs"
+  - "$HOME/.cache/jupyterlab-desktop"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-jupyterlab-desktop-windows
+  name: "JupyterLab Desktop Electron caches and logs"
+  description: "Removes regenerable JupyterLab Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/jupyterlab-desktop/Cache"
+  - "%APPDATA%/jupyterlab-desktop/Code Cache"
+  - "%APPDATA%/jupyterlab-desktop/GPUCache"
+  - "%APPDATA%/jupyterlab-desktop/DawnGraphiteCache"
+  - "%APPDATA%/jupyterlab-desktop/DawnWebGPUCache"
+  - "%APPDATA%/jupyterlab-desktop/logs"
+  - "%LOCALAPPDATA%/jupyterlab-desktop/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, electron, ml, ai-agents]
+
+- id: ds-marimo-notebook-macos
+  name: "Marimo notebook caches and logs"
+  description: "Removes regenerable Marimo notebook cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/marimo"
+  - "$HOME/Library/Logs/marimo"
+  - "$HOME/.cache/marimo"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-marimo-notebook-linux
+  name: "Marimo notebook caches and logs"
+  description: "Removes regenerable Marimo notebook XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/marimo"
+  - "$XDG_CACHE_HOME/marimo"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-marimo-notebook-windows
+  name: "Marimo notebook caches and logs"
+  description: "Removes regenerable Marimo notebook LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/marimo/cache"
+  - "%LOCALAPPDATA%/marimo/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-langfuse-cache-macos
+  name: "LangSmith / Langfuse SDK caches and logs"
+  description: "Removes regenerable LangSmith / Langfuse SDK cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/langfuse"
+  - "$HOME/Library/Logs/langfuse"
+  - "$HOME/.cache/langfuse"
+  - "$HOME/Library/Caches/langsmith"
+  - "$HOME/Library/Logs/langsmith"
+  - "$HOME/.cache/langsmith"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-langfuse-cache-linux
+  name: "LangSmith / Langfuse SDK caches and logs"
+  description: "Removes regenerable LangSmith / Langfuse SDK XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/langfuse"
+  - "$XDG_CACHE_HOME/langfuse"
+  - "$HOME/.cache/langsmith"
+  - "$XDG_CACHE_HOME/langsmith"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-langfuse-cache-windows
+  name: "LangSmith / Langfuse SDK caches and logs"
+  description: "Removes regenerable LangSmith / Langfuse SDK LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/langfuse/cache"
+  - "%LOCALAPPDATA%/langfuse/logs"
+  - "%LOCALAPPDATA%/langsmith/cache"
+  - "%LOCALAPPDATA%/langsmith/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-llamafile-cache-macos
+  name: "Llamafile runtime caches and logs"
+  description: "Removes regenerable Llamafile runtime cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/llamafile"
+  - "$HOME/Library/Logs/llamafile"
+  - "$HOME/.cache/llamafile"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-llamafile-cache-linux
+  name: "Llamafile runtime caches and logs"
+  description: "Removes regenerable Llamafile runtime XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/llamafile"
+  - "$XDG_CACHE_HOME/llamafile"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-llamafile-cache-windows
+  name: "Llamafile runtime caches and logs"
+  description: "Removes regenerable Llamafile runtime LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/llamafile/cache"
+  - "%LOCALAPPDATA%/llamafile/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-great-expectations-macos
+  name: "Great Expectations caches and logs"
+  description: "Removes regenerable Great Expectations cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/great_expectations"
+  - "$HOME/Library/Logs/great_expectations"
+  - "$HOME/.cache/great_expectations"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-great-expectations-linux
+  name: "Great Expectations caches and logs"
+  description: "Removes regenerable Great Expectations XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/great_expectations"
+  - "$XDG_CACHE_HOME/great_expectations"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-great-expectations-windows
+  name: "Great Expectations caches and logs"
+  description: "Removes regenerable Great Expectations LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/great_expectations/cache"
+  - "%LOCALAPPDATA%/great_expectations/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-evidently-ai-macos
+  name: "Evidently AI caches and logs"
+  description: "Removes regenerable Evidently AI cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/evidently"
+  - "$HOME/Library/Logs/evidently"
+  - "$HOME/.cache/evidently"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-evidently-ai-linux
+  name: "Evidently AI caches and logs"
+  description: "Removes regenerable Evidently AI XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/evidently"
+  - "$XDG_CACHE_HOME/evidently"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-evidently-ai-windows
+  name: "Evidently AI caches and logs"
+  description: "Removes regenerable Evidently AI LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/evidently/cache"
+  - "%LOCALAPPDATA%/evidently/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml, python]
+
+- id: ds-pyright-mypy-macos
+  name: "Pyright & Ruff global caches and logs"
+  description: "Removes regenerable Pyright & Ruff global cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/ruff"
+  - "$HOME/Library/Logs/ruff"
+  - "$HOME/.cache/ruff"
+  - "$HOME/Library/Caches/mypy"
+  - "$HOME/Library/Logs/mypy"
+  - "$HOME/.cache/mypy"
+  - "$HOME/Library/Caches/pyright"
+  - "$HOME/Library/Logs/pyright"
+  - "$HOME/.cache/pyright"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, python, dev]
+
+- id: ds-pyright-mypy-linux
+  name: "Pyright & Ruff global caches and logs"
+  description: "Removes regenerable Pyright & Ruff global XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/ruff"
+  - "$XDG_CACHE_HOME/ruff"
+  - "$HOME/.cache/mypy"
+  - "$XDG_CACHE_HOME/mypy"
+  - "$HOME/.cache/pyright"
+  - "$XDG_CACHE_HOME/pyright"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, python, dev]
+
+- id: ds-pyright-mypy-windows
+  name: "Pyright & Ruff global caches and logs"
+  description: "Removes regenerable Pyright & Ruff global LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/ruff/cache"
+  - "%LOCALAPPDATA%/ruff/logs"
+  - "%LOCALAPPDATA%/mypy/cache"
+  - "%LOCALAPPDATA%/mypy/logs"
+  - "%LOCALAPPDATA%/pyright/cache"
+  - "%LOCALAPPDATA%/pyright/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, python, dev]
+
+- id: ds-huggingface-xet-extra-macos
+  name: "Hugging Face Xet staging caches and logs"
+  description: "Removes regenerable Hugging Face Xet staging cache and log files; configs and state are preserved."
+  category: data-science
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/huggingface/xet"
+  - "$HOME/Library/Logs/huggingface/xet"
+  - "$HOME/.cache/huggingface/xet"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-huggingface-xet-extra-linux
+  name: "Hugging Face Xet staging caches and logs"
+  description: "Removes regenerable Hugging Face Xet staging XDG cache and log files; configs and state are preserved."
+  category: data-science
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/huggingface/xet"
+  - "$XDG_CACHE_HOME/huggingface/xet"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]
+
+- id: ds-huggingface-xet-extra-windows
+  name: "Hugging Face Xet staging caches and logs"
+  description: "Removes regenerable Hugging Face Xet staging LocalAppData cache and log files; configs and state are preserved."
+  category: data-science
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/huggingface/xet/cache"
+  - "%LOCALAPPDATA%/huggingface/xet/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [data-science, ml]

@@ -1,0 +1,777 @@
+---
+pack: ai-agents
+description: Caches, scratch temps, shared build targets, VM bundles, and detached worktrees left by AI coding agents and desktop AI assistants.
+rules:
+- id: ai-codex-scratch-macos
+  name: OpenAI Codex scratch temp and cache
+  description: Removes regenerable Codex temp/cache directories (~/.codex/tmp, ~/.codex/.tmp, ~/.codex/cache); auth.json, config.toml, and active sessions are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: temp
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.codex/tmp"
+  - "$HOME/.codex/.tmp"
+  - "$HOME/.codex/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [ai-agents, codex, temp]
+
+- id: ai-codex-scratch-linux
+  name: OpenAI Codex scratch temp and cache
+  description: Removes regenerable Codex temp/cache directories (~/.codex/tmp, ~/.codex/.tmp, ~/.codex/cache); auth.json, config.toml, and active sessions are preserved.
+  category: ai-agents
+  platform: linux
+  risk: low
+  kind: temp
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.codex/tmp"
+  - "$HOME/.codex/.tmp"
+  - "$HOME/.codex/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [ai-agents, codex, temp]
+
+- id: ai-codex-scratch-windows
+  name: OpenAI Codex scratch temp and cache
+  description: Removes regenerable Codex temp/cache directories; auth.json, config.toml, and active sessions are preserved.
+  category: ai-agents
+  platform: windows
+  risk: low
+  kind: temp
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/.codex/tmp"
+  - "%USERPROFILE%/.codex/.tmp"
+  - "%USERPROFILE%/.codex/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [ai-agents, codex, temp]
+
+- id: ai-codex-desktop-cache-macos
+  name: OpenAI Codex Desktop Electron caches and logs
+  description: Removes Codex Desktop HTTP, Code, GPU, Dawn caches and logs; active sessions and settings are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Caches/Codex"
+  - "$HOME/Library/Application Support/Codex/Cache"
+  - "$HOME/Library/Application Support/Codex/Code Cache"
+  - "$HOME/Library/Application Support/Codex/GPUCache"
+  - "$HOME/Library/Application Support/Codex/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Codex/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Codex/GraphiteDawnCache"
+  - "$HOME/Library/Logs/Codex"
+  - "$HOME/Library/Logs/com.openai.codex"
+  delete_mode: contents
+  max_depth: 5
+  tags: [ai-agents, codex, electron, cache]
+
+- id: ai-codex-desktop-cache-windows
+  name: OpenAI Codex Desktop Electron caches
+  description: Removes Codex Desktop Electron caches; active sessions and settings are preserved.
+  category: ai-agents
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Codex/Cache"
+  - "%APPDATA%/Codex/Code Cache"
+  - "%APPDATA%/Codex/GPUCache"
+  - "%LOCALAPPDATA%/Codex/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [ai-agents, codex, electron, cache]
+
+- id: ai-codex-worktrees-macos
+  name: OpenAI Codex detached worktrees
+  description: Detached git worktrees created by Codex (~/.codex/worktrees). Review before trashing to verify no unmerged changes remain.
+  category: ai-agents
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.codex/worktrees"
+  exclude_globs:
+  - ".metadata_never_index"
+  delete_mode: contents
+  max_depth: 3
+  tags: [ai-agents, codex, worktree]
+
+- id: ai-codex-worktrees-linux
+  name: OpenAI Codex detached worktrees
+  description: Detached git worktrees created by Codex (~/.codex/worktrees). Review before trashing to verify no unmerged changes remain.
+  category: ai-agents
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.codex/worktrees"
+  exclude_globs:
+  - ".metadata_never_index"
+  delete_mode: contents
+  max_depth: 3
+  tags: [ai-agents, codex, worktree]
+
+- id: ai-codex-worktrees-windows
+  name: OpenAI Codex detached worktrees
+  description: Detached git worktrees created by Codex. Review before trashing to verify no unmerged changes remain.
+  category: ai-agents
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/.codex/worktrees"
+  exclude_globs:
+  - ".metadata_never_index"
+  delete_mode: contents
+  max_depth: 3
+  tags: [ai-agents, codex, worktree]
+
+- id: ai-codex-archived-macos
+  name: OpenAI Codex archived sessions and artifacts
+  description: Archived Codex sessions, visualizations, artifacts, generated images, and computer-use scratch files; live sessions and SQLite stores are preserved.
+  category: ai-agents
+  platform: macos
+  risk: medium
+  kind: leftovers
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.codex/archived_sessions"
+  - "$HOME/.codex/visualizations"
+  - "$HOME/.codex/artifacts"
+  - "$HOME/.codex/generated_images"
+  - "$HOME/.codex/computer-use"
+  exclude_globs:
+  - "**/*.app"
+  - "**/*.app/**"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, codex, leftovers]
+
+- id: ai-codex-archived-linux
+  name: OpenAI Codex archived sessions and artifacts
+  description: Archived Codex sessions, visualizations, artifacts, generated images, and computer-use scratch files; live sessions and SQLite stores are preserved.
+  category: ai-agents
+  platform: linux
+  risk: medium
+  kind: leftovers
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.codex/archived_sessions"
+  - "$HOME/.codex/visualizations"
+  - "$HOME/.codex/artifacts"
+  - "$HOME/.codex/generated_images"
+  - "$HOME/.codex/computer-use"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, codex, leftovers]
+
+- id: ai-codex-archived-windows
+  name: OpenAI Codex archived sessions and artifacts
+  description: Archived Codex sessions, visualizations, artifacts, generated images, and computer-use scratch files; live sessions and SQLite stores are preserved.
+  category: ai-agents
+  platform: windows
+  risk: medium
+  kind: leftovers
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.codex/archived_sessions"
+  - "%USERPROFILE%/.codex/visualizations"
+  - "%USERPROFILE%/.codex/artifacts"
+  - "%USERPROFILE%/.codex/generated_images"
+  - "%USERPROFILE%/.codex/computer-use"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, codex, leftovers]
+
+- id: ai-claude-project-target-macos
+  name: Claude Code project shared build targets and caches
+  description: Removes regenerable .claude/target, .claude/target-*, and .claude/cache directories inside source repositories; source code and worktrees are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/Developer"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  include_globs:
+  - "**/.claude/target"
+  - "**/.claude/target-*"
+  - "**/.claude/cache"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 8
+  tags: [ai-agents, claude, build-output, project]
+
+- id: ai-claude-project-target-linux
+  name: Claude Code project shared build targets and caches
+  description: Removes regenerable .claude/target, .claude/target-*, and .claude/cache directories inside source repositories; source code and worktrees are preserved.
+  category: ai-agents
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/code"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  include_globs:
+  - "**/.claude/target"
+  - "**/.claude/target-*"
+  - "**/.claude/cache"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 8
+  tags: [ai-agents, claude, build-output, project]
+
+- id: ai-claude-project-target-windows
+  name: Claude Code project shared build targets and caches
+  description: Removes regenerable .claude/target, .claude/target-*, and .claude/cache directories inside source repositories; source code and worktrees are preserved.
+  category: ai-agents
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "%USERPROFILE%/source/repos"
+  - "%USERPROFILE%/Source"
+  - "%USERPROFILE%/Sources"
+  - "%USERPROFILE%/Projects"
+  - "%USERPROFILE%/src"
+  - "%USERPROFILE%/repos"
+  - "%USERPROFILE%/work"
+  - "%USERPROFILE%/workspace"
+  - "%USERPROFILE%/Documents/Projects"
+  - "%USERPROFILE%/Documents/Source"
+  - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  include_globs:
+  - "**/.claude/target"
+  - "**/.claude/target-*"
+  - "**/.claude/cache"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 8
+  tags: [ai-agents, claude, build-output, project]
+
+- id: ai-claude-project-worktrees-macos
+  name: Claude Code project-local agent worktrees
+  description: Agent worktrees under .claude/worktrees inside source repositories. Review before trashing to confirm changes are merged.
+  category: ai-agents
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/Developer"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  include_globs:
+  - "**/.claude/worktrees/*"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  - "**/.DS_Store"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 8
+  tags: [ai-agents, claude, worktree, project]
+
+- id: ai-claude-project-worktrees-linux
+  name: Claude Code project-local agent worktrees
+  description: Agent worktrees under .claude/worktrees inside source repositories. Review before trashing to confirm changes are merged.
+  category: ai-agents
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/code"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  include_globs:
+  - "**/.claude/worktrees/*"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 8
+  tags: [ai-agents, claude, worktree, project]
+
+- id: ai-claude-project-worktrees-windows
+  name: Claude Code project-local agent worktrees
+  description: Agent worktrees under .claude/worktrees inside source repositories. Review before trashing to confirm changes are merged.
+  category: ai-agents
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/source/repos"
+  - "%USERPROFILE%/Source"
+  - "%USERPROFILE%/Sources"
+  - "%USERPROFILE%/Projects"
+  - "%USERPROFILE%/src"
+  - "%USERPROFILE%/repos"
+  - "%USERPROFILE%/work"
+  - "%USERPROFILE%/workspace"
+  - "%USERPROFILE%/Documents/Projects"
+  - "%USERPROFILE%/Documents/Source"
+  - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  include_globs:
+  - "**/.claude/worktrees/*"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 8
+  tags: [ai-agents, claude, worktree, project]
+
+- id: ai-claude-cli-caches-macos
+  name: Claude CLI and Desktop caches and snapshots
+  description: Regenerable Claude CLI caches, paste-cache, shell snapshots, NodeJS MCP logs, and Desktop logs; credentials, settings, and project transcripts are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.claude/cache"
+  - "$HOME/.claude/paste-cache"
+  - "$HOME/.claude/shell-snapshots"
+  - "$HOME/Library/Caches/claude-cli-nodejs"
+  - "$HOME/Library/Application Support/Claude/GraphiteDawnCache"
+  - "$HOME/Library/Logs/Claude"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, claude, cache]
+
+- id: ai-claude-cli-caches-linux
+  name: Claude CLI caches and snapshots
+  description: Regenerable Claude CLI caches, paste-cache, and shell snapshots; credentials, settings, and project transcripts are preserved.
+  category: ai-agents
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.claude/cache"
+  - "$HOME/.claude/paste-cache"
+  - "$HOME/.claude/shell-snapshots"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, claude, cache]
+
+- id: ai-claude-cli-caches-windows
+  name: Claude CLI and Desktop caches
+  description: Regenerable Claude CLI caches, shell snapshots, and Desktop Electron caches; credentials, settings, and project transcripts are preserved.
+  category: ai-agents
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/.claude/cache"
+  - "%USERPROFILE%/.claude/paste-cache"
+  - "%USERPROFILE%/.claude/shell-snapshots"
+  - "%APPDATA%/Claude/Cache"
+  - "%APPDATA%/Claude/Code Cache"
+  - "%APPDATA%/Claude/GPUCache"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, claude, cache]
+
+- id: ai-claude-partition-caches-macos
+  name: Claude Desktop partition caches
+  description: Regenerable Chromium partition Cache, Code Cache, GPUCache, and Dawn caches inside Claude Desktop; session cookies and local storage are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Claude/Partitions"
+  include_globs:
+  - "*/Cache"
+  - "*/Code Cache"
+  - "*/GPUCache"
+  - "*/DawnGraphiteCache"
+  - "*/DawnWebGPUCache"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 3
+  tags: [ai-agents, claude, electron, cache]
+
+- id: ai-claude-vm-bundles-macos
+  name: Claude Desktop VM bundles
+  description: Large Claude Desktop local sandbox VM bundles (re-downloaded if cleared). Review before trashing.
+  category: ai-agents
+  platform: macos
+  risk: medium
+  kind: vm
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/Library/Application Support/Claude/vm_bundles"
+  - "$HOME/Library/Application Support/Claude/claude-code-vm"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, claude, vm]
+
+- id: ai-claude-vm-bundles-windows
+  name: Claude Desktop VM bundles
+  description: Large Claude Desktop local sandbox VM bundles (re-downloaded if cleared). Review before trashing.
+  category: ai-agents
+  platform: windows
+  risk: medium
+  kind: vm
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "%APPDATA%/Claude/vm_bundles"
+  - "%APPDATA%/Claude/claude-code-vm"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, claude, vm]
+
+- id: ai-grok-caches-macos
+  name: Grok CLI downloads, marketplace cache, and logs
+  description: Regenerable Grok CLI downloads, marketplace caches, logs, and memtraces; active sessions are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.grok/downloads"
+  - "$HOME/.grok/marketplace-cache"
+  - "$HOME/.grok/logs"
+  - "$HOME/.grok/memtrace"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, grok, cache]
+
+- id: ai-grok-caches-linux
+  name: Grok CLI downloads, marketplace cache, and logs
+  description: Regenerable Grok CLI downloads, marketplace caches, logs, and memtraces; active sessions are preserved.
+  category: ai-agents
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.grok/downloads"
+  - "$HOME/.grok/marketplace-cache"
+  - "$HOME/.grok/logs"
+  - "$HOME/.grok/memtrace"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, grok, cache]
+
+- id: ai-grok-worktrees-macos
+  name: Grok CLI worktrees
+  description: Worktrees created by Grok CLI under ~/.grok/worktrees. Review before trashing to confirm no unmerged changes remain.
+  category: ai-agents
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.grok/worktrees"
+  delete_mode: contents
+  max_depth: 3
+  tags: [ai-agents, grok, worktree]
+
+- id: ai-grok-worktrees-linux
+  name: Grok CLI worktrees
+  description: Worktrees created by Grok CLI under ~/.grok/worktrees. Review before trashing to confirm no unmerged changes remain.
+  category: ai-agents
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.grok/worktrees"
+  delete_mode: contents
+  max_depth: 3
+  tags: [ai-agents, grok, worktree]
+
+- id: ai-qoder-caches-macos
+  name: Qoder CLI and Desktop caches and logs
+  description: Regenerable Qoder logs, temp files, shell snapshots, and Electron caches; databases and user settings are preserved.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.qoder/logs"
+  - "$HOME/.qoder/tmp"
+  - "$HOME/.qoder/.cache"
+  - "$HOME/.qoder/shell-snapshots"
+  - "$HOME/Library/Application Support/com.qoder.app.stable/logs"
+  - "$HOME/Library/Application Support/com.qoder.app.stable/Cache"
+  - "$HOME/Library/Application Support/com.qoder.app.stable/Code Cache"
+  - "$HOME/Library/Application Support/com.qoder.app.stable/GPUCache"
+  - "$HOME/Library/Application Support/com.qoder.app.stable/updates"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, qoder, cache]
+
+- id: ai-qoder-caches-linux
+  name: Qoder CLI caches and logs
+  description: Regenerable Qoder logs, temp files, and shell snapshots; project transcripts and settings are preserved.
+  category: ai-agents
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.qoder/logs"
+  - "$HOME/.qoder/tmp"
+  - "$HOME/.qoder/.cache"
+  - "$HOME/.qoder/shell-snapshots"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, qoder, cache]
+
+- id: ai-qoder-caches-windows
+  name: Qoder CLI caches and logs
+  description: Regenerable Qoder logs, temp files, and shell snapshots; project transcripts and settings are preserved.
+  category: ai-agents
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/.qoder/logs"
+  - "%USERPROFILE%/.qoder/tmp"
+  - "%USERPROFILE%/.qoder/.cache"
+  - "%USERPROFILE%/.qoder/shell-snapshots"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, qoder, cache]
+
+- id: ai-antigravity-electron-caches-macos
+  name: Antigravity Desktop Electron and OS caches
+  description: Regenerable Electron HTTP, Code, GPU, and Dawn caches for Antigravity Desktop; ~/.gemini/antigravity state and brain artifacts are never touched.
+  category: ai-agents
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/antigravity"
+  - "$HOME/Library/Application Support/Antigravity/Cache"
+  - "$HOME/Library/Application Support/Antigravity/Code Cache"
+  - "$HOME/Library/Application Support/Antigravity/GPUCache"
+  - "$HOME/Library/Application Support/Antigravity/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Antigravity/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Antigravity/DawnWebGPUCache"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, antigravity, electron, cache]
+
+- id: ai-antigravity-electron-caches-linux
+  name: Antigravity Desktop Electron caches
+  description: Regenerable Electron HTTP, Code, and GPU caches for Antigravity Desktop; ~/.gemini/antigravity state and brain artifacts are never touched.
+  category: ai-agents
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Antigravity/Cache"
+  - "$HOME/.config/Antigravity/Code Cache"
+  - "$HOME/.config/Antigravity/GPUCache"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, antigravity, electron, cache]
+
+- id: ai-antigravity-electron-caches-windows
+  name: Antigravity Desktop Electron caches
+  description: Regenerable Electron HTTP, Code, and GPU caches for Antigravity Desktop; ~/.gemini/antigravity state and brain artifacts are never touched.
+  category: ai-agents
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Antigravity/Cache"
+  - "%APPDATA%/Antigravity/Code Cache"
+  - "%APPDATA%/Antigravity/GPUCache"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, antigravity, electron, cache]
+
+- id: ai-perplexity-mlx-macos
+  name: Perplexity PythonMLX runtime and cache
+  description: Perplexity local PythonMLX runtime and model artifacts; re-downloaded on demand if removed.
+  category: ai-agents
+  platform: macos
+  risk: medium
+  kind: models
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/ai.perplexity.macv3/PythonMLX"
+  delete_mode: contents
+  max_depth: 4
+  tags: [ai-agents, perplexity, ml]

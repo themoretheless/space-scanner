@@ -9,9 +9,9 @@ rules:
     is out of $HOME scope.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/Battle.net/Cache"
   - "$HOME/Library/Application Support/Battle.net/Logs"
@@ -26,9 +26,9 @@ rules:
   description: Official Epic launcher webcache and related caches. Not installed games.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.epicgames.EpicGamesLauncher"
   - "$HOME/Library/Caches/com.epicgames.EpicGamesLauncher/webcache"
@@ -44,9 +44,9 @@ rules:
     dirs).
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/webcache"
   - "$HOME/Library/Application Support/Epic/EpicGamesLauncher/Saved/webcache_4147"
@@ -59,9 +59,9 @@ rules:
   description: Apple Game Center client caches. Regenerable; not iCloud game saves.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/GameKit"
   - "$HOME/Library/Caches/com.apple.gamed"
@@ -74,9 +74,9 @@ rules:
   description: GOG Galaxy client cache/logs; not galaxy-library game installs.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/GOG.com/Galaxy/cache"
   - "$HOME/Library/Application Support/GOG.com/Galaxy/logs"
@@ -92,9 +92,9 @@ rules:
     game folders.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/heroic/Cache"
   - "$HOME/Library/Application Support/heroic/Code Cache"
@@ -110,9 +110,9 @@ rules:
   description: itch desktop app caches/logs. Not apps/ game install library.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/itch/Cache"
   - "$HOME/Library/Application Support/itch/Code Cache"
@@ -128,9 +128,9 @@ rules:
   description: G HUB crash dumps and cache (common with gaming setups).
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/LGHUB/cache"
   - "$HOME/Library/Application Support/LGHUB/logs"
@@ -187,9 +187,9 @@ rules:
   description: OpenEmu app caches/logs. Never Game Library, Battery Saves, or Screenshots.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/org.openemu.OpenEmu"
   - "$HOME/Library/Caches/OpenEmu"
@@ -206,9 +206,9 @@ rules:
   description: PlayCover IPA runner caches/logs. Do not delete Apps/ container installs.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/io.playcover.PlayCover"
   - "$HOME/Library/Logs/io.playcover.PlayCover"
@@ -222,9 +222,9 @@ rules:
     (out of scope). Valorant not native on Mac.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Application Support/Riot Games/Riot Client/Logs"
   - "$HOME/Library/Application Support/Riot Games/Riot Client/Crashes"
@@ -241,9 +241,9 @@ rules:
   description: Roblox Player/Studio caches and logs. Not place files the user authored.
   category: game-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 5
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.roblox.RobloxPlayer"
   - "$HOME/Library/Caches/com.roblox.RobloxStudio"

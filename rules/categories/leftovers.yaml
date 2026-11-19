@@ -7272,3 +7272,20 @@ rules:
   delete_mode: contents
   max_depth: 6
   report_only: true
+- id: macos-chrome-profile-bak-review
+  name: Chrome and Chromium backup profile directories (.bak)
+  description: Old timestamped Chrome/Chromium backup folders under ~/Library/Application Support/Google (for example Chrome Canary.bak.*). Review before trashing to confirm the active profile works.
+  category: leftovers
+  platform: macos
+  risk: high
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Application Support/Google"
+  include_globs:
+  - "Chrome*.bak*"
+  - "Chromium*.bak*"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 1
+  tags: [chrome, backup, leftovers]

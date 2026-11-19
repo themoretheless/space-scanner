@@ -6,9 +6,9 @@ rules:
 - name: Chrome cache (not profile)
   description: Browser disk cache only; cookies/logins untouched.
   category: browser-cache
-  risk: medium
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 1
   delete_mode: contents
   max_depth: 5
   id: app-chrome-cache-macos
@@ -46,9 +46,9 @@ rules:
   description: Edge Code Cache, GPU cache, and shader cache.
   category: browser-cache
   platform: macos
-  risk: medium
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 1
   paths:
   - "$HOME/Library/Application Support/Microsoft Edge/Default/Cache"
   - "$HOME/Library/Application Support/Microsoft Edge/Default/Code Cache"
@@ -322,9 +322,9 @@ rules:
     stable/beta/dev/canary/for-testing.
   category: browser-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 1
   paths:
   - "$HOME/Library/Caches/Google/Chrome Beta"
   - "$HOME/Library/Caches/Google/Chrome Canary"
@@ -341,6 +341,20 @@ rules:
   - "**/Code Cache/**"
   - "**/Media Cache/**"
   - "**/Storage/**"
+- id: macos-google-updater-crx-cache
+  name: GoogleUpdater CRX download and updater caches
+  description: Regenerable GoogleUpdater CRX package blobs and updater cache; active browser profiles are preserved.
+  category: browser-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Google/GoogleUpdater/crx_cache"
+  - "$HOME/Library/Caches/com.google.GoogleUpdater"
+  delete_mode: contents
+  max_depth: 4
+  tags: [chrome, updater, cache]
 - id: macos-chrome-channels-profile-disk-cache
   name: Chrome channel profile HTTP Cache (Application Support)
   description: Per-profile Cache and Media Cache leaves inside Chrome channel user-data
@@ -1306,3 +1320,235 @@ rules:
   - "$HOME/Library/Application Support/Vivaldi"
   delete_mode: contents
   max_depth: 4
+- id: browser-chromium-ondevice-ai-macos
+  name: Chromium on-device AI model stores
+  description: Removes regenerable OptGuideOnDeviceModel, OptGuideOnDeviceClassifierModel, and optimization_guide_model_store caches across Chrome channels, Edge, and Brave; profiles, bookmarks, and logins are preserved.
+  category: browser-cache
+  platform: macos
+  risk: medium
+  kind: browser
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/OptGuideOnDeviceModel"
+  - "$HOME/Library/Application Support/Google/Chrome/OptGuideOnDeviceClassifierModel"
+  - "$HOME/Library/Application Support/Google/Chrome/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/OptGuideOnDeviceModel"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/OptGuideOnDeviceClassifierModel"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/OptGuideOnDeviceModel"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/OptGuideOnDeviceClassifierModel"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/OptGuideOnDeviceModel"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/OptGuideOnDeviceClassifierModel"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/Microsoft Edge/OptGuideOnDeviceModel"
+  - "$HOME/Library/Application Support/Microsoft Edge/OptGuideOnDeviceClassifierModel"
+  - "$HOME/Library/Application Support/Microsoft Edge/optimization_guide_model_store"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/OptGuideOnDeviceModel"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/OptGuideOnDeviceClassifierModel"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/optimization_guide_model_store"
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, ml]
+- id: browser-chromium-ondevice-ai-linux
+  name: Chromium on-device AI model stores
+  description: Removes regenerable OptGuideOnDeviceModel, OptGuideOnDeviceClassifierModel, and optimization_guide_model_store caches across Chrome, Chromium, Edge, and Brave; profiles and bookmarks are preserved.
+  category: browser-cache
+  platform: linux
+  risk: medium
+  kind: browser
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/google-chrome/OptGuideOnDeviceModel"
+  - "$HOME/.config/google-chrome/OptGuideOnDeviceClassifierModel"
+  - "$HOME/.config/google-chrome/optimization_guide_model_store"
+  - "$HOME/.config/google-chrome-beta/OptGuideOnDeviceModel"
+  - "$HOME/.config/google-chrome-unstable/OptGuideOnDeviceModel"
+  - "$HOME/.config/chromium/OptGuideOnDeviceModel"
+  - "$HOME/.config/microsoft-edge/OptGuideOnDeviceModel"
+  - "$HOME/.config/microsoft-edge/optimization_guide_model_store"
+  - "$HOME/.config/BraveSoftware/Brave-Browser/OptGuideOnDeviceModel"
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, ml]
+- id: browser-chromium-ondevice-ai-windows
+  name: Chromium on-device AI model stores
+  description: Removes regenerable OptGuideOnDeviceModel, OptGuideOnDeviceClassifierModel, and optimization_guide_model_store caches across Chrome, Edge, and Brave; profiles and bookmarks are preserved.
+  category: browser-cache
+  platform: windows
+  risk: medium
+  kind: browser
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/OptGuideOnDeviceModel"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/OptGuideOnDeviceClassifierModel"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/optimization_guide_model_store"
+  - "%LOCALAPPDATA%/Google/Chrome Dev/User Data/OptGuideOnDeviceModel"
+  - "%LOCALAPPDATA%/Google/Chrome SxS/User Data/OptGuideOnDeviceModel"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/OptGuideOnDeviceModel"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/optimization_guide_model_store"
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser/User Data/OptGuideOnDeviceModel"
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, ml]
+- id: browser-chromium-traces-crashpad-macos
+  name: Chromium traces, metrics, and Crashpad dumps
+  description: Removes regenerable Local Traces, DeferredBrowserMetrics, BrowserMetrics, and completed/new Crashpad minidumps across Chrome channels, Edge, Brave, Vivaldi, and Arc.
+  category: browser-cache
+  platform: macos
+  risk: low
+  kind: browser
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome/Local Traces"
+  - "$HOME/Library/Application Support/Google/Chrome/DeferredBrowserMetrics"
+  - "$HOME/Library/Application Support/Google/Chrome/BrowserMetrics"
+  - "$HOME/Library/Application Support/Google/Chrome/Crashpad/completed"
+  - "$HOME/Library/Application Support/Google/Chrome/Crashpad/new"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/Local Traces"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/DeferredBrowserMetrics"
+  - "$HOME/Library/Application Support/Google/Chrome Beta/Crashpad/completed"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Local Traces"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/DeferredBrowserMetrics"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/BrowserMetrics"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Crashpad/completed"
+  - "$HOME/Library/Application Support/Google/Chrome Dev/Crashpad/new"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/Local Traces"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/DeferredBrowserMetrics"
+  - "$HOME/Library/Application Support/Google/Chrome Canary/Crashpad/completed"
+  - "$HOME/Library/Application Support/Microsoft Edge/Local Traces"
+  - "$HOME/Library/Application Support/Microsoft Edge/DeferredBrowserMetrics"
+  - "$HOME/Library/Application Support/Microsoft Edge/Crashpad/completed"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/Local Traces"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser/Crashpad/completed"
+  - "$HOME/Library/Application Support/Vivaldi/Crashpad/completed"
+  - "$HOME/Library/Application Support/Arc/User Data/Local Traces"
+  - "$HOME/Library/Application Support/Arc/User Data/Crashpad/completed"
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, logs]
+- id: browser-chromium-traces-crashpad-linux
+  name: Chromium traces, metrics, and Crashpad dumps
+  description: Removes regenerable Local Traces, DeferredBrowserMetrics, BrowserMetrics, and completed Crashpad minidumps across Chrome, Chromium, Edge, Brave, and Vivaldi.
+  category: browser-cache
+  platform: linux
+  risk: low
+  kind: browser
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/google-chrome/Local Traces"
+  - "$HOME/.config/google-chrome/DeferredBrowserMetrics"
+  - "$HOME/.config/google-chrome/Crashpad/completed"
+  - "$HOME/.config/chromium/Crashpad/completed"
+  - "$HOME/.config/microsoft-edge/Crashpad/completed"
+  - "$HOME/.config/BraveSoftware/Brave-Browser/Crashpad/completed"
+  - "$HOME/.config/vivaldi/Crashpad/completed"
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, logs]
+- id: browser-chromium-traces-crashpad-windows
+  name: Chromium traces, metrics, and Crashpad dumps
+  description: Removes regenerable Local Traces, DeferredBrowserMetrics, BrowserMetrics, and completed Crashpad minidumps across Chrome, Edge, Brave, and Vivaldi.
+  category: browser-cache
+  platform: windows
+  risk: low
+  kind: browser
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Local Traces"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/DeferredBrowserMetrics"
+  - "%LOCALAPPDATA%/Google/Chrome/User Data/Crashpad/completed"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data/Crashpad/completed"
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser/User Data/Crashpad/completed"
+  - "%LOCALAPPDATA%/Vivaldi/User Data/Crashpad/completed"
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, logs]
+- id: browser-chromium-service-worker-macos
+  name: Chromium Service Worker and Shared Dictionary caches
+  description: Removes regenerable Service Worker CacheStorage/ScriptCache and Shared Dictionary cache directories inside browser profiles; Service Worker databases, cookies, and storage stay intact.
+  category: browser-cache
+  platform: macos
+  risk: low
+  kind: browser
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Google/Chrome"
+  - "$HOME/Library/Application Support/Google/Chrome Beta"
+  - "$HOME/Library/Application Support/Google/Chrome Dev"
+  - "$HOME/Library/Application Support/Google/Chrome Canary"
+  - "$HOME/Library/Application Support/Microsoft Edge"
+  - "$HOME/Library/Application Support/BraveSoftware/Brave-Browser"
+  include_globs:
+  - "Default/Service Worker/CacheStorage"
+  - "Default/Service Worker/ScriptCache"
+  - "Profile */Service Worker/CacheStorage"
+  - "Profile */Service Worker/ScriptCache"
+  - "Default/Shared Dictionary/cache"
+  - "Profile */Shared Dictionary/cache"
+  exclude_globs:
+  - "**/Service Worker/Database/**"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, cache]
+- id: browser-chromium-service-worker-linux
+  name: Chromium Service Worker and Shared Dictionary caches
+  description: Removes regenerable Service Worker CacheStorage/ScriptCache and Shared Dictionary cache directories inside Linux browser profiles.
+  category: browser-cache
+  platform: linux
+  risk: low
+  kind: browser
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/google-chrome"
+  - "$HOME/.config/chromium"
+  - "$HOME/.config/microsoft-edge"
+  - "$HOME/.config/BraveSoftware/Brave-Browser"
+  include_globs:
+  - "Default/Service Worker/CacheStorage"
+  - "Default/Service Worker/ScriptCache"
+  - "Profile */Service Worker/CacheStorage"
+  - "Profile */Service Worker/ScriptCache"
+  - "Default/Shared Dictionary/cache"
+  - "Profile */Shared Dictionary/cache"
+  exclude_globs:
+  - "**/Service Worker/Database/**"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, cache]
+- id: browser-chromium-service-worker-windows
+  name: Chromium Service Worker and Shared Dictionary caches
+  description: Removes regenerable Service Worker CacheStorage/ScriptCache and Shared Dictionary cache directories inside Windows browser profiles.
+  category: browser-cache
+  platform: windows
+  risk: low
+  kind: browser
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Google/Chrome/User Data"
+  - "%LOCALAPPDATA%/Microsoft/Edge/User Data"
+  - "%LOCALAPPDATA%/BraveSoftware/Brave-Browser/User Data"
+  include_globs:
+  - "Default/Service Worker/CacheStorage"
+  - "Default/Service Worker/ScriptCache"
+  - "Profile */Service Worker/CacheStorage"
+  - "Profile */Service Worker/ScriptCache"
+  - "Default/Shared Dictionary/cache"
+  - "Profile */Shared Dictionary/cache"
+  exclude_globs:
+  - "**/Service Worker/Database/**"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 4
+  tags: [browser, chrome, edge, brave, cache]

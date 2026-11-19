@@ -52,7 +52,7 @@ rules:
   platform: macos
   risk: medium
   kind: packages
-  default_enabled: false
+  default_enabled: true
   min_age_days: 0
   paths:
   - "$HOME/Projects"
@@ -66,8 +66,15 @@ rules:
   - "$HOME/Documents/Projects"
   - "$HOME/Documents/Source"
   - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
   include_globs:
   - "**/.venv"
+  - "**/.venv-*"
   - "**/.tox"
   - "**/.nox"
   exclude_globs:
@@ -108,8 +115,16 @@ rules:
   - "$HOME/Documents/Projects"
   - "$HOME/Documents/Source"
   - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
   include_globs:
   - "**/target"
+  - "**/target-*"
+  - "**/.cargo-target"
   exclude_globs:
   - "**/.git/**"
   - "**/node_modules/**"
@@ -585,7 +600,7 @@ rules:
   platform: linux
   risk: medium
   kind: packages
-  default_enabled: false
+  default_enabled: true
   min_age_days: 0
   paths:
   - "$HOME/Projects"
@@ -599,8 +614,15 @@ rules:
   - "$HOME/Documents/Projects"
   - "$HOME/Documents/Source"
   - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
   include_globs:
   - "**/.venv"
+  - "**/.venv-*"
   - "**/.tox"
   - "**/.nox"
   exclude_globs:
@@ -641,8 +663,16 @@ rules:
   - "$HOME/Documents/Projects"
   - "$HOME/Documents/Source"
   - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
   include_globs:
   - "**/target"
+  - "**/target-*"
+  - "**/.cargo-target"
   exclude_globs:
   - "**/.git/**"
   - "**/node_modules/**"
@@ -1119,7 +1149,7 @@ rules:
   platform: windows
   risk: medium
   kind: packages
-  default_enabled: false
+  default_enabled: true
   min_age_days: 0
   paths:
   - "%USERPROFILE%/source/repos"
@@ -1134,8 +1164,15 @@ rules:
   - "%USERPROFILE%/Documents/Projects"
   - "%USERPROFILE%/Documents/Source"
   - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  - "%USERPROFILE%/PycharmProjects"
+  - "%USERPROFILE%/CLionProjects"
+  - "%USERPROFILE%/GolandProjects"
   include_globs:
   - "**/.venv"
+  - "**/.venv-*"
   - "**/.tox"
   - "**/.nox"
   exclude_globs:
@@ -1177,8 +1214,16 @@ rules:
   - "%USERPROFILE%/Documents/Projects"
   - "%USERPROFILE%/Documents/Source"
   - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  - "%USERPROFILE%/PycharmProjects"
+  - "%USERPROFILE%/CLionProjects"
+  - "%USERPROFILE%/GolandProjects"
   include_globs:
   - "**/target"
+  - "**/target-*"
+  - "**/.cargo-target"
   exclude_globs:
   - "**/.git/**"
   - "**/node_modules/**"
@@ -1613,5 +1658,153 @@ rules:
   max_depth: 18
   tags:
   - unity
+  - build-output
+  - project
+- id: project-disposable-worktrees-macos
+  name: Project CI worktrees
+  description: Disposable .ci-*-worktree and .worktrees/* directories inside source repositories; review before trashing to confirm no unmerged work remains.
+  category: dev
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/Developer"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
+  include_globs:
+  - "**/.ci-*-worktree"
+  - "**/.worktrees/*"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - worktree
+  - build-output
+  - project
+- id: project-disposable-worktrees-linux
+  name: Project CI worktrees
+  description: Disposable .ci-*-worktree and .worktrees/* directories inside source repositories; review before trashing to confirm no unmerged work remains.
+  category: dev
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Projects"
+  - "$HOME/Source"
+  - "$HOME/Sources"
+  - "$HOME/src"
+  - "$HOME/repos"
+  - "$HOME/code"
+  - "$HOME/work"
+  - "$HOME/workspace"
+  - "$HOME/Documents/Projects"
+  - "$HOME/Documents/Source"
+  - "$HOME/Documents/Sources"
+  - "$HOME/RiderProjects"
+  - "$HOME/IdeaProjects"
+  - "$HOME/WebstormProjects"
+  - "$HOME/PycharmProjects"
+  - "$HOME/CLionProjects"
+  - "$HOME/GolandProjects"
+  include_globs:
+  - "**/.ci-*-worktree"
+  - "**/.worktrees/*"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - worktree
+  - build-output
+  - project
+- id: project-disposable-worktrees-windows
+  name: Project CI worktrees
+  description: Disposable .ci-*-worktree and .worktrees/* directories inside source repositories; review before trashing to confirm no unmerged work remains.
+  category: dev
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/source/repos"
+  - "%USERPROFILE%/Source"
+  - "%USERPROFILE%/Sources"
+  - "%USERPROFILE%/Projects"
+  - "%USERPROFILE%/src"
+  - "%USERPROFILE%/repos"
+  - "%USERPROFILE%/code"
+  - "%USERPROFILE%/work"
+  - "%USERPROFILE%/workspace"
+  - "%USERPROFILE%/Documents/Projects"
+  - "%USERPROFILE%/Documents/Source"
+  - "%USERPROFILE%/Documents/Sources"
+  - "%USERPROFILE%/RiderProjects"
+  - "%USERPROFILE%/IdeaProjects"
+  - "%USERPROFILE%/WebstormProjects"
+  - "%USERPROFILE%/PycharmProjects"
+  - "%USERPROFILE%/CLionProjects"
+  - "%USERPROFILE%/GolandProjects"
+  include_globs:
+  - "**/.ci-*-worktree"
+  - "**/.worktrees/*"
+  exclude_globs:
+  - "**/.git/**"
+  - "**/node_modules/**"
+  required_ancestor_globs:
+  - ".git"
+  - "Cargo.toml"
+  - "package.json"
+  - "pyproject.toml"
+  - "go.mod"
+  - "CMakeLists.txt"
+  - "*.sln"
+  - "*.slnx"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 6
+  tags:
+  - worktree
   - build-output
   - project

@@ -44,6 +44,13 @@ selected volume. Named database volumes and anonymous volumes can both contain
 valuable data. The scenario never runs prune or removes Docker.raw. Docker's
 reclaimable bytes do not promise immediate recovery of the same host disk space.
 
+Additional read-only diagnostic scenarios (all support `--json`):
+- `space scenario ai-bloat` — inventory AI coding assistants (`.codex/tmp`, `.codex/worktrees`, `.claude/target-*`, `.claude/worktrees`, `.grok`, Claude/Codex/Cursor/Kimi/Perplexity caches)
+- `space scenario vm-disks` — inventory Colima, Lima, Docker, OrbStack, Podman, CoreSimulator, Android AVDs, Claude VM bundles, UTM, Parallels, Tart, Vagrant (allocated vs apparent sparse sizes)
+- `space scenario heavy-caches` — inspect top consumers in `~/.cache`, `~/.local/share`, `$TMPDIR`, `$DARWIN_USER_CACHE_DIR`, `~/.pcloud`, `~/.rustup`, `~/.cargo`, `~/.nuget`, `~/Library/Caches`, `~/Library/Application Support`, `/opt/homebrew/var/homebrew` while flagging DuckDB/SQLite stores as `preserve-db`
+- `space scenario browsers-electron` — inventory Chrome/Edge/Brave/Arc/Vivaldi/Firefox/Safari caches, Service Worker CacheStorage, Crashpad dumps, OptGuideOnDeviceModel stores, `.bak` profile snapshots, updaters, and Electron/CEF app caches
+- `space scenario dev-toolchains` — inventory Rust toolchains, Cargo, Homebrew, .NET/NuGet, npm/yarn/pnpm/bun, uv/pip/conda, Playwright/Puppeteer/Cypress, Gradle/Maven, JetBrains IDEs, CoreSimulator, and Android SDKs
+
 ## Roadmap
 
 - Unified plan (UX, Top-200 roadmap, feature backlog): [docs/PLAN.md](docs/PLAN.md)

@@ -1,0 +1,1966 @@
+---
+pack: testing-ci
+description: "E2E headless browser binaries, local CI runners, compiler caches, and linter caches; project source code and CI workflows are preserved."
+rules:
+- id: tci-playwright-macos
+  name: "Playwright downloaded browsers"
+  description: "Removes regenerable Playwright downloaded browsers; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/ms-playwright"
+  - "$HOME/Library/Caches/ms-playwright-go"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-playwright-linux
+  name: "Playwright downloaded browsers"
+  description: "Removes regenerable Playwright downloaded browsers; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/ms-playwright"
+  - "$HOME/.cache/ms-playwright-go"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-playwright-windows
+  name: "Playwright downloaded browsers"
+  description: "Removes regenerable Playwright downloaded browsers; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/ms-playwright"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-puppeteer-macos
+  name: "Puppeteer headless browser binaries"
+  description: "Removes regenerable Puppeteer headless browser binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/puppeteer"
+  - "$HOME/Library/Caches/puppeteer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-puppeteer-linux
+  name: "Puppeteer headless browser binaries"
+  description: "Removes regenerable Puppeteer headless browser binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/puppeteer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-puppeteer-windows
+  name: "Puppeteer headless browser binaries"
+  description: "Removes regenerable Puppeteer headless browser binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.cache/puppeteer"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-cypress-bins-macos
+  name: "Cypress downloaded Electron binaries"
+  description: "Removes regenerable Cypress downloaded Electron binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Cypress"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-cypress-bins-linux
+  name: "Cypress downloaded Electron binaries"
+  description: "Removes regenerable Cypress downloaded Electron binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/Cypress"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-cypress-bins-windows
+  name: "Cypress downloaded Electron binaries"
+  description: "Removes regenerable Cypress downloaded Electron binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Cypress/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-selenium-mgr-macos
+  name: "Selenium Manager driver binaries"
+  description: "Removes regenerable Selenium Manager driver binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/selenium"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-selenium-mgr-linux
+  name: "Selenium Manager driver binaries"
+  description: "Removes regenerable Selenium Manager driver binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/selenium"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-selenium-mgr-windows
+  name: "Selenium Manager driver binaries"
+  description: "Removes regenerable Selenium Manager driver binaries; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.cache/selenium"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, browser]
+
+- id: tci-ccache-macos
+  name: "ccache C/C++ compiler cache"
+  description: "Removes regenerable ccache C/C++ compiler cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/ccache"
+  - "$HOME/.cache/ccache"
+  - "$HOME/.ccache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-ccache-linux
+  name: "ccache C/C++ compiler cache"
+  description: "Removes regenerable ccache C/C++ compiler cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/ccache"
+  - "$HOME/.ccache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-ccache-windows
+  name: "ccache C/C++ compiler cache"
+  description: "Removes regenerable ccache C/C++ compiler cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/ccache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-sccache-macos
+  name: "sccache shared compilation cache"
+  description: "Removes regenerable sccache shared compilation cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Mozilla.sccache"
+  - "$HOME/.cache/sccache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-sccache-linux
+  name: "sccache shared compilation cache"
+  description: "Removes regenerable sccache shared compilation cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/sccache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-sccache-windows
+  name: "sccache shared compilation cache"
+  description: "Removes regenerable sccache shared compilation cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Mozilla/sccache/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-bazel-lin-win-linux
+  name: "Bazel build and repository cache"
+  description: "Removes regenerable Bazel build and repository cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/bazel"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-bazel-lin-win-windows
+  name: "Bazel build and repository cache"
+  description: "Removes regenerable Bazel build and repository cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/_bazel"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-buck2-pants-macos
+  name: "Buck2 & Pants build caches"
+  description: "Removes regenerable Buck2 & Pants build caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pants"
+  - "$HOME/.buck2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-buck2-pants-linux
+  name: "Buck2 & Pants build caches"
+  description: "Removes regenerable Buck2 & Pants build caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pants"
+  - "$HOME/.buck2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-buck2-pants-windows
+  name: "Buck2 & Pants build caches"
+  description: "Removes regenerable Buck2 & Pants build caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/pants/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-moon-proto-macos
+  name: "Moonrepo & Proto toolchain cache"
+  description: "Removes regenerable Moonrepo & Proto toolchain cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.moon/cache"
+  - "$HOME/.proto/temp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-moon-proto-linux
+  name: "Moonrepo & Proto toolchain cache"
+  description: "Removes regenerable Moonrepo & Proto toolchain cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.moon/cache"
+  - "$HOME/.proto/temp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-moon-proto-windows
+  name: "Moonrepo & Proto toolchain cache"
+  description: "Removes regenerable Moonrepo & Proto toolchain cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.moon/cache"
+  - "%USERPROFILE%/.proto/temp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-nx-turbo-global-macos
+  name: "Nx & Turborepo global caches"
+  description: "Removes regenerable Nx & Turborepo global caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/turbo"
+  - "$HOME/Library/Caches/turbo"
+  - "$HOME/.cache/nx"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, build-cache]
+
+- id: tci-nx-turbo-global-linux
+  name: "Nx & Turborepo global caches"
+  description: "Removes regenerable Nx & Turborepo global caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/turbo"
+  - "$HOME/.cache/nx"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, build-cache]
+
+- id: tci-nx-turbo-global-windows
+  name: "Nx & Turborepo global caches"
+  description: "Removes regenerable Nx & Turborepo global caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/turbo/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, build-cache]
+
+- id: tci-earthly-dagger-macos
+  name: "Earthly & Dagger CLI caches"
+  description: "Removes regenerable Earthly & Dagger CLI caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.earthly/buildkit"
+  - "$HOME/Library/Caches/dagger"
+  - "$HOME/.cache/dagger"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, containers, ci]
+
+- id: tci-earthly-dagger-linux
+  name: "Earthly & Dagger CLI caches"
+  description: "Removes regenerable Earthly & Dagger CLI caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.earthly"
+  - "$HOME/.cache/dagger"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, containers, ci]
+
+- id: tci-earthly-dagger-windows
+  name: "Earthly & Dagger CLI caches"
+  description: "Removes regenerable Earthly & Dagger CLI caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/dagger/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, containers, ci]
+
+- id: tci-act-runner-macos
+  name: "nektos/act GitHub Actions runner cache"
+  description: "Removes regenerable nektos/act GitHub Actions runner cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/act"
+  - "$HOME/.cache/actcache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci, github]
+
+- id: tci-act-runner-linux
+  name: "nektos/act GitHub Actions runner cache"
+  description: "Removes regenerable nektos/act GitHub Actions runner cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/act"
+  - "$HOME/.cache/actcache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci, github]
+
+- id: tci-act-runner-windows
+  name: "nektos/act GitHub Actions runner cache"
+  description: "Removes regenerable nektos/act GitHub Actions runner cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/act/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci, github]
+
+- id: tci-gitlab-runner-macos
+  name: "GitLab Runner local user logs & cache"
+  description: "Removes regenerable GitLab Runner local user logs & cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.gitlab-runner/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-gitlab-runner-linux
+  name: "GitLab Runner local user logs & cache"
+  description: "Removes regenerable GitLab Runner local user logs & cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.gitlab-runner/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-gitlab-runner-windows
+  name: "GitLab Runner local user logs & cache"
+  description: "Removes regenerable GitLab Runner local user logs & cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.gitlab-runner/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-circleci-cli-macos
+  name: "CircleCI CLI update & build caches"
+  description: "Removes regenerable CircleCI CLI update & build caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.circleci/build-agent"
+  - "$HOME/Library/Caches/circleci"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-circleci-cli-linux
+  name: "CircleCI CLI update & build caches"
+  description: "Removes regenerable CircleCI CLI update & build caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.circleci/build-agent"
+  - "$HOME/.cache/circleci"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-circleci-cli-windows
+  name: "CircleCI CLI update & build caches"
+  description: "Removes regenerable CircleCI CLI update & build caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.circleci/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-pre-commit-macos
+  name: "pre-commit isolated hook environments"
+  description: "Removes regenerable pre-commit isolated hook environments; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pre-commit"
+  - "$HOME/Library/Caches/pre-commit"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-pre-commit-linux
+  name: "pre-commit isolated hook environments"
+  description: "Removes regenerable pre-commit isolated hook environments; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pre-commit"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-pre-commit-windows
+  name: "pre-commit isolated hook environments"
+  description: "Removes regenerable pre-commit isolated hook environments; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/pre-commit/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-trunk-io-macos
+  name: "Trunk.io CLI linter cache"
+  description: "Removes regenerable Trunk.io CLI linter cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/trunk"
+  - "$HOME/Library/Caches/trunk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-trunk-io-linux
+  name: "Trunk.io CLI linter cache"
+  description: "Removes regenerable Trunk.io CLI linter cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/trunk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-trunk-io-windows
+  name: "Trunk.io CLI linter cache"
+  description: "Removes regenerable Trunk.io CLI linter cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/trunk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, ci]
+
+- id: tci-golangci-lint-macos
+  name: "golangci-lint & Go test caches"
+  description: "Removes regenerable golangci-lint & Go test caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/golangci-lint"
+  - "$HOME/.cache/golangci-lint"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, go]
+
+- id: tci-golangci-lint-linux
+  name: "golangci-lint & Go test caches"
+  description: "Removes regenerable golangci-lint & Go test caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/golangci-lint"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, go]
+
+- id: tci-golangci-lint-windows
+  name: "golangci-lint & Go test caches"
+  description: "Removes regenerable golangci-lint & Go test caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/golangci-lint"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, go]
+
+- id: tci-biome-swiftlint-macos
+  name: "Biome & SwiftLint caches"
+  description: "Removes regenerable Biome & SwiftLint caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/SwiftLint"
+  - "$HOME/Library/Caches/biome"
+  - "$HOME/.cache/biome"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-biome-swiftlint-linux
+  name: "Biome & SwiftLint caches"
+  description: "Removes regenerable Biome & SwiftLint caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/biome"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-biome-swiftlint-windows
+  name: "Biome & SwiftLint caches"
+  description: "Removes regenerable Biome & SwiftLint caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/biome/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-sonar-semgrep-macos
+  name: "SonarScanner & Semgrep caches"
+  description: "Removes regenerable SonarScanner & Semgrep caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.sonar/cache"
+  - "$HOME/.semgrep/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, security]
+
+- id: tci-sonar-semgrep-linux
+  name: "SonarScanner & Semgrep caches"
+  description: "Removes regenerable SonarScanner & Semgrep caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.sonar/cache"
+  - "$HOME/.semgrep/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, security]
+
+- id: tci-sonar-semgrep-windows
+  name: "SonarScanner & Semgrep caches"
+  description: "Removes regenerable SonarScanner & Semgrep caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.sonar/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, security]
+
+- id: tci-snyk-codeql-macos
+  name: "Snyk & CodeQL CLI caches"
+  description: "Removes regenerable Snyk & CodeQL CLI caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/snyk"
+  - "$HOME/.codeql/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-snyk-codeql-linux
+  name: "Snyk & CodeQL CLI caches"
+  description: "Removes regenerable Snyk & CodeQL CLI caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/snyk"
+  - "$HOME/.codeql/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-snyk-codeql-windows
+  name: "Snyk & CodeQL CLI caches"
+  description: "Removes regenerable Snyk & CodeQL CLI caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/snyk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-buf-renovate-macos
+  name: "Buf schema & Renovate caches"
+  description: "Removes regenerable Buf schema & Renovate caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/buf"
+  - "$HOME/.cache/buf"
+  - "$HOME/.cache/renovate"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-buf-renovate-linux
+  name: "Buf schema & Renovate caches"
+  description: "Removes regenerable Buf schema & Renovate caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/buf"
+  - "$HOME/.cache/renovate"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-buf-renovate-windows
+  name: "Buf schema & Renovate caches"
+  description: "Removes regenerable Buf schema & Renovate caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/buf/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-vale-cspell-macos
+  name: "Vale, cspell, and Lychee caches"
+  description: "Removes regenerable Vale, cspell, and Lychee caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/vale"
+  - "$HOME/.cache/vale"
+  - "$HOME/.cache/lychee"
+  - "$HOME/.cache/cspell"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, docs]
+
+- id: tci-vale-cspell-linux
+  name: "Vale, cspell, and Lychee caches"
+  description: "Removes regenerable Vale, cspell, and Lychee caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/vale"
+  - "$HOME/.cache/lychee"
+  - "$HOME/.cache/cspell"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, docs]
+
+- id: tci-vale-cspell-windows
+  name: "Vale, cspell, and Lychee caches"
+  description: "Removes regenerable Vale, cspell, and Lychee caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/vale/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, docs]
+
+- id: tci-checkov-tfsec-macos
+  name: "Checkov, TFSec & Aqua caches"
+  description: "Removes regenerable Checkov, TFSec & Aqua caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/checkov"
+  - "$HOME/.cache/tfsec"
+  - "$HOME/.local/share/aquaproj-aqua/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-checkov-tfsec-linux
+  name: "Checkov, TFSec & Aqua caches"
+  description: "Removes regenerable Checkov, TFSec & Aqua caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/checkov"
+  - "$HOME/.cache/tfsec"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-checkov-tfsec-windows
+  name: "Checkov, TFSec & Aqua caches"
+  description: "Removes regenerable Checkov, TFSec & Aqua caches; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/checkov/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-allure-k6-jmeter-macos
+  name: "Allure, k6 & JMeter report/cache"
+  description: "Removes regenerable Allure, k6 & JMeter report/cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.allure/cache"
+  - "$HOME/.cache/k6"
+  - "$HOME/.jmeter/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-allure-k6-jmeter-linux
+  name: "Allure, k6 & JMeter report/cache"
+  description: "Removes regenerable Allure, k6 & JMeter report/cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.allure/cache"
+  - "$HOME/.cache/k6"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-allure-k6-jmeter-windows
+  name: "Allure, k6 & JMeter report/cache"
+  description: "Removes regenerable Allure, k6 & JMeter report/cache; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.allure/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-gradle-daemon-logs-macos
+  name: "Gradle daemon logs and old wrapper zips"
+  description: "Removes regenerable Gradle daemon logs and old wrapper zips; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.gradle/daemon"
+  - "$HOME/.gradle/jdks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, java]
+
+- id: tci-gradle-daemon-logs-linux
+  name: "Gradle daemon logs and old wrapper zips"
+  description: "Removes regenerable Gradle daemon logs and old wrapper zips; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.gradle/daemon"
+  - "$HOME/.gradle/jdks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, java]
+
+- id: tci-gradle-daemon-logs-windows
+  name: "Gradle daemon logs and old wrapper zips"
+  description: "Removes regenerable Gradle daemon logs and old wrapper zips; source repositories, credentials, and test definitions are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.gradle/daemon"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, java]
+
+- id: tci-gradle-transforms-macos
+  name: "Gradle transform caches"
+  description: "Removes regenerable transforms-* caches inside ~/.gradle/caches; Gradle properties and wrapper configurations are preserved."
+  category: testing-ci
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.gradle/caches"
+  include_globs:
+  - "transforms-*"
+  - "modules-2/files-2.1"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 2
+  tags: [testing-ci, java, build-cache]
+
+- id: tci-gradle-transforms-linux
+  name: "Gradle transform caches"
+  description: "Removes regenerable transforms-* caches inside ~/.gradle/caches; Gradle properties and wrapper configurations are preserved."
+  category: testing-ci
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.gradle/caches"
+  include_globs:
+  - "transforms-*"
+  - "modules-2/files-2.1"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 2
+  tags: [testing-ci, java, build-cache]
+
+- id: tci-gradle-transforms-windows
+  name: "Gradle transform caches"
+  description: "Removes regenerable transforms-* caches inside ~/.gradle/caches; Gradle properties and wrapper configurations are preserved."
+  category: testing-ci
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.gradle/caches"
+  include_globs:
+  - "transforms-*"
+  - "modules-2/files-2.1"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 2
+  tags: [testing-ci, java, build-cache]
+
+- id: tci-rubocop-phpstan-macos
+  name: "RuboCop & PHPStan static analyzer caches and logs"
+  description: "Removes regenerable RuboCop & PHPStan static analyzer cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/rubocop_cache"
+  - "$HOME/Library/Logs/rubocop_cache"
+  - "$HOME/.cache/rubocop_cache"
+  - "$HOME/Library/Caches/phpstan"
+  - "$HOME/Library/Logs/phpstan"
+  - "$HOME/.cache/phpstan"
+  - "$HOME/Library/Caches/psalm"
+  - "$HOME/Library/Logs/psalm"
+  - "$HOME/.cache/psalm"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-rubocop-phpstan-linux
+  name: "RuboCop & PHPStan static analyzer caches and logs"
+  description: "Removes regenerable RuboCop & PHPStan static analyzer XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/rubocop_cache"
+  - "$XDG_CACHE_HOME/rubocop_cache"
+  - "$HOME/.cache/phpstan"
+  - "$XDG_CACHE_HOME/phpstan"
+  - "$HOME/.cache/psalm"
+  - "$XDG_CACHE_HOME/psalm"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-rubocop-phpstan-windows
+  name: "RuboCop & PHPStan static analyzer caches and logs"
+  description: "Removes regenerable RuboCop & PHPStan static analyzer LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/rubocop_cache/cache"
+  - "%LOCALAPPDATA%/rubocop_cache/logs"
+  - "%LOCALAPPDATA%/phpstan/cache"
+  - "%LOCALAPPDATA%/phpstan/logs"
+  - "%LOCALAPPDATA%/psalm/cache"
+  - "%LOCALAPPDATA%/psalm/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-hadolint-shellcheck-macos
+  name: "Hadolint, ShellCheck & markdownlint caches and logs"
+  description: "Removes regenerable Hadolint, ShellCheck & markdownlint cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/hadolint"
+  - "$HOME/Library/Logs/hadolint"
+  - "$HOME/.cache/hadolint"
+  - "$HOME/Library/Caches/shellcheck"
+  - "$HOME/Library/Logs/shellcheck"
+  - "$HOME/.cache/shellcheck"
+  - "$HOME/Library/Caches/markdownlint-cli2"
+  - "$HOME/Library/Logs/markdownlint-cli2"
+  - "$HOME/.cache/markdownlint-cli2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-hadolint-shellcheck-linux
+  name: "Hadolint, ShellCheck & markdownlint caches and logs"
+  description: "Removes regenerable Hadolint, ShellCheck & markdownlint XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/hadolint"
+  - "$XDG_CACHE_HOME/hadolint"
+  - "$HOME/.cache/shellcheck"
+  - "$XDG_CACHE_HOME/shellcheck"
+  - "$HOME/.cache/markdownlint-cli2"
+  - "$XDG_CACHE_HOME/markdownlint-cli2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-hadolint-shellcheck-windows
+  name: "Hadolint, ShellCheck & markdownlint caches and logs"
+  description: "Removes regenerable Hadolint, ShellCheck & markdownlint LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/hadolint/cache"
+  - "%LOCALAPPDATA%/hadolint/logs"
+  - "%LOCALAPPDATA%/shellcheck/cache"
+  - "%LOCALAPPDATA%/shellcheck/logs"
+  - "%LOCALAPPDATA%/markdownlint-cli2/cache"
+  - "%LOCALAPPDATA%/markdownlint-cli2/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev]
+
+- id: tci-gatling-webdriverio-macos
+  name: "Gatling & WebdriverIO caches and logs"
+  description: "Removes regenerable Gatling & WebdriverIO cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/gatling"
+  - "$HOME/Library/Logs/gatling"
+  - "$HOME/.cache/gatling"
+  - "$HOME/Library/Caches/wdio"
+  - "$HOME/Library/Logs/wdio"
+  - "$HOME/.cache/wdio"
+  - "$HOME/Library/Caches/testcafe"
+  - "$HOME/Library/Logs/testcafe"
+  - "$HOME/.cache/testcafe"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-gatling-webdriverio-linux
+  name: "Gatling & WebdriverIO caches and logs"
+  description: "Removes regenerable Gatling & WebdriverIO XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/gatling"
+  - "$XDG_CACHE_HOME/gatling"
+  - "$HOME/.cache/wdio"
+  - "$XDG_CACHE_HOME/wdio"
+  - "$HOME/.cache/testcafe"
+  - "$XDG_CACHE_HOME/testcafe"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-gatling-webdriverio-windows
+  name: "Gatling & WebdriverIO caches and logs"
+  description: "Removes regenerable Gatling & WebdriverIO LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/gatling/cache"
+  - "%LOCALAPPDATA%/gatling/logs"
+  - "%LOCALAPPDATA%/wdio/cache"
+  - "%LOCALAPPDATA%/wdio/logs"
+  - "%LOCALAPPDATA%/testcafe/cache"
+  - "%LOCALAPPDATA%/testcafe/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-pants-pytest-hypothesis-macos
+  name: "Hypothesis & Schemathesis global cache caches and logs"
+  description: "Removes regenerable Hypothesis & Schemathesis global cache cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/hypothesis"
+  - "$HOME/Library/Logs/hypothesis"
+  - "$HOME/.cache/hypothesis"
+  - "$HOME/Library/Caches/schemathesis"
+  - "$HOME/Library/Logs/schemathesis"
+  - "$HOME/.cache/schemathesis"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, python]
+
+- id: tci-pants-pytest-hypothesis-linux
+  name: "Hypothesis & Schemathesis global cache caches and logs"
+  description: "Removes regenerable Hypothesis & Schemathesis global cache XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/hypothesis"
+  - "$XDG_CACHE_HOME/hypothesis"
+  - "$HOME/.cache/schemathesis"
+  - "$XDG_CACHE_HOME/schemathesis"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, python]
+
+- id: tci-pants-pytest-hypothesis-windows
+  name: "Hypothesis & Schemathesis global cache caches and logs"
+  description: "Removes regenerable Hypothesis & Schemathesis global cache LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/hypothesis/cache"
+  - "%LOCALAPPDATA%/hypothesis/logs"
+  - "%LOCALAPPDATA%/schemathesis/cache"
+  - "%LOCALAPPDATA%/schemathesis/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing, python]
+
+- id: tci-buildkite-woodpecker-macos
+  name: "Buildkite, Woodpecker & Tekton CLI caches and logs"
+  description: "Removes regenerable Buildkite, Woodpecker & Tekton CLI cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/buildkite-agent"
+  - "$HOME/Library/Logs/buildkite-agent"
+  - "$HOME/.cache/buildkite-agent"
+  - "$HOME/Library/Caches/woodpecker"
+  - "$HOME/Library/Logs/woodpecker"
+  - "$HOME/.cache/woodpecker"
+  - "$HOME/Library/Caches/tkn"
+  - "$HOME/Library/Logs/tkn"
+  - "$HOME/.cache/tkn"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-buildkite-woodpecker-linux
+  name: "Buildkite, Woodpecker & Tekton CLI caches and logs"
+  description: "Removes regenerable Buildkite, Woodpecker & Tekton CLI XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/buildkite-agent"
+  - "$XDG_CACHE_HOME/buildkite-agent"
+  - "$HOME/.cache/woodpecker"
+  - "$XDG_CACHE_HOME/woodpecker"
+  - "$HOME/.cache/tkn"
+  - "$XDG_CACHE_HOME/tkn"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-buildkite-woodpecker-windows
+  name: "Buildkite, Woodpecker & Tekton CLI caches and logs"
+  description: "Removes regenerable Buildkite, Woodpecker & Tekton CLI LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/buildkite-agent/cache"
+  - "%LOCALAPPDATA%/buildkite-agent/logs"
+  - "%LOCALAPPDATA%/woodpecker/cache"
+  - "%LOCALAPPDATA%/woodpecker/logs"
+  - "%LOCALAPPDATA%/tkn/cache"
+  - "%LOCALAPPDATA%/tkn/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci]
+
+- id: tci-sauce-browserstack-macos
+  name: "BrowserStack Local & Sauce Connect caches and logs"
+  description: "Removes regenerable BrowserStack Local & Sauce Connect cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/browserstack"
+  - "$HOME/Library/Logs/browserstack"
+  - "$HOME/.cache/browserstack"
+  - "$HOME/Library/Caches/sauce-connect"
+  - "$HOME/Library/Logs/sauce-connect"
+  - "$HOME/.cache/sauce-connect"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-sauce-browserstack-linux
+  name: "BrowserStack Local & Sauce Connect caches and logs"
+  description: "Removes regenerable BrowserStack Local & Sauce Connect XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/browserstack"
+  - "$XDG_CACHE_HOME/browserstack"
+  - "$HOME/.cache/sauce-connect"
+  - "$XDG_CACHE_HOME/sauce-connect"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-sauce-browserstack-windows
+  name: "BrowserStack Local & Sauce Connect caches and logs"
+  description: "Removes regenerable BrowserStack Local & Sauce Connect LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/browserstack/cache"
+  - "%LOCALAPPDATA%/browserstack/logs"
+  - "%LOCALAPPDATA%/sauce-connect/cache"
+  - "%LOCALAPPDATA%/sauce-connect/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-bazelisk-macos
+  name: "Bazelisk binary caches and logs"
+  description: "Removes regenerable Bazelisk binary cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/bazelisk"
+  - "$HOME/Library/Logs/bazelisk"
+  - "$HOME/.cache/bazelisk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-bazelisk-linux
+  name: "Bazelisk binary caches and logs"
+  description: "Removes regenerable Bazelisk binary XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/bazelisk"
+  - "$XDG_CACHE_HOME/bazelisk"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-bazelisk-windows
+  name: "Bazelisk binary caches and logs"
+  description: "Removes regenerable Bazelisk binary LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/bazelisk/cache"
+  - "%LOCALAPPDATA%/bazelisk/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, dev, build-cache]
+
+- id: tci-esbuild-swc-macos
+  name: "esbuild & SWC binary caches and logs"
+  description: "Removes regenerable esbuild & SWC binary cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/esbuild"
+  - "$HOME/Library/Logs/esbuild"
+  - "$HOME/.cache/esbuild"
+  - "$HOME/Library/Caches/swc"
+  - "$HOME/Library/Logs/swc"
+  - "$HOME/.cache/swc"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, build-cache]
+
+- id: tci-esbuild-swc-linux
+  name: "esbuild & SWC binary caches and logs"
+  description: "Removes regenerable esbuild & SWC binary XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/esbuild"
+  - "$XDG_CACHE_HOME/esbuild"
+  - "$HOME/.cache/swc"
+  - "$XDG_CACHE_HOME/swc"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, build-cache]
+
+- id: tci-esbuild-swc-windows
+  name: "esbuild & SWC binary caches and logs"
+  description: "Removes regenerable esbuild & SWC binary LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/esbuild/cache"
+  - "%LOCALAPPDATA%/esbuild/logs"
+  - "%LOCALAPPDATA%/swc/cache"
+  - "%LOCALAPPDATA%/swc/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, build-cache]
+
+- id: tci-oxlint-macos
+  name: "oxlint & oxc caches and logs"
+  description: "Removes regenerable oxlint & oxc cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/oxlint"
+  - "$HOME/Library/Logs/oxlint"
+  - "$HOME/.cache/oxlint"
+  - "$HOME/Library/Caches/oxc"
+  - "$HOME/Library/Logs/oxc"
+  - "$HOME/.cache/oxc"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, dev]
+
+- id: tci-oxlint-linux
+  name: "oxlint & oxc caches and logs"
+  description: "Removes regenerable oxlint & oxc XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/oxlint"
+  - "$XDG_CACHE_HOME/oxlint"
+  - "$HOME/.cache/oxc"
+  - "$XDG_CACHE_HOME/oxc"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, dev]
+
+- id: tci-oxlint-windows
+  name: "oxlint & oxc caches and logs"
+  description: "Removes regenerable oxlint & oxc LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/oxlint/cache"
+  - "%LOCALAPPDATA%/oxlint/logs"
+  - "%LOCALAPPDATA%/oxc/cache"
+  - "%LOCALAPPDATA%/oxc/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, nodejs, dev]
+
+- id: tci-cargo-nextest-macos
+  name: "cargo-nextest & llvm-cov caches and logs"
+  description: "Removes regenerable cargo-nextest & llvm-cov cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/nextest"
+  - "$HOME/Library/Logs/nextest"
+  - "$HOME/.cache/nextest"
+  - "$HOME/Library/Caches/cargo-llvm-cov"
+  - "$HOME/Library/Logs/cargo-llvm-cov"
+  - "$HOME/.cache/cargo-llvm-cov"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, rust, testing]
+
+- id: tci-cargo-nextest-linux
+  name: "cargo-nextest & llvm-cov caches and logs"
+  description: "Removes regenerable cargo-nextest & llvm-cov XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/nextest"
+  - "$XDG_CACHE_HOME/nextest"
+  - "$HOME/.cache/cargo-llvm-cov"
+  - "$XDG_CACHE_HOME/cargo-llvm-cov"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, rust, testing]
+
+- id: tci-cargo-nextest-windows
+  name: "cargo-nextest & llvm-cov caches and logs"
+  description: "Removes regenerable cargo-nextest & llvm-cov LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/nextest/cache"
+  - "%LOCALAPPDATA%/nextest/logs"
+  - "%LOCALAPPDATA%/cargo-llvm-cov/cache"
+  - "%LOCALAPPDATA%/cargo-llvm-cov/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, rust, testing]
+
+- id: tci-trufflehog-macos
+  name: "TruffleHog & Gitleaks caches and logs"
+  description: "Removes regenerable TruffleHog & Gitleaks cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/trufflehog"
+  - "$HOME/Library/Logs/trufflehog"
+  - "$HOME/.cache/trufflehog"
+  - "$HOME/Library/Caches/gitleaks"
+  - "$HOME/Library/Logs/gitleaks"
+  - "$HOME/.cache/gitleaks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-trufflehog-linux
+  name: "TruffleHog & Gitleaks caches and logs"
+  description: "Removes regenerable TruffleHog & Gitleaks XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/trufflehog"
+  - "$XDG_CACHE_HOME/trufflehog"
+  - "$HOME/.cache/gitleaks"
+  - "$XDG_CACHE_HOME/gitleaks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-trufflehog-windows
+  name: "TruffleHog & Gitleaks caches and logs"
+  description: "Removes regenerable TruffleHog & Gitleaks LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/trufflehog/cache"
+  - "%LOCALAPPDATA%/trufflehog/logs"
+  - "%LOCALAPPDATA%/gitleaks/cache"
+  - "%LOCALAPPDATA%/gitleaks/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, security, ci]
+
+- id: tci-actionlint-macos
+  name: "actionlint & zizmor caches and logs"
+  description: "Removes regenerable actionlint & zizmor cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/actionlint"
+  - "$HOME/Library/Logs/actionlint"
+  - "$HOME/.cache/actionlint"
+  - "$HOME/Library/Caches/zizmor"
+  - "$HOME/Library/Logs/zizmor"
+  - "$HOME/.cache/zizmor"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci, security]
+
+- id: tci-actionlint-linux
+  name: "actionlint & zizmor caches and logs"
+  description: "Removes regenerable actionlint & zizmor XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/actionlint"
+  - "$XDG_CACHE_HOME/actionlint"
+  - "$HOME/.cache/zizmor"
+  - "$XDG_CACHE_HOME/zizmor"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci, security]
+
+- id: tci-actionlint-windows
+  name: "actionlint & zizmor caches and logs"
+  description: "Removes regenerable actionlint & zizmor LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/actionlint/cache"
+  - "%LOCALAPPDATA%/actionlint/logs"
+  - "%LOCALAPPDATA%/zizmor/cache"
+  - "%LOCALAPPDATA%/zizmor/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, ci, security]
+
+- id: tci-artillery-locust-macos
+  name: "Artillery & Locust caches and logs"
+  description: "Removes regenerable Artillery & Locust cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/artillery"
+  - "$HOME/Library/Logs/artillery"
+  - "$HOME/.cache/artillery"
+  - "$HOME/Library/Caches/locust"
+  - "$HOME/Library/Logs/locust"
+  - "$HOME/.cache/locust"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-artillery-locust-linux
+  name: "Artillery & Locust caches and logs"
+  description: "Removes regenerable Artillery & Locust XDG cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/artillery"
+  - "$XDG_CACHE_HOME/artillery"
+  - "$HOME/.cache/locust"
+  - "$XDG_CACHE_HOME/locust"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]
+
+- id: tci-artillery-locust-windows
+  name: "Artillery & Locust caches and logs"
+  description: "Removes regenerable Artillery & Locust LocalAppData cache and log files; configs and state are preserved."
+  category: testing-ci
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/artillery/cache"
+  - "%LOCALAPPDATA%/artillery/logs"
+  - "%LOCALAPPDATA%/locust/cache"
+  - "%LOCALAPPDATA%/locust/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [testing-ci, testing]

@@ -1,6 +1,6 @@
 # Space Scanner — Unified Plan
 
-Single authoritative planning document consolidating the UX interaction specification (`docs/UX.md`), Top-200 (`P0`) execution waves (`docs/ROADMAP-200.md`), and the complete 1,125-item feature backlog (`docs/FEATURES.md` / `docs/features_items.json`), plus forward performance work from [PERF.md](PERF.md).
+The next release plan appears first, followed by the UX specification, the original Top-200 checklist, and the feature backlog.
 
 Companion reference docs:
 - Performance benchmarks and measurements: [PERF.md](PERF.md)
@@ -9,9 +9,29 @@ Companion reference docs:
 
 ## Contents
 
+- [0. Next release](#0-next-release)
 - [1. Product & UX Plan](#1-product--ux-plan)
 - [2. Top-200 Execution Roadmap (P0)](#2-top-200-execution-roadmap-p0)
 - [3. Feature Backlog (F0001–F1125)](#3-feature-backlog-f0001f1125)
+
+---
+
+## 0. Next release
+
+**Goal:** help users identify where disk space went, decide what can be cleared, and understand the outcome of each cleanup action.
+
+**Baseline reviewed on 2026-11-18.** Commit `6778f86` contains Quick Clean category sorting and Downloads archive exclusion. The working tree adds cleanup engine and rule changes, Quick Clean changes, and five read-only CLI scenarios. The original checklist records 200 completed P0 items. The gates below apply to the next release candidate.
+
+| Order | Deliverable | Acceptance |
+| --- | --- | --- |
+| 1 | Safe cleanup | On temporary fixtures, cover Trash and permanent deletion via their normal entry points. Verify that report-only findings, protected paths, and replaced paths are refused, overlapping selections are counted once, and partial failures remain visible. On macOS, verify Finder recovery for a trashed fixture and the separate permanent-delete confirmation. |
+| 2 | Useful, read-only diagnostics | Exercise Docker volumes and the five new scenarios with fixtures or controlled command output. Check human-readable and JSON reports, missing tools and unreadable paths, sparse-image allocated vs apparent size, and clear treatment of worktrees, profiles, databases, and VM disks that require review. Verify that running a scenario leaves fixture contents intact. |
+| 3 | Quick Clean and Folders acceptance | Launch the packaged macOS app and walk through scan → inspect → select → review → Trash → refresh. Check that switching tabs preserves checked items, that partial and historical scans are labelled, and that selected bytes and actual available capacity are shown separately. Use EN and RU, narrow and wide layouts, and keyboard navigation. |
+| 4 | Release and performance checks | Require formatting, Clippy, and workspace tests on the existing macOS/Linux/Windows matrix. Launch the macOS artifact with its shipped rule pack, and exercise the full catalog separately. Compare release builds on the same fixtures for scan wall time, peak memory, and time to first Quick Clean results. Record machine, fixture, cold/warm conditions, and results against the baseline before signing off. |
+
+**Verification status (2026-11-20, macOS `--locked`):** Restored `rules/categories/dev.yaml` and `Cargo.lock` (`rmcp-macros` kept at `3.1.2`, `libc` added for `space-clean`), added Finder Trash 32-item/per-item error fallback in `space-clean`, and excluded TCC-protected Apple daemon caches and `.app` bundles under `$HOME/.codex/computer-use`. Passed: `cargo fmt --all -- --check`, `cargo clippy --workspace --all-targets --locked -- -D warnings`, `./target/release/space-tools deduplicate` (`Duplicate rules: 0`), `./target/release/space rules status` (`1,534,387` rules / `513,309` macOS), `cargo test -p space-clean --release --locked` (58/58), `cargo test --workspace --exclude space-clean --locked` (55/55 active + 1 ignored `space-app` manual profile, 8/8 `space-cli`, 26/26 `space-core`, 2/2 `space-mcp`, 9/9 `space-tools`), all 6 read-only `space scenario` commands (`--json`), temporary-fixture Trash/recovery + `--permanent` deletion, `./target/release/space-tools dist --no-generated` (`SpaceScanner.app`), `scan_profile crates` (`median_ms=0.309`), and `present_scan_profile` (`median_ms=77.113`). Linux/Windows CI matrix and interactive GUI click-through remain separate acceptance checks.
+
+After release acceptance, prioritize backlog items by observed user friction in scan coverage, cleanup review, and recovery. Reserved feature IDs carry no release commitments.
 
 ---
 
@@ -21,16 +41,16 @@ The primary job is to answer **"what is taking up space, and what can I safely c
 
 ### 1.1 User journey
 
-1. **Quick clean**: present safe caches/logs, manual Downloads review items (installers, archives, large unused downloads), items needing review, and local Time Machine snapshots in a single uncluttered list with checkboxes.
+1. **Quick clean**: present safe caches/logs, manual Downloads review items (installers and large non-archive entries), items needing review, and local Time Machine snapshots in a single uncluttered list with checkboxes.
 2. **Folders (Disk usage)**: scan a chosen target (Home, a specific folder, or a disk) or open a saved result. Saved results are explicitly historical: opening one is immediate, and updating it is an explicit rescan.
 3. **Explore & Select**: show the current folder, its children ranked by size, and a visual map of the same children. Keep location and search controls in a workspace sub-bar separate from global navigation. A single click selects an item and reveals its details; a second explicit action or double-click opens a folder. Selection does not imply removal.
 4. **Basket / Review**: collect explicitly checked cleanup items, Downloads items, and manually queued files/folders in one persistent bottom Basket bar and review drawer. Switching between `Quick clean` and `Folders` preserves checked items without starting extra scans or preselecting risky items.
-5. **Move to Trash**: confirm with an explicit list of paths, item count, and checked bytes. Report actual successes and failures. Checked bytes are not a prediction of newly available disk capacity.
+5. **Cleanup action**: default to Move to Trash and show the paths, item count, and checked bytes in the confirmation. Permanent deletion has a separate action and confirmation. Report actual successes and failures, and display checked bytes separately from volume capacity.
 6. **Update & Snapshots**: refresh the affected folder, cleanup list, and disk capacity; remind the user that Finder's Trash must be emptied to release space. Local Time Machine snapshots stay behind their own permanent-removal confirmation.
 
 ### 1.2 Screen responsibilities
 
-- **Quick clean (`Mode::Clean`)**: default streamlined workspace for freeing space. Groups safe caches (`JunkGroup::Safe`), large/installer/archive Downloads (`downloads.rs`), optional review-needed junk (`JunkGroup::Review`), and local snapshots summary. Report-only findings cannot enter the removal selection. A rule classification is guidance, not a guarantee of safety; scanning and selecting remain separate actions.
+- **Quick clean (`Mode::Clean`)**: default streamlined workspace for freeing space. Groups safe caches (`JunkGroup::Safe`), installers and large non-archive Downloads entries (`downloads.rs`), optional review-needed junk (`JunkGroup::Review`), and local snapshots summary. Report-only findings cannot enter the removal selection. A rule classification is guidance, not a guarantee of safety; scanning and selecting remain separate actions.
 - **Folders / Disk usage (`Mode::Explore`)**: size-ranked contents list paired with the visual map (Sunburst, Container treemap, Radial, Cascade). When no tree is loaded (or when picking a target), offers a streamlined scan target chooser (Home folder, specific folder, volumes, and individually actionable saved results). The inspector appears only when an item is selected: its primary action for folders is Open folder, Show in Finder verifies contents, and Add to Trash basket is a secondary choice. Avoid duplicating largest-child lists between inspector and contents.
 - **Basket bar & review drawer**: shown at the bottom whenever at least one item is checked. Deduplicates overlapping paths before computing totals or trashing, lets users inspect and uncheck individual paths or clear all, and opens the Trash confirmation modal.
 - **Secondary dialogs & `⋯` menu**: keeps Scan targets, Time Machine Snapshots, Rules manager, Settings, Appearance (Dark/Light skins), Keyboard shortcuts (`?`), and Language (`EN`/`RU`) accessible without crowding primary screens.

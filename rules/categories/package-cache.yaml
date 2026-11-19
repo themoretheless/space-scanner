@@ -1125,9 +1125,9 @@ rules:
 - name: Cargo git checkouts
   description: Working trees of git dependencies (git/db already covered).
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
+  risk: medium
+  default_enabled: true
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   id: dev-cargo-git-checkouts-macos
@@ -1137,9 +1137,9 @@ rules:
 - name: Cargo git checkouts
   description: Working trees of git dependencies (git/db already covered).
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
+  risk: medium
+  default_enabled: true
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   id: dev-cargo-git-checkouts-linux
@@ -1150,8 +1150,8 @@ rules:
   description: Downloaded crate sources/cache (not target/ build dirs).
   category: package-cache
   risk: medium
-  default_enabled: false
-  min_age_days: 30
+  default_enabled: true
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   id: dev-cargo-registry-cache-macos
@@ -1163,8 +1163,8 @@ rules:
   description: Downloaded crate sources/cache (not target/ build dirs).
   category: package-cache
   risk: medium
-  default_enabled: false
-  min_age_days: 30
+  default_enabled: true
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   id: dev-cargo-registry-cache-linux
@@ -1175,9 +1175,9 @@ rules:
 - name: Cargo registry unpacked sources
   description: Unpacked crate sources under registry/src (registry/cache already covered).
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
+  risk: medium
+  default_enabled: true
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   id: dev-cargo-registry-src-macos
@@ -1187,9 +1187,9 @@ rules:
 - name: Cargo registry unpacked sources
   description: Unpacked crate sources under registry/src (registry/cache already covered).
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 30
+  risk: medium
+  default_enabled: true
+  min_age_days: 0
   delete_mode: contents
   max_depth: 4
   id: dev-cargo-registry-src-linux
@@ -1454,9 +1454,9 @@ rules:
 - name: NuGet package cache
   description: ".NET NuGet HTTP and global package cache."
   category: package-cache
-  risk: low
+  risk: medium
   default_enabled: true
-  min_age_days: 30
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
   id: dev-dotnet-nuget-cache-macos
@@ -1467,9 +1467,9 @@ rules:
 - name: NuGet package cache
   description: ".NET NuGet HTTP and global package cache."
   category: package-cache
-  risk: low
+  risk: medium
   default_enabled: true
-  min_age_days: 30
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
   id: dev-dotnet-nuget-cache-linux
@@ -1479,9 +1479,9 @@ rules:
 - name: NuGet package cache
   description: ".NET NuGet HTTP and global package cache."
   category: package-cache
-  risk: low
+  risk: medium
   default_enabled: true
-  min_age_days: 30
+  min_age_days: 7
   delete_mode: contents
   max_depth: 5
   id: dev-dotnet-nuget-cache-windows
@@ -1489,6 +1489,38 @@ rules:
   paths:
   - "%LOCALAPPDATA%/NuGet/Cache"
   - "%USERPROFILE%/.nuget/packages"
+- id: dev-nuget-http-cache-macos
+  name: NuGet HTTP, plugin, and scratch caches
+  description: Regenerable NuGet HTTP/v3/plugin caches and scratch files under ~/.local/share/NuGet (installed ~/.nuget/packages stay separate for review).
+  category: package-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.local/share/NuGet/http-cache"
+  - "$HOME/.local/share/NuGet/v3-cache"
+  - "$HOME/.local/share/NuGet/plugins-cache"
+  - "$HOME/.local/share/NuGet/Scratch"
+  delete_mode: contents
+  max_depth: 4
+  tags: [dotnet, nuget, cache]
+- id: dev-nuget-http-cache-linux
+  name: NuGet HTTP, plugin, and scratch caches
+  description: Regenerable NuGet HTTP/v3/plugin caches and scratch files under ~/.local/share/NuGet (installed ~/.nuget/packages stay separate for review).
+  category: package-cache
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.local/share/NuGet/http-cache"
+  - "$HOME/.local/share/NuGet/v3-cache"
+  - "$HOME/.local/share/NuGet/plugins-cache"
+  - "$HOME/.local/share/NuGet/Scratch"
+  delete_mode: contents
+  max_depth: 4
+  tags: [dotnet, nuget, cache]
 - name: dotnet template engine cache
   description: dotnet new template engine cache (not full SDK).
   category: package-cache
@@ -1888,9 +1920,9 @@ rules:
     may already be covered).
   category: package-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 1
   paths:
   - "$HOME/Library/Caches/Homebrew/downloads"
   - "$HOME/Library/Caches/Homebrew/Cask"
@@ -2105,9 +2137,9 @@ rules:
 - name: mise (rtx) cache
   description: mise version-manager cache and downloads.
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   delete_mode: contents
   max_depth: 5
   id: dev-mise-cache-macos
@@ -2118,9 +2150,9 @@ rules:
 - name: mise (rtx) cache
   description: mise version-manager cache and downloads.
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   delete_mode: contents
   max_depth: 5
   id: dev-mise-cache-linux
@@ -2188,26 +2220,32 @@ rules:
   category: package-cache
   risk: low
   default_enabled: true
-  min_age_days: 14
+  min_age_days: 1
   delete_mode: contents
   max_depth: 4
   id: dev-npm-cache-macos
   platform: macos
   paths:
-  - "$HOME/.npm/_cacache"
+  - "$HOME/.npm/_cacache/content-v2"
+  - "$HOME/.npm/_cacache/tmp"
+  - "$HOME/.npm/_logs"
+  - "$HOME/.npm/_npx"
   - "$HOME/Library/Caches/npm"
 - name: npm cache
   description: npm cache directory (regenerable).
   category: package-cache
   risk: low
   default_enabled: true
-  min_age_days: 14
+  min_age_days: 1
   delete_mode: contents
   max_depth: 4
   id: dev-npm-cache-linux
   platform: linux
   paths:
-  - "$HOME/.npm/_cacache"
+  - "$HOME/.npm/_cacache/content-v2"
+  - "$HOME/.npm/_cacache/tmp"
+  - "$HOME/.npm/_logs"
+  - "$HOME/.npm/_npx"
 - name: Alternate npm cache path
   description: npm cache when configured under ~/.npm-cache-user (DevCacheCleaner
     path).
@@ -2796,19 +2834,20 @@ rules:
   category: package-cache
   risk: low
   default_enabled: true
-  min_age_days: 7
+  min_age_days: 1
   delete_mode: contents
   max_depth: 3
   id: dev-rustup-tmp-macos
   platform: macos
   paths:
+  - "$HOME/.rustup/tmp"
   - "$HOME/.rustup/downloads"
 - name: Rustup temp downloads
   description: Rustup toolchain download temp files.
   category: package-cache
   risk: low
   default_enabled: true
-  min_age_days: 7
+  min_age_days: 1
   delete_mode: contents
   max_depth: 3
   id: dev-rustup-tmp-linux
@@ -3028,9 +3067,9 @@ rules:
 - name: uv package cache
   description: Astral uv wheel/sdist caches (regenerable).
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   delete_mode: contents
   max_depth: 6
   id: dev-uv-cache-macos
@@ -3041,9 +3080,9 @@ rules:
 - name: uv package cache
   description: Astral uv wheel/sdist caches (regenerable).
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   delete_mode: contents
   max_depth: 6
   id: dev-uv-cache-linux
@@ -3551,9 +3590,9 @@ rules:
   description: prefix.dev pixi shared rattler cache including pkgs, repodata, uv-cache,
     and http-cache subdirs.
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   delete_mode: contents
   max_depth: 8
   id: exotic-pixi-rattler-deep-cache-macos
@@ -3569,9 +3608,9 @@ rules:
   description: prefix.dev pixi shared rattler cache including pkgs, repodata, uv-cache,
     and http-cache subdirs.
   category: package-cache
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   delete_mode: contents
   max_depth: 8
   id: exotic-pixi-rattler-deep-cache-linux
@@ -5720,3 +5759,89 @@ rules:
   - "**/tilt_modules/**"
   - "**/.helm/**"
   - "**/cache/**"
+- id: dev-homebrew-prefix-tmp-logs-macos
+  name: Homebrew prefix staging temp and service logs
+  description: Removes stale Homebrew download/build staging under /opt/homebrew/var/homebrew/tmp and service logs under /opt/homebrew/var/log; cellar formulas, sockets, pids, and lockfiles are preserved.
+  category: package-cache
+  platform: macos
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "/opt/homebrew/var/homebrew/tmp"
+  - "/opt/homebrew/var/log"
+  exclude_globs:
+  - "*.sock"
+  - "*.pid"
+  - "*.lock"
+  delete_mode: contents
+  max_depth: 5
+  tags: [homebrew, temp, logs]
+- id: dev-linuxbrew-tmp-logs-linux
+  name: Linuxbrew prefix staging temp
+  description: Removes stale Linuxbrew download/build staging under /home/linuxbrew/.linuxbrew/var/homebrew/tmp and ~/.linuxbrew/var/homebrew/tmp; installed cellar packages are preserved.
+  category: package-cache
+  platform: linux
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "/home/linuxbrew/.linuxbrew/var/homebrew/tmp"
+  - "$HOME/.linuxbrew/var/homebrew/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [homebrew, temp]
+- id: dev-uv-cache-windows
+  name: uv package cache
+  description: Astral uv wheel and source distribution cache (regenerable); virtualenvs and projects are preserved.
+  category: package-cache
+  platform: windows
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/uv/cache"
+  delete_mode: contents
+  max_depth: 6
+- id: dev-bun-cache-windows
+  name: Bun install cache
+  description: Bun JavaScript runtime global package cache (regenerable); global tools and projects are preserved.
+  category: package-cache
+  platform: windows
+  risk: medium
+  kind: packages
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.bun/install/cache"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-mise-cache-windows
+  name: mise (rtx) cache
+  description: mise version-manager download and tool cache (regenerable).
+  category: package-cache
+  platform: windows
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/mise/cache"
+  delete_mode: contents
+  max_depth: 5
+- id: dev-pixi-rattler-cache-windows
+  name: Pixi / rattler package cache
+  description: prefix.dev pixi shared rattler package and repodata cache (regenerable).
+  category: package-cache
+  platform: windows
+  risk: low
+  kind: packages
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/rattler/cache"
+  delete_mode: contents
+  max_depth: 6

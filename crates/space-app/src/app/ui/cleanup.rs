@@ -39,7 +39,7 @@ impl SpaceApp {
                     .id_salt("quick_clean_scroll")
                     .auto_shrink([false, false])
                     .show(ui, |ui| {
-                        page_column(ui, 860.0, |ui| {
+                        page_column(ui, f32::INFINITY, |ui| {
                             ui.add_space(4.0);
                             self.quick_clean_header_card(ui, &mut rescan, &mut open_rules);
                             ui.add_space(S3);

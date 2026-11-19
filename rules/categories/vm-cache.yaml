@@ -29,9 +29,9 @@ rules:
   description: "Inventories regenerable virtual-machine cache data for Parallels caches (not VMs); report only, never deleted."
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.parallels.desktop.console"
   - "$HOME/Library/Caches/com.parallels.desktop.console.ShipIt"
@@ -47,9 +47,9 @@ rules:
   description: "Inventories regenerable virtual-machine cache data for UTM caches (not VM images); report only, never deleted."
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.utmapp.UTM"
   - "$HOME/Library/Containers/com.utmapp.UTM/Data/Library/Caches"
@@ -61,9 +61,9 @@ rules:
   description: "Inventories regenerable virtual-machine cache data for VMware Fusion caches (not VMs); report only, never deleted."
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/com.vmware.fusion"
   - "$HOME/Library/Caches/com.vmware.fusion.ShipIt"
@@ -117,9 +117,9 @@ rules:
     clear; re-downloads on next limactl start.
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.cache/lima"
   delete_mode: contents
@@ -149,9 +149,9 @@ rules:
     locations. Not data disks.
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/.orbstack/log"
   - "$HOME/Library/Caches/dev.orbstack.OrbStack"
@@ -185,9 +185,9 @@ rules:
     Support. Not podman machine disks.
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Logs/Podman Desktop"
   - "$HOME/Library/Application Support/Podman Desktop/Cache"
@@ -206,9 +206,9 @@ rules:
     Not guest disk files.
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/qemu"
   - "$HOME/.cache/qemu"
@@ -222,9 +222,9 @@ rules:
     unless --cache; this targets caches/logs only.
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 3
   paths:
   - "$HOME/Library/Caches/rancher-desktop"
   - "$HOME/Library/Logs/rancher-desktop"
@@ -238,9 +238,9 @@ rules:
     vms/ stay report-only.
   category: vm-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: medium
+  default_enabled: true
+  min_age_days: 7
   paths:
   - "$HOME/.tart/cache"
   - "$HOME/.tart/cache/OCIs"

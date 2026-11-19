@@ -61,17 +61,22 @@ rules:
   - "**/leveldb/**"
 - id: app-bambu-studio-cache
   name: BambuStudio cache and logs
-  description: BambuStudio 3D slicer cache and log files.
+  description: BambuStudio and OrcaSlicer cache, log, and OTA update staging files; printer profiles and user presets are preserved.
   category: app-cache
   platform: macos
   risk: low
   default_enabled: true
-  min_age_days: 14
+  min_age_days: 1
   paths:
   - "$HOME/Library/Application Support/BambuStudio/cache"
+  - "$HOME/Library/Application Support/BambuStudio/log"
   - "$HOME/Library/Application Support/BambuStudio/logs"
+  - "$HOME/Library/Application Support/BambuStudio/ota"
   - "$HOME/Library/Application Support/BambuStudioBeta/cache"
+  - "$HOME/Library/Application Support/BambuStudioBeta/log"
   - "$HOME/Library/Application Support/BambuStudioBeta/logs"
+  - "$HOME/Library/Application Support/BambuStudioBeta/ota"
+  - "$HOME/Library/Application Support/OrcaSlicer/log"
   delete_mode: contents
   max_depth: 4
 - id: app-bitwarden-cache
@@ -176,7 +181,7 @@ rules:
   category: app-cache
   risk: low
   default_enabled: true
-  min_age_days: 7
+  min_age_days: 1
   delete_mode: contents
   max_depth: 4
   id: app-claude-cache-macos
@@ -192,7 +197,7 @@ rules:
   category: app-cache
   risk: low
   default_enabled: true
-  min_age_days: 7
+  min_age_days: 1
   delete_mode: contents
   max_depth: 4
   id: app-claude-cache-linux
@@ -594,16 +599,17 @@ rules:
   - "**/*.key"
 - id: app-kimi-cache
   name: Kimi desktop cache
-  description: Kimi desktop Electron cache and updater downloads.
+  description: Kimi desktop Electron cache, sentry crash dumps, and updater downloads.
   category: app-cache
   platform: macos
   risk: low
   default_enabled: true
-  min_age_days: 7
+  min_age_days: 1
   paths:
   - "$HOME/Library/Application Support/kimi-desktop/Cache"
   - "$HOME/Library/Application Support/kimi-desktop/Code Cache"
   - "$HOME/Library/Application Support/kimi-desktop/GPUCache"
+  - "$HOME/Library/Application Support/kimi-desktop/sentry"
   - "$HOME/Library/Caches/kimi-desktop-updater"
   delete_mode: contents
   max_depth: 4
@@ -1002,6 +1008,58 @@ rules:
   - "$HOME/Library/Logs/pCloud"
   delete_mode: contents
   max_depth: 6
+- id: app-pcloud-vfs-temp-macos
+  name: pCloud Drive temporary staging files
+  description: Temporary staging files under ~/.pcloud/temp; pCloud data.db and sync metadata are protected.
+  category: app-cache
+  platform: macos
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.pcloud/temp"
+  delete_mode: contents
+  max_depth: 4
+  tags: [pcloud, temp]
+- id: app-pcloud-vfs-temp-linux
+  name: pCloud Drive temporary staging files
+  description: Temporary staging files under ~/.pcloud/temp; pCloud data.db and sync metadata are protected.
+  category: app-cache
+  platform: linux
+  risk: low
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.pcloud/temp"
+  delete_mode: contents
+  max_depth: 4
+  tags: [pcloud, temp]
+- id: app-pcloud-vfs-cache-review-macos
+  name: pCloud Drive offline VFS cache
+  description: Large local VFS block cache under ~/.pcloud/Cache (data.db is protected). Ensure pCloud has finished uploading any pending local edits before clearing.
+  category: app-cache
+  platform: macos
+  risk: medium
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/.pcloud/Cache"
+  delete_mode: contents
+  max_depth: 4
+  tags: [pcloud, cache]
+- id: app-pcloud-vfs-cache-review-linux
+  name: pCloud Drive offline VFS cache
+  description: Large local VFS block cache under ~/.pcloud/Cache (data.db is protected). Ensure pCloud has finished uploading any pending local edits before clearing.
+  category: app-cache
+  platform: linux
+  risk: medium
+  default_enabled: true
+  min_age_days: 0
+  paths:
+  - "$HOME/.pcloud/Cache"
+  delete_mode: contents
+  max_depth: 4
+  tags: [pcloud, cache]
 - id: app-podman-desktop-cache
   name: Podman Desktop cache
   description: Podman Desktop Electron cache.
@@ -14935,9 +14993,9 @@ rules:
     settings.
   category: app-cache
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 7
+  risk: low
+  default_enabled: true
+  min_age_days: 1
   paths:
   - "$HOME/Library/Application Support/Cursor/Cache"
   - "$HOME/Library/Application Support/Cursor/CachedData"
@@ -14947,6 +15005,7 @@ rules:
   - "$HOME/Library/Application Support/Cursor/DawnWebGPUCache"
   - "$HOME/Library/Application Support/Cursor/CachedExtensionVSIXs"
   - "$HOME/Library/Application Support/Cursor/logs"
+  - "$HOME/Library/Application Support/Cursor/snapshots"
   - "$HOME/Library/Application Support/Cursor/Crashpad"
   - "$HOME/Library/Caches/com.todesktop.230313mzl4w4u92"
   - "$HOME/Library/Caches/com.todesktop.230313mzl4w4u92.ShipIt"

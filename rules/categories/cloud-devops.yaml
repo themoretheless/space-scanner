@@ -1,0 +1,3141 @@
+---
+pack: cloud-devops
+description: "Kubernetes, Infrastructure-as-Code, container security, and developer cloud CLI caches and logs; credentials and configs are preserved."
+rules:
+- id: cd-kubectl-http-macos
+  name: "kubectl HTTP discovery cache"
+  description: "Removes regenerable kubectl HTTP discovery caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.kube/http-cache"
+  - "$HOME/.kube/cache/discovery"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kubectl-http-linux
+  name: "kubectl HTTP discovery cache"
+  description: "Removes regenerable kubectl HTTP discovery caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.kube/http-cache"
+  - "$HOME/.kube/cache/discovery"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kubectl-http-windows
+  name: "kubectl HTTP discovery cache"
+  description: "Removes regenerable kubectl HTTP discovery caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.kube/http-cache"
+  - "%USERPROFILE%/.kube/cache/discovery"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-minikube-cache-logs-macos
+  name: "Minikube ISO and log cache"
+  description: "Removes regenerable Minikube ISO and log caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.minikube/cache"
+  - "$HOME/.minikube/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-minikube-cache-logs-linux
+  name: "Minikube ISO and log cache"
+  description: "Removes regenerable Minikube ISO and log caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.minikube/cache"
+  - "$HOME/.minikube/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-minikube-cache-logs-windows
+  name: "Minikube ISO and log cache"
+  description: "Removes regenerable Minikube ISO and log caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.minikube/cache"
+  - "%USERPROFILE%/.minikube/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-k3d-macos
+  name: "k3d local cluster cache"
+  description: "Removes regenerable k3d local cluster caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.k3d/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-k3d-linux
+  name: "k3d local cluster cache"
+  description: "Removes regenerable k3d local cluster caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.k3d/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-k3d-windows
+  name: "k3d local cluster cache"
+  description: "Removes regenerable k3d local cluster caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.k3d/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kind-macos
+  name: "kind node image cache"
+  description: "Removes regenerable kind node image caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.kind/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kind-linux
+  name: "kind node image cache"
+  description: "Removes regenerable kind node image caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.kind/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kind-windows
+  name: "kind node image cache"
+  description: "Removes regenerable kind node image caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.kind/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-talosctl-macos
+  name: "talosctl CLI cache"
+  description: "Removes regenerable talosctl CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.talos/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-talosctl-linux
+  name: "talosctl CLI cache"
+  description: "Removes regenerable talosctl CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.talos/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-talosctl-windows
+  name: "talosctl CLI cache"
+  description: "Removes regenerable talosctl CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.talos/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-cilium-macos
+  name: "Cilium CLI cache"
+  description: "Removes regenerable Cilium CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cilium/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-cilium-linux
+  name: "Cilium CLI cache"
+  description: "Removes regenerable Cilium CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cilium/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-cilium-windows
+  name: "Cilium CLI cache"
+  description: "Removes regenerable Cilium CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.cilium/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-argocd-macos
+  name: "Argo CD CLI cache"
+  description: "Removes regenerable Argo CD CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.argocd/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-argocd-linux
+  name: "Argo CD CLI cache"
+  description: "Removes regenerable Argo CD CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.argocd/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-argocd-windows
+  name: "Argo CD CLI cache"
+  description: "Removes regenerable Argo CD CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.argocd/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-devspace-macos
+  name: "DevSpace cache"
+  description: "Removes regenerable DevSpace caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.devspace/cache"
+  - "$HOME/.devspace/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-devspace-linux
+  name: "DevSpace cache"
+  description: "Removes regenerable DevSpace caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.devspace/cache"
+  - "$HOME/.devspace/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-devspace-windows
+  name: "DevSpace cache"
+  description: "Removes regenerable DevSpace caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.devspace/cache"
+  - "%USERPROFILE%/.devspace/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kubebuilder-macos
+  name: "Kubebuilder cache"
+  description: "Removes regenerable Kubebuilder caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.kubebuilder/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kubebuilder-linux
+  name: "Kubebuilder cache"
+  description: "Removes regenerable Kubebuilder caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.kubebuilder/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-kubebuilder-windows
+  name: "Kubebuilder cache"
+  description: "Removes regenerable Kubebuilder caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.kubebuilder/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-operator-sdk-macos
+  name: "Operator SDK cache"
+  description: "Removes regenerable Operator SDK caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.operator-sdk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-operator-sdk-linux
+  name: "Operator SDK cache"
+  description: "Removes regenerable Operator SDK caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.operator-sdk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-operator-sdk-windows
+  name: "Operator SDK cache"
+  description: "Removes regenerable Operator SDK caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.operator-sdk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-krew-macos
+  name: "kubectl Krew index & receipt cache"
+  description: "Removes regenerable kubectl Krew index & receipt caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.krew/index"
+  - "$HOME/.krew/store"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-krew-linux
+  name: "kubectl Krew index & receipt cache"
+  description: "Removes regenerable kubectl Krew index & receipt caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.krew/index"
+  - "$HOME/.krew/store"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-krew-windows
+  name: "kubectl Krew index & receipt cache"
+  description: "Removes regenerable kubectl Krew index & receipt caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.krew/index"
+  - "%USERPROFILE%/.krew/store"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-zarf-macos
+  name: "Zarf package cache"
+  description: "Removes regenerable Zarf package caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.zarf-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-zarf-linux
+  name: "Zarf package cache"
+  description: "Removes regenerable Zarf package caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.zarf-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-zarf-windows
+  name: "Zarf package cache"
+  description: "Removes regenerable Zarf package caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.zarf-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-werf-macos
+  name: "werf build & stage cache"
+  description: "Removes regenerable werf build & stage caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.werf/local_cache"
+  - "$HOME/.werf/storage"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-werf-linux
+  name: "werf build & stage cache"
+  description: "Removes regenerable werf build & stage caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.werf/local_cache"
+  - "$HOME/.werf/storage"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-werf-windows
+  name: "werf build & stage cache"
+  description: "Removes regenerable werf build & stage caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.werf/local_cache"
+  - "%USERPROFILE%/.werf/storage"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-vcluster-macos
+  name: "vCluster CLI cache"
+  description: "Removes regenerable vCluster CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.vcluster/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-vcluster-linux
+  name: "vCluster CLI cache"
+  description: "Removes regenerable vCluster CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.vcluster/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-vcluster-windows
+  name: "vCluster CLI cache"
+  description: "Removes regenerable vCluster CLI caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.vcluster/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-mirrord-macos
+  name: "mirrord binary & log cache"
+  description: "Removes regenerable mirrord binary & log caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.mirrord/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-mirrord-linux
+  name: "mirrord binary & log cache"
+  description: "Removes regenerable mirrord binary & log caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.mirrord/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-mirrord-windows
+  name: "mirrord binary & log cache"
+  description: "Removes regenerable mirrord binary & log caches and logs; kubeconfigs and cluster credentials are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.mirrord/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, kubernetes, devops]
+
+- id: cd-lens-k8s-macos
+  name: "Lens / OpenLens / Freelens caches and logs"
+  description: "Removes regenerable Lens / OpenLens / Freelens cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Caches/Lens"
+  - "$HOME/Library/Logs/Lens"
+  - "$HOME/.cache/Lens"
+  - "$HOME/Library/Caches/OpenLens"
+  - "$HOME/Library/Logs/OpenLens"
+  - "$HOME/.cache/OpenLens"
+  - "$HOME/Library/Caches/Freelens"
+  - "$HOME/Library/Logs/Freelens"
+  - "$HOME/.cache/Freelens"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-lens-k8s-linux
+  name: "Lens / OpenLens / Freelens caches and logs"
+  description: "Removes regenerable Lens / OpenLens / Freelens XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.cache/Lens"
+  - "$XDG_CACHE_HOME/Lens"
+  - "$HOME/.cache/OpenLens"
+  - "$XDG_CACHE_HOME/OpenLens"
+  - "$HOME/.cache/Freelens"
+  - "$XDG_CACHE_HOME/Freelens"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-lens-k8s-windows
+  name: "Lens / OpenLens / Freelens caches and logs"
+  description: "Removes regenerable Lens / OpenLens / Freelens LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%LOCALAPPDATA%/Lens/cache"
+  - "%LOCALAPPDATA%/Lens/logs"
+  - "%LOCALAPPDATA%/OpenLens/cache"
+  - "%LOCALAPPDATA%/OpenLens/logs"
+  - "%LOCALAPPDATA%/Freelens/cache"
+  - "%LOCALAPPDATA%/Freelens/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-helm-xdg-macos
+  name: "Helm repository & content caches and logs"
+  description: "Removes regenerable Helm repository & content cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/helm/repository"
+  - "$HOME/Library/Logs/helm/repository"
+  - "$HOME/.cache/helm/repository"
+  - "$HOME/Library/Caches/helm/content"
+  - "$HOME/Library/Logs/helm/content"
+  - "$HOME/.cache/helm/content"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-helm-xdg-linux
+  name: "Helm repository & content caches and logs"
+  description: "Removes regenerable Helm repository & content XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/helm/repository"
+  - "$XDG_CACHE_HOME/helm/repository"
+  - "$HOME/.cache/helm/content"
+  - "$XDG_CACHE_HOME/helm/content"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-helm-xdg-windows
+  name: "Helm repository & content caches and logs"
+  description: "Removes regenerable Helm repository & content LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/helm/repository/cache"
+  - "%LOCALAPPDATA%/helm/repository/logs"
+  - "%LOCALAPPDATA%/helm/content/cache"
+  - "%LOCALAPPDATA%/helm/content/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-trivy-macos
+  name: "Trivy vulnerability DB caches and logs"
+  description: "Removes regenerable Trivy vulnerability DB cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/trivy"
+  - "$HOME/Library/Logs/trivy"
+  - "$HOME/.cache/trivy"
+  - "$HOME/Library/Caches/trivy/db"
+  - "$HOME/Library/Logs/trivy/db"
+  - "$HOME/.cache/trivy/db"
+  - "$HOME/Library/Caches/trivy/fanal"
+  - "$HOME/Library/Logs/trivy/fanal"
+  - "$HOME/.cache/trivy/fanal"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-trivy-linux
+  name: "Trivy vulnerability DB caches and logs"
+  description: "Removes regenerable Trivy vulnerability DB XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/trivy"
+  - "$XDG_CACHE_HOME/trivy"
+  - "$HOME/.cache/trivy/db"
+  - "$XDG_CACHE_HOME/trivy/db"
+  - "$HOME/.cache/trivy/fanal"
+  - "$XDG_CACHE_HOME/trivy/fanal"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-trivy-windows
+  name: "Trivy vulnerability DB caches and logs"
+  description: "Removes regenerable Trivy vulnerability DB LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/trivy/cache"
+  - "%LOCALAPPDATA%/trivy/logs"
+  - "%LOCALAPPDATA%/trivy/db/cache"
+  - "%LOCALAPPDATA%/trivy/db/logs"
+  - "%LOCALAPPDATA%/trivy/fanal/cache"
+  - "%LOCALAPPDATA%/trivy/fanal/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-grype-macos
+  name: "Grype vulnerability DB caches and logs"
+  description: "Removes regenerable Grype vulnerability DB cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/grype/db"
+  - "$HOME/Library/Logs/grype/db"
+  - "$HOME/.cache/grype/db"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-grype-linux
+  name: "Grype vulnerability DB caches and logs"
+  description: "Removes regenerable Grype vulnerability DB XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/grype/db"
+  - "$XDG_CACHE_HOME/grype/db"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-grype-windows
+  name: "Grype vulnerability DB caches and logs"
+  description: "Removes regenerable Grype vulnerability DB LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/grype/db/cache"
+  - "%LOCALAPPDATA%/grype/db/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-syft-macos
+  name: "Syft SBOM caches and logs"
+  description: "Removes regenerable Syft SBOM cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/syft"
+  - "$HOME/Library/Logs/syft"
+  - "$HOME/.cache/syft"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-syft-linux
+  name: "Syft SBOM caches and logs"
+  description: "Removes regenerable Syft SBOM XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/syft"
+  - "$XDG_CACHE_HOME/syft"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-syft-windows
+  name: "Syft SBOM caches and logs"
+  description: "Removes regenerable Syft SBOM LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/syft/cache"
+  - "%LOCALAPPDATA%/syft/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-cosign-macos
+  name: "Sigstore Cosign caches and logs"
+  description: "Removes regenerable Sigstore Cosign cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/cosign"
+  - "$HOME/Library/Logs/cosign"
+  - "$HOME/.cache/cosign"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-cosign-linux
+  name: "Sigstore Cosign caches and logs"
+  description: "Removes regenerable Sigstore Cosign XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/cosign"
+  - "$XDG_CACHE_HOME/cosign"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-cosign-windows
+  name: "Sigstore Cosign caches and logs"
+  description: "Removes regenerable Sigstore Cosign LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/cosign/cache"
+  - "%LOCALAPPDATA%/cosign/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-dive-macos
+  name: "Dive container analyzer caches and logs"
+  description: "Removes regenerable Dive container analyzer cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/dive"
+  - "$HOME/Library/Logs/dive"
+  - "$HOME/.cache/dive"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-dive-linux
+  name: "Dive container analyzer caches and logs"
+  description: "Removes regenerable Dive container analyzer XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/dive"
+  - "$XDG_CACHE_HOME/dive"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-dive-windows
+  name: "Dive container analyzer caches and logs"
+  description: "Removes regenerable Dive container analyzer LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/dive/cache"
+  - "%LOCALAPPDATA%/dive/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-buildah-macos
+  name: "Buildah containers cache caches and logs"
+  description: "Removes regenerable Buildah containers cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/containers/cache"
+  - "$HOME/Library/Logs/containers/cache"
+  - "$HOME/.cache/containers/cache"
+  - "$HOME/Library/Caches/buildah"
+  - "$HOME/Library/Logs/buildah"
+  - "$HOME/.cache/buildah"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-buildah-linux
+  name: "Buildah containers cache caches and logs"
+  description: "Removes regenerable Buildah containers cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/containers/cache"
+  - "$XDG_CACHE_HOME/containers/cache"
+  - "$HOME/.cache/buildah"
+  - "$XDG_CACHE_HOME/buildah"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-buildah-windows
+  name: "Buildah containers cache caches and logs"
+  description: "Removes regenerable Buildah containers cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/containers/cache/cache"
+  - "%LOCALAPPDATA%/containers/cache/logs"
+  - "%LOCALAPPDATA%/buildah/cache"
+  - "%LOCALAPPDATA%/buildah/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-skopeo-macos
+  name: "Skopeo image transport caches and logs"
+  description: "Removes regenerable Skopeo image transport cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/skopeo"
+  - "$HOME/Library/Logs/skopeo"
+  - "$HOME/.cache/skopeo"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-skopeo-linux
+  name: "Skopeo image transport caches and logs"
+  description: "Removes regenerable Skopeo image transport XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/skopeo"
+  - "$XDG_CACHE_HOME/skopeo"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-skopeo-windows
+  name: "Skopeo image transport caches and logs"
+  description: "Removes regenerable Skopeo image transport LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/skopeo/cache"
+  - "%LOCALAPPDATA%/skopeo/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-kaniko-macos
+  name: "Kaniko layer caches and logs"
+  description: "Removes regenerable Kaniko layer cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/kaniko"
+  - "$HOME/Library/Logs/kaniko"
+  - "$HOME/.cache/kaniko"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-kaniko-linux
+  name: "Kaniko layer caches and logs"
+  description: "Removes regenerable Kaniko layer XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/kaniko"
+  - "$XDG_CACHE_HOME/kaniko"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-kaniko-windows
+  name: "Kaniko layer caches and logs"
+  description: "Removes regenerable Kaniko layer LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/kaniko/cache"
+  - "%LOCALAPPDATA%/kaniko/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-cnb-pack-macos
+  name: "Cloud Native Buildpacks pack caches and logs"
+  description: "Removes regenerable Cloud Native Buildpacks pack cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/pack"
+  - "$HOME/Library/Logs/pack"
+  - "$HOME/.cache/pack"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-cnb-pack-linux
+  name: "Cloud Native Buildpacks pack caches and logs"
+  description: "Removes regenerable Cloud Native Buildpacks pack XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/pack"
+  - "$XDG_CACHE_HOME/pack"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-cnb-pack-windows
+  name: "Cloud Native Buildpacks pack caches and logs"
+  description: "Removes regenerable Cloud Native Buildpacks pack LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/pack/cache"
+  - "%LOCALAPPDATA%/pack/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-knative-func-macos
+  name: "Knative func caches and logs"
+  description: "Removes regenerable Knative func cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/func"
+  - "$HOME/Library/Logs/func"
+  - "$HOME/.cache/func"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-knative-func-linux
+  name: "Knative func caches and logs"
+  description: "Removes regenerable Knative func XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/func"
+  - "$XDG_CACHE_HOME/func"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-knative-func-windows
+  name: "Knative func caches and logs"
+  description: "Removes regenerable Knative func LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/func/cache"
+  - "%LOCALAPPDATA%/func/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-pulumi-logs-macos
+  name: "Pulumi CLI logs caches and logs"
+  description: "Removes regenerable Pulumi CLI logs cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/pulumi/logs"
+  - "$HOME/Library/Logs/pulumi/logs"
+  - "$HOME/.cache/pulumi/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-pulumi-logs-linux
+  name: "Pulumi CLI logs caches and logs"
+  description: "Removes regenerable Pulumi CLI logs XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/pulumi/logs"
+  - "$XDG_CACHE_HOME/pulumi/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-pulumi-logs-windows
+  name: "Pulumi CLI logs caches and logs"
+  description: "Removes regenerable Pulumi CLI logs LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/pulumi/logs/cache"
+  - "%LOCALAPPDATA%/pulumi/logs/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-tofu-cache-macos
+  name: "OpenTofu plugin cache caches and logs"
+  description: "Removes regenerable OpenTofu plugin cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Caches/opentofu/plugin-cache"
+  - "$HOME/Library/Logs/opentofu/plugin-cache"
+  - "$HOME/.cache/opentofu/plugin-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-tofu-cache-linux
+  name: "OpenTofu plugin cache caches and logs"
+  description: "Removes regenerable OpenTofu plugin cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.cache/opentofu/plugin-cache"
+  - "$XDG_CACHE_HOME/opentofu/plugin-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-tofu-cache-windows
+  name: "OpenTofu plugin cache caches and logs"
+  description: "Removes regenerable OpenTofu plugin cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%LOCALAPPDATA%/opentofu/plugin-cache/cache"
+  - "%LOCALAPPDATA%/opentofu/plugin-cache/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-ansible-compat-macos
+  name: "Ansible Molecule & compat caches and logs"
+  description: "Removes regenerable Ansible Molecule & compat cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/ansible-compat"
+  - "$HOME/Library/Logs/ansible-compat"
+  - "$HOME/.cache/ansible-compat"
+  - "$HOME/Library/Caches/molecule"
+  - "$HOME/Library/Logs/molecule"
+  - "$HOME/.cache/molecule"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-ansible-compat-linux
+  name: "Ansible Molecule & compat caches and logs"
+  description: "Removes regenerable Ansible Molecule & compat XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/ansible-compat"
+  - "$XDG_CACHE_HOME/ansible-compat"
+  - "$HOME/.cache/molecule"
+  - "$XDG_CACHE_HOME/molecule"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-ansible-compat-windows
+  name: "Ansible Molecule & compat caches and logs"
+  description: "Removes regenerable Ansible Molecule & compat LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/ansible-compat/cache"
+  - "%LOCALAPPDATA%/ansible-compat/logs"
+  - "%LOCALAPPDATA%/molecule/cache"
+  - "%LOCALAPPDATA%/molecule/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-gh-cli-macos
+  name: "GitHub CLI (gh) API caches and logs"
+  description: "Removes regenerable GitHub CLI (gh) API cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/gh"
+  - "$HOME/Library/Logs/gh"
+  - "$HOME/.cache/gh"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-gh-cli-linux
+  name: "GitHub CLI (gh) API caches and logs"
+  description: "Removes regenerable GitHub CLI (gh) API XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/gh"
+  - "$XDG_CACHE_HOME/gh"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-gh-cli-windows
+  name: "GitHub CLI (gh) API caches and logs"
+  description: "Removes regenerable GitHub CLI (gh) API LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/gh/cache"
+  - "%LOCALAPPDATA%/gh/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-glab-cli-macos
+  name: "GitLab CLI (glab) caches and logs"
+  description: "Removes regenerable GitLab CLI (glab) cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/glab-cli"
+  - "$HOME/Library/Logs/glab-cli"
+  - "$HOME/.cache/glab-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-glab-cli-linux
+  name: "GitLab CLI (glab) caches and logs"
+  description: "Removes regenerable GitLab CLI (glab) XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/glab-cli"
+  - "$XDG_CACHE_HOME/glab-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-glab-cli-windows
+  name: "GitLab CLI (glab) caches and logs"
+  description: "Removes regenerable GitLab CLI (glab) LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/glab-cli/cache"
+  - "%LOCALAPPDATA%/glab-cli/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-flyctl-cache-macos
+  name: "Fly.io flyctl cache caches and logs"
+  description: "Removes regenerable Fly.io flyctl cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/flyctl"
+  - "$HOME/Library/Logs/flyctl"
+  - "$HOME/.cache/flyctl"
+  - "$HOME/Library/Caches/fly"
+  - "$HOME/Library/Logs/fly"
+  - "$HOME/.cache/fly"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-flyctl-cache-linux
+  name: "Fly.io flyctl cache caches and logs"
+  description: "Removes regenerable Fly.io flyctl cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/flyctl"
+  - "$XDG_CACHE_HOME/flyctl"
+  - "$HOME/.cache/fly"
+  - "$XDG_CACHE_HOME/fly"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-flyctl-cache-windows
+  name: "Fly.io flyctl cache caches and logs"
+  description: "Removes regenerable Fly.io flyctl cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/flyctl/cache"
+  - "%LOCALAPPDATA%/flyctl/logs"
+  - "%LOCALAPPDATA%/fly/cache"
+  - "%LOCALAPPDATA%/fly/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vercel-xdg-macos
+  name: "Vercel CLI cache caches and logs"
+  description: "Removes regenerable Vercel CLI cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/com.vercel.cli"
+  - "$HOME/Library/Logs/com.vercel.cli"
+  - "$HOME/.cache/com.vercel.cli"
+  - "$HOME/Library/Caches/vercel-cli"
+  - "$HOME/Library/Logs/vercel-cli"
+  - "$HOME/.cache/vercel-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vercel-xdg-linux
+  name: "Vercel CLI cache caches and logs"
+  description: "Removes regenerable Vercel CLI cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/com.vercel.cli"
+  - "$XDG_CACHE_HOME/com.vercel.cli"
+  - "$HOME/.cache/vercel-cli"
+  - "$XDG_CACHE_HOME/vercel-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vercel-xdg-windows
+  name: "Vercel CLI cache caches and logs"
+  description: "Removes regenerable Vercel CLI cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/com.vercel.cli/cache"
+  - "%LOCALAPPDATA%/com.vercel.cli/logs"
+  - "%LOCALAPPDATA%/vercel-cli/cache"
+  - "%LOCALAPPDATA%/vercel-cli/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-netlify-xdg-macos
+  name: "Netlify CLI cache caches and logs"
+  description: "Removes regenerable Netlify CLI cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/netlify"
+  - "$HOME/Library/Logs/netlify"
+  - "$HOME/.cache/netlify"
+  - "$HOME/Library/Caches/netlify-cli"
+  - "$HOME/Library/Logs/netlify-cli"
+  - "$HOME/.cache/netlify-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-netlify-xdg-linux
+  name: "Netlify CLI cache caches and logs"
+  description: "Removes regenerable Netlify CLI cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/netlify"
+  - "$XDG_CACHE_HOME/netlify"
+  - "$HOME/.cache/netlify-cli"
+  - "$XDG_CACHE_HOME/netlify-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-netlify-xdg-windows
+  name: "Netlify CLI cache caches and logs"
+  description: "Removes regenerable Netlify CLI cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/netlify/cache"
+  - "%LOCALAPPDATA%/netlify/logs"
+  - "%LOCALAPPDATA%/netlify-cli/cache"
+  - "%LOCALAPPDATA%/netlify-cli/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-railway-xdg-macos
+  name: "Railway CLI cache caches and logs"
+  description: "Removes regenerable Railway CLI cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/railway"
+  - "$HOME/Library/Logs/railway"
+  - "$HOME/.cache/railway"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-railway-xdg-linux
+  name: "Railway CLI cache caches and logs"
+  description: "Removes regenerable Railway CLI cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/railway"
+  - "$XDG_CACHE_HOME/railway"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-railway-xdg-windows
+  name: "Railway CLI cache caches and logs"
+  description: "Removes regenerable Railway CLI cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/railway/cache"
+  - "%LOCALAPPDATA%/railway/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-doctl-xdg-macos
+  name: "DigitalOcean doctl caches and logs"
+  description: "Removes regenerable DigitalOcean doctl cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/doctl"
+  - "$HOME/Library/Logs/doctl"
+  - "$HOME/.cache/doctl"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-doctl-xdg-linux
+  name: "DigitalOcean doctl caches and logs"
+  description: "Removes regenerable DigitalOcean doctl XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/doctl"
+  - "$XDG_CACHE_HOME/doctl"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-doctl-xdg-windows
+  name: "DigitalOcean doctl caches and logs"
+  description: "Removes regenerable DigitalOcean doctl LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/doctl/cache"
+  - "%LOCALAPPDATA%/doctl/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-hcloud-cli-macos
+  name: "Hetzner hcloud CLI caches and logs"
+  description: "Removes regenerable Hetzner hcloud CLI cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/hcloud"
+  - "$HOME/Library/Logs/hcloud"
+  - "$HOME/.cache/hcloud"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-hcloud-cli-linux
+  name: "Hetzner hcloud CLI caches and logs"
+  description: "Removes regenerable Hetzner hcloud CLI XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/hcloud"
+  - "$XDG_CACHE_HOME/hcloud"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-hcloud-cli-windows
+  name: "Hetzner hcloud CLI caches and logs"
+  description: "Removes regenerable Hetzner hcloud CLI LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/hcloud/cache"
+  - "%LOCALAPPDATA%/hcloud/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-scw-cli-macos
+  name: "Scaleway scw CLI caches and logs"
+  description: "Removes regenerable Scaleway scw CLI cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/scw"
+  - "$HOME/Library/Logs/scw"
+  - "$HOME/.cache/scw"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-scw-cli-linux
+  name: "Scaleway scw CLI caches and logs"
+  description: "Removes regenerable Scaleway scw CLI XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/scw"
+  - "$XDG_CACHE_HOME/scw"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-scw-cli-windows
+  name: "Scaleway scw CLI caches and logs"
+  description: "Removes regenerable Scaleway scw CLI LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/scw/cache"
+  - "%LOCALAPPDATA%/scw/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vultr-cli-macos
+  name: "Vultr CLI caches and logs"
+  description: "Removes regenerable Vultr CLI cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/vultr-cli"
+  - "$HOME/Library/Logs/vultr-cli"
+  - "$HOME/.cache/vultr-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vultr-cli-linux
+  name: "Vultr CLI caches and logs"
+  description: "Removes regenerable Vultr CLI XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/vultr-cli"
+  - "$XDG_CACHE_HOME/vultr-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vultr-cli-windows
+  name: "Vultr CLI caches and logs"
+  description: "Removes regenerable Vultr CLI LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/vultr-cli/cache"
+  - "%LOCALAPPDATA%/vultr-cli/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-linode-cli-macos
+  name: "Linode CLI caches and logs"
+  description: "Removes regenerable Linode CLI cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/linode-cli"
+  - "$HOME/Library/Logs/linode-cli"
+  - "$HOME/.cache/linode-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-linode-cli-linux
+  name: "Linode CLI caches and logs"
+  description: "Removes regenerable Linode CLI XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/linode-cli"
+  - "$XDG_CACHE_HOME/linode-cli"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-linode-cli-windows
+  name: "Linode CLI caches and logs"
+  description: "Removes regenerable Linode CLI LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/linode-cli/cache"
+  - "%LOCALAPPDATA%/linode-cli/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-nomad-cli-macos
+  name: "HashiCorp Nomad caches and logs"
+  description: "Removes regenerable HashiCorp Nomad cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/nomad"
+  - "$HOME/Library/Logs/nomad"
+  - "$HOME/.cache/nomad"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-nomad-cli-linux
+  name: "HashiCorp Nomad caches and logs"
+  description: "Removes regenerable HashiCorp Nomad XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/nomad"
+  - "$XDG_CACHE_HOME/nomad"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-nomad-cli-windows
+  name: "HashiCorp Nomad caches and logs"
+  description: "Removes regenerable HashiCorp Nomad LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/nomad/cache"
+  - "%LOCALAPPDATA%/nomad/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-consul-cli-macos
+  name: "HashiCorp Consul caches and logs"
+  description: "Removes regenerable HashiCorp Consul cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/consul"
+  - "$HOME/Library/Logs/consul"
+  - "$HOME/.cache/consul"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-consul-cli-linux
+  name: "HashiCorp Consul caches and logs"
+  description: "Removes regenerable HashiCorp Consul XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/consul"
+  - "$XDG_CACHE_HOME/consul"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-consul-cli-windows
+  name: "HashiCorp Consul caches and logs"
+  description: "Removes regenerable HashiCorp Consul LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/consul/cache"
+  - "%LOCALAPPDATA%/consul/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vault-cli-cache-macos
+  name: "HashiCorp Vault UI/CLI cache caches and logs"
+  description: "Removes regenerable HashiCorp Vault UI/CLI cache cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/vault-cache"
+  - "$HOME/Library/Logs/vault-cache"
+  - "$HOME/.cache/vault-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vault-cli-cache-linux
+  name: "HashiCorp Vault UI/CLI cache caches and logs"
+  description: "Removes regenerable HashiCorp Vault UI/CLI cache XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/vault-cache"
+  - "$XDG_CACHE_HOME/vault-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vault-cli-cache-windows
+  name: "HashiCorp Vault UI/CLI cache caches and logs"
+  description: "Removes regenerable HashiCorp Vault UI/CLI cache LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/vault-cache/cache"
+  - "%LOCALAPPDATA%/vault-cache/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-boundary-cli-macos
+  name: "HashiCorp Boundary caches and logs"
+  description: "Removes regenerable HashiCorp Boundary cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/boundary"
+  - "$HOME/Library/Logs/boundary"
+  - "$HOME/.cache/boundary"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-boundary-cli-linux
+  name: "HashiCorp Boundary caches and logs"
+  description: "Removes regenerable HashiCorp Boundary XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/boundary"
+  - "$XDG_CACHE_HOME/boundary"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-boundary-cli-windows
+  name: "HashiCorp Boundary caches and logs"
+  description: "Removes regenerable HashiCorp Boundary LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/boundary/cache"
+  - "%LOCALAPPDATA%/boundary/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-waypoint-cli-macos
+  name: "HashiCorp Waypoint caches and logs"
+  description: "Removes regenerable HashiCorp Waypoint cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/waypoint"
+  - "$HOME/Library/Logs/waypoint"
+  - "$HOME/.cache/waypoint"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-waypoint-cli-linux
+  name: "HashiCorp Waypoint caches and logs"
+  description: "Removes regenerable HashiCorp Waypoint XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/waypoint"
+  - "$XDG_CACHE_HOME/waypoint"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-waypoint-cli-windows
+  name: "HashiCorp Waypoint caches and logs"
+  description: "Removes regenerable HashiCorp Waypoint LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/waypoint/cache"
+  - "%LOCALAPPDATA%/waypoint/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-localstack-macos
+  name: "LocalStack container & asset caches and logs"
+  description: "Removes regenerable LocalStack container & asset cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/localstack"
+  - "$HOME/Library/Logs/localstack"
+  - "$HOME/.cache/localstack"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-localstack-linux
+  name: "LocalStack container & asset caches and logs"
+  description: "Removes regenerable LocalStack container & asset XDG cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/localstack"
+  - "$XDG_CACHE_HOME/localstack"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-localstack-windows
+  name: "LocalStack container & asset caches and logs"
+  description: "Removes regenerable LocalStack container & asset LocalAppData cache and log files; API tokens, credentials, and configs are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/localstack/cache"
+  - "%LOCALAPPDATA%/localstack/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-terragrunt-home-macos
+  name: "Terragrunt .terragrunt-cache"
+  description: "Removes regenerable Terragrunt .terragrunt-cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.terragrunt-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-terragrunt-home-linux
+  name: "Terragrunt .terragrunt-cache"
+  description: "Removes regenerable Terragrunt .terragrunt-cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.terragrunt-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-terragrunt-home-windows
+  name: "Terragrunt .terragrunt-cache"
+  description: "Removes regenerable Terragrunt .terragrunt-cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.terragrunt-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-terraform-plugins-macos
+  name: "Terraform plugin-cache"
+  description: "Removes regenerable Terraform plugin-cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-terraform-plugins-linux
+  name: "Terraform plugin-cache"
+  description: "Removes regenerable Terraform plugin-cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.terraform.d/plugin-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-terraform-plugins-windows
+  name: "Terraform plugin-cache"
+  description: "Removes regenerable Terraform plugin-cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.terraform.d/plugin-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-ansible-tmp-macos
+  name: "Ansible remote & local tmp"
+  description: "Removes regenerable Ansible remote & local tmp; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.ansible/tmp"
+  - "$HOME/.ansible/cp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-ansible-tmp-linux
+  name: "Ansible remote & local tmp"
+  description: "Removes regenerable Ansible remote & local tmp; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.ansible/tmp"
+  - "$HOME/.ansible/cp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-ansible-tmp-windows
+  name: "Ansible remote & local tmp"
+  description: "Removes regenerable Ansible remote & local tmp; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%USERPROFILE%/.ansible/tmp"
+  - "%USERPROFILE%/.ansible/cp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vagrant-tmp-macos
+  name: "Vagrant temporary downloads"
+  description: "Removes regenerable Vagrant temporary downloads; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.vagrant.d/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vagrant-tmp-linux
+  name: "Vagrant temporary downloads"
+  description: "Removes regenerable Vagrant temporary downloads; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.vagrant.d/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-vagrant-tmp-windows
+  name: "Vagrant temporary downloads"
+  description: "Removes regenerable Vagrant temporary downloads; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.vagrant.d/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-azure-logs-macos
+  name: "Azure CLI diagnostics & telemetry"
+  description: "Removes regenerable Azure CLI diagnostics & telemetry; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.azure/logs"
+  - "$HOME/.azure/telemetry"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-azure-logs-linux
+  name: "Azure CLI diagnostics & telemetry"
+  description: "Removes regenerable Azure CLI diagnostics & telemetry; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.azure/logs"
+  - "$HOME/.azure/telemetry"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-azure-logs-windows
+  name: "Azure CLI diagnostics & telemetry"
+  description: "Removes regenerable Azure CLI diagnostics & telemetry; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.azure/logs"
+  - "%USERPROFILE%/.azure/telemetry"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-aws-sam-build-macos
+  name: "AWS SAM CLI build & cache"
+  description: "Removes regenerable AWS SAM CLI build & cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.aws-sam"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-aws-sam-build-linux
+  name: "AWS SAM CLI build & cache"
+  description: "Removes regenerable AWS SAM CLI build & cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.aws-sam"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-aws-sam-build-windows
+  name: "AWS SAM CLI build & cache"
+  description: "Removes regenerable AWS SAM CLI build & cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.aws-sam"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-serverless-cache-macos
+  name: "Serverless Framework cache"
+  description: "Removes regenerable Serverless Framework cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.serverless/cache"
+  - "$HOME/.serverless/releases"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-serverless-cache-linux
+  name: "Serverless Framework cache"
+  description: "Removes regenerable Serverless Framework cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.serverless/cache"
+  - "$HOME/.serverless/releases"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-serverless-cache-windows
+  name: "Serverless Framework cache"
+  description: "Removes regenerable Serverless Framework cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.serverless/cache"
+  - "%USERPROFILE%/.serverless/releases"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-sst-cache-macos
+  name: "SST framework cache"
+  description: "Removes regenerable SST framework cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.sst/cache"
+  - "$HOME/.sst/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-sst-cache-linux
+  name: "SST framework cache"
+  description: "Removes regenerable SST framework cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.sst/cache"
+  - "$HOME/.sst/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-sst-cache-windows
+  name: "SST framework cache"
+  description: "Removes regenerable SST framework cache; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.sst/cache"
+  - "%USERPROFILE%/.sst/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-oci-logs-macos
+  name: "Oracle Cloud OCI CLI logs"
+  description: "Removes regenerable Oracle Cloud OCI CLI logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.oci/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-oci-logs-linux
+  name: "Oracle Cloud OCI CLI logs"
+  description: "Removes regenerable Oracle Cloud OCI CLI logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.oci/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-oci-logs-windows
+  name: "Oracle Cloud OCI CLI logs"
+  description: "Removes regenerable Oracle Cloud OCI CLI logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.oci/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-aliyun-logs-macos
+  name: "Alibaba Cloud CLI logs"
+  description: "Removes regenerable Alibaba Cloud CLI logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.aliyun/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-aliyun-logs-linux
+  name: "Alibaba Cloud CLI logs"
+  description: "Removes regenerable Alibaba Cloud CLI logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.aliyun/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-aliyun-logs-windows
+  name: "Alibaba Cloud CLI logs"
+  description: "Removes regenerable Alibaba Cloud CLI logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.aliyun/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-chef-cache-macos
+  name: "Chef & Berkshelf caches"
+  description: "Removes regenerable Chef & Berkshelf caches; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.chef/local-mode-cache"
+  - "$HOME/.berkshelf/cookbooks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-chef-cache-linux
+  name: "Chef & Berkshelf caches"
+  description: "Removes regenerable Chef & Berkshelf caches; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/.chef/local-mode-cache"
+  - "$HOME/.berkshelf/cookbooks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-chef-cache-windows
+  name: "Chef & Berkshelf caches"
+  description: "Removes regenerable Chef & Berkshelf caches; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "%USERPROFILE%/.chef/local-mode-cache"
+  - "%USERPROFILE%/.berkshelf/cookbooks"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-puppet-cache-macos
+  name: "Puppet Bolt & PDK caches"
+  description: "Removes regenerable Puppet Bolt & PDK caches; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.puppetlabs/bolt/cache"
+  - "$HOME/.puppetlabs/pdk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-puppet-cache-linux
+  name: "Puppet Bolt & PDK caches"
+  description: "Removes regenerable Puppet Bolt & PDK caches; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.puppetlabs/bolt/cache"
+  - "$HOME/.puppetlabs/pdk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-puppet-cache-windows
+  name: "Puppet Bolt & PDK caches"
+  description: "Removes regenerable Puppet Bolt & PDK caches; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.puppetlabs/bolt/cache"
+  - "%USERPROFILE%/.puppetlabs/pdk/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-salt-cache-macos
+  name: "SaltStack user cache & logs"
+  description: "Removes regenerable SaltStack user cache & logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.salt/cache"
+  - "$HOME/.salt/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-salt-cache-linux
+  name: "SaltStack user cache & logs"
+  description: "Removes regenerable SaltStack user cache & logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.salt/cache"
+  - "$HOME/.salt/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-salt-cache-windows
+  name: "SaltStack user cache & logs"
+  description: "Removes regenerable SaltStack user cache & logs; profiles, cloud credentials, and IaC state are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.salt/cache"
+  - "%USERPROFILE%/.salt/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, devops]
+
+- id: cd-lens-desktop-macos
+  name: "Lens Desktop Electron caches and logs"
+  description: "Removes regenerable Lens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Lens/Cache"
+  - "$HOME/Library/Application Support/Lens/Code Cache"
+  - "$HOME/Library/Application Support/Lens/GPUCache"
+  - "$HOME/Library/Application Support/Lens/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Lens/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Lens/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Lens/ShaderCache"
+  - "$HOME/Library/Application Support/Lens/logs"
+  - "$HOME/Library/Logs/Lens"
+  - "$HOME/Library/Caches/Lens"
+  - "$HOME/Library/Caches/com.electron.kontena-lens"
+  - "$HOME/Library/Caches/com.electron.kontena-lens.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-lens-desktop-linux
+  name: "Lens Desktop Electron caches and logs"
+  description: "Removes regenerable Lens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Lens/Cache"
+  - "$HOME/.config/Lens/Code Cache"
+  - "$HOME/.config/Lens/GPUCache"
+  - "$HOME/.config/Lens/DawnGraphiteCache"
+  - "$HOME/.config/Lens/DawnWebGPUCache"
+  - "$HOME/.config/Lens/logs"
+  - "$HOME/.cache/Lens"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-lens-desktop-windows
+  name: "Lens Desktop Electron caches and logs"
+  description: "Removes regenerable Lens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Lens/Cache"
+  - "%APPDATA%/Lens/Code Cache"
+  - "%APPDATA%/Lens/GPUCache"
+  - "%APPDATA%/Lens/DawnGraphiteCache"
+  - "%APPDATA%/Lens/DawnWebGPUCache"
+  - "%APPDATA%/Lens/logs"
+  - "%LOCALAPPDATA%/Lens/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-openlens-desktop-macos
+  name: "OpenLens Desktop Electron caches and logs"
+  description: "Removes regenerable OpenLens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/OpenLens/Cache"
+  - "$HOME/Library/Application Support/OpenLens/Code Cache"
+  - "$HOME/Library/Application Support/OpenLens/GPUCache"
+  - "$HOME/Library/Application Support/OpenLens/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/OpenLens/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/OpenLens/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/OpenLens/ShaderCache"
+  - "$HOME/Library/Application Support/OpenLens/logs"
+  - "$HOME/Library/Logs/OpenLens"
+  - "$HOME/Library/Caches/OpenLens"
+  - "$HOME/Library/Caches/io.k8slens.openlens"
+  - "$HOME/Library/Caches/io.k8slens.openlens.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-openlens-desktop-linux
+  name: "OpenLens Desktop Electron caches and logs"
+  description: "Removes regenerable OpenLens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/OpenLens/Cache"
+  - "$HOME/.config/OpenLens/Code Cache"
+  - "$HOME/.config/OpenLens/GPUCache"
+  - "$HOME/.config/OpenLens/DawnGraphiteCache"
+  - "$HOME/.config/OpenLens/DawnWebGPUCache"
+  - "$HOME/.config/OpenLens/logs"
+  - "$HOME/.cache/OpenLens"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-openlens-desktop-windows
+  name: "OpenLens Desktop Electron caches and logs"
+  description: "Removes regenerable OpenLens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/OpenLens/Cache"
+  - "%APPDATA%/OpenLens/Code Cache"
+  - "%APPDATA%/OpenLens/GPUCache"
+  - "%APPDATA%/OpenLens/DawnGraphiteCache"
+  - "%APPDATA%/OpenLens/DawnWebGPUCache"
+  - "%APPDATA%/OpenLens/logs"
+  - "%LOCALAPPDATA%/OpenLens/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-freelens-desktop-macos
+  name: "Freelens Desktop Electron caches and logs"
+  description: "Removes regenerable Freelens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: macos
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/Library/Application Support/Freelens/Cache"
+  - "$HOME/Library/Application Support/Freelens/Code Cache"
+  - "$HOME/Library/Application Support/Freelens/GPUCache"
+  - "$HOME/Library/Application Support/Freelens/DawnGraphiteCache"
+  - "$HOME/Library/Application Support/Freelens/DawnWebGPUCache"
+  - "$HOME/Library/Application Support/Freelens/GraphiteDawnCache"
+  - "$HOME/Library/Application Support/Freelens/ShaderCache"
+  - "$HOME/Library/Application Support/Freelens/logs"
+  - "$HOME/Library/Logs/Freelens"
+  - "$HOME/Library/Caches/Freelens"
+  - "$HOME/Library/Caches/app.freelens.Freelens"
+  - "$HOME/Library/Caches/app.freelens.Freelens.ShipIt"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-freelens-desktop-linux
+  name: "Freelens Desktop Electron caches and logs"
+  description: "Removes regenerable Freelens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: linux
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$HOME/.config/Freelens/Cache"
+  - "$HOME/.config/Freelens/Code Cache"
+  - "$HOME/.config/Freelens/GPUCache"
+  - "$HOME/.config/Freelens/DawnGraphiteCache"
+  - "$HOME/.config/Freelens/DawnWebGPUCache"
+  - "$HOME/.config/Freelens/logs"
+  - "$HOME/.cache/Freelens"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]
+
+- id: cd-freelens-desktop-windows
+  name: "Freelens Desktop Electron caches and logs"
+  description: "Removes regenerable Freelens Desktop HTTP, Code, GPU, Dawn caches and logs; profiles, local storage, databases, and auth tokens are preserved."
+  category: cloud-devops
+  platform: windows
+  risk: low
+  kind: cache
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%APPDATA%/Freelens/Cache"
+  - "%APPDATA%/Freelens/Code Cache"
+  - "%APPDATA%/Freelens/GPUCache"
+  - "%APPDATA%/Freelens/DawnGraphiteCache"
+  - "%APPDATA%/Freelens/DawnWebGPUCache"
+  - "%APPDATA%/Freelens/logs"
+  - "%LOCALAPPDATA%/Freelens/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [cloud-devops, electron, kubernetes, devops]

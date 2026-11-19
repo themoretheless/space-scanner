@@ -217,3 +217,199 @@ fn cli_rm_permanent_supports_dry_run_readonly_trees_symlinks_and_safety() {
 
     let _ = fs::remove_dir_all(&base);
 }
+
+#[test]
+fn cli_scenarios_inventory_ai_vm_and_heavy_caches_read_only() {
+    let base = temp_dir("scenarios");
+    let home = base.join("home");
+    let tmp = base.join("tmp");
+    let darwin_cache = base.join("darwin-c");
+    fs::create_dir_all(home.join(".codex/tmp")).unwrap();
+    fs::create_dir_all(home.join(".codex/worktrees/w1")).unwrap();
+    fs::create_dir_all(home.join("Documents/Sources/demo/.claude/target-shared")).unwrap();
+    fs::create_dir_all(home.join("Documents/Sources/demo/.claude/worktrees/agent-1")).unwrap();
+    fs::create_dir_all(home.join(".colima/_lima/colima")).unwrap();
+    fs::create_dir_all(home.join(".local/share/rag-mcp")).unwrap();
+    fs::create_dir_all(home.join(".cache/custom-tool")).unwrap();
+    fs::create_dir_all(
+        home.join("Library/Application Support/Google/Chrome Dev/OptGuideOnDeviceModel"),
+    )
+    .unwrap();
+    fs::create_dir_all(
+        home.join(
+            "Library/Application Support/Google/Chrome Dev/Default/Service Worker/CacheStorage",
+        ),
+    )
+    .unwrap();
+    fs::create_dir_all(home.join("Library/Application Support/Postman/Partitions/main/Cache"))
+        .unwrap();
+    fs::create_dir_all(home.join(".rustup/toolchains/1.85.0")).unwrap();
+    fs::create_dir_all(home.join("Library/Caches/ms-playwright/chromium")).unwrap();
+    fs::create_dir_all(&tmp).unwrap();
+    fs::create_dir_all(&darwin_cache).unwrap();
+
+    fs::write(home.join(".codex/tmp/scratch.bin"), vec![1u8; 4096]).unwrap();
+    fs::write(home.join(".codex/worktrees/w1/f.bin"), vec![2u8; 4096]).unwrap();
+    fs::write(
+        home.join("Documents/Sources/demo/.claude/target-shared/out.rlib"),
+        vec![3u8; 4096],
+    )
+    .unwrap();
+    fs::write(
+        home.join("Documents/Sources/demo/.claude/worktrees/agent-1/src.rs"),
+        vec![4u8; 4096],
+    )
+    .unwrap();
+    fs::write(home.join(".colima/_lima/colima/diffdisk"), vec![5u8; 8192]).unwrap();
+    fs::write(
+        home.join(".local/share/rag-mcp/rag.duckdb"),
+        vec![6u8; 8192],
+    )
+    .unwrap();
+    fs::write(home.join(".cache/custom-tool/blob.bin"), vec![7u8; 8192]).unwrap();
+    fs::write(
+        home.join(
+            "Library/Application Support/Google/Chrome Dev/OptGuideOnDeviceModel/weights.bin",
+        ),
+        vec![8u8; 4096],
+    )
+    .unwrap();
+    fs::write(
+        home.join(
+            "Library/Application Support/Google/Chrome Dev/Default/Service Worker/CacheStorage/chunk.bin",
+        ),
+        vec![9u8; 4096],
+    )
+    .unwrap();
+    fs::write(
+        home.join("Library/Application Support/Postman/Partitions/main/Cache/cache.bin"),
+        vec![10u8; 4096],
+    )
+    .unwrap();
+    fs::write(
+        home.join(".rustup/toolchains/1.85.0/bin.dat"),
+        vec![11u8; 4096],
+    )
+    .unwrap();
+    fs::write(
+        home.join("Library/Caches/ms-playwright/chromium/bin.dat"),
+        vec![12u8; 4096],
+    )
+    .unwrap();
+
+    let bin = env!("CARGO_BIN_EXE_space");
+    let run = |args: &[&str]| {
+        Command::new(bin)
+            .args(args)
+            .env("HOME", &home)
+            .env("USERPROFILE", &home)
+            .env("TMPDIR", &tmp)
+            .env("DARWIN_USER_CACHE_DIR", &darwin_cache)
+            .output()
+            .expect("spawn space scenario")
+    };
+
+    let ai = run(&["scenario", "ai-bloat", "--json"]);
+    assert!(
+        ai.status.success(),
+        "{}",
+        String::from_utf8_lossy(&ai.stderr)
+    );
+    let ai_json: serde_json::Value = serde_json::from_slice(&ai.stdout).unwrap();
+    let ai_entries = ai_json["entries"].as_array().unwrap();
+    assert!(ai_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with(".codex/tmp"))
+            && e["classification"] == "safe-clean"
+    }));
+    assert!(ai_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with(".claude/target-shared"))
+            && e["classification"] == "safe-clean"
+    }));
+    assert!(ai_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with(".claude/worktrees"))
+            && e["classification"] == "review"
+    }));
+
+    let vm = run(&["scenario", "vm-disks", "--json"]);
+    assert!(
+        vm.status.success(),
+        "{}",
+        String::from_utf8_lossy(&vm.stderr)
+    );
+    let vm_json: serde_json::Value = serde_json::from_slice(&vm.stdout).unwrap();
+    let vm_entries = vm_json["entries"].as_array().unwrap();
+    assert!(vm_entries
+        .iter()
+        .any(|e| { e["kind"] == "Colima VMs" && e["disk_bytes"].as_u64().unwrap_or(0) > 0 }));
+
+    let heavy = run(&["scenario", "heavy-caches", "--min-size", "1K", "--json"]);
+    assert!(
+        heavy.status.success(),
+        "{}",
+        String::from_utf8_lossy(&heavy.stderr)
+    );
+    let heavy_json: serde_json::Value = serde_json::from_slice(&heavy.stdout).unwrap();
+    let heavy_entries = heavy_json["entries"].as_array().unwrap();
+    assert!(heavy_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with(".local/share/rag-mcp"))
+            && e["classification"] == "preserve-db"
+    }));
+    assert!(heavy_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with(".cache/custom-tool"))
+            && e["classification"] == "review"
+    }));
+
+    let browsers = run(&["scenario", "browsers-electron", "--json"]);
+    assert!(
+        browsers.status.success(),
+        "{}",
+        String::from_utf8_lossy(&browsers.stderr)
+    );
+    let b_json: serde_json::Value = serde_json::from_slice(&browsers.stdout).unwrap();
+    let b_entries = b_json["entries"].as_array().unwrap();
+    assert!(b_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with("OptGuideOnDeviceModel"))
+            && e["classification"] == "review"
+    }));
+    assert!(b_entries.iter().any(|e| {
+        e["path"]
+            .as_str()
+            .is_some_and(|p| p.ends_with("Partitions/main/Cache"))
+            && e["classification"] == "safe-cache"
+    }));
+
+    let toolchains = run(&["scenario", "dev-toolchains", "--json"]);
+    assert!(
+        toolchains.status.success(),
+        "{}",
+        String::from_utf8_lossy(&toolchains.stderr)
+    );
+    let t_json: serde_json::Value = serde_json::from_slice(&toolchains.stdout).unwrap();
+    let t_entries = t_json["entries"].as_array().unwrap();
+    assert!(t_entries
+        .iter()
+        .any(|e| { e["tool"] == "rustup toolchain" && e["classification"] == "review" }));
+    assert!(t_entries
+        .iter()
+        .any(|e| { e["tool"] == "Playwright browsers" && e["classification"] == "review" }));
+
+    // Read-only guarantee: fixture files remain intact.
+    assert!(home.join(".codex/tmp/scratch.bin").exists());
+    assert!(home.join(".local/share/rag-mcp/rag.duckdb").exists());
+    assert!(home
+        .join("Library/Application Support/Google/Chrome Dev/OptGuideOnDeviceModel/weights.bin")
+        .exists());
+    let _ = fs::remove_dir_all(&base);
+}

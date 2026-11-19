@@ -153,7 +153,19 @@ struct ScanResults {
 
 impl ScanResults {
     fn into_report(mut self, rules_scanned: usize) -> ScanReport {
-        self.findings.sort_by(|a, b| a.path.cmp(&b.path));
+        // When multiple rules emit the exact same path, prefer actionable
+        // (non-report-only) and lower-risk rules deterministically.
+        self.findings.sort_by(|a, b| {
+            a.path
+                .cmp(&b.path)
+                .then_with(|| a.report_only.cmp(&b.report_only))
+                .then_with(|| {
+                    let ra = Risk::parse(&a.risk).map_or(u8::MAX, Risk::rank);
+                    let rb = Risk::parse(&b.risk).map_or(u8::MAX, Risk::rank);
+                    ra.cmp(&rb)
+                })
+                .then_with(|| a.rule_id.cmp(&b.rule_id))
+        });
         self.findings.dedup_by(|a, b| a.path == b.path);
         // A finding inside another finding is deleted with its parent, so it
         // must not be counted twice.
@@ -368,6 +380,7 @@ fn scan_rules_impl<'a>(
             }
             let findings_start = findings.len();
             let mut markers = MarkerCache::default();
+            let mut hardlinks = HardlinkSet::default();
             match rule.delete_mode {
                 DeleteMode::Path => {
                     if let Some(f) = consider_path(
@@ -377,6 +390,7 @@ fn scan_rules_impl<'a>(
                         min_age,
                         &globs,
                         &mut markers,
+                        &mut hardlinks,
                         &mut progress,
                         &mut on_progress,
                     ) {
@@ -688,8 +702,46 @@ fn size_grouped_findings(
     });
 }
 
+fn file_disk_bytes(meta: &std::fs::Metadata) -> u64 {
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::MetadataExt;
+        let len = meta.len();
+        let allocated = meta.blocks().saturating_mul(512);
+        if allocated == 0 && len <= 4096 {
+            len
+        } else {
+            len.min(allocated)
+        }
+    }
+    #[cfg(not(unix))]
+    {
+        meta.len()
+    }
+}
+
+#[derive(Default)]
+struct HardlinkSet {
+    #[cfg(unix)]
+    seen: std::collections::HashSet<(u64, u64)>,
+}
+
+impl HardlinkSet {
+    fn count_file(&mut self, meta: &std::fs::Metadata) -> u64 {
+        #[cfg(unix)]
+        {
+            use std::os::unix::fs::MetadataExt;
+            if meta.nlink() > 1 && !self.seen.insert((meta.dev(), meta.ino())) {
+                return 0;
+            }
+        }
+        file_disk_bytes(meta)
+    }
+}
+
 fn dir_size_and_mtime(path: &Path) -> (u64, Option<u64>) {
     let mut newest = path.symlink_metadata().ok().and_then(|m| m.modified().ok());
+    let mut hardlinks = HardlinkSet::default();
     let total = WalkDir::new(path)
         .follow_links(false)
         .into_iter()
@@ -700,7 +752,7 @@ fn dir_size_and_mtime(path: &Path) -> (u64, Option<u64>) {
             if let Ok(mtime) = metadata.modified() {
                 newest = Some(newest.map_or(mtime, |prev| prev.max(mtime)));
             }
-            total.saturating_add(metadata.len())
+            total.saturating_add(hardlinks.count_file(&metadata))
         });
     (total, system_time_to_unix(newest))
 }
@@ -734,6 +786,7 @@ fn collect_under(
         .follow_links(false)
         .max_depth(max_depth)
         .into_iter();
+    let mut hardlinks = HardlinkSet::default();
 
     while let Some(entry) = walker.next() {
         let entry = match entry {
@@ -783,6 +836,7 @@ fn collect_under(
                         min_age,
                         globs,
                         markers,
+                        &mut hardlinks,
                         progress,
                         on_progress,
                     ) {
@@ -802,6 +856,7 @@ fn collect_under(
             min_age,
             globs,
             markers,
+            &mut hardlinks,
             progress,
             on_progress,
         ) {
@@ -836,6 +891,7 @@ fn consider_path(
     min_age: u64,
     globs: &RuleGlobs,
     markers: &mut MarkerCache,
+    hardlinks: &mut HardlinkSet,
     progress: &mut JunkScanProgress,
     on_progress: &mut ProgressReporter<impl FnMut(JunkScanProgress)>,
 ) -> Option<Finding> {
@@ -867,14 +923,14 @@ fn consider_path(
         };
         (stats.bytes, newest)
     } else {
-        (meta.len(), own_modified)
+        (hardlinks.count_file(&meta), own_modified)
     };
     if !mtime_is_old_enough(modified, min_age) {
         return None;
     }
 
-    // Skip empty noise
-    if bytes == 0 && !is_dir {
+    // Skip empty noise (keep non-empty hardlink duplicates and sparse files so they can be cleaned).
+    if meta.len() == 0 && !is_dir {
         return None;
     }
 
@@ -928,6 +984,7 @@ fn dir_stats(
         bytes: 0,
         newest: None,
     };
+    let mut hardlinks = HardlinkSet::default();
     for entry in WalkDir::new(path)
         .follow_links(false)
         .into_iter()
@@ -943,7 +1000,7 @@ fn dir_stats(
         }
         if let Ok(meta) = entry.metadata() {
             if file_type.is_file() {
-                stats.bytes = stats.bytes.saturating_add(meta.len());
+                stats.bytes = stats.bytes.saturating_add(hardlinks.count_file(&meta));
             }
             if let Ok(modified) = meta.modified() {
                 stats.newest = Some(stats.newest.map_or(modified, |n| n.max(modified)));
@@ -1385,5 +1442,88 @@ exclude_globs: ['**/keep.log']
         assert_eq!(mixed_progress.roots_done, 3);
         assert_eq!(mixed_progress.bytes_found, 9);
         assert!(mixed.skipped_roots.is_empty());
+    }
+
+    #[cfg(unix)]
+    #[test]
+    fn hardlinks_and_sparse_files_are_not_overcounted() {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        let proj = root.join("proj");
+        let target = proj.join("target");
+        fs::create_dir_all(&target).unwrap();
+        fs::write(proj.join("Cargo.toml"), "[package]\nname = \"p\"\n").unwrap();
+
+        let blob = target.join("a.bin");
+        fs::write(&blob, vec![0xA5u8; 65_536]).unwrap();
+        fs::hard_link(&blob, target.join("b.bin")).unwrap();
+        fs::hard_link(&blob, target.join("c.bin")).unwrap();
+        fs::hard_link(&blob, target.join("d.bin")).unwrap();
+
+        let sparse = target.join("sparse.bin");
+        fs::File::create(&sparse)
+            .unwrap()
+            .set_len(64 << 20)
+            .unwrap();
+
+        let rule = Rule {
+            id: "test-rust-target".into(),
+            name: "Rust target".into(),
+            description: "Test hardlink and sparse sizing".into(),
+            category: "dev".into(),
+            platform: Platform::Any,
+            risk: Risk::Low,
+            kind: JunkKind::Dev,
+            default_enabled: true,
+            min_age_days: 0,
+            paths: vec![root.to_string_lossy().into_owned()],
+            include_globs: vec!["**/target".into()],
+            exclude_globs: vec![],
+            required_ancestor_globs: vec!["Cargo.toml".into()],
+            match_directories: true,
+            max_depth: 6,
+            delete_mode: DeleteMode::Contents,
+            report_only: false,
+            tags: vec![],
+            inferred_tags: vec![],
+        };
+
+        let report = scan_rules([&rule], &ScanOptions::default()).unwrap();
+        assert_eq!(report.findings.len(), 1);
+        assert!(
+            report.findings[0].bytes <= 65_536 && report.findings[0].bytes >= 4_096,
+            "expected deduped non-sparse bytes in [4096, 65536], got {}",
+            report.findings[0].bytes
+        );
+    }
+
+    #[test]
+    fn dedup_prefers_non_report_only_lower_risk_rule() {
+        let make = |rule_id: &str, risk: &str, report_only: bool| Finding {
+            rule_id: rule_id.into(),
+            category: "caches".into(),
+            risk: risk.into(),
+            path: PathBuf::from("/tmp/dup-target"),
+            bytes: 1234,
+            is_dir: true,
+            report_only,
+            root: None,
+            min_age_days: 0,
+            modified_unix: None,
+        };
+        let results = ScanResults {
+            findings: vec![
+                make("a-report", "report-only", true),
+                make("b-medium", "medium", false),
+                make("z-low", "low", false),
+            ],
+            skipped_roots: Vec::new(),
+            matched_rules: BTreeSet::new(),
+        };
+        let report = results.into_report(3);
+        assert_eq!(report.findings.len(), 1);
+        assert_eq!(report.findings[0].rule_id, "z-low");
+        assert_eq!(report.findings[0].risk, "low");
+        assert!(!report.findings[0].report_only);
     }
 }

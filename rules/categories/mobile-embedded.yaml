@@ -1,0 +1,1940 @@
+---
+pack: mobile-embedded
+description: "iOS/Android/Flutter/React Native mobile SDK caches and embedded/IoT/robotics toolchain caches; source projects and keystore credentials are preserved."
+rules:
+- id: me-xcode-previews-macos
+  name: "Xcode SwiftUI Previews simulators"
+  description: "Removes regenerable Xcode SwiftUI Previews simulators; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Developer/Xcode/UserData/Previews/Simulator Devices"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, xcode, ios]
+
+- id: me-xcode-ib-support-macos
+  name: "Xcode Interface Builder Support"
+  description: "Removes regenerable Xcode Interface Builder Support; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Developer/Xcode/UserData/IB Support"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, xcode, ios]
+
+- id: me-xcode-doc-cache-macos
+  name: "Xcode DocumentationCache"
+  description: "Removes regenerable Xcode DocumentationCache; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Developer/Xcode/DocumentationCache"
+  - "$HOME/Library/Developer/Xcode/DocumentationIndex"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, xcode, ios]
+
+- id: me-swiftpm-caches-macos
+  name: "Swift Package Manager global cache"
+  description: "Removes regenerable Swift Package Manager global cache; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/org.swift.swiftpm"
+  - "$HOME/Library/org.swift.swiftpm/repositories"
+  - "$HOME/.swiftpm/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, dev]
+
+- id: me-carthage-cache-macos
+  name: "Carthage build & binary caches"
+  description: "Removes regenerable Carthage build & binary caches; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/org.carthage.CarthageKit"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, dev]
+
+- id: me-cocoapods-repos-cache-macos
+  name: "CocoaPods specs and pod cache"
+  description: "Removes regenerable CocoaPods specs and pod cache; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/CocoaPods"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, cocoapods]
+
+- id: me-tuist-cache-macos
+  name: "Tuist build & binary caches"
+  description: "Removes regenerable Tuist build & binary caches; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/tuist"
+  - "$HOME/.cache/tuist"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, xcode]
+
+- id: me-xcodes-ipsw-macos
+  name: "XcodesApp installer & IPSW staging"
+  description: "Removes regenerable XcodesApp installer & IPSW staging; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Application Support/Xcodes"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, xcode, ios]
+
+- id: me-apple-configurator-cache-macos
+  name: "Apple Configurator IPSW caches"
+  description: "Removes regenerable Apple Configurator IPSW caches; projects, signing identities, and provisioning profiles are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 14
+  paths:
+  - "$HOME/Library/Group Containers/K36BKF7T3D.group.com.apple.configurator/Library/Caches"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, apple]
+
+- id: me-fastlane-macos
+  name: "Fastlane caches and logs"
+  description: "Removes regenerable Fastlane cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/fastlane"
+  - "$HOME/Library/Logs/fastlane"
+  - "$HOME/.cache/fastlane"
+  - "$HOME/.fastlane/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, android]
+
+- id: me-fastlane-linux
+  name: "Fastlane caches and logs"
+  description: "Removes regenerable Fastlane XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/fastlane"
+  - "$XDG_CACHE_HOME/fastlane"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, android]
+
+- id: me-fastlane-windows
+  name: "Fastlane caches and logs"
+  description: "Removes regenerable Fastlane LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/fastlane/cache"
+  - "%LOCALAPPDATA%/fastlane/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, ios, android]
+
+- id: me-maestro-macos
+  name: "Maestro mobile UI test caches and logs"
+  description: "Removes regenerable Maestro mobile UI test cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/maestro"
+  - "$HOME/Library/Logs/maestro"
+  - "$HOME/.cache/maestro"
+  - "$HOME/.maestro/tests"
+  - "$HOME/.maestro/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, android, ios]
+
+- id: me-maestro-linux
+  name: "Maestro mobile UI test caches and logs"
+  description: "Removes regenerable Maestro mobile UI test XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/maestro"
+  - "$XDG_CACHE_HOME/maestro"
+  - "$HOME/.maestro/tests"
+  - "$HOME/.maestro/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, android, ios]
+
+- id: me-maestro-windows
+  name: "Maestro mobile UI test caches and logs"
+  description: "Removes regenerable Maestro mobile UI test LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/maestro/cache"
+  - "%LOCALAPPDATA%/maestro/logs"
+  - "%USERPROFILE%/.maestro/tests"
+  - "%USERPROFILE%/.maestro/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, android, ios]
+
+- id: me-android-build-cache-macos
+  name: "Android Gradle build-cache & emulator temp"
+  description: "Removes regenerable Android Gradle build-cache & emulator temp; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.android/build-cache"
+  - "$HOME/.android/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-android-build-cache-linux
+  name: "Android Gradle build-cache & emulator temp"
+  description: "Removes regenerable Android Gradle build-cache & emulator temp; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.android/build-cache"
+  - "$HOME/.android/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-android-build-cache-windows
+  name: "Android Gradle build-cache & emulator temp"
+  description: "Removes regenerable Android Gradle build-cache & emulator temp; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.android/build-cache"
+  - "%USERPROFILE%/.android/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-flutter-pub-temp-macos
+  name: "Flutter & Pub temporary download cache"
+  description: "Removes regenerable Flutter & Pub temporary download cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.pub-cache/_temp"
+  - "$HOME/.flutter-devtools"
+  - "$HOME/Library/Caches/flutter"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-flutter-pub-temp-linux
+  name: "Flutter & Pub temporary download cache"
+  description: "Removes regenerable Flutter & Pub temporary download cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.pub-cache/_temp"
+  - "$HOME/.flutter-devtools"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-flutter-pub-temp-windows
+  name: "Flutter & Pub temporary download cache"
+  description: "Removes regenerable Flutter & Pub temporary download cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Pub/Cache/_temp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-expo-cli-cache-macos
+  name: "Expo CLI & simulator/APK cache"
+  description: "Removes regenerable Expo CLI & simulator/APK cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.expo/cache"
+  - "$HOME/.expo/ios-simulator-app-cache"
+  - "$HOME/.expo/android-apk-cache"
+  - "$HOME/.expo/native-modules-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-expo-cli-cache-linux
+  name: "Expo CLI & simulator/APK cache"
+  description: "Removes regenerable Expo CLI & simulator/APK cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.expo/cache"
+  - "$HOME/.expo/android-apk-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-expo-cli-cache-windows
+  name: "Expo CLI & simulator/APK cache"
+  description: "Removes regenerable Expo CLI & simulator/APK cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.expo/cache"
+  - "%USERPROFILE%/.expo/android-apk-cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-ionic-capacitor-macos
+  name: "Ionic & Capacitor CLI caches"
+  description: "Removes regenerable Ionic & Capacitor CLI caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.ionic/cache"
+  - "$HOME/.capacitor/cache"
+  - "$HOME/Library/Caches/ionic"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-ionic-capacitor-linux
+  name: "Ionic & Capacitor CLI caches"
+  description: "Removes regenerable Ionic & Capacitor CLI caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.ionic/cache"
+  - "$HOME/.cache/ionic"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-ionic-capacitor-windows
+  name: "Ionic & Capacitor CLI caches"
+  description: "Removes regenerable Ionic & Capacitor CLI caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.ionic/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-kotlin-native-macos
+  name: "Kotlin Multiplatform Native (.konan) cache"
+  description: "Removes regenerable Kotlin Multiplatform Native (.konan) cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.konan/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-kotlin-native-linux
+  name: "Kotlin Multiplatform Native (.konan) cache"
+  description: "Removes regenerable Kotlin Multiplatform Native (.konan) cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.konan/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-kotlin-native-windows
+  name: "Kotlin Multiplatform Native (.konan) cache"
+  description: "Removes regenerable Kotlin Multiplatform Native (.konan) cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.konan/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-deveco-studio-macos
+  name: "Huawei DevEco Studio caches"
+  description: "Removes regenerable Huawei DevEco Studio caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Huawei"
+  - "$HOME/Library/Logs/Huawei"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-deveco-studio-linux
+  name: "Huawei DevEco Studio caches"
+  description: "Removes regenerable Huawei DevEco Studio caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/Huawei"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-deveco-studio-windows
+  name: "Huawei DevEco Studio caches"
+  description: "Removes regenerable Huawei DevEco Studio caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Huawei/DevEcoStudio/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-genymotion-macos
+  name: "Genymotion VM cache and logs"
+  description: "Removes regenerable Genymotion VM cache and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.Genymobile/Genymotion/ova"
+  - "$HOME/.Genymobile/Genymotion/deployed_temp"
+  - "$HOME/Library/Logs/Genymobile"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-genymotion-linux
+  name: "Genymotion VM cache and logs"
+  description: "Removes regenerable Genymotion VM cache and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.Genymobile/Genymotion/ova"
+  - "$HOME/.Genymobile/Genymotion/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-genymotion-windows
+  name: "Genymotion VM cache and logs"
+  description: "Removes regenerable Genymotion VM cache and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Genymobile/Genymotion/ova"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-platformio-macos
+  name: "PlatformIO packages cache"
+  description: "Removes regenerable PlatformIO packages cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.platformio/.cache"
+  - "$HOME/.platformio/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-platformio-linux
+  name: "PlatformIO packages cache"
+  description: "Removes regenerable PlatformIO packages cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.platformio/.cache"
+  - "$HOME/.platformio/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-platformio-windows
+  name: "PlatformIO packages cache"
+  description: "Removes regenerable PlatformIO packages cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.platformio/.cache"
+  - "%USERPROFILE%/.platformio/tmp"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-arduino-staging-macos
+  name: "Arduino IDE 1/2 staging downloads"
+  description: "Removes regenerable Arduino IDE 1/2 staging downloads; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.arduino15/staging"
+  - "$HOME/Library/Arduino15/staging"
+  - "$HOME/Library/Caches/cc.arduino.IDE2"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-arduino-staging-linux
+  name: "Arduino IDE 1/2 staging downloads"
+  description: "Removes regenerable Arduino IDE 1/2 staging downloads; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.arduino15/staging"
+  - "$HOME/.cache/arduino"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-arduino-staging-windows
+  name: "Arduino IDE 1/2 staging downloads"
+  description: "Removes regenerable Arduino IDE 1/2 staging downloads; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/Arduino15/staging"
+  - "%LOCALAPPDATA%/arduino-ide/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-espressif-dist-macos
+  name: "ESP-IDF downloaded toolchain archives"
+  description: "Removes regenerable ESP-IDF downloaded toolchain archives; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.espressif/dist"
+  - "$HOME/.espressif/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-espressif-dist-linux
+  name: "ESP-IDF downloaded toolchain archives"
+  description: "Removes regenerable ESP-IDF downloaded toolchain archives; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.espressif/dist"
+  - "$HOME/.espressif/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-espressif-dist-windows
+  name: "ESP-IDF downloaded toolchain archives"
+  description: "Removes regenerable ESP-IDF downloaded toolchain archives; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.espressif/dist"
+  - "%USERPROFILE%/.espressif/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-zephyr-cache-macos
+  name: "Zephyr RTOS west & toolchain cache"
+  description: "Removes regenerable Zephyr RTOS west & toolchain cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/zephyr"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-zephyr-cache-linux
+  name: "Zephyr RTOS west & toolchain cache"
+  description: "Removes regenerable Zephyr RTOS west & toolchain cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/zephyr"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-zephyr-cache-windows
+  name: "Zephyr RTOS west & toolchain cache"
+  description: "Removes regenerable Zephyr RTOS west & toolchain cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/zephyr/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-stm32cube-macos
+  name: "STM32CubeIDE / CubeMX update caches"
+  description: "Removes regenerable STM32CubeIDE / CubeMX update caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/STM32Cube/Repository/Tmp"
+  - "$HOME/.stm32cubemx/logs"
+  - "$HOME/Library/Caches/com.st.stm32cube"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-stm32cube-linux
+  name: "STM32CubeIDE / CubeMX update caches"
+  description: "Removes regenerable STM32CubeIDE / CubeMX update caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/STM32Cube/Repository/Tmp"
+  - "$HOME/.stm32cubemx/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-stm32cube-windows
+  name: "STM32CubeIDE / CubeMX update caches"
+  description: "Removes regenerable STM32CubeIDE / CubeMX update caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/STM32Cube/Repository/Tmp"
+  - "%USERPROFILE%/.stm32cubemx/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-nrf-connect-macos
+  name: "Nordic nRF Connect Desktop caches"
+  description: "Removes regenerable Nordic nRF Connect Desktop caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/nrfconnect/Cache"
+  - "$HOME/Library/Application Support/nrfconnect/Code Cache"
+  - "$HOME/Library/Application Support/nrfconnect/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-nrf-connect-linux
+  name: "Nordic nRF Connect Desktop caches"
+  description: "Removes regenerable Nordic nRF Connect Desktop caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/nrfconnect/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-nrf-connect-windows
+  name: "Nordic nRF Connect Desktop caches"
+  description: "Removes regenerable Nordic nRF Connect Desktop caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/nrfconnect/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-saleae-logic-macos
+  name: "Saleae Logic 2 app caches and logs"
+  description: "Removes regenerable Saleae Logic 2 app caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/Logic/Cache"
+  - "$HOME/Library/Application Support/Logic/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-saleae-logic-linux
+  name: "Saleae Logic 2 app caches and logs"
+  description: "Removes regenerable Saleae Logic 2 app caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/Logic/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-saleae-logic-windows
+  name: "Saleae Logic 2 app caches and logs"
+  description: "Removes regenerable Saleae Logic 2 app caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Logic/Cache"
+  - "%APPDATA%/Logic/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-rpi-imager-macos
+  name: "Raspberry Pi Imager cached OS images"
+  description: "Removes regenerable Raspberry Pi Imager cached OS images; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/Raspberry Pi/Imager"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-rpi-imager-linux
+  name: "Raspberry Pi Imager cached OS images"
+  description: "Removes regenerable Raspberry Pi Imager cached OS images; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/Raspberry Pi/Imager"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-rpi-imager-windows
+  name: "Raspberry Pi Imager cached OS images"
+  description: "Removes regenerable Raspberry Pi Imager cached OS images; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Raspberry Pi/Imager/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-balena-etcher-macos
+  name: "balenaEtcher Electron caches"
+  description: "Removes regenerable balenaEtcher Electron caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Application Support/balena-etcher/Cache"
+  - "$HOME/Library/Application Support/balena-etcher/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-balena-etcher-linux
+  name: "balenaEtcher Electron caches"
+  description: "Removes regenerable balenaEtcher Electron caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.config/balena-etcher/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-balena-etcher-windows
+  name: "balenaEtcher Electron caches"
+  description: "Removes regenerable balenaEtcher Electron caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/balena-etcher/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-qmk-firmware-macos
+  name: "QMK / Vial CLI caches"
+  description: "Removes regenerable QMK / Vial CLI caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/qmk"
+  - "$HOME/Library/Caches/qmk"
+  - "$HOME/Library/Application Support/Vial/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-qmk-firmware-linux
+  name: "QMK / Vial CLI caches"
+  description: "Removes regenerable QMK / Vial CLI caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/qmk"
+  - "$HOME/.config/Vial/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-qmk-firmware-windows
+  name: "QMK / Vial CLI caches"
+  description: "Removes regenerable QMK / Vial CLI caches; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/qmk/cache"
+  - "%APPDATA%/Vial/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-ros-gazebo-logs-macos
+  name: "ROS and Gazebo simulation logs"
+  description: "Removes regenerable ROS and Gazebo simulation logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.ros/log"
+  - "$HOME/.gazebo/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-ros-gazebo-logs-linux
+  name: "ROS and Gazebo simulation logs"
+  description: "Removes regenerable ROS and Gazebo simulation logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.ros/log"
+  - "$HOME/.gazebo/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-ros-gazebo-logs-windows
+  name: "ROS and Gazebo simulation logs"
+  description: "Removes regenerable ROS and Gazebo simulation logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%USERPROFILE%/.ros/log"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-keil-studio-macos
+  name: "Arm Keil Studio & CMSIS pack cache"
+  description: "Removes regenerable Arm Keil Studio & CMSIS pack cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/arm/packs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-keil-studio-linux
+  name: "Arm Keil Studio & CMSIS pack cache"
+  description: "Removes regenerable Arm Keil Studio & CMSIS pack cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/arm/packs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-keil-studio-windows
+  name: "Arm Keil Studio & CMSIS pack cache"
+  description: "Removes regenerable Arm Keil Studio & CMSIS pack cache; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: medium
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/Arm/Packs/.Download"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-mplab-x-macos
+  name: "Microchip MPLAB X IDE caches and logs"
+  description: "Removes regenerable Microchip MPLAB X IDE caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/mplab_ide"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-mplab-x-linux
+  name: "Microchip MPLAB X IDE caches and logs"
+  description: "Removes regenerable Microchip MPLAB X IDE caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/mplab_ide"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-mplab-x-windows
+  name: "Microchip MPLAB X IDE caches and logs"
+  description: "Removes regenerable Microchip MPLAB X IDE caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/mplab_ide/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-vivado-vitis-macos
+  name: "AMD Xilinx Vivado & Vitis logs"
+  description: "Removes regenerable AMD Xilinx Vivado & Vitis logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.Xilinx/Vivado/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-vivado-vitis-linux
+  name: "AMD Xilinx Vivado & Vitis logs"
+  description: "Removes regenerable AMD Xilinx Vivado & Vitis logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.Xilinx/Vivado/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-vivado-vitis-windows
+  name: "AMD Xilinx Vivado & Vitis logs"
+  description: "Removes regenerable AMD Xilinx Vivado & Vitis logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%APPDATA%/Xilinx/Vivado/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-quartus-logs-macos
+  name: "Intel Quartus temp & logs"
+  description: "Removes regenerable Intel Quartus temp & logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.altera/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-quartus-logs-linux
+  name: "Intel Quartus temp & logs"
+  description: "Removes regenerable Intel Quartus temp & logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.altera/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-quartus-logs-windows
+  name: "Intel Quartus temp & logs"
+  description: "Removes regenerable Intel Quartus temp & logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%USERPROFILE%/.altera/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-flipper-rn-macos
+  name: "React Native Flipper caches and logs"
+  description: "Removes regenerable React Native Flipper caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.flipper/logs"
+  - "$HOME/Library/Application Support/Flipper/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-flipper-rn-linux
+  name: "React Native Flipper caches and logs"
+  description: "Removes regenerable React Native Flipper caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.flipper/logs"
+  - "$HOME/.config/Flipper/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-flipper-rn-windows
+  name: "React Native Flipper caches and logs"
+  description: "Removes regenerable React Native Flipper caches and logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%APPDATA%/Flipper/Cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-scrcpy-adb-macos
+  name: "scrcpy & Android platform-tools logs"
+  description: "Removes regenerable scrcpy & Android platform-tools logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/scrcpy"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-scrcpy-adb-linux
+  name: "scrcpy & Android platform-tools logs"
+  description: "Removes regenerable scrcpy & Android platform-tools logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/scrcpy"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-scrcpy-adb-windows
+  name: "scrcpy & Android platform-tools logs"
+  description: "Removes regenerable scrcpy & Android platform-tools logs; source code, Android keystores, and signing certs are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/scrcpy/cache"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, embedded]
+
+- id: me-metro-bundler-macos
+  name: "React Native Metro & Haste bundler cache"
+  description: "Removes regenerable metro-cache and haste-map-* folders in system temp."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$TMPDIR"
+  include_globs:
+  - "metro-cache"
+  - "haste-map-*"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 2
+  tags: [mobile-embedded, mobile, nodejs]
+
+- id: me-metro-bundler-linux
+  name: "React Native Metro & Haste bundler cache"
+  description: "Removes regenerable metro-cache and haste-map-* folders in system temp."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "$TMPDIR"
+  include_globs:
+  - "metro-cache"
+  - "haste-map-*"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 2
+  tags: [mobile-embedded, mobile, nodejs]
+
+- id: me-metro-bundler-windows
+  name: "React Native Metro & Haste bundler cache"
+  description: "Removes regenerable metro-cache and haste-map-* folders in system temp."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 1
+  paths:
+  - "%TEMP%"
+  include_globs:
+  - "metro-cache"
+  - "haste-map-*"
+  match_directories: true
+  delete_mode: contents
+  max_depth: 2
+  tags: [mobile-embedded, mobile, nodejs]
+
+- id: me-capacitor-cli-macos
+  name: "Capacitor CLI caches and logs"
+  description: "Removes regenerable Capacitor CLI cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/capacitor"
+  - "$HOME/Library/Logs/capacitor"
+  - "$HOME/.cache/capacitor"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-capacitor-cli-linux
+  name: "Capacitor CLI caches and logs"
+  description: "Removes regenerable Capacitor CLI XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/capacitor"
+  - "$XDG_CACHE_HOME/capacitor"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-capacitor-cli-windows
+  name: "Capacitor CLI caches and logs"
+  description: "Removes regenerable Capacitor CLI LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/capacitor/cache"
+  - "%LOCALAPPDATA%/capacitor/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-cordova-cli-macos
+  name: "Cordova CLI caches and logs"
+  description: "Removes regenerable Cordova CLI cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/cordova"
+  - "$HOME/Library/Logs/cordova"
+  - "$HOME/.cache/cordova"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-cordova-cli-linux
+  name: "Cordova CLI caches and logs"
+  description: "Removes regenerable Cordova CLI XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/cordova"
+  - "$XDG_CACHE_HOME/cordova"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-cordova-cli-windows
+  name: "Cordova CLI caches and logs"
+  description: "Removes regenerable Cordova CLI LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/cordova/cache"
+  - "%LOCALAPPDATA%/cordova/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-nativescript-macos
+  name: "NativeScript CLI caches and logs"
+  description: "Removes regenerable NativeScript CLI cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/tns"
+  - "$HOME/Library/Logs/tns"
+  - "$HOME/.cache/tns"
+  - "$HOME/Library/Caches/nativescript"
+  - "$HOME/Library/Logs/nativescript"
+  - "$HOME/.cache/nativescript"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-nativescript-linux
+  name: "NativeScript CLI caches and logs"
+  description: "Removes regenerable NativeScript CLI XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/tns"
+  - "$XDG_CACHE_HOME/tns"
+  - "$HOME/.cache/nativescript"
+  - "$XDG_CACHE_HOME/nativescript"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-nativescript-windows
+  name: "NativeScript CLI caches and logs"
+  description: "Removes regenerable NativeScript CLI LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/tns/cache"
+  - "%LOCALAPPDATA%/tns/logs"
+  - "%LOCALAPPDATA%/nativescript/cache"
+  - "%LOCALAPPDATA%/nativescript/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile]
+
+- id: me-appium-macos
+  name: "Appium server caches and logs"
+  description: "Removes regenerable Appium server cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/Library/Caches/appium"
+  - "$HOME/Library/Logs/appium"
+  - "$HOME/.cache/appium"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, testing]
+
+- id: me-appium-linux
+  name: "Appium server caches and logs"
+  description: "Removes regenerable Appium server XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "$HOME/.cache/appium"
+  - "$XDG_CACHE_HOME/appium"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, testing]
+
+- id: me-appium-windows
+  name: "Appium server caches and logs"
+  description: "Removes regenerable Appium server LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 3
+  paths:
+  - "%LOCALAPPDATA%/appium/cache"
+  - "%LOCALAPPDATA%/appium/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, mobile, testing]
+
+- id: me-esptool-macos
+  name: "Espressif esptool caches and logs"
+  description: "Removes regenerable Espressif esptool cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/esptool"
+  - "$HOME/Library/Logs/esptool"
+  - "$HOME/.cache/esptool"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-esptool-linux
+  name: "Espressif esptool caches and logs"
+  description: "Removes regenerable Espressif esptool XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/esptool"
+  - "$XDG_CACHE_HOME/esptool"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-esptool-windows
+  name: "Espressif esptool caches and logs"
+  description: "Removes regenerable Espressif esptool LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/esptool/cache"
+  - "%LOCALAPPDATA%/esptool/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-probe-rs-macos
+  name: "probe-rs / cargo-embed caches and logs"
+  description: "Removes regenerable probe-rs / cargo-embed cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/probe-rs"
+  - "$HOME/Library/Logs/probe-rs"
+  - "$HOME/.cache/probe-rs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded, rust]
+
+- id: me-probe-rs-linux
+  name: "probe-rs / cargo-embed caches and logs"
+  description: "Removes regenerable probe-rs / cargo-embed XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/probe-rs"
+  - "$XDG_CACHE_HOME/probe-rs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded, rust]
+
+- id: me-probe-rs-windows
+  name: "probe-rs / cargo-embed caches and logs"
+  description: "Removes regenerable probe-rs / cargo-embed LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/probe-rs/cache"
+  - "%LOCALAPPDATA%/probe-rs/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded, rust]
+
+- id: me-openocd-macos
+  name: "OpenOCD / picotool caches and logs"
+  description: "Removes regenerable OpenOCD / picotool cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/openocd"
+  - "$HOME/Library/Logs/openocd"
+  - "$HOME/.cache/openocd"
+  - "$HOME/Library/Caches/picotool"
+  - "$HOME/Library/Logs/picotool"
+  - "$HOME/.cache/picotool"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-openocd-linux
+  name: "OpenOCD / picotool caches and logs"
+  description: "Removes regenerable OpenOCD / picotool XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/openocd"
+  - "$XDG_CACHE_HOME/openocd"
+  - "$HOME/.cache/picotool"
+  - "$XDG_CACHE_HOME/picotool"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-openocd-windows
+  name: "OpenOCD / picotool caches and logs"
+  description: "Removes regenerable OpenOCD / picotool LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/openocd/cache"
+  - "%LOCALAPPDATA%/openocd/logs"
+  - "%LOCALAPPDATA%/picotool/cache"
+  - "%LOCALAPPDATA%/picotool/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-wokwi-cli-macos
+  name: "Wokwi simulator CLI caches and logs"
+  description: "Removes regenerable Wokwi simulator CLI cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/wokwi"
+  - "$HOME/Library/Logs/wokwi"
+  - "$HOME/.cache/wokwi"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-wokwi-cli-linux
+  name: "Wokwi simulator CLI caches and logs"
+  description: "Removes regenerable Wokwi simulator CLI XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/wokwi"
+  - "$XDG_CACHE_HOME/wokwi"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-wokwi-cli-windows
+  name: "Wokwi simulator CLI caches and logs"
+  description: "Removes regenerable Wokwi simulator CLI LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/wokwi/cache"
+  - "%LOCALAPPDATA%/wokwi/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-udev-zephyr-west-macos
+  name: "West / Zephyr workspace caches and logs"
+  description: "Removes regenerable West / Zephyr workspace cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/west"
+  - "$HOME/Library/Logs/west"
+  - "$HOME/.cache/west"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-udev-zephyr-west-linux
+  name: "West / Zephyr workspace caches and logs"
+  description: "Removes regenerable West / Zephyr workspace XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/west"
+  - "$XDG_CACHE_HOME/west"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-udev-zephyr-west-windows
+  name: "West / Zephyr workspace caches and logs"
+  description: "Removes regenerable West / Zephyr workspace LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/west/cache"
+  - "%LOCALAPPDATA%/west/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-avrdude-flash-macos
+  name: "avrdude / dfu-util logs caches and logs"
+  description: "Removes regenerable avrdude / dfu-util logs cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: macos
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/Library/Caches/avrdude"
+  - "$HOME/Library/Logs/avrdude"
+  - "$HOME/.cache/avrdude"
+  - "$HOME/Library/Caches/dfu-util"
+  - "$HOME/Library/Logs/dfu-util"
+  - "$HOME/.cache/dfu-util"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-avrdude-flash-linux
+  name: "avrdude / dfu-util logs caches and logs"
+  description: "Removes regenerable avrdude / dfu-util logs XDG cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: linux
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "$HOME/.cache/avrdude"
+  - "$XDG_CACHE_HOME/avrdude"
+  - "$HOME/.cache/dfu-util"
+  - "$XDG_CACHE_HOME/dfu-util"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]
+
+- id: me-avrdude-flash-windows
+  name: "avrdude / dfu-util logs caches and logs"
+  description: "Removes regenerable avrdude / dfu-util logs LocalAppData cache and log files; configs and state are preserved."
+  category: mobile-embedded
+  platform: windows
+  risk: low
+  kind: dev
+  default_enabled: true
+  min_age_days: 7
+  paths:
+  - "%LOCALAPPDATA%/avrdude/cache"
+  - "%LOCALAPPDATA%/avrdude/logs"
+  - "%LOCALAPPDATA%/dfu-util/cache"
+  - "%LOCALAPPDATA%/dfu-util/logs"
+  delete_mode: contents
+  max_depth: 5
+  tags: [mobile-embedded, embedded]

@@ -140,14 +140,20 @@ rules:
   - TemporaryItems/**/*.dmg
 - id: macos-tmp
   name: User temp (TMPDIR)
-  description: Files in the user temporary directory older than min age.
+  description: Files in the user temporary directory older than min age (excludes staged SpaceScanner.app, TemporaryItems, and active sockets).
   category: temp
   platform: macos
   risk: low
   default_enabled: true
-  min_age_days: 2
+  min_age_days: 1
   paths:
   - "$TMPDIR"
+  exclude_globs:
+  - "SpaceScanner.app"
+  - "SpaceScanner.app/**"
+  - "TemporaryItems"
+  - "TemporaryItems/**"
+  - "*.sock"
   delete_mode: contents
   max_depth: 4
 - id: syslogs-diagnosticextensionsd-tmpdir

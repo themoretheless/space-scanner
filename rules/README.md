@@ -43,7 +43,7 @@ space rules status
 
 | Pack | Role |
 |------|------|
-| `categories/*.yaml` | Shared cleanup categories |
+| `categories/*.yaml` | Shared cleanup categories (`ai-agents`, `cloud-devops`, `creative-cad`, `messengers`, `electron-cef`, `mobile-embedded`, `data-science`, `testing-ci`, `security-network`, …) |
 | `categories/browser-privacy.yaml` | Cookies & history (off unless Rules → Privacy) |
 | `categories/community-sources.yaml` | Curated paths from BleachBit, mac-cleanup-sh, Winapp2, Arch Wiki, Stacer |
 | `platforms/windows.yaml` / `linux.yaml` | Hand-tuned OS seeds |

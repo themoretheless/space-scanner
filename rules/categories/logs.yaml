@@ -1051,12 +1051,12 @@ rules:
   max_depth: 5
 - id: dev-jetbrains-logs
   name: JetBrains application logs
-  description: JetBrains IDE logs under Library/Logs (IDE caches already covered).
+  description: JetBrains IDE logs under Library/Logs (IDE caches and settings are preserved).
   category: logs
   platform: macos
-  risk: report-only
-  default_enabled: false
-  min_age_days: 14
+  risk: low
+  default_enabled: true
+  min_age_days: 1
   paths:
   - "$HOME/Library/Logs/JetBrains"
   delete_mode: contents

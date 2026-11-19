@@ -558,8 +558,12 @@ impl SpaceApp {
         let method = self.delete_method;
         self.busy = true;
         self.confirm_delete = true;
+        let bytes_total = items
+            .iter()
+            .fold(0u64, |sum, item| sum.saturating_add(item.bytes));
         self.delete_progress = Some(space_clean::CleanProgress {
             items_total: items.len(),
+            bytes_total,
             ..Default::default()
         });
         self.delete_started = Some(Instant::now());
@@ -586,8 +590,12 @@ fn run_delete_batch(
 ) -> Result<TrashOutcome, String> {
     let mut deleted_paths = Vec::new();
     let mut errors = Vec::new();
+    let bytes_total = items
+        .iter()
+        .fold(0u64, |sum, item| sum.saturating_add(item.bytes));
     let mut progress = space_clean::CleanProgress {
         items_total: items.len(),
+        bytes_total,
         ..Default::default()
     };
     let _ = tx.send(BgMsg::DeleteProgress(progress.clone()));

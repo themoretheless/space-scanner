@@ -206,11 +206,8 @@ impl SpaceApp {
         window(title, ctx).show(ctx, |ui| {
             ui.set_width((ctx.screen_rect().width() - 80.0).min(520.0));
             if let Some(progress) = &self.delete_progress {
-                let fraction = if progress.items_total > 0 {
-                    progress.items_done as f32 / progress.items_total as f32
-                } else {
-                    0.0
-                };
+                ctx.request_repaint_after(std::time::Duration::from_millis(100));
+                let fraction = progress.fraction();
                 let elapsed = self
                     .delete_started
                     .map(|t| t.elapsed().as_secs())
@@ -233,7 +230,7 @@ impl SpaceApp {
                     "{} files · {} folders · {} · {} errors · {}s",
                     progress.files_done,
                     progress.folders_done,
-                    crate::i18n::bytes(progress.bytes_processed),
+                    crate::i18n::bytes(progress.displayed_bytes()),
                     progress.error_count,
                     elapsed
                 )));
