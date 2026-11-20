@@ -1270,22 +1270,14 @@ exclude_globs: ['**/keep.log']
         fs::create_dir_all(root.join("stale/deep")).unwrap();
         fs::create_dir_all(root.join("active/deep")).unwrap();
         let ancient = SystemTime::now() - std::time::Duration::from_secs(40 * 24 * 3600);
-        let backdate = |path: &Path| {
-            fs::File::options()
-                .write(path.is_file())
-                .read(true)
-                .open(path)
-                .unwrap()
-                .set_times(fs::FileTimes::new().set_modified(ancient))
-                .unwrap();
-        };
         for sub in ["stale", "active"] {
-            fs::write(root.join(sub).join("deep/old.bin"), b"old!").unwrap();
-            backdate(&root.join(sub).join("deep/old.bin"));
+            let old = root.join(sub).join("deep/old.bin");
+            fs::write(&old, b"old!").unwrap();
+            crate::safety::set_test_mtime(&old, ancient);
         }
         fs::write(root.join("active/deep/new.bin"), b"new").unwrap();
         for path in ["stale/deep", "stale", "active/deep", "active"] {
-            backdate(&root.join(path));
+            crate::safety::set_test_mtime(&root.join(path), ancient);
         }
         let mut rule: Rule = serde_yaml::from_str(
             "id: units\nname: units\ndescription: dir age\npaths: []\nmin_age_days: 7\n",

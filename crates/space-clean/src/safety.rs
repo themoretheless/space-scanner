@@ -341,6 +341,29 @@ pub fn is_old_enough(path: &Path, min_age_days: u64) -> bool {
 }
 
 #[cfg(test)]
+pub(crate) fn set_test_mtime(path: &Path, mtime: SystemTime) {
+    #[cfg(unix)]
+    let file = std::fs::File::options()
+        .write(path.is_file())
+        .read(true)
+        .open(path)
+        .unwrap();
+    #[cfg(windows)]
+    let file = {
+        use std::os::windows::fs::OpenOptionsExt;
+        const FILE_WRITE_ATTRIBUTES: u32 = 0x0100;
+        const FILE_FLAG_BACKUP_SEMANTICS: u32 = 0x0200_0000;
+        std::fs::OpenOptions::new()
+            .access_mode(FILE_WRITE_ATTRIBUTES)
+            .custom_flags(FILE_FLAG_BACKUP_SEMANTICS)
+            .open(path)
+            .unwrap()
+    };
+    file.set_times(std::fs::FileTimes::new().set_modified(mtime))
+        .unwrap();
+}
+
+#[cfg(test)]
 mod tests {
     use super::*;
     use std::fs;
@@ -413,30 +436,15 @@ mod tests {
         let old_file = dir.join("nested/old.bin");
         fs::write(&old_file, b"old").unwrap();
         let ancient = SystemTime::now() - std::time::Duration::from_secs(30 * 24 * 3600);
-        let backdate = |path: &Path| {
-            fs::OpenOptions::new()
-                .write(true)
-                .open(path)
-                .unwrap()
-                .set_times(fs::FileTimes::new().set_modified(ancient))
-                .unwrap();
-        };
-        backdate(&old_file);
-        // Directories: backdate via File on unix is not possible for dirs, so
-        // use filetime-free approach: touch the dir mtimes by renaming entries.
-        let dir_file = fs::File::open(&dir).unwrap();
-        let _ = dir_file.set_times(fs::FileTimes::new().set_modified(ancient));
-        let _ = fs::File::open(dir.join("nested"))
-            .unwrap()
-            .set_times(fs::FileTimes::new().set_modified(ancient));
+        set_test_mtime(&old_file, ancient);
+        set_test_mtime(&dir.join("nested"), ancient);
+        set_test_mtime(&dir, ancient);
         assert!(is_old_enough(&old_file, 7));
         assert!(is_old_enough(&dir, 7), "nothing recent inside");
         // A fresh file deep inside makes the whole directory young.
         fs::write(dir.join("nested/fresh.bin"), b"fresh").unwrap();
-        let _ = fs::File::open(dir.join("nested"))
-            .unwrap()
-            .set_times(fs::FileTimes::new().set_modified(ancient));
-        let _ = dir_file.set_times(fs::FileTimes::new().set_modified(ancient));
+        set_test_mtime(&dir.join("nested"), ancient);
+        set_test_mtime(&dir, ancient);
         assert!(!is_old_enough(&dir, 7));
         assert!(is_old_enough(&dir, 0));
         #[cfg(unix)]
