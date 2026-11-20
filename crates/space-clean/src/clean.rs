@@ -1467,7 +1467,10 @@ mod tests {
             "the link itself is untouched"
         );
         // A file that turned into a directory (or vice versa) is refused too.
+        #[cfg(unix)]
         fs::remove_file(&junk).unwrap();
+        #[cfg(windows)]
+        fs::remove_dir(&junk).unwrap();
         fs::write(&junk, b"now a file").unwrap();
         let result = clean(&report, true).unwrap();
         assert!(

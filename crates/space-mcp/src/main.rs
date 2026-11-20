@@ -273,11 +273,19 @@ impl Scanner {
             let mut result = inspect::inspect(&args.path)?;
             if let Some(requested) = args.junk_scan_id {
                 anyhow::ensure!(!std::fs::symlink_metadata(&args.path)?.file_type().is_symlink(), "junk evidence for symlink targets is not evidence for the link itself");
-                let canonical = args.path.canonicalize()?;
+                let canonical = space_clean::safety::normalize(&args.path)?;
                 let state = state.lock().map_err(|_| anyhow::anyhow!("scan state unavailable"))?;
                 let (id, report) = state.junk.as_ref().ok_or_else(|| anyhow::anyhow!("run scan_junk first"))?;
                 anyhow::ensure!(*id == requested, "scan_id expired; run scan_junk again");
-                let matches: Vec<_> = report.findings.iter().filter(|f| f.path == canonical || (f.is_dir && canonical.starts_with(&f.path))).collect();
+                let matches: Vec<_> = report
+                    .findings
+                    .iter()
+                    .filter(|f| {
+                        let fp = space_clean::safety::normalize(&f.path)
+                            .unwrap_or_else(|_| f.path.clone());
+                        fp == canonical || (f.is_dir && canonical.starts_with(&fp))
+                    })
+                    .collect();
                 result["junk_evidence"] = json!({"scan_id":id,"snapshot_only":true,"match_count":matches.len(),"findings":matches.iter().take(20).collect::<Vec<_>>(),"truncated":matches.len()>20,"meaning":"Prior finding includes this path; consult rule_details. No match does not prove this is valuable or disposable."});
             }
             Ok(result)
